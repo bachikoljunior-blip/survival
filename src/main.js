@@ -49,9 +49,7 @@ async function main() {
     game.menus.hideTitle();
     await game.menus.fadeOut();
     game.director.state.reset();
-    game.director.currentInterior = null;
-    game.forcedMood = null;
-    game.interiorPpm = null;
+    game.director.resetWorld();
     game.teleport('start');
     game.player.hp = game.player.maxHp;
     game.player.stamina = game.player.maxStamina;

@@ -46,6 +46,8 @@ export class HUD {
     this._chipHp = 1;
     this._promptText = '';
     this._perfVisible = false;
+    this.showDamageNumbers = true;
+    this.subtitlesOn = true;
   }
 
   // ------------------------------------------------------------- structure
@@ -55,12 +57,42 @@ export class HUD {
     this.hpBar = this._bar(v, 'hp');
     this.staBar = this._bar(v, 'sta');
 
-    const air = el('div', 'air', v);
+    // The gauge is the meter. Tapping it is Ren lifting it to read it — the
+    // same verb as the METER button, placed where the player is already
+    // looking when the number worries them.
+    const air = el('div', 'air hit', v);
     this.airNode = air;
     const row = el('div', 'row', air);
     this.ppmNode = el('span', 'ppm', row, '––');
     el('span', 'unit', row, 'PPM CO');
+    this.trendNode = el('span', 'trend', row, '');
     this.filterNode = el('div', 'filter', air, 'NO FILTER');
+    this.readNode = el('div', 'reading', air, '');
+    this._bindTap(air, () => this.game.input.tapVirtual('meter'));
+  }
+
+  /**
+   * Show the result of a deliberate meter read. `trend` is only supplied once
+   * the player can Read the Air; without it the meter states the number and
+   * nothing else, which is exactly the limitation the capability removes.
+   */
+  showMeterReading(r) {
+    this.readNode.textContent = r.text;
+    this.readNode.classList.remove('on');
+    void this.readNode.offsetWidth;
+    this.readNode.classList.add('on');
+    this.airNode.classList.add('reading');
+    clearTimeout(this._readT);
+    this._readT = setTimeout(() => {
+      this.readNode.classList.remove('on');
+      this.airNode.classList.remove('reading');
+    }, 5200);
+    if (r.trend) {
+      this.trendNode.textContent = r.trend;
+      this.trendNode.classList.add('on');
+      clearTimeout(this._trendT);
+      this._trendT = setTimeout(() => this.trendNode.classList.remove('on'), 9000);
+    }
   }
 
   _bar(parent, cls) {
@@ -169,6 +201,8 @@ export class HUD {
     this.sysMenu = el('div', 'sysbtn hit', sys, '≡');
     this.sysMap = el('div', 'sysbtn hit', sys, '◈');
     this.sysLamp = el('div', 'sysbtn hit', sys, '☀');
+    this.sysMeter = el('div', 'sysbtn hit', sys, '⌁');
+    this._bindTap(this.sysMeter, () => this.game.input.tapVirtual('meter'));
     this._bindTap(this.sysMenu, () => this.game.emit('ui:menu'));
     this._bindTap(this.sysMap, () => this.game.emit('ui:map'));
     this._bindTap(this.sysLamp, () => this.game.input.tapVirtual('lamp'));
@@ -425,6 +459,7 @@ export class HUD {
 
   /** A spoken line with no dialogue box — barks, thoughts, radio. */
   subtitle(speaker, text, duration = 3.6) {
+    if (this.subtitlesOn === false) return;
     const d = el('div', '', this.subs);
     d.innerHTML = speaker ? `<span class="spk">${speaker}</span>  ${text}` : text;
     setTimeout(() => {

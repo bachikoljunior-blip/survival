@@ -532,7 +532,12 @@ Does knowing that help you? It has never once helped me.`),
 came out. I'm not going to stand in front of them.
 
 Just don't tell me it was easy afterwards.`),
-      effects: [{ flag: 'sol_vent_talked' }],
+      effects: [
+        { flag: 'sol_vent_talked' }, { cap: 'rigVent' },
+        { journal: ['rigvent', 'Rigging a head', `Sol showed me how she does it. Two turns on the
+collar and a rag in the gap. It is not clever. That is what makes it frightening
+— anyone with a bar can move where the gas goes, and nobody is counting.`] },
+      ],
       next: 'end',
     },
   },
@@ -569,7 +574,18 @@ does not give things away. Take that up with him.`),
     },
     r_end2: {
       ...line('sol', "Yes, I know your name. Everybody in this yard knows your name. Some of them are being polite about it."),
-      effects: [{ flag: 'sol_knows_name' }],
+      next: 'r_rope',
+    },
+    r_rope: {
+      ...line('sol', `Take this. Thirty metres of line and a descender. It was in the ambulance and
+the ambulance is not coming back.
+
+If you go up — and you will go up, everyone does eventually — you want a way down
+that is not falling.`),
+      effects: [
+        { flag: 'sol_knows_name' }, { cap: 'shortRope' },
+        { trust: ['sol', 6, 'She gave you her line.'] },
+      ],
       next: 'end',
     },
   },
@@ -696,12 +712,29 @@ procedure down was the same as making people follow it.`] },
       ...line('teo', "Cartridges, dressings, cells. Salvage or nothing, and don't insult me."),
       choices: [
         { text: '[Trade]', goto: 'trade', effects: [{ fn: 'openTrade' }] },
+        { text: "Can you do anything with this bar?", goto: 'a_bar', if: { noCap: 'breach' } },
         { text: "Tell me about the Cinder Line.", goto: 'a_line' },
         { text: "Tell me about Sol.", goto: 'a_sol' },
         { text: "Nothing today.", goto: 'end' },
       ],
     },
     trade: { ...line('teo', "Mm."), next: 'end' },
+    a_bar: {
+      ...line('teo', `Give me the bar a minute.
+
+...There. Ground back to a proper point and the heel dressed. Now it will go
+behind a hoarding instead of skidding off it.
+
+Half this city is boarded up with nothing behind the boards. The other half is
+boarded up with everything somebody left behind.`),
+      effects: [
+        { cap: 'breach' }, { trust: ['teo', 5, 'He sharpened your bar.'] },
+        { journal: ['breach', 'The bar', `Marsh reground the point. It goes behind a hoarding
+now. Boarded shopfronts are worth opening — nobody came back for what is inside
+them, which is exactly why it is still there.`] },
+      ],
+      next: 'a_shop',
+    },
     a_line: {
       ...line('teo', `They repaint it every quarter. Same road, further west every time. There are
 four lines on Cinder Road now and you can read them like rings on a stump.
@@ -1192,8 +1225,18 @@ not telling you that. I'm saying it out loud in a yard.`),
       next: 'i_end',
     },
     i_end: {
-      ...line('iris', "He'll be in there. He's always in there. He'll be very nice to you."),
-      effects: [{ flag: 'iris_met' }],
+      ...line('iris', `He'll be in there. He's always in there. He'll be very nice to you.
+
+...One more thing. The ash crews out at the field — the big ones with the
+hammers. They plant the back foot before they swing. Every time, about half a
+second early. I have watched them from that window for two years and I have
+never seen one not do it.`),
+      effects: [
+        { flag: 'iris_met' }, { cap: 'coldRead' },
+        { journal: ['coldread', 'The back foot', `Iris has been watching the crews from a window
+for two years. The heavy ones plant the back foot half a second before they
+swing. She said it like it was small talk.`] },
+      ],
       next: 'end',
     },
     again: {

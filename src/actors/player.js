@@ -193,6 +193,7 @@ export class ThirdPersonCamera {
     this.maxPitch = 0.72;
 
     this.shake = 0;
+    this.shakeScale = 1;
     this.shakeDecay = 4.5;
     this._shakeSeed = Math.random() * 1000;
 
@@ -214,7 +215,7 @@ export class ThirdPersonCamera {
     this._manualT = 0.9;
   }
 
-  addShake(amount) { this.shake = Math.min(1.4, this.shake + amount); }
+  addShake(amount) { this.shake = Math.min(1.4, this.shake + amount * this.shakeScale); }
 
   /** Forward vector on the XZ plane — what "up on the stick" means. */
   forwardXZ(out = _v) {

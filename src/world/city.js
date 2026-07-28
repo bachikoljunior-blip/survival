@@ -23,7 +23,7 @@ import { Rng } from '../core/rng.js';
 import { clamp, clamp01, lerp, TAU } from '../core/util.js';
 import { signTexture } from '../render/textures.js';
 
-const CHUNK = 40;
+const CHUNK = 56;
 
 export class City {
   constructor(data, mats, tier) {
@@ -67,11 +67,14 @@ export class City {
       case 'paint': return m.get('paintedmetal', { seed: 15, repeat: [1, 1], roughness: 0.7, metalness: 0.22 });
       case 'fabric': return m.get('fabric', { seed: 16, repeat: [1, 1] });
       case 'glass': return m.get('glass', { seed: 17, repeat: [1, 1], roughness: 0.18, metalness: 0.1 });
-      case 'dark': return m.flat(0x14120f, { roughness: 0.95, metalness: 0.0 });
-      case 'emberglow': return m.glow(0xff7a26, 3.6);
-      case 'lampglow': return m.glow(0xffc98a, 3.0);
-      case 'screenglow': return m.glow(0xffb46a, 1.5);
-      case 'toxicglow': return m.glow(0xc8e04a, 2.0);
+      // 'dark' shares the concrete material; call sites already tint it to
+      // near-black, and a recessed window reveal wants a matte mineral surface
+      // rather than its own program.
+      case 'dark': return m.get('concrete', { seed: 5, repeat: [1, 1] });
+      // All self-lit surfaces share one unlit material and carry their colour
+      // in vertex attributes. Three programs become one.
+      case 'emberglow': case 'lampglow': case 'screenglow': case 'toxicglow':
+        return m.glowShared();
       default: return m.flat(0x808080);
     }
   }
@@ -250,7 +253,7 @@ export class City {
         c.m('dark').cylinder(mx, 0.022, mz, 0.36, 0.025, 8, 1.6, [0.3, 0.29, 0.28], true, 0);
         // Some manholes breathe. These are the visual tells for where the gas is.
         if (rng.chance(0.28)) {
-          c.m('emberglow').cylinder(mx, 0.02, mz, 0.28, 0.01, 8, 1, [1, 1, 1], true, 0);
+          c.m('emberglow').cylinder(mx, 0.02, mz, 0.28, 0.01, 8, 1, [3.6, 0.67, 0.06], true, 0);
           this.fxMarkers.push({ x: mx, y: 0.06, z: mz, kind: 'manholesmoke' });
           this.gas.addSource(mx, mz, 260, 11, null, true);
         }
@@ -775,7 +778,7 @@ export class City {
         const lx = ox + l.x, lz = oz + l.z, ly = l.y ?? h - 0.35;
         cb.m(l.kind === 'screen' ? 'screenglow' : 'lampglow').boxRot({
           x: lx, y: ly, z: lz, w: l.w ?? 0.5, h: 0.05, d: l.d ?? 0.3, rot: l.rot || 0,
-          uvScale: 1, tint: [1, 1, 1],
+          uvScale: 1, tint: l.kind === 'screen' ? [1.5, 0.68, 0.23] : [3.0, 1.76, 0.79],
         });
         // A shallow shade above it so the light source has a body.
         cb.m('metal').boxRot({ x: lx, y: ly + 0.05, z: lz, w: (l.w ?? 0.5) + 0.1, h: 0.08, d: (l.d ?? 0.3) + 0.1, rot: l.rot || 0, uvScale: 1.4, tint: [0.4, 0.4, 0.42] });

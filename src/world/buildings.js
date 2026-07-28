@@ -77,7 +77,7 @@ function window_(cb, cx, cy, cz, w, h, nx, nz, kind, rng, depth = 0.16) {
       // A lit window is a promise that someone is alive in there.
       cb.m('screenglow').boxRot({
         x: cx - nx * 0.08, y: cy + 0.02, z: cz - nz * 0.08,
-        w: w - 0.08, h: h - 0.06, d: 0.02, rot: -rot, uvScale: 1, tint: [1, 1, 1],
+        w: w - 0.08, h: h - 0.06, d: 0.02, rot: -rot, uvScale: 1, tint: [1.5, 0.68, 0.23],
       });
       break;
     case WIN.BOARDED: {

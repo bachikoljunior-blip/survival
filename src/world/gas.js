@@ -222,7 +222,14 @@ export class GasField {
     this.wind.speed = 0.3 + 0.7 * (0.5 + 0.5 * this._noise.fbm(t * 2.2, 4.1, 2));
     this._windPhase = Math.sin(this.time * 0.037) * 9.5 * this.wind.speed;
     this.globalScale = damp(this.globalScale, this._targetScale, 4.0, dt);
-    if (this.dirty) this.bake();
+    // Re-baking is a few hundred thousand operations. It only ever happens
+    // when a source is toggled, and it is throttled so two toggles in the same
+    // second cost one bake rather than two.
+    this._bakeCooldown = Math.max(0, (this._bakeCooldown || 0) - dt);
+    if (this.dirty && this._bakeCooldown <= 0) {
+      this.bake();
+      this._bakeCooldown = 0.4;
+    }
   }
 
   /** Story hook: the burn advances or is pushed back. */

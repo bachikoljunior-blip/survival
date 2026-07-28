@@ -248,6 +248,23 @@ export class QuestSystem extends Emitter {
     return true;
   }
 
+  /**
+   * Re-fire the onEnter effects of every active step.
+   *
+   * Loading is the only path that needs this, and it needs it badly: an
+   * encounter step spawns its enemies from onEnter, and a retry wipes every
+   * enemy off the map. Without re-entering, the player respawns onto a step
+   * whose trigger — "all of them are dead" — can never fire again, and the
+   * story is over. Hooks reached this way must be idempotent.
+   */
+  reenterActiveSteps() {
+    for (const [id, q] of this.S.quests) {
+      if (q.state !== 'active') continue;
+      const step = this.defs[id]?.steps?.[q.step];
+      if (step && step.onEnter) applyEffects(step.onEnter, this.S, this.ctx);
+    }
+  }
+
   /** Complete the current step and move to the next (respecting branches). */
   advance(id) {
     const q = this.S.quests.get(id);

@@ -120,6 +120,7 @@ export class Actor {
     this.accel = opts.accel ?? 26;
     this.decel = opts.decel ?? 30;
 
+    this.combatAssist = 0;
     this.moveInput = { x: 0, z: 0, mag: 0 };
     this.wantSprint = false;
     this.crouch = 0;
@@ -135,6 +136,7 @@ export class Actor {
     this.parryWindow = 0;
     this.iframes = 0;
 
+    this._guardWasDown = false;
     this.climbing = null;
     this.interiorPpm = null;
     this.lastDeathCause = null;
@@ -225,6 +227,7 @@ export class Actor {
       if (this.staggerTime <= 0) this.state = STATE.IDLE;
     }
 
+    this._updateGuard(dt);
     this._updateMovement(dt);
     this._updateVitals(dt, ctx);
     this._updateAnimation(dt);
@@ -303,6 +306,36 @@ export class Actor {
       this.animator.play('land', { speed: dmg > 8 ? 0.85 : 1.3 });
     } else if (r.grounded && r.fellDist > 0.7) {
       this.emit('land', { hard: false, dist: r.fellDist });
+    }
+  }
+
+  /**
+   * Guard and parry.
+   *
+   * Raising the guard plays the parry clip, whose event opens a short window.
+   * Hold it and you are blocking; catch a blow inside the window and you parry.
+   * That is the whole mechanic: a parry is a well-timed *block*, not a separate
+   * button, which is the only version of it that works with five touch buttons.
+   */
+  _updateGuard(dt) {
+    if (this.dead) { this._guardWasDown = false; return; }
+    const raising = this.guarding && !this._guardWasDown;
+    const dropping = !this.guarding && this._guardWasDown;
+    this._guardWasDown = this.guarding;
+
+    if (raising && this.canAct && !this.attack) {
+      // The parry clip contains the window event; guard is its resting pose.
+      this.animator.play('parry', { fade: 0.04, force: true });
+      this.emit('guardraise', {});
+    } else if (this.guarding && !this.attack && this.animator.actionName !== 'parry' &&
+               this.animator.actionName !== 'guard' && this.animator.actionName !== 'guardhit') {
+      this.animator.play('guard', { fade: 0.09 });
+    } else if (dropping && (this.animator.actionName === 'guard' || this.animator.actionName === 'parry')) {
+      this.animator.stopAction(0.12);
+    }
+    // The parry window closes on its own; guard persists as long as it is held.
+    if (this.guarding && this.animator.actionName === 'parry' && this.animator.actionT >= 1) {
+      this.animator.play('guard', { fade: 0.08 });
     }
   }
 
@@ -427,7 +460,7 @@ export class Actor {
     switch (name) {
       case 'iframeStart': this.iframes = 0.26; break;
       case 'iframeEnd': this.iframes = 0; break;
-      case 'parrywindow': this.parryWindow = 0.16; break;
+      case 'parrywindow': this.parryWindow = this.parryBonus ? 0.26 : 0.16; break;
       case 'rung': this.emit('footstep', { surface: 'metal', volume: 0.5 }); break;
       case 'cough': this.emit('coughsound', { severity: this.lungs.severity }); break;
       default: break;
@@ -478,6 +511,14 @@ export class Actor {
           }
         }
       }
+    }
+
+    // Accessibility: combat assistance scales incoming damage, and at the
+    // highest level makes combat unable to kill (the gas still can, because
+    // the gas is the game).
+    if (this.combatAssist === 1) amount *= 0.55;
+    else if (this.combatAssist === 2 && hit.kind !== 'gas') {
+      amount = Math.min(amount, Math.max(0, this.hp - 1));
     }
 
     if (amount > 0) {

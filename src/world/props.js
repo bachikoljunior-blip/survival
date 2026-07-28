@@ -50,7 +50,7 @@ export function drum(cb, x, y, z, rng, opts = {}) {
   if (burning) {
     // The fire itself is an emissive cone plus a hot rim; particles and the
     // point light are attached by the city builder from the marker list.
-    cb.m('emberglow').cylinder(x, y + h - 0.06, z, r - 0.04, 0.05, 10, 1, T.white, true, 0);
+    cb.m('emberglow').cylinder(x, y + h - 0.06, z, r - 0.04, 0.05, 10, 1, [3.6, 0.67, 0.06], true, 0);
     return { light: { x, y: y + h + 0.25, z, kind: 'fire' }, fx: { x, y: y + h, z, kind: 'firebarrel' } };
   }
   return null;
@@ -455,7 +455,7 @@ export function streetLamp(cb, x, z, rng, opts = {}) {
   const hx = x + 1.24 * Math.cos(rot), hz = z + 1.24 * Math.sin(rot);
   cb.m('dark').boxRot({ x: hx, y: h - 0.32, z: hz, w: 0.56, h: 0.2, d: 0.3, rot, uvScale: 1.6, tint: [0.3, 0.3, 0.31] });
   if (lit) {
-    cb.m('lampglow').boxRot({ x: hx, y: h - 0.35, z: hz, w: 0.44, h: 0.035, d: 0.22, rot, uvScale: 1, tint: T.white });
+    cb.m('lampglow').boxRot({ x: hx, y: h - 0.35, z: hz, w: 0.44, h: 0.035, d: 0.22, rot, uvScale: 1, tint: [3.0, 1.76, 0.79] });
     return { light: { x: hx, y: h - 0.4, z: hz, kind: 'sodium' } };
   }
   // Dead lamps get a shattered lens; the contrast between lit and dead lamps
@@ -474,7 +474,7 @@ export function workLight(cb, x, y, z, rng, opts = {}) {
     b.boxRot({ x: x + Math.cos(a) * 0.34, y, z: z + Math.sin(a) * 0.34, w: 0.05, h, d: 0.05, rot: a, uvScale: 2, tint: [0.6, 0.52, 0.2] });
   }
   b.boxRot({ x, y: y + h, z, w: 0.5, h: 0.26, d: 0.2, rot, uvScale: 1.4, tint: [0.62, 0.54, 0.2], ao: 0.2 });
-  cb.m('lampglow').boxRot({ x: x + 0.1 * Math.cos(rot), y: y + h + 0.04, z: z + 0.1 * Math.sin(rot), w: 0.4, h: 0.18, d: 0.02, rot, uvScale: 1, tint: T.white });
+  cb.m('lampglow').boxRot({ x: x + 0.1 * Math.cos(rot), y: y + h + 0.04, z: z + 0.1 * Math.sin(rot), w: 0.4, h: 0.18, d: 0.02, rot, uvScale: 1, tint: [3.0, 1.76, 0.79] });
   return { light: { x, y: y + h + 0.1, z, kind: 'work', rot } };
 }
 
@@ -577,7 +577,7 @@ export function ventHead(cb, x, y, z, rng, opts = {}) {
     cb.m('dark').boxRot({ x, y: y + 0.24 + h, z, w: 0.62, h: 0.03, d: 0.05, rot: a, uvScale: 2, tint: [0.2, 0.2, 0.2] });
   }
   if (hot) {
-    cb.m('emberglow').cylinder(x, y + 0.2 + h, z, 0.29, 0.03, 10, 1, T.white, true, 0);
+    cb.m('emberglow').cylinder(x, y + 0.2 + h, z, 0.29, 0.03, 10, 1, [3.6, 0.67, 0.06], true, 0);
     return { light: { x, y: y + h + 0.4, z, kind: 'vent' }, fx: { x, y: y + h + 0.32, z, kind: 'vent' } };
   }
   return null;

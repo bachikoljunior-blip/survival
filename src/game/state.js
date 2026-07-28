@@ -50,18 +50,13 @@ export const CAPABILITIES = {
   },
   breach: {
     name: 'Breach',
-    desc: 'The bar opens shutters, hasps and cellar doors that were never meant to open again.',
-    how: 'Practice, and a heavier bar.',
+    desc: 'The bar opens boarded shopfronts and shuttered cellars. Hollis is full of things nobody came back for.',
+    how: 'Teodor Marsh sharpens the bar for you.',
   },
   coldRead: {
     name: 'Cold Read',
     desc: 'You see the wind-up a beat earlier. Heavy attacks announce themselves.',
     how: 'Learned the hard way from a Breaker.',
-  },
-  crewVoice: {
-    name: 'Crew Voice',
-    desc: 'Call a companion to your position, or tell them to hold.',
-    how: 'Someone decides to follow you.',
   },
 };
 

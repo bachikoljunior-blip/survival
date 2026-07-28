@@ -457,6 +457,12 @@ export class Audio {
   _sfx_unlock() { this._metal({}, { base: 620, count: 5, dur: 1.1, level: 0.34, rev: 0.5 }); }
   _sfx_discover() { this._tone({ f: note(-12), dur: 1.2, level: 0.2, type: 'sine' }); }
   _sfx_lockon() { this._tone({ f: note(7), dur: 0.09, level: 0.22, type: 'square' }); }
+  /** The meter settling: a switch, then two ticks as the needle finds its rest. */
+  _sfx_meter() {
+    this._impact({}, { freq: 1900, q: 9, dur: 0.035, level: 0.26 });
+    this._tone({ f: 1480, dur: 0.045, level: 0.14, type: 'square', delay: 0.20 });
+    this._tone({ f: 1620, dur: 0.05, level: 0.16, type: 'square', delay: 0.40 });
+  }
   _sfx_door() { this._impact({}, { freq: 180, q: 2, dur: 0.4, level: 0.5, type: 'lowpass', rev: 0.4 }); }
   _sfx_locked() { this._impact({}, { freq: 420, q: 8, dur: 0.1, level: 0.4 }); }
   _sfx_rescue() { this._tone({ f: note(5), dur: 0.5, level: 0.3 }); this._tone({ f: note(12), dur: 0.7, level: 0.24, delay: 0.13 }); }

@@ -15,6 +15,7 @@ import { QuestSystem, DialogueRunner, testCondition, applyEffects } from './narr
 import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS } from '../content/story.js';
 import { MODE } from './game.js';
 import { clamp, clamp01, lerp, damp } from '../core/util.js';
+import { PPM } from '../world/gas.js';
 
 /** Where each named character stands, and when they are there. */
 const NPC_ANCHORS = {
@@ -80,6 +81,19 @@ export class Director {
     });
 
     g.on('interact', (t) => this.interact(t));
+    g.on('meter:read', (r) => {
+      this.state.bump('metersRead');
+      this.quests.notify('custom', { id: 'meterRead' });
+      // Ren notes the first genuinely bad reading she takes herself.
+      if (r.ppm > PPM.DANGER && !this.state.has('saw_danger_air')) {
+        this.state.set('saw_danger_air');
+        this.state.addJournal('badair', 'What the meter says',
+`Eight hundred parts per million and climbing, at chest height, in a street
+where people are living. The published line puts this ground clear. I have been
+holding a device that disagrees with a government document for about four
+seconds and I already know which one I believe.`);
+      }
+    });
     g.on('kill', ({ attacker, target }) => {
       if (attacker === g.player) {
         this.state.kills++;
@@ -129,6 +143,80 @@ export class Director {
       beginCrisis: () => this._beginCrisis(),
       openTrade: () => this.openTrade(),
     };
+  }
+
+  /**
+   * Reset the *world* to its authored state.
+   *
+   * GameState.reset() clears the story, but the world carries its own mutable
+   * state — items already taken, doors already opened, borehole heads already
+   * shut, rescue markers pushed in by a crisis, NPCs standing where the last
+   * run left them. Without this, a second playthrough starts in a city that
+   * still remembers the first one.
+   */
+  resetWorld() {
+    const g = this.game;
+
+    // Interactions: restore taken/disabled, and drop anything a run injected.
+    g.city.interactions = g.city.interactions.filter((i) => !i._runtime);
+    for (const it of g.city.interactions) {
+      it.taken = false;
+      it.disabled = false;
+    }
+
+    // Gas: every source back to its authored active state, and the intensity
+    // back to baseline.
+    for (const s of g.gas.sources) {
+      const authored = this._authoredGas ?? (this._authoredGas = new Map(
+        g.city.data.gasSources.filter((x) => x.id).map((x) => [x.id, x.active !== false])));
+      if (s.id) {
+        const on = authored.has(s.id) ? authored.get(s.id) : true;
+        s.active = on;
+        g.atmos.setMarkerActive(s.id, on);
+        g.atmos.plumes.setAnchorActive(s.id, on);
+      }
+    }
+    // Props declare their own vents; those default to on.
+    for (const p of g.city.data.props) {
+      if (p.kind !== 'vent' || !p.id) continue;
+      g.gas.setSourceActive(p.id, p.hot !== false);
+      g.atmos.setMarkerActive(p.id, p.hot !== false);
+      g.atmos.plumes.setAnchorActive(p.id, p.hot !== false);
+    }
+    g.gas.setIntensity(1);
+    g.gas.globalScale = 1;
+    g.gas.dirty = true;
+    g.gas.bake();
+
+    // Cast: put everyone back where they start, upright and idle.
+    for (const [id, npc] of this.npcs) {
+      const a = NPC_ANCHORS[id];
+      if (!a) continue;
+      let x = a.x, z = a.z, y = 0, rot = a.rot || 0;
+      if (a.spawn) {
+        const sp = g.city.spawns.get(a.spawn);
+        if (sp) { x = sp.x; z = sp.z; y = sp.y; rot = sp.rot; }
+      }
+      const gr = g.world.groundUnder(x, z, 0.4, y + 6, 12);
+      npc.pos.set(x, gr ? gr.y + 0.05 : y, z);
+      npc.vel.set(0, 0, 0);
+      npc.yaw = npc.targetYaw = rot;
+      npc.crouch = 0;
+      npc.animator.locomotion.crouch = 0;
+      npc.animator.stopAction(0.01);
+      npc.group.visible = true;
+    }
+
+    // Hostiles, projectiles, encounters, crisis.
+    for (const a of [...g.actors]) if (a instanceof Enemy) g.removeActor(a);
+    g.ai.clearProjectiles(g);
+    this._raidActive = null;
+    this.crisis = null;
+    this._markerTargets = {};
+    this.currentInterior = null;
+    g.forcedMood = null;
+    g.interiorPpm = null;
+    this._autosaveTimer = 0;
   }
 
   // ------------------------------------------------------------------ cast
@@ -192,6 +280,10 @@ export class Director {
 
   _spawnRaid(id, list) {
     const g = this.game;
+    // Idempotent: a load re-enters the active step, and a raid that is already
+    // on the ground must not be doubled.
+    if (this._raidActive && this._raidActive.id === id &&
+        this._raidActive.group.some((e) => !e.dead)) return;
     const group = [];
     for (const [kind, x, z] of list) {
       const e = g.spawnEnemy(kind, x, z);
@@ -231,6 +323,7 @@ export class Director {
    */
   _beginCrisis() {
     const g = this.game;
+    if (this.crisis && !this.crisis.done) return;   // idempotent across loads
     const shut = this.state.has('vents_shut');
     const site = shut ? 'stacks' : 'south';
     this.state.set(`crisis_${site}`);
@@ -261,6 +354,7 @@ export class Director {
       const it = {
         id: `crisis_${i}`, kind: 'rescue', x, y: 1.1, z, range: 2.4,
         label: 'Get them up', prompt: 'Get them to a first floor',
+        _runtime: true,
       };
       g.city.interactions.push(it);
       this.crisis.marks.push(it);
@@ -284,6 +378,7 @@ export class Director {
         c.lost === 0 ? '<b>All four.</b>' : `<b>${c.rescued} out. ${c.lost} not.</b>`,
         c.lost === 0 ? 'good' : 'bad', 7);
       this.game.emit('music', 'explore');
+      this.game.city.interactions = this.game.city.interactions.filter((i) => !c.marks.includes(i));
       this.crisis = null;
       this._markerTargets.crisis = null;
       this.quests.notify('custom', { id: 'crisisResolved' });
@@ -625,6 +720,15 @@ export class Director {
     await g.menus.fadeOut();
     // Restore from the last autosave if there is one; otherwise just pick her
     // up where she fell, with the encounter reset.
+    // Clear the board BEFORE restoring, because restoring re-arms whatever
+    // encounter the active step owns. Doing it the other way round deletes the
+    // enemies that were just respawned and strands the quest.
+    for (const a of [...g.actors]) {
+      if (a instanceof Enemy) g.removeActor(a);
+    }
+    this._raidActive = null;
+    g.ai.clearProjectiles(g);
+
     const save = Storage.load();
     if (save) this.applySave(save);
     else {
@@ -635,12 +739,8 @@ export class Director {
       p.lungs.sat = 0;
       p.animator.stopAction(0.05);
       g.teleport(this.state.lastSpawn || 'start');
+      this.quests.reenterActiveSteps();
     }
-    for (const a of [...g.actors]) {
-      if (a instanceof Enemy) g.removeActor(a);
-    }
-    this._raidActive = null;
-    g.ai.clearProjectiles(g);
     g.hud.setVisible(true);
     await g.menus.fadeIn();
     g.setMode(MODE.PLAY);
@@ -697,6 +797,11 @@ export class Director {
     this.currentInterior = d.interior || null;
     g.forcedMood = this.currentInterior ? 'interior' : null;
     this.refreshCast();
+    // Re-arm any encounter the active step is responsible for. retry() has
+    // just cleared the map of enemies; without this the raid steps become
+    // permanent dead ends.
+    this._raidActive = null;
+    this.quests.reenterActiveSteps();
     this.quests.emitObjective();
     return true;
   }

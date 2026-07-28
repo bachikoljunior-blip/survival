@@ -292,6 +292,21 @@ export class MaterialLibrary {
     return mat;
   }
 
+  /**
+   * The single shared self-lit material. Colour and intensity ride in the
+   * vertex attribute, so every glowing surface in the city — lamp lenses, vent
+   * mouths, lit windows, screens — is one draw call and one program.
+   */
+  glowShared() {
+    const key = 'glowShared';
+    if (this.mats.has(key)) return this.mats.get(key);
+    const mat = new THREE.MeshBasicMaterial({
+      color: 0xffffff, vertexColors: true, toneMapped: false, fog: false,
+    });
+    this.mats.set(key, mat);
+    return mat;
+  }
+
   /** Unlit, additive card for light shafts, gas plumes and heat shimmer. */
   volumetric(color, opacity = 0.14) {
     const key = `vol|${color}|${opacity}`;

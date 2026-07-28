@@ -129,6 +129,7 @@ export class Atmosphere {
     this.burst = new BurstField(scene, tier);
 
     this.exposureBias = 1;
+    this.motionScale = 1;
   }
 
   _setShadowExtent(dist) {
@@ -224,8 +225,8 @@ export class Atmosphere {
     }
 
     this._updateLights(dt, playerPos);
-    this.ash.update(dt, playerPos, M);
-    this.embers.update(dt, playerPos, M);
+    this.ash.update(dt, playerPos, M, this.motionScale);
+    this.embers.update(dt, playerPos, M, this.motionScale);
     this.plumes.update(dt, playerPos, this.camera);
     this.burst.update(dt);
   }
@@ -458,10 +459,11 @@ class AshField {
     this._make(tier);
   }
 
-  update(dt, playerPos, mood) {
+  update(dt, playerPos, mood, scale = 1) {
     this.mat.uniforms.uTime.value += dt;
     this.mat.uniforms.uOrigin.value.set(playerPos.x, playerPos.y - 4, playerPos.z);
-    this.mat.uniforms.uOpacity.value = damp(this.mat.uniforms.uOpacity.value, mood.ashOpacity ?? 0.36, 1.5, dt);
+    this.mat.uniforms.uOpacity.value = damp(this.mat.uniforms.uOpacity.value,
+      (mood.ashOpacity ?? 0.36) * scale, 1.5, dt);
   }
 
   dispose() { this.scene.remove(this.points); this.points.geometry.dispose(); this.mat.dispose(); }
@@ -555,13 +557,13 @@ class EmberField {
     this._make(tier);
   }
 
-  update(dt, playerPos, mood) {
+  update(dt, playerPos, mood, scale = 1) {
     this.mat.uniforms.uTime.value += dt;
     this.mat.uniforms.uOrigin.value.set(playerPos.x, playerPos.y, playerPos.z);
     // Embers thin out as you climb — another reminder of where the fire is.
     const alt = clamp01(1 - (playerPos.y - 1) / 18);
     this.mat.uniforms.uIntensity.value = damp(this.mat.uniforms.uIntensity.value,
-      (mood.emberParticles ?? 1) * (0.18 + alt * 0.82), 1.2, dt);
+      (mood.emberParticles ?? 1) * (0.18 + alt * 0.82) * scale, 1.2, dt);
   }
 
   dispose() { this.scene.remove(this.points); this.points.geometry.dispose(); this.mat.dispose(); }

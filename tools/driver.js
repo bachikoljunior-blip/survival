@@ -159,9 +159,12 @@
       expect(questStep('arrival').startsWith('active'), 'arrival did not start');
       step('courtyard');
 
-      // The meter step is satisfied by reading it, which the USE flow does.
-      G.quests.notify('custom', { id: 'meterRead' });
-      await tick(0.3);
+      // Press the meter button the way a player would. The harness must never
+      // manufacture the event it is meant to be detecting.
+      G.input.tapVirtual('meter');
+      await tick(0.5);
+      expect(G.state.counters.get('metersRead') > 0, 'meter read did not register');
+      expect(!questStep('arrival').startsWith('active:1'), 'meter step did not advance');
       step('meter');
 
       await talk('sol', (ch) => {

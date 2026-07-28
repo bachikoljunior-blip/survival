@@ -18,7 +18,7 @@ import { clamp, clamp01, Emitter } from './util.js';
 
 export const BUTTONS = [
   'attack', 'heavy', 'dodge', 'guard', 'use', 'interact',
-  'lockon', 'sprint', 'crouch', 'menu', 'map', 'lamp', 'swap',
+  'lockon', 'sprint', 'crouch', 'menu', 'map', 'lamp', 'swap', 'meter',
 ];
 
 /** Keyboard bindings. Multiple physical keys may map to one action. */
@@ -33,6 +33,7 @@ const KEYMAP = {
   KeyQ: 'guard',
   KeyF: 'use',
   KeyR: 'lamp',
+  KeyG: 'meter',
   KeyC: 'crouch',
   KeyT: 'lockon', Tab: 'lockon',
   KeyM: 'map',

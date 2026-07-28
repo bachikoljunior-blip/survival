@@ -64,6 +64,7 @@ export class Game extends Emitter {
     this.interiorPpm = null;
     this.settings = { ...DEFAULT_SETTINGS };
     this._interactCandidates = [];
+    this._meterCooldown = 0;
   }
 
   // ------------------------------------------------------------------ boot
@@ -80,8 +81,33 @@ export class Game extends Emitter {
     this.gas = this.city.gas;
     this.world = this.city.collision;
     this.nav = this.city.nav;
+
+    // Compile every program now. Deferring this means a visible hitch the
+    // first time the player sees a material they have not seen yet, which on a
+    // phone is most of the first two minutes.
+    onProgress('warming shaders');
+    await frame();
+    this._warmShaders();
+
     onProgress('ready');
     return this;
+  }
+
+  /**
+   * Force compilation of every program the game will use, by putting one
+   * throwaway instance of each material in front of the camera for one
+   * off-screen render.
+   */
+  _warmShaders() {
+    const r = this.engine.renderer;
+    const cam = this.engine.camera;
+    const saved = cam.position.clone();
+    const savedQ = cam.quaternion.clone();
+    try {
+      r.compile(this.scene, cam);
+    } catch (e) { /* compile is a hint, never a hard requirement */ }
+    cam.position.copy(saved);
+    cam.quaternion.copy(savedQ);
   }
 
   spawnPlayer(spawnId = 'start') {
@@ -104,17 +130,42 @@ export class Game extends Emitter {
     this.director = new Director(this);
     this.systems = [this.combat, this.ai, this.director];
 
+    // Pre-create every character/weapon material variant and compile them, so
+    // meeting a Warden for the first time does not stall.
+    this._warmActorMaterials();
+
     this._wireFeedback();
     this._wireUI();
     this.applySettings(Storage.loadSettings() || { ...DEFAULT_SETTINGS });
     return this.player;
   }
 
+  _warmActorMaterials() {
+    const m = this.mats;
+    m.character(0xffffff, { roughness: 0.78, metalness: 0.03 });
+    m.character(0x5a5c5e, { roughness: 0.55, metalness: 0.6, flat: true });
+    m.character(0x24211d, { roughness: 0.9, flat: true });
+    m.character(0x3c3830, { roughness: 0.95, flat: true });
+    m.character(0x6b4a34, { roughness: 0.95, metalness: 0.2, flat: true });
+    m.character(0x2c333b, { roughness: 0.6, metalness: 0.3, flat: true });
+    m.character(0x33383c, { roughness: 0.7, flat: true });
+    m.character(0x6a5a4c, { roughness: 0.95, textured: false, flat: true });
+    m.glow(0xffd9a0, 3.4);
+    m.glow(0x9fe06a, 1.7);
+    this._warmShaders();
+  }
+
   /** Connect gameplay events to their audiovisual consequences. */
   _wireFeedback() {
     this.on('damageNumber', (d) => {
+      if (!this.settings.showDamageNumbers) return;
       if (d.target === this.player) this.hud.damageNumber(d.amount, d.x, d.y, d.z, 'self');
       else this.hud.damageNumber(d.amount, d.x, d.y, d.z, d.crit ? 'crit' : '');
+    });
+    // Haptics on player impact, where the device supports it.
+    this.on('actor:hurt', (a, d) => {
+      if (a !== this.player || !this.vibration || !navigator.vibrate) return;
+      try { navigator.vibrate(d.blocked ? 12 : Math.min(60, 14 + d.amount)); } catch { /* ignore */ }
     });
     this.on('actor:footstep', (a, d) => this.emit('sfx', 'step', { x: a.pos.x, y: a.pos.y, z: a.pos.z, ...d }));
     this.on('actor:coughsound', (a, d) => this.emit('sfx', 'cough', { x: a.pos.x, y: a.pos.y + 1.5, z: a.pos.z, player: a === this.player, ...d }));
@@ -197,6 +248,23 @@ export class Game extends Emitter {
       this.player.combatAssist = S.combatAssist;
     }
     if (this.combat) this.combat.maxAttackers = S.combatAssist >= 1 ? 1 : 2;
+
+    // Interface contrast and motion.
+    document.body.classList.toggle('hicontrast', !!S.highContrastHud);
+    document.body.classList.toggle('reduced', !!S.reducedMotion);
+    if (this.camera) {
+      this.camera.shakeScale = S.screenShake * (S.reducedMotion ? 0.35 : 1);
+      this.camera.autoFollow = S.reducedMotion ? 1.6 : 0.55;
+    }
+    // Reduced motion also thins the particle systems, which is the other half
+    // of what makes a busy frame uncomfortable.
+    this.atmos.motionScale = S.reducedMotion ? 0.35 : 1;
+    if (this.hud) {
+      this.hud.showDamageNumbers = S.showDamageNumbers;
+      this.hud.subtitlesOn = S.subtitles;
+    }
+    this.vibration = S.vibration;
+
     Storage.saveSettings(S);
   }
 
@@ -267,6 +335,7 @@ export class Game extends Emitter {
   fixedUpdate(dt) {
     this.time += dt;
     this.input.step(dt);
+    if (this._meterCooldown > 0) this._meterCooldown -= dt;
 
     const playing = this.mode === MODE.PLAY;
     if (playing) this.playTime += dt;
@@ -353,6 +422,8 @@ export class Game extends Emitter {
       p.lampOn = !p.lampOn;
       this.emit('lamp', p.lampOn);
     }
+
+    if (inp.pressed('meter')) this.readMeter();
 
     if (inp.pressed('interact')) {
       if (!this._tryInteract()) p.tryClimb();
@@ -452,6 +523,64 @@ export class Game extends Emitter {
     }
     p.interactTarget = best;
     this.hud.setPrompt(best ? `<b>USE</b> &nbsp;${best.prompt || best.label || 'Interact'}` : '');
+  }
+
+  /**
+   * Read the meter. Ren lifts it, waits for it to settle, and says what it
+   * says. Without READ THE AIR that is a single number in one place; with it
+   * she also knows which way the ground is getting better, which is the
+   * difference between guessing and navigating.
+   */
+  readMeter() {
+    const p = this.player;
+    if (!p || p.dead || !p.canAct || p.isAttacking) return false;
+    if (this._meterCooldown > 0) return false;
+    this._meterCooldown = 1.1;
+
+    p.animator.play('readMeter', { fade: 0.11 });
+    this.audio?.play('meter');
+
+    const ppm = p.ambientPpm || 0;
+    const verdict =
+      ppm > PPM.LETHAL ? 'LETHAL. Leave now.'
+      : ppm > PPM.DANGER ? 'Dangerous. Minutes, not hours.'
+      : ppm > PPM.ELEVATED ? 'Elevated. Headache within the hour.'
+      : ppm > PPM.CLEAR ? 'Working air. Not clean air.'
+      : 'Clear. As clear as Hollis gets.';
+
+    const r = { ppm, text: verdict, trend: null };
+
+    if (this.director?.state?.can('readAir')) {
+      // Sample a ring at head height and report the best bearing relative to
+      // where Ren is facing, so the answer is usable without a map.
+      const g = this.city.gas;
+      const here = g.sample(p.pos.x, p.pos.y + 1.4, p.pos.z);
+      let bestA = 0, bestV = here, worstV = here;
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        const v = g.sample(p.pos.x + Math.sin(a) * 9, p.pos.y + 1.4, p.pos.z + Math.cos(a) * 9);
+        if (v < bestV) { bestV = v; bestA = a; }
+        if (v > worstV) worstV = v;
+      }
+      const spread = worstV - bestV;
+      if (spread < Math.max(20, here * 0.12)) {
+        r.trend = 'FLAT';
+        r.text += '  ·  No better anywhere within ten metres.';
+      } else {
+        const rel = angleDelta(bestA, p.yaw);
+        const dir = Math.abs(rel) < 0.45 ? 'AHEAD'
+          : Math.abs(rel) > Math.PI - 0.45 ? 'BEHIND'
+          : rel > 0 ? 'LEFT' : 'RIGHT';
+        r.trend = `↓ ${dir}`;
+        r.text += `  ·  Air improves ${dir.toLowerCase()} (${Math.round(bestV)} ppm).`;
+      }
+      // Height matters more than distance and the manual says so.
+      if (here > PPM.ELEVATED) r.text += ' Get higher.';
+    }
+
+    this.hud.showMeterReading(r);
+    this.emit('meter:read', r);
+    return true;
   }
 
   _tryInteract() {
