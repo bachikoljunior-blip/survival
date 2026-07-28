@@ -309,15 +309,28 @@ export class Game extends Emitter {
     this.setMode(MODE.TITLE);
     this.menus.showTitle(Storage.hasSave(), __BUILD_ID__);
     // Park the camera somewhere that looks like a title card.
-    const s = this.city.spawns.get('marrow_west');
-    if (s && this.player) {
-      this.player.pos.set(s.x, 0.2, s.z);
-      this.player.vel.set(0, 0, 0);
-      this.camera.yaw = Math.PI * 0.5;
-      this.camera.pitch = -0.06;
-      this.camera._init = false;
-    }
+    this.setTitleCamera();
     await this.menus.fadeIn();
+  }
+
+  /**
+   * Park the camera for the title card.
+   *
+   * The stylesheet's scrim is deliberately semi-opaque so the city shows
+   * through, which only works if there is a composition behind it. Ren is
+   * hidden — she is the thing the player is about to become, not part of the
+   * mark — and the camera looks east down Marrow Street toward the burn glow
+   * with a plume in the mid-ground.
+   */
+  setTitleCamera() {
+    const s = this.city.spawns.get('marrow_west');
+    if (!s || !this.player) return;
+    this.player.pos.set(s.x, 0.2, s.z);
+    this.player.vel.set(0, 0, 0);
+    this.player.group.visible = false;
+    this.camera.yaw = TITLE_YAW;
+    this.camera.pitch = TITLE_PITCH;
+    this.camera._init = false;
   }
 
   /** Spawn an enemy of the given archetype. */
@@ -707,6 +720,10 @@ export class Game extends Emitter {
     this.emit('mode', m, prev);
   }
 }
+
+/** Title-card framing. Swept with tools/shot.mjs; see README. */
+export const TITLE_YAW = 2.10;
+export const TITLE_PITCH = -0.02;
 
 const _vA = new THREE.Vector3();
 const _vB = new THREE.Vector3();

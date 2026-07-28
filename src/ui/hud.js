@@ -40,6 +40,17 @@ export class HUD {
     this._buildTouch();
     this._buildSubs();
 
+    // A refused press because the tank is empty gets a visible answer, not
+    // silence: combat emits this once per refusal.
+    game.on('staminaEmpty', () => {
+      const b = this.staBar.node;
+      b.classList.remove('empty');
+      void b.offsetWidth;
+      b.classList.add('empty');
+      clearTimeout(this._staT);
+      this._staT = setTimeout(() => b.classList.remove('empty'), 420);
+    });
+
     this.damageNumbers = [];
     this.noticeQueue = [];
     this.visible = true;
@@ -357,14 +368,14 @@ export class HUD {
     const busy = !p.canAct || p.dead;
     const set = (btn, dis) => { if (btn) btn.classList.toggle('dis', !!dis); };
 
-    // CombatSystem.start refuses below half the listed cost.
-    const cost = (n, d) => ((ATTACKS && ATTACKS[n] && ATTACKS[n].stamina) || d) * 0.5;
+    // CombatSystem.start refuses below the full listed cost.
+    const cost = (n, d) => (ATTACKS && ATTACKS[n] && ATTACKS[n].stamina) || d;
+    const winded = p.stamina < p.maxStamina * 0.15;
     set(this.buttons.attack, busy || p.stamina < cost('light1', 11));
-    set(this.buttons.heavy, busy || p.isAttacking || p.stamina < cost('heavy', 26));
+    set(this.buttons.heavy, busy || p.isAttacking || winded || p.stamina < cost('heavy', 26));
     set(this.buttons.dodge, busy || p.stamina < 16);
-    // Game._playInput: guard needs to be able to act, not be swinging, and
-    // have something left in the tank.
-    set(this.buttons.guard, busy || p.isAttacking || p.stamina <= 1);
+    // Raising guard costs stamina now, and holding it drains.
+    set(this.buttons.guard, busy || p.isAttacking || p.stamina < 8);
     // quickUse spends a filter or a dressing, and only when one is useful.
     const canUse = !!S && ((S.hasItem('filter') && (p.lungs.filter === null || p.lungs.filter < 0.2)) ||
                            (S.hasItem('bandage') && p.hp < p.maxHp));

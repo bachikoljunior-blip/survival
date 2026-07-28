@@ -57,6 +57,7 @@ async function main() {
     await game.menus.fadeOut();
     game.director.state.reset();
     game.director.resetWorld();
+    game.player.group.visible = true;      // hidden for the title card
     game.teleport('start');
     game.player.hp = game.player.maxHp;
     game.player.stamina = game.player.maxStamina;
@@ -78,6 +79,7 @@ async function main() {
   const continueGame = async () => {
     const save = Storage.load();
     if (!save) return startNewGame();
+    game.player.group.visible = true;      // hidden for the title card
     game.menus.hideTitle();
     await game.menus.fadeOut();
     game.director.applySave(save);
@@ -135,12 +137,9 @@ async function main() {
   game.hud.setVisible(false);
   game.setMode(MODE.TITLE);
   game.menus.showTitle(Storage.hasSave());
-  // Frame the title on a street rather than on the player's back.
-  const s = game.city.spawns.get('marrow_west');
-  game.player.pos.set(s.x, 0.2, s.z);
-  game.camera.yaw = Math.PI * 0.5;
-  game.camera.pitch = -0.05;
-  game.camera._init = false;
+  // One place owns the title framing, so boot and return-to-title cannot
+  // drift apart.
+  game.setTitleCamera();
 
   setNote('ready');
   boot.classList.add('gone');

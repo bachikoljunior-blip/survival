@@ -265,6 +265,16 @@ body {
 }
 .bar.hp   > .fill { background: linear-gradient(90deg, #8f2b23, #d8574a); }
 .bar.sta  > .fill { background: linear-gradient(90deg, #6d6320, #cbbc46); }
+
+/* Refused-for-stamina flash: the visible answer to a press that did nothing.
+   A silent refusal is exactly what makes a combat system feel like it is
+   ignoring you. */
+.bar.sta.empty { animation: staflash 0.42s steps(3) 1; }
+@keyframes staflash {
+  0%   { border-color: var(--blood); background: rgba(192, 57, 43, 0.55); }
+  100% { border-color: rgba(58, 50, 38, 0.9); background: rgba(0, 0, 0, 0.6); }
+}
+body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
 .bar.hp.low > .fill { animation: pulse 0.85s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.7); } }
 
