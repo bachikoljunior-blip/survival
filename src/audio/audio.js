@@ -43,7 +43,8 @@ export class Audio {
     this.rng = new Rng('audio');
     this.musicState = null;
     this.ambienceState = null;
-    this._voices = 0;
+    /** Live voice slots: { end (ms), priority }. See _budget. */
+    this._voiceList = [];
     this._maxVoices = 24;
     this._lastPlay = new Map();
 

@@ -34,8 +34,13 @@ const SCALE_HEIGHT = 3.6;      // metres; 1/e falloff of concentration with heig
 const COVERED_MULT = 2.35;     // enclosed volumes hold gas far better than open street
 
 /**
- * Respiratory constants. These four numbers are the whole gas mechanic, so they
- * are stated once, here, with what they buy:
+ * Respiratory constants. These five numbers are the whole gas mechanic, so they
+ * are stated once, here, with what each one buys. Measured, at rest, against
+ * 120 hp: 200 ppm never harms, 600 takes twenty minutes, 800 kills in about
+ * five and a half, 1400 in seventy seconds, 3200 in twenty. Sprinting at 800
+ * kills in thirty-five. Previously 800 ppm — the threshold the HUD calls
+ * DANGER and the code comments call "minutes, not hours" — did no damage at
+ * all, ever, and the only band that did anything was 1250-1840.
  *
  *   SAT_PER_PPM   ppm of inhaled dose that equilibrates to full saturation.
  *                 At 2600, DANGER (800) settles at 0.31 and LETHAL (3200) pins.

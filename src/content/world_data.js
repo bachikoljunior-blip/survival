@@ -572,6 +572,10 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
           prompt: 'Open the second drawer', item: 'trenchOrder', once: true },
         { id: 'survey_board', kind: 'examine', x: -8.4, z: 0, y: 1.5, label: 'Read',
           prompt: 'Read the published line', topic: 'published_line' },
+        // The object that defines Iris. It is described twice and stood in her
+        // own office unreachable; it is on her desk and it opens.
+        { id: 'iris_folder', kind: 'examine', x: -4, z: 0.5, y: 1.2, label: "Nadeau's folder",
+          prompt: 'Open the folder', topic: 'iris_folder' },
       ],
       spawns: [
         { id: 'survey_in', x: -7.5, z: 5.2, rot: Math.PI * 0.9 },
@@ -635,6 +639,54 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
 
     // ----------------------------------------------- Pell House, ground floor
     {
+      /**
+       * 14 Cellar Row. Ilya Bek's cellar.
+       *
+       * Nine people died in their basements and until now the player could not
+       * enter one — the interior list was an arcade, an office, an instrument
+       * hut, a garage and a first floor. The premise happened in a kind of
+       * space the game did not contain.
+       *
+       * Low, cold, and holding 1,600ppm at floor level with the door shut,
+       * because CO pools and this is what pooling looks like from inside.
+       */
+      id: 'cellar', ox: 860, oz: 0, w: 9, d: 7, h: 2.15,
+      wallMat: 'brick', floorMat: 'concrete', ceilMat: 'wood', mood: 'under',
+      walls: [
+        { x: 1.2, z: -1.0, w: 0.3, d: 3.4 },
+      ],
+      props: [
+        { kind: 'shelf', x: -3.6, z: -2.2, rot: Math.PI / 2, w: 2.2 },
+        { kind: 'shelf', x: -3.6, z: 0.6, rot: Math.PI / 2, w: 2.2 },
+        { kind: 'crate', x: -1.8, z: 2.2 }, { kind: 'crate', x: -1.0, z: 2.5 },
+        { kind: 'mattress', x: 2.6, z: 1.6, rot: 0.15 },
+        { kind: 'mattress', x: 2.9, z: -0.4, rot: -0.1 },
+        { kind: 'table', x: 0.2, z: -2.4, rot: 0, w: 1.4, d: 0.7 },
+        { kind: 'chair', x: 0.2, z: -1.5, rot: Math.PI },
+        { kind: 'bin', x: 3.6, z: -2.6 },
+        { kind: 'debris', x: 3.2, z: 2.8, r: 1.6, n: 7 },
+        { kind: 'drum', x: -3.4, z: 2.6 },
+      ],
+      lights: [
+        { x: 0, z: 0, w: 0.4, d: 0.25, id: 'cellar_l1', intensity: 0.5 },
+      ],
+      signs: [
+        { x: -4.3, z: 1.2, rot: Math.PI / 2, w: 1.5, h: 0.7, lift: 1.5, post: false,
+          text: ['BEK', '14'], bg: '#1a1512', accent: '#8a7a64', weathered: 0.7 },
+      ],
+      interactions: [
+        { id: 'cellar_floor', kind: 'examine', x: 2.0, z: 0.6, y: 0.5,
+          label: 'The back wall', prompt: 'Put your hand on the flags', topic: 'cellar_floor' },
+        { id: 'cellar_gauge', kind: 'examine', x: -3.4, z: -2.2, y: 1.3,
+          label: "Bek's rain gauge", prompt: 'Read the record', topic: 'bek_gauge' },
+      ],
+      spawns: [
+        { id: 'cellar_in', x: -3.8, z: 2.9, rot: -0.4 },
+      ],
+      exit: { x: -4.2, z: 3.2, rot: 0, to: 'cellar_out', prompt: 'Back up the steps' },
+      ppm: 1600,
+    },
+    {
       id: 'pell', ox: 808, oz: 0, w: 20, d: 8, h: 2.85,
       wallMat: 'plaster', floorMat: 'tile', ceilMat: 'plaster', mood: 'interior',
       walls: [
@@ -673,7 +725,11 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
     label: 'VASKO & CO', prompt: 'Look at the sign', topic: 'vasko_shop', range: 3.0,
   });
 
+  spawns.push({ id: 'cellar_out', x: -88, z: 38.5, y: 0, rot: Math.PI });
+
   interactions.push(
+    { id: 'door_cellar', kind: 'door', x: -88, y: 1.1, z: 36.6, label: '14 Cellar Row',
+      prompt: 'Go down into the cellar', target: 'cellar_in', interiorId: 'cellar', range: 2.8 },
     { id: 'door_arcade', kind: 'door', x: -104.5, y: 1.1, z: -8.4, label: 'Marrow Arcade',
       prompt: 'Enter the Arcade', target: 'arcade_in', interiorId: 'arcade', range: 2.6 },
     { id: 'survey_door', kind: 'door', x: 62, y: 1.1, z: -36.6, label: 'H.R.A. Field Office 2',

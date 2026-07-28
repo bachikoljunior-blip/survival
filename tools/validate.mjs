@@ -62,6 +62,9 @@ const HOOKS = (() => {
 /** Flags and counters the engine itself sets, from state.set(...) / state.bump(...). */
 const ENGINE_FLAGS = new Set([
   ...scrape(/(?:state|S)\.set\(\s*['"]([\w.]+)['"]/g),
+  // Examine topics declare a flag they set when read; the set() call itself
+  // takes a variable, so the declaration is what has to be scraped.
+  ...scrape(/^\s*flag: '([\w.]+)',$/gm),
 ]);
 // `crisis_${site}` sets one of two literal flags; record both explicitly.
 if (ENGINE_SRC.includes('`crisis_${site}`')) { ENGINE_FLAGS.add('crisis_stacks'); ENGINE_FLAGS.add('crisis_south'); }

@@ -1642,6 +1642,8 @@ to be in the wrong at the same time as anybody else.`),
         { text: "You know what's in the log now. What are you going to do?",
           goto: 'i_log', if: { flag: 'iris_knows_log' } },
         { text: "The north door. It was open.", goto: 'i_door', if: { flag: 'iris_hinted_door' } },
+        { text: "Eleven quarters. All in metres, none in words.", goto: 'i_folder',
+          if: { flag: 'read_folder' } },
         { text: "If it came to signing something true, would you?", goto: 'i_sign' },
         { text: "Nothing. Not yet.", goto: 'end' },
       ],
@@ -1663,6 +1665,22 @@ I did not unlock it for you. I told you where a rusted thing was and then I went
 and stood at a window. If anyone asks, that is the version, and it is also
 exactly what happened, which is the part I find hardest.`),
       effects: [{ trust: ['iris', 3, 'She chose her words and kept them.'] }],
+      next: 'i_hub',
+    },
+    i_folder: {
+      ...line('iris', `You opened it.
+
+Of course you opened it, it is on a desk in a room I let you into. I have had
+eleven quarters to put it somewhere else and I have not, and I would like you to
+understand that I know exactly what that means and I have still not moved it.`, 'quiet'),
+      next: 'i_folder2',
+    },
+    i_folder2: {
+      ...line('iris', `Metres, not words. If I write a sentence it is a position and I have to defend
+it. If I write sixty, it is a measurement, and a measurement is only a fact.
+
+I have been hiding behind the units for two years and ten months.`),
+      effects: [{ trust: ['iris', 10, QUIET] }, { flag: 'iris_folder_named' }],
       next: 'i_hub',
     },
     i_sign: {
@@ -2273,6 +2291,11 @@ more, and she keeps it anyway.`,
         text: `He had told you to ask him in front of them, where he could not be quiet about
 it. You did. He looked at you for about two seconds longer than a man reads a
 document, and then he read it out.` },
+      { condition: { flag: 'iris_folder_named' },
+        text: `You had told her, in her own office, that eleven quarters of measurements with
+no sentences in them was a place to hide. She did not argue. She asked you to
+leave, politely, and then wrote a sentence in the margin of Q1 that says HE
+KNEW AND SO DID I, and left the folder exactly where it had always been.` },
       { condition: { flag: 'iris_signed' },
         text: `Iris signed the reduction. She had eleven months of unsigned ones in a folder in
 her desk and she put this one on top of them.` },

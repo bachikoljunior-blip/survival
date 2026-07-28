@@ -808,6 +808,57 @@ spring off a ladder and complain the whole time.
 
 I did not go in. The shutter is not even locked.`],
       },
+      cellar_floor: {
+        title: '14 Cellar Row — the back wall',
+        lines: [
+          "The flags at the back wall are warm through the boot. Not warm like a hearth. Warm like something under them is still going.",
+          "I put my hand flat on them the way he wrote that he did, and I take it off again after about four seconds, which is also what he wrote.",
+          "The meter at knee height reads sixteen hundred. At the top of the steps it reads two hundred.",
+          "He was not a surveyor. He did not need to be. Anybody who stood in this room for a minute knew.",
+          "Anybody who stood in this room.",
+        ],
+        journal: ['cellarfloor', 'Fourteen, Cellar Row', `Sixteen hundred at knee height, two hundred at
+the top of the steps. That gradient is the whole of it. That gradient is what a
+borehole log is FOR.
+
+He put his hand on the floor and wrote it down and posted it to us and we drew
+the line where the contract wanted it drawn.`],
+      },
+      bek_gauge: {
+        title: "Bek's record",
+        lines: [
+          "A rain gauge on a bracket, and a school exercise book on a nail beside it, ruled by hand into four columns.",
+          "Sixteen years of daily readings. Not one gap. There is a note at the front, in pencil: SITED 2.1M CLEAR OF WALL AND GUTTER, PER MET. OFFICE, BECAUSE THE OFFICIAL ONE IS NOT.",
+          "The last page changes. From March, the columns are crossed out and replaced: DATE / FLOOR TEMP / HAND, HOW LONG.",
+          "The last entry is the 2nd of July. HAND, HOW LONG: 4 sec.",
+          "He wrote the letter the same day.",
+        ],
+        journal: ['gauge', 'Sixteen years, no gaps', `Ilya Bek kept a rain gauge because he did not
+think the official one was sited properly. He was right and it changed nothing,
+and he kept it for sixteen years anyway.
+
+In March he stopped recording rain and started recording how long he could keep
+his hand on his own floor. Four seconds, on the second of July.`],
+      },
+      iris_folder: {
+        title: 'I. NADEAU — Q. DIFFERENCES',
+        lines: [
+          "A ring binder on the second desk, labelled in a small, level hand. Not hidden. Not locked. Second thing you would pick up.",
+          "Eleven sheets. One per quarter. Each is a reduction she did herself, clipped to the line that was published against it, with the discrepancy written in the margin in metres.",
+          "Q3, two years ago: 60m. The quarter after: 95m. Then 140. Then 200, which is the one with Cellar Row on it.",
+          "Every margin note is a number. Not one of them is a sentence.",
+          "There is nothing else in the folder. No memo, no draft letter, no copy of anything sent to anybody. She has been keeping a record of a thing she has never once reported, for eleven quarters, on her own desk, where anyone could open it.",
+        ],
+        flag: 'read_folder',
+        journal: ['folder', "Nadeau's folder", `Eleven quarters of her own reductions clipped to the
+lines that were published against them, discrepancy in the margin, in metres,
+never in words.
+
+It is not evidence. She has not collected evidence. She has been marking the
+distance between what she knows and what she says, quarter after quarter, and
+leaving it on her desk where anybody could open it, which I think is the closest
+she has been able to get to telling somebody.`],
+      },
       cellar_row: {
         title: 'Cellar Row',
         lines: [
@@ -856,6 +907,7 @@ I did not go in. The shutter is not even locked.`],
     // is a fallback, and it reads like a fallback.
     if (topic.journal) this.state.addJournal(topic.journal[0], topic.journal[1], topic.journal[2]);
     else this.state.addJournal(`examine:${t.topic}`, topic.title, topic.lines.join(' '));
+    if (topic.flag) this.state.set(topic.flag);
     if (t.startsQuest) this.quests.start(t.startsQuest);
   }
 
