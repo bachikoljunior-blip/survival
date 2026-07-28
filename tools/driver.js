@@ -301,12 +301,17 @@
       expect(G.state.hasItem('trenchOrder'), 'trench order not taken');
       step('order');
 
-      const kPick = path === 'deal' ? /I'll take it\.$/ : /No\. It goes on the record|Issue the cut order/;
+      const kPick = path === 'deal' ? /I'll take it\.$/
+        : path === 'cut' ? /Issue the cut order/
+        : /No\. It goes on the record/;
       await talk('krajcik', (ch) => {
         const i = ch.findIndex((c) => kPick.test(c.text) && !c.locked);
         return i >= 0 ? i : 0;
       });
       expect(G.state.has('krajcik_met'), 'krajcik scene did not complete');
+      if (path === 'cut') {
+        expect(G.state.has('krajcik_open'), 'the cut was never proposed to Krajcik');
+      }
       expect(G.state.chapter >= 4, 'chapter 4 not reached');
       await interact('exit_survey');
       step('krajcik');
@@ -360,6 +365,17 @@
       expect(!G.director.crisis, 'crisis did not resolve');
       step('crisis');
 
+      // Sol debrief. EVERYBODY OUT is gated on having faced her after the
+      // crisis, not on a number, so this beat has to be played for that path
+      // to be reachable at all.
+      await talk('sol');
+      if (path === 'evacuate') {
+        expect(G.state.has('sol_debrief'), 'Sol debrief did not happen');
+        expect(G.state.trustOf('sol') >= 16,
+          `Sol trust ${G.state.trustOf('sol')} is below the evacuation gate`);
+      }
+      step('sol debrief');
+
       await goTo(-112, -84);
       G.director.refreshCast();
       const nessa = G.director.npcs.get('nessa');
@@ -378,7 +394,11 @@
       await clearHostiles();
       await tick(0.6);
       expect(G.state.has('trench_passed'), 'trench line did not register as passed');
-      await tick(3.2);      // the approach beat before the scene
+      // The scene opens from the quest step, which advances on the trigger
+      // poll, so give the simulation a moment and then wait in real time.
+      await tick(0.6);
+      const scene = await waitFor(() => G.mode === MODE.DIALOGUE, 8000);
+      expect(scene, 'the final scene never opened');
       step('trench line');
 
       // The final choice.
@@ -389,8 +409,11 @@
       await converse((ch) => {
         const i = ch.findIndex((c) => finalRe.test(c.text) && !c.locked);
         if (i < 0) {
-          // Falling back is legitimate for gated endings; record which.
-          log.push('final choice gated, fell back');
+          // A silent fallback to an ungated ending used to read as a pass,
+          // which meant two of the five endings were never actually tested.
+          const locked = ch.find((c) => finalRe.test(c.text));
+          err(`the ${path} ending was not offered` +
+              (locked ? ` (locked: ${locked.why || 'no reason given'})` : ' (absent)'));
           return ch.findIndex((c) => !c.locked);
         }
         return i;

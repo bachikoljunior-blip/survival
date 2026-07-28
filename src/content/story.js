@@ -335,6 +335,7 @@ Q.cinderline = {
     {
       objective: 'Decide what the truth is for.',
       marker: 'trench',
+      onEnter: [{ fn: 'offerEnding' }],
       trigger: { kind: 'custom', id: 'endingChosen' },
     },
   ],

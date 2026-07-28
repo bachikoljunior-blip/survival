@@ -155,6 +155,7 @@ seconds and I already know which one I believe.`);
       },
       beginCrisis: () => this._beginCrisis(),
       raisePlant: () => this._raisePlant(),
+      offerEnding: () => this._offerEnding(),
       openTrade: () => { this.quests.notify('custom', { id: 'teoTrade' }); this.openTrade(); },
     };
   }
@@ -175,6 +176,7 @@ seconds and I already know which one I believe.`);
     // followers still standing about from a crisis.
     g.city.removeRuntimeProps('trenchplant');
     this._plantUp = false;
+    this._endingOffered = false;
     g.atmos.setMarkers(g.city.lightMarkers);
     if (this.crisis) {
       for (const m of this.crisis.marks) if (m.actor) g.removeActor(m.actor);
@@ -386,9 +388,6 @@ seconds and I already know which one I believe.`);
         g.hud.notice('<b>Past them.</b><br>Nobody looked up.', 'good', 4);
       }
       this.quests.notify('custom', { id: 'trenchPassed' });
-      // Approach, then scene. The ending is offered a beat later so the player
-      // arrives at it rather than being handed a menu on the last kill.
-      setTimeout(() => { if (this.game.mode === MODE.PLAY) this._offerEnding(); }, 2600);
     }
   }
 
@@ -1257,8 +1256,16 @@ she has been able to get to telling somebody.`],
 
   // --------------------------------------------------------------- endings
 
-  /** Present the final choice at the trench. */
+  /**
+   * Present the final choice at the trench.
+   *
+   * Reached from the quest step rather than from the last body, because there
+   * are three ways past the Warden line and only one of them is the fight.
+   * Idempotent: a load re-enters the active step.
+   */
   _offerEnding() {
+    if (this._endingOffered) return;
+    this._endingOffered = true;
     this.startConversation(CONVERSATIONS.final, null, () => {
       this.quests.notify('custom', { id: 'endingChosen' });
       this.game._guard(this.finish(), MODE.CINEMATIC);
