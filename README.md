@@ -146,6 +146,33 @@ Measured, not eyeballed: `tools/probe_ja_fit.mjs` drives ten screens at
 two lines, every button whose label outgrew its box, and anything that sticks out
 past the viewport. Screenshots of the results are in `shots/ja-*.png`.
 
+**The game is played in Japanese, not just looked at.** `npm run test:play:ja`
+runs the same five complete playthroughs with the language switched, and they
+reach the same five distinct endings — `record`, `cut`, `westward`, `everybody`,
+`nothing` — with no errors. That is the only test that separates "the strings
+are translated" from "the game still works when they are", because the second
+failure shows up as a quest trigger not firing three chapters later, not as a
+wrong word on a screen.
+
+It failed the first time it was run, and the fault was in the harness: the
+driver picked dialogue choices by regex-matching English text against the list
+the localiser had already been through, so in Japanese every predicate missed,
+every path took the same branch and all five collapsed onto one ending. The
+driver now chooses against `DialogueRunner.choices()`, which is never
+translated. Worth recording that the suite caught its own driving fault — it
+asserts the specific recorded choice and the specific ending per path, so five
+identical runs could not pass as five different ones.
+
+`tools/probe_ja_coldboot.mjs` covers the first visit, which every other probe
+misses by toggling a setting that on a real first run does not exist yet. On a
+`ja-JP` context that has never seen the origin: the document comes up Japanese,
+the buttons the HUD builds exactly once read 打つ / 強打 / 回避 / 防御 / 使う,
+the air readout reads フィルターなし, the compass reads 北, the detected
+language is written down so the next visit does not re-detect, and an explicit
+choice of English still wins and sticks. Run against an `en-US` context the same
+probe reports all of those as faults, which is how the green result is known to
+mean anything.
+
 ### Everything is generated
 
 There are no art, audio or model assets in this repository, because there are
