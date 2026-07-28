@@ -258,10 +258,14 @@ for (const qid in QUESTS) {
         else if (!CAST[t.who] && t.who !== 'garage') warn(`${w}: talk trigger names "${t.who}", not in the cast`);
         if (t.convo && !CONVERSATIONS[t.convo]) fail(`${w}: talk trigger names unknown conversation "${t.convo}"`);
         break;
-      case 'interact':
-        if (!t.id) fail(`${w}: interact trigger has no id`);
-        else if (!worldInteractionIds.has(t.id)) fail(`${w}: interact trigger id "${t.id}" is not in the world`);
+      case 'interact': {
+        const ids = t.ids || (t.id ? [t.id] : null);
+        if (!ids) { fail(`${w}: interact trigger has no id`); break; }
+        for (const id of ids) {
+          if (!worldInteractionIds.has(id)) fail(`${w}: interact trigger id "${id}" is not in the world`);
+        }
         break;
+      }
       case 'collect':
         if (!ITEMS[t.item]) fail(`${w}: collect trigger names unknown item "${t.item}"`);
         break;

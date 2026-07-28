@@ -107,17 +107,52 @@ export const MASK = {
 // ---------------------------------------------------------------- clips -----
 
 /**
+ * Per-key interpolation modes.
+ *
+ * A key's mode governs the segment LEAVING it. Smootherstep everywhere means
+ * zero derivative at both ends of every segment, so a swing decelerates to a
+ * dead stop exactly at the moment of contact — the one frame where the motion
+ * must be fastest. That is the difference between a hit that lands and a hit
+ * that arrives.
+ */
+const EASE = {
+  ease:   (u) => u * u * u * (u * (u * 6 - 15) + 10),   // in and out — rest poses
+  linear: (u) => u,
+  accel:  (u) => u * u,                                 // wind-up -> contact
+  decel:  (u) => 1 - (1 - u) * (1 - u),                 // contact -> follow-through
+  snap:   (u) => (u >= 1 ? 1 : 0),
+};
+
+/**
  * Clip authoring helper. `tracks` maps bone name -> array of
- * [time, rx, ry, rz] in radians. Times are normalised 0..1 of the clip.
+ * [time, rx, ry, rz, mode?] in radians. Times are normalised 0..1 of the clip.
+ * `mode` is one of 'ease' (default) | 'linear' | 'accel' | 'decel' | 'snap'
+ * and applies to the segment that leaves this key.
+ *
+ * `opts.strike` = [windupT, impactT] stamps the timing automatically across
+ * every track: the key at the wind-up extreme accelerates into contact, and the
+ * contact key decelerates out of it. Authoring it once per clip beats tagging
+ * forty individual keys and getting one of them wrong.
  */
 export function clip(name, dur, tracks, opts = {}) {
   const compiled = [];
+  const stamp = (keys) => {
+    if (!opts.strike) return keys;
+    const [wu, hit] = opts.strike;
+    for (const k of keys) {
+      if (k[4]) continue;
+      if (Math.abs(k[0] - wu) < 0.055) k[4] = 'accel';
+      else if (Math.abs(k[0] - hit) < 0.055) k[4] = 'decel';
+    }
+    return keys;
+  };
   for (const bone in tracks) {
     const bi = I[bone];
     if (bi === undefined) continue;
-    const keys = tracks[bone].slice().sort((a, b) => a[0] - b[0]);
+    const keys = stamp(tracks[bone].map((k) => k.slice()).sort((a, b) => a[0] - b[0]));
     compiled.push({ bi, keys });
   }
+  if (opts.root) opts.root = stamp(opts.root.map((k) => k.slice()));
   return {
     name, dur,
     loop: !!opts.loop,
@@ -140,10 +175,8 @@ export function sampleClip(c, t, out) {
     const b = keys[Math.min(keys.length - 1, i + 1)];
     let u = b[0] === a[0] ? 0 : (t - a[0]) / (b[0] - a[0]);
     u = clamp01(u);
-    // Smootherstep between keys: gives ease on both sides of every extreme,
-    // which is what makes hand-placed poses read as animation rather than as
-    // linear interpolation.
-    u = u * u * u * (u * (u * 6 - 15) + 10);
+    // The key we are leaving owns the curve of this segment.
+    u = (EASE[a[4]] || EASE.ease)(u);
     const o = tr.bi * 3;
     out.e[o] = a[1] + (b[1] - a[1]) * u;
     out.e[o + 1] = a[2] + (b[2] - a[2]) * u;
@@ -155,7 +188,7 @@ export function sampleClip(c, t, out) {
     while (i < keys.length - 1 && keys[i + 1][0] < t) i++;
     const a = keys[i], b = keys[Math.min(keys.length - 1, i + 1)];
     let u = b[0] === a[0] ? 0 : clamp01((t - a[0]) / (b[0] - a[0]));
-    u = u * u * (3 - 2 * u);
+    u = (EASE[a[4]] || EASE.ease)(u);
     out.rootY = a[1] + (b[1] - a[1]) * u;
     out.rootZ = (a[2] || 0) + ((b[2] || 0) - (a[2] || 0)) * u;
     out.rootX = (a[3] || 0) + ((b[3] || 0) - (a[3] || 0)) * u;
@@ -197,7 +230,12 @@ reg(clip('atk1', 0.62, {
   shinR:   [[0, -8 * D, 0, 0], [0.45, -14 * D, 0, 0], [1, -8 * D, 0, 0]],
 }, {
   mask: MASK.full,
-  root: [[0, 0, 0], [0.2, -0.03, -0.02], [0.45, 0.01, 0.16], [1, 0, 0]],
+  // Root Z was positive at the strike: 160 mm toward the character's BACK at
+  // the exact frame of contact. Every attack in the game lunged away from the
+  // target. Negated; compare `vault`, whose root Z goes to -1.0 and which is
+  // the one clip that was already correct.
+  root: [[0, 0, 0], [0.2, -0.03, 0.02], [0.45, 0.01, -0.16], [1, 0, 0]],
+  strike: [0.2, 0.44],
   events: [{ t: 0.30, name: 'windup' }, { t: 0.40, name: 'hit' }, { t: 0.56, name: 'recover' }],
 }));
 
@@ -216,19 +254,25 @@ reg(clip('atk2', 0.66, {
   shinR:   [[0, -12 * D, 0, 0], [0.48, -30 * D, 0, 0], [1, -8 * D, 0, 0]],
 }, {
   mask: MASK.full,
-  root: [[0, 0, 0], [0.22, -0.02, -0.02], [0.48, 0.0, 0.2], [1, 0, 0]],
+  root: [[0, 0, 0], [0.22, -0.02, 0.02], [0.48, 0.0, -0.2], [1, 0, 0]],
+  strike: [0.22, 0.47],
   events: [{ t: 0.32, name: 'windup' }, { t: 0.44, name: 'hit' }, { t: 0.6, name: 'recover' }],
 }));
 
 reg(clip('atk3', 0.9, {
   // Finisher: a two-handed overhead. Long wind-up, big commit, hard landing.
   hips:    [[0, 0, 10 * D, 0], [0.3, -18 * D, 16 * D, 0], [0.56, 26 * D, -8 * D, 0], [0.72, 12 * D, 0, 0], [1, 0, 0, 0]],
-  spine:   [[0, 0, 8 * D, 0], [0.3, -22 * D, 12 * D, 0], [0.56, 30 * D, -6 * D, 0], [1, 0, 0, 0]],
-  chest:   [[0, 0, 6 * D, 0], [0.3, -26 * D, 10 * D, 0], [0.56, 34 * D, -4 * D, 0], [1, 0, 0, 0]],
+  spine:   [[0, 0, 8 * D, 0], [0.3, -30 * D, 12 * D, 0], [0.56, 34 * D, -6 * D, 0], [1, 0, 0, 0]],
+  chest:   [[0, 0, 6 * D, 0], [0.3, -34 * D, 10 * D, 0], [0.56, 40 * D, -4 * D, 0], [1, 0, 0, 0]],
   neck:    [[0, 0, 0, 0], [0.3, 16 * D, 0, 0], [0.56, -20 * D, 0, 0], [1, 0, 0, 0]],
-  armR:    [[0, -40 * D, 0, -20 * D], [0.3, -158 * D, -16 * D, -26 * D], [0.55, 46 * D, 10 * D, 8 * D], [0.75, 4 * D, 0, 0], [1, -34 * D, 0, -12 * D]],
+  // Wind-up clamped to -150: past about -155 the YXZ Euler blend runs into the
+  // degenerate region on the middle-order axis and the additive look-at layer
+  // adds Y on top of it, which flips the arm on the finisher. The reach the
+  // clamp costs is taken back on the chest and spine below, which is where an
+  // overhead should be coming from anyway.
+  armR:    [[0, -40 * D, 0, -20 * D], [0.3, -150 * D, -16 * D, -26 * D], [0.55, 46 * D, 10 * D, 8 * D], [0.75, 4 * D, 0, 0], [1, -34 * D, 0, -12 * D]],
   forearmR:[[0, -40 * D, 0, 0], [0.3, -122 * D, 0, 0], [0.55, -6 * D, 0, 0], [1, -52 * D, 0, 0]],
-  armL:    [[0, -40 * D, 0, 20 * D], [0.3, -152 * D, 16 * D, 26 * D], [0.55, 42 * D, -10 * D, -8 * D], [0.75, 4 * D, 0, 0], [1, -30 * D, 0, 20 * D]],
+  armL:    [[0, -40 * D, 0, 20 * D], [0.3, -148 * D, 16 * D, 26 * D], [0.55, 42 * D, -10 * D, -8 * D], [0.75, 4 * D, 0, 0], [1, -30 * D, 0, 20 * D]],
   forearmL:[[0, -44 * D, 0, 0], [0.3, -118 * D, 0, 0], [0.55, -6 * D, 0, 0], [1, -60 * D, 0, 0]],
   thighL:  [[0, 6 * D, 0, 0], [0.3, -14 * D, 0, 0], [0.56, 34 * D, 0, 0], [1, 0, 0, 0]],
   thighR:  [[0, -6 * D, 0, 0], [0.3, 10 * D, 0, 0], [0.56, -26 * D, 0, 0], [1, 0, 0, 0]],
@@ -236,7 +280,8 @@ reg(clip('atk3', 0.9, {
   shinR:   [[0, -10 * D, 0, 0], [0.56, -20 * D, 0, 0], [1, -8 * D, 0, 0]],
 }, {
   mask: MASK.full,
-  root: [[0, 0, 0], [0.3, 0.06, -0.06], [0.56, -0.12, 0.30], [0.75, -0.04, 0.30], [1, 0, 0]],
+  root: [[0, 0, 0], [0.3, 0.06, 0.06], [0.56, -0.12, -0.30], [0.75, -0.04, -0.30], [1, 0, 0]],
+  strike: [0.3, 0.55],
   events: [{ t: 0.42, name: 'windup' }, { t: 0.54, name: 'hit' }, { t: 0.78, name: 'recover' }],
 }));
 
@@ -256,7 +301,8 @@ reg(clip('heavy', 1.1, {
   shinR:   [[0, -16 * D, 0, 0], [0.66, -22 * D, 0, 0], [1, -8 * D, 0, 0]],
 }, {
   mask: MASK.full,
-  root: [[0, 0, 0], [0.42, -0.06, -0.04], [0.66, 0.0, 0.34], [1, 0, 0]],
+  root: [[0, 0, 0], [0.42, -0.06, 0.04], [0.66, 0.0, -0.34], [1, 0, 0]],
+  strike: [0.42, 0.65],
   events: [{ t: 0.5, name: 'windup' }, { t: 0.62, name: 'hit' }, { t: 0.9, name: 'recover' }],
 }));
 
@@ -474,7 +520,7 @@ reg(clip('throw', 0.72, {
   armL:    [[0, -30 * D, 0, 20 * D], [0.3, -60 * D, 20 * D, 40 * D], [0.52, -20 * D, -10 * D, 12 * D], [1, -30 * D, 0, 20 * D]],
   thighL:  [[0, 0, 0, 0], [0.3, -14 * D, 0, 0], [0.52, 20 * D, 0, 0], [1, 0, 0, 0]],
   thighR:  [[0, 0, 0, 0], [0.3, 16 * D, 0, 0], [0.52, -18 * D, 0, 0], [1, 0, 0, 0]],
-}, { mask: MASK.full, events: [{ t: 0.44, name: 'release' }] }));
+}, { mask: MASK.full, strike: [0.3, 0.5], events: [{ t: 0.44, name: 'release' }] }));
 
 // ---------------------------------------------------------- procedural -----
 
@@ -491,6 +537,7 @@ export function locomotionPose(out, p) {
   const {
     phase = 0, speed = 0, strafe = 0, forward = 1, crouch = 0,
     turn = 0, alert = 0, injured = 0, load = 0, airborne = 0, fallVel = 0,
+    quadruped = false,
   } = p;
 
   const s = clamp01(speed / 5.6);                 // 0 idle .. 1 sprint
@@ -518,7 +565,12 @@ export function locomotionPose(out, p) {
     const knee = -(lift * (0.35 + swingHalf * 1.0)) - 8 * D;
     // Ankle: toe-off then dorsiflex.
     const ankle = -sw * 12 * D * walkAmt + cw * 8 * D * runAmt;
-    return { thigh, knee, ankle };
+    // Toe: extends hard through push-off, relaxes and lifts through the swing.
+    // toeL/toeR were in BONES and in MASK.lower but nothing on earth ever wrote
+    // them, so the feet were rigid blocks and every skinning upload carried two
+    // dead matrices.
+    const toe = (Math.max(0, -sw) * 30 * D - Math.max(0, cw) * 9 * D) * walkAmt;
+    return { thigh, knee, ankle, toe };
   };
 
   const L = legPhase(1), R = legPhase(-1);
@@ -533,6 +585,8 @@ export function locomotionPose(out, p) {
   set('shinR', R.knee - crouch * 52 * D, 0, 0);
   set('footL', L.ankle + crouch * 22 * D, 0, 0);
   set('footR', R.ankle + crouch * 22 * D, 0, 0);
+  set('toeL', L.toe, 0, 0);
+  set('toeR', R.toe, 0, 0);
 
   // --- pelvis / spine ----------------------------------------------------
   // Vertical bob at 2x stride, lateral sway at 1x, and a hip roll that drops
@@ -546,14 +600,30 @@ export function locomotionPose(out, p) {
   const lean = clamp(speed * 0.055 + runAmt * 0.12, 0, 0.34) - crouch * 0.12;
   const turnLean = clamp(turn * 0.28, -0.3, 0.3);
 
-  set('hips', -cos2 * 3 * D * walkAmt, sin1 * (4 + runAmt * 5) * D * walkAmt - strafe * 8 * D,
-      cos1 * (3 + runAmt * 4) * D * walkAmt - turnLean * 0.6);
-  set('spine', lean * 0.42 + crouch * 16 * D, -sin1 * 3 * D * walkAmt + strafe * 5 * D, -turnLean * 0.5);
-  set('chest', lean * 0.5 + injured * 10 * D + crouch * 14 * D,
-      -sin1 * (5 + runAmt * 6) * D * walkAmt + strafe * 6 * D, -turnLean * 0.4);
-  // The head stabilises: it counter-rotates the torso and stays level. Real
-  // people hold their gaze steady while their body oscillates under it.
-  set('neck', -lean * 0.55 + cos2 * 2 * D * walkAmt - crouch * 6 * D, sin1 * 2 * D * walkAmt, turnLean * 0.7);
+  if (quadruped) {
+    // A dog's spine is HORIZONTAL. `lean` is a forward pitch authored for a
+    // vertical one, and writing it onto chest and neck drove the muzzle into
+    // the floor and folded the head through the chest — which is exactly what
+    // the dog in the encounter frame was doing. On a horizontal spine the
+    // forward-drive equivalent is a small pitch about the same axis, an order
+    // of magnitude smaller, plus the natural bob of a trot.
+    const drive = clamp(speed * 0.02, 0, 0.09);
+    set('hips', -cos2 * 2 * D * walkAmt, sin1 * 2 * D * walkAmt, cos1 * 2 * D * walkAmt - turnLean * 0.4);
+    set('spine', sin2 * 2.5 * D * walkAmt - drive * 0.3, -sin1 * 2 * D * walkAmt, -turnLean * 0.35);
+    set('chest', sin2 * 2 * D * walkAmt - drive * 0.2, -sin1 * 2.5 * D * walkAmt, -turnLean * 0.3);
+    // The head leads the trot and stays level with the ground, not with a
+    // notional upright torso.
+    set('neck', -cos2 * 2.5 * D * walkAmt + drive * 0.5, sin1 * 2 * D * walkAmt, turnLean * 0.5);
+  } else {
+    set('hips', -cos2 * 3 * D * walkAmt, sin1 * (4 + runAmt * 5) * D * walkAmt - strafe * 8 * D,
+        cos1 * (3 + runAmt * 4) * D * walkAmt - turnLean * 0.6);
+    set('spine', lean * 0.42 + crouch * 16 * D, -sin1 * 3 * D * walkAmt + strafe * 5 * D, -turnLean * 0.5);
+    set('chest', lean * 0.5 + injured * 10 * D + crouch * 14 * D,
+        -sin1 * (5 + runAmt * 6) * D * walkAmt + strafe * 6 * D, -turnLean * 0.4);
+    // The head stabilises: it counter-rotates the torso and stays level. Real
+    // people hold their gaze steady while their body oscillates under it.
+    set('neck', -lean * 0.55 + cos2 * 2 * D * walkAmt - crouch * 6 * D, sin1 * 2 * D * walkAmt, turnLean * 0.7);
+  }
 
   // --- arms --------------------------------------------------------------
   // Counter-swing to the legs. At alert the arms come up and stop swinging.
@@ -562,17 +632,58 @@ export function locomotionPose(out, p) {
   const guardX = alert * -40 * D;
   const guardZ = alert * 16 * D;
 
-  set('shoulderL', 0, 0, sin1 * 3 * D * walkAmt);
-  set('shoulderR', 0, 0, -sin1 * 3 * D * walkAmt);
-  set('armL', -sin1 * armSwing + armBase + guardX - crouch * 12 * D, 0,
-      (14 + load * 4) * D + guardZ);
-  set('armR', sin1 * armSwing + armBase + guardX - crouch * 12 * D, 0,
-      -(14 + load * 4) * D - guardZ);
-  // Elbows stay bent; a straight-armed run looks like a scarecrow.
-  set('forearmL', -(28 + runAmt * 26) * D - alert * 52 * D - Math.max(0, -sin1) * 22 * D * walkAmt, 0, 0);
-  set('forearmR', -(24 + runAmt * 26) * D - alert * 46 * D - Math.max(0, sin1) * 22 * D * walkAmt, 0, 0);
-  set('handL', 0, 0, 8 * D);
-  set('handR', 0, 0, -8 * D);
+  if (quadruped) {
+    // Forelegs, not arms. The human abduction term put a 14-degree sideways
+    // splay on each foreleg, which on a quadruped is a collapse; and the elbow
+    // fold is half a human's because a dog's carpus barely closes at a trot.
+    set('shoulderL', 0, 0, 0);
+    set('shoulderR', 0, 0, 0);
+    set('armL', -sin1 * armSwing + armBase, 0, 0);
+    set('armR', sin1 * armSwing + armBase, 0, 0);
+    set('forearmL', -(14 + runAmt * 13) * D - Math.max(0, -sin1) * 11 * D * walkAmt, 0, 0);
+    set('forearmR', -(12 + runAmt * 13) * D - Math.max(0, sin1) * 11 * D * walkAmt, 0, 0);
+    set('handL', 0, 0, 0);
+    set('handR', 0, 0, 0);
+  } else {
+    set('shoulderL', 0, 0, sin1 * 3 * D * walkAmt);
+    set('shoulderR', 0, 0, -sin1 * 3 * D * walkAmt);
+    set('armL', -sin1 * armSwing + armBase + guardX - crouch * 12 * D, 0,
+        (14 + load * 4) * D + guardZ);
+    set('armR', sin1 * armSwing + armBase + guardX - crouch * 12 * D, 0,
+        -(14 + load * 4) * D - guardZ);
+    // Elbows stay bent; a straight-armed run looks like a scarecrow.
+    set('forearmL', -(28 + runAmt * 26) * D - alert * 52 * D - Math.max(0, -sin1) * 22 * D * walkAmt, 0, 0);
+    set('forearmR', -(24 + runAmt * 26) * D - alert * 46 * D - Math.max(0, sin1) * 22 * D * walkAmt, 0, 0);
+    set('handL', 0, 0, 8 * D);
+    set('handR', 0, 0, -8 * D);
+  }
+
+  // --- turn in place -----------------------------------------------------
+  // On a hard stick flick with no translation the character used to rotate like
+  // a turret. This blends in a pivot: the pelvis counter-rotates, the outside
+  // leg crosses over and the torso leads the turn.
+  if (!quadruped) {
+    const still = 1 - smoothstep(clamp01(speed / 0.9));
+    const tip = clamp01(Math.abs(turn) * 1.6) * still;
+    if (tip > 0.01) {
+      const s = Math.sign(turn) || 1;
+      const add = (bone, x, yy, z) => {
+        const o = I[bone] * 3;
+        out.e[o] += x * tip; out.e[o + 1] += yy * tip; out.e[o + 2] += z * tip;
+      };
+      add('hips', 0, -s * 16 * D, 0);
+      add('spine', 0, s * 7 * D, 0);
+      add('chest', 0, s * 11 * D, 0);
+      // The trailing leg lifts and crosses; the planted one takes the weight.
+      add('thighL', (s > 0 ? 20 : 6) * D, -s * 14 * D, s * 8 * D);
+      add('thighR', (s > 0 ? 6 : 20) * D, -s * 14 * D, s * 8 * D);
+      add('shinL', -(s > 0 ? 30 : 10) * D, 0, 0);
+      add('shinR', -(s > 0 ? 10 : 30) * D, 0, 0);
+      add('toeL', (s > 0 ? 14 : 4) * D, 0, 0);
+      add('toeR', (s > 0 ? 4 : 14) * D, 0, 0);
+      out.rootY -= 0.018 * tip;
+    }
+  }
 
   // --- airborne override -------------------------------------------------
   if (airborne > 0) {
@@ -719,7 +830,7 @@ export class Animator {
     locomotionPose(this.base, {
       phase: this.phase, speed: L.speed, strafe: L.strafe, turn: L.turn,
       crouch: L.crouch, alert: L.alert, airborne: L.airborne, fallVel: L.fallVel,
-      injured: L.injured, load: L.load,
+      injured: L.injured, load: L.load, quadruped: !!this.rig.quadruped,
     });
     idlePose(this.tmp, this.time, this.idleOpts);
     const idleW = 1 - smoothstep(clamp01(L.speed / 1.1));
@@ -773,8 +884,10 @@ export class Animator {
       }
       if (r.t >= 1) { this.reactions.splice(i, 1); continue; }
       sampleClip(r.clip, r.t, this.action);
-      // Envelope so a reaction eases out rather than snapping off.
-      const env = Math.sin(clamp01(r.t) * Math.PI) * 0.6 + (1 - r.t) * 0.4;
+      // Envelope so a reaction eases in AND out. The old form evaluated to 0.4
+      // at t=0, so every hit reaction snapped to 40 per cent of full pose on
+      // its first frame instead of arriving.
+      const env = smoothstep(clamp01(r.t / 0.12)) * (1 - smoothstep(clamp01((r.t - 0.6) / 0.4)));
       poseAdd(this.out, this.action, r.scale * clamp01(env), r.clip.mask || null);
     }
 

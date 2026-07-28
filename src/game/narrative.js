@@ -365,7 +365,7 @@ export class QuestSystem extends Emitter {
              (t.y === undefined || Math.abs(payload.y - t.y) < (t.yTolerance ?? 3)));
           break;
         case 'talk': match = t.who === payload.who && (!t.convo || t.convo === payload.convo); break;
-        case 'interact': match = t.id === payload.id; break;
+        case 'interact': match = t.ids ? t.ids.includes(payload.id) : t.id === payload.id; break;
         case 'collect': match = t.item === payload.item && this.S.hasItem(t.item, t.n ?? 1); break;
         case 'kill': match = (!t.faction || t.faction === payload.faction) &&
                              (!t.who || t.who === payload.who) &&

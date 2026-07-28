@@ -420,19 +420,19 @@ export function moveActor(world, a, dt) {
   const startX = pos.x, startZ = pos.z;
   // Substep so fast movement cannot tunnel through a wall.
   const sub = Math.max(1, Math.ceil(dist / (r * 0.7)));
-  const slide = (feetY, headY, tol) => {
+  const slide = (feetY, headY, tol, rad) => {
     let hit = false;
     for (let i = 0; i < sub; i++) {
       pos.x += dx / sub;
       pos.z += dz / sub;
       const bx = pos.x, bz = pos.z;
-      const c = world.resolveCircle(pos, r, feetY, headY, tol);
+      const c = world.resolveCircle(pos, rad, feetY, headY, tol);
       if (c > 0 && Math.hypot(pos.x - bx, pos.z - bz) > 1e-4) hit = true;
     }
     return hit;
   };
 
-  hitWall = slide(pos.y, pos.y + h, step);
+  hitWall = slide(pos.y, pos.y + h, step, r);
 
   // Step-up, horizontal half.
   //
@@ -451,16 +451,42 @@ export function moveActor(world, a, dt) {
     const advLow = (pos.x - startX) * ux + (pos.z - startZ) * uz;
     if (advLow < dist * 0.7) {
       const lowX = pos.x, lowZ = pos.z;
-      pos.x = startX; pos.z = startZ;
       const raised = prevY + step;
-      slide(raised, raised + h, 0.001);
-      const advHigh = (pos.x - startX) * ux + (pos.z - startZ) * uz;
-      let ok = false;
-      if (advHigh > advLow + 1e-3) {
+      let ok = false, adv = advLow;
+
+      pos.x = startX; pos.z = startZ;
+      slide(raised, raised + h, 0.001, r);
+      adv = (pos.x - startX) * ux + (pos.z - startZ) * uz;
+      if (adv > advLow + 1e-3) {
         const g = world.groundUnder(pos.x, pos.z, r * 0.92, raised, step * 2 + 0.2);
         if (g && g.y - prevY <= step + 1e-4) ok = true;
       }
-      if (ok) hitWall = advHigh < dist * 0.98;
+
+      // Staircase pass. A flight whose treads are shallower than the body is
+      // unclimbable with a full-width capsule at any step height: standing on
+      // one tread always overlaps the tread two above it, which is higher than
+      // a step and therefore a wall. Hollis's fire escapes are exactly this —
+      // 0.14 m treads under a 0.34 m body — and they are the vertical network
+      // the whole game routes through.
+      //
+      // So probe again with a narrow body, and keep it only if the destination
+      // is somewhere a person could actually stand: ground within one step, and
+      // nothing solid above that ground inside the torso. That second test is
+      // what stops this from being a way to squeeze through walls and slots.
+      if (!ok) {
+        pos.x = startX; pos.z = startZ;
+        slide(raised, raised + h, 0.001, r * 0.5);
+        adv = (pos.x - startX) * ux + (pos.z - startZ) * uz;
+        if (adv > advLow + 1e-3) {
+          const g = world.groundUnder(pos.x, pos.z, r * 0.5, raised, step * 2 + 0.2);
+          if (g && g.y - prevY <= step + 1e-4 &&
+              !world.anyOverlap(pos.x, g.y + step + 0.02, pos.z, r * 0.72, h - step)) {
+            ok = true;
+          }
+        }
+      }
+
+      if (ok) hitWall = adv < dist * 0.98;
       else { pos.x = lowX; pos.z = lowZ; }
     }
   }

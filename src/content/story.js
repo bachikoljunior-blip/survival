@@ -251,13 +251,17 @@ Q.office = {
       trigger: { kind: 'talk', who: 'iris' },
     },
     {
+      // Two doors: Iris's pass, or the rusted hasp she points at instead. The
+      // branch here used to send both arms to the same step, which is what a
+      // choice looks like when nobody finished wiring it.
       objective: 'Get inside the field office.',
       marker: 'survey',
-      trigger: { kind: 'interact', id: 'survey_door' },
-      nextIf: [{ if: { flag: 'iris_gave_pass' }, goto: 3 }, { if: {}, goto: 3 }],
+      trigger: { kind: 'interact', ids: ['survey_door', 'survey_backdoor'] },
+      nextIf: [{ if: { flag: 'iris_gave_pass' }, goto: 3 }, { if: {}, goto: 4 }],
     },
     {
       objective: 'Find the trench cut order.',
+      hint: 'Second drawer of the desk under the published board.',
       trigger: { kind: 'collect', item: 'trenchOrder' },
       onDone: [
         { flag: 'has_order' },
@@ -269,8 +273,18 @@ it.`] },
       ],
     },
     {
+      // Reached only by the front door: you came in past the counter, he heard
+      // the reader, and he is standing up when you get there.
       objective: 'Aurel Krajcik is waiting for you.',
       trigger: { kind: 'talk', who: 'krajcik' },
+      nextIf: [{ if: {}, goto: 5 }],
+    },
+    {
+      // Reached only by the back: nobody logged you in, so you find the order
+      // first and then have to decide whether to walk out past him.
+      objective: 'Nobody logged you in. Aurel Krajcik is through the partition.',
+      trigger: { kind: 'talk', who: 'krajcik' },
+      onDone: [{ flag: 'entered_unlogged' }],
     },
   ],
   onComplete: [{ chapter: 4 }, { quest: 'whitedamp' }],
@@ -2016,11 +2030,21 @@ check box.`),
       ...line('krajcik', "Miss Vasko. You are standing where the spoil goes."),
       branch: [
         { if: { notFlag: 'krajcik_met' }, goto: 'k_stranger' },
+        { if: { flag: 'entered_unlogged' }, goto: 'k_unlogged' },
         { if: { flag: 'took_offer' }, goto: 'k_renege' },
         { if: { flag: 'lied_to_krajcik' }, goto: 'k_lied' },
         { if: { flag: 'krajcik_open' }, goto: 'k_asked' },
         { if: {}, goto: 'k_plain' },
       ],
+    },
+    k_unlogged: {
+      ...line('krajcik', `There is no entry against your name for the fourteenth. I looked, because I am
+the sort of man who looks.
+
+You came in off the north elevation, which means somebody told you the hasp was
+gone, which means somebody in my office decided you should be in it. I have not
+asked who and I am not going to.`, 'quiet'),
+      next: 'choose',
     },
     k_stranger: {
       // She never went to the office. He does not know her, and the scene is
