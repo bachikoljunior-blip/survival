@@ -361,9 +361,7 @@ export class Game extends Emitter {
   teleport(spawnId) {
     const s = this.city.spawns.get(spawnId);
     if (!s) return false;
-    this.player.pos.set(s.x, s.y + 0.1, s.z);
-    this.player.vel.set(0, 0, 0);
-    this.player.yaw = this.player.targetYaw = s.rot;
+    this.player.placeAt(s.x, s.y + 0.1, s.z, s.rot);
     this.camera.yaw = s.rot;
     this.camera._init = false;
     return true;

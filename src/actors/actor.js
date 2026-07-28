@@ -332,6 +332,25 @@ export class Actor {
     this.group.rotation.y = this.yaw;
   }
 
+  /**
+   * Move the body somewhere without it counting as a fall.
+   *
+   * A teleport writes pos directly, and the mover measures a fall from
+   * `fallStartY` to wherever it lands — so going through a door on a roof, or
+   * being placed by a cutscene, registered as a several-metre drop. That was
+   * survivable while fall damage was clamped; it stopped being survivable the
+   * moment the clamp came off, which is exactly the kind of interaction that
+   * only shows up as something else failing three systems away.
+   */
+  placeAt(x, y, z, yaw = null) {
+    this.pos.set(x, y, z);
+    this.vel.set(0, 0, 0);
+    this.fallStartY = y;
+    this.grounded = true;
+    this.coyote = 0;
+    if (yaw !== null) this.yaw = this.targetYaw = yaw;
+  }
+
   _updateMovement(dt) {
     if (this.state === STATE.CLIMB) { this._updateClimb(dt); return; }
 

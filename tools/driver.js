@@ -41,10 +41,13 @@
   async function goTo(x, z, y = null) {
     const p = G.player;
     const g = y === null ? G.world.groundUnder(x, z, 0.4, 30, 45) : null;
-    p.pos.set(x, y !== null ? y : (g ? g.y + 0.1 : 0.2), z);
-    p.vel.set(0, 0, 0);
+    // placeAt, not a raw pos write: a teleport must not register as a fall.
+    p.placeAt(x, y !== null ? y : (g ? g.y + 0.1 : 0.2), z);
     G.director._reachTimer = 0;
     await tick(0.6);
+    // If the player has died the director stops updating and every later
+    // failure is a mystery three systems away. Catch it where it happens.
+    if (p.dead || G.mode === MODE.DEAD) err(`player died at ${x},${z} (hp ${p.hp.toFixed(0)})`);
   }
 
   /**
@@ -327,34 +330,29 @@
           if (roof && m.actor) {
             // On the surface, not beside it — a follower dropped over the edge
             // falls, which is correct game behaviour and a broken test.
-            m.actor.pos.set(roof.x, roof.y + 0.1, roof.z);
-            m.actor.vel.set(0, 0, 0);
+            m.actor.placeAt(roof.x, roof.y + 0.1, roof.z);
           }
           await tick(2.4);
           if (!(m.actor && m.actor.out)) {
             // Give it longer and re-read from the live director, in case the
             // captured mark is stale or the check simply needs another beat.
             await tick(2.0);
-            const live = G.director.crisis && G.director.crisis.marks.find((x) => x.id === m.id);
+            await tick(2.0);
             const a = m.actor;
-            // Call the check directly. If this flips it, the update loop is not
-            // reaching the escort; if it does not, the condition really fails.
-            G.director._updateCrisisEscort(1 / 60);
-            err(`${m.id} retry: out=${a && a.out} sameMark=${live === m} ` +
-              `sameActor=${!!live && live.actor === a} mode=${G.mode} ` +
-              `marks=${G.director.crisis ? G.director.crisis.marks.length : '-'} ` +
-              `disabled=${m.disabled} liveDisabled=${live && live.disabled}`);
-            if (a && a.out) { continue; }
             err(`${m.id} did not register as out — ` +
               `y=${a ? a.pos.y.toFixed(2) : '-'} roof=${roof ? roof.y.toFixed(2) : 'none'} ` +
               `ppmHead=${a ? Math.round(G.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z)) : '-'} ` +
               `following=${a ? a.following : '-'} ` +
               `dist=${a ? Math.hypot(a.pos.x - G.player.pos.x, a.pos.z - G.player.pos.z).toFixed(1) : '-'} ` +
-              `crisis=${!!G.director.crisis}`);
+              `crisis=${!!G.director.crisis} mode=${G.mode}`);
           }
         }
-        expect(G.director.crisis && G.director.crisis.rescued === take.length,
-          `expected ${take.length} out, got ${G.director.crisis ? G.director.crisis.rescued : '-'}`);
+        // Getting all four out resolves the crisis, which nulls the object —
+        // so read the live counter if it is still running and the recorded one
+        // if it is not.
+        const gotOut = G.director.crisis ? G.director.crisis.rescued
+                                         : G.state.count('crisis_rescued');
+        expect(gotOut === take.length, `expected ${take.length} out, got ${gotOut}`);
         // Let the timer close out anyone deliberately left.
         if (G.director.crisis) { G.director.crisis.timeLeft = 0.01; await tick(0.6); }
         await tick(0.5);

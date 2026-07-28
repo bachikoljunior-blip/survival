@@ -1201,9 +1201,7 @@ she has been able to get to telling somebody.`],
     this.state.deserialise(d.state);
     if (d.player) {
       const p = g.player;
-      p.pos.set(d.player.x, d.player.y, d.player.z);
-      p.vel.set(0, 0, 0);
-      p.yaw = p.targetYaw = d.player.rot;
+      p.placeAt(d.player.x, d.player.y, d.player.z, d.player.rot);
       p.hp = d.player.hp;
       p.stamina = d.player.stamina;
       p.lungs.sat = d.player.sat || 0;
