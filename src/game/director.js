@@ -509,7 +509,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     }
 
     const ppm = g.gas.sample(n.pos.x, n.pos.y + 1.5, n.pos.z);
-    if (n.pos.y >= 3.0 && ppm < PPM.ELEVATED && d < 9) {
+    if (n.pos.y >= 2.6 && ppm < PPM.ELEVATED && d < 9) {
       n.following = false;
       this.state.set('nessa_rescued');
       this._markerTargets.nessaRun = null;
@@ -578,7 +578,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       a.faceTowards(p.pos.x, p.pos.z);
 
       const ppm = g.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z);
-      if (a.pos.y >= 3.0 && ppm < PPM.ELEVATED && d < 10) {
+      if (a.pos.y >= 2.6 && ppm < PPM.ELEVATED && d < 10) {
         a.following = false;
         a.out = true;
         m.disabled = true;

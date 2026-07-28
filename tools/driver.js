@@ -57,18 +57,23 @@
    * harness cannot pathfind verticality, and a human has to check that. It is
    * called out in the report rather than papered over.
    */
-  async function liftToRoof(x, z, minY = 3.2, r = 26) {
+  async function liftToRoof(x, z, minY = 2.8, r = 32) {
+    // Not "high" — breathable. The escort's completion test is about the air
+    // at head height, and finding that is exactly what READ THE AIR is for, so
+    // the harness looks for it the same way a player would.
     let best = null;
     for (let a = 0; a < 24; a++) {
-      for (const rad of [0, 6, 11, 16, 21, 26]) {
+      for (const rad of [0, 6, 11, 16, 21, 26, 32]) {
         if (rad > r) continue;
         const px = x + Math.sin(a / 24 * Math.PI * 2) * rad;
         const pz = z + Math.cos(a / 24 * Math.PI * 2) * rad;
-        const g = G.world.groundUnder(px, pz, 0.4, 40, 60);
-        if (g && g.y >= minY && (!best || g.y < best.y)) best = { x: px, z: pz, y: g.y };
+        const g = G.world.groundUnder(px, pz, 0.4, 60, 80);
+        if (!g || g.y < minY) continue;
+        if (G.gas.sample(px, g.y + 1.5, pz) >= 200) continue;
+        if (!best || g.y < best.y) best = { x: px, z: pz, y: g.y };
       }
     }
-    if (!best) { err(`no surface above ${minY}m within ${r}m of ${x},${z}`); return false; }
+    if (!best) { err(`no breathable surface above ${minY}m within ${r}m of ${x},${z}`); return false; }
     await goTo(best.x, best.z, best.y + 0.1);
     return best;
   }
@@ -320,11 +325,14 @@
           expect(!!(m.actor && m.actor.following), `survivor ${m.id} did not get up`);
           const roof = await liftToRoof(m.x, m.z);
           if (roof && m.actor) {
-            // The follower walks itself the last few metres under its own
-            // steering; it is placed on the same surface, not counted up.
-            m.actor.pos.set(roof.x + 1.4, roof.y + 0.1, roof.z + 1.4);
+            // On the surface, not beside it — a follower dropped over the edge
+            // falls, which is correct game behaviour and a broken test.
+            m.actor.pos.set(roof.x, roof.y + 0.1, roof.z);
+            m.actor.vel.set(0, 0, 0);
           }
           await tick(2.4);
+          expect(!!(m.actor && m.actor.out), `${m.id} did not register as out ` +
+            `(y=${m.actor ? m.actor.pos.y.toFixed(2) : '-'}, roof=${roof ? roof.y.toFixed(2) : 'none'})`);
         }
         expect(G.director.crisis && G.director.crisis.rescued === take.length,
           `expected ${take.length} out, got ${G.director.crisis ? G.director.crisis.rescued : '-'}`);
