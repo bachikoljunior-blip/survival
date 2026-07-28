@@ -394,12 +394,9 @@ export const DEFAULT_SETTINGS = {
   uiScale: 1.0,
   subtitles: true,
   screenShake: 1.0,
-  cameraAssist: 1.0,
   showDamageNumbers: true,
   highContrastHud: false,
   reducedMotion: false,
-  autoAim: 0.35,              // lock-on assist strength
-  holdToGuard: true,
   vibration: true,
   showPerf: false,
   gasAssist: false,           // louder warnings, slower saturation

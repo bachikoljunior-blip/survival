@@ -725,6 +725,26 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
     label: 'VASKO & CO', prompt: 'Look at the sign', topic: 'vasko_shop', range: 3.0,
   });
 
+  // ---- the two ways up out of the low ground -------------------------------
+  //
+  // Chapter four asks the player to walk four people out of a filling street,
+  // and its objective has always said to use the roofs. Ladders and fire
+  // escapes are climb volumes, which a person following you cannot use — so
+  // without these the sequence was unwinnable by playing and only the test
+  // harness's teleport made it look otherwise.
+  //
+  // Both are collapsed masonry against a standing wall, which is what you
+  // actually climb in a city that has been coming down for eleven years, and
+  // both are visible from the middle of their courtyard.
+  structures.push(
+    // The Stacks courtyard, up onto the Pell House first-floor deck.
+    { kind: 'ramp', x0: -104, z0: -84, y0: 0, x1: -110.5, z1: -76, y1: 4.6, w: 3.4, mat: 'rubble' },
+    { kind: 'platform', x: -112, z: -74, w: 9, d: 5, y: 4.6, mat: 'concrete' },
+    // Fenn Street, up onto the laundry roof.
+    { kind: 'ramp', x0: -52, z0: 44, y0: 0, x1: -58, z1: 50, y1: 4.2, w: 3.4, mat: 'rubble' },
+    { kind: 'platform', x: -60, z: 52, w: 10, d: 6, y: 4.2, mat: 'concrete' },
+  );
+
   spawns.push({ id: 'cellar_out', x: -88, z: 38.5, y: 0, rot: Math.PI });
 
   interactions.push(

@@ -69,11 +69,29 @@ const ENGINE_FLAGS = new Set([
 // `crisis_${site}` sets one of two literal flags; record both explicitly.
 if (ENGINE_SRC.includes('`crisis_${site}`')) { ENGINE_FLAGS.add('crisis_stacks'); ENGINE_FLAGS.add('crisis_south'); }
 
+/** Conversation ids named by the director's NPC anchor table. */
+const NPC_ANCHORS_FROM_SRC = (() => {
+  const dir = readFileSync(new URL('../src/game/director.js', import.meta.url), 'utf8');
+  const i = dir.indexOf('NPC_ANCHORS');
+  const body = dir.slice(i, dir.indexOf('\n};', i));
+  return [...scrape(/convo:\s*'(\w+)'/g, body)];
+})();
+
+/** Counters the engine itself increments. */
+const ENGINE_BUMPS = new Set([
+  ...scrape(/(?:state|S)\.bump\(\s*['"]([\w.]+)['"]/g),
+  ...scrape(/counters\.set\(\s*['"]([\w.]+)['"]/g),
+]);
+
 /** Flags and counters the engine itself reads. */
 const ENGINE_READS = new Set([
   ...scrape(/(?:state|S)\.has\(\s*['"]([\w.]+)['"]/g),
   ...scrape(/counters\.get\(\s*['"]([\w.]+)['"]/g),
   ...scrape(/(?:state|S)\.count\(\s*['"]([\w.]+)['"]/g),
+  // Counters read through a local helper, e.g. `const n = (k) => S.count(k)`
+  // followed by `n('crisis_rescued')`. Without this the check would push
+  // authors toward writing the long form purely to satisfy the linter.
+  ...scrape(/\bn\(\s*'([\w.]+)'\s*\)/g),
   ...scrape(/(?:state|S)\.chose\(\s*['"]([\w.]+)['"]/g),
 ]);
 
@@ -95,6 +113,9 @@ const setFlags = new Set();
 const readFlags = new Set();
 const setChoices = new Map();     // choiceId -> Set(optionId)
 const readChoices = new Map();
+/** Counters bumped by content, and counters read by a condition. */
+const setCounters = new Set();
+const readCounters = new Set();
 
 function walkEffects(effects, where) {
   if (!effects) return;
@@ -102,6 +123,7 @@ function walkEffects(effects, where) {
   for (const e of list) {
     if (!e || typeof e !== 'object') { fail(`${where}: malformed effect ${JSON.stringify(e)}`); continue; }
     if (e.flag) setFlags.add(e.flag);
+    if (e.bump) setCounters.add(Array.isArray(e.bump) ? e.bump[0] : e.bump);
     if (e.unflag) { setFlags.add(e.unflag); readFlags.add(e.unflag); }
     if (e.give && !ITEMS[e.give[0]]) fail(`${where}: gives unknown item "${e.give[0]}"`);
     if (e.take && !ITEMS[e.take[0]]) fail(`${where}: takes unknown item "${e.take[0]}"`);
@@ -131,6 +153,7 @@ function walkCondition(cond, where) {
   if (cond.any) cond.any.forEach((c) => walkCondition(c, where));
   if (cond.not) walkCondition(cond.not, where);
   if (cond.flag) readFlags.add(cond.flag);
+  if (cond.counter) readCounters.add(cond.counter[0]);
   if (cond.notFlag) readFlags.add(cond.notFlag);
   if (cond.item && !ITEMS[cond.item]) fail(`${where}: requires unknown item "${cond.item}"`);
   if (cond.noItem && !ITEMS[cond.noItem]) fail(`${where}: requires absence of unknown item "${cond.noItem}"`);
@@ -340,10 +363,92 @@ for (const [cid, opts] of setChoices) {
     fail(`choice "${cid}" is offered (${[...opts].join('/')}) but its outcome is never read — false choice`);
     continue;
   }
-  // A choice where only one option is ever distinguished is still a real
-  // choice, but one where NO option is distinguished is decoration.
-  if (read && ![...opts].some((o) => read.has(o)) && !ENGINE_READS.has(cid)) {
-    fail(`choice "${cid}" is read but none of its recorded options (${[...opts].join('/')}) are tested`);
+  // Per arm. A choice whose third option changes nothing is two choices and a
+  // decoration, and that is exactly what "false choice" means.
+  if (read && !ENGINE_READS.has(cid)) {
+    for (const o of opts) {
+      if (!read.has(o)) {
+        fail(`choice "${cid}" records option "${o}", which nothing ever tests — dead arm`);
+      }
+    }
+  }
+}
+
+// Counters, both directions. A counter read but never bumped is a branch that
+// can never be taken; a counter bumped but never read is a dead consequence.
+// Neither was visible until now, which is how an ending beat gated on
+// `deflected >= 3` shipped when the maximum reachable value is 2.
+for (const c of readCounters) {
+  if (!setCounters.has(c) && !ENGINE_BUMPS.has(c)) {
+    fail(`counter "${c}" is read but nothing ever increments it`);
+  }
+}
+for (const c of setCounters) {
+  if (!readCounters.has(c) && !ENGINE_READS.has(c)) {
+    fail(`counter "${c}" is incremented but nothing ever reads it — dead consequence`);
+  }
+}
+for (const c of ENGINE_BUMPS) {
+  if (!readCounters.has(c) && !ENGINE_READS.has(c)) {
+    fail(`engine counter "${c}" is incremented but nothing ever reads it — dead consequence`);
+  }
+}
+
+// A counter threshold nothing can reach is the same bug one level down: the
+// branch exists, the counter exists, and the arithmetic forbids it. Count the
+// distinct nodes that can bump each counter — two arms of one node are one
+// increment, not two.
+{
+  const perCounter = new Map();
+  const addSite = (counter, site) => {
+    if (!perCounter.has(counter)) perCounter.set(counter, new Set());
+    perCounter.get(counter).add(site);
+  };
+  const scanBumps = (eff, site) => {
+    for (const e of (Array.isArray(eff) ? eff : [eff]).filter(Boolean)) {
+      if (e.bump) addSite(Array.isArray(e.bump) ? e.bump[0] : e.bump, site);
+    }
+  };
+  for (const cid in CONVERSATIONS) {
+    for (const nid in CONVERSATIONS[cid].nodes) {
+      const n = CONVERSATIONS[cid].nodes[nid];
+      scanBumps(n.effects, `${cid}:${nid}`);
+      // Every choice on one node is one visit, so they share a site.
+      for (const ch of n.choices || []) scanBumps(ch.effects, `${cid}:${nid}`);
+    }
+  }
+  for (const qid in QUESTS) {
+    const q = QUESTS[qid];
+    scanBumps(q.onStart, `${qid}:start`); scanBumps(q.onComplete, `${qid}:done`);
+    q.steps.forEach((st, i) => { scanBumps(st.onEnter, `${qid}:${i}`); scanBumps(st.onDone, `${qid}:${i}`); });
+  }
+  const need = new Map();
+  const walkThresholds = (cond) => {
+    if (!cond || typeof cond !== 'object') return;
+    if (Array.isArray(cond)) { cond.forEach(walkThresholds); return; }
+    for (const k of ['all', 'any']) if (cond[k]) cond[k].forEach(walkThresholds);
+    if (cond.not) walkThresholds(cond.not);
+    if (cond.counter) {
+      const [id, n] = cond.counter;
+      need.set(id, Math.max(need.get(id) || 0, n));
+    }
+  };
+  for (const e of ENDINGS) { walkThresholds(e.condition); for (const b of e.beats || []) walkThresholds(b.condition); }
+  for (const b of EPILOGUE_BEATS) walkThresholds(b.condition);
+  for (const cid in CONVERSATIONS) {
+    for (const nid in CONVERSATIONS[cid].nodes) {
+      const n = CONVERSATIONS[cid].nodes[nid];
+      for (const br of n.branch || []) walkThresholds(br.if);
+      for (const ch of n.choices || []) walkThresholds(ch.if);
+    }
+  }
+  for (const [id, n] of need) {
+    if (ENGINE_BUMPS.has(id)) continue;       // the engine may bump repeatedly
+    const sites = perCounter.get(id);
+    const max = sites ? sites.size : 0;
+    if (max < n) {
+      fail(`counter "${id}" is tested at >= ${n} but at most ${max} distinct beat(s) can increment it`);
+    }
   }
 }
 
@@ -377,6 +482,36 @@ for (const id in CAPABILITIES) {
   }
   if (!USED_CAPS.has(id)) {
     fail(`capability "${id}" (${CAPABILITIES[id].name}) is unlocked but no gameplay code reads it`);
+  }
+}
+
+// Conversations must be reachable from somewhere. A whole scene can be written,
+// validated internally, and never once opened — which is what happened to the
+// Iris re-entry: ten nodes, a comment explaining why it exists, and no caller.
+{
+  const DIRECTOR_SRC = readFileSync(new URL('../src/game/director.js', import.meta.url), 'utf8');
+  const reachableConvos = new Set([
+    ...scrape(/CONVERSATIONS\.(\w+)/g, DIRECTOR_SRC),
+    // Every string literal inside convoFor(), because a return can be a
+    // ternary and a regex anchored on `return '` misses one silently.
+    ...scrape(/'(\w+)'/g, (() => {
+      const i = DIRECTOR_SRC.indexOf('convoFor(npcId)');
+      if (i < 0) return '';
+      const j = DIRECTOR_SRC.indexOf('\n  }', DIRECTOR_SRC.indexOf('switch (npcId)', i));
+      return DIRECTOR_SRC.slice(i, j < 0 ? undefined : j);
+    })()),
+    ...scrape(/convo:\s*'(\w+)'/g, DIRECTOR_SRC),
+  ]);
+  for (const a of Object.values(NPC_ANCHORS_FROM_SRC)) reachableConvos.add(a);
+  for (const qid in QUESTS) {
+    for (const st of QUESTS[qid].steps) {
+      if (st.trigger && st.trigger.convo) reachableConvos.add(st.trigger.convo);
+    }
+  }
+  for (const cid in CONVERSATIONS) {
+    if (!reachableConvos.has(cid)) {
+      fail(`conversation "${cid}" exists but nothing can ever start it`);
+    }
   }
 }
 

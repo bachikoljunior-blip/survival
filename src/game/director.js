@@ -17,6 +17,17 @@ import { MODE } from './game.js';
 import { clamp, clamp01, lerp, damp } from '../core/util.js';
 import { PPM } from '../world/gas.js';
 
+/**
+ * The dose below which somebody left standing there does not die.
+ *
+ * Not PPM.ELEVATED: that is "headache within the hour", and the gas field's
+ * own turbulence swings about twenty per cent around any sample, so a spot
+ * chosen at 190 reads 230 by the time you have walked somebody to it. At 400
+ * saturation never climbs to critical, which is the thing the sequence is
+ * actually asking you to achieve.
+ */
+const SAFE_PPM = PPM.ELEVATED * 2;
+
 /** Where each named character stands, and when they are there. */
 const NPC_ANCHORS = {
   sol:     { spawn: 'stacks_yard', costume: 'sol', convo: 'sol_first', x: -106, z: -80, rot: 2.4 },
@@ -156,7 +167,15 @@ seconds and I already know which one I believe.`);
       beginCrisis: () => this._beginCrisis(),
       raisePlant: () => this._raisePlant(),
       offerEnding: () => this._offerEnding(),
-      openTrade: () => { this.quests.notify('custom', { id: 'teoTrade' }); this.openTrade(); },
+      // Deferred by a tick: the hook fires from inside DialogueRunner.choose(),
+      // and starting a new conversation there swaps the runner's convo out from
+      // under the caller, which then resolves its own `goto` against the wrong
+      // graph. The shop opened and closed in the same tick and salvage had no
+      // sink in the entire game.
+      openTrade: () => {
+        this.quests.notify('custom', { id: 'teoTrade' });
+        this._pendingTrade = true;
+      },
     };
   }
 
@@ -283,8 +302,8 @@ seconds and I already know which one I believe.`);
     // She dropped the bag where she turned back; she is further west, pinned
     // in the low ground. Putting her a metre from her own bag meant the "find
     // her route" step completed on the frame it started.
-    const g = this.game.world.groundUnder(-126, 62, 0.4, 8, 14);
-    n.pos.set(-126, g ? g.y + 0.05 : 0.1, 62);
+    const g = this.game.world.groundUnder(-126, 62, 0.4, 1.4, 6);
+    n.placeAt(-126, g ? g.y + 0.05 : 0.1, 62);
     n.group.visible = true;
     n.yaw = n.targetYaw = 2.1;
     n.animator.locomotion.crouch = 1;
@@ -380,8 +399,18 @@ seconds and I already know which one I believe.`);
     if (this.state.has('trench_passed')) return;
     const g = this.game;
     const p = g.player;
+    // Showing the foreman the order is a way through in its own right.
+    if (this.state.has('trench_talked')) {
+      this.state.set('trench_passed');
+      this.state.set('trench_talked_through');
+      g.hud.notice('<b>He steps aside.</b><br>Neither of them decides to have been looking.', 'good', 5);
+      this.quests.notify('custom', { id: 'trenchPassed' });
+      return;
+    }
     // Past the line and inside the cut, however you got there.
-    if (p.pos.x > 68 && p.pos.x < 92 && p.pos.z > 4 && p.pos.z < 13) {
+    // Inside the cut, and ABOVE it: the way over is the spoil heap, which is a
+    // real climb, not a walk along the gantry the approach already put you on.
+    if (p.pos.x > 76 && p.pos.x < 96 && p.pos.z > 6 && p.pos.z < 26 && p.pos.y > 2.4) {
       this.state.set('trench_passed');
       if (this._raidActive && this._raidActive.group.some((e) => !e.dead)) {
         this.state.set('trench_slipped');
@@ -477,6 +506,55 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
   }
 
   /**
+   * Steer one follower toward the player, including up.
+   *
+   * Followers used to be straight-line `setMove` only, and the only vertical
+   * geometry in Hollis is ladders and fire escapes, which are CLIMB volumes.
+   * So a follower could physically never get above 2.6 m, which is the test
+   * for being out — and the chapter-four rescue was unwinnable by playing. The
+   * harness hid it by teleporting the survivor onto the roof.
+   *
+   * They climb the same volumes the player does: if the player is more than a
+   * body-height above and there is something to climb within reach, take it.
+   */
+  _followStep(a, p, dt, want) {
+    const dx = p.pos.x - a.pos.x, dz = p.pos.z - a.pos.z;
+    const d = Math.hypot(dx, dz);
+    const rise = p.pos.y - a.pos.y;
+
+    if (a.state === STATE.CLIMB) {
+      // On a ladder: go up while the player is above, step off when level.
+      if (rise > 0.4) a.setMove(-Math.sin(a.yaw), -Math.cos(a.yaw), 1);
+      else a.exitClimb();
+      return d;
+    }
+
+    if (rise > 1.4 && d < 30) {
+      const box = this.game.world.climbAt(a.pos.x, a.pos.y + 0.6, a.pos.z, 1.3);
+      if (box) {
+        a.enterClimb(box);
+        a.setMove(-Math.sin(a.yaw), -Math.cos(a.yaw), 1);
+        return d;
+      }
+      // Nothing within reach — walk to the nearest way up rather than standing
+      // in the courtyard looking at somebody on a roof.
+      const near = this.game.world.nearestClimb(a.pos.x, a.pos.y, a.pos.z, 34);
+      if (near) {
+        const ax = near.x - a.pos.x, az = near.z - a.pos.z;
+        const ad = Math.hypot(ax, az) || 1;
+        a.setMove(ax / ad, az / ad, 1.0);
+        a.faceTowards(near.x, near.z);
+        return d;
+      }
+    }
+
+    if (d > want) a.setMove(dx / d, dz / d, clamp((d - want) / 3.0, 0, 1) * 0.9);
+    else a.setMove(0, 0, 0);
+    a.faceTowards(p.pos.x, p.pos.z);
+    return d;
+  }
+
+  /**
    * Escort. Nessa can walk and cannot climb, so she follows on the flat and
    * the player has to find her a way up — which is the one time in the game
    * the roof network is load-bearing rather than a shortcut.
@@ -491,14 +569,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     if (!n || !n.following) return;
     const p = g.player;
 
-    const dx = p.pos.x - n.pos.x, dz = p.pos.z - n.pos.z;
-    const d = Math.hypot(dx, dz);
-    const want = 2.1;
-    if (d > want) {
-      const sp = clamp((d - want) / 3.5, 0, 1);
-      n.setMove(dx / d, dz / d, sp * 0.86);
-    } else n.setMove(0, 0, 0);
-    n.faceTowards(p.pos.x, p.pos.z);
+    const d = this._followStep(n, p, dt, 2.1);
 
     // She is not a ghost: if the player climbs away and leaves her, she says so.
     this._escortNag = (this._escortNag || 0) - dt;
@@ -508,7 +579,8 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     }
 
     const ppm = g.gas.sample(n.pos.x, n.pos.y + 1.5, n.pos.z);
-    if (n.pos.y >= 2.6 && ppm < PPM.ELEVATED && d < 9) {
+    n.safeFor = ppm < SAFE_PPM ? (n.safeFor || 0) + dt : 0;
+    if (n.safeFor > 3.0 && d < 12) {
       n.following = false;
       this.state.set('nessa_rescued');
       this._markerTargets.nessaRun = null;
@@ -525,7 +597,9 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
    */
   _spawnSurvivor(i, x, z, state = null) {
     const g = this.game;
-    const ground = g.world.groundUnder(x, z, 0.4, 8, 14);
+    // From street height, not from eight metres up: searching from y=8 landed
+    // survivors on roof parapets, in clean air, already rescued.
+    const ground = g.world.groundUnder(x, z, 0.4, 1.4, 6);
     const a = new Actor({
       x, z, y: ground ? ground.y + 0.05 : 0.1, rot: (i * 1.7) % (Math.PI * 2),
       world: g.world, gas: g.gas, mats: g.mats,
@@ -563,23 +637,38 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     const c = this.crisis;
     if (!c) return;
     const p = g.player;
+    // Anyone who is out walks off under their own steam, away from the site.
+    const site = this._markerTargets.crisis;
     for (const m of c.marks) {
       const a = m.actor;
+      if (a && a.leaving > 0) {
+        a.leaving -= dt;
+        const ax = a.pos.x - (site ? site.x : 0), az = a.pos.z - (site ? site.z : 0);
+        const ad = Math.hypot(ax, az) || 1;
+        a.setMove(ax / ad, az / ad, 1);
+        a.faceTowards(a.pos.x + ax / ad, a.pos.z + az / ad);
+        if (a.leaving <= 0) { a.group.visible = false; a.setMove(0, 0, 0); }
+        continue;
+      }
       if (!a || !a.following) continue;
       // Followers trail the player in a loose file so four of them do not
       // stack into one silhouette.
       const idx = c.marks.indexOf(m);
-      const dx = p.pos.x - a.pos.x, dz = p.pos.z - a.pos.z;
-      const d = Math.hypot(dx, dz);
-      const want = 2.0 + idx * 0.7;
-      if (d > want) a.setMove(dx / d, dz / d, clamp((d - want) / 3.0, 0, 1) * 0.9);
-      else a.setMove(0, 0, 0);
-      a.faceTowards(p.pos.x, p.pos.z);
+      const d = this._followStep(a, p, dt, 2.0 + idx * 0.7);
 
+      // Out = breathing, and kept breathing. An altitude test looked right and
+      // was unsatisfiable: a walking body cannot get above 0.40m anywhere near
+      // either crisis site, so every survivor was always lost. Height still
+      // helps — the gas stratifies, so up IS where the clean air is — but what
+      // is measured is the air itself.
       const ppm = g.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z);
-      if (a.pos.y >= 2.6 && ppm < PPM.ELEVATED && d < 10) {
+      a.safeFor = ppm < SAFE_PPM ? (a.safeFor || 0) + dt : 0;
+      if (a.safeFor > 3.0 && d < 12) {
+        // Out means gone. Marking somebody rescued and leaving them standing
+        // in the street is a lie the player can walk back and check.
         a.following = false;
         a.out = true;
+        a.leaving = 7;
         m.disabled = true;
         c.rescued++;
         g.hud.notice(`<b>${c.rescued} of 4</b> up.`, 'good', 3);
@@ -811,6 +900,26 @@ spring off a ladder and complain the whole time.
 
 I did not go in. The shutter is not even locked.`],
       },
+      // The third way past the Warden line: Krajcik's own unissued cut order,
+      // in a foreman's hand. It advertised itself in the objective and then did
+      // nothing at all, because it named a topic that was never written.
+      trench_line: {
+        title: 'The Warden line',
+        lines: [
+          "Two Authority men and somebody's cousin in a hired jacket, standing across the haul road with the excavators idling behind them.",
+          "\u201cRoad's shut. Come back Thursday.\u201d",
+          "I hold up three pages costed to the metre with their own director's signature at the bottom, and I let the foreman read as much of it as he wants.",
+          "He reads all of it. Then he reads the date.",
+          "\u201cFourteen months.\u201d",
+          "\u201cFourteen months.\u201d",
+          "He does not move out of the way, exactly. He turns to the man beside him and says something about the spoil heap, and by the time either of them looks back I am past them and neither has decided to have been looking.",
+        ],
+        flag: 'trench_talked',
+        journal: ['trenchline', 'The foreman', `He read the date and then he stopped reading. I have
+seen that exact pause on four faces in this city now and it is always the same
+pause: the moment somebody works out they have been on the wrong side of a
+document for longer than they have been alive in it.`],
+      },
       cellar_floor: {
         title: '14 Cellar Row — the back wall',
         lines: [
@@ -980,6 +1089,10 @@ she has been able to get to telling somebody.`],
       case 'teo':
         if (S.hasItem('logbook') && !S.has('teo_log_done')) return 'teo_log';
         return 'teo_first';
+      case 'iris':
+        // She gates an ending and she had exactly one repeat line. Once the
+        // office scene is done she has somewhere to go.
+        return S.has('krajcik_met') ? 'iris_after' : 'iris_first';
       case 'nessa': {
         if (S.chapter >= 4 && !S.has('nessa_scene_done')) return 'nessa_truth';
         const run = S.quests.get('nessaRun');
@@ -1044,6 +1157,9 @@ she has been able to get to telling somebody.`],
       }
       if (onEnd) onEnd();
       this.save();
+      // A conversation may have asked to open the shop; do it now that this
+      // one has fully unwound.
+      if (this._pendingTrade) setTimeout(() => this._flushPendingTrade(), 0);
     });
 
     ui.onAdvance = () => runner.advance();
@@ -1285,10 +1401,22 @@ she has been able to get to telling somebody.`],
     // The body first: the ending's own text, then whichever of its beats the
     // player earned. This is where accumulated action reaches the prose — two
     // players who both publish do not read the same ending.
-    const body = [ending.text];
+    // Beats are WOVEN, not appended. An ending that puts its conditional
+    // paragraphs after its closing line has a footnote, not a shape — and the
+    // closing line of every one of these is the one that has to land last.
+    // `@n` interpolates the number of people the player did not get out, so a
+    // beat cannot say "two" to somebody who lost one.
+    const lost = S.count('crisis_lost');
+    const words = ['nobody', 'one', 'two', 'three', 'four'];
+    const fill = (t) => t.replace(/@n/g, words[Math.min(lost, 4)]).replace(/@N/g, String(lost));
+
+    const paras0 = ending.text.split('\n\n');
+    const tail = paras0.length > 1 ? paras0.pop() : null;
+    const body = paras0;
     for (const b of ending.beats || []) {
-      if (testCondition(b.condition, S)) body.push(b.text);
+      if (testCondition(b.condition, S)) body.push(fill(b.text));
     }
+    if (tail) body.push(tail);
 
     const paras = [];
     if (ending.epilogue) {
@@ -1301,10 +1429,22 @@ she has been able to get to telling somebody.`],
     for (const b of EPILOGUE_BEATS) {
       if (testCondition(b.condition, S)) paras.push(b.text);
     }
-    paras.push(
-      `Time in Hollis: ${Math.floor(S.playTime / 60)} minutes. ` +
-      `Filters spent: ${S.filtersUsed}. ` +
-      `You went down ${S.deaths} time${S.deaths === 1 ? '' : 's'}.`);
+    // The run's own record, in Ren's voice and in her units, rather than a
+    // scoreboard. Every ending in the game used to finish on "Time in Hollis:
+    // 12 minutes. Filters spent: 0." — a stats line is the wrong last thing to
+    // read after any of these.
+    const n = (k) => S.count(k);
+    const plural = (v, one, many) => `${v} ${v === 1 ? one : many}`;
+    const ledger = [];
+    ledger.push(`${plural(Math.max(1, Math.floor(S.playTime / 60)), 'minute', 'minutes')} in Hollis.`);
+    if (n('metersRead')) ledger.push(`You lifted the meter ${plural(n('metersRead'), 'time', 'times')}.`);
+    if (S.filtersUsed) ledger.push(`${plural(S.filtersUsed, 'cartridge', 'cartridges')}.`);
+    if (n('crisis_rescued')) ledger.push(`${plural(n('crisis_rescued'), 'person', 'people')} up a stairwell.`);
+    if (n('breached')) ledger.push(`${plural(n('breached'), 'shopfront', 'shopfronts')} opened.`);
+    if (n('parries')) ledger.push(`${plural(n('parries'), 'blow', 'blows')} turned.`);
+    if (n('survivedSaturation')) ledger.push(`You came up out of it on your own legs ${plural(n('survivedSaturation'), 'time', 'times')}.`);
+    if (S.deaths) ledger.push(`You went down ${plural(S.deaths, 'time', 'times')} and got back up.`);
+    paras.push(ledger.join(' '));
 
     g.setMode(MODE.CINEMATIC);
     g.hud.setVisible(false);
@@ -1382,6 +1522,13 @@ she has been able to get to telling somebody.`],
     if (!best) return null;
     return { kind: 'npc', npc: best, label: best.name, prompt: `Speak to ${best.name}`,
       x: best.pos.x, y: best.pos.y + 1.2, z: best.pos.z };
+  }
+
+  /** Open Teo's exchange, once the conversation that asked for it has ended. */
+  _flushPendingTrade() {
+    if (!this._pendingTrade) return;
+    this._pendingTrade = false;
+    this.openTrade();
   }
 
   /** Item use, routed from the inventory screen or the USE button. */

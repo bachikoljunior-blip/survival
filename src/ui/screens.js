@@ -711,8 +711,6 @@ export class Menus {
     toggle('invertY', 'Invert camera Y');
     toggle('leftHanded', 'Left-handed layout', 'Move stick on the right.');
     toggle('autoSprint', 'Sprint at full stick', 'No sprint button needed.');
-    toggle('holdToGuard', 'Hold to guard', 'Off: tap toggles guard.');
-    slider('autoAim', 'Lock-on assist', 0, 1, 0.1, (v) => Math.round(v * 100) + '%');
 
     section('DISPLAY');
     choice('quality', 'Quality', ['auto', 'low', 'medium', 'high']);

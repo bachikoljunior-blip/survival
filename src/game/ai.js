@@ -86,6 +86,19 @@ export const ARCHETYPES = {
   },
 };
 
+/**
+ * What they shout when they see you. Deliberately not threats: an ash crew is
+ * a work party and a Warden is on a shift, and both of them are announcing a
+ * problem rather than declaring an intention.
+ */
+const BARKS = {
+  scav: ['Oi — one on the yard!', 'Somebody\u2019s in!', 'That\u2019s not one of ours.'],
+  slinger: ['Head down, head down!', 'Got a live one.'],
+  breaker: ['Stand still, then.', 'Don\u2019t make me chase it.'],
+  warden: ['Site\u2019s closed. Turn around.', 'You\u2019re not on the schedule.'],
+  dog: ['(barking)'],
+};
+
 const _v = new THREE.Vector3();
 
 export class Enemy extends Actor {
@@ -272,6 +285,11 @@ export class AISystem {
       e.aiState = AI_STATE.COMBAT;
       e.emit('aggro', {});
       game.emit('sfx', 'aggro', { x: e.pos.x, y: e.pos.y + 1.5, z: e.pos.z, kind: e.kind });
+      // The bark, in text. The subtitles setting used to gate a method with no
+      // callers anywhere in the codebase — an accessibility option that did
+      // nothing at all. These are the only spoken lines outside the dialogue
+      // box, so they are what it is for.
+      game.emit('bark', e, BARKS[e.kind] || BARKS.scav);
       // Wardens shout, which pulls in everyone in earshot.
       if (e.arch.callsForHelp && e.callCooldown <= 0) {
         e.callCooldown = 8;
@@ -458,13 +476,13 @@ export class AISystem {
     if (A.ranged) {
       if (dist < A.minRange) {
         // Back off, keeping the player in view.
-        const away = Math.atan2(e.pos.x - player.pos.x, e.pos.z - player.pos.z);
+        const away = Math.atan2(player.pos.x - e.pos.x, player.pos.z - e.pos.z);
         e.setMove(Math.sin(away), Math.cos(away), 0.9);
       } else if (dist > A.preferred * 1.4) {
         this._moveTowards(e, player.pos.x, player.pos.z, game, 0.7);
       } else {
         // Strafe for a clear line.
-        const t = Math.atan2(player.pos.x - e.pos.x, player.pos.z - e.pos.z);
+        const t = Math.atan2(e.pos.x - player.pos.x, e.pos.z - player.pos.z);
         const s = t + Math.PI / 2 * e.strafeDir;
         e.setMove(Math.sin(s), Math.cos(s), 0.55);
         if (e.think <= 0) { e.think = e.rng.range(1.2, 2.6); e.strafeDir *= -1; }
@@ -501,7 +519,7 @@ export class AISystem {
     if (A.dodgeChance > 0 && player.attack && player.attack !== e._sawSwing) {
       e._sawSwing = player.attack;
       if (dist < player.attack.def.reach + 1.0 && e.rng.f() < A.dodgeChance) {
-        const away = Math.atan2(e.pos.x - player.pos.x, e.pos.z - player.pos.z) +
+        const away = Math.atan2(player.pos.x - e.pos.x, player.pos.z - e.pos.z) +
                      e.rng.sym(0.7);
         e.yaw = e.targetYaw = away;
         e.vel.x = Math.sin(away) * 8.5;
@@ -522,13 +540,13 @@ export class AISystem {
       this._moveTowards(e, player.pos.x, player.pos.z, game, lerp(0.55, 1.0, urgency));
       e.wantSprint = dist > 7 && A.speedSprint > A.speedRun * 1.1;
     } else if (dist < pref - 0.75) {
-      const away = Math.atan2(e.pos.x - player.pos.x, e.pos.z - player.pos.z);
+      const away = Math.atan2(player.pos.x - e.pos.x, player.pos.z - e.pos.z);
       e.setMove(Math.sin(away), Math.cos(away), 0.6);
       e.wantSprint = false;
     } else {
       // In range: circle, and wait for a token before committing.
       e.wantSprint = false;
-      const t = Math.atan2(player.pos.x - e.pos.x, player.pos.z - e.pos.z);
+      const t = Math.atan2(e.pos.x - player.pos.x, e.pos.z - player.pos.z);
       const s = t + Math.PI / 2 * e.strafeDir;
       e.setMove(Math.sin(s), Math.cos(s), A.strafeBias);
       if (e.think <= 0) {
@@ -621,9 +639,9 @@ export class AISystem {
       const len = Math.hypot(g.x, g.z) || 1;
       // Move down the gradient (toward less gas), with a bias uphill/outward.
       e.setMove(-g.x / len, -g.z / len, 1);
-      e.targetYaw = Math.atan2(-g.x / len, -g.z / len);
+      e.targetYaw = Math.atan2(g.x / len, g.z / len);
     } else if (game.player) {
-      const away = Math.atan2(e.pos.x - game.player.pos.x, e.pos.z - game.player.pos.z);
+      const away = Math.atan2(game.player.pos.x - e.pos.x, game.player.pos.z - e.pos.z);
       e.setMove(Math.sin(away), Math.cos(away), 1);
     }
 

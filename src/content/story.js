@@ -375,7 +375,7 @@ Q.nessaRun = {
       onDone: [{ trust: ['nessa', 18, 'You came down for her.'] }] },
     { objective: 'Get her above the smoke. She can walk. She cannot climb.',
       marker: 'nessaRun',
-      hint: 'Three metres up and out of the draw. Find her a way, not a door.',
+      hint: 'The gas pools low and it pools in the lee. Read the air and lead her.',
       trigger: { kind: 'custom', id: 'nessaOut' },
       onDone: [{ trust: ['sol', 8, 'You brought her back.'] }] },
   ],
@@ -929,7 +929,7 @@ procedure down was the same as making people follow it.`] },
     again: {
       ...line('teo', "Vasko."),
       branch: [
-        { if: { flag: 'ch4_done' }, goto: 'a_crisis' },
+        { if: { all: [{ flag: 'ch4_done' }, { notFlag: 'teo_heard_crisis' }] }, goto: 'a_crisis' },
         { if: { all: [{ item: 'logbook' }, { notFlag: 'teo_log_done' }] }, goto: 'has_log' },
         { if: { flag: 'southmarrow_done' }, goto: 'a_south' },
         { if: {}, goto: 'a_shop' },
@@ -958,6 +958,7 @@ could have spent better.
 I have gone back over the eleventh of July every night for eighteen months and I
 will tell you exactly what it has been worth, which is nothing, and I will also
 tell you that you are going to do it anyway. Come and buy cartridges.`, 'quiet'),
+      effects: [{ flag: 'teo_heard_crisis' }],
       next: 'a_shop',
     },
     a_south: {
@@ -971,7 +972,7 @@ whether to believe the ninety seconds.`),
     a_shop: {
       ...line('teo', "Cartridges, dressings, cells. Salvage or nothing, and don't insult me."),
       choices: [
-        { text: '[Trade]', goto: 'trade', effects: [{ fn: 'openTrade' }] },
+        { text: '[Trade]', goto: 'end', effects: [{ fn: 'openTrade' }] },
         { text: "Can you do anything with this bar?", goto: 'a_bar', if: { noCap: 'breach' } },
         { text: "You said a name. Iris Nadel.", goto: 'a_iris', if: { flag: 'teo_named_iris' } },
         { text: "Bek. What was he like?", goto: 'a_bek', if: { flag: 'ren_asked_bek' } },
@@ -1010,7 +1011,6 @@ then did the next thing, which is rarer than either.`),
       effects: [{ trust: ['teo', 4, 'He liked being asked.'] }],
       next: 'a_shop',
     },
-    trade: { ...line('teo', "Mm."), next: 'end' },
     a_bar: {
       ...line('teo', `Give me the bar a minute.
 
@@ -1177,7 +1177,6 @@ So — pre-emptively — it's fine, thank you, you don't have to.`),
 city has told me they're sorry and not one person has told me he was right.
 
 Okay. Okay. I'm — yeah. Okay.`),
-      effects: [{ flag: 'nessa_told_right' }],
       next: 'n_end',
     },
     n_nothing: {
@@ -1211,10 +1210,12 @@ when she's decided not to discuss it.`),
     },
     after_truth: {
       ...line('nessa', "...", 'quiet'),
+      // Order matters: what she does now is about chapter four, not about
+      // whether she liked an answer in the courtyard three chapters ago.
       branch: [
-        { if: { flag: 'nessa_told_right' }, goto: 'at_told' },
-        { if: { flag: 'nessa_read_log' }, goto: 'at_read' },
-        { if: { flag: 'nessa_withheld' }, goto: 'at_withheld' },
+        { if: { chose: ['nessa_truth', 'withheld'] }, goto: 'at_withheld' },
+        { if: { chose: ['nessa_truth', 'gave'] }, goto: 'at_read' },
+        { if: { chose: ['nessa_truth', 'told'] }, goto: 'at_told' },
         { if: {}, goto: 'at_other' },
       ],
     },
@@ -1291,14 +1292,14 @@ I want to read it.`),
       choices: [
         { text: "[Give her the log]", goto: 'nt_give',
           if: { item: 'logbook' },
-          effects: [{ choice: ['nessa_truth', 'gave'] }, { flag: 'nessa_read_log' }] },
+          effects: [{ choice: ['nessa_truth', 'gave'] }] },
         { text: "Before you do — the July sheet has my initials on it.", goto: 'nt_tell',
           effects: [{ choice: ['nessa_truth', 'told'] }, { flag: 'nessa_told_truth' },
                     { bump: ['honest', 1] },
                     { trust: ['nessa', 14, QUIET] }] },
         { text: "It's not ready. Not yet.", goto: 'nt_withhold',
           effects: [{ choice: ['nessa_truth', 'withheld'] }, { trust: ['nessa', -12, QUIET] },
-                    { flag: 'nessa_withheld' }, { bump: ['deflected', 1] }] },
+                    { bump: ['deflected', 1] }] },
       ],
     },
     nt_give: {
@@ -1705,7 +1706,42 @@ find me. Do not write to me. Find me.`),
 
 C.krajcik = {
   id: 'krajcik', who: 'krajcik',
+  entry: [
+    { if: { flag: 'krajcik_met' }, goto: 'again' },
+    { if: {}, goto: 'start' },
+  ],
   nodes: {
+    // He does not do the scene twice. The office stays enterable and the whole
+    // confrontation used to replay, re-offering the desk and leaving the
+    // player with took_offer set beside a later refusal.
+    again: {
+      ...line('krajcik', "We have had this conversation."),
+      branch: [
+        { if: { chose: ['krajcik_offer', 'accepted'] }, goto: 'ag_accepted' },
+        { if: { chose: ['krajcik_offer', 'cut'] }, goto: 'ag_cut' },
+        { if: {}, goto: 'ag_refused' },
+      ],
+    },
+    ag_accepted: {
+      ...line('krajcik', `The post is open. It stays open. I am not going to keep asking, because asking
+twice is pressure and pressure is how you get a person who resents the desk.
+
+Come back when you have decided, or don't.`),
+      next: 'end',
+    },
+    ag_cut: {
+      ...line('krajcik', `You have put it to me once with the door shut. I have said what that costs.
+
+If you want it, you will have to want it somewhere that costs me too.`, 'quiet'),
+      next: 'end',
+    },
+    ag_refused: {
+      ...line('krajcik', `The trench crews start at first light and I still cannot stop it, and I would
+still be disappointed in you if you had said yes.
+
+Both of those remain true. Neither of them is useful to either of us.`),
+      next: 'end',
+    },
     start: {
       ...line('krajcik', "Miss Vasko. Sit down if you like. There's a chair, it's the only one, it's not comfortable."),
       next: 'k2',
@@ -1755,9 +1791,17 @@ rules lines for a living.
 Three hundred and forty entries. Deposit, removal, twelve months' rent, and a
 column headed SCHEME that is empty the whole way down.`),
       choices: [
-        { text: "There's no scheme.", goto: 'k_ledger2' },
+        { text: "There's no scheme.", goto: 'k_noscheme' },
         { text: "Where does the money come from?", goto: 'k_ledger2' },
       ],
+    },
+    k_noscheme: {
+      ...line('krajcik', `No. There is a Directorate paper from four years ago that recommends one, and
+a line in the estimates where it would go, and nothing in the line.
+
+I write to them every April. I have the replies. They are extremely courteous.`),
+      effects: [{ flag: 'krajcik_noscheme' }],
+      next: 'k_ledger2',
     },
     k_ledger2: {
       ...line('krajcik', `The margin. On a contract to manage a fire that cannot be managed.
@@ -2239,19 +2283,34 @@ or ever, and the not-reminding was the worst thing he could have done.` },
 it, and you have never worked out whether that makes it better. He knew. He said
 so afterwards, in the corridor, without any particular feeling: *you were quite
 bad at it.*` },
+      { condition: { chose: ['log_intent', 'use'] },
+        text: `Marsh had asked you in the Arcade what the log was for and you had told him you
+meant to use it. Leverage, you meant, and he knew you meant it, and he sold you
+four cartridges and said nothing. You have wondered since whether he was giving
+you room or giving up on you, and you have never been able to ask, because both
+of those are the same shrug from the outside.` },
       { condition: { chose: ['log_intent', 'unknown'] },
         text: `Marsh had asked you in the Arcade what the log was for and you had told him you
 did not know. You have thought about that a great deal since. It was the only
 honest thing you said that week and it took you four more months to catch up
 with it.` },
       { condition: { all: [{ counter: ['crisis_lost', 1] }] },
-        text: `Two of the names you read out were people you had carried as far as a stairwell
+        text: `@N of the names you read out were people you had carried as far as a stairwell
 in a filling street four days earlier, and not far enough.` },
-      { condition: { flag: 'vents_shut' },
+      { condition: { chose: ['vents', 'left'] },
+        text: `Fenn Street is in the record. Eleven people, a borehole field pulling the burn
+under them, and a decision you did not make because Sol had already made it and
+you agreed with her out loud. That is in there too. You put it in.` },
+      { condition: { chose: ['vents', 'shut'] },
         text: `The Stacks courtyard is in the record too. You put it there yourself: the date,
 the three heads, the bar, the wedge, and the name of the person who turned
 them. Sol did not attend. She sent a note through Marsh that said only *right*,
 and it is the shortest and least kind letter anyone has ever sent you.` },
+      { condition: { flag: 'trench_talked_through' },
+        text: `You did not touch any of them getting in. You held up a costed order with their
+own director's signature at the bottom and the foreman read the date, and by the
+time he looked up you were past him. He gave evidence too. He was not asked to
+and he came anyway.` },
       { condition: { flag: 'trench_slipped' },
         text: `You did not touch any of them getting in. Two of the three gave evidence and
 neither could say how you had got past the line, and the transcript records both
@@ -2263,7 +2322,7 @@ let her, because it was not necessity, it was nine minutes and a temper.` },
       { condition: { counter: ['honest', 3] },
         text: `You had already said it out loud, by then, to nearly everyone it belonged to.
 The hearing was not the hard part. The hearing was the last part.` },
-      { condition: { counter: ['deflected', 3] },
+      { condition: { counter: ['deflected', 2] },
         text: `You had not said it out loud to a single person in Hollis. You said it first to
 a stenographer, under oath, into a microphone, and every one of them found out
 the same way a stranger would have.` },
@@ -2297,6 +2356,16 @@ costs the other.
 Iris does the reduction. She still keeps her folder. There is nothing in it any
 more, and she keeps it anyway.`,
     beats: [
+      { condition: { chose: ['krajcik_offer', 'cut'] },
+        text: `You had put it to him first in his own office, with the door shut, where it
+cost him nothing to say yes and he said no. He has never once pretended that
+was courage.` },
+      { condition: { flag: 'krajcik_noscheme' },
+        text: `There is a Directorate paper from four years ago recommending a relocation
+scheme, and a line in the estimates where one would go, and nothing in the
+line. He wrote every April for four years. His letters are in the bundle, all
+of them extremely courteous, and reading them consecutively is the single
+most damning document anybody produced about any of this, including yours.` },
       { condition: { flag: 'krajcik_open' },
         text: `He had told you to ask him in front of them, where he could not be quiet about
 it. You did. He looked at you for about two seconds longer than a man reads a
@@ -2357,6 +2426,10 @@ Eleven years. Three hundred and eighty more households.
 Nobody ever knew, which was the point, and you have never settled whether that
 was mercy or the largest thing you have taken from anybody.`,
     beats: [
+      { condition: { chose: ['vents', 'left'] },
+        text: `You had already done the sum her way once, on the west side, and found you
+could live with the answer. That was the afternoon that made this possible.
+Everything after it was administration.` },
       { condition: { chose: ['krajcik_offer', 'refused'] },
         text: `You had refused it once, in his office, with some heat. He never mentioned that
 either. He simply moved the chair out for you as though the first conversation
@@ -2404,7 +2477,7 @@ thing you have ever done that you cannot tell anybody about.`,
     beats: [
       { condition: { counter: ['crisis_lost', 1] },
         text: `Not every single one. You count them the way Sol counts, which is out loud and
-by name, and the four hundred and six does not include the two you left in a
+by name, and the four hundred and six does not include the @n you left in a
 ground-floor room in a street that was already gone.` },
       { condition: { flag: 'trench_slipped' },
         text: `Nobody ever established how you got past the line at the cut that morning,
@@ -2468,7 +2541,7 @@ well, on Authority paper, that says only that the position remains available
 and that he hopes you are well. He wrote it himself. You can tell.` },
       { condition: { counter: ['crisis_lost', 1] },
         text: `You had gone into a filling street for strangers, four days before, and got most
-of them out, and the two you did not get out are why you thought of yourself as
+of them out, and the @n you did not get out are why you thought of yourself as
 somebody who acts. It turns out you are somebody who acts for two hundred
 seconds at a time.` },
       { condition: { flag: 'nessa_told_truth' },

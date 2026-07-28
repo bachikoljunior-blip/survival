@@ -445,8 +445,8 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
 .abtn.attack   { right: calc(4px * var(--uiscale));   bottom: calc(6px * var(--uiscale)); }
 .abtn.dodge    { right: calc(68px * var(--uiscale));  bottom: calc(5px * var(--uiscale)); }
 .abtn.guard    { right: calc(7px * var(--uiscale));   bottom: calc(72px * var(--uiscale)); }
-.abtn.use      { right: calc(62px * var(--uiscale));  bottom: calc(64px * var(--uiscale)); }
-.abtn.heavy    { right: calc(112px * var(--uiscale)); bottom: calc(35px * var(--uiscale)); }
+.abtn.use      { right: calc(62px * var(--uiscale));  bottom: calc(70px * var(--uiscale)); }
+.abtn.heavy    { right: calc(120px * var(--uiscale)); bottom: calc(28px * var(--uiscale)); }
 /* Interact has its own slot. It used to be positioned on top of GUARD and
    display:none the guard button underneath a possibly-held finger, which both
    latched the input and removed the player's only defence next to a door. */
@@ -477,7 +477,7 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
   position: absolute;
   top: calc(var(--pad) + var(--sa-t));
   right: calc(var(--pad) + var(--sa-r));
-  display: flex; gap: 0;
+  display: flex; gap: calc(8px * var(--uiscale));
 }
 .sysbtn {
   width: 44px; height: 44px;

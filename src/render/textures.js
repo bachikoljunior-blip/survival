@@ -1195,10 +1195,27 @@ export function signTexture(lines, opts = {}) {
   }
 
   const n = lines.length;
-  const fs = Math.min(h / (n + 0.9), w / (Math.max(...lines.map((l) => l.length)) * 0.62 + 1));
   x.textBaseline = 'middle';
   x.textAlign = align;
   const tx = align === 'center' ? w / 2 : h * 0.16;
+
+  // Fit, measured. The size used to be estimated from character count at a
+  // guessed 0.62 em and took no account of letter spacing, so the longest line
+  // on a sign overflowed and the border clipped its first and last glyph —
+  // "OLLIS RECLAMATION AUTHORIT". Measure the real advance and shrink until it
+  // fits inside the border.
+  const inner = w - h * 0.1 - h * 0.12;
+  let fs = Math.min(h / (n + 0.9), w / (Math.max(...lines.map((l) => l.length)) * 0.62 + 1));
+  for (let guard = 0; guard < 24; guard++) {
+    x.font = `${font} ${fs}px ui-monospace, "SF Mono", Menlo, monospace`;
+    const widest = Math.max(...lines.map((l) => {
+      const cs = [...l];
+      return cs.reduce((a, ch) => a + x.measureText(ch).width, 0) + letterSpacing * (cs.length - 1);
+    }));
+    if (widest <= inner || fs < 4) break;
+    fs *= Math.max(0.82, inner / widest);
+  }
+
   lines.forEach((line, i) => {
     x.font = `${font} ${fs}px ui-monospace, "SF Mono", Menlo, monospace`;
     x.fillStyle = i === 0 && n > 1 ? accent : fg;

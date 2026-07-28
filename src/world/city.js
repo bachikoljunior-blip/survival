@@ -948,6 +948,34 @@ export class City {
       this.fxMarkers.push({ x, y: ht + 2.4, z, kind: 'steam' });
     }
 
+    // Ground for the backdrop to stand on.
+    //
+    // The playable ground plate stops at the city bounds, about 150 m out. The
+    // backdrop rings reach 400. While the far plane was the detail distance
+    // none of this was visible and it did not matter; the moment the far plane
+    // became the horizon, sixty buildings were left hanging in the air over a
+    // hole with sky underneath them. Raycasting down at (0, -180) found
+    // backdrop brick at y=20.7 and then nothing until the sky dome.
+    //
+    // One large, coarsely tessellated ash disc, drawn before everything and
+    // fogged to the horizon. It is two draw calls and it is the difference
+    // between a skyline and a bug.
+    {
+      const outer = inner + 4 * 62 + 60;
+      const seg = 26;
+      for (let iz = 0; iz < seg; iz++) {
+        for (let ix = 0; ix < seg; ix++) {
+          const x = cx + (ix / (seg - 1) - 0.5) * outer * 2;
+          const z = cz + (iz / (seg - 1) - 0.5) * outer * 2;
+          // Skip the middle, where the real ground already is.
+          if (Math.abs(x - cx) < (B.maxX - B.minX) * 0.5 &&
+              Math.abs(z - cz) < (B.maxZ - B.minZ) * 0.5) continue;
+          const step = (outer * 2) / (seg - 1);
+          cb.m('ash').plane(x, -0.06, z, step * 1.06, step * 1.06, 0.34, [0.86, 0.84, 0.8], true, 1);
+        }
+      }
+    }
+
     const group = cb.build((k) => this._mat(k), { castShadow: false, receiveShadow: false });
     group.name = 'backdrop';
     // Never culled by the shadow pass, never picked, never collided with.

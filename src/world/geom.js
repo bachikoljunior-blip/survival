@@ -306,8 +306,10 @@ export class MeshBuilder {
     g.setAttribute('position', new THREE.Float32BufferAttribute(this.pos, 3));
     g.setAttribute('normal', new THREE.Float32BufferAttribute(this.nrm, 3));
     g.setAttribute('uv', new THREE.Float32BufferAttribute(this.uv, 2));
-    // uv1 mirrors uv so aoMap sampling is well-defined on every surface.
-    g.setAttribute('uv1', new THREE.Float32BufferAttribute(this.uv, 2));
+    // No uv1. three.js defaults `Texture.channel` to 0, so an aoMap that is the
+    // same object as the roughnessMap samples `uv` and never looks at uv1 — and
+    // this attribute was 3 MB of vertex data across 427 city meshes that
+    // nothing read, uploaded to the GPU on a phone for nothing.
     g.setAttribute('color', new THREE.Float32BufferAttribute(this.col, 3));
     g.setIndex(this.vertCount > 65535
       ? new THREE.Uint32BufferAttribute(this.idx, 1)

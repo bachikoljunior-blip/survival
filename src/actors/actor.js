@@ -48,7 +48,7 @@ export const STATE = {
  */
 const GUARD_RAISE_COST = 8;     // stamina, on the rising edge
 const GUARD_DRAIN = 6;          // stamina per second while held
-const PARRY_REARM = 0.9;        // seconds before a new parry window may open
+const PARRY_REARM = 0.5;        // seconds before a new parry window may open
 /** Fraction of a blocked blow that still reaches you. */
 const BLOCK_THROUGH = 0.30;
 const BLOCK_THROUGH_BREAK = 0.60;
@@ -277,8 +277,17 @@ export class Actor {
     this.moveInput.x = x; this.moveInput.z = z; this.moveInput.mag = mag;
   }
 
+  /**
+   * Turn to face a world point.
+   *
+   * FORWARD IS -Z. The mesh's face, the attack arc, the guard cone, the
+   * interact and climb probes, enemy FOV and the headlamp all agree on that.
+   * This used to return the yaw that pointed local +Z at the target, which is
+   * the exact opposite, and the result was that no melee attack in the game
+   * ever connected and Ren walked backwards down every street.
+   */
   faceTowards(x, z, instant = false) {
-    const a = Math.atan2(x - this.pos.x, z - this.pos.z);
+    const a = Math.atan2(this.pos.x - x, this.pos.z - z);
     this.targetYaw = a;
     if (instant) this.yaw = a;
   }
@@ -390,7 +399,7 @@ export class Actor {
       if (mag > 0.06 && !this.attack) {
         // Face the direction of travel; the turn rate is what makes movement
         // feel like a body rather than a cursor.
-        this.targetYaw = Math.atan2(mx, mz);
+        this.targetYaw = Math.atan2(-mx, -mz);
       }
     } else {
       ax = -this.vel.x * this.decel * 0.8;
@@ -405,8 +414,12 @@ export class Actor {
       const rm = this.animator.out.rootZ;
       const drm = rm - (this._lastRootZ ?? 0);
       this._lastRootZ = rm;
-      this.pos.x -= Math.sin(this.yaw) * drm * this.attack.rootMotion;
-      this.pos.z -= Math.cos(this.yaw) * drm * this.attack.rootMotion;
+      // PLUS, not minus. The clip's root Z was negated to point the lunge at
+      // the target, and this negated it a second time, so every attack in the
+      // game physically retreated 0.156 m from the enemy on the exact frame it
+      // was supposed to land. Measured with all other actors removed.
+      this.pos.x += Math.sin(this.yaw) * drm * this.attack.rootMotion;
+      this.pos.z += Math.cos(this.yaw) * drm * this.attack.rootMotion;
     } else {
       this._lastRootZ = 0;
     }
@@ -553,7 +566,7 @@ export class Actor {
       top: box.y1, bottom: box.y0,
     };
     // Face into the ladder.
-    this.climbing.yaw = Math.atan2(box.x - this.pos.x, box.z - this.pos.z);
+    this.climbing.yaw = Math.atan2(this.pos.x - box.x, this.pos.z - box.z);
     this.state = STATE.CLIMB;
     this.vel.set(0, 0, 0);
     this.animator.play('climb', { fade: 0.14 });
@@ -674,7 +687,7 @@ export class Actor {
         // Only if this guard-raise actually armed a parry (see PARRY_REARM).
         if (this._parryArmed) {
           this._parryArmed = false;
-          this.parryWindow = this.parryBonus ? 0.26 : 0.16;
+          this.parryWindow = this.parryBonus ? 0.34 : 0.24;
         }
         break;
       case 'rung': this.emit('footstep', { id: this.id, surface: 'metal', volume: 0.5 }); break;

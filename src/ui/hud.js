@@ -69,10 +69,11 @@ export class HUD {
     this.hpBar = this._bar(v, 'hp');
     this.staBar = this._bar(v, 'sta');
 
-    // The gauge is the meter. Tapping it is Ren lifting it to read it — the
-    // same verb as the METER button, placed where the player is already
-    // looking when the number worries them.
-    const air = el('div', 'air hit', v);
+    // NOT tappable. It sits inside the movement-stick zone, so a thumb that
+    // landed on it got neither a stick nor a meter reading and had to lift and
+    // re-plant — which is exactly the moment, in bad air, when you cannot. The
+    // meter verb lives on its own 44px button in the system cluster and on G.
+    const air = el('div', 'air', v);
     this.airNode = air;
     const row = el('div', 'row', air);
     this.ppmNode = el('span', 'ppm', row, '––');
@@ -80,7 +81,6 @@ export class HUD {
     this.trendNode = el('span', 'trend', row, '');
     this.filterNode = el('div', 'filter', air, 'NO FILTER');
     this.readNode = el('div', 'reading', air, '');
-    this._bindTap(air, () => this.game.input.tapVirtual('meter'));
   }
 
   /**

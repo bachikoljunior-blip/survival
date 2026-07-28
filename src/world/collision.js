@@ -382,6 +382,29 @@ export class CollisionWorld {
     return null;
   }
 
+  /**
+   * Nearest climbable volume whose foot is reachable from this height.
+   *
+   * `climbAt` answers "can I climb from exactly here", which is what the
+   * player needs standing at a ladder. A follower needs the other question:
+   * where is the nearest way up. Without it a follower in an open courtyard
+   * simply stands there while the person they are following walks onto a roof.
+   */
+  nearestClimb(x, y, z, radius) {
+    const list = _queryList;
+    this.query(x, z, radius, list, LAYER.CLIMB);
+    let best = null, bestD = radius * radius;
+    for (let i = 0; i < list.length; i++) {
+      const b = list[i];
+      // Its foot has to be somewhere we could walk onto, and its top has to be
+      // above us or it is not a way up.
+      if (b.y0 > y + 1.2 || b.y1 < y + 1.0) continue;
+      const d = b.distSqXZ(x, z);
+      if (d < bestD) { bestD = d; best = b; }
+    }
+    return best;
+  }
+
   get stats() { return { boxes: this.boxes.length, cells: this.grid.size }; }
 
   clear() {

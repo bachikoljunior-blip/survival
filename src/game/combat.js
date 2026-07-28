@@ -52,19 +52,19 @@ export const ATTACKS = {
   // --- Ren, prying bar ---------------------------------------------------
   light1: {
     clip: 'atk1', windup: 0.19, active: 0.11, recover: 0.32,
-    reach: 2.05, arc: 1.15, damage: 17, poise: 16, stamina: 11,
+    reach: 2.05, arc: 1.15, damage: 17, poise: 16, stamina: 7,
     moveScale: 0.16, rootMotion: 1.0, next: 'light2', comboWindow: 0.42,
     hitstop: 0.06, shake: 0.16, sound: 'swing', impact: 'blunt',
   },
   light2: {
     clip: 'atk2', windup: 0.21, active: 0.11, recover: 0.34,
-    reach: 2.1, arc: 1.25, damage: 20, poise: 19, stamina: 12,
+    reach: 2.1, arc: 1.25, damage: 20, poise: 19, stamina: 8,
     moveScale: 0.16, rootMotion: 1.0, next: 'light3', comboWindow: 0.42,
     hitstop: 0.065, shake: 0.18, sound: 'swing', impact: 'blunt',
   },
   light3: {
     clip: 'atk3', windup: 0.38, active: 0.14, recover: 0.38,
-    reach: 2.3, arc: 0.95, damage: 32, poise: 40, stamina: 20,
+    reach: 2.3, arc: 0.95, damage: 32, poise: 40, stamina: 13,
     moveScale: 0.1, rootMotion: 1.0, next: null, comboWindow: 0,
     hitstop: 0.11, shake: 0.4, sound: 'swingHeavy', impact: 'blunt', stagger: true,
   },
@@ -79,52 +79,52 @@ export const ATTACKS = {
   // --- enemy attacks -----------------------------------------------------
   scavSwing: {
     clip: 'atk1', windup: 0.42, active: 0.11, recover: 0.44,
-    reach: 1.95, arc: 1.0, damage: 20, poise: 20, stamina: 0,
+    reach: 1.95, arc: 1.0, damage: 11, poise: 20, stamina: 0, telegraph: 'swing',
     moveScale: 0.12, rootMotion: 0.9, next: 'scavSwing2', comboWindow: 0.34,
     hitstop: 0.05, shake: 0.1, sound: 'swing', impact: 'blunt',
   },
   scavSwing2: {
     clip: 'atk2', windup: 0.42, active: 0.1, recover: 0.5,
-    reach: 1.95, arc: 1.05, damage: 21, poise: 21, stamina: 0,
+    reach: 1.95, arc: 1.05, damage: 12, poise: 21, stamina: 0, telegraph: 'swing',
     moveScale: 0.12, rootMotion: 0.9, next: null, comboWindow: 0,
     hitstop: 0.05, shake: 0.11, sound: 'swing', impact: 'blunt',
   },
   breakerSmash: {
     clip: 'heavy', windup: 1.0, active: 0.2, recover: 0.62,
-    reach: 2.6, arc: 1.05, damage: 30, poise: 70, stamina: 0,
+    reach: 2.6, arc: 1.05, damage: 19, poise: 70, stamina: 0,
     moveScale: 0.06, rootMotion: 1.1, next: null, comboWindow: 0,
     hitstop: 0.14, shake: 0.6, sound: 'swingHeavy', impact: 'blunt',
     guardBreak: true, stagger: true, telegraph: 'heavy',
   },
   breakerOverhead: {
     clip: 'atk3', windup: 0.92, active: 0.16, recover: 0.7,
-    reach: 2.3, arc: 0.8, damage: 36, poise: 90, stamina: 0,
+    reach: 2.3, arc: 0.8, damage: 23, poise: 90, stamina: 0,
     moveScale: 0.04, rootMotion: 1.2, next: null, comboWindow: 0,
     hitstop: 0.16, shake: 0.75, sound: 'swingHeavy', impact: 'blunt',
     guardBreak: true, stagger: true, telegraph: 'heavy',
   },
   wardenJab: {
     clip: 'atk1', windup: 0.4, active: 0.09, recover: 0.52,
-    reach: 1.85, arc: 0.8, damage: 19, poise: 21, stamina: 0,
+    reach: 1.85, arc: 0.8, damage: 11, poise: 21, stamina: 0, telegraph: 'jab',
     moveScale: 0.2, rootMotion: 0.8, next: 'wardenJab2', comboWindow: 0.34,
     hitstop: 0.05, shake: 0.1, sound: 'swing', impact: 'blunt',
   },
   wardenJab2: {
     clip: 'atk2', windup: 0.4, active: 0.09, recover: 0.4,
-    reach: 1.85, arc: 0.85, damage: 20, poise: 22, stamina: 0,
+    reach: 1.85, arc: 0.85, damage: 12, poise: 22, stamina: 0, telegraph: 'jab',
     moveScale: 0.2, rootMotion: 0.8, next: 'wardenShove', comboWindow: 0.32,
     hitstop: 0.05, shake: 0.11, sound: 'swing', impact: 'blunt',
   },
   wardenShove: {
     clip: 'heavy', windup: 0.66, active: 0.14, recover: 0.42,
-    reach: 1.7, arc: 1.05, damage: 14, poise: 62, stamina: 0,
+    reach: 1.7, arc: 1.05, damage: 12, poise: 62, stamina: 0,
     moveScale: 0.1, rootMotion: 1.3, next: null, comboWindow: 0,
     hitstop: 0.09, shake: 0.32, sound: 'shove', impact: 'blunt',
     guardBreak: true, stagger: true, telegraph: 'shove',
   },
   dogBite: {
     clip: 'atk1', windup: 0.4, active: 0.1, recover: 0.5,
-    reach: 1.5, arc: 0.7, damage: 14, poise: 16, stamina: 0,
+    reach: 1.5, arc: 0.7, damage: 8, poise: 16, stamina: 0, telegraph: 'bite',
     moveScale: 0.3, rootMotion: 1.6, next: null, comboWindow: 0,
     hitstop: 0.04, shake: 0.1, sound: 'bite', impact: 'flesh',
   },
@@ -520,7 +520,7 @@ export class CombatSystem {
         player.dodgeCooldown = DODGE_COOLDOWN;
         // Dodge in the stick direction; with no input, dodge backward.
         const m = player.moveInput;
-        if (m.mag > 0.2) player.targetYaw = Math.atan2(m.x, m.z);
+        if (m.mag > 0.2) player.targetYaw = Math.atan2(-m.x, -m.z);
         else player.targetYaw = player.yaw + Math.PI;
         player.yaw = player.targetYaw;
         player.animator.play('dodge', { fade: 0.04, force: true });

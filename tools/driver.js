@@ -60,23 +60,32 @@
    * harness cannot pathfind verticality, and a human has to check that. It is
    * called out in the report rather than papered over.
    */
-  async function liftToRoof(x, z, minY = 2.8, r = 32) {
-    // Not "high" — breathable. The escort's completion test is about the air
-    // at head height, and finding that is exactly what READ THE AIR is for, so
-    // the harness looks for it the same way a player would.
+  /**
+   * Find breathable ground within `r` of a point and stand on it.
+   *
+   * The chapter-four escort's test is the air at a follower's head, sustained.
+   * A person who cannot climb has to be walked OUT of a gas pocket rather than
+   * up out of it, and finding the way out is exactly what READ THE AIR is for,
+   * so the harness looks for it the way a player would.
+   *
+   * HONEST LIMIT: this verifies the completion condition against real geometry
+   * and real gas sampling. It does not prove the walk itself is unobstructed;
+   * a human has to check that.
+   */
+  async function leadToAir(x, z, r = 46) {
     let best = null;
-    for (let a = 0; a < 24; a++) {
-      for (const rad of [0, 6, 11, 16, 21, 26, 32]) {
+    for (let a = 0; a < 32; a++) {
+      for (const rad of [8, 14, 20, 28, 36, 46]) {
         if (rad > r) continue;
-        const px = x + Math.sin(a / 24 * Math.PI * 2) * rad;
-        const pz = z + Math.cos(a / 24 * Math.PI * 2) * rad;
-        const g = G.world.groundUnder(px, pz, 0.4, 60, 80);
-        if (!g || g.y < minY) continue;
-        if (G.gas.sample(px, g.y + 1.5, pz) >= 200) continue;
-        if (!best || g.y < best.y) best = { x: px, z: pz, y: g.y };
+        const px = x + Math.sin(a / 32 * Math.PI * 2) * rad;
+        const pz = z + Math.cos(a / 32 * Math.PI * 2) * rad;
+        const g = G.world.groundUnder(px, pz, 0.4, 1.4, 6);
+        if (!g) continue;
+        if (G.gas.sample(px, g.y + 1.5, pz) >= 260) continue;
+        if (!best || rad < best.rad) best = { x: px, z: pz, y: g.y, rad };
       }
     }
-    if (!best) { err(`no breathable surface above ${minY}m within ${r}m of ${x},${z}`); return false; }
+    if (!best) { err(`no breathable ground within ${r}m of ${x},${z}`); return false; }
     await goTo(best.x, best.z, best.y + 0.1);
     return best;
   }
@@ -331,13 +340,12 @@
           G.emit('interact', m);
           await tick(0.25);
           expect(!!(m.actor && m.actor.following), `survivor ${m.id} did not get up`);
-          const roof = await liftToRoof(m.x, m.z);
-          if (roof && m.actor) {
-            // On the surface, not beside it — a follower dropped over the edge
-            // falls, which is correct game behaviour and a broken test.
-            m.actor.placeAt(roof.x, roof.y + 0.1, roof.z);
-          }
-          await tick(2.4);
+          // Walk the player up and let the survivor follow under its own
+          // steering, including its own climbing. Teleporting the survivor
+          // onto the roof — which this used to do — proved nothing except
+          // that the completion test reads a position.
+          const spot = await leadToAir(m.x, m.z);
+          await tick(26.0);
           if (!(m.actor && m.actor.out)) {
             // Give it longer and re-read from the live director, in case the
             // captured mark is stale or the check simply needs another beat.
@@ -345,7 +353,7 @@
             await tick(2.0);
             const a = m.actor;
             err(`${m.id} did not register as out — ` +
-              `y=${a ? a.pos.y.toFixed(2) : '-'} roof=${roof ? roof.y.toFixed(2) : 'none'} ` +
+              `y=${a ? a.pos.y.toFixed(2) : '-'} led=${spot ? spot.rad + 'm' : 'none'} ` +
               `ppmHead=${a ? Math.round(G.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z)) : '-'} ` +
               `following=${a ? a.following : '-'} ` +
               `dist=${a ? Math.hypot(a.pos.x - G.player.pos.x, a.pos.z - G.player.pos.z).toFixed(1) : '-'} ` +

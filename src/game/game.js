@@ -167,6 +167,14 @@ export class Game extends Emitter {
       if (a !== this.player || !this.vibration || !navigator.vibrate) return;
       try { navigator.vibrate(d.blocked ? 12 : Math.min(60, 14 + d.amount)); } catch { /* ignore */ }
     });
+    // Barks as subtitles, which is what the subtitles setting is for.
+    this.on('bark', (a, lines) => {
+      if (!this.settings.subtitles || !this.hud) return;
+      const d = Math.hypot(a.pos.x - this.player.pos.x, a.pos.z - this.player.pos.z);
+      if (d > 26) return;
+      const NAMES = { scav: 'Ash crew', slinger: 'Ash crew', breaker: 'Breaker', warden: 'Warden', dog: '' };
+      this.hud.subtitle(NAMES[a.kind] ?? '', lines[(Math.random() * lines.length) | 0], 3.2);
+    });
     this.on('actor:footstep', (a, d) => this.emit('sfx', 'step', { x: a.pos.x, y: a.pos.y, z: a.pos.z, ...d }));
     this.on('actor:coughsound', (a, d) => this.emit('sfx', 'cough', { x: a.pos.x, y: a.pos.y + 1.5, z: a.pos.z, player: a === this.player, ...d }));
     this.on('actor:land', (a, d) => {

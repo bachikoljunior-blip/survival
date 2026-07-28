@@ -26,27 +26,28 @@
     await tick(0.3);
     const following = !!(m.actor && m.actor.following);
     // Find a roof and put both up there.
-    // What a player does with the meter: find a surface where the air is
-    // actually breathable, not merely a surface that is high.
+    // What a player does with the meter: find breathable ground and lead them
+    // to it. Height helps because the gas stratifies, but a person who cannot
+    // climb has to be walked OUT of the pocket, not up out of it.
     let best = null;
-    for (let a = 0; a < 24; a++) for (const rad of [0, 6, 11, 16, 21, 26, 32]) {
-      const px = m.x + Math.sin(a / 24 * 6.283) * rad, pz = m.z + Math.cos(a / 24 * 6.283) * rad;
-      const g = G.world.groundUnder(px, pz, 0.4, 60, 80);
-      if (!g || g.y < 2.8) continue;
+    for (let a = 0; a < 32; a++) for (const rad of [8, 14, 20, 28, 36, 46]) {
+      const px = m.x + Math.sin(a / 32 * 6.283) * rad, pz = m.z + Math.cos(a / 32 * 6.283) * rad;
+      const g = G.world.groundUnder(px, pz, 0.4, 1.4, 6);
+      if (!g) continue;
       const air = G.gas.sample(px, g.y + 1.5, pz);
-      if (air >= 200) continue;
-      if (!best || g.y < best.y) best = { x: px, z: pz, y: g.y, air };
+      if (air >= 260) continue;
+      if (!best || rad < best.rad) best = { x: px, z: pz, y: g.y, air, rad };
     }
     if (best) {
-      G.player.pos.set(best.x, best.y + 0.1, best.z);
-      if (m.actor) { m.actor.pos.set(best.x, best.y + 0.1, best.z); m.actor.vel.set(0, 0, 0); }
+      G.player.placeAt(best.x, best.y + 0.1, best.z);
     }
-    await tick(2.5);
+    await tick(30);
     const ppm = m.actor ? G.gas.sample(m.actor.pos.x, m.actor.pos.y + 1.5, m.actor.pos.z) : -1;
     out.steps.push({
       id: m.id, following,
-      roof: best ? +best.y.toFixed(2) : null,
+      safeSpot: best ? [+best.x.toFixed(0), +best.z.toFixed(0), best.rad] : null,
       actorY: m.actor ? +m.actor.pos.y.toFixed(2) : null,
+      climbed: m.actor ? m.actor.state : null,
       ppmAtHead: +ppm.toFixed(0),
       distToPlayer: m.actor ? +Math.hypot(m.actor.pos.x - G.player.pos.x, m.actor.pos.z - G.player.pos.z).toFixed(2) : null,
       out: !!(m.actor && m.actor.out),

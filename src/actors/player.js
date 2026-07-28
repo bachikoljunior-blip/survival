@@ -389,7 +389,7 @@ export class ThirdPersonCamera {
       const mz = lerp(player.pos.z, t.pos.z, 0.34);
       const desiredYaw = Math.atan2(player.pos.x - mx - (t.pos.x - player.pos.x) * 0.0,
                                     player.pos.z - mz);
-      const toT = Math.atan2(t.pos.x - player.pos.x, t.pos.z - player.pos.z);
+      const toT = Math.atan2(player.pos.x - t.pos.x, player.pos.z - t.pos.z);
       const lockYaw = toT + Math.PI;
       this.yaw = dampAngle(this.yaw, lockYaw, this._manualT > 0 ? 0.9 : 0.16, dt);
       const dist = Math.hypot(t.pos.x - player.pos.x, t.pos.z - player.pos.z);
@@ -401,7 +401,7 @@ export class ThirdPersonCamera {
       // Only while genuinely moving forward, and never against a recent manual
       // input. A camera that fights the player is worse than no auto-follow.
       if (moving > 0.55 && this._manualT <= 0 && player.grounded) {
-        const travel = Math.atan2(player.vel.x, player.vel.z);
+        const travel = Math.atan2(-player.vel.x, -player.vel.z);
         const behind = travel + Math.PI;
         const diff = Math.abs(angleDelta(this.yaw, behind));
         if (diff > 0.25) {
