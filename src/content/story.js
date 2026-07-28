@@ -736,7 +736,7 @@ C.sol_after_raid = {
   nodes: {
     start: {
       ...line('sol', "That's the third time this month. They're not after the food."),
-      next: 'r2',
+      next: 'r_shift',
     },
     r2: {
       ...line('sol', "They're after cartridges. Which tells you what's happening out there better than any survey."),
@@ -755,6 +755,14 @@ hungry.`),
       ...line('sol', `Enough for four days if nobody does anything stupid. Marsh has more and Marsh
 does not give things away. Take that up with him.`),
       next: 'r_end',
+    },
+    r_shift: {
+      ...line('sol', `And that was your shift, by the way. I put you on the rota an hour ago and you
+did a barrel watch with a prybar, which is not what the rota says, and I have
+marked it down as done.
+
+Nobody gets to stand in this yard and not be on it. Not even you.`),
+      next: 'r2',
     },
     r_end: {
       ...line('sol', "Go and see him. And Vasko —"),

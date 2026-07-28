@@ -112,14 +112,28 @@ export class Audio {
     this.ambGain.gain.value = 0.0;
     this.ambGain.connect(this.masterGain);
 
-    // A short convolution reverb, generated rather than loaded: a dead,
-    // concrete-and-smoke tail that sits under everything outdoors.
-    this.reverb = ctx.createConvolver();
-    this.reverb.buffer = this._makeImpulse(1.8, 2.6);
-    this.reverbGain = ctx.createGain();
-    this.reverbGain.gain.value = 0.20;
-    this.reverb.connect(this.reverbGain);
-    this.reverbGain.connect(this.masterGain);
+    // Three generated impulses, crossfaded by ambience. One 1.8 s tail served
+    // open streets, cellars and tunnels identically — and 1.8 s is a large
+    // hall, not the "small, dead concrete room" the code claimed. A room you
+    // can hear the size of is most of what tells a player they went indoors.
+    this.reverbBus = ctx.createGain();
+    this.reverbs = {};
+    for (const [k, sec, decay, pre] of [
+      ['interior', 0.5, 4.2, 0.004],   // a stripped flat: close, dead
+      ['street',   1.4, 2.6, 0.014],   // brick canyon
+      ['tunnel',   2.6, 1.7, 0.052],   // the deep cut: long pre-delay, long tail
+    ]) {
+      const conv = ctx.createConvolver();
+      conv.buffer = this._makeImpulse(sec, decay, pre);
+      const g = ctx.createGain();
+      g.gain.value = k === 'street' ? 0.20 : 0.0;
+      this.reverbBus.connect(conv);
+      conv.connect(g);
+      g.connect(this.masterGain);
+      this.reverbs[k] = { conv, gain: g };
+    }
+    // Everything sends here; the bus fans out to the three spaces.
+    this.reverb = this.reverbBus;
 
     this.noiseBuf = this._makeNoise(2.0);
     this.pinkBuf = this._makePink(3.0);
@@ -190,16 +204,25 @@ export class Audio {
     return buf;
   }
 
-  /** Exponentially decaying noise impulse — a small, dead concrete room. */
-  _makeImpulse(seconds, decay) {
+  /**
+   * Exponentially decaying noise impulse.
+   * @param seconds  tail length
+   * @param decay    tail curvature; higher = deader
+   * @param preDelay seconds of near-silence before the first reflections. This
+   *                 is the single strongest cue for room SIZE — a tunnel is a
+   *                 tunnel because the walls answer late.
+   */
+  _makeImpulse(seconds, decay, preDelay = 0.01) {
     const ctx = this.ctx;
     const n = Math.floor(ctx.sampleRate * seconds);
+    const pre = Math.floor(ctx.sampleRate * preDelay);
     const buf = ctx.createBuffer(2, n, ctx.sampleRate);
-    const r = new Rng('impulse');
+    const r = new Rng(`impulse:${seconds}`);
     for (let c = 0; c < 2; c++) {
       const d = buf.getChannelData(c);
       for (let i = 0; i < n; i++) {
-        const t = i / n;
+        if (i < pre) { d[i] = 0; continue; }
+        const t = (i - pre) / Math.max(1, n - pre);
         // Slight early-reflection cluster then a smooth tail.
         const early = (t < 0.06 && r.f() < 0.06) ? r.range(-1, 1) * 0.7 : 0;
         d[i] = ((r.f() * 2 - 1) * Math.pow(1 - t, decay) * 0.6 + early) * (1 - t);
@@ -226,9 +249,9 @@ export class Audio {
     }
   }
 
-  /** Positional gain and pan from the listener. Cheap 2D, not HRTF. */
+  /** Positional gain, pan and distance from the listener. Cheap 2D, not HRTF. */
   _spatial(opts) {
-    if (!opts || opts.x === undefined) return { gain: 1, pan: 0 };
+    if (!opts || opts.x === undefined) return { gain: 1, pan: 0, dist: 0 };
     const cam = this.game.engine.camera;
     const dx = opts.x - cam.position.x;
     const dy = (opts.y ?? 0) - cam.position.y;
@@ -239,27 +262,56 @@ export class Audio {
     const e = cam.matrixWorld.elements;
     const rx = e[0], rz = e[2];
     const pan = clamp((dx * rx + dz * rz) / Math.max(1, d), -1, 1);
-    return { gain, pan };
+    return { gain, pan, dist: d };
   }
 
+  /**
+   * Build the output chain for one voice.
+   *
+   * Distance does two things here that level alone cannot:
+   *
+   *  - AIR ABSORPTION. A lowpass whose corner falls with range. Without it a
+   *    40 m impact has an identical spectrum to a 1 m one and simply sounds
+   *    quiet, which the ear reads as "small", not as "far away".
+   *  - REVERB RATIO. The send is taken BEFORE the distance attenuation and
+   *    ramped up with range, so distant sounds are proportionally WETTER. The
+   *    old chain scaled the send by the same 1/(1+d^2) as the dry path, making
+   *    far sounds drier than near ones — exactly backwards.
+   */
   _chain(opts, extraGain = 1, sendReverb = 0.2) {
     const ctx = this.ctx;
     const sp = this._spatial(opts);
+
     const out = ctx.createGain();
-    out.gain.value = sp.gain * extraGain;
-    let node = out;
+    out.gain.value = 1;
+    let src = out;
+    if (sp.dist > 2.5) {
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = clamp(20000 * Math.exp(-sp.dist / 45), 300, 20000);
+      lp.Q.value = 0.4;
+      src.connect(lp);
+      src = lp;
+    }
+
+    const dry = ctx.createGain();
+    dry.gain.value = sp.gain * extraGain;
+    src.connect(dry);
+    let node = dry;
     if (ctx.createStereoPanner) {
       const p = ctx.createStereoPanner();
       p.pan.value = sp.pan * 0.7;
-      out.connect(p);
+      dry.connect(p);
       node = p;
     }
     node.connect(this.sfxGain);
-    if (sendReverb > 0 && this.reverb) {
+
+    if (sendReverb > 0 && this.reverbBus) {
       const s = ctx.createGain();
-      s.gain.value = sendReverb * sp.gain;
-      node.connect(s);
-      s.connect(this.reverb);
+      s.gain.value = sendReverb * extraGain *
+        clamp(0.55 + sp.dist / 18, 0.55, 2.4) / (1 + sp.dist * 0.03);
+      src.connect(s);
+      s.connect(this.reverbBus);
     }
     return out;
   }
@@ -272,10 +324,31 @@ export class Audio {
     return s;
   }
 
-  _budget() {
-    if (this._voices >= this._maxVoices) return false;
-    this._voices++;
-    setTimeout(() => { this._voices--; }, 1400);
+  /**
+   * Voice budget.
+   *
+   * A slot is held for the sound's REAL length, not a flat 1400 ms. Holding a
+   * 90 ms footstep for 1.4 s meant three actors walking sat permanently at the
+   * 24-voice cap and hit confirms were dropped mid-fight, silently.
+   *
+   * Priorities let combat steal: an impact will evict a footstep, a footstep
+   * will never evict an impact.
+   */
+  _budget(dur = 0.5, priority = 1) {
+    const now = performance.now();
+    const v = this._voiceList;
+    for (let i = v.length - 1; i >= 0; i--) if (v[i].end <= now) v.splice(i, 1);
+    if (v.length >= this._maxVoices) {
+      let worst = -1;
+      for (let i = 0; i < v.length; i++) {
+        if (v[i].priority >= priority) continue;
+        if (worst < 0 || v[i].priority < v[worst].priority ||
+            (v[i].priority === v[worst].priority && v[i].end < v[worst].end)) worst = i;
+      }
+      if (worst < 0) return false;
+      v.splice(worst, 1);
+    }
+    v.push({ end: now + Math.max(60, dur * 1000 + 120), priority });
     return true;
   }
 
@@ -295,13 +368,14 @@ export class Audio {
     if (this.ctx.state === 'suspended') { this.ctx.resume().catch(() => {}); return; }
     const fn = this[`_sfx_${name}`];
     if (!fn) return;
-    if (!this._budget()) return;
+    const meta = SFX_META[name] || SFX_META._default;
+    if (!this._budget(meta[0], meta[1])) return;
     try { fn.call(this, opts); } catch (e) { /* never let a sound break a frame */ }
   }
 
   /** Generic percussive impact: noise through a resonant band, pitch-swept. */
-  _impact(opts, { freq = 220, q = 4, dur = 0.22, level = 0.9, type = 'bandpass', sweep = 0.35, rev = 0.25 }) {
-    const ctx = this.ctx, t = this._now();
+  _impact(opts, { freq = 220, q = 4, dur = 0.22, level = 0.9, type = 'bandpass', sweep = 0.35, rev = 0.25, at = 0 }) {
+    const ctx = this.ctx, t = this._now() + at;
     const out = this._chain(opts, level, rev);
     const src = this._noiseSource(this.noiseBuf, this.rng.range(0.85, 1.2));
     const f = ctx.createBiquadFilter();
