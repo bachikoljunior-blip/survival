@@ -1,0 +1,35 @@
+name: Autopilot
+on:
+  # schedule:
+  #   - cron: '0 18 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: autopilot
+
+jobs:
+  advance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            docs/STATE.md を読み、現在フェーズの「次の3アクション」だけを実行せよ。
+            - ブランチ autopilot/run-${{ github.run_number }} を作ってコミット
+            - 終了時に docs/STATE.md を必ず更新（現在フェーズ／完了分／次の3アクション／ブロッカー）
+            - ビルドとテストが通る状態でのみコミットすること
+            - 範囲を広げない。3アクションで必ず止まること
+          claude_args: |
+            --max-turns 60
+            --model claude-opus-5
