@@ -10,6 +10,8 @@
  *   node tools/shot.mjs                       default sweep
  *   node tools/shot.mjs --w 667 --h 375       explicit viewport (SE 3 landscape)
  *   node tools/shot.mjs --script foo.mjs      run a custom in-page driver
+ *   node tools/shot.mjs --locale ja-JP        boot as a Japanese device
+ *   node tools/shot.mjs --q stage=settings    query string for the driver
  */
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
@@ -74,11 +76,17 @@ const browser = await chromium.launch({
   ],
 });
 
+// `--locale ja-JP` makes the context look like a Japanese device to
+// navigator.languages, which is the only way to exercise first-run detection —
+// every other route reaches Japanese by toggling a setting that, on a real
+// first visit, does not exist yet.
+const LOCALE = arg('locale', null);
 const ctx = await browser.newContext({
   viewport: { width: W, height: H },
   deviceScaleFactor: DPR,
   isMobile: true,
   hasTouch: true,
+  ...(LOCALE ? { locale: LOCALE } : {}),
   userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1',
 });
 
