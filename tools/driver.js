@@ -110,14 +110,24 @@
       await sleep(0);
       const choices = ui.choiceList;
       if (choices && choices.length) {
+        // Choose against the AUTHORED choices, never the ones on screen.
+        //
+        // The list the UI holds has been through the localiser, so every
+        // predicate in this file — all of which match English — returns -1 in
+        // any other language, `pick` falls through to 0, and all five paths
+        // collapse onto the same branch and the same ending. The suite passed
+        // anyway, because "reached an ending" was true every time. The runner's
+        // own list is the same length and the same order, so the index the
+        // predicate returns is still the index the UI expects.
+        const authored = (G.director.dialogue && G.director.dialogue.choices()) || choices;
         let idx = 0;
         if (typeof pick === 'function') {
-          const r = pick(choices, G.director.dialogue.node);
+          const r = pick(authored, G.director.dialogue.node);
           idx = typeof r === 'number' ? r : 0;
         }
-        const c = choices[idx];
+        const c = authored[idx];
         if (!c || c.locked) {
-          const open = choices.findIndex((x) => !x.locked);
+          const open = authored.findIndex((x) => !x.locked);
           if (open < 0) { err('no unlocked choice in ' + (G.director.dialogue.convo?.id)); break; }
           idx = open;
         }
