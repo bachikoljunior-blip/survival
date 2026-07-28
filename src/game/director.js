@@ -617,6 +617,10 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       this.state.counters.set('crisis_lost', c.lost);
       if (c.rescued > 0) this.state.set('crisis_saved_some');
       if (c.lost === 0) this.state.set('crisis_saved_all');
+      // Sol's post-crisis scene keys off the night itself, not off the chapter
+      // closing — the player goes and stands in front of her before the
+      // chapter is over, which is the whole point of the scene.
+      this.state.set('crisis_done');
       this.game.hud.notice(
         c.lost === 0 ? '<b>All four.</b>' : `<b>${c.rescued} out. ${c.lost} not.</b>`,
         c.lost === 0 ? 'good' : 'bad', 7);

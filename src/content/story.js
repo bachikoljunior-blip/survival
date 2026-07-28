@@ -514,6 +514,7 @@ And if the meter goes over eight hundred you go up, you don't go home.`),
     again: {
       ...line('sol', "Still here."),
       branch: [
+        { if: { all: [{ flag: 'crisis_done' }, { notFlag: 'sol_debrief' }] }, goto: 'after_crisis' },
         { if: { flag: 'ch4_done' }, goto: 'after_crisis' },
         { if: { flag: 'vents_shut' }, goto: 'after_shut' },
         { if: { flag: 'vents_half' }, goto: 'after_half' },
