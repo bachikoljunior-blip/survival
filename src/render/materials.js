@@ -98,7 +98,13 @@ export function patchWorldMaterial(mat, opts = {}) {
           } else {
             f = uFogDensity * L * (exp(-k * y0) - exp(-k * y1)) / (k * dy);
           }
-          return 1.0 - exp(-max(0.0, f));
+          // Saturate rather than run away. The density field is exponential in
+          // depth, which is right physically and wrong below ground: in the
+          // Slip it drove the integral high enough that the fog colour simply
+          // replaced the world, and the pit rendered as a flat orange screen
+          // with a few slabs floating in it. Past this point you cannot see,
+          // and the useful question is what "cannot see" looks like.
+          return 1.0 - exp(-clamp(f, 0.0, 3.2));
         }
       `)
       .replace('#include <fog_fragment>', `

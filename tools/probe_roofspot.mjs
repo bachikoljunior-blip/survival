@@ -2,10 +2,10 @@
 (() => {
   const G = window.CINDERLINE.game, W = G.world, THREE = window.CINDERLINE.THREE;
   const out = [];
-  for (let x = -120; x <= 20; x += 10) {
-    for (let z = -60; z <= 20; z += 10) {
+  for (let x = -100; x <= -40; x += 4) {
+    for (let z = -40; z <= 20; z += 4) {
       const g = W.groundUnder(x, z, 0.4, 40, 60);
-      if (!g || g.y < 8 || g.y > 16) continue;
+      if (!g || g.y < 9 || g.y > 14) continue;
       // Clearance: how far can we see along each of four bearings?
       let best = null;
       for (const yawDeg of [0, 45, 90, 135, 180, 225, 270, 315]) {

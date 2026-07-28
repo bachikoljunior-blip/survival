@@ -2,7 +2,7 @@
 (async () => {
   const C = window.CINDERLINE, G = C.game, THREE = C.THREE;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  C.setCamera(-70, 12.2, -12, 96, -8);
+  C.setCamera(-70, 11.3, -22, 180, -20);
   for (let i = 0; i < 120; i++) { G.fixedUpdate(1 / 60); if (i % 30 === 0) await sleep(0); }
   await sleep(500);
   const cam = G.engine.camera;

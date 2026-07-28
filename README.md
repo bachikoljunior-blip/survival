@@ -195,9 +195,14 @@ are read off real captured frames, not inferred from the code:
 
 | | |
 |---|---|
-| Interquartile luma range | 23–63 levels across eight vantages (a flat image measures near zero; this project measured 12–19 before the art pass) |
-| Pure black | 0% in six of eight frames, 5.2% and 5.8% in the two that contain deep sky |
-| Cool pixels | 7–37% wherever sky is in frame; 0% only in the fully enclosed courtyard, which is correct |
+| Interquartile luma range | 11–135 across all eighteen vantages, median 49. A flat image measures near zero; the street frames measured 12–19 before the art pass. |
+| Pure black | 0% in eleven of eighteen frames; the worst is 9.1%, in a courtyard at night under a smoke ceiling. |
+| Cool pixels | 0–37%. Zero only where no sky is in frame — an enclosed courtyard, a corridor-like street, the works — which is correct; every frame with sky in it is 6–37% cool. |
+
+Two vantages are still weak and are named rather than smoothed over: `survey`
+(IQR 11) is a camera pointed at one flat wall, and `slip_bottom` (IQR 16) is
+the bottom of a pit where the fog legitimately owns most of the frame but the
+result is duller than it should be.
 
 ### Not measured
 
@@ -248,14 +253,25 @@ should be verified on the device before any claim is made about it.
   climbable route exists from each specific survivor to breathable air. A human
   has to check that, and it is called out in `tools/driver.js` rather than
   papered over.
-* **Some measurements here were wrong before they were right.** Two harness
+* **Some measurements here were wrong before they were right.** Three harness
   faults were poisoning the visual numbers: the vantage sweep photographed the
   world with the title screen up, so an interface scrim was being read as
-  crushed shadows, and the rooftop vantage was jammed three metres against a
-  wall. Three separate lighting changes were made against that frame before a
-  ray-pick established there was nothing wrong with the lighting. The tooling
-  now hides the interface and the vantage is placed by a clearance probe, but
-  it is worth knowing that the instrument can be the thing that is broken.
+  crushed shadows, and *two* of the vantages were pointed at a wall a few
+  metres away. Three separate lighting changes were made against one of those
+  frames before a ray-pick established there was nothing wrong with the
+  lighting. The sweep hides the interface now and both vantages are placed by a
+  clearance probe, but it is worth knowing that the instrument can be the thing
+  that is broken.
+* **Melee combat did not work at all until very late in the project**, and the
+  five-path playthrough suite passed the entire time it did not — because the
+  driver killed enemies by calling `damage()` directly and never once pressed
+  attack. The lesson generalises: a test that never performs the verb cannot
+  notice that the verb does nothing. `tools/probe_combat.mjs` exists to stop
+  that particular hole reopening, but there are certainly others.
+* **Getting all four survivors out of the chapter-four crisis is hard and is
+  not guaranteed by the tests.** The harness asserts the escort works and the
+  chapter resolves; how many people you save is a skill outcome, and the story
+  reads every value of it.
 * Interiors are reached through a fade-and-teleport rather than being seamlessly
   attached to their exteriors. They are real geometry in the same scene, built
   in a reserved strip of world space, which keeps them dense and correctly lit —

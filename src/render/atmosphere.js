@@ -401,11 +401,19 @@ export const MOODS = {
   },
   // Down in the smoke: the Slip, the trench floor, cellars.
   low: {
-    hemi: 0.6, hemiSky: 0x6b7488, hemiGround: 0x60422a,
-    sun: 0.35, sunColor: 0xd6b283, emberFill: 0.85,
-    fogDensity: 0.13, fogHeight: 7.5, ember: 1.1,
-    fogLow: 0x5a4634, fogHigh: 0x3a352e, skyGlow: 0.5,
-    ashOpacity: 0.34, emberParticles: 1.7, wetness: 0.16, key: 1.6,
+    // Below street level: the Slip, the trench, the cut. This is the mood the
+    // pit actually uses — `under` is only ever forced by an interior — and it
+    // was doing two opposite wrong things at once. Standing in the Slip, a
+    // density of 0.13 over a 7.5m scale height replaced the entire world with
+    // the fog colour, so the pit rendered as a flat orange screen with four
+    // slabs floating in it. Looking down into the Slip from the bridge, the
+    // same setting plus almost no fill left the frame 30% pure black. Thinner,
+    // darker, less saturated, and with enough hemisphere to see a wall by.
+    hemi: 0.95, hemiSky: 0x5c6880, hemiGround: 0x4c3a28,
+    sun: 0.5, sunColor: 0xc2a487, emberFill: 1.0,
+    fogDensity: 0.055, fogHeight: 13.0, ember: 0.95,
+    fogLow: 0x33281f, fogHigh: 0x2e2a26, skyGlow: 0.5,
+    ashOpacity: 0.34, emberParticles: 1.7, wetness: 0.2, key: 1.5,
   },
   // Above the smoke: rooftops. The reward for climbing is that you can see.
   high: {
@@ -433,11 +441,14 @@ export const MOODS = {
   },
   // Underground: the tunnels and the deep cut.
   under: {
-    hemi: 0.26, hemiSky: 0x424a5c, hemiGround: 0x543e26,
-    sun: 0.0, sunColor: 0x000000, emberFill: 0.95,
-    fogDensity: 0.11, fogHeight: 12.0, ember: 1.3,
-    fogLow: 0x4e3a26, fogHigh: 0x2c2620, skyGlow: 0.0,
-    ashOpacity: 0.0, emberParticles: 1.4, wetness: 0.5, key: 1.8,
+    hemi: 0.62, hemiSky: 0x3c4658, hemiGround: 0x4a3626,
+    sun: 0.22, sunColor: 0x6a5a4a, emberFill: 1.15,
+    fogDensity: 0.055, fogHeight: 14.0, ember: 1.05,
+    // Dark and desaturated: down here the light that reaches you has come off
+    // the burn through forty metres of smoke, and it is not orange, it is the
+    // colour of a wet brick at night.
+    fogLow: 0x2a211a, fogHigh: 0x22201d, skyGlow: 0.0,
+    ashOpacity: 0.0, emberParticles: 1.4, wetness: 0.55, key: 1.55,
   },
 };
 

@@ -35,7 +35,11 @@ const VANTAGES = [
   ['marrow_east',     10, 1.7, -2,     90,  -3],
   ['slip_edge',      -76, 1.7, 0,     270, -14],
   ['slip_bottom',    -58, -8.2, 4,    315,  10],
-  ['slip_bridge',    -70, 11.3, -22,  180, -20],
+  // Placed by tools/probe_roofspot.mjs. The old position pointed at a brick
+  // wall four metres away, which is why that frame measured 28% pure black —
+  // the same fault as the old marrow_roof, found the same way, by ray-picking
+  // what the camera was actually looking at instead of adjusting the lighting.
+  ['slip_bridge',    -84, 11.8, -24,    0, -14],
   // Placed with tools/probe_roofspot.mjs: on a roof with 90m of clearance
   // ahead. The old position was jammed 3.1m against a wall, which is why the
   // frame was 43% black and why three separate lighting fixes moved it zero.

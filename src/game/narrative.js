@@ -71,7 +71,10 @@ export function applyEffects(effects, S, ctx) {
     if (!e) continue;
     if (e.flag) S.set(e.flag, true);
     if (e.unflag) S.set(e.unflag, false);
-    if (e.give) S.give(e.give[0], e.give[1] ?? 1);
+    if (e.give) {
+      S.give(e.give[0], e.give[1] ?? 1);
+      if (ctx && ctx.quests) ctx.quests.notify('collect', { item: e.give[0] });
+    }
     if (e.take) S.take(e.take[0], e.take[1] ?? 1);
     if (e.trust) S.adjustTrust(e.trust[0], e.trust[1], e.trust[2]);
     if (e.cap) S.unlock(e.cap);

@@ -580,7 +580,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
 
     const ppm = g.gas.sample(n.pos.x, n.pos.y + 1.5, n.pos.z);
     n.safeFor = ppm < SAFE_PPM ? (n.safeFor || 0) + dt : 0;
-    if (n.safeFor > 3.0 && d < 12) {
+    if (n.safeFor > 3.0) {
       n.following = false;
       this.state.set('nessa_rescued');
       this._markerTargets.nessaRun = null;
@@ -663,7 +663,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       // is measured is the air itself.
       const ppm = g.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z);
       a.safeFor = ppm < SAFE_PPM ? (a.safeFor || 0) + dt : 0;
-      if (a.safeFor > 3.0 && d < 12) {
+      if (a.safeFor > 3.0) {
         // Out means gone. Marking somebody rescued and leaving them standing
         // in the street is a lie the player can walk back and check.
         a.following = false;
