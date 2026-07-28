@@ -305,13 +305,26 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.03, boarded: 0.3,
   buildings.push({ id: 'cut_office', name: 'Weighbridge', style: 'row', x: 78, z: 46, w: 14, d: 11, rot: 0, floors: 2, faces: 'nz,nx', shop: false, lit: 0.1 });
   scatter.push({ id: 'cutyard', x: 60, z: 56, w: 44, d: 24, character: 'industrial', density: 1.2 });
 
-  // The Cinder Line itself, painted across Cinder Road at x = 25.
-  for (let i = 0; i < 5; i++) {
-    const x = 25 - i * 3.4;
+  // The Cinder Line itself, repainted across Cinder Road every quarter.
+  //
+  // i = 0 is the OLDEST and the most weathered, and it sits furthest EAST;
+  // each repaint steps west. Teo's line — "same road, further west every time"
+  // — and the memorial both depend on that reading, and an earlier version had
+  // it inverted, which made the fire look as though it were retreating.
+  const CINDER_YEARS = [2019, 2020, 2021, 2022, 2023];
+  for (let i = 0; i < CINDER_YEARS.length; i++) {
+    const newest = i === CINDER_YEARS.length - 1;
+    const x = 32 - i * 3.4;                       // oldest east, newest west
     props.push({
       kind: 'sign', x, z: -2 + i * 0.2, rot: -Math.PI / 2, w: 0.9, h: 0.45, lift: 0.9,
-      text: [`${2019 + i}`], weathered: 0.3 + i * 0.12, border: false,
-      accent: i === 0 ? '#ff7a2f' : '#8a7a64', post: true,
+      text: [`${CINDER_YEARS[i]}`], weathered: 0.78 - i * 0.16, border: false,
+      accent: newest ? '#ff7a2f' : '#8a7a64', post: true,
+    });
+    // The marker post is a label on a painted stripe; the stripe is the thing
+    // you actually read from a moving camera, so it goes across the road.
+    props.push({
+      kind: 'roadstripe', x, z: 6, w: 0.5, d: 26, rot: 0,
+      colour: newest ? '#d86a2a' : '#6d6154', wear: 0.78 - i * 0.16,
     });
   }
   props.push({ kind: 'sign', x: 25, z: -12, rot: 0, w: 3.6, h: 1.8, lift: 1.6,
@@ -562,6 +575,7 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
       ],
       spawns: [
         { id: 'survey_in', x: -7.5, z: 5.2, rot: Math.PI * 0.9 },
+        { id: 'survey_back_in', x: 7.4, z: 4.6, rot: Math.PI * 0.05 },
         { id: 'npc_krajcik', x: 6, z: -5.0, rot: Math.PI },
       ],
       exit: { x: -8.2, z: 6.85, rot: 0, to: 'survey_out', prompt: 'Out to the yard' },
@@ -658,7 +672,15 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
     { id: 'survey_door', kind: 'door', x: 62, y: 1.1, z: -36.6, label: 'H.R.A. Field Office 2',
       prompt: 'Enter the field office', target: 'survey_in', interiorId: 'survey', range: 2.8,
       locked: true, lockedPrompt: 'Locked — pass reader',
-      unlockIf: { any: [{ item: 'keySurvey' }, { flag: 'iris_hinted_door' }] } },
+      unlockIf: { item: 'keySurvey' } },
+    // Iris either gives you a pass for the front door or tells you about the
+    // rusted hasp on the north elevation. They were the same door, so her
+    // refusal cost nothing and her sacrifice bought nothing. They are two
+    // doors now, and the back way puts you in the file room, not the lobby.
+    { id: 'survey_backdoor', kind: 'door', x: 55.4, y: 1.1, z: -44, label: 'Service door — north elevation',
+      prompt: 'Force the rusted hasp', target: 'survey_back_in', interiorId: 'survey', range: 2.6,
+      locked: true, lockedPrompt: 'The hasp is sound here. Iris said the north elevation.',
+      unlockIf: { flag: 'iris_hinted_door' } },
     { id: 'door_hut', kind: 'door', x: 96, y: 1.1, z: -58, label: 'Instrument hut',
       prompt: 'Enter the instrument hut', target: 'hut_in', interiorId: 'hut', range: 2.6 },
     { id: 'door_bek', kind: 'door', x: -34, y: 1.1, z: 44.6, label: 'Bek & Daughter',
@@ -666,6 +688,46 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
     { id: 'door_pell', kind: 'door', x: -112, y: 1.1, z: -68.4, label: 'Pell House',
       prompt: 'Enter Pell House', target: 'pell_in', interiorId: 'pell', range: 2.8 },
   );
+
+  // Boarded shopfronts. Hollis was evacuated in a hurry and then boarded in an
+  // even bigger one, and behind about one hoarding in six there is still a
+  // stockroom. These are the reason to walk down a street you have no errand
+  // on, and the reason Teo regrinding the bar is worth a conversation.
+  const BOARDED = [
+    { id: 'brd_delph', x: -78, z: -12.6, rot: 0, reveal: 'Delph Ironmongers, back store',
+      loot: [['salvage', 4], ['cell', 1]],
+      journal: ['delph', 'Delph Ironmongers', `Two hundred feet of copper flex and a shelf of lamp
+cells, behind eleven-year-old boards, forty metres from a courtyard that has been
+rationing light since March. Nobody checked. Everybody walked past.`] },
+    { id: 'brd_outfit', x: -58, z: -12.6, rot: 0, reveal: 'Colliery Outfitters',
+      loot: [['salvage', 3], ['bandage', 2]] },
+    { id: 'brd_ninelamps', x: -38, z: -12.6, rot: 0, reveal: 'Nine Lamps — cellar hatch',
+      loot: [['salvage', 3], ['filter', 1]],
+      journal: ['ninelamps', 'The Nine Lamps', `A pub cellar with the hatch still chained from the
+inside, which means whoever chained it went out the front and meant to come back.
+There is a crate of respirator cartridges down there, unopened, still in date.`] },
+    { id: 'brd_selvin', x: -96, z: -12.6, rot: 0, reveal: 'Selvin & Vane',
+      loot: [['salvage', 4]] },
+    { id: 'brd_chapel', x: -50, z: 33.4, rot: Math.PI, reveal: 'Chapel vestry',
+      loot: [['salvage', 2], ['bandage', 1], ['stim', 1]] },
+    { id: 'brd_weigh', x: 71, z: 40.4, rot: Math.PI, reveal: 'Weighbridge office',
+      loot: [['salvage', 3], ['cell', 1]],
+      journal: ['weigh', 'Weighbridge office', `Authority stock, Authority padlock, Authority
+boards. Four cases of cartridges issued to a plant crew that was stood down in
+the spring and never came for them.`] },
+    { id: 'brd_laundry', x: -22, z: 33.4, rot: Math.PI, reveal: 'Laundry, rear',
+      loot: [['salvage', 3], ['filter', 1]] },
+  ];
+  for (const b of BOARDED) {
+    props.push({
+      kind: 'hoarding', x: b.x, z: b.z, rot: b.rot, w: 2.6, h: 2.3,
+      interact: {
+        id: b.id, kind: 'breach', label: 'Boarded shopfront',
+        prompt: 'Lever the boards off', dy: 1.2, range: 2.4,
+        reveal: b.reveal, loot: b.loot, journal: b.journal,
+      },
+    });
+  }
 
   // The instrument hut needs a shell outdoors so the door is somewhere.
   buildings.push({
@@ -681,9 +743,14 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
   // The three cracked borehole heads on the west side — Sol's work.
   for (let i = 0; i < 3; i++) {
     const x = -118 + i * 14, z = 26;
-    props.push({ kind: 'vent', x, z, hot: true, gasStrength: 2600, gasRadius: 24, id: `vent_west_${i + 1}`,
-      interact: { id: `vent_west_${i + 1}`, kind: 'vent', label: 'Borehole head',
-        prompt: 'Examine the borehole head', dy: 1.2, range: 2.6 } });
+    // `cracked` is not decoration: it puts the bar still in the collar, the rag
+    // wedge, and the fresh scoring on the cap, so the single most important
+    // physical evidence in the story does not render as the same asset as the
+    // twenty background heads in Field 9.
+    props.push({ kind: 'vent', x, z, hot: true, cracked: true, gasStrength: 2600, gasRadius: 24,
+      id: `vent_west_${i + 1}`,
+      interact: { id: `vent_west_${i + 1}`, kind: 'vent', label: 'Cracked borehole head',
+        prompt: 'Examine the wedged head', dy: 1.2, range: 2.6 } });
   }
   regions.push({ id: 'westheads', name: 'West Heads', x: -104, z: 26, w: 56, d: 20, music: 'tense', ambience: 'vents' });
 

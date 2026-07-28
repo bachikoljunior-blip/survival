@@ -586,6 +586,9 @@ export class City {
       case 'washing': P.washingLine(cb, p.x0, p.y0, p.z0, p.x1, p.y1, p.z1, rng); break;
       case 'debris': P.debris(cb, p.x, p.z, p.r || 3, p.n || 14, rng, y); break;
       case 'paper': P.paperScatter(cb, p.x, p.z, p.r || 2, p.n || 12, rng, y + 0.005); break;
+      case 'hoarding': P.hoarding(cb, p.x, y, p.z, p.rot || 0, rng, p);
+        this.solid(p.x, y, p.z, p.w || 2.6, p.h || 2.3, 0.2, p.rot || 0, LAYER.SOLID, 'prop'); break;
+      case 'roadstripe': P.roadStripe(cb, p.x, y, p.z, p.rot || 0, rng, p); break;
       case 'sign': this._standaloneSign(p); break;
     }
     if (r && r.light) this.lightMarkers.push({ ...r.light, id: p.id });

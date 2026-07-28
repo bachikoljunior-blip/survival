@@ -119,18 +119,36 @@ export class MeshBuilder {
   }
 
   /** Box rotated about Y. Used for anything that is not on the street grid. */
+  /**
+   * Y-rotated box, with an optional `tilt` about the local X axis applied
+   * first. Tilt is for things that have fallen, been levered off, or been
+   * propped — a plank at 4 degrees off true is most of the difference between
+   * a place people left and a place a level editor made.
+   *
+   * Tilted boxes are visual only: the collision world is Y-rotated boxes and
+   * stays that way, so callers must not rely on a tilted box to stand on.
+   */
   boxRot(o) {
-    const { rot = 0, x = 0, z = 0 } = o;
-    if (Math.abs(rot) < 1e-5) return this.box(o);
+    const { rot = 0, tilt = 0, x = 0, z = 0, y = 0 } = o;
+    if (Math.abs(rot) < 1e-5 && Math.abs(tilt) < 1e-5) return this.box(o);
     const start = this.vertCount;
-    this.box({ ...o, x: 0, z: 0 });
+    this.box({ ...o, x: 0, z: 0, y: 0 });
     const c = Math.cos(rot), s = Math.sin(rot);
+    const tc = Math.cos(tilt), ts = Math.sin(tilt);
     for (let i = start; i < this.vertCount; i++) {
-      const px = this.pos[i * 3], pz = this.pos[i * 3 + 2];
+      let px = this.pos[i * 3], py = this.pos[i * 3 + 1], pz = this.pos[i * 3 + 2];
+      let nx = this.nrm[i * 3], ny = this.nrm[i * 3 + 1], nz = this.nrm[i * 3 + 2];
+      if (ts !== 0) {
+        const y2 = py * tc - pz * ts, z2 = py * ts + pz * tc;
+        py = y2; pz = z2;
+        const ny2 = ny * tc - nz * ts, nz2 = ny * ts + nz * tc;
+        ny = ny2; nz = nz2;
+      }
       this.pos[i * 3] = px * c - pz * s + x;
+      this.pos[i * 3 + 1] = py + y;
       this.pos[i * 3 + 2] = px * s + pz * c + z;
-      const nx = this.nrm[i * 3], nz = this.nrm[i * 3 + 2];
       this.nrm[i * 3] = nx * c - nz * s;
+      this.nrm[i * 3 + 1] = ny;
       this.nrm[i * 3 + 2] = nx * s + nz * c;
     }
     return this;

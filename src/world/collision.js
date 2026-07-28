@@ -12,7 +12,6 @@
  * are climbed by the same step-up rule as a single kerb.
  */
 
-import * as THREE from 'three';
 import { clamp, clamp01 } from '../core/util.js';
 
 export const LAYER = {
@@ -236,8 +235,31 @@ export class CollisionWorld {
     return best;
   }
 
-  /** Any solid overlapping the capsule? Used to validate teleports and spawns. */
+  /**
+   * Any solid overlapping the capsule? Used to validate teleports and spawns,
+   * and by the vault to find what is in the way.
+   *
+   * Returns the box with the LOWEST top surface among the overlaps rather than
+   * whichever one the spatial hash happened to visit first. That matters: the
+   * caller almost always wants "the thing I could get over", and an arbitrary
+   * answer made the auto-vault fire or not fire depending on insertion order.
+   */
   overlaps(x, y, z, radius, height) {
+    const list = _queryList;
+    this.query(x, z, radius + 0.5, list, LAYER.SOLID | LAYER.PLATFORM);
+    let best = null;
+    for (let i = 0; i < list.length; i++) {
+      const b = list[i];
+      if (b.y1 <= y + 0.05 || b.y0 >= y + height - 0.05) continue;
+      if (b.distSqXZ(x, z) < radius * radius) {
+        if (!best || b.y1 < best.y1) best = b;
+      }
+    }
+    return best;
+  }
+
+  /** As `overlaps`, but stops at the first hit. Cheaper when only truth matters. */
+  anyOverlap(x, y, z, radius, height) {
     const list = _queryList;
     this.query(x, z, radius + 0.5, list, LAYER.SOLID | LAYER.PLATFORM);
     for (let i = 0; i < list.length; i++) {
@@ -425,19 +447,41 @@ export function moveActor(world, a, dt) {
   let grounded = false;
   let groundBox = null;
 
-  // 1) Swept landing. Search the whole span the feet travelled this step, so a
-  //    fast fall cannot pass through a floor between two frames — which, with a
-  //    world-sized ground slab, would otherwise let the actor drop below it and
-  //    then be ejected sideways to the map edge.
+  // Ground resolution.
+  //
+  // The search origin is one step-height ABOVE where the feet were, not just
+  // above where they are. That single choice is what makes step-up work at all:
+  // `groundUnder` rejects any surface higher than its origin, so searching from
+  // the feet can only ever find the floor you are already on, and every kerb,
+  // stair nose and ramp box in the city reads as a wall.
+  //
+  // Reaching upward is only legitimate while walking. In the air we search from
+  // the feet, otherwise falling past a ledge would snag on it.
+  const canStep = wasGrounded || (a.coyote ?? 0) > 0;
+  const reach = canStep ? step : 0.03;
+
+  // 1) Swept landing and step-up, in one query. The span searched covers the
+  //    whole distance the feet travelled this step — so a fast fall cannot pass
+  //    through a floor between two frames — plus one step above, so a surface
+  //    the body is pressed against is found and climbed.
   if (vel.y <= 0.001) {
-    const from = prevY + 0.03;
-    const depth = Math.max(0.08, prevY - pos.y) + 0.08;
+    const from = prevY + reach;
+    const depth = reach + Math.max(0.08, prevY - pos.y) + 0.08;
     const g = world.groundUnder(pos.x, pos.z, r * 0.92, from, depth);
-    if (g && pos.y <= g.y + 0.03) {
-      pos.y = g.y;
-      vel.y = 0;
-      grounded = true;
-      groundBox = g.box;
+    if (g && pos.y <= g.y + 0.03 && g.y - prevY <= reach + 1e-4) {
+      // A step-up must not drive the head into a ceiling.
+      const rise = g.y - prevY;
+      let ok = true;
+      if (rise > 0.005) {
+        ok = world.ceilingAbove(pos.x, pos.z, r * 0.85, g.y, h + 0.1) >= g.y + h - 0.01;
+      }
+      if (ok) {
+        pos.y = g.y;
+        vel.y = 0;
+        grounded = true;
+        groundBox = g.box;
+        if (rise > 0.005) steppedUp = true;
+      }
     }
   }
 
@@ -450,18 +494,6 @@ export function moveActor(world, a, dt) {
       pos.y = g.y;
       vel.y = 0;
       grounded = true;
-      groundBox = g.box;
-    }
-  }
-
-  // 3) Step-up. A surface just above the feet that we are already inside.
-  if (!grounded) {
-    const g = world.groundUnder(pos.x, pos.z, r * 0.92, prevY + step, step + 0.06);
-    if (g && g.y > pos.y && g.y - pos.y <= step && vel.y <= 0.5) {
-      pos.y = g.y;
-      vel.y = 0;
-      grounded = true;
-      steppedUp = true;
       groundBox = g.box;
     }
   }

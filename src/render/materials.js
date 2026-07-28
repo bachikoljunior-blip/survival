@@ -25,10 +25,10 @@ export const worldUniforms = {
   uFogHeight:    { value: 4.5 },     // 1/e falloff height in metres
   uFogBase:      { value: -2.0 },    // world Y where density is uFogDensity
   uEmberColor:   { value: new THREE.Color(0xff7a30) },
-  uEmberAmount:  { value: 0.55 },    // warm bounce from the burn below
+  uEmberAmount:  { value: 0.20 },    // warm bounce from the burn below
   uTime:         { value: 0 },
   uWindDir:      { value: new THREE.Vector2(0.7, 0.7) },
-  uWetness:      { value: 0.0 },
+  uWetness:      { value: 0.35 },    // standing water / hose runoff on flat ground
 };
 
 const patched = new Set();
@@ -36,11 +36,21 @@ const patched = new Set();
 /**
  * Injects height fog + ember bounce into any standard/physical material.
  * Called on every world material exactly once.
+ *
+ * @param {object} opts
+ *   skyGate  when true the ember bounce is gated on the baked vertex AO, so
+ *            alleys, window reveals and interiors do not receive the bounce.
+ *            World geometry bakes occlusion into its vertex colour; characters
+ *            do not, so they opt out.
+ *   wet      when true the surface takes the wet-ground reflection pass.
  */
-export function patchWorldMaterial(mat) {
+export function patchWorldMaterial(mat, opts = {}) {
   if (patched.has(mat) || mat.userData.__patched) return mat;
   mat.userData.__patched = true;
   patched.add(mat);
+
+  const skyGate = opts.skyGate !== false;
+  const wet = opts.wet !== false;
 
   mat.fog = false;   // we replace it entirely
 
@@ -69,6 +79,8 @@ export function patchWorldMaterial(mat) {
         uniform vec3  uEmberColor;
         uniform float uEmberAmount;
         uniform float uTime;
+        uniform float uWetness;
+        uniform vec2  uWindDir;
 
         // Analytic integral of an exponential height-density field along a ray.
         // Gives correct, stable fog with no per-step marching.
@@ -91,13 +103,47 @@ export function patchWorldMaterial(mat) {
       `)
       .replace('#include <fog_fragment>', `
         {
+          // How much of the burn this fragment can actually see.
+          //
+          // The world bakes hemispherical occlusion from the OcclusionGrid into
+          // its vertex colour at chunk-build time, so a fragment deep in an
+          // alley, inside a window reveal or under a canopy arrives here already
+          // darkened. Using that as the visibility term is what stops the ember
+          // bounce from behaving as a global orange multiply over every surface
+          // in the city, indoors and behind buildings included.
+          float skyVis = 1.0;
+          ${skyGate ? `
+          #ifdef USE_COLOR
+            float aoLum = dot(vColor, vec3(0.2126, 0.7152, 0.0722));
+            skyVis = smoothstep(0.16, 0.62, aoLum);
+          #endif
+          ` : ''}
+
           // Ember bounce: the burn under the streets throws warm light up onto
-          // everything low. Modulated by the surface's own albedo and by how
-          // much of the surface faces downward, so it behaves like real bounce
-          // light instead of a red wash over the whole frame.
+          // everything low. Modulated by the surface's own albedo, by how much
+          // of the surface faces downward, and by sky visibility.
           float bounce = uEmberAmount * exp(-max(0.0, vWorldPosCL.y - uFogBase) * 0.17);
           float facing = 0.42 - 0.38 * clamp(normal.y, -1.0, 1.0);
-          gl_FragColor.rgb += uEmberColor * diffuseColor.rgb * bounce * facing;
+          gl_FragColor.rgb += uEmberColor * diffuseColor.rgb * bounce * facing * skyVis;
+          ${wet ? `
+          // Wet ground. Hollis is hosed down constantly and it rains ash-water;
+          // the flat surfaces hold a film. Water darkens the substrate and then
+          // hands back a grazing-angle reflection that is warm from the burn and
+          // COOL from the sky — which is where the only real warm/cool contrast
+          // at street level comes from.
+          float wetAmt = uWetness * smoothstep(0.55, 0.92, normal.y);
+          if (wetAmt > 0.002) {
+            vec3 V = normalize(cameraPosition - vWorldPosCL);
+            float fres = 0.02 + 0.98 * pow(1.0 - clamp(V.y, 0.0, 1.0), 5.0);
+            // Wind drags the sheen across the film so it is not a static decal.
+            float rip = sin((vWorldPosCL.x * uWindDir.x + vWorldPosCL.z * uWindDir.y) * 2.7
+                            + uTime * 0.7) * 0.5 + 0.5;
+            fres *= 0.6 + 0.4 * rip;
+            gl_FragColor.rgb = mix(gl_FragColor.rgb, gl_FragColor.rgb * 0.52, wetAmt);
+            gl_FragColor.rgb += (uEmberColor * bounce * 1.8 * skyVis + uFogColorHigh * 1.6)
+                                * fres * wetAmt;
+          }
+          ` : ''}
 
           float fogAmt = heightFog(cameraPosition, vWorldPosCL);
 
@@ -105,14 +151,19 @@ export function patchWorldMaterial(mat) {
           float hMix = clamp((vWorldPosCL.y - uFogBase) / 30.0, 0.0, 1.0);
           vec3 fogCol = mix(uFogColorLow, uFogColorHigh, hMix * hMix);
           // The smoke itself is lit by the burn, so the low fog carries a warm
-          // core. This is what makes street level glow rather than just grey out.
-          fogCol += uEmberColor * uEmberAmount * 0.16 * (1.0 - hMix);
+          // core. With the surface bounce now gated this is where most of the
+          // street's warmth lives, which is the correct place for it: in the
+          // air, not painted onto every wall.
+          fogCol += uEmberColor * uEmberAmount * 0.5 * (1.0 - hMix);
 
           gl_FragColor.rgb = mix(gl_FragColor.rgb, fogCol, fogAmt);
         }
       `);
   };
-  mat.customProgramCacheKey = () => 'cl-worldfog';
+  // The injected source differs per variant, so the cache key must too —
+  // otherwise the second variant compiled inherits the first one's program.
+  const key = `cl-worldfog-${skyGate ? 'g' : 'n'}${wet ? 'w' : 'd'}`;
+  mat.customProgramCacheKey = () => key;
   return mat;
 }
 
@@ -128,7 +179,10 @@ export function makeSkyMaterial() {
     uniforms: {
       uTime: worldUniforms.uTime,
       uHorizon: { value: new THREE.Color(0x9a8a72) },
-      uZenith: { value: new THREE.Color(0x39414a) },
+      // The zenith is the one genuinely cold thing in this game's palette. It
+      // has to be saturated enough to survive the tonemap, or the whole frame
+      // resolves to a single warm hue and there is no palette at all.
+      uZenith: { value: new THREE.Color(0x2c3a52) },
       uGlow: { value: new THREE.Color(0xff8a3a) },
       uGlowDir: { value: new THREE.Vector3(0.4, -0.05, -0.9).normalize() },
       uGlowStrength: { value: 0.34 },
@@ -168,8 +222,11 @@ export function makeSkyMaterial() {
         vec3 d = normalize(vDir);
         float up = clamp(d.y * 0.5 + 0.5, 0.0, 1.0);
 
-        // Base gradient, biased so the horizon band is thick and hazy.
-        float t = pow(clamp(d.y * 1.35 + 0.16, 0.0, 1.0), 0.62);
+        // Base gradient. The warm horizon band is kept THIN: a phone frame at a
+        // -3 degree pitch only ever sees about 25 degrees of sky, and the old
+        // curve did not reach the cold zenith until 38 degrees — so every
+        // street frame in the game was warm from edge to edge.
+        float t = pow(clamp(d.y * 3.2 + 0.20, 0.0, 1.0), 0.85);
         vec3 col = mix(uHorizon, uZenith, t);
 
         // Rolling smoke layers, slower and larger the higher you look.
@@ -177,7 +234,9 @@ export function makeSkyMaterial() {
         float smoke = fbm(uv * 1.6 + vec2(uTime * 0.011, uTime * 0.004));
         float smoke2 = fbm(uv * 3.4 - vec2(uTime * 0.019, 0.0));
         float band = smoothstep(0.32, 0.95, smoke * 0.66 + smoke2 * 0.34);
-        col = mix(col, uHorizon * 1.22, band * (1.0 - t) * 0.85);
+        // The banding takes the local gradient colour rather than the warm
+        // horizon, so high smoke stays cold smoke.
+        col = mix(col, mix(uHorizon, uZenith, t) * 1.24, band * (1.0 - t * 0.55) * 0.8);
         col *= 0.86 + 0.28 * smoke2;
 
         // The burn: a tight, soft glow low on one side of the sky. This is the
@@ -195,7 +254,9 @@ export function makeSkyMaterial() {
         // Sun disc, heavily attenuated by particulate. Never a clean disc.
         float s = max(0.0, dot(d, normalize(uSunDir)));
         col += uSunColor * pow(s, 220.0) * uSunStrength * 1.6;
-        col += uSunColor * pow(s, 7.0) * uSunStrength * 0.28;
+        // The broad halo used to warm a third of the sky. Tightened, so the
+        // cold band above it survives.
+        col += uSunColor * pow(s, 18.0) * uSunStrength * 0.22;
 
         // Dither to kill banding in the large smooth gradients.
         float dith = (h(gl_FragCoord.xy * 0.7) - 0.5) * (1.5 / 255.0);
@@ -353,7 +414,10 @@ export class MaterialLibrary {
       dithering: true,
       flatShading: !!opts.flat,
     });
-    patchWorldMaterial(mat);
+    // Characters carry costume colour in their vertex attribute, not baked
+    // occlusion, so the sky-visibility gate would read a dark coat as "indoors".
+    // They also do not stand in puddles convincingly at this scale.
+    patchWorldMaterial(mat, { skyGate: false, wet: false });
     this.mats.set(key, mat);
     return mat;
   }
@@ -379,6 +443,8 @@ export function updateWorldUniforms(t, opts = {}) {
   if (opts.fogHeight !== undefined) worldUniforms.uFogHeight.value = opts.fogHeight;
   if (opts.fogBase !== undefined) worldUniforms.uFogBase.value = opts.fogBase;
   if (opts.emberAmount !== undefined) worldUniforms.uEmberAmount.value = opts.emberAmount;
+  if (opts.wetness !== undefined) worldUniforms.uWetness.value = opts.wetness;
+  if (opts.windDir) worldUniforms.uWindDir.value.copy(opts.windDir);
   if (opts.fogLow) worldUniforms.uFogColorLow.value.copy(opts.fogLow);
   if (opts.fogHigh) worldUniforms.uFogColorHigh.value.copy(opts.fogHigh);
 }

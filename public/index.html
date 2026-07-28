@@ -32,6 +32,16 @@
     </div>
   </div>
 
+  <!-- WebGL context loss. Wired in src/main.js; Safari often never restores. -->
+  <div id="ctxlost">
+    <div>
+      <div class="k">THE PICTURE STOPPED</div>
+      <div class="s">The device dropped the graphics context — usually memory pressure from
+        another app. Your progress has been saved. Reload to carry on where you left off.</div>
+      <div class="btn" id="ctxlost-reload">RELOAD</div>
+    </div>
+  </div>
+
   <noscript>
     <div class="fatal"><h1>CINDERLINE</h1><p>This game requires JavaScript.</p></div>
   </noscript>

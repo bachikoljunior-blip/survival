@@ -33,6 +33,28 @@ export const PPM = {
 const SCALE_HEIGHT = 3.6;      // metres; 1/e falloff of concentration with height
 const COVERED_MULT = 2.35;     // enclosed volumes hold gas far better than open street
 
+/**
+ * Respiratory constants. These four numbers are the whole gas mechanic, so they
+ * are stated once, here, with what they buy:
+ *
+ *   SAT_PER_PPM   ppm of inhaled dose that equilibrates to full saturation.
+ *                 At 2600, DANGER (800) settles at 0.31 and LETHAL (3200) pins.
+ *   SAT_CRITICAL  saturation at which the damage starts. Chosen so DANGER is
+ *                 genuinely above it — "minutes, not hours" is now true.
+ *   UPTAKE        first-order approach rate, 1/s. ~24 s time constant at rest.
+ *   CLEAR_RATE    saturation shed per second in clean air. Leaving bad air is
+ *                 relief, not a reset: half a minute to clear a bad street.
+ *   FILTER_BURN   cartridge charge per second per DANGER-unit of ambient.
+ *                 ~2 minutes of cartridge at 1400 ppm, resting.
+ */
+const SAT_PER_PPM = 2600;
+export const SAT_CRITICAL = 0.16;
+const UPTAKE = 0.042;
+const CLEAR_RATE = 0.012;
+const FILTER_BURN = 0.0045;
+/** Peak continuous damage, hp/s, reached only at full saturation. */
+export const GAS_MAX_DPS = 13;
+
 export class GasField {
   /**
    * @param {number} minX @param {number} minZ world bounds
@@ -169,8 +191,10 @@ export class GasField {
     let v = lerp(top, bot, tz);
 
     // Turbulent breathing so a borderline street is not a flat, gamey plateau.
+    // Kept modest on purpose: the damage curve is continuous now, so this reads
+    // as the air moving rather than as a trip point flickering on and off.
     const turb = this._noise.fbm(x * 0.055 + this.time * 0.06, z * 0.055 - this.time * 0.04, 3);
-    v *= 1 + turb * 0.34;
+    v *= 1 + turb * 0.2;
     return Math.max(0, v * this.globalScale);
   }
 
@@ -250,6 +274,8 @@ export class Lungs {
     this.filterQuality = opts.filterQuality ?? 0.85;   // fraction removed when fresh
     this.masked = opts.masked ?? false;
     this.tolerance = opts.tolerance ?? 1.0;            // trained lungs, or a bad chest
+    /** `goodHabits`: twenty years of not dying underground. Slower up, faster down. */
+    this.goodHabits = false;
     this.exertion = 0;                                  // 0..1, raises intake
     this.lastPpm = 0;
     this.lastIntake = 0;
@@ -268,7 +294,9 @@ export class Lungs {
     this.lastPpm = ppm;
 
     // Breathing rate scales with exertion; sprinting in bad air is how people
-    // actually die in these places.
+    // actually die in these places. Note this multiplies the DOSE, not merely
+    // how fast you approach it — moving more air through the same lungs raises
+    // where you end up, not only how quickly you get there.
     const breath = 1 + this.exertion * 1.5;
 
     let effective = ppm;
@@ -277,22 +305,31 @@ export class Lungs {
       // A cartridge stops less as it loads up, and loads faster in worse air.
       const eff = this.filterQuality * Math.pow(clamp01(this.filter), 0.45);
       effective = ppm * (1 - eff);
-      spent = (ppm / PPM.DANGER) * dt * 0.028 * breath;
+      spent = (ppm / PPM.DANGER) * dt * FILTER_BURN * breath;
       this.filter = Math.max(0, this.filter - spent);
       if (this.filter <= 0) this.filter = 0;
     }
 
-    this.lastIntake = effective;
+    const dose = effective * breath;
+    this.lastIntake = dose;
 
-    // Uptake toward an equilibrium saturation for this concentration
-    // (a compressed Coburn-style curve — the shape, not the clinical values).
-    const equilibrium = clamp01(effective / (PPM.LETHAL * 1.15));
-    const rate = (effective > PPM.CLEAR * 1.6 ? 0.055 : 0.0) * breath / this.tolerance;
-    const clearRate = 0.031 * (effective < PPM.ELEVATED ? 1 : 0.15);
+    const tol = this.tolerance * (this.goodHabits ? 1.28 : 1);
+
+    // Uptake toward an equilibrium saturation for this dose (a compressed
+    // Coburn-style curve — the shape, not the clinical values). The divisor is
+    // what makes the whole exposure band matter: DANGER settles just above the
+    // threshold and kills over minutes, LETHAL pins the meter.
+    const equilibrium = clamp01(dose / SAT_PER_PPM / tol);
+    // Bad air is absorbed faster as well as further, so a lungful of LETHAL is
+    // a matter of seconds while DANGER is a matter of minutes.
+    const uptake = (dose > PPM.CLEAR * 1.6 ? UPTAKE : 0) *
+                   (1 + clamp01(dose / PPM.LETHAL) * 2) / tol;
+    const clearRate = CLEAR_RATE * (this.goodHabits ? 1.8 : 1) *
+                      (dose < PPM.ELEVATED ? 1 : 0.16);
 
     const before = this.sat;
     if (equilibrium > this.sat) {
-      this.sat += (equilibrium - this.sat) * rate * dt * 3.4;
+      this.sat += (equilibrium - this.sat) * uptake * dt;
     }
     // Clearing happens whenever the ambient is below current saturation's
     // equivalent, and is slow — you do not simply walk it off.
@@ -301,12 +338,20 @@ export class Lungs {
     }
     this.sat = clamp01(this.sat);
 
-    return { intake: effective, satDelta: this.sat - before, filterSpent: spent };
+    return { intake: dose, satDelta: this.sat - before, filterSpent: spent };
   }
 
   /** 0..1 severity used for the screen effect and for stamina penalties. */
   get severity() { return clamp01(this.sat / 0.42); }
   /** True once saturation is doing organ damage. */
-  get critical() { return this.sat > 0.34; }
+  get critical() { return this.sat > SAT_CRITICAL; }
+  /**
+   * 0..1 damage severity. Continuous from the threshold up, squared so the
+   * band between "this is bad" and "leave now" is a slope and not a cliff.
+   */
+  get harm() {
+    const t = clamp01((this.sat - SAT_CRITICAL) / (1 - SAT_CRITICAL));
+    return t * t;
+  }
   get filterPercent() { return this.filter === null ? -1 : Math.round(this.filter * 100); }
 }

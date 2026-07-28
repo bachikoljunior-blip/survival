@@ -23,16 +23,14 @@
  */
 
 import * as THREE from 'three';
-import { Actor, STATE } from '../actors/actor.js';
+import { Actor } from '../actors/actor.js';
 import { LAYER } from '../world/collision.js';
-import { ATTACKS } from './combat.js';
-import { clamp, clamp01, lerp, damp, angleDelta, TAU } from '../core/util.js';
+import { clamp01, lerp } from '../core/util.js';
 import { Rng } from '../core/rng.js';
-import { PPM } from '../world/gas.js';
 
 export const AI_STATE = {
   IDLE: 'idle', PATROL: 'patrol', SUSPICIOUS: 'suspicious',
-  COMBAT: 'combat', SEARCH: 'search', FLEE: 'flee', DEAD: 'dead',
+  COMBAT: 'combat', SEARCH: 'search', FLEE: 'flee', RETURN: 'return', DEAD: 'dead',
 };
 
 /**
@@ -45,7 +43,7 @@ export const ARCHETYPES = {
     sight: 24, fov: 1.15, hearing: 15, radius: 0.33,
     preferred: 1.75, strafeBias: 0.55, aggression: 0.62, patience: [0.5, 1.4],
     attacks: ['scavSwing'], blockChance: 0, dodgeChance: 0.12,
-    fleeBelow: 0.22, gasFear: 620, xp: 12,
+    fleeBelow: 0.22, gasFear: 620,
     masked: false, detail: 1,
   },
   breaker: {
@@ -54,7 +52,7 @@ export const ARCHETYPES = {
     sight: 21, fov: 1.0, hearing: 18, radius: 0.42, height: 1.84,
     preferred: 2.3, strafeBias: 0.14, aggression: 0.78, patience: [0.9, 2.0],
     attacks: ['breakerSmash', 'breakerOverhead'], blockChance: 0, dodgeChance: 0,
-    fleeBelow: 0, gasFear: 950, xp: 34, damageMul: 1.0,
+    fleeBelow: 0, gasFear: 950, damageMul: 1.0,
     masked: false, detail: 1, poiseResist: true,
   },
   slinger: {
@@ -63,7 +61,7 @@ export const ARCHETYPES = {
     sight: 30, fov: 1.3, hearing: 14, radius: 0.31,
     preferred: 9.5, strafeBias: 0.7, aggression: 0.4, patience: [1.1, 2.2],
     attacks: [], ranged: { cooldown: [2.0, 3.6], damage: 11, speed: 17, windup: 0.42 },
-    blockChance: 0, dodgeChance: 0.22, fleeBelow: 0.3, gasFear: 520, xp: 14,
+    blockChance: 0, dodgeChance: 0.22, fleeBelow: 0.3, gasFear: 520,
     masked: false, detail: 1, minRange: 4.5,
   },
   warden: {
@@ -73,7 +71,7 @@ export const ARCHETYPES = {
     sight: 30, fov: 1.25, hearing: 20, radius: 0.36, height: 1.8,
     preferred: 2.0, strafeBias: 0.45, aggression: 0.55, patience: [0.7, 1.5],
     attacks: ['wardenJab'], blockChance: 0.68, dodgeChance: 0.08,
-    fleeBelow: 0, gasFear: 99999, xp: 40,
+    fleeBelow: 0, gasFear: 99999,
     masked: true, gasImmune: true, detail: 2, callsForHelp: true,
   },
   dog: {
@@ -82,7 +80,7 @@ export const ARCHETYPES = {
     sight: 20, fov: 1.5, hearing: 26, radius: 0.3, height: 0.95,
     preferred: 1.35, strafeBias: 0.85, aggression: 0.85, patience: [0.35, 0.9],
     attacks: ['dogBite'], blockChance: 0, dodgeChance: 0.18,
-    fleeBelow: 0.18, gasFear: 420, xp: 8,
+    fleeBelow: 0.18, gasFear: 420,
     masked: false, detail: 0, pack: true,
   },
 };
@@ -151,7 +149,10 @@ export class Enemy extends Actor {
     if (Math.abs(dy) > 6) return false;
 
     // Field of view, widened once already aggroed (you are being watched).
-    const fov = this.aggro ? this.arch.fov * 1.5 : this.arch.fov;
+    // `fov` is a HALF-angle: at 1.5x an aggroed warden saw 215 degrees, which
+    // is not a field of view, it is a sphere with a small dent in it. Breaking
+    // line of sight has to be possible or there is no disengaging.
+    const fov = this.aggro ? this.arch.fov * 1.2 : this.arch.fov;
     const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
     const dot = dist > 0.01 ? (dx / dist) * fx + (dz / dist) * fz : 1;
     if (dot < Math.cos(fov)) return false;
@@ -162,14 +163,33 @@ export class Enemy extends Actor {
     );
   }
 
-  hears(target, gas) {
+  /**
+   * Hearing. Sound is attenuated by walls — a dog with 26 m of hearing heard a
+   * sprinting player at 36 m THROUGH SOLID BUILDINGS, which made the whole city
+   * one room and sprinting anywhere a city-wide announcement.
+   */
+  hears(target, gas, world) {
     const d = Math.hypot(target.pos.x - this.pos.x, target.pos.z - this.pos.z);
     let loud = 0.35;
     if (target.wantSprint) loud = 1.4;
     else if (target.moveInput.mag > 0.6) loud = 0.8;
     else if (target.crouch > 0.5) loud = 0.12;
     if (target.isAttacking) loud = Math.max(loud, 1.2);
-    return d < this.arch.hearing * loud;
+    const range = this.arch.hearing * loud;
+    if (d >= range) return false;
+    if (!world) return true;
+    // Through a wall you hear roughly a third as far. Not nothing — a Breaker
+    // still hears you smash a door on the other side of a shopfront.
+    const clear = world.lineOfSight(
+      this.pos.x, this.pos.y + this.height * 0.8, this.pos.z,
+      target.pos.x, target.pos.y + target.height * 0.6, target.pos.z, LAYER.SOLID);
+    return clear || d < range * 0.36;
+  }
+
+  /** Distance from where this enemy started. Bounds the pursuit. */
+  distFromHome() {
+    return Math.hypot(this.pos.x - (this.homeX ?? this.pos.x),
+                      this.pos.z - (this.homeZ ?? this.pos.z));
   }
 
   /** Ambient air here, used for the flee-the-gas behaviour. */
@@ -211,7 +231,7 @@ export class AISystem {
     const dx = player.pos.x - e.pos.x, dz = player.pos.z - e.pos.z;
     const dist = Math.hypot(dx, dz);
     const sees = !player.dead && e.canSee(player, game.world, gas);
-    const hears = !player.dead && e.hears(player, gas);
+    const hears = !player.dead && e.hears(player, gas, game.world);
 
     if (sees) {
       // Awareness fills faster the closer and the more lit the target is.
@@ -249,13 +269,13 @@ export class AISystem {
     // for cleaner ground. This is what makes the player's use of the low
     // streets an actual tactic rather than a scripted trick.
     const ppm = e.localPpm(gas);
-    if (ppm > e.arch.gasFear || e.lungs.sat > 0.22) {
+    if (ppm > e.arch.gasFear || e.lungs.sat > 0.13) {
       if (e.aiState !== AI_STATE.FLEE) {
         e.aiState = AI_STATE.FLEE;
         e.emit('gaspanic', { ppm });
         game.emit('sfx', 'panic', { x: e.pos.x, y: e.pos.y + 1.5, z: e.pos.z });
       }
-    } else if (e.aiState === AI_STATE.FLEE && ppm < e.arch.gasFear * 0.55 && e.lungs.sat < 0.1) {
+    } else if (e.aiState === AI_STATE.FLEE && ppm < e.arch.gasFear * 0.55 && e.lungs.sat < 0.07) {
       e.aiState = e.aggro ? AI_STATE.COMBAT : AI_STATE.IDLE;
     }
 
@@ -268,12 +288,26 @@ export class AISystem {
       }
     }
 
+    // --- leash ------------------------------------------------------------
+    // `leash`, `homeX` and `homeZ` were assigned by the constructor and read
+    // nowhere, so nothing in Hollis ever gave up on you. An enemy dragged far
+    // enough from its ground breaks off and goes back; running is a tactic.
+    if ((e.aiState === AI_STATE.COMBAT || e.aiState === AI_STATE.SEARCH) &&
+        e.distFromHome() > e.leash) {
+      e.aggro = false;
+      e.awareness = 0;
+      e.target = null;
+      e.aiState = AI_STATE.RETURN;
+      e.emit('disengage', {});
+    }
+
     switch (e.aiState) {
       case AI_STATE.IDLE: this._idle(e, dt, game); break;
       case AI_STATE.PATROL: this._patrol(e, dt, game); break;
       case AI_STATE.SUSPICIOUS: this._suspicious(e, dt, game); break;
       case AI_STATE.COMBAT: this._combat(e, dt, game, player, dist, sees); break;
       case AI_STATE.SEARCH: this._search(e, dt, game); break;
+      case AI_STATE.RETURN: this._return(e, dt, game); break;
       case AI_STATE.FLEE: this._flee(e, dt, game, gas); break;
       default: break;
     }
@@ -363,6 +397,20 @@ export class AISystem {
     }
   }
 
+  /** Walk back to where this one started, and stop caring on the way. */
+  _return(e, dt, game) {
+    e.alert = 0.3;
+    e.guarding = false;
+    e.wantSprint = false;
+    const d = e.distFromHome();
+    if (d < 2.2) {
+      e.aiState = e.patrol ? AI_STATE.PATROL : AI_STATE.IDLE;
+      e.awareness = 0;
+      return;
+    }
+    this._moveTowards(e, e.homeX, e.homeZ, game, 0.6);
+  }
+
   _combat(e, dt, game, player, dist, sees) {
     e.alert = 1;
     e.target = player;
@@ -374,13 +422,18 @@ export class AISystem {
       return;
     }
 
-    e.faceTowards(player.pos.x, player.pos.z);
     e.animator.lookAt = _v.set(
       (player.pos.x - e.pos.x), (player.pos.y + 1.4) - (e.pos.y + 1.5), (player.pos.z - e.pos.z)
     ).applyAxisAngle(UP, -e.yaw);
 
+    // COMMIT. The facing guard has to come BEFORE faceTowards, not after: a
+    // swing that keeps steering toward you through its own wind-up cannot be
+    // sidestepped, and a scav closed half the angle to the player during every
+    // one. An attack now points where it pointed when it started.
     if (e.isAttacking) { e.setMove(0, 0, 0); return; }
     if (!e.canAct) return;
+
+    e.faceTowards(player.pos.x, player.pos.z);
 
     const A = e.arch;
 
@@ -407,8 +460,44 @@ export class AISystem {
     }
 
     // --- melee ------------------------------------------------------------
-    const pref = A.preferred;
     const combat = game.combat;
+    // `pack` — dogs. Alone a dog is trivial; the archetype comment promised
+    // "dangerous in threes". Packmates nearby spread out to surround rather
+    // than stacking on one line, and press harder together.
+    let pref = A.preferred;
+    let aggression = A.aggression;
+    if (A.pack) {
+      const mates = this._packmates(game, e, 9);
+      if (mates > 0) {
+        pref += mates * 0.5;
+        aggression = clamp01(aggression + mates * 0.07);
+      }
+    }
+    // A fight that has already drawn blood is fought harder. `combatHeat` was
+    // written on every hit and read by nothing.
+    aggression = clamp01(aggression * (1 + combat.combatHeat * 0.25));
+
+    // --- evade ------------------------------------------------------------
+    // `dodgeChance` was declared on all five archetypes and read nowhere, so
+    // no enemy in the game ever moved out of the way. Rolled once per player
+    // swing, at the moment the player commits, so it reads as a reaction.
+    if (A.dodgeChance > 0 && player.attack && player.attack !== e._sawSwing) {
+      e._sawSwing = player.attack;
+      if (dist < player.attack.def.reach + 1.0 && e.rng.f() < A.dodgeChance) {
+        const away = Math.atan2(e.pos.x - player.pos.x, e.pos.z - player.pos.z) +
+                     e.rng.sym(0.7);
+        e.yaw = e.targetYaw = away;
+        e.vel.x = Math.sin(away) * 8.5;
+        e.vel.z = Math.cos(away) * 8.5;
+        e.dodgeT = 0.2;
+        e.iframes = 0.16;
+        e.iframeLock = true;
+        e.animator.play('dodge', { fade: 0.05, force: true });
+        e.attackCooldown = Math.max(e.attackCooldown, 0.45);
+        e.emit('evade', {});
+        return;
+      }
+    }
 
     if (dist > pref + 0.6) {
       // Close. Sprint the last stretch if the archetype has it in them.
@@ -430,15 +519,37 @@ export class AISystem {
         if (e.rng.chance(0.4)) e.strafeDir *= -1;
       }
 
+      // --- chain ----------------------------------------------------------
+      // CombatSystem sets comboWindow/comboNext on every actor and nothing here
+      // ever read them, so every archetype was a one-attack unit and three of
+      // the eight enemy attacks — scavSwing2, wardenJab2, wardenShove — could
+      // never execute at all. The Warden's guard-break, its whole reason to
+      // exist, was unreachable content.
+      if (e.comboWindow > 0 && e.comboNext && e.rng.f() < aggression) {
+        const nxt = e.comboNext;
+        e.comboWindow = 0;
+        e.comboNext = null;
+        if (combat.requestToken(e) && combat.start(e, nxt, { chain: true })) {
+          e.attackCooldown = e.rng.range(...A.patience);
+          return;
+        }
+      }
+
       if (e.attackCooldown <= 0) {
-        const wants = e.rng.f() < A.aggression;
+        const wants = e.rng.f() < aggression;
         e.wantsAttack = wants;
         if (wants && combat.requestToken(e)) {
           const name = A.attacks[e.rng.int(0, A.attacks.length - 1)];
+          // The token is NOT released here. It is surrendered by CombatSystem
+          // when the swing (and any chain off it) finishes. Taking and giving
+          // it back in the same statement made `maxAttackers` decorative: the
+          // set was empty again before the next enemy in the loop was asked.
           if (combat.start(e, name)) {
-            e.attackCooldown = e.rng.range(...A.patience) + ATTACKS[name].windup;
+            // No `+ windup`: the wind-up is already inside the attack's own
+            // duration, so adding it again made the Breaker a third less
+            // aggressive than its patience range says.
+            e.attackCooldown = e.rng.range(...A.patience);
           }
-          combat.releaseToken(e);
         } else {
           e.attackCooldown = e.rng.range(0.25, 0.7);
         }
@@ -446,13 +557,37 @@ export class AISystem {
       }
     }
 
+    // --- guard ------------------------------------------------------------
     // Wardens raise the shield between commitments, and specifically when the
-    // player is winding up.
+    // player commits. This used to be re-rolled EVERY FIXED STEP: whether your
+    // swing was blocked was a coin flip taken on the single frame the arc
+    // resolved, and `play('parry', force)` restarted eleven times a second, so
+    // the Warden's upper body sat frozen on the parry's first key, visibly
+    // buzzing. One roll per player swing, one roll per idle interval.
     if (A.blockChance > 0) {
-      const playerWinding = player.attack && player.attack.t < player.attack.def.windup + 0.05;
-      e.guarding = !e.isAttacking && dist < pref + 2.2 &&
-                   (playerWinding ? e.rng.f() < A.blockChance + 0.25 : e.rng.f() < A.blockChance * 0.35);
+      e._guardTimer = (e._guardTimer ?? 0) - dt;
+      const pAtk = player.attack;
+      if (pAtk && pAtk !== e._sawPlayerAttack) {
+        e._sawPlayerAttack = pAtk;
+        e._guardWant = e.rng.f() < A.blockChance;
+        e._guardTimer = 0.9;
+      } else if (!pAtk && e._guardTimer <= 0) {
+        e._guardTimer = e.rng.range(0.45, 1.1);
+        e._guardWant = e.rng.f() < A.blockChance * 0.4;
+      }
+      e.guarding = !!e._guardWant && !e.isAttacking && dist < pref + 2.2 && e.stamina > 12;
     }
+  }
+
+  /** Live, aggroed packmates of the same kind within `radius`. */
+  _packmates(game, e, radius) {
+    let n = 0;
+    for (const a of game.actors) {
+      if (a === e || a.dead || !(a instanceof Enemy)) continue;
+      if (a.kind !== e.kind || !a.aggro) continue;
+      if (Math.hypot(a.pos.x - e.pos.x, a.pos.z - e.pos.z) < radius) n++;
+    }
+    return n;
   }
 
   _flee(e, dt, game, gas) {

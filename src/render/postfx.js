@@ -15,6 +15,15 @@
 
 import * as THREE from 'three';
 
+/**
+ * Auto-exposure, written by Atmosphere.update() and read here.
+ *
+ * A plain shared cell rather than a wire through game.js, because game.js
+ * already owns `grade.exposure` (the artistic stop) and this is the automatic
+ * one on top of it. They multiply.
+ */
+export const autoExposure = { value: 1 };
+
 const TRI_VS = `
   varying vec2 vUv;
   void main() {
@@ -50,12 +59,22 @@ export class PostFX {
 
     this.grade = {
       exposure: 1.05,
-      contrast: 1.04,
-      saturation: 0.94,
-      // Lift is deliberately non-zero and warm: Hollis has no true black,
-      // because there is always something burning under it.
-      lift: new THREE.Color(0x161210),
-      gain: new THREE.Color(0xfff6ea),
+      // Contrast now has real work to do: the lift no longer flattens the
+      // bottom of the range, so the curve has somewhere to separate into.
+      contrast: 1.18,
+      pivot: 0.38,
+      saturation: 1.06,
+      // LINEAR-SPACE grade, applied BEFORE the tonemap.
+      //
+      // This used to be a display-space lerp — col = lift + col*(gain-lift) —
+      // run after the sRGB encode. A lift of 0x161210 puts the black floor at
+      // 0.086 of the display range and a contrast of 1.04 never gets it back,
+      // which is how street frames ended up with an interquartile luma spread
+      // of twelve levels out of 255. Expressed in linear and fed through ACES,
+      // the same warmth costs about four display levels instead of twenty-two,
+      // and the tonemap gets to do its job on a signal that still has a toe.
+      offset: new THREE.Color(0.0040, 0.0028, 0.0018),
+      gain: new THREE.Color(1.020, 1.000, 0.958),
       bloomStrength: 0.62,
       bloomThreshold: 0.78,
       bloomKnee: 0.42,
@@ -214,10 +233,11 @@ export class PostFX {
         tBloomWide: { value: null },
         uBloom: { value: 0.6 },
         uExposure: { value: 1.0 },
-        uContrast: { value: 1.05 },
+        uContrast: { value: 1.18 },
+        uPivot: { value: 0.38 },
         uSaturation: { value: 1.0 },
-        uLift: { value: new THREE.Color(0x0a0806) },
-        uGain: { value: new THREE.Color(0xfff4e6) },
+        uOffset: { value: new THREE.Color(0.004, 0.0028, 0.0018) },
+        uGain: { value: new THREE.Color(1.02, 1.0, 0.958) },
         uVignette: { value: 0.45 },
         uGrain: { value: 0.035 },
         uAberration: { value: 0.0016 },
@@ -238,9 +258,9 @@ export class PostFX {
         precision highp float;
         varying vec2 vUv;
         uniform sampler2D tDiffuse, tBloom, tBloomWide;
-        uniform float uBloom, uExposure, uContrast, uSaturation, uVignette,
+        uniform float uBloom, uExposure, uContrast, uPivot, uSaturation, uVignette,
                       uGrain, uAberration, uHypoxia, uFlash, uTime, uHasBloom;
-        uniform vec3 uLift, uGain, uFlashColor;
+        uniform vec3 uOffset, uGain, uFlashColor;
         uniform vec2 uTexel, uRes;
 
         // ACES filmic approximation (Narkowicz). Cheap and holds the warm
@@ -285,17 +305,21 @@ export class PostFX {
             col += (b1 * 0.62 + b2 * 0.38) * uBloom;
           }
 
+          // ---- LINEAR grade, before the tonemap --------------------------
+          // Exposure, then a gain (a warm white balance with unit luma, so it
+          // tints without brightening) and a very small linear offset. Doing
+          // this here means ACES compresses the result rather than being handed
+          // an already-flattened signal.
           col *= uExposure;
+          col = col * uGain + uOffset;
+
           col = aces(col);
           col = encodeSRGB(col);
 
-          // Everything below is a display-space look grade.
-          // Lift / gain: warm the shadows toward ash-brown, cool nothing.
-          col = uLift + col * (uGain - uLift);
-
-          // Contrast around a pivot slightly below mid-grey; Hollis is a dark
-          // game and pivoting at 0.5 crushes too much.
-          col = clamp((col - 0.42) * uContrast + 0.42, 0.0, 1.0);
+          // ---- display-space contrast ------------------------------------
+          // Pivot below mid-grey; Hollis is a dark game and pivoting at 0.5
+          // crushes too much.
+          col = clamp((col - uPivot) * uContrast + uPivot, 0.0, 1.0);
 
           float luma = dot(col, vec3(0.2126, 0.7152, 0.0722));
           col = mix(vec3(luma), col, uSaturation);
@@ -389,10 +413,11 @@ export class PostFX {
     u.tBloomWide.value = doBloom ? this.bloomC.texture : null;
     u.uHasBloom.value = doBloom ? 1 : 0;
     u.uBloom.value = g.bloomStrength;
-    u.uExposure.value = g.exposure;
+    u.uExposure.value = g.exposure * autoExposure.value;
     u.uContrast.value = g.contrast;
+    u.uPivot.value = g.pivot;
     u.uSaturation.value = g.saturation;
-    u.uLift.value.copy(g.lift);
+    u.uOffset.value.copy(g.offset);
     u.uGain.value.copy(g.gain);
     u.uVignette.value = g.vignette;
     u.uGrain.value = this.tier.grain ? g.grain : 0;

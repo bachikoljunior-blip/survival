@@ -57,8 +57,12 @@ html, body {
 body {
   position: fixed;
   inset: 0;
-  /* Kill every browser gesture that would fight the game. */
-  touch-action: none;
+  /* `touch-action: none` here would be intersected down the whole ancestor
+     chain and would make every scroller in the menus permanently unscrollable
+     — effective touch-action is the intersection of the chain in both Blink
+     and WebKit, so a child cannot re-enable what a parent removed. The gesture
+     suppression the game actually needs is scoped to the canvas and the HUD. */
+  touch-action: manipulation;
   overscroll-behavior: none;
   -webkit-user-select: none;
   user-select: none;
@@ -85,7 +89,11 @@ body {
 }
 
 #ui * { pointer-events: none; }
-#ui .hit { pointer-events: auto; }
+/* `manipulation` rather than `none`: it still kills double-tap zoom and the
+   350ms click delay, but it leaves a touch able to scroll an ancestor. */
+#ui .hit { pointer-events: auto; touch-action: manipulation; }
+/* Scrollers must keep pan-y; the extra class raises specificity over .hit. */
+#ui .scroll, #ui .scroll.hit { touch-action: pan-y; }
 
 /* ---------------------------------------------------------------- boot ---- */
 
@@ -163,12 +171,15 @@ body {
   color: var(--ember);
   font-weight: 700;
 }
-.sub { font-size: calc(9px * var(--uiscale)); color: var(--dim); line-height: 1.5; }
+.sub { font-size: calc(10.5px * var(--uiscale)); color: var(--dim); line-height: 1.5; }
 .mono { font-family: var(--ui-mono); font-variant-numeric: tabular-nums; }
 
 .btn {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
+  min-height: 44px;                 /* Apple HIG minimum, never scaled down */
   text-align: left;
   font-family: var(--ui-sans);
   font-size: calc(11px * var(--uiscale));
@@ -188,7 +199,7 @@ body {
   transform: translateX(2px);
 }
 .btn[disabled], .btn.off { opacity: 0.4; border-left-color: var(--line); }
-.btn small { display: block; color: var(--dim); font-size: calc(8.5px * var(--uiscale)); margin-top: 2px; line-height: 1.4; }
+.btn small { display: block; color: var(--dim); font-size: calc(10px * var(--uiscale)); margin-top: 2px; line-height: 1.4; }
 
 /* Scrollable regions inside menus. */
 .scroll {
@@ -199,8 +210,11 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
 }
-.scroll::-webkit-scrollbar { width: 3px; }
-.scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+/* Wide enough to be seen. A 3px rail told the player nothing was below the
+   fold, which on the settings panel was most of the settings panel. */
+.scroll::-webkit-scrollbar { width: 6px; }
+.scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.35); }
+.scroll::-webkit-scrollbar-thumb { background: var(--ember-lo); border-radius: 3px; }
 
 /* ------------------------------------------------------------------ hud --- */
 
@@ -209,29 +223,45 @@ body {
   inset: 0;
   padding: calc(var(--pad) + var(--sa-t)) calc(var(--pad) + var(--sa-r))
            calc(var(--pad) + var(--sa-b)) calc(var(--pad) + var(--sa-l));
-  transition: opacity 0.35s ease;
+  /* The canvas is sized from visualViewport; JS pins #hud's own box to the
+     same numbers. Gesture suppression belongs here and on #gl, not on body. */
+  touch-action: none;
+  transition: opacity 0.35s ease, visibility 0s linear 0s;
 }
-#hud.hidden { opacity: 0; }
+/* Opacity alone left an invisible but fully live button cluster on the title,
+   dialogue, death and ending screens. */
+#hud.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
 
 /* — vitals, top-left ------------------------------------------------------ */
-.vitals { position: absolute; top: calc(var(--pad) + var(--sa-t) + 2px); left: calc(var(--pad) + var(--sa-l)); width: calc(112px * var(--uiscale)); }
+.vitals { position: absolute; top: calc(var(--pad) + var(--sa-t) + 2px); left: calc(var(--pad) + var(--sa-l)); width: calc(118px * var(--uiscale)); }
 
 .bar {
   position: relative;
+  width: calc(100% - 30px * var(--uiscale));
   height: calc(8px * var(--uiscale));
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(58, 50, 38, 0.9);
   border-radius: 2px;
   margin-bottom: calc(3px * var(--uiscale));
-  overflow: hidden;
+  /* The readout hangs outside the bar; an 8px box with a 1px border cannot
+     contain a legible glyph. */
+  overflow: visible;
 }
-.bar > .fill { position: absolute; inset: 0; transform-origin: left center; transition: transform 0.14s linear; }
+.bar > .fill { position: absolute; inset: 0; transform-origin: left center; transition: transform 0.14s linear; border-radius: 1px; }
 /* Delayed "chip" layer drains behind the real value so hits read as damage. */
-.bar > .chip { position: absolute; inset: 0; transform-origin: left center; background: rgba(224, 120, 90, 0.42); transition: transform 0.5s ease 0.22s; }
+.bar > .chip { position: absolute; inset: 0; transform-origin: left center; background: rgba(224, 120, 90, 0.42); transition: transform 0.5s ease 0.22s; border-radius: 1px; }
 .bar > .lbl {
-  position: absolute; right: 3px; top: 50%; transform: translateY(-50%);
-  font-family: var(--ui-mono); font-size: calc(6.5px * var(--uiscale));
-  color: rgba(255,255,255,0.8); letter-spacing: 0.04em; text-shadow: 0 1px 2px #000;
+  position: absolute; left: calc(100% + 4px * var(--uiscale)); top: 50%; transform: translateY(-50%);
+  font-family: var(--ui-mono); font-variant-numeric: tabular-nums;
+  font-size: calc(9px * var(--uiscale)); line-height: 1;
+  color: rgba(255,255,255,0.92); letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px #000, 0 0 4px #000;
+  white-space: nowrap;
 }
 .bar.hp   > .fill { background: linear-gradient(90deg, #8f2b23, #d8574a); }
 .bar.sta  > .fill { background: linear-gradient(90deg, #6d6320, #cbbc46); }
@@ -251,8 +281,8 @@ body {
   font-family: var(--ui-mono); font-size: calc(12px * var(--uiscale)); font-weight: 700;
   letter-spacing: 0.02em; color: var(--bone); line-height: 1.1;
 }
-.air .unit { font-family: var(--ui-mono); font-size: calc(6.5px * var(--uiscale)); color: var(--dim); letter-spacing: 0.1em; }
-.air .filter { font-family: var(--ui-mono); font-size: calc(7.5px * var(--uiscale)); color: var(--dim); letter-spacing: 0.06em; margin-top: 1px; }
+.air .unit { font-family: var(--ui-mono); font-size: calc(8px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.08em; }
+.air .filter { font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.04em; margin-top: 1px; }
 .air.warn  { border-color: #8a7d1f; }
 .air.warn  .ppm { color: var(--toxic); }
 .air.crit  { border-color: var(--blood); animation: airpulse 0.7s steps(2) infinite; }
@@ -260,49 +290,61 @@ body {
 .air { cursor: pointer; transition: border-color 0.18s linear; }
 .air.reading { border-color: var(--ember); }
 .air .trend {
-  font-family: var(--ui-mono); font-size: calc(7px * var(--uiscale)); color: var(--ember);
-  letter-spacing: 0.08em; opacity: 0; transition: opacity 0.25s linear; white-space: nowrap;
+  font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale)); color: var(--ember);
+  letter-spacing: 0.06em; opacity: 0; transition: opacity 0.25s linear; white-space: nowrap;
 }
 .air .trend.on { opacity: 1; }
 .air .reading {
-  font-family: var(--ui-mono); font-size: calc(7px * var(--uiscale)); color: var(--bone);
-  letter-spacing: 0.04em; margin-top: calc(2px * var(--uiscale));
+  font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); color: var(--bone);
+  letter-spacing: 0.02em; margin-top: calc(2px * var(--uiscale)); line-height: 1.35;
   max-height: 0; opacity: 0; overflow: hidden;
   transition: max-height 0.22s ease-out, opacity 0.22s linear;
 }
-.air .reading.on { max-height: calc(30px * var(--uiscale)); opacity: 1; }
+.air .reading.on { max-height: calc(48px * var(--uiscale)); opacity: 1; }
 @keyframes airpulse { 0% { background: rgba(120,20,14,0.42); } 100% { background: rgba(10,9,8,0.72); } }
 
-/* — objective, top-centre-left -------------------------------------------- */
+/* — compass strip, top-centre --------------------------------------------- */
+/* The compass sits above the objective. It used to sit 30px below the top,
+   which is exactly where a three-line objective lands, and the two overlapped
+   in every real frame. */
+.compass {
+  position: absolute; top: calc(var(--pad) + var(--sa-t)); left: 50%;
+  transform: translateX(-50%);
+  width: calc(160px * var(--uiscale)); height: calc(13px * var(--uiscale));
+  overflow: hidden;
+  /* A dark scrim: the ticks are 8.5px bone type and were invisible against
+     brick in the real frame. */
+  background: linear-gradient(90deg, transparent, rgba(6, 5, 4, 0.72) 14%, rgba(6, 5, 4, 0.72) 86%, transparent);
+  border-radius: 2px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+}
+.compass .tick {
+  position: absolute; top: calc(1px * var(--uiscale));
+  font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale));
+  color: var(--bone); letter-spacing: 0.04em; transform: translateX(-50%);
+  text-shadow: 0 1px 2px #000, 0 0 4px #000;
+}
+.compass .mk  { position: absolute; top: calc(1px * var(--uiscale)); font-size: calc(9px * var(--uiscale)); transform: translateX(-50%); text-shadow: 0 1px 2px #000, 0 0 4px #000; }
+
+/* — objective, top-centre, under the compass ------------------------------ */
 .objective {
   position: absolute;
-  top: calc(var(--pad) + var(--sa-t));
+  top: calc(var(--pad) + var(--sa-t) + 16px * var(--uiscale));
   left: 50%;
   transform: translateX(-50%);
   max-width: calc(190px * var(--uiscale));
   text-align: center;
   opacity: 0.94;
 }
-.objective .task { font-size: calc(9.5px * var(--uiscale)); color: var(--bone); line-height: 1.35; text-shadow: 0 1px 3px #000; }
-.objective .chapter { font-size: calc(7.5px * var(--uiscale)); letter-spacing: 0.22em; color: var(--ember); text-transform: uppercase; margin-bottom: 2px; }
-
-/* — compass strip --------------------------------------------------------- */
-.compass {
-  position: absolute; top: calc(var(--pad) + var(--sa-t) + 30px * var(--uiscale)); left: 50%;
-  transform: translateX(-50%);
-  width: calc(150px * var(--uiscale)); height: calc(11px * var(--uiscale));
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
-}
-.compass .tick { position: absolute; top: 0; font-family: var(--ui-mono); font-size: calc(6.5px * var(--uiscale)); color: var(--bone-dim); transform: translateX(-50%); }
-.compass .pip { position: absolute; top: calc(7px * var(--uiscale)); width: 1px; height: 3px; background: var(--dim); transform: translateX(-50%); }
-.compass .mk  { position: absolute; top: 0; font-size: calc(8px * var(--uiscale)); transform: translateX(-50%); text-shadow: 0 1px 2px #000; }
+.objective .task { font-size: calc(10px * var(--uiscale)); color: var(--bone); line-height: 1.35; text-shadow: 0 1px 3px #000, 0 0 5px #000; }
+.objective .chapter { font-size: calc(8.5px * var(--uiscale)); letter-spacing: 0.2em; color: var(--ember); text-transform: uppercase; margin-bottom: 2px; text-shadow: 0 1px 3px #000; }
 
 /* — right-side stack: notices --------------------------------------------- */
+/* Below the system cluster, which now owns the top-right corner. */
 .notices {
   position: absolute;
-  top: calc(var(--pad) + var(--sa-t));
+  top: calc(var(--pad) + var(--sa-t) + 50px * var(--uiscale));
   right: calc(var(--pad) + var(--sa-r));
   width: calc(132px * var(--uiscale));
   display: flex; flex-direction: column; align-items: flex-end; gap: calc(3px * var(--uiscale));
@@ -312,7 +354,7 @@ body {
   border-right: 2px solid var(--ember);
   border-radius: 2px;
   padding: calc(4px * var(--uiscale)) calc(6px * var(--uiscale));
-  font-size: calc(8.5px * var(--uiscale));
+  font-size: calc(10px * var(--uiscale));
   color: var(--bone);
   text-align: right;
   line-height: 1.35;
@@ -353,20 +395,25 @@ body {
   will-change: transform;
 }
 
-/* Right-hand action cluster. Thumb-arc layout, not a grid. */
+/* Right-hand action cluster. Thumb-arc layout, not a grid.
+   The container is a positioning frame only — it carries no `hit` class, so
+   the 54% of its rectangle that is not a button no longer swallows the camera
+   drag that a right thumb starts in this corner. Each .abtn opts in itself.
+   Every button is >=44pt and every pair is >=8pt apart (Apple HIG); the
+   geometry is verified in tools/_p_hud.mjs. */
 .actions {
   position: absolute;
   right: calc(var(--pad) + var(--sa-r));
   bottom: calc(var(--pad) + var(--sa-b));
-  width: calc(126px * var(--uiscale));
-  height: calc(112px * var(--uiscale));
+  width: calc(167px * var(--uiscale));
+  height: calc(134px * var(--uiscale));
 }
 .abtn {
   position: absolute;
   border-radius: 50%;
   display: grid; place-items: center;
-  font-size: calc(8px * var(--uiscale));
-  letter-spacing: 0.08em;
+  font-size: calc(8.5px * var(--uiscale));
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--bone);
@@ -377,22 +424,24 @@ body {
   will-change: transform;
 }
 .abtn:active, .abtn.down { transform: scale(0.9); background: rgba(255, 122, 47, 0.42); border-color: var(--ember); }
-.abtn.dis { opacity: 0.28; }
-/* Cooldown wedge */
-.abtn > .cd {
-  position: absolute; inset: -1px; border-radius: 50%;
-  background: conic-gradient(rgba(0,0,0,0.62) var(--a, 0deg), transparent 0);
-  pointer-events: none;
-}
-.abtn.big  { width: calc(54px * var(--uiscale)); height: calc(54px * var(--uiscale)); font-size: calc(9px * var(--uiscale)); }
-.abtn.mid  { width: calc(40px * var(--uiscale)); height: calc(40px * var(--uiscale)); }
-.abtn.sml  { width: calc(33px * var(--uiscale)); height: calc(33px * var(--uiscale)); font-size: calc(7px * var(--uiscale)); }
+/* Unavailable: no stamina, nothing to use, cannot guard right now. Driven from
+   HUD.update — see _updateAvailability. */
+.abtn.dis { opacity: 0.3; border-color: rgba(150, 138, 120, 0.18); color: var(--dim); }
 
-.abtn.attack  { right: 0;                        bottom: calc(6px * var(--uiscale)); }
-.abtn.dodge   { right: calc(58px * var(--uiscale)); bottom: 0; }
-.abtn.guard   { right: calc(6px * var(--uiscale));  bottom: calc(62px * var(--uiscale)); }
-.abtn.use     { right: calc(52px * var(--uiscale)); bottom: calc(50px * var(--uiscale)); }
-.abtn.heavy   { right: calc(92px * var(--uiscale)); bottom: calc(30px * var(--uiscale)); }
+.abtn.big  { width: calc(54px * var(--uiscale)); height: calc(54px * var(--uiscale)); font-size: calc(10px * var(--uiscale)); }
+.abtn.mid  { width: calc(44px * var(--uiscale)); height: calc(44px * var(--uiscale)); }
+.abtn.sml  { width: calc(44px * var(--uiscale)); height: calc(44px * var(--uiscale)); font-size: calc(8px * var(--uiscale)); }
+
+.abtn.attack   { right: calc(4px * var(--uiscale));   bottom: calc(6px * var(--uiscale)); }
+.abtn.dodge    { right: calc(68px * var(--uiscale));  bottom: calc(5px * var(--uiscale)); }
+.abtn.guard    { right: calc(7px * var(--uiscale));   bottom: calc(72px * var(--uiscale)); }
+.abtn.use      { right: calc(62px * var(--uiscale));  bottom: calc(64px * var(--uiscale)); }
+.abtn.heavy    { right: calc(112px * var(--uiscale)); bottom: calc(35px * var(--uiscale)); }
+/* Interact has its own slot. It used to be positioned on top of GUARD and
+   display:none the guard button underneath a possibly-held finger, which both
+   latched the input and removed the player's only defence next to a door. */
+.abtn.interact { right: calc(123px * var(--uiscale)); bottom: calc(90px * var(--uiscale));
+                 border-color: var(--ember); background: rgba(60, 34, 16, 0.72); }
 
 /* Context prompt (interact) floats above the action cluster. */
 .prompt {
@@ -411,18 +460,32 @@ body {
 .prompt.on { opacity: 1; }
 .prompt b { color: var(--ember); font-weight: 700; }
 
-/* Top-left system buttons */
-.syscluster { position: absolute; top: calc(var(--pad) + var(--sa-t)); right: calc(var(--pad) + var(--sa-r) + 138px * var(--uiscale)); display: flex; gap: calc(4px * var(--uiscale)); }
-.sysbtn {
-  width: calc(24px * var(--uiscale)); height: calc(24px * var(--uiscale));
-  border-radius: var(--r);
-  display: grid; place-items: center;
-  background: rgba(18, 15, 11, 0.72);
-  border: 1px solid var(--line);
-  font-size: calc(10px * var(--uiscale));
-  color: var(--bone-dim);
+/* Top-right system buttons.
+   Each is a 44x44 target with a 30x30 visual plate drawn by ::before, so the
+   row reads as light chrome while every button clears the HIG minimum. */
+.syscluster {
+  position: absolute;
+  top: calc(var(--pad) + var(--sa-t));
+  right: calc(var(--pad) + var(--sa-r));
+  display: flex; gap: 0;
 }
-.sysbtn:active { background: rgba(255, 122, 47, 0.3); color: var(--bone); }
+.sysbtn {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  background: none; border: 0;
+}
+.sysbtn > i {
+  width: calc(30px * var(--uiscale)); height: calc(30px * var(--uiscale));
+  display: grid; place-items: center;
+  border-radius: var(--r);
+  background: rgba(18, 15, 11, 0.78);
+  border: 1px solid var(--line);
+  font-style: normal;
+  font-size: calc(13px * var(--uiscale));
+  color: var(--bone-dim);
+  transition: background 0.1s ease, color 0.1s ease;
+}
+.sysbtn:active > i, .sysbtn.down > i { background: rgba(255, 122, 47, 0.34); border-color: var(--ember); color: var(--bone); }
 
 /* ------------------------------------------------------------ reticle ----- */
 
@@ -448,6 +511,8 @@ body {
 }
 .enemybar.on { opacity: 1; }
 .enemybar > i { display: block; height: 100%; background: linear-gradient(90deg, #9a2a20, #e0655a); transform-origin: left; }
+/* Delayed chip. Driven with its own lagged value in HUD._updateLockOn — it was
+   previously assigned the same scale as the fill, which made it invisible. */
 .enemybar > u { position: absolute; inset: 0; display: block; background: rgba(255,220,180,0.55); transform-origin: left; transition: transform 0.45s ease 0.2s; }
 .enemybar.stagger > i { background: linear-gradient(90deg, #b58a1e, #e8cf5a); }
 
@@ -507,7 +572,7 @@ body {
   padding: calc(7px * var(--uiscale)) calc(10px * var(--uiscale));
 }
 .dlg-who {
-  font-size: calc(8.5px * var(--uiscale));
+  font-size: calc(9.5px * var(--uiscale));
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ember);
@@ -526,15 +591,37 @@ body {
 
 .dlg-next {
   text-align: right;
-  font-size: calc(8px * var(--uiscale));
+  font-size: calc(9px * var(--uiscale));
   color: var(--dim);
   letter-spacing: 0.14em;
   margin-top: calc(3px * var(--uiscale));
 }
 
-.dlg-choices { margin-top: calc(4px * var(--uiscale)); max-height: calc(112px * var(--uiscale)); }
+/* Choice list.
+   22 of the 27 choice nodes in the story have 3+ options and 4 have 5; at the
+   old 112px (84px on this device) the third option onwards could neither be
+   seen nor selected. The dialogue block is bottom-anchored, so growing this
+   grows upwards into empty screen. */
+.dlg-choicewrap { position: relative; margin-top: calc(4px * var(--uiscale)); }
+.dlg-choices { max-height: calc(210px * var(--uiscale)); }
+/* Overflow affordance — a 6px scrollbar is not enough on its own. */
+.dlg-choicewrap::after {
+  content: '▾  MORE';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: calc(20px * var(--uiscale));
+  display: grid; align-content: end; justify-items: center;
+  font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale));
+  letter-spacing: 0.18em; color: var(--ember);
+  background: linear-gradient(180deg, rgba(8, 7, 6, 0) 0%, rgba(8, 7, 6, 0.94) 78%);
+  opacity: 0; transition: opacity 0.16s linear;
+  pointer-events: none;
+  border-radius: 0 0 var(--r) var(--r);
+}
+.dlg-choicewrap.more::after { opacity: 1; }
 .dlg-choice {
-  display: block; width: 100%; text-align: left;
+  display: flex; flex-wrap: wrap; align-items: center;
+  min-height: 44px;
+  width: 100%; text-align: left;
   background: rgba(38, 32, 24, 0.72);
   border: 1px solid var(--line);
   border-left: 2px solid var(--ember-lo);
@@ -549,8 +636,9 @@ body {
 .dlg-choice:active { background: rgba(255, 122, 47, 0.24); border-left-color: var(--ember); }
 .dlg-choice .tag {
   display: inline-block;
+  flex: 0 0 auto;
   font-family: var(--ui-mono);
-  font-size: calc(7.5px * var(--uiscale));
+  font-size: calc(8.5px * var(--uiscale));
   letter-spacing: 0.1em;
   color: var(--ember);
   border: 1px solid var(--ember-lo);
@@ -562,7 +650,7 @@ body {
 }
 .dlg-choice .tag.locked { color: var(--dim); border-color: var(--line); }
 .dlg-choice.locked { opacity: 0.42; }
-.dlg-choice .why { display: block; color: var(--dim); font-size: calc(8px * var(--uiscale)); margin-top: 2px; }
+.dlg-choice .why { flex: 1 0 100%; color: var(--dim); font-size: calc(9.5px * var(--uiscale)); margin-top: 2px; line-height: 1.3; }
 
 /* Speaker portrait strip — procedurally drawn to a canvas by the UI layer. */
 .dlg-port {
@@ -586,6 +674,10 @@ body {
            calc(var(--pad) + var(--sa-b)) calc(var(--pad) + var(--sa-l));
 }
 .screen.on { display: block; }
+/* The epilogue must outrank #fade (z-index 60). finish() fades out and shows
+   the ending; if any caller ever forgets the matching fadeIn, the payoff of
+   the whole game must not end up under an opaque black plate. */
+.screen.ending { z-index: 70; }
 
 .screen-inner {
   position: absolute;
@@ -599,31 +691,32 @@ body {
 .screen-body { flex: 1 1 auto; min-height: 0; display: flex; gap: calc(8px * var(--uiscale)); }
 
 .col { min-height: 0; display: flex; flex-direction: column; }
-.col.nav { width: calc(96px * var(--uiscale)); flex: 0 0 auto; }
 .col.main { flex: 1 1 auto; }
-.col.side { width: calc(140px * var(--uiscale)); flex: 0 0 auto; }
 
 .tabs { display: flex; gap: calc(3px * var(--uiscale)); margin-bottom: calc(5px * var(--uiscale)); flex-wrap: wrap; }
 .tab {
-  font-size: calc(8.5px * var(--uiscale));
-  letter-spacing: 0.14em; text-transform: uppercase;
-  padding: calc(4px * var(--uiscale)) calc(7px * var(--uiscale));
+  display: grid; place-items: center;
+  min-height: 44px;
+  font-size: calc(9.5px * var(--uiscale));
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0 calc(9px * var(--uiscale));
   border: 1px solid var(--line); border-radius: var(--r);
   color: var(--dim); background: rgba(20, 17, 13, 0.6);
 }
 .tab.on { color: var(--ink); background: var(--ember); border-color: var(--ember); font-weight: 700; }
 
 .close {
-  width: calc(24px * var(--uiscale)); height: calc(24px * var(--uiscale));
+  width: 44px; height: 44px;
   border: 1px solid var(--line); border-radius: var(--r);
-  display: grid; place-items: center; color: var(--bone-dim); font-size: calc(12px * var(--uiscale));
+  display: grid; place-items: center; color: var(--bone-dim); font-size: calc(15px * var(--uiscale));
   background: rgba(20, 17, 13, 0.7);
 }
-.close:active { background: var(--blood); color: #fff; }
+.close:active, .close.on { background: var(--blood); color: #fff; }
 
 /* item rows */
 .item {
-  display: flex; align-items: center; gap: calc(6px * var(--uiscale));
+  display: flex; align-items: center; gap: calc(8px * var(--uiscale));
+  min-height: 44px;
   padding: calc(5px * var(--uiscale)) calc(6px * var(--uiscale));
   border: 1px solid transparent; border-bottom-color: rgba(58,50,38,0.5);
   border-radius: var(--r);
@@ -634,9 +727,18 @@ body {
   border: 1px solid var(--line); border-radius: 2px; background: #0d0b09;
   display: grid; place-items: center; font-size: calc(11px * var(--uiscale));
 }
-.item .nm { font-size: calc(9.5px * var(--uiscale)); color: var(--bone); flex: 1 1 auto; line-height: 1.3; }
-.item .nm i { display: block; font-style: normal; color: var(--dim); font-size: calc(8px * var(--uiscale)); }
-.item .qty { font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); color: var(--ember); }
+/* Only the slider steppers carry `hit`; they are real buttons and get a real
+   target. The decorative row glyphs stay 22px. */
+.item .glyph.hit {
+  width: 44px; height: 44px;
+  font-size: calc(15px * var(--uiscale));
+  background: rgba(30, 26, 20, 0.8);
+  color: var(--bone);
+}
+.item .glyph.hit:active, .item .glyph.hit.on { background: rgba(255, 122, 47, 0.34); border-color: var(--ember); }
+.item .nm { font-size: calc(11px * var(--uiscale)); color: var(--bone); flex: 1 1 auto; line-height: 1.3; }
+.item .nm i { display: block; font-style: normal; color: var(--dim); font-size: calc(9.5px * var(--uiscale)); line-height: 1.35; }
+.item .qty { font-family: var(--ui-mono); font-size: calc(10.5px * var(--uiscale)); color: var(--ember); }
 
 /* Title screen */
 #title { display: none; position: absolute; inset: 0; z-index: 40; }
@@ -644,17 +746,24 @@ body {
 .title-bg {
   position: absolute; inset: 0;
   /* Semi-opaque so the city is visible behind the mark — the title screen is
-     a photograph of Hollis with type over it, not a black plate. */
+     a photograph of Hollis with type over it, not a black plate. The scrim is
+     a readability gradient over the type only; the right two-thirds is left
+     nearly clear, and a burn glow is carried along the bottom edge so the
+     frame reads as a city over a fire even when the camera is parked low. */
   background:
-    linear-gradient(90deg, rgba(6,5,4,0.92) 0%, rgba(6,5,4,0.62) 34%, rgba(6,5,4,0.30) 56%, rgba(6,5,4,0.78) 100%),
-    radial-gradient(130% 100% at 50% 86%, rgba(36,20,7,0.55) 0%, rgba(10,7,5,0.75) 60%, rgba(0,0,0,0.9) 100%);
+    linear-gradient(90deg, rgba(6,5,4,0.90) 0%, rgba(6,5,4,0.66) 30%, rgba(6,5,4,0.12) 58%, rgba(6,5,4,0.10) 78%, rgba(6,5,4,0.58) 100%),
+    linear-gradient(0deg, rgba(58,24,6,0.62) 0%, rgba(28,13,4,0.28) 14%, rgba(0,0,0,0) 38%),
+    radial-gradient(120% 62% at 50% 104%, rgba(255,122,47,0.30) 0%, rgba(120,48,12,0.14) 40%, rgba(0,0,0,0) 72%),
+    radial-gradient(140% 120% at 50% 40%, rgba(0,0,0,0) 30%, rgba(4,3,2,0.72) 100%);
 }
 .title-wrap {
   position: absolute; inset: 0;
-  padding: calc(var(--pad) + var(--sa-t)) calc(var(--pad) + var(--sa-r)) calc(var(--pad) + var(--sa-b)) calc(var(--pad) + var(--sa-l));
-  display: flex; align-items: center; justify-content: space-between; gap: calc(12px * var(--uiscale));
+  padding: calc(var(--pad) + var(--sa-t) + 6px) calc(var(--pad) + var(--sa-r)) calc(var(--pad) + var(--sa-b) + 6px) calc(var(--pad) + var(--sa-l) + 6px);
+  display: flex; align-items: stretch; justify-content: space-between; gap: calc(12px * var(--uiscale));
 }
-.title-mark { flex: 1 1 auto; }
+/* Mark bottom-left, menu filling the right column top to bottom: the empty
+   middle is the point of the frame, the empty corners were not. */
+.title-mark { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; }
 .title-mark h1 {
   margin: 0;
   font-size: calc(30px * var(--uiscale));
@@ -663,13 +772,20 @@ body {
   text-shadow: 0 0 40px rgba(255, 122, 47, 0.42), 0 3px 0 rgba(0,0,0,0.5);
   line-height: 1;
 }
-.title-mark .tagline {
-  margin-top: calc(8px * var(--uiscale));
-  font-size: calc(9px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.1em; line-height: 1.6;
-  max-width: calc(230px * var(--uiscale));
+.title-mark .rule-em {
+  height: 1px; width: calc(180px * var(--uiscale));
+  margin: calc(9px * var(--uiscale)) 0 calc(8px * var(--uiscale));
+  background: linear-gradient(90deg, var(--ember), rgba(255,122,47,0));
 }
-.title-mark .ver { margin-top: calc(10px * var(--uiscale)); font-family: var(--ui-mono); font-size: calc(7.5px * var(--uiscale)); color: #5c554b; letter-spacing: 0.1em; }
-.title-menu { width: calc(168px * var(--uiscale)); flex: 0 0 auto; }
+.title-mark .tagline {
+  font-size: calc(10.5px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.08em; line-height: 1.6;
+  max-width: calc(270px * var(--uiscale));
+  text-shadow: 0 1px 4px #000;
+}
+.title-menu {
+  width: calc(180px * var(--uiscale)); flex: 0 0 auto;
+  display: flex; flex-direction: column; justify-content: center; gap: calc(2px * var(--uiscale));
+}
 
 /* Chapter / location card */
 .card {
@@ -697,15 +813,15 @@ body {
 .dead.on { display: grid; }
 .dead-inner { text-align: center; width: min(78vw, calc(300px * var(--uiscale))); }
 .dead-inner .k { font-size: calc(17px * var(--uiscale)); letter-spacing: 0.34em; color: #d4483a; font-weight: 300; }
-.dead-inner .s { font-size: calc(9px * var(--uiscale)); color: var(--bone-dim); margin: calc(7px * var(--uiscale)) 0 calc(10px * var(--uiscale)); line-height: 1.6; font-style: italic; }
+.dead-inner .s { font-size: calc(10.5px * var(--uiscale)); color: var(--bone-dim); margin: calc(7px * var(--uiscale)) 0 calc(10px * var(--uiscale)); line-height: 1.6; font-style: italic; }
 
-/* Subtitles / barks */
+/* Subtitles / barks — clear of the (taller) action cluster. */
 .subs {
-  position: absolute; left: 50%; bottom: calc(var(--pad) + var(--sa-b) + 104px * var(--uiscale));
+  position: absolute; left: 50%; bottom: calc(var(--pad) + var(--sa-b) + 142px * var(--uiscale));
   transform: translateX(-50%);
   width: min(calc(100% - 30px), calc(340px * var(--uiscale)));
   text-align: center;
-  font-size: calc(9.5px * var(--uiscale));
+  font-size: calc(10.5px * var(--uiscale));
   color: var(--bone);
   text-shadow: 0 1px 4px #000, 0 0 10px #000;
   line-height: 1.4;
@@ -722,16 +838,16 @@ body {
 /* Perf readout */
 .perf {
   position: absolute; bottom: calc(var(--pad) + var(--sa-b)); left: 50%; transform: translateX(-50%);
-  font-family: var(--ui-mono); font-size: calc(7.5px * var(--uiscale)); color: var(--dim);
-  letter-spacing: 0.08em; background: rgba(0,0,0,0.5); padding: 1px 5px; border-radius: 2px;
+  font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); color: var(--bone-dim);
+  letter-spacing: 0.06em; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 2px;
   white-space: pre;
 }
 
 /* Toast for autosave */
 .autosave {
-  position: absolute; right: calc(var(--pad) + var(--sa-r)); bottom: calc(var(--pad) + var(--sa-b) + 120px * var(--uiscale));
-  font-family: var(--ui-mono); font-size: calc(7.5px * var(--uiscale)); letter-spacing: 0.18em;
-  color: var(--dim); opacity: 0; transition: opacity 0.4s ease;
+  position: absolute; right: calc(var(--pad) + var(--sa-r)); bottom: calc(var(--pad) + var(--sa-b) + 144px * var(--uiscale));
+  font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); letter-spacing: 0.16em;
+  color: var(--bone-dim); text-shadow: 0 1px 3px #000; opacity: 0; transition: opacity 0.4s ease;
 }
 .autosave.on { opacity: 1; }
 .autosave::before { content: '◍ '; color: var(--ember); }
@@ -744,18 +860,61 @@ body {
 #rotate.on { display: grid; }
 #rotate .ico { font-size: 34px; margin-bottom: 12px; animation: rot 2.2s ease-in-out infinite; }
 @keyframes rot { 0%,45% { transform: rotate(0deg); } 55%,100% { transform: rotate(-90deg); } }
-#rotate p { font-size: 11px; color: var(--bone-dim); letter-spacing: 0.12em; line-height: 1.7; margin: 0; }
+#rotate p { font-size: 12px; color: var(--bone-dim); letter-spacing: 0.12em; line-height: 1.7; margin: 0; white-space: pre-line; }
+
+/* ------------------------------------------------------- context loss ----- */
+/* WebGL context loss on iOS is frequently terminal — Safari often never fires
+   webglcontextrestored. A frozen frame with no message and no save is not an
+   acceptable end to a playthrough. */
+#ctxlost {
+  position: absolute; inset: 0; z-index: 95; display: none; place-items: center;
+  background: rgba(6, 5, 4, 0.94); text-align: center; padding: 24px;
+}
+#ctxlost.on { display: grid; }
+#ctxlost .k { font-size: 15px; letter-spacing: 0.28em; color: var(--ember); font-weight: 600; }
+#ctxlost .s { font-size: 12px; color: var(--bone-dim); line-height: 1.6; margin: 10px 0 14px; max-width: 340px; }
+#ctxlost .btn { width: auto; display: inline-flex; padding: 0 18px; text-align: center; }
 
 /* Reduced-motion respect for purely decorative animation */
 @media (prefers-reduced-motion: reduce) {
   .boot-bar > i, .bar.hp.low > .fill, .air.crit, .dlg-txt .caret, #rotate .ico { animation: none !important; }
 }
 
-/* Very short viewports (landscape phones) — tighten everything. */
+/* Very short viewports (landscape phones) — tighten everything.
+   The choice list is NOT tightened here any more: this media query matches the
+   primary target device, and the old 84px cap hid the 3rd option onwards of 22
+   of the 27 choice nodes in the game. 186px still leaves the dialogue block
+   clear of the compass at 375px tall. */
 @media (max-height: 400px) {
   .objective { max-width: calc(160px * var(--uiscale)); }
-  .dlg-choices { max-height: calc(84px * var(--uiscale)); }
+  .dlg-choices { max-height: calc(186px * var(--uiscale)); }
 }
+
+/* ------------------------------------------------------- left-handed ------ */
+
+/* Input.leftHanded only moves the touch-zone split. Without this the movement
+   stick spawned on the right underneath the action cluster and was swallowed
+   by it, the camera surface moved to the bottom-left, and the buttons stayed
+   where they were — i.e. left-handed mode made the game unplayable. The whole
+   frame mirrors, so the two thumbs get the halves they were promised.
+   Toggled by Game.applySettings. */
+body.lefthanded .stick { left: auto; right: calc(var(--pad) + var(--sa-r)); }
+body.lefthanded .actions { right: auto; left: calc(var(--pad) + var(--sa-l)); }
+body.lefthanded .abtn.attack   { right: auto; left: calc(4px * var(--uiscale)); }
+body.lefthanded .abtn.dodge    { right: auto; left: calc(68px * var(--uiscale)); }
+body.lefthanded .abtn.guard    { right: auto; left: calc(7px * var(--uiscale)); }
+body.lefthanded .abtn.use      { right: auto; left: calc(62px * var(--uiscale)); }
+body.lefthanded .abtn.heavy    { right: auto; left: calc(112px * var(--uiscale)); }
+body.lefthanded .abtn.interact { right: auto; left: calc(123px * var(--uiscale)); }
+body.lefthanded .autosave { right: auto; left: calc(var(--pad) + var(--sa-l)); }
+
+body.lefthanded .vitals { left: auto; right: calc(var(--pad) + var(--sa-r)); }
+body.lefthanded .bar > .lbl { left: auto; right: calc(100% + 4px * var(--uiscale)); }
+body.lefthanded .syscluster { right: auto; left: calc(var(--pad) + var(--sa-l)); }
+body.lefthanded .notices { right: auto; left: calc(var(--pad) + var(--sa-l)); align-items: flex-start; }
+body.lefthanded .notice { text-align: left; border-right: 0; border-left: 2px solid var(--ember); }
+body.lefthanded .notice.good { border-left-color: var(--toxic); }
+body.lefthanded .notice.bad  { border-left-color: var(--blood); }
 
 /* ------------------------------------------------- accessibility overrides -- */
 

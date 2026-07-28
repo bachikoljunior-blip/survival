@@ -13,7 +13,7 @@ import * as THREE from 'three';
 import { buildCharacter, buildWeapon, BONE_INDEX } from './rig.js';
 import { Animator, CLIPS, MASK } from './anim.js';
 import { moveActor, LAYER } from '../world/collision.js';
-import { Lungs, PPM } from '../world/gas.js';
+import { Lungs, PPM, SAT_CRITICAL, GAS_MAX_DPS } from '../world/gas.js';
 import { clamp, clamp01, lerp, damp, dampAngle, angleDelta, approachAngle, TAU } from '../core/util.js';
 
 const _v = new THREE.Vector3();
@@ -21,9 +21,27 @@ const _v2 = new THREE.Vector3();
 const _q = new THREE.Quaternion();
 
 export const STATE = {
-  IDLE: 'idle', MOVE: 'move', ACTION: 'action', STAGGER: 'stagger',
-  DOWN: 'down', DEAD: 'dead', CLIMB: 'climb', VAULT: 'vault', TALK: 'talk',
+  IDLE: 'idle', STAGGER: 'stagger',
+  DOWN: 'down', DEAD: 'dead', CLIMB: 'climb', VAULT: 'vault',
 };
+
+/**
+ * Defence economy.
+ *
+ * Raising a guard costs stamina and holding one spends it, which is the only
+ * thing that puts a clock on turtling. Without these three numbers a held guard
+ * regenerated more stamina than it consumed and blocked away 86% of every blow,
+ * so standing still with the button down was a strictly dominant strategy that
+ * no enemy in the game had an answer to.
+ */
+const GUARD_RAISE_COST = 8;     // stamina, on the rising edge
+const GUARD_DRAIN = 6;          // stamina per second while held
+const PARRY_REARM = 0.9;        // seconds before a new parry window may open
+/** Fraction of a blocked blow that still reaches you. */
+const BLOCK_THROUGH = 0.30;
+const BLOCK_THROUGH_BREAK = 0.60;
+/** Poise stops regenerating for this long after any hit. */
+const POISE_HOLD = 1.2;
 
 let _uid = 1;
 
@@ -110,7 +128,6 @@ export class Actor {
 
     this.state = STATE.IDLE;
     this.dead = false;
-    this.invulnUntil = -1;
     this.hitstop = 0;
     this.staggerTime = 0;
 
@@ -128,15 +145,27 @@ export class Actor {
 
     // Attack bookkeeping — the combat system reads and writes these.
     this.attack = null;
-    this.comboIndex = 0;
     this.comboWindow = 0;
+    this.comboNext = null;
     this.guarding = false;
     this.guardHealth = opts.guardHealth ?? 60;
     this.guardCurrent = this.guardHealth;
     this.parryWindow = 0;
     this.iframes = 0;
+    /** Set by combat.js when it owns the i-frame window; anim events defer. */
+    this.iframeLock = false;
+    /** Committed-displacement window: movement damping is suppressed inside it. */
+    this.dodgeT = 0;
+    this.dodgeCooldown = 0;
+    /** Set true by the capability sync when Ren has `hardHands`. */
+    this.parryBonus = false;
+    this.poiseResist = opts.poiseResist ? 0.5 : 1;
 
     this._guardWasDown = false;
+    this._guardLock = 0;
+    this._parryRearm = 0;
+    this._parryArmed = false;
+    this._poiseHold = 0;
     this.climbing = null;
     this.interiorPpm = null;
     this.lastDeathCause = null;
@@ -218,9 +247,13 @@ export class Actor {
     }
 
     this.iframes = Math.max(0, this.iframes - dt);
+    if (this.iframes <= 0) this.iframeLock = false;
     this.parryWindow = Math.max(0, this.parryWindow - dt);
     this.comboWindow = Math.max(0, this.comboWindow - dt);
     this._staminaHold = Math.max(0, this._staminaHold - dt);
+    this._poiseHold = Math.max(0, this._poiseHold - dt);
+    this.dodgeT = Math.max(0, this.dodgeT - dt);
+    this.dodgeCooldown = Math.max(0, this.dodgeCooldown - dt);
 
     if (this.state === STATE.STAGGER) {
       this.staggerTime -= dt;
@@ -242,7 +275,15 @@ export class Actor {
     let ax = 0, az = 0;
     const locked = !this.canAct || this.dead;
 
-    if (!locked) {
+    if (this.dodgeT > 0 && !this.dead) {
+      // A dodge is a committed displacement. The ordinary accel/decel term is
+      // 48 m/s^2 and would erase the impulse in a tenth of a second — with the
+      // stick held it erased it in six frames, which is why the evade used to
+      // move the body about the width of a doorframe. Inside this window the
+      // body only sheds a little to drag.
+      ax = -this.vel.x * 1.2;
+      az = -this.vel.z * 1.2;
+    } else if (!locked) {
       const speed = this.currentSpeed;
       let mx = this.moveInput.x, mz = this.moveInput.z;
       const mag = this.moveInput.mag;
@@ -298,9 +339,12 @@ export class Actor {
     this.lastMove = r;
 
     if (r.fellDist > 2.6 && !this.dead) {
-      // Falls hurt. Above about four metres they hurt a great deal, which is
-      // what makes the rooftop route a real decision rather than free safety.
-      const dmg = Math.pow(clamp01((r.fellDist - 2.6) / 6.4), 1.6) * 92;
+      // Falls hurt, and past a point they kill. The term is deliberately NOT
+      // clamped at the knee: clamping made nine metres and sixty metres the
+      // same 92 damage, which is less than anyone's health, so in a game about
+      // climbing you could step off any roof in Hollis for free.
+      // ~6 m bruises, ~9 m nearly finishes you, ~12 m is fatal.
+      const dmg = Math.min(400, Math.pow(Math.max(0, (r.fellDist - 2.6) / 6.4), 1.6) * 92);
       if (dmg > 2) this.damage({ amount: dmg, kind: 'fall', stagger: dmg > 22 });
       this.emit('land', { hard: dmg > 8, dist: r.fellDist });
       this.animator.play('land', { speed: dmg > 8 ? 0.85 : 1.3 });
@@ -316,25 +360,73 @@ export class Actor {
    * Hold it and you are blocking; catch a blow inside the window and you parry.
    * That is the whole mechanic: a parry is a well-timed *block*, not a separate
    * button, which is the only version of it that works with five touch buttons.
+   *
+   * What makes it a mechanic rather than an exploit is the price. Raising costs
+   * stamina, holding drains it, and a fresh parry window cannot be opened
+   * inside PARRY_REARM of the last one. Mashing the button at 8 Hz used to buy
+   * a 160 ms parry window every 125 ms — better than 100% uptime, for free,
+   * with one thumb, permanently stagger-locking every melee enemy in the game.
    */
   _updateGuard(dt) {
-    if (this.dead) { this._guardWasDown = false; return; }
-    const raising = this.guarding && !this._guardWasDown;
-    const dropping = !this.guarding && this._guardWasDown;
-    this._guardWasDown = this.guarding;
+    this._parryRearm = Math.max(0, this._parryRearm - dt);
+    this._guardLock = Math.max(0, this._guardLock - dt);
 
-    if (raising && this.canAct && !this.attack) {
-      // The parry clip contains the window event; guard is its resting pose.
-      this.animator.play('parry', { fade: 0.04, force: true });
-      this.emit('guardraise', {});
-    } else if (this.guarding && !this.attack && this.animator.actionName !== 'parry' &&
+    if (this.dead) { this.guarding = false; this._guardWasDown = false; return; }
+
+    // Refusals. `guarding` is written from outside (input, AI) every step, so
+    // a refusal has to hold the button down for a moment or it re-fires.
+    if (this.guarding && (this._guardLock > 0 || !this.canAct)) this.guarding = false;
+    if (this.guarding && this.iframeLock && this.iframes > 0) this.guarding = false;
+    if (this.guarding && !this._guardWasDown && this.stamina < GUARD_RAISE_COST) {
+      this.guarding = false;
+      this._guardLock = 0.4;
+      this.emit('guardfail', {});
+    }
+
+    const up = this.guarding;
+    const rose = up && !this._guardWasDown;
+    const dropping = !up && this._guardWasDown;
+    this._guardWasDown = up;
+
+    if (rose) {
+      this.stamina = Math.max(0, this.stamina - GUARD_RAISE_COST);
+      this._staminaHold = Math.max(this._staminaHold, 0.4);
+    }
+    if (up) {
+      // Holding a guard is work. This is the clock on turtling.
+      this.stamina = Math.max(0, this.stamina - GUARD_DRAIN * dt);
+      if (this.stamina <= 0) {
+        this.guarding = false;
+        this._guardWasDown = false;
+        this._guardLock = 0.7;
+        this.emit('guardfail', {});
+      }
+    }
+
+    if (rose && this.canAct && !this.attack) {
+      if (this._parryRearm <= 0) {
+        this._parryRearm = PARRY_REARM;
+        this._parryArmed = true;
+        // `force` restarts the clip, so this must never fire on a frame where
+        // the parry is already running or the pose freezes at its first key.
+        if (this.animator.actionName !== 'parry') {
+          this.animator.play('parry', { fade: 0.04, force: true });
+        }
+      } else {
+        // Too soon after the last one. This is a block, and it looks like one.
+        this._parryArmed = false;
+        this.animator.play('guard', { fade: 0.06 });
+      }
+      this.emit('guardraise', { parry: this._parryArmed });
+    } else if (up && !this.attack && this.animator.actionName !== 'parry' &&
                this.animator.actionName !== 'guard' && this.animator.actionName !== 'guardhit') {
       this.animator.play('guard', { fade: 0.09 });
     } else if (dropping && (this.animator.actionName === 'guard' || this.animator.actionName === 'parry')) {
+      this._parryArmed = false;
       this.animator.stopAction(0.12);
     }
     // The parry window closes on its own; guard persists as long as it is held.
-    if (this.guarding && this.animator.actionName === 'parry' && this.animator.actionT >= 1) {
+    if (up && this.animator.actionName === 'parry' && this.animator.actionT >= 1) {
       this.animator.play('guard', { fade: 0.08 });
     }
   }
@@ -397,13 +489,20 @@ export class Actor {
     if (sprinting) {
       this.stamina = Math.max(0, this.stamina - 13 * dt);
       if (this.stamina <= 0) this.wantSprint = false;
-    } else if (this._staminaHold <= 0) {
-      const rate = this.staminaRegen * (this.guarding ? 0.28 : 1) * (this.lungs.critical ? 0.4 : 1);
+    } else if (this._staminaHold <= 0 && !this.guarding) {
+      // No regeneration behind a raised guard. The drain in _updateGuard is
+      // otherwise cancelled out and holding block becomes free again.
+      const rate = this.staminaRegen * (this.lungs.critical ? 0.4 : 1);
       this.stamina = Math.min(this.maxStamina, this.stamina + rate * dt);
     }
 
-    // Poise regenerates once you have not been hit for a moment.
-    this.poiseCurrent = Math.min(this.poise, this.poiseCurrent + this.poise * 0.42 * dt);
+    // Poise regenerates once you have not been hit for a moment. The pause is
+    // what lets a pack accumulate a stagger: without it the regeneration rate
+    // exceeded the poise damage of every basic enemy in the game, so scavs and
+    // dogs were literally incapable of interrupting the player.
+    if (this._poiseHold <= 0) {
+      this.poiseCurrent = Math.min(this.poise, this.poiseCurrent + this.poise * 0.20 * dt);
+    }
     this.guardCurrent = Math.min(this.guardHealth, this.guardCurrent + this.guardHealth * 0.30 * dt);
 
     // Air
@@ -417,9 +516,10 @@ export class Actor {
 
       if (this.lungs.critical) {
         // Above the critical threshold the damage is continuous, and the
-        // coughing starts before the damage does.
-        const sev = (this.lungs.sat - 0.34) / 0.16;
-        this.hp = Math.max(0, this.hp - sev * 13 * dt);
+        // coughing starts before the damage does. `harm` is bounded 0..1, so
+        // the rate is a real ceiling rather than an unclamped ramp that hit
+        // 54 hp/s in a bad cellar.
+        this.hp = Math.max(0, this.hp - this.lungs.harm * GAS_MAX_DPS * dt);
         if (this.hp <= 0) this.kill('gas');
       }
       if (this.lungs.sat > 0.12 && ctx && ctx.time - this.lastCough > lerp(11, 2.6, clamp01(this.lungs.sat / 0.4))) {
@@ -458,9 +558,21 @@ export class Actor {
 
   onAnimEvent(name, clipName, a) {
     switch (name) {
-      case 'iframeStart': this.iframes = 0.26; break;
-      case 'iframeEnd': this.iframes = 0; break;
-      case 'parrywindow': this.parryWindow = this.parryBonus ? 0.26 : 0.16; break;
+      // The dodge clip carries its own i-frame events, but combat.js sets the
+      // authoritative window at the press. Two authorities meant the clip
+      // truncated the window to 0.218 s when the dodge ran to completion and
+      // left it at the full 0.30 s when it was cancelled — so cancelling into
+      // an attack bought MORE invulnerability than evading properly.
+      // One owner: whoever set `iframeLock` wins.
+      case 'iframeStart': if (!this.iframeLock) this.iframes = 0.26; break;
+      case 'iframeEnd': if (!this.iframeLock) this.iframes = 0; break;
+      case 'parrywindow':
+        // Only if this guard-raise actually armed a parry (see PARRY_REARM).
+        if (this._parryArmed) {
+          this._parryArmed = false;
+          this.parryWindow = this.parryBonus ? 0.26 : 0.16;
+        }
+        break;
       case 'rung': this.emit('footstep', { surface: 'metal', volume: 0.5 }); break;
       case 'cough': this.emit('coughsound', { severity: this.lungs.severity }); break;
       default: break;
@@ -496,7 +608,10 @@ export class Actor {
           this.animator.react('guardhit', 0.5);
         } else {
           blocked = true;
-          const through = hit.guardBreak ? 0.45 : 0.14;
+          // 0.14 through meant 72 blocked hits to kill Ren and 207 seconds for
+          // a scavenger to do it. A guard is protection, not a second health
+          // bar with a better exchange rate.
+          const through = hit.guardBreak ? BLOCK_THROUGH_BREAK : BLOCK_THROUGH;
           this.guardCurrent -= amount * (hit.guardBreak ? 1.8 : 1.0);
           amount *= through;
           this.stamina = Math.max(0, this.stamina - hit.amount * 0.42);
@@ -523,14 +638,22 @@ export class Actor {
 
     if (amount > 0) {
       this.hp = Math.max(0, this.hp - amount);
-      this.poiseCurrent -= hit.poise ?? amount;
+      // `poiseResist` — the Breaker's armour. Declared on the archetype and,
+      // until now, read nowhere.
+      this.poiseCurrent -= (hit.poise ?? amount) * this.poiseResist;
       this._staminaHold = 0.5;
+      this._poiseHold = POISE_HOLD;
 
       if (!blocked && !parried) {
         const heavy = (hit.poise ?? amount) > this.poise * 0.55 || hit.stagger;
         this.animator.react(heavy ? 'hitHeavy' : 'hitLight', heavy ? 1 : 0.75);
         this.hitstop = heavy ? 0.11 : 0.06;
         if (this.poiseCurrent <= 0 || hit.stagger) this.stagger(heavy ? 1.05 : 0.6);
+      } else if (blocked && hit.stagger) {
+        // Blocking a heavy still costs you your footing. Stagger was applied
+        // only to unblocked hits, which is why a raised guard negated every
+        // guard-break in the game along with everything else.
+        this.stagger(hit.guardBreak ? 0.6 : 0.38);
       }
       this.emit('hurt', { ...hit, amount, blocked, parried });
     }
@@ -544,9 +667,12 @@ export class Actor {
     this.state = STATE.STAGGER;
     this.staggerTime = duration;
     this.poiseCurrent = this.poise * 0.5;
+    this._poiseHold = 0;
     this.attack = null;
     this.guarding = false;
-    this.comboIndex = 0;
+    this.comboWindow = 0;
+    this.comboNext = null;
+    this.dodgeT = 0;
     this.animator.play('stagger', { fade: 0.06, speed: 0.9 / duration });
     this.emit('stagger', { duration });
   }
@@ -574,5 +700,70 @@ export class Actor {
     this.rig.geometry.dispose();
     if (this.weapon) this.weapon.traverse((o) => o.geometry && o.geometry.dispose());
     if (this.offhand) this.offhand.traverse((o) => o.geometry && o.geometry.dispose());
+  }
+}
+
+/**
+ * Push overlapping actors apart.
+ *
+ * `moveActor` only ever consulted the world's boxes, so nothing in the game
+ * separated bodies: a pack of dogs occupied a single point, the player walked
+ * through enemies, and a Breaker could stand inside you. Combined with the
+ * attack-token cap this is what turns a group encounter from an overlapping
+ * blender into something with a shape.
+ *
+ * O(n^2) on purpose. n is the cast in one encounter — a dozen at the very
+ * outside — and a spatial structure here would cost more to maintain than the
+ * comparisons it saves.
+ *
+ * Weighting is asymmetric: the player resists being shoved (0.25 of the
+ * correction) and takes the rest out of whatever walked into her, so a crowd
+ * cannot push Ren off a roof or out of a doorway she is holding.
+ *
+ * @param {Actor[]} actors
+ * @param {number} dt
+ * @param {Actor|null} player the actor that resists displacement
+ */
+export function separateActors(actors, dt, player = null) {
+  const n = actors.length;
+  for (let i = 0; i < n; i++) {
+    const a = actors[i];
+    if (a.dead || a.state === STATE.CLIMB || a.state === STATE.VAULT) continue;
+    for (let j = i + 1; j < n; j++) {
+      const b = actors[j];
+      if (b.dead || b.state === STATE.CLIMB || b.state === STATE.VAULT) continue;
+
+      // Bodies at clearly different elevations are not touching.
+      const dy = a.pos.y - b.pos.y;
+      if (dy > Math.max(a.height, b.height) * 0.8 || -dy > Math.max(a.height, b.height) * 0.8) continue;
+
+      const dx = b.pos.x - a.pos.x, dz = b.pos.z - a.pos.z;
+      const minD = a.radius + b.radius;
+      const d2 = dx * dx + dz * dz;
+      if (d2 >= minD * minD) continue;
+
+      let nx, nz, d;
+      if (d2 > 1e-6) {
+        d = Math.sqrt(d2);
+        nx = dx / d; nz = dz / d;
+      } else {
+        // Exactly coincident: pick a stable direction from the id pair so two
+        // bodies do not oscillate against each other frame to frame.
+        const ang = ((a.id * 2654435761) ^ (b.id * 40503)) % 628 / 100;
+        nx = Math.cos(ang); nz = Math.sin(ang); d = 0;
+      }
+
+      const overlap = minD - d;
+      // Resolve most of it per step, not all: a hard snap reads as a collision
+      // bug, a firm push reads as a shoulder.
+      const push = overlap * Math.min(1, dt * 16) * 0.9;
+
+      let wa = 0.5, wb = 0.5;
+      if (a === player) { wa = 0.25; wb = 0.75; }
+      else if (b === player) { wa = 0.75; wb = 0.25; }
+
+      a.pos.x -= nx * push * wa; a.pos.z -= nz * push * wa;
+      b.pos.x += nx * push * wb; b.pos.z += nz * push * wb;
+    }
   }
 }

@@ -141,7 +141,7 @@ seconds and I already know which one I believe.`);
         g.hud.notice('One head shut. Both places are worse than one could have been.', '', 5);
       },
       beginCrisis: () => this._beginCrisis(),
-      openTrade: () => this.openTrade(),
+      openTrade: () => { this.quests.notify('custom', { id: 'teoTrade' }); this.openTrade(); },
     };
   }
 
@@ -255,13 +255,17 @@ seconds and I already know which one I believe.`);
   _moveNessaDown() {
     const n = this.npcs.get('nessa') || this.spawnNPC('nessa');
     if (!n) return;
-    const g = this.game.world.groundUnder(-92, 48, 0.4, 8, 14);
-    n.pos.set(-92, g ? g.y + 0.05 : 0.1, 48);
+    // She dropped the bag where she turned back; she is further west, pinned
+    // in the low ground. Putting her a metre from her own bag meant the "find
+    // her route" step completed on the frame it started.
+    const g = this.game.world.groundUnder(-126, 62, 0.4, 8, 14);
+    n.pos.set(-126, g ? g.y + 0.05 : 0.1, 62);
     n.group.visible = true;
     n.yaw = n.targetYaw = 2.1;
     n.animator.locomotion.crouch = 1;
     n.crouch = 1;
-    this._markerTargets.nessaRun = { x: -92, z: 48 };
+    n.downed = true;
+    this._markerTargets.nessaRun = { x: -126, z: 62 };
   }
 
   /** Refresh who is present for the current chapter and interior. */
@@ -362,6 +366,28 @@ seconds and I already know which one I believe.`);
     this.quests.notify('custom', { id: 'crisisArrive' });
   }
 
+  /**
+   * GOOD HABITS is not bought and it is not given. It is what twenty years
+   * underground leaves behind, and the player earns it the same way Ren did:
+   * by going over the line, coming back under it on her own legs, and then
+   * doing it a second time rather than deciding once was enough.
+   */
+  _updateHabits() {
+    const p = this.game.player;
+    if (!p || p.dead || this.state.can('goodHabits')) return;
+    if (p.lungs.critical) { this._satEvent = true; return; }
+    if (!this._satEvent || p.lungs.sat > 0.06) return;
+    this._satEvent = false;
+    const n = this.state.bump('survivedSaturation');
+    if (n < 2) return;
+    this.state.unlock('goodHabits');
+    this.state.addJournal('habits', 'What the body learns', `Second time this week I have come up out
+of it on my own legs. The chest is doing the thing it used to do on rescue —
+short at the top, long at the bottom, and do not fight it.
+
+You do not get that back by wanting it. You get it back by doing it twice.`);
+  }
+
   _updateCrisis(dt) {
     const c = this.crisis;
     if (!c) return;
@@ -428,6 +454,36 @@ seconds and I already know which one I believe.`);
 
       case 'vent': {
         this._ventInteract(t);
+        return;
+      }
+
+      // A boarded shopfront or a shuttered cellar. Without the reground bar it
+      // is scenery you are told to remember; with it, it is the reason to walk
+      // down a street you had no errand on.
+      case 'breach': {
+        if (t.taken) return;
+        if (!this.state.can('breach')) {
+          g.hud.notice('The boards are nailed through into the frame. Not with this.', '', 3);
+          g.emit('sfx', 'locked');
+          return;
+        }
+        t.taken = true;
+        t.disabled = true;
+        g.player.animator.play('interact', { fade: 0.1 });
+        g.emit('sfx', 'breach');
+        g.atmos.spawnBurst('dust', t.x, t.y, t.z, 0, 1, 0, 14, 1.2);
+        const loot = t.loot || [['salvage', 2]];
+        const names = [];
+        for (const [item, n] of loot) {
+          this.state.give(item, n);
+          this.quests.notify('collect', { item });
+          names.push(`${ITEMS[item] ? ITEMS[item].name : item} ×${n}`);
+        }
+        this.quests.notify('interact', { id: t.id });
+        g.hud.notice(`<b>${t.reveal || 'Behind the boards'}</b><br>${names.join(', ')}`, 'good', 4.5);
+        if (t.journal) this.state.addJournal(t.journal[0], t.journal[1], t.journal[2]);
+        this.state.bump('breached');
+        this.save();
         return;
       }
 
@@ -661,7 +717,7 @@ seconds and I already know which one I believe.`);
       ventWest: () => ({ x: -118, z: 26 }),
       bek: () => ({ x: -34, z: 44.6 }),
       slipEscape: () => ({ x: -74, z: -11.5 }),
-      nessaRun: () => ({ x: -92, z: 48 }),
+      nessaRun: () => { const n = this.npcs.get('nessa'); return n && n.downed ? { x: n.pos.x, z: n.pos.z } : { x: -92, z: 48 }; },
       crisis: () => this._markerTargets.crisis,
     };
     if (step.marker && M[step.marker]) {
@@ -822,10 +878,21 @@ seconds and I already know which one I believe.`);
     const ending = ENDINGS.find((e) => testCondition(e.condition, S)) || ENDINGS[ENDINGS.length - 1];
     S.ending = ending.id;
 
+    // The body first: the ending's own text, then whichever of its beats the
+    // player earned. This is where accumulated action reaches the prose — two
+    // players who both publish do not read the same ending.
+    const body = [ending.text];
+    for (const b of ending.beats || []) {
+      if (testCondition(b.condition, S)) body.push(b.text);
+    }
+
     const paras = [];
     if (ending.epilogue) {
-      paras.push(S.has('nessa_told_truth') && S.chose('nessa_truth', 'told')
-        ? ending.epilogue.told : ending.epilogue.untold);
+      // Nessa has three outcomes, not two. Telling her and handing her the log
+      // are both her hearing it from Ren; withholding is not, and the untold
+      // epilogue's "she found out on her own" is only true in that third case.
+      const heardItFromYou = S.chose('nessa_truth', 'told') || S.chose('nessa_truth', 'gave');
+      paras.push(heardItFromYou ? ending.epilogue.told : ending.epilogue.untold);
     }
     for (const b of EPILOGUE_BEATS) {
       if (testCondition(b.condition, S)) paras.push(b.text);
@@ -839,7 +906,7 @@ seconds and I already know which one I believe.`);
     g.hud.setVisible(false);
     g.emit('music', 'ending');
     await g.menus.fadeOut(true);
-    g.menus.showEnding(ending, paras);
+    g.menus.showEnding({ ...ending, text: body.join('\n\n') }, paras);
     Storage.save(S, g.player, { completed: true });
   }
 
@@ -853,6 +920,7 @@ seconds and I already know which one I believe.`);
     if (this._reachTimer <= 0) { this._reachTimer = 0.25; this._pollReach(); }
 
     this._updateCrisis(dt);
+    this._updateHabits();
 
     this._autosaveTimer -= dt;
     if (this._autosaveTimer <= 0) {

@@ -127,7 +127,7 @@ very good or very bad and I will find out which.`] }],
       onDone: [{ quest: 'log' }],
     },
   ],
-  onComplete: [{ flag: 'ch1_done' }, { chapter: 2 }],
+  onComplete: [{ chapter: 2 }],
 };
 
 Q.log = {
@@ -256,7 +256,7 @@ it.`] },
       trigger: { kind: 'talk', who: 'krajcik' },
     },
   ],
-  onComplete: [{ flag: 'ch3_done' }, { chapter: 4 }, { quest: 'whitedamp' }],
+  onComplete: [{ chapter: 4 }, { quest: 'whitedamp' }],
 };
 
 // ---------------------------------------------------------------- CHAPTER 4
@@ -316,11 +316,21 @@ Q.cinderline = {
 // ------------------------------------------------------------- SIDE QUESTS
 
 Q.filters = {
-  id: 'filters', title: 'Ten Cartridges', chapter: 1, side: true,
+  id: 'filters', title: 'The Exchange', chapter: 1, side: true,
   summary: 'Teo will trade. Salvage for filters, and he does not do favours.',
   steps: [
-    { objective: 'Bring Teo twelve salvage.', trigger: { kind: 'custom', id: 'teoTrade' },
-      onDone: [{ trust: ['teo', 6, 'Business is business.'] }] },
+    // Two steps, because "trade with Teo" and "actually stock up" are different
+    // things and the second is the one that keeps you alive in chapter four.
+    { objective: "Open Teo's exchange in the Marrow Arcade.",
+      marker: 'arcade',
+      trigger: { kind: 'custom', id: 'teoTrade' } },
+    { objective: 'Hold four cartridges at once. Field 9 is not a place to be short.',
+      trigger: { kind: 'collect', item: 'filter', n: 4 },
+      onDone: [
+        { trust: ['teo', 6, 'She came back stocked.'] },
+        { journal: ['stocked', 'Four cartridges', `Four on me. Marsh counted them out and then counted
+them again in front of me, which is the closest he comes to saying be careful.`] },
+      ] },
   ],
 };
 
@@ -328,9 +338,10 @@ Q.nessaRun = {
   id: 'nessaRun', title: "Nessa's Run", chapter: 2, side: true,
   summary: 'Nessa runs filters into the low ground four times a week. She has not come back.',
   steps: [
-    { objective: "Find Nessa's run route in South Marrow.",
+    { objective: "Follow Nessa's run route further into South Marrow.",
       marker: 'nessaRun',
-      trigger: { kind: 'reach', pos: [-92, 48], radius: 8 } },
+      hint: 'She was carrying west. The bag was dropped where she turned back.',
+      trigger: { kind: 'reach', pos: [-118, 58], radius: 9 } },
     { objective: 'Find Nessa.', marker: 'nessaRun',
       trigger: { kind: 'talk', who: 'nessa', convo: 'nessa_rescue' },
       onDone: [{ trust: ['nessa', 18, 'You came down for her.'] }, { trust: ['sol', 8, 'You brought her back.'] }] },
@@ -406,7 +417,8 @@ line on a map.`),
         { text: "Teodor Marsh. He sent for me.", goto: 's_teo' },
         { text: "A place to stand for a night. I'll work for it.", goto: 's_work' },
         { text: "I'm looking into what happened at Cellar Row.", goto: 's_cellar',
-          if: {}, effects: [{ flag: 'sol_told_cellar' }, { trust: ['sol', 6, 'You said the true thing first.'] }] },
+          if: {}, effects: [{ flag: 'sol_told_cellar' }, { bump: ['honest', 1] },
+                              { trust: ['sol', 6, 'You said the true thing first.'] }] },
       ],
     },
     s_teo: {
@@ -461,15 +473,159 @@ And if the meter goes over eight hundred you go up, you don't go home.`),
       ...line('sol', "Marsh is at the Arcade, down Marrow. Mind the Slip."),
       next: 'end',
     },
+    // Sol's re-entry used to check only `found_venting`, so once the player had
+    // already had the confrontation — and once they had already shut her
+    // borehole heads and flooded her yard — walking up to her replayed the
+    // whole scene verbatim. She is the person the player's decisions land on
+    // hardest; she gets a state for every one of them.
     again: {
       ...line('sol', "Still here."),
       branch: [
+        { if: { flag: 'ch4_done' }, goto: 'after_crisis' },
+        { if: { flag: 'vents_shut' }, goto: 'after_shut' },
+        { if: { flag: 'vents_half' }, goto: 'after_half' },
+        { if: { flag: 'vents_left' }, goto: 'after_left' },
         { if: { flag: 'found_venting' }, goto: 'vent_confront' },
         { if: {}, goto: 'again2' },
       ],
     },
     again2: {
       ...line('sol', "Yard's holding. Ask me again after dark."),
+      next: 'end',
+    },
+
+    // ---- after the vent decision -------------------------------------------
+    after_shut: {
+      ...line('sol', `Nine hundred in my courtyard at four this morning. I moved eleven people up a
+stairwell in the dark with two lamps between us.`, 'flat'),
+      next: 'as2',
+    },
+    as2: {
+      ...line('sol', `I'm not going to shout at you. You did a thing you thought was right and you
+did it where I could see you do it, which is more than most.
+
+I want you to know the number, that's all. Nine hundred. Four in the morning.`),
+      branch: [
+        { if: { flag: 'sol_confession' }, goto: 'as_conf' },
+        { if: {}, goto: 'as_end' },
+      ],
+    },
+    as_conf: {
+      ...line('sol', `And before you say it — no, this isn't the same as the other thing. The other
+thing you did by keeping your mouth shut. This one you did with a spanner, in
+daylight, and then you came and stood in front of me.
+
+I would rather be on this side of it. That is not the same as thanking you.`, 'quiet'),
+      effects: [{ trust: ['sol', 5, 'She counted the difference.'] }],
+      next: 'as_end',
+    },
+    as_end: {
+      ...line('sol', "Go on. There's a rota and you're not on it today."),
+      branch: [
+        { if: { all: [{ flag: 'sol_knows_survey' }, { notFlag: 'sol_told_cellar' }] }, goto: 'as_survey' },
+        { if: {}, goto: 'end' },
+      ],
+    },
+    as_survey: {
+      ...line('sol', `And Vasko. You told me at the gate you used to survey it. You did not tell me
+which quarter.
+
+I have not asked. I want you to notice that I have not asked.`, 'quiet'),
+      next: 'end',
+    },
+
+    after_half: {
+      ...line('sol', `One head. You shut one head.
+
+Fenn's at seven hundred and my yard's at five, which means neither place is
+survivable and both places are survivable, depending which hour you ask. I have
+had to write two rotas instead of one.`, 'flat'),
+      next: 'ah2',
+    },
+    ah2: {
+      ...line('sol', `I know why you did it. You did it so that nobody's death would be entirely
+yours. I have watched people do that with morphine and I have never once seen it
+work.
+
+Come back when you've picked one.`),
+      next: 'end',
+    },
+
+    after_left: {
+      ...line('sol', "You left them open."),
+      next: 'al2',
+    },
+    al2: {
+      ...line('sol', `I did not think you would. I had a whole speech.
+
+Now I have to look at you knowing you agreed with me, which is worse, because I
+have spent two years telling myself only a monster would agree with me.`, 'quiet'),
+      next: 'end',
+    },
+
+    // ---- after the crisis ---------------------------------------------------
+    after_crisis: {
+      ...line('sol', "Sit down. You're grey."),
+      branch: [
+        { if: { flag: 'crisis_saved_all' }, goto: 'ac_all' },
+        { if: { flag: 'crisis_saved_some' }, goto: 'ac_some' },
+        { if: {}, goto: 'ac_none' },
+      ],
+    },
+    ac_all: {
+      ...line('sol', `Four out of four. I have done this for eleven years and I have had four out of
+four twice.
+
+I'm going to say the thing I don't say. If you'd been here eighteen months ago
+with that in you, Cellar Row would have been nine people at a window instead of
+nine people in a bed.`, 'quiet'),
+      effects: [{ trust: ['sol', 10, 'Four out of four.'] }],
+      next: 'ac_end',
+    },
+    ac_some: {
+      ...line('sol', `You got some of them. That's the job. The job is not everybody, it has never
+been everybody, and anyone who tells you it is has not done it.
+
+You'll want to give me the names of the ones you didn't. Don't. I already have
+them. I write them down before I need to.`),
+      effects: [{ trust: ['sol', 5, 'She has done that shift.'] }],
+      next: 'ac_end',
+    },
+    ac_none: {
+      ...line('sol', `None. All right.
+
+Look at me. Two hundred seconds and a filling street and one cartridge is not a
+rescue, it is a coin toss you were made to call. I have called it wrong. I will
+call it wrong again.`, 'quiet'),
+      next: 'ac_end',
+    },
+    ac_end: {
+      ...line('sol', "Now. The Authority has plant on the road at Kell. That is tomorrow's problem and it is coming tonight."),
+      branch: [
+        { if: { flag: 'crisis_stacks' }, goto: 'ac_stacks' },
+        { if: { flag: 'crisis_south' }, goto: 'ac_south' },
+        { if: {}, goto: 'ac_close' },
+      ],
+    },
+    ac_stacks: {
+      ...line('sol', `It was my yard, Vasko. My yard, at four in the morning, because of three
+borehole heads that a month ago were doing their job.
+
+I am telling you that as a fact, not as a knife. I have to be able to say the
+true shape of a thing out loud or I stop being able to do this.`, 'flat'),
+      next: 'ac_close',
+    },
+    ac_south: {
+      ...line('sol', `Fenn Street. Which is not my block, which is why nobody but you and I are going
+to say anything about it at all.
+
+Eleven people lived down there this morning. I could tell you the number every
+week for two years and nobody came. You came.`, 'quiet'),
+      next: 'ac_close',
+    },
+    ac_close: {
+      ...line('sol', "Get some water in you."),
+      effects: [{ flag: 'sol_debrief' }],
       next: 'end',
     },
     vent_confront: {
@@ -630,15 +786,36 @@ and I forgot it, because I was sixty-one years old and I was tired and it was a
 Thursday.
 
 I found it again in a coat I hadn't worn since the funeral.`),
+      choices: [
+        { text: "What was he like?", goto: 't_bek', effects: [{ flag: 'ren_asked_bek' }] },
+        { text: "You could have burned it.", goto: 't_burn' },
+        { text: "[Say nothing]", goto: 't_why3' },
+      ],
+    },
+    t_bek: {
+      ...line('teo', `Ilya? Careful. Kept a rain gauge on his own roof for sixteen years because he
+did not think the published one was sited properly.
+
+He was right about that too. It changed nothing. He knew it would change
+nothing and he kept the gauge.`, 'quiet'),
+      next: 't_why3',
+    },
+    t_burn: {
+      ...line('teo', `I thought about it for four days. I had it on the counter and I looked at it.
+
+Then I thought: that would be me deciding, on my own, in a shop, what somebody
+else was allowed to know. Which is the whole of what was done to this town.`),
+      effects: [{ trust: ['teo', 6, 'He had already worked it out.'] }],
       next: 't_why3',
     },
     t_why3: {
       ...line('teo', "So. Now there are two of us who didn't do the small thing at the time.", 'quiet'),
       choices: [
-        { text: "That's not the same.", goto: 't_notsame' },
+        { text: "That's not the same.", goto: 't_notsame', effects: [{ bump: ['deflected', 1] }] },
         { text: "No. There are two of us.", goto: 't_same',
-          effects: [{ trust: ['teo', 10, 'She took her share of it.'] }, { flag: 'teo_shared' }] },
-        { text: "What do you want me to do about it?", goto: 't_task' },
+          effects: [{ trust: ['teo', 10, 'She took her share of it.'] }, { flag: 'teo_shared' },
+                    { bump: ['honest', 1] }] },
+        { text: "What do you want me to do about it?", goto: 't_task', effects: [{ bump: ['deflected', 1] }] },
       ],
     },
     t_notsame: {
@@ -701,22 +878,93 @@ procedure down was the same as making people follow it.`] },
       ...line('teo', "Mind the Slip. And Vasko — go over it, not round it. Round it takes you through the low ground on Kell and Kell will have you."),
       next: 'end',
     },
+    // Teo's re-entry used to branch on carrying the logbook, and nothing ever
+    // removes the logbook, so from chapter two onwards he said one line for
+    // the rest of the game and his shop became unreachable. It branches on
+    // what he KNOWS now, and he has a state for every chapter after this one.
     again: {
       ...line('teo', "Vasko."),
       branch: [
-        { if: { item: 'logbook' }, goto: 'has_log' },
+        { if: { flag: 'ch4_done' }, goto: 'a_crisis' },
+        { if: { all: [{ item: 'logbook' }, { notFlag: 'teo_log_done' }] }, goto: 'has_log' },
+        { if: { flag: 'southmarrow_done' }, goto: 'a_south' },
         { if: {}, goto: 'a_shop' },
       ],
+    },
+    a_crisis: {
+      ...line('teo', "I heard it on the yard radio. Two hours of it. I sat here and listened to it."),
+      branch: [
+        { if: { counter: ['crisis_lost', 1] }, goto: 'a_crisis_lost' },
+        { if: {}, goto: 'a_crisis_all' },
+      ],
+    },
+    a_crisis_all: {
+      ...line('teo', `All four. On a night when the ground was doing nine hundred and you had one
+cartridge.
+
+I did that job for twenty-two years and I can count on one hand the shifts where
+we came up with everybody. Don't let anyone tell you it was the obvious outcome.`),
+      effects: [{ trust: ['teo', 8, 'He knows what that shift cost.'] }],
+      next: 'a_shop',
+    },
+    a_crisis_lost: {
+      ...line('teo', `You'll be doing the other arithmetic. The one where you go back over the two
+hundred seconds and find the twenty you could have spent better.
+
+I have done that arithmetic every night since the eleventh of July and I will
+tell you what it is worth, which is nothing, and I will also tell you that you
+are going to do it anyway. Come and buy cartridges.`, 'quiet'),
+      next: 'a_shop',
+    },
+    a_south: {
+      ...line('teo', `South Marrow. You went. Nobody goes.
+
+There's a woman on Fenn who told me the terrace came down in ninety seconds and
+that the noise was the part that stayed. I have never been able to decide
+whether to believe the ninety seconds.`),
+      next: 'a_shop',
     },
     a_shop: {
       ...line('teo', "Cartridges, dressings, cells. Salvage or nothing, and don't insult me."),
       choices: [
         { text: '[Trade]', goto: 'trade', effects: [{ fn: 'openTrade' }] },
         { text: "Can you do anything with this bar?", goto: 'a_bar', if: { noCap: 'breach' } },
+        { text: "You said a name. Iris Nadel.", goto: 'a_iris', if: { flag: 'teo_named_iris' } },
+        { text: "Bek. What was he like?", goto: 'a_bek', if: { flag: 'ren_asked_bek' } },
+        { text: "Field 9. Half those heads are mine.", goto: 'a_field', if: { flag: 'ren_knows_field' } },
         { text: "Tell me about the Cinder Line.", goto: 'a_line' },
         { text: "Tell me about Sol.", goto: 'a_sol' },
         { text: "Nothing today.", goto: 'end' },
       ],
+    },
+    a_iris: {
+      ...line('teo', `Nadel. Yes. She does the reduction — takes the raw numbers and turns them into
+the line they print.
+
+She came in here once, about a year ago, and bought four cartridges she plainly
+did not need, and stood by the door for eleven minutes not asking me anything.
+I have thought about those eleven minutes more than I would like.`),
+      next: 'a_shop',
+    },
+    a_field: {
+      ...line('teo', `You calibrated them and then you left, and the Authority stopped calibrating
+them, and now nine boreholes in that field disagree with each other by up to
+four hundred parts.
+
+That is not an accusation. It is the reason your name is the only one that could
+have read that log and known immediately which sheets were lying.`),
+      effects: [{ trust: ['teo', 4, 'He said what she was for.'] }],
+      next: 'a_shop',
+    },
+    a_bek: {
+      ...line('teo', `Ilya? Careful. Wrote things down. Kept a rain gauge on his own roof for
+sixteen years because he did not think the published one was sited properly,
+and he was right, and it changed nothing.
+
+He was not a brave man and he was not a clever man. He was a man who noticed and
+then did the next thing, which is rarer than either.`),
+      effects: [{ trust: ['teo', 4, 'He liked being asked.'] }],
+      next: 'a_shop',
     },
     trade: { ...line('teo', "Mm."), next: 'end' },
     a_bar: {
@@ -753,7 +1001,7 @@ have already decided. I sell her cartridges.`),
       next: 'a_shop',
     },
     has_log: {
-      ...line('teo', "You've got it. I can see it in how you're standing.", 'quiet'),
+      ...line('teo', "You've got it. I can see it in how you're standing. Bring it here.", 'quiet'),
       next: 'end',
     },
   },
@@ -920,9 +1168,36 @@ when she's decided not to discuss it.`),
     after_truth: {
       ...line('nessa', "...", 'quiet'),
       branch: [
-        { if: { chose: ['nessa_truth', 'told'] }, goto: 'at_told' },
+        { if: { flag: 'nessa_told_right' }, goto: 'at_told' },
+        { if: { flag: 'nessa_read_log' }, goto: 'at_read' },
+        { if: { flag: 'nessa_withheld' }, goto: 'at_withheld' },
         { if: {}, goto: 'at_other' },
       ],
+    },
+    at_read: {
+      ...line('nessa', `I found it myself. On the page. Checked by R. Vasko, in a box, in somebody
+else's handwriting.
+
+You stood there and let me get to the bottom of the sheet. I have gone over that
+about four hundred times and the part I keep landing on is that you knew exactly
+which line I was going to reach and you let me reach it on my own.`, 'quiet'),
+      next: 'at_read2',
+    },
+    at_read2: {
+      ...line('nessa', `I'd still rather have the log than not have it. Both those things are true and
+they don't cancel.`),
+      next: 'end',
+    },
+    at_withheld: {
+      ...line('nessa', `You said it wasn't ready.
+
+I'm nineteen, I'm not stupid. Nobody has ever said a thing wasn't ready to me
+about something that was ready.`, 'flat'),
+      next: 'at_withheld2',
+    },
+    at_withheld2: {
+      ...line('nessa', "Come back when it is. Or don't, and I'll get it off Ferrant, which is what I'm going to do anyway."),
+      next: 'end',
     },
     at_told: {
       ...line('nessa', `I keep starting sentences and then not finishing them.
@@ -935,6 +1210,16 @@ But I'd rather know. I would always rather know.`),
     },
     at_other: {
       ...line('nessa', "I read it in the log. Your initials are on the July sheet."),
+      branch: [
+        { if: { flag: 'nessa_knows_connection' }, goto: 'at_conn' },
+        { if: {}, goto: 'end' },
+      ],
+    },
+    at_conn: {
+      ...line('nessa', `And you knew Marsh. And Marsh knew Dad. Everybody in this story knew everybody,
+which is what people say about a small town like it's charming.
+
+It isn't charming. It means every single one of you had somebody to tell.`),
       next: 'end',
     },
   },
@@ -945,7 +1230,14 @@ C.nessa_truth = {
   nodes: {
     start: {
       ...line('nessa', "Sol says you've got the borehole log."),
-      next: 'nt2',
+      branch: [
+        { if: { flag: 'has_log' }, goto: 'nt2' },
+        { if: {}, goto: 'nt_notyet' },
+      ],
+    },
+    nt_notyet: {
+      ...line('nessa', "She was wrong, then. She's not usually wrong. Come and find me when she isn't."),
+      next: 'end',
     },
     nt2: {
       ...line('nessa', `She says it proves they knew. Which — good. Fine. That's what everyone's
@@ -958,10 +1250,11 @@ I want to read it.`),
           effects: [{ choice: ['nessa_truth', 'gave'] }, { flag: 'nessa_read_log' }] },
         { text: "Before you do — the July sheet has my initials on it.", goto: 'nt_tell',
           effects: [{ choice: ['nessa_truth', 'told'] }, { flag: 'nessa_told_truth' },
+                    { bump: ['honest', 1] },
                     { trust: ['nessa', 14, 'She heard it from Ren, not from paper.'] }] },
         { text: "It's not ready. Not yet.", goto: 'nt_withhold',
           effects: [{ choice: ['nessa_truth', 'withheld'] }, { trust: ['nessa', -12, 'She was managed.'] },
-                    { flag: 'nessa_withheld' }] },
+                    { flag: 'nessa_withheld' }, { bump: ['deflected', 1] }] },
       ],
     },
     nt_give: {
@@ -1012,6 +1305,8 @@ breathe. I think I can read a temperature table.`),
 No — genuinely. Why now. Is it so I say something that makes it easier? Because
 I'm not going to. I don't have that.`),
       choices: [
+        { text: "Your father's shop on Fenn Street is still standing. There's a family in it.",
+          goto: 'nt_shop', if: { flag: 'ostrowski_bek' } },
         { text: "I'm not telling you so you'll say anything. I'm telling you because it's yours.",
           goto: 'nt_yours', effects: [{ trust: ['nessa', 12, 'She was not asked for absolution.'] }] },
         { text: "Because you'd have found it in the log tonight, and I wanted you to hear it from me.",
@@ -1038,6 +1333,23 @@ Don't stand there.`),
 
 You don't get to put it down, though. That's not how it works. You just get to
 carry it where people can see it.`),
+      next: 'nt_end',
+    },
+    nt_shop: {
+      ...line('nessa', `Fenn Street? Somebody's *in* it?
+
+I have not been down Fenn since the funeral. I have gone the long way round to
+avoid a road for eighteen months and told myself it was the air.`, 'quiet'),
+      next: 'nt_shop2',
+    },
+    nt_shop2: {
+      ...line('nessa', `Tell him — no. Don't tell him anything. I'll go.
+
+That's the first thing anyone has given me that isn't paper.`),
+      effects: [
+        { trust: ['nessa', 10, 'You told her the shop was standing.'] },
+        { flag: 'nessa_shop_told' },
+      ],
       next: 'nt_end',
     },
     nt_end: {
@@ -1133,7 +1445,8 @@ evidence of anything except that I noticed.`),
         { text: "Then say something.", goto: 'i_say',
           effects: [{ trust: ['iris', -8, 'She has heard that from someone who did not.'] }] },
         { text: "I kept one too. For eleven months.", goto: 'i_same',
-          effects: [{ flag: 'iris_shared' }, { trust: ['iris', 16, 'Someone else did the same and said so.'] }] },
+          effects: [{ flag: 'iris_shared' }, { bump: ['honest', 1] },
+                    { trust: ['iris', 16, 'Someone else did the same and said so.'] }] },
       ],
     },
     i_long: {
@@ -1252,6 +1565,81 @@ swing. She said it like it was small talk.`] },
 };
 
 // --------------------------------------------------------------- KRAJCIK ---
+
+/**
+ * Iris after the office. She gates an ending and she used to have exactly one
+ * repeat line, which meant the character who signs the reduction vanished from
+ * the game the moment she stopped being a door key.
+ */
+C.iris_after = {
+  id: 'iris_after', who: 'iris',
+  nodes: {
+    start: {
+      ...line('iris', "You came back."),
+      branch: [
+        { if: { flag: 'iris_accused' }, goto: 'i_accused' },
+        { if: { flag: 'iris_shared' }, goto: 'i_shared' },
+        { if: {}, goto: 'i_flat' },
+      ],
+    },
+    i_accused: {
+      ...line('iris', `You told me I was a coward. In this room. With the door open.
+
+I have run that back rather a lot and the annoying part is that I cannot find
+the bit where you were wrong.`, 'quiet'),
+      next: 'i_hub',
+    },
+    i_shared: {
+      ...line('iris', `You said you did the same thing. Eighteen months ago, one quarter, one check
+box.
+
+Nobody has ever handed me that. Everybody in this building is very careful never
+to be in the wrong at the same time as anybody else.`),
+      effects: [{ trust: ['iris', 6, 'She has not stopped thinking about it.'] }],
+      next: 'i_hub',
+    },
+    i_flat: {
+      ...line('iris', "Q4 is due on the fourteenth. I am doing the reduction. That is all I do."),
+      next: 'i_hub',
+    },
+    i_hub: {
+      ...line('iris', "Was there something?"),
+      choices: [
+        { text: "You know what's in the log now. What are you going to do?",
+          goto: 'i_log', if: { flag: 'iris_knows_log' } },
+        { text: "The north door. It was open.", goto: 'i_door', if: { flag: 'iris_hinted_door' } },
+        { text: "If it came to signing something true, would you?", goto: 'i_sign' },
+        { text: "Nothing. Not yet.", goto: 'end' },
+      ],
+    },
+    i_log: {
+      ...line('iris', `Nothing. That is the honest answer and I would like credit for how quickly I
+gave it.
+
+I have a mother in Kell and a job and a folder of every quarter where the line
+and the numbers disagree, and the folder is the only one of those three things
+that is any use to anybody, and I have never shown it to a single person.`),
+      effects: [{ trust: ['iris', 4, 'She said the true small thing.'] }],
+      next: 'i_hub',
+    },
+    i_door: {
+      ...line('iris', `The hasp on the north elevation. Yes.
+
+I did not unlock it for you. I told you where a rusted thing was and then I went
+and stood at a window. If anyone asks, that is the version, and it is also
+exactly what happened, which is the part I find hardest.`),
+      effects: [{ trust: ['iris', 3, 'She chose her words and kept them.'] }],
+      next: 'i_hub',
+    },
+    i_sign: {
+      ...line('iris', `Ask me somewhere it costs something. Not here, where the answer is free.
+
+If you are ever standing in front of people with a true line and no name on it,
+find me. Do not write to me. Find me.`),
+      next: 'end',
+    },
+  },
+};
 
 C.krajcik = {
   id: 'krajcik', who: 'krajcik',
@@ -1414,7 +1802,7 @@ people; it's not for that. I just wanted you to know it's there, because I think
 you're about to decide that I don't carry it.
 
 I carry it. I simply carry it and keep working. So do you.`),
-      effects: [{ flag: 'krajcik_met' }, { flag: 'ch3_talked' }],
+      effects: [{ flag: 'krajcik_met' }],
       next: 'end',
     },
   },
@@ -1424,7 +1812,55 @@ I carry it. I simply carry it and keep working. So do you.`),
 
 C.garage = {
   id: 'garage', who: 'garage',
+  entry: [
+    { if: { flag: 'met_garage' }, goto: 'again' },
+    { if: {}, goto: 'start' },
+  ],
   nodes: {
+    again: {
+      ...line('ostrowski', "It's you. Nobody's been down since you."),
+      branch: [
+        { if: { flag: 'garage_suspects' }, goto: 'g_again_knows' },
+        { if: {}, goto: 'g_again_sign' },
+      ],
+    },
+    g_again_knows: {
+      ...line('ostrowski', `I asked around about the Stacks. I wish I hadn't.
+
+Ferrant's got a hundred and six up there and I've got four down here, and I have
+done that sum every night for a fortnight and I get her answer every single time,
+and I still can't breathe.`, 'quiet'),
+      next: 'g_again_sign',
+    },
+    g_again_sign: {
+      ...line('ostrowski', "You keep looking at the sign."),
+      branch: [
+        { if: { flag: 'nessa_met' }, goto: 'g_sign_nessa' },
+        { if: {}, goto: 'g_sign_plain' },
+      ],
+    },
+    g_sign_plain: {
+      ...line('ostrowski', `Bek & Daughter. Weren't mine. Man had it before the evacuation and I never met
+him. The sign was good ironwork and it seemed rude to take it down.`),
+      next: 'g_end',
+    },
+    g_sign_nessa: {
+      ...line('ostrowski', `Bek & Daughter. Ilya Bek. He was on the memorial board.
+
+The daughter's still about, they say. I've been meaning to send word that the
+place is standing and there's somebody in it keeping the damp out, and every time
+I sit down to it I can't think of a way of saying that isn't 'I live in your
+house now'.`, 'quiet'),
+      effects: [
+        { flag: 'ostrowski_bek' },
+        { journal: ['bekshop', 'Bek & Daughter', `The garage on Fenn Street is Ilya Bek's shop. His
+name is on the ironwork over the door and there is a man inside it who has been
+trying for a year to work out how to write to Nessa about it.
+
+I have walked past that sign four times.`] },
+      ],
+      next: 'g_end',
+    },
     start: {
       ...line('ostrowski', "Don't come closer. I've got a bar and I will use it badly."),
       next: 'g2',
@@ -1524,7 +1960,7 @@ exactly what that is. I did it anyway.`] },
 // ------------------------------------------------------------------ FINAL ---
 
 C.final = {
-  id: 'final', who: 'system',
+  id: 'final', who: 'krajcik',
   nodes: {
     start: {
       ...ren(`The excavators are idling on the published line. Krajcik is standing on the
@@ -1533,25 +1969,136 @@ far side, because it is the largest thing that has happened in Hollis in a year.
 
 I am carrying the log, the order, and the July sheet with my initials in the
 check box.`),
+      next: 'k_sees',
+    },
+    k_sees: {
+      ...line('krajcik', "Miss Vasko. You are standing where the spoil goes."),
+      branch: [
+        { if: { notFlag: 'krajcik_met' }, goto: 'k_stranger' },
+        { if: { flag: 'took_offer' }, goto: 'k_renege' },
+        { if: { flag: 'lied_to_krajcik' }, goto: 'k_lied' },
+        { if: { flag: 'krajcik_open' }, goto: 'k_asked' },
+        { if: {}, goto: 'k_plain' },
+      ],
+    },
+    k_stranger: {
+      // She never went to the office. He does not know her, and the scene is
+      // colder and smaller for it — which is the cost of having skipped him.
+      ...line('krajcik', `I don't know you. You are not on the schedule and you are not one of Ferrant's,
+because Ferrant's people shout.
+
+Whatever this is, be quick. The cut starts at the marker in nine minutes and I
+am not able to stop it for a conversation.`, 'flat'),
+      next: 'choose',
+    },
+    k_renege: {
+      ...line('krajcik', `You told me you would start on the Monday. It is a Thursday and you are on my
+spoil heap with a folder.
+
+I am not going to pretend to be surprised. I have hired eleven people in this
+job and four of them were standing where you are inside a year.`),
+      next: 'choose',
+    },
+    k_lied: {
+      ...line('krajcik', `You told me you would take it. You were lying, and you were quite bad at it,
+and I let it go because a man in my position takes what agreement he can get.
+
+Say the true thing now. You have an audience for it.`),
+      next: 'choose',
+    },
+    k_asked: {
+      // The payoff for k_deal_cut: he told her to ask him in front of them.
+      ...line('krajcik', `You said you would put it on the right line for me. I said ask me again when
+the excavators are running.
+
+They are running. I am not going to help you say it.`, 'quiet'),
+      branch: [
+        { if: { flag: 'proposed_cut' }, goto: 'k_asked2' },
+        { if: {}, goto: 'choose' },
+      ],
+    },
+    k_asked2: {
+      ...line('krajcik', `It was your idea, incidentally. I want that on whatever record you are about to
+make. I have spent four years being the only person in a building who would say
+the word and it took an outsider with a folder about nine seconds.`),
+      next: 'choose',
+    },
+    k_plain: {
+      ...line('krajcik', "Whatever it is, say it where they can hear you or don't say it at all. I have a schedule."),
+      branch: [
+        { if: { flag: 'krajcik_291' }, goto: 'k_291' },
+        { if: {}, goto: 'choose' },
+      ],
+    },
+    k_291: {
+      ...line('krajcik', `Two hundred and ninety-one. That is the number I gave you in the office and I
+have not been able to put it down since.
+
+I would like you to understand that I am not asking you to spare me. I am asking
+you to be at least as precise as I have been.`, 'quiet'),
+      next: 'choose',
+    },
+
+    choose: {
+      ...ren("Forty people. A man on a heap of spoil. Every true sentence I have and about nine seconds to pick one."),
       choices: [
         { text: 'Put it on the record. All of it, including me.', tag: 'record',
           goto: 'e_publish', effects: [{ choice: ['final', 'publish'] }] },
+
         { text: 'Make him cut it on the true line, openly.', tag: 'the cut',
-          if: { trust: ['iris', 12] }, showLocked: true,
-          why: 'It needs a surveyor inside willing to sign it. Iris will not.',
+          if: { flag: 'krajcik_open' }, showLocked: true,
+          why: 'He told you to ask him in front of them. You never asked.',
           goto: 'e_cut', effects: [{ choice: ['final', 'cut'] }] },
+
         { text: 'Take the desk. Draw the line honestly and tell nobody.', tag: 'the deal',
           goto: 'e_deal', effects: [{ choice: ['final', 'deal'] }] },
+
         { text: "Burn it. Use their own lorries and empty Hollis.", tag: 'everybody out',
-          if: { trust: ['sol', 20] }, showLocked: true,
-          why: 'Sol would have to run it with you, and she does not trust you with it.',
+          if: { all: [{ flag: 'sol_debrief' }, { trust: ['sol', 16] }] }, showLocked: true,
+          why: 'Sol would have to run it with you, and you have not stood in front of her since the water came up.',
           goto: 'e_evac', effects: [{ choice: ['final', 'evacuate'] }] },
+
         { text: 'Walk away. Take it with me.', tag: 'leave',
           goto: 'e_leave', effects: [{ choice: ['final', 'leave'] }] },
       ],
     },
-    e_publish: { ...ren('I walk to the far side, where the forty people are, and I start with my own name.'), next: 'end' },
-    e_cut: { ...ren('I put the order in his hand where they can all see me do it.'), next: 'end' },
+
+    e_publish: {
+      ...ren('I walk to the far side, where the forty people are, and I start with my own name.'),
+      next: 'end',
+    },
+
+    // The cut needs a surveyor willing to sign the reduction. Iris is the one
+    // who should; if she would not, Ren can only do it by taking the desk she
+    // swore she would not take. Same ending, different cost, and the game
+    // knows which one the player earned.
+    e_cut: {
+      ...ren("I say it out loud, to him, in front of forty people: cut it where the numbers are. Then somebody has to sign the reduction."),
+      branch: [
+        { if: { trust: ['iris', 10] }, goto: 'e_cut_iris' },
+        { if: {}, goto: 'e_cut_self' },
+      ],
+    },
+    e_cut_iris: {
+      ...line('iris', `I'll sign it.
+
+I have eleven months of unsigned ones in a drawer and I would quite like to stop
+carrying them.`, 'quiet'),
+      effects: [{ flag: 'iris_signed' }, { trust: ['iris', 8, 'She signed it.'] }],
+      next: 'end',
+    },
+    e_cut_self: {
+      ...ren(`Nadel will not put her name on it. She is standing at the back with her hands
+in her sleeves and she will not look at me, and she is entirely within her
+rights.
+
+So it has to be me, which means taking the desk to have a hand that can sign,
+which means the exact thing I told Sol I would never do — in public, out loud,
+for the right reason. Krajcik hands me the pen without a word.`),
+      effects: [{ flag: 'signed_it_myself' }],
+      next: 'end',
+    },
+
     e_deal: { ...ren('I put the log back in my coat and tell him I will start Monday.'), next: 'end' },
     e_evac: { ...ren('I find Sol at the barrier and tell her what I want to do. She does not ask me twice.'), next: 'end' },
     e_leave: { ...ren('I turn round. Nobody stops me. Nobody ever does.'), next: 'end' },
@@ -1563,8 +2110,20 @@ export const CONVERSATIONS = C;
 // ================================================================== ENDINGS ==
 
 /**
- * Endings are chosen by an ordered evaluation: the first whose condition holds
- * wins, so the more specific and more earned outcomes sit at the top.
+ * Endings.
+ *
+ * The final scene records an *intention*. What that intention costs, what it
+ * is worth, and who it lands on are decided here, out of everything the player
+ * has already done — which is why every ending carries `beats`: conditional
+ * paragraphs woven into the body itself, not appended as a footnote. Two
+ * players who both publish do not read the same ending.
+ *
+ * The conditions below are deliberately mutually exclusive on `final`. An
+ * earlier version resolved `westward` on the chapter-3 offer as well, which
+ * meant a player who took Krajcik's desk and then renounced it at the trench
+ * was told they had taken the desk. Reneging is a real dramatic beat and it is
+ * written as one now (see `renege` in each ending) rather than being silently
+ * resolved by array ordering.
  */
 export const ENDINGS = [
   {
@@ -1587,6 +2146,36 @@ young, or tired, or under contract.
 
 Nessa came. She sat at the back with her arms folded and she did not look at you
 and she came every single day.`,
+    beats: [
+      { condition: { chose: ['krajcik_offer', 'accepted'] },
+        text: `You had told him you would take the desk. He did not remind you of that, then
+or ever, and the not-reminding was the worst thing he could have done.` },
+      { condition: { chose: ['krajcik_offer', 'lied'] },
+        text: `You had told him you would take the desk, and you had been lying when you said
+it, and you have never worked out whether that makes it better. He knew. He said
+so afterwards, in the corridor, without any particular feeling: *you were quite
+bad at it.*` },
+      { condition: { chose: ['log_intent', 'unknown'] },
+        text: `Marsh had asked you in the Arcade what the log was for and you had told him you
+did not know. You have thought about that a great deal since. It was the only
+honest thing you said that week and it took you four more months to catch up
+with it.` },
+      { condition: { all: [{ counter: ['crisis_lost', 1] }] },
+        text: `Two of the names you read out were people you had carried as far as a stairwell
+in a filling street four days earlier, and not far enough.` },
+      { condition: { flag: 'vents_shut' },
+        text: `The Stacks courtyard is in the record too. You put it there yourself: the date,
+the three heads, the bar, the wedge, and the name of the person who turned
+them. Sol did not attend. She sent a note through Marsh that said only *right*,
+and it is the shortest and least kind letter anyone has ever sent you.` },
+      { condition: { counter: ['honest', 3] },
+        text: `You had already said it out loud, by then, to nearly everyone it belonged to.
+The hearing was not the hard part. The hearing was the last part.` },
+      { condition: { counter: ['deflected', 3] },
+        text: `You had not said it out loud to a single person in Hollis. You said it first to
+a stenographer, under oath, into a microphone, and every one of them found out
+the same way a stranger would have.` },
+    ],
     epilogue: {
       told: `She wrote to you afterwards. One line: *You didn't make me find out on my own.
 That's the whole letter.*`,
@@ -1598,7 +2187,7 @@ that.`,
   {
     id: 'cut',
     title: 'THE CUT',
-    condition: { all: [{ chose: ['final', 'cut'] }, { trust: ['iris', 12] }] },
+    condition: { all: [{ chose: ['final', 'cut'] }] },
     text: `Krajcik issued it standing on the spoil heap with the excavators idling and
 forty people watching, and his voice did not change once.
 
@@ -1615,6 +2204,28 @@ what that costs either of you.
 
 Iris does the reduction. She still keeps her folder. There is nothing in it any
 more, and she keeps it anyway.`,
+    beats: [
+      { condition: { flag: 'krajcik_open' },
+        text: `He had told you to ask him in front of them, where he could not be quiet about
+it. You did. He looked at you for about two seconds longer than a man reads a
+document, and then he read it out.` },
+      { condition: { flag: 'iris_signed' },
+        text: `Iris signed the reduction. She had eleven months of unsigned ones in a folder in
+her desk and she put this one on top of them.` },
+      { condition: { flag: 'signed_it_myself' },
+        text: `Iris would not sign it. You signed it, which meant taking the desk to have a
+hand that could, which meant the thing you swore in the courtyard you would
+never do, done in public, for the right reason. She has not spoken to you since
+and she was not wrong to stop.` },
+      { condition: { counter: ['crisis_lost', 1] },
+        text: `The firebreak went in forty metres north of the street where you did not get
+everyone out. That is not a coincidence. You chose the alignment.` },
+      { condition: { chose: ['vents', 'half'] },
+        text: `You never did go back and shut the third head. It is still open. It is inside the
+firebreak now, which means it vents into ground nobody lives on, which means the
+worst decision you made in Hollis was retroactively made harmless by a machine,
+and you do not get to feel anything about that.` },
+    ],
     epilogue: {
       told: `Nessa took the Q1 sheets off you herself, checked them against the raw log line
 by line, and handed them back without a word. She does that every quarter. You
@@ -1625,7 +2236,7 @@ think it is the most generous thing anyone has ever done for you.`,
   {
     id: 'westward',
     title: 'THE LINE MOVES WEST',
-    condition: { any: [{ chose: ['final', 'deal'] }, { chose: ['krajcik_offer', 'accepted'] }] },
+    condition: { all: [{ chose: ['final', 'deal'] }] },
     text: `You took the desk.
 
 Q4 went out with the line eighty metres west of where the reduction put it, and
@@ -1645,6 +2256,25 @@ Eleven years. Three hundred and eighty more households.
 Nobody ever knew, which was the point, and you have never once been able to
 decide whether that was mercy or the largest thing you have ever stolen from
 anybody.`,
+    beats: [
+      { condition: { chose: ['krajcik_offer', 'refused'] },
+        text: `You had refused it once, in his office, with some heat. He never mentioned that
+either. He simply moved the chair out for you as though the first conversation
+had been a scheduling problem.` },
+      { condition: { flag: 'sol_confession' },
+        text: `Sol had heard the whole thing from you, in her own courtyard, before any of it.
+She is the only person alive who can put the two Rens in the same sentence, and
+she has never once been asked to.` },
+      { condition: { counter: ['honest', 3] },
+        text: `The strange part is that you told everybody the truth on the way here. Marsh,
+Sol, Iris, the girl. Every one of them. And then you took the desk anyway, which
+means the truth was never the thing standing in the way, and you have had eleven
+years to sit with that.` },
+      { condition: { flag: 'nessa_told_truth' },
+        text: `Nessa had the whole of it from your own mouth before you signed anything. That
+was the last conversation. She said thank you. She meant it. She said it in the
+past tense.` },
+    ],
     epilogue: {
       told: `Nessa knew. She was the only one. She never told anyone either, and she never
 spoke to you again, and both of those were decisions she made deliberately.`,
@@ -1671,6 +2301,25 @@ then the Stacks, and there was nobody in any of it.
 
 It is the largest number of people you have ever kept alive and it is the only
 thing you have ever done that you cannot tell anybody about.`,
+    beats: [
+      { condition: { counter: ['crisis_lost', 1] },
+        text: `Not every single one. You count them the way Sol counts, which is out loud and
+by name, and the four hundred and six does not include the two you left in a
+ground-floor room in a street that was already gone.` },
+      { condition: { flag: 'crisis_saved_all' },
+        text: `Sol had watched you bring four people up a stairwell in a filling street once
+already. That is the only reason she said yes to this in under a minute. She
+told you so while you were loading, in the flat voice she uses for facts.` },
+      { condition: { flag: 'vents_shut' },
+        text: `You had taken her yard off her a month before, to give Fenn Street a night's
+breathing, and she had not forgiven you and she got in the lorry anyway. That is
+what she is like. It is not the same as forgiveness and she would not want it
+called that.` },
+      { condition: { chose: ['log_intent', 'publish'] },
+        text: `You had told Marsh it was for publishing. He never asked again and he never
+raised it and when the barrel was lit he was standing about four metres away
+with his hands in his coat, and he nodded once, at the fire, not at you.` },
+    ],
     epilogue: {
       told: `Nessa knows what was in it. She was there when it burned. She said: *he'd have
 wanted the people out.* Then, after a while: *he'd also have wanted it printed.*
@@ -1702,6 +2351,26 @@ simply have, twice now, been in a position to say one true sentence out loud and
 found on both occasions that you could not make your mouth do it.
 
 The box is under the stairs. You know exactly where it is.`,
+    beats: [
+      { condition: { counter: ['honest', 3] },
+        text: `You told them. That is the part that does not fit. Marsh, Sol, Iris, the girl —
+you looked at each of them and said the true sentence and then you got on the
+Thursday train, which means the silence was never the problem either. You are
+simply a person who says the thing and then leaves.` },
+      { condition: { chose: ['krajcik_offer', 'accepted'] },
+        text: `Krajcik held the post open for four months. There is a letter in the box as
+well, on Authority paper, that says only that the position remains available
+and that he hopes you are well. He wrote it himself. You can tell.` },
+      { condition: { counter: ['crisis_lost', 1] },
+        text: `You had gone into a filling street for strangers, four days before, and got most
+of them out, and the two you did not get out are why you thought of yourself as
+somebody who acts. It turns out you are somebody who acts for two hundred
+seconds at a time.` },
+      { condition: { flag: 'nessa_told_truth' },
+        text: `She had it from you. In the courtyard, badly, with your hands doing something
+else. It is the only true sentence you have ever managed to say to somebody's
+face and you left eleven days later.` },
+    ],
     epilogue: {
       told: `Nessa knew before you left. That is something. It is not very much, and it is
 something.`,
@@ -1713,6 +2382,14 @@ you never once stayed long enough to see her be twenty.`,
 
 /** Extra epilogue paragraphs, appended when their condition holds. */
 export const EPILOGUE_BEATS = [
+  {
+    id: 'nessa_shop',
+    condition: { flag: 'nessa_shop_told' },
+    text: `Nessa went down Fenn Street. Ostrowski's wife made her sit down in her own
+father's workshop and would not let her leave until she had eaten something, and
+she has been back every week since, and the ironwork over the door has been
+cleaned.`,
+  },
   {
     id: 'garage_lived',
     condition: { all: [{ flag: 'met_garage' }, { any: [{ flag: 'vents_shut' }, { flag: 'gave_garage_filter' }] }] },

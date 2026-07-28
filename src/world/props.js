@@ -576,9 +576,87 @@ export function ventHead(cb, x, y, z, rng, opts = {}) {
     const a = (i / 4) * Math.PI;
     cb.m('dark').boxRot({ x, y: y + 0.24 + h, z, w: 0.62, h: 0.03, d: 0.05, rot: a, uvScale: 2, tint: [0.2, 0.2, 0.2] });
   }
+  // A head somebody has opened with a bar looks nothing like a head doing its
+  // job, and the difference is the single most important piece of physical
+  // evidence in the story. It gets its own silhouette: the cap levered off and
+  // leaning against the collar, the bar still in it, and a rag wedge.
+  if (opts.cracked) {
+    const c = Math.cos(0.7), sn = Math.sin(0.7);
+    // The lifted cap, dropped against the base at an angle.
+    cb.m('dark').boxRot({ x: x + 0.62, y: y + 0.1, z: z + 0.16, w: 0.7, h: 0.08, d: 0.7,
+                          rot: 0.5, tilt: 1.0, uvScale: 1.4, tint: [0.24, 0.23, 0.22], ao: 0.5 });
+    // The bar, left in the collar. Sol did not come back for it.
+    cb.m('rust').boxRot({ x: x + 0.30 * c, y: y + 0.22 + h * 0.62, z: z + 0.30 * sn,
+                          w: 0.05, h: 1.15, d: 0.05, rot: 0.7, tilt: 0.62, uvScale: 3, tint: T.rust });
+    // Rag wedge stuffed into the gap, to hold it open.
+    cb.m('fabric').boxRot({ x: x - 0.22, y: y + 0.20 + h, z: z + 0.12, w: 0.30, h: 0.13, d: 0.22,
+                            rot: 0.35, uvScale: 2, tint: [0.42, 0.36, 0.3], ao: 0.55 });
+    // Fresh scoring where the bar bit: bright metal against eleven years of rust.
+    for (let i = 0; i < 3; i++) {
+      cb.m('metal').boxRot({ x, y: y + 0.20 + h - i * 0.05, z, w: 0.70, h: 0.012, d: 0.06,
+                             rot: 0.4 + i * 0.9, uvScale: 3, tint: [0.85, 0.83, 0.8] });
+    }
+  }
+
   if (hot) {
     cb.m('emberglow').cylinder(x, y + 0.2 + h, z, 0.29, 0.03, 10, 1, [3.6, 0.67, 0.06], true, 0);
     return { light: { x, y: y + h + 0.4, z, kind: 'vent' }, fx: { x, y: y + h + 0.32, z, kind: 'vent' } };
+  }
+  return null;
+}
+
+/**
+ * A boarded shopfront. Scrap ply and batten nailed across a window or a door,
+ * with eleven years of weather on it — and, once the player can read them, a
+ * visible difference between a hoarding that was put up carefully and one that
+ * was put up by somebody leaving.
+ */
+export function hoarding(cb, x, y, z, rot, rng, opts = {}) {
+  const w = opts.w ?? 2.6, h = opts.h ?? 2.3;
+  const c = Math.cos(rot), s = Math.sin(rot);
+  const at = (ox, oy) => ({ x: x + ox * c, y: y + oy, z: z + ox * s });
+
+  // The dark reveal behind the boards, so the gaps read as depth not paint.
+  cb.m('dark').boxRot({ x: x + 0.1 * s, y: y + h / 2, z: z - 0.1 * c,
+                        w, h, d: 0.08, rot, uvScale: 1, tint: [0.06, 0.055, 0.05] });
+
+  // Horizontal planks with real gaps and a little sag, laid bottom-up.
+  const n = 6;
+  for (let i = 0; i < n; i++) {
+    const oy = 0.16 + i * (h - 0.3) / n;
+    const skew = (rng.f() - 0.5) * 0.06;
+    const pw = w * (0.9 + rng.f() * 0.12);
+    const p = at((rng.f() - 0.5) * 0.12, oy);
+    cb.m('wood').boxRot({ x: p.x, y: p.y, z: p.z, w: pw, h: 0.17, d: 0.05,
+                          rot, tilt: skew, uvScale: 1.6,
+                          tint: [0.5 + rng.f() * 0.12, 0.42 + rng.f() * 0.1, 0.33], ao: 0.5 });
+  }
+  // Two vertical battens holding it together, and the nails that mean business.
+  for (const ox of [-w * 0.34, w * 0.34]) {
+    const p = at(ox, h / 2);
+    cb.m('wood').boxRot({ x: p.x, y: p.y, z: p.z, w: 0.11, h: h - 0.2, d: 0.06, rot,
+                          uvScale: 2.2, tint: [0.4, 0.34, 0.27], ao: 0.45 });
+  }
+  return null;
+}
+
+/** A painted stripe across a carriageway. The Cinder Line is five of these. */
+export function roadStripe(cb, x, y, z, rot, rng, opts = {}) {
+  const w = opts.w ?? 0.5, d = opts.d ?? 20;
+  const wear = opts.wear ?? 0.4;
+  const seg = Math.max(4, Math.round(d / 2.2));
+  for (let i = 0; i < seg; i++) {
+    // Worn paint is not a dashed line; it is a continuous line with holes in
+    // it, so segments are skipped by wear rather than spaced evenly.
+    if (rng.f() < wear * 0.55) continue;
+    const t = (i + 0.5) / seg - 0.5;
+    const oz = t * d;
+    const v = 0.86 - wear * 0.4 + (rng.f() - 0.5) * 0.1;
+    cb.m('paint').boxRot({
+      x: x - oz * Math.sin(rot), y: y + 0.012, z: z + oz * Math.cos(rot),
+      w, h: 0.024, d: d / seg * (0.82 + rng.f() * 0.16), rot,
+      uvScale: 1.4, tint: [v, v * 0.62, v * 0.35], ao: 0.2,
+    });
   }
   return null;
 }

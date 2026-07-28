@@ -15,6 +15,7 @@
 
 import * as THREE from 'three';
 import { makeSkyMaterial, worldUniforms } from './materials.js';
+import { autoExposure } from './postfx.js';
 import { emberSprite, smokeSprite } from './textures.js';
 import { clamp, clamp01, lerp, damp, TAU } from '../core/util.js';
 import { Rng } from '../core/rng.js';
@@ -31,17 +32,42 @@ function makeInstancedSpriteMaterial(map, additive) {
   const mat = new THREE.MeshBasicMaterial({
     map, transparent: true, depthWrite: false, fog: false, toneMapped: false,
     side: THREE.DoubleSide,
-    blending: additive ? THREE.AdditiveBlending : THREE.NormalBlending,
   });
+  if (additive) {
+    mat.blending = THREE.AdditiveBlending;
+  } else {
+    // Premultiplied alpha. The colour is scaled by alpha *in the shader*, so a
+    // missing or zero aAlpha produces rgb = 0 AND a = 0 — which under
+    // ONE / ONE_MINUS_SRC_ALPHA is a no-op, not a black disc. With straight
+    // alpha a broken attribute leaves an opaque, unlit quad: the black-blob
+    // failure this whole patch exists to prevent.
+    mat.blending = THREE.CustomBlending;
+    mat.blendSrc = THREE.OneFactor;
+    mat.blendDst = THREE.OneMinusSrcAlphaFactor;
+    mat.blendSrcAlpha = THREE.OneFactor;
+    mat.blendDstAlpha = THREE.OneMinusSrcAlphaFactor;
+    mat.blendEquation = THREE.AddEquation;
+  }
   mat.onBeforeCompile = (sh) => {
     sh.vertexShader = sh.vertexShader
       .replace('#include <common>', '#include <common>\nattribute float aAlpha;\nvarying float vAlphaCL;')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\n  vAlphaCL = aAlpha;');
+    // Injected at <premultiplied_alpha_fragment>, i.e. *before* dithering and
+    // before anything else can touch the output. Appending after
+    // <dithering_fragment> put the multiply after three.js' own premultiply
+    // step, which is the wrong side of the operation that matters.
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', '#include <common>\nvarying float vAlphaCL;')
-      .replace('#include <dithering_fragment>', '#include <dithering_fragment>\n  gl_FragColor.a *= vAlphaCL;');
+      .replace('#include <premultiplied_alpha_fragment>', additive
+        ? '  gl_FragColor.a *= vAlphaCL;'
+        : '  gl_FragColor.a *= vAlphaCL;\n  gl_FragColor.rgb *= gl_FragColor.a;');
   };
-  mat.customProgramCacheKey = () => (additive ? 'cl-sprite-add' : 'cl-sprite-norm');
+  // Unique per material *instance*. A constant key let two different materials
+  // share one compiled program; the aAlpha attribute binding is per-geometry,
+  // so whichever material compiled second inherited a program whose attribute
+  // layout it had never been validated against.
+  const key = `cl-sprite-${additive ? 'add' : 'norm'}-${mat.id}`;
+  mat.customProgramCacheKey = () => key;
   return mat;
 }
 
@@ -52,7 +78,22 @@ function attachAlpha(mesh, count) {
   attr.setUsage(THREE.DynamicDrawUsage);
   mesh.geometry.setAttribute('aAlpha', attr);
   mesh.userData.alphaAttr = attr;
+  assertAlpha(mesh);
   return attr;
+}
+
+/**
+ * Every mesh drawn with a patched sprite material must carry aAlpha. Without
+ * it the attribute reads as garbage and normal-blended smoke turns into opaque
+ * blobs. Cheap enough to leave on: it runs once per mesh, at build time.
+ */
+function assertAlpha(mesh) {
+  if (!mesh.geometry.getAttribute('aAlpha')) {
+    const msg = `[atmosphere] mesh "${mesh.name || mesh.type}" uses a sprite material with no aAlpha attribute`;
+    if (typeof console !== 'undefined') console.error(msg);
+    return false;
+  }
+  return true;
 }
 
 /** Point-light presets by marker kind. */
@@ -82,13 +123,18 @@ export class Atmosphere {
     scene.add(this.sky);
 
     // --- key lighting -----------------------------------------------------
-    // In a city under a permanent smoke ceiling almost all the light is
-    // diffuse: the overcast is a two-hundred-metre softbox. The directional is
-    // kept only for shape and shadow direction, not for illumination.
-    this.hemi = new THREE.HemisphereLight(0x9aa6ba, 0x6a5236, 2.1);
+    // The sun is the key and it is warm; the hemisphere is the fill and it is
+    // cold. That split is the entire palette: a lit plane reads amber, a
+    // shadowed one reads blue-grey, and the difference between them is what
+    // gives a frame of grey boxes any shape at all. Running the hemisphere
+    // 2.6:1 over the directional — as this did — is a flat ambient wash with a
+    // decorative sun bolted on, and nothing in the frame has a light direction.
+    // The ambient fill that a smoke ceiling really provides is carried by the
+    // height fog instead, which is both cheaper and correctly distance-graded.
+    this.hemi = new THREE.HemisphereLight(0x8fabd6, 0x6a5236, 0.7);
     scene.add(this.hemi);
 
-    this.sun = new THREE.DirectionalLight(0xe6cea4, 0.85);
+    this.sun = new THREE.DirectionalLight(0xe6cea4, 2.4);
     this.sun.position.set(-30, 92, 34);
     this.sun.castShadow = tier.shadows;
     this.sun.shadow.mapSize.set(tier.shadowSize, tier.shadowSize);
@@ -102,8 +148,9 @@ export class Atmosphere {
     this._shadowAnchor = new THREE.Vector3(1e9, 0, 0);
 
     // Warm fill from below — the burn. No shadows, cheap, and it is what makes
-    // characters read against the dark street.
-    this.emberFill = new THREE.DirectionalLight(0xff6a24, 0.55);
+    // characters read against the dark street. Deliberately small: the local
+    // warmth is the point-light pool's job, not a global tint's.
+    this.emberFill = new THREE.DirectionalLight(0xff6a24, 0.18);
     this.emberFill.position.set(10, -30, -14);
     scene.add(this.emberFill);
 
@@ -128,6 +175,12 @@ export class Atmosphere {
     // Transient, gameplay-driven emitters (impacts, footfalls, blood, dust).
     this.burst = new BurstField(scene, tier);
 
+    // Auto-exposure. Median luma between a rooftop and the street differs by
+    // nearly 3x in this world and one fixed exposure cannot serve both: the
+    // street reads as mud and the roof reads as blown paper. Driven off the
+    // mood's target key with a fast attack (stopping down when you climb into
+    // the light) and a slow release (the eye opens up gradually in the dark),
+    // so climbing out of the smoke is a physiological event rather than a cut.
     this.exposureBias = 1;
     this.motionScale = 1;
   }
@@ -205,9 +258,18 @@ export class Atmosphere {
     worldUniforms.uFogDensity.value = damp(worldUniforms.uFogDensity.value, M.fogDensity * this.tier.fogDensity / 0.042, k, dt);
     worldUniforms.uFogHeight.value = damp(worldUniforms.uFogHeight.value, M.fogHeight, k, dt);
     worldUniforms.uEmberAmount.value = damp(worldUniforms.uEmberAmount.value, M.ember, k, dt);
+    worldUniforms.uWetness.value = damp(worldUniforms.uWetness.value, M.wetness ?? 0.3, k, dt);
     worldUniforms.uFogColorLow.value.lerp(_c1.setHex(M.fogLow), 1 - Math.exp(-dt / k));
     worldUniforms.uFogColorHigh.value.lerp(_c2.setHex(M.fogHigh), 1 - Math.exp(-dt / k));
     worldUniforms.uTime.value = this.time;
+
+    // --- auto-exposure ----------------------------------------------------
+    // Fast when the target is falling (you have climbed into the light and the
+    // iris shuts), slow when it is rising (dark adaptation takes seconds).
+    const key = M.key ?? 1;
+    const tau = key < this.exposureBias ? 1.2 : 3.0;
+    this.exposureBias = damp(this.exposureBias, key, tau, dt);
+    autoExposure.value = this.exposureBias;
 
     this.skyMat.uniforms.uGlowStrength.value = M.skyGlow;
     this.sky.position.copy(this.camera.position);
@@ -228,7 +290,7 @@ export class Atmosphere {
     this.ash.update(dt, playerPos, M, this.motionScale);
     this.embers.update(dt, playerPos, M, this.motionScale);
     this.plumes.update(dt, playerPos, this.camera);
-    this.burst.update(dt);
+    this.burst.update(dt, this.camera);
   }
 
   /**
@@ -307,49 +369,51 @@ const _c2 = new THREE.Color();
  */
 export const MOODS = {
   street: {
-    hemi: 2.25, hemiSky: 0xa8bcda, hemiGround: 0x62574a,
-    sun: 0.85, sunColor: 0xe6cea4, emberFill: 0.22,
-    fogDensity: 0.042, fogHeight: 4.6, ember: 0.20,
-    fogLow: 0x554e46, fogHigh: 0x333c48, skyGlow: 0.34,
+    hemi: 0.72, hemiSky: 0x86a6d8, hemiGround: 0x62574a,
+    sun: 2.4, sunColor: 0xe6cea4, emberFill: 0.16,
+    fogDensity: 0.042, fogHeight: 4.6, ember: 0.08,
+    fogLow: 0x514c48, fogHigh: 0x2d3746, skyGlow: 0.34,
+    wetness: 0.34, key: 1.35,
   },
   // Down in the smoke: the Slip, the trench floor, cellars.
   low: {
-    hemi: 0.85, hemiSky: 0x726c60, hemiGround: 0x60422a,
-    sun: 0.16, sunColor: 0xd6b283, emberFill: 0.95,
-    fogDensity: 0.13, fogHeight: 7.5, ember: 1.5,
+    hemi: 0.4, hemiSky: 0x6b7488, hemiGround: 0x60422a,
+    sun: 0.35, sunColor: 0xd6b283, emberFill: 0.85,
+    fogDensity: 0.13, fogHeight: 7.5, ember: 1.1,
     fogLow: 0x5a4634, fogHigh: 0x3a352e, skyGlow: 0.5,
-    ashOpacity: 0.34, emberParticles: 1.7,
+    ashOpacity: 0.34, emberParticles: 1.7, wetness: 0.16, key: 1.6,
   },
   // Above the smoke: rooftops. The reward for climbing is that you can see.
   high: {
-    hemi: 2.75, hemiSky: 0xb6c6e0, hemiGround: 0x6e5a40,
-    sun: 1.35, sunColor: 0xf2dfb8, emberFill: 0.09,
-    fogDensity: 0.02, fogHeight: 3.0, ember: 0.2,
-    fogLow: 0x584c40, fogHigh: 0x39414c, skyGlow: 0.26,
-    ashOpacity: 0.62, emberParticles: 0.3,
+    hemi: 0.95, hemiSky: 0x9dbaea, hemiGround: 0x6e5a40,
+    sun: 3.2, sunColor: 0xf2dfb8, emberFill: 0.05,
+    fogDensity: 0.02, fogHeight: 3.0, ember: 0.06,
+    fogLow: 0x584c40, fogHigh: 0x36415a, skyGlow: 0.26,
+    ashOpacity: 0.62, emberParticles: 0.3, wetness: 0.2, key: 0.75,
   },
   // The Authority's ground: work lights, cold fill, swept and lit.
   authority: {
-    hemi: 1.85, hemiSky: 0x8fa4c2, hemiGround: 0x5e5040,
-    sun: 0.72, sunColor: 0xdcd0bc, emberFill: 0.42,
-    fogDensity: 0.055, fogHeight: 5.2, ember: 0.42,
-    fogLow: 0x4a4740, fogHigh: 0x2e353f, skyGlow: 0.42,
+    hemi: 0.8, hemiSky: 0x7d99c6, hemiGround: 0x5e5040,
+    sun: 2.0, sunColor: 0xdcd0bc, emberFill: 0.28,
+    fogDensity: 0.055, fogHeight: 5.2, ember: 0.20,
+    fogLow: 0x4a4740, fogHigh: 0x2b3444, skyGlow: 0.42,
+    wetness: 0.46, key: 1.1,
   },
   // Interior: no sky, lamps and windows do the work.
   interior: {
-    hemi: 0.8, hemiSky: 0x66708a, hemiGround: 0x4e3e2c,
-    sun: 0.14, sunColor: 0xd8c4a0, emberFill: 0.14,
-    fogDensity: 0.026, fogHeight: 9.0, ember: 0.24,
+    hemi: 0.34, hemiSky: 0x5e6c8c, hemiGround: 0x4e3e2c,
+    sun: 0.3, sunColor: 0xd8c4a0, emberFill: 0.1,
+    fogDensity: 0.026, fogHeight: 9.0, ember: 0.1,
     fogLow: 0x3a342c, fogHigh: 0x2a2824, skyGlow: 0.1,
-    ashOpacity: 0.06, emberParticles: 0.12,
+    ashOpacity: 0.06, emberParticles: 0.12, wetness: 0.05, key: 1.5,
   },
   // Underground: the tunnels and the deep cut.
   under: {
-    hemi: 0.34, hemiSky: 0x484c54, hemiGround: 0x543e26,
-    sun: 0.0, sunColor: 0x000000, emberFill: 1.15,
-    fogDensity: 0.11, fogHeight: 12.0, ember: 1.7,
+    hemi: 0.16, hemiSky: 0x424a5c, hemiGround: 0x543e26,
+    sun: 0.0, sunColor: 0x000000, emberFill: 0.95,
+    fogDensity: 0.11, fogHeight: 12.0, ember: 1.3,
     fogLow: 0x4e3a26, fogHigh: 0x2c2620, skyGlow: 0.0,
-    ashOpacity: 0.0, emberParticles: 1.4,
+    ashOpacity: 0.0, emberParticles: 1.4, wetness: 0.5, key: 1.8,
   },
 };
 
@@ -651,7 +715,18 @@ class PlumeField {
         const alpha = Math.sin(t * Math.PI) * cfg.opacity * fade;
         if (alpha < 0.01) continue;
 
-        _m.makeRotationY(Math.atan2(camera.position.x - px, camera.position.z - pz));
+        // Y-billboard for the column body, plus a clamped pitch term. A pure
+        // Y-billboard goes edge-on the moment you look down from a roof, which
+        // is why the overview vantages — the ones that exist to show a lake of
+        // smoke — contained no smoke at all. Clamping the pitch to +/-40 keeps
+        // the column reading as a vertical column rather than flipping into a
+        // flat disc when you stand over it.
+        const dxc = camera.position.x - px, dzc = camera.position.z - pz;
+        const horiz = Math.hypot(dxc, dzc);
+        const pitch = clamp(-Math.atan2(camera.position.y - y, Math.max(0.05, horiz)),
+                            -PLUME_PITCH, PLUME_PITCH);
+        _e.set(pitch, Math.atan2(dxc, dzc), 0, 'YXZ');
+        _m.makeRotationFromEuler(_e);
         _m.scale(_v3.set(scale, scale, scale));
         _m.setPosition(px, y, pz);
         this.mesh.setMatrixAt(inst, _m);
@@ -671,6 +746,9 @@ class PlumeField {
 
   dispose() { this.scene.remove(this.mesh); this.mesh.geometry.dispose(); this.mat.dispose(); }
 }
+
+/** Maximum pitch a plume card will tilt toward the camera, radians. */
+const PLUME_PITCH = 40 * Math.PI / 180;
 
 const PLUME_KINDS = {
   vent:          { rise: 5.5, spread: 1.5, size: 1.5, rate: 0.34, opacity: 0.30, color: 0xa89a80 },
@@ -758,7 +836,12 @@ class BurstField {
     }
   }
 
-  update(dt) {
+  update(dt, camera) {
+    // Full spherical billboard. Bursts used to be world-XY quads with no
+    // rotation at all, so every spark, dust puff and impact hit vanished the
+    // moment the camera orbited ninety degrees off the Z axis.
+    if (camera) _q.copy(camera.quaternion);
+    else _q.identity();
     let n = 0, na = 0;
     for (const p of this.parts) {
       if (!p.alive) continue;
@@ -773,7 +856,8 @@ class BurstField {
       const size = p.size * (1 + t * p.grow);
       const alpha = Math.sin((1 - t) * Math.PI * 0.5);
 
-      _m.makeScale(size, size, size);
+      _m.makeRotationFromQuaternion(_q);
+      _m.scale(_v3.set(size, size, size));
       _m.setPosition(p.x, p.y, p.z);
       _col.setHex(p.color);
       if (p.add) {
@@ -820,3 +904,5 @@ const BURST_KINDS = {
 const _m = new THREE.Matrix4();
 const _v3 = new THREE.Vector3();
 const _col = new THREE.Color();
+const _e = new THREE.Euler();
+const _q = new THREE.Quaternion();

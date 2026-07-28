@@ -17,8 +17,20 @@ const _v = new THREE.Vector3();
 const _v2 = new THREE.Vector3();
 const _e = new THREE.Euler(0, 0, 0, 'YXZ');
 
-/** How long an unfulfilled action press stays queued. */
-const BUFFER = 0.26;
+/**
+ * How long an unfulfilled action press stays queued.
+ *
+ * This has to be at least as long as the longest window in which a press can
+ * legitimately go unanswered. Attack recovery is 0.32-0.39 s and the buffer was
+ * 0.26 s, so presses in the first tenth of every recovery were dropped on the
+ * floor. Recovery is now cancellable into the chain (see combat.js), and the
+ * buffer covers the rest.
+ */
+const BUFFER = 0.34;
+
+/** Sprint hysteresis. Resume only above RESUME; keep going while above FLOOR. */
+const SPRINT_RESUME = 28;
+const SPRINT_FLOOR = 2;
 
 export class Player extends Actor {
   constructor(opts) {
@@ -32,9 +44,12 @@ export class Player extends Actor {
 
     this.buffer = { name: null, t: 0 };
     this.lockTarget = null;
-    this.lockCandidates = [];
     this.interactTarget = null;
     this.lampOn = false;
+    this._sprintLatch = false;
+    /** Set by the capability sync in combat.js when Ren has `shortRope`. */
+    this.shortRope = false;
+    this.ropeCooldown = 0;
 
     // The headlamp. Also the only light source in a cellar, which is why the
     // battery is a resource and not a cosmetic.
@@ -47,7 +62,30 @@ export class Player extends Actor {
     this.lampBattery = 1;
 
     this.vaultCooldown = 0;
+    this.vaultProbe = 0;
     this.autoVault = true;
+  }
+
+  /**
+   * Sprint gate with hysteresis.
+   *
+   * The floating stick drags its origin behind the thumb, so any sustained
+   * swipe sits at full deflection and full deflection asks for sprint. With a
+   * bare `stamina > 3` gate that produced a permanent oscillation: drain to 0
+   * in 0.23 s, regenerate past 3 in 0.125 s, sprint again — a 65% duty cycle
+   * pinning stamina between 0 and 3 for the whole walk, so Ren arrived at every
+   * encounter animating as exhausted and unable to afford a dodge.
+   *
+   * Sprint may only START above SPRINT_RESUME, but continues until nearly empty.
+   *
+   * @param {boolean} want raw request (button down and stick deflected)
+   */
+  sprintGate(want) {
+    if (!want || this.dead) { this._sprintLatch = false; return false; }
+    this._sprintLatch = this._sprintLatch
+      ? this.stamina > SPRINT_FLOOR
+      : this.stamina > SPRINT_RESUME;
+    return this._sprintLatch;
   }
 
   /** Queue an action if it cannot be performed right now. */
@@ -69,6 +107,8 @@ export class Player extends Actor {
   update(dt, ctx) {
     this.buffer.t = Math.max(0, this.buffer.t - dt);
     this.vaultCooldown = Math.max(0, this.vaultCooldown - dt);
+    this.vaultProbe = Math.max(0, this.vaultProbe - dt);
+    this.ropeCooldown = Math.max(0, this.ropeCooldown - dt);
 
     // Headlamp
     const wantLamp = this.lampOn && this.lampBattery > 0;
@@ -86,13 +126,19 @@ export class Player extends Actor {
    * thumb left for one.
    */
   tryVault() {
-    if (this.vaultCooldown > 0 || !this.grounded || this.state !== STATE.IDLE && this.state !== STATE.MOVE) return false;
+    // STATE.MOVE was never assigned anywhere, so the old test `state !== MOVE`
+    // was always true and this guard did nothing.
+    if (this.vaultCooldown > 0 || !this.grounded || this.state !== STATE.IDLE) return false;
     if (this.moveInput.mag < 0.5) return false;
+    if (this._vault) return false;
     const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
     const ox = this.pos.x + fx * (this.radius + 0.22);
     const oz = this.pos.z + fz * (this.radius + 0.22);
 
-    // Something to climb over at knee-to-waist height...
+    // Something to climb over at knee-to-waist height. `overlaps` returns the
+    // LOWEST overlapping box now; it used to return whichever the spatial hash
+    // visited first, so the same wall vaulted or refused depending on the order
+    // the city happened to be built in.
     const obstacle = this.world.overlaps(ox, this.pos.y + 0.1, oz, 0.24, 0.5);
     if (!obstacle) return false;
     const top = obstacle.y1;
@@ -126,8 +172,63 @@ export class Player extends Actor {
       this.vel.set(0, 0, 0);
       if (k >= 1) {
         this.pos.y = endY;
-        this.state = STATE.IDLE;
+        if (this.state === STATE.VAULT) this.state = STATE.IDLE;
         this._vault = null;
+      }
+    };
+    return true;
+  }
+
+  /**
+   * `shortRope` — controlled descent from a ledge.
+   *
+   * Down stops being the same as falling. At the edge of a drop the player goes
+   * over it on the line instead of off it: no fall damage, and a fixed rate, so
+   * a rooftop route can be reversed rather than committed to.
+   *
+   * Returns true if a descent began.
+   */
+  tryRope() {
+    if (!this.shortRope || this._vault || this.ropeCooldown > 0) return false;
+    if (!this.grounded || this.state !== STATE.IDLE) return false;
+
+    const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
+    // The lip has to be genuinely ahead and genuinely a drop.
+    const lx = this.pos.x + fx * (this.radius + 0.55);
+    const lz = this.pos.z + fz * (this.radius + 0.55);
+    if (this.world.anyOverlap(lx, this.pos.y + 0.1, lz, this.radius * 0.8, this.height)) return false;
+    const below = this.world.groundUnder(lx, lz, this.radius * 0.85, this.pos.y - 0.05, 26);
+    if (!below) return false;
+    const drop = this.pos.y - below.y;
+    if (drop < 1.6) return false;              // that is a step, not a descent
+    if (this.world.anyOverlap(lx, below.y + 0.15, lz, this.radius * 0.85, this.height - 0.3)) return false;
+
+    this.state = STATE.VAULT;
+    this.ropeCooldown = 0.8;
+    const startX = this.pos.x, startZ = this.pos.z, startY = this.pos.y;
+    const endY = below.y;
+    // A fixed descent rate, so a long drop takes longer. It is a rope, not a
+    // teleport, and standing on it is a real decision when the air is coming up.
+    const dur = clamp(0.35 + drop / 3.4, 0.5, 4.0);
+    let t = 0;
+    this.animator.play('climb', { speed: 1.1, fade: 0.12 });
+    this.emit('rope', { drop });
+
+    this._vault = (d) => {
+      if (this.dead || this.state === STATE.STAGGER) { this._vault = null; return; }
+      t += d / dur;
+      const k = clamp01(t);
+      this.pos.x = lerp(startX, startX + fx * 0.5, smoothstep(k));
+      this.pos.z = lerp(startZ, startZ + fz * 0.5, smoothstep(k));
+      this.pos.y = lerp(startY, endY, k);
+      this.vel.set(0, 0, 0);
+      // No fall damage: the drop never happens.
+      this.fallStartY = this.pos.y;
+      if (k >= 1) {
+        this.pos.y = endY;
+        if (this.state === STATE.VAULT) this.state = STATE.IDLE;
+        this._vault = null;
+        this.animator.stopAction(0.16);
       }
     };
     return true;
@@ -135,26 +236,60 @@ export class Player extends Actor {
 
   _updateMovement(dt) {
     if (this._vault) {
-      this._vault(dt);
-      this.group.position.copy(this.pos);
-      return;
+      // A stagger or a death that lands mid-vault used to be overwritten: the
+      // vault ran to completion, set state back to IDLE, cancelled the stagger,
+      // and left a dead player standing in idle having skipped collision for
+      // half a second. The traversal loses.
+      if (this.dead || this.state === STATE.STAGGER) {
+        this._vault = null;
+        if (this.state === STATE.VAULT) this.state = STATE.IDLE;
+      } else {
+        this._vault(dt);
+        this.group.position.copy(this.pos);
+        return;
+      }
     }
     super._updateMovement(dt);
 
     // Auto-vault when the player is pressing into something low.
-    if (this.autoVault && this.lastMove && this.lastMove.hitWall && this.moveInput.mag > 0.6 && !this.attack) {
-      this.tryVault();
+    //
+    // `hitWall` is set by ANY contact that displaces you, including sliding
+    // along a flat face, so running past a building used to fire three world
+    // queries a frame. Require that the obstruction is roughly in front of
+    // where she is trying to go, and throttle the probe.
+    if (this.autoVault && this.lastMove && this.lastMove.hitWall &&
+        this.moveInput.mag > 0.6 && !this.attack && this.vaultProbe <= 0) {
+      const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
+      const intoIt = this.moveInput.x * fx + this.moveInput.z * fz;
+      if (intoIt > 0.6 * this.moveInput.mag) {
+        this.vaultProbe = 0.18;
+        this.tryVault();
+      }
     }
   }
 
-  /** Look for a ladder in front and attach to it. */
+  /**
+   * Look for a ladder in front and attach to it; failing that, and only with
+   * `shortRope`, go over the ledge in front on the line.
+   */
   tryClimb() {
     const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
     const box = this.world.climbAt(this.pos.x + fx * 0.4, this.pos.y, this.pos.z + fz * 0.4, 0.6)
              || this.world.climbAt(this.pos.x, this.pos.y, this.pos.z, 0.55);
-    if (!box) return false;
+    if (!box) return this.tryRope();
     this.enterClimb(box);
     return true;
+  }
+
+  /** True when a roped descent is available here — for the interact prompt. */
+  get ropeAvailable() {
+    if (!this.shortRope || this._vault || !this.grounded || this.state !== STATE.IDLE) return false;
+    const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
+    const lx = this.pos.x + fx * (this.radius + 0.55);
+    const lz = this.pos.z + fz * (this.radius + 0.55);
+    if (this.world.anyOverlap(lx, this.pos.y + 0.1, lz, this.radius * 0.8, this.height)) return false;
+    const below = this.world.groundUnder(lx, lz, this.radius * 0.85, this.pos.y - 0.05, 26);
+    return !!below && this.pos.y - below.y >= 1.6;
   }
 }
 

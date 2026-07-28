@@ -17,6 +17,7 @@
  * player costs the ending.
  */
 
+import { readFileSync } from 'node:fs';
 import { QUESTS, CONVERSATIONS, ENDINGS, EPILOGUE_BEATS, CAST } from '../src/content/story.js';
 import { buildHollisData } from '../src/content/world_data.js';
 import { ITEMS, CAPABILITIES, CHARACTERS } from '../src/game/state.js';
@@ -29,15 +30,49 @@ const warn = (m) => warnings.push(m);
 // Everything the engine can deliver as a quest trigger.
 const TRIGGER_KINDS = new Set(['reach', 'talk', 'interact', 'collect', 'kill', 'flag', 'custom']);
 
-// Custom trigger ids the director actually fires.
-const CUSTOM_IDS = new Set([
-  'meterRead', 'raidCleared', 'ventDecision', 'crisisArrive', 'crisisResolved',
-  'trenchCleared', 'endingChosen', 'teoTrade',
-]);
+// ------------------------------------------------------ engine introspection --
+//
+// These three sets used to be hand-maintained literals. That is precisely how a
+// quest step shipped with a trigger no code fired, and how two dozen flags
+// shipped that nothing read: a whitelist drifts silently from the code it is
+// supposed to describe, and a whitelist that has drifted validates nothing.
+// They are now derived from the engine source, so they cannot lie.
 
-// Hook names the director implements.
-const HOOKS = new Set(['spawnCourtyardRaid', 'spawnTrenchLine', 'shutVents', 'halfVents',
-  'beginCrisis', 'openTrade']);
+const ENGINE_SRC = ['src/game/director.js', 'src/game/game.js', 'src/game/narrative.js',
+  'src/game/state.js', 'src/main.js']
+  .map((p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8')).join('\n');
+
+const scrape = (re, src = ENGINE_SRC) => {
+  const out = new Set();
+  let m;
+  while ((m = re.exec(src))) out.add(m[1]);
+  return out;
+};
+
+/** Custom trigger ids the director actually fires: notify('custom', { id: 'x' }). */
+const CUSTOM_IDS = scrape(/notify\(\s*['"]custom['"]\s*,\s*\{\s*id:\s*['"]([\w.]+)['"]/g);
+
+/** Hook names the director implements, from the object literal _hooks() returns. */
+const HOOKS = (() => {
+  const dir = readFileSync(new URL('../src/game/director.js', import.meta.url), 'utf8');
+  const body = dir.slice(dir.indexOf('_hooks() {'), dir.indexOf('\n  _spawnRaid('));
+  return scrape(/^ {6}(\w+):\s*\(\)\s*=>/gm, body);
+})();
+
+/** Flags and counters the engine itself sets, from state.set(...) / state.bump(...). */
+const ENGINE_FLAGS = new Set([
+  ...scrape(/(?:state|S)\.set\(\s*['"]([\w.]+)['"]/g),
+]);
+// `crisis_${site}` sets one of two literal flags; record both explicitly.
+if (ENGINE_SRC.includes('`crisis_${site}`')) { ENGINE_FLAGS.add('crisis_stacks'); ENGINE_FLAGS.add('crisis_south'); }
+
+/** Flags and counters the engine itself reads. */
+const ENGINE_READS = new Set([
+  ...scrape(/(?:state|S)\.has\(\s*['"]([\w.]+)['"]/g),
+  ...scrape(/counters\.get\(\s*['"]([\w.]+)['"]/g),
+  ...scrape(/(?:state|S)\.count\(\s*['"]([\w.]+)['"]/g),
+  ...scrape(/(?:state|S)\.chose\(\s*['"]([\w.]+)['"]/g),
+]);
 
 const world = buildHollisData();
 const worldInteractionIds = new Set(world.interactions.map((i) => i.id));
@@ -243,6 +278,10 @@ for (const qid in QUESTS) {
 for (const e of ENDINGS) {
   walkCondition(e.condition, `ending "${e.id}"`);
   if (!e.text) fail(`ending "${e.id}": no text`);
+  for (const b of e.beats || []) {
+    walkCondition(b.condition, `ending "${e.id}" beat`);
+    if (!b.text) fail(`ending "${e.id}": a beat has no text`);
+  }
   if (e.epilogue && (!e.epilogue.told || !e.epilogue.untold)) {
     fail(`ending "${e.id}": epilogue needs both told and untold variants`);
   }
@@ -261,30 +300,76 @@ if (!isCatchAll) fail('the final ending must be an unconditional catch-all');
 
 // Flags read but never set are the classic content bug: a branch that can
 // never be taken.
-const engineFlags = new Set([
-  'ch1_raid_done', 'sol_knows_name', 'teo_log_done', 'nessa_rescue_started',
-  'nessa_rescued', 'found_venting', 'vents_shut', 'vents_left', 'vents_half',
-  'has_log', 'has_order', 'iris_gave_pass', 'iris_hinted_door', 'met_garage',
-  'crisis_stacks', 'crisis_south', 'crisis_saved_some', 'crisis_saved_all',
-  'nessa_told_truth', 'nessa_scene_done', 'sol_vent_talked', 'krajcik_met',
-  'ch1_done', 'ch3_done', 'ch3_talked', 'ch4_done', 'southmarrow_done',
-  'gave_garage_filter', 'teo_shared', 'sol_met', 'teo_met', 'nessa_met',
-  'iris_met', 'ren_knows_field', 'teo_named_iris', 'garage_suspects',
-  'nessa_knows_connection', 'nessa_told_right', 'ren_asked_bek', 'sol_confession',
-  'sol_knows_survey', 'sol_told_cellar', 'iris_shared', 'iris_accused',
-  'iris_knows_log', 'krajcik_291', 'krajcik_open', 'took_offer', 'lied_to_krajcik',
-  'proposed_cut', 'nessa_read_log', 'nessa_withheld', '__never__',
-]);
 for (const f of readFlags) {
-  if (!setFlags.has(f) && !engineFlags.has(f)) {
+  if (!setFlags.has(f) && !ENGINE_FLAGS.has(f)) {
     fail(`flag "${f}" is required somewhere but never set by content or engine`);
   }
 }
+
+// The mirror image, and the more insidious one: a flag the game writes and
+// nothing ever consults. Every one of those is a piece of recorded player
+// behaviour that the story promised to remember and then threw away. A choice
+// whose outcome is never read is a false choice by definition.
+for (const f of setFlags) {
+  if (f.startsWith('choice:')) continue;             // choices are checked below
+  if (readFlags.has(f) || ENGINE_READS.has(f)) continue;
+  fail(`flag "${f}" is recorded but nothing ever reads it — dead consequence`);
+}
+for (const f of ENGINE_FLAGS) {
+  if (readFlags.has(f) || ENGINE_READS.has(f) || setFlags.has(f)) continue;
+  fail(`engine flag "${f}" is set but nothing ever reads it — dead consequence`);
+}
+
 for (const [cid, opts] of readChoices) {
   const set = setChoices.get(cid);
   if (!set) { fail(`choice "${cid}" is read but never recorded`); continue; }
   for (const o of opts) {
     if (!set.has(o)) fail(`choice "${cid}" is tested for option "${o}", which is never recorded`);
+  }
+}
+for (const [cid, opts] of setChoices) {
+  const read = readChoices.get(cid);
+  if (!read && !ENGINE_READS.has(cid)) {
+    fail(`choice "${cid}" is offered (${[...opts].join('/')}) but its outcome is never read — false choice`);
+    continue;
+  }
+  // A choice where only one option is ever distinguished is still a real
+  // choice, but one where NO option is distinguished is decoration.
+  if (read && ![...opts].some((o) => read.has(o)) && !ENGINE_READS.has(cid)) {
+    fail(`choice "${cid}" is read but none of its recorded options (${[...opts].join('/')}) are tested`);
+  }
+}
+
+// Capabilities must both be grantable and mean something. The unlock side is
+// content; the effect side is code, so we look for the id in the engine source.
+const GRANTED_CAPS = new Set();
+const capScan = (eff) => {
+  for (const e of (Array.isArray(eff) ? eff : [eff]).filter(Boolean)) if (e.cap) GRANTED_CAPS.add(e.cap);
+};
+for (const qid in QUESTS) {
+  const q = QUESTS[qid];
+  capScan(q.onStart); capScan(q.onComplete);
+  for (const s of q.steps) { capScan(s.onEnter); capScan(s.onDone); }
+}
+for (const cid in CONVERSATIONS) {
+  const c = CONVERSATIONS[cid];
+  capScan(c.onStart); capScan(c.onEnd);
+  for (const id in c.nodes) {
+    capScan(c.nodes[id].effects);
+    for (const ch of c.nodes[id].choices || []) capScan(ch.effects);
+  }
+}
+const ENGINE_UNLOCKS = scrape(/unlock\(\s*['"](\w+)['"]/g);
+const GAMEPLAY_SRC = ['src/actors/actor.js', 'src/actors/player.js', 'src/game/combat.js',
+  'src/game/ai.js', 'src/game/game.js', 'src/game/director.js', 'src/world/gas.js', 'src/ui/hud.js']
+  .map((p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8')).join('\n');
+const USED_CAPS = scrape(/can\(\s*['"](\w+)['"]/g, GAMEPLAY_SRC);
+for (const id in CAPABILITIES) {
+  if (!GRANTED_CAPS.has(id) && !ENGINE_UNLOCKS.has(id)) {
+    fail(`capability "${id}" (${CAPABILITIES[id].name}) can never be unlocked`);
+  }
+  if (!USED_CAPS.has(id)) {
+    fail(`capability "${id}" (${CAPABILITIES[id].name}) is unlocked but no gameplay code reads it`);
   }
 }
 
