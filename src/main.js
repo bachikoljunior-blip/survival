@@ -7,6 +7,7 @@ import { Game, MODE } from './game/game.js';
 import { Storage } from './game/state.js';
 import { moveActor } from './world/collision.js';
 import { Audio } from './audio/audio.js';
+import { setLocale, detectLocale, t } from './content/i18n.js';
 
 const boot = document.getElementById('boot');
 const bootNote = document.getElementById('boot-note');
@@ -30,11 +31,17 @@ async function main() {
   window.__cinderlineBooted = true;
   window.CINDERLINE = { ready: false };
 
-  setNote('starting renderer');
+  // Before the first line of text reaches the boot plate. `new Game` resolves
+  // the language again from the same setting; this is only so the two or three
+  // stage notes that precede it are not in English on a Japanese device.
+  const saved = Storage.loadSettings();
+  setLocale((saved && saved.language) || detectLocale());
+
+  setNote(t('ui.boot.renderer', 'starting renderer'));
   const canvas = document.getElementById('gl');
   const game = new Game(canvas);
 
-  await game.buildWorld((stage) => setNote(STAGE_TEXT[stage] || stage));
+  await game.buildWorld((stage) => setNote(t(`ui.boot.${stage}`, STAGE_TEXT[stage] || stage)));
 
   game.spawnPlayer('start');
 
@@ -49,7 +56,8 @@ async function main() {
   const warnStorage = () => {
     if (storageOk || warnStorage.done) return;
     warnStorage.done = true;
-    game.hud.notice('<b>Not saving.</b> This browser blocks storage — nothing will be kept.', 'bad', 7);
+    game.hud.notice(t('ui.storage.notice',
+      '<b>Not saving.</b> This browser blocks storage — nothing will be kept.'), 'bad', 7);
   };
 
   const startNewGame = async () => {
@@ -71,7 +79,10 @@ async function main() {
     game.hud.setVisible(true);
     await game.menus.fadeIn();
     game.setMode(MODE.PLAY);
-    game.hud.showCard('CHAPTER ONE', 'BAD AIR', 'The Stacks · Hollis');
+    game.hud.showCard(
+      t('ui.card.1.kicker', 'CHAPTER ONE'),
+      t('ui.card.1.title', 'BAD AIR'),
+      t('ui.card.1.sub', 'The Stacks · Hollis'));
     game.emit('music', 'explore');
     warnStorage();
   };
@@ -129,9 +140,9 @@ async function main() {
   const storageOk = Storage.available();
   if (!storageOk) {
     game.storageAvailable = false;
-    game.menus.setTitleWarning(
+    game.menus.setTitleWarning(t('ui.storage.warn',
       'This browser will not let the game save — private browsing, most likely. ' +
-      'You can play, but nothing will be kept when you close the tab.');
+      'You can play, but nothing will be kept when you close the tab.'));
   }
 
   game.hud.setVisible(false);
@@ -141,7 +152,7 @@ async function main() {
   // drift apart.
   game.setTitleCamera();
 
-  setNote('ready');
+  setNote(t('ui.boot.ready', 'ready'));
   boot.classList.add('gone');
   setTimeout(() => { if (boot.parentNode) boot.remove(); }, 800);
 
@@ -173,7 +184,7 @@ async function main() {
 
 main().catch((e) => {
   console.error(e);
-  setNote('failed to start — ' + (e && e.message ? e.message : e));
+  setNote(t('ui.boot.failed', 'failed to start — ') + (e && e.message ? e.message : e));
   if (bootNote) bootNote.className = 'boot-note err';
   if (window.CINDERLINE) window.CINDERLINE.ready = true;
 });

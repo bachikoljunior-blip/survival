@@ -57,7 +57,10 @@ const server = createServer((req, res) => {
 });
 await new Promise((r) => server.listen(0, r));
 const port = server.address().port;
-const URL_ = `http://127.0.0.1:${port}${BASE}/index.html`;
+// `--q stage=settings` reaches the driver as location.search, which is how a
+// single probe file covers several screens without one boot per screen.
+const QUERY = arg('q', '');
+const URL_ = `http://127.0.0.1:${port}${BASE}/index.html${QUERY ? `?${QUERY}` : ''}`;
 
 const browser = await chromium.launch({
   args: [

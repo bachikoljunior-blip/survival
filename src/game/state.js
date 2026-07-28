@@ -383,6 +383,10 @@ export const Storage = {
 
 /** Default settings, including every accessibility option. */
 export const DEFAULT_SETTINGS = {
+  // null means "not chosen yet" — the boot picks one from the browser, and an
+  // explicit choice (including an explicit choice of English on a Japanese
+  // device) always wins from then on.
+  language: null,             // null | 'en' | 'ja'
   quality: 'auto',            // auto | low | medium | high
   masterVolume: 0.85,
   musicVolume: 0.7,

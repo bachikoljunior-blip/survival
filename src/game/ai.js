@@ -289,7 +289,7 @@ export class AISystem {
       // callers anywhere in the codebase — an accessibility option that did
       // nothing at all. These are the only spoken lines outside the dialogue
       // box, so they are what it is for.
-      game.emit('bark', e, BARKS[e.kind] || BARKS.scav);
+      game.emit('bark', e, BARKS[e.kind] || BARKS.scav, e.kind in BARKS ? e.kind : 'scav');
       // Wardens shout, which pulls in everyone in earshot.
       if (e.arch.callsForHelp && e.callCooldown <= 0) {
         e.callCooldown = 8;

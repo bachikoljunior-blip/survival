@@ -12,6 +12,7 @@
  */
 
 import { clamp, clamp01, lerp } from '../core/util.js';
+import { t } from '../content/i18n.js';
 import { PPM } from '../world/gas.js';
 import { ATTACKS } from '../game/combat.js';
 
@@ -51,6 +52,10 @@ export class HUD {
       this._staT = setTimeout(() => b.classList.remove('empty'), 420);
     });
 
+    // Changing the language from the settings panel rebuilds the menus; the HUD
+    // is built once, so it relabels itself in place instead.
+    game.on('locale', () => this.relabel());
+
     this.damageNumbers = [];
     this.noticeQueue = [];
     this.visible = true;
@@ -77,9 +82,10 @@ export class HUD {
     this.airNode = air;
     const row = el('div', 'row', air);
     this.ppmNode = el('span', 'ppm', row, '––');
+    // PPM CO is written the same way on a Japanese gas meter; it stays.
     el('span', 'unit', row, 'PPM CO');
     this.trendNode = el('span', 'trend', row, '');
-    this.filterNode = el('div', 'filter', air, 'NO FILTER');
+    this.filterNode = el('div', 'filter', air, t('ui.air.nofilter', 'NO FILTER'));
     this.readNode = el('div', 'reading', air, '');
   }
 
@@ -142,7 +148,7 @@ export class HUD {
     this.hurt = el('div', 'hurt', this.node);
     this.gasVeil = el('div', 'gasveil', this.node);
     this.prompt = el('div', 'prompt', this.node);
-    this.autosave = el('div', 'autosave', this.node, 'SAVED');
+    this.autosave = el('div', 'autosave', this.node, t('ui.saved', 'SAVED'));
     this.card = el('div', 'card', this.node);
     this.cardK = el('div', 'k', this.card);
     this.cardT = el('div', 't', this.card);
@@ -200,7 +206,7 @@ export class HUD {
       ['heavy', 'sml heavy', 'HEAVY'],
     ];
     for (const [name, cls, label] of defs) {
-      const b = el('div', `abtn hit ${cls}`, this.actions, label);
+      const b = el('div', `abtn hit ${cls}`, this.actions, t(`ui.btn.${label}`, label));
       this.buttons[name] = b;
       this._bindButton(b, name);
     }
@@ -209,7 +215,7 @@ export class HUD {
     // display:none the guard button out from under a possibly-held finger,
     // which could latch guard on permanently and took the player's only
     // defensive option away every time they stood near a door.
-    this.interactBtn = el('div', 'abtn hit mid interact', this.actions, 'USE');
+    this.interactBtn = el('div', 'abtn hit mid interact', this.actions, t('ui.btn.USE', 'USE'));
     this.interactBtn.style.display = 'none';
     this._bindButton(this.interactBtn, 'interact');
 
@@ -278,6 +284,20 @@ export class HUD {
     node.addEventListener('lostpointercapture', (e) => end(e, false));
   }
 
+  /** Re-read every label that was baked in at construction. */
+  relabel() {
+    const B = { attack: 'HIT', dodge: 'ROLL', guard: 'GUARD', use: 'USE', heavy: 'HEAVY' };
+    for (const k in B) if (this.buttons[k]) this.buttons[k].textContent = t(`ui.btn.${B[k]}`, B[k]);
+    this.autosave.textContent = t('ui.saved', 'SAVED');
+    this.filterNode.textContent = t('ui.air.nofilter', 'NO FILTER');
+    if (this.compassTicks) {
+      const names = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      this.compassTicks.forEach((tk, i) => { tk.n.textContent = t(`ui.dir.${names[i]}`, names[i]); });
+    }
+    // Force setPrompt to redraw rather than early-out on an unchanged string.
+    this._promptText = '\u0000';
+  }
+
   // --------------------------------------------------------------- updates
 
   /**
@@ -330,12 +350,15 @@ export class HUD {
     this.airNode.classList.toggle('crit', crit);
 
     const f = p.lungs.filterPercent;
+    const SAT = t('ui.air.sat', 'SAT');
+    const NOF = t('ui.air.nofilter', 'NO FILTER');
     if (f < 0) {
       this.filterNode.textContent = p.lungs.sat > 0.02
-        ? `SAT ${Math.round(p.lungs.sat * 100)}%  ·  NO FILTER`
-        : 'NO FILTER';
+        ? `${SAT} ${Math.round(p.lungs.sat * 100)}%  ·  ${NOF}`
+        : NOF;
     } else {
-      this.filterNode.textContent = `FILTER ${String(f).padStart(3, ' ')}%  ·  SAT ${Math.round(p.lungs.sat * 100)}%`;
+      this.filterNode.textContent =
+        `${t('ui.air.filter', 'FILTER')} ${String(f).padStart(3, ' ')}%  ·  ${SAT} ${Math.round(p.lungs.sat * 100)}%`;
     }
 
     this.gasVeil.style.opacity = String(clamp01(p.lungs.severity * 0.55));
@@ -396,7 +419,7 @@ export class HUD {
       const dirs = [['N', 0], ['NE', Math.PI / 4], ['E', Math.PI / 2], ['SE', Math.PI * 3 / 4],
                     ['S', Math.PI], ['SW', -Math.PI * 3 / 4], ['W', -Math.PI / 2], ['NW', -Math.PI / 4]];
       for (const [name, a] of dirs) {
-        const n = el('div', 'tick', this.compass, name);
+        const n = el('div', 'tick', this.compass, t(`ui.dir.${name}`, name));
         this.compassTicks.push({ n, a });
       }
     }
@@ -528,12 +551,15 @@ export class HUD {
    * interaction kind when the caller has it; otherwise the verb is read off
    * the prompt text, which is where the verb already lives.
    */
-  setPrompt(text, kind) {
+  setPrompt(text, kind, english) {
     if (text === this._promptText) return;
     this._promptText = text;
     if (text) {
       const body = String(text).replace(/^\s*<b>[^<]*<\/b>\s*(&nbsp;)?\s*/i, '');
-      const verb = promptVerb(kind, body);
+      // The verb is read off the ENGLISH prompt, not the displayed one: the
+      // heuristic below matches English words and would fall through to USE for
+      // every door and ladder in the game once the prompt is in Japanese.
+      const verb = promptVerb(kind, english || body);
       this.prompt.innerHTML = `<b>${verb}</b> &nbsp;${body}`;
       this.prompt.classList.add('on');
       this.interactBtn.textContent = verb;
@@ -604,6 +630,10 @@ export class HUD {
 /** Interaction kind / prompt text -> the word that goes on the button. */
 const KIND_VERB = { npc: 'TALK', door: 'OPEN', climb: 'CLIMB', item: 'TAKE', note: 'READ', examine: 'LOOK' };
 function promptVerb(kind, body) {
+  const v = rawVerb(kind, body);
+  return t(`ui.verb.${v}`, v);
+}
+function rawVerb(kind, body) {
   if (kind && KIND_VERB[kind]) return KIND_VERB[kind];
   const first = /^([A-Za-z]+)/.exec(body || '');
   const w = first ? first[1].toLowerCase() : '';

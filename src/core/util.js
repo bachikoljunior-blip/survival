@@ -89,11 +89,11 @@ export function mmss(sec) {
 }
 
 /** Format a run duration as e.g. "1h 24m". */
-export function duration(sec) {
+export function duration(sec, hSuffix = 'h', mSuffix = 'm') {
   sec = Math.max(0, Math.floor(sec));
   const h = Math.floor(sec / 3600);
   const m = Math.floor((sec % 3600) / 60);
-  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+  return h > 0 ? `${h}${hSuffix} ${m}${mSuffix}` : `${m}${mSuffix}`;
 }
 
 /** Tiny typed event emitter. */

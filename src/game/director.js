@@ -16,6 +16,8 @@ import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS, QUIET } from '../
 import { MODE } from './game.js';
 import { clamp, clamp01, lerp, damp } from '../core/util.js';
 import { PPM } from '../world/gas.js';
+import { t, phrase, questTitle, questSummary, stepText, castName, isCJK }
+  from '../content/i18n.js';
 
 /**
  * The dose below which somebody left standing there does not die.
@@ -68,30 +70,35 @@ export class Director {
     this.quests.on('objective', (id, index, step) => this._updateObjective(id, index, step));
     this.quests.on('start', (id, def) => {
       if (id === 'nessaRun') this._moveNessaDown();
-      g.hud.notice(`<b>${def.title}</b>`, '', 4);
+      g.hud.notice(`<b>${questTitle(id, def.title)}</b>`, '', 4);
       g.emit('sfx', 'questStart');
     });
     this.quests.on('complete', (id, def) => {
-      if (!def.side) g.hud.notice(`<b>${def.title}</b><br>complete`, 'good', 4);
-      else g.hud.notice(`${def.title} — done`, 'good', 3);
+      const qt = questTitle(id, def.title);
+      if (!def.side) g.hud.notice(`<b>${qt}</b><br>${t('ui.quest.complete', 'complete')}`, 'good', 4);
+      else g.hud.notice(`${qt} — ${t('ui.quest.done', 'done')}`, 'good', 3);
       g.emit('sfx', 'questDone');
       this.save();
     });
 
     this.state.on('capability', (id, cap) => {
-      g.hud.notice(`<b>${cap.name}</b><br>${cap.desc}`, 'good', 6);
+      g.hud.notice(`<b>${t(`cap.${id}.name`, cap.name)}</b><br>${t(`cap.${id}.desc`, cap.desc)}`, 'good', 6);
       g.emit('sfx', 'unlock');
     });
-    this.state.on('journal', (j) => g.hud.notice(`Note added — <b>${j.title}</b>`, '', 3));
+    this.state.on('journal', (j) => g.hud.notice(
+      `${t('ui.journal.added', 'Note added')} — <b>${t(`journal.${j.id}.title`, j.title)}</b>`, '', 3));
     this.state.on('item', (id, n, delta) => {
-      if (delta > 0 && ITEMS[id]) g.hud.notice(`${ITEMS[id].name} ×${delta}`, '', 2.4);
+      if (delta > 0 && ITEMS[id]) g.hud.notice(`${t(`item.${id}.name`, ITEMS[id].name)} ×${delta}`, '', 2.4);
     });
     // Trust changes surface as a toast — except on the beats where Ren says
     // the hard true thing. Popping "Sol — She knows what you are now" in red
     // over a confession turns the centre of the story into a score.
     this.state.on('trust', (id, v, delta, reason) => {
       if (!reason || reason === QUIET) return;
-      g.hud.notice(`<b>${CAST[id] ? CAST[id].name : id}</b><br>${reason}`, delta > 0 ? 'good' : 'bad', 3.4);
+      // The reason is an authored English sentence with no id of its own, so it
+      // goes through the phrase glossary, which is keyed on the English.
+      g.hud.notice(`<b>${castName(id, CAST[id] ? CAST[id].name : id)}</b><br>${phrase(reason)}`,
+        delta > 0 ? 'good' : 'bad', 3.4);
     });
 
     g.on('interact', (t) => this.interact(t));
@@ -146,7 +153,7 @@ seconds and I already know which one I believe.`);
           label: 'The Warden line', prompt: 'Show them the order', topic: 'trench_line',
           requiresItem: 'trenchOrder',
         });
-        g.hud.notice('<b>Warden line</b><br>Three of them, on a shift.', 'bad', 4.5);
+        g.hud.notice(t('ui.hud.wardenline', '<b>Warden line</b><br>Three of them, on a shift.'), 'bad', 4.5);
       },
       shutVents: () => {
         for (let i = 1; i <= 3; i++) {
@@ -155,14 +162,15 @@ seconds and I already know which one I believe.`);
           g.atmos.plumes.setAnchorActive(`vent_west_${i}`, false);
         }
         g.gas.setSourceActive('yard_seep', true);
-        g.hud.notice('The draw reverses. You can hear it change.', '', 5);
+        g.hud.notice(t('ui.hud.drawreverses', 'The draw reverses. You can hear it change.'), '', 5);
       },
       halfVents: () => {
         g.gas.setSourceActive('vent_west_2', false);
         g.atmos.setMarkerActive('vent_west_2', false);
         g.atmos.plumes.setAnchorActive('vent_west_2', false);
         g.gas.setIntensity(1.15);
-        g.hud.notice('One head shut. Both places are worse than one could have been.', '', 5);
+        g.hud.notice(t('ui.hud.halfvents',
+          'One head shut. Both places are worse than one could have been.'), '', 5);
       },
       beginCrisis: () => this._beginCrisis(),
       raisePlant: () => this._raisePlant(),
@@ -357,7 +365,7 @@ seconds and I already know which one I believe.`);
       { kind: 'rubble', x: 90, z: 16, w: 16, d: 9, h: 2.6 },   // the spoil heap
     ], 'plant');
     g.atmos.setMarkers(g.city.lightMarkers);
-    g.hud.notice('<b>They started at first light.</b>', 'bad', 5);
+    g.hud.notice(t('ui.hud.firstlight', '<b>They started at first light.</b>'), 'bad', 5);
     g.emit('music', 'crisis');
   }
 
@@ -384,7 +392,7 @@ seconds and I already know which one I believe.`);
       group.push(e);
     }
     this._raidActive = { id, group };
-    g.hud.notice('<b>Ash crew</b><br>in the yard', 'bad', 4);
+    g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
     g.emit('music', 'combat');
     return group;
   }
@@ -403,7 +411,8 @@ seconds and I already know which one I believe.`);
     if (this.state.has('trench_talked')) {
       this.state.set('trench_passed');
       this.state.set('trench_talked_through');
-      g.hud.notice('<b>He steps aside.</b><br>Neither of them decides to have been looking.', 'good', 5);
+      g.hud.notice(t('ui.hud.stepsaside',
+        '<b>He steps aside.</b><br>Neither of them decides to have been looking.'), 'good', 5);
       this.quests.notify('custom', { id: 'trenchPassed' });
       return;
     }
@@ -414,7 +423,7 @@ seconds and I already know which one I believe.`);
       this.state.set('trench_passed');
       if (this._raidActive && this._raidActive.group.some((e) => !e.dead)) {
         this.state.set('trench_slipped');
-        g.hud.notice('<b>Past them.</b><br>Nobody looked up.', 'good', 4);
+        g.hud.notice(t('ui.hud.pastthem', '<b>Past them.</b><br>Nobody looked up.'), 'good', 4);
       }
       this.quests.notify('custom', { id: 'trenchPassed' });
     }
@@ -465,11 +474,13 @@ seconds and I already know which one I believe.`);
       g.gas.setSourceActive('yard_seep', true);
       g.gas.setIntensity(1.9);
       this._markerTargets.crisis = { x: -112, z: -84 };
-      g.hud.notice('<b>The courtyard is filling.</b><br>Pell House, ground floor.', 'bad', 7);
+      g.hud.notice(t('ui.hud.courtyard',
+        '<b>The courtyard is filling.</b><br>Pell House, ground floor.'), 'bad', 7);
     } else {
       g.gas.setIntensity(1.7);
       this._markerTargets.crisis = { x: -60, z: 52 };
-      g.hud.notice('<b>Fenn Street has gone.</b><br>Four people still down there.', 'bad', 7);
+      g.hud.notice(t('ui.hud.fennstreet',
+        '<b>Fenn Street has gone.</b><br>Four people still down there.'), 'bad', 7);
     }
     g.emit('music', 'crisis');
 
@@ -575,7 +586,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     this._escortNag = (this._escortNag || 0) - dt;
     if (d > 16 && this._escortNag <= 0) {
       this._escortNag = 9;
-      g.hud.notice('<i>Nessa</i><br>"I can\'t follow you up that."', 'bad', 3.4);
+      g.hud.notice(t('ui.hud.nessanag', '<i>Nessa</i><br>"I can\'t follow you up that."'), 'bad', 3.4);
     }
 
     const ppm = g.gas.sample(n.pos.x, n.pos.y + 1.5, n.pos.z);
@@ -585,7 +596,8 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       this.state.set('nessa_rescued');
       this._markerTargets.nessaRun = null;
       this.quests.notify('custom', { id: 'nessaOut' });
-      g.hud.notice('<b>Above it.</b><br>She sits down on the felt and does not get up for a while.', 'good', 6);
+      g.hud.notice(t('ui.hud.nessaout',
+        '<b>Above it.</b><br>She sits down on the felt and does not get up for a while.'), 'good', 6);
       g.emit('sfx', 'rescue');
       this.save();
     }
@@ -604,7 +616,11 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       x, z, y: ground ? ground.y + 0.05 : 0.1, rot: (i * 1.7) % (Math.PI * 2),
       world: g.world, gas: g.gas, mats: g.mats,
       costume: 'civ', detail: 1, faction: 'neutral',
-      name: ['Ostrowski', 'A woman with a child', 'An older man', 'Someone in a coat'][i] || 'Someone',
+      // Named people, not spawn slots. The name is shown on the rescue prompt
+      // and again in the notice when they get up, so it goes through `t()`.
+      name: t(`ui.survivor.${i}`,
+        ['Ostrowski', 'A woman with a child', 'An older man', 'Someone in a coat'][i]
+        || t('ui.survivor.4', 'Someone')),
       maxHp: 999, gasImmune: true,
     });
     a.crowdId = `crisis_${i}`;
@@ -671,7 +687,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
         a.leaving = 7;
         m.disabled = true;
         c.rescued++;
-        g.hud.notice(`<b>${c.rescued} of 4</b> up.`, 'good', 3);
+        g.hud.notice(t('ui.hud.rescued', '<b>@n of 4</b> up.').replace('@n', String(c.rescued)), 'good', 3);
         g.emit('sfx', 'rescue');
       }
     }
@@ -711,7 +727,9 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       // chapter is over, which is the whole point of the scene.
       this.state.set('crisis_done');
       this.game.hud.notice(
-        c.lost === 0 ? '<b>All four.</b>' : `<b>${c.rescued} out. ${c.lost} not.</b>`,
+        c.lost === 0 ? t('ui.hud.allfour', '<b>All four.</b>')
+          : t('ui.hud.someout', '<b>@a out. @b not.</b>')
+            .replace('@a', String(c.rescued)).replace('@b', String(c.lost)),
         c.lost === 0 ? 'good' : 'bad', 7);
       this.game.emit('music', 'explore');
       // Everyone who got up walks off; everyone who did not is left where the
@@ -732,48 +750,48 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
 
   // ---------------------------------------------------------- interactions
 
-  interact(t) {
+  interact(it) {
     const g = this.game;
-    if (!t) return;
+    if (!it) return;
 
-    switch (t.kind) {
+    switch (it.kind) {
       case 'climb':
         g.player.tryClimb();
         return;
 
       case 'door': {
-        if (t.locked && !testCondition(t.unlockIf, this.state)) {
-          g.hud.notice(t.lockedPrompt || 'Locked.', 'bad', 2.6);
+        if (it.locked && !testCondition(it.unlockIf, this.state)) {
+          g.hud.notice(it.lockedPrompt ? phrase(it.lockedPrompt) : t('ui.hud.locked', 'Locked.'), 'bad', 2.6);
           g.emit('sfx', 'locked');
           return;
         }
         // Coming in off the north elevation means nobody ran a pass reader,
         // which Krajcik notices and mentions.
-        if (t.id === 'survey_backdoor') this.state.set('entered_unlogged');
-        this.game._guard(this.enterDoor(t), MODE.PLAY);
+        if (it.id === 'survey_backdoor') this.state.set('entered_unlogged');
+        this.game._guard(this.enterDoor(it), MODE.PLAY);
         return;
       }
 
       case 'take': {
-        if (t.taken) return;
-        t.taken = true;
-        t.disabled = true;
-        this.state.give(t.item, t.n ?? 1);
+        if (it.taken) return;
+        it.taken = true;
+        it.disabled = true;
+        this.state.give(it.item, it.n ?? 1);
         g.emit('sfx', 'pickup');
-        this.quests.notify('collect', { item: t.item });
-        this.quests.notify('interact', { id: t.id });
+        this.quests.notify('collect', { item: it.item });
+        this.quests.notify('interact', { id: it.id });
         this.save();
         return;
       }
 
       case 'examine': {
-        this._examine(t);
-        this.quests.notify('interact', { id: t.id });
+        this._examine(it);
+        this.quests.notify('interact', { id: it.id });
         return;
       }
 
       case 'vent': {
-        this._ventInteract(t);
+        this._ventInteract();
         return;
       }
 
@@ -781,58 +799,61 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
       // is scenery you are told to remember; with it, it is the reason to walk
       // down a street you had no errand on.
       case 'breach': {
-        if (t.taken) return;
+        if (it.taken) return;
         if (!this.state.can('breach')) {
-          g.hud.notice('The boards are nailed through into the frame. Not with this.', '', 3);
+          g.hud.notice(t('ui.hud.boards',
+            'The boards are nailed through into the frame. Not with this.'), '', 3);
           g.emit('sfx', 'locked');
           return;
         }
-        t.taken = true;
-        t.disabled = true;
+        it.taken = true;
+        it.disabled = true;
         g.player.animator.play('interact', { fade: 0.1 });
         g.emit('sfx', 'breach');
-        g.atmos.spawnBurst('dust', t.x, t.y, t.z, 0, 1, 0, 14, 1.2);
-        const loot = t.loot || [['salvage', 2]];
+        g.atmos.spawnBurst('dust', it.x, it.y, it.z, 0, 1, 0, 14, 1.2);
+        const loot = it.loot || [['salvage', 2]];
         const names = [];
         for (const [item, n] of loot) {
           this.state.give(item, n);
           this.quests.notify('collect', { item });
-          names.push(`${ITEMS[item] ? ITEMS[item].name : item} ×${n}`);
+          names.push(`${ITEMS[item] ? t(`item.${item}.name`, ITEMS[item].name) : item} ×${n}`);
         }
-        this.quests.notify('interact', { id: t.id });
-        g.hud.notice(`<b>${t.reveal || 'Behind the boards'}</b><br>${names.join(', ')}`, 'good', 4.5);
-        if (t.journal) this.state.addJournal(t.journal[0], t.journal[1], t.journal[2]);
+        this.quests.notify('interact', { id: it.id });
+        g.hud.notice(`<b>${it.reveal ? phrase(it.reveal) : t('ui.hud.behindboards', 'Behind the boards')}</b>` +
+          `<br>${names.join(', ')}`, 'good', 4.5);
+        if (it.journal) this.state.addJournal(it.journal[0], it.journal[1], it.journal[2]);
         this.state.bump('breached');
         this.save();
         return;
       }
 
       case 'rescue': {
-        if (t.id === 'nessa_down') {
+        if (it.id === 'nessa_down') {
           this.quests.notify('custom', { id: 'nessaFound' });
           return;
         }
-        if (t.disabled || !t.actor || t.actor.following) return;
-        t.actor.following = true;
-        t.actor.crouch = 0;
-        t.actor.animator.locomotion.crouch = 0;
-        t.actor.animator.play('interact', { fade: 0.12 });
+        if (it.disabled || !it.actor || it.actor.following) return;
+        it.actor.following = true;
+        it.actor.crouch = 0;
+        it.actor.animator.locomotion.crouch = 0;
+        it.actor.animator.play('interact', { fade: 0.12 });
         g.emit('sfx', 'rescue');
-        g.hud.notice(`<b>${t.actor.name}</b> is on their feet. Get them up somewhere.`, '', 4);
+        g.hud.notice(t('ui.hud.ontheirfeet', '<b>@n</b> is on their feet. Get them up somewhere.')
+          .replace('@n', it.actor.name), '', 4);
         return;
       }
 
       case 'npc': {
-        this.talkTo(t.npc);
+        this.talkTo(it.npc);
         return;
       }
 
       default:
-        if (t.npc) this.talkTo(t.npc);
+        if (it.npc) this.talkTo(it.npc);
     }
   }
 
-  _examine(t) {
+  _examine(spec) {
     const TOPICS = {
       // The letter that brought her back. Teo paraphrases it in chapter two
       // and then argues it out of relevance; the player should have read it
@@ -996,7 +1017,7 @@ she has been able to get to telling somebody.`],
         ],
       },
     };
-    const topic = TOPICS[t.topic];
+    const topic = TOPICS[spec.topic];
     if (!topic) return;
     const g = this.game;
     g.setMode(MODE.DIALOGUE);
@@ -1011,32 +1032,40 @@ she has been able to get to telling somebody.`],
         g.setMode(MODE.PLAY);
         return;
       }
-      g.dialogueUI.show({ speaker: 'system', text: topic.lines[i++] }, null);
+      const n = i++;
+      g.dialogueUI.show(
+        { speaker: 'system', text: t(`topic.${spec.topic}.lines.${n}`, topic.lines[n]) }, null);
     };
     g.dialogueUI.onAdvance = show;
     show();
     // A hand-written journal entry where the topic has one; the raw line dump
     // is a fallback, and it reads like a fallback.
+    //
+    // What is stored is always the English, so a save written in Japanese and
+    // reopened in English does not carry a Japanese page in its journal; the
+    // journal panel translates on the way to the screen.
     if (topic.journal) this.state.addJournal(topic.journal[0], topic.journal[1], topic.journal[2]);
-    else this.state.addJournal(`examine:${t.topic}`, topic.title, topic.lines.join(' '));
+    else this.state.addJournal(`examine:${spec.topic}`, topic.title, topic.lines.join(' '));
     if (topic.flag) this.state.set(topic.flag);
-    if (t.startsQuest) this.quests.start(t.startsQuest);
+    if (spec.startsQuest) this.quests.start(spec.startsQuest);
   }
 
-  _ventInteract(t) {
+  _ventInteract() {
     const S = this.state;
     if (!S.has('found_venting')) {
       S.set('found_venting');
       this.quests.notify('interact', { id: 'vent_west_1' });
-      this.game.hud.notice('<b>Cracked and wedged.</b><br>Somebody did this deliberately.', '', 5);
+      this.game.hud.notice(t('ui.hud.cracked',
+        '<b>Cracked and wedged.</b><br>Somebody did this deliberately.'), '', 5);
       return;
     }
     if (S.has('vents_shut') || S.has('vents_left') || S.has('vents_half')) {
-      this.game.hud.notice('Nothing more to do here.', '', 2);
+      this.game.hud.notice(t('ui.hud.nothingmore', 'Nothing more to do here.'), '', 2);
       return;
     }
     if (!S.can('rigVent') && !S.has('sol_vent_talked')) {
-      this.game.hud.notice('Talk to Sol first. She will not thank you, but she will tell you.', '', 4);
+      this.game.hud.notice(t('ui.hud.talksolfirst',
+        'Talk to Sol first. She will not thank you, but she will tell you.'), '', 4);
       return;
     }
     this.startConversation(CONVERSATIONS.vent_decision, null, () => {
@@ -1080,6 +1109,15 @@ she has been able to get to telling somebody.`],
    * carrying the log. Resolving it here keeps that logic in one readable place
    * instead of scattered through the dialogue data.
    */
+  /**
+   * The conversation table, for probes.
+   *
+   * Exposed here rather than on the window handle so a test drives the same
+   * object the director drives — a probe that reaches for its own copy of the
+   * content is proving something about its copy.
+   */
+  get conversations() { return CONVERSATIONS; }
+
   convoFor(npcId) {
     const S = this.state;
     switch (npcId) {
@@ -1152,7 +1190,8 @@ she has been able to get to telling somebody.`],
           npc.downed = false;
           npc.crouch = 0;
           npc.animator.locomotion.crouch = 0;
-          this.game.hud.notice('<b>Nessa is with you.</b><br>Get her above the smoke.', '', 5);
+          this.game.hud.notice(t('ui.hud.nessawith',
+            '<b>Nessa is with you.</b><br>Get her above the smoke.'), '', 5);
         }
       }
       if (onEnd) onEnd();
@@ -1173,8 +1212,14 @@ she has been able to get to telling somebody.`],
     const g = this.game;
     if (!id || !step) { g.hud.setObjective('', ''); g.hud.setMarker(null); return; }
     const def = QUESTS[id];
-    g.hud.setObjective(def.side ? def.title : `CHAPTER ${def.chapter} · ${def.title}`,
-      step.objective + (step.hint ? `<br><span style="opacity:.62;font-size:.86em">${step.hint}</span>` : ''));
+    const title = questTitle(id, def.title);
+    const objective = stepText(id, index, 'objective', step.objective);
+    const hint = step.hint ? stepText(id, index, 'hint', step.hint) : '';
+    // A template, not a word plus a number: Japanese wraps the numeral in
+    // 第…章 and there is nowhere to put the counter word in "CHAPTER 1".
+    const chapter = t('ui.chapter.fmt', 'CHAPTER @n').replace('@n', String(def.chapter));
+    g.hud.setObjective(def.side ? title : `${chapter} · ${title}`,
+      objective + (hint ? `<br><span style="opacity:.62;font-size:.86em">${hint}</span>` : ''));
     const m = this._resolveMarker(step);
     g.hud.setMarker(m);
   }
@@ -1218,21 +1263,28 @@ she has been able to get to telling somebody.`],
       { give: ['salvage', 3], get: ['cell', 1], label: 'Lamp cell' },
       { give: ['salvage', 5], get: ['stim', 1], label: 'Ephedrine tab' },
     ];
-    const nodes = { start: { speaker: 'teo', text: 'Salvage on the left, goods on the right. No credit.', choices: [] } };
+    // Teo's shop is assembled at runtime, so it is translated here rather than
+    // through the conversation table: the row label is the item's own name, and
+    // the price line is a template because "4 salvage" does not put its number
+    // in the same place in every language.
+    const row = t('ui.trade.row', '@item — @n salvage');
+    const nodes = { start: { speaker: 'teo',
+      text: t('ui.trade.intro', 'Salvage on the left, goods on the right. No credit.'), choices: [] } };
     offers.forEach((o, i) => {
       const can = S.hasItem(o.give[0], o.give[1]);
+      const name = ITEMS[o.get[0]] ? t(`item.${o.get[0]}.name`, ITEMS[o.get[0]].name) : o.label;
       nodes.start.choices.push({
-        text: `${o.label} — ${o.give[1]} salvage`,
+        text: row.replace('@item', name).replace('@n', String(o.give[1])),
         if: can ? {} : { flag: '__never__' },
         showLocked: true,
-        why: can ? null : 'Not enough salvage.',
+        why: can ? null : t('ui.trade.poor', 'Not enough salvage.'),
         goto: `buy${i}`,
         effects: [{ take: o.give }, { give: o.get }],
       });
     });
-    nodes.start.choices.push({ text: 'Nothing.', goto: 'end' });
+    nodes.start.choices.push({ text: t('ui.trade.leave', 'Nothing.'), goto: 'end' });
     offers.forEach((o, i) => {
-      nodes[`buy${i}`] = { speaker: 'teo', text: 'Mm.', next: 'start' };
+      nodes[`buy${i}`] = { speaker: 'teo', text: t('ui.trade.mm', 'Mm.'), next: 'start' };
     });
     this.startConversation({ id: 'trade', nodes, start: 'start' }, this.npcs.get('teo'));
   }
@@ -1408,14 +1460,16 @@ she has been able to get to telling somebody.`],
     // beat cannot say "two" to somebody who lost one.
     const lost = S.count('crisis_lost');
     const words = ['nobody', 'one', 'two', 'three', 'four'];
-    const fill = (t) => t.replace(/@n/g, words[Math.min(lost, 4)]).replace(/@N/g, String(lost));
+    const word = (i) => t(`ui.count.${i}`, words[i]);
+    const fill = (s) => s.replace(/@n/g, word(Math.min(lost, 4))).replace(/@N/g, String(lost));
 
-    const paras0 = ending.text.split('\n\n');
+    const src = t(`e.${ending.id}.text`, ending.text);
+    const paras0 = src.split('\n\n');
     const tail = paras0.length > 1 ? paras0.pop() : null;
     const body = paras0;
-    for (const b of ending.beats || []) {
-      if (testCondition(b.condition, S)) body.push(fill(b.text));
-    }
+    (ending.beats || []).forEach((b, i) => {
+      if (testCondition(b.condition, S)) body.push(fill(t(`e.${ending.id}.beats.${i}`, b.text)));
+    });
     if (tail) body.push(tail);
 
     const paras = [];
@@ -1424,10 +1478,11 @@ she has been able to get to telling somebody.`],
       // are both her hearing it from Ren; withholding is not, and the untold
       // epilogue's "she found out on her own" is only true in that third case.
       const heardItFromYou = S.chose('nessa_truth', 'told') || S.chose('nessa_truth', 'gave');
-      paras.push(heardItFromYou ? ending.epilogue.told : ending.epilogue.untold);
+      const which = heardItFromYou ? 'told' : 'untold';
+      paras.push(t(`e.${ending.id}.epilogue.${which}`, ending.epilogue[which]));
     }
     for (const b of EPILOGUE_BEATS) {
-      if (testCondition(b.condition, S)) paras.push(b.text);
+      if (testCondition(b.condition, S)) paras.push(fill(t(`ep.${b.id}`, b.text)));
     }
     // The run's own record, in Ren's voice and in her units, rather than a
     // scoreboard. Every ending in the game used to finish on "Time in Hollis:
@@ -1436,21 +1491,28 @@ she has been able to get to telling somebody.`],
     const n = (k) => S.count(k);
     const plural = (v, one, many) => `${v} ${v === 1 ? one : many}`;
     const ledger = [];
-    ledger.push(`${plural(Math.max(1, Math.floor(S.playTime / 60)), 'minute', 'minutes')} in Hollis.`);
-    if (n('metersRead')) ledger.push(`You lifted the meter ${plural(n('metersRead'), 'time', 'times')}.`);
-    if (S.filtersUsed) ledger.push(`${plural(S.filtersUsed, 'cartridge', 'cartridges')}.`);
-    if (n('crisis_rescued')) ledger.push(`${plural(n('crisis_rescued'), 'person', 'people')} up a stairwell.`);
-    if (n('breached')) ledger.push(`${plural(n('breached'), 'shopfront', 'shopfronts')} opened.`);
-    if (n('parries')) ledger.push(`${plural(n('parries'), 'blow', 'blows')} turned.`);
-    if (n('survivedSaturation')) ledger.push(`You came up out of it on your own legs ${plural(n('survivedSaturation'), 'time', 'times')}.`);
-    if (S.deaths) ledger.push(`You went down ${plural(S.deaths, 'time', 'times')} and got back up.`);
-    paras.push(ledger.join(' '));
+    // Each line's English is already complete — English needs the count folded
+    // into a singular/plural noun, so a "@n minutes" template would not have
+    // held it. The translation is a template carrying `@n`, which is a no-op
+    // against the English fallback because the fallback has no `@n` in it.
+    const line = (key, v, en) => ledger.push(t(`ui.ledger.${key}`, en).replace(/@n/g, String(v)));
+    const mins = Math.max(1, Math.floor(S.playTime / 60));
+    line('minutes', mins, `${plural(mins, 'minute', 'minutes')} in Hollis.`);
+    if (n('metersRead')) line('meters', n('metersRead'), `You lifted the meter ${plural(n('metersRead'), 'time', 'times')}.`);
+    if (S.filtersUsed) line('filters', S.filtersUsed, `${plural(S.filtersUsed, 'cartridge', 'cartridges')}.`);
+    if (n('crisis_rescued')) line('rescued', n('crisis_rescued'), `${plural(n('crisis_rescued'), 'person', 'people')} up a stairwell.`);
+    if (n('breached')) line('breached', n('breached'), `${plural(n('breached'), 'shopfront', 'shopfronts')} opened.`);
+    if (n('parries')) line('parries', n('parries'), `${plural(n('parries'), 'blow', 'blows')} turned.`);
+    if (n('survivedSaturation')) line('survived', n('survivedSaturation'), `You came up out of it on your own legs ${plural(n('survivedSaturation'), 'time', 'times')}.`);
+    if (S.deaths) line('deaths', S.deaths, `You went down ${plural(S.deaths, 'time', 'times')} and got back up.`);
+    paras.push(ledger.join(isCJK() ? '' : ' '));
 
     g.setMode(MODE.CINEMATIC);
     g.hud.setVisible(false);
     g.emit('music', 'ending');
     await g.menus.fadeOut(true);
-    g.menus.showEnding({ ...ending, text: body.join('\n\n') }, paras);
+    g.menus.showEnding(
+      { ...ending, title: t(`e.${ending.id}.title`, ending.title), text: body.join('\n\n') }, paras);
     Storage.save(S, g.player, { completed: true });
     await g.menus.fadeIn(true);
   }
@@ -1501,7 +1563,7 @@ she has been able to get to telling somebody.`],
     // Region discovery and location cards.
     const r = g.zone;
     if (r && this.state.discover(r.id)) {
-      g.hud.showCard('', r.name, '');
+      g.hud.showCard('', t(`region.${r.id}.name`, r.name), '');
       g.emit('sfx', 'discover');
     }
   }
@@ -1520,7 +1582,9 @@ she has been able to get to telling somebody.`],
       best = npc;
     }
     if (!best) return null;
-    return { kind: 'npc', npc: best, label: best.name, prompt: `Speak to ${best.name}`,
+    const who = castName(best.npcId || '', best.name);
+    return { kind: 'npc', npc: best, label: who,
+      prompt: t('ui.speakto', 'Speak to @n').replace('@n', who),
       x: best.pos.x, y: best.pos.y + 1.2, z: best.pos.z };
   }
 
@@ -1542,7 +1606,7 @@ she has been able to get to telling somebody.`],
     switch (it.use) {
       case 'fitFilter':
         if (p.lungs.filter !== null && p.lungs.filter > 0.75) {
-          g.hud.notice('The one you have is still good.', '', 2.2);
+          g.hud.notice(t('ui.hud.filterstillgood', 'The one you have is still good.'), '', 2.2);
           return false;
         }
         S.take(id, 1);
@@ -1550,11 +1614,11 @@ she has been able to get to telling somebody.`],
         p.lungs.fitFilter(1);
         p.animator.play('interact', { fade: 0.1 });
         g.emit('sfx', 'filter');
-        g.hud.notice('Fresh cartridge.', 'good', 2.4);
+        g.hud.notice(t('ui.hud.freshcartridge', 'Fresh cartridge.'), 'good', 2.4);
         return true;
 
       case 'heal': {
-        if (p.hp >= p.maxHp - 1) { g.hud.notice('Nothing to dress.', '', 2); return false; }
+        if (p.hp >= p.maxHp - 1) { g.hud.notice(t('ui.hud.nothingtodress', 'Nothing to dress.'), '', 2); return false; }
         S.take(id, 1);
         p.heal(it.healAmount);
         p.animator.play('interact', { fade: 0.1 });
@@ -1572,7 +1636,7 @@ she has been able to get to telling somebody.`],
         S.take(id, 1);
         p.lampBattery = 1;
         g.emit('sfx', 'pickup');
-        g.hud.notice('Lamp cell replaced.', 'good', 2.4);
+        g.hud.notice(t('ui.hud.lampcell', 'Lamp cell replaced.'), 'good', 2.4);
         return true;
 
       case 'stim':
@@ -1580,7 +1644,7 @@ she has been able to get to telling somebody.`],
         p.stamina = p.maxStamina;
         p.lungs.sat = Math.max(0, p.lungs.sat - 0.07);
         g.emit('sfx', 'stim');
-        g.hud.notice('Your chest opens. It does not put oxygen in the air.', '', 3.4);
+        g.hud.notice(t('ui.hud.stim', 'Your chest opens. It does not put oxygen in the air.'), '', 3.4);
         return true;
 
       default: return false;
@@ -1600,7 +1664,7 @@ she has been able to get to telling somebody.`],
     if (hurt && S.hasItem('bandage')) return this.useItem('bandage');
     if (S.hasItem('filter') && filterSpent) return this.useItem('filter');
     if (S.hasItem('bandage') && p.hp < p.maxHp) return this.useItem('bandage');
-    g.hud.notice('Nothing useful to hand.', '', 2);
+    g.hud.notice(t('ui.hud.nothinguseful', 'Nothing useful to hand.'), '', 2);
     return false;
   }
 }

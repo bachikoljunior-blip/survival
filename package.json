@@ -1,7 +1,7 @@
 {
   "name": "cinderline",
   "version": "1.0.0",
-  "description": "CINDERLINE \u2014 a survival action RPG in a city built over a fire that will not go out.",
+  "description": "CINDERLINE — a survival action RPG in a city built over a fire that will not go out.",
   "main": "src/main.js",
   "scripts": {
     "build": "node build.mjs",
@@ -12,7 +12,8 @@
     "test:content": "node tools/validate.mjs",
     "test:play": "node build.mjs --dev && node tools/playthrough.mjs",
     "test:perf": "node build.mjs && node tools/perf.mjs",
-    "shots": "node build.mjs --dev && node tools/vantage.mjs"
+    "shots": "node build.mjs --dev && node tools/vantage.mjs",
+    "i18n": "node tools/i18n_report.mjs ja && node tools/i18n_glossary.mjs ja"
   },
   "repository": {
     "type": "git",

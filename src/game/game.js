@@ -26,6 +26,7 @@ import { Director } from './director.js';
 import { Storage, DEFAULT_SETTINGS } from './state.js';
 import { TIERS, isPortrait } from '../core/engine.js';
 import { clamp, clamp01, lerp, damp, Emitter, angleDelta } from '../core/util.js';
+import { setLocale, locale, detectLocale, t, phrase, castName } from '../content/i18n.js';
 import { Rng } from '../core/rng.js';
 
 export const MODE = {
@@ -122,6 +123,12 @@ export class Game extends Emitter {
     this.camera.yaw = s.rot;
 
     const ui = document.getElementById('ui');
+    // The language has to be live BEFORE any interface is constructed. The HUD
+    // builds its buttons, compass and air readout once and never rebuilds them,
+    // so a locale applied afterwards would leave HIT / ROLL / GUARD in English
+    // for the whole session.
+    const saved = Storage.loadSettings();
+    setLocale((saved && saved.language) || detectLocale());
     this.combat = new CombatSystem(this);
     this.ai = new AISystem(this);
     this.hud = new HUD(this, ui);
@@ -136,7 +143,7 @@ export class Game extends Emitter {
 
     this._wireFeedback();
     this._wireUI();
-    this.applySettings(Storage.loadSettings() || { ...DEFAULT_SETTINGS });
+    this.applySettings(saved || { ...DEFAULT_SETTINGS });
     return this.player;
   }
 
@@ -168,12 +175,15 @@ export class Game extends Emitter {
       try { navigator.vibrate(d.blocked ? 12 : Math.min(60, 14 + d.amount)); } catch { /* ignore */ }
     });
     // Barks as subtitles, which is what the subtitles setting is for.
-    this.on('bark', (a, lines) => {
+    this.on('bark', (a, lines, kind) => {
       if (!this.settings.subtitles || !this.hud) return;
       const d = Math.hypot(a.pos.x - this.player.pos.x, a.pos.z - this.player.pos.z);
       if (d > 26) return;
       const NAMES = { scav: 'Ash crew', slinger: 'Ash crew', breaker: 'Breaker', warden: 'Warden', dog: '' };
-      this.hud.subtitle(NAMES[a.kind] ?? '', lines[(Math.random() * lines.length) | 0], 3.2);
+      const i = (Math.random() * lines.length) | 0;
+      const who = NAMES[a.kind] ?? '';
+      this.hud.subtitle(who ? t(`ui.bark.${a.kind}`, who) : '',
+        t(`bark.${kind || a.kind}.${i}`, lines[i]), 3.2);
     });
     this.on('actor:footstep', (a, d) => this.emit('sfx', 'step', { x: a.pos.x, y: a.pos.y, z: a.pos.z, ...d }));
     this.on('actor:coughsound', (a, d) => this.emit('sfx', 'cough', { x: a.pos.x, y: a.pos.y + 1.5, z: a.pos.z, player: a === this.player, ...d }));
@@ -254,6 +264,14 @@ export class Game extends Emitter {
     document.documentElement.style.setProperty('--uiscale', String(S.uiScale));
     this.input.lookSensitivity = S.lookSensitivity;
     this.input.invertY = S.invertY;
+    // Language. A stored choice wins; otherwise take one from the browser and
+    // write it back, so the player's first visit is in their language and every
+    // visit after that is in whichever they settled on.
+    if (!S.language) S.language = detectLocale();
+    if (S.language !== locale()) {
+      setLocale(S.language);
+      this.emit('locale', S.language);
+    }
     this.input.leftHanded = S.leftHanded;
     document.body.classList.toggle('lefthanded', !!S.leftHanded);
     this.input.autoSprint = S.autoSprint;
@@ -577,7 +595,11 @@ export class Game extends Emitter {
       if (box && p.state !== STATE.CLIMB) best = { kind: 'climb', label: 'Climb', prompt: 'Climb' };
     }
     p.interactTarget = best;
-    this.hud.setPrompt(best ? (best.prompt || best.label || 'Interact') : '', best && best.kind);
+    // Translated here rather than where the interaction is authored: prompts
+    // come from the world data, the director and this function, and most of
+    // them have no id to key on. `phrase` keys on the English itself.
+    const raw = best ? (best.prompt || best.label || 'Interact') : '';
+    this.hud.setPrompt(raw ? phrase(raw) : '', best && best.kind, raw);
   }
 
   /**

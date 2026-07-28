@@ -89,6 +89,54 @@ Gamepads are supported (standard mapping).
 * **Progression that changes what you can do**, not how big a number is: eight
   capabilities, each unlocked by a specific diegetic event.
 
+### Japanese
+
+The game ships in English and Japanese. The language row is the first thing in
+Settings — above Controls, because it is the one setting a player who cannot
+read the rest of the panel still has to be able to find and operate. On a first
+visit the language is taken from the browser; after that an explicit choice
+always wins, including an explicit choice of English on a Japanese device.
+
+The rule the implementation exists to enforce: **the game's logic never sees a
+translated string.** Flags, node ids, quest ids, choice tags and conditions are
+English identifiers and stay that way. Only the last step before something
+reaches a screen goes through `t()`. Three things follow from that, and all
+three are checked rather than asserted:
+
+* **Saves are language-portable.** `tools/probe_ja_save.mjs` writes state with
+  the game in Japanese, serialises it, and searches the blob for a single kana
+  or kanji — there are none, 0 of 557 bytes — then flips to English and compares
+  flags, counters, quest steps, inventory, journal ids, trust and choices field
+  by field. It also proves the display *did* change, so a passing run cannot
+  mean "nothing happened".
+* **There is one content graph, not two.** `tools/validate.mjs` is unchanged and
+  still walks a single English graph.
+* **A missing key degrades to English, not to blank.** Anything with no entry
+  falls back to the English source and is recorded, so a partial translation is
+  a legitimate, shippable state.
+
+`tools/i18n_report.mjs ja` enumerates every key the running game can ask for —
+by walking the content the way the engine does, not by grepping for strings —
+and diffs it against the table: **882 of 882**, including the fifth beat of an
+ending only two flag combinations reach, the third shout of an enemy that
+appears twice, and the three journal pages the director synthesises from examine
+text. `tools/i18n_glossary.mjs ja` catches the failure that a split translation
+actually has — the same proper noun coming out two different ways in two files,
+invisible in review because each file is internally consistent.
+
+Typography is not just a font swap. Under `html[data-lang="ja"]` the stylesheet
+switches to a CJK stack, sets `line-break: strict`, drops the letter-spacing
+that the all-caps English interface is built on, and raises body sizes and
+line-heights; the dialogue box rejoins hard-wrapped source lines with nothing
+rather than a space (there are no inter-word spaces to restore), types at 26
+characters per second instead of 46, and drops synthetic italics, which Japanese
+fonts do not have and which browsers fake badly.
+
+Measured, not eyeballed: `tools/probe_ja_fit.mjs` drives ten screens at
+667×375 and reports every settings row that wrapped, every choice that grew past
+two lines, every button whose label outgrew its box, and anything that sticks out
+past the viewport. Screenshots of the results are in `shots/ja-*.png`.
+
 ### Everything is generated
 
 There are no art, audio or model assets in this repository, because there are
@@ -109,6 +157,7 @@ none in the game. All of it is produced at runtime by code:
 
 ```bash
 npm run validate     # static content validation, no browser needed
+npm run i18n         # translation completeness + proper-noun consistency
 npm run test:play    # drive five full playthroughs to five different endings
 npm run test:perf    # draw calls, triangles, programs, CPU step cost
 npm test             # all of the above
@@ -140,6 +189,12 @@ nothing.
 complete games — one per ending — through the real quest triggers, the real
 dialogue runner and the real condition evaluator. It never writes a flag
 directly. If a beat cannot be reached by playing, the test fails.
+
+**`tools/i18n_report.mjs`** and **`tools/i18n_glossary.mjs`** are described
+under *Japanese* above. Neither fails the build: a partial translation degrades
+to English rather than to blank text, so it is a legitimate state and these are
+reports, not gates. The glossary tool is the exception — a *rejected* variant
+(the same name spelled two ways) exits non-zero, because that is always a fault.
 
 **`tools/perf.mjs`** reports device-independent cost: draw calls, triangles,
 shader programs, texture and geometry counts, world build time, simulation CPU
@@ -237,14 +292,35 @@ should be verified on the device before any claim is made about it.
   than dying).
 * Saves to `localStorage`. Progress is written on every quest completion, every
   conversation, every item taken, and on a 90-second autosave; it restores
-  position, vitals, filter state, world state and the full story graph.
+  position, vitals, filter state, world state and the full story graph. The save
+  is language-independent — it contains no translated text at all — so it can be
+  written in one language and opened in the other.
+* Japanese text uses whatever the device already has: Hiragino Sans on iOS,
+  Noto Sans CJK JP on Android, Yu Gothic or Meiryo on Windows. Nothing is
+  downloaded, so there is no webfont to fail and no flash of unstyled text. The
+  pre-boot screens — the loading note, the WebGL-context-lost panel, the
+  hard-failure message — carry their own inlined Japanese, because the bundle
+  they would otherwise read it from is exactly what has not loaded yet.
 
 ---
 
 ## Known limitations
 
 * **No physical-device testing.** See above. This is the single most significant
-  gap in the project.
+  gap in the project. Nothing in this document claims a frame rate on any real
+  phone, and the Japanese layout numbers come from a headless Chromium at
+  667×375 — real iOS and Android font metrics differ, and a Japanese label that
+  fits by two pixels here could wrap there.
+* **The Japanese has not been read by a native speaker.** It is careful,
+  internally consistent and checked by two automated instruments, and every
+  screen has been looked at as a rendered frame — but tone, register and the
+  hundred small choices that make prose sound written rather than translated are
+  exactly the things a tool cannot check. Two places are known to be judgement
+  calls rather than settled: the ending prose and the journal are first person
+  「私」 where the English is second person, because sustained Japanese second
+  person is unreadable at that length; and the British floor numbering (ground
+  floor = 1階) is load-bearing for a story about low ground, so it was made
+  consistent across every file rather than left to each translator.
 * **The escort routes are not proven end to end by an automated test.** Chapter
   four requires walking four people up out of the smoke, and chapter two
   requires walking Nessa up. The harness verifies the completion condition

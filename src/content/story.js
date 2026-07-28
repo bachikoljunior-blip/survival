@@ -974,7 +974,7 @@ whether to believe the ninety seconds.`),
       choices: [
         { text: '[Trade]', goto: 'end', effects: [{ fn: 'openTrade' }] },
         { text: "Can you do anything with this bar?", goto: 'a_bar', if: { noCap: 'breach' } },
-        { text: "You said a name. Iris Nadel.", goto: 'a_iris', if: { flag: 'teo_named_iris' } },
+        { text: "You said a name. Iris Nadeau.", goto: 'a_iris', if: { flag: 'teo_named_iris' } },
         { text: "Bek. What was he like?", goto: 'a_bek', if: { flag: 'ren_asked_bek' } },
         { text: "Field 9. Half those heads are mine.", goto: 'a_field', if: { flag: 'ren_knows_field' } },
         { text: "Tell me about the Cinder Line.", goto: 'a_line' },
@@ -983,7 +983,7 @@ whether to believe the ninety seconds.`),
       ],
     },
     a_iris: {
-      ...line('teo', `Nadel. Yes. She does the reduction — takes the raw numbers and turns them into
+      ...line('teo', `Nadeau. Yes. She does the reduction — takes the raw numbers and turns them into
 the line they print.
 
 She came in here once, about a year ago, and bought four cartridges she plainly
@@ -2216,7 +2216,7 @@ carrying them.`, 'quiet'),
       next: 'end',
     },
     e_cut_self: {
-      ...ren(`Nadel will not put her name on it. She is standing at the back with her hands
+      ...ren(`Nadeau will not put her name on it. She is standing at the back with her hands
 in her sleeves and she will not look at me, and she is entirely within her
 rights.
 

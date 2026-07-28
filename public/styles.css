@@ -23,8 +23,16 @@
   --cold:       #6fa8bd;
 
   /* Type */
-  --ui-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --ui-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  /* Latin first, then the CJK faces every target platform actually ships:
+     Hiragino on iOS/macOS, Noto/Yu Gothic on Android and Windows. Nothing is
+     downloaded — a webfont for CJK is megabytes, and this game has no network
+     after load. */
+  --cjk: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+         "Noto Sans CJK JP", "Yu Gothic", YuGothic, Meiryo, sans-serif;
+  --cjk-mono: "SF Mono", ui-monospace, "Noto Sans Mono CJK JP", "Hiragino Sans",
+              "Yu Gothic", Meiryo, monospace;
+  --ui-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, var(--cjk);
+  --ui-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", var(--cjk-mono);
 
   /* Safe areas — resolved once here so every panel can inset consistently. */
   --sa-t: env(safe-area-inset-top, 0px);
@@ -973,3 +981,66 @@ body.reduced #rotate .ico,
 body.reduced .card.on { animation: none !important; }
 body.reduced .card.on { opacity: 1; }
 body.reduced .fx-num { animation-duration: 0.5s; }
+
+
+/* ==========================================================================
+   Japanese
+   ==========================================================================
+   Japanese sets differently from English in three ways that matter at 667x375:
+   there are no spaces to break on, the glyphs need more vertical room to stay
+   legible, and letter-spacing that reads as "instrument panel" in Latin reads
+   as broken in kana. Everything below is scoped so the English layout is
+   untouched.
+   ========================================================================== */
+
+html[data-lang="ja"] body,
+html[data-lang="ja"] .btn,
+html[data-lang="ja"] .sub,
+html[data-lang="ja"] .dlg-txt {
+  /* Break anywhere a Japanese line legally can, and never mid-punctuation. */
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Tracking. The interface uses wide letter-spacing as a design signature; in
+   kana and kanji the same value simply looks like a fault, so headings keep a
+   trace of it and body text loses it entirely. */
+html[data-lang="ja"] .h,
+html[data-lang="ja"] .boot-mark,
+html[data-lang="ja"] .card .t,
+html[data-lang="ja"] .title-mark .nm { letter-spacing: 0.14em; text-indent: 0; }
+html[data-lang="ja"] .sub,
+html[data-lang="ja"] .dlg-txt,
+html[data-lang="ja"] .notice,
+html[data-lang="ja"] .item .nm,
+html[data-lang="ja"] .btn { letter-spacing: 0.01em; }
+
+/* Size and leading. CJK needs roughly one more pixel and more line height to
+   stay readable at the same physical size, because the glyphs are denser. */
+html[data-lang="ja"] .dlg-txt { font-size: calc(11.5px * var(--uiscale)); line-height: 1.72; }
+html[data-lang="ja"] .sub      { font-size: calc(11.5px * var(--uiscale)); line-height: 1.78; }
+html[data-lang="ja"] .btn      { font-size: calc(12px * var(--uiscale)); }
+html[data-lang="ja"] .dlg-choice { font-size: calc(11px * var(--uiscale)); line-height: 1.5; }
+html[data-lang="ja"] .notice   { font-size: calc(11px * var(--uiscale)); line-height: 1.5; }
+html[data-lang="ja"] .item .nm { font-size: calc(11.5px * var(--uiscale)); }
+html[data-lang="ja"] .item .nm i { font-size: calc(10px * var(--uiscale)); }
+html[data-lang="ja"] .prompt   { font-size: calc(11.5px * var(--uiscale)); }
+html[data-lang="ja"] .task     { font-size: calc(11px * var(--uiscale)); line-height: 1.5; }
+html[data-lang="ja"] .dlg-who  { font-size: calc(10.5px * var(--uiscale)); letter-spacing: 0.08em; }
+
+/* The dialogue box holds one more line of Japanese than of English at the same
+   height, so the choice list needs its share back. */
+html[data-lang="ja"] .dlg-txt { min-height: calc(3.4em); }
+
+/* Numerals stay Latin and stay monospaced — a ppm reading is an instrument
+   readout in any language. */
+html[data-lang="ja"] .ppm,
+html[data-lang="ja"] .air .unit,
+html[data-lang="ja"] .air .filter,
+html[data-lang="ja"] .bar > .lbl,
+html[data-lang="ja"] .perf,
+html[data-lang="ja"] .compass .tick { font-family: var(--ui-mono); }
+
+/* Vertical rhythm in the ending, which is the longest prose in the game. */
+html[data-lang="ja"] .screen.ending .sub { line-height: 1.9; }

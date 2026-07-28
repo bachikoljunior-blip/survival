@@ -24,6 +24,13 @@
  */
 
 import { Emitter, clamp, clamp01 } from '../core/util.js';
+import { t, localiseNode, questTitle, questSummary, stepText } from '../content/i18n.js';
+
+/** Chapter cards are authored with the number spelled out; the table uses it. */
+const CARD_N = {
+  'CHAPTER ONE': 1, 'CHAPTER TWO': 2, 'CHAPTER THREE': 3,
+  'CHAPTER FOUR': 4, 'CHAPTER FIVE': 5,
+};
 
 // ---------------------------------------------------------------- evaluate --
 
@@ -89,7 +96,16 @@ export function applyEffects(effects, S, ctx) {
     if (e.fail && ctx && ctx.quests) ctx.quests.fail(e.fail);
     if (e.fn && ctx && ctx.hooks && ctx.hooks[e.fn]) ctx.hooks[e.fn](S, ctx, e.arg);
     if (e.notice && ctx && ctx.game) ctx.game.hud.notice(e.notice[0], e.notice[1] || '');
-    if (e.card && ctx && ctx.game) ctx.game.hud.showCard(e.card[0], e.card[1], e.card[2]);
+    // A card effect carries no id, so the key comes from the chapter number
+    // spelled out in its own kicker ("CHAPTER TWO" -> 2). That is the number
+    // the card is about, and it is what a translator wants to see in the table.
+    if (e.card && ctx && ctx.game) {
+      const n = CARD_N[String(e.card[0]).trim().toUpperCase()] || e.card[0];
+      ctx.game.hud.showCard(
+        t(`ui.card.${n}.kicker`, e.card[0]),
+        t(`ui.card.${n}.title`, e.card[1]),
+        t(`ui.card.${n}.sub`, e.card[2]));
+    }
   }
 }
 
@@ -137,7 +153,12 @@ export class DialogueRunner extends Emitter {
     if (n.effects) applyEffects(n.effects, this.S, this.ctx);
     // A node with no text is a pure branch point.
     if (!n.text && (n.next || n.branch)) return this.advance();
-    this.emit('node', this.node, this.choices());
+    // Translate at the last possible moment. Everything above this line — the
+    // node id, the effects, the branch conditions — is the English identifier
+    // graph and stays that way, so a save made in one language loads in the
+    // other and the content validator has one graph to check rather than two.
+    const L = localiseNode(this.convo.id, this.node, this.choices());
+    this.emit('node', L.node, L.choices);
     return this.node;
   }
 
@@ -146,11 +167,16 @@ export class DialogueRunner extends Emitter {
     const n = this.node;
     if (!n || !n.choices) return null;
     const out = [];
-    for (const c of n.choices) {
+    // `ci` is the AUTHORED index, carried through the filter. The visible list
+    // shrinks when a conditional choice fails, so the position in that list is
+    // not a stable identity — a translation keyed on it would attach to a
+    // different line depending on game state. This is also the right id for
+    // anything else that ever needs to name a specific choice.
+    n.choices.forEach((c, ci) => {
       const ok = testCondition(c.if, this.S);
-      if (!ok && !c.showLocked) continue;
-      out.push({ ...c, locked: !ok });
-    }
+      if (!ok && !c.showLocked) return;
+      out.push({ ...c, locked: !ok, ci });
+    });
     return out.length ? out : null;
   }
 

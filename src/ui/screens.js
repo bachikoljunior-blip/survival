@@ -10,6 +10,8 @@ import { CAST } from '../content/story.js';
 import { ITEMS, CAPABILITIES, CHARACTERS, DEFAULT_SETTINGS } from '../game/state.js';
 import { clamp, clamp01, lerp, duration } from '../core/util.js';
 import { Rng } from '../core/rng.js';
+import { t, setLocale, locale, isCJK, castName, questTitle, questSummary, stepText, LOCALES }
+  from '../content/i18n.js';
 
 const el = (tag, cls, parent, text) => {
   const n = document.createElement(tag);
@@ -83,7 +85,8 @@ export class DialogueUI {
     this.box = el('div', 'dlg-box hit', this.node);
     this.who = el('div', 'dlg-who', this.box);
     this.txt = el('div', 'dlg-txt', this.box);
-    this.next = el('div', 'dlg-next', this.box, 'TAP TO CONTINUE');
+    this.next = el('div', 'dlg-next', this.box, t('ui.dlg.next', 'TAP TO CONTINUE'));
+    this.game.on('locale', () => { this.next.textContent = t('ui.dlg.next', 'TAP TO CONTINUE'); });
     this.choiceWrap = el('div', 'dlg-choicewrap', this.node);
     this.choicesNode = el('div', 'dlg-choices scroll hit', this.choiceWrap);
     this.choicesNode.addEventListener('scroll', () => this._updateChoiceOverflow(), { passive: true });
@@ -115,10 +118,14 @@ export class DialogueUI {
     this._speaker = node.speaker;
     this._voiceAt = 0;
     const cast = CAST[node.speaker];
-    const name = node.speaker === 'ren' ? 'REN'
+    // Japanese has no case, so toUpperCase() is a no-op there and the name
+    // arrives as written. The all-caps look is an English-only affectation and
+    // the stylesheet drops the letter-spacing that went with it under `ja`.
+    const raw = node.speaker === 'ren' ? 'REN'
       : node.speaker === 'ostrowski' ? 'OSTROWSKI'
       : node.speaker === 'system' ? ''
       : (cast ? cast.name.toUpperCase() : String(node.speaker || '').toUpperCase());
+    const name = raw ? castName(node.speaker, raw) : '';
     this.who.innerHTML = name
       ? `${name}${node.mood ? ` <span class="mood">— ${node.mood}</span>` : ''}`
       : '<span class="mood">…</span>';
@@ -127,8 +134,17 @@ export class DialogueUI {
 
     this._drawPortrait(node.speaker);
 
-    this.full = (node.text || '').replace(/\n(?!\n)/g, ' ').replace(/ {2,}/g, ' ').trim();
+    // Source text is hard-wrapped for readability in the content file. In
+    // English a wrap point is a word boundary and rejoining with a space is
+    // correct; in Japanese there are no inter-word spaces, so the same join
+    // sprays gaps through every sentence. Rejoin with nothing there.
+    const glue = isCJK() ? '' : ' ';
+    this.full = (node.text || '').replace(/\n(?!\n)/g, glue).replace(/ {2,}/g, ' ').trim();
     this.shown = 0;
+    // Japanese carries roughly two and a half times the meaning per character,
+    // so the English rate reads as a flicker. Matched by eye against the
+    // English line duration rather than by character count.
+    this.speed = isCJK() ? 26 : 46;
     this.typing = true;
     this.choiceList = null;
     this.choicesNode.innerHTML = '';
@@ -145,7 +161,7 @@ export class DialogueUI {
       this.choicesNode.innerHTML = '';
       choices.forEach((c, i) => {
         const b = el('div', `dlg-choice ${c.locked ? 'locked' : ''}`, this.choicesNode);
-        const tagText = c.tag || (c.locked ? 'locked' : null);
+        const tagText = c.tag || (c.locked ? t('ui.dlg.locked', 'locked') : null);
         b.innerHTML = (tagText ? `<span class="tag ${c.locked ? 'locked' : ''}">${tagText}</span>` : '') +
                       c.text +
                       (c.locked && c.why ? `<span class="why">${c.why}</span>` : '');
@@ -269,13 +285,38 @@ export class Menus {
     this.settings = { ...DEFAULT_SETTINGS };
     this.onSettingsChanged = null;
 
+    this._build();
+    this.current = null;
+
+    // Changing language rebuilds every screen. These are built once and
+    // shown/hidden rather than rebuilt per frame, so nothing would otherwise
+    // pick up a new language until the next reload — and a player who has just
+    // switched to a language they can read should not have to find the reload
+    // button in one they cannot.
+    game.on('locale', () => this.rebuild());
+  }
+
+  _build() {
     this._buildTitle();
     this._buildPause();
     this._buildDeath();
     this._buildFade();
     this._buildRotate();
     this._buildEnding();
-    this.current = null;
+  }
+
+  /** Tear the interface down and build it again in the current language. */
+  rebuild() {
+    const wasTitle = this.titleNode && this.titleNode.classList.contains('on');
+    const wasPause = this.pauseNode && this.pauseNode.classList.contains('on');
+    const tab = this.currentTab;
+    for (const n of [this.titleNode, this.pauseNode, this.deathNode, this.fadeNode,
+                     this.rotateNode, this.endNode]) {
+      if (n && n.parentNode) n.parentNode.removeChild(n);
+    }
+    this._build();
+    if (wasTitle) this.showTitle(this._hadSave);
+    if (wasPause) this.openPause(tab || 'status', true);
   }
 
   // ------------------------------------------------------------------ title
@@ -290,8 +331,8 @@ export class Menus {
     const mark = el('div', 'title-mark', wrap);
     el('h1', '', mark, 'CINDERLINE');
     el('div', 'rule-em', mark);
-    el('div', 'tagline', mark,
-      'A city built over a fire that will not go out. The low ground is where the air kills you. Climb, or choke.');
+    el('div', 'tagline', mark, t('ui.tagline',
+      'A city built over a fire that will not go out. The low ground is where the air kills you. Climb, or choke.'));
     // Storage failures (iOS private browsing) are announced here, once, before
     // the player has spent an hour on a run that cannot be saved.
     this.titleWarn = el('div', 'tagline', mark, '');
@@ -306,10 +347,10 @@ export class Menus {
       this.titleButtons[key] = b;
       return b;
     };
-    tap(add('continue', 'CONTINUE', ''), () => this.game.emit('ui:continue'));
-    tap(add('new', 'NEW GAME', ''), () => this.game.emit('ui:newgame'));
-    tap(add('settings', 'SETTINGS', ''), () => this.openPause('settings', true));
-    tap(add('credits', 'ABOUT', ''), () => this.openPause('about', true));
+    tap(add('continue', t('ui.continue', 'CONTINUE'), ''), () => this.game.emit('ui:continue'));
+    tap(add('new', t('ui.newgame', 'NEW GAME'), ''), () => this.game.emit('ui:newgame'));
+    tap(add('settings', t('ui.settings', 'SETTINGS'), ''), () => this.openPause('settings', true));
+    tap(add('credits', t('ui.about', 'ABOUT'), ''), () => this.openPause('about', true));
   }
 
   /** One-time warning shown on the title screen (e.g. storage unavailable). */
@@ -319,6 +360,7 @@ export class Menus {
   }
 
   showTitle(hasSave) {
+    this._hadSave = hasSave;
     this.titleButtons.continue.classList.toggle('off', !hasSave);
     this.titleButtons.continue.style.display = hasSave ? '' : 'none';
     this.titleNode.classList.add('on');
@@ -333,7 +375,7 @@ export class Menus {
     const inner = el('div', 'screen-inner', s);
 
     const head = el('div', 'screen-head', inner);
-    this.pauseTitle = el('div', 'screen-title', head, 'PAUSED');
+    this.pauseTitle = el('div', 'screen-title', head, t('ui.paused', 'PAUSED'));
     const close = el('div', 'close hit', head, '✕');
     tap(close, () => this.closePause());
 
@@ -353,12 +395,12 @@ export class Menus {
       return p;
     };
 
-    this._buildStatusPanel(mkTab('status', 'Status'));
-    this._buildInventoryPanel(mkTab('items', 'Kit'));
-    this._buildJournalPanel(mkTab('journal', 'Journal'));
-    this._buildMapPanel(mkTab('map', 'Map'));
-    this._buildSettingsPanel(mkTab('settings', 'Settings'));
-    this._buildAboutPanel(mkTab('about', 'About'));
+    this._buildStatusPanel(mkTab('status', t('ui.tab.status', 'Status')));
+    this._buildInventoryPanel(mkTab('items', t('ui.tab.items', 'Kit')));
+    this._buildJournalPanel(mkTab('journal', t('ui.tab.journal', 'Journal')));
+    this._buildMapPanel(mkTab('map', t('ui.tab.map', 'Map')));
+    this._buildSettingsPanel(mkTab('settings', t('ui.tab.settings', 'Settings')));
+    this._buildAboutPanel(mkTab('about', t('ui.tab.about', 'About')));
 
     const foot = el('div', '', inner);
     foot.style.flex = '0 0 auto';
@@ -366,15 +408,15 @@ export class Menus {
     foot.style.gap = '6px';
     foot.style.marginTop = '5px';
     const saveBtn = el('div', 'btn hit', foot);
-    saveBtn.innerHTML = 'SAVE';
+    saveBtn.innerHTML = t('ui.save', 'SAVE');
     saveBtn.style.width = 'auto';
     tap(saveBtn, () => this.game.emit('ui:save'));
     const quitBtn = el('div', 'btn hit', foot);
-    quitBtn.innerHTML = 'TITLE';
+    quitBtn.innerHTML = t('ui.title', 'TITLE');
     quitBtn.style.width = 'auto';
     tap(quitBtn, () => this.game.emit('ui:quit'));
     const resumeBtn = el('div', 'btn hit', foot);
-    resumeBtn.innerHTML = 'RESUME';
+    resumeBtn.innerHTML = t('ui.resume', 'RESUME');
     resumeBtn.style.width = 'auto';
     resumeBtn.style.marginLeft = 'auto';
     tap(resumeBtn, () => this.closePause());
@@ -389,17 +431,20 @@ export class Menus {
     const S = this.game.state;
     const pl = this.game.player;
     p.innerHTML = '';
-    el('div', 'h', p, 'RENATA VASKO');
-    el('div', 'sub', p, CAST.ren.bio.replace(/\n/g, ' '));
+    // Deliberately NOT castName(): that resolves the dialogue-box speaker
+    // label, which is the short form. This heading is her full name.
+    el('div', 'h', p, t('ui.ren', 'RENATA VASKO'));
+    el('div', 'sub', p, t('cast.ren.bio', CAST.ren.bio).replace(/\n/g, ' '));
     el('div', 'rule', p);
 
-    el('div', 'h', p, 'CONDITION');
+    el('div', 'h', p, t('ui.condition', 'CONDITION'));
     const rows = [
-      ['Health', `${Math.round(pl.hp)} / ${pl.maxHp}`],
-      ['Blood saturation', `${Math.round(pl.lungs.sat * 100)}%`],
-      ['Filter', pl.lungs.filterPercent < 0 ? 'none fitted' : `${pl.lungs.filterPercent}%`],
-      ['Lamp cell', `${Math.round(pl.lampBattery * 100)}%`],
-      ['Carried', `${S.carriedWeight.toFixed(1)} kg`],
+      [t('ui.stat.health', 'Health'), `${Math.round(pl.hp)} / ${pl.maxHp}`],
+      [t('ui.stat.sat', 'Blood saturation'), `${Math.round(pl.lungs.sat * 100)}%`],
+      [t('ui.stat.filter', 'Filter'), pl.lungs.filterPercent < 0
+        ? t('ui.stat.filter.none', 'none fitted') : `${pl.lungs.filterPercent}%`],
+      [t('ui.stat.lamp', 'Lamp cell'), `${Math.round(pl.lampBattery * 100)}%`],
+      [t('ui.stat.carried', 'Carried'), `${S.carriedWeight.toFixed(1)} ${t('ui.unit.kg', 'kg')}`],
     ];
     for (const [k, v] of rows) {
       const r = el('div', 'item', p);
@@ -408,7 +453,7 @@ export class Menus {
     }
 
     el('div', 'rule', p);
-    el('div', 'h', p, 'WHAT YOU CAN DO');
+    el('div', 'h', p, t('ui.abilities', 'WHAT YOU CAN DO'));
     let any = false;
     for (const id in CAPABILITIES) {
       if (!S.can(id)) continue;
@@ -416,30 +461,41 @@ export class Menus {
       const c = CAPABILITIES[id];
       const r = el('div', 'item', p);
       el('div', 'glyph', r, '●');
-      const nm = el('div', 'nm', r, c.name);
-      el('i', '', nm, c.desc);
+      const nm = el('div', 'nm', r, t(`cap.${id}.name`, c.name));
+      el('i', '', nm, t(`cap.${id}.desc`, c.desc));
     }
-    if (!any) el('div', 'sub', p, 'Nothing yet. Everything you learn here, someone will have taught you.');
+    if (!any) {
+      el('div', 'sub', p, t('ui.abilities.none',
+        'Nothing yet. Everything you learn here, someone will have taught you.'));
+    }
 
     el('div', 'rule', p);
-    el('div', 'h', p, 'PEOPLE');
+    el('div', 'h', p, t('ui.people', 'PEOPLE'));
     for (const id in CHARACTERS) {
       if (!S.has(`${id}_met`) && !S.flags.has(`${id}_met`) && S.trustOf(id) === 0 && id !== 'teo') continue;
-      const t = S.trustOf(id);
+      const tr = S.trustOf(id);
       const r = el('div', 'item', p);
-      el('div', 'glyph', r, t > 25 ? '◈' : t < -25 ? '◇' : '◆');
-      const nm = el('div', 'nm', r, CHARACTERS[id].name);
-      el('i', '', nm, CHARACTERS[id].role);
-      el('span', 'qty', r, t > 40 ? 'trusts you' : t > 12 ? 'warming' : t < -40 ? 'done with you' : t < -12 ? 'wary' : 'neutral');
+      el('div', 'glyph', r, tr > 25 ? '◈' : tr < -25 ? '◇' : '◆');
+      const nm = el('div', 'nm', r, castName(id, CHARACTERS[id].name));
+      el('i', '', nm, t(`cast.${id}.role`, CHARACTERS[id].role));
+      el('span', 'qty', r,
+        tr > 40 ? t('ui.trust.trusts', 'trusts you')
+          : tr > 12 ? t('ui.trust.warming', 'warming')
+            : tr < -40 ? t('ui.trust.done', 'done with you')
+              : tr < -12 ? t('ui.trust.wary', 'wary')
+                : t('ui.trust.neutral', 'neutral'));
     }
 
     el('div', 'rule', p);
-    el('div', 'h', p, 'RUN');
+    el('div', 'h', p, t('ui.run', 'RUN'));
     const stats = [
-      ['Time in Hollis', duration(S.playTime)],
-      ['Chapter', String(S.chapter)],
-      ['Filters spent', String(S.filtersUsed)],
-      ['Deaths', String(S.deaths)],
+      // Unit suffixes are translatable because "2h 15m" is not how the same
+      // quantity is written in Japanese.
+      [t('ui.run.time', 'Time in Hollis'),
+        duration(S.playTime, t('ui.unit.h', 'h'), t('ui.unit.m', 'm'))],
+      [t('ui.run.chapter', 'Chapter'), String(S.chapter)],
+      [t('ui.run.filters', 'Filters spent'), String(S.filtersUsed)],
+      [t('ui.run.deaths', 'Deaths'), String(S.deaths)],
     ];
     for (const [k, v] of stats) {
       const r = el('div', 'item', p);
@@ -454,29 +510,29 @@ export class Menus {
     const p = this.invPanel;
     const S = this.game.state;
     p.innerHTML = '';
-    el('div', 'h', p, 'CARRIED');
+    el('div', 'h', p, t('ui.carried', 'CARRIED'));
     const entries = [...S.inventory.entries()].filter(([id]) => ITEMS[id]);
-    if (!entries.length) el('div', 'sub', p, 'Nothing.');
+    if (!entries.length) el('div', 'sub', p, t('ui.items.none', 'Nothing.'));
     for (const [id, n] of entries) {
       const it = ITEMS[id];
       if (it.key) continue;
       const r = el('div', 'item hit', p);
       el('div', 'glyph', r, it.glyph);
-      const nm = el('div', 'nm', r, it.name);
-      el('i', '', nm, it.desc);
+      const nm = el('div', 'nm', r, t(`item.${id}.name`, it.name));
+      el('i', '', nm, t(`item.${id}.desc`, it.desc));
       el('span', 'qty', r, `×${n}`);
       if (it.use) tap(r, () => this.game.emit('ui:useitem', id));
     }
     const keys = entries.filter(([id]) => ITEMS[id].key);
     if (keys.length) {
       el('div', 'rule', p);
-      el('div', 'h', p, 'DOCUMENTS & KEYS');
+      el('div', 'h', p, t('ui.documents', 'DOCUMENTS & KEYS'));
       for (const [id] of keys) {
         const it = ITEMS[id];
         const r = el('div', 'item', p);
         el('div', 'glyph', r, it.glyph);
-        const nm = el('div', 'nm', r, it.name);
-        el('i', '', nm, it.desc);
+        const nm = el('div', 'nm', r, t(`item.${id}.name`, it.name));
+        el('i', '', nm, t(`item.${id}.desc`, it.desc));
       }
     }
   }
@@ -492,40 +548,46 @@ export class Menus {
     const active = quests.filter((q) => q.state === 'active');
     const done = quests.filter((q) => q.state === 'done');
 
-    el('div', 'h', p, 'IN HAND');
-    if (!active.length) el('div', 'sub', p, 'Nothing outstanding.');
+    el('div', 'h', p, t('ui.inhand', 'IN HAND'));
+    if (!active.length) el('div', 'sub', p, t('ui.journal.none', 'Nothing outstanding.'));
     for (const q of active) {
       const r = el('div', 'item hit', p);
       el('div', 'glyph', r, q.def.side ? '○' : '◆');
-      const nm = el('div', 'nm', r, q.def.title);
-      el('i', '', nm, q.current ? q.current.objective : q.def.summary);
+      const nm = el('div', 'nm', r, questTitle(q.id, q.def.title));
+      el('i', '', nm, q.current
+        ? stepText(q.id, q.step, 'objective', q.current.objective)
+        : questSummary(q.id, q.def.summary));
       if (this.game.quests.activeId === q.id) r.classList.add('on');
       tap(r, () => { this.game.quests.setActive(q.id); this.refreshJournal(); });
     }
 
     if (done.length) {
       el('div', 'rule', p);
-      el('div', 'h', p, 'DONE');
+      el('div', 'h', p, t('ui.done', 'DONE'));
       for (const q of done) {
         const r = el('div', 'item', p);
         el('div', 'glyph', r, '·');
-        el('div', 'nm', r, q.def.title);
+        el('div', 'nm', r, questTitle(q.id, q.def.title));
       }
     }
 
     if (S.journal.length) {
       el('div', 'rule', p);
-      el('div', 'h', p, 'NOTES');
+      el('div', 'h', p, t('ui.notes', 'NOTES'));
       for (let i = S.journal.length - 1; i >= 0; i--) {
         const j = S.journal[i];
         const b = el('div', '', p);
         b.style.marginBottom = '8px';
-        const t = el('div', '', b, j.title);
-        t.style.color = 'var(--bone)';
-        t.style.fontSize = 'calc(9.5px * var(--uiscale))';
-        t.style.marginBottom = '2px';
-        const d = el('div', 'sub', b, j.text.replace(/\n/g, ' ').replace(/ {2,}/g, ' ').trim());
-        d.style.fontStyle = 'italic';
+        const h = el('div', '', b, t(`journal.${j.id}.title`, j.title));
+        h.style.color = 'var(--bone)';
+        h.style.fontSize = 'calc(9.5px * var(--uiscale))';
+        h.style.marginBottom = '2px';
+        const body = t(`journal.${j.id}.text`, j.text);
+        const d = el('div', 'sub', b,
+          body.replace(/\n/g, isCJK() ? '' : ' ').replace(/ {2,}/g, ' ').trim());
+        // No synthetic oblique on Japanese: the fonts have no italic and the
+        // browser's slant makes kanji look like a rendering fault.
+        d.style.fontStyle = isCJK() ? 'normal' : 'italic';
       }
     }
   }
@@ -537,9 +599,11 @@ export class Menus {
     this.mapWrap = wrap;
     const legend = el('div', 'sub', p);
     legend.style.marginTop = '4px';
-    legend.innerHTML = '<b style="color:var(--ember)">◆</b> objective &nbsp; ' +
-      '<b style="color:var(--toxic)">▲</b> you &nbsp; ' +
-      '<b style="color:#c8452a">▓</b> bad air &nbsp; <b style="color:#7fa2b4">▤</b> above the smoke';
+    legend.innerHTML =
+      `<b style="color:var(--ember)">◆</b> ${t('ui.map.objective', 'objective')} &nbsp; ` +
+      `<b style="color:var(--toxic)">▲</b> ${t('ui.map.you', 'you')} &nbsp; ` +
+      `<b style="color:#c8452a">▓</b> ${t('ui.map.badair', 'bad air')} &nbsp; ` +
+      `<b style="color:#7fa2b4">▤</b> ${t('ui.map.above', 'above the smoke')}`;
   }
 
   /**
@@ -613,11 +677,18 @@ export class Menus {
     x.drawImage(this._mapStaticLayer(c.width, c.height, dpr, X, Z, scale), 0, 0);
 
     // Discovered landmarks
-    x.font = `${Math.round(8 * dpr)}px ui-monospace, monospace`;
+    // The monospace generic has no kana on most systems, so name the CJK stack
+    // explicitly rather than relying on the fallback chain inside a canvas.
+    x.font = isCJK()
+      ? `${Math.round(9 * dpr)}px "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif`
+      : `${Math.round(8 * dpr)}px ui-monospace, monospace`;
     x.fillStyle = 'rgba(233,224,209,0.72)';
     for (const r of g.city.regions) {
       if (!g.state.discovered.has(r.id)) continue;
-      x.fillText(r.name.toUpperCase(), X(r.x) - 16, Z(r.z));
+      // Centred by measurement: the old fixed -16px offset assumed an English
+      // label width and put Japanese names off their own landmark.
+      const label = t(`region.${r.id}.name`, r.name.toUpperCase());
+      x.fillText(label, X(r.x) - x.measureText(label).width / 2, Z(r.z));
     }
 
     // Objective
@@ -696,44 +767,71 @@ export class Menus {
     const choice = (key, label, options) => {
       const r = el('div', 'item hit', p);
       el('div', 'nm', r, label);
-      const val = el('span', 'qty', r, String(get(key)));
+      // The VALUE needs translating too, not only the label: quality reads
+      // auto / low / medium / high, which is four English words sitting in the
+      // value column of an otherwise Japanese panel. Numeric values (combat
+      // assistance is 0/1/2) pass through unchanged, which is correct.
+      const show = (v) => t(`ui.${key}.${v}`, String(v));
+      const val = el('span', 'qty', r, show(get(key)));
       tap(r, () => {
         const i = options.indexOf(get(key));
         set(key, options[(i + 1) % options.length]);
-        val.textContent = String(get(key));
+        val.textContent = show(get(key));
         this._settingsChanged();
       });
       return r;
     };
 
-    el('div', 'h', p, 'CONTROLS');
-    slider('lookSensitivity', 'Camera sensitivity', 0.3, 2.5, 0.1, (v) => v.toFixed(1) + '×');
-    toggle('invertY', 'Invert camera Y');
-    toggle('leftHanded', 'Left-handed layout', 'Move stick on the right.');
-    toggle('autoSprint', 'Sprint at full stick', 'No sprint button needed.');
+    // Language first: it is the one setting a player who cannot read the rest
+    // of the panel still has to be able to find and operate.
+    el('div', 'h', p, t('ui.set.language', 'LANGUAGE'));
+    {
+      const r = el('div', 'item hit', p);
+      const nm = el('div', 'nm', r);
+      nm.innerHTML = `${t('ui.set.language.row', 'Language')} <i>言語</i>`;
+      const val = el('div', 'val mono', r, LOCALES.find((l) => l.code === locale())?.label || 'English');
+      tap(r, () => {
+        const i = LOCALES.findIndex((l) => l.code === locale());
+        const next = LOCALES[(i + 1) % LOCALES.length];
+        this.settings.language = next.code;
+        setLocale(next.code);
+        val.textContent = next.label;
+        this._settingsChanged();
+        // Rebuild every screen's text in the new language, immediately.
+        this.game.emit('locale', next.code);
+        this.refreshSettings();
+      });
+    }
 
-    section('DISPLAY');
-    choice('quality', 'Quality', ['auto', 'low', 'medium', 'high']);
-    slider('uiScale', 'Interface scale', 0.8, 1.5, 0.05, (v) => v.toFixed(2) + '×');
-    toggle('showPerf', 'Show performance readout');
+    el('div', 'h', p, t('ui.set.controls', 'CONTROLS'));
+    slider('lookSensitivity', t('ui.set.look', 'Camera sensitivity'), 0.3, 2.5, 0.1, (v) => v.toFixed(1) + '×');
+    toggle('invertY', t('ui.set.inverty', 'Invert camera Y'));
+    toggle('leftHanded', t('ui.set.lefthanded', 'Left-handed layout'), t('ui.set.lefthanded.sub', 'Move stick on the right.'));
+    toggle('autoSprint', t('ui.set.autosprint', 'Sprint at full stick'), t('ui.set.autosprint.sub', 'No sprint button needed.'));
 
-    section('AUDIO');
-    slider('masterVolume', 'Master', 0, 1, 0.05, (v) => Math.round(v * 100) + '%');
-    slider('musicVolume', 'Music', 0, 1, 0.05, (v) => Math.round(v * 100) + '%');
-    slider('sfxVolume', 'Effects', 0, 1, 0.05, (v) => Math.round(v * 100) + '%');
+    section(t('ui.set.display', 'DISPLAY'));
+    choice('quality', t('ui.set.quality', 'Quality'), ['auto', 'low', 'medium', 'high']);
+    slider('uiScale', t('ui.set.uiscale', 'Interface scale'), 0.8, 1.5, 0.05, (v) => v.toFixed(2) + '×');
+    toggle('showPerf', t('ui.set.showperf', 'Show performance readout'));
 
-    section('ACCESSIBILITY');
-    toggle('subtitles', 'Subtitles', 'Spoken lines appear as text.');
-    slider('screenShake', 'Screen shake', 0, 1, 0.1, (v) => Math.round(v * 100) + '%');
-    toggle('reducedMotion', 'Reduced motion', 'Less camera movement and fewer particles.');
-    toggle('highContrastHud', 'High contrast interface');
-    toggle('showDamageNumbers', 'Damage numbers');
-    toggle('gasAssist', 'Air assistance', 'Louder warnings, slower saturation, more forgiving thresholds.');
-    choice('combatAssist', 'Combat assistance', [0, 1, 2]);
+    section(t('ui.set.audio', 'AUDIO'));
+    slider('masterVolume', t('ui.set.master', 'Master'), 0, 1, 0.05, (v) => Math.round(v * 100) + '%');
+    slider('musicVolume', t('ui.set.music', 'Music'), 0, 1, 0.05, (v) => Math.round(v * 100) + '%');
+    slider('sfxVolume', t('ui.set.effects', 'Effects'), 0, 1, 0.05, (v) => Math.round(v * 100) + '%');
+
+    section(t('ui.set.accessibility', 'ACCESSIBILITY'));
+    toggle('subtitles', t('ui.set.subtitles', 'Subtitles'), t('ui.set.subtitles.sub', 'Spoken lines appear as text.'));
+    slider('screenShake', t('ui.set.shake', 'Screen shake'), 0, 1, 0.1, (v) => Math.round(v * 100) + '%');
+    toggle('reducedMotion', t('ui.set.reduced', 'Reduced motion'), t('ui.set.reduced.sub', 'Less camera movement and fewer particles.'));
+    toggle('highContrastHud', t('ui.set.contrast', 'High contrast interface'));
+    toggle('showDamageNumbers', t('ui.set.damage', 'Damage numbers'));
+    toggle('gasAssist', t('ui.set.gas', 'Air assistance'), t('ui.set.gas.sub', 'Louder warnings, slower saturation, more forgiving thresholds.'));
+    choice('combatAssist', t('ui.set.combat', 'Combat assistance'), [0, 1, 2]);
     const note = el('div', 'sub', p);
-    note.innerHTML = '<b>0</b> standard &nbsp; <b>1</b> forgiving — more stamina, slower enemies &nbsp; ' +
-                     '<b>2</b> story — you cannot be killed in combat.';
-    toggle('vibration', 'Vibration', 'Where the device supports it.');
+    note.innerHTML = t('ui.set.combat.note',
+      '<b>0</b> standard &nbsp; <b>1</b> forgiving — more stamina, slower enemies &nbsp; ' +
+      '<b>2</b> story — you cannot be killed in combat.');
+    toggle('vibration', t('ui.set.vibration', 'Vibration'), t('ui.set.vibration.sub', 'Where the device supports it.'));
   }
 
   /**
@@ -758,7 +856,7 @@ export class Menus {
     p.innerHTML = '';
     el('div', 'h', p, 'CINDERLINE');
     const d = el('div', 'sub', p);
-    d.innerHTML = `
+    d.innerHTML = t('ui.about.body', `
       An original survival action RPG. Everything in it — the city, the people,
       the textures, the animation, the music and every sound — is generated at
       runtime from code in this repository. No third-party art, audio or model
@@ -791,12 +889,13 @@ export class Menus {
       <b>The rule that matters.</b> Carbon monoxide and blackdamp pool in the low
       ground. Height is safety. Your meter reads the air where you are standing,
       not where you are going.
-    `;
+    `);
   }
 
   // ----------------------------------------------------------------- panels
 
   showPanel(key) {
+    this.currentTab = key;
     for (const k in this.panels) {
       this.panels[k].panel.style.display = k === key ? '' : 'none';
       this.panels[k].tab.classList.toggle('on', k === key);
@@ -822,7 +921,7 @@ export class Menus {
   openPause(panel = 'status', fromTitle = false) {
     this.pauseNode.classList.add('on');
     this.fromTitle = fromTitle;
-    this.pauseTitle.textContent = fromTitle ? 'SETTINGS' : 'PAUSED';
+    this.pauseTitle.textContent = fromTitle ? t('ui.settings', 'SETTINGS') : t('ui.paused', 'PAUSED');
     for (const k in this.panels) {
       const hide = fromTitle && (k === 'status' || k === 'items' || k === 'journal' || k === 'map');
       this.panels[k].tab.style.display = hide ? 'none' : '';
@@ -862,13 +961,13 @@ export class Menus {
     const s = el('div', 'dead', this.root);
     this.deathNode = s;
     const inner = el('div', 'dead-inner', s);
-    this.deathTitle = el('div', 'k', inner, 'YOU STOPPED BREATHING');
+    this.deathTitle = el('div', 'k', inner, '');
     this.deathSub = el('div', 's', inner, '');
     const retry = el('div', 'btn hit', inner);
-    retry.innerHTML = 'GET UP';
+    retry.innerHTML = t('ui.getup', 'GET UP');
     tap(retry, () => this.game.emit('ui:retry'));
     const quit = el('div', 'btn hit', inner);
-    quit.innerHTML = 'TITLE';
+    quit.innerHTML = t('ui.title', 'TITLE');
     tap(quit, () => this.game.emit('ui:quit'));
   }
 
@@ -886,9 +985,10 @@ export class Menus {
     this.hideTitle();
     this.closePause();
     this.hideEnding();
-    const [t, s] = lines[cause] || lines.blunt;
-    this.deathTitle.textContent = t;
-    this.deathSub.textContent = s;
+    const kind = lines[cause] ? cause : 'blunt';
+    const [title, sub] = lines[kind];
+    this.deathTitle.textContent = t(`ui.death.${kind}.title`, title);
+    this.deathSub.textContent = t(`ui.death.${kind}.text`, sub);
     this.deathNode.classList.add('on');
   }
   hideDeath() { this.deathNode.classList.remove('on'); }
@@ -909,7 +1009,7 @@ export class Menus {
     const foot = el('div', '', inner);
     foot.style.flex = '0 0 auto';
     const b = el('div', 'btn hit', foot);
-    b.innerHTML = 'TITLE';
+    b.innerHTML = t('ui.title', 'TITLE');
     tap(b, () => this.game.emit('ui:quit'));
   }
 
@@ -919,13 +1019,18 @@ export class Menus {
     this.fadeNode.classList.remove('on');
     this.endTitle.textContent = ending.title;
     this.endBody.innerHTML = '';
-    const all = [ending.text, ...paragraphs];
+    // Split on the blank line. `textContent` collapses a newline to a space, so
+    // passing the whole woven body as one string rendered five paragraphs plus
+    // every earned beat as a single unbroken block — in English as well as in
+    // Japanese, and worse in Japanese, which has no capitals to cue a break.
+    const all = [...String(ending.text).split(/\n{2,}/), ...paragraphs]
+      .map((s) => s.trim()).filter(Boolean);
     for (const para of all) {
       const d = el('div', 'sub', this.endBody, '');
       d.style.marginBottom = '10px';
       d.style.fontSize = 'calc(10px * var(--uiscale))';
-      d.style.lineHeight = '1.65';
-      d.textContent = para.replace(/\n(?!\n)/g, ' ').replace(/ {2,}/g, ' ').trim();
+      d.style.lineHeight = isCJK() ? '1.9' : '1.65';
+      d.textContent = para.replace(/\n(?!\n)/g, isCJK() ? '' : ' ').replace(/ {2,}/g, ' ').trim();
     }
     this.endNode.classList.add('on');
   }
@@ -959,7 +1064,7 @@ export class Menus {
     const r = el('div', 'hit', this.root);
     r.id = 'rotate';
     el('div', 'ico', r, '▭');
-    el('p', '', r, 'CINDERLINE IS PLAYED IN LANDSCAPE.\nTURN YOUR DEVICE.');
+    el('p', '', r, t('ui.rotate', 'CINDERLINE IS PLAYED IN LANDSCAPE.\nTURN YOUR DEVICE.'));
     this.rotateNode = r;
   }
 
