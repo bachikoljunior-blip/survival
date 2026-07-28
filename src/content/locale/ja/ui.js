@@ -237,7 +237,7 @@ export const UI_JA = {
     ashcrew: '<b>灰の組</b><br>庭にいる',
     stepsaside: '<b>彼は道を空ける。</b><br>どちらも、見ていたことにしないと決めている。',
     pastthem: '<b>抜けた。</b><br>誰も顔を上げなかった。',
-    courtyard: '<b>中庭が埋まりはじめている。</b><br>ペル館、一階。',
+    courtyard: '<b>中庭が埋まりはじめている。</b><br>ペル館、1階。',
     fennstreet: '<b>フェン通りが落ちた。</b><br>まだ4人、下にいる。',
     nessanag: '<i>ネッサ</i><br>「そこは登ってついていけない。」',
     nessaout: '<b>上に出た。</b><br>彼女は屋根材の上に座り、しばらく立ち上がらない。',
