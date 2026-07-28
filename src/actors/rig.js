@@ -338,7 +338,19 @@ class SkinBuilder {
   }
 }
 
-const hex = (h) => [((h >> 16) & 255) / 255, ((h >> 8) & 255) / 255, (h & 255) / 255];
+/**
+ * sRGB -> linear.
+ *
+ * Vertex colours are consumed by three.js as WORKING-SPACE (linear) values,
+ * but every costume constant in this file is an sRGB hex. Feeding 0x4a4038
+ * straight through as linear (0.29, 0.25, 0.22) produces a mid grey-brown on
+ * screen — which is why the dog, whose coat is 0x4a4038, rendered as a pale
+ * cream animal instead of a dark one, and why the whole cast read washed out.
+ */
+const s2l = (v) => (v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+/** Convert an authored 0..1 sRGB triple. Values above 1 are emissive intent and pass through. */
+const lin = (a) => [a[0] > 1 ? a[0] : s2l(a[0]), a[1] > 1 ? a[1] : s2l(a[1]), a[2] > 1 ? a[2] : s2l(a[2])];
+const hex = (h) => lin([((h >> 16) & 255) / 255, ((h >> 8) & 255) / 255, (h & 255) / 255]);
 
 /**
  * Build a skinned character.
@@ -445,10 +457,10 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
   sb.box(0, y(1.664), y(-0.090), 0.132, 0.026, 0.030, I.head, shade(1.06));
   // Eye-socket recess: the dark band. Deliberately the strongest value in the
   // face and the only one that survives to 30 pixels.
-  sb.box(0, y(1.642), y(-0.084), 0.120, 0.026, 0.026, I.head, shade(0.34));
+  sb.box(0, y(1.643), y(-0.084), 0.118, 0.021, 0.026, I.head, shade(0.42));
   // Eyes, set into the recess.
   for (const s of [1, -1]) {
-    sb.box(y(0.030 * s), y(1.642), y(-0.093), 0.026, 0.015, 0.012, I.head, [0.10, 0.09, 0.09]);
+    sb.box(y(0.030 * s), y(1.642), y(-0.093), 0.026, 0.015, 0.012, I.head, lin([0.10, 0.09, 0.09]));
   }
   // Nose: a wedge, not a feature. It is here for the shadow it throws.
   sb.box(0, y(1.620), y(-0.096), 0.024, 0.038, 0.026, I.head, shade(1.02));
@@ -484,17 +496,17 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
   const gear = C.gear || {};
   if (gear.fullMask) {
     sb.tube([
-      { y: y(1.596), r: 0.090, rz: 0.096, bone: I.head, tint: [0.14, 0.15, 0.17] },
-      { y: y(1.636), r: 0.096, rz: 0.104, bone: I.head, tint: [0.16, 0.17, 0.19] },
-      { y: y(1.672), r: 0.092, rz: 0.098, bone: I.head, tint: [0.14, 0.15, 0.17] },
+      { y: y(1.596), r: 0.090, rz: 0.096, bone: I.head, tint: lin([0.14, 0.15, 0.17]) },
+      { y: y(1.636), r: 0.096, rz: 0.104, bone: I.head, tint: lin([0.16, 0.17, 0.19]) },
+      { y: y(1.672), r: 0.092, rz: 0.098, bone: I.head, tint: lin([0.14, 0.15, 0.17]) },
     ], sides, true, false);
     // Filter canister off the cheek, and the lens band.
-    sb.box(y(0.062), y(1.618), y(-0.078), 0.062, 0.062, 0.062, I.head, [0.2, 0.21, 0.23]);
-    sb.box(0, y(1.652), y(-0.094), 0.148, 0.036, 0.014, I.head, [0.45, 0.62, 0.7]);
+    sb.box(y(0.062), y(1.618), y(-0.078), 0.062, 0.062, 0.062, I.head, lin([0.2, 0.21, 0.23]));
+    sb.box(0, y(1.652), y(-0.094), 0.148, 0.036, 0.014, I.head, lin([0.45, 0.62, 0.7]));
   } else if (gear.ragMask) {
     sb.tube([
-      { y: y(1.588), r: 0.086, rz: 0.092, bone: I.head, tint: [0.5, 0.48, 0.43] },
-      { y: y(1.632), r: 0.092, rz: 0.098, bone: I.head, tint: [0.54, 0.52, 0.46] },
+      { y: y(1.588), r: 0.086, rz: 0.092, bone: I.head, tint: lin([0.5, 0.48, 0.43]) },
+      { y: y(1.632), r: 0.092, rz: 0.098, bone: I.head, tint: lin([0.54, 0.52, 0.46]) },
     ], sides, true, false);
   }
   if (C.hood) {
@@ -506,8 +518,9 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
   }
   if (gear.lamp) {
     // Headlamp on a band. It is also the player's actual light source.
-    sb.box(0, y(1.688), y(-0.094), 0.062, 0.044, 0.03, I.head, [0.22, 0.23, 0.24]);
-    sb.box(0, y(1.688), y(-0.108), 0.042, 0.03, 0.012, I.head, [3.0, 2.4, 1.6]);
+    // Pushed forward clear of the hair cap, which now reaches the hairline.
+    sb.box(0, y(1.692), y(-0.106), 0.062, 0.044, 0.03, I.head, lin([0.22, 0.23, 0.24]));
+    sb.box(0, y(1.692), y(-0.121), 0.042, 0.03, 0.012, I.head, lin([3.0, 2.4, 1.6]));
   }
 
   // --- arms --------------------------------------------------------------
@@ -542,7 +555,7 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
     ], sides, true, false);
 
     if (gear.pads) {
-      sb.box(y(0.176 * sx), y(1.070), 0, 0.02, 0.13, 0.098, I['forearmL'.replace('L', L)], [0.19, 0.2, 0.21], 0);
+      sb.box(y(0.176 * sx), y(1.070), 0, 0.02, 0.13, 0.098, I['forearmL'.replace('L', L)], lin([0.19, 0.2, 0.21]), 0);
     }
   }
 
@@ -567,7 +580,7 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
     sb.box(y(0.098 * sx), y(0.010), y(-0.036), 0.112, 0.026, 0.252, I['footL'.replace('L', L)], [boot[0] * 0.7, boot[1] * 0.7, boot[2] * 0.7]);
 
     if (gear.kneepads) {
-      sb.box(y(0.098 * sx), y(0.492), y(-0.056), 0.096, 0.11, 0.03, I['shinL'.replace('L', L)], [0.17, 0.16, 0.15]);
+      sb.box(y(0.098 * sx), y(0.492), y(-0.056), 0.096, 0.11, 0.03, I['shinL'.replace('L', L)], lin([0.17, 0.16, 0.15]));
     }
   }
 
@@ -580,12 +593,12 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
       sb.box(y(0.072 * side), y(1.310), y(-0.112), 0.044, 0.26, 0.018, I.chest, trim);
       sb.box(y(0.072 * side), y(1.310), y(0.112), 0.044, 0.26, 0.018, I.chest, [trim[0] * 0.8, trim[1] * 0.8, trim[2] * 0.8]);
     }
-    sb.box(0, y(1.186), 0, 0.30 * B, 0.052, 0.222 * B, I.spine, [0.16, 0.15, 0.14]);
-    sb.box(0, y(1.186), y(-0.112), 0.056, 0.06, 0.028, I.spine, [0.5, 0.5, 0.52]);
+    sb.box(0, y(1.186), 0, 0.30 * B, 0.052, 0.222 * B, I.spine, lin([0.16, 0.15, 0.14]));
+    sb.box(0, y(1.186), y(-0.112), 0.056, 0.06, 0.028, I.spine, lin([0.5, 0.5, 0.52]));
   }
   if (gear.hipRespirator) {
-    sb.box(y(0.148 * B), y(0.928), y(0.048), 0.086, 0.11, 0.078, I.hips, [0.2, 0.21, 0.22]);
-    sb.box(y(0.148 * B), y(0.99), y(0.048), 0.05, 0.04, 0.05, I.hips, [0.42, 0.42, 0.44]);
+    sb.box(y(0.148 * B), y(0.928), y(0.048), 0.086, 0.11, 0.078, I.hips, lin([0.2, 0.21, 0.22]));
+    sb.box(y(0.148 * B), y(0.99), y(0.048), 0.05, 0.04, 0.05, I.hips, lin([0.42, 0.42, 0.44]));
   }
   // Packs first, then the hi-vis band on top of whatever the back ends up
   // being. The band used to be emitted at z 0.104 — wholly inside the 'small'
@@ -597,20 +610,20 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
     sb.box(0, y(1.245), y(0.150), 0.24 * B, 0.30, 0.13, I.chest, [coatT[0] * 0.8, coatT[1] * 0.8, coatT[2] * 0.8]);
     backZ = 0.221;
   } else if (gear.backpack === 'bindle') {
-    sb.box(0, y(1.270), y(0.166), 0.27 * B, 0.26, 0.19, I.chest, [0.42, 0.40, 0.35]);
-    sb.box(y(0.06), y(1.36), y(0.15), 0.03, 0.2, 0.03, I.chest, [0.3, 0.28, 0.24]);
+    sb.box(0, y(1.270), y(0.166), 0.27 * B, 0.26, 0.19, I.chest, lin([0.42, 0.40, 0.35]));
+    sb.box(y(0.06), y(1.36), y(0.15), 0.03, 0.2, 0.03, I.chest, lin([0.3, 0.28, 0.24]));
     backZ = 0.267;
   } else if (gear.backpack === 'canister') {
     sb.tube([
-      { y: y(1.10), z: y(0.164), r: 0.072, rz: 0.072, bone: I.chest, tint: [0.28, 0.32, 0.36] },
-      { y: y(1.40), z: y(0.164), r: 0.076, rz: 0.076, bone: I.chest, tint: [0.32, 0.36, 0.40] },
+      { y: y(1.10), z: y(0.164), r: 0.072, rz: 0.072, bone: I.chest, tint: lin([0.28, 0.32, 0.36]) },
+      { y: y(1.40), z: y(0.164), r: 0.076, rz: 0.076, bone: I.chest, tint: lin([0.32, 0.36, 0.40]) },
     ], 8, true, true);
-    sb.box(0, y(1.44), y(0.164), 0.09, 0.05, 0.09, I.chest, [0.5, 0.52, 0.54]);
+    sb.box(0, y(1.44), y(0.164), 0.09, 0.05, 0.09, I.chest, lin([0.5, 0.52, 0.54]));
     backZ = 0.246;
   } else if (gear.backpack === 'medkit') {
-    sb.box(0, y(1.24), y(0.150), 0.25 * B, 0.28, 0.12, I.chest, [0.22, 0.28, 0.24]);
-    sb.box(0, y(1.24), y(0.213), 0.09, 0.03, 0.006, I.chest, [1.6, 1.6, 1.5]);
-    sb.box(0, y(1.24), y(0.213), 0.03, 0.09, 0.006, I.chest, [1.6, 1.6, 1.5]);
+    sb.box(0, y(1.24), y(0.150), 0.25 * B, 0.28, 0.12, I.chest, lin([0.22, 0.28, 0.24]));
+    sb.box(0, y(1.24), y(0.213), 0.09, 0.03, 0.006, I.chest, lin([1.6, 1.6, 1.5]));
+    sb.box(0, y(1.24), y(0.213), 0.03, 0.09, 0.006, I.chest, lin([1.6, 1.6, 1.5]));
     backZ = 0.216;
   }
 

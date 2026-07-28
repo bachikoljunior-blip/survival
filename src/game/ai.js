@@ -590,7 +590,11 @@ export class AISystem {
         e._guardTimer = e.rng.range(0.45, 1.1);
         e._guardWant = e.rng.f() < A.blockChance * 0.4;
       }
-      e.guarding = !!e._guardWant && !e.isAttacking && dist < pref + 2.2 && e.stamina > 12;
+      // A raised guard costs stamina now (see Actor._updateGuard), so the
+      // threshold is high enough that the shield stays up for several seconds
+      // once it goes up, rather than flickering on and off at the floor.
+      e.guarding = !!e._guardWant && !e.isAttacking && dist < pref + 2.2 &&
+                   (e.guarding ? e.stamina > 2 : e.stamina > 40);
     }
   }
 

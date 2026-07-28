@@ -452,7 +452,7 @@ body {
   background: rgba(10, 9, 8, 0.86);
   border: 1px solid var(--line);
   border-radius: 20px;
-  font-size: calc(9px * var(--uiscale));
+  font-size: calc(10.5px * var(--uiscale));
   color: var(--bone);
   white-space: nowrap;
   opacity: 0; transition: opacity 0.16s ease, transform 0.16s ease;
@@ -461,8 +461,8 @@ body {
 .prompt b { color: var(--ember); font-weight: 700; }
 
 /* Top-right system buttons.
-   Each is a 44x44 target with a 30x30 visual plate drawn by ::before, so the
-   row reads as light chrome while every button clears the HIG minimum. */
+   Each is a 44x44 target with a 30x30 visual plate drawn by the inner <i>, so
+   the row reads as light chrome while every button clears the HIG minimum. */
 .syscluster {
   position: absolute;
   top: calc(var(--pad) + var(--sa-t));

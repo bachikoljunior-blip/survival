@@ -436,16 +436,17 @@ export function moveActor(world, a, dt) {
 
   // Step-up, horizontal half.
   //
-  // Resolving at foot height alone is not enough on a real staircase. A fire
-  // escape's treads are 0.14 m deep and the body is 0.34 m across, so standing
-  // on one tread always overlaps the tread two above — which is higher than a
-  // step, therefore solid, therefore a wall. The flight is unclimbable no
-  // matter how good the vertical rule is.
+  // Resolving at foot height alone is not enough. The vertical rule below can
+  // only raise you onto a surface you have already reached, and on a stepped
+  // slope the tread two ahead is more than a step above your feet, so it is
+  // solid and it stops you a whole body-radius short of the tread you meant to
+  // climb onto.
   //
   // So when a grounded actor is genuinely stopped, replay the same move with
   // the feet one step higher. Anything short enough to stand on stops being an
   // obstacle; anything taller still is one. The move is only kept if it made
-  // real progress AND there is something to stand on at the far end.
+  // real progress AND there is something to stand on at the far end, so this
+  // can never walk anyone through a wall.
   if (hitWall && dist > 1e-5 && (wasGrounded || (a.coyote ?? 0) > 0)) {
     const ux = dx / dist, uz = dz / dist;
     const advLow = (pos.x - startX) * ux + (pos.z - startZ) * uz;
@@ -462,29 +463,13 @@ export function moveActor(world, a, dt) {
         if (g && g.y - prevY <= step + 1e-4) ok = true;
       }
 
-      // Staircase pass. A flight whose treads are shallower than the body is
-      // unclimbable with a full-width capsule at any step height: standing on
-      // one tread always overlaps the tread two above it, which is higher than
-      // a step and therefore a wall. Hollis's fire escapes are exactly this —
-      // 0.14 m treads under a 0.34 m body — and they are the vertical network
-      // the whole game routes through.
-      //
-      // So probe again with a narrow body, and keep it only if the destination
-      // is somewhere a person could actually stand: ground within one step, and
-      // nothing solid above that ground inside the torso. That second test is
-      // what stops this from being a way to squeeze through walls and slots.
-      if (!ok) {
-        pos.x = startX; pos.z = startZ;
-        slide(raised, raised + h, 0.001, r * 0.5);
-        adv = (pos.x - startX) * ux + (pos.z - startZ) * uz;
-        if (adv > advLow + 1e-3) {
-          const g = world.groundUnder(pos.x, pos.z, r * 0.5, raised, step * 2 + 0.2);
-          if (g && g.y - prevY <= step + 1e-4 &&
-              !world.anyOverlap(pos.x, g.y + step + 0.02, pos.z, r * 0.72, h - step)) {
-            ok = true;
-          }
-        }
-      }
+      // NOTE. A flight whose treads are shallower than the body radius cannot
+      // be climbed by a capsule at any step height — standing on one tread
+      // always overlaps the tread two above, which is higher than a step and
+      // therefore a wall. That is a geometry problem, not a controller one, and
+      // it is deliberately not papered over here with a thinner probe: a body
+      // that can squeeze where it cannot stand causes worse bugs than a stair
+      // that needs its treads deepened.
 
       if (ok) hitWall = adv < dist * 0.98;
       else { pos.x = lowX; pos.z = lowZ; }

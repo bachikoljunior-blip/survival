@@ -94,6 +94,7 @@ export class City {
   /** Add a solid to both the collision world and the occlusion grid. */
   solid(x, y0, z, w, h, d, rot = 0, layer = LAYER.SOLID, tag = null) {
     const b = this.collision.add(new Box(x, y0, z, w, h, d, rot, layer, tag));
+    if (this._collecting) this._collecting.push(b);
     if (this._occ && layer === LAYER.SOLID) {
       // Conservative AABB of the rotated box.
       const c = Math.abs(Math.cos(rot)), s = Math.abs(Math.sin(rot));
@@ -547,6 +548,55 @@ export class City {
     }
   }
 
+  /**
+   * Build a set of props into a standalone group at runtime and add it to the
+   * world, collision and all.
+   *
+   * The city's geometry is merged per material per chunk at build time, which
+   * is what keeps the draw call count survivable on a phone — so anything that
+   * has to *arrive* during the story cannot be part of it. Chapter five's
+   * excavators are the case this exists for: the trench crews start at first
+   * light, and until this the entire finale happened over an unchanged street
+   * while Ren described plant that was not there.
+   *
+   * @returns {THREE.Object3D} the group, so the caller can remove it again.
+   */
+  addRuntimeProps(id, list, seed = id) {
+    if (this._runtimeGroups && this._runtimeGroups.has(id)) return this._runtimeGroups.get(id);
+    const cb = new ChunkBuilder(`rt:${id}`);
+    const rng = new Rng(seed);
+    const boxes = [];
+    this._collecting = boxes;
+    const lights = [];
+    for (const p of list) {
+      const r = this._prop(cb, p, rng.fork(`p:${p.kind}:${p.x}:${p.z}`));
+      if (r && r.light) lights.push({ ...r.light, id: p.id });
+    }
+    this._collecting = null;
+    const group = cb.build((k) => this._mat(k));
+    group.userData.runtimeId = id;
+    group.userData.boxes = boxes;
+    group.userData.lights = lights;
+    this.root.add(group);
+    if (!this._runtimeGroups) this._runtimeGroups = new Map();
+    this._runtimeGroups.set(id, group);
+    for (const l of lights) this.lightMarkers.push(l);
+    return group;
+  }
+
+  /** Remove a runtime prop group. Collision boxes added with it go too. */
+  removeRuntimeProps(id) {
+    const group = this._runtimeGroups && this._runtimeGroups.get(id);
+    if (!group) return false;
+    this.root.remove(group);
+    group.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+    for (const b of group.userData.boxes || []) this.collision.remove(b);
+    const ids = new Set((group.userData.lights || []).map((l) => l.id));
+    this.lightMarkers = this.lightMarkers.filter((l) => !ids.has(l.id));
+    this._runtimeGroups.delete(id);
+    return true;
+  }
+
   _prop(cb, p, rng) {
     const y = p.y || 0;
     let r = null;
@@ -563,6 +613,8 @@ export class City {
         this.solid(p.x, y, p.z, 1.3, 1.4, 1.3, 0, LAYER.SOLID, 'prop');
         this.gas.addSource(p.x, p.z, p.gasStrength ?? 2400, p.gasRadius ?? 20, p.gasId || null, p.hot !== false);
         break;
+      case 'excavator': r = P.excavator(cb, p.x, y, p.z, p.rot || 0, rng, p);
+        this.solid(p.x, y, p.z, 4.6, 2.4, 2.6, p.rot || 0, LAYER.SOLID, 'plant'); break;
       case 'generator': P.generator(cb, p.x, y, p.z, p.rot || 0, rng); this.solid(p.x, y, p.z, 1.3, 0.9, 0.8, p.rot || 0, LAYER.SOLID, 'prop'); break;
       case 'tarp': P.tarpShelter(cb, p.x, y, p.z, p.rot || 0, rng, p);
         this.gas.setCovered(p.x, p.z, 0.4);
@@ -591,11 +643,12 @@ export class City {
       case 'roadstripe': P.roadStripe(cb, p.x, y, p.z, p.rot || 0, rng, p); break;
       case 'sign': this._standaloneSign(p); break;
     }
-    if (r && r.light) this.lightMarkers.push({ ...r.light, id: p.id });
+    if (r && r.light && !this._collecting) this.lightMarkers.push({ ...r.light, id: p.id });
     if (r && r.fx) this.fxMarkers.push({ ...r.fx, id: p.id });
     if (p.interact) {
       this.interactions.push({ ...p.interact, x: p.x, y: y + (p.interact.dy ?? 1.0), z: p.z });
     }
+    return r;
   }
 
   /**

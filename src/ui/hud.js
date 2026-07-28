@@ -269,9 +269,22 @@ export class HUD {
 
   // --------------------------------------------------------------- updates
 
+  /**
+   * Hiding the HUD has to take it out of hit-testing, not just fade it.
+   * `pointer-events: none` on the container is not enough — every button sets
+   * `pointer-events: auto` on itself and stays live underneath, which is why
+   * taps in the bottom-right of the title screen used to press HIT.
+   *
+   * The stylesheet flips visibility at the end of the fade; this backs that up
+   * from JS so it does not depend on frames being produced, which is exactly
+   * what is not happening when the device is in trouble.
+   */
   setVisible(v) {
     this.visible = v;
     this.node.classList.toggle('hidden', !v);
+    clearTimeout(this._visT);
+    if (v) this.node.style.visibility = '';
+    else this._visT = setTimeout(() => { if (!this.visible) this.node.style.visibility = 'hidden'; }, 380);
   }
 
   update(dt) {
@@ -345,8 +358,9 @@ export class HUD {
     const set = (btn, dis) => { if (btn) btn.classList.toggle('dis', !!dis); };
 
     // CombatSystem.start refuses below half the listed cost.
-    set(this.buttons.attack, busy || p.stamina < ATTACKS.light1.stamina * 0.5);
-    set(this.buttons.heavy, busy || p.isAttacking || p.stamina < ATTACKS.heavy.stamina * 0.5);
+    const cost = (n, d) => ((ATTACKS && ATTACKS[n] && ATTACKS[n].stamina) || d) * 0.5;
+    set(this.buttons.attack, busy || p.stamina < cost('light1', 11));
+    set(this.buttons.heavy, busy || p.isAttacking || p.stamina < cost('heavy', 26));
     set(this.buttons.dodge, busy || p.stamina < 16);
     // Game._playInput: guard needs to be able to act, not be swinging, and
     // have something left in the tank.

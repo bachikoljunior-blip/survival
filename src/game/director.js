@@ -154,6 +154,7 @@ seconds and I already know which one I believe.`);
         g.hud.notice('One head shut. Both places are worse than one could have been.', '', 5);
       },
       beginCrisis: () => this._beginCrisis(),
+      raisePlant: () => this._raisePlant(),
       openTrade: () => { this.quests.notify('custom', { id: 'teoTrade' }); this.openTrade(); },
     };
   }
@@ -169,6 +170,15 @@ seconds and I already know which one I believe.`);
    */
   resetWorld() {
     const g = this.game;
+
+    // Geometry a run raised: the chapter-five compound, and any survivors or
+    // followers still standing about from a crisis.
+    g.city.removeRuntimeProps('trenchplant');
+    this._plantUp = false;
+    g.atmos.setMarkers(g.city.lightMarkers);
+    if (this.crisis) {
+      for (const m of this.crisis.marks) if (m.actor) g.removeActor(m.actor);
+    }
 
     // Interactions: restore taken/disabled, and drop anything a run injected.
     g.city.interactions = g.city.interactions.filter((i) => !i._runtime);
@@ -294,6 +304,41 @@ seconds and I already know which one I believe.`);
   }
 
   // ------------------------------------------------------------ encounters
+
+  /**
+   * The trench crews start on the published line at first light.
+   *
+   * Chapter five is premised on plant arriving, and the trench pit itself has
+   * been in the world since the first frame — so what actually changes is the
+   * compound around it: two excavators on the marker, a spoil heap, floodlights
+   * on a generator, and the barrier the Wardens are standing behind. Ren's
+   * monologue at the trench describes exactly this, and now it is there.
+   */
+  _raisePlant() {
+    const g = this.game;
+    if (this._plantUp) return;
+    this._plantUp = true;
+    g.city.addRuntimeProps('trenchplant', [
+      { kind: 'excavator', x: 82, z: 10, rot: -1.9, boom: 0.8, id: 'exc_a' },
+      { kind: 'excavator', x: 88, z: 22, rot: -2.5, boom: 0.35, id: 'exc_b' },
+      { kind: 'generator', x: 76, z: 30, rot: 0.4 },
+      { kind: 'worklight', x: 78, z: 12, id: 'plant_l1' },
+      { kind: 'worklight', x: 86, z: 26, id: 'plant_l2' },
+      { kind: 'worklight', x: 72, z: 22, id: 'plant_l3' },
+      { kind: 'barrier', x: 70, z: 12, rot: 0.35, len: 3.0 },
+      { kind: 'barrier', x: 70.6, z: 15.2, rot: 0.35, len: 3.0 },
+      { kind: 'barrier', x: 71.2, z: 18.4, rot: 0.35, len: 3.0 },
+      { kind: 'barrier', x: 71.8, z: 21.6, rot: 0.35, len: 3.0 },
+      { kind: 'van', x: 66, z: 26, rot: 1.2 },
+      { kind: 'drum', x: 80, z: 32 }, { kind: 'drum', x: 81.4, z: 33 },
+      { kind: 'pallet', x: 84, z: 32, rot: 0.6 },
+      { kind: 'crate', x: 85.2, z: 33.2 }, { kind: 'crate', x: 86, z: 32.4 },
+      { kind: 'rubble', x: 90, z: 16, w: 16, d: 9, h: 2.6 },   // the spoil heap
+    ], 'plant');
+    g.atmos.setMarkers(g.city.lightMarkers);
+    g.hud.notice('<b>They started at first light.</b>', 'bad', 5);
+    g.emit('music', 'crisis');
+  }
 
   /** Push a runtime interaction that resetWorld and saves will clean up. */
   _addRuntimeInteraction(it) {
@@ -610,6 +655,9 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
           g.emit('sfx', 'locked');
           return;
         }
+        // Coming in off the north elevation means nobody ran a pass reader,
+        // which Krajcik notices and mentions.
+        if (t.id === 'survey_backdoor') this.state.set('entered_unlogged');
         this.game._guard(this.enterDoor(t), MODE.PLAY);
         return;
       }
@@ -1146,6 +1194,8 @@ I did not go in. The shutter is not even locked.`],
 
     // Restore the crisis in flight, marks and all.
     if (d.crisis) this._restoreCrisis(d.crisis);
+    // ...and the chapter-five compound, which is geometry rather than state.
+    if (this.state.chapter >= 5) this._raisePlant();
     // Re-arm any encounter the active step is responsible for. retry() has
     // just cleared the map of enemies; without this the raid steps become
     // permanent dead ends.

@@ -661,6 +661,65 @@ export function roadStripe(cb, x, y, z, rot, rng, opts = {}) {
   return null;
 }
 
+/**
+ * Tracked excavator. Chapter five is premised on plant arriving on the
+ * published line, and until this the finale happened over an unchanged street
+ * while Ren described machines that were not there.
+ *
+ * Built as track frame, slew ring, house, boom, dipper and bucket, so it reads
+ * as a machine from the far side of a road rather than a yellow box.
+ */
+export function excavator(cb, x, y, z, rot, rng, opts = {}) {
+  const c = Math.cos(rot), s = Math.sin(rot);
+  const at = (ox, oz) => ({ x: x + ox * c - oz * s, z: z + ox * s + oz * c });
+  const tint = opts.tint || [0.62, 0.5, 0.16];
+  const boom = opts.boom ?? 0.5;              // 0 = stowed, 1 = reaching out
+
+  // Tracks: two frames with a visible run of links along the top.
+  for (const oz of [-1.05, 1.05]) {
+    const p = at(0, oz);
+    cb.m('dark').boxRot({ x: p.x, y: y + 0.30, z: p.z, w: 4.4, h: 0.62, d: 0.68, rot,
+                          uvScale: 1.5, tint: [0.17, 0.16, 0.15], ao: 0.62 });
+    for (let i = 0; i < 9; i++) {
+      const q = at(-1.95 + i * 0.49, oz);
+      cb.m('rust').boxRot({ x: q.x, y: y + 0.63, z: q.z, w: 0.40, h: 0.07, d: 0.72, rot,
+                            uvScale: 2, tint: [0.34, 0.29, 0.24] });
+    }
+  }
+  // Slew ring and house.
+  cb.m('dark').cylinder(x, y + 0.62, z, 0.86, 0.20, 10, 1.2, [0.22, 0.21, 0.2], true, 0.4);
+  const hp = at(-0.35, 0);
+  cb.m('paint').boxRot({ x: hp.x, y: y + 0.82, z: hp.z, w: 2.9, h: 1.42, d: 2.05, rot,
+                         uvScale: 1.1, tint, ao: 0.5 });
+  // Cab glass on the working side.
+  const cp = at(0.55, -0.72);
+  cb.m('glass').boxRot({ x: cp.x, y: y + 1.30, z: cp.z, w: 1.05, h: 0.86, d: 0.62, rot,
+                         uvScale: 1, tint: [0.12, 0.16, 0.18] });
+  // Counterweight.
+  const wp = at(-1.85, 0);
+  cb.m('dark').boxRot({ x: wp.x, y: y + 0.95, z: wp.z, w: 0.55, h: 1.05, d: 1.9, rot,
+                        uvScale: 1.4, tint: [0.2, 0.19, 0.18], ao: 0.55 });
+
+  // Boom, dipper, bucket — one articulated arm out over the cut.
+  const bl = 4.0, bx = 0.9 + bl * 0.5 * (0.55 + boom * 0.35);
+  const bp = at(bx, -0.35);
+  cb.m('paint').boxRot({ x: bp.x, y: y + 1.55 + boom * 0.5, z: bp.z, w: bl, h: 0.44, d: 0.46,
+                         rot, tilt: -0.34 + boom * 0.2, uvScale: 1.6, tint, ao: 0.45 });
+  const dp = at(bx + bl * 0.44, -0.35);
+  cb.m('paint').boxRot({ x: dp.x, y: y + 0.95 + boom * 0.75, z: dp.z, w: 2.5, h: 0.34, d: 0.38,
+                         rot, tilt: 0.95 - boom * 0.35, uvScale: 1.8, tint, ao: 0.45 });
+  const kp = at(bx + bl * 0.62, -0.35);
+  cb.m('rust').boxRot({ x: kp.x, y: y + 0.22, z: kp.z, w: 1.05, h: 0.78, d: 1.15, rot,
+                        tilt: 0.5, uvScale: 1.4, tint: [0.4, 0.35, 0.3], ao: 0.6 });
+  // Teeth, because the bucket is the part people look at.
+  for (let i = 0; i < 4; i++) {
+    const tp = at(bx + bl * 0.62 + 0.5, -0.35 - 0.42 + i * 0.28);
+    cb.m('metal').boxRot({ x: tp.x, y: y + 0.10, z: tp.z, w: 0.22, h: 0.10, d: 0.11, rot,
+                           uvScale: 2, tint: [0.72, 0.7, 0.68] });
+  }
+  return { light: { x, y: y + 2.4, z, kind: 'work' } };
+}
+
 /** Portable generator — power, noise, and a reason for people to gather. */
 export function generator(cb, x, y, z, rot, rng) {
   cb.m('paint').boxRot({ x, y: y + 0.12, z, w: 1.2, h: 0.66, d: 0.7, rot, uvScale: 1.1, tint: [0.6, 0.52, 0.2], ao: 0.45 });
