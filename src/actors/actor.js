@@ -15,6 +15,19 @@ import { Animator, CLIPS, MASK } from './anim.js';
 import { moveActor, LAYER } from '../world/collision.js';
 import { Lungs, GAS_MAX_DPS } from '../world/gas.js';
 import { clamp, clamp01, lerp, damp, dampAngle, angleDelta } from '../core/util.js';
+import { patchWorldMaterial } from '../render/materials.js';
+
+/**
+ * Collision tag -> footstep surface. The tags are what the city labels its
+ * boxes with when it builds them, so this is the one place the world's
+ * material vocabulary meets the audio one.
+ */
+const SURFACE_OF = {
+  pavement: 'concrete', road: 'asphalt', kerb: 'concrete',
+  escape: 'metal', stair: 'metal', ladder: 'metal', plant: 'metal',
+  roof: 'felt', platform: 'wood', prop: 'wood', car: 'metal',
+  rubble: 'rubble', ash: 'ash', floor: 'tile', building: 'concrete',
+};
 
 const _v = new THREE.Vector3();
 const _v2 = new THREE.Vector3();
@@ -206,7 +219,13 @@ export class Actor {
    */
   enableSelfLight() {
     if (this._ownMat) return;
+    // A clone does not carry onBeforeCompile, customProgramCacheKey or the
+    // patched marker, so an actor that acquires its own material silently
+    // loses the height fog and the ember term and pops out of the scene. It
+    // has to be re-patched, and the marker cleared first or the guard skips it.
     this._ownMat = this.mesh.material.clone();
+    this._ownMat.userData = {};
+    patchWorldMaterial(this._ownMat, { skyGate: false, wet: false });
     this.mesh.material = this._ownMat;
     this._flashT = 0;
     this._flashDur = 1;
@@ -381,6 +400,10 @@ export class Actor {
     const r = moveActor(this.world, this, dt);
     this.grounded = r.grounded;
     this.lastMove = r;
+    // The mover already knows which box you are standing on; its tag is the
+    // surface you are standing on, which is what a footstep needs to sound
+    // like anything other than one ping repeated forever.
+    if (r.groundBox) this.groundSurface = SURFACE_OF[r.groundBox.tag] || 'grit';
 
     if (r.fellDist > 2.6 && !this.dead) {
       // Falls hurt, and past a point they kill. The term is deliberately NOT
@@ -598,6 +621,24 @@ export class Actor {
     this.animator.idleOpts.alert = L.alert;
 
     this.animator.update(dt);
+
+    // Footfall, once per half stride. The audio layer has had a nine-surface
+    // footstep table and a per-actor throttle for a while; nothing was ever
+    // emitting into it except the ladder rung, so every actor in the city
+    // walked in silence.
+    const ph = this.animator.phase || 0;
+    const spd = this.animator.locomotion ? this.animator.locomotion.speed : 0;
+    if (this.grounded && spd > 0.4) {
+      const half = ph < 0.5 ? 0 : 1;
+      if (this._stepHalf !== half) {
+        this._stepHalf = half;
+        this.emit('footstep', {
+          id: this.id,
+          surface: this.groundSurface || 'grit',
+          volume: clamp01(0.35 + spd / 5.6),
+        });
+      }
+    } else this._stepHalf = -1;
   }
 
   onAnimEvent(name, clipName, a) {
@@ -617,7 +658,7 @@ export class Actor {
           this.parryWindow = this.parryBonus ? 0.26 : 0.16;
         }
         break;
-      case 'rung': this.emit('footstep', { surface: 'metal', volume: 0.5 }); break;
+      case 'rung': this.emit('footstep', { id: this.id, surface: 'metal', volume: 0.5 }); break;
       case 'cough': this.emit('coughsound', { severity: this.lungs.severity }); break;
       default: break;
     }

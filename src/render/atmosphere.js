@@ -16,7 +16,7 @@
 import * as THREE from 'three';
 import { makeSkyMaterial, worldUniforms } from './materials.js';
 import { autoExposure } from './postfx.js';
-import { emberSprite, smokeSprite, smokeAtlas } from './textures.js';
+import { emberSprite, smokeAtlas } from './textures.js';
 import { clamp, clamp01, lerp, damp, TAU } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 

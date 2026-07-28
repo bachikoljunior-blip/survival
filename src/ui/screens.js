@@ -112,6 +112,8 @@ export class DialogueUI {
 
   show(node, choices) {
     this.node.classList.add('on');
+    this._speaker = node.speaker;
+    this._voiceAt = 0;
     const cast = CAST[node.speaker];
     const name = node.speaker === 'ren' ? 'REN'
       : node.speaker === 'ostrowski' ? 'OSTROWSKI'
@@ -168,6 +170,13 @@ export class DialogueUI {
   update(dt) {
     if (!this.typing) return;
     this.shown += this.speed * dt;
+    // A voice tick every few characters as the line types, at the speaker's
+    // pitch. One blip per line made every character in the game the same beep.
+    const chars = Math.floor(this.shown);
+    if (chars > (this._voiceAt ?? 0) + 3) {
+      this._voiceAt = chars;
+      this.game.audio?.voiceTick(this._speaker);
+    }
     if (this.shown >= this.full.length) {
       this.shown = this.full.length;
       this.typing = false;

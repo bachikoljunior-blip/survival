@@ -32,7 +32,7 @@ export const TIERS = {
   medium: {
     name: 'medium',
     scale: 0.86, maxPixelRatio: 2,
-    shadows: true, shadowSize: 1024, shadowDistance: 30,
+    shadows: true, shadowSize: 1024, shadowDistance: 48,
     bloom: true, grain: true, ssao: false,
     particleBudget: 420, decalBudget: 48,
     drawDistance: 104, fogDensity: 0.042,
@@ -42,7 +42,7 @@ export const TIERS = {
   high: {
     name: 'high',
     scale: 1.0, maxPixelRatio: 2,
-    shadows: true, shadowSize: 2048, shadowDistance: 42,
+    shadows: true, shadowSize: 2048, shadowDistance: 65,
     bloom: true, grain: true, ssao: true,
     particleBudget: 800, decalBudget: 80,
     drawDistance: 145, fogDensity: 0.034,

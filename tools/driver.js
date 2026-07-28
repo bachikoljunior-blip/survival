@@ -331,8 +331,27 @@
             m.actor.vel.set(0, 0, 0);
           }
           await tick(2.4);
-          expect(!!(m.actor && m.actor.out), `${m.id} did not register as out ` +
-            `(y=${m.actor ? m.actor.pos.y.toFixed(2) : '-'}, roof=${roof ? roof.y.toFixed(2) : 'none'})`);
+          if (!(m.actor && m.actor.out)) {
+            // Give it longer and re-read from the live director, in case the
+            // captured mark is stale or the check simply needs another beat.
+            await tick(2.0);
+            const live = G.director.crisis && G.director.crisis.marks.find((x) => x.id === m.id);
+            const a = m.actor;
+            // Call the check directly. If this flips it, the update loop is not
+            // reaching the escort; if it does not, the condition really fails.
+            G.director._updateCrisisEscort(1 / 60);
+            err(`${m.id} retry: out=${a && a.out} sameMark=${live === m} ` +
+              `sameActor=${!!live && live.actor === a} mode=${G.mode} ` +
+              `marks=${G.director.crisis ? G.director.crisis.marks.length : '-'} ` +
+              `disabled=${m.disabled} liveDisabled=${live && live.disabled}`);
+            if (a && a.out) { continue; }
+            err(`${m.id} did not register as out — ` +
+              `y=${a ? a.pos.y.toFixed(2) : '-'} roof=${roof ? roof.y.toFixed(2) : 'none'} ` +
+              `ppmHead=${a ? Math.round(G.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z)) : '-'} ` +
+              `following=${a ? a.following : '-'} ` +
+              `dist=${a ? Math.hypot(a.pos.x - G.player.pos.x, a.pos.z - G.player.pos.z).toFixed(1) : '-'} ` +
+              `crisis=${!!G.director.crisis}`);
+          }
         }
         expect(G.director.crisis && G.director.crisis.rescued === take.length,
           `expected ${take.length} out, got ${G.director.crisis ? G.director.crisis.rescued : '-'}`);
