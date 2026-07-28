@@ -883,6 +883,11 @@ export class Menus {
       flesh: ['YOU WENT DOWN', 'They were faster than you and there were three of them.'],
       fall: ['YOU FELL', 'Nine metres onto rubble. You knew better. Everyone knows better.'],
     };
+    // One screen at a time. Death stacked on top of the title read as two
+    // interfaces fighting, with both sets of buttons live.
+    this.hideTitle();
+    this.closePause();
+    this.hideEnding();
     const [t, s] = lines[cause] || lines.blunt;
     this.deathTitle.textContent = t;
     this.deathSub.textContent = s;

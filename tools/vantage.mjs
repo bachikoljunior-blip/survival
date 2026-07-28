@@ -36,7 +36,10 @@ const VANTAGES = [
   ['slip_edge',      -76, 1.7, 0,     270, -14],
   ['slip_bottom',    -58, -8.2, 4,    315,  10],
   ['slip_bridge',    -70, 11.3, -22,  180, -20],
-  ['marrow_roof',    -60, 11.4, -16,   90,  -6],
+  // Placed with tools/probe_roofspot.mjs: on a roof with 90m of clearance
+  // ahead. The old position was jammed 3.1m against a wall, which is why the
+  // frame was 43% black and why three separate lighting fixes moved it zero.
+  ['marrow_roof',    -80, 11.1, -20,    0,  -6],
   ['cinder_line',     25, 1.7, -16,    0,   -4],
   ['cut_trench',      74, 1.7, 24,     0,  -10],
   ['survey',          62, 1.7, -28,    0,   -4],
@@ -89,6 +92,15 @@ try {
 }
 
 const stats = await page.evaluate(() => window.CINDERLINE.stats || null);
+
+// The sweep photographs the WORLD. Leaving the title screen up put a scrim
+// over the left third of every frame and a menu column over the right, which
+// then showed up in the luma statistics as crushed shadows that were not in
+// the render at all.
+await page.evaluate(() => {
+  const ui = document.getElementById('ui');
+  if (ui) ui.style.display = 'none';
+});
 console.log('world stats:', JSON.stringify(stats));
 
 const results = [];

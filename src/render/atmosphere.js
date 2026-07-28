@@ -146,6 +146,18 @@ export class Atmosphere {
     this.hemi = new THREE.HemisphereLight(0x8fabd6, 0x6a5236, 1.3);
     scene.add(this.hemi);
 
+    // A small ambient floor, so that nothing in Hollis is literally zero.
+    //
+    // Inverting the hemisphere/sun ratio gave the city a light direction and
+    // readable cast shadows, which it badly needed — but it also left walls
+    // that face neither the sun nor the sky at RGB(0,0,0), and a sixth of the
+    // rooftop vantage was clipping to pure black. Raising the hemisphere back
+    // up would flatten the shading again; this lifts only the floor. It is
+    // warm because in a city over a burning seam the light that reaches a
+    // shadowed wall has come off the ground.
+    this.ambient = new THREE.AmbientLight(0x3a3038, 0.55);
+    scene.add(this.ambient);
+
     this.sun = new THREE.DirectionalLight(0xe6cea4, 2.4);
     this.sun.position.set(-30, 92, 34);
     this.sun.castShadow = tier.shadows;

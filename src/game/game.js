@@ -695,6 +695,10 @@ export class Game extends Emitter {
     if (this.hud) { this.hud.update(dt); this.hud.updatePerf(); }
     if (this.dialogueUI) this.dialogueUI.update(dt);
 
+    // Full detail inside drawDistance, backdrop massing beyond it.
+    this.city.updateVisibility(this.engine.camera.position.x, this.engine.camera.position.z,
+                               this.engine.tier.drawDistance);
+
     updateWorldUniforms(this.engine.time);
     if (this.atmos.shadowDirty) {
       this.engine.renderer.shadowMap.needsUpdate = true;

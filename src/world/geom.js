@@ -276,13 +276,27 @@ export class MeshBuilder {
    * once per chunk after the geometry is complete, with a coarse voxel field
    * describing where the buildings are.
    */
-  applyOcclusion(fn) {
+  /**
+   * Multiply vertex colour by a baked occlusion term.
+   *
+   * The term is floored, because ambient occlusion darkens a surface, it does
+   * not delete it: vertex colour multiplies the diffuse, and an authored tint
+   * that is already dark could be driven to literal zero by a heavily occluded
+   * bake. That is how a whole terrace wall came to render at RGB(0,0,0) from
+   * the rooftop vantage — forty-two per cent of the frame, unlit by anything,
+   * including a light added specifically to lift it.
+   *
+   * The floor also applies per channel after the tint, so a dark brick stays
+   * darker than pale plaster in the same shadow.
+   */
+  applyOcclusion(fn, floor = 0.16) {
     for (let i = 0; i < this.vertCount; i++) {
       const k = fn(this.pos[i * 3], this.pos[i * 3 + 1], this.pos[i * 3 + 2],
         this.nrm[i * 3], this.nrm[i * 3 + 1], this.nrm[i * 3 + 2]);
-      this.col[i * 3] *= k;
-      this.col[i * 3 + 1] *= k;
-      this.col[i * 3 + 2] *= k;
+      for (let c = 0; c < 3; c++) {
+        const j = i * 3 + c;
+        this.col[j] = Math.max(this.col[j] * k, this.col[j] * floor);
+      }
     }
     return this;
   }

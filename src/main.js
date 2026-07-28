@@ -157,8 +157,10 @@ async function main() {
     startNewGame, continueGame,
     setCamera(x, y, z, yawDeg, pitchDeg) {
       const p = game.player;
-      p.pos.set(x, y, z);
-      p.vel.set(0, 0, 0);
+      // placeAt, not a raw write: moving the camera must not read as a fall.
+      // It did, and with fall damage unclamped the inspection tool was killing
+      // the player at every elevated vantage.
+      p.placeAt(x, y, z);
       game.camera.yaw = yawDeg * Math.PI / 180;
       game.camera.pitch = pitchDeg * Math.PI / 180;
       game.camera._init = false;

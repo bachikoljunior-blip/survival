@@ -25,7 +25,7 @@ export const TIERS = {
     shadows: false, shadowSize: 512, shadowDistance: 22,
     bloom: false, grain: false, ssao: false,
     particleBudget: 190, decalBudget: 26,
-    drawDistance: 78, fogDensity: 0.055,
+    drawDistance: 78, horizon: 380, fogDensity: 0.055,
     lightBudget: 5, anisotropy: 1, textureSize: 256,
     npcDetail: 0, reflections: false,
   },
@@ -35,7 +35,7 @@ export const TIERS = {
     shadows: true, shadowSize: 1024, shadowDistance: 48,
     bloom: true, grain: true, ssao: false,
     particleBudget: 420, decalBudget: 48,
-    drawDistance: 104, fogDensity: 0.042,
+    drawDistance: 104, horizon: 520, fogDensity: 0.042,
     lightBudget: 8, anisotropy: 2, textureSize: 512,
     npcDetail: 1, reflections: true,
   },
@@ -45,7 +45,7 @@ export const TIERS = {
     shadows: true, shadowSize: 2048, shadowDistance: 65,
     bloom: true, grain: true, ssao: true,
     particleBudget: 800, decalBudget: 80,
-    drawDistance: 145, fogDensity: 0.034,
+    drawDistance: 145, horizon: 680, fogDensity: 0.034,
     lightBudget: 12, anisotropy: 4, textureSize: 512,
     npcDetail: 2, reflections: true,
   },
@@ -162,7 +162,16 @@ export class Engine extends Emitter {
     const r = this.renderer;
     if (!r) return;
     r.shadowMap.enabled = t.shadows;
-    this.camera.far = t.drawDistance;
+    // The far plane is the HORIZON, not the detail distance.
+    //
+    // Setting it to drawDistance culled the whole backdrop — four rings of
+    // massing and three chimneys that the city builds and that nobody had ever
+    // seen, because they start further out than the far plane. From a roof the
+    // city therefore ended in a beige void, which is a poor reward for a game
+    // whose central promise is "climb, or choke". Detail is culled per chunk by
+    // distance instead (City.updateVisibility), which is what drawDistance
+    // actually means.
+    this.camera.far = t.horizon || t.drawDistance;
     this.camera.updateProjectionMatrix();
     this.resize(true);
     this.emit('tier', t);

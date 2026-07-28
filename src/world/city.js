@@ -956,6 +956,27 @@ export class City {
     this._backdropTris = cb.stats.tris;
   }
 
+  /**
+   * Distance-cull detailed chunks.
+   *
+   * The far plane is the horizon now, so the backdrop is finally visible from
+   * a roof — but that would also draw every detailed chunk in the city. This
+   * is what `drawDistance` actually means: full detail inside it, backdrop
+   * massing beyond it. The half-diagonal of a chunk is added so a chunk whose
+   * near corner is in range is not popped out by its centre being out of it.
+   *
+   * Called once per frame; chunk count is ~50, so this is a rounding error.
+   */
+  updateVisibility(camX, camZ, drawDistance) {
+    if (!this.chunkGroups) return;
+    const r = drawDistance + CHUNK * 0.71;
+    const r2 = r * r;
+    for (const c of this.chunkGroups) {
+      const dx = c.x - camX, dz = c.z - camZ;
+      c.group.visible = dx * dx + dz * dz <= r2;
+    }
+  }
+
   // -------------------------------------------------------------------- gas
 
   _buildGas() {
@@ -982,11 +1003,18 @@ export class City {
     const occ = this._occ;
     const fn = (x, y, z, nx, ny, nz) => occ.occlusion(x, y, z, nx, ny, nz);
     let tris = 0;
+    /** Built chunk groups with their centres, for distance culling. */
+    this.chunkGroups = [];
     for (const c of this._chunks.values()) {
       c.applyOcclusion(fn);
       const g = c.build((k) => this._mat(k));
       // Chunk-level bounding sphere makes frustum culling meaningful.
       this.root.add(g);
+      this.chunkGroups.push({
+        group: g,
+        x: (c.cx + 0.5) * CHUNK,
+        z: (c.cz + 0.5) * CHUNK,
+      });
       tris += c.stats.tris;
     }
 
