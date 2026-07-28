@@ -1,0 +1,397 @@
+/**
+ * Combat.
+ *
+ * The design rules, which everything below serves:
+ *
+ *   READABLE   Every attack has a visible wind-up whose length is the same
+ *              every time. You lose because you misread it, not because it was
+ *              invisible.
+ *   FAIR       Only a limited number of enemies may commit at once. The rest
+ *              circle, which reads as tactics and is really a fairness valve.
+ *   COMMITTED  Once you swing you are swinging. Cancels exist only through the
+ *              dodge, and the dodge costs stamina.
+ *   PHYSICAL   Hit-stop, camera shake, sparks, a decal and a stagger. A hit
+ *              that does not stop time for four frames does not feel like a hit.
+ *
+ * Hit detection is an arc test rather than swept geometry: for the duration of
+ * the active window, anything inside the attacker's reach and arc that has not
+ * already been hit by this swing takes the hit. This is exact, allocation-free,
+ * and — crucially — matches what the player sees, because the arc is the same
+ * shape as the animation.
+ */
+
+import * as THREE from 'three';
+import { clamp, clamp01, lerp, angleDelta, TAU } from '../core/util.js';
+import { STATE } from '../actors/actor.js';
+
+/**
+ * Attack table.
+ *
+ *   windup / active / recover  seconds; they sum to the animation length
+ *   reach                      metres from the attacker's centre
+ *   arc                        half-angle in radians
+ *   damage / poise             applied on hit
+ *   stamina                    cost to start
+ *   moveScale                  how much the attacker may steer while swinging
+ *   rootMotion                 multiplier on the clip's forward push
+ */
+export const ATTACKS = {
+  // --- Ren, prying bar ---------------------------------------------------
+  light1: {
+    clip: 'atk1', windup: 0.19, active: 0.11, recover: 0.32,
+    reach: 2.05, arc: 1.15, damage: 17, poise: 16, stamina: 11,
+    moveScale: 0.16, rootMotion: 1.0, next: 'light2', comboWindow: 0.42,
+    hitstop: 0.06, shake: 0.16, sound: 'swing', impact: 'blunt',
+  },
+  light2: {
+    clip: 'atk2', windup: 0.21, active: 0.11, recover: 0.34,
+    reach: 2.1, arc: 1.25, damage: 20, poise: 19, stamina: 12,
+    moveScale: 0.16, rootMotion: 1.0, next: 'light3', comboWindow: 0.42,
+    hitstop: 0.065, shake: 0.18, sound: 'swing', impact: 'blunt',
+  },
+  light3: {
+    clip: 'atk3', windup: 0.38, active: 0.14, recover: 0.38,
+    reach: 2.3, arc: 0.95, damage: 32, poise: 40, stamina: 20,
+    moveScale: 0.1, rootMotion: 1.0, next: null, comboWindow: 0,
+    hitstop: 0.11, shake: 0.4, sound: 'swingHeavy', impact: 'blunt', stagger: true,
+  },
+  heavy: {
+    clip: 'heavy', windup: 0.55, active: 0.16, recover: 0.39,
+    reach: 2.5, arc: 1.75, damage: 38, poise: 58, stamina: 26,
+    moveScale: 0.08, rootMotion: 1.0, next: null, comboWindow: 0,
+    hitstop: 0.13, shake: 0.5, sound: 'swingHeavy', impact: 'blunt',
+    guardBreak: true, stagger: true, chargeable: true,
+  },
+
+  // --- enemy attacks -----------------------------------------------------
+  scavSwing: {
+    clip: 'atk1', windup: 0.32, active: 0.11, recover: 0.44,
+    reach: 1.95, arc: 1.0, damage: 12, poise: 13, stamina: 0,
+    moveScale: 0.12, rootMotion: 0.9, next: 'scavSwing2', comboWindow: 0.3,
+    hitstop: 0.05, shake: 0.1, sound: 'swing', impact: 'blunt',
+  },
+  scavSwing2: {
+    clip: 'atk2', windup: 0.26, active: 0.1, recover: 0.5,
+    reach: 1.95, arc: 1.05, damage: 13, poise: 14, stamina: 0,
+    moveScale: 0.12, rootMotion: 0.9, next: null, comboWindow: 0,
+    hitstop: 0.05, shake: 0.11, sound: 'swing', impact: 'blunt',
+  },
+  breakerSmash: {
+    clip: 'heavy', windup: 0.78, active: 0.18, recover: 0.62,
+    reach: 2.6, arc: 1.6, damage: 30, poise: 70, stamina: 0,
+    moveScale: 0.06, rootMotion: 1.1, next: null, comboWindow: 0,
+    hitstop: 0.14, shake: 0.6, sound: 'swingHeavy', impact: 'blunt',
+    guardBreak: true, stagger: true, telegraph: 'heavy',
+  },
+  breakerOverhead: {
+    clip: 'atk3', windup: 0.92, active: 0.16, recover: 0.7,
+    reach: 2.3, arc: 0.8, damage: 36, poise: 90, stamina: 0,
+    moveScale: 0.04, rootMotion: 1.2, next: null, comboWindow: 0,
+    hitstop: 0.16, shake: 0.75, sound: 'swingHeavy', impact: 'blunt',
+    guardBreak: true, stagger: true, telegraph: 'heavy',
+  },
+  wardenJab: {
+    clip: 'atk1', windup: 0.24, active: 0.09, recover: 0.3,
+    reach: 1.85, arc: 0.8, damage: 14, poise: 15, stamina: 0,
+    moveScale: 0.2, rootMotion: 0.8, next: 'wardenJab2', comboWindow: 0.34,
+    hitstop: 0.05, shake: 0.1, sound: 'swing', impact: 'blunt',
+  },
+  wardenJab2: {
+    clip: 'atk2', windup: 0.2, active: 0.09, recover: 0.36,
+    reach: 1.85, arc: 0.85, damage: 15, poise: 16, stamina: 0,
+    moveScale: 0.2, rootMotion: 0.8, next: 'wardenShove', comboWindow: 0.3,
+    hitstop: 0.05, shake: 0.11, sound: 'swing', impact: 'blunt',
+  },
+  wardenShove: {
+    clip: 'heavy', windup: 0.4, active: 0.12, recover: 0.42,
+    reach: 1.7, arc: 1.2, damage: 10, poise: 62, stamina: 0,
+    moveScale: 0.1, rootMotion: 1.3, next: null, comboWindow: 0,
+    hitstop: 0.09, shake: 0.32, sound: 'shove', impact: 'blunt',
+    guardBreak: true, stagger: true,
+  },
+  dogBite: {
+    clip: 'atk1', windup: 0.26, active: 0.1, recover: 0.5,
+    reach: 1.5, arc: 0.7, damage: 9, poise: 10, stamina: 0,
+    moveScale: 0.3, rootMotion: 1.6, next: null, comboWindow: 0,
+    hitstop: 0.04, shake: 0.1, sound: 'bite', impact: 'flesh',
+  },
+};
+
+/** Impact presets for particles and decals. */
+const IMPACT = {
+  blunt: { particles: 'impact', count: 9, sparks: 4, decal: null },
+  flesh: { particles: 'blood', count: 10, sparks: 0, decal: 'blood' },
+  metal: { particles: 'spark', count: 12, sparks: 12, decal: null },
+};
+
+const _v = new THREE.Vector3();
+
+export class CombatSystem {
+  constructor(game) {
+    this.game = game;
+    this.hits = [];
+    /**
+     * Attack tokens. At most this many enemies may be in an attack at once,
+     * regardless of how many are engaged. Everything else about the encounter
+     * design depends on this number being small.
+     */
+    this.maxAttackers = 2;
+    this.attackTokens = new Set();
+    this.lastTokenGrant = 0;
+    this.time = 0;
+    this.combatHeat = 0;      // 0..1, drives music and enemy aggression
+    this.lastHitTime = -99;
+  }
+
+  /**
+   * Begin an attack. Returns true if it started.
+   */
+  start(actor, attackName, opts = {}) {
+    const A = ATTACKS[attackName];
+    if (!A || !actor.canAct || actor.dead) return false;
+    if (actor.attack && !opts.chain) return false;
+    if (A.stamina > 0 && actor.stamina < A.stamina * 0.5) return false;
+
+    actor.stamina = Math.max(0, actor.stamina - A.stamina);
+    actor._staminaHold = 0.9;
+    actor.guarding = false;
+
+    const total = A.windup + A.active + A.recover;
+    actor.attack = {
+      def: A, name: attackName, t: 0, total,
+      moveScale: A.moveScale, rootMotion: A.rootMotion,
+      hitSet: new Set(), landed: false, charge: opts.charge || 0,
+    };
+    actor.animator.play(A.clip, { speed: (A.clip === 'atk1' ? 0.62 : A.clip === 'atk2' ? 0.66 : A.clip === 'atk3' ? 0.9 : 1.1) / total, fade: 0.05, force: true });
+    actor.emit('attackstart', { name: attackName, def: A });
+    return true;
+  }
+
+  /** Advance every actor's active attack and resolve hits. */
+  update(dt, game) {
+    this.time += dt;
+    this.combatHeat = Math.max(0, this.combatHeat - dt * 0.18);
+
+    const actors = game.actors;
+    for (let i = 0; i < actors.length; i++) {
+      const a = actors[i];
+      if (!a.attack) continue;
+      if (a.hitstop > 0) continue;
+      const atk = a.attack;
+      const prev = atk.t;
+      atk.t += dt;
+      const A = atk.def;
+
+      const activeStart = A.windup;
+      const activeEnd = A.windup + A.active;
+
+      // Telegraph flash at the top of the wind-up on heavy attacks.
+      if (A.telegraph && prev < activeStart - 0.14 && atk.t >= activeStart - 0.14) {
+        a.emit('telegraph', { kind: A.telegraph });
+      }
+
+      if (atk.t >= activeStart && prev < activeEnd && atk.t <= activeEnd + dt) {
+        this._resolveArc(a, atk, game);
+      }
+
+      if (atk.t >= atk.total) {
+        a.attack = null;
+        a.comboWindow = A.comboWindow;
+        a.comboNext = A.next;
+        a.emit('attackend', { name: atk.name, landed: atk.landed });
+      } else if (atk.t >= activeEnd && A.next && a.comboWindow <= 0) {
+        // The combo window opens as recovery begins, not when it ends: pressing
+        // early should chain, not be swallowed.
+        a.comboWindow = A.comboWindow;
+        a.comboNext = A.next;
+      }
+    }
+
+    this._updateTokens(game);
+  }
+
+  /** Anyone inside the arc who has not been hit by this swing takes it. */
+  _resolveArc(attacker, atk, game) {
+    const A = atk.def;
+    const fx = -Math.sin(attacker.yaw), fz = -Math.cos(attacker.yaw);
+    const ax = attacker.pos.x, az = attacker.pos.z;
+    const ay = attacker.pos.y;
+    const reach = A.reach + (atk.charge > 0 ? atk.charge * 0.35 : 0);
+
+    for (const target of game.actors) {
+      if (target === attacker || target.dead) continue;
+      if (!this._hostile(attacker, target)) continue;
+      if (atk.hitSet.has(target.id)) continue;
+
+      const dx = target.pos.x - ax, dz = target.pos.z - az;
+      const dist = Math.hypot(dx, dz);
+      if (dist > reach + target.radius) continue;
+      // Vertical band: you cannot hit someone on the roof above you.
+      if (Math.abs(target.pos.y - ay) > 1.5) continue;
+      if (dist > 0.01) {
+        const dot = (dx / dist) * fx + (dz / dist) * fz;
+        if (dot < Math.cos(A.arc)) continue;
+      }
+
+      atk.hitSet.add(target.id);
+      this._applyHit(attacker, target, atk, game, dx / (dist || 1), dz / (dist || 1));
+    }
+  }
+
+  _hostile(a, b) {
+    if (a.faction === b.faction) return false;
+    if (b.faction === 'neutral' || a.faction === 'neutral') return false;
+    return true;
+  }
+
+  _applyHit(attacker, target, atk, game, dirX, dirZ) {
+    const A = atk.def;
+    const charged = 1 + atk.charge * 0.7;
+    const dmg = A.damage * charged * (attacker.damageMul ?? 1);
+
+    const res = target.damage({
+      amount: dmg,
+      poise: A.poise * charged,
+      kind: A.impact === 'flesh' ? 'flesh' : 'blunt',
+      dirX, dirZ,
+      stagger: A.stagger,
+      guardBreak: A.guardBreak,
+      source: attacker,
+    });
+
+    atk.landed = true;
+    this.lastHitTime = this.time;
+    this.combatHeat = Math.min(1, this.combatHeat + 0.35);
+
+    // --- feedback ---------------------------------------------------------
+    const px = lerp(attacker.pos.x, target.pos.x, 0.62);
+    const pz = lerp(attacker.pos.z, target.pos.z, 0.62);
+    const py = target.pos.y + target.height * (res.blocked ? 0.68 : 0.58);
+
+    const isPlayerAttacker = attacker === game.player;
+    const isPlayerTarget = target === game.player;
+
+    if (res.parried) {
+      game.atmos.spawnBurst('spark', px, py, pz, -dirX, 0.4, -dirZ, 16, 1.1);
+      attacker.hitstop = 0.2;
+      target.hitstop = 0.1;
+      if (isPlayerTarget || isPlayerAttacker) game.camera.addShake(0.45);
+      // A parry staggers the attacker; it is the reward for exact timing.
+      attacker.stagger(0.85);
+      game.emit('sfx', 'parry', { x: px, y: py, z: pz });
+      game.flash(0xfff0d0, 0.18);
+    } else if (res.blocked) {
+      game.atmos.spawnBurst('spark', px, py, pz, -dirX, 0.3, -dirZ, 9, 0.9);
+      attacker.hitstop = 0.09;
+      target.hitstop = 0.07;
+      if (isPlayerTarget || isPlayerAttacker) game.camera.addShake(A.shake * 0.55);
+      game.emit('sfx', 'block', { x: px, y: py, z: pz });
+    } else if (res.dodged) {
+      game.emit('sfx', 'whiff', { x: px, y: py, z: pz });
+    } else {
+      const imp = IMPACT[A.impact] || IMPACT.blunt;
+      game.atmos.spawnBurst(imp.particles, px, py, pz, dirX * 0.4, 0.7, dirZ * 0.4, imp.count, 1);
+      if (imp.sparks) game.atmos.spawnBurst('spark', px, py, pz, dirX * 0.5, 0.6, dirZ * 0.5, imp.sparks, 0.8);
+      attacker.hitstop = A.hitstop * (isPlayerAttacker ? 1 : 0.7);
+      target.hitstop = A.hitstop * 0.8;
+      if (isPlayerTarget) {
+        game.camera.addShake(A.shake * 1.5);
+        game.flash(0x8c1a10, clamp01(res.amount / 60) * 0.4);
+      } else if (isPlayerAttacker) {
+        game.camera.addShake(A.shake);
+      }
+      game.emit('sfx', A.impact === 'flesh' ? 'hitFlesh' : 'hitBlunt', { x: px, y: py, z: pz });
+      game.emit('damageNumber', { target, amount: Math.round(res.amount), crit: A.stagger, x: px, y: py, z: pz });
+
+      if (res.killed) {
+        game.emit('kill', { attacker, target });
+        // A finishing blow on the last enemy gets a beat of slow motion. Used
+        // sparingly: it means "that was the end of it", not "you hit something".
+        if (isPlayerAttacker && this._lastEnemyStanding(game, target)) {
+          game.engine.slowmo(0.35, 0.7);
+        }
+      }
+    }
+  }
+
+  _lastEnemyStanding(game, justKilled) {
+    for (const a of game.actors) {
+      if (a === justKilled || a.dead) continue;
+      if (a.faction !== 'player' && a.faction !== 'neutral' && a.aggro) return false;
+    }
+    return true;
+  }
+
+  /**
+   * Hand out attack tokens. Enemies without a token will not commit, so the
+   * player is never surrounded by four simultaneous swings.
+   */
+  _updateTokens(game) {
+    for (const id of this.attackTokens) {
+      const a = game.actors.find((x) => x.id === id);
+      if (!a || a.dead || (!a.attack && !a.wantsAttack)) this.attackTokens.delete(id);
+    }
+  }
+
+  requestToken(actor) {
+    if (this.attackTokens.has(actor.id)) return true;
+    if (this.attackTokens.size >= this.maxAttackers) return false;
+    this.attackTokens.add(actor.id);
+    return true;
+  }
+
+  releaseToken(actor) { this.attackTokens.delete(actor.id); }
+
+  /**
+   * Player input resolution. Called by the game each step with the buffered
+   * action, if any.
+   */
+  handlePlayerAction(player, action, game) {
+    if (!action) return false;
+
+    switch (action) {
+      case 'attack': {
+        if (player.attack) {
+          // Queue the chain; it fires when the window opens.
+          return false;
+        }
+        if (player.comboWindow > 0 && player.comboNext) {
+          const n = player.comboNext;
+          player.comboWindow = 0;
+          player.comboNext = null;
+          return this.start(player, n, { chain: true });
+        }
+        return this.start(player, 'light1');
+      }
+      case 'heavy':
+        if (player.attack) return false;
+        return this.start(player, 'heavy');
+      case 'dodge': {
+        if (!player.canAct) return false;
+        if (player.stamina < 16) { game.emit('sfx', 'exhausted'); return false; }
+        // The dodge cancels an attack's recovery but not its active frames.
+        if (player.attack && player.attack.t < player.attack.def.windup + player.attack.def.active) return false;
+        player.attack = null;
+        player.stamina -= 16;
+        player._staminaHold = 0.85;
+        player.guarding = false;
+        // Dodge in the stick direction; with no input, dodge backward.
+        const m = player.moveInput;
+        if (m.mag > 0.2) player.targetYaw = Math.atan2(m.x, m.z);
+        else player.targetYaw = player.yaw + Math.PI;
+        player.yaw = player.targetYaw;
+        player.animator.play('dodge', { fade: 0.04, force: true });
+        // Bodily displacement is applied as velocity so it collides properly.
+        const fx = -Math.sin(player.yaw), fz = -Math.cos(player.yaw);
+        player.vel.x = fx * 8.4;
+        player.vel.z = fz * 8.4;
+        player.iframes = 0.30;
+        game.emit('sfx', 'dodge');
+        game.atmos.spawnBurst('step', player.pos.x, player.pos.y + 0.1, player.pos.z, 0, 1, 0, 6, 1.2);
+        return true;
+      }
+      default:
+        return false;
+    }
+  }
+}

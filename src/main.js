@@ -1,0 +1,128 @@
+/**
+ * CINDERLINE — entry point.
+ */
+
+import * as THREE from 'three';
+import { Game, MODE } from './game/game.js';
+import { Storage } from './game/state.js';
+import { Audio } from './audio/audio.js';
+
+const boot = document.getElementById('boot');
+const bootNote = document.getElementById('boot-note');
+const setNote = (s) => { if (bootNote) bootNote.textContent = s; };
+
+const STAGE_TEXT = {
+  ground: 'laying ground',
+  streets: 'laying streets',
+  buildings: 'raising hollis',
+  structures: 'hanging fire escapes',
+  dressing: 'dressing the city',
+  interiors: 'opening doors',
+  skyline: 'drawing the skyline',
+  air: 'measuring the air',
+  lighting: 'lighting the burn',
+  navigation: 'mapping the ground',
+  ready: 'ready',
+};
+
+async function main() {
+  window.__cinderlineBooted = true;
+  window.CINDERLINE = { ready: false };
+
+  setNote('starting renderer');
+  const canvas = document.getElementById('gl');
+  const game = new Game(canvas);
+
+  await game.buildWorld((stage) => setNote(STAGE_TEXT[stage] || stage));
+
+  game.spawnPlayer('start');
+
+  // Audio has to wait for a user gesture before it can make a sound; the
+  // engine is created now and unlocked on the first touch.
+  game.audio = new Audio(game);
+  game.applySettings(game.settings);
+
+  game.start();
+
+  // --- boot flow ---------------------------------------------------------
+  const startNewGame = async () => {
+    game.menus.hideTitle();
+    await game.menus.fadeOut();
+    game.director.state.reset();
+    game.director.currentInterior = null;
+    game.forcedMood = null;
+    game.interiorPpm = null;
+    game.teleport('start');
+    game.player.hp = game.player.maxHp;
+    game.player.stamina = game.player.maxStamina;
+    game.player.lungs.sat = 0;
+    game.player.lungs.removeFilter();
+    game.player.dead = false;
+    game.playTime = 0;
+    game.director.refreshCast();
+    game.director.quests.start('arrival');
+    game.director.quests.start('cellarRow');
+    game.hud.setVisible(true);
+    await game.menus.fadeIn();
+    game.setMode(MODE.PLAY);
+    game.hud.showCard('CHAPTER ONE', 'BAD AIR', 'The Stacks · Hollis');
+    game.emit('music', 'explore');
+  };
+
+  const continueGame = async () => {
+    const save = Storage.load();
+    if (!save) return startNewGame();
+    game.menus.hideTitle();
+    await game.menus.fadeOut();
+    game.director.applySave(save);
+    game.playTime = game.director.state.playTime;
+    game.hud.setVisible(true);
+    await game.menus.fadeIn();
+    game.setMode(MODE.PLAY);
+    game.emit('music', 'explore');
+  };
+
+  game.on('ui:newgame', startNewGame);
+  game.on('ui:continue', continueGame);
+
+  game.hud.setVisible(false);
+  game.setMode(MODE.TITLE);
+  game.menus.showTitle(Storage.hasSave(), __BUILD_ID__);
+  // Frame the title on a street rather than on the player's back.
+  const s = game.city.spawns.get('marrow_west');
+  game.player.pos.set(s.x, 0.2, s.z);
+  game.camera.yaw = Math.PI * 0.5;
+  game.camera.pitch = -0.05;
+  game.camera._init = false;
+
+  setNote('ready');
+  boot.classList.add('gone');
+  setTimeout(() => { if (boot.parentNode) boot.remove(); }, 800);
+
+  // ---- test / tooling handle -------------------------------------------
+  Object.assign(window.CINDERLINE, {
+    ready: true, game, THREE, MODE,
+    engine: game.engine, input: game.input, post: game.post,
+    scene: game.scene, atmos: game.atmos, city: game.city,
+    stats: game.city.stats, build: __BUILD_ID__,
+    startNewGame, continueGame,
+    setCamera(x, y, z, yawDeg, pitchDeg) {
+      const p = game.player;
+      p.pos.set(x, y, z);
+      p.vel.set(0, 0, 0);
+      game.camera.yaw = yawDeg * Math.PI / 180;
+      game.camera.pitch = pitchDeg * Math.PI / 180;
+      game.camera._init = false;
+      game.camera._manualT = 999;
+      game.engine.renderer.shadowMap.needsUpdate = true;
+      game.atmos.shadowDirty = true;
+    },
+  });
+}
+
+main().catch((e) => {
+  console.error(e);
+  setNote('failed to start — ' + (e && e.message ? e.message : e));
+  if (bootNote) bootNote.className = 'boot-note err';
+  if (window.CINDERLINE) window.CINDERLINE.ready = true;
+});
