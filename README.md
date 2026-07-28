@@ -159,6 +159,7 @@ none in the game. All of it is produced at runtime by code:
 npm run validate     # static content validation, no browser needed
 npm run i18n         # translation completeness + proper-noun consistency
 npm run test:play    # drive five full playthroughs to five different endings
+npm run test:play:ja # the same five, with the whole game in Japanese
 npm run test:perf    # draw calls, triangles, programs, CPU step cost
 npm test             # all of the above
 npm run shots        # screenshot sweep of every district
@@ -189,6 +190,12 @@ nothing.
 complete games — one per ending — through the real quest triggers, the real
 dialogue runner and the real condition evaluator. It never writes a flag
 directly. If a beat cannot be reached by playing, the test fails.
+
+`--lang ja` plays the same five in Japanese, which is not a cosmetic re-run: the
+localisation rests on the claim that no translated string reaches the game's
+logic, and the way to find out is to complete every path with every visible
+string swapped and check that the same triggers fire and the same endings are
+chosen.
 
 **`tools/i18n_report.mjs`** and **`tools/i18n_glossary.mjs`** are described
 under *Japanese* above. Neither fails the build: a partial translation degrades

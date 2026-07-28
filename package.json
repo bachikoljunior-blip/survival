@@ -13,7 +13,8 @@
     "test:play": "node build.mjs --dev && node tools/playthrough.mjs",
     "test:perf": "node build.mjs && node tools/perf.mjs",
     "shots": "node build.mjs --dev && node tools/vantage.mjs",
-    "i18n": "node tools/i18n_report.mjs ja && node tools/i18n_glossary.mjs ja"
+    "i18n": "node tools/i18n_report.mjs ja && node tools/i18n_glossary.mjs ja",
+    "test:play:ja": "node build.mjs --dev && node tools/playthrough.mjs --lang ja"
   },
   "repository": {
     "type": "git",

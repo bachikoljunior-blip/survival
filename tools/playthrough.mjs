@@ -13,6 +13,13 @@
  *
  *   node tools/playthrough.mjs                  all paths
  *   node tools/playthrough.mjs --path publish   one path
+ *   node tools/playthrough.mjs --lang ja        the same game in Japanese
+ *
+ * `--lang` is not a cosmetic re-run. The whole localisation design rests on the
+ * claim that no translated string ever reaches the game's logic, and the way to
+ * find out is to play a complete game with every visible string swapped and see
+ * whether the same quest triggers fire, the same conditions evaluate and the
+ * same ending is chosen.
  */
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
@@ -28,6 +35,7 @@ mkdirSync(OUT, { recursive: true });
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
 const ONLY = arg('path', null);
+const LANG = arg('lang', null);
 const SHOTS = argv.includes('--shots');
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -63,6 +71,23 @@ page.on('console', (m) => { if (m.type() === 'error') errors.push('CONSOLE ' + m
 await page.goto(`http://127.0.0.1:${port}${BASE}/index.html`, { waitUntil: 'domcontentloaded' });
 await page.waitForFunction('window.CINDERLINE && window.CINDERLINE.ready === true', null, { timeout: 120000 });
 
+// Language, if one was asked for — set through the same call the settings panel
+// makes, before the driver touches anything.
+if (LANG) {
+  const got = await page.evaluate((code) => {
+    const G = window.CINDERLINE.game;
+    G.menus.settings.language = code;
+    G.applySettings(G.menus.settings);
+    G.emit('locale', code);
+    return document.documentElement.getAttribute('data-lang');
+  }, LANG);
+  if (got !== LANG) {
+    console.log(`FAIL  could not switch to ${LANG} (document is "${got}")`);
+    process.exit(1);
+  }
+  console.log(`      language: ${got}`);
+}
+
 // The in-page driver: it exercises the real systems, never fakes state.
 const DRIVER = readFileSync(join(ROOT, 'tools', 'driver.js'), 'utf8');
 await page.evaluate(DRIVER);
@@ -79,8 +104,8 @@ for (const path of PATHS) {
   if (SHOTS) await page.screenshot({ path: join(OUT, `pt-${path}.png`) });
 }
 
-const report = { results, errors, when: new Date().toISOString() };
-writeFileSync(join(OUT, 'playthrough.json'), JSON.stringify(report, null, 2));
+const report = { results, errors, lang: LANG || 'en', when: new Date().toISOString() };
+writeFileSync(join(OUT, `playthrough${LANG ? '-' + LANG : ''}.json`), JSON.stringify(report, null, 2));
 
 const failed = results.some((r) => r.errors.length || !r.reachedEnding) || errors.length > 0;
 if (errors.length) { console.log('--- page errors ---'); console.log(errors.slice(0, 20).join('\n')); }
