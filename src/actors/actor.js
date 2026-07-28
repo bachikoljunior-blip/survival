@@ -197,6 +197,50 @@ export class Actor {
     this.handL.add(this.offhand);
   }
 
+  /**
+   * Give this actor its own material instance so it can be lit from inside.
+   *
+   * The material cache hands the same MeshStandardMaterial to everyone with the
+   * same costume parameters, so flashing one would flash the whole crowd. Only
+   * actors that actually need a tell pay for the clone — currently the ones
+   * with a telegraphed attack, which is two archetypes.
+   */
+  enableSelfLight() {
+    if (this._ownMat) return;
+    this._ownMat = this.mesh.material.clone();
+    this.mesh.material = this._ownMat;
+    this._flashT = 0;
+    this._flashDur = 1;
+  }
+
+  /**
+   * The visual half of a telegraph: the body glows and throbs for the rest of
+   * the wind-up. `telegraph` used to be audio and a camera shake that only
+   * fired if you happened to be locked on to the attacker, which meant a
+   * Breaker in a crowd announced itself to nobody.
+   */
+  telegraphFlash(duration = 0.6) {
+    if (!this._ownMat) return;
+    this._flashT = duration;
+    this._flashDur = Math.max(0.08, duration);
+  }
+
+  _updateSelfLight(dt) {
+    if (!this._ownMat) return;
+    if (this._flashT <= 0) {
+      if (this._ownMat.emissiveIntensity !== 0) {
+        this._ownMat.emissiveIntensity = 0;
+      }
+      return;
+    }
+    this._flashT = Math.max(0, this._flashT - dt);
+    const k = this._flashT / this._flashDur;
+    // Throb faster as the swing approaches; the rhythm is the countdown.
+    const throb = 0.55 + 0.45 * Math.sin((1 - k) * (1 - k) * 46 + k * 6);
+    this._ownMat.emissive.setRGB(1.0, 0.38, 0.12);
+    this._ownMat.emissiveIntensity = throb * (0.35 + 0.65 * (1 - k)) * 1.5;
+  }
+
   /** World-space position of a bone (for effects, lock-on, dialogue framing). */
   bonePos(bone, out = _v) {
     bone.updateWorldMatrix(true, false);
@@ -260,6 +304,7 @@ export class Actor {
       if (this.staggerTime <= 0) this.state = STATE.IDLE;
     }
 
+    this._updateSelfLight(dt);
     this._updateGuard(dt);
     this._updateMovement(dt);
     this._updateVitals(dt, ctx);
@@ -698,6 +743,7 @@ export class Actor {
 
   dispose() {
     this.rig.geometry.dispose();
+    if (this._ownMat) this._ownMat.dispose();
     if (this.weapon) this.weapon.traverse((o) => o.geometry && o.geometry.dispose());
     if (this.offhand) this.offhand.traverse((o) => o.geometry && o.geometry.dispose());
   }
@@ -755,8 +801,9 @@ export function separateActors(actors, dt, player = null) {
 
       const overlap = minD - d;
       // Resolve most of it per step, not all: a hard snap reads as a collision
-      // bug, a firm push reads as a shoulder.
-      const push = overlap * Math.min(1, dt * 16) * 0.9;
+      // bug, a firm push reads as a shoulder. Strong enough to win against
+      // steering that is actively driving two bodies into each other.
+      const push = overlap * Math.min(1, dt * 42) * 0.95;
 
       let wa = 0.5, wb = 0.5;
       if (a === player) { wa = 0.25; wb = 0.75; }

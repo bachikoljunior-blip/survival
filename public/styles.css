@@ -314,7 +314,7 @@ body {
   overflow: hidden;
   /* A dark scrim: the ticks are 8.5px bone type and were invisible against
      brick in the real frame. */
-  background: linear-gradient(90deg, transparent, rgba(6, 5, 4, 0.72) 14%, rgba(6, 5, 4, 0.72) 86%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(6, 5, 4, 0.5) 20%, rgba(6, 5, 4, 0.5) 80%, transparent);
   border-radius: 2px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
@@ -555,14 +555,20 @@ body {
 
 /* ------------------------------------------------------------- dialogue --- */
 
+/* The block is bottom-anchored and bounded by the viewport, and the choice
+   list takes whatever height is left over. That is what stops the list being
+   capped by a magic number that happened to be smaller than the content. */
 #dlg {
   position: absolute;
   left: 50%; bottom: calc(var(--pad) + var(--sa-b));
   transform: translateX(-50%);
   width: min(calc(100% - var(--sa-l) - var(--sa-r) - 16px), calc(430px * var(--uiscale)));
+  max-height: calc(100% - var(--sa-t) - var(--sa-b) - var(--pad) * 2);
   display: none;
+  flex-direction: column;
 }
-#dlg.on { display: block; }
+#dlg.on { display: flex; }
+.dlg-box { flex: 0 0 auto; }
 
 .dlg-box {
   background: linear-gradient(180deg, rgba(20, 17, 13, 0.965), rgba(10, 9, 7, 0.975));
@@ -602,8 +608,13 @@ body {
    old 112px (84px on this device) the third option onwards could neither be
    seen nor selected. The dialogue block is bottom-anchored, so growing this
    grows upwards into empty screen. */
-.dlg-choicewrap { position: relative; margin-top: calc(4px * var(--uiscale)); }
-.dlg-choices { max-height: calc(210px * var(--uiscale)); }
+.dlg-choicewrap {
+  position: relative;
+  margin-top: calc(4px * var(--uiscale));
+  flex: 0 1 auto; min-height: 0;
+  display: flex;
+}
+.dlg-choices { flex: 1 1 auto; min-height: 0; }
 /* Overflow affordance — a 6px scrollbar is not enough on its own. */
 .dlg-choicewrap::after {
   content: '▾  MORE';
@@ -881,13 +892,13 @@ body {
 }
 
 /* Very short viewports (landscape phones) — tighten everything.
-   The choice list is NOT tightened here any more: this media query matches the
-   primary target device, and the old 84px cap hid the 3rd option onwards of 22
-   of the 27 choice nodes in the game. 186px still leaves the dialogue block
-   clear of the compass at 375px tall. */
+   The choice list is NOT capped here any more. This media query matches the
+   primary target device exactly, and its old `max-height: 84px` hid the third
+   option onwards of 22 of the 27 choice nodes in the game. The list now takes
+   whatever height the dialogue block has left, and scrolls with a visible
+   affordance when even that is not enough. */
 @media (max-height: 400px) {
   .objective { max-width: calc(160px * var(--uiscale)); }
-  .dlg-choices { max-height: calc(186px * var(--uiscale)); }
 }
 
 /* ------------------------------------------------------- left-handed ------ */

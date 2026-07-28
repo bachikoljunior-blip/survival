@@ -69,7 +69,7 @@ export const ATTACKS = {
     hitstop: 0.11, shake: 0.4, sound: 'swingHeavy', impact: 'blunt', stagger: true,
   },
   heavy: {
-    clip: 'heavy', windup: 0.55, active: 0.16, recover: 0.39,
+    clip: 'heavy', windup: 0.55, active: 0.17, recover: 0.38,
     reach: 2.5, arc: 1.15, damage: 38, poise: 58, stamina: 26,
     moveScale: 0.08, rootMotion: 1.0, next: null, comboWindow: 0,
     hitstop: 0.13, shake: 0.5, sound: 'swingHeavy', impact: 'blunt',
@@ -147,7 +147,7 @@ const EXHAUSTED = 0.15;
 /** Committed dodge window: displacement is not damped away inside it. */
 const DODGE_DRIVE = 0.22;
 /** Dodge impulse, m/s. With DODGE_DRIVE this is about 2.9 m of travel. */
-const DODGE_SPEED = 13.0;
+const DODGE_SPEED = 12.0;
 /** Minimum gap between dodges, from the press. */
 const DODGE_COOLDOWN = 0.35;
 /** How long an enemy must wait after finishing a swing before it may re-queue. */
@@ -250,6 +250,8 @@ export class CombatSystem {
         const at = this._coldRead ? 0.02 : Math.min(activeStart * 0.32, 0.22);
         if (atk.t >= at) {
           atk.told = true;
+          // The tell lasts until contact, so it is a countdown, not a blink.
+          a.telegraphFlash(Math.max(0.18, activeStart - atk.t));
           a.emit('telegraph', { kind: A.telegraph, early: !!this._coldRead, lead: activeStart - atk.t });
         }
       }

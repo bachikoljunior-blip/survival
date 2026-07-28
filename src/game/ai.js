@@ -25,6 +25,7 @@
 import * as THREE from 'three';
 import { Actor } from '../actors/actor.js';
 import { LAYER } from '../world/collision.js';
+import { ATTACKS } from './combat.js';
 import { clamp01, lerp } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 
@@ -128,6 +129,22 @@ export class Enemy extends Actor {
       this.height = 0.72;
       this.radius = 0.3;
     }
+
+    // Anything that can throw a telegraphed attack — including one reached
+    // through a chain — needs its own material so the tell can be seen rather
+    // than only heard.
+    if (this._reachesTelegraph(A.attacks)) this.enableSelfLight();
+  }
+
+  _reachesTelegraph(names, depth = 0) {
+    if (!names || depth > 4) return false;
+    for (const n of names) {
+      const A = ATTACKS[n];
+      if (!A) continue;
+      if (A.telegraph) return true;
+      if (A.next && this._reachesTelegraph([A.next], depth + 1)) return true;
+    }
+    return false;
   }
 
   /** Effective sight range, cut down by whatever is hanging in the air. */
@@ -537,7 +554,6 @@ export class AISystem {
 
       if (e.attackCooldown <= 0) {
         const wants = e.rng.f() < aggression;
-        e.wantsAttack = wants;
         if (wants && combat.requestToken(e)) {
           const name = A.attacks[e.rng.int(0, A.attacks.length - 1)];
           // The token is NOT released here. It is surrendered by CombatSystem
@@ -553,7 +569,6 @@ export class AISystem {
         } else {
           e.attackCooldown = e.rng.range(0.25, 0.7);
         }
-        e.wantsAttack = false;
       }
     }
 

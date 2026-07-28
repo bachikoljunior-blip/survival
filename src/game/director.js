@@ -12,7 +12,7 @@ import { Actor, STATE } from '../actors/actor.js';
 import { Enemy } from './ai.js';
 import { GameState, Storage, ITEMS, CAPABILITIES } from './state.js';
 import { QuestSystem, DialogueRunner, testCondition, applyEffects } from './narrative.js';
-import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS } from '../content/story.js';
+import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS, QUIET } from '../content/story.js';
 import { MODE } from './game.js';
 import { clamp, clamp01, lerp, damp } from '../core/util.js';
 import { PPM } from '../world/gas.js';
@@ -75,8 +75,11 @@ export class Director {
     this.state.on('item', (id, n, delta) => {
       if (delta > 0 && ITEMS[id]) g.hud.notice(`${ITEMS[id].name} ×${delta}`, '', 2.4);
     });
+    // Trust changes surface as a toast — except on the beats where Ren says
+    // the hard true thing. Popping "Sol — She knows what you are now" in red
+    // over a confession turns the centre of the story into a score.
     this.state.on('trust', (id, v, delta, reason) => {
-      if (!reason) return;
+      if (!reason || reason === QUIET) return;
       g.hud.notice(`<b>${CAST[id] ? CAST[id].name : id}</b><br>${reason}`, delta > 0 ? 'good' : 'bad', 3.4);
     });
 
@@ -351,18 +354,13 @@ seconds and I already know which one I believe.`);
     }
     g.emit('music', 'crisis');
 
-    // Place the people to reach. Each is an interaction; reaching one saves it.
+    // Four people, on the ground, in air that is killing them. They are actual
+    // actors rather than proximity markers: reaching one gets them on their
+    // feet and following, and they are only out when they are above the smoke.
+    // The objective has always said "use the roofs"; now it means it.
     const base = shut ? [[-112, -76], [-118, -90], [-104, -92], [-124, -80]]
                       : [[-58, 50], [-70, 58], [-42, 54], [-88, 50]];
-    base.forEach(([x, z], i) => {
-      const it = {
-        id: `crisis_${i}`, kind: 'rescue', x, y: 1.1, z, range: 2.4,
-        label: 'Get them up', prompt: 'Get them to a first floor',
-        _runtime: true,
-      };
-      g.city.interactions.push(it);
-      this.crisis.marks.push(it);
-    });
+    base.forEach(([x, z], i) => this._spawnSurvivor(i, x, z));
     this.quests.notify('custom', { id: 'crisisArrive' });
   }
 
@@ -388,6 +386,132 @@ short at the top, long at the bottom, and do not fight it.
 You do not get that back by wanting it. You get it back by doing it twice.`);
   }
 
+  /**
+   * Escort. Nessa can walk and cannot climb, so she follows on the flat and
+   * the player has to find her a way up — which is the one time in the game
+   * the roof network is load-bearing rather than a shortcut.
+   *
+   * She is out when she is above the smoke: three metres of elevation and air
+   * she can actually breathe at head height. That is a condition about the
+   * world rather than a trigger volume, so any route the player finds counts.
+   */
+  _updateEscort(dt) {
+    const g = this.game;
+    const n = this.npcs.get('nessa');
+    if (!n || !n.following) return;
+    const p = g.player;
+
+    const dx = p.pos.x - n.pos.x, dz = p.pos.z - n.pos.z;
+    const d = Math.hypot(dx, dz);
+    const want = 2.1;
+    if (d > want) {
+      const sp = clamp((d - want) / 3.5, 0, 1);
+      n.setMove(dx / d, dz / d, sp * 0.86);
+    } else n.setMove(0, 0, 0);
+    n.faceTowards(p.pos.x, p.pos.z);
+
+    // She is not a ghost: if the player climbs away and leaves her, she says so.
+    this._escortNag = (this._escortNag || 0) - dt;
+    if (d > 16 && this._escortNag <= 0) {
+      this._escortNag = 9;
+      g.hud.notice('<i>Nessa</i><br>"I can\'t follow you up that."', 'bad', 3.4);
+    }
+
+    const ppm = g.gas.sample(n.pos.x, n.pos.y + 1.5, n.pos.z);
+    if (n.pos.y >= 3.0 && ppm < PPM.ELEVATED && d < 9) {
+      n.following = false;
+      this.state.set('nessa_rescued');
+      this._markerTargets.nessaRun = null;
+      this.quests.notify('custom', { id: 'nessaOut' });
+      g.hud.notice('<b>Above it.</b><br>She sits down on the felt and does not get up for a while.', 'good', 6);
+      g.emit('sfx', 'rescue');
+      this.save();
+    }
+  }
+
+  /**
+   * One of the four. A downed civilian with a rescue interaction on them, who
+   * gets up and follows once the player reaches them.
+   */
+  _spawnSurvivor(i, x, z, state = null) {
+    const g = this.game;
+    const ground = g.world.groundUnder(x, z, 0.4, 8, 14);
+    const a = new Actor({
+      x, z, y: ground ? ground.y + 0.05 : 0.1, rot: (i * 1.7) % (Math.PI * 2),
+      world: g.world, gas: g.gas, mats: g.mats,
+      costume: 'civ', detail: 1, faction: 'neutral',
+      name: ['Ostrowski', 'A woman with a child', 'An older man', 'Someone in a coat'][i] || 'Someone',
+      maxHp: 999, gasImmune: true,
+    });
+    a.crowdId = `crisis_${i}`;
+    a.crouch = 1;
+    a.animator.locomotion.crouch = 1;
+    a.animator.locomotion.alert = 0;
+    if (state === 'following') { a.following = true; a.crouch = 0; a.animator.locomotion.crouch = 0; }
+    g.scene.add(a.group);
+    g.actors.push(a);
+
+    const it = {
+      id: `crisis_${i}`, kind: 'rescue', x, y: 1.1, z, range: 2.4,
+      label: a.name, prompt: 'Get them on their feet',
+      _runtime: true, actor: a,
+      disabled: state === 'out',
+    };
+    if (state === 'out') { a.group.visible = false; }
+    g.city.interactions.push(it);
+    this.crisis.marks.push(it);
+    return it;
+  }
+
+  /**
+   * Walk the survivors out. Same rule as Nessa: three metres of elevation and
+   * air they can breathe at head height. A follower left behind in the gas is
+   * a follower who does not come out, which is the whole of chapter four.
+   */
+  _updateCrisisEscort(dt) {
+    const g = this.game;
+    const c = this.crisis;
+    if (!c) return;
+    const p = g.player;
+    for (const m of c.marks) {
+      const a = m.actor;
+      if (!a || !a.following) continue;
+      // Followers trail the player in a loose file so four of them do not
+      // stack into one silhouette.
+      const idx = c.marks.indexOf(m);
+      const dx = p.pos.x - a.pos.x, dz = p.pos.z - a.pos.z;
+      const d = Math.hypot(dx, dz);
+      const want = 2.0 + idx * 0.7;
+      if (d > want) a.setMove(dx / d, dz / d, clamp((d - want) / 3.0, 0, 1) * 0.9);
+      else a.setMove(0, 0, 0);
+      a.faceTowards(p.pos.x, p.pos.z);
+
+      const ppm = g.gas.sample(a.pos.x, a.pos.y + 1.5, a.pos.z);
+      if (a.pos.y >= 3.0 && ppm < PPM.ELEVATED && d < 10) {
+        a.following = false;
+        a.out = true;
+        m.disabled = true;
+        c.rescued++;
+        g.hud.notice(`<b>${c.rescued} of 4</b> up.`, 'good', 3);
+        g.emit('sfx', 'rescue');
+      }
+    }
+  }
+
+  /** Rebuild an in-flight chapter-four crisis from a save. */
+  _restoreCrisis(c) {
+    const g = this.game;
+    this.crisis = { site: c.site, survivors: 4, rescued: c.rescued, lost: c.lost,
+                    timeLeft: c.timeLeft, marks: [] };
+    const shut = c.site === 'stacks';
+    this._markerTargets.crisis = shut ? { x: -112, z: -84 } : { x: -60, z: 52 };
+    const base = shut ? [[-112, -76], [-118, -90], [-104, -92], [-124, -80]]
+                      : [[-58, 50], [-70, 58], [-42, 54], [-88, 50]];
+    base.forEach(([x, z], i) =>
+      this._spawnSurvivor(i, x, z, c.done && c.done[i] ? 'out' : null));
+    g.emit('music', 'crisis');
+  }
+
   _updateCrisis(dt) {
     const c = this.crisis;
     if (!c) return;
@@ -395,7 +519,10 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     const remaining = c.marks.filter((m) => !m.disabled);
     if (c.timeLeft <= 0 || !remaining.length) {
       c.lost = remaining.length;
-      for (const m of remaining) m.disabled = true;
+      for (const m of remaining) {
+        m.disabled = true;
+        if (m.actor) m.actor.following = false;
+      }
       this.state.counters.set('crisis_rescued', c.rescued);
       this.state.counters.set('crisis_lost', c.lost);
       if (c.rescued > 0) this.state.set('crisis_saved_some');
@@ -404,6 +531,13 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
         c.lost === 0 ? '<b>All four.</b>' : `<b>${c.rescued} out. ${c.lost} not.</b>`,
         c.lost === 0 ? 'good' : 'bad', 7);
       this.game.emit('music', 'explore');
+      // Everyone who got up walks off; everyone who did not is left where the
+      // player left them, which is the part that should be looked at.
+      for (const m of c.marks) {
+        if (!m.actor) continue;
+        if (m.actor.out) this.game.removeActor(m.actor);
+        else { m.actor.setMove(0, 0, 0); m.actor.crouch = 1; m.actor.animator.locomotion.crouch = 1; }
+      }
       this.game.city.interactions = this.game.city.interactions.filter((i) => !c.marks.includes(i));
       this.crisis = null;
       this._markerTargets.crisis = null;
@@ -430,7 +564,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
           g.emit('sfx', 'locked');
           return;
         }
-        this.enterDoor(t);
+        this.game._guard(this.enterDoor(t), MODE.PLAY);
         return;
       }
 
@@ -492,13 +626,13 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
           this.quests.notify('custom', { id: 'nessaFound' });
           return;
         }
-        if (t.disabled) return;
-        t.disabled = true;
-        if (this.crisis) {
-          this.crisis.rescued++;
-          g.hud.notice(`<b>${this.crisis.rescued} of 4</b> up.`, 'good', 3);
-          g.emit('sfx', 'rescue');
-        }
+        if (t.disabled || !t.actor || t.actor.following) return;
+        t.actor.following = true;
+        t.actor.crouch = 0;
+        t.actor.animator.locomotion.crouch = 0;
+        t.actor.animator.play('interact', { fade: 0.12 });
+        g.emit('sfx', 'rescue');
+        g.hud.notice(`<b>${t.actor.name}</b> is on their feet. Get them up somewhere.`, '', 4);
         return;
       }
 
@@ -514,6 +648,26 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
 
   _examine(t) {
     const TOPICS = {
+      // The letter that brought her back. Teo paraphrases it in chapter two
+      // and then argues it out of relevance; the player should have read it
+      // themselves before he gets the chance.
+      bek_letter: {
+        title: "Ilya Bek — 2nd July, never posted",
+        lines: [
+          "Two sheets of lined paper, folded four times, in a hand that presses hard.",
+          "\u201cTo the Reclamation Authority. I am not a surveyor and I will not pretend to be one. I am writing about the heat in my cellar.\u201d",
+          "\u201cIn March the floor was cold. In April I could stand on it in socks. Last Tuesday I put my hand flat on the flags at the back wall and had to take it off again. I have written the dates down since March because I did not trust myself to remember them correctly.\u201d",
+          "\u201cI am told the published line puts this street outside the burn. I would like to know what the line is measured from, and by whom, and when it was last done. That is the whole of what I am asking. I am not asking anybody to be blamed.\u201d",
+          "\u201cThere are nine houses on this side. Four of them have children in. I have not told the others because I do not want to be the man who frightens a street over a warm floor, and because if I am wrong I will have to keep living here afterwards.\u201d",
+          "\u201cIf I am not wrong, then somebody should have come and put their hand on my floor a year ago. Yours, I. Bek, 14 Cellar Row.\u201d",
+          "He was right about all of it. He was polite about all of it. Neither made any difference at all.",
+        ],
+        journal: ['bek', "Bek's letter", `I have read it eleven times on the train and once more
+tonight and it still lands the same way, which is: he was not accusing anybody.
+He wanted somebody to come and put a hand on his floor.
+
+I read the Q3 numbers nine weeks before he wrote it.`],
+      },
       cellar_row: {
         title: 'Cellar Row',
         lines: [
@@ -541,15 +695,27 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     };
     const topic = TOPICS[t.topic];
     if (!topic) return;
-    this.game.setMode(MODE.DIALOGUE);
+    const g = this.game;
+    g.setMode(MODE.DIALOGUE);
+    g.hud.setVisible(false);
     let i = 0;
     const show = () => {
-      if (i >= topic.lines.length) { this.game.setMode(MODE.PLAY); this.game.dialogueUI.hide(); return; }
-      this.game.dialogueUI.show({ speaker: 'system', text: topic.lines[i++] }, null);
+      if (i >= topic.lines.length) {
+        g.dialogueUI.onAdvance = null;
+        g.dialogueUI.onChoose = null;
+        g.dialogueUI.hide();
+        g.hud.setVisible(true);
+        g.setMode(MODE.PLAY);
+        return;
+      }
+      g.dialogueUI.show({ speaker: 'system', text: topic.lines[i++] }, null);
     };
-    this.game.dialogueUI.onAdvance = show;
+    g.dialogueUI.onAdvance = show;
     show();
-    this.state.addJournal(`examine:${t.topic}`, topic.title, topic.lines.join(' '));
+    // A hand-written journal entry where the topic has one; the raw line dump
+    // is a fallback, and it reads like a fallback.
+    if (topic.journal) this.state.addJournal(topic.journal[0], topic.journal[1], topic.journal[2]);
+    else this.state.addJournal(`examine:${t.topic}`, topic.title, topic.lines.join(' '));
     if (t.startsQuest) this.quests.start(t.startsQuest);
   }
 
@@ -671,14 +837,14 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
         this.state.set(`${npc.npcId}_met`);
         this.quests.notify('talk', { who: npc.npcId, convo: convo.id });
         if (npc.npcId === 'nessa' && this.state.has('nessa_rescue_started') && !this.state.has('nessa_rescued')) {
-          // She walks out on her own once she has air. Put her back in the yard.
-          const a = NPC_ANCHORS.nessa;
-          const gr = this.game.world.groundUnder(a.x, a.z, 0.4, 8, 14);
-          npc.pos.set(a.x, gr ? gr.y + 0.05 : 0.1, a.z);
+          // She said the only way out is up and she cannot climb it. Making
+          // that true is the point: she gets up when the player walks her up,
+          // and she is on her feet and following from here.
+          npc.following = true;
+          npc.downed = false;
           npc.crouch = 0;
           npc.animator.locomotion.crouch = 0;
-          this.state.set('nessa_rescued');
-          this._markerTargets.nessaRun = null;
+          this.game.hud.notice('<b>Nessa is with you.</b><br>Get her above the smoke.', '', 5);
         }
       }
       if (onEnd) onEnd();
@@ -805,22 +971,41 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
   // ------------------------------------------------------------------- save
 
   save(silent = false) {
-    this.state.playTime = this.game.playTime;
+    const g = this.game;
+    this.state.playTime = g.playTime;
     this.state.lastSpawn = this.currentInterior ? `${this.currentInterior}_in` : this.state.lastSpawn;
-    const ok = Storage.save(this.state, this.game.player, {
+    const ok = Storage.save(this.state, g.player, {
       interior: this.currentInterior,
+      interiorPpm: g.interiorPpm ?? null,
       npcState: [...this.npcs.keys()],
-      takenIds: this.game.city.interactions.filter((i) => i.taken).map((i) => i.id),
-      disabledIds: this.game.city.interactions.filter((i) => i.disabled).map((i) => i.id),
-      gasSources: this.game.gas.sources.filter((s) => s.id).map((s) => [s.id, s.active]),
-      gasIntensity: this.game.gas._targetScale,
+      // NPC transforms, because two of them move during the story and one of
+      // those moves is what makes her quest completable.
+      npcPos: [...this.npcs.entries()].map(([id, n]) =>
+        [id, n.pos.x, n.pos.y, n.pos.z, n.yaw, !!n.downed, !!n.crouch]),
+      takenIds: g.city.interactions.filter((i) => i.taken).map((i) => i.id),
+      disabledIds: g.city.interactions.filter((i) => i.disabled).map((i) => i.id),
+      gasSources: g.gas.sources.filter((s) => s.id).map((s) => [s.id, s.active]),
+      gasIntensity: g.gas._targetScale,
+      // The chapter-four crisis is a 210-second timer holding four runtime
+      // interactions. Autosave fires twice inside it, and without this a
+      // reload dropped the timer, the marks and the only code path that
+      // records the result — which stalled the chapter permanently.
+      crisis: this.crisis ? {
+        site: this.crisis.site, rescued: this.crisis.rescued,
+        lost: this.crisis.lost, timeLeft: this.crisis.timeLeft,
+        done: this.crisis.marks.map((m) => !!m.disabled),
+      } : null,
     });
-    if (ok && !silent) this.game.hud.showAutosave();
+    if (ok && !silent) g.hud.showAutosave();
     return ok;
   }
 
   applySave(d) {
     const g = this.game;
+    // Loading from the title into a session that has already been played
+    // leaves the previous run's hostiles alive and aggroed, its crisis timer
+    // ticking and its runtime markers on the map. Reset first, always.
+    this.resetWorld();
     this.state.deserialise(d.state);
     if (d.player) {
       const p = g.player;
@@ -851,8 +1036,24 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     }
     if (d.gasIntensity !== undefined) g.gas.setIntensity(d.gasIntensity);
     this.currentInterior = d.interior || null;
+    g.interiorPpm = d.interiorPpm ?? null;
     g.forcedMood = this.currentInterior ? 'interior' : null;
     this.refreshCast();
+
+    // Put the cast back where the story left them.
+    for (const [id, x, y, z, yaw, downed, crouch] of d.npcPos || []) {
+      const n = this.npcs.get(id);
+      if (!n) continue;
+      n.pos.set(x, y, z);
+      n.yaw = n.targetYaw = yaw;
+      n.downed = downed;
+      n.crouch = crouch ? 1 : 0;
+      if (n.animator && n.animator.locomotion) n.animator.locomotion.crouch = n.crouch;
+      if (id === 'nessa' && downed) this._markerTargets.nessaRun = { x, z };
+    }
+
+    // Restore the crisis in flight, marks and all.
+    if (d.crisis) this._restoreCrisis(d.crisis);
     // Re-arm any encounter the active step is responsible for. retry() has
     // just cleared the map of enemies; without this the raid steps become
     // permanent dead ends.
@@ -868,7 +1069,7 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
   _offerEnding() {
     this.startConversation(CONVERSATIONS.final, null, () => {
       this.quests.notify('custom', { id: 'endingChosen' });
-      this.finish();
+      this.game._guard(this.finish(), MODE.CINEMATIC);
     });
   }
 
@@ -920,7 +1121,9 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
     if (this._reachTimer <= 0) { this._reachTimer = 0.25; this._pollReach(); }
 
     this._updateCrisis(dt);
+    this._updateCrisisEscort(dt);
     this._updateHabits();
+    this._updateEscort(dt);
 
     this._autosaveTimer -= dt;
     if (this._autosaveTimer <= 0) {
@@ -1004,6 +1207,11 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
         g.emit('sfx', 'heal');
         return true;
       }
+
+      // Readable key items open their examine text rather than being consumed.
+      case 'read':
+        this._examine({ topic: it.topic, label: it.name });
+        return true;
 
       case 'recharge':
         S.take(id, 1);

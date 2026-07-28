@@ -533,6 +533,37 @@ export class Menus {
       '<b style="color:#c8452a">▓</b> bad air &nbsp; <b style="color:#7fa2b4">▤</b> above the smoke';
   }
 
+  /**
+   * Streets and buildings never move. Rasterising the whole city on the main
+   * thread every time the map button is tapped cost a visible multi-frame
+   * stall on an A15; it is built once per canvas size and blitted after that.
+   */
+  _mapStaticLayer(w, h, dpr, X, Z, scale) {
+    const g = this.game;
+    if (this._mapBase && this._mapBase.width === w && this._mapBase.height === h) return this._mapBase;
+    const base = this._mapBase
+      || (typeof OffscreenCanvas === 'function' ? new OffscreenCanvas(w, h) : document.createElement('canvas'));
+    base.width = w; base.height = h;
+    const x = base.getContext('2d');
+    x.clearRect(0, 0, w, h);
+
+    x.strokeStyle = 'rgba(200,190,170,0.30)';
+    for (const s of g.city.data.streets) {
+      x.lineWidth = Math.max(1, s.width * scale * 0.7);
+      x.beginPath(); x.moveTo(X(s.x0), Z(s.z0)); x.lineTo(X(s.x1), Z(s.z1)); x.stroke();
+    }
+    x.fillStyle = 'rgba(150,142,126,0.42)';
+    for (const b of g.city.data.buildings) {
+      x.save();
+      x.translate(X(b.x), Z(b.z));
+      x.rotate(b.rot || 0);
+      x.fillRect(-b.w * scale / 2, -b.d * scale / 2, b.w * scale, b.d * scale);
+      x.restore();
+    }
+    this._mapBase = base;
+    return base;
+  }
+
   refreshMap() {
     const c = this.mapCanvas;
     if (!c) return;
@@ -554,11 +585,13 @@ export class Menus {
     x.fillStyle = '#0a0908';
     x.fillRect(0, 0, c.width, c.height);
 
-    // Gas field, sampled coarsely — the map's real job is telling you where
-    // the air is, not where the buildings are.
-    const step = Math.max(3, Math.round(4 * scale));
-    for (let wz = B.minZ; wz < B.maxZ; wz += 4) {
-      for (let wx = B.minX; wx < B.maxX; wx += 4) {
+    // Gas field. The map's real job is telling you where the air is, not where
+    // the buildings are — but an 8m grid says that just as well as a 4m one
+    // and costs a quarter of the samples.
+    const GRID = 8;
+    const step = Math.max(3, Math.round(GRID * scale));
+    for (let wz = B.minZ; wz < B.maxZ; wz += GRID) {
+      for (let wx = B.minX; wx < B.maxX; wx += GRID) {
         const ppm = g.gas.sample(wx, 1.5, wz);
         if (ppm < 120) continue;
         const t = clamp01((ppm - 120) / 1800);
@@ -567,22 +600,8 @@ export class Menus {
       }
     }
 
-    // Streets
-    x.strokeStyle = 'rgba(200,190,170,0.30)';
-    for (const s of g.city.data.streets) {
-      x.lineWidth = Math.max(1, s.width * scale * 0.7);
-      x.beginPath(); x.moveTo(X(s.x0), Z(s.z0)); x.lineTo(X(s.x1), Z(s.z1)); x.stroke();
-    }
-
-    // Buildings
-    for (const b of g.city.data.buildings) {
-      x.save();
-      x.translate(X(b.x), Z(b.z));
-      x.rotate(b.rot || 0);
-      x.fillStyle = 'rgba(150,142,126,0.42)';
-      x.fillRect(-b.w * scale / 2, -b.d * scale / 2, b.w * scale, b.d * scale);
-      x.restore();
-    }
+    // Streets and buildings, blitted from the cached static layer.
+    x.drawImage(this._mapStaticLayer(c.width, c.height, dpr, X, Z, scale), 0, 0);
 
     // Discovered landmarks
     x.font = `${Math.round(8 * dpr)}px ui-monospace, monospace`;
@@ -776,11 +795,21 @@ export class Menus {
       this.panels[k].tab.classList.toggle('on', k === key);
     }
     this.activePanel = key;
+    if (key !== 'settings') this._flushSettings();
+    clearInterval(this._mapTimer);
+    this._mapTimer = 0;
     if (key === 'status') this.refreshStatus();
     if (key === 'items') this.refreshInventory();
     if (key === 'journal') this.refreshJournal();
     if (key === 'settings') this.refreshSettings();
-    if (key === 'map') requestAnimationFrame(() => this.refreshMap());
+    if (key === 'map') {
+      requestAnimationFrame(() => this.refreshMap());
+      // The gas field moves. A one-shot snapshot is a lie by the time it is read.
+      this._mapTimer = setInterval(() => {
+        if (this.pauseOpen && this.activePanel === 'map') this.refreshMap();
+        else { clearInterval(this._mapTimer); this._mapTimer = 0; }
+      }, 1200);
+    }
   }
 
   openPause(panel = 'status', fromTitle = false) {
@@ -808,6 +837,8 @@ export class Menus {
     // is open bounced the game through MODE.PLAY on the way to MODE.TITLE.
     if (!this.pauseNode.classList.contains('on')) return;
     this._flushSettings();
+    clearInterval(this._mapTimer);
+    this._mapTimer = 0;
     this.pauseNode.classList.remove('on');
     const hud = this.game.hud;
     if (hud && this._hudWasVisible) hud.setVisible(true);

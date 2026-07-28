@@ -107,6 +107,7 @@ export const ITEMS = {
   bekLetter: {
     name: "Ilya Bek's letter", short: 'LETTER', glyph: '✉', stack: 1, weight: 0.01, key: true,
     desc: 'Never posted. Addressed to the Authority, dated eleven days before Cellar Row.',
+    use: 'read', topic: 'bek_letter',
   },
   trenchOrder: {
     name: 'Trench cut order', short: 'ORDER', glyph: '❑', stack: 1, weight: 0.1, key: true,
@@ -155,6 +156,10 @@ export class GameState extends Emitter {
     this.give('filter', 1);
     this.give('bandage', 2);
     this.give('salvage', 4);
+    // The reason she is here at all. It is in her coat on the first frame and
+    // it can be read from the first frame, because a premise the player is
+    // told about by a third party in the third scene is not a premise.
+    this.give('bekLetter', 1);
   }
 
   // ------------------------------------------------------------------ flags

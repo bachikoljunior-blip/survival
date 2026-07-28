@@ -115,7 +115,7 @@ export function patchWorldMaterial(mat, opts = {}) {
           ${skyGate ? `
           #ifdef USE_COLOR
             float aoLum = dot(vColor, vec3(0.2126, 0.7152, 0.0722));
-            skyVis = smoothstep(0.16, 0.62, aoLum);
+            skyVis = 0.22 + 0.78 * smoothstep(0.16, 0.62, aoLum);
           #endif
           ` : ''}
 
@@ -182,7 +182,7 @@ export function makeSkyMaterial() {
       // The zenith is the one genuinely cold thing in this game's palette. It
       // has to be saturated enough to survive the tonemap, or the whole frame
       // resolves to a single warm hue and there is no palette at all.
-      uZenith: { value: new THREE.Color(0x2c3a52) },
+      uZenith: { value: new THREE.Color(0x4a5a72) },
       uGlow: { value: new THREE.Color(0xff8a3a) },
       uGlowDir: { value: new THREE.Vector3(0.4, -0.05, -0.9).normalize() },
       uGlowStrength: { value: 0.34 },

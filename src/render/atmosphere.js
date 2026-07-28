@@ -131,7 +131,7 @@ export class Atmosphere {
     // decorative sun bolted on, and nothing in the frame has a light direction.
     // The ambient fill that a smoke ceiling really provides is carried by the
     // height fog instead, which is both cheaper and correctly distance-graded.
-    this.hemi = new THREE.HemisphereLight(0x8fabd6, 0x6a5236, 0.7);
+    this.hemi = new THREE.HemisphereLight(0x8fabd6, 0x6a5236, 1.15);
     scene.add(this.hemi);
 
     this.sun = new THREE.DirectionalLight(0xe6cea4, 2.4);
@@ -369,15 +369,15 @@ const _c2 = new THREE.Color();
  */
 export const MOODS = {
   street: {
-    hemi: 0.72, hemiSky: 0x86a6d8, hemiGround: 0x62574a,
-    sun: 2.4, sunColor: 0xe6cea4, emberFill: 0.16,
-    fogDensity: 0.042, fogHeight: 4.6, ember: 0.08,
+    hemi: 1.15, hemiSky: 0x86a6d8, hemiGround: 0x62574a,
+    sun: 2.7, sunColor: 0xe6cea4, emberFill: 0.16,
+    fogDensity: 0.034, fogHeight: 4.6, ember: 0.08,
     fogLow: 0x514c48, fogHigh: 0x2d3746, skyGlow: 0.34,
     wetness: 0.34, key: 1.35,
   },
   // Down in the smoke: the Slip, the trench floor, cellars.
   low: {
-    hemi: 0.4, hemiSky: 0x6b7488, hemiGround: 0x60422a,
+    hemi: 0.6, hemiSky: 0x6b7488, hemiGround: 0x60422a,
     sun: 0.35, sunColor: 0xd6b283, emberFill: 0.85,
     fogDensity: 0.13, fogHeight: 7.5, ember: 1.1,
     fogLow: 0x5a4634, fogHigh: 0x3a352e, skyGlow: 0.5,
@@ -385,7 +385,7 @@ export const MOODS = {
   },
   // Above the smoke: rooftops. The reward for climbing is that you can see.
   high: {
-    hemi: 0.95, hemiSky: 0x9dbaea, hemiGround: 0x6e5a40,
+    hemi: 1.4, hemiSky: 0x9dbaea, hemiGround: 0x6e5a40,
     sun: 3.2, sunColor: 0xf2dfb8, emberFill: 0.05,
     fogDensity: 0.02, fogHeight: 3.0, ember: 0.06,
     fogLow: 0x584c40, fogHigh: 0x36415a, skyGlow: 0.26,
@@ -393,7 +393,7 @@ export const MOODS = {
   },
   // The Authority's ground: work lights, cold fill, swept and lit.
   authority: {
-    hemi: 0.8, hemiSky: 0x7d99c6, hemiGround: 0x5e5040,
+    hemi: 1.2, hemiSky: 0x7d99c6, hemiGround: 0x5e5040,
     sun: 2.0, sunColor: 0xdcd0bc, emberFill: 0.28,
     fogDensity: 0.055, fogHeight: 5.2, ember: 0.20,
     fogLow: 0x4a4740, fogHigh: 0x2b3444, skyGlow: 0.42,
@@ -401,7 +401,7 @@ export const MOODS = {
   },
   // Interior: no sky, lamps and windows do the work.
   interior: {
-    hemi: 0.34, hemiSky: 0x5e6c8c, hemiGround: 0x4e3e2c,
+    hemi: 0.5, hemiSky: 0x5e6c8c, hemiGround: 0x4e3e2c,
     sun: 0.3, sunColor: 0xd8c4a0, emberFill: 0.1,
     fogDensity: 0.026, fogHeight: 9.0, ember: 0.1,
     fogLow: 0x3a342c, fogHigh: 0x2a2824, skyGlow: 0.1,
@@ -409,7 +409,7 @@ export const MOODS = {
   },
   // Underground: the tunnels and the deep cut.
   under: {
-    hemi: 0.16, hemiSky: 0x424a5c, hemiGround: 0x543e26,
+    hemi: 0.26, hemiSky: 0x424a5c, hemiGround: 0x543e26,
     sun: 0.0, sunColor: 0x000000, emberFill: 0.95,
     fogDensity: 0.11, fogHeight: 12.0, ember: 1.3,
     fogLow: 0x4e3a26, fogHigh: 0x2c2620, skyGlow: 0.0,

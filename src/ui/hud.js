@@ -13,6 +13,7 @@
 
 import { clamp, clamp01, lerp } from '../core/util.js';
 import { PPM } from '../world/gas.js';
+import { ATTACKS } from '../game/combat.js';
 
 const el = (tag, cls, parent, text) => {
   const n = document.createElement(tag);
@@ -174,7 +175,11 @@ export class HUD {
       this.stickKnob.style.transform = `translate(${s.x * r * 0.72}px, ${s.y * r * 0.72}px)`;
     });
 
-    this.actions = el('div', 'actions hit', this.node);
+    // No `hit` on the container. It is a 167x134 positioning frame and only
+    // the circles inside it are wired to anything; carrying pointer-events
+    // made the whole rectangle — over half of it dead space, in the corner
+    // where a right thumb starts a camera drag — swallow touches.
+    this.actions = el('div', 'actions', this.node);
     this.buttons = {};
     const defs = [
       ['attack', 'big attack', 'HIT'],
@@ -185,27 +190,31 @@ export class HUD {
     ];
     for (const [name, cls, label] of defs) {
       const b = el('div', `abtn hit ${cls}`, this.actions, label);
-      el('div', 'cd', b);
       this.buttons[name] = b;
       this._bindButton(b, name);
     }
 
-    // Interact is contextual: it replaces the guard button when a prompt is up,
-    // because guarding and interacting never make sense at the same moment.
-    this.interactBtn = el('div', 'abtn hit mid guard', this.actions, 'USE');
+    // Interact has its own slot. It used to be drawn on top of GUARD and
+    // display:none the guard button out from under a possibly-held finger,
+    // which could latch guard on permanently and took the player's only
+    // defensive option away every time they stood near a door.
+    this.interactBtn = el('div', 'abtn hit mid interact', this.actions, 'USE');
     this.interactBtn.style.display = 'none';
     this._bindButton(this.interactBtn, 'interact');
 
-    // System cluster
-    const sys = el('div', 'syscluster hit', this.node);
-    this.sysMenu = el('div', 'sysbtn hit', sys, '≡');
-    this.sysMap = el('div', 'sysbtn hit', sys, '◈');
-    this.sysLamp = el('div', 'sysbtn hit', sys, '☀');
-    this.sysMeter = el('div', 'sysbtn hit', sys, '⌁');
-    this._bindTap(this.sysMeter, () => this.game.input.tapVirtual('meter'));
-    this._bindTap(this.sysMenu, () => this.game.emit('ui:menu'));
-    this._bindTap(this.sysMap, () => this.game.emit('ui:map'));
-    this._bindTap(this.sysLamp, () => this.game.input.tapVirtual('lamp'));
+    // System cluster. The visible plate is an inner <i>; the 44x44 target is
+    // the button itself.
+    const sys = el('div', 'syscluster', this.node);
+    const sysbtn = (glyph, fn) => {
+      const b = el('div', 'sysbtn hit', sys);
+      el('i', '', b, glyph);
+      this._bindTap(b, fn);
+      return b;
+    };
+    this.sysMenu = sysbtn('≡', () => this.game.emit('ui:menu'));
+    this.sysMap = sysbtn('◈', () => this.game.emit('ui:map'));
+    this.sysLamp = sysbtn('☀', () => this.game.input.tapVirtual('lamp'));
+    this.sysMeter = sysbtn('⌁', () => this.game.input.tapVirtual('meter'));
   }
 
   _bindButton(node, name) {
@@ -229,17 +238,33 @@ export class HUD {
     node.addEventListener('lostpointercapture', up);
   }
 
+  /**
+   * Tap binding with pointer capture and a travel test. Without the capture,
+   * pressing a system button and sliding off before lifting left `.down` on
+   * the node forever; without the travel test it fired regardless of how far
+   * the finger had moved.
+   */
   _bindTap(node, fn) {
+    let id = -1, sx = 0, sy = 0, moved = false;
     node.addEventListener('pointerdown', (e) => {
-      e.preventDefault(); e.stopPropagation();
+      e.stopPropagation();
+      id = e.pointerId; sx = e.clientX; sy = e.clientY; moved = false;
+      try { node.setPointerCapture(e.pointerId); } catch { /* ignore */ }
       node.classList.add('down');
-    }, { passive: false });
-    node.addEventListener('pointerup', (e) => {
-      e.preventDefault(); e.stopPropagation();
+    });
+    node.addEventListener('pointermove', (e) => {
+      if (e.pointerId !== id || moved) return;
+      if (Math.hypot(e.clientX - sx, e.clientY - sy) > 10) { moved = true; node.classList.remove('down'); }
+    });
+    const end = (e, fire) => {
+      if (e.pointerId !== id) return;
+      id = -1;
       node.classList.remove('down');
-      fn();
-    }, { passive: false });
-    node.addEventListener('pointercancel', () => node.classList.remove('down'));
+      if (fire && !moved) fn();
+    };
+    node.addEventListener('pointerup', (e) => { e.stopPropagation(); end(e, true); });
+    node.addEventListener('pointercancel', (e) => end(e, false));
+    node.addEventListener('lostpointercapture', (e) => end(e, false));
   }
 
   // --------------------------------------------------------------- updates
@@ -247,11 +272,6 @@ export class HUD {
   setVisible(v) {
     this.visible = v;
     this.node.classList.toggle('hidden', !v);
-  }
-
-  setTouchVisible(v) {
-    this.stick.style.visibility = v ? '' : 'hidden';
-    this.actions.style.visibility = v ? '' : 'hidden';
   }
 
   update(dt) {
@@ -267,9 +287,13 @@ export class HUD {
     this.hpBar.lbl.textContent = Math.ceil(p.hp);
     this.hpBar.node.classList.toggle('low', hp < 0.28);
 
+    // The stamina chip has to lag the fill or it is invisible — it was
+    // previously given the same scale as the value it was supposed to trail.
     const st = p.stamina / p.maxStamina;
+    if (this._chipSta === undefined) this._chipSta = st;
+    this._chipSta = st < this._chipSta ? lerp(this._chipSta, st, 1 - Math.exp(-dt / 0.5)) : st;
     this.staBar.fill.style.transform = `scaleX(${st})`;
-    this.staBar.chip.style.transform = `scaleX(${st})`;
+    this.staBar.chip.style.transform = `scaleX(${Math.max(st, this._chipSta)})`;
 
     // --- air --------------------------------------------------------------
     const ppm = p.ambientPpm || 0;
@@ -304,6 +328,33 @@ export class HUD {
     this._updateLockOn();
     this._updateDamageNumbers(dt);
     this._updateNotices(dt);
+    this._updateAvailability(p);
+  }
+
+  /**
+   * Grey out what cannot be done right now.
+   *
+   * `.abtn.dis` existed in the stylesheet and was never applied by anything,
+   * so HEAVY with no stamina, USE with nothing to spend and GUARD mid-swing
+   * all looked exactly like a ready button. This is the feedback the player
+   * was missing, not decoration.
+   */
+  _updateAvailability(p) {
+    const S = this.game.state;
+    const busy = !p.canAct || p.dead;
+    const set = (btn, dis) => { if (btn) btn.classList.toggle('dis', !!dis); };
+
+    // CombatSystem.start refuses below half the listed cost.
+    set(this.buttons.attack, busy || p.stamina < ATTACKS.light1.stamina * 0.5);
+    set(this.buttons.heavy, busy || p.isAttacking || p.stamina < ATTACKS.heavy.stamina * 0.5);
+    set(this.buttons.dodge, busy || p.stamina < 16);
+    // Game._playInput: guard needs to be able to act, not be swinging, and
+    // have something left in the tank.
+    set(this.buttons.guard, busy || p.isAttacking || p.stamina <= 1);
+    // quickUse spends a filter or a dressing, and only when one is useful.
+    const canUse = !!S && ((S.hasItem('filter') && (p.lungs.filter === null || p.lungs.filter < 0.2)) ||
+                           (S.hasItem('bandage') && p.hp < p.maxHp));
+    set(this.buttons.use, busy || !canUse);
   }
 
   _updateCompass() {
@@ -356,37 +407,60 @@ export class HUD {
     const p = t.centre;
     _proj.set(p.x, p.y, p.z).project(g.engine.camera);
     if (_proj.z > 1) { this.lockon.classList.remove('on'); this.enemyBar.classList.remove('on'); return; }
-    const w = window.innerWidth, h = window.innerHeight;
+    const { w, h } = this._viewport();
     const sx = (_proj.x * 0.5 + 0.5) * w;
     const sy = (-_proj.y * 0.5 + 0.5) * h;
     this.lockon.style.transform = `translate(${sx}px, ${sy}px)`;
     this.lockon.classList.add('on');
 
     const hp = clamp01(t.hp / t.maxHp);
+    // One lagged chip per target, so switching targets does not inherit the
+    // previous one's trail.
+    if (this._chipFor !== t) { this._chipFor = t; this._chipEnemy = hp; }
+    this._chipEnemy = hp < this._chipEnemy ? this._chipEnemy : hp;
     this.enemyBar.style.transform = `translate(${sx}px, ${sy - 26}px)`;
     this.enemyFill.style.transform = `scaleX(${hp})`;
-    this.enemyChip.style.transform = `scaleX(${hp})`;
+    this.enemyChip.style.transform = `scaleX(${Math.max(hp, this._chipEnemy)})`;
+    this._chipEnemy = lerp(this._chipEnemy, hp, 0.06);
     this.enemyBar.classList.add('on');
     this.enemyBar.classList.toggle('stagger', t.poiseCurrent <= t.poise * 0.25);
   }
 
+  /**
+   * The canvas is sized from window.visualViewport (Engine.resize) because it
+   * is the only reliable source on iOS while the URL bar is transitioning.
+   * Projecting against window.innerWidth/innerHeight — the *layout* viewport —
+   * put every reticle, enemy pip and damage number up to ~44px away from the
+   * thing it annotates.
+   */
+  _viewport() {
+    const s = this.game.engine && this.game.engine.size;
+    return (s && s.cssW) ? { w: s.cssW, h: s.cssH } : { w: window.innerWidth, h: window.innerHeight };
+  }
+
   // ------------------------------------------------------------- feedback
 
-  /** Floating damage number at a world position. */
+  /**
+   * Floating damage number at a world position.
+   *
+   * One lifetime, owned by _updateDamageNumbers. It used to have two — a
+   * setTimeout(900) teardown and a 0.86s array splice — so across a pause the
+   * timeouts fired while the array entries survived, and the next render wrote
+   * styles to detached nodes.
+   */
   damageNumber(amount, x, y, z, kind) {
     const n = el('div', `fx-num ${kind || ''}`, this.node, String(amount));
     this.damageNumbers.push({ n, x, y, z, t: 0 });
-    setTimeout(() => { if (n.parentNode) n.remove(); }, 900);
   }
 
   _updateDamageNumbers(dt) {
     if (!this.damageNumbers.length) return;
     const cam = this.game.engine.camera;
-    const w = window.innerWidth, h = window.innerHeight;
+    const { w, h } = this._viewport();
     for (let i = this.damageNumbers.length - 1; i >= 0; i--) {
       const d = this.damageNumbers[i];
       d.t += dt;
-      if (d.t > 0.86) { this.damageNumbers.splice(i, 1); continue; }
+      if (d.t > 0.86) { d.n.remove(); this.damageNumbers.splice(i, 1); continue; }
       _proj.set(d.x, d.y, d.z).project(cam);
       if (_proj.z > 1) { d.n.style.opacity = '0'; continue; }
       d.n.style.left = `${(_proj.x * 0.5 + 0.5) * w}px`;
@@ -420,18 +494,34 @@ export class HUD {
     }
   }
 
-  setPrompt(text) {
+  /**
+   * Contextual interact prompt.
+   *
+   * The button is labelled with what it will actually do — TALK, TAKE, OPEN,
+   * READ, CLIMB — rather than a second button also called USE sitting next to
+   * the quick-use button and doing something unrelated. `kind` is the
+   * interaction kind when the caller has it; otherwise the verb is read off
+   * the prompt text, which is where the verb already lives.
+   */
+  setPrompt(text, kind) {
     if (text === this._promptText) return;
     this._promptText = text;
     if (text) {
-      this.prompt.innerHTML = text;
+      const body = String(text).replace(/^\s*<b>[^<]*<\/b>\s*(&nbsp;)?\s*/i, '');
+      const verb = promptVerb(kind, body);
+      this.prompt.innerHTML = `<b>${verb}</b> &nbsp;${body}`;
       this.prompt.classList.add('on');
+      this.interactBtn.textContent = verb;
       this.interactBtn.style.display = '';
-      this.buttons.guard.style.display = 'none';
     } else {
       this.prompt.classList.remove('on');
+      // Defensive: never hide a button out from under a held finger without
+      // releasing the virtual input it drives.
+      if (this.interactBtn.classList.contains('down')) {
+        this.interactBtn.classList.remove('down');
+        this.game.input.setVirtual('interact', false);
+      }
       this.interactBtn.style.display = 'none';
-      this.buttons.guard.style.display = '';
     }
   }
 
@@ -484,6 +574,20 @@ export class HUD {
       `${s.fps50.toFixed(0)}fps  p90 ${s.p90.toFixed(1)}ms  ${s.tier}  ` +
       `${s.draws}dc  ${(s.tris / 1000).toFixed(0)}kt  ${s.res}`;
   }
+}
+
+/** Interaction kind / prompt text -> the word that goes on the button. */
+const KIND_VERB = { npc: 'TALK', door: 'OPEN', climb: 'CLIMB', item: 'TAKE', note: 'READ', examine: 'LOOK' };
+function promptVerb(kind, body) {
+  if (kind && KIND_VERB[kind]) return KIND_VERB[kind];
+  const first = /^([A-Za-z]+)/.exec(body || '');
+  const w = first ? first[1].toLowerCase() : '';
+  if (w === 'speak' || w === 'talk' || w === 'ask') return 'TALK';
+  if (w === 'climb' || w === 'up' || w === 'down') return 'CLIMB';
+  if (w === 'take' || w === 'pick' || w === 'collect') return 'TAKE';
+  if (w === 'open' || w === 'enter' || w === 'go' || w === 'unlock') return 'OPEN';
+  if (w === 'read' || w === 'look' || w === 'check') return 'READ';
+  return 'USE';
 }
 
 const _proj = { x: 0, y: 0, z: 0, set(x, y, z) { this.x = x; this.y = y; this.z = z; return this; },

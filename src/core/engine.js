@@ -145,6 +145,9 @@ export class Engine extends Emitter {
     this.canvas.addEventListener('webglcontextrestored', () => {
       this.lost = false;
       this._applyTier();
+      // shadowMap.autoUpdate is false, so nothing would ever repaint the
+      // shadow atlas again after a restore without this.
+      if (this.renderer) this.renderer.shadowMap.needsUpdate = true;
       this.emit('contextrestored');
       this.removePause('context-lost');
     }, false);
@@ -195,6 +198,10 @@ export class Engine extends Emitter {
     this.renderer.setSize(w, h, false);
     this.canvas.style.width = cssW + 'px';
     this.canvas.style.height = cssH + 'px';
+    // The interface overlay has to agree with the canvas about how big the
+    // screen is, or every projected reticle is offset by the URL-bar delta.
+    const ui = document.getElementById('ui');
+    if (ui) { ui.style.width = cssW + 'px'; ui.style.height = cssH + 'px'; }
 
     this.camera.aspect = cssW / cssH;
     // Widen the vertical FOV on very wide/short viewports so the character and
@@ -221,12 +228,21 @@ export class Engine extends Emitter {
     }
 
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) this.addPause('hidden');
-      else { this.clockLast = performance.now(); this.removePause('hidden'); }
+      if (document.hidden) {
+        // iOS discards backgrounded tabs aggressively, and `pagehide` is not
+        // guaranteed to arrive first. Anything that must be persisted gets its
+        // chance here, before the pause.
+        this.emit('background', 'hidden');
+        this.addPause('hidden');
+      } else { this.clockLast = performance.now(); this.removePause('hidden'); }
     });
     window.addEventListener('blur', () => this.addPause('blur'));
     window.addEventListener('focus', () => { this.clockLast = performance.now(); this.removePause('blur'); });
-    window.addEventListener('pagehide', () => { this.addPause('hidden'); this.emit('pagehide'); });
+    window.addEventListener('pagehide', () => {
+      this.addPause('hidden');
+      this.emit('background', 'pagehide');
+      this.emit('pagehide');
+    });
   }
 
   addPause(reason) {

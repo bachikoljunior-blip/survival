@@ -207,8 +207,8 @@ export class Game extends Emitter {
     });
     this.on('ui:save', () => { this.director.save(); this.hud.notice('Saved.', 'good', 2.4); });
     this.on('ui:useitem', (id) => { this.director.useItem(id); m.refreshInventory(); });
-    this.on('ui:retry', () => this.director.retry());
-    this.on('ui:quit', () => this.toTitle());
+    this.on('ui:retry', () => this._guard(this.director.retry(), MODE.DEAD));
+    this.on('ui:quit', () => this._guard(this.toTitle(), MODE.TITLE));
 
     m.onSettingsChanged = (s) => this.applySettings(s);
 
@@ -266,6 +266,26 @@ export class Game extends Emitter {
     this.vibration = S.vibration;
 
     Storage.saveSettings(S);
+  }
+
+  /**
+   * Watchdog for async mode transitions fired from event handlers.
+   *
+   * Emitter wraps handlers in try/catch, which catches a synchronous throw and
+   * does nothing at all about a rejected promise. Every one of these
+   * transitions disables input and raises the fade before its first await, so
+   * a throw after that point leaves the game opaque, inputless and with no
+   * reachable control of any kind. On failure, put the player somewhere they
+   * can act from and clear the fade.
+   */
+  _guard(promise, fallbackMode) {
+    if (!promise || typeof promise.catch !== 'function') return promise;
+    return promise.catch((err) => {
+      if (__DEV__) console.error('mode transition failed', err);
+      try { this.menus.fadeIn(); } catch { /* the fade is best-effort */ }
+      this.hud.setVisible(fallbackMode === MODE.PLAY);
+      this.setMode(fallbackMode);
+    });
   }
 
   async toTitle() {

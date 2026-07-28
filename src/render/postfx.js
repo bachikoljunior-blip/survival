@@ -61,7 +61,7 @@ export class PostFX {
       exposure: 1.05,
       // Contrast now has real work to do: the lift no longer flattens the
       // bottom of the range, so the curve has somewhere to separate into.
-      contrast: 1.18,
+      contrast: 1.26,
       pivot: 0.38,
       saturation: 1.06,
       // LINEAR-SPACE grade, applied BEFORE the tonemap.
@@ -78,7 +78,7 @@ export class PostFX {
       bloomStrength: 0.62,
       bloomThreshold: 0.78,
       bloomKnee: 0.42,
-      vignette: 0.46,
+      vignette: 0.40,
       grain: 0.035,
       aberration: 0.0016,
       // Pushed by gameplay: rises when the player is saturating with CO.

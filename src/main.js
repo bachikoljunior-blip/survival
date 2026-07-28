@@ -45,6 +45,12 @@ async function main() {
   game.start();
 
   // --- boot flow ---------------------------------------------------------
+  const warnStorage = () => {
+    if (storageOk || warnStorage.done) return;
+    warnStorage.done = true;
+    game.hud.notice('<b>Not saving.</b> This browser blocks storage — nothing will be kept.', 'bad', 7);
+  };
+
   const startNewGame = async () => {
     game.menus.hideTitle();
     await game.menus.fadeOut();
@@ -65,6 +71,7 @@ async function main() {
     game.setMode(MODE.PLAY);
     game.hud.showCard('CHAPTER ONE', 'BAD AIR', 'The Stacks · Hollis');
     game.emit('music', 'explore');
+    warnStorage();
   };
 
   const continueGame = async () => {
@@ -78,14 +85,55 @@ async function main() {
     await game.menus.fadeIn();
     game.setMode(MODE.PLAY);
     game.emit('music', 'explore');
+    warnStorage();
   };
 
   game.on('ui:newgame', startNewGame);
   game.on('ui:continue', continueGame);
 
+  // ---- persistence lifecycle -------------------------------------------
+  // The only periodic save is a 90s timer that is skipped entirely during a
+  // raid, and iOS Safari discards backgrounded tabs without warning. Save on
+  // the way out instead of losing up to a minute and a half in silence.
+  const saveOnExit = () => {
+    if (!game.director) return;
+    if (game.mode !== MODE.PLAY && game.mode !== MODE.MENU && game.mode !== MODE.DIALOGUE) return;
+    try { game.director.save(true); } catch (e) { console.warn('[cinderline] exit save failed', e); }
+  };
+  game.engine.on('background', saveOnExit);
+
+  // ---- WebGL context loss ----------------------------------------------
+  // Engine sets lost=true and pauses; _frame then returns early forever. Left
+  // unhandled that is a frozen frame with no message, no save and no way out,
+  // and Safari frequently never fires webglcontextrestored.
+  const ctxLost = document.getElementById('ctxlost');
+  const ctxReload = document.getElementById('ctxlost-reload');
+  if (ctxReload) ctxReload.addEventListener('click', () => window.location.reload());
+  game.engine.on('contextlost', () => {
+    saveOnExit();
+    if (ctxLost) ctxLost.classList.add('on');
+  });
+  game.engine.on('contextrestored', () => {
+    if (ctxLost) ctxLost.classList.remove('on');
+    game.engine.renderer.shadowMap.needsUpdate = true;
+    if (game.atmos) game.atmos.shadowDirty = true;
+  });
+
+  // ---- storage availability --------------------------------------------
+  // Storage.available() existed and was called from nowhere; in iOS private
+  // browsing every write throws, every save silently fails, and the game said
+  // "Saved." anyway for a whole playthrough that vanishes on tab close.
+  const storageOk = Storage.available();
+  if (!storageOk) {
+    game.storageAvailable = false;
+    game.menus.setTitleWarning(
+      'This browser will not let the game save — private browsing, most likely. ' +
+      'You can play, but nothing will be kept when you close the tab.');
+  }
+
   game.hud.setVisible(false);
   game.setMode(MODE.TITLE);
-  game.menus.showTitle(Storage.hasSave(), __BUILD_ID__);
+  game.menus.showTitle(Storage.hasSave());
   // Frame the title on a street rather than on the player's back.
   const s = game.city.spawns.get('marrow_west');
   game.player.pos.set(s.x, 0.2, s.z);

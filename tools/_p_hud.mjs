@@ -4,12 +4,14 @@
   await C.startNewGame();
   await sleep(1500);
   const H = G.hud;
-  H.setPrompt('<b>USE</b> &nbsp;Speak to Sol');
-  await sleep(100);
   const R = (n) => { const b = n.getBoundingClientRect(); return { x: +b.x.toFixed(1), y: +b.y.toFixed(1), w: +b.width.toFixed(1), h: +b.height.toFixed(1) }; };
+  H.setPrompt('<b>USE</b> &nbsp;Speak to Sol');
+  const interactRect = R(H.interactBtn);
+  const promptText = H.prompt.textContent;
+  await sleep(100);
   const circles = {};
   for (const k of ['attack','dodge','guard','use','heavy']) circles[k] = R(H.buttons[k]);
-  circles.interact = R(H.interactBtn);
+  circles.interact = interactRect;
   const gaps = {};
   const keys = Object.keys(circles);
   for (let i=0;i<keys.length;i++) for (let j=i+1;j<keys.length;j++){
@@ -25,7 +27,7 @@
     engineSize: G.engine.size,
     actions: R(H.actions), actionsPE: getComputedStyle(H.actions).pointerEvents,
     circles, gaps, sys,
-    promptText: H.prompt.textContent,
+    promptText,
     vitals: R(document.querySelector('.vitals')),
     hpLbl: R(H.hpBar.lbl), hpLblFont: getComputedStyle(H.hpBar.lbl).fontSize,
     notices: R(document.querySelector('.notices')),

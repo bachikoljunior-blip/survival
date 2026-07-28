@@ -8,12 +8,13 @@
  * Hollis Reclamation Authority holds the contract to manage it, and every
  * quarter it publishes the Cinder Line: the surveyed boundary of the burn.
  *
- * Eighteen months ago Renata Vasko was a survey assistant. She read the Q3
+ * Twenty-two months ago Renata Vasko was a survey assistant. She read the Q3
  * borehole data and saw that the line about to be published sat two hundred
  * metres east of where the numbers put it. She said nothing. She needed the
- * job. Four months later the ground under Cellar Row — which the published
- * line called safe — vented in the night, and nine people died in their
- * basements without ever waking up.
+ * job. Four months later — eighteen months ago, and everyone in Hollis counts
+ * from that night — the ground under Cellar Row, which the published line
+ * called safe, vented in the dark, and nine people died in their basements
+ * without ever waking up.
  *
  * She left Hollis. She is back because a letter reached her: Ilya Bek's, one
  * of the nine, never posted, written to the Authority eleven days before he
@@ -24,14 +25,30 @@
  *
  * Not whether the Authority lied — the player learns that in chapter one.
  * It is about what the truth is *for*. Ren wants it to absolve her. Nessa Bek
- * needs it to grieve properly. Krajcik argues, with real arithmetic, that
- * publishing it will kill more people than it saves. Sol has been quietly
- * doing Krajcik's calculus at street scale and would tell you so to your face.
+ * needs it to grieve properly. Krajcik argues, from a real budget and a real
+ * relocation schedule, that publishing it will kill more people than it saves.
+ * Sol reaches the same answers from a rota and a clipboard, and would tell you
+ * so to your face.
+ *
+ * They are the same argument in two registers, and the script keeps them apart
+ * on purpose: Sol counts people out loud and never uses an abstract noun;
+ * Krajcik reaches for the passive voice and the clause number exactly when he
+ * is most exposed.
  *
  * Nobody in this story is lying for money. Everybody is choosing whose
  * survival counts. So is the player.
  * ────────────────────────────────────────────────────────────────────────────
  */
+
+/**
+ * Reason sentinel for a trust change that must NOT surface as a toast.
+ *
+ * Trust is not a morality meter and the interface must not turn it into one.
+ * The four beats where Ren says the hard true thing move the number and say
+ * nothing, because a red popup reading "She knows what you are now" over a
+ * confession is the game marking her homework.
+ */
+export const QUIET = '\u0000quiet';
 
 // ============================================================== CHARACTERS ==
 
@@ -62,12 +79,13 @@ to pull the gas off her block. She knows where it goes.`,
     name: 'Nessa', full: 'Nessa Bek', colour: '#8fb4c4',
     bio: `Nineteen. Ilya Bek's daughter. Runs filters for Sol's crew, which means
 she goes into the low ground for other people four times a week. Talks fast,
-jokes badly, and has not once asked anyone to feel sorry for her.`,
+jokes badly, and has never asked anybody to feel sorry for her.`,
   },
   iris: {
     name: 'Iris', full: 'Iris Nadeau', colour: '#7fa2b4',
     bio: `Thirty-three. Survey Engineer II. Was Ren's junior. Signs the lines now.
-Has been noticing, and not saying, for eighteen months longer than Ren managed.
+Has been noticing, and not saying, for a year longer than Ren managed, and is
+the only person in the building who has kept a record of it.
 Wants very badly for someone to tell her it was survivable.`,
   },
   krajcik: {
@@ -131,7 +149,7 @@ very good or very bad and I will find out which.`] }],
 };
 
 Q.log = {
-  id: 'log', title: 'The Numbers Behind the Line', chapter: 1,
+  id: 'log', title: 'The Numbers Behind the Line', chapter: 2,
   summary: 'Teo wants the raw borehole log from Vent Field 9 — the data the published Cinder Line was drawn against.',
   steps: [
     {
@@ -141,7 +159,6 @@ Q.log = {
       trigger: { kind: 'reach', pos: [-44, -14], radius: 7, y: 10, yTolerance: 4 },
       onDone: [
         { card: ['CHAPTER TWO', 'THE SLIP', 'Marrow Street'] },
-        { chapter: 2 },
         { journal: ['slip', 'The Slip', `Bower Street is a hole now. Eighteen metres across, nine
 deep, and the meter reads four thousand at the bottom. The Authority put barriers
 round it and called that a response. You get past it the way you get past
@@ -344,9 +361,14 @@ Q.nessaRun = {
       trigger: { kind: 'reach', pos: [-118, 58], radius: 9 } },
     { objective: 'Find Nessa.', marker: 'nessaRun',
       trigger: { kind: 'talk', who: 'nessa', convo: 'nessa_rescue' },
-      onDone: [{ trust: ['nessa', 18, 'You came down for her.'] }, { trust: ['sol', 8, 'You brought her back.'] }] },
+      onDone: [{ trust: ['nessa', 18, 'You came down for her.'] }] },
+    { objective: 'Get her above the smoke. She can walk. She cannot climb.',
+      marker: 'nessaRun',
+      hint: 'Three metres up and out of the draw. Find her a way, not a door.',
+      trigger: { kind: 'custom', id: 'nessaOut' },
+      onDone: [{ trust: ['sol', 8, 'You brought her back.'] }] },
   ],
-  onComplete: [{ flag: 'nessa_rescued' }, { give: ['filter', 2] }],
+  onComplete: [{ give: ['filter', 2] }],
 };
 
 Q.cellarRow = {
@@ -418,7 +440,7 @@ line on a map.`),
         { text: "A place to stand for a night. I'll work for it.", goto: 's_work' },
         { text: "I'm looking into what happened at Cellar Row.", goto: 's_cellar',
           if: {}, effects: [{ flag: 'sol_told_cellar' }, { bump: ['honest', 1] },
-                              { trust: ['sol', 6, 'You said the true thing first.'] }] },
+                              { trust: ['sol', 6, QUIET] }] },
       ],
     },
     s_teo: {
@@ -813,14 +835,14 @@ else was allowed to know. Which is the whole of what was done to this town.`),
       choices: [
         { text: "That's not the same.", goto: 't_notsame', effects: [{ bump: ['deflected', 1] }] },
         { text: "No. There are two of us.", goto: 't_same',
-          effects: [{ trust: ['teo', 10, 'She took her share of it.'] }, { flag: 'teo_shared' },
+          effects: [{ trust: ['teo', 10, QUIET] }, { flag: 'teo_shared' },
                     { bump: ['honest', 1] }] },
         { text: "What do you want me to do about it?", goto: 't_task', effects: [{ bump: ['deflected', 1] }] },
       ],
     },
     t_notsame: {
       ...line('teo', `No. It isn't. You read the data. I mislaid an envelope. I've told myself the
-difference a great many times and it has never once let me sleep.`),
+difference a great many times and I have yet to sleep on the strength of it.`),
       next: 't_task',
     },
     t_same: {
@@ -828,12 +850,14 @@ difference a great many times and it has never once let me sleep.`),
       next: 't_task',
     },
     t_task: {
-      ...line('teo', `Here's the useful part. A letter proves a man was worried. It proves nothing
-about the ground.
+      ...line('teo', "A letter proves a man was worried."),
+      next: 't_task1b',
+    },
+    t_task1b: {
+      ...line('teo', `You need the raw log. Not the published line — the numbers the line was drawn
+against.
 
-What proves it is the raw log. Nine boreholes, temperature and gas, every week
-for three years, in the Authority's own hand. Not the published line — the
-numbers the line was drawn against.`),
+Nine heads. Weekly. Three years. In their own hand.`),
       next: 't_task2',
     },
     t_task2: {
@@ -908,12 +932,12 @@ we came up with everybody. Don't let anyone tell you it was the obvious outcome.
       next: 'a_shop',
     },
     a_crisis_lost: {
-      ...line('teo', `You'll be doing the other arithmetic. The one where you go back over the two
-hundred seconds and find the twenty you could have spent better.
+      ...line('teo', `You'll be going back over the two hundred seconds. Finding the twenty you
+could have spent better.
 
-I have done that arithmetic every night since the eleventh of July and I will
-tell you what it is worth, which is nothing, and I will also tell you that you
-are going to do it anyway. Come and buy cartridges.`, 'quiet'),
+I have gone back over the eleventh of July every night for eighteen months and I
+will tell you exactly what it has been worth, which is nothing, and I will also
+tell you that you are going to do it anyway. Come and buy cartridges.`, 'quiet'),
       next: 'a_shop',
     },
     a_south: {
@@ -987,7 +1011,7 @@ them, which is exactly why it is still there.`] },
       ...line('teo', `They repaint it every quarter. Same road, further west every time. There are
 four lines on Cinder Road now and you can read them like rings on a stump.
 
-The joke — and it is a joke, we do laugh — is that the line has never once moved
+The joke — and it is a joke, we do laugh — is that the line has never moved
 because the fire moved. It moves because the survey moves.`),
       next: 'a_shop',
     },
@@ -1251,9 +1275,9 @@ I want to read it.`),
         { text: "Before you do — the July sheet has my initials on it.", goto: 'nt_tell',
           effects: [{ choice: ['nessa_truth', 'told'] }, { flag: 'nessa_told_truth' },
                     { bump: ['honest', 1] },
-                    { trust: ['nessa', 14, 'She heard it from Ren, not from paper.'] }] },
+                    { trust: ['nessa', 14, QUIET] }] },
         { text: "It's not ready. Not yet.", goto: 'nt_withhold',
-          effects: [{ choice: ['nessa_truth', 'withheld'] }, { trust: ['nessa', -12, 'She was managed.'] },
+          effects: [{ choice: ['nessa_truth', 'withheld'] }, { trust: ['nessa', -12, QUIET] },
                     { flag: 'nessa_withheld' }, { bump: ['deflected', 1] }] },
       ],
     },
@@ -1308,7 +1332,7 @@ I'm not going to. I don't have that.`),
         { text: "Your father's shop on Fenn Street is still standing. There's a family in it.",
           goto: 'nt_shop', if: { flag: 'ostrowski_bek' } },
         { text: "I'm not telling you so you'll say anything. I'm telling you because it's yours.",
-          goto: 'nt_yours', effects: [{ trust: ['nessa', 12, 'She was not asked for absolution.'] }] },
+          goto: 'nt_yours', effects: [{ trust: ['nessa', 12, QUIET] }] },
         { text: "Because you'd have found it in the log tonight, and I wanted you to hear it from me.",
           goto: 'nt_hear' },
         { text: "I don't know. Maybe so I'd stop carrying it.", goto: 'nt_carry',
@@ -1446,11 +1470,11 @@ evidence of anything except that I noticed.`),
           effects: [{ trust: ['iris', -8, 'She has heard that from someone who did not.'] }] },
         { text: "I kept one too. For eleven months.", goto: 'i_same',
           effects: [{ flag: 'iris_shared' }, { bump: ['honest', 1] },
-                    { trust: ['iris', 16, 'Someone else did the same and said so.'] }] },
+                    { trust: ['iris', 16, QUIET] }] },
       ],
     },
     i_long: {
-      ...line('iris', "Two years and one month. Since before you left."),
+      ...line('iris', "Two years and ten months. Since before you were hired."),
       next: 'i_pass_q',
     },
     i_say: {
@@ -1680,22 +1704,33 @@ wrong, and clause fourteen of this contract voids on a material admission.`),
       next: 'k_ledger',
     },
     k_ledger: {
-      ...line('krajcik', "Look at this before you decide anything."),
-      next: 'k_ledger2',
+      // He does not brief her. He slides a box file across and lets her read
+      // it, the way the published-line board works: the object proves it and
+      // the man says four sentences.
+      ...line('krajcik', "Second drawer. It is not locked. It has never needed to be."),
+      next: 'k_ledger_read',
+    },
+    k_ledger_read: {
+      ...ren(`A removals ledger. Handwritten, one line per household, ruled by somebody who
+rules lines for a living.
+
+Three hundred and forty entries. Deposit, removal, twelve months' rent, and a
+column headed SCHEME that is empty the whole way down.`),
+      choices: [
+        { text: "There's no scheme.", goto: 'k_ledger2' },
+        { text: "Where does the money come from?", goto: 'k_ledger2' },
+      ],
     },
     k_ledger2: {
-      ...line('krajcik', `Three hundred and forty households. Relocated. Rehoused, deposits paid,
-removal costs, twelve months of rent in a town that still has a functioning
-school.
+      ...line('krajcik', `The margin. On a contract to manage a fire that cannot be managed.
 
-Not one of them is in a government scheme, because there is no government scheme.
-Every penny of that came out of the margin on a contract to manage a fire that
-cannot be managed.`),
+That is the whole trick and you have just found it in about nine seconds.`),
       next: 'k_ledger3',
     },
     k_ledger3: {
       ...line('krajcik', `I am not asking you to think I am a good man. I'm asking you to do the
-arithmetic that I do every morning.
+determination I am required to make every quarter and make every morning
+anyway.
 
 If you publish, the contract voids inside a fortnight. The Authority withdraws.
 The relocation stops. Four hundred and six people are still in Hollis and there
@@ -1718,9 +1753,10 @@ version where it works.`),
     k_choice: {
       ...line('krajcik', `No. I don't.
 
-I have never once claimed the right. I have only ever claimed that somebody was
-going to make it, and that the alternative to me making it badly was nobody
-making it at all.
+No such right has ever been claimed, by me or in my name. What has been
+claimed — clause eleven, if you would like to read it — is that a determination
+must be made quarterly by a named officer, and that in the absence of one being
+made badly, none is made at all.
 
 If you have a better mechanism than one flawed man with a budget, I would like
 to hear it. I have been waiting years.`),
@@ -1732,8 +1768,8 @@ to hear it. I have been waiting years.`),
 Yes. I want you to hear the shape of that. Forty-nine before Cellar Row. Two
 hundred and ninety-one after.
 
-I have never been able to decide whether that is the most useful thing I have
-ever done or the most obscene.`),
+It is recorded, in a file, as an operational efficiency. I have not been able
+to arrive at a better description and I have stopped trying to.`),
       effects: [{ flag: 'krajcik_291' }],
       next: 'k_offer',
     },
@@ -1753,7 +1789,7 @@ thirty households a quarter while you did it.`),
           effects: [{ choice: ['krajcik_offer', 'refused'] }, { trust: ['krajcik', -10, 'She would not take it.'] }] },
         { text: "I'll take it.", goto: 'k_accept',
           effects: [{ choice: ['krajcik_offer', 'accepted'] }, { flag: 'took_offer' },
-                    { trust: ['krajcik', 20, 'She understood the arithmetic.'] }] },
+                    { trust: ['krajcik', 20, 'She read the clause and did not flinch.'] }] },
         { text: "I'll take it. [Lie]", goto: 'k_lie',
           effects: [{ choice: ['krajcik_offer', 'lied'] }, { flag: 'lied_to_krajcik' },
                     { trust: ['krajcik', 14, 'He believes her.'] }] },
@@ -1921,7 +1957,7 @@ about nine.`),
           effects: [
             { choice: ['vents', 'shut'] }, { flag: 'vents_shut' },
             { fn: 'shutVents' },
-            { trust: ['sol', -18, 'You took the yard off her.'] },
+            { trust: ['sol', -18, QUIET] },
             { journal: ['vents_shut', 'I shut the heads', `Two turns each. The draw reversed inside a
 minute — I could hear it change. Fenn Street will be breathable by morning.
 
@@ -1931,7 +1967,7 @@ The Stacks courtyard will not.`] },
           goto: 'v_leave',
           effects: [
             { choice: ['vents', 'left'] }, { flag: 'vents_left' },
-            { trust: ['sol', 10, 'You did the arithmetic her way.'] },
+            { trust: ['sol', 10, QUIET] },
             { journal: ['vents_left', 'I left the heads', `A hundred and six against eleven. I did the
 sum the way Sol does it and I got the same answer she did, and then I stood there
 for a long time not walking away.`] },
@@ -2141,8 +2177,8 @@ Hollis burned faster after that. Everybody knew why. It turns out that matters
 more than people say it does, and less than you hoped.
 
 You were charged as a party to it. Nine counts. The hearing took four days and
-your evidence took two of them, and you did not once say that you had been
-young, or tired, or under contract.
+your evidence took two of them, and at no point in it did you say that you had
+been young, or tired, or under contract.
 
 Nessa came. She sat at the back with her arms folded and she did not look at you
 and she came every single day.`,
@@ -2199,8 +2235,8 @@ went in the second winter — but the Stacks are still standing and there are
 still a hundred and something people in them.
 
 The line is honest now. It is honest because you draw it, every quarter, in the
-same building, under the same man, and the two of you have never once discussed
-what that costs either of you.
+same building, under the same man, and neither of you has ever raised what that
+costs the other.
 
 Iris does the reduction. She still keeps her folder. There is nothing in it any
 more, and she keeps it anyway.`,
@@ -2253,9 +2289,8 @@ reach.
 
 Eleven years. Three hundred and eighty more households.
 
-Nobody ever knew, which was the point, and you have never once been able to
-decide whether that was mercy or the largest thing you have ever stolen from
-anybody.`,
+Nobody ever knew, which was the point, and you have never settled whether that
+was mercy or the largest thing you have taken from anybody.`,
     beats: [
       { condition: { chose: ['krajcik_offer', 'refused'] },
         text: `You had refused it once, in his office, with some heat. He never mentioned that
@@ -2264,7 +2299,7 @@ had been a scheduling problem.` },
       { condition: { flag: 'sol_confession' },
         text: `Sol had heard the whole thing from you, in her own courtyard, before any of it.
 She is the only person alive who can put the two Rens in the same sentence, and
-she has never once been asked to.` },
+she has never been asked to.` },
       { condition: { counter: ['honest', 3] },
         text: `The strange part is that you told everybody the truth on the way here. Marsh,
 Sol, Iris, the girl. Every one of them. And then you took the desk anyway, which
@@ -2293,8 +2328,8 @@ its schedules, its forms — to empty Hollis in nineteen days.
 Four hundred and six people. Every single one.
 
 Nobody was told anything. There was no inquiry, because there was no evidence,
-because you had stood over it in a barrel until it was ash and Sol had not once
-asked you if you were sure.
+because you had stood over it in a barrel until it was ash and Sol never asked
+you, at any point, whether you were sure.
 
 The burn crossed Cinder Road that autumn and took the Cut, and then Marrow, and
 then the Stacks, and there was nobody in any of it.
@@ -2375,7 +2410,7 @@ face and you left eleven days later.` },
       told: `Nessa knew before you left. That is something. It is not very much, and it is
 something.`,
       untold: `Nessa never knew. She is nineteen in your head and she always will be, because
-you never once stayed long enough to see her be twenty.`,
+you never stayed long enough to see her be twenty.`,
     },
   },
 ];
@@ -2407,14 +2442,14 @@ there was nobody downstairs to hear anything, and there was nothing to hear.`,
     id: 'stacks_held',
     condition: { any: [{ flag: 'vents_left' }, { flag: 'vents_half' }] },
     text: `The Stacks held their courtyard through the winter. Sol never thanked you for
-it, because in her arithmetic you had done nothing but decline to make it worse.`,
+it, because by her count you had done nothing but decline to make it worse.`,
   },
   {
     id: 'stacks_lost',
     condition: { flag: 'vents_shut' },
     text: `The Stacks lost the courtyard in a fortnight, exactly as Sol said they would.
 They moved the generator to the second floor of Pell and the rota got harder and
-they did not lose anybody, which Sol has never once described as luck.`,
+they did not lose anybody, which Sol has never once called luck.`,
   },
   {
     id: 'teo',
