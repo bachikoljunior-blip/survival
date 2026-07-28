@@ -11,6 +11,8 @@
  *   node tools/i18n_report.mjs ja            summary + first 40 missing keys
  *   node tools/i18n_report.mjs ja --all      every missing key
  *   node tools/i18n_report.mjs ja --extra    keys in the table nothing asks for
+ *   node tools/i18n_report.mjs ja --shadowed keys one source file defines and
+ *                                            a later one silently overrides
  *
  * Exit status is 0 whether or not keys are missing: a partial translation is a
  * legitimate state (it degrades to English), and this is a report, not a gate.
@@ -24,6 +26,7 @@ import { buildHollisData } from '../src/content/world_data.js';
 const code = process.argv[2] || 'ja';
 const showAll = process.argv.includes('--all');
 const showExtra = process.argv.includes('--extra');
+const showShadowed = process.argv.includes('--shadowed');
 
 const { JA } = await import(`../src/content/locale/${code}.js`);
 const table = JA;
@@ -255,6 +258,97 @@ if (missing.length) {
   console.log(`  missing (${missing.length}):`);
   for (const k of (showAll ? missing : missing.slice(0, 40))) console.log('    ' + k);
   if (!showAll && missing.length > 40) console.log(`    … and ${missing.length - 40} more (--all)`);
+  console.log('');
+}
+
+// Interpolation markers. A translation that drops one renders the sentence with
+// a hole where the number goes — "4人中人を上へ" — and every other check in this
+// file passes, because the key exists and the value is a non-empty string.
+{
+  // key -> the markers the ENGINE substitutes into it.
+  const MARKERS = {
+    'ui.trade.row': ['@item', '@n'],
+    'ui.speakto': ['@n'],
+    'ui.chapter.fmt': ['@n'],
+    'ui.hud.rescued': ['@n'],
+    'ui.hud.someout': ['@a', '@b'],
+    'ui.hud.ontheirfeet': ['@n'],
+  };
+  for (const k of ['minutes', 'meters', 'filters', 'rescued', 'breached', 'parries',
+                   'survived', 'deaths']) MARKERS[`ui.ledger.${k}`] = ['@n'];
+
+  const dropped = [];
+  for (const key in MARKERS) {
+    const v = lookup(table, key);
+    // Absent is fine — it falls back to English. Present-but-mangled is not.
+    if (v === undefined) continue;
+    for (const m of MARKERS[key]) if (!v.includes(m)) dropped.push({ key, marker: m, value: v });
+  }
+  // Ending beats are the other direction: the ENGLISH decides which markers a
+  // beat carries, and the translation has to carry the same ones.
+  for (const e of ENDINGS) {
+    (e.beats || []).forEach((b, i) => {
+      const key = `e.${e.id}.beats.${i}`;
+      const v = lookup(table, key);
+      if (v === undefined) return;
+      for (const m of (b.text.match(/@[nN]/g) || [])) {
+        // @n and @N are interchangeable at the author's discretion — one is the
+        // word, one is the numeral — so either satisfies the other.
+        if (!/@[nN]/.test(v)) dropped.push({ key, marker: m, value: v.slice(0, 60) });
+      }
+    });
+  }
+
+  if (dropped.length) {
+    console.log(`  DROPPED INTERPOLATION MARKERS (${dropped.length}) — always a fault:`);
+    for (const d of dropped) console.log(`    ${d.key}  missing ${d.marker}\n      ${d.value}`);
+    console.log('');
+    process.exitCode = 1;
+  } else {
+    console.log('  interpolation markers: all present\n');
+  }
+}
+
+// Shadowing between the source files that make up a locale.
+//
+// The table is merged from several files so several hands can work at once, and
+// a later file wins a key the earlier one also defined. That is the intended
+// rule, but it is silent: a whole file's worth of translation can be overridden
+// and still read as live text in review. It happened here — 185 keys, 94 of
+// them with different wording — so it gets an instrument.
+if (showShadowed && code === 'ja') {
+  const mods = [
+    ['engine.js', (await import('../src/content/locale/ja/engine.js')).ENGINE_JA],
+    ['ui.js', { ui: (await import('../src/content/locale/ja/ui.js')).UI_JA }],
+    ['story.js', (await import('../src/content/locale/ja/story.js')).STORY_JA],
+    ['story2.js', (await import('../src/content/locale/ja/story2.js')).STORY2_JA],
+    ['content.js', (await import('../src/content/locale/ja/content.js')).CONTENT_JA],
+  ];
+  const flat = (o, p = '', out = {}) => {
+    for (const k in o) {
+      const key = p ? `${p}.${k}` : k;
+      if (typeof o[k] === 'string') out[key] = o[k];
+      else if (o[k] && typeof o[k] === 'object') flat(o[k], key, out);
+    }
+    return out;
+  };
+  const flats = mods.map(([name, t]) => [name, flat(t)]);
+  const hits = [];
+  for (let i = 0; i < flats.length; i++) {
+    for (let j = i + 1; j < flats.length; j++) {
+      for (const k in flats[i][1]) {
+        if (k in flats[j][1]) {
+          hits.push({ key: k, loser: flats[i][0], winner: flats[j][0],
+            same: flats[i][1][k] === flats[j][1][k] });
+        }
+      }
+    }
+  }
+  console.log(`  shadowed keys: ${hits.length}` +
+    (hits.length ? ` (${hits.filter((h) => !h.same).length} with different wording)` : ''));
+  for (const h of hits.slice(0, showAll ? hits.length : 30)) {
+    console.log(`    ${h.key}\n      ${h.loser} loses to ${h.winner}${h.same ? ' (identical)' : ' — DIFFERENT TEXT'}`);
+  }
   console.log('');
 }
 

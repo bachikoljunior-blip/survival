@@ -120,7 +120,16 @@ by walking the content the way the engine does, not by grepping for strings —
 and diffs it against the table: **882 of 882**, including the fifth beat of an
 ending only two flag combinations reach, the third shout of an enemy that
 appears twice, and the three journal pages the director synthesises from examine
-text. `tools/i18n_glossary.mjs ja` catches the failure that a split translation
+text. It also checks that every interpolation marker survived translation: a dropped
+`@n` renders as 「4人中人を上へ」, and every other check passes, because the key
+exists and the value is a non-empty string. `--shadowed` lists keys that one
+source file defines and a later one silently overrides — the locale is merged
+from five files so several hands can work at once, and a whole file's worth of
+translation can be overridden while still reading as live text in review. That
+happened here: 185 keys, 94 of them with different wording, all of them
+unreachable. They are gone, and the check exists so it stays that way.
+
+`tools/i18n_glossary.mjs ja` catches the failure that a split translation
 actually has — the same proper noun coming out two different ways in two files,
 invisible in review because each file is internally consistent.
 
