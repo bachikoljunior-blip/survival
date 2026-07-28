@@ -412,24 +412,60 @@ export function moveActor(world, a, dt) {
   let hitWall = false, hitCeiling = false, steppedUp = false;
 
   // --- horizontal -----------------------------------------------------------
+  const wasGrounded = a.grounded;
+  const prevY = pos.y;
+
   const dx = vel.x * dt, dz = vel.z * dt;
   const dist = Math.hypot(dx, dz);
+  const startX = pos.x, startZ = pos.z;
   // Substep so fast movement cannot tunnel through a wall.
   const sub = Math.max(1, Math.ceil(dist / (r * 0.7)));
-  for (let i = 0; i < sub; i++) {
-    pos.x += dx / sub;
-    pos.z += dz / sub;
-    const before = { x: pos.x, z: pos.z };
-    const c = world.resolveCircle(pos, r, pos.y, pos.y + h, step);
-    if (c > 0) {
-      const moved = Math.hypot(pos.x - before.x, pos.z - before.z);
-      if (moved > 1e-4) hitWall = true;
+  const slide = (feetY, headY, tol) => {
+    let hit = false;
+    for (let i = 0; i < sub; i++) {
+      pos.x += dx / sub;
+      pos.z += dz / sub;
+      const bx = pos.x, bz = pos.z;
+      const c = world.resolveCircle(pos, r, feetY, headY, tol);
+      if (c > 0 && Math.hypot(pos.x - bx, pos.z - bz) > 1e-4) hit = true;
+    }
+    return hit;
+  };
+
+  hitWall = slide(pos.y, pos.y + h, step);
+
+  // Step-up, horizontal half.
+  //
+  // Resolving at foot height alone is not enough on a real staircase. A fire
+  // escape's treads are 0.14 m deep and the body is 0.34 m across, so standing
+  // on one tread always overlaps the tread two above — which is higher than a
+  // step, therefore solid, therefore a wall. The flight is unclimbable no
+  // matter how good the vertical rule is.
+  //
+  // So when a grounded actor is genuinely stopped, replay the same move with
+  // the feet one step higher. Anything short enough to stand on stops being an
+  // obstacle; anything taller still is one. The move is only kept if it made
+  // real progress AND there is something to stand on at the far end.
+  if (hitWall && dist > 1e-5 && (wasGrounded || (a.coyote ?? 0) > 0)) {
+    const ux = dx / dist, uz = dz / dist;
+    const advLow = (pos.x - startX) * ux + (pos.z - startZ) * uz;
+    if (advLow < dist * 0.7) {
+      const lowX = pos.x, lowZ = pos.z;
+      pos.x = startX; pos.z = startZ;
+      const raised = prevY + step;
+      slide(raised, raised + h, 0.001);
+      const advHigh = (pos.x - startX) * ux + (pos.z - startZ) * uz;
+      let ok = false;
+      if (advHigh > advLow + 1e-3) {
+        const g = world.groundUnder(pos.x, pos.z, r * 0.92, raised, step * 2 + 0.2);
+        if (g && g.y - prevY <= step + 1e-4) ok = true;
+      }
+      if (ok) hitWall = advHigh < dist * 0.98;
+      else { pos.x = lowX; pos.z = lowZ; }
     }
   }
 
   // --- vertical -------------------------------------------------------------
-  const wasGrounded = a.grounded;
-  const prevY = pos.y;
 
   vel.y -= (a.gravity ?? 22.0) * dt;
   // Terminal velocity keeps long falls readable rather than instant.
@@ -469,19 +505,16 @@ export function moveActor(world, a, dt) {
     const depth = reach + Math.max(0.08, prevY - pos.y) + 0.08;
     const g = world.groundUnder(pos.x, pos.z, r * 0.92, from, depth);
     if (g && pos.y <= g.y + 0.03 && g.y - prevY <= reach + 1e-4) {
-      // A step-up must not drive the head into a ceiling.
-      const rise = g.y - prevY;
-      let ok = true;
-      if (rise > 0.005) {
-        ok = world.ceilingAbove(pos.x, pos.z, r * 0.85, g.y, h + 0.1) >= g.y + h - 0.01;
-      }
-      if (ok) {
-        pos.y = g.y;
-        vel.y = 0;
-        grounded = true;
-        groundBox = g.box;
-        if (rise > 0.005) steppedUp = true;
-      }
+      // No headroom test here on purpose. On any staircase the next tread sits
+      // above your feet and inside your body cylinder, so a ceiling probe at
+      // the destination rejects every stair in the city. If a step-up ever does
+      // put a head into something, the ceiling clamp above and `resolveCircle`
+      // on the following frame recover from it — predictability first.
+      pos.y = g.y;
+      vel.y = 0;
+      grounded = true;
+      groundBox = g.box;
+      if (g.y - prevY > 0.005) steppedUp = true;
     }
   }
 

@@ -124,9 +124,19 @@ seconds and I already know which one I believe.`);
       spawnCourtyardRaid: () => this._spawnRaid('courtyard', [
         ['scav', -100, -74], ['scav', -96, -88], ['slinger', -92, -80],
       ]),
-      spawnTrenchLine: () => this._spawnRaid('trench', [
-        ['warden', 70, 14], ['warden', 78, 16], ['scav', 74, 24],
-      ]),
+      spawnTrenchLine: () => {
+        this._spawnRaid('trench', [
+          ['warden', 70, 14], ['warden', 78, 16], ['scav', 74, 24],
+        ]);
+        // The line is a shift, not a crusade. There are three ways past it and
+        // only one of them is the fight.
+        this._addRuntimeInteraction({
+          id: 'trench_talk', kind: 'examine', x: 74, y: 1.4, z: 18, range: 3.4,
+          label: 'The Warden line', prompt: 'Show them the order', topic: 'trench_line',
+          requiresItem: 'trenchOrder',
+        });
+        g.hud.notice('<b>Warden line</b><br>Three of them, on a shift.', 'bad', 4.5);
+      },
       shutVents: () => {
         for (let i = 1; i <= 3; i++) {
           g.gas.setSourceActive(`vent_west_${i}`, false);
@@ -285,6 +295,13 @@ seconds and I already know which one I believe.`);
 
   // ------------------------------------------------------------ encounters
 
+  /** Push a runtime interaction that resetWorld and saves will clean up. */
+  _addRuntimeInteraction(it) {
+    const list = this.game.city.interactions;
+    if (list.some((i) => i.id === it.id)) return;
+    list.push({ ...it, _runtime: true });
+  }
+
   _spawnRaid(id, list) {
     const g = this.game;
     // Idempotent: a load re-enters the active step, and a raid that is already
@@ -306,6 +323,30 @@ seconds and I already know which one I believe.`);
     return group;
   }
 
+  /**
+   * Chapter five's Warden line. Cleared by killing them, by getting over them
+   * — the scaffold and the spoil heap are both climbable and both drop you
+   * inside — or by putting Krajcik's own unissued cut order in a foreman's
+   * hand, which is the thing Ren is actually good at.
+   */
+  _checkTrenchPassed() {
+    if (this.state.has('trench_passed')) return;
+    const g = this.game;
+    const p = g.player;
+    // Past the line and inside the cut, however you got there.
+    if (p.pos.x > 68 && p.pos.x < 92 && p.pos.z > 4 && p.pos.z < 13) {
+      this.state.set('trench_passed');
+      if (this._raidActive && this._raidActive.group.some((e) => !e.dead)) {
+        this.state.set('trench_slipped');
+        g.hud.notice('<b>Past them.</b><br>Nobody looked up.', 'good', 4);
+      }
+      this.quests.notify('custom', { id: 'trenchPassed' });
+      // Approach, then scene. The ending is offered a beat later so the player
+      // arrives at it rather than being handed a menu on the last kill.
+      setTimeout(() => { if (this.game.mode === MODE.PLAY) this._offerEnding(); }, 2600);
+    }
+  }
+
   _checkRaid() {
     if (!this._raidActive) return;
     const alive = this._raidActive.group.filter((e) => !e.dead);
@@ -318,8 +359,13 @@ seconds and I already know which one I believe.`);
       this.quests.notify('custom', { id: 'raidCleared' });
       this.refreshCast();
     } else if (id === 'trench') {
-      this.quests.notify('custom', { id: 'trenchCleared' });
-      this._offerEnding();
+      // Killing the line is one of the three ways past it; the ending is
+      // offered from the step completing, not from the bodies.
+      this.state.set('trench_fought');
+      if (!this.state.has('trench_passed')) {
+        this.state.set('trench_passed');
+        this.quests.notify('custom', { id: 'trenchPassed' });
+      }
     }
   }
 
@@ -667,6 +713,52 @@ tonight and it still lands the same way, which is: he was not accusing anybody.
 He wanted somebody to come and put a hand on his floor.
 
 I read the Q3 numbers nine weeks before he wrote it.`],
+      },
+      // The log is the whole of chapter two and it had no examine at all: a
+      // key item the player fetches, carries for three chapters and never
+      // reads. The numbers are the argument, so the player gets the numbers.
+      the_log: {
+        title: 'Borehole log — Vent Field 9',
+        lines: [
+          "A hardbacked field log, water-stained along the fore-edge, ruled in columns: HEAD / DATE / TEMP degC / CO ppm / SURVEYED BY / CHECKED BY.",
+          "Head 9-3, week of 4th July: 291 degrees. Week of 11th July: 406. Week of 18th July: the column is blank, and so is every column after it.",
+          "Cellar Row runs forty metres north of head 9-3.",
+          "The published line for that quarter puts Cellar Row two hundred metres outside the burn.",
+          "Every sheet from March to July carries the same two names in the signature block. Surveyed by T. Iles. Checked by R. Vasko.",
+          "It is my handwriting. I remember the pen. I remember it was raining and I remember thinking that four hundred and six was going to be somebody's problem in the autumn.",
+        ],
+        journal: ['log', 'The log', `Four hundred and six degrees at head 9-3, week of the eleventh
+of July, forty metres from Cellar Row, on a sheet I checked and initialled.
+
+They stopped recording that head after the eleventh. Not falsified. Stopped.
+Somebody looked at that number and decided the honest thing was to stop
+looking.`],
+      },
+      the_order: {
+        title: 'Cut order — firebreak, full alignment',
+        lines: [
+          "Three pages, costed to the metre. Nine point four million. Eleven months. A firebreak sixty metres wide on the TRUE alignment, not the published one.",
+          "It is signed at the bottom by V. Krajcik and dated fourteen months ago.",
+          "It was never issued. There is no reason on it and no annotation.",
+          "Somebody in this building worked out exactly what would save Hollis, put a price on it, signed it, and put it in a drawer, and then went on managing the fire instead.",
+        ],
+        journal: ['order', 'The cut order', `He wrote it. He costed it. He signed it. He did not issue
+it and he did not write down why, which means the why is something he did not
+want on paper, which narrows it a great deal.`],
+      },
+      vasko_shop: {
+        title: 'Vasko & Co',
+        lines: [
+          "Painted ironwork over a shuttered front. VASKO & CO — LAMPS, FITTINGS, REPAIRS.",
+          "He did cap lamps. Forty years of them, and then eleven years of nothing, and then the shutter.",
+          "The paint is going on the second O and nowhere else, because the second O is the only letter that catches the weather off Marrow Street, and he used to go up a ladder every spring and do that one letter.",
+          "Nobody has done the second O in twelve years.",
+        ],
+        journal: ['vasko', 'The second O', `Walked past my father's shop for the fourth time today and
+this time I stopped. The second O is going. He used to do that one letter every
+spring off a ladder and complain the whole time.
+
+I did not go in. The shutter is not even locked.`],
       },
       cellar_row: {
         title: 'Cellar Row',
@@ -1118,7 +1210,11 @@ I read the Q3 numbers nine weeks before he wrote it.`],
     if (g.mode !== MODE.PLAY && g.mode !== MODE.DIALOGUE) return;
 
     this._reachTimer -= dt;
-    if (this._reachTimer <= 0) { this._reachTimer = 0.25; this._pollReach(); }
+    if (this._reachTimer <= 0) {
+      this._reachTimer = 0.25;
+      this._pollReach();
+      if (this.state.quests.get('cinderline')?.step === 1) this._checkTrenchPassed();
+    }
 
     this._updateCrisis(dt);
     this._updateCrisisEscort(dt);

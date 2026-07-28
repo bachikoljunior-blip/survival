@@ -677,6 +677,10 @@ body {
 
 .screen {
   position: absolute; inset: 0;
+  /* Above #title (40). Settings opened from the title screen used to render
+     underneath it, so the title's own menu column sat on top of the settings
+     list and ate taps meant for the rows behind it. */
+  z-index: 45;
   display: none;
   background: rgba(6, 5, 4, 0.86);
   backdrop-filter: blur(2px);

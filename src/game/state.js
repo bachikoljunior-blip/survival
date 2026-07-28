@@ -95,6 +95,7 @@ export const ITEMS = {
   logbook: {
     name: 'Borehole log', short: 'LOG', glyph: '❑', stack: 1, weight: 0.4, key: true,
     desc: 'Raw temperature and gas readings from Vent Field 9, unfiltered. The numbers the published line was drawn against.',
+    use: 'read', topic: 'the_log',
   },
   keyBoiler: {
     name: 'Boiler house key', short: 'KEY', glyph: '⚿', stack: 1, weight: 0.05, key: true,
@@ -112,6 +113,7 @@ export const ITEMS = {
   trenchOrder: {
     name: 'Trench cut order', short: 'ORDER', glyph: '❑', stack: 1, weight: 0.1, key: true,
     desc: 'Authorisation to cut the full firebreak. Signed, costed, and never issued.',
+    use: 'read', topic: 'the_order',
   },
 };
 

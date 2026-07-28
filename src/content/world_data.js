@@ -132,7 +132,7 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.03, boarded: 0.3,
     mat: ['brick', 'concrete', 'brick', 'plaster', 'brick'],
     bays: [10, 13, 9, 11, 8, 15],
     names: ['Corliss Works Office', 'Marrow Billiards', 'Wren Street Bakers', 'Hollis Trades Club',
-            'Selvin & Vane', 'Marrow Cinema', 'Delph Ironmongers', 'Nine Lamps', 'Vasko & Co', 'Colliery Outfitters'],
+            'Selvin & Vane', 'Marrow Cinema', 'Delph Ironmongers', 'Nine Lamps', ['VASKO', '& CO'], 'Colliery Outfitters'],
     signs: ['CORLISS', 'BILLIARDS', 'BAKERS', ['TRADES CLUB', 'MEMBERS ONLY'], 'SELVIN & VANE',
             ['THE MARROW', 'CINEMA'], 'IRONMONGERS', 'NINE LAMPS', null, 'OUTFITTERS'],
   });
@@ -666,6 +666,13 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
   ];
 
   // Exterior doors that lead into the interiors above.
+  // Ren's father's shop. Not a quest, not a key, not a reward — a sign on a
+  // street she has to walk down four times.
+  interactions.push({
+    id: 'vasko_shop', kind: 'examine', x: -66, y: 1.5, z: -12.4,
+    label: 'VASKO & CO', prompt: 'Look at the sign', topic: 'vasko_shop', range: 3.0,
+  });
+
   interactions.push(
     { id: 'door_arcade', kind: 'door', x: -104.5, y: 1.1, z: -8.4, label: 'Marrow Arcade',
       prompt: 'Enter the Arcade', target: 'arcade_in', interiorId: 'arcade', range: 2.6 },

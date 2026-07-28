@@ -318,9 +318,14 @@ Q.cinderline = {
       trigger: { kind: 'reach', pos: [74, 20], radius: 10 },
     },
     {
-      objective: 'Get through the Warden line at the cut.',
+      // The premise says nobody in this story is lying for money and everybody
+      // is choosing whose survival counts. Making the only route in a fight
+      // with three of the people being counted contradicts that, so there is
+      // a second way through, and it is the one Ren is actually good at.
+      objective: 'Get past the Warden line at the cut.',
+      hint: 'They are on a shift, not a crusade. Fight them, go over them, or give them a reason.',
       onEnter: [{ fn: 'spawnTrenchLine' }],
-      trigger: { kind: 'custom', id: 'trenchCleared' },
+      trigger: { kind: 'custom', id: 'trenchPassed' },
     },
     {
       objective: 'Decide what the truth is for.',
@@ -2204,6 +2209,14 @@ in a filling street four days earlier, and not far enough.` },
 the three heads, the bar, the wedge, and the name of the person who turned
 them. Sol did not attend. She sent a note through Marsh that said only *right*,
 and it is the shortest and least kind letter anyone has ever sent you.` },
+      { condition: { flag: 'trench_slipped' },
+        text: `You did not touch any of them getting in. Two of the three gave evidence and
+neither could say how you had got past the line, and the transcript records both
+of them saying, separately, that they had not been looking.` },
+      { condition: { flag: 'trench_fought' },
+        text: `You put two Authority men and a scavenger on the ground getting in. That was
+in the record too. Your counsel wanted it framed as necessity and you would not
+let her, because it was not necessity, it was nine minutes and a temper.` },
       { condition: { counter: ['honest', 3] },
         text: `You had already said it out loud, by then, to nearly everyone it belonged to.
 The hearing was not the hard part. The hearing was the last part.` },
@@ -2256,6 +2269,10 @@ and she was not wrong to stop.` },
       { condition: { counter: ['crisis_lost', 1] },
         text: `The firebreak went in forty metres north of the street where you did not get
 everyone out. That is not a coincidence. You chose the alignment.` },
+      { condition: { flag: 'trench_fought' },
+        text: `Krajcik gave the two Wardens a month's pay and an instruction never to
+discuss it, and put nothing in either file. He did that before you asked. He
+did it before you had finished speaking.` },
       { condition: { chose: ['vents', 'half'] },
         text: `You never did go back and shut the third head. It is still open. It is inside the
 firebreak now, which means it vents into ground nobody lives on, which means the
@@ -2341,6 +2358,11 @@ thing you have ever done that you cannot tell anybody about.`,
         text: `Not every single one. You count them the way Sol counts, which is out loud and
 by name, and the four hundred and six does not include the two you left in a
 ground-floor room in a street that was already gone.` },
+      { condition: { flag: 'trench_slipped' },
+        text: `Nobody ever established how you got past the line at the cut that morning,
+because you went over the spoil heap in daylight in front of forty people and
+not one of them mentioned it to anybody, ever, which is the single clearest
+thing anyone in Hollis has told you about whose side they were on.` },
       { condition: { flag: 'crisis_saved_all' },
         text: `Sol had watched you bring four people up a stairwell in a filling street once
 already. That is the only reason she said yes to this in under a minute. She

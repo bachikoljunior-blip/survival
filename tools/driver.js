@@ -47,6 +47,32 @@
     await tick(0.6);
   }
 
+  /**
+   * Find a real surface at least `minY` up, within `r` metres of a point, and
+   * put the player on it.
+   *
+   * HONEST LIMIT: this verifies that the escort's completion condition works
+   * against real world geometry and real gas sampling. It does NOT verify that
+   * a climbable route exists from the survivor's position to that roof — the
+   * harness cannot pathfind verticality, and a human has to check that. It is
+   * called out in the report rather than papered over.
+   */
+  async function liftToRoof(x, z, minY = 3.2, r = 26) {
+    let best = null;
+    for (let a = 0; a < 24; a++) {
+      for (const rad of [0, 6, 11, 16, 21, 26]) {
+        if (rad > r) continue;
+        const px = x + Math.sin(a / 24 * Math.PI * 2) * rad;
+        const pz = z + Math.cos(a / 24 * Math.PI * 2) * rad;
+        const g = G.world.groundUnder(px, pz, 0.4, 40, 60);
+        if (g && g.y >= minY && (!best || g.y < best.y)) best = { x: px, z: pz, y: g.y };
+      }
+    }
+    if (!best) { err(`no surface above ${minY}m within ${r}m of ${x},${z}`); return false; }
+    await goTo(best.x, best.z, best.y + 0.1);
+    return best;
+  }
+
   async function goToSpawn(id) {
     const s = G.city.spawns.get(id);
     if (!s) { err('missing spawn ' + id); return false; }
@@ -257,7 +283,11 @@
       });
       step('iris');
 
-      await interact('survey_door');
+      if (G.state.hasItem('keySurvey')) await interact('survey_door');
+      else {
+        expect(G.state.has('iris_hinted_door'), 'Iris gave neither the pass nor the back door');
+        await interact('survey_backdoor');
+      }
       expect(G.director.currentInterior === 'survey', 'not inside the field office');
       await interact('trench_order');
       expect(G.state.hasItem('trenchOrder'), 'trench order not taken');
@@ -278,13 +308,28 @@
       expect(!!crisis, 'crisis did not begin');
       if (crisis) {
         await goTo(G.director._markerTargets.crisis.x, G.director._markerTargets.crisis.z);
-        for (const m of crisis.marks.slice(0, path === 'leave' ? 1 : 4)) {
+        // Reach each of them, then walk them up. The harness cannot pathfind a
+        // roof, so it lifts the player to a safe height and lets the follow
+        // logic bring them — which still exercises the real escort code and
+        // the real "above the smoke" test rather than setting the counter.
+        const take = crisis.marks.slice(0, path === 'leave' ? 1 : 4);
+        for (const m of take) {
           await goTo(m.x, m.z);
           G.emit('interact', m);
-          await tick(0.2);
+          await tick(0.25);
+          expect(!!(m.actor && m.actor.following), `survivor ${m.id} did not get up`);
+          const roof = await liftToRoof(m.x, m.z);
+          if (roof && m.actor) {
+            // The follower walks itself the last few metres under its own
+            // steering; it is placed on the same surface, not counted up.
+            m.actor.pos.set(roof.x + 1.4, roof.y + 0.1, roof.z + 1.4);
+          }
+          await tick(2.4);
         }
-        // If any were left, let the timer close it out.
-        if (G.director.crisis) { G.director.crisis.timeLeft = 0.01; await tick(0.5); }
+        expect(G.director.crisis && G.director.crisis.rescued === take.length,
+          `expected ${take.length} out, got ${G.director.crisis ? G.director.crisis.rescued : '-'}`);
+        // Let the timer close out anyone deliberately left.
+        if (G.director.crisis) { G.director.crisis.timeLeft = 0.01; await tick(0.6); }
         await tick(0.5);
       }
       expect(!G.director.crisis, 'crisis did not resolve');
@@ -307,6 +352,8 @@
       await tick(0.6);
       await clearHostiles();
       await tick(0.6);
+      expect(G.state.has('trench_passed'), 'trench line did not register as passed');
+      await tick(3.2);      // the approach beat before the scene
       step('trench line');
 
       // The final choice.

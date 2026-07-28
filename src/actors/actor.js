@@ -13,12 +13,11 @@ import * as THREE from 'three';
 import { buildCharacter, buildWeapon, BONE_INDEX } from './rig.js';
 import { Animator, CLIPS, MASK } from './anim.js';
 import { moveActor, LAYER } from '../world/collision.js';
-import { Lungs, PPM, SAT_CRITICAL, GAS_MAX_DPS } from '../world/gas.js';
-import { clamp, clamp01, lerp, damp, dampAngle, angleDelta, approachAngle, TAU } from '../core/util.js';
+import { Lungs, GAS_MAX_DPS } from '../world/gas.js';
+import { clamp, clamp01, lerp, damp, dampAngle, angleDelta } from '../core/util.js';
 
 const _v = new THREE.Vector3();
 const _v2 = new THREE.Vector3();
-const _q = new THREE.Quaternion();
 
 export const STATE = {
   IDLE: 'idle', STAGGER: 'stagger',

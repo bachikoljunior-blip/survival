@@ -31,15 +31,20 @@ export const BONES = [
   ['neck',       'chest',     0.000, 1.480, -0.010],
   ['head',       'neck',      0.000, 1.585, -0.005],
 
+  // Arm bind is INSIDE the chest ring (shoulder half-width 0.190), not outside
+  // it. Hanging the humerus at 0.185 against a 0.176 chest left a visible air
+  // gap between arm and torso — the gingerbread-man read. The wrist carries
+  // about 6 degrees of valgus, which is what stops the arm looking like a
+  // vertical stick bolted to a box.
   ['shoulderL',  'chest',     0.062, 1.430, -0.010],
-  ['armL',       'shoulderL', 0.185, 1.410, -0.010],
-  ['forearmL',   'armL',      0.185, 1.145, -0.008],
-  ['handL',      'forearmL',  0.185, 0.905, -0.005],
+  ['armL',       'shoulderL', 0.168, 1.410, -0.010],
+  ['forearmL',   'armL',      0.168, 1.145, -0.008],
+  ['handL',      'forearmL',  0.193, 0.905, -0.005],
 
   ['shoulderR',  'chest',    -0.062, 1.430, -0.010],
-  ['armR',       'shoulderR',-0.185, 1.410, -0.010],
-  ['forearmR',   'armR',     -0.185, 1.145, -0.008],
-  ['handR',      'forearmR', -0.185, 0.905, -0.005],
+  ['armR',       'shoulderR',-0.168, 1.410, -0.010],
+  ['forearmR',   'armR',     -0.168, 1.145, -0.008],
+  ['handR',      'forearmR', -0.193, 0.905, -0.005],
 
   ['thighL',     'hips',      0.092, 0.930,  0.000],
   ['shinL',      'thighL',    0.096, 0.505,  0.004],
@@ -388,22 +393,29 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
 
   // --- torso -------------------------------------------------------------
   // One lofted tube from hips to neck, with the coat flaring below the waist.
+  // The old profile ran 0.172 at the hem and 0.176 at the shoulder — the same
+  // width top and bottom, i.e. a rectangle with a head on it. The waist is now
+  // pulled in to 0.140 and the shoulder pushed out to 0.190, and the coat hem
+  // is narrower than the shoulder line so the flare reads as a coat rather than
+  // as the widest point of the body.
   const coatLen = C.coatLength ?? 0.3;
   sb.tube([
-    { y: y(0.960 - coatLen), r: 0.172 * B, rz: 0.116 * B, bone: I.hips, tint: coatT },
-    { y: y(0.960 - coatLen * 0.45), r: 0.160 * B, rz: 0.107 * B, bone: I.hips, tint: coatT },
-    { y: y(0.985), r: 0.150 * B, rz: 0.100 * B, bone: I.hips, tint: coatT },
-    { y: y(1.100), r: 0.144 * B, rz: 0.096 * B, bone: I.spine, bone2: I.hips, w2: 0.35, tint: coatT },
-    { y: y(1.215), r: 0.152 * B, rz: 0.100 * B, bone: I.spine, tint: coatT },
-    { y: y(1.300), r: 0.171 * B * SH, rz: 0.108 * B, bone: I.chest, bone2: I.spine, w2: 0.3, tint: coatT },
-    { y: y(1.400), r: 0.176 * B * SH, rz: 0.106 * B, bone: I.chest, tint: coatT },
-    { y: y(1.452), r: 0.132 * B, rz: 0.092 * B, bone: I.chest, tint: coatT },
+    { y: y(0.960 - coatLen), r: 0.158 * B, rz: 0.104 * B, bone: I.hips, tint: coatT },
+    { y: y(0.960 - coatLen * 0.45), r: 0.150 * B, rz: 0.099 * B, bone: I.hips, tint: coatT },
+    { y: y(0.985), r: 0.146 * B, rz: 0.096 * B, bone: I.hips, tint: coatT },
+    { y: y(1.100), r: 0.140 * B, rz: 0.088 * B, bone: I.spine, bone2: I.hips, w2: 0.35, tint: coatT },
+    { y: y(1.215), r: 0.150 * B, rz: 0.094 * B, bone: I.spine, tint: coatT },
+    { y: y(1.300), r: 0.176 * B * SH, rz: 0.104 * B, bone: I.chest, bone2: I.spine, w2: 0.3, tint: coatT },
+    { y: y(1.400), r: 0.190 * B * SH, rz: 0.110 * B, bone: I.chest, tint: coatT },
+    { y: y(1.452), r: 0.140 * B, rz: 0.094 * B, bone: I.chest, tint: coatT },
   ], sides, true, true);
 
-  // Collar
+  // Collar. Kept clear of the neck tube (r 0.052 -> 0.048) so about 20 mm of
+  // throat is visible; at r 0.086 the collar swallowed the neck entirely and
+  // the head appeared to sit straight on the shoulders.
   sb.tube([
-    { y: y(1.442), r: 0.098 * B, rz: 0.080 * B, bone: I.chest, tint: trim },
-    { y: y(1.512), r: 0.086 * B, rz: 0.072 * B, bone: I.chest, bone2: I.neck, w2: 0.5, tint: trim },
+    { y: y(1.442), r: 0.082 * B, rz: 0.070 * B, bone: I.chest, tint: trim },
+    { y: y(1.512), r: 0.070 * B, rz: 0.062 * B, bone: I.chest, bone2: I.neck, w2: 0.5, tint: trim },
   ], sides, false, false);
 
   // Neck
@@ -421,13 +433,42 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
     { y: y(1.720), r: 0.082, rz: 0.088, bone: I.head, tint: headT },
     { y: y(1.756), r: 0.052, rz: 0.056, bone: I.head, tint: headT },
   ], sides, true, true);
-  // Brow / jaw definition: a shallow wedge forward of the skull.
-  sb.box(0, y(1.648), y(-0.086), 0.126, 0.05, 0.03, I.head, [headT[0] * 0.92, headT[1] * 0.92, headT[2] * 0.92]);
+  // --- face --------------------------------------------------------------
+  // At the distance the third-person camera actually holds — the head is about
+  // 30 CSS pixels tall — features are not the point. A VALUE BREAK where the
+  // eyes are is the point: a brow that catches light with a recess under it
+  // that does not. That single dark band is what makes a head read as a face
+  // rather than as a smooth ovoid. The nose, mouth and jaw plane exist to break
+  // the silhouette and to give the light something to fall across.
+  const shade = (k) => [headT[0] * k, headT[1] * k, headT[2] * k];
+  // Brow ridge, proud of the skull and catching the sky.
+  sb.box(0, y(1.664), y(-0.090), 0.132, 0.026, 0.030, I.head, shade(1.06));
+  // Eye-socket recess: the dark band. Deliberately the strongest value in the
+  // face and the only one that survives to 30 pixels.
+  sb.box(0, y(1.642), y(-0.084), 0.120, 0.026, 0.026, I.head, shade(0.34));
+  // Eyes, set into the recess.
+  for (const s of [1, -1]) {
+    sb.box(y(0.030 * s), y(1.642), y(-0.093), 0.026, 0.015, 0.012, I.head, [0.10, 0.09, 0.09]);
+  }
+  // Nose: a wedge, not a feature. It is here for the shadow it throws.
+  sb.box(0, y(1.620), y(-0.096), 0.024, 0.038, 0.026, I.head, shade(1.02));
+  // Mouth line.
+  sb.box(0, y(1.594), y(-0.088), 0.042, 0.009, 0.014, I.head, shade(0.5));
+  // Jaw plane — flattens the lower skull so the chin has an edge.
+  sb.box(0, y(1.576), y(-0.058), 0.106, 0.046, 0.074, I.head, shade(0.94));
 
   if (C.hairStyle === 'crop' || C.hairStyle === 'tied') {
+    // The cap used to start at y 1.680 while the skull tube starts at 1.545,
+    // leaving 135 mm of bare scalp across the occiput — precisely the part of
+    // the head a third-person camera looks at for the entire game. It now runs
+    // down to the nape. Lower rings are pushed back in Z so the hair covers the
+    // back of the skull and buries itself inside the face rather than over it.
     sb.tube([
-      { y: y(1.680), r: 0.093, rz: 0.101, bone: I.head, tint: tint(hair) },
-      { y: y(1.726), r: 0.086, rz: 0.092, bone: I.head, tint: tint(hair) },
+      { y: y(1.560), r: 0.058, rz: 0.058, z: y(0.026), bone: I.head, bone2: I.neck, w2: 0.25, tint: tint(hair) },
+      { y: y(1.600), r: 0.088, rz: 0.094, z: y(0.020), bone: I.head, tint: tint(hair) },
+      { y: y(1.648), r: 0.094, rz: 0.101, z: y(0.014), bone: I.head, tint: tint(hair) },
+      { y: y(1.690), r: 0.095, rz: 0.103, z: y(0.008), bone: I.head, tint: tint(hair) },
+      { y: y(1.726), r: 0.088, rz: 0.094, z: y(0.004), bone: I.head, tint: tint(hair) },
       { y: y(1.762), r: 0.050, rz: 0.054, bone: I.head, tint: tint(hair) },
     ], sides, false, true);
     if (C.hairStyle === 'tied') {
@@ -473,31 +514,35 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
   for (const side of [1, -1]) {
     const L = side > 0 ? 'L' : 'R';
     const sx = side * SH;
+    // Sleeve follows the new bind: tucked under the shoulder line at the top,
+    // drifting out to the wrist along the carrying angle.
     sb.tube([
-      { y: y(1.418), x: y(0.150 * sx), r: 0.062 * B, rz: 0.062 * B, bone: I['armL'.replace('L', L)], bone2: I.chest, w2: 0.35, tint: sleeveT },
-      { y: y(1.330), x: y(0.176 * sx), r: 0.055 * B, rz: 0.055 * B, bone: I['armL'.replace('L', L)], tint: sleeveT },
-      { y: y(1.180), x: y(0.184 * sx), r: 0.048 * B, rz: 0.048 * B, bone: I['armL'.replace('L', L)], tint: sleeveT },
-      { y: y(1.148), x: y(0.185 * sx), r: 0.047 * B, rz: 0.047 * B, bone: I['forearmL'.replace('L', L)], bone2: I['armL'.replace('L', L)], w2: 0.5, tint: sleeveT },
-      { y: y(1.020), x: y(0.185 * sx), r: 0.044 * B, rz: 0.044 * B, bone: I['forearmL'.replace('L', L)], tint: sleeveT },
-      { y: y(0.930), x: y(0.185 * sx), r: 0.038 * B, rz: 0.038 * B, bone: I['forearmL'.replace('L', L)], tint: tint(trim) },
+      { y: y(1.418), x: y(0.148 * sx), r: 0.062 * B, rz: 0.062 * B, bone: I['armL'.replace('L', L)], bone2: I.chest, w2: 0.35, tint: sleeveT },
+      { y: y(1.330), x: y(0.162 * sx), r: 0.055 * B, rz: 0.055 * B, bone: I['armL'.replace('L', L)], tint: sleeveT },
+      { y: y(1.180), x: y(0.167 * sx), r: 0.048 * B, rz: 0.048 * B, bone: I['armL'.replace('L', L)], tint: sleeveT },
+      { y: y(1.148), x: y(0.168 * sx), r: 0.047 * B, rz: 0.047 * B, bone: I['forearmL'.replace('L', L)], bone2: I['armL'.replace('L', L)], w2: 0.5, tint: sleeveT },
+      { y: y(1.020), x: y(0.181 * sx), r: 0.044 * B, rz: 0.044 * B, bone: I['forearmL'.replace('L', L)], tint: sleeveT },
+      { y: y(0.930), x: y(0.190 * sx), r: 0.038 * B, rz: 0.038 * B, bone: I['forearmL'.replace('L', L)], tint: tint(trim) },
     ], sides, true, false);
     // Hand: a mitt, plus a thumb block. At this scale fingers are noise.
     sb.tube([
-      { y: y(0.930), x: y(0.185 * sx), r: 0.042, rz: 0.034, bone: I['handL'.replace('L', L)], bone2: I['forearmL'.replace('L', L)], w2: 0.35, tint: tint(glove) },
-      { y: y(0.862), x: y(0.185 * sx), r: 0.044, rz: 0.036, bone: I['handL'.replace('L', L)], tint: tint(glove) },
-      { y: y(0.812), x: y(0.185 * sx), r: 0.030, rz: 0.026, bone: I['handL'.replace('L', L)], tint: tint(glove) },
+      { y: y(0.930), x: y(0.191 * sx), r: 0.042, rz: 0.034, bone: I['handL'.replace('L', L)], bone2: I['forearmL'.replace('L', L)], w2: 0.35, tint: tint(glove) },
+      { y: y(0.862), x: y(0.193 * sx), r: 0.044, rz: 0.036, bone: I['handL'.replace('L', L)], tint: tint(glove) },
+      { y: y(0.812), x: y(0.193 * sx), r: 0.030, rz: 0.026, bone: I['handL'.replace('L', L)], tint: tint(glove) },
     ], 6, false, true);
-    sb.box(y(0.155 * sx), y(0.886), 0, 0.028, 0.05, 0.03, I['handL'.replace('L', L)], glove);
+    sb.box(y(0.162 * sx), y(0.886), 0, 0.028, 0.05, 0.03, I['handL'.replace('L', L)], glove);
 
-    // Shoulder cap — the detail that makes a coat read as a coat.
+    // Shoulder cap — the detail that makes a coat read as a coat. Widened to
+    // meet the new 0.190 shoulder ring so the deltoid is the widest point of
+    // the silhouette.
     sb.tube([
-      { y: y(1.452), x: y(0.116 * sx), r: 0.078 * B, rz: 0.074 * B, bone: I.chest, tint: coatT },
-      { y: y(1.396), x: y(0.164 * sx), r: 0.072 * B, rz: 0.068 * B, bone: I.chest, tint: coatT },
-      { y: y(1.340), x: y(0.178 * sx), r: 0.058 * B, rz: 0.056 * B, bone: I['armL'.replace('L', L)], bone2: I.chest, w2: 0.5, tint: coatT },
+      { y: y(1.452), x: y(0.110 * sx), r: 0.084 * B, rz: 0.078 * B, bone: I.chest, tint: coatT },
+      { y: y(1.396), x: y(0.152 * sx), r: 0.076 * B, rz: 0.070 * B, bone: I.chest, tint: coatT },
+      { y: y(1.340), x: y(0.164 * sx), r: 0.058 * B, rz: 0.056 * B, bone: I['armL'.replace('L', L)], bone2: I.chest, w2: 0.5, tint: coatT },
     ], sides, true, false);
 
     if (gear.pads) {
-      sb.box(y(0.184 * sx), y(1.070), 0, 0.02, 0.13, 0.098, I['forearmL'.replace('L', L)], [0.19, 0.2, 0.21], 0);
+      sb.box(y(0.176 * sx), y(1.070), 0, 0.02, 0.13, 0.098, I['forearmL'.replace('L', L)], [0.19, 0.2, 0.21], 0);
     }
   }
 
@@ -528,39 +573,55 @@ export function buildCharacter(costume, detail = 1, seed = 1) {
 
   // --- gear --------------------------------------------------------------
   if (gear.harness) {
+    // Straps sit PROUD of the torso ring (rz 0.104 at chest height). At the old
+    // z of 0.098 with 16 mm of depth they were a couple of millimetres inside
+    // the coat and z-fought with it from every angle.
     for (const side of [1, -1]) {
-      sb.box(y(0.072 * side), y(1.310), y(-0.098), 0.044, 0.26, 0.016, I.chest, trim);
-      sb.box(y(0.072 * side), y(1.310), y(0.098), 0.044, 0.26, 0.016, I.chest, [trim[0] * 0.8, trim[1] * 0.8, trim[2] * 0.8]);
+      sb.box(y(0.072 * side), y(1.310), y(-0.112), 0.044, 0.26, 0.018, I.chest, trim);
+      sb.box(y(0.072 * side), y(1.310), y(0.112), 0.044, 0.26, 0.018, I.chest, [trim[0] * 0.8, trim[1] * 0.8, trim[2] * 0.8]);
     }
     sb.box(0, y(1.186), 0, 0.30 * B, 0.052, 0.222 * B, I.spine, [0.16, 0.15, 0.14]);
-    sb.box(0, y(1.186), y(-0.108), 0.056, 0.06, 0.026, I.spine, [0.5, 0.5, 0.52]);
-  }
-  if (C.gear.hiVis) {
-    const hv = hex(C.gear.hiVis);
-    // A single reflective band across the back — the thing you see first in
-    // the smoke, and the reason you can tell a Warden from a scavenger at 30 m.
-    sb.box(0, y(1.352), y(0.104), 0.30 * B, 0.05, 0.012, I.chest, [hv[0] * 1.8, hv[1] * 1.8, hv[2] * 1.8]);
-    sb.box(0, y(1.352), y(-0.104), 0.24 * B, 0.05, 0.012, I.chest, [hv[0] * 1.8, hv[1] * 1.8, hv[2] * 1.8]);
+    sb.box(0, y(1.186), y(-0.112), 0.056, 0.06, 0.028, I.spine, [0.5, 0.5, 0.52]);
   }
   if (gear.hipRespirator) {
     sb.box(y(0.148 * B), y(0.928), y(0.048), 0.086, 0.11, 0.078, I.hips, [0.2, 0.21, 0.22]);
     sb.box(y(0.148 * B), y(0.99), y(0.048), 0.05, 0.04, 0.05, I.hips, [0.42, 0.42, 0.44]);
   }
+  // Packs first, then the hi-vis band on top of whatever the back ends up
+  // being. The band used to be emitted at z 0.104 — wholly inside the 'small'
+  // pack volume (z 0.087..0.217) — so on ren, warden, sol and iris, every
+  // costume that has both, the single most legible identifying mark in the game
+  // was invisible.
+  let backZ = 0.118 * B;      // bare coat back
   if (gear.backpack === 'small') {
-    sb.box(0, y(1.245), y(0.152), 0.24 * B, 0.30, 0.13, I.chest, [coatT[0] * 0.8, coatT[1] * 0.8, coatT[2] * 0.8]);
+    sb.box(0, y(1.245), y(0.150), 0.24 * B, 0.30, 0.13, I.chest, [coatT[0] * 0.8, coatT[1] * 0.8, coatT[2] * 0.8]);
+    backZ = 0.221;
   } else if (gear.backpack === 'bindle') {
     sb.box(0, y(1.270), y(0.166), 0.27 * B, 0.26, 0.19, I.chest, [0.42, 0.40, 0.35]);
     sb.box(y(0.06), y(1.36), y(0.15), 0.03, 0.2, 0.03, I.chest, [0.3, 0.28, 0.24]);
+    backZ = 0.267;
   } else if (gear.backpack === 'canister') {
     sb.tube([
       { y: y(1.10), z: y(0.164), r: 0.072, rz: 0.072, bone: I.chest, tint: [0.28, 0.32, 0.36] },
       { y: y(1.40), z: y(0.164), r: 0.076, rz: 0.076, bone: I.chest, tint: [0.32, 0.36, 0.40] },
     ], 8, true, true);
     sb.box(0, y(1.44), y(0.164), 0.09, 0.05, 0.09, I.chest, [0.5, 0.52, 0.54]);
+    backZ = 0.246;
   } else if (gear.backpack === 'medkit') {
     sb.box(0, y(1.24), y(0.150), 0.25 * B, 0.28, 0.12, I.chest, [0.22, 0.28, 0.24]);
     sb.box(0, y(1.24), y(0.213), 0.09, 0.03, 0.006, I.chest, [1.6, 1.6, 1.5]);
     sb.box(0, y(1.24), y(0.213), 0.03, 0.09, 0.006, I.chest, [1.6, 1.6, 1.5]);
+    backZ = 0.216;
+  }
+
+  if (gear.hiVis) {
+    const hv = hex(gear.hiVis);
+    const bright = [hv[0] * 1.8, hv[1] * 1.8, hv[2] * 1.8];
+    // Reflective band across the back — the thing you see first in the smoke,
+    // and the reason you can tell a Warden from a scavenger at 30 m. Placed on
+    // the outermost back surface, whatever that turns out to be.
+    sb.box(0, y(1.352), y(backZ), 0.30 * B, 0.05, 0.012, I.chest, bright);
+    sb.box(0, y(1.352), y(-0.118 * B), 0.24 * B, 0.05, 0.012, I.chest, bright);
   }
 
   const geometry = sb.build();
