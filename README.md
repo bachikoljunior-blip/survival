@@ -53,8 +53,10 @@ the whole game is there.
 | **HEAVY** | Slow, wide, goes through guards. |
 | **ROLL** | Evade with invulnerability frames. Costs stamina. |
 | **GUARD** | Hold. Blocking exactly as a blow lands is a parry. |
-| **USE** | Contextual: fits a fresh filter if the air is bad, applies a dressing if you are hurt. Becomes an interact button when something is in reach. |
-| **≡ ◈ ☀** | Menu, map, headlamp. |
+| **USE** | Fits a fresh filter if the air is bad, applies a dressing if you are hurt. |
+| **TALK / TAKE / OPEN / READ / CLIMB** | The contextual button, labelled from what is actually in reach. It has its own slot; GUARD is never taken away from you. |
+| **≡ ◈ ☀ ⌁** | Menu, map, headlamp, meter. |
+| **The air gauge** | Tap it. That is Ren lifting the meter to read it, and it is the same action as the ⌁ button — placed where you are already looking when the number worries you. |
 
 Left-handed layout, sprint-on-full-stick, hold-vs-toggle guard, camera
 sensitivity and lock-on assist are all in Settings.
@@ -62,8 +64,8 @@ sensitivity and lock-on assist are all in Settings.
 ### Keyboard and mouse
 
 `WASD` move · mouse look · `J` light · `K` heavy · `Space` dodge · `Q` guard ·
-`E` interact · `F` use item · `R` lamp · `C` crouch · `Tab` lock on · `M` map ·
-`Esc` menu
+`E` interact · `F` use item · `G` read the meter · `R` lamp · `C` crouch ·
+`Tab` lock on · `M` map · `Esc` menu
 
 Gamepads are supported (standard mapping).
 
@@ -115,9 +117,24 @@ npm run shots        # screenshot sweep of every district
 
 **`tools/validate.mjs`** walks the story graph in Node and proves every dialogue
 `goto` resolves, every node is reachable, every effect names a real item /
-capability / quest / character, every flag that is read is set by something,
-every quest step has a trigger the engine can deliver, every quest is startable,
-every ending is reachable, and no building sits in a carriageway.
+capability / quest / character, every quest step has a trigger the engine can
+deliver, every quest is startable, every ending is reachable, and no building
+sits in a carriageway.
+
+It checks flags in **both** directions, which is the part that earns its keep. A
+flag that is *read* but never set is an unreachable branch. A flag that is *set*
+and never read is a dead consequence: a piece of recorded player behaviour the
+story promised to remember and then threw away. A choice whose outcome is never
+tested is a false choice by definition, and a capability that cannot be unlocked
+— or that no gameplay code reads — is an advertised ability that does nothing.
+All four fail the build.
+
+The sets of engine-set flags, director hooks and custom trigger ids are
+**scraped from the engine source**, not hand-maintained. They used to be
+literals, and that is exactly how a quest step shipped with a trigger nothing
+fired, and how twenty-six flags shipped that nothing read: a whitelist drifts
+silently from the code it describes, and a whitelist that has drifted validates
+nothing.
 
 **`tools/playthrough.mjs`** boots the real build in a browser and plays five
 complete games — one per ending — through the real quest triggers, the real
@@ -127,6 +144,15 @@ directly. If a beat cannot be reached by playing, the test fails.
 **`tools/perf.mjs`** reports device-independent cost: draw calls, triangles,
 shader programs, texture and geometry counts, world build time, simulation CPU
 cost per fixed step, and heap growth in steady state.
+
+**`tools/vantage.mjs`** sweeps eighteen fixed camera positions and writes a PNG
+of each with the interface hidden — these are the frames the art critics work
+from. **`tools/lumastats.mjs`** measures value distribution and warm/cool
+balance on those PNGs, so claims about the image are made against the image.
+**`tools/probe_*.mjs`** are single-purpose in-page probes (fire-escape geometry,
+the chapter-four escort, rooftop clearance, dark-region ray-picking) run through
+`tools/shot.mjs --script`; each exists because a specific defect was easier to
+measure than to argue about.
 
 ---
 
@@ -139,13 +165,39 @@ At a 667 × 375 CSS-pixel viewport, device pixel ratio 2, medium tier:
 
 | | |
 |---|---|
-| World geometry | ~270 000 triangles total, in 57 spatial chunks |
-| Drawn per frame | 22–160 draw calls depending on the vantage |
-| Shader programs | 18 |
-| Collision volumes | ~1 000 boxes in a uniform spatial hash |
-| Shared materials | 18 |
+| Production build | 1.19 MB JavaScript, 42 KB CSS, 1.2 MB total. No images, no fonts, no audio files, no network requests after load. |
+| World geometry | 244 346 triangles in 43 spatial chunks |
+| Collision volumes | 1 067 boxes in a uniform spatial hash |
+| Simulation step, 8 actors | mean 0.334 ms, p50 0.100, p90 1.000, p99 3.900 (rendering excluded) |
+| Heap over 4 s / 27 000 steps | 141.1 MB → 141.1 MB, 0 KB/s — no steady-state growth |
 | Characters | ~950 triangles each; a seven-enemy fight adds ~6 000 |
-| Simulation step | measured with rendering excluded; see `shots/perf.json` |
+
+Draw calls and triangles per frame, across eight representative vantages and
+all three quality tiers:
+
+| tier | draw calls | triangles | programs |
+|---|---|---|---|
+| low | 45–133 | 29 000–152 000 | 38–68 |
+| medium | 126–309 | 60 000–327 000 | 45–66 |
+| high | 157–367 | 80 000–241 000 | 58–60 |
+
+Medium is where the tier heuristic starts; it steps down automatically on the
+90th-percentile frame time. The draw-call count on medium is higher than is
+comfortable and is the first thing to attack if a real device turns out to
+struggle — the honest position is that nobody knows yet, because see below.
+
+Detail is culled per chunk at `drawDistance` (78 / 104 / 145 m by tier) while
+the far plane sits at the horizon (380 / 520 / 680 m), so the backdrop massing
+is visible from a roof without the city behind you being submitted.
+
+Image measurements, from `tools/lumastats.mjs` over the vantage sweep — these
+are read off real captured frames, not inferred from the code:
+
+| | |
+|---|---|
+| Interquartile luma range | 23–63 levels across eight vantages (a flat image measures near zero; this project measured 12–19 before the art pass) |
+| Pure black | 0% in six of eight frames, 5.2% and 5.8% in the two that contain deep sky |
+| Cool pixels | 7–37% wherever sky is in frame; 0% only in the fully enclosed courtyard, which is correct |
 
 ### Not measured
 
@@ -188,6 +240,22 @@ should be verified on the device before any claim is made about it.
 
 * **No physical-device testing.** See above. This is the single most significant
   gap in the project.
+* **The escort routes are not proven end to end by an automated test.** Chapter
+  four requires walking four people up out of the smoke, and chapter two
+  requires walking Nessa up. The harness verifies the completion condition
+  against real geometry and real gas sampling, and the fire-escape probe proves
+  every platform reaches the next from street to roof — but no test proves a
+  climbable route exists from each specific survivor to breathable air. A human
+  has to check that, and it is called out in `tools/driver.js` rather than
+  papered over.
+* **Some measurements here were wrong before they were right.** Two harness
+  faults were poisoning the visual numbers: the vantage sweep photographed the
+  world with the title screen up, so an interface scrim was being read as
+  crushed shadows, and the rooftop vantage was jammed three metres against a
+  wall. Three separate lighting changes were made against that frame before a
+  ray-pick established there was nothing wrong with the lighting. The tooling
+  now hides the interface and the vantage is placed by a clearance probe, but
+  it is worth knowing that the instrument can be the thing that is broken.
 * Interiors are reached through a fade-and-teleport rather than being seamlessly
   attached to their exteriors. They are real geometry in the same scene, built
   in a reserved strip of world space, which keeps them dense and correctly lit —
