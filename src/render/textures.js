@@ -122,6 +122,26 @@ function streaks(ctx, size, seed, count, opacity, colour = [12, 10, 8]) {
   }
 }
 
+
+/**
+ * Roughness variance.
+ *
+ * A single fillRect roughness is the fastest way to make two different
+ * materials look like the same material: under one light, variance in
+ * roughness is the primary cue that separates them. `grime` breaks the field
+ * up; `polish` runs a wet/worn gradient up from the base of a wall, where
+ * water wicks and where hands and boots have burnished the surface.
+ */
+function polish(ctx, size, from, amount, fromTop = false) {
+  const g = fromTop
+    ? ctx.createLinearGradient(0, 0, 0, size * (1 - from))
+    : ctx.createLinearGradient(0, size * from, 0, size);
+  g.addColorStop(fromTop ? 1 : 0, 'rgba(0,0,0,0)');
+  g.addColorStop(fromTop ? 0 : 1, `rgba(0,0,0,${amount})`);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+}
+
 /** Sobel a height canvas into a tangent-space normal map. */
 function normalFromHeight(hcanvas, strength = 2.0) {
   const size = hcanvas.width;
@@ -158,14 +178,60 @@ function normalFromHeight(hcanvas, strength = 2.0) {
   return tex;
 }
 
-/** Pack roughness into G and (optionally) AO into R — three.js reads them per-channel. */
-function packRoughAO(roughCanvas, aoCanvas) {
+/**
+ * Cavity ambient occlusion from a height map.
+ *
+ * Blur the height field, then darken wherever the surface sits BELOW its local
+ * neighbourhood: mortar courses, plank gaps, the pits between rubble chunks,
+ * the recesses of a corrugation. This is the contact shadowing that stops
+ * procedural geometry looking like flat-shaded boxes, and it costs one blur at
+ * build time.
+ *
+ * @returns {Uint8Array} size*size single-channel AO, 255 = fully open
+ */
+function aoFromHeight(heightCanvas, strength = 1.6) {
+  const size = heightCanvas.width;
+  const hd = ctx2d(heightCanvas).getImageData(0, 0, size, size).data;
+  const h = new Float32Array(size * size);
+  for (let i = 0; i < size * size; i++) h[i] = hd[i * 4] / 255;
+
+  // Separable wrapped box blur, run twice for a near-gaussian kernel.
+  const r = Math.max(2, Math.round(size / 26));
+  const tmp = new Float32Array(size * size);
+  const blur = (src, dst, horizontal) => {
+    const w = r * 2 + 1;
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        let s = 0;
+        for (let k = -r; k <= r; k++) {
+          const xx = horizontal ? (x + k + size) % size : x;
+          const yy = horizontal ? y : (y + k + size) % size;
+          s += src[yy * size + xx];
+        }
+        dst[y * size + x] = s / w;
+      }
+    }
+  };
+  const b1 = new Float32Array(size * size);
+  blur(h, tmp, true); blur(tmp, b1, false);
+  blur(b1, tmp, true); blur(tmp, b1, false);
+
+  const out = new Uint8Array(size * size);
+  for (let i = 0; i < size * size; i++) {
+    // Positive where the surface is recessed relative to its surroundings.
+    const cavity = clamp01((b1[i] - h[i]) * 4.0 * strength);
+    out[i] = clamp(255 * (1 - cavity * 0.85), 0, 255);
+  }
+  return out;
+}
+
+/** Pack roughness into G and AO into R — three.js reads them per-channel. */
+function packRoughAO(roughCanvas, ao) {
   const size = roughCanvas.width;
   const rd = ctx2d(roughCanvas).getImageData(0, 0, size, size).data;
-  const ad = aoCanvas ? ctx2d(aoCanvas).getImageData(0, 0, size, size).data : null;
   const out = new Uint8Array(size * size * 4);
   for (let i = 0; i < size * size; i++) {
-    out[i * 4] = ad ? ad[i * 4] : 255;      // R = AO
+    out[i * 4] = ao ? ao[i] : 255;          // R = AO
     out[i * 4 + 1] = rd[i * 4];             // G = roughness
     out[i * 4 + 2] = 0;                     // B = metalness (unused; set per-material)
     out[i * 4 + 3] = 255;
@@ -391,6 +457,9 @@ GEN.brick = (size, seed) => {
   speckle(ca, size, seed + 21, 0.045);
 
   cr.fillStyle = rgb(232, 232, 232); cr.fillRect(0, 0, size, size);
+  // Mortar holds water and stays matte; the brick faces themselves burnish.
+  grime(cr, size, seed + 27, 2.2, 0.20);
+  polish(cr, size, 0.5, 0.40);
   return { albedo: a, height: h, rough: r };
 };
 
@@ -431,6 +500,9 @@ GEN.plaster = (size, seed) => {
   speckle(ca, size, seed + 12, 0.035);
 
   cr.fillStyle = rgb(238, 238, 238); cr.fillRect(0, 0, size, size);
+  // Peeled patches are chalky, intact paint is not; the dado band is wiped.
+  grime(cr, size, seed + 18, 1.8, 0.26);
+  polish(cr, size, 0.45, 0.46);
   return { albedo: a, height: h, rough: r };
 };
 
@@ -583,6 +655,9 @@ GEN.wood = (size, seed) => {
   grime(ca, size, seed + 3, 2.2, 0.2, [12, 9, 6]);
   speckle(ca, size, seed + 5, 0.05);
   cr.fillStyle = rgb(224, 224, 224); cr.fillRect(0, 0, size, size);
+  // Grain runs along the plank, so the variance has to as well.
+  grime(cr, size, seed + 9, 5, 0.24);
+  polish(cr, size, 0.55, 0.34);
   return { albedo: a, height: h, rough: r };
 };
 
@@ -662,7 +737,11 @@ GEN.ash = (size, seed) => {
 
   speckle(ca, size, seed + 8, 0.07);
   cr.fillStyle = rgb(246, 246, 246); cr.fillRect(0, 0, size, size);
-  return { albedo: a, height: h, rough: r };
+  // Dry drift is the roughest thing in the city; where it has been walked
+  // through or rained on it packs down and takes a dull sheen.
+  grime(cr, size, seed + 14, 2.4, 0.22);
+  polish(cr, size, 0.6, 0.30);
+  return { albedo: a, height: h, rough: r, aoStrength: 2.2 };
 };
 
 GEN.rubble = (size, seed) => {
@@ -717,7 +796,11 @@ GEN.rubble = (size, seed) => {
   grime(ca, size, seed + 3, 2.4, 0.2, [10, 8, 6]);
   speckle(ca, size, seed + 5, 0.06);
   cr.fillStyle = rgb(240, 240, 240); cr.fillRect(0, 0, size, size);
-  return { albedo: a, height: h, rough: r };
+  // Fracture faces are raw and matte; the tops of the chunks are polished by
+  // everything that has walked over them.
+  grime(cr, size, seed + 11, 3.2, 0.28);
+  polish(cr, size, 0.5, 0.26, true);
+  return { albedo: a, height: h, rough: r, aoStrength: 2.6 };
 };
 
 GEN.roadline = (size, seed) => {
@@ -819,6 +902,10 @@ GEN.fabric = (size, seed) => {
   }
   speckle(ca, size, seed + 6, 0.05);
   cr.fillStyle = rgb(250, 250, 250); cr.fillRect(0, 0, size, size);
+  // Tarpaulin is coated: worn creases go matte, the flat panels stay slick,
+  // and the bottom hem is permanently wet.
+  grime(cr, size, seed + 13, 2.0, 0.30);
+  polish(cr, size, 0.5, 0.42);
   return { albedo: a, height: h, rough: r };
 };
 
@@ -913,7 +1000,11 @@ export function surface(kind, seed = 1, size = RES) {
   const set = {
     map: toTexture(parts.albedo, true),
     normalMap: normalFromHeight(parts.height, kind === 'corrugated' ? 3.2 : 2.0),
-    ormMap: packRoughAO(parts.rough, null),
+    // A real AO channel. This used to be `null`, which made packRoughAO write
+    // 255 to every texel — so the whole city carried a second uv1 vertex stream
+    // and paid an extra texture fetch per fragment to sample a constant 1.0,
+    // and there was no ambient occlusion anywhere in the game.
+    ormMap: packRoughAO(parts.rough, aoFromHeight(parts.height, parts.aoStrength ?? 1.6)),
   };
   cache.set(key, set);
   return set;
@@ -923,33 +1014,83 @@ export function listSurfaces() { return Object.keys(GEN); }
 
 // ------------------------------------------------------------ sprite atlas --
 
-/** Soft radial sprite for smoke/dust puffs. */
+/**
+ * Draw one irregular smoke puff into `x` over the square (ox, oy, s).
+ *
+ * The old sprite built its silhouette from 22 overlapping blobs and then
+ * applied a hard destination-out radial vignette from 0.3r to 0.5r, which threw
+ * all of that away and forced the shape back into a circle. The result was a
+ * field of identical round white puffs that read as lens bokeh.
+ *
+ * Here the alpha is an fbm field, thresholded and feathered: the edge is ragged
+ * at every scale, and only the very corners of the cell are forced to zero (to
+ * keep the quad and the atlas cell seamless), not the whole outer third.
+ */
+function drawPuff(x, ox, oy, s, seed) {
+  const n = new Noise2(seed);
+  const img = x.createImageData(s, s);
+  const d = img.data;
+  const rng = new Rng(`puff:${seed}`);
+  // A few soft density centres so the cloud has a core and lobes.
+  const lobes = [];
+  for (let i = 0; i < 5; i++) {
+    lobes.push([0.5 + rng.sym(0.17), 0.5 + rng.sym(0.17), rng.range(0.16, 0.34), rng.range(0.6, 1.0)]);
+  }
+  const warp = rng.int(2, 4);      // integer lattice period, so the field tiles
+  for (let py = 0; py < s; py++) {
+    for (let px = 0; px < s; px++) {
+      const u = px / s, v = py / s;
+      // Density from the lobes.
+      let dens = 0;
+      for (const [lx, ly, lr, la] of lobes) {
+        const dd = Math.hypot(u - lx, v - ly) / lr;
+        dens = Math.max(dens, la * (1 - clamp01(dd)));
+      }
+      // Break the boundary with fbm, then feather the threshold.
+      const f = n.fbmTiled(u * warp, v * warp, warp, warp, 4) * 0.5 + 0.5;
+      let a = dens * 1.35 + (f - 0.5) * 0.85 - 0.34;
+      a = clamp01(a) ;
+      a = a * a * (3 - 2 * a);
+      // Only the outermost sliver is forced to zero, so the ragged edge lives.
+      const edge = 1 - clamp01((Math.max(Math.abs(u - 0.5), Math.abs(v - 0.5)) - 0.42) / 0.08);
+      const i = (py * s + px) * 4;
+      d[i] = d[i + 1] = d[i + 2] = 255;
+      d[i + 3] = clamp(a * edge * 190, 0, 255);
+    }
+  }
+  x.putImageData(img, ox, oy);
+}
+
+/**
+ * A 2x2 atlas of four smoke-puff variants. One texture, one draw call, four
+ * silhouettes — instances pick a cell with the aCell attribute.
+ */
+export function smokeAtlas(cellSize = 128, seed = 1) {
+  const key = `smokeatlas:${cellSize}:${seed}`;
+  if (cache.has(key)) return cache.get(key);
+  const size = cellSize * 2;
+  const c = canvas(size), x = ctx2d(c);
+  x.clearRect(0, 0, size, size);
+  for (let i = 0; i < 4; i++) {
+    drawPuff(x, (i % 2) * cellSize, ((i / 2) | 0) * cellSize, cellSize, seed * 131 + i * 17);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  // No mips: the cells would bleed into each other at coarse levels.
+  t.generateMipmaps = false;
+  t.minFilter = THREE.LinearFilter;
+  t.magFilter = THREE.LinearFilter;
+  cache.set(key, t);
+  return t;
+}
+
+/** Single irregular smoke puff (non-atlas callers). */
 export function smokeSprite(size = 128, seed = 1) {
   const key = `smoke:${size}:${seed}`;
   if (cache.has(key)) return cache.get(key);
   const c = canvas(size), x = ctx2d(c);
-  const rng = new Rng(seed);
   x.clearRect(0, 0, size, size);
-  // Build a puff from overlapping soft blobs so the silhouette is not a circle.
-  for (let i = 0; i < 22; i++) {
-    const px = size / 2 + rng.sym(size * 0.19);
-    const py = size / 2 + rng.sym(size * 0.19);
-    const r = rng.range(size * 0.12, size * 0.3);
-    const g = x.createRadialGradient(px, py, 0, px, py, r);
-    g.addColorStop(0, 'rgba(255,255,255,0.16)');
-    g.addColorStop(0.55, 'rgba(255,255,255,0.07)');
-    g.addColorStop(1, 'rgba(255,255,255,0)');
-    x.fillStyle = g;
-    x.beginPath(); x.arc(px, py, r, 0, 6.283); x.fill();
-  }
-  // Fade hard at the sprite border so quads never show a seam.
-  const vign = x.createRadialGradient(size / 2, size / 2, size * 0.3, size / 2, size / 2, size * 0.5);
-  vign.addColorStop(0, 'rgba(0,0,0,0)');
-  vign.addColorStop(1, 'rgba(0,0,0,1)');
-  x.globalCompositeOperation = 'destination-out';
-  x.fillStyle = vign; x.fillRect(0, 0, size, size);
-  x.globalCompositeOperation = 'source-over';
-
+  drawPuff(x, 0, 0, size, seed * 131);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   t.generateMipmaps = true;

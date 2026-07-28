@@ -31,6 +31,59 @@ const note = (n) => A4 * Math.pow(2, n / 12);
  */
 const SCALE = [-7, -5, -4, -2, 0, 1, 3, 5, 8, 12];
 
+/**
+ * Footstep surfaces. Seven materials the player actually walks on, each with a
+ * different band, a different length, and — where the material has mass — a low
+ * body component. Previously three entries existed and only one of them was
+ * ever reachable, so ash, roof felt, tile, rubble and concrete all played the
+ * identical 90 ms 1400 Hz ping.
+ */
+const STEP_SURFACES = {
+  grit:     { freq: 1400, q: 1.4, dur: 0.09, level: 0.30, sweep: 0.40 },
+  asphalt:  { freq: 900,  q: 1.1, dur: 0.10, level: 0.30, sweep: 0.34, body: 130 },
+  concrete: { freq: 1750, q: 2.2, dur: 0.075, level: 0.30, sweep: 0.45, body: 190 },
+  metal:    { freq: 900,  q: 5.0, dur: 0.14, level: 0.26, sweep: 0.40 },
+  wood:     { freq: 520,  q: 3.0, dur: 0.11, level: 0.24, sweep: 0.40, body: 105 },
+  felt:     { freq: 620,  q: 0.9, dur: 0.13, level: 0.22, sweep: 0.30, type: 'lowpass' },
+  tile:     { freq: 2400, q: 6.0, dur: 0.07, level: 0.27, sweep: 0.55, body: 220 },
+  rubble:   { freq: 1150, q: 1.0, dur: 0.16, level: 0.32, sweep: 0.28, body: 160 },
+  ash:      { freq: 480,  q: 0.7, dur: 0.15, level: 0.18, sweep: 0.30, type: 'lowpass' },
+};
+
+/**
+ * Per-sound [duration seconds, priority] for the voice budget.
+ * Priority 3 = combat confirms and player-critical cues (may steal),
+ * 2 = world events, 1 = ambient texture and footsteps (first to be stolen).
+ */
+const SFX_META = {
+  _default:   [0.5, 2],
+  step:       [0.18, 1],
+  brickHit:   [0.2, 1],
+  swing:      [0.3, 2],
+  swingHeavy: [0.48, 2],
+  whiff:      [0.24, 1],
+  hitBlunt:   [0.36, 3],
+  hitFlesh:   [0.2, 3],
+  block:      [0.4, 3],
+  parry:      [0.8, 3],
+  bite:       [0.16, 3],
+  telegraph:  [0.42, 3],
+  land:       [0.2, 2],
+  landHard:   [0.38, 2],
+  cough:      [0.52, 2],
+  death:      [1.0, 3],
+  aggro:      [0.55, 3],
+  panic:      [0.55, 3],
+  voice:      [0.16, 2],
+  unlock:     [1.2, 2],
+  discover:   [1.3, 2],
+  questDone:  [1.1, 2],
+  meter:      [0.5, 3],
+  heal:       [0.55, 3],
+  stim:       [0.5, 3],
+  filter:     [0.35, 3],
+};
+
 export class Audio {
   constructor(game) {
     this.game = game;
@@ -466,14 +519,29 @@ export class Audio {
 
   // --- movement ----------------------------------------------------------
   _sfx_step(o) {
-    if (!this._throttle('step', 90)) return;
-    const surface = o.surface || 'grit';
-    const cfg = {
-      grit: { freq: 1400, q: 1.4, dur: 0.09, level: 0.30 },
-      metal: { freq: 900, q: 5, dur: 0.14, level: 0.26 },
-      wood: { freq: 520, q: 3, dur: 0.11, level: 0.24 },
-    }[surface] || { freq: 1400, q: 1.4, dur: 0.09, level: 0.30 };
-    this._impact(o, { ...cfg, level: cfg.level * (o.volume ?? 1), sweep: 0.4, rev: 0.15 });
+    // Per-ACTOR throttle. A global 'step' key meant that with three actors
+    // moving, two of every three footsteps were silently discarded — the whole
+    // crowd shared one 90 ms budget.
+    const who = o.id ?? o.actor ?? `${Math.round(o.x ?? 0)},${Math.round(o.z ?? 0)}`;
+    if (!this._throttle(`step:${who}`, 90)) return;
+    const cfg = STEP_SURFACES[o.surface] || STEP_SURFACES.grit;
+    // Randomise level and centre frequency per step. Without this every
+    // footfall is the identical sample and the character types rather than
+    // walks.
+    const f = cfg.freq * this.rng.range(0.85, 1.15);
+    const lv = cfg.level * (o.volume ?? 1) * this.rng.range(0.71, 1.41);   // +/- 3 dB
+    this._impact(o, {
+      freq: f, q: cfg.q, dur: cfg.dur * this.rng.range(0.88, 1.14),
+      level: lv, type: cfg.type || 'bandpass', sweep: cfg.sweep ?? 0.4, rev: cfg.rev ?? 0.15,
+    });
+    // Surfaces with a body get a second, lower component: the sound of the
+    // thing under the boot, not just the grit on top of it.
+    if (cfg.body) {
+      this._impact(o, {
+        freq: cfg.body * this.rng.range(0.9, 1.1), q: 1.1, dur: cfg.dur * 1.6,
+        level: lv * 0.55, type: 'lowpass', sweep: 0.5, rev: cfg.rev ?? 0.15,
+      });
+    }
   }
   _sfx_land(o) { this._impact(o, { freq: 220, q: 1.2, dur: 0.16, level: 0.5, type: 'lowpass' }); }
   _sfx_landHard(o) {
@@ -510,7 +578,10 @@ export class Audio {
   _sfx_stim() { this._tone({ f: note(0), dur: 0.42, level: 0.26, type: 'triangle', to: note(12) }); }
   _sfx_filter() {
     this._impact({}, { freq: 480, q: 5, dur: 0.14, level: 0.5 });
-    setTimeout(() => this._impact({}, { freq: 300, q: 6, dur: 0.2, level: 0.45 }), 110);
+    // Scheduled on the audio clock rather than with setTimeout: a timer is
+    // sample-inaccurate and jitters by tens of milliseconds under frame load,
+    // which on a two-hit sound is audible as sloppiness.
+    this._impact({}, { freq: 300, q: 6, dur: 0.2, level: 0.45, at: 0.11 });
   }
 
   // --- interface ---------------------------------------------------------
@@ -560,8 +631,36 @@ export class Audio {
   _sfx_panic(o) { this._sfx_aggro({ ...o }); }
   _sfx_voice(o) {
     // Dialogue tick: a soft, short formant blip per line, pitched by speaker.
-    const pitch = { ren: -4, teo: -9, sol: -2, nessa: 3, iris: 1, krajcik: -7 }[o.who] ?? 0;
-    this._tone({ f: note(pitch - 12), dur: 0.12, level: 0.12, type: 'sine' });
+    this.voiceTick(o.who);
+  }
+
+  /**
+   * One syllable of speech. Call this every 3-4 characters as a line types out
+   * rather than once per line: a single blip per line means every speaker in
+   * the game is one soft beep, which is not a voice, it is a notification.
+   *
+   * Public API — the typewriter in src/ui/screens.js should drive it.
+   */
+  voiceTick(who) {
+    if (!this.ready || !this.ctx) return;
+    if (!this._throttle(`voice:${who || ''}`, 42)) return;
+    const pitch = VOICE_PITCH[who] ?? 0;
+    // +/- 2 semitones of jitter, plus a slight formant shift, so a run of
+    // syllables has contour instead of being a metronome.
+    const semi = pitch - 12 + this.rng.range(-2, 2);
+    const f = note(semi);
+    const ctx = this.ctx, t = this._now();
+    const out = this._chain({}, 0.16, 0.18);
+    for (const [mul, amp, ty] of [[1, 1, 'sine'], [2.02, 0.34, 'triangle']]) {
+      const o = ctx.createOscillator();
+      o.type = ty;
+      o.frequency.setValueAtTime(f * mul, t);
+      o.frequency.linearRampToValueAtTime(f * mul * this.rng.range(0.93, 1.07), t + 0.07);
+      const g = ctx.createGain();
+      this._env(g, t, 0.008, 0.075, amp);
+      o.connect(g); g.connect(out);
+      o.start(t); o.stop(t + 0.12);
+    }
   }
 
   // -------------------------------------------------------------- ambience
@@ -594,22 +693,49 @@ export class Audio {
     this.ambGain.gain.setTargetAtTime(0.5, ctx.currentTime, 1.0);
 
     // Occasional one-shots layered on top: settling metal, distant collapse.
-    this._ambTimer = setInterval(() => this._ambientEvent(), 5200);
+    // Poisson, not a metronome — see _armAmbientEvent.
+    this._armAmbientEvent();
+  }
+
+  /**
+   * Schedule the next ambient one-shot with an EXPONENTIAL inter-arrival time.
+   *
+   * A fixed 5200 ms tick with p=0.4 over four sounds is recognisable inside two
+   * minutes: the ear locks onto the grid even when the events themselves are
+   * random. Poisson arrivals have no grid to lock onto.
+   */
+  _armAmbientEvent() {
+    clearTimeout(this._ambTimer);
+    const mean = 11000;
+    const wait = clamp(-Math.log(1 - this.rng.f()) * mean, 900, 46000);
+    this._ambTimer = setTimeout(() => { this._ambientEvent(); this._armAmbientEvent(); }, wait);
   }
 
   _ambientEvent() {
     if (!this.ready || document.hidden) return;
-    if (this.rng.f() > 0.4) return;
     const g = this.game;
     const p = g.player ? g.player.pos : { x: 0, y: 0, z: 0 };
+    const st = this.ambienceState || 'street';
+    const A = AMBIENT_EVENTS[st] || AMBIENT_EVENTS.street;
     const a = this.rng.f() * Math.PI * 2;
-    const d = this.rng.range(16, 48);
-    const o = { x: p.x + Math.cos(a) * d, y: p.y + this.rng.range(-2, 8), z: p.z + Math.sin(a) * d };
-    const roll = this.rng.f();
-    if (roll < 0.34) this._metal(o, { base: this.rng.range(180, 420), count: 3, dur: 1.6, level: 0.16, rev: 0.6 });
-    else if (roll < 0.6) this._impact(o, { freq: 110, q: 1, dur: 1.2, level: 0.2, type: 'lowpass', rev: 0.7 });
-    else if (roll < 0.82) this._whoosh(o, { dur: 1.8, level: 0.12, lo: 160, hi: 700 });
-    else this._impact(o, { freq: 2200, q: 2, dur: 0.5, level: 0.1, sweep: 0.3 });
+    // Distance is biased by where you are: a tunnel has close walls, an empty
+    // road has none.
+    const d = this.rng.range(A.near, A.far);
+    const o = { x: p.x + Math.cos(a) * d, y: p.y + this.rng.range(A.lowY, A.highY), z: p.z + Math.sin(a) * d };
+    const kind = A.kinds[this.rng.int(0, A.kinds.length - 1)];
+    switch (kind) {
+      case 'settle':    this._metal(o, { base: this.rng.range(180, 420), count: 3, dur: 1.6, level: 0.16, rev: 0.6 }); break;
+      case 'collapse':  this._impact(o, { freq: this.rng.range(80, 150), q: 1, dur: 1.4, level: 0.22, type: 'lowpass', rev: 0.8 }); break;
+      case 'gust':      this._whoosh(o, { dur: this.rng.range(1.4, 2.6), level: 0.12, lo: 160, hi: 700 }); break;
+      case 'tick':      this._impact(o, { freq: this.rng.range(1800, 2600), q: 2, dur: 0.5, level: 0.1, sweep: 0.3 }); break;
+      case 'drip':      this._impact(o, { freq: this.rng.range(900, 1800), q: 12, dur: 0.14, level: 0.13, sweep: 0.5, rev: 0.7 }); break;
+      case 'creak':     this._metal(o, { base: this.rng.range(90, 190), count: 2, dur: 2.4, level: 0.12, rev: 0.7 }); break;
+      case 'glass':     this._impact(o, { freq: this.rng.range(2600, 4200), q: 5, dur: 0.4, level: 0.12, sweep: 0.25, rev: 0.5 }); break;
+      case 'vent':      this._whoosh(o, { dur: this.rng.range(0.8, 1.6), level: 0.14, lo: 900, hi: 3400 }); break;
+      case 'boom':      this._impact(o, { freq: 55, q: 0.8, dur: 2.2, level: 0.26, type: 'lowpass', rev: 0.9 }); break;
+      case 'clang':     this._metal(o, { base: this.rng.range(420, 780), count: 4, dur: 1.1, level: 0.14, rev: 0.6 }); break;
+      default: break;
+    }
   }
 
   /** Ambience presets by region. */
@@ -633,6 +759,14 @@ export class Audio {
     for (const k in this.ambLayers) {
       const L = this.ambLayers[k];
       L.gain.gain.setTargetAtTime(L.base * (P[k] ?? 0), t, 2.2);
+    }
+
+    // Crossfade the room. `interior` had a preset here and no matching reverb
+    // change, so stepping inside changed the air but not the walls.
+    const space = REVERB_SPACE[state] || 'street';
+    for (const k in this.reverbs) {
+      const target = k === space ? (space === 'tunnel' ? 0.30 : space === 'interior' ? 0.13 : 0.20) : 0;
+      this.reverbs[k].gain.gain.setTargetAtTime(target, t, 1.4);
     }
   }
 
@@ -668,6 +802,10 @@ export class Audio {
       intensity: 0,
       targetIntensity: 0,
       key: 0,
+      cell: null,
+      cellName: null,
+      transpose: 0,
+      pending: null,
     };
 
     // Drone: two detuned saws through a low-pass, the floor of everything.
@@ -714,22 +852,41 @@ export class Audio {
     if (!this.ready) return;
     const P = MUSIC[state] || MUSIC.explore;
     this.music.targetIntensity = P.intensity;
-    this.music.preset = P;
     const t = this.ctx.currentTime;
+    // Timbre glides immediately — these are multi-second filter and pitch
+    // ramps and nobody hears a downbeat in them.
     this.music.drone.filter.frequency.setTargetAtTime(P.droneCut, t, 3.0);
     for (const o of this.music.drone.oscs) {
       o.frequency.setTargetAtTime(note(P.root - 31), t, 4.0);
     }
     this.music.pad.filter.frequency.setTargetAtTime(P.padFreq, t, 3.5);
+    // TEMPO does not. Changing P.beat mid-phrase (explore 1.6 -> combat 0.42)
+    // moved the pulse to an arbitrary point with no downbeat; the change now
+    // lands on the next bar line and restarts the phrase there.
+    if (!this.music.preset) { this.music.preset = P; this.music.step = 0; this.music.cell = null; }
+    else this.music.pending = P;
   }
 
   _musicTick() {
     if (!this.music) return;
     const t = this.ctx.currentTime;
     const P = this.music.preset || MUSIC.explore;
-    this.music.intensity += (this.music.targetIntensity - this.music.intensity) * 0.02;
-    this.music.drone.gain.gain.setTargetAtTime(P.drone * 0.34, t, 2.0);
-    this.music.pad.gain.gain.setTargetAtTime(P.pad * 0.12, t, 2.5);
+    const m = this.music;
+    m.intensity += (m.targetIntensity - m.intensity) * 0.02;
+    // Intensity now actually does something. It used to be eased toward a
+    // target and then thrown away: the layer gains were read straight off the
+    // static preset, so the whole "crossfade" was a no-op.
+    const inten = clamp01(m.intensity);
+    m.drone.gain.gain.setTargetAtTime(P.drone * 0.34 * (0.45 + 0.62 * inten), t, 2.0);
+    m.pad.gain.gain.setTargetAtTime(P.pad * 0.15 * (1.05 - 0.55 * inten), t, 2.5);
+  }
+
+  /** Pick a melodic cell for this state, avoiding an immediate repeat. */
+  _pickCell(P) {
+    const set = CELLS[P.cells] || CELLS.calm;
+    let c = set[this.rng.int(0, set.length - 1)];
+    if (set.length > 1 && c === this.music.cell) c = set[(set.indexOf(c) + 1) % set.length];
+    return c;
   }
 
   /**
@@ -740,24 +897,48 @@ export class Audio {
   _schedule() {
     if (!this.ready || document.hidden) return;
     const ctx = this.ctx;
-    const P = this.music.preset || MUSIC.explore;
+    const m = this.music;
     const lookahead = 0.35;
-    while (this.music.nextNote < ctx.currentTime + lookahead) {
-      const t = this.music.nextNote;
-      const step = this.music.step++;
-      const beat = P.beat;
+    while (m.nextNote < ctx.currentTime + lookahead) {
+      const t = m.nextNote;
+      const step = m.step;
+      const bar = step % BAR;
+      const phrase = step % (BAR * BARS_PER_PHRASE);
 
-      if (P.bell > 0 && step % P.bellEvery === 0) {
-        const deg = SCALE[(step * 3 + Math.floor(step / 5)) % SCALE.length];
-        this._bell(note(deg + P.root - 12), t, P.bell * this.rng.range(0.7, 1.0));
+      // State changes land on a bar line, and a new phrase restarts the count.
+      if (bar === 0 && m.pending) {
+        m.preset = m.pending;
+        m.pending = null;
+        m.step = 0;
+        m.cell = null;
+        continue;                       // re-enter at step 0 of the new preset
       }
-      if (P.pulse > 0 && step % P.pulseEvery === 0) {
-        this._pulse(t, P.pulse);
+      const P = m.preset || MUSIC.explore;
+
+      if (phrase === 0) {
+        // One four-bar melodic cell per phrase, occasionally transposed up a
+        // fourth. The old line — SCALE[(step*3 + floor(step/5)) % len] — is a
+        // maximally-even permutation of the scale: the least melodic ordering
+        // available. No motif, no phrase, no cadence, no repetition.
+        m.cell = this._pickCell(P);
+        m.transpose = this.rng.chance(P.wander ?? 0.3) ? (this.rng.chance(0.5) ? 5 : -5) : 0;
       }
-      if (P.low > 0 && step % (P.bellEvery * 4) === 0) {
-        this._bell(note(P.root - 24), t, P.low, 4.5);
+
+      if (P.bell > 0 && m.cell) {
+        const deg = m.cell[phrase];
+        if (deg !== null && deg !== undefined) {
+          const semis = SCALE[((deg % SCALE.length) + SCALE.length) % SCALE.length] + m.transpose;
+          // Downbeats are louder; the cell's own rhythm carries the rest.
+          const accent = bar === 0 ? 1.0 : bar === 2 ? 0.82 : 0.66;
+          this._bell(note(semis + P.root - 12), t, P.bell * accent * this.rng.range(0.86, 1.0));
+        }
       }
-      this.music.nextNote += beat;
+      if (P.pulse > 0 && step % P.pulseEvery === 0) this._pulse(t, P.pulse);
+      // Root every phrase: the cadence the drone resolves onto.
+      if (P.low > 0 && phrase === 0) this._bell(note(P.root - 24), t, P.low, 4.5);
+
+      m.step++;
+      m.nextNote += P.beat;
     }
   }
 
@@ -809,7 +990,7 @@ export class Audio {
 
   dispose() {
     clearInterval(this._musicClock);
-    clearInterval(this._ambTimer);
+    clearTimeout(this._ambTimer);
     this.ctx?.close().catch(() => {});
   }
 }
@@ -821,15 +1002,84 @@ export class Audio {
  * crossed an invisible line.
  */
 const MUSIC = {
-  title:     { intensity: 0.2, root: 0,  drone: 0.9, pad: 0.7, beat: 1.9, bell: 0.30, bellEvery: 2, pulse: 0, pulseEvery: 4, low: 0.20, droneCut: 260, padFreq: 420 },
-  explore:   { intensity: 0.2, root: 0,  drone: 0.7, pad: 0.5, beat: 1.6, bell: 0.16, bellEvery: 4, pulse: 0, pulseEvery: 4, low: 0.14, droneCut: 240, padFreq: 460 },
-  home:      { intensity: 0.15, root: 3, drone: 0.55, pad: 0.7, beat: 1.9, bell: 0.20, bellEvery: 3, pulse: 0, pulseEvery: 4, low: 0.12, droneCut: 300, padFreq: 620 },
-  lonely:    { intensity: 0.1, root: -2, drone: 0.6, pad: 0.85, beat: 2.4, bell: 0.13, bellEvery: 5, pulse: 0, pulseEvery: 4, low: 0.16, droneCut: 190, padFreq: 340 },
-  liminal:   { intensity: 0.25, root: 1, drone: 0.75, pad: 0.4, beat: 1.5, bell: 0.10, bellEvery: 6, pulse: 0, pulseEvery: 4, low: 0.10, droneCut: 280, padFreq: 720 },
-  tense:     { intensity: 0.5, root: -1, drone: 0.95, pad: 0.4, beat: 1.05, bell: 0.10, bellEvery: 4, pulse: 0.10, pulseEvery: 8, low: 0.22, droneCut: 170, padFreq: 300 },
-  dread:     { intensity: 0.6, root: -3, drone: 1.0, pad: 0.55, beat: 1.2, bell: 0.08, bellEvery: 6, pulse: 0.08, pulseEvery: 6, low: 0.30, droneCut: 130, padFreq: 260 },
-  authority: { intensity: 0.35, root: 2, drone: 0.7, pad: 0.35, beat: 1.25, bell: 0.11, bellEvery: 4, pulse: 0.07, pulseEvery: 4, low: 0.14, droneCut: 340, padFreq: 900 },
-  combat:    { intensity: 1.0, root: -5, drone: 1.0, pad: 0.25, beat: 0.42, bell: 0.07, bellEvery: 8, pulse: 0.26, pulseEvery: 2, low: 0.24, droneCut: 220, padFreq: 380 },
-  crisis:    { intensity: 0.9, root: -4, drone: 1.0, pad: 0.9, beat: 0.62, bell: 0.15, bellEvery: 3, pulse: 0.16, pulseEvery: 4, low: 0.34, droneCut: 150, padFreq: 280 },
-  ending:    { intensity: 0.1, root: 0,  drone: 0.6, pad: 0.8, beat: 2.8, bell: 0.24, bellEvery: 2, pulse: 0, pulseEvery: 4, low: 0.22, droneCut: 300, padFreq: 500 },
+  title:     { intensity: 0.2, root: 0,  drone: 0.9, pad: 0.7, beat: 0.95, bell: 0.30, pulse: 0, pulseEvery: 4, low: 0.20, droneCut: 260, padFreq: 420, cells: 'calm', wander: 0.2 },
+  explore:   { intensity: 0.2, root: 0,  drone: 0.7, pad: 0.5, beat: 0.80, bell: 0.16, pulse: 0, pulseEvery: 4, low: 0.14, droneCut: 240, padFreq: 460, cells: 'calm', wander: 0.35 },
+  home:      { intensity: 0.15, root: 3, drone: 0.55, pad: 0.7, beat: 0.95, bell: 0.20, pulse: 0, pulseEvery: 4, low: 0.12, droneCut: 300, padFreq: 620, cells: 'calm', wander: 0.25 },
+  lonely:    { intensity: 0.1, root: -2, drone: 0.6, pad: 0.85, beat: 1.20, bell: 0.13, pulse: 0, pulseEvery: 4, low: 0.16, droneCut: 190, padFreq: 340, cells: 'sparse', wander: 0.4 },
+  liminal:   { intensity: 0.25, root: 1, drone: 0.75, pad: 0.4, beat: 0.75, bell: 0.10, pulse: 0, pulseEvery: 4, low: 0.10, droneCut: 280, padFreq: 720, cells: 'sparse', wander: 0.5 },
+  tense:     { intensity: 0.5, root: -1, drone: 0.95, pad: 0.4, beat: 0.52, bell: 0.10, pulse: 0.10, pulseEvery: 8, low: 0.22, droneCut: 170, padFreq: 300, cells: 'tense', wander: 0.2 },
+  dread:     { intensity: 0.6, root: -3, drone: 1.0, pad: 0.55, beat: 0.60, bell: 0.08, pulse: 0.08, pulseEvery: 6, low: 0.30, droneCut: 130, padFreq: 260, cells: 'tense', wander: 0.15 },
+  authority: { intensity: 0.35, root: 2, drone: 0.7, pad: 0.35, beat: 0.62, bell: 0.11, pulse: 0.07, pulseEvery: 4, low: 0.14, droneCut: 340, padFreq: 900, cells: 'tense', wander: 0.1 },
+  combat:    { intensity: 1.0, root: -5, drone: 1.0, pad: 0.25, beat: 0.42, bell: 0.09, pulse: 0.26, pulseEvery: 2, low: 0.24, droneCut: 220, padFreq: 380, cells: 'combat', wander: 0.1 },
+  crisis:    { intensity: 0.9, root: -4, drone: 1.0, pad: 0.9, beat: 0.50, bell: 0.15, pulse: 0.16, pulseEvery: 4, low: 0.34, droneCut: 150, padFreq: 280, cells: 'combat', wander: 0.3 },
+  ending:    { intensity: 0.1, root: 0,  drone: 0.6, pad: 0.8, beat: 1.40, bell: 0.24, pulse: 0, pulseEvery: 4, low: 0.22, droneCut: 300, padFreq: 500, cells: 'calm', wander: 0.2 },
+};
+
+/** Steps per bar, and bars per melodic cell. */
+const BAR = 4;
+const BARS_PER_PHRASE = 4;
+
+/**
+ * Melodic cells. Each is four bars of four steps; entries index SCALE, and
+ * `null` is a REST — which is the half of composition the previous generator
+ * did not have at all.
+ *
+ * These are motifs, not permutations: each one states a shape, answers it, and
+ * comes back to the tonic (index 4 = 0 semitones) or its fifth. That is the
+ * difference between music and a random walk through a scale.
+ */
+const CELLS = {
+  // Falling fourth, answered a step lower. The main theme of the empty city.
+  calm: [
+    [4, null, null, null,   7, null, 5, null,   4, null, null, null,   2, null, null, null],
+    [4, null, 5, null,      7, null, null, null, 5, null, 4, null,     null, null, 2, null],
+    [8, null, null, 7,      5, null, null, null, 4, null, null, 5,     4, null, null, null],
+    [2, null, 4, null,      5, null, null, null, 4, null, null, null,  null, null, null, null],
+  ],
+  // Long tones, wide gaps. Used where the player is meant to feel alone.
+  sparse: [
+    [4, null, null, null,   null, null, null, null, 7, null, null, null, null, null, null, null],
+    [2, null, null, null,   null, null, 4, null,    null, null, null, null, 1, null, null, null],
+    [8, null, null, null,   null, null, null, null, 5, null, null, null, 4, null, null, null],
+  ],
+  // A repeated pedal with a semitone neighbour above it — the flattened second.
+  tense: [
+    [4, null, 5, 4,         null, null, 4, null,   5, null, 4, null,   null, null, null, null],
+    [4, 4, null, 5,         4, null, null, null,   3, null, 4, null,   null, null, null, null],
+    [1, null, null, 4,      null, null, 5, 4,      null, null, null, null, 4, null, null, null],
+  ],
+  // Short, driven, low. Lands on the beat the pulse hits.
+  combat: [
+    [0, null, 1, null,      0, null, null, null,   3, null, 1, null,   0, null, null, null],
+    [0, 0, null, 1,         null, 3, null, null,   0, null, null, 1,   0, null, null, null],
+    [3, null, null, 1,      0, null, null, null,   1, null, 0, null,   null, null, 0, null],
+  ],
+};
+
+/** Dialogue pitch centre per speaker, in semitones from A. */
+const VOICE_PITCH = { ren: -4, teo: -9, sol: -2, nessa: 3, iris: 1, krajcik: -7 };
+
+/** Which generated room each ambience preset plays in. */
+const REVERB_SPACE = {
+  street: 'street', camp: 'street', slip: 'street', road: 'street', empty: 'street',
+  vents: 'street', cut: 'street',
+  interior: 'interior',
+  under: 'tunnel',
+};
+
+/**
+ * Ambient one-shot vocabulary per ambience state. Ten event types spread over
+ * the states, with distance ranges that match the space — a tunnel event is
+ * close and wet, an empty road event is far and dry.
+ */
+const AMBIENT_EVENTS = {
+  street:   { near: 14, far: 52, lowY: -2, highY: 9,  kinds: ['settle', 'collapse', 'gust', 'tick', 'creak', 'glass', 'clang'] },
+  camp:     { near: 6,  far: 26, lowY: -1, highY: 4,  kinds: ['settle', 'tick', 'creak', 'clang', 'drip'] },
+  slip:     { near: 10, far: 40, lowY: -6, highY: 6,  kinds: ['collapse', 'boom', 'vent', 'settle', 'drip'] },
+  vents:    { near: 8,  far: 34, lowY: -3, highY: 5,  kinds: ['vent', 'tick', 'settle', 'boom', 'drip'] },
+  cut:      { near: 12, far: 46, lowY: -4, highY: 8,  kinds: ['clang', 'settle', 'gust', 'collapse', 'tick'] },
+  road:     { near: 18, far: 64, lowY: -2, highY: 10, kinds: ['gust', 'collapse', 'creak', 'glass'] },
+  empty:    { near: 22, far: 72, lowY: -2, highY: 12, kinds: ['gust', 'creak', 'collapse', 'glass', 'tick'] },
+  interior: { near: 2,  far: 10, lowY: -1, highY: 3,  kinds: ['creak', 'drip', 'tick', 'settle'] },
+  under:    { near: 4,  far: 22, lowY: -3, highY: 3,  kinds: ['drip', 'boom', 'vent', 'creak', 'settle'] },
 };

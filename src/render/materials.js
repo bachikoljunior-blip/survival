@@ -140,7 +140,7 @@ export function patchWorldMaterial(mat, opts = {}) {
                             + uTime * 0.7) * 0.5 + 0.5;
             fres *= 0.6 + 0.4 * rip;
             gl_FragColor.rgb = mix(gl_FragColor.rgb, gl_FragColor.rgb * 0.52, wetAmt);
-            gl_FragColor.rgb += (uEmberColor * bounce * 1.8 * skyVis + uFogColorHigh * 1.6)
+            gl_FragColor.rgb += (uEmberColor * bounce * 1.8 * skyVis + uFogColorHigh * 1.0)
                                 * fres * wetAmt;
           }
           ` : ''}

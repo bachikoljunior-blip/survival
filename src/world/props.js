@@ -144,11 +144,36 @@ export function locker(cb, x, y, z, rng, opts = {}) {
  * Fire escape: the single most important prop in Hollis. It is the safe route
  * above the smoke, so it needs to be legible from the street and climbable.
  */
+/**
+ * Fire escape.
+ *
+ * Two things here are load-bearing and were both wrong:
+ *
+ *  · OUT. The whole assembly is pushed clear of the facade. Authored escapes
+ *    give the point on the wall, and a 1.15m-deep platform centred there put
+ *    its inner half inside the building — twenty of fifty platforms in the
+ *    city were embedded in a solid box and therefore unstandable.
+ *
+ *  · RUN. The flights used to zigzag across the 1.5m platform width, which
+ *    gives 0.15m of tread for 0.38m of rise: a 68-degree stair. A body with a
+ *    0.34m radius standing on one tread overlaps the tread two above, so it is
+ *    a wall no matter how good the step-up is. Flights now run 3.6m along the
+ *    facade, which is 0.40m of tread per 0.38m of rise — steep, climbable, and
+ *    what a real fire escape looks like.
+ */
+export const ESCAPE_OUT = 0.72;
+export const ESCAPE_RUN = 3.6;
+export const ESCAPE_STEPS = 9;
+
 export function fireEscape(cb, x, y, z, rot, floors, rng, opts = {}) {
   const { width = 1.5, floorH = 3.4, side = 1 } = opts;
   const b = cb.m('rust');
   const dark = cb.m('dark');
   const nodes = [];
+  const OUT = ESCAPE_OUT;
+  // Shift the whole assembly out along the wall normal.
+  x -= side * OUT * Math.sin(rot);
+  z += side * OUT * Math.cos(rot);
 
   for (let f = 0; f < floors; f++) {
     const py = y + f * floorH;
@@ -186,22 +211,23 @@ export function fireEscape(cb, x, y, z, rot, floors, rng, opts = {}) {
     // Stair flight up to the next platform, alternating direction.
     if (f < floors - 1) {
       const dir = f % 2 === 0 ? 1 : -1;
-      const steps = 9;
+      const steps = ESCAPE_STEPS;
+      const run = ESCAPE_RUN;
       for (let s = 0; s < steps; s++) {
         const t = (s + 0.5) / steps;
-        const ox = dir * (t - 0.5) * width * 0.92;
+        const ox = dir * (t - 0.5) * run;
         b.boxRot({
-          x: x + ox * Math.cos(rot) - side * (0.1 + t * 0.42) * Math.sin(rot),
+          x: x + ox * Math.cos(rot),
           y: py + 0.07 + t * (floorH - 0.07),
-          z: z + ox * Math.sin(rot) + side * (0.1 + t * 0.42) * Math.cos(rot),
-          w: width / steps * 1.05, h: 0.05, d: 0.5, rot, uvScale: 2, tint: T.rust,
+          z: z + ox * Math.sin(rot),
+          w: run / steps * 0.94, h: 0.05, d: 0.92, rot, uvScale: 2, tint: T.rust,
         });
       }
-      // Stringer
+      // Stringer, following the run.
       b.boxRot({
-        x: x - side * 0.32 * Math.sin(rot), y: py + 0.07,
-        z: z + side * 0.32 * Math.cos(rot),
-        w: width, h: floorH, d: 0.05, rot, uvScale: 1, tint: T.rust,
+        x: x - side * 0.44 * Math.sin(rot), y: py + 0.07,
+        z: z + side * 0.44 * Math.cos(rot),
+        w: run, h: floorH, d: 0.05, rot, uvScale: 1, tint: T.rust,
       });
     }
     nodes.push({ x, y: py + 0.07, z: z + side * 0.2 * Math.cos(rot), floor: f });

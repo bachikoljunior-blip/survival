@@ -16,7 +16,7 @@ import { Atmosphere, MOODS } from '../render/atmosphere.js';
 import { City } from '../world/city.js';
 import { buildHollisData } from '../content/world_data.js';
 import { Player, ThirdPersonCamera } from '../actors/player.js';
-import { Actor, STATE } from '../actors/actor.js';
+import { Actor, STATE, separateActors } from '../actors/actor.js';
 import { PPM } from '../world/gas.js';
 import { CombatSystem } from './combat.js';
 import { AISystem, Enemy } from './ai.js';
@@ -185,7 +185,9 @@ export class Game extends Emitter {
     });
     this.on('actor:telegraph', (a, d) => {
       // A heavy incoming attack gets an unmissable read.
-      if (this.camera && this.camera.lockTarget === a) this.camera.addShake(0.06);
+      if (!this.camera || !this.player) return;
+      const dist = Math.hypot(a.pos.x - this.player.pos.x, a.pos.z - this.player.pos.z);
+      if (dist < 14) this.camera.addShake(0.10 * (1 - dist / 14) + (this.camera.lockTarget === a ? 0.04 : 0));
       this.emit('sfx', 'telegraph', { x: a.pos.x, y: a.pos.y + 1.5, z: a.pos.z });
     });
   }
@@ -205,7 +207,11 @@ export class Game extends Emitter {
       if (fromTitle) { m.showTitle(Storage.hasSave(), __BUILD_ID__); this.setMode(MODE.TITLE); }
       else this.setMode(MODE.PLAY);
     });
-    this.on('ui:save', () => { this.director.save(); this.hud.notice('Saved.', 'good', 2.4); });
+    this.on('ui:save', () => {
+      const ok = this.director.save(true);
+      this.hud.notice(ok ? 'Saved.' : '<b>Not saved.</b> This browser is blocking storage.',
+                      ok ? 'good' : 'bad', ok ? 2.4 : 5);
+    });
     this.on('ui:useitem', (id) => { this.director.useItem(id); m.refreshInventory(); });
     this.on('ui:retry', () => this._guard(this.director.retry(), MODE.DEAD));
     this.on('ui:quit', () => this._guard(this.toTitle(), MODE.TITLE));
@@ -229,13 +235,19 @@ export class Game extends Emitter {
   }
 
   applySettings(s) {
-    this.settings = { ...DEFAULT_SETTINGS, ...s };
+    // Computed first, because `s` may BE this.settings — the settings panel
+    // writes into the live object, and replacing it here is what used to throw
+    // away every change after the first.
+    const merged = { ...DEFAULT_SETTINGS, ...s };
+    if (!this.settings) this.settings = merged;
+    else Object.assign(this.settings, merged);
     const S = this.settings;
     this.menus.settings = S;
     document.documentElement.style.setProperty('--uiscale', String(S.uiScale));
     this.input.lookSensitivity = S.lookSensitivity;
     this.input.invertY = S.invertY;
     this.input.leftHanded = S.leftHanded;
+    document.body.classList.toggle('lefthanded', !!S.leftHanded);
     this.input.autoSprint = S.autoSprint;
     if (this.camera) this.camera.sensitivity = S.lookSensitivity;
     if (S.quality === 'auto') this.engine.tierLocked = false;
@@ -380,10 +392,14 @@ export class Game extends Emitter {
     const ctx = { time: this.time, game: this };
     for (let i = 0; i < this.actors.length; i++) {
       const a = this.actors[i];
-      if (this.mode === MODE.MENU && a !== this.player) continue;
+      if (this.mode === MODE.MENU) continue;
       a.update(dt, ctx);
       this._drainEvents(a);
     }
+
+    // Push overlapping actors apart. Without it a pack occupies one point, the
+    // player walks through enemies, and a group encounter is one silhouette.
+    if (this.mode !== MODE.MENU) separateActors(this.actors, dt, this.player);
 
     if (this.systems) {
       for (const s of this.systems) {
@@ -425,7 +441,7 @@ export class Game extends Emitter {
 
     p.setMove(mag > 0.001 ? mx / Math.max(1e-4, Math.hypot(mx, mz)) * mag : 0,
               mag > 0.001 ? mz / Math.max(1e-4, Math.hypot(mx, mz)) * mag : 0, mag);
-    p.wantSprint = inp.down('sprint') && mag > 0.5 && p.stamina > 3;
+    p.wantSprint = p.sprintGate(inp.down('sprint') && mag > 0.5);
     p.crouch = inp.down('crouch') ? 1 : 0;
 
     // Combat inputs are handed to the combat system through the buffer so that
@@ -542,7 +558,7 @@ export class Game extends Emitter {
       if (box && p.state !== STATE.CLIMB) best = { kind: 'climb', label: 'Climb', prompt: 'Climb' };
     }
     p.interactTarget = best;
-    this.hud.setPrompt(best ? `<b>USE</b> &nbsp;${best.prompt || best.label || 'Interact'}` : '');
+    this.hud.setPrompt(best ? (best.prompt || best.label || 'Interact') : '', best && best.kind);
   }
 
   /**

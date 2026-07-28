@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { Game, MODE } from './game/game.js';
 import { Storage } from './game/state.js';
+import { moveActor } from './world/collision.js';
 import { Audio } from './audio/audio.js';
 
 const boot = document.getElementById('boot');
@@ -151,6 +152,9 @@ async function main() {
     engine: game.engine, input: game.input, post: game.post,
     scene: game.scene, atmos: game.atmos, city: game.city,
     stats: game.city.stats, build: __BUILD_ID__,
+    // Exposed so probes drive the real mover against the real world rather
+    // than reimplementing it and proving something else.
+    moveActor,
     startNewGame, continueGame,
     setCamera(x, y, z, yawDeg, pitchDeg) {
       const p = game.player;

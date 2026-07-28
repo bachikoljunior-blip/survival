@@ -16,7 +16,7 @@
 import * as THREE from 'three';
 import { makeSkyMaterial, worldUniforms } from './materials.js';
 import { autoExposure } from './postfx.js';
-import { emberSprite, smokeSprite } from './textures.js';
+import { emberSprite, smokeSprite, smokeAtlas } from './textures.js';
 import { clamp, clamp01, lerp, damp, TAU } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 
@@ -28,7 +28,7 @@ import { Rng } from '../core/rng.js';
  * normal-blended smoke it produces black blobs, because the sprite stays fully
  * opaque and merely turns dark. This patch adds the missing channel.
  */
-function makeInstancedSpriteMaterial(map, additive) {
+function makeInstancedSpriteMaterial(map, additive, atlas = false) {
   const mat = new THREE.MeshBasicMaterial({
     map, transparent: true, depthWrite: false, fog: false, toneMapped: false,
     side: THREE.DoubleSide,
@@ -50,8 +50,15 @@ function makeInstancedSpriteMaterial(map, additive) {
   }
   mat.onBeforeCompile = (sh) => {
     sh.vertexShader = sh.vertexShader
-      .replace('#include <common>', '#include <common>\nattribute float aAlpha;\nvarying float vAlphaCL;')
+      .replace('#include <common>', '#include <common>\nattribute float aAlpha;\nvarying float vAlphaCL;'
+        + (atlas ? '\nattribute float aCell;' : ''))
       .replace('#include <begin_vertex>', '#include <begin_vertex>\n  vAlphaCL = aAlpha;');
+    // 2x2 sprite atlas: each instance picks one of four silhouettes, so a
+    // cloud is not forty copies of the same puff.
+    if (atlas) {
+      sh.vertexShader = sh.vertexShader.replace('#include <uv_vertex>',
+        '#include <uv_vertex>\n  vMapUv = vMapUv * 0.5 + vec2(mod(aCell, 2.0) * 0.5, floor(aCell * 0.5) * 0.5);');
+    }
     // Injected at <premultiplied_alpha_fragment>, i.e. *before* dithering and
     // before anything else can touch the output. Appending after
     // <dithering_fragment> put the multiply after three.js' own premultiply
@@ -66,7 +73,7 @@ function makeInstancedSpriteMaterial(map, additive) {
   // share one compiled program; the aAlpha attribute binding is per-geometry,
   // so whichever material compiled second inherited a program whose attribute
   // layout it had never been validated against.
-  const key = `cl-sprite-${additive ? 'add' : 'norm'}-${mat.id}`;
+  const key = `cl-sprite-${additive ? 'add' : 'norm'}${atlas ? '-atlas' : ''}-${mat.id}`;
   mat.customProgramCacheKey = () => key;
   return mat;
 }
@@ -78,6 +85,11 @@ function attachAlpha(mesh, count) {
   attr.setUsage(THREE.DynamicDrawUsage);
   mesh.geometry.setAttribute('aAlpha', attr);
   mesh.userData.alphaAttr = attr;
+  // Which atlas cell each instance draws.
+  const cell = new THREE.InstancedBufferAttribute(new Float32Array(count), 1);
+  cell.setUsage(THREE.DynamicDrawUsage);
+  mesh.geometry.setAttribute('aCell', cell);
+  mesh.userData.cellAttr = cell;
   assertAlpha(mesh);
   return attr;
 }
@@ -131,7 +143,7 @@ export class Atmosphere {
     // decorative sun bolted on, and nothing in the frame has a light direction.
     // The ambient fill that a smoke ceiling really provides is carried by the
     // height fog instead, which is both cheaper and correctly distance-graded.
-    this.hemi = new THREE.HemisphereLight(0x8fabd6, 0x6a5236, 1.15);
+    this.hemi = new THREE.HemisphereLight(0x8fabd6, 0x6a5236, 1.3);
     scene.add(this.hemi);
 
     this.sun = new THREE.DirectionalLight(0xe6cea4, 2.4);
@@ -369,7 +381,7 @@ const _c2 = new THREE.Color();
  */
 export const MOODS = {
   street: {
-    hemi: 1.15, hemiSky: 0x86a6d8, hemiGround: 0x62574a,
+    hemi: 1.3, hemiSky: 0x86a6d8, hemiGround: 0x62574a,
     sun: 2.7, sunColor: 0xe6cea4, emberFill: 0.16,
     fogDensity: 0.034, fogHeight: 4.6, ember: 0.08,
     fogLow: 0x514c48, fogHigh: 0x2d3746, skyGlow: 0.34,
@@ -385,7 +397,7 @@ export const MOODS = {
   },
   // Above the smoke: rooftops. The reward for climbing is that you can see.
   high: {
-    hemi: 1.4, hemiSky: 0x9dbaea, hemiGround: 0x6e5a40,
+    hemi: 1.5, hemiSky: 0x9dbaea, hemiGround: 0x6e5a40,
     sun: 3.2, sunColor: 0xf2dfb8, emberFill: 0.05,
     fogDensity: 0.02, fogHeight: 3.0, ember: 0.06,
     fogLow: 0x584c40, fogHigh: 0x36415a, skyGlow: 0.26,
@@ -651,7 +663,7 @@ class PlumeField {
     this.perSlot = 7;
     const total = this.slots * this.perSlot;
     const geo = new THREE.PlaneGeometry(1, 1);
-    this.mat = makeInstancedSpriteMaterial(smokeSprite(128, 3), false);
+    this.mat = makeInstancedSpriteMaterial(smokeAtlas(128, 3), false, true);
     this.mesh = new THREE.InstancedMesh(geo, this.mat, total);
     this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     this.mesh.frustumCulled = false;
@@ -660,12 +672,19 @@ class PlumeField {
     this.mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(total * 3).fill(1), 3);
     this.mesh.instanceColor.setUsage(THREE.DynamicDrawUsage);
     this.alpha = attachAlpha(this.mesh, total);
+    this.cell = this.mesh.userData.cellAttr;
     this.scene.add(this.mesh);
 
     this.state = [];
     const rng = new Rng('plume');
     for (let i = 0; i < total; i++) {
-      this.state.push({ t: rng.f(), speed: rng.range(0.35, 0.75), spin: rng.sym(0.5), off: rng.sym(0.5), size: rng.range(1.2, 2.6) });
+      this.state.push({
+        t: rng.f(), speed: rng.range(0.35, 0.75), spin: rng.sym(0.5), off: rng.sym(0.5),
+        // +/- 60 per cent scale and +/- 40 per cent opacity per instance, plus
+        // one of four silhouettes. Identical puffs at identical opacity are
+        // what made this read as bokeh rather than as smoke.
+        size: rng.range(0.76, 3.0), op: rng.range(0.6, 1.4), cell: rng.int(0, 3),
+      });
     }
   }
 
@@ -712,7 +731,7 @@ class PlumeField {
         const px = a.x + st.off * spread + Math.sin(t * 4 + st.spin * 6) * spread * 0.4;
         const pz = a.z + st.spin * spread + Math.cos(t * 3.3 + st.off * 5) * spread * 0.4;
         const scale = cfg.size * st.size * (0.35 + t * 1.5);
-        const alpha = Math.sin(t * Math.PI) * cfg.opacity * fade;
+        const alpha = Math.sin(t * Math.PI) * cfg.opacity * fade * st.op;
         if (alpha < 0.01) continue;
 
         // Y-billboard for the column body, plus a clamped pitch term. A pure
@@ -733,6 +752,7 @@ class PlumeField {
         _col.setHex(cfg.color);
         this.mesh.setColorAt(inst, _col);
         this.alpha.array[inst] = alpha;
+        this.cell.array[inst] = st.cell;
         inst++;
         if (inst >= this.state.length) break;
       }
@@ -742,6 +762,7 @@ class PlumeField {
     this.mesh.instanceMatrix.needsUpdate = true;
     this.mesh.instanceColor.needsUpdate = true;
     this.alpha.needsUpdate = true;
+    this.cell.needsUpdate = true;
   }
 
   dispose() { this.scene.remove(this.mesh); this.mesh.geometry.dispose(); this.mat.dispose(); }
@@ -773,7 +794,7 @@ class BurstField {
   _make(tier) {
     this.max = Math.max(48, Math.round(tier.particleBudget * 0.4));
     const geo = new THREE.PlaneGeometry(1, 1);
-    this.mat = makeInstancedSpriteMaterial(smokeSprite(64, 9), false);
+    this.mat = makeInstancedSpriteMaterial(smokeAtlas(64, 9), false, true);
     this.mesh = new THREE.InstancedMesh(geo, this.mat, this.max);
     this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     this.mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(this.max * 3).fill(1), 3);
@@ -782,6 +803,7 @@ class BurstField {
     this.mesh.renderOrder = 22;
     this.mesh.count = 0;
     this.alpha = attachAlpha(this.mesh, this.max);
+    this.cell = this.mesh.userData.cellAttr;
     this.scene.add(this.mesh);
 
     this.parts = [];
@@ -800,6 +822,7 @@ class BurstField {
     this.meshAdd.renderOrder = 23;
     this.meshAdd.count = 0;
     this.alphaAdd = attachAlpha(this.meshAdd, this.max);
+    this.cellAdd = this.meshAdd.userData.cellAttr;
     this.scene.add(this.meshAdd);
   }
 
@@ -826,7 +849,9 @@ class BurstField {
       p.vz = (dz + rng.sym(cfg.spread)) * spd;
       p.maxLife = cfg.life * rng.range(0.7, 1.3);
       p.life = p.maxLife;
-      p.size = cfg.size * scale * rng.range(0.7, 1.35);
+      p.size = cfg.size * scale * rng.range(0.55, 1.7);
+      p.op = rng.range(0.6, 1.4);
+      p.cell = rng.int(0, 3);
       p.grow = cfg.grow;
       p.color = Array.isArray(cfg.color) ? cfg.color[rng.int(0, cfg.color.length - 1)] : cfg.color;
       p.grav = cfg.grav;
@@ -854,7 +879,7 @@ class BurstField {
 
       const t = 1 - p.life / p.maxLife;
       const size = p.size * (1 + t * p.grow);
-      const alpha = Math.sin((1 - t) * Math.PI * 0.5);
+      const alpha = Math.sin((1 - t) * Math.PI * 0.5) * (p.op ?? 1);
 
       _m.makeRotationFromQuaternion(_q);
       _m.scale(_v3.set(size, size, size));
@@ -863,12 +888,12 @@ class BurstField {
       if (p.add) {
         if (na < this.max) {
           this.meshAdd.setMatrixAt(na, _m); this.meshAdd.setColorAt(na, _col);
-          this.alphaAdd.array[na] = alpha; na++;
+          this.alphaAdd.array[na] = alpha; this.cellAdd.array[na] = p.cell ?? 0; na++;
         }
       } else {
         if (n < this.max) {
           this.mesh.setMatrixAt(n, _m); this.mesh.setColorAt(n, _col);
-          this.alpha.array[n] = alpha; n++;
+          this.alpha.array[n] = alpha; this.cell.array[n] = p.cell ?? 0; n++;
         }
       }
     }
@@ -880,6 +905,8 @@ class BurstField {
     this.meshAdd.instanceColor.needsUpdate = true;
     this.alpha.needsUpdate = true;
     this.alphaAdd.needsUpdate = true;
+    this.cell.needsUpdate = true;
+    this.cellAdd.needsUpdate = true;
   }
 
   dispose() {

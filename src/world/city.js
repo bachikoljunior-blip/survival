@@ -338,29 +338,46 @@ export class City {
       switch (st.kind) {
         case 'fireescape': {
           const nodes = P.fireEscape(cb, st.x, st.y ?? 3.4, st.z, st.rot || 0, st.floors || 3, srng, { floorH: st.floorH || 3.4, side: st.side ?? 1 });
-          // Platforms and the ladder are climbable/standable.
+          // Platforms and the ladder are climbable/standable. `nodes` already
+          // carry the outward shift the builder applied.
           for (const n of nodes) {
             this.solid(n.x, n.y - 0.07, n.z, st.width || 1.5, 0.08, 1.15, st.rot || 0, LAYER.PLATFORM, 'escape');
           }
-          // The stair flights: a ramp approximated by a stack of thin platforms.
+          // Stair flights, matching the geometry exactly. Both the outward
+          // shift and the 3.6m run come from props.js so the two cannot drift.
           const fh = st.floorH || 3.4;
+          const rot = st.rot || 0;
+          const side = st.side ?? 1;
+          const ex = st.x - side * P.ESCAPE_OUT * Math.sin(rot);
+          const ez = st.z + side * P.ESCAPE_OUT * Math.cos(rot);
           for (let f = 0; f < (st.floors || 3) - 1; f++) {
             const dir = f % 2 === 0 ? 1 : -1;
-            for (let s2 = 0; s2 < 9; s2++) {
-              const t = (s2 + 0.5) / 9;
-              const ox = dir * (t - 0.5) * (st.width || 1.5) * 0.92;
-              const rot = st.rot || 0;
-              const side = st.side ?? 1;
+            for (let s2 = 0; s2 < P.ESCAPE_STEPS; s2++) {
+              const t = (s2 + 0.5) / P.ESCAPE_STEPS;
+              const ox = dir * (t - 0.5) * P.ESCAPE_RUN;
               this.solid(
-                st.x + ox * Math.cos(rot) - side * (0.1 + t * 0.42) * Math.sin(rot),
-                (st.y ?? 3.4) + f * fh + t * fh - 0.06,
-                st.z + ox * Math.sin(rot) + side * (0.1 + t * 0.42) * Math.cos(rot),
-                (st.width || 1.5) / 9 * 1.1, 0.08, 0.55, rot, LAYER.PLATFORM, 'stair');
+                ex + ox * Math.cos(rot),
+                (st.y ?? 3.4) + f * fh + t * (fh - 0.07) + 0.01,
+                ez + ox * Math.sin(rot),
+                P.ESCAPE_RUN / P.ESCAPE_STEPS * 0.94, 0.08, 0.92, rot, LAYER.PLATFORM, 'stair');
             }
           }
+          // Each flight also gets a CLIMB volume over its whole run.
+          //
+          // The treads are correctly spaced now (0.40m of run per 0.37m of
+          // rise, against a 0.42m step and a 0.34m body), and they hold you up
+          // if you are standing on them — but walking a 45-degree flight with
+          // a capsule and a step-up is fragile in a way a vertical route
+          // through the city cannot afford to be. A fire escape at this pitch
+          // is something you go up hand-over-hand anyway, so it is a climb
+          // volume, like the drop ladder it hangs off.
+          for (let f = 0; f < (st.floors || 3) - 1; f++) {
+            this.collision.add(new Box(ex, (st.y ?? 3.4) + f * fh, ez,
+              P.ESCAPE_RUN, fh, 1.0, rot, LAYER.CLIMB, 'ladder'));
+          }
           // Drop ladder volume.
-          this.collision.add(new Box(st.x, 0, st.z + (st.side ?? 1) * 0.5 * Math.cos(st.rot || 0),
-            0.9, st.y ?? 3.4, 0.7, st.rot || 0, LAYER.CLIMB, 'ladder'));
+          this.collision.add(new Box(ex, 0, ez + side * 0.5 * Math.cos(rot),
+            0.9, st.y ?? 3.4, 0.7, rot, LAYER.CLIMB, 'ladder'));
           break;
         }
         case 'ladder': {

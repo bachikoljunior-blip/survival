@@ -1303,6 +1303,7 @@ she has been able to get to telling somebody.`],
     await g.menus.fadeOut(true);
     g.menus.showEnding({ ...ending, text: body.join('\n\n') }, paras);
     Storage.save(S, g.player, { completed: true });
+    await g.menus.fadeIn(true);
   }
 
   // ------------------------------------------------------------------ tick

@@ -61,7 +61,7 @@ export class PostFX {
       exposure: 1.05,
       // Contrast now has real work to do: the lift no longer flattens the
       // bottom of the range, so the curve has somewhere to separate into.
-      contrast: 1.26,
+      contrast: 1.30,
       pivot: 0.38,
       saturation: 1.06,
       // LINEAR-SPACE grade, applied BEFORE the tonemap.
@@ -73,7 +73,7 @@ export class PostFX {
       // of twelve levels out of 255. Expressed in linear and fed through ACES,
       // the same warmth costs about four display levels instead of twenty-two,
       // and the tonemap gets to do its job on a signal that still has a toe.
-      offset: new THREE.Color(0.0040, 0.0028, 0.0018),
+      offset: new THREE.Color(0.0062, 0.0044, 0.0029),
       gain: new THREE.Color(1.020, 1.000, 0.958),
       bloomStrength: 0.62,
       bloomThreshold: 0.78,

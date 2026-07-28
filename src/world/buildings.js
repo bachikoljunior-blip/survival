@@ -24,6 +24,39 @@ const T = {
   glassLit: [1, 1, 1],
 };
 
+/**
+ * Per-building colour identity.
+ *
+ * Every brick building shared T.brick = [1,1,1] and every concrete one shared
+ * T.concrete = [1,1,1], so a terrace of six was six copies of one wall and the
+ * eye had nothing to separate neighbours with. A seeded hue and value jitter
+ * gives each address its own batch of bricks — which is what real streets look
+ * like, because they were not all fired in the same kiln in the same week.
+ *
+ * Seeded from the building spec so it is stable across chunk rebuilds.
+ */
+function buildingTint(base, b, spread = 1) {
+  const id = `${b.id ?? ''}|${b.x}|${b.z}|${b.style ?? 'row'}`;
+  let h = 0x811c9dc5;
+  for (let i = 0; i < id.length; i++) { h ^= id.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+  const f = (k) => (((h >>> (k * 8)) & 255) / 255 - 0.5) * 2;   // -1..1, decorrelated
+  const val = 1 + f(0) * 0.12 * spread;          // +/- 12 % value
+  const warm = f(1) * 0.08 * spread;             // +/- 8 % hue, warm <-> cool
+  return [
+    clamp01(base[0] * val * (1 + warm)),
+    clamp01(base[1] * val),
+    clamp01(base[2] * val * (1 - warm)),
+  ];
+}
+
+/** Deterministic 0..1 from the same building identity, for structural choices. */
+function buildingRoll(b, salt) {
+  const id = `${b.id ?? ''}|${b.x}|${b.z}|${salt}`;
+  let h = 0x811c9dc5;
+  for (let i = 0; i < id.length; i++) { h ^= id.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+  return (h >>> 8) / 0xffffff;
+}
+
 /** Window treatments, chosen per-opening. */
 const WIN = { OPEN: 0, GLASS: 1, BOARDED: 2, BROKEN: 3, LIT: 4, CURTAIN: 5 };
 
@@ -221,15 +254,25 @@ STYLES.row = (cb, b, rng, out) => {
   const fh = b.floorH ?? 3.3;
   const h = floors * fh;
   const key = b.mat || 'brick';
+  const tint = buildingTint(T.brick, b);
 
-  cb.m(key).boxRot({ x, y: 0, z, w, h, d, rot, uvScale: 0.42, tint: T.brick, ao: 0.5, aoTop: 0.1, faces: FACE.NOBOTTOM });
+  cb.m(key).boxRot({ x, y: 0, z, w, h, d, rot, uvScale: 0.42, tint, ao: 0.5, aoTop: 0.1, faces: FACE.NOBOTTOM });
   out.aabbs.push({ x, z, w, d, y0: 0, y1: h, rot });
 
   // Plinth
   cb.m('concrete').boxRot({ x, y: 0, z, w: w + 0.16, h: 0.5, d: d + 0.16, rot, uvScale: 0.7, tint: [0.72, 0.7, 0.66], ao: 0.6 });
+  // String courses at one or two floors rather than none or all: a band at
+  // every floor is a grid, a band at the second and fifth is a building.
+  for (let f = 2; f < floors; f++) {
+    if (buildingRoll(b, `course${f}`) > 0.26) continue;
+    cb.m('concrete').boxRot({
+      x, y: f * fh - 0.24, z, w: w + 0.18, h: 0.16, d: d + 0.18, rot,
+      uvScale: 1.1, tint: T.trim, ao: 0.25,
+    });
+  }
   // Cornice + parapet
   cb.m('concrete').boxRot({ x, y: h - 0.22, z, w: w + 0.34, h: 0.28, d: d + 0.34, rot, uvScale: 0.7, tint: T.trim, ao: 0.1 });
-  cb.m(key).boxRot({ x, y: h + 0.06, z, w: w + 0.1, h: b.parapet ?? 0.85, d: d + 0.1, rot, uvScale: 0.6, tint: T.brick, ao: 0.2 });
+  cb.m(key).boxRot({ x, y: h + 0.06, z, w: w + 0.1, h: b.parapet ?? 0.85, d: d + 0.1, rot, uvScale: 0.6, tint, ao: 0.2 });
   cb.m('concrete').boxRot({ x, y: h + 0.06 + (b.parapet ?? 0.85), z, w: w + 0.2, h: 0.1, d: d + 0.2, rot, uvScale: 0.8, tint: T.trim });
   // Roof deck (asphalt felt)
   cb.m('asphalt').boxRot({ x, y: h, z, w: w - 0.05, h: 0.06, d: d - 0.05, rot, uvScale: 0.5, tint: [0.82, 0.8, 0.78] });
@@ -248,7 +291,8 @@ STYLES.slab = (cb, b, rng, out) => {
   const fh = b.floorH ?? 2.85;
   const h = floors * fh;
 
-  cb.m('concrete').boxRot({ x, y: 0, z, w, h, d, rot, uvScale: 0.32, tint: T.panel, ao: 0.45, aoTop: 0.1, faces: FACE.NOBOTTOM });
+  const tint = buildingTint(T.panel, b);
+  cb.m('concrete').boxRot({ x, y: 0, z, w, h, d, rot, uvScale: 0.32, tint, ao: 0.45, aoTop: 0.1, faces: FACE.NOBOTTOM });
   out.aabbs.push({ x, z, w, d, y0: 0, y1: h, rot });
 
   // Panel joints: the horizontal banding that defines this typology.
@@ -282,9 +326,10 @@ STYLES.works = (cb, b, rng, out) => {
   const { x, z, w, d, rot = 0 } = b;
   const h = b.h ?? 8.5;
 
-  cb.m('corrugated').boxRot({ x, y: 1.4, z, w, h: h - 1.4, d, rot, uvScale: 0.4, tint: [0.95, 0.94, 0.92], ao: 0.3, faces: FACE.SIDES });
+  const tint = buildingTint([0.95, 0.94, 0.92], b);
+  cb.m('corrugated').boxRot({ x, y: 1.4, z, w, h: h - 1.4, d, rot, uvScale: 0.4, tint, ao: 0.3, faces: FACE.SIDES });
   // Brick base course — cheaper to build, and it grounds the mass.
-  cb.m('brick').boxRot({ x, y: 0, z, w: w + 0.08, h: 1.5, d: d + 0.08, rot, uvScale: 0.55, tint: T.brick, ao: 0.55 });
+  cb.m('brick').boxRot({ x, y: 0, z, w: w + 0.08, h: 1.5, d: d + 0.08, rot, uvScale: 0.55, tint: buildingTint(T.brick, b), ao: 0.55 });
   out.aabbs.push({ x, z, w, d, y0: 0, y1: h, rot });
 
   // Sawtooth roof: north-light glazing, the signature of a real works.
@@ -334,11 +379,13 @@ STYLES.civic = (cb, b, rng, out) => {
   const fh = b.floorH ?? 3.6;
   const h = floors * fh;
 
-  cb.m('concrete').boxRot({ x, y: 0, z, w, h, d, rot, uvScale: 0.36, tint: [1, 1, 1], ao: 0.45, aoTop: 0.1, faces: FACE.NOBOTTOM });
+  const tint = buildingTint(T.concrete, b);
+  cb.m('concrete').boxRot({ x, y: 0, z, w, h, d, rot, uvScale: 0.36, tint, ao: 0.45, aoTop: 0.1, faces: FACE.NOBOTTOM });
   out.aabbs.push({ x, z, w, d, y0: 0, y1: h, rot });
 
   cb.m('concrete').boxRot({ x, y: 0, z, w: w + 0.4, h: 1.1, d: d + 0.4, rot, uvScale: 0.55, tint: [0.78, 0.77, 0.74], ao: 0.55 });
   for (let f = 1; f < floors; f++) {
+    if (f > 1 && buildingRoll(b, `civic${f}`) > 0.45) continue;
     cb.m('concrete').boxRot({ x, y: f * fh - 0.1, z, w: w + 0.22, h: 0.34, d: d + 0.22, rot, uvScale: 0.9, tint: [0.88, 0.87, 0.84], ao: 0.2 });
   }
   cb.m('concrete').boxRot({ x, y: h - 0.1, z, w: w + 0.5, h: 0.42, d: d + 0.5, rot, uvScale: 0.7, tint: [0.82, 0.81, 0.78], ao: 0.05 });
@@ -387,10 +434,24 @@ function facadeGrid(cb, b, rng, out, cfg) {
     if (bays < 1) continue;
     const step = (faceLen - 0.9) / bays;
 
+    // Occasional double-width bay: one opening in the run is a wide window or
+    // a pair sharing a mullion. A perfectly uniform step is the single loudest
+    // signal that a facade was generated rather than built.
+    const wideBay = buildingRoll(b, `wide${side}`) < 0.42
+      ? 1 + Math.floor(buildingRoll(b, `widei${side}`) * Math.max(1, bays - 1))
+      : -1;
+
     for (let f = 0; f < floors; f++) {
       const isGround = f === 0 && yOffset === null;
-      if (skipGround && isGround && yOffset === null) { /* handled by yOffset */ }
       const baseY = yOffset !== null ? yOffset : f * fh;
+
+      // One floor in six gets a single treatment across the whole run — all
+      // boarded, or all lit. That is what breaks a checkerboard into readable
+      // clusters: a dead floor, an occupied floor, a floor nobody has been on
+      // in a year.
+      const special = f > 0 && buildingRoll(b, `floor${f}`) < 0.17
+        ? (buildingRoll(b, `floorkind${f}`) < 0.62 ? WIN.BOARDED : WIN.LIT)
+        : null;
 
       if (isGround && groundShop) {
         // One wide shopfront rather than punched windows.
@@ -414,10 +475,13 @@ function facadeGrid(cb, b, rng, out, cfg) {
       }
 
       for (let i = 0; i < bays; i++) {
-        const ox = (i + 0.5) * step - (faceLen - 0.9) / 2;
+        if (i === wideBay + 1 && wideBay >= 0) continue;   // swallowed by the wide bay
+        const wide = i === wideBay;
+        const ox = (i + (wide ? 1.0 : 0.5)) * step - (faceLen - 0.9) / 2;
         const cy = baseY + (fh - winH) * 0.5 + 0.1;
-        const kind = chooseWindow(rng, { litChance, boardChance: b.boarded ?? 0.18 });
-        const lit = window_(cb, fx + tx * ox, cy, fz + tz * ox, winW, winH, nx, nz, kind, rng);
+        const kind = special ?? chooseWindow(rng, { litChance, boardChance: b.boarded ?? 0.18 });
+        const lit = window_(cb, fx + tx * ox, cy, fz + tz * ox,
+          wide ? winW + step * 0.85 : winW, winH, nx, nz, kind, rng);
         if (lit) out.lights.push({ ...lit, kind: 'window' });
 
         if (balconies && f > 0 && i % 2 === 0) {
