@@ -92,17 +92,22 @@
 
 上表で「自動検証 = 可」とした項目のうち、まだ実装されていない検証スクリプトを以下に列挙する。**このリストが空になるまで、該当ゲートの自動検証は「未実装」であり、通過の根拠にできない。**
 
+**この表は `node tools/check_done_table.mjs` が機械的に検査する。** 「実装済み」と書いたファイルが存在しないこと、および「未実装」と書いたファイルが存在することの**両方**を失敗として扱う。
+
+後者を失敗にするのが重要である。この表は一度、実在する3つのファイルを「未実装」「未作成」と記載したまま放置され、独立批評2件（`gate-a-narrative.md` N-13、`gate-a-scope.md` S-11）に同時に指摘された。**DONE.md 冒頭の規定により、この表が「未実装」と書いている限りその自動検証は通過の根拠にできない。つまり陳腐化した表はゲート判定の土台を侵す。**
+
 | スクリプト | 用途 | 状況 |
 |---|---|---|
-| `tools/validate.mjs` | 物語グラフ・世界データの静的検証（C3/D4/D5 の一部） | 実装済み（既存資産から継承） |
-| `tools/playthrough.mjs` | 実ビルド通しプレイ（C1/C3/D3/D4） | 実装済み（既存資産から継承） |
-| `tools/perf.mjs` | 端末非依存コスト計測（B4/D8） | 実装済み（既存資産から継承）。スロットリング付きシナリオ計測は未実装 |
-| `tools/check_scope.mjs` | A6 / C2 | **未実装** |
-| `tools/check_reviews.mjs` | A7 / B5 / D1 / D2 | **未実装** |
+| `tools/validate.mjs` | 物語グラフ・世界データの静的検証（C3/D4/D5 の一部） | 実装済み |
+| `tools/playthrough.mjs` | 実ビルド通しプレイ（C1/C3/D3/D4） | 実装済み。**ただし移動をテレポートし、プレイヤーをガス免疫にし、戦闘を直接ダメージで解決するため、検証しているのは物語グラフの到達性のみ**（`docs/bible.md` IMP-06） |
+| `tools/perf.mjs` | 端末非依存コスト計測（B4/D8） | 実装済み。スロットリング付きシナリオ計測と `render()` を含むフレーム時間計測は未実装 |
+| `tools/check_scope.mjs` | A6 / C2 | 実装済み（`--against-content` で実コンテンツと突合） |
+| `tools/check_reviews.mjs` | A7 / B5 / D1 / D2 | 実装済み |
+| `tools/check_done_table.mjs` | この表自身の検査 | 実装済み |
+| `docs/device-test-checklist.md` | ALL_DONE 条件4 | 作成済み（**実施回数 0**） |
 | `tools/check_placeholders.mjs` | C4 | **未実装** |
 | `tools/check_console.mjs` | D6 | **未実装** |
 | `tools/check_honesty.mjs` | D8 | **未実装** |
 | `tools/check_licenses.mjs` | D9 | **未実装** |
-| `docs/device-test-checklist.md` | ALL_DONE 条件4 | **未作成** |
 
-Gate A の判定に必要なのは `check_scope.mjs` と `check_reviews.mjs` の2本のみ。残りは Gate C / D の判定までに用意する。
+Gate A の判定に必要なのは `check_scope.mjs` と `check_reviews.mjs` の2本で、どちらも実装済みである。残りは Gate C / D の判定までに用意する。

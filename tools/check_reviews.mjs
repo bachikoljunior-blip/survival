@@ -102,7 +102,10 @@ if (!existsSync(REVIEWS)) {
 
     for (const line of src.split('\n')) {
       if (!line.trim().startsWith('|')) continue;
-      const c = line.split('|').map((x) => x.trim());
+      // Markdown ではセル内の `\|` はリテラルのパイプ。素朴に split すると
+      // `grep 'a\|b'` のような証拠を書いた行で列がずれ、推奨対応の文章が
+      // 状態列として読まれる。実際にそれで2件を誤判定した。
+      const c = line.split(/(?<!\\)\|/).map((x) => x.replace(/\\\|/g, '|').trim());
       if (c.length < 9) continue; // ID..状態 の7列 + 前後の空 = 9
       const [, id, sev, desc, where, evidence, action, status] = c;
       if (!SEVERITIES.has(sev.toLowerCase())) continue; // ヘッダ行・区切り行

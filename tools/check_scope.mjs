@@ -107,12 +107,96 @@ console.log('─'.repeat(58));
 
 if (AGAINST_CONTENT) {
   // Gate C2: バイブルの数値と実コンテンツの実測を突き合わせる。
-  // 実測は tools/validate.mjs が持っているカウントを再利用する。
+  //
+  // 数字が書いてあるかだけの検査は、書いてある数字が間違っていることを
+  // 捕捉できない。実際、エリア数は「15（屋外9）」と誤記され、根拠として
+  // region を一切出力しない validate.mjs が挙げられていた。人手で気づく
+  // までそのままだった。
+  //
+  // 敵アーキタイプは **定義された数ではなく本編で spawn される数** も
+  // 数える。定義だけ数えると「5種あるが2種は本編に出ない」を見逃す。
+  const { readFileSync } = await import('node:fs');
+  const story = await import('../src/content/story.js');
+  const wd = await import('../src/content/world_data.js');
+
+  const buildWorld = wd.buildWorldData || wd.default ||
+    Object.values(wd).find((v) => typeof v === 'function');
+  const world = buildWorld();
+
+  const aiSrc = readFileSync(join(ROOT, 'src', 'game', 'ai.js'), 'utf8');
+  const dirSrc = readFileSync(join(ROOT, 'src', 'game', 'director.js'), 'utf8');
+
+  // ARCHETYPES の定義キー
+  const archBlock = aiSrc.slice(aiSrc.indexOf('ARCHETYPES'));
+  const defined = new Set(
+    [...archBlock.slice(0, archBlock.indexOf('\n};')).matchAll(/^\s{2}(\w+):\s*\{/gm)]
+      .map((m) => m[1])
+  );
+
+  // _spawnRaid(..., [['kind', x, z], ...]) から本編配置を数える
+  const placed = new Map();
+  for (const m of dirSrc.matchAll(/\[\s*'(\w+)'\s*,\s*-?[\d.]+\s*,\s*-?[\d.]+\s*\]/g)) {
+    if (defined.has(m[1])) placed.set(m[1], (placed.get(m[1]) || 0) + 1);
+  }
+
+  const nodes = Object.values(story.CONVERSATIONS)
+    .reduce((n, c) => n + Object.keys(c.nodes || {}).length, 0);
+  const steps = Object.values(story.QUESTS)
+    .reduce((n, q) => n + (q.steps || []).length, 0);
+
+  const actual = {
+    'エリア数': [
+      world.regions.length + world.interiors.length,
+      world.regions.length,
+      world.interiors.length,
+    ],
+    'クエスト数': [Object.keys(story.QUESTS).length, steps],
+    'エンディング数': [
+      Object.keys(story.ENDINGS).length,
+      (story.EPILOGUE_BEATS || []).length,
+    ],
+    '敵アーキタイプ数': [defined.size, placed.size],
+    // 総語数は validate.mjs が別のアルゴリズムで数えるので、ここでは
+    // ノード数と会話数だけを突き合わせる（記載側の3つ目は比較しない）。
+    '対話ノード数': [nodes, Object.keys(story.CONVERSATIONS).length],
+  };
+
   console.log('');
-  console.log('※ --against-content は Gate C の判定用。');
-  console.log('   実コンテンツ側のカウンタ結線は Gate B 完了後に実装する。');
-  console.log('   現時点では未実装のため、この経路は成功を返さない。');
-  process.exit(2);
+  console.log('実コンテンツとの突合 (Gate C2)');
+  console.log('─'.repeat(58));
+
+  const mismatches = [];
+  for (const [key, want] of Object.entries(actual)) {
+    if (!want) continue;
+    const cell = found.get(key);
+    if (!cell) { mismatches.push(`${key}: バイブルに行が無い`); continue; }
+    const got = [...cell.matchAll(/\d+/g)].map((m) => Number(m[0]));
+    const cmp = want.map((w, i) => (got[i] === w ? 'ok' : 'NG'));
+    const bad = cmp.includes('NG');
+    console.log(`  ${bad ? 'NG' : 'ok'}  ${key.padEnd(18, '　')} 記載 [${got.join(', ')}] / 実測 [${want.join(', ')}]`);
+    if (bad) mismatches.push(`${key}: 記載 [${got.join(', ')}] ≠ 実測 [${want.join(', ')}]`);
+  }
+
+  console.log(`  --  想定プレイ時間　　　 未計測のため突合できない`);
+  console.log('─'.repeat(58));
+  console.log(`  敵アーキタイプ 定義: ${[...defined].join(', ')}`);
+  console.log(`  敵アーキタイプ 本編配置: ${[...placed].map(([k, v]) => `${k}×${v}`).join(', ')}`);
+  const unplaced = [...defined].filter((d) => !placed.has(d));
+  if (unplaced.length) {
+    console.log(`  **本編に配置されていないアーキタイプ: ${unplaced.join(', ')}**`);
+  }
+
+  if (mismatches.length || errors.length) {
+    console.log('');
+    for (const e of errors) console.log(`  ✗ ${e}`);
+    for (const m of mismatches) console.log(`  ✗ ${m}`);
+    console.log('');
+    console.log('実コンテンツ突合 失敗');
+    process.exit(1);
+  }
+  console.log('');
+  console.log('実コンテンツ突合 OK');
+  process.exit(0);
 }
 
 if (errors.length) {
