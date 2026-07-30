@@ -1,0 +1,35 @@
+{
+  "name": "cinderline",
+  "version": "1.0.0",
+  "description": "CINDERLINE — a survival action RPG in a city built over a fire that will not go out.",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --serve",
+    "watch": "node build.mjs --watch",
+    "validate": "node tools/validate.mjs",
+    "test": "node build.mjs --dev && node tools/validate.mjs && node tools/playthrough.mjs && node tools/perf.mjs",
+    "test:content": "node tools/validate.mjs",
+    "test:play": "node build.mjs --dev && node tools/playthrough.mjs",
+    "test:perf": "node build.mjs && node tools/perf.mjs",
+    "shots": "node build.mjs --dev && node tools/vantage.mjs",
+    "i18n": "node tools/i18n_report.mjs ja && node tools/i18n_glossary.mjs ja",
+    "test:play:ja": "node build.mjs --dev && node tools/playthrough.mjs --lang ja"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:41729/git/bachikoljunior-blip/survival"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "playwright": "^1.56.0"
+  },
+  "type": "module",
+  "private": true
+}
