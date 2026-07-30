@@ -52,6 +52,17 @@ const SEVERITIES = new Set(['blocker', 'critical', 'high', 'medium', 'low']);
 const RESOLVED = new Set(['解決済', '対応不要', '却下']);
 const UNRESOLVED = new Set(['未解決', '対応中']);
 
+/**
+ * 状態列は「解決済 — どう解決したかの説明」の形を許す。
+ *
+ * 説明は残したいが、状態は機械的に判定できなければならない。そこで区切り
+ * (— または -) より前だけを状態語として扱い、そこは列挙値との完全一致を
+ * 要求する。「たぶん直った」のような自由記述は通らない。
+ */
+function statusWord(cell) {
+  return cell.split(/\s+[—–-]\s+/)[0].trim();
+}
+
 const errors = [];
 const findings = [];
 let reviewCount = 0;
@@ -96,7 +107,10 @@ if (!existsSync(REVIEWS)) {
       const [, id, sev, desc, where, evidence, action, status] = c;
       if (!SEVERITIES.has(sev.toLowerCase())) continue; // ヘッダ行・区切り行
 
-      const f = { file, id, sev: sev.toLowerCase(), desc, where, evidence, action, status };
+      const f = {
+        file, id, sev: sev.toLowerCase(), desc, where, evidence, action,
+        status: statusWord(status), statusFull: status,
+      };
       findings.push(f);
 
       if (!id) errors.push(`${file}: ID の無い指摘がある`);
@@ -104,10 +118,11 @@ if (!existsSync(REVIEWS)) {
       if (!where) errors.push(`${file} ${id}: 対象箇所が空 (§15)`);
       if (!evidence) errors.push(`${file} ${id}: 証拠・再現手順が空 (§15 — 根拠なき批評は無効)`);
       if (!action) errors.push(`${file} ${id}: 推奨対応が空 (§15)`);
-      if (!RESOLVED.has(status) && !UNRESOLVED.has(status)) {
+      if (!RESOLVED.has(f.status) && !UNRESOLVED.has(f.status)) {
         errors.push(
-          `${file} ${id}: 状態 "${status}" が不正。` +
-            `${[...RESOLVED, ...UNRESOLVED].join(' / ')} のいずれかにすること`
+          `${file} ${id}: 状態 "${f.status}" が不正。` +
+            `${[...RESOLVED, ...UNRESOLVED].join(' / ')} のいずれかにすること` +
+            `（「解決済 — 説明」の形は可）`
         );
       }
     }
