@@ -142,6 +142,7 @@ jobs:
 
       # ------------------------------------------------------------------- PR
       - name: Open pull request
+        id: pr
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -153,17 +154,65 @@ jobs:
             exit 0
           fi
 
-          existing=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number' 2>/dev/null || true)
-          if [ -n "$existing" ]; then
-            echo "既に PR #$existing が開いている。何もしない。"
-            exit 0
+          num=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$num" ] && [ "$num" != "null" ]; then
+            echo "既に PR #$num が開いている。作成はしない。"
+          else
+            if gh pr create --fill --base "${{ github.event.repository.default_branch }}" --head "$BRANCH"; then
+              num=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' 2>/dev/null || true)
+              echo "PR #$num を作成した。"
+            else
+              echo "PR を作成しなかった（ベースとの差分が無い可能性）。ワークフローは失敗させない。"
+              num=""
+            fi
           fi
 
-          if gh pr create --fill --base "${{ github.event.repository.default_branch }}" --head "$BRANCH"; then
-            echo "PR を作成した。"
-          else
-            echo "PR を作成しなかった（ベースとの差分が無い可能性）。ワークフローは失敗させない。"
-          fi
+          [ "$num" = "null" ] && num=""
+          echo "number=$num" >> "$GITHUB_OUTPUT"
+
+      # ----------------------------------------------------------------- Merge
+      #
+      # 連鎖の前にマージしなければならない。
+      #
+      # 次の実行は `gh workflow run` が既定ブランチ基準で走るため、**既定ブランチを
+      # チェックアウトする**。この実行の成果が PR に留まったままだと、次の実行は
+      # 更新前の docs/STATE.md を読み、まったく同じ「次の3アクション」をやり直す。
+      # 作業が一切積み上がらないまま chain 上限まで回ることになる。
+      #
+      # マージには AUTOPILOT_PAT を使う。GITHUB_TOKEN による push は他のワークフローを
+      # 起動しないため、Pages のデプロイが走らなくなる。
+      - name: Merge pull request
+        id: merge
+        if: success() && steps.pr.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ secrets.AUTOPILOT_PAT }}
+          PR: ${{ steps.pr.outputs.number }}
+        run: |
+          set -uo pipefail
+
+          # --auto はブランチ保護があるリポジトリで、直接マージは auto-merge が
+          # 無効なリポジトリで通る。両方試して、どちらかが通ればよい。
+          gh pr merge "$PR" --squash --auto --delete-branch \
+            || gh pr merge "$PR" --squash --delete-branch \
+            || echo "マージ要求は通らなかった。状態をポーリングして確認する。"
+
+          deadline=$(( $(date +%s) + 600 ))
+          while [ "$(date +%s)" -lt "$deadline" ]; do
+            st=$(gh pr view "$PR" --json state --jq .state 2>/dev/null || echo '')
+            case "$st" in
+              MERGED)
+                echo "merged=true" >> "$GITHUB_OUTPUT"
+                echo "PR #$PR をマージした。次の実行は最新の既定ブランチから始まる。"
+                exit 0 ;;
+              CLOSED)
+                echo "PR #$PR は閉じられた。マージしていない。"
+                exit 0 ;;
+            esac
+            sleep 15
+          done
+
+          echo "10分待っても PR #$PR がマージされなかった（必須チェック待ち、"
+          echo "コンフリクト、レビュー必須などの可能性）。連鎖はしない。"
 
       # ----------------------------------------------------------------- Chain
       - name: Chain next run
@@ -171,18 +220,28 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.AUTOPILOT_PAT }}
           CHAIN: ${{ inputs.chain }}
+          MERGED: ${{ steps.merge.outputs.merged }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -uo pipefail
 
-          # 停止条件は「この実行が積み上げた最新の成果」に対して判定する。
-          # Round が push した内容はローカルの作業ツリーに反映されていないので、
-          # ブランチが存在すればそちらを見る。
-          git fetch origin "$BRANCH" >/dev/null 2>&1 || true
-          if git rev-parse --verify "origin/$BRANCH" >/dev/null 2>&1; then
-            REF="origin/$BRANCH"
-          else
-            REF="HEAD"
+          # --- 停止条件 0: マージが成立していない ---
+          #
+          # 次の実行は既定ブランチをチェックアウトする。マージされていなければ
+          # 次の実行が読む docs/STATE.md はこの実行より前のもので、まったく同じ
+          # 3アクションをやり直すだけになる。**進まない連鎖は回さない。**
+          if [ "${MERGED:-}" != "true" ]; then
+            echo "停止: この実行の成果が既定ブランチにマージされていない。"
+            echo "      連鎖しても次の実行は同じ STATE.md を読み、同じ作業を繰り返す。"
+            echo "      PR を確認してマージし、必要なら手動で再開すること。"
+            exit 0
           fi
+
+          # 停止条件は「次の実行が実際に読むもの」に対して判定する。
+          # 次の実行は既定ブランチをチェックアウトするので、そこを見る。
+          git fetch origin "$DEFAULT_BRANCH" >/dev/null 2>&1 || true
+          REF="origin/$DEFAULT_BRANCH"
+          git rev-parse --verify "$REF" >/dev/null 2>&1 || REF="HEAD"
           echo "判定対象: $REF"
 
           # --- 停止条件 1: 緊急ブレーキ ---
