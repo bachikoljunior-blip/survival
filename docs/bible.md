@@ -146,17 +146,18 @@
 
 **1つの連続した地区。大都市ではない。** 広さを密度に交換している（§4）。
 
-| リージョン | 性格 |
+屋外リージョンは **8**（`src/content/world_data.js` の `regions` 配列を実行して確認）。
+
+| リージョン id | 性格 |
 |---|---|
-| The Stacks | ソルの拠点。発電機と勤務表で保たれている生活圏。相対的な安全 |
-| Stacks Courtyard | その中庭 |
-| Marrow Arcade 周辺 | テオのフィルター交換所 |
-| South Marrow | 無人。空虚の手触りを担当する |
-| The Cut | 公社側。音楽と雰囲気が変わる |
-| Vent Field 9 | 噴気孔群。最も危険 |
-| Cinder Road | 領域間の移行路 |
-| The Slip | 9m の陥没孔。垂直性の中心 |
-| West Heads | ソルが孔頭を割ってガスを自分の街区から引いている場所 |
+| `stacks` | ソルの拠点。発電機と勤務表で保たれている生活圏。相対的な安全 |
+| `yard` | その中庭 |
+| `southmarrow` | 無人。空虚の手触りを担当する |
+| `cut` | 公社側。音楽と雰囲気が変わる |
+| `ventfield` | 噴気孔群。最も危険 |
+| `cinderroad` | 領域間の移行路 |
+| `slip` | 9m の陥没孔。垂直性の中心 |
+| `westheads` | ソルが孔頭を割ってガスを自分の街区から引いている場所 |
 
 屋内 6箇所。フェードと転送で入る（**継ぎ目のない接続ではない。既知の限界**）。
 
@@ -353,7 +354,7 @@
 
 | 項目 | 数値 | 根拠 |
 |---|---|---|
-| エリア数 | 15（屋外リージョン 9 / 屋内 6） | `tools/validate.mjs`: interiors 6、`src/content/world_data.js` の regions 9 |
+| エリア数 | 14（屋外リージョン 8 / 屋内 6） | `src/content/world_data.js` を実行して `regions.length === 8`、`tools/validate.mjs`: interiors 6 |
 | クエスト数 | 9（クエストステップ 31） | `tools/validate.mjs`: quests 9 / questSteps 31 |
 | エンディング数 | 5（可変エピローグビート 8） | `tools/validate.mjs`: endings 5 / epilogueBeats 8 |
 | 敵アーキタイプ数 | 5 | `src/game/ai.js`: scav / breaker / slinger / warden / dog |
