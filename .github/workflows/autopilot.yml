@@ -23,4 +23,10 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            リポジトリのファイル一覧を出力せよ。ファイルは一切変更するな。
+            docs/STATE.md を読み、現在フェーズの「次の3アクション」だけを実行せよ。
+            - ブランチ autopilot/run-${{ github.run_number }} を作ってコミット
+            - 終了時に docs/STATE.md を必ず更新（現在フェーズ／完了分／次の3アクション／ブロッカー）
+            - ビルドとテストが通る状態でのみコミットすること
+            - 範囲を広げない。3アクションで必ず止まること
+          claude_args: |
+            --max-turns 25
