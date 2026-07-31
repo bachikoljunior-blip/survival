@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>CINDERLINE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="description" content="CINDERLINE — a survival action RPG in a city built over a fire that will not go out." />
+<meta name="theme-color" content="#0b0a09" />
+<meta name="color-scheme" content="dark" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Cinderline" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="icon.svg" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Render target -->
+  <canvas id="gl" aria-label="Game viewport" role="img"></canvas>
+
+  <!-- All interface lives in this overlay; see src/ui/* -->
+  <div id="ui" aria-live="polite"></div>
+
+  <!-- Shown before the bundle boots and if the bundle fails to boot at all. -->
+  <div id="boot">
+    <div class="boot-inner">
+      <div class="boot-mark">CINDERLINE</div>
+      <div class="boot-bar"><i></i></div>
+      <div class="boot-note" id="boot-note">loading</div>
+    </div>
+  </div>
+
+  <!-- WebGL context loss. Wired in src/main.js; Safari often never restores. -->
+  <div id="ctxlost">
+    <div>
+      <div class="k">THE PICTURE STOPPED</div>
+      <div class="s">The device dropped the graphics context — usually memory pressure from
+        another app. Your progress has been saved. Reload to carry on where you left off.</div>
+      <div class="btn" id="ctxlost-reload">RELOAD</div>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="fatal"><h1>CINDERLINE</h1><p>This game requires JavaScript.</p></div>
+  </noscript>
+
+  <script>
+    // Everything on this page happens BEFORE the bundle exists, so it cannot
+    // use the game's own translation table — including the case where the
+    // bundle never loads at all, which is exactly when a reader most needs a
+    // sentence in their own language. The handful of strings that matter are
+    // inlined here, resolved from the same stored setting the game uses.
+    (function () {
+      var L = 'en';
+      try {
+        var raw = localStorage.getItem('cinderline.settings.v1');
+        var stored = raw ? (JSON.parse(raw) || {}).language : null;
+        L = stored || ((navigator.languages || [navigator.language || 'en'])
+          .map(function (x) { return String(x || '').toLowerCase().split('-')[0]; })
+          .filter(function (x) { return x === 'ja' || x === 'en'; })[0] || 'en');
+      } catch (e) { /* private browsing, or no storage at all */ }
+      document.documentElement.lang = L;
+      document.documentElement.setAttribute('data-lang', L);
+
+      var JA = {
+        loading: '読み込み中',
+        failed: '起動できません ── ',
+        unknown: '原因不明のエラー',
+        ctxTitle: '画面が止まりました',
+        ctxText: '端末がグラフィックスの接続を切りました。ふつうは別のアプリによるメモリ不足です。' +
+          '進行は保存済みです。再読み込みすれば続きから始められます。',
+        ctxReload: '再読み込み'
+      };
+      var set = function (sel, v) {
+        var n = document.querySelector(sel);
+        if (n) n.textContent = v;
+      };
+      if (L === 'ja') {
+        set('#boot-note', JA.loading);
+        set('#ctxlost .k', JA.ctxTitle);
+        set('#ctxlost .s', JA.ctxText);
+        set('#ctxlost-reload', JA.ctxReload);
+      }
+      // <noscript> is deliberately not touched: if this script runs, that block
+      // is never shown, and if it does not run, nothing here could reach it.
+
+      // Catch a hard boot failure (parse error, unsupported syntax) so the
+      // player sees a real message instead of a black screen.
+      window.__cinderlineBooted = false;
+      window.addEventListener('error', function (e) {
+        if (window.__cinderlineBooted) return;
+        var n = document.getElementById('boot-note');
+        if (n) {
+          var msg = (e && e.message) ? e.message
+            : (L === 'ja' ? JA.unknown : 'unknown error');
+          n.textContent = (L === 'ja' ? JA.failed : 'failed to start — ') + msg;
+          n.className = 'boot-note err';
+        }
+      });
+    }());
+  </script>
+  <script src="cinderline.1.0.0.js" defer></script>
+</body>
+</html>
