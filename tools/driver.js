@@ -158,9 +158,17 @@
     const wasDoor = it.kind === 'door';
     G.emit('interact', it);
     if (wasDoor) {
-      // Door transitions fade out and back in on real timers.
-      const ok = await waitFor(() => G.mode === MODE.PLAY || G.mode === MODE.DIALOGUE, 6000);
+      // Door transitions fade out and back in on real timers. This harness
+      // advances minutes of simulation much faster than wall time and can keep
+      // a software-rendered browser busy enough to delay those timers well
+      // beyond their authored 620 ms. Reachability is the assertion here, not
+      // transition performance (that has its own user-surface/perf gate), so
+      // wait for logical completion without turning host load into a cascade of
+      // false story failures.
+      const started = Date.now();
+      const ok = await waitFor(() => G.mode === MODE.PLAY || G.mode === MODE.DIALOGUE, 30000);
       if (!ok) err('door transition stalled: ' + id);
+      else if (Date.now() - started > 5000) log.push(`door ${id} delayed ${Date.now() - started}ms in harness`);
     }
     await tick(0.4);
     return true;

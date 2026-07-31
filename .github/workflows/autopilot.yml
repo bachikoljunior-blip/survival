@@ -1,32 +1,274 @@
 name: Autopilot
+
+run-name: Autopilot (chain ${{ inputs.chain }})
+
+# 自己再起動式のオートパイロット。
+#
+# 1回の実行で Round 1〜3 を回し、PR を作り、最後に自分自身を次の chain 番号で
+# 再起動する。schedule は**意図的に置いていない**——連鎖と併用すると多重起動する。
+#
+# 停止条件は3つ（いずれか1つで連鎖が止まる）:
+#   - docs/STOP が存在する          … 人間が手で止めるための緊急ブレーキ
+#   - docs/STATE.md に ALL_DONE     … 作業が完了した
+#   - chain が 20 以上              … 暴走に対する上限
 on:
   workflow_dispatch:
+    inputs:
+      chain:
+        description: '連鎖回数。手動起動なら 1 のままでよい'
+        required: false
+        default: '1'
+        type: string
 
 concurrency:
   group: autopilot
+  cancel-in-progress: false
 
 jobs:
   advance:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     permissions:
       contents: write
       pull-requests: write
       issues: write
       id-token: write
+
+    env:
+      BRANCH: autopilot/run-${{ github.run_number }}
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: anthropics/claude-code-action@v1
+      # ---------------------------------------------------------------- Round 1
+      - name: Round 1
+        uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            docs/STATE.md を読み、現在フェーズの「次の3アクション」だけを実行せよ。
-            - ブランチ autopilot/run-${{ github.run_number }} を作ってコミット
-            - 終了時に docs/STATE.md を必ず更新（現在フェーズ／完了分／次の3アクション／ブロッカー）
-            - ビルドとテストが通る状態でのみコミットすること
-            - 範囲を広げない。3アクションで必ず止まること
+            あなたはオートパイロットの Round 1/3 です。
+
+            ## 手順
+            1. `docs/directive.md` を読む。これが全ての規則である
+            2. `docs/STATE.md` を読む。これが進捗の唯一の情報源である
+            3. STATE.md の「次の3アクション」**だけ**を実行する
+
+            ## 規則
+            - ブランチ `autopilot/run-${{ github.run_number }}` を作成（既にあれば継続）してコミットする
+            - **ビルドとテストが通る状態でのみコミットする**
+            - **範囲を広げない。3アクションで必ず止まる**
+            - 終了時に `docs/STATE.md` を必ず更新する
+              （現在フェーズ／完了分／次の3アクション／ブロッカー／決定変更）
+            - `README.md` を設計の根拠にしない。実装者の自己申告文書である
+            - **アセット・テスト・計測・スクリーンショット・完了主張を捏造しない**
+            - **`.github/workflows/autopilot.yml` を変更してはならない**
+
+            ## ALL_DONE について
+            `docs/STATE.md` に `ALL_DONE` と書いてよいのは、`docs/DONE.md` の
+            「`ALL_DONE` の条件」4項目を**全て**満たした時のみである。
+            満たしていないのに書くことは、directive §15 の捏造禁止に対する違反として扱う。
+            自信が無ければ書くな。
           claude_args: |
             --max-turns 25
+
+      # ---------------------------------------------------------------- Round 2
+      - name: Round 2
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            あなたはオートパイロットの Round 2/3 です。
+            Round 1 が同じブランチに既にコミットしている可能性がある。
+
+            ## 手順
+            1. `docs/directive.md` を読む。これが全ての規則である
+            2. `docs/STATE.md` を読む。**Round 1 が更新している可能性があるので必ず読み直す**
+            3. STATE.md の「次の3アクション」**だけ**を実行する
+
+            ## 規則
+            - ブランチ `autopilot/run-${{ github.run_number }}` に積む
+            - **ビルドとテストが通る状態でのみコミットする**
+            - **範囲を広げない。3アクションで必ず止まる**
+            - 終了時に `docs/STATE.md` を必ず更新する
+              （現在フェーズ／完了分／次の3アクション／ブロッカー／決定変更）
+            - `README.md` を設計の根拠にしない
+            - **アセット・テスト・計測・スクリーンショット・完了主張を捏造しない**
+            - **`.github/workflows/autopilot.yml` を変更してはならない**
+
+            ## ALL_DONE について
+            `docs/STATE.md` に `ALL_DONE` と書いてよいのは、`docs/DONE.md` の
+            「`ALL_DONE` の条件」4項目を**全て**満たした時のみである。
+            満たしていないのに書くことは、directive §15 の捏造禁止に対する違反として扱う。
+            自信が無ければ書くな。
+          claude_args: |
+            --max-turns 25
+
+      # ---------------------------------------------------------------- Round 3
+      - name: Round 3
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            あなたはオートパイロットの Round 3/3 です。**この実行の最後のラウンドである。**
+
+            ## 手順
+            1. `docs/directive.md` を読む。これが全ての規則である
+            2. `docs/STATE.md` を読む。**Round 1〜2 が更新している可能性があるので必ず読み直す**
+            3. STATE.md の「次の3アクション」**だけ**を実行する
+
+            ## 規則
+            - ブランチ `autopilot/run-${{ github.run_number }}` に積む
+            - **ビルドとテストが通る状態でのみコミットする**
+            - **範囲を広げない。3アクションで必ず止まる**
+            - `README.md` を設計の根拠にしない
+            - **アセット・テスト・計測・スクリーンショット・完了主張を捏造しない**
+            - **`.github/workflows/autopilot.yml` を変更してはならない**
+
+            ## この実行の最後の仕事
+            **次の実行は、記憶を持たない別のエージェントが `docs/STATE.md` だけを
+            読んで再開する。** したがって終了前に STATE.md を、それだけで再開できる
+            状態に必ず更新すること（現在フェーズ／完了分／次の3アクション／
+            ブロッカー／決定変更）。ここを手抜きすると次の実行が丸ごと無駄になる。
+
+            ## ALL_DONE について
+            `docs/STATE.md` に `ALL_DONE` と書いてよいのは、`docs/DONE.md` の
+            「`ALL_DONE` の条件」4項目を**全て**満たした時のみである。
+            満たしていないのに書くことは、directive §15 の捏造禁止に対する違反として扱う。
+            自信が無ければ書くな。
+          claude_args: |
+            --max-turns 25
+
+      # ------------------------------------------------------------------- PR
+      - name: Open pull request
+        id: pr
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "ブランチ $BRANCH が存在しない（コミットが1つも積まれなかった）。PR は作らない。"
+            exit 0
+          fi
+
+          num=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$num" ] && [ "$num" != "null" ]; then
+            echo "既に PR #$num が開いている。作成はしない。"
+          else
+            if gh pr create --fill --base "${{ github.event.repository.default_branch }}" --head "$BRANCH"; then
+              num=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' 2>/dev/null || true)
+              echo "PR #$num を作成した。"
+            else
+              echo "PR を作成しなかった（ベースとの差分が無い可能性）。ワークフローは失敗させない。"
+              num=""
+            fi
+          fi
+
+          [ "$num" = "null" ] && num=""
+          echo "number=$num" >> "$GITHUB_OUTPUT"
+
+      # ----------------------------------------------------------------- Merge
+      #
+      # 連鎖の前にマージしなければならない。
+      #
+      # 次の実行は `gh workflow run` が既定ブランチ基準で走るため、**既定ブランチを
+      # チェックアウトする**。この実行の成果が PR に留まったままだと、次の実行は
+      # 更新前の docs/STATE.md を読み、まったく同じ「次の3アクション」をやり直す。
+      # 作業が一切積み上がらないまま chain 上限まで回ることになる。
+      #
+      # マージには AUTOPILOT_PAT を使う。GITHUB_TOKEN による push は他のワークフローを
+      # 起動しないため、Pages のデプロイが走らなくなる。
+      - name: Merge pull request
+        id: merge
+        if: success() && steps.pr.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ secrets.AUTOPILOT_PAT }}
+          PR: ${{ steps.pr.outputs.number }}
+        run: |
+          set -uo pipefail
+
+          # --auto はブランチ保護があるリポジトリで、直接マージは auto-merge が
+          # 無効なリポジトリで通る。両方試して、どちらかが通ればよい。
+          gh pr merge "$PR" --squash --auto --delete-branch \
+            || gh pr merge "$PR" --squash --delete-branch \
+            || echo "マージ要求は通らなかった。状態をポーリングして確認する。"
+
+          deadline=$(( $(date +%s) + 600 ))
+          while [ "$(date +%s)" -lt "$deadline" ]; do
+            st=$(gh pr view "$PR" --json state --jq .state 2>/dev/null || echo '')
+            case "$st" in
+              MERGED)
+                echo "merged=true" >> "$GITHUB_OUTPUT"
+                echo "PR #$PR をマージした。次の実行は最新の既定ブランチから始まる。"
+                exit 0 ;;
+              CLOSED)
+                echo "PR #$PR は閉じられた。マージしていない。"
+                exit 0 ;;
+            esac
+            sleep 15
+          done
+
+          echo "10分待っても PR #$PR がマージされなかった（必須チェック待ち、"
+          echo "コンフリクト、レビュー必須などの可能性）。連鎖はしない。"
+
+      # ----------------------------------------------------------------- Chain
+      - name: Chain next run
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.AUTOPILOT_PAT }}
+          CHAIN: ${{ inputs.chain }}
+          MERGED: ${{ steps.merge.outputs.merged }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -uo pipefail
+
+          # --- 停止条件 0: マージが成立していない ---
+          #
+          # 次の実行は既定ブランチをチェックアウトする。マージされていなければ
+          # 次の実行が読む docs/STATE.md はこの実行より前のもので、まったく同じ
+          # 3アクションをやり直すだけになる。**進まない連鎖は回さない。**
+          if [ "${MERGED:-}" != "true" ]; then
+            echo "停止: この実行の成果が既定ブランチにマージされていない。"
+            echo "      連鎖しても次の実行は同じ STATE.md を読み、同じ作業を繰り返す。"
+            echo "      PR を確認してマージし、必要なら手動で再開すること。"
+            exit 0
+          fi
+
+          # 停止条件は「次の実行が実際に読むもの」に対して判定する。
+          # 次の実行は既定ブランチをチェックアウトするので、そこを見る。
+          git fetch origin "$DEFAULT_BRANCH" >/dev/null 2>&1 || true
+          REF="origin/$DEFAULT_BRANCH"
+          git rev-parse --verify "$REF" >/dev/null 2>&1 || REF="HEAD"
+          echo "判定対象: $REF"
+
+          # --- 停止条件 1: 緊急ブレーキ ---
+          if git cat-file -e "$REF:docs/STOP" 2>/dev/null; then
+            echo "停止: docs/STOP が存在する。連鎖を終了する。"
+            exit 0
+          fi
+
+          # --- 停止条件 2: 完了 ---
+          if git show "$REF:docs/STATE.md" 2>/dev/null | grep -q 'ALL_DONE'; then
+            echo "停止: docs/STATE.md に ALL_DONE がある。連鎖を終了する。"
+            exit 0
+          fi
+
+          # --- 停止条件 3: 暴走上限 ---
+          chain="${CHAIN:-1}"
+          if ! printf '%s' "$chain" | grep -Eq '^[0-9]+$'; then
+            echo "停止: chain の値 '$chain' が数値でない。連鎖を終了する。"
+            exit 0
+          fi
+          if [ "$chain" -ge 20 ]; then
+            echo "停止: chain=$chain が上限 20 に達した。連鎖を終了する。"
+            exit 0
+          fi
+
+          next=$((chain + 1))
+          echo "継続: chain=$chain → $next。60秒待って次を起動する。"
+          sleep 60
+          gh workflow run autopilot.yml -f chain="$next"
+          echo "chain=$next を起動した。"

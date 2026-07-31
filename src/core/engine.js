@@ -293,6 +293,36 @@ export class Engine extends Emitter {
     cancelAnimationFrame(this._raf);
   }
 
+  /**
+   * Advance the complete fixed-step updater chain without requestAnimationFrame.
+   *
+   * This is deliberately development-only. Browser tests need the same updater
+   * order as the live loop — Game, combat, AI and Director — but waiting on wall
+   * time makes a long gas exposure both slow and timing-sensitive. A production
+   * bundle cannot use this entry point, and callers must stop the live loop first
+   * so two clocks can never mutate the same world concurrently.
+   */
+  stepFixedForTest(steps = 1) {
+    if (!__DEV__) throw new Error('stepFixedForTest is unavailable in production builds');
+    if (this.running) throw new Error('stop the live engine before deterministic stepping');
+    if (this.isPaused || this.lost) throw new Error('cannot step a paused or context-lost engine');
+    if (!Number.isInteger(steps) || steps < 1 || steps > 36000) {
+      throw new RangeError('steps must be an integer from 1 to 36000');
+    }
+
+    for (let step = 0; step < steps; step++) {
+      if (this.time < this._slowmoUntil) this.timeScale = this._slowmoScale;
+      else this.timeScale = 1;
+      this.time += FIXED_DT;
+      for (let i = 0; i < this._updaters.length; i++) {
+        this._updaters[i].fn(FIXED_DT, this.time);
+      }
+    }
+    this.accum = 0;
+    this.alpha = 0;
+    return steps;
+  }
+
   /** Brief global slow-motion — used for finishing blows and near-death. */
   slowmo(scale, seconds) {
     this._slowmoScale = scale;
