@@ -30,3 +30,11 @@
 - Replaces: The per-operation authorization requirement in `PROJECT_OPERATING_PROTOCOL.md` §§23 and 28, only for remote push, merge and public publication/deployment.
 - Decision: Treat push, merge and publication as normal completion steps for verified CINDERLINE checkpoints across future chat, Work and logical-session boundaries until the user changes or revokes this instruction.
 - Safety boundary: Inspect the exact repository, branch, diff, mandatory gates and remote result; do not publish a known failing checkpoint or secrets. This does not authorize payment, account or credential changes, private-data exposure, destructive production data/cloud actions, irreversible migrations or disabling security controls.
+
+## OD-005 — Keep the branch-source Pages mirror byte-identical to `dist/`
+
+- Date: 2026-08-01
+- Status: accepted while repository Pages source remains `main/(root)`.
+- Decision: Generate and commit the root publication files with `npm run build:pages-root`; require `npm run validate:pages-root` in the Actions deployment.
+- Reason: The repository had both Actions deployment and the legacy branch-source deployment enabled. The latter completed after the former and replaced the game with rendered `README.md`.
+- Consequence: Root publication files are generated artifacts and must not be edited manually. If the Pages setting is later changed to GitHub Actions, remove the mirror only in a separately verified migration.
