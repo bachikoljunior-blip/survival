@@ -35,6 +35,8 @@ jobs:
         run: npm run validate
       - name: Build
         run: npm run build
+      - name: Validate branch-source mirror
+        run: npm run validate:pages-root
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

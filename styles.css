@@ -1,0 +1,1046 @@
+/* ============================================================================
+   CINDERLINE — interface stylesheet
+   Design language: a field survey instrument. Warm ash blacks, bone type,
+   ember accent, thin rules, monospaced numerics. Nothing decorative that does
+   not also read at 667x375 CSS pixels.
+   ========================================================================= */
+
+:root {
+  /* Palette */
+  --ink:        #0a0908;
+  --ash:        #15120e;
+  --ash-2:      #1e1a15;
+  --smoke:      #2b2519;
+  --line:       #3a3226;
+  --bone:       #e9e0d1;
+  --bone-dim:   #b3a897;
+  --dim:        #857c6f;
+  --ember:      #ff7a2f;
+  --ember-lo:   #c2521a;
+  --ember-glow: rgba(255, 122, 47, 0.28);
+  --toxic:      #cfe04f;
+  --blood:      #c0392b;
+  --cold:       #6fa8bd;
+
+  /* Type */
+  /* Latin first, then the CJK faces every target platform actually ships:
+     Hiragino on iOS/macOS, Noto/Yu Gothic on Android and Windows. Nothing is
+     downloaded — a webfont for CJK is megabytes, and this game has no network
+     after load. */
+  --cjk: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+         "Noto Sans CJK JP", "Yu Gothic", YuGothic, Meiryo, sans-serif;
+  --cjk-mono: "SF Mono", ui-monospace, "Noto Sans Mono CJK JP", "Hiragino Sans",
+              "Yu Gothic", Meiryo, monospace;
+  --ui-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, var(--cjk);
+  --ui-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", var(--cjk-mono);
+
+  /* Safe areas — resolved once here so every panel can inset consistently. */
+  --sa-t: env(safe-area-inset-top, 0px);
+  --sa-r: env(safe-area-inset-right, 0px);
+  --sa-b: env(safe-area-inset-bottom, 0px);
+  --sa-l: env(safe-area-inset-left, 0px);
+
+  /* Interface scale. JS overwrites this from the accessibility settings. */
+  --uiscale: 1;
+
+  --pad: calc(8px * var(--uiscale));
+  --r: 3px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  color: var(--bone);
+  font-family: var(--ui-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+  /* `touch-action: none` here would be intersected down the whole ancestor
+     chain and would make every scroller in the menus permanently unscrollable
+     — effective touch-action is the intersection of the chain in both Blink
+     and WebKit, so a child cannot re-enable what a parent removed. The gesture
+     suppression the game actually needs is scoped to the canvas and the HUD. */
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+#ui {
+  position: absolute;
+  inset: 0;
+  /* The overlay itself never eats input; children opt in with pointer-events. */
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+#ui * { pointer-events: none; }
+/* `manipulation` rather than `none`: it still kills double-tap zoom and the
+   350ms click delay, but it leaves a touch able to scroll an ancestor. */
+#ui .hit { pointer-events: auto; touch-action: manipulation; }
+/* Scrollers must keep pan-y; the extra class raises specificity over .hit. */
+#ui .scroll, #ui .scroll.hit { touch-action: pan-y; }
+
+/* ---------------------------------------------------------------- boot ---- */
+
+#boot {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(120% 90% at 50% 60%, #1a1109 0%, #070605 65%, #000 100%);
+  transition: opacity 0.6s ease;
+}
+#boot.gone { opacity: 0; pointer-events: none; }
+
+.boot-inner { text-align: center; width: min(70vw, 340px); }
+
+.boot-mark {
+  font-size: calc(15px * var(--uiscale));
+  letter-spacing: 0.62em;
+  text-indent: 0.62em;
+  color: var(--bone);
+  font-weight: 600;
+  margin-bottom: 14px;
+  text-shadow: 0 0 22px var(--ember-glow);
+}
+
+.boot-bar {
+  height: 2px;
+  background: #241d15;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.boot-bar > i {
+  display: block;
+  height: 100%;
+  width: 12%;
+  background: linear-gradient(90deg, transparent, var(--ember), transparent);
+  animation: bootslide 1.25s ease-in-out infinite;
+}
+@keyframes bootslide {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(900%); }
+}
+
+.boot-note {
+  margin-top: 12px;
+  font-family: var(--ui-mono);
+  font-size: calc(9px * var(--uiscale));
+  color: var(--dim);
+  letter-spacing: 0.14em;
+  min-height: 1.2em;
+}
+.boot-note.err { color: var(--blood); letter-spacing: 0.02em; }
+
+.fatal {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  text-align: center; background: #000; color: var(--bone); z-index: 200;
+}
+
+/* ------------------------------------------------------------ primitives -- */
+
+.panel {
+  background: linear-gradient(180deg, rgba(24, 20, 15, 0.96), rgba(14, 12, 9, 0.97));
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.62);
+}
+
+.rule { height: 1px; background: var(--line); margin: calc(6px * var(--uiscale)) 0; }
+
+.h {
+  font-size: calc(9px * var(--uiscale));
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ember);
+  font-weight: 700;
+}
+.sub { font-size: calc(10.5px * var(--uiscale)); color: var(--dim); line-height: 1.5; }
+.mono { font-family: var(--ui-mono); font-variant-numeric: tabular-nums; }
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;                 /* Apple HIG minimum, never scaled down */
+  text-align: left;
+  font-family: var(--ui-sans);
+  font-size: calc(11px * var(--uiscale));
+  color: var(--bone);
+  background: rgba(46, 39, 29, 0.5);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ember-lo);
+  border-radius: var(--r);
+  padding: calc(7px * var(--uiscale)) calc(10px * var(--uiscale));
+  margin: calc(4px * var(--uiscale)) 0;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.08s ease;
+  cursor: pointer;
+}
+.btn:active, .btn.on {
+  background: rgba(255, 122, 47, 0.2);
+  border-left-color: var(--ember);
+  transform: translateX(2px);
+}
+.btn[disabled], .btn.off { opacity: 0.4; border-left-color: var(--line); }
+.btn small { display: block; color: var(--dim); font-size: calc(10px * var(--uiscale)); margin-top: 2px; line-height: 1.4; }
+
+/* Scrollable regions inside menus. */
+.scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+/* Wide enough to be seen. A 3px rail told the player nothing was below the
+   fold, which on the settings panel was most of the settings panel. */
+.scroll::-webkit-scrollbar { width: 6px; }
+.scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.35); }
+.scroll::-webkit-scrollbar-thumb { background: var(--ember-lo); border-radius: 3px; }
+
+/* ------------------------------------------------------------------ hud --- */
+
+#hud {
+  position: absolute;
+  inset: 0;
+  padding: calc(var(--pad) + var(--sa-t)) calc(var(--pad) + var(--sa-r))
+           calc(var(--pad) + var(--sa-b)) calc(var(--pad) + var(--sa-l));
+  /* The canvas is sized from visualViewport; JS pins #hud's own box to the
+     same numbers. Gesture suppression belongs here and on #gl, not on body. */
+  touch-action: none;
+  transition: opacity 0.35s ease, visibility 0s linear 0s;
+}
+/* Opacity alone left an invisible but fully live button cluster on the title,
+   dialogue, death and ending screens. */
+#hud.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+
+/* — vitals, top-left ------------------------------------------------------ */
+.vitals { position: absolute; top: calc(var(--pad) + var(--sa-t) + 2px); left: calc(var(--pad) + var(--sa-l)); width: calc(118px * var(--uiscale)); }
+
+.bar {
+  position: relative;
+  width: calc(100% - 30px * var(--uiscale));
+  height: calc(8px * var(--uiscale));
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(58, 50, 38, 0.9);
+  border-radius: 2px;
+  margin-bottom: calc(3px * var(--uiscale));
+  /* The readout hangs outside the bar; an 8px box with a 1px border cannot
+     contain a legible glyph. */
+  overflow: visible;
+}
+.bar > .fill { position: absolute; inset: 0; transform-origin: left center; transition: transform 0.14s linear; border-radius: 1px; }
+/* Delayed "chip" layer drains behind the real value so hits read as damage. */
+.bar > .chip { position: absolute; inset: 0; transform-origin: left center; background: rgba(224, 120, 90, 0.42); transition: transform 0.5s ease 0.22s; border-radius: 1px; }
+.bar > .lbl {
+  position: absolute; left: calc(100% + 4px * var(--uiscale)); top: 50%; transform: translateY(-50%);
+  font-family: var(--ui-mono); font-variant-numeric: tabular-nums;
+  font-size: calc(9px * var(--uiscale)); line-height: 1;
+  color: rgba(255,255,255,0.92); letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px #000, 0 0 4px #000;
+  white-space: nowrap;
+}
+.bar.hp   > .fill { background: linear-gradient(90deg, #8f2b23, #d8574a); }
+.bar.sta  > .fill { background: linear-gradient(90deg, #6d6320, #cbbc46); }
+
+/* Refused-for-stamina flash: the visible answer to a press that did nothing.
+   A silent refusal is exactly what makes a combat system feel like it is
+   ignoring you. */
+.bar.sta.empty { animation: staflash 0.42s steps(3) 1; }
+@keyframes staflash {
+  0%   { border-color: var(--blood); background: rgba(192, 57, 43, 0.55); }
+  100% { border-color: rgba(58, 50, 38, 0.9); background: rgba(0, 0, 0, 0.6); }
+}
+body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
+.bar.hp.low > .fill { animation: pulse 0.85s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.7); } }
+
+/* — air gauge, the signature readout -------------------------------------- */
+.air {
+  margin-top: calc(4px * var(--uiscale));
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: rgba(10, 9, 8, 0.72);
+  padding: calc(3px * var(--uiscale)) calc(4px * var(--uiscale));
+}
+.air .row { display: flex; align-items: baseline; justify-content: space-between; }
+.air .ppm {
+  font-family: var(--ui-mono); font-size: calc(12px * var(--uiscale)); font-weight: 700;
+  letter-spacing: 0.02em; color: var(--bone); line-height: 1.1;
+}
+.air .unit { font-family: var(--ui-mono); font-size: calc(8px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.08em; }
+.air .filter { font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.04em; margin-top: 1px; }
+.air.warn  { border-color: #8a7d1f; }
+.air.warn  .ppm { color: var(--toxic); }
+.air.crit  { border-color: var(--blood); animation: airpulse 0.7s steps(2) infinite; }
+.air.crit  .ppm { color: #ff6a5a; }
+.air { cursor: pointer; transition: border-color 0.18s linear; }
+.air.reading { border-color: var(--ember); }
+.air .trend {
+  font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale)); color: var(--ember);
+  letter-spacing: 0.06em; opacity: 0; transition: opacity 0.25s linear; white-space: nowrap;
+}
+.air .trend.on { opacity: 1; }
+.air .reading {
+  font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); color: var(--bone);
+  letter-spacing: 0.02em; margin-top: calc(2px * var(--uiscale)); line-height: 1.35;
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height 0.22s ease-out, opacity 0.22s linear;
+}
+.air .reading.on { max-height: calc(48px * var(--uiscale)); opacity: 1; }
+@keyframes airpulse { 0% { background: rgba(120,20,14,0.42); } 100% { background: rgba(10,9,8,0.72); } }
+
+/* — compass strip, top-centre --------------------------------------------- */
+/* The compass sits above the objective. It used to sit 30px below the top,
+   which is exactly where a three-line objective lands, and the two overlapped
+   in every real frame. */
+.compass {
+  position: absolute; top: calc(var(--pad) + var(--sa-t)); left: 50%;
+  transform: translateX(-50%);
+  width: calc(160px * var(--uiscale)); height: calc(13px * var(--uiscale));
+  overflow: hidden;
+  /* A dark scrim: the ticks are 8.5px bone type and were invisible against
+     brick in the real frame. */
+  background: linear-gradient(90deg, transparent, rgba(6, 5, 4, 0.5) 20%, rgba(6, 5, 4, 0.5) 80%, transparent);
+  border-radius: 2px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+}
+.compass .tick {
+  position: absolute; top: calc(1px * var(--uiscale));
+  font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale));
+  color: var(--bone); letter-spacing: 0.04em; transform: translateX(-50%);
+  text-shadow: 0 1px 2px #000, 0 0 4px #000;
+}
+.compass .mk  { position: absolute; top: calc(1px * var(--uiscale)); font-size: calc(9px * var(--uiscale)); transform: translateX(-50%); text-shadow: 0 1px 2px #000, 0 0 4px #000; }
+
+/* — objective, top-centre, under the compass ------------------------------ */
+.objective {
+  position: absolute;
+  top: calc(var(--pad) + var(--sa-t) + 16px * var(--uiscale));
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(190px * var(--uiscale));
+  text-align: center;
+  opacity: 0.94;
+}
+.objective .task { font-size: calc(10px * var(--uiscale)); color: var(--bone); line-height: 1.35; text-shadow: 0 1px 3px #000, 0 0 5px #000; }
+.objective .chapter { font-size: calc(8.5px * var(--uiscale)); letter-spacing: 0.2em; color: var(--ember); text-transform: uppercase; margin-bottom: 2px; text-shadow: 0 1px 3px #000; }
+
+/* — right-side stack: notices --------------------------------------------- */
+/* Below the system cluster, which now owns the top-right corner. */
+.notices {
+  position: absolute;
+  top: calc(var(--pad) + var(--sa-t) + 50px * var(--uiscale));
+  right: calc(var(--pad) + var(--sa-r));
+  width: calc(132px * var(--uiscale));
+  display: flex; flex-direction: column; align-items: flex-end; gap: calc(3px * var(--uiscale));
+}
+.notice {
+  background: rgba(12, 10, 8, 0.88);
+  border-right: 2px solid var(--ember);
+  border-radius: 2px;
+  padding: calc(4px * var(--uiscale)) calc(6px * var(--uiscale));
+  font-size: calc(10px * var(--uiscale));
+  color: var(--bone);
+  text-align: right;
+  line-height: 1.35;
+  animation: noticein 0.28s ease both;
+  max-width: 100%;
+}
+.notice b { color: var(--ember); font-weight: 600; }
+.notice.good { border-right-color: var(--toxic); }
+.notice.good b { color: var(--toxic); }
+.notice.bad  { border-right-color: var(--blood); }
+.notice.bad b { color: #ff8b7e; }
+.notice.fade { animation: noticeout 0.4s ease both; }
+@keyframes noticein  { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes noticeout { to { opacity: 0; transform: translateX(14px); height: 0; padding-block: 0; margin-block: 0; } }
+
+/* ---------------------------------------------------------- touch input --- */
+
+.stick {
+  position: absolute;
+  bottom: calc(var(--pad) + var(--sa-b));
+  left: calc(var(--pad) + var(--sa-l));
+  width: calc(74px * var(--uiscale));
+  height: calc(74px * var(--uiscale));
+  border-radius: 50%;
+  border: 1px solid rgba(150, 138, 120, 0.34);
+  background: radial-gradient(circle at 50% 50%, rgba(30, 26, 20, 0.42), rgba(10, 9, 8, 0.2));
+  opacity: 0.55;
+  transition: opacity 0.18s ease;
+}
+.stick.active { opacity: 0.95; }
+.stick > .knob {
+  position: absolute; left: 50%; top: 50%;
+  width: calc(30px * var(--uiscale)); height: calc(30px * var(--uiscale));
+  margin: calc(-15px * var(--uiscale)) 0 0 calc(-15px * var(--uiscale));
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, rgba(233, 224, 209, 0.62), rgba(120, 110, 96, 0.36));
+  border: 1px solid rgba(233, 224, 209, 0.42);
+  will-change: transform;
+}
+
+/* Right-hand action cluster. Thumb-arc layout, not a grid.
+   The container is a positioning frame only — it carries no `hit` class, so
+   the 54% of its rectangle that is not a button no longer swallows the camera
+   drag that a right thumb starts in this corner. Each .abtn opts in itself.
+   Every button is >=44pt and every pair is >=8pt apart (Apple HIG); the
+   geometry is verified in tools/_p_hud.mjs. */
+.actions {
+  position: absolute;
+  right: calc(var(--pad) + var(--sa-r));
+  bottom: calc(var(--pad) + var(--sa-b));
+  width: calc(167px * var(--uiscale));
+  height: calc(134px * var(--uiscale));
+}
+.abtn {
+  position: absolute;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: calc(8.5px * var(--uiscale));
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--bone);
+  background: rgba(28, 24, 18, 0.62);
+  border: 1px solid rgba(150, 138, 120, 0.4);
+  text-shadow: 0 1px 2px #000;
+  transition: transform 0.07s ease, background 0.1s ease, opacity 0.15s ease;
+  will-change: transform;
+}
+.abtn:active, .abtn.down { transform: scale(0.9); background: rgba(255, 122, 47, 0.42); border-color: var(--ember); }
+/* Unavailable: no stamina, nothing to use, cannot guard right now. Driven from
+   HUD.update — see _updateAvailability. */
+.abtn.dis { opacity: 0.3; border-color: rgba(150, 138, 120, 0.18); color: var(--dim); }
+
+.abtn.big  { width: calc(54px * var(--uiscale)); height: calc(54px * var(--uiscale)); font-size: calc(10px * var(--uiscale)); }
+.abtn.mid  { width: calc(44px * var(--uiscale)); height: calc(44px * var(--uiscale)); }
+.abtn.sml  { width: calc(44px * var(--uiscale)); height: calc(44px * var(--uiscale)); font-size: calc(8px * var(--uiscale)); }
+
+.abtn.attack   { right: calc(4px * var(--uiscale));   bottom: calc(6px * var(--uiscale)); }
+.abtn.dodge    { right: calc(68px * var(--uiscale));  bottom: calc(5px * var(--uiscale)); }
+.abtn.guard    { right: calc(7px * var(--uiscale));   bottom: calc(72px * var(--uiscale)); }
+.abtn.use      { right: calc(62px * var(--uiscale));  bottom: calc(70px * var(--uiscale)); }
+.abtn.heavy    { right: calc(120px * var(--uiscale)); bottom: calc(28px * var(--uiscale)); }
+/* Interact has its own slot. It used to be positioned on top of GUARD and
+   display:none the guard button underneath a possibly-held finger, which both
+   latched the input and removed the player's only defence next to a door. */
+.abtn.interact { right: calc(123px * var(--uiscale)); bottom: calc(90px * var(--uiscale));
+                 border-color: var(--ember); background: rgba(60, 34, 16, 0.72); }
+
+/* Context prompt (interact) floats above the action cluster. */
+.prompt {
+  position: absolute;
+  left: 50%; bottom: calc(var(--pad) + var(--sa-b) + 82px * var(--uiscale));
+  transform: translateX(-50%);
+  padding: calc(4px * var(--uiscale)) calc(9px * var(--uiscale));
+  background: rgba(10, 9, 8, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  font-size: calc(10.5px * var(--uiscale));
+  color: var(--bone);
+  white-space: nowrap;
+  opacity: 0; transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.prompt.on { opacity: 1; }
+.prompt b { color: var(--ember); font-weight: 700; }
+
+/* Top-right system buttons.
+   Each is a 44x44 target with a 30x30 visual plate drawn by the inner <i>, so
+   the row reads as light chrome while every button clears the HIG minimum. */
+.syscluster {
+  position: absolute;
+  top: calc(var(--pad) + var(--sa-t));
+  right: calc(var(--pad) + var(--sa-r));
+  display: flex; gap: calc(8px * var(--uiscale));
+}
+.sysbtn {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  background: none; border: 0;
+}
+.sysbtn > i {
+  width: calc(30px * var(--uiscale)); height: calc(30px * var(--uiscale));
+  display: grid; place-items: center;
+  border-radius: var(--r);
+  background: rgba(18, 15, 11, 0.78);
+  border: 1px solid var(--line);
+  font-style: normal;
+  font-size: calc(13px * var(--uiscale));
+  color: var(--bone-dim);
+  transition: background 0.1s ease, color 0.1s ease;
+}
+.sysbtn:active > i, .sysbtn.down > i { background: rgba(255, 122, 47, 0.34); border-color: var(--ember); color: var(--bone); }
+
+/* ------------------------------------------------------------ reticle ----- */
+
+.lockon {
+  position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  border: 1px solid rgba(255, 122, 47, 0.85);
+  border-radius: 50%;
+  opacity: 0; transition: opacity 0.14s ease;
+  box-shadow: 0 0 10px rgba(255,122,47,0.5), inset 0 0 8px rgba(255,122,47,0.25);
+}
+.lockon.on { opacity: 1; }
+.lockon::before, .lockon::after {
+  content: ''; position: absolute; background: var(--ember);
+}
+.lockon::before { left: 50%; top: -5px; width: 1px; height: 4px; margin-left: -0.5px; }
+.lockon::after  { left: 50%; bottom: -5px; width: 1px; height: 4px; margin-left: -0.5px; }
+
+/* Enemy health pip above lock-on target */
+.enemybar {
+  position: absolute; width: calc(52px * var(--uiscale)); height: 3px; margin-left: calc(-26px * var(--uiscale));
+  background: rgba(0,0,0,0.72); border: 1px solid rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden;
+  opacity: 0; transition: opacity 0.16s ease;
+}
+.enemybar.on { opacity: 1; }
+.enemybar > i { display: block; height: 100%; background: linear-gradient(90deg, #9a2a20, #e0655a); transform-origin: left; }
+/* Delayed chip. Driven with its own lagged value in HUD._updateLockOn — it was
+   previously assigned the same scale as the fill, which made it invisible. */
+.enemybar > u { position: absolute; inset: 0; display: block; background: rgba(255,220,180,0.55); transform-origin: left; transition: transform 0.45s ease 0.2s; }
+.enemybar.stagger > i { background: linear-gradient(90deg, #b58a1e, #e8cf5a); }
+
+/* Floating damage / status numbers */
+.fx-num {
+  position: absolute;
+  font-family: var(--ui-mono);
+  font-size: calc(11px * var(--uiscale));
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 4px #000, 0 0 8px rgba(255,120,60,0.5);
+  animation: fxnum 0.85s ease-out forwards;
+  will-change: transform, opacity;
+}
+.fx-num.crit { color: #ffcf7a; font-size: calc(14px * var(--uiscale)); }
+.fx-num.heal { color: var(--toxic); }
+.fx-num.self { color: #ff8b7e; }
+@keyframes fxnum {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
+  18%  { opacity: 1; transform: translate(-50%, -10px) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -34px) scale(0.95); }
+}
+
+/* Screen-space damage vignette */
+.hurt {
+  position: absolute; inset: 0;
+  background: radial-gradient(120% 90% at 50% 50%, transparent 42%, rgba(150, 26, 18, 0.62) 100%);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.hurt.on { opacity: 1; transition: opacity 0.06s ease; }
+
+/* Gas overlay — creeps in as CO saturation climbs */
+.gasveil {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(140% 110% at 50% 50%, transparent 28%, rgba(90, 88, 40, 0.5) 82%, rgba(40, 38, 16, 0.78) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* ------------------------------------------------------------- dialogue --- */
+
+/* The block is bottom-anchored and bounded by the viewport, and the choice
+   list takes whatever height is left over. That is what stops the list being
+   capped by a magic number that happened to be smaller than the content. */
+#dlg {
+  position: absolute;
+  left: 50%; bottom: calc(var(--pad) + var(--sa-b));
+  transform: translateX(-50%);
+  width: min(calc(100% - var(--sa-l) - var(--sa-r) - 16px), calc(430px * var(--uiscale)));
+  max-height: calc(100% - var(--sa-t) - var(--sa-b) - var(--pad) * 2);
+  display: none;
+  flex-direction: column;
+}
+#dlg.on { display: flex; }
+.dlg-box { flex: 0 0 auto; }
+
+.dlg-box {
+  background: linear-gradient(180deg, rgba(20, 17, 13, 0.965), rgba(10, 9, 7, 0.975));
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ember);
+  border-radius: var(--r);
+  padding: calc(7px * var(--uiscale)) calc(10px * var(--uiscale));
+}
+.dlg-who {
+  font-size: calc(9.5px * var(--uiscale));
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember);
+  font-weight: 700;
+  margin-bottom: calc(3px * var(--uiscale));
+}
+.dlg-who .mood { color: var(--dim); letter-spacing: 0.06em; text-transform: none; font-weight: 400; font-style: italic; }
+.dlg-txt {
+  font-size: calc(10.5px * var(--uiscale));
+  line-height: 1.46;
+  color: var(--bone);
+  min-height: calc(2.9em);
+}
+.dlg-txt .caret { color: var(--ember); animation: blink 0.8s steps(2) infinite; }
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+
+.dlg-next {
+  text-align: right;
+  font-size: calc(9px * var(--uiscale));
+  color: var(--dim);
+  letter-spacing: 0.14em;
+  margin-top: calc(3px * var(--uiscale));
+}
+
+/* Choice list.
+   22 of the 27 choice nodes in the story have 3+ options and 4 have 5; at the
+   old 112px (84px on this device) the third option onwards could neither be
+   seen nor selected. The dialogue block is bottom-anchored, so growing this
+   grows upwards into empty screen. */
+.dlg-choicewrap {
+  position: relative;
+  margin-top: calc(4px * var(--uiscale));
+  flex: 0 1 auto; min-height: 0;
+  display: flex;
+}
+.dlg-choices { flex: 1 1 auto; min-height: 0; }
+/* Overflow affordance — a 6px scrollbar is not enough on its own. */
+.dlg-choicewrap::after {
+  content: '▾  MORE';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: calc(20px * var(--uiscale));
+  display: grid; align-content: end; justify-items: center;
+  font-family: var(--ui-mono); font-size: calc(8.5px * var(--uiscale));
+  letter-spacing: 0.18em; color: var(--ember);
+  background: linear-gradient(180deg, rgba(8, 7, 6, 0) 0%, rgba(8, 7, 6, 0.94) 78%);
+  opacity: 0; transition: opacity 0.16s linear;
+  pointer-events: none;
+  border-radius: 0 0 var(--r) var(--r);
+}
+.dlg-choicewrap.more::after { opacity: 1; }
+.dlg-choice {
+  display: flex; flex-wrap: wrap; align-items: center;
+  min-height: 44px;
+  width: 100%; text-align: left;
+  background: rgba(38, 32, 24, 0.72);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ember-lo);
+  border-radius: var(--r);
+  color: var(--bone);
+  font-family: var(--ui-sans);
+  font-size: calc(10px * var(--uiscale));
+  line-height: 1.36;
+  padding: calc(6px * var(--uiscale)) calc(9px * var(--uiscale));
+  margin-bottom: calc(3px * var(--uiscale));
+}
+.dlg-choice:active { background: rgba(255, 122, 47, 0.24); border-left-color: var(--ember); }
+.dlg-choice .tag {
+  display: inline-block;
+  flex: 0 0 auto;
+  font-family: var(--ui-mono);
+  font-size: calc(8.5px * var(--uiscale));
+  letter-spacing: 0.1em;
+  color: var(--ember);
+  border: 1px solid var(--ember-lo);
+  border-radius: 2px;
+  padding: 0 3px;
+  margin-right: 5px;
+  vertical-align: 1px;
+  text-transform: uppercase;
+}
+.dlg-choice .tag.locked { color: var(--dim); border-color: var(--line); }
+.dlg-choice.locked { opacity: 0.42; }
+.dlg-choice .why { flex: 1 0 100%; color: var(--dim); font-size: calc(9.5px * var(--uiscale)); margin-top: 2px; line-height: 1.3; }
+
+/* Speaker portrait strip — procedurally drawn to a canvas by the UI layer. */
+.dlg-port {
+  position: absolute; left: calc(-46px * var(--uiscale)); bottom: 0;
+  width: calc(42px * var(--uiscale)); height: calc(52px * var(--uiscale));
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: #0b0a08; overflow: hidden;
+}
+.dlg-port canvas { width: 100%; height: 100%; display: block; }
+@media (max-width: 620px) { .dlg-port { display: none; } }
+
+/* --------------------------------------------------------------- menus ---- */
+
+.screen {
+  position: absolute; inset: 0;
+  /* Above #title (40). Settings opened from the title screen used to render
+     underneath it, so the title's own menu column sat on top of the settings
+     list and ate taps meant for the rows behind it. */
+  z-index: 45;
+  display: none;
+  background: rgba(6, 5, 4, 0.86);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  padding: calc(var(--pad) + var(--sa-t)) calc(var(--pad) + var(--sa-r))
+           calc(var(--pad) + var(--sa-b)) calc(var(--pad) + var(--sa-l));
+}
+.screen.on { display: block; }
+/* The epilogue must outrank #fade (z-index 60). finish() fades out and shows
+   the ending; if any caller ever forgets the matching fadeIn, the payoff of
+   the whole game must not end up under an opaque black plate. */
+.screen.ending { z-index: 70; }
+
+.screen-inner {
+  position: absolute;
+  inset: calc(var(--pad) + var(--sa-t)) calc(var(--pad) + var(--sa-r))
+         calc(var(--pad) + var(--sa-b)) calc(var(--pad) + var(--sa-l));
+  display: flex; flex-direction: column;
+}
+
+.screen-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: calc(5px * var(--uiscale)); flex: 0 0 auto; }
+.screen-title { font-size: calc(11px * var(--uiscale)); letter-spacing: 0.3em; text-transform: uppercase; color: var(--bone); font-weight: 600; }
+.screen-body { flex: 1 1 auto; min-height: 0; display: flex; gap: calc(8px * var(--uiscale)); }
+
+.col { min-height: 0; display: flex; flex-direction: column; }
+.col.main { flex: 1 1 auto; }
+
+.tabs { display: flex; gap: calc(3px * var(--uiscale)); margin-bottom: calc(5px * var(--uiscale)); flex-wrap: wrap; }
+.tab {
+  display: grid; place-items: center;
+  min-height: 44px;
+  font-size: calc(9.5px * var(--uiscale));
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0 calc(9px * var(--uiscale));
+  border: 1px solid var(--line); border-radius: var(--r);
+  color: var(--dim); background: rgba(20, 17, 13, 0.6);
+}
+.tab.on { color: var(--ink); background: var(--ember); border-color: var(--ember); font-weight: 700; }
+
+.close {
+  width: 44px; height: 44px;
+  border: 1px solid var(--line); border-radius: var(--r);
+  display: grid; place-items: center; color: var(--bone-dim); font-size: calc(15px * var(--uiscale));
+  background: rgba(20, 17, 13, 0.7);
+}
+.close:active, .close.on { background: var(--blood); color: #fff; }
+
+/* item rows */
+.item {
+  display: flex; align-items: center; gap: calc(8px * var(--uiscale));
+  min-height: 44px;
+  padding: calc(5px * var(--uiscale)) calc(6px * var(--uiscale));
+  border: 1px solid transparent; border-bottom-color: rgba(58,50,38,0.5);
+  border-radius: var(--r);
+}
+.item.on { background: rgba(255, 122, 47, 0.14); border-color: var(--ember-lo); }
+.item .glyph {
+  width: calc(22px * var(--uiscale)); height: calc(22px * var(--uiscale)); flex: 0 0 auto;
+  border: 1px solid var(--line); border-radius: 2px; background: #0d0b09;
+  display: grid; place-items: center; font-size: calc(11px * var(--uiscale));
+}
+/* Only the slider steppers carry `hit`; they are real buttons and get a real
+   target. The decorative row glyphs stay 22px. */
+.item .glyph.hit {
+  width: 44px; height: 44px;
+  font-size: calc(15px * var(--uiscale));
+  background: rgba(30, 26, 20, 0.8);
+  color: var(--bone);
+}
+.item .glyph.hit:active, .item .glyph.hit.on { background: rgba(255, 122, 47, 0.34); border-color: var(--ember); }
+.item .nm { font-size: calc(11px * var(--uiscale)); color: var(--bone); flex: 1 1 auto; line-height: 1.3; }
+.item .nm i { display: block; font-style: normal; color: var(--dim); font-size: calc(9.5px * var(--uiscale)); line-height: 1.35; }
+.item .qty { font-family: var(--ui-mono); font-size: calc(10.5px * var(--uiscale)); color: var(--ember); }
+
+/* Title screen */
+#title { display: none; position: absolute; inset: 0; z-index: 40; }
+#title.on { display: block; }
+.title-bg {
+  position: absolute; inset: 0;
+  /* Semi-opaque so the city is visible behind the mark — the title screen is
+     a photograph of Hollis with type over it, not a black plate. The scrim is
+     a readability gradient over the type only; the right two-thirds is left
+     nearly clear, and a burn glow is carried along the bottom edge so the
+     frame reads as a city over a fire even when the camera is parked low. */
+  background:
+    linear-gradient(90deg, rgba(6,5,4,0.90) 0%, rgba(6,5,4,0.66) 30%, rgba(6,5,4,0.12) 58%, rgba(6,5,4,0.10) 78%, rgba(6,5,4,0.58) 100%),
+    linear-gradient(0deg, rgba(58,24,6,0.62) 0%, rgba(28,13,4,0.28) 14%, rgba(0,0,0,0) 38%),
+    radial-gradient(120% 62% at 50% 104%, rgba(255,122,47,0.30) 0%, rgba(120,48,12,0.14) 40%, rgba(0,0,0,0) 72%),
+    radial-gradient(140% 120% at 50% 40%, rgba(0,0,0,0) 30%, rgba(4,3,2,0.72) 100%);
+}
+.title-wrap {
+  position: absolute; inset: 0;
+  padding: calc(var(--pad) + var(--sa-t) + 6px) calc(var(--pad) + var(--sa-r)) calc(var(--pad) + var(--sa-b) + 6px) calc(var(--pad) + var(--sa-l) + 6px);
+  display: flex; align-items: stretch; justify-content: space-between; gap: calc(12px * var(--uiscale));
+}
+/* Mark bottom-left, menu filling the right column top to bottom: the empty
+   middle is the point of the frame, the empty corners were not. */
+.title-mark { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; }
+.title-mark h1 {
+  margin: 0;
+  font-size: calc(30px * var(--uiscale));
+  letter-spacing: 0.36em; text-indent: 0.36em;
+  font-weight: 300; color: var(--bone);
+  text-shadow: 0 0 40px rgba(255, 122, 47, 0.42), 0 3px 0 rgba(0,0,0,0.5);
+  line-height: 1;
+}
+.title-mark .rule-em {
+  height: 1px; width: calc(180px * var(--uiscale));
+  margin: calc(9px * var(--uiscale)) 0 calc(8px * var(--uiscale));
+  background: linear-gradient(90deg, var(--ember), rgba(255,122,47,0));
+}
+.title-mark .tagline {
+  font-size: calc(10.5px * var(--uiscale)); color: var(--bone-dim); letter-spacing: 0.08em; line-height: 1.6;
+  max-width: calc(270px * var(--uiscale));
+  text-shadow: 0 1px 4px #000;
+}
+.title-menu {
+  width: calc(180px * var(--uiscale)); flex: 0 0 auto;
+  display: flex; flex-direction: column; justify-content: center; gap: calc(2px * var(--uiscale));
+}
+
+/* Chapter / location card */
+.card {
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+  text-align: center; opacity: 0; pointer-events: none;
+}
+.card.on { animation: cardin 4.6s ease both; }
+.card .k { font-size: calc(8px * var(--uiscale)); letter-spacing: 0.42em; color: var(--ember); text-transform: uppercase; }
+.card .t { font-size: calc(19px * var(--uiscale)); letter-spacing: 0.14em; color: var(--bone); font-weight: 300; margin-top: calc(5px * var(--uiscale)); text-shadow: 0 2px 20px #000; }
+.card .s { font-size: calc(8.5px * var(--uiscale)); color: var(--bone-dim); margin-top: calc(5px * var(--uiscale)); letter-spacing: 0.08em; }
+@keyframes cardin {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(1.06); letter-spacing: 0.2em; }
+  14%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Fade-to-black transition plate */
+#fade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.6s ease; z-index: 60; }
+#fade.on { opacity: 1; }
+#fade.slow { transition-duration: 1.8s; }
+
+/* Death / retry */
+.dead { position: absolute; inset: 0; display: none; place-items: center; background: rgba(10, 3, 2, 0.86); z-index: 50; }
+.dead.on { display: grid; }
+.dead-inner { text-align: center; width: min(78vw, calc(300px * var(--uiscale))); }
+.dead-inner .k { font-size: calc(17px * var(--uiscale)); letter-spacing: 0.34em; color: #d4483a; font-weight: 300; }
+.dead-inner .s { font-size: calc(10.5px * var(--uiscale)); color: var(--bone-dim); margin: calc(7px * var(--uiscale)) 0 calc(10px * var(--uiscale)); line-height: 1.6; font-style: italic; }
+
+/* Subtitles / barks — clear of the (taller) action cluster. */
+.subs {
+  position: absolute; left: 50%; bottom: calc(var(--pad) + var(--sa-b) + 142px * var(--uiscale));
+  transform: translateX(-50%);
+  width: min(calc(100% - 30px), calc(340px * var(--uiscale)));
+  text-align: center;
+  font-size: calc(10.5px * var(--uiscale));
+  color: var(--bone);
+  text-shadow: 0 1px 4px #000, 0 0 10px #000;
+  line-height: 1.4;
+  pointer-events: none;
+}
+.subs .spk { color: var(--ember); font-weight: 700; letter-spacing: 0.06em; }
+.subs > div { animation: subin 0.2s ease both; margin-top: 2px; }
+@keyframes subin { from { opacity: 0; } to { opacity: 1; } }
+
+/* Map canvas */
+.mapwrap { position: relative; flex: 1 1 auto; min-height: 0; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: #0a0908; }
+.mapwrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Perf readout */
+.perf {
+  position: absolute; bottom: calc(var(--pad) + var(--sa-b)); left: 50%; transform: translateX(-50%);
+  font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); color: var(--bone-dim);
+  letter-spacing: 0.06em; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 2px;
+  white-space: pre;
+}
+
+/* Toast for autosave */
+.autosave {
+  position: absolute; right: calc(var(--pad) + var(--sa-r)); bottom: calc(var(--pad) + var(--sa-b) + 144px * var(--uiscale));
+  font-family: var(--ui-mono); font-size: calc(9px * var(--uiscale)); letter-spacing: 0.16em;
+  color: var(--bone-dim); text-shadow: 0 1px 3px #000; opacity: 0; transition: opacity 0.4s ease;
+}
+.autosave.on { opacity: 1; }
+.autosave::before { content: '◍ '; color: var(--ember); }
+
+/* Rotate-device nag */
+#rotate {
+  position: absolute; inset: 0; z-index: 90; display: none; place-items: center;
+  background: #070605; text-align: center; padding: 24px;
+}
+#rotate.on { display: grid; }
+#rotate .ico { font-size: 34px; margin-bottom: 12px; animation: rot 2.2s ease-in-out infinite; }
+@keyframes rot { 0%,45% { transform: rotate(0deg); } 55%,100% { transform: rotate(-90deg); } }
+#rotate p { font-size: 12px; color: var(--bone-dim); letter-spacing: 0.12em; line-height: 1.7; margin: 0; white-space: pre-line; }
+
+/* ------------------------------------------------------- context loss ----- */
+/* WebGL context loss on iOS is frequently terminal — Safari often never fires
+   webglcontextrestored. A frozen frame with no message and no save is not an
+   acceptable end to a playthrough. */
+#ctxlost {
+  position: absolute; inset: 0; z-index: 95; display: none; place-items: center;
+  background: rgba(6, 5, 4, 0.94); text-align: center; padding: 24px;
+}
+#ctxlost.on { display: grid; }
+#ctxlost .k { font-size: 15px; letter-spacing: 0.28em; color: var(--ember); font-weight: 600; }
+#ctxlost .s { font-size: 12px; color: var(--bone-dim); line-height: 1.6; margin: 10px 0 14px; max-width: 340px; }
+#ctxlost .btn { width: auto; display: inline-flex; padding: 0 18px; text-align: center; }
+
+/* Reduced-motion respect for purely decorative animation */
+@media (prefers-reduced-motion: reduce) {
+  .boot-bar > i, .bar.hp.low > .fill, .air.crit, .dlg-txt .caret, #rotate .ico { animation: none !important; }
+}
+
+/* Very short viewports (landscape phones) — tighten everything.
+   The choice list is NOT capped here any more. This media query matches the
+   primary target device exactly, and its old `max-height: 84px` hid the third
+   option onwards of 22 of the 27 choice nodes in the game. The list now takes
+   whatever height the dialogue block has left, and scrolls with a visible
+   affordance when even that is not enough. */
+@media (max-height: 400px) {
+  .objective { max-width: calc(160px * var(--uiscale)); }
+}
+
+/* ------------------------------------------------------- left-handed ------ */
+
+/* Input.leftHanded only moves the touch-zone split. Without this the movement
+   stick spawned on the right underneath the action cluster and was swallowed
+   by it, the camera surface moved to the bottom-left, and the buttons stayed
+   where they were — i.e. left-handed mode made the game unplayable. The whole
+   frame mirrors, so the two thumbs get the halves they were promised.
+   Toggled by Game.applySettings. */
+body.lefthanded .stick { left: auto; right: calc(var(--pad) + var(--sa-r)); }
+body.lefthanded .actions { right: auto; left: calc(var(--pad) + var(--sa-l)); }
+body.lefthanded .abtn.attack   { right: auto; left: calc(4px * var(--uiscale)); }
+body.lefthanded .abtn.dodge    { right: auto; left: calc(68px * var(--uiscale)); }
+body.lefthanded .abtn.guard    { right: auto; left: calc(7px * var(--uiscale)); }
+body.lefthanded .abtn.use      { right: auto; left: calc(62px * var(--uiscale)); }
+body.lefthanded .abtn.heavy    { right: auto; left: calc(112px * var(--uiscale)); }
+body.lefthanded .abtn.interact { right: auto; left: calc(123px * var(--uiscale)); }
+body.lefthanded .autosave { right: auto; left: calc(var(--pad) + var(--sa-l)); }
+
+body.lefthanded .vitals { left: auto; right: calc(var(--pad) + var(--sa-r)); }
+body.lefthanded .bar > .lbl { left: auto; right: calc(100% + 4px * var(--uiscale)); }
+body.lefthanded .syscluster { right: auto; left: calc(var(--pad) + var(--sa-l)); }
+body.lefthanded .notices { right: auto; left: calc(var(--pad) + var(--sa-l)); align-items: flex-start; }
+body.lefthanded .notice { text-align: left; border-right: 0; border-left: 2px solid var(--ember); }
+body.lefthanded .notice.good { border-left-color: var(--toxic); }
+body.lefthanded .notice.bad  { border-left-color: var(--blood); }
+
+/* ------------------------------------------------- accessibility overrides -- */
+
+/* High-contrast interface: heavier panels, brighter type, stronger borders. */
+body.hicontrast {
+  --bone: #ffffff;
+  --bone-dim: #dcd6cc;
+  --dim: #b8b0a4;
+  --line: #6f6250;
+  --ember: #ffa050;
+}
+body.hicontrast .panel,
+body.hicontrast .dlg-box,
+body.hicontrast .air,
+body.hicontrast .notice,
+body.hicontrast .prompt { background: rgba(4, 4, 3, 0.96); }
+body.hicontrast .btn,
+body.hicontrast .dlg-choice { background: rgba(20, 18, 14, 0.96); border-width: 1px; }
+body.hicontrast .abtn { background: rgba(8, 7, 6, 0.9); border-color: rgba(255, 255, 255, 0.7); }
+body.hicontrast .bar { border-color: rgba(255, 255, 255, 0.55); }
+body.hicontrast .subs { text-shadow: 0 0 4px #000, 0 0 8px #000, 0 1px 2px #000; }
+body.hicontrast .task,
+body.hicontrast .dlg-txt { text-shadow: 0 1px 3px #000, 0 0 6px #000; }
+
+/* Reduced motion: no decorative animation anywhere. */
+body.reduced .boot-bar > i,
+body.reduced .bar.hp.low > .fill,
+body.reduced .air.crit,
+body.reduced .dlg-txt .caret,
+body.reduced #rotate .ico,
+body.reduced .card.on { animation: none !important; }
+body.reduced .card.on { opacity: 1; }
+body.reduced .fx-num { animation-duration: 0.5s; }
+
+
+/* ==========================================================================
+   Japanese
+   ==========================================================================
+   Japanese sets differently from English in three ways that matter at 667x375:
+   there are no spaces to break on, the glyphs need more vertical room to stay
+   legible, and letter-spacing that reads as "instrument panel" in Latin reads
+   as broken in kana. Everything below is scoped so the English layout is
+   untouched.
+   ========================================================================== */
+
+html[data-lang="ja"] body,
+html[data-lang="ja"] .btn,
+html[data-lang="ja"] .sub,
+html[data-lang="ja"] .dlg-txt {
+  /* Break anywhere a Japanese line legally can, and never mid-punctuation. */
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Tracking. The interface uses wide letter-spacing as a design signature; in
+   kana and kanji the same value simply looks like a fault, so headings keep a
+   trace of it and body text loses it entirely. */
+html[data-lang="ja"] .h,
+html[data-lang="ja"] .boot-mark,
+html[data-lang="ja"] .card .t,
+html[data-lang="ja"] .title-mark .nm { letter-spacing: 0.14em; text-indent: 0; }
+html[data-lang="ja"] .sub,
+html[data-lang="ja"] .dlg-txt,
+html[data-lang="ja"] .notice,
+html[data-lang="ja"] .item .nm,
+html[data-lang="ja"] .btn { letter-spacing: 0.01em; }
+
+/* Size and leading. CJK needs roughly one more pixel and more line height to
+   stay readable at the same physical size, because the glyphs are denser. */
+html[data-lang="ja"] .dlg-txt { font-size: calc(11.5px * var(--uiscale)); line-height: 1.72; }
+html[data-lang="ja"] .sub      { font-size: calc(11.5px * var(--uiscale)); line-height: 1.78; }
+html[data-lang="ja"] .btn      { font-size: calc(12px * var(--uiscale)); }
+html[data-lang="ja"] .dlg-choice { font-size: calc(11px * var(--uiscale)); line-height: 1.5; }
+html[data-lang="ja"] .notice   { font-size: calc(11px * var(--uiscale)); line-height: 1.5; }
+html[data-lang="ja"] .item .nm { font-size: calc(11.5px * var(--uiscale)); }
+html[data-lang="ja"] .item .nm i { font-size: calc(10px * var(--uiscale)); }
+html[data-lang="ja"] .prompt   { font-size: calc(11.5px * var(--uiscale)); }
+html[data-lang="ja"] .task     { font-size: calc(11px * var(--uiscale)); line-height: 1.5; }
+html[data-lang="ja"] .dlg-who  { font-size: calc(10.5px * var(--uiscale)); letter-spacing: 0.08em; }
+
+/* The dialogue box holds one more line of Japanese than of English at the same
+   height, so the choice list needs its share back. */
+html[data-lang="ja"] .dlg-txt { min-height: calc(3.4em); }
+
+/* Numerals stay Latin and stay monospaced — a ppm reading is an instrument
+   readout in any language. */
+html[data-lang="ja"] .ppm,
+html[data-lang="ja"] .air .unit,
+html[data-lang="ja"] .air .filter,
+html[data-lang="ja"] .bar > .lbl,
+html[data-lang="ja"] .perf,
+html[data-lang="ja"] .compass .tick { font-family: var(--ui-mono); }
+
+/* Vertical rhythm in the ending, which is the longest prose in the game. */
+html[data-lang="ja"] .screen.ending .sub { line-height: 1.9; }

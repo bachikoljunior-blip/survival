@@ -36,6 +36,12 @@ npm run build
 # then publish the contents of dist/ (a .nojekyll file is included)
 ```
 
+This repository's current GitHub Pages setting also publishes `main` from the
+repository root. Before a release, run `npm run build:pages-root` and commit the
+generated root files. The command mirrors the same production build used by the
+Actions deployment, so the branch-source Pages run cannot replace the game with
+the rendered README. Do not edit those generated root files by hand.
+
 There is no server component, no analytics, no telemetry, no external requests
 of any kind, and no secrets. Open `dist/index.html` through any static host and
 the whole game is there.
