@@ -140,7 +140,9 @@ seconds and I already know which one I believe.`);
     const g = this.game;
     return {
       spawnCourtyardRaid: () => this._spawnRaid('courtyard', [
-        ['scav', -100, -74], ['scav', -96, -88], ['slinger', -92, -80],
+        // z=-80 is the 4.2 m heat-plant pipe. Spawning the slinger exactly on
+        // it pre-damaged the unit in a fall before the player could engage.
+        ['scav', -100, -74], ['scav', -96, -88], ['slinger', -92, -82],
       ]),
       spawnTrenchLine: () => {
         this._spawnRaid('trench', [

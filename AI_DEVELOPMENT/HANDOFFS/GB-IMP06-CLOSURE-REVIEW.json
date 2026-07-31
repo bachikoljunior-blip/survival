@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "handoff_id": "HANDOFF-GB-IMP06-REVIEW-06",
+  "kind": "checkpoint",
+  "session_id": "SESSION-2026-07-31-01",
+  "task_id": "GB-IMP06-REVIEW",
+  "producer": "integration-owner",
+  "intended_consumer": "fresh-quality-gate-closure-reviewer",
+  "objective": "Independently decide whether the packaged regression suite and inspected controls close GB06-R01 through GB06-R07 for the explicitly partial Chapter 1 movement, breathing and combat slice.",
+  "allowed_scope": [
+    "PROJECT_OPERATING_PROTOCOL.md",
+    "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json",
+    "docs/reviews/gate-b-imp06-slice.md",
+    "docs/reviews/gate-b-imp06-slice-rereview.md",
+    "docs/reviews/gate-b-imp06-slice-rereview-2.md",
+    "docs/reviews/gate-b-imp06-slice-final-review.md",
+    "docs/reviews/gate-b-imp06-slice-final-review-addendum.md",
+    "src/core/engine.js",
+    "src/game/combat.js",
+    "src/game/ai.js",
+    "src/actors/actor.js",
+    "tools/gate_b_adversarial.mjs",
+    "tools/gate_b_slice.mjs",
+    "tools/gate_b_driver.js",
+    "package.json"
+  ],
+  "reviewed_source_sha256": {
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "tools/gate_b_driver.js": "60147238dca48d828d485e8830ed7fd05c1eec58633a9dc1f54db3f6205d9b98",
+    "tools/gate_b_slice.mjs": "cdfd13183c056be48b9493f9a57d7d9c7f6a489fb4e5237049e0ec95d3e81461",
+    "tools/gate_b_adversarial.mjs": "fcd1936ba01719d34a9ffa82a0532a96bc9a7c1235d6c68702244fd566d6d636",
+    "dist/cinderline.1.0.0.js": "bb8b23b95dc24a67f4ec6bd350fff1c4b6c6c96c92c5449e037a6a3c8832a49b"
+  },
+  "required_inputs": [
+    "A disposable copy of the exact reviewed source hashes",
+    "The prior findings and current durable evidence",
+    "Playwright Chromium at PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright"
+  ],
+  "expected_output": "docs/reviews/gate-b-imp06-slice-closure.md",
+  "required_checks": [
+    "Run npm run validate:ops in a new disposable copy.",
+    "Run PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright npm run test:gate-b in that copy.",
+    "Verify all 19 expected-failure probes exit nonzero and replace authoritative evidence with a current revision/hash-bound passed:false result before the final clean run.",
+    "Verify explicit rejection of placement, precombat HP, computed resolver, attack-definition damage/poise/reach/arc, active windup/active, direct and Set.prototype hit-set mutation, direct HP event reentry, nested damage-method reentry, death-state reentry, kill-event reentry, updater registration/list mutation and forced-failure cases.",
+    "Inspect the final clean evidence for exact current bindings, two fresh 667x375 contexts, no errors, three full-health actors, three proven deaths, and equal positive engine/game/combat step counts.",
+    "Review the sealed instance/prototype call chain, immutable attack snapshots, single-use target-bound damage/telemetry authorization, protected death state, pinned driver contract, projectile/vitals separation and guarded updater list against the causes of GB06-R01 through GB06-R07."
+  ],
+  "acceptance_criteria": [
+    "The runner exercises the complete fixed-step updater chain with live RAF stopped.",
+    "Movement, breathing and combat use normal production paths without placement, health, immunity, progression or resolver shortcuts.",
+    "Every protected raid HP transition has exactly one authenticated production damage call and normal hit telemetry.",
+    "Failed or interrupted attempts cannot leave authoritative passing evidence current.",
+    "The clean result is semantically repeatable and bound to the exact reviewed source/build/revision.",
+    "All claims remain explicitly limited to the partial scripted slice."
+  ],
+  "decision_rule": "PASS only if every required check completes and no unresolved high-severity bypass or contradictory evidence remains in this partial scope. Otherwise FAIL or INCONCLUSIVE.",
+  "constraints": [
+    "Do not trust implementer prose or README.md as evidence.",
+    "Run builds, tests and adversarial mutations only in a disposable copy.",
+    "Do not alter shared product, tests, state, evidence, prior reviews or remote state.",
+    "The only permitted shared edit is the expected output review.",
+    "Do not approve B1, B2, B3, B4, C1, D3, performance, play feel, full Gate B, full playtime, real-device behavior or release."
+  ],
+  "known_risks": [
+    "SwiftShader mobile emulation is not a physical-device performance result.",
+    "The source-aware scripted slice is not a source-blind usability or play-feel evaluation.",
+    "The full opening-to-ending route remains a separate Gate C task."
+  ],
+  "rollback_instructions": "Remove the engine test step, Gate B driver/runner, package script and evidence entry; restore state to revision 2026-07-31.2.",
+  "completion_status": "ready_for_independent_closure_review",
+  "handoff_recipient": "integration-owner"
+}

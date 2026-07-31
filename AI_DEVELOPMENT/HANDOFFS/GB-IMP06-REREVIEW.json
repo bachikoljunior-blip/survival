@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "handoff_id": "HANDOFF-GB-IMP06-REREVIEW-02",
+  "kind": "checkpoint",
+  "session_id": "SESSION-2026-07-31-01",
+  "task_id": "GB-IMP06-REVIEW",
+  "producer": "integration-owner",
+  "intended_consumer": "fresh-independent-code-and-test-reviewer",
+  "objective": "Attempt to falsify the repairs for GB06-R01 and GB06-R02, then issue a new pass/fail verdict without granting any broader Gate B claim.",
+  "input_artifacts": [
+    "AI_DEVELOPMENT/HANDOFFS/GB-IMP06-REVIEW.json",
+    "docs/reviews/gate-b-imp06-slice.md",
+    "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json",
+    "PROJECT_OPERATING_PROTOCOL.md",
+    "docs/DONE.md"
+  ],
+  "output_artifacts": [
+    "docs/reviews/gate-b-imp06-slice-rereview.md"
+  ],
+  "affected_files_and_interfaces": [
+    "src/core/engine.js: development-only fixed-step entry point",
+    "src/game/director.js: courtyard raid spawn geometry",
+    "tools/gate_b_driver.js: in-page production-path driver",
+    "tools/gate_b_slice.mjs: source policy, runtime integrity audit and evidence publisher",
+    "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json: authoritative current-attempt evidence"
+  ],
+  "dependencies": [
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright",
+    "installed npm dependencies"
+  ],
+  "invariants": [
+    "The live RAF is stopped and the full fixed-step updater chain runs.",
+    "The driver does not retain or invoke a placement/teleport helper, write actor position, write HP/lung/progression state, call direct damage/kill, or manufacture a kill event.",
+    "All three authored courtyard actors begin at full health and every HP/death transition has normal player-combat telemetry inside a fixed step.",
+    "The current-attempt evidence is atomically invalidated before browser work and every failed attempt leaves passed=false.",
+    "Evidence is bound to state revision and hashes of engine, driver, runner and built bundle.",
+    "The claim remains a Chapter 1 partial slice only."
+  ],
+  "assumptions": [
+    "The review is source-aware, not source-blind.",
+    "SwiftShader mobile emulation is not real-device evidence."
+  ],
+  "constraints": [
+    "Use a disposable copy for destructive/adversarial mutations and generated evidence where practical.",
+    "Do not use README.md or implementer prose as evidence.",
+    "Do not approve B1, B2, C1, D3, play feel, performance, full playtime or a complete Gate B pass."
+  ],
+  "prohibited_changes": [
+    "Product source changes",
+    "Test implementation changes",
+    "Operating-state changes",
+    "Remote push, merge, deployment or publication"
+  ],
+  "acceptance_criteria": [
+    "A clean two-context run exits zero with identical semantic outcomes and no browser/runtime integrity errors.",
+    "The built-in source fixtures reject aliases, brackets, position/HP/lung/progression writes, aliased damage/kill and manufactured kill events.",
+    "The placement-alias runtime probe exits nonzero and leaves authoritative evidence passed=false.",
+    "The precombat-HP runtime probe exits nonzero and leaves authoritative evidence passed=false.",
+    "A forced two-context failure exits nonzero and leaves current, revision/hash-bound authoritative evidence passed=false.",
+    "A final clean rerun restores only a new current passed=true report.",
+    "The exact original retained-helper and direct-HP review reproductions cannot make the official runner pass."
+  ],
+  "tests_required": [
+    "npm run validate:ops",
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright npm run test:gate-b",
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright node tools/gate_b_slice.mjs --force-failure",
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright node tools/gate_b_slice.mjs --adversarial=placement-alias",
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright node tools/gate_b_slice.mjs --adversarial=precombat-hp",
+    "A final clean rerun plus structured evidence inspection"
+  ],
+  "known_results_to_distrust_and_reproduce": [
+    "Integration-owner forced-failure run exited 1 while both gameplay repetitions otherwise completed; durable evidence was passed=false.",
+    "Integration-owner placement-alias and precombat-HP probes each exited 1 and left durable evidence passed=false.",
+    "Integration-owner clean run completed two fresh contexts at 302.6m, 857ppm/0.229, 10 normal hits and 3 proven kills with no integrity violation."
+  ],
+  "known_risks": [
+    "Text scanning is defense in depth and cannot prove semantics by itself; runtime invariants are mandatory.",
+    "Full-precision environmental and HP measurements may drift while the selected semantic outcome remains repeatable.",
+    "Dialogue automation uses production callbacks but is not a source-blind usability result."
+  ],
+  "rollback_instructions": "Restore the verified baseline 222fafa5dc169200dd06848f65ec1921a0a16f53 in a disposable workspace; do not destructively reset the shared worktree.",
+  "completion_status": "ready_for_fresh_independent_rereview",
+  "handoff_recipient": "integration-owner"
+}

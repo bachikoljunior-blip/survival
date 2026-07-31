@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "handoff_id": "HANDOFF-GB-IMP06-FINAL-REVIEW-03",
+  "kind": "checkpoint",
+  "session_id": "SESSION-2026-07-31-01",
+  "task_id": "GB-IMP06-REVIEW",
+  "producer": "integration-owner",
+  "intended_consumer": "independent-code-and-test-reviewer",
+  "objective": "Falsify the GB06-R01, GB06-R02 and GB06-R03 repairs and the integrity, repeatability and scope claims of the Chapter 1 movement, breathing and combat representative slice.",
+  "allowed_scope": [
+    "docs/DONE.md",
+    "PROJECT_OPERATING_PROTOCOL.md",
+    "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json",
+    "src/core/engine.js",
+    "tools/gate_b_driver.js",
+    "tools/gate_b_slice.mjs",
+    "tools/gate_b_adversarial.mjs",
+    "src/game/director.js",
+    "package.json"
+  ],
+  "required_inputs": [
+    "A runnable development build created from the current worktree",
+    "Gate B acceptance criteria",
+    "The durable evidence file and its producing scripts"
+  ],
+  "assumptions": [
+    "Playwright Chromium is available through PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright",
+    "This review is source-aware and is not a source-blind play-feel evaluation"
+  ],
+  "constraints": [
+    "Do not use README.md or the implementer's prose report as evidence",
+    "Do not claim real-device results",
+    "Do not treat the partial slice as C1, D3, a full playthrough or playtime evidence"
+  ],
+  "prohibited_changes": [
+    "Product source changes",
+    "Test implementation changes",
+    "Remote push, merge, deployment or publication"
+  ],
+  "expected_outputs": [
+    "docs/reviews/gate-b-imp06-slice-final-review.md",
+    "A pass/fail result for an independently rerun npm run test:gate-b",
+    "Severity, evidence, reproduction, cause direction and required retest for every finding"
+  ],
+  "acceptance_criteria": [
+    "The full fixed-step updater chain is exercised with the live RAF stopped",
+    "Movement enters through production input and collision, not placement or position writes",
+    "Breathing uses an unmasked, nonimmune, unassisted player and proves critical exposure plus recovery",
+    "All three authored raid actors die through player combat inputs and the normal hit path",
+    "Forbidden shortcuts are rejected by executable source checks and runtime sentinels",
+    "Direct or computed access to the combat hit resolver cannot be accepted as production attack-arc provenance",
+    "Only damage nested through engine step, Game.fixedUpdate, CombatSystem.update, _resolveArc and _applyHit for the exact current authored attack is accepted",
+    "Two fresh contexts produce the same semantic result with no browser errors",
+    "Claims remain explicitly partial"
+  ],
+  "tests_required": [
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright npm run test:gate-b",
+    "npm run validate:ops",
+    "Reproduce the computed combat-resolver mutation from docs/reviews/gate-b-imp06-slice-rereview.md in a disposable copy",
+    "Adversarial source inspection of the engine step, driver and outer runner"
+  ],
+  "known_risks": [
+    "SwiftShader mobile emulation is not a real-device performance result",
+    "Dialogue automation is not a source-blind user-surface play test",
+    "The full opening-to-ending route remains a separate Gate C task"
+  ],
+  "rollback_instructions": "Remove the engine test step, Gate B driver/runner, package script and evidence entry; restore state to revision 2026-07-31.2.",
+  "completion_status": "ready_for_final_independent_re_review",
+  "handoff_recipient": "integration-owner"
+}

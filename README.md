@@ -1,5 +1,7 @@
 # CINDERLINE
 
+Development continuity and operating rules: [`PROJECT_OPERATING_PROTOCOL.md`](PROJECT_OPERATING_PROTOCOL.md) and [`AI_DEVELOPMENT/INDEX.md`](AI_DEVELOPMENT/INDEX.md). Product requirements, verified status and release gates remain in `docs/`.
+
 A survival action RPG set in **Hollis** — a condemned industrial city sitting on an
 underground fire that has been burning for thirty-one years.
 

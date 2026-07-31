@@ -1,10 +1,12 @@
 # STATE — 進捗の唯一の情報源
 
+<!-- state_revision: 2026-07-31.6 -->
+
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
-**記憶を持たない新しいエージェントが、このファイルだけを読んで再開できるように書くこと。** 他の文書を先に読む必要があってはならない。
+**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
 
-最終更新: 2026-07-30 / ブランチ `claude/section-21-gate-a-zbqmdk`
+最終更新: 2026-07-31 / 作業ブランチ `codex/continue-survival` / 検証済み基点 `222fafa`
 
 ---
 
@@ -14,9 +16,9 @@
 
 **ゲームは既に動く。** 5つのエンディング全てに実際のプレイで到達でき、日本語対応済み、外部アセットゼロ（テクスチャ・音・モデルは全て実行時生成）。約25,000行。
 
-**したがって本プロジェクトの残作業は、コンテンツを増やすことではない。既存コンテンツを `docs/directive.md` §16 の Gate B / C / D の品質基準まで引き上げることである。**
+**残作業の中心は、既存コンテンツを `docs/directive.md` §16 の Gate B / C / D まで引き上げることである。** ただし `docs/bible.md` IMP-03 の BREAKER / DOG 遭遇は、Gate C の確定数値を保つ場合に限り、対象を絞った新規コンテンツを必要とする。
 
-**次に読むべきもの**: `docs/directive.md`（全ての規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）。
+**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）。運用上の読順は `AI_DEVELOPMENT/INDEX.md` を正とする。
 **README.md を設計の根拠にしてはならない**（§14）。実装者の自己申告文書であり、実装との食い違いが実際に発見されている。
 
 ---
@@ -67,32 +69,37 @@
 | `npm run test:play` | **PLAYTHROUGH OK** — 5経路すべて成功。`record` / `cut` / `westward` / `everybody` / `nothing` の5つの異なるエンディングに、実トリガ経由で到達（フラグ直書きなし） |
 | `node tools/check_scope.mjs` | OK（6項目すべて数値記載あり） |
 
+### 2026-07-31 継続 checkpoint
+
+| コマンド | 結果 |
+|---|---|
+| `npm run validate:ops` | **OK** — revision / task graph / active session / evidence path を検証 |
+| `npm run test:gate-b` | **OK（範囲限定）** — 19負例を全て非ゼロ拒否して各回の最新証拠を `passed:false` にした後、fresh 667×375 emulation 2回とも 302.6m、非免疫・filter無しで 857ppm / saturation 0.229、通常 combat 10 hit / 3 kill、9092 engine/game/combat step、browser error 0。`AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json`。**C1/D3・全編実走・実機・プレイ時間の証拠ではない。** |
+| `npm run validate` / `npm run i18n` | **OK** — content 224 dialogue nodes / 9 quests / 5 endings、翻訳 882/882、用語 rejected variant 0 |
+| `node tools/check_scope.mjs --against-content` | **OK（留保付き）** — 記載数値と実コンテンツは一致。playtime は未計測、breaker/dog は未配置と明示 |
+
+初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
+
+2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。現在のactive taskは、上記checkpointを `bachikoljunior-blip/survival` へpush・mergeし、GitHub Pages の実公開面まで確認することである。未検証または既知失敗中の変更を公開済みとは扱わない。
+
 ---
 
 ## 3. 次の3アクション
 
 **§19 は「次の3アクション」を具体的な作業として書くことを要求する。範囲を広げないこと。**
 
-### アクション 1 — IMP-06: 実移動・実呼吸・実戦闘の通しプレイを作る（最優先）
-現在の通しプレイ harness は **移動をテレポートし（`tools/driver.js:41-52`）、プレイヤーをガス免疫にし（`:207`）、戦闘を直接ダメージで解決する（`:168-181`）。** したがって5経路の緑は物語グラフの到達性しか意味しない。**本作の中心的柱「空気が地形である」が自動検証の対象に一度もなっていない。**
+この表示は `AI_DEVELOPMENT/PROJECT_STATE.json` の task graph と `SESSION_STATE.json` の frontier から導く。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
 
-- テレポートせず `gasImmune` を設定しない実移動の通しプレイを**最低1経路**作る
-- 同時に想定プレイ時間を実測し、`docs/bible.md` §16 の「3〜5時間」を実測値に置き換える（過大の疑いが指摘されている）
-- 既存の5経路 harness は物語グラフ検証用として残す。**置き換えるのではなく、何を検証しているかを正しく名乗らせる**
+### アクション 1 — 検証済みcheckpointをpush・merge・公開する（active）
+対象差分、秘密、mandatory gate、commit SHAを最終確認し、`codex/continue-survival` をremoteへpushしてPRをmergeする。`main` のGitHub Pages workflowと公開URLを実測し、remote commit・PR・deployment結果をmachine stateへ記録する。第1章代表スライスはここまでで限定PASSだが、**全編実走・C1/D3・実機・playtimeは未検証のまま**である。
 
-### アクション 2 — 監査の high 2件を修正する
-- **H1: セーブのマイグレーションが存在しない**（`src/game/state.js:292,357`）。バージョンを1度でも上げると全プレイヤーの進行が警告なく消える。`migrate(d)` 層を追加し、破棄ではなく移行＋明示的告知に変える
-- **H2: 起動後の未捕捉エラーと rejected promise を誰も捕捉しない**（`public/index.html:92`, `src/main.js:31`）。`window.onerror` と `unhandledrejection` を起動後も生かし、既存の回復パネル（`public/index.html:36-43`）に接続する
-- どちらも修正後に回帰テストを書く（§17 は critical と high 全てに回帰テストを要求）
+### アクション 2 — H1: セーブマイグレーションを追加する
+`src/game/state.js:292,357` にはマイグレーション層がなく、version を上げると既存進行が警告なく破棄される。`migrate(d)` を追加し、旧version fixture、段階移行、失敗時の明示通知、save/load回帰を検証する。
 
-### アクション 3 — IMP-02: `story.js:479-480` の QUIET 欠落を直す
-最小の変更で最も象徴的な修正。`src/content/story.js:44-50` は「告白の上に『She knows what you are now』という赤いポップアップを出すことは、ゲームが自分の答案に採点することだ」と**出してはならない文字列を名指しで書いているのに、`:479-480` がその文字列そのものを QUIET なしで発火させる。**
+### アクション 3 — H2: 起動後エラーから回復できるようにする
+`public/index.html:92` と `src/main.js:31` を対象に、`window.onerror` と `unhandledrejection` を起動後も既存回復パネルへ接続する。正常起動、同期例外、rejected promise、再試行をユーザーsurfaceから検証する。
 
-- `:480` に `QUIET` を付ける
-- 同型の `:426, :890, :1491, :2062` を確認し、レンの選択を採点している reason は QUIET 化するか事実の記述に書き換える。特に `:2062` はヴェント3択のうち折衷案にだけ赤トーストを出しており、柱5の明確な違反
-- `story.js:47-50` のコメント「the four beats」を実数9に修正する
-
-**以降の作業（Vitest 導入、IMP-01/03/04/05 ほか）は `docs/bible.md` §17b 実装欠陥台帳を参照すること。** 18件が ID 付きでゲート別に登録されている。
+**その次**は `GB-TOUCH-SMOKE`、`GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
 
 ---
 
@@ -126,7 +133,7 @@
 | §0 の指定 | 現状 | 判断 |
 |---|---|---|
 | Vite | esbuild + 自作 `build.mjs` | **意図的に継続。** 相対パス・`.nojekyll`・再現ビルドという実質要件を既に満たしており、乗り換えの利得が無い。理由は `docs/bible.md` §0 に記録 |
-| Vitest | 無し | **改修対象。** 次のアクション3 |
+| Vitest | 無し | **改修対象。** `docs/bible.md` R-06。現在のアクション3 `IMP-02` と混同しない |
 | CI で PR ごとに lint + test + build | `pages.yml` が `main` で validate + build のみ。PR ワークフローが無い | 改修対象。**`.github/workflows/autopilot.yml` には触らないこと** |
 
 ---

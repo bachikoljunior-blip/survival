@@ -29,6 +29,8 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
+      - name: Validate persistent operating state
+        run: npm run validate:ops
       - name: Validate story and world content
         run: npm run validate
       - name: Build

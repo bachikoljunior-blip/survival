@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "handoff_id": "HANDOFF-GB-IMP06-REREVIEW-03",
+  "kind": "checkpoint",
+  "session_id": "SESSION-2026-07-31-01",
+  "task_id": "GB-IMP06-REVIEW",
+  "producer": "integration-owner",
+  "intended_consumer": "second-fresh-independent-code-and-test-reviewer",
+  "objective": "Falsify the GB06-R03 call-chain and updater-isolation repairs and re-evaluate GB06-R01/R02 without granting broader Gate B approval.",
+  "input_artifacts": [
+    "docs/reviews/gate-b-imp06-slice.md",
+    "docs/reviews/gate-b-imp06-slice-rereview.md",
+    "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json",
+    "tools/gate_b_slice.mjs",
+    "tools/gate_b_adversarial.mjs",
+    "tools/gate_b_driver.js",
+    "src/core/engine.js",
+    "src/game/director.js"
+  ],
+  "output_artifacts": [
+    "docs/reviews/gate-b-imp06-slice-rereview-2.md"
+  ],
+  "invariants": [
+    "Every accepted raid hit follows the sealed Engine.stepFixedForTest -> Game.fixedUpdate -> CombatSystem.update -> _resolveArc -> _applyHit chain.",
+    "The resolver receives the actor's current attack, authored definition and a target already selected in its hit set.",
+    "One game and combat update occurs per authenticated engine fixed step.",
+    "Post-audit updater registration/list mutation is rejected except the one in-game slinger simulation timer registration.",
+    "All raid actors start at full health; every accepted damage/death event matches the active authenticated resolver call.",
+    "Every failed latest attempt atomically leaves revision/hash-bound passed=false evidence; only the final clean attempt may leave passed=true."
+  ],
+  "constraints": [
+    "Use disposable copies for all browser runs, generated evidence and mutations.",
+    "Do not trust implementer results or README.md.",
+    "Do not change shared product, test, state, prior reviews or remote state.",
+    "Do not approve B1, B2, B3, B4, C1, D3, full Gate B, performance, play feel, full playtime or release."
+  ],
+  "tests_required": [
+    "npm run validate:ops",
+    "PLAYWRIGHT_BROWSERS_PATH=/tmp/survival-playwright npm run test:gate-b",
+    "Reapply the exact GB06-R03 updater mutation from docs/reviews/gate-b-imp06-slice-rereview.md and require nonzero exit plus current passed=false evidence.",
+    "Attempt direct/computed instance and prototype access to _applyHit outside _resolveArc.",
+    "Attempt post-audit addUpdater and direct _updaters list mutation.",
+    "Repeat forced failure, placement alias and precombat HP probes as needed to ensure earlier repairs remain intact.",
+    "Finish with an unmodified clean two-context run and inspect the entire evidence binding/provenance record."
+  ],
+  "acceptance_criteria": [
+    "The exact prior exit-zero GB06-R03 mutation now exits nonzero.",
+    "No tested computed/prototype/updater-list variant forges accepted combat provenance.",
+    "All adversarial runs leave new passed=false evidence with current revision and engine/driver/runner/bundle hashes.",
+    "The final clean run exits zero twice with no errors, three full-health actors, three proven deaths and equal positive engine/game/combat step counts.",
+    "Claims remain explicitly partial."
+  ],
+  "known_results_to_distrust_and_reproduce": [
+    "Integration owner observed the combat-resolver probe fail twice with 'combat hit resolver invoked outside production arc traversal'.",
+    "Integration owner observed a clean two-context result at 302.6m, 857ppm/0.229, 10 hits, 209 damage and 3 kills with 9092 equal engine/game/combat updates and 10 authenticated resolver calls.",
+    "Integration owner observed npm run test:gate-b pass after all four negative probes."
+  ],
+  "prohibited_changes": [
+    "Shared product or test implementation",
+    "Shared operating state or evidence",
+    "Existing review artifacts",
+    "Remote push, merge, deployment or publication"
+  ],
+  "rollback_instructions": "Use a disposable copy based on the shared worktree; do not reset or clean the shared worktree.",
+  "completion_status": "ready_for_second_fresh_independent_rereview",
+  "handoff_recipient": "integration-owner"
+}
