@@ -54,3 +54,14 @@ Product defects belong in `docs/bible.md` §17/§17b and review findings belong 
 - Recovery: atomically invalidate evidence at run start; bind it to state/source/build hashes; seal engine/game/combat/AI instance and prototype call paths; snapshot and protect attack definitions/state/hit sets; reconcile HP/death and damage/kill telemetry to exactly one authenticated hit; retain every reproduction as an executable expected-failure fixture.
 - Final evidence: `AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json` and `docs/reviews/gate-b-imp06-slice-closure-current.md`.
 - Reusable rule: object identity, event names and “inside update” flags are not provenance. Bind exact values, ordering, cardinality and resulting state, and require each previously successful invalid operation to remain a nonzero regression test.
+
+## OF-006 — Legacy Pages deployment overwrote the successful Actions deployment
+
+- Date: 2026-08-01
+- Task: OPS-REMOTE-PUBLISH
+- Status: recovered
+- Symptom: the custom Pages workflow completed successfully, but the public URL served a Jekyll rendering of `README.md`; `manifest.webmanifest` returned 404.
+- Cause: repository Pages remained configured for `main/(root)`. The dynamic branch-source deployment completed after the custom Actions deployment and replaced its `dist/` artifact.
+- Recovery: add a deterministic `dist/`-to-root mirror, commit the six generated production files, and validate byte equality in the Pages workflow.
+- Evidence: `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`; both final deployment runs succeeded and all four sampled public hashes matched the verified build.
+- Reusable rule: a green custom Pages workflow does not prove the live surface when another Pages source is enabled. Verify the actual URL after every deployment and make competing publication paths identical or remove one through an explicitly authorized settings change.

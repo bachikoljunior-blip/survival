@@ -1,12 +1,12 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-07-31.6 -->
+<!-- state_revision: 2026-08-01.1 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
 **記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
 
-最終更新: 2026-07-31 / 作業ブランチ `codex/continue-survival` / 検証済み基点 `222fafa`
+最終更新: 2026-08-01 / 作業ブランチ `main` / 検証済み基点 `cc96f3a`
 
 ---
 
@@ -80,7 +80,7 @@
 
 初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
 
-2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。現在のactive taskは、上記checkpointを `bachikoljunior-blip/survival` へpush・mergeし、GitHub Pages の実公開面まで確認することである。未検証または既知失敗中の変更を公開済みとは扱わない。
+2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
 
 ---
 
@@ -90,16 +90,16 @@
 
 この表示は `AI_DEVELOPMENT/PROJECT_STATE.json` の task graph と `SESSION_STATE.json` の frontier から導く。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
 
-### アクション 1 — 検証済みcheckpointをpush・merge・公開する（active）
-対象差分、秘密、mandatory gate、commit SHAを最終確認し、`codex/continue-survival` をremoteへpushしてPRをmergeする。`main` のGitHub Pages workflowと公開URLを実測し、remote commit・PR・deployment結果をmachine stateへ記録する。第1章代表スライスはここまでで限定PASSだが、**全編実走・C1/D3・実機・playtimeは未検証のまま**である。
-
-### アクション 2 — H1: セーブマイグレーションを追加する
+### アクション 1 — H1: セーブマイグレーションを追加する（active）
 `src/game/state.js:292,357` にはマイグレーション層がなく、version を上げると既存進行が警告なく破棄される。`migrate(d)` を追加し、旧version fixture、段階移行、失敗時の明示通知、save/load回帰を検証する。
 
-### アクション 3 — H2: 起動後エラーから回復できるようにする
+### アクション 2 — H2: 起動後エラーから回復できるようにする
 `public/index.html:92` と `src/main.js:31` を対象に、`window.onerror` と `unhandledrejection` を起動後も既存回復パネルへ接続する。正常起動、同期例外、rejected promise、再試行をユーザーsurfaceから検証する。
 
-**その次**は `GB-TOUCH-SMOKE`、`GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
+### アクション 3 — 実際に見えるタッチ操作を667×375で駆動する
+`GB-TOUCH-SMOKE` として、画面上の移動・カメラ・攻撃・回避・防御・会話ボタンを実タッチ座標から操作し、44px目標、重なり、誤操作、同時入力、向き変更を検証する。既存のGate B代表スライスはproduction input chainを通るが、見えるhit target自体の証拠ではない。
+
+**その次**は `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
 
 ---
 

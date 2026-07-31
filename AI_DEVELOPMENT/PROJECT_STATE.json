@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-07-31.6",
+  "state_revision": "2026-08-01.1",
   "project": {
     "id": "PROJECT-CINDERLINE",
     "name": "CINDERLINE",
     "repository": "bachikoljunior-blip/survival",
     "default_branch": "main",
-    "working_branch": "codex/continue-survival",
-    "verified_baseline": "222fafa5dc169200dd06848f65ec1921a0a16f53",
+    "working_branch": "main",
+    "verified_baseline": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
     "phase": "GATE-B"
   },
   "authorities": {
@@ -114,7 +114,7 @@
     {
       "id": "GB-H1",
       "parent": "GATE-B",
-      "status": "ready",
+      "status": "active",
       "priority": 90,
       "title": "Add save migration and regression tests",
       "dependencies": ["OPS-001"],
@@ -158,12 +158,12 @@
     {
       "id": "OPS-REMOTE-PUBLISH",
       "parent": "PROJECT-CINDERLINE",
-      "status": "active",
+      "status": "verified",
       "priority": 92,
       "title": "Push, merge and publicly publish the verified continuation checkpoint",
       "dependencies": ["GB-IMP06-REVIEW"],
       "acceptance_refs": [],
-      "evidence": [],
+      "evidence": ["AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md"],
       "reason": "Latest explicit user instruction authorizes and requires remote push, merge and publication across session changes"
     }
   ],
