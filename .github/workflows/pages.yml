@@ -50,3 +50,37 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # F6 — a deployment job reporting success is not evidence that the public
+  # surface serves what we built. This fetches what a real visitor receives and
+  # compares it byte for byte against the build of this commit. If it does not
+  # match, the delivery fails loudly instead of being recorded as verified.
+  verify:
+    name: F6 public revision
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Rebuild this commit to compare against
+        run: npm run build
+      - name: Wait for the deployment to propagate
+        run: sleep 45
+      - name: Verify the real public surface
+        env:
+          F6_PUBLIC_URL: ${{ needs.deploy.outputs.page_url || 'https://bachikoljunior-blip.github.io/survival/' }}
+          F6_EXPECT_SHA: ${{ github.sha }}
+        run: node tools/gates/f6_public_revision.mjs
+      - name: Say what to do when this fails
+        if: failure()
+        run: |
+          echo "::error::The public surface is not serving ${{ github.sha }}."
+          echo "Do not record this delivery as verified."
+          echo "Revert with: gh workflow run revert-to-verified.yml -f revision=<last verified sha>"
+          echo "The last verified revision is recorded in AI_DEVELOPMENT/STATE.yaml."

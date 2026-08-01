@@ -1,0 +1,163 @@
+{
+  "task": "GB-H1",
+  "what": "Negative controls for tools/save_migration.mjs. Each mutation was applied to the source alone, rebuilt, and the gate re-run. A gate that has never failed is not evidence.",
+  "date": "2026-08-01",
+  "result": "9 of 9 mutations rejected by the gate",
+  "corrections_made_during_this_run": [
+    "The 'no migration is registered at all' mutation was first written in a form that did not parse, so the build refused it and it proved nothing about the gate. It was rewritten to delete the registry entry (valid JavaScript) and re-run: the gate fails 8 checks.",
+    "The 'the version is not stamped' mutation was MISSED on the first pass. Every shipped migration step stamps its own version, so the final backstop stamp was never exercised by a test. Two checks were added for a registry step that forgets the version; the mutation is now caught."
+  ],
+  "how_to_reproduce": "Apply one mutation at a time to the named file, run `node build.mjs --dev`, then `node tools/save_migration.mjs`, and require a non-zero exit. Restore the file before the next one. The harness that automated this was deliberately not committed: it rewrites files under src/, and an accidental run would corrupt the working tree.",
+  "mutations": [
+    {
+      "file": "src/game/state.js",
+      "break": "delete the `1: (d) => ...` entry so SAVE_MIGRATIONS is empty",
+      "caught": true,
+      "failing_checks": 8
+    },
+    {
+      "file": "src/game/state.js",
+      "break": "`if (!SAVE_LOADABLE.includes(r.status))` -> `if (r.status !== SAVE_STATUS.OK)` (the v1 drop-on-mismatch behaviour)",
+      "caught": true,
+      "failing_checks": 1
+    },
+    {
+      "file": "src/game/state.js",
+      "break": "the 1->2 migration also sets `journal: []`",
+      "caught": true,
+      "failing_checks": 2
+    },
+    {
+      "file": "src/game/state.js",
+      "break": "remove the final `payload = { ...payload, v: target, ... }` stamp",
+      "caught": true,
+      "failing_checks": 2
+    },
+    {
+      "file": "src/game/state.js",
+      "break": "`if (from > target)` -> `if (false)`, loading a newer build's save anyway",
+      "caught": true,
+      "failing_checks": 4
+    },
+    {
+      "file": "src/game/state.js",
+      "break": "Storage.load() writes the migrated payload back to localStorage",
+      "caught": true,
+      "failing_checks": 2
+    },
+    {
+      "file": "src/main.js",
+      "break": "`if (saveIsBroken)` -> `if (false)`, no title-screen warning",
+      "caught": true,
+      "failing_checks": 2
+    },
+    {
+      "file": "src/main.js",
+      "break": "the MIGRATED branch never fires, so the player is not told",
+      "caught": true,
+      "failing_checks": 1
+    },
+    {
+      "file": "src/game/director.js",
+      "break": "applySave() no longer checks deserialise, half-applying the save",
+      "caught": true,
+      "failing_checks": 4
+    }
+  ],
+  "raw_first_pass": [
+    {
+      "name": "no migration is registered at all",
+      "applied": true,
+      "caught": true,
+      "note": "build refused the mutation"
+    },
+    {
+      "name": "old saves are dropped instead of migrated (the v1 behaviour)",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 1,
+      "first": [
+        "FAIL  A. an old save offers CONTINUE  — warning=\"—\""
+      ]
+    },
+    {
+      "name": "the migration silently loses the journal",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 2,
+      "first": [
+        "FAIL  no progress is added, dropped or altered",
+        "FAIL  A. the old save's progress is in the running game  — chapter 1, 1 flags, 2 quests"
+      ]
+    },
+    {
+      "name": "the version is not stamped, so every boot re-migrates",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 2,
+      "first": [
+        "FAIL  a migration that forgets to set the version is stamped anyway  — v=undefined",
+        "FAIL  and its result does not migrate a second time"
+      ]
+    },
+    {
+      "name": "a save from a newer build is loaded anyway",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 4,
+      "first": [
+        "FAIL  a newer save is refused, not guessed at  — status=migrated reason=—",
+        "FAIL  a far-future save is refused  — status=migrated reason=—",
+        "FAIL  B. a newer save does not offer CONTINUE"
+      ]
+    },
+    {
+      "name": "loading rewrites the stored save",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 2,
+      "first": [
+        "FAIL  A. inspecting an old save does not rewrite it",
+        "FAIL  A. the player is told the save was updated  — (none)"
+      ]
+    },
+    {
+      "name": "the title screen says nothing about an unreadable save",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 2,
+      "first": [
+        "FAIL  B. and the title screen says why",
+        "FAIL  C. and the title screen says so"
+      ]
+    },
+    {
+      "name": "the player is not told their save was updated",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 1,
+      "first": [
+        "FAIL  A. the player is told the save was updated  — (none)"
+      ]
+    },
+    {
+      "name": "a save this build cannot deserialise is half-applied",
+      "applied": true,
+      "caught": true,
+      "exit": 1,
+      "failing_checks": 4,
+      "first": [
+        "FAIL  A. the old save's progress is in the running game  — chapter 0, 0 flags, 0 quests",
+        "FAIL  A. every flag, item and quest from the old save is present",
+        "FAIL  A. and it still carries the migrated progress"
+      ]
+    }
+  ]
+}

@@ -5,6 +5,7 @@
     "width": 667,
     "height": 375
   },
+  "crashed": null,
   "checks": [
     {
       "name": "clean boot: the recovery panel stays hidden",
@@ -29,7 +30,7 @@
     {
       "name": "clean boot: the loop is running",
       "pass": true,
-      "detail": "frame 6"
+      "detail": "frame 5"
     },
     {
       "name": "sync error: caught after boot",
@@ -59,7 +60,7 @@
     {
       "name": "sync error: the loop kept advancing",
       "pass": true,
-      "detail": "3 -> 11"
+      "detail": "3 -> 9"
     },
     {
       "name": "rejection: caught after boot (nothing listened for this at all before)",
@@ -77,6 +78,11 @@
       "detail": ""
     },
     {
+      "name": "in play: nothing else was about to write a save",
+      "pass": true,
+      "detail": ""
+    },
+    {
       "name": "in play: the game saved itself when the fault arrived",
       "pass": true,
       "detail": ""
@@ -84,12 +90,12 @@
     {
       "name": "in play: the save it wrote is at the current version",
       "pass": true,
-      "detail": "2"
+      "detail": "envelope 2, state 2"
     },
     {
       "name": "repeat: a fault that keeps happening reaches the recovery panel",
       "pass": true,
-      "detail": ""
+      "detail": "3 faults, lost=false paused=false running=true frame=12"
     },
     {
       "name": "repeat: the panel says what actually happened, not context loss",
@@ -109,7 +115,7 @@
     {
       "name": "stall: the panel waits for the stall check rather than firing on sight",
       "pass": true,
-      "detail": ""
+      "detail": "18ms"
     },
     {
       "name": "stall: a fault after which the picture stopped reaches the recovery panel",
@@ -134,7 +140,7 @@
     {
       "name": "ja: the panel is in Japanese",
       "pass": true,
-      "detail": "実行が止まりました vs 実行が止まりました"
+      "detail": "panel on: \"実行が止まりました\" vs \"実行が止まりました\""
     },
     {
       "name": "ja: the notice is in Japanese",
@@ -155,7 +161,12 @@
       "name": "pre-boot: it reads as a failure",
       "pass": true,
       "detail": "boot-note err"
+    },
+    {
+      "name": "forced failure",
+      "pass": false,
+      "detail": "--force-failure was passed"
     }
   ],
-  "passed": true
+  "passed": false
 }

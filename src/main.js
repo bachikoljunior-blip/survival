@@ -4,7 +4,7 @@
 
 import * as THREE from 'three';
 import { Game, MODE } from './game/game.js';
-import { Storage } from './game/state.js';
+import { Storage, SAVE_STATUS, SAVE_LOADABLE } from './game/state.js';
 import { moveActor } from './world/collision.js';
 import { Audio } from './audio/audio.js';
 import { setLocale, detectLocale, t } from './content/i18n.js';
@@ -60,7 +60,17 @@ async function main() {
       '<b>Not saving.</b> This browser blocks storage — nothing will be kept.'), 'bad', 7);
   };
 
+  // Two fingers on a phone can press CONTINUE and NEW GAME in the same frame,
+  // and both handlers used to run: the save loaded, then the new game reset it,
+  // and nothing on screen said the loaded game had been thrown away. One
+  // transition at a time.
+  let leavingTitle = false;
+  // Back on the title — from quit-to-title, from an ending — and the buttons
+  // have to work again.
+  game.on('mode', (m) => { if (m === MODE.TITLE) leavingTitle = false; });
   const startNewGame = async () => {
+    if (leavingTitle) return;
+    leavingTitle = true;
     game.menus.hideTitle();
     await game.menus.fadeOut();
     game.director.state.reset();
@@ -87,13 +97,66 @@ async function main() {
     warnStorage();
   };
 
+  // What to say about a save this build will not load. Silence is the one
+  // unacceptable answer: the player pressed Continue, so something happened to
+  // their progress and they are owed the reason before the next autosave
+  // writes over it.
+  const saveFailureText = (status) => {
+    if (status === SAVE_STATUS.FUTURE) {
+      return t('ui.savefile.future',
+        '<b>Save not loaded.</b> It was written by a newer version of the game. ' +
+        'It has been left alone — open the newer version to continue it.');
+    }
+    if (status === SAVE_STATUS.CORRUPT || status === SAVE_STATUS.UNKNOWN_VERSION) {
+      return t('ui.savefile.corrupt',
+        '<b>Save not loaded.</b> The stored save could not be read. ' +
+        'A copy of it has been kept aside.');
+    }
+    return t('ui.savefile.failed',
+      '<b>Save not loaded.</b> It could not be brought up to date with this ' +
+      'version. It has been left alone, and a copy has been kept aside.');
+  };
+
   const continueGame = async () => {
+    if (leavingTitle) return;
+    leavingTitle = true;
     const save = Storage.load();
-    if (!save) return startNewGame();
+    const result = Storage.lastResult;
+    if (!save) {
+      // There WAS a save and this build could not read it. Starting a new game
+      // here is the one thing that must not happen automatically: the player
+      // asked to continue, and the old file — rescued copy or not — is the
+      // thing a new game writes over. Stay on the title, say why, and let them
+      // choose. (A HUD notice is no good for this: the title has no HUD, and
+      // the notice queue that would carry it is four deep and evicts the
+      // oldest, so a new game's own notices would delete the explanation.)
+      if (result && result.status !== SAVE_STATUS.EMPTY) {
+        game.menus.refreshTitleWarning();
+        leavingTitle = false;              // still on the title; it stays usable
+        return;
+      }
+      leavingTitle = false;                // startNewGame takes the guard itself
+      return startNewGame();
+    }
     game.player.group.visible = true;      // hidden for the title card
     game.menus.hideTitle();
     await game.menus.fadeOut();
-    game.director.applySave(save);
+    if (!game.director.applySave(save)) {
+      // The world has been reset but the progression was refused. Do not drop
+      // the player into a half-restored city.
+      await game.menus.fadeIn();
+      game.hud.notice(saveFailureText(SAVE_STATUS.CORRUPT), 'bad', 9);
+      leavingTitle = false;
+      return startNewGame();
+    }
+    if (result && result.status === SAVE_STATUS.MIGRATED) {
+      // Not "updated": nothing has been written yet. The old file is still
+      // exactly where it was, which is the point — the previous build can
+      // still open it until this session saves.
+      game.hud.notice(t('ui.savefile.migrated',
+        'Save updated from an older version — it will be written in the new ' +
+        'format the next time the game saves.'), 'good', 6);
+    }
     game.playTime = game.director.state.playTime;
     game.hud.setVisible(true);
     await game.menus.fadeIn();
@@ -185,8 +248,16 @@ async function main() {
 
     // Repeats mean the fault is in something that runs again — a frame, an
     // updater, a listener — and one message is not enough.
-    const recent = faults.filter((f) => at.t - f.t < 5000);
-    if (recent.length >= 3 || recent.some((f) => f !== at && f.message === at.message)) {
+    //
+    // The same message twice escalates no matter how far apart the two are. A
+    // time window was wrong here: a device under enough load that the repeats
+    // arrive six seconds apart is a device having a worse time than one where
+    // they arrive in one, and the window let exactly that case through
+    // silently. The window only decides how many DIFFERENT faults count as a
+    // storm.
+    const sameAgain = faults.some((f) => f !== at && f.message === at.message);
+    const burst = faults.filter((f) => at.t - f.t < 5000).length >= 3;
+    if (sameAgain || burst) {
       showRecoveryPanel();
       return;
     }
@@ -215,37 +286,51 @@ async function main() {
   // browsing every write throws, every save silently fails, and the game said
   // "Saved." anyway for a whole playthrough that vanishes on tab close.
   const storageOk = Storage.available();
-  if (!storageOk) {
-    game.storageAvailable = false;
-    game.menus.setTitleWarning(t('ui.storage.warn',
-      'This browser will not let the game save — private browsing, most likely. ' +
-      'You can play, but nothing will be kept when you close the tab.'));
-  }
+  if (!storageOk) game.storageAvailable = false;
+
+  // ---- what the title screen says about the save -----------------------
+  // Computed on every showTitle rather than pushed in once here. Continue is
+  // hidden when a save cannot be loaded, which on its own is indistinguishable
+  // from having never played; the player is owed the difference on the screen
+  // where the decision to start a new game gets made. It has to stay true as
+  // the state changes and survive the rebuild a language change performs.
+  game.menus.setTitleWarningSource(() => {
+    const lines = [];
+    if (!storageOk) {
+      lines.push(t('ui.storage.warn',
+        'This browser will not let the game save — private browsing, most likely. ' +
+        'You can play, but nothing will be kept when you close the tab.'));
+    }
+    // A live load attempt, not a cached answer: it is idempotent for a save
+    // that loads, and for one that does not it is what performs the rescue.
+    // `lastResult.rescued` then says whether THIS save was copied — not
+    // whether some earlier failure left something in the list.
+    Storage.load();
+    const r = Storage.lastResult;
+    if (r && r.status !== SAVE_STATUS.EMPTY && !SAVE_LOADABLE.includes(r.status)) {
+      lines.push(r.status === SAVE_STATUS.FUTURE
+        ? t('ui.savefile.warnFuture',
+          'There is a saved game here, but it was written by a newer version of ' +
+          'the game and this one cannot read it. It has been left untouched.')
+        : t('ui.savefile.warnUnreadable',
+          'There is a saved game here, but it cannot be read by this version. ' +
+          'It has been left untouched.'));
+      lines.push(r.rescued
+        ? t('ui.savefile.kept',
+          'A copy of it has been kept aside, and nothing the game does from here ' +
+          'overwrites that copy.')
+        : t('ui.savefile.notkept',
+          'A copy could NOT be made — this browser refused the write. Starting a ' +
+          'new game will replace the save that is there.'));
+    }
+    return lines.join(' ');
+  });
 
   game.hud.setVisible(false);
   game.setMode(MODE.TITLE);
+  // hasSave() is what performs the rescue copy, so it runs before the title —
+  // and therefore before the warning above can be asked whether one exists.
   const hasSave = Storage.hasSave();
-
-  // ---- what happened to the save --------------------------------------
-  // A save the loader could not use is not gone: it has been copied aside by
-  // Storage.load(). Say so on the title, because the alternative is a player
-  // who sees CONTINUE missing and concludes their playthrough was deleted —
-  // and then starts a new game, which is the only thing that actually could
-  // have deleted it.
-  const loadState = Storage.lastLoad;
-  if (loadState && loadState.status === 'failed') {
-    const kept = loadState.rescued
-      ? t('ui.savefile.kept', ' The old file has been kept aside, and nothing the game does from here will overwrite it.')
-      : '';
-    const head = loadState.reason === 'from-newer-build'
-      ? t('ui.savefile.newer', 'Your save was written by a newer version of the game, so this one cannot read it.')
-      : t('ui.savefile.unreadable', 'Your save could not be read.');
-    game.menus.setTitleWarning(head + kept);
-  } else if (loadState && loadState.status === 'ok' && loadState.migrated) {
-    game.menus.setTitleWarning(t('ui.savefile.migrated',
-      'Your save was made by an older version and has been brought forward. Your progress is intact.'));
-  }
-
   game.menus.showTitle(hasSave);
   // One place owns the title framing, so boot and return-to-title cannot
   // drift apart.

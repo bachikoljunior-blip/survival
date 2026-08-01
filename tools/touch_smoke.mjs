@@ -113,6 +113,16 @@ await page.evaluate(() => {
   C.input.on('stick', (s) => { if (s) C.probe.stickEvents++; });
 });
 
+/**
+ * Every control the player must be able to see and hit, by name.
+ *
+ * Written out rather than derived from whatever the HUD happens to expose: the
+ * measurement below skips a node that is display:none or transparent, so a
+ * roster read from the live HUD shrinks silently when a control disappears —
+ * a hidden button produced no failure at all, only a smaller run.
+ */
+const REQUIRED_CONTROLS = ['attack', 'dodge', 'guard', 'use', 'heavy', 'menu', 'map', 'lamp', 'meter'];
+
 /** Every control the player can actually see, with its rendered box. */
 const controls = await page.evaluate(() => {
   const out = [];
@@ -137,7 +147,13 @@ measurements.controls = controls;
 
 // ------------------------------------------------------------ 1. hit targets
 {
-  expect(controls.length >= 8, 'layout: the action and system controls are on screen',
+  const seen = new Set(controls.map((c) => c.name));
+  for (const name of REQUIRED_CONTROLS) {
+    expect(seen.has(name), `layout: ${name} is on screen at all`,
+      seen.has(name) ? '' : 'missing, hidden or fully transparent');
+  }
+  expect(controls.length === REQUIRED_CONTROLS.length,
+    'layout: exactly the expected controls are there, no more and no fewer',
     controls.map((c) => c.name).join(','));
   for (const c of controls) {
     expect(c.w >= MIN_TARGET - 0.5 && c.h >= MIN_TARGET - 0.5,
@@ -194,8 +210,19 @@ measurements.controls = controls;
   measurements.stick = planted;
 
   // Push it to full deflection and hold: she should walk.
+  //
+  // Held for a number of FRAMES, not for wall time. Under software GL this
+  // loop runs at a handful of frames a second and a busy machine runs it at
+  // fewer; a 1.4s hold measured how loaded the machine was, not whether the
+  // stick moves her.
   await touch.move([{ x: ox, y: oy - 60, id: 1 }]);
-  await settle(1400);
+  const framesBefore = await page.evaluate(() => window.CINDERLINE.engine.frame);
+  const holdDeadline = Date.now() + 20000;
+  let framesHeld = 0;
+  while (framesHeld < 30 && Date.now() < holdDeadline) {
+    await page.waitForTimeout(60);
+    framesHeld = await page.evaluate((f) => window.CINDERLINE.engine.frame - f, framesBefore);
+  }
   const held = await page.evaluate(() => {
     const C = window.CINDERLINE;
     return { move: { ...C.input.move }, x: C.game.player.pos.x, z: C.game.player.pos.z,
@@ -203,7 +230,14 @@ measurements.controls = controls;
   });
   expect(held.move.mag > 0.5, 'stick: a full push reads as a full push', String(held.move.mag));
   const walked = Math.hypot(held.x - before.x, held.z - before.z);
-  expect(walked > 0.5, 'stick: the player actually walked', `${walked.toFixed(2)}m`);
+  const perFrame = framesHeld > 0 ? walked / framesHeld : 0;
+  // Per frame, not per second. Under software GL on a loaded machine this loop
+  // renders under one frame a second; a distance-per-wall-second threshold was
+  // measuring the host, and it failed on a build where the stick worked
+  // perfectly. A walking character covers roughly 0.04m per fixed step and a
+  // rendered frame runs at least one step.
+  expect(walked > 0.15 && perFrame > 0.02, 'stick: the player actually walked',
+    `${walked.toFixed(2)}m over ${framesHeld} frames (${perFrame.toFixed(3)}m/frame)`);
   expect(held.stickEvents > 1, 'stick: the HUD was told to follow the thumb', String(held.stickEvents));
 
   await touch.end([]);
@@ -248,12 +282,19 @@ measurements.controls = controls;
     await settle(260);
     const down = await page.evaluate((n) => {
       const b = window.CINDERLINE.input.buttons[n];
-      return { raw: b._rawDown, down: b.down, cls: [...document.querySelectorAll('.abtn')]
-        .filter((e) => e.classList.contains('down')).length };
+      // The node under the thumb, not "some button somewhere is lit": counting
+      // `.down` across every button passed while a different one lit up.
+      const node = window.CINDERLINE.game.hud.buttons[n];
+      return { raw: b._rawDown, down: b.down,
+        thisOne: !!node && node.classList.contains('down'),
+        others: [...document.querySelectorAll('.abtn.down')]
+          .filter((e) => e !== node).length };
     }, name);
     expect(down.raw === true, `button: ${name} registers a real touch at its centre`,
       JSON.stringify(down));
-    expect(down.cls >= 1, `button: ${name} shows the player it is pressed`, String(down.cls));
+    expect(down.thisOne === true, `button: ${name} itself shows pressed`, JSON.stringify(down));
+    expect(down.others === 0, `button: ${name} does not light up its neighbours`,
+      String(down.others));
     await touch.end([]);
     await settle(260);
     const up = await page.evaluate((n) => {
@@ -439,9 +480,17 @@ measurements.controls = controls;
   expect(portrait.paused, 'orientation: and stops the world behind it');
   expect(portrait.pe !== 'none', 'orientation: the prompt is a barrier, not decoration', portrait.pe);
 
-  // Touching where the attack button used to be must not reach the game.
-  const attack = controls.find((c) => c.name === 'attack');
-  await touch.start([{ x: Math.min(attack.cx, H - 10), y: Math.min(attack.cy, W - 10), id: 9 }]);
+  // Touching a control that is REALLY THERE in portrait — measured in the
+  // portrait layout, not a landscape coordinate clamped into it, which landed
+  // on empty space and passed whether or not the plate blocked anything.
+  const underPlate = await page.evaluate(() => {
+    const b = window.CINDERLINE.game.hud.buttons.attack.getBoundingClientRect();
+    return { x: b.x + b.width / 2, y: b.y + b.height / 2, w: b.width, h: b.height };
+  });
+  expect(underPlate.w > 0 && underPlate.x > 0 && underPlate.x < H && underPlate.y < W,
+    'orientation: there is a control behind the plate to try to hit',
+    `${underPlate.x.toFixed(0)},${underPlate.y.toFixed(0)} ${underPlate.w.toFixed(0)}px`);
+  await touch.start([{ x: underPlate.x, y: underPlate.y, id: 9 }]);
   await settle(250);
   await touch.end([]);
   const throughPlate = await page.evaluate(() => ({
@@ -459,18 +508,25 @@ measurements.controls = controls;
     const hud = window.CINDERLINE.game.hud;
     const out = { on: !!r && r.classList.contains('on'), paused: window.CINDERLINE.engine.isPaused,
       controls: [] };
-    for (const k of Object.keys(hud.buttons)) {
-      const b = hud.buttons[k].getBoundingClientRect();
-      out.controls.push({ name: k, w: b.width, h: b.height, x: b.x, y: b.y });
+    const nodes = { ...hud.buttons, menu: hud.sysMenu, map: hud.sysMap,
+      lamp: hud.sysLamp, meter: hud.sysMeter };
+    for (const k of Object.keys(nodes)) {
+      const b = nodes[k].getBoundingClientRect();
+      const cs = getComputedStyle(nodes[k]);
+      out.controls.push({ name: k, w: b.width, h: b.height, x: b.x, y: b.y,
+        hidden: cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0 });
     }
     return out;
   });
   expect(!back.on && !back.paused, 'orientation: turning back resumes play', JSON.stringify(back.paused));
+  expect(back.controls.length === REQUIRED_CONTROLS.length,
+    'orientation: every control comes back after the turn',
+    back.controls.map((c) => c.name).join(','));
   for (const c of back.controls) {
-    expect(c.w >= MIN_TARGET - 0.5 && c.h >= MIN_TARGET - 0.5 &&
+    expect(!c.hidden && c.w >= MIN_TARGET - 0.5 && c.h >= MIN_TARGET - 0.5 &&
       c.x >= 0 && c.y >= 0 && c.x + c.w <= W && c.y + c.h <= H,
       `orientation: ${c.name} is still a ${MIN_TARGET}px target on screen after the turn`,
-      `${c.w.toFixed(1)}x${c.h.toFixed(1)} at ${c.x.toFixed(0)},${c.y.toFixed(0)}`);
+      c.hidden ? 'hidden' : `${c.w.toFixed(1)}x${c.h.toFixed(1)} at ${c.x.toFixed(0)},${c.y.toFixed(0)}`);
   }
   measurements.afterRotate = back.controls;
 

@@ -1,0 +1,16 @@
+Autopilot chain brake. Armed 2026-08-01 by the protocol v2.2 migration.
+
+`.github/workflows/autopilot.yml` checks for this file on the default branch
+before it re-dispatches itself, and stops the chain when it exists. The workflow
+file itself was deliberately not modified.
+
+Why it is armed: autopilot squash-merges its own pull request to `main` and uses
+a PAT specifically so the Pages deploy fires. That is unattended, delivery-
+capable chaining. Protocol v2.2 Section 0.4 forbids it while the four F9
+enforcement gates are not active, because the end-of-run floor check reaches no
+reader in an unattended chain and self-report protects nothing.
+
+Remove this file only when all four gates are active as required status checks
+on `main`, a working automatic revert exists, and
+`floor.enforcement.unattended_allowed` in AI_DEVELOPMENT/STATE.yaml has been set
+to true with that evidence recorded.

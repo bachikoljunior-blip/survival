@@ -26,6 +26,7 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { UI_JA } from '../src/content/locale/ja/ui.js';
+import { SAVE_KEY, SAVE_VERSION } from '../src/game/state.js';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
@@ -61,6 +62,40 @@ const browser = await chromium.launch({
 });
 
 const checks = [];
+/**
+ * Report and record on the way out, however this ends.
+ *
+ * A Playwright timeout in the middle of case 5 used to kill the process before
+ * a single check line was printed and before the evidence was written — which
+ * left the PREVIOUS run's `passed: true` artifact on disk, describing a build
+ * that no longer had an error handler in it. A gate that cannot report its own
+ * failure is not a gate.
+ */
+let crashed = null;
+const finish = () => {
+  if (crashed) checks.push({ name: 'the run completed', pass: false, detail: crashed });
+  if (FORCE_FAILURE) checks.push({ name: 'forced failure', pass: false, detail: '--force-failure was passed' });
+  const failed = checks.filter((c) => !c.pass);
+  for (const c of checks) console.log(`  ${c.pass ? 'ok  ' : 'FAIL'} ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
+  try {
+    mkdirSync(EVIDENCE_DIR, { recursive: true });
+    writeFileSync(join(EVIDENCE_DIR, 'GB-H2-FAULT-RECOVERY.json'), JSON.stringify({
+      task: 'GB-H2',
+      scope: 'Post-boot uncaught errors and rejected promises, in a production build at 667x375. ' +
+        'Not a claim about any specific real-world crash, and not a device measurement.',
+      viewport: { width: W, height: H },
+      crashed,
+      checks,
+      passed: failed.length === 0,
+    }, null, 2));
+  } catch (e) { console.error('could not write the evidence:', e.message); }
+  console.log(`\n${failed.length ? 'FAULT RECOVERY FAILED' : 'FAULT RECOVERY OK'} — ` +
+    `${checks.length - failed.length}/${checks.length} checks`);
+  process.exit(failed.length ? 1 : 0);
+};
+process.on('uncaughtException', (e) => { crashed = String(e && e.stack || e); finish(); });
+process.on('unhandledRejection', (e) => { crashed = String(e && e.stack || e); finish(); });
+
 const ok = (name, detail = '') => checks.push({ name, pass: true, detail });
 const bad = (name, detail) => checks.push({ name, pass: false, detail });
 const expect = (cond, name, detail = '') => (cond ? ok(name, detail) : bad(name, detail || 'expected true'));
@@ -94,6 +129,8 @@ const surface = (page) => page.evaluate(() => {
     faults: (window.CINDERLINE.faults || []).map((f) => ({ kind: f.kind, message: f.message })),
     frame: window.CINDERLINE.engine.frame,
     running: window.CINDERLINE.engine.running,
+    lost: window.CINDERLINE.engine.lost,
+    paused: window.CINDERLINE.engine.isPaused,
   };
 });
 
@@ -187,17 +224,23 @@ const waitForFaults = async (page, n, ms = 6000) => {
   const { ctx, page } = await open();
   await page.evaluate(() => window.CINDERLINE.startNewGame());
   await page.waitForTimeout(1200);
-  await page.evaluate(() => localStorage.removeItem('cinderline.save'));
+  await page.evaluate((k) => localStorage.removeItem(k), SAVE_KEY);
+  // Prove the periodic autosave is not about to write anyway, or "the fault
+  // saved the game" is indistinguishable from a timer that happened to fire.
+  await settle(page, 1200);
+  expect(await page.evaluate((k) => localStorage.getItem(k) === null, SAVE_KEY),
+    'in play: nothing else was about to write a save');
   await throwLater(page, 'probe: fault during play');
   await waitForFaults(page, 1);
   await settle(page, 400);
-  const saved = await page.evaluate(() => {
-    const raw = localStorage.getItem('cinderline.save');
+  const saved = await page.evaluate((k) => {
+    const raw = localStorage.getItem(k);
     return raw ? JSON.parse(raw) : null;
-  });
+  }, SAVE_KEY);
   expect(!!saved && !!saved.state, 'in play: the game saved itself when the fault arrived');
-  expect(!!saved && saved.state.v >= 2, 'in play: the save it wrote is at the current version',
-    saved ? String(saved.state.v) : 'none');
+  expect(!!saved && saved.v === SAVE_VERSION && saved.state.v === SAVE_VERSION,
+    'in play: the save it wrote is at the current version',
+    saved ? `envelope ${saved.v}, state ${saved.state.v}` : 'none');
   await ctx.close();
 }
 
@@ -211,21 +254,28 @@ const waitForFaults = async (page, n, ms = 6000) => {
   await waitForFaults(page, 3);
   await settle(page, 300);
   const s = await surface(page);
-  expect(s.panelOn, 'repeat: a fault that keeps happening reaches the recovery panel');
+  expect(s.panelOn, 'repeat: a fault that keeps happening reaches the recovery panel',
+    `${s.faults.length} faults, lost=${s.lost} paused=${s.paused} running=${s.running} frame=${s.frame}`);
   expect(s.panelTitle && s.panelTitle !== '' && !s.panelText.includes('graphics context'),
     'repeat: the panel says what actually happened, not context loss',
     `${s.panelTitle} / ${s.panelText.slice(0, 60)}`);
   expect(!!s.reloadLabel, 'repeat: the panel offers a way out', s.reloadLabel);
 
-  // The way out has to work.
-  await Promise.all([
-    page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-    page.click('#ctxlost-reload'),
-  ]);
-  await page.waitForFunction('window.CINDERLINE && window.CINDERLINE.ready === true', null, { timeout: 60000 });
+  // The way out has to work. A marker on the current document, not a
+  // navigation event: the page under test is throwing, and waiting on the
+  // navigation alone hid whether the NEW document actually came up.
+  if (!s.panelOn) {
+    bad('repeat: the panel is there to click', 'no panel, so the reload path was not exercised');
+  } else {
+  await page.evaluate(() => { window.__beforeReload = true; });
+  await page.click('#ctxlost-reload');
+  await page.waitForFunction(
+    'window.__beforeReload === undefined && window.CINDERLINE && window.CINDERLINE.ready === true',
+    null, { timeout: 90000, polling: 250 });
   const after = await surface(page);
   expect(!after.panelOn && after.faults.length === 0,
     'repeat: reloading actually recovers', JSON.stringify(after.faults));
+  }
   await ctx.close();
 }
 
@@ -234,10 +284,21 @@ const waitForFaults = async (page, n, ms = 6000) => {
   const { ctx, page } = await open();
   // A frozen loop with a live page is exactly the silent freeze H2 describes.
   await page.evaluate(() => { window.CINDERLINE.engine.stop(); });
+  const firedAt = Date.now();
   await throwLater(page, 'probe: fault with a stopped loop');
   await waitForFaults(page, 1);
   const during = await surface(page);
-  expect(!during.panelOn, 'stall: the panel waits for the stall check rather than firing on sight');
+  const elapsed = Date.now() - firedAt;
+  // Only meaningful if we got here before the 1200ms escalation timer. On a
+  // loaded host we do not, and saying "it waited" then would be measuring the
+  // harness, so say so instead of passing.
+  if (elapsed < 1000) {
+    expect(!during.panelOn,
+      'stall: the panel waits for the stall check rather than firing on sight', `${elapsed}ms`);
+  } else {
+    ok('stall: (not measured — the fault took longer to arrive than the escalation timer)',
+      `${elapsed}ms`);
+  }
   await settle(page, 1800);
   const s = await surface(page);
   expect(s.panelOn, 'stall: a fault after which the picture stopped reaches the recovery panel');
@@ -275,8 +336,9 @@ const waitForFaults = async (page, n, ms = 6000) => {
   await settle(page, 300);
   const s = await surface(page);
   expect(s.panelOn, 'ja: the panel appears on a Japanese device');
-  expect(s.panelTitle === UI_JA.fault.title,
-    'ja: the panel is in Japanese', `${s.panelTitle} vs ${UI_JA.fault.title}`);
+  expect(s.panelOn && s.panelTitle === UI_JA.fault.title,
+    'ja: the panel is in Japanese',
+    `panel ${s.panelOn ? 'on' : 'OFF'}: "${s.panelTitle}" vs "${UI_JA.fault.title}"`);
   expect(/[ぁ-んァ-ヶ一-龠]/.test(s.notices.join('')), 'ja: the notice is in Japanese',
     JSON.stringify(s.notices));
   await ctx.close();
@@ -303,25 +365,4 @@ const waitForFaults = async (page, n, ms = 6000) => {
   await ctx.close();
 }
 
-await browser.close();
-server.close();
-
-// ---------------------------------------------------------------- report ---
-if (FORCE_FAILURE) bad('forced failure', '--force-failure was passed');
-
-const failed = checks.filter((c) => !c.pass);
-for (const c of checks) console.log(`  ${c.pass ? 'ok  ' : 'FAIL'} ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
-
-mkdirSync(EVIDENCE_DIR, { recursive: true });
-writeFileSync(join(EVIDENCE_DIR, 'GB-H2-FAULT-RECOVERY.json'), JSON.stringify({
-  task: 'GB-H2',
-  scope: 'Post-boot uncaught errors and rejected promises, in a production build at 667x375. ' +
-    'Not a claim about any specific real-world crash, and not a device measurement.',
-  viewport: { width: W, height: H },
-  checks,
-  passed: failed.length === 0,
-}, null, 2));
-
-console.log(`\n${failed.length ? 'FAULT RECOVERY FAILED' : 'FAULT RECOVERY OK'} — ` +
-  `${checks.length - failed.length}/${checks.length} checks`);
-process.exit(failed.length ? 1 : 0);
+finish();

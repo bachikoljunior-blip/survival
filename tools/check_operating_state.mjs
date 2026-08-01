@@ -138,6 +138,89 @@ for (const trace of project.acceptance_trace || []) {
   for (const id of trace.tasks || []) if (!taskById.has(id)) fail(`trace ${trace.criterion} references missing task ${id}`);
 }
 
+// ---------------------------------------------------------------- STATE.yaml
+//
+// Protocol v2.2 makes AI_DEVELOPMENT/STATE.yaml the canonical active state.
+// SESSION_STATE.json is retained only as a derived projection of it, because
+// this validator and the Pages workflow already read it. Two records that can
+// disagree are two authorities, so the overlapping fields are checked here and
+// a mismatch fails rather than being silently tolerated.
+const STATE_YAML_PATH = join(ROOT, 'AI_DEVELOPMENT', 'STATE.yaml');
+if (!existsSync(STATE_YAML_PATH)) {
+  fail('AI_DEVELOPMENT/STATE.yaml is missing; the floor has no canonical state to read or write');
+} else {
+  const yaml = readFileSync(STATE_YAML_PATH, 'utf8');
+
+  // A deliberately small reader. It resolves a dotted path to a scalar by
+  // walking indentation, which is all this file needs; adding a YAML parser
+  // dependency to check one file would cost more than it protects.
+  const yamlScalar = (path) => {
+    const parts = path.split('.');
+    const lines = yaml.split('\n');
+    let depth = 0, from = 0, to = lines.length;
+    for (let p = 0; p < parts.length; p++) {
+      const re = new RegExp(`^(\\s*)${parts[p]}:\\s*(.*)$`);
+      let found = -1, indent = -1;
+      for (let i = from; i < to; i++) {
+        const m = re.exec(lines[i]);
+        if (m && m[1].length === depth) { found = i; indent = m[1].length; 
+          if (p === parts.length - 1) {
+            const v = m[2].trim();
+            return v.replace(/^["']|["']$/g, '');
+          }
+          break;
+        }
+      }
+      if (found < 0) return null;
+      from = found + 1; depth = indent + 2;
+      to = lines.length;
+      for (let i = from; i < lines.length; i++) {
+        if (lines[i].trim() && !/^\s*#/.test(lines[i]) && (lines[i].match(/^\s*/)[0].length <= indent)) { to = i; break; }
+      }
+    }
+    return null;
+  };
+
+  const version = yamlScalar('protocol_version');
+  if (version !== '2.2') fail(`STATE.yaml protocol_version is ${version || 'missing'}, expected 2.2`);
+
+  // The floor block and its enforcement subfields are retained whenever the
+  // project has an active objective. Their absence is the failure, not a gap.
+  for (const field of ['f2_state_update_check', 'f3_execution_check', 'f5_review_record_check',
+                       'f6_public_revision_check', 'revert_mechanism', 'unattended_allowed']) {
+    if (yamlScalar(`floor.enforcement.${field}`) === null) {
+      fail(`STATE.yaml floor.enforcement.${field} is missing`);
+    }
+  }
+  const level = yamlScalar('floor.independence_level_used');
+  if (!['A', 'B', 'C', 'D'].includes(level)) {
+    fail(`STATE.yaml floor.independence_level_used is ${level || 'missing'}, expected A, B, C or D`);
+  }
+  if (!yamlScalar('execution.exact_next_action')) fail('STATE.yaml execution.exact_next_action is missing');
+
+  // The projection must agree with the authority.
+  const yamlSession = yamlScalar('logical_session.id');
+  if (yamlSession && session.id && yamlSession !== session.id) {
+    fail(`STATE.yaml logical_session.id ${yamlSession} does not match SESSION_STATE.json ${session.id}`);
+  }
+  const yamlStatus = yamlScalar('logical_session.status');
+  if (yamlStatus && session.status && yamlStatus !== session.status) {
+    fail(`STATE.yaml logical_session.status ${yamlStatus} does not match SESSION_STATE.json ${session.status}`);
+  }
+  const yamlTask = yamlScalar('execution.active_work.id');
+  if (yamlTask && session.active_task && yamlTask !== session.active_task) {
+    fail(`STATE.yaml active work ${yamlTask} does not match SESSION_STATE.json active_task ${session.active_task}`);
+  }
+
+  // An unattended chain may not be allowed while any gate is unenforced.
+  const unattended = yamlScalar('floor.enforcement.unattended_allowed');
+  const gatesActive = ['f2_state_update_check', 'f3_execution_check', 'f5_review_record_check',
+                       'f6_public_revision_check'].every((f) => yamlScalar(`floor.enforcement.${f}`) === 'active');
+  if (unattended === 'true' && !gatesActive) {
+    fail('STATE.yaml allows unattended operation while at least one F9 gate is not active (protocol 0.4)');
+  }
+}
+
 if (errors.length) {
   console.error('Operating-state validation failed');
   for (const error of errors) console.error(`  - ${error}`);
@@ -150,3 +233,4 @@ console.log(`  plan nodes      ${planNodes.length}`);
 console.log(`  tasks           ${tasks.length}`);
 console.log(`  active task     ${session.active_task}`);
 console.log(`  session status  ${session.status}`);
+console.log('  STATE.yaml      canonical, checked against the SESSION_STATE.json projection');

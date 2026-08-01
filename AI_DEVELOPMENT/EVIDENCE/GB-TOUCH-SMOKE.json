@@ -115,10 +115,10 @@
       "vx": 110,
       "vy": 250
     },
-    "walkedMetres": 0.7111578187465729,
+    "walkedMetres": 0.9354730143023086,
     "cameraYaw": {
-      "yaw0": 3.5881941321563513,
-      "yaw1": 3.742556950747055
+      "yaw0": 7.177054091195886,
+      "yaw1": 7.33141690978659
     },
     "attackStarts": 1,
     "deadSpace": {
@@ -151,41 +151,123 @@
         "w": 54,
         "h": 54,
         "x": 601,
-        "y": 307
+        "y": 307,
+        "hidden": false
       },
       {
         "name": "dodge",
         "w": 44,
         "h": 44,
         "x": 547,
-        "y": 318
+        "y": 318,
+        "hidden": false
       },
       {
         "name": "guard",
         "w": 44,
         "h": 44,
         "x": 608,
-        "y": 251
+        "y": 251,
+        "hidden": false
       },
       {
         "name": "use",
         "w": 44,
         "h": 44,
         "x": 553,
-        "y": 253
+        "y": 253,
+        "hidden": false
       },
       {
         "name": "heavy",
         "w": 44,
         "h": 44,
         "x": 495,
-        "y": 295
+        "y": 295,
+        "hidden": false
+      },
+      {
+        "name": "menu",
+        "w": 44,
+        "h": 44,
+        "x": 459,
+        "y": 8,
+        "hidden": false
+      },
+      {
+        "name": "map",
+        "w": 44,
+        "h": 44,
+        "x": 511,
+        "y": 8,
+        "hidden": false
+      },
+      {
+        "name": "lamp",
+        "w": 44,
+        "h": 44,
+        "x": 563,
+        "y": 8,
+        "hidden": false
+      },
+      {
+        "name": "meter",
+        "w": 44,
+        "h": 44,
+        "x": 615,
+        "y": 8,
+        "hidden": false
       }
     ]
   },
   "checks": [
     {
-      "name": "layout: the action and system controls are on screen",
+      "name": "layout: attack is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: dodge is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: guard is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: use is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: heavy is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: menu is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: map is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: lamp is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: meter is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: exactly the expected controls are there, no more and no fewer",
       "pass": true,
       "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
     },
@@ -532,7 +614,7 @@
     {
       "name": "stick: the player actually walked",
       "pass": true,
-      "detail": "0.71m"
+      "detail": "0.94m over 7 frames (0.134m/frame)"
     },
     {
       "name": "stick: the HUD was told to follow the thumb",
@@ -552,17 +634,22 @@
     {
       "name": "camera: a drag on the right turns the camera",
       "pass": true,
-      "detail": "3.588 -> 3.743"
+      "detail": "7.177 -> 7.331"
     },
     {
       "name": "button: attack registers a real touch at its centre",
       "pass": true,
-      "detail": "{\"raw\":true,\"down\":true,\"cls\":1}"
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
     },
     {
-      "name": "button: attack shows the player it is pressed",
+      "name": "button: attack itself shows pressed",
       "pass": true,
-      "detail": "1"
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: attack does not light up its neighbours",
+      "pass": true,
+      "detail": "0"
     },
     {
       "name": "button: attack lets go",
@@ -577,12 +664,17 @@
     {
       "name": "button: dodge registers a real touch at its centre",
       "pass": true,
-      "detail": "{\"raw\":true,\"down\":true,\"cls\":1}"
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
     },
     {
-      "name": "button: dodge shows the player it is pressed",
+      "name": "button: dodge itself shows pressed",
       "pass": true,
-      "detail": "1"
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: dodge does not light up its neighbours",
+      "pass": true,
+      "detail": "0"
     },
     {
       "name": "button: dodge lets go",
@@ -597,12 +689,17 @@
     {
       "name": "button: guard registers a real touch at its centre",
       "pass": true,
-      "detail": "{\"raw\":true,\"down\":true,\"cls\":1}"
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
     },
     {
-      "name": "button: guard shows the player it is pressed",
+      "name": "button: guard itself shows pressed",
       "pass": true,
-      "detail": "1"
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: guard does not light up its neighbours",
+      "pass": true,
+      "detail": "0"
     },
     {
       "name": "button: guard lets go",
@@ -730,6 +827,11 @@
       "detail": "auto"
     },
     {
+      "name": "orientation: there is a control behind the plate to try to hit",
+      "pass": true,
+      "detail": "336,626 54px"
+    },
+    {
       "name": "orientation: touches do not fall through the prompt to the controls behind it",
       "pass": true,
       "detail": "{\"pressed\":false,\"attacks\":2}"
@@ -738,6 +840,11 @@
       "name": "orientation: turning back resumes play",
       "pass": true,
       "detail": "false"
+    },
+    {
+      "name": "orientation: every control comes back after the turn",
+      "pass": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
     },
     {
       "name": "orientation: attack is still a 44px target on screen after the turn",
@@ -763,6 +870,26 @@
       "name": "orientation: heavy is still a 44px target on screen after the turn",
       "pass": true,
       "detail": "44.0x44.0 at 495,295"
+    },
+    {
+      "name": "orientation: menu is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 459,8"
+    },
+    {
+      "name": "orientation: map is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 511,8"
+    },
+    {
+      "name": "orientation: lamp is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 563,8"
+    },
+    {
+      "name": "orientation: meter is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 615,8"
     },
     {
       "name": "orientation: the controls still answer a thumb after the turn",

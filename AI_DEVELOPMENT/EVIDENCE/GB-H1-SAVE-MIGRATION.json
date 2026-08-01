@@ -1,327 +1,110 @@
 {
   "task": "GB-H1",
-  "scope": "Save migration and save-loss behaviour in src/game/state.js, over an in-memory localStorage. The old-version input is a real blob written by the published v1 build. Not a browser run and not a claim about iOS storage eviction.",
-  "saveVersion": 2,
-  "registeredMigrations": [
-    1
+  "title": "Save migration layer, its gate, and the negative controls for that gate",
+  "date": "2026-08-01",
+  "baseline": "193f408df049f068be57de7a1944089942720ad9",
+  "status": "implemented_and_gate_passed_pending_independent_review",
+  "defect_addressed": {
+    "source": "docs/STATE.md action 1 (H1); independent audit H1",
+    "was": "src/game/state.js had no migration layer. Storage.load() compared d.state.v to SAVE_VERSION and returned null on any mismatch. A version bump therefore hid CONTINUE with no explanation, and the next autosave overwrote the player's progress. The envelope fields around `state` (player transform, interior, interaction ids, gas sources, the chapter-four crisis timer) carried no version at all, so they could never have been migrated even in principle.",
+    "now": "Saves carry a version on the envelope, old saves are upgraded one step at a time through a registry, and every refusal is named and shown to the player instead of being silent."
+  },
+  "changed": [
+    "src/game/state.js — SAVE_VERSION 1 -> 2; SAVE_MIGRATIONS registry; SAVE_STATUS/SAVE_LOADABLE; migrateSave(); Storage.inspect(); Storage.lastResult; Storage.load() rewritten on top of them; save() stamps the envelope",
+    "src/game/director.js — applySave() refuses and returns false when deserialise fails, instead of half-applying a save",
+    "src/main.js — title-screen warning for a save this build cannot read; HUD notice when a save was migrated; HUD notice when CONTINUE could not load",
+    "src/content/locale/ja/ui.js — ui.savefile.* Japanese strings",
+    "tools/save_migration.mjs — the gate (new)",
+    "tools/fixtures/save-v1.json — a real v1 save captured from the real game (new)",
+    "tools/fixtures/capture_legacy_save.mjs — how that fixture was produced (new)",
+    "package.json — test:save script; tools/save_migration.mjs added to npm test"
   ],
-  "multiStepChainExercised": false,
-  "checks": [
-    {
-      "name": "current: save writes",
-      "pass": true
-    },
-    {
-      "name": "current: load returns a payload",
-      "pass": true
-    },
-    {
-      "name": "current: reported as an unmigrated load",
-      "pass": true
-    },
-    {
-      "name": "current: payload is at the current version",
-      "pass": true
-    },
-    {
-      "name": "current: deserialise accepts it",
-      "pass": true
-    },
-    {
-      "name": "current: state survives the round trip",
-      "pass": true
-    },
-    {
-      "name": "current: envelope survives the round trip",
-      "pass": true
-    },
-    {
-      "name": "current: stored at the versionless key",
-      "pass": true
-    },
-    {
-      "name": "v1: a published v1 save is loadable at all (it was silently discarded before)",
-      "pass": true
-    },
-    {
-      "name": "v1: carried to the current version",
-      "pass": true
-    },
-    {
-      "name": "v1: reported as a migration, with the steps it took",
-      "pass": true
-    },
-    {
-      "name": "v1: the migrated state deserialises",
-      "pass": true
-    },
-    {
-      "name": "v1: flags intact",
-      "pass": true
-    },
-    {
-      "name": "v1: inventory intact",
-      "pass": true
-    },
-    {
-      "name": "v1: capabilities intact",
-      "pass": true
-    },
-    {
-      "name": "v1: quests intact, step and data included",
-      "pass": true
-    },
-    {
-      "name": "v1: journal intact",
-      "pass": true
-    },
-    {
-      "name": "v1: chapter, play time and spawn intact",
-      "pass": true
-    },
-    {
-      "name": "v1: player envelope untouched by the migration",
-      "pass": true
-    },
-    {
-      "name": "v1: cast positions untouched",
-      "pass": true
-    },
-    {
-      "name": "v1: world pickups untouched",
-      "pass": true
-    },
-    {
-      "name": "v1: relocated to the current key",
-      "pass": true
-    },
-    {
-      "name": "v1: legacy key cleared once the new one is written",
-      "pass": true
-    },
-    {
-      "name": "v1: second load is a plain load",
-      "pass": true
-    },
-    {
-      "name": "v1: sanity — a fresh state is empty",
-      "pass": true
-    },
-    {
-      "name": "chain: at least one production migration is registered",
-      "pass": true
-    },
-    {
-      "name": "chain: registered steps span 1 .. current-1 with no hole",
-      "pass": true
-    },
-    {
-      "name": "chain: a step exists for v1",
-      "pass": true
-    },
-    {
-      "name": "chain: migrating from the oldest supported version succeeds",
-      "pass": true
-    },
-    {
-      "name": "chain: every registered step was applied, in order",
-      "pass": true
-    },
-    {
-      "name": "chain: lands exactly on the current version",
-      "pass": true
-    },
-    {
-      "name": "chain: the input payload was not mutated",
-      "pass": true
-    },
-    {
-      "name": "chain: a current save takes no steps",
-      "pass": true
-    },
-    {
-      "name": "from-newer-build: not loaded",
-      "pass": true
-    },
-    {
-      "name": "from-newer-build: reported with an explicit reason",
-      "pass": true
-    },
-    {
-      "name": "from-newer-build: reported as kept",
-      "pass": true
-    },
-    {
-      "name": "from-newer-build: the exact bytes were kept",
-      "pass": true
-    },
-    {
-      "name": "from-newer-build: survives the autosave that follows",
-      "pass": true
-    },
-    {
-      "name": "from-newer-build: the game can tell the player it is there",
-      "pass": true
-    },
-    {
-      "name": "unreadable: not loaded",
-      "pass": true
-    },
-    {
-      "name": "unreadable: reported with an explicit reason",
-      "pass": true
-    },
-    {
-      "name": "unreadable: reported as kept",
-      "pass": true
-    },
-    {
-      "name": "unreadable: the exact bytes were kept",
-      "pass": true
-    },
-    {
-      "name": "unreadable: survives the autosave that follows",
-      "pass": true
-    },
-    {
-      "name": "unreadable: the game can tell the player it is there",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: not loaded",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: reported with an explicit reason",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: reported as kept",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: the exact bytes were kept",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: survives the autosave that follows",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: the game can tell the player it is there",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: not loaded",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: reported with an explicit reason",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: reported as kept",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: the exact bytes were kept",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: survives the autosave that follows",
-      "pass": true
-    },
-    {
-      "name": "unknown-shape: the game can tell the player it is there",
-      "pass": true
-    },
-    {
-      "name": "rescue: the first rescued save is never overwritten",
-      "pass": true
-    },
-    {
-      "name": "empty: no save reads as no save, not as a failure",
-      "pass": true
-    },
-    {
-      "name": "rescue: clear() leaves the rescued save alone",
-      "pass": true
-    },
-    {
-      "name": "rescue: the player can drop it deliberately",
-      "pass": true
-    },
-    {
-      "name": "injected step that throws: refuses to load",
-      "pass": true
-    },
-    {
-      "name": "injected step that throws: reported as a failed migration",
-      "pass": true
-    },
-    {
-      "name": "injected step that throws: the original save is kept whole",
-      "pass": true
-    },
-    {
-      "name": "injected step that does not advance the version: refuses to load",
-      "pass": true
-    },
-    {
-      "name": "injected step that does not advance the version: reported as a failed migration",
-      "pass": true
-    },
-    {
-      "name": "injected step that does not advance the version: the original save is kept whole",
-      "pass": true
-    },
-    {
-      "name": "injected step that returns nothing: refuses to load",
-      "pass": true
-    },
-    {
-      "name": "injected step that returns nothing: reported as a failed migration",
-      "pass": true
-    },
-    {
-      "name": "injected step that returns nothing: the original save is kept whole",
-      "pass": true
-    },
-    {
-      "name": "injected step that drops the state: refuses to load",
-      "pass": true
-    },
-    {
-      "name": "injected step that drops the state: reported as a failed migration",
-      "pass": true
-    },
-    {
-      "name": "injected step that drops the state: the original save is kept whole",
-      "pass": true
+  "fixture": {
+    "path": "tools/fixtures/save-v1.json",
+    "what": "A real save written by Director.save() on the shipped v1 code, not a hand-authored guess at the v1 shape",
+    "captured_from_revision": "193f408df049f068be57de7a1944089942720ad9",
+    "captured_before_the_format_change": true,
+    "carries": "1 flag, 1 capability, 4 inventory stacks, 2 active quests, 2 journal entries, chapter 1, a real player transform"
+  },
+  "gate": {
+    "command": "node tools/save_migration.mjs",
+    "result": "passed",
+    "checks": 57,
+    "failed": 0,
+    "report": "shots/save-migration.json",
+    "screenshots": [
+      "shots/save-migration-loaded.png",
+      "shots/save-migration-future.png"
+    ],
+    "layer_1_engine": "migrateSave driven directly: 13 rejection cases, the real v1 fixture upgrade, non-mutation of the input, idempotence, a field-by-field diff proving no progress is added or lost, deserialise of the migrated payload, and a staged 1->2->3 walk through an injected registry",
+    "layer_2_game": "The real build in Chromium at 667x375, a fresh browser context per case, the save seeded into localStorage before boot, and the real CONTINUE button pressed by a real touch at its real on-screen position (180x44 px)",
+    "cases": {
+      "A": "A v1 save loads; the progress it carried is in the running game; the player is told it was updated; inspecting it does not rewrite the stored bytes; the next real save is written in the current format and still carries the progress",
+      "B": "A save from a newer build is refused, CONTINUE is hidden, the title screen says why, and the stored bytes are byte-for-byte unchanged",
+      "C": "A truncated save is refused, the title screen says so, the bytes are left alone, and a new game still starts",
+      "D": "A first-time player is offered no CONTINUE and is not warned about a save they never had",
+      "E": "Current-version regression: play, save, reboot, CONTINUE — the state comes back identical, with no warning and no migration notice"
     }
+  },
+  "negative_controls": {
+    "why": "A gate that has never failed is not evidence. Each mutation was applied to the source alone, rebuilt, and the gate re-run.",
+    "result": "9 of 9 caught",
+    "mutations": [
+      {
+        "break": "the migration registry is emptied",
+        "caught_by": "8 checks"
+      },
+      {
+        "break": "old saves are dropped instead of migrated (the v1 behaviour)",
+        "caught_by": "1 check"
+      },
+      {
+        "break": "the migration silently drops the journal",
+        "caught_by": "2 checks"
+      },
+      {
+        "break": "the final version stamp is removed",
+        "caught_by": "2 checks"
+      },
+      {
+        "break": "a save from a newer build is loaded anyway",
+        "caught_by": "4 checks"
+      },
+      {
+        "break": "loading rewrites the stored save",
+        "caught_by": "2 checks"
+      },
+      {
+        "break": "the title screen says nothing about an unreadable save",
+        "caught_by": "2 checks"
+      },
+      {
+        "break": "the player is not told their save was migrated",
+        "caught_by": "1 check"
+      },
+      {
+        "break": "a save that cannot be deserialised is half-applied",
+        "caught_by": "4 checks"
+      }
+    ],
+    "note": "The final-stamp mutation was MISSED on the first pass, because every shipped migration step stamps its own version and no test covered a step that forgets. A check for exactly that was added, and the mutation is now caught. The empty-registry mutation was first written in a form that did not compile, which proved nothing about the gate; it was rewritten as valid JavaScript and re-run."
+  },
+  "defects_found_while_doing_this": [
+    "The Japanese ui.save key already existed as the pause-menu SAVE button label. The first version of these strings added a second `save` key as an object in the same literal, which silently replaced it and would have blanked that button in Japanese. Caught by the esbuild duplicate-key warning; the namespace is now ui.savefile.*",
+    "The first version of the gate asserted that the stored save is unchanged AFTER pressing CONTINUE. That failed, and the failure was in the test: gameplay legitimately autosaves once the game is running. Traced the single write to Director.save() before changing the assertion, which now checks the claim it actually makes — that inspecting a save at the title screen does not rewrite it."
   ],
-  "negativeControls": [
-    {
-      "name": "no-migration-registry",
-      "rejected": true
-    },
-    {
-      "name": "pre-fix-loader",
-      "rejected": true
-    },
-    {
-      "name": "discard-instead-of-rescue",
-      "rejected": true
-    },
-    {
-      "name": "rescue-overwritten-by-later-failures",
-      "rejected": true
-    },
-    {
-      "name": "silent-migration",
-      "rejected": true
-    }
+  "honest_limits": [
+    "The shipped migration chain has exactly one step (1 -> 2). The claim that a multi-version gap is walked one step at a time is proved against an injected registry, not against two real shipped migrations, because a second real format change does not exist yet.",
+    "No independent review has been run on this change. The negative controls are adversarial but they were written by the same pass that wrote the implementation, which is not what PROJECT_OPERATING_PROTOCOL.md section 17 asks for. GB-H1 is therefore under_review, not verified.",
+    "Nothing here was run on a physical device. Blocker B1 is unchanged.",
+    "The migrated payload is deliberately not written back to storage on load, so a player who abandons a migrated session still has their original save. This is a decision, not an oversight; case A asserts it.",
+    "A save whose envelope version and inner state version disagree (envelope 2, state 1) is treated as version 2 by migrateSave, then refused by deserialise, so applySave returns false and the player gets the 'save not loaded' notice with the bytes intact. That path is safe but it is not covered by a check, and it is left for GB-H1-REVIEW to judge whether the envelope should win at all."
   ],
-  "productionBehaviourRestored": true,
-  "passed": true
+  "commands_run": [
+    "node tools/fixtures/capture_legacy_save.mjs --out tools/fixtures/save-v1.json",
+    "node build.mjs --dev",
+    "node tools/save_migration.mjs",
+    "node tools/save_migration.mjs --unit",
+    "npm test"
+  ]
 }

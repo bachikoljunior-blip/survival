@@ -6,8 +6,8 @@
     "name": "CINDERLINE",
     "repository": "bachikoljunior-blip/survival",
     "default_branch": "main",
-    "working_branch": "claude/round-remaining-work-di4vbu",
-    "verified_baseline": "193f408",
+    "working_branch": "main",
+    "verified_baseline": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
     "phase": "GATE-B"
   },
   "authorities": {
@@ -20,7 +20,7 @@
   },
   "remote_execution_authorization": {
     "status": "active",
-    "source": "Latest explicit user instructions on 2026-07-31 (push / merge / publish) and 2026-08-01 (merge at the end of every session)",
+    "source": "Latest explicit user instruction on 2026-07-31",
     "persists_across_session_changes": true,
     "authorized_actions": [
       "remote_push",
@@ -28,18 +28,7 @@
       "public_publication_or_deployment"
     ],
     "repository": "bachikoljunior-blip/survival",
-    "safety_boundary": "Publish only an inspected checkpoint with applicable mandatory gates passing; do not expose secrets or perform paid, credential, account, destructive production-data or destructive cloud actions.",
-    "standing_instruction": {
-      "rule": "At the end of every work session, merge the session branch into main and push it, so main carries the verified checkpoint rather than a branch nobody reads.",
-      "given": "2026-08-01",
-      "persists_across_session_changes": true,
-      "preconditions": [
-        "The work is committed and pushed to the session branch.",
-        "npm test passes on the merge result, or the exact failure is recorded in docs/STATE.md before merging.",
-        "docs/STATE.md, PROJECT_STATE.json and SESSION_STATE.json agree on state_revision."
-      ],
-      "note": "Merging main triggers the GitHub Pages workflow, which republishes the game. That is covered by the standing publication authorization; nothing else is."
-    }
+    "safety_boundary": "Publish only an inspected checkpoint with applicable mandatory gates passing; do not expose secrets or perform paid, credential, account, destructive production-data or destructive cloud actions."
   },
   "plan_nodes": [
     {
@@ -193,7 +182,7 @@
       "evidence": [
         "AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json"
       ],
-      "reason": "Verified 2026-08-01 by tools/touch_smoke.mjs, which dispatches touches at coordinates read off the rendered controls. Emulated Chromium, not a device (blocker B1). Awaiting independent review."
+      "reason": "Driven 2026-08-01 by tools/touch_smoke.mjs from dispatched touch coordinates read off the rendered controls. Emulated Chromium, not a device (blocker B1). Awaiting the independent review."
     },
     {
       "id": "GB-H1",
@@ -210,9 +199,29 @@
       ],
       "evidence": [
         "AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json",
-        "tools/fixtures/save-v1.json"
+        "AI_DEVELOPMENT/EVIDENCE/GB-H1-NEGATIVE-CONTROLS.json"
       ],
-      "reason": "Implemented 2026-08-01: migrateSave(), a staged migration registry, a versionless save key and rescue-instead-of-discard. Verified by tools/save_migration.mjs against a real published-build v1 save, with five negative controls. Not verified because the implementer may not be the only agent that approves it."
+      "reason": "Two independent implementations were reconciled into one on 2026-08-01: the parameterised migrateSave/SAVE_STATUS/inspect engine, plus a rescue slot that keeps a copy of any save this build cannot read so the new game that follows cannot overwrite it. The versioned storage key was rejected because a rollback would strand every migrated save. tools/save_migration.mjs, 100 checks including six negative controls."
+    },
+    {
+      "id": "GB-ROUND-REVIEW",
+      "parent": "GATE-B",
+      "status": "active",
+      "priority": 91,
+      "title": "Independent falsification review of the save migration, fault recovery and touch work",
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B2",
+        "B5",
+        "C5",
+        "D6"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/HANDOFFS/GB-H1-REVIEW.json"
+      ],
+      "reason": "Implementation cannot approve itself. One review covers the round because the three changes ship together; each task is judged separately."
     },
     {
       "id": "GB-H2",
@@ -230,27 +239,7 @@
       "evidence": [
         "AI_DEVELOPMENT/EVIDENCE/GB-H2-FAULT-RECOVERY.json"
       ],
-      "reason": "Implemented 2026-08-01: post-boot error and unhandledrejection handling that saves, tells the player, and escalates to the existing recovery panel on repeat or a stopped frame counter. Verified by tools/fault_recovery.mjs in a production build at 667x375. Awaiting independent review."
-    },
-    {
-      "id": "GB-ROUND-REVIEW",
-      "parent": "GATE-B",
-      "status": "active",
-      "priority": 91,
-      "title": "Independent falsification review of the save-migration, fault-recovery and touch work",
-      "dependencies": [
-        "OPS-001"
-      ],
-      "acceptance_refs": [
-        "B2",
-        "B5",
-        "C5",
-        "D6"
-      ],
-      "evidence": [
-        "AI_DEVELOPMENT/HANDOFFS/GB-ROUND-REVIEW.json"
-      ],
-      "reason": "Implementation cannot approve itself. Depends only on OPS-001 on purpose: the three tasks it reviews are under_review, not verified, and the review is what decides whether they become verified."
+      "reason": "Implemented 2026-08-01: post-boot error and unhandledrejection handling that saves, tells the player, and escalates to the existing recovery panel on repeat or a stopped frame counter. tools/fault_recovery.mjs, 30 checks in a production build at 667x375. Awaiting the independent review."
     },
     {
       "id": "GB-IMP02",

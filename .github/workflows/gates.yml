@@ -1,0 +1,68 @@
+# Floor enforcement gates (protocol v2.2, Section 0 F9).
+#
+# These exist because a run that skipped a floor obligation and reported it as
+# satisfied is otherwise indistinguishable from a run that performed it. A rule
+# in a document cannot fail. These can.
+#
+# Each job is a thin wrapper: the logic lives in tools/gates/ so it can be run
+# locally and, more importantly, so it can be observed failing on a deliberately
+# bad input. A gate never seen to fail is recorded as prepared_not_executed.
+#
+# To make these binding rather than advisory, add them to the ruleset for `main`
+# as required status checks. The job names below are exactly the strings to type
+# into "Add checks", and they are deliberately plain ASCII so they can be typed
+# on a phone. Until that is done they run and report but do not block, and
+# AI_DEVELOPMENT/STATE.yaml must say so.
+name: Floor gates
+
+on:
+  pull_request:
+    branches: [main]
+    # `edited` matters: the F5 check reads the pull-request body, and without it
+    # a corrected review trailer would never re-run the check that reads it,
+    # leaving a red gate that no longer reflects reality.
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  f2-state-update:
+    name: F2 state update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Product files changed without a state update?
+        env:
+          F2_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'origin/main' }}
+        run: node tools/gates/f2_state_update.mjs --base "$F2_BASE"
+
+  f3-execution:
+    name: F3 execution
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Install the browser the surface checks need
+        run: npx playwright install --with-deps chromium
+      - name: Build, validate and drive the real build
+        run: node tools/gates/f3_execution.mjs
+
+  f5-review-record:
+    name: F5 review record
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Review trailer present and consistent with STATE.yaml?
+        env:
+          F5_REVIEW_BODY: ${{ github.event.pull_request.body }}
+        run: node tools/gates/f5_review_record.mjs

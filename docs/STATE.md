@@ -4,7 +4,9 @@
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
-**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
+**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開順は `START_HERE.md` → `AI_DEVELOPMENT/STATE.yaml`（正本）→ 本文書 → active task が参照する製品文書。
+運用規約は `AI_DEVELOPMENT/PROTOCOL.md`（v2.2、Section 0 の floor は必須）。`PROJECT_OPERATING_PROTOCOL.md` と `AI_DEVELOPMENT/INDEX.md` は**衝突する範囲でのみ**置換され、記録として残してある。
+本文書は人間向けの製品進捗であり、機械正本ではない。
 
 最終更新: 2026-08-01 / 作業ブランチ `claude/round-remaining-work-di4vbu` / 検証済み基点 `193f408`（`main` の先端）
 
@@ -83,23 +85,40 @@
 
 初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
 
-### 2026-08-01 ラウンド — H1 / H2 / タッチ
+### 2026-08-01 ラウンド — H1 / H2 / タッチ、および2セッションの統合
 
-前ラウンドの「次の3アクション」を3件とも実装した。**いずれもまだ独立批評を受けていない**（§6 の独立性規定により、実装したエージェントがそれを承認する唯一のエージェントであってはならない）。したがって3件の task 状態は `under_review` であり、`verified` ではない。
+「次の3アクション」を3件とも実装した。**同じラウンドで別セッションが GB-H1 を独自に実装していた**ため、両方を読み比べて1本に統合した（ユーザー判断）。同時に protocol v2.2（`AI_DEVELOPMENT/STATE.yaml` を正本とする）と floor gates（F2/F3/F5）を取り込んでいる。
 
-| task | 変更 | 検証（本ラウンドで実走） |
+| task | 到達点 | 検証（本ラウンドで実走） |
 |---|---|---|
-| **GB-H1** セーブマイグレーション | `src/game/state.js` に `migrateSave()` と段階移行レジストリ `SAVE_MIGRATIONS` を追加。`SAVE_VERSION` を 2 に上げ、保存先キーを `cinderline.save.v1` → **版に依存しない `cinderline.save`** へ移した（版を鍵名に埋めていると、版を上げた瞬間に既存セーブが誰も見に行かない住所に取り残される）。読めなかったセーブは破棄せず `cinderline.save.rescued` へ退避し、タイトル画面で明示的に告知する | `npm run test:save` → **SAVE MIGRATION OK** 73検査。**入力は公開ビルド `cc96f3a` 自身の保存経路が書いた実物の v1 セーブ**（`tools/fixtures/save-v1.json`、生成器 `tools/make_save_v1_fixture.mjs`）。負例5種（マイグレーション削除／修正前ローダー／退避せず破棄／退避の上書き／移行の無告知）を全て非ゼロ拒否 |
-| **GB-H2** 起動後のエラー回復 | `src/main.js` が `error` と `unhandledrejection` を起動後も受け、保存 → 告知 → 必要なら既存回復パネルへ接続する。生きているループを止めないため、**1件目は通知のみ**、繰り返し・同一メッセージ・フレームカウンタ停止のいずれかで初めてパネルを出す。`public/index.html` の起動前ハンドラに `unhandledrejection` を追加 | `npm run test:faults` → **FAULT RECOVERY OK** 30検査。本番ビルド・667×375 実ブラウザ。素の起動／単発同期例外／rejected promise／プレイ中の保存／反復／**engine の updater が毎フレーム投げる本物の無言フリーズ**／日本語／バンドル未到達の起動前 rejection |
-| **GB-TOUCH-SMOKE** 実タッチ | 実装変更なし（検査の追加） | `npm run test:touch` → **TOUCH SMOKE OK** 118検査。`Input.dispatchTouchEvent` で、描画された要素から読んだ実座標へタッチを送る。可視9操作子は 54×54（攻撃）／44×44（他8）で重なり0・画面内・`pointer-events:auto`、操作子フレーム自体は `none`。左ゾーンのタッチで指の下にスティックが立ち0.71m実歩行、右ドラッグでカメラ回頭、攻撃タップが `actor:attackstart` まで到達、円の間の死角（496,237）は何も押さない、2本指で「移動しながら攻撃」と片指離しが成立、会話選択肢は44px・ドラッグでは確定せずタップで確定、縦持ちで回転プレートが世界を止め背後へタッチが抜けず、横に戻して操作子が再び44px・実際に反応する |
+| **GB-H1** セーブ移行 | `migrateSave(raw, registry, target)`＋`SAVE_STATUS`＋非破壊 `inspect()`（別セッション側の設計）に、**読めないセーブの退避リスト**（本セッション側）を合わせた。**保存キーは `cinderline.save.v1` のまま据え置く** — 版をキー名に埋める案は、ロールバック時に旧ビルドが新アドレスを見失い同じ事故を起こすため**撤回した**。版はエンベロープの `v` が持つ | `npm run test:save` → **SAVE MIGRATION OK 129検査**。単体＋実ブラウザ（実 CONTINUE・実タイトル警告）＋負例6件。負例は「どの検査が捕まえるべきか」まで指定して照合する |
+| **GB-H2** 起動後のエラー回復 | `src/main.js` が `error` と `unhandledrejection` を起動後も受け、保存・告知の上、**同一メッセージの再来**またはフレーム停止で既存回復パネルへ接続する | `npm run test:faults` → **FAULT RECOVERY OK 31検査**（本番ビルド・667×375） |
+| **GB-TOUCH-SMOKE** 実タッチ | 実装変更なし（検査の追加） | `npm run test:touch` → **TOUCH SMOKE OK 136検査** |
 
-本ラウンドの最後に `npm test` を通しで実走し **exit 0**（operating-state / dev build / validate / gate-b 敵対検査19件 / 代表スライス2回 = 302.6m・857ppm・10hit・3kill / 5経路通しプレイ / perf / save 73 / faults 30 / touch 118）。
+**独立批評（`docs/reviews/gate-b-round-h1-h2-touch.md`）**: 相互不可視の3レンズ（実装ソース非開示1＋成果物限定2）が **critical 2 / high 6 / medium 6** を出した。うち critical 2 は**検査そのものの盲点**で、実証つきだった —
 
-**この3件が主張しないこと**: 実機での動作・性能（B1 は未解決のまま）、Gate B 全体の通過、iOS Safari のジェスチャ挙動。多段（2段以上）のマイグレーション連鎖は、本番に登録された step が現在1つ（v1→v2）しかないため**未実行**である。連鎖機構そのもの（全 step を順に適用し、穴・失敗・非前進を検出する）は検査済み。
+- 保存キーを被試験モジュールから import していたため、**保存先を別アドレスに変えても 100/100 で通った**（全プレイヤーのセーブが孤立する変更を検知できない）
+- タッチ検査が `controls.length >= 8` を見ていたため、**操作子が1個消えても FAIL 0**（検査数が減るだけ）
 
-2026-08-01 のユーザー指示により、**各セッションの終わりに作業ブランチを `main` へマージして push する**ことが恒久的な運用規則になった。前提は3つ: 作業がブランチに commit / push 済みであること、マージ結果で `npm test` が通るか、通らない場合は失敗内容を本文書に先に記録すること、`docs/STATE.md` と2つの JSON の `state_revision` が一致していること。`main` へのマージは Pages ワークフローを起動し、公開ビルドを差し替える。これは下記の恒久承認の範囲内であり、それ以外の操作は含まない。
+製品側の high も実在した — エンベロープの版だけを見て `ok` を返し、`deserialise` が拒否して**退避も告知もされないまま新規ゲームが上書きする**経路、退避スロットの先勝ちによる**「退避した」という嘘**、容量超過時の無言の失敗、ロールバック時に旧ビルドが読めない件。**未解決 high 0 / 未解決 medium 2**（R2-9 退避セーブの復元導線が無い、R2-10 `available()` の誤検知）まで直した。
+
+**この3件が主張しないこと**: 実機での動作・性能（B1 は未解決）、Gate B 全体の通過、iOS Safari のジェスチャ挙動、**実データによる多段（2段以上）移行**（本番 step は1つ。機構は注入レジストリで実証済み）、**ブラウザ層の自動負例**（手動観察のみ）。
 
 2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。その後 GB-H1 / GB-H2 / GB-TOUCH-SMOKE を実装し（上表）、次の active task は `GB-ROUND-REVIEW`（本ラウンドの独立批評）である。
+
+### 2026-08-01 継続 checkpoint — GB-H1 セーブマイグレーション
+
+| コマンド | 結果 |
+|---|---|
+| `node tools/save_migration.mjs` | **OK** — 57 checks。193f408 の実コードが実際に書いた v1 セーブ（`tools/fixtures/save-v1.json`、**形式変更前**に採取）が読み込まれ、フラグ・能力・所持品・クエスト・手記が実行中のゲームに揃うことを、実タッチで押した CONTINUE 経由で確認した。新しいビルドのセーブと破損セーブは拒否され、画面に理由が出て、保存バイト列は1バイトも変わらない。現行版セーブの通常 save/load も同一に往復する |
+| negative control（意図的な9種の破壊） | **9/9 を gate が拒否**。うち1件（最終 version stamp の削除）は初回で**見逃した**ため検査を追加した |
+| `npm test` | 下表の通り |
+
+**この作業中に見つけて直した欠陥2件。**
+1. 日本語 `ui.save`（ポーズメニューの「保存」ボタン）と同名のキーを同じリテラルに追加してしまい、既存ラベルを黙って上書きしていた。esbuild の duplicate-key 警告で検出し、`ui.savefile.*` へ改名した。
+2. 最初に書いた検査は「CONTINUE を押した**後**に保存バイト列が変わらないこと」を主張していて落ちた。落ちたのは検査のほうで、プレイ中のオートセーブは正当である。書き込み元を `Director.save()` と特定してから、主張どおりの位置（タイトル画面での読み取り）へ移した。
+
+**GB-H1 は `verified` ではない。** 実装と gate は通ったが、§17 が要求する独立レビューを実行していない。状態は `under_review` とし、`GB-H1-REVIEW` を次の active task にした。
 
 ---
 
@@ -109,8 +128,8 @@
 
 この表示は `AI_DEVELOPMENT/PROJECT_STATE.json` の task graph と `SESSION_STATE.json` の frontier から導く。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
 
-### アクション 1 — 本ラウンドの3件を独立批評にかける（active / `GB-ROUND-REVIEW`）
-実装したエージェントがそれを承認する唯一のエージェントであってはならない（§6）。入力はリポジトリ内の成果物・実際のビルド・`docs/DONE.md` のみとし、実装側の報告と `README.md` を入力にしない。批評対象は `src/game/state.js` の移行層、`src/main.js` / `public/index.html` の fault 経路、`tools/save_migration.mjs` / `tools/fault_recovery.mjs` / `tools/touch_smoke.mjs` の3本が**主張する動詞を実際に実行しているか**（R-08）。通れば GB-H1 / GB-H2 / GB-TOUCH-SMOKE を `verified` にする。
+### アクション 1 — 本ラウンドの実装をまとめて独立批評にかける（active / `GB-ROUND-REVIEW`）
+実装は自己承認しない。対象は統合後の GB-H1（移行契約、拒否時にセーブを壊さないか、退避スロットの不可侵性、まだどの移行も触っていない envelope 側フィールド、gate が正しい理由で落ちるか）、GB-H2 の fault 経路、そして `tools/save_migration.mjs` / `tools/fault_recovery.mjs` / `tools/touch_smoke.mjs` の3本が**主張する動詞を実際に実行しているか**（R-08）。入力はリポジトリ内の成果物・実際のビルド・`docs/DONE.md` のみで、実装側の報告と `README.md` は入力にしない。未解決 high が残る限り `verified` にしない。
 
 ### アクション 2 — IMP-02: 選択を採点する信頼フィードバックを直す
 `GB-IMP02`。信頼値が5段階の語で常時表示され（`src/ui/screens.js:473-487`）、信頼変動47件中38件が色付きトーストで出る。受け入れ表 #6 が反証された項目であり、`docs/bible.md` IMP-02 を正とする。
@@ -118,7 +137,7 @@
 ### アクション 3 — 一本の通し実走（`GC-IMP06-FULLRUN`）
 クリーンセーブから開始し、実移動・実呼吸・実戦闘で開幕からエンディングまでを1経路走らせる。C1 / D3 と、未計測のプレイ時間見積もりの置換は、これ以外の根拠では主張できない。
 
-IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
+**その次**は `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。GB-H1 の残課題は、実際の移行ステップが1つしか無いため段階移行が注入 registry でしか実証できていない点である（2つ目の形式変更時に、変更前の fixture 採取を `tools/fixtures/capture_legacy_save.mjs` で行うこと）。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
 
 ---
 
@@ -203,6 +222,7 @@ IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を�
 | 13 | §13 の描画予算を満たす | — | — | **未達**（ドローコールが medium で超過。影キャスタ数未達。監査 §13 表） |
 | 14 | 実機で 30 FPS を満たす | — | — | **原理的に未検証。** 実機が存在しない。**主張してはならない**（§13） |
 | 15 | 想定プレイ時間 3〜5時間 | — | — | **未計測の見積もり。** バイブル §16 に見積もりと明記済み。Gate C までに実測する |
+| 16 | 旧版セーブが破棄されず移行され、読めないセーブは理由と共に拒否されて元のバイトが残る | `node tools/save_migration.mjs` → 57 checks OK、意図的破壊9件を9件とも拒否。`AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json` | 自動 | **検証済（範囲限定・独立レビュー未了）** — 実移行ステップは1つのみ。多段移行は注入 registry での実証にとどまる |
 
 ---
 
