@@ -157,8 +157,11 @@ pending_verification:
 remote_delivery:
   open_pull_request: null
   last_delivery: >-
-    PR #4 merged 2026-07-31T20:32:39Z producing 193f408. Pages workflow run 30663264871 for that
-    commit concluded success.
+    Migration commit 51cfe1d3cba39561cff015ab86befacfca2c661e pushed to
+    claude/legacy-canonical-migration-jcuour on 2026-08-01 and confirmed on GitHub. No pull request
+    was opened — the user has not asked for one. Nothing was republished: the commit changed no
+    runtime release artifact. Before that, PR #4 merged 2026-07-31T20:32:39Z producing 193f408,
+    whose Pages workflow run 30663264871 concluded success.
   checks_state: "No pending checks at migration time; PRs #1 through #4 are all merged and closed."
   notes: >-
     Standing authorization is active (POLICIES.yaml). Inspect the real remote branch, pull request,
