@@ -80,7 +80,9 @@ floor:
   last_check: "2026-08-01 (migration run)"
   independence_level_used: C
   skips:
-    - "F6: not fired this run. No merge, release or deployment changed what a user receives; the branch was pushed only."
+    - "F6: not fired this run. No merge, release or deployment changed what a user receives; the branch was pushed only. Revisit before any merge to main."
+    - "F5 at Level A/B: not possible this run. The session instruction bars spawning subagents, so an implementation-blind reviewer is unavailable; the migration itself was checked at Level C. GB-H1 therefore stays complete_unverified and GB-H1-REVIEW stays the active task."
+    - "F7: not fired. No objective was marked complete this run; GATE-B remains in progress."
   waivers: []
   enforcement:
     # Wording is deliberate. "installed_observed_failing_not_required" means the
@@ -158,10 +160,17 @@ remote:
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Branch pushed. 193f408 and 012009b have never been verified on the public
-    surface. The deployed revision is still cc96f3a.
+    Branch pushed at c8608a6. No pull request was opened: the user's standing
+    instruction is that none be opened unless explicitly requested. 193f408,
+    012009b and c8608a6 have never been verified on the public surface, and the
+    deployed revision is still cc96f3a. Nothing was merged or deployed this run,
+    so F6 did not fire.
 
 updated_at: "2026-08-01"
 reconciliation_status: >-
-  Migration in progress. Verified against the real working tree, git state and
-  the GitHub Actions run history for autopilot.yml.
+  Migration to protocol v2.2 complete and validated. Verified against the real
+  working tree, git state, and the GitHub Actions run history for autopilot.yml.
+  A fresh-run resumption check passed: START_HERE.md plus this file alone yield
+  the objective, next action, blockers, recovery and remote state. npm test
+  passed end to end (exit 0) on the tree at 012009b, and the F3 gate passes on
+  the tree at c8608a6.
