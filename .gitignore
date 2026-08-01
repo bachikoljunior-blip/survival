@@ -4,3 +4,7 @@ shots/
 tools/_probe*.mjs
 *.log
 .DS_Store
+
+# Agent worktrees. Isolated checkouts created for parallel review work;
+# they are working directories, never repository content.
+.claude/worktrees/
