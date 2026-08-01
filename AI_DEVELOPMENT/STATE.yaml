@@ -40,7 +40,7 @@ execution:
   selected_rigor: STANDARD
   active_work:
     id: GB-H1-REVIEW
-    status: not_started
+    status: partial
     statement: >-
       Independent falsification review of the save migration layer delivered in
       012009b. Until it passes, GB-H1 stays complete_unverified and audit
@@ -68,10 +68,16 @@ execution:
       who_can_clear: an independent review pass
   review_findings_open:
     note: >-
-      GB-H1-REVIEW lens 3 (player-facing behaviour and integration) returned
-      FAIL with four HIGH findings, all confirmed against the code by the
+      GB-H1-REVIEW is PARTIAL. Three lenses were launched; only lens 3
+      (player-facing behaviour and integration) completed. It returned FAIL
+      with four HIGH findings, all confirmed against the code by the
       implementer before being accepted. The migration engine itself was found
       sound; the defects are all in how the player is told.
+      Lens 1 (data loss and the migration contract) and lens 2 (whether the
+      gate can pass on broken code) DIED without producing output - see
+      AI_DEVELOPMENT/FAILURES.md. They must be re-run. The FAIL verdict does
+      not depend on them: lens 3's findings stand on their own.
+      Full detail and the fix plan: AI_DEVELOPMENT/HANDOFFS/GB-H1-REVIEW.json
     high:
       - "L3-1: hud.notice caps its queue at four and evicts the OLDEST, and the refusal path emits the failure notice and then calls startNewGame(), which pushes four more. The message that explains the failure is therefore always the one dropped. The one path the change exists to protect is silent."
       - "L3-2: saveFailureText says 'starting a new game will replace it' and the next statement is startNewGame(). The player is not asked, and the save is overwritten about 3.5s later."
@@ -93,23 +99,67 @@ execution:
       that the message is true of what the code then does. Checks for that must
       land with the fixes.
 
+  known_defects_in_our_own_tooling:
+    - id: F6-TOOL-PROXY
+      statement: >-
+        tools/gates/f6_public_revision.mjs uses fetch(), and Node does not read
+        proxy settings by default. In this environment every request returns
+        403 - not because the public surface is wrong, but because the request
+        never leaves. The gate would report a delivery failure that is really a
+        tooling failure. GitHub Actions has no proxy so CI is unaffected.
+      fix: >-
+        NODE_USE_ENV_PROXY=1 makes it work (verified). Set it inside the tool or
+        install a proxy-aware dispatcher, so a local run is trustworthy.
+      status: known_not_fixed
+
+  network:
+    policy_changed: >-
+      2026-08-01 the user widened the environment from trusted-registries-only
+      to full access. Verified: the published Pages URL, example.com and
+      wikipedia.org all returned 403 before and 200 after. WebSearch worked
+      even under the narrow policy; page fetching did not.
+    consequence: >-
+      The public surface is now reachable from the development environment, so
+      F6 can be exercised against it directly rather than against a local
+      stand-in.
+
+  public_surface_check:
+    date: "2026-08-01"
+    what: >-
+      Fetched index.html, cinderline.1.0.0.js, styles.css and
+      manifest.webmanifest from the live Pages URL and compared SHA-256 against
+      the same files committed at origin/main (193f408).
+    result: >-
+      All four byte-identical. The live site is exactly what origin/main has
+      committed. This is the first direct confirmation since 193f408 was
+      merged; the previous evidence covered cc96f3a only.
+    limitation: >-
+      This verifies the F6 method against the real public surface. It does NOT
+      verify the F6 job in pages.yml, which has still never run, because that
+      only happens on a real deploy.
+
   current_uncertainty:
     - The shipped save-migration chain has one step, so staged multi-version migration is proved only against an injected registry.
     - A save whose envelope version and inner state version disagree is refused safely but is not covered by a check.
   exact_next_action: >-
-    Run GB-H1-REVIEW: an independent, source-aware falsification pass over
-    src/game/state.js, src/main.js and tools/save_migration.mjs, targeting the
-    migration contract, whether refusal can ever destroy a save, the
-    not-written-back-on-load decision, the envelope fields no migration has
-    touched, and whether the gate fails for the right reasons.
+    Fix the four confirmed HIGH findings from GB-H1-REVIEW, then re-run the two
+    review lenses that died. Start with tools/gates/f6_public_revision.mjs,
+    which is broken in this environment (see known_defects below) and is a two
+    line fix. Then the two structural changes in
+    AI_DEVELOPMENT/HANDOFFS/GB-H1-REVIEW.json section recommended_fix: refuse
+    to the title screen instead of auto-starting a new game, and recompute the
+    title warning inside showTitle() from a live Storage.inspect(). Add the
+    gate checks described in that handoff's gate_must_change_too section in the
+    same change - the current gate caught none of these four.
 
 floor:
-  last_check: "2026-08-01 (migration run)"
+  last_check: "2026-08-01 (close-out)"
   independence_level_used: C
   skips:
     - "F6: not fired this run. No merge, release or deployment changed what a user receives; the branch was pushed only. Revisit before any merge to main."
     - "F5 at Level A/B: not possible this run. The session instruction bars spawning subagents, so an implementation-blind reviewer is unavailable; the migration itself was checked at Level C. GB-H1 therefore stays complete_unverified and GB-H1-REVIEW stays the active task."
     - "F7: not fired. No objective was marked complete this run; GATE-B remains in progress."
+    - "F5 completeness: GB-H1-REVIEW ran at Level B for one lens of three. The other two died. Recorded as partial, not as a pass; GB-H1 stays complete_unverified."
   waivers: []
   enforcement:
     # Wording is deliberate. "installed_observed_failing_not_required" means the

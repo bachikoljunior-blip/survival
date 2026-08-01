@@ -65,3 +65,33 @@ Product defects belong in `docs/bible.md` §17/§17b and review findings belong 
 - Recovery: add a deterministic `dist/`-to-root mirror, commit the six generated production files, and validate byte equality in the Pages workflow.
 - Evidence: `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`; both final deployment runs succeeded and all four sampled public hashes matched the verified build.
 - Reusable rule: a green custom Pages workflow does not prove the live surface when another Pages source is enabled. Verify the actual URL after every deployment and make competing publication paths identical or remove one through an explicitly authorized settings change.
+
+## 2026-08-01 — Two independent reviewers died silently and produced nothing
+
+**What happened.** Three reviewers were launched for GB-H1-REVIEW. One (player-facing
+behaviour) completed in about 20 minutes and returned a substantial FAIL. The other two
+— data loss / migration contract, and mutation-testing the gate — never returned.
+
+**How it was detected.** Not by waiting. Measured: both output files were 0 bytes and
+untouched for 91 and 94 minutes; no `node` or `chromium` process was running; the
+isolated worktree had no file activity in 30 minutes. `TaskStop` then reported "No task
+found" for both, confirming they were gone rather than stuck.
+
+**Why it matters.** A background agent that dies looks exactly like one that is thinking.
+There is no partial output to inspect and no error. Waiting on the completion
+notification would have waited forever.
+
+**What to do about it.** Check for liveness by measurement, not patience: output file
+size and mtime, running processes, and workspace activity. Do it before reporting "still
+running" to the user, and certainly before planning around a result that may never come.
+
+**Partial salvage.** The mutation reviewer left its harness (`mutrun.mjs`) and one
+mutation still applied in its worktree, which revealed two things worth keeping:
+- the mutation it died holding removed the `SAVE_STATUS.EMPTY` guard from `saveIsBroken`
+  in `src/main.js`, which would tell a first-time player their non-existent save is
+  unreadable;
+- its harness ran only `tools/save_migration.mjs --unit`, so every UI-layer mutation
+  would have been reported as MISSED regardless of the truth.
+Finishing that one test by hand: the unit layer alone exits 0 (misses it), and the full
+gate exits 1, failing exactly `D. and is not warned about a save they never had`. The
+gate is sound here; the dead reviewer's method was not.

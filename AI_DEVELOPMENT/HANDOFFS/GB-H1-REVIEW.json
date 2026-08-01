@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "task": "GB-H1-REVIEW",
+  "date": "2026-08-01",
+  "producer": "the session that implemented GB-H1 and migrated the protocol to v2.2",
+  "consumer": "the next session to pick up CINDERLINE",
+  "status": "partial",
+
+  "purpose": "Independent falsification of the save migration layer delivered in 012009b, so that GB-H1 can stop being complete_unverified and audit finding H1 can close.",
+
+  "what_happened": {
+    "planned": "Three independent reviewers, none given the implementer's own evidence files: lens 1 data loss and the migration contract, lens 2 whether the gate can pass on broken code, lens 3 what the player actually experiences.",
+    "completed": "Lens 3 only. It returned FAIL with four HIGH findings.",
+    "not_completed": "Lens 1 and lens 2 died without producing output. See AI_DEVELOPMENT/FAILURES.md, 2026-08-01. They must be re-run; the questions they were given are still open.",
+    "verdict_so_far": "FAIL. GB-H1 stays complete_unverified and audit finding H1 stays open regardless of what the other two lenses would have said, because lens 3's findings stand on their own and are confirmed."
+  },
+
+  "confirmed_findings": {
+    "note": "Every HIGH below was checked against the code by the implementer before being accepted. They are not taken on the reviewer's word.",
+    "high": [
+      {
+        "id": "L3-1",
+        "where": "src/main.js continueGame; src/ui/hud.js notice",
+        "claim": "hud.notice caps its queue at four and evicts the OLDEST. The refusal path emits the failure notice and then calls startNewGame(), which pushes at least four notices of its own, so the message explaining the failure is always the one dropped.",
+        "why_it_matters": "The one path this change exists to protect is silent. The player taps CONTINUE, gets Chapter One, and is told nothing."
+      },
+      {
+        "id": "L3-2",
+        "where": "src/main.js saveFailureText and both refusal branches",
+        "claim": "The message says 'starting a new game will replace it' and the next statement is startNewGame(). The player is never asked. Measured: storage is overwritten about 3.5s later by the quest-start autosave.",
+        "why_it_matters": "The sentence is false at the moment it is displayed, and the save is destroyed by the code that displayed it."
+      },
+      {
+        "id": "L3-3",
+        "where": "src/ui/screens.js setTitleWarning; src/main.js boot",
+        "claim": "The title warning is written once at boot and never recomputed or cleared, so it survives into states where every clause of it is false. Reachable with no contrived save: v:99 save, new game, play to first autosave, quit to title.",
+        "why_it_matters": "The player is told the progress they just made is unreadable."
+      },
+      {
+        "id": "L3-4",
+        "where": "src/ui/screens.js rebuild()",
+        "claim": "A language change calls rebuild(), which builds a fresh empty titleWarn. The warning is permanently lost, one settings tap away — for exactly the Japanese-speaking player these strings were written for.",
+        "why_it_matters": "Restores the precise pre-commit failure state the change exists to eliminate."
+      }
+    ],
+    "medium_low": [
+      "L3-5: the warning reuses .tagline at a measured 2.6:1 contrast, below WCAG AA, and body.hicontrast does not cover .tagline.",
+      "L3-7: the FUTURE message tells the player to open a newer version that, after a rollback, exists nowhere they can reach. NEW GAME has no confirmation even when the save is known unreadable.",
+      "L3-8: director.retry() discards applySave's new boolean, so the half-restored state the guard prevents is still reachable once a future migration produces a payload load() accepts and deserialise rejects.",
+      "L3-9: the migrated notice claims the save was updated; nothing is written. The old-build escape hatch that justifies not writing back lasts about three seconds.",
+      "L3-10: two-finger CONTINUE + NEW GAME runs both handlers; the loaded save is discarded silently.",
+      "L3-11: the textContent/innerHTML split is correct but enforced only by a comment."
+    ],
+    "already_fixed": [
+      "L3-6: tools/i18n_report.mjs scanned a hand-written file list omitting src/main.js, so every string this branch added was invisible while the report printed 'interface 100%'. The list is now derived from which files import t(). 154/154 -> 165/165."
+    ]
+  },
+
+  "recommended_fix": {
+    "note": "Two structural changes resolve all four HIGH findings between them. Neither was started; src/ was deliberately left untouched while reviewers were reading it.",
+    "one": "On a refused save, do not start a new game. Return to the title screen with the reason on the title warning and both buttons visible. This removes the toast-eviction problem (L3-1) because the message lives somewhere persistent, and removes the destructive auto-start (L3-2) because the player chooses.",
+    "two": "Give Menus ownership of the warning text and recompute it inside showTitle() from a live Storage.inspect(), rather than setting it once at boot. This fixes the stale warning (L3-3) and its loss on rebuild() (L3-4) with one mechanism.",
+    "also": "L3-8 is a two-word change. L3-9 is a wording change in EN and JA. L3-5 needs its own CSS class plus a body.hicontrast rule. L3-10 needs a busy flag around both title transitions."
+  },
+
+  "gate_must_change_too": {
+    "finding": "tools/save_migration.mjs caught NONE of the four HIGH findings.",
+    "why": "It verifies the stored bytes and the restored state, and asserts only that SOME notice matching /updated|更新/ exists. It never checks that the notice is still on screen a moment later, and never checks that a message is true of what the code then does.",
+    "required": "Checks for these must land with the fixes, or the same class of defect returns silently. At minimum: after a refused CONTINUE, assert the explanation is still visible once the game has settled; and assert the stored save is intact at the moment the message claiming it is intact is displayed."
+  },
+
+  "open_questions_for_the_re_run": [
+    "Lens 1: can any path destroy, truncate or silently overwrite a stored save? Is migrateSave really non-mutating, or does the shallow spread alias nested objects? Is the envelope-wins precedence right, and what happens when envelope and inner versions disagree? Can Storage.lastResult go stale between load() and the UI reading it?",
+    "Lens 2: can the gate pass on broken code? Note the harness that died ran only `--unit`, which cannot see any UI-layer mutation and would report every one of them as MISSED. Any re-run must use the full gate.",
+    "One lens-2 mutation was finished by hand: removing the SAVE_STATUS.EMPTY guard from saveIsBroken (which would tell a first-time player their non-existent save is unreadable) exits 0 under --unit and exits 1 under the full gate, failing 'D. and is not warned about a save they never had'. The gate is sound on that one."
+  ],
+
+  "evidence_note": "Lens 3's screenshots were written to an ephemeral scratch directory and are gone with the container. Its findings are recorded here in text with reproduction steps, which is what survives. Nothing here depends on those images."
+}

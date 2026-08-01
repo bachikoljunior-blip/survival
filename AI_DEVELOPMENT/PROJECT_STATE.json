@@ -214,8 +214,10 @@
         "B5",
         "C5"
       ],
-      "evidence": [],
-      "reason": "Reviews GB-H1, which cannot approve itself. Dependency is OPS-001 rather than GB-H1 because GB-H1 is under_review by construction and a frontier task may not depend on an unverified one. Targets: the migration contract, whether refusal ever destroys a save, the not-written-back-on-load decision, the envelope fields no migration has yet had to touch, and whether the gate can fail for the right reasons."
+      "evidence": [
+        "AI_DEVELOPMENT/HANDOFFS/GB-H1-REVIEW.json"
+      ],
+      "reason": "Partial: one of three lenses completed and returned FAIL with four confirmed HIGH findings; the other two died without output and must be re-run. GB-H1 cannot be verified until the findings are fixed and the review is completed."
     },
     {
       "id": "GB-H2",
