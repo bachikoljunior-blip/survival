@@ -81,14 +81,17 @@ console.log(`--- layer 1: the migration engine (this build reads v${SAVE_VERSION
     // the recorded revision actually shipped.
     const rev = String(FIXTURE._provenance.source_revision || '');
     let shipped = null;
+    let why = '';
     try {
       const src = execFileSync('git', ['show', `${rev}:src/game/state.js`],
         { cwd: ROOT, encoding: 'utf8' });
       shipped = Number((/export const SAVE_VERSION = (\d+)/.exec(src) || [])[1]);
-    } catch { shipped = null; }
+    } catch (e) { shipped = null; why = (e && e.message || String(e)).split('\n')[0]; }
     check('the revision the fixture came from really shipped an older format',
       shipped === 1 && shipped < SAVE_VERSION,
-      `${rev.slice(0, 7)} shipped SAVE_VERSION ${shipped === null ? '(unreadable)' : shipped}`);
+      shipped === null
+        ? `could not read ${rev.slice(0, 7)} from git — a shallow clone cannot answer this: ${why}`
+        : `${rev.slice(0, 7)} shipped SAVE_VERSION ${shipped}`);
     check('and the fixture is in that format, not this one',
       V1.state.v === 1 && V1.v === undefined,
       `state.v=${V1.state.v} envelope v=${String(V1.v)}`);
