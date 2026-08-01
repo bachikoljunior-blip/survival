@@ -66,6 +66,33 @@ execution:
     - id: H1-open
       statement: Audit finding H1 stays open until GB-H1-REVIEW passes, even though the code is written and gated.
       who_can_clear: an independent review pass
+  review_findings_open:
+    note: >-
+      GB-H1-REVIEW lens 3 (player-facing behaviour and integration) returned
+      FAIL with four HIGH findings, all confirmed against the code by the
+      implementer before being accepted. The migration engine itself was found
+      sound; the defects are all in how the player is told.
+    high:
+      - "L3-1: hud.notice caps its queue at four and evicts the OLDEST, and the refusal path emits the failure notice and then calls startNewGame(), which pushes four more. The message that explains the failure is therefore always the one dropped. The one path the change exists to protect is silent."
+      - "L3-2: saveFailureText says 'starting a new game will replace it' and the next statement is startNewGame(). The player is not asked, and the save is overwritten about 3.5s later."
+      - "L3-3: the title warning is written once at boot and never recomputed, so it survives into states where every clause of it is false (v:99 save -> new game -> quit to title)."
+      - "L3-4: a language change calls rebuild(), which builds a fresh empty titleWarn, so the warning is permanently lost - one settings tap away, for exactly the Japanese-speaking player the new strings were written for."
+    medium_low:
+      - "L3-5: the warning reuses .tagline at 2.6:1 contrast, below WCAG AA, and body.hicontrast does not cover it."
+      - "L3-7: the FUTURE message tells the player to open a newer version that, after a rollback, exists nowhere they can reach; NEW GAME has no confirmation when the save is unreadable."
+      - "L3-8: director.retry() discards applySave's new boolean, so the half-restored state the guard prevents can still be reached once a future migration produces a payload load() accepts and deserialise rejects."
+      - "L3-9: the migrated notice claims the save was updated; nothing is written, and the old-build escape hatch it justifies lasts about three seconds."
+      - "L3-10: two-finger CONTINUE + NEW GAME runs both handlers; the loaded save is discarded silently."
+      - "L3-11: the textContent/innerHTML split is correct but enforced only by a comment."
+    fixed_so_far:
+      - "L3-6 (i18n report blind spot): FIXED. tools/i18n_report.mjs scanned a hand-written file list that omitted src/main.js, so every string this change added was invisible while the report still printed interface 100%. The list is now derived from which files import t() from the i18n module. interface went 154/154 -> 165/165 and the six ui.savefile.* keys moved from 'never asked for' to demanded and satisfied."
+    gate_lesson: >-
+      tools/save_migration.mjs caught none of these. It verifies the stored
+      bytes and the restored state, and asserts only that SOME notice matching
+      /updated|更新/ exists - never that the player can still see it, never
+      that the message is true of what the code then does. Checks for that must
+      land with the fixes.
+
   current_uncertainty:
     - The shipped save-migration chain has one step, so staged multi-version migration is proved only against an injected registry.
     - A save whose envelope version and inner state version disagree is refused safely but is not covered by a check.
