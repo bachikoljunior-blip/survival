@@ -115,10 +115,10 @@
       "vx": 110,
       "vy": 250
     },
-    "walkedMetres": 0.9354730143023086,
+    "walkedMetres": 1.2925543252181266,
     "cameraYaw": {
-      "yaw0": 7.177054091195886,
-      "yaw1": 7.33141690978659
+      "yaw0": 11.380077870544172,
+      "yaw1": 11.53444068913488
     },
     "attackStarts": 1,
     "deadSpace": {
@@ -614,7 +614,7 @@
     {
       "name": "stick: the player actually walked",
       "pass": true,
-      "detail": "0.94m over 7 frames (0.134m/frame)"
+      "detail": "1.29m over 15 frames (0.086m/frame)"
     },
     {
       "name": "stick: the HUD was told to follow the thumb",
@@ -634,7 +634,7 @@
     {
       "name": "camera: a drag on the right turns the camera",
       "pass": true,
-      "detail": "7.177 -> 7.331"
+      "detail": "11.380 -> 11.534"
     },
     {
       "name": "button: attack registers a real touch at its centre",
