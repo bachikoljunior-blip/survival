@@ -56,7 +56,7 @@ jobs:
   # compares it byte for byte against the build of this commit. If it does not
   # match, the delivery fails loudly instead of being recorded as verified.
   verify:
-    name: F6 — the public surface serves this revision
+    name: F6 public revision
     needs: deploy
     runs-on: ubuntu-latest
     timeout-minutes: 20

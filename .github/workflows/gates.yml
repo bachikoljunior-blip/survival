@@ -8,9 +8,11 @@
 # locally and, more importantly, so it can be observed failing on a deliberately
 # bad input. A gate never seen to fail is recorded as prepared_not_executed.
 #
-# To make these binding rather than advisory, add them to the branch protection
-# rule for `main` as required status checks. Until that is done they run and
-# report but do not block, and AI_DEVELOPMENT/STATE.yaml must say so.
+# To make these binding rather than advisory, add them to the ruleset for `main`
+# as required status checks. The job names below are exactly the strings to type
+# into "Add checks", and they are deliberately plain ASCII so they can be typed
+# on a phone. Until that is done they run and report but do not block, and
+# AI_DEVELOPMENT/STATE.yaml must say so.
 name: Floor gates
 
 on:
@@ -23,7 +25,7 @@ permissions:
 
 jobs:
   f2-state-update:
-    name: F2 — canonical state was updated
+    name: F2 state update
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,7 +37,7 @@ jobs:
         run: node tools/gates/f2_state_update.mjs --base "$F2_BASE"
 
   f3-execution:
-    name: F3 — the change was actually executed
+    name: F3 execution
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -51,7 +53,7 @@ jobs:
         run: node tools/gates/f3_execution.mjs
 
   f5-review-record:
-    name: F5 — independence level and review outcome recorded
+    name: F5 review record
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
