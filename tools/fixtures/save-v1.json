@@ -1,0 +1,194 @@
+{
+  "_provenance": {
+    "what": "A real save written by the real game, frozen as a migration fixture.",
+    "captured_by": "tools/fixtures/capture_legacy_save.mjs",
+    "source_revision": "193f408df049f068be57de7a1944089942720ad9",
+    "build_id": "1.0.0",
+    "save_version": 1,
+    "note": "Do not hand-edit. To reproduce, check out source_revision, build, and re-run the capture script."
+  },
+  "payload": {
+    "state": {
+      "v": 1,
+      "t": 1785555939008,
+      "flags": [
+        "fixture_legacy_save"
+      ],
+      "counters": [
+        [
+          "metersRead",
+          2
+        ]
+      ],
+      "inventory": [
+        [
+          "filter",
+          3
+        ],
+        [
+          "bandage",
+          2
+        ],
+        [
+          "salvage",
+          4
+        ],
+        [
+          "bekLetter",
+          1
+        ]
+      ],
+      "capabilities": [
+        "readAir"
+      ],
+      "trust": [
+        [
+          "teo",
+          0
+        ],
+        [
+          "sol",
+          0
+        ],
+        [
+          "nessa",
+          0
+        ],
+        [
+          "iris",
+          0
+        ],
+        [
+          "krajcik",
+          0
+        ],
+        [
+          "marsh",
+          2
+        ]
+      ],
+      "quests": [
+        [
+          "arrival",
+          {
+            "state": "active",
+            "step": 1,
+            "data": {}
+          }
+        ],
+        [
+          "cellarRow",
+          {
+            "state": "active",
+            "step": 0,
+            "data": {}
+          }
+        ]
+      ],
+      "choices": [],
+      "journal": [
+        {
+          "id": "back",
+          "title": "Back in Hollis",
+          "text": "Eighteen months. The courtyard still smells of the\nsame three things: wet ash, paraffin, and whatever they are burning in the\nbarrels that week. Nobody looked up when I came through the gate. That is either\nvery good or very bad and I will find out which.",
+          "t": 0
+        },
+        {
+          "id": "fixture_note",
+          "title": "Fixture note",
+          "text": "Written by the legacy save capture.",
+          "t": 0.016666666666666666
+        }
+      ],
+      "discovered": [
+        "stacks"
+      ],
+      "chapter": 1,
+      "playTime": 4.266666666666657,
+      "deaths": 0,
+      "kills": 0,
+      "filtersUsed": 0,
+      "metersRead": 0,
+      "parries": 0,
+      "lastSpawn": "start",
+      "ending": null
+    },
+    "player": {
+      "x": -112,
+      "y": 0,
+      "z": -84,
+      "rot": 0,
+      "hp": 120,
+      "stamina": 100,
+      "sat": 0,
+      "filter": null,
+      "masked": false,
+      "lampOn": false,
+      "lampBattery": 1
+    },
+    "interior": null,
+    "interiorPpm": null,
+    "npcState": [
+      "sol",
+      "nessa",
+      "teo",
+      "garage"
+    ],
+    "npcPos": [
+      [
+        "sol",
+        -96,
+        0,
+        -78,
+        3.141592653589793,
+        false,
+        false
+      ],
+      [
+        "nessa",
+        -118,
+        0,
+        -88,
+        0.6,
+        false,
+        false
+      ],
+      [
+        "teo",
+        591.5,
+        5,
+        -1.6,
+        3.141592653589793,
+        false,
+        false
+      ],
+      [
+        "garage",
+        759,
+        4,
+        2.2,
+        2.199114857512855,
+        false,
+        false
+      ]
+    ],
+    "takenIds": [],
+    "disabledIds": [],
+    "gasSources": [
+      [
+        "slip",
+        true
+      ],
+      [
+        "trench",
+        true
+      ],
+      [
+        "yard_seep",
+        false
+      ]
+    ],
+    "gasIntensity": 1,
+    "crisis": null
+  }
+}

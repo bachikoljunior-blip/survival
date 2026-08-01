@@ -1316,8 +1316,11 @@ she has been able to get to telling somebody.`],
     this._raidActive = null;
     g.ai.clearProjectiles(g);
 
+    // applySave returns false when the payload loaded but the progression was
+    // refused. Ignoring that leaves the player in a world that was reset for a
+    // restore that never happened.
     const save = Storage.load();
-    if (save) this.applySave(save);
+    if (save && this.applySave(save)) { /* restored */ }
     else {
       const p = g.player;
       p.hp = p.maxHp * 0.6;
@@ -1371,7 +1374,14 @@ she has been able to get to telling somebody.`],
     // leaves the previous run's hostiles alive and aggroed, its crisis timer
     // ticking and its runtime markers on the map. Reset first, always.
     this.resetWorld();
-    this.state.deserialise(d.state);
+    // Storage.load() only hands back a payload at the current version, so this
+    // should not fail — but a half-applied save (world reset, progression not
+    // restored, player transform restored) is worse than a refused one, so it
+    // stops here and lets the caller say so.
+    if (!this.state.deserialise(d.state)) {
+      console.warn('[cinderline] refusing a save this build cannot deserialise');
+      return false;
+    }
     if (d.player) {
       const p = g.player;
       p.placeAt(d.player.x, d.player.y, d.player.z, d.player.rot);

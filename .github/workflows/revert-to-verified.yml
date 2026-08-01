@@ -1,0 +1,87 @@
+# Return the public surface to a revision that was actually verified on it.
+#
+# The F6 gate in pages.yml fails the delivery when the public surface is not
+# serving what we built. This is the other half: the way back.
+#
+# It is deliberately NOT automatic. Pages here is served from the branch-source
+# mirror at the repository root (decision OD-005), so a revert is a commit to
+# `main`, and a workflow that pushes to the default branch without a human
+# asking is a larger hazard than the one it fixes. Section 0.4 requires a
+# working automatic revert only for unattended release, and unattended release
+# is disabled in AI_DEVELOPMENT/STATE.yaml precisely because this is manual.
+#
+#   gh workflow run revert-to-verified.yml -f revision=<sha> -f confirm=REVERT
+#
+# The revision must be one recorded as verified on the public surface — see
+# `remote.verified_public_revision` in AI_DEVELOPMENT/STATE.yaml.
+name: Revert public surface to a verified revision
+
+on:
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: 'Commit SHA that was verified on the public surface'
+        required: true
+        type: string
+      confirm:
+        description: 'Type REVERT to confirm this rewrites the published build on main'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  revert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse without an explicit confirmation
+        if: inputs.confirm != 'REVERT'
+        run: |
+          echo "::error::confirm must be exactly REVERT. Nothing was changed."
+          exit 1
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Check the revision exists
+        run: |
+          git cat-file -e "${{ inputs.revision }}^{commit}" || {
+            echo "::error::${{ inputs.revision }} is not a commit in this repository."; exit 1; }
+
+      - run: npm ci
+
+      - name: Rebuild the published artifacts from that revision
+        run: |
+          set -euo pipefail
+          # Only the product sources are taken from the old revision. Operating
+          # records stay current, because rolling back the product must not also
+          # roll back the record of why it was rolled back.
+          git checkout "${{ inputs.revision }}" -- src public build.mjs package.json package-lock.json
+          npm ci
+          npm run build:pages-root
+
+      - name: Commit the reverted publication
+        run: |
+          set -euo pipefail
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          if git diff --quiet; then
+            echo "The published build already matches ${{ inputs.revision }}. Nothing to do."
+            exit 0
+          fi
+          git add -A
+          git commit -m "Revert published build to ${{ inputs.revision }}
+
+The public surface was not serving the intended revision. This restores the
+last build that was actually verified on it. Operating records are deliberately
+not rolled back."
+          git push origin main
+          echo "Pushed. pages.yml will redeploy and its F6 job will verify the result."

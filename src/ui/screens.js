@@ -335,8 +335,9 @@ export class Menus {
       'A city built over a fire that will not go out. The low ground is where the air kills you. Climb, or choke.'));
     // Storage failures (iOS private browsing) are announced here, once, before
     // the player has spent an hour on a run that cannot be saved.
-    this.titleWarn = el('div', 'tagline', mark, '');
-    this.titleWarn.style.color = 'var(--blood)';
+    // Its own class, not `tagline`: a warning nobody can read is not a
+    // warning, and the tagline colour measured 2.6:1 against this background.
+    this.titleWarn = el('div', 'tagline title-warn', mark, '');
     this.titleWarn.style.display = 'none';
 
     const menu = el('div', 'title-menu', wrap);
@@ -353,14 +354,35 @@ export class Menus {
     tap(add('credits', t('ui.about', 'ABOUT'), ''), () => this.openPause('about', true));
   }
 
-  /** One-time warning shown on the title screen (e.g. storage unavailable). */
+  /** Warning shown on the title screen (e.g. storage unavailable). */
   setTitleWarning(text) {
     this.titleWarn.textContent = text || '';
     this.titleWarn.style.display = text ? '' : 'none';
   }
 
+  /**
+   * Where the title warning comes from, rather than what it said once.
+   *
+   * A string pushed in at boot is wrong twice over: it survives into states
+   * where it is no longer true (unreadable save -> new game -> quit to title),
+   * and it is destroyed by `rebuild()`, so one tap on the language setting
+   * permanently removes it — for exactly the reader the translated string was
+   * written for. `showTitle` asks this function every time instead, and the
+   * function reads live state and live `t()`.
+   */
+  setTitleWarningSource(fn) {
+    this._titleWarnSource = fn;
+    if (this.titleNode && this.titleNode.classList.contains('on')) this.refreshTitleWarning();
+  }
+
+  refreshTitleWarning() {
+    if (!this._titleWarnSource) return;
+    this.setTitleWarning(this._titleWarnSource() || '');
+  }
+
   showTitle(hasSave) {
     this._hadSave = hasSave;
+    this.refreshTitleWarning();
     this.titleButtons.continue.classList.toggle('off', !hasSave);
     this.titleButtons.continue.style.display = hasSave ? '' : 'none';
     this.titleNode.classList.add('on');

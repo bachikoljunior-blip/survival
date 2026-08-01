@@ -118,10 +118,30 @@ export class Emitter {
     if (!a) return;
     // Copy: handlers may unsubscribe during dispatch.
     for (const fn of a.slice()) {
-      try { fn(...args); } catch (e) { console.error(`[event:${k}]`, e); }
+      try { fn(...args); } catch (e) { reportSwallowed(`event:${k}`, e); }
     }
   }
   clear() { this._m.clear(); }
+}
+
+/**
+ * Where a swallowed listener error goes.
+ *
+ * One listener must not be able to stop the others, so `emit` catches — but
+ * catching also meant the error never reached the page's uncaught-error path.
+ * A throw inside the `render` listener therefore killed the picture (measured:
+ * 124 GL draw calls in four seconds before, zero after) while the loop, the
+ * HUD and the clock all carried on, with nothing on screen and nothing in the
+ * fault log. The boot installs a reporter here so those errors are treated as
+ * what they are.
+ */
+let swallowedReporter = null;
+export const onSwallowedError = (fn) => { swallowedReporter = fn; };
+function reportSwallowed(where, error) {
+  console.error(`[${where}]`, error);
+  if (swallowedReporter) {
+    try { swallowedReporter(where, error); } catch { /* the reporter itself */ }
+  }
 }
 
 /**

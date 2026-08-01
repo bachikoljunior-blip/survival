@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "handoff_id": "HANDOFF-GB-ROUND-REVIEW-01",
+  "kind": "checkpoint",
+  "session_id": "SESSION-2026-07-31-01",
+  "task_id": "GB-ROUND-REVIEW",
+  "producer": "integration-owner",
+  "intended_consumer": "independent-source-aware-reviewer",
+  "objective": "Decide independently whether GB-H1 (save migration), GB-H2 (post-boot fault recovery) and GB-TOUCH-SMOKE (visible touch controls) may move from under_review to verified, or whether any of the three is an implementation that its own test cannot falsify.",
+  "verified_baseline": "193f408",
+  "rollback_point": "193f408",
+  "allowed_scope": [
+    "PROJECT_OPERATING_PROTOCOL.md",
+    "docs/DONE.md",
+    "docs/reviews/audit-incumbent.md",
+    "src/game/state.js",
+    "src/main.js",
+    "public/index.html",
+    "src/content/locale/ja/ui.js",
+    "tools/save_migration.mjs",
+    "tools/make_save_v1_fixture.mjs",
+    "tools/fixtures/save-v1.json",
+    "tools/fault_recovery.mjs",
+    "tools/touch_smoke.mjs",
+    "tools/i18n_report.mjs",
+    "package.json",
+    "AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json",
+    "AI_DEVELOPMENT/EVIDENCE/GB-H2-FAULT-RECOVERY.json",
+    "AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json"
+  ],
+  "reviewed_source_sha256": {
+    "src/game/state.js": "1b252a1c7eb7c99bb998f6a521e470e178a367473c7f5512f57bbc673884a2ba",
+    "src/main.js": "0c50699803741cfd7da7745a729051898e52ec03646e44188035f8923ca29706",
+    "public/index.html": "b695b7e5cfe41c2b2fe91232a96e0c85b2fd8ac075baa267a7e401ef852b12f5",
+    "src/content/locale/ja/ui.js": "bbf18a3051e535a9e0a9f65faf65371b79fbf3d76004022999205c49180d2853",
+    "tools/save_migration.mjs": "c27c6c746a9d044ad6eae98a808d92cd4608b5c23b729579641a20aa3208f2bc",
+    "tools/make_save_v1_fixture.mjs": "117b7276ad09b49b3354bda18d768fcbd1f8a36d74164df5793037a649047d64",
+    "tools/fault_recovery.mjs": "cf4577ed12ebf171eaae473b8b1c4fae12765e1c45386fb544093d273d65e778",
+    "tools/touch_smoke.mjs": "dec77082177baeb041311b188f6a1701a15e849eb2d6134ad28dc507c4232da8",
+    "tools/fixtures/save-v1.json": "5ad51c5f3ca53025643f055b129f63ed28de2f3795d433db55ca90c532817fc5",
+    "package.json": "3888224d64add493b577ac3bd9fcbb8ce4953c4aa4d59ff67d413ac42bd21d1e"
+  },
+  "required_inputs": [
+    "A disposable copy of the repository at the reviewed hashes",
+    "Playwright Chromium (PLAYWRIGHT_BROWSERS_PATH as configured in this environment)",
+    "docs/DONE.md B2, B5, C5, D6 as the only acceptance authority"
+  ],
+  "expected_output": "docs/reviews/gate-b-round-h1-h2-touch.md",
+  "required_checks": [
+    "Run npm run test:save, npm run test:faults and npm run test:touch in the disposable copy and confirm the reported counts.",
+    "Confirm each runner can fail: pass --force-failure to tools/fault_recovery.mjs and tools/touch_smoke.mjs and confirm a nonzero exit, and confirm every negative control in tools/save_migration.mjs is rejected by at least one check.",
+    "R-08 test: for each of the three runners, decide whether it executes the verb it claims. Specifically — does the save suite load through the production Storage.load path rather than calling migrateSave directly; does the fault probe cause real uncaught errors and rejections rather than calling the handler; does the touch probe reach the game through dispatched touch points rather than through input.setVirtual.",
+    "Attack the migration layer: a save at the current version, a legacy-key save, a newer-version save, a corrupt blob, a save with a non-integer version, a rescue slot that already holds something, and a private-browsing localStorage that throws on every write.",
+    "Attack the fault escalation rule: find a fault sequence that leaves a player with a stopped picture and no panel, or one that puts the panel in front of a player whose game is still running.",
+    "Check that the touch measurements are read from rendered geometry rather than from CSS the probe itself asserts, and that the run would fail if a control were moved off-screen, shrunk below 44px or overlapped.",
+    "Confirm no claim in docs/STATE.md, docs/bible.md or README.md added by this round asserts real-device behaviour, full Gate B, or a multi-step migration chain."
+  ],
+  "acceptance_criteria": [
+    "A save written by the published v1 build loads, with flags, inventory, capabilities, quests, journal, chapter, play time and the world envelope intact.",
+    "A save this build cannot read is never destroyed and never silently overwritten by the autosave that follows, and the player is told in their own language.",
+    "An uncaught error or rejected promise after boot saves the game and reaches the player; a fault that leaves the frame counter stopped reaches the recovery panel; a single survivable fault does not.",
+    "Every visible control at 667x375 is at least 44 CSS px, on screen, non-overlapping and reachable by a dispatched touch, and the dead space between controls presses nothing.",
+    "Each runner exits nonzero when its subject is broken."
+  ],
+  "decision_rule": "PASS a task only if its required checks complete with no unresolved high-severity finding in that task's scope. The three are judged separately: one may pass while another fails. Otherwise FAIL or INCONCLUSIVE for that task.",
+  "constraints": [
+    "Do not use implementer prose, this handoff's summaries or README.md as evidence; read the source and run the build.",
+    "Do not alter shared product code, tests, state, evidence or prior reviews. The only permitted shared edit is the expected output review.",
+    "Do not approve B1 or any real-device claim, full Gate B, C1, D3, performance, play feel or release.",
+    "Run adversarial mutations only in a disposable copy."
+  ],
+  "known_risks": [
+    "The migration chain has exactly one production step (v1 -> v2), so a two-or-more-step chain is unexercised by production data.",
+    "Chromium under SwiftShader runs the loop at a few frames a second; the fault and touch probes keep the page busy deliberately, and a reviewer should check that this does not mask a timing-dependent defect.",
+    "Emulated touch is not a thumb on glass (blocker B1).",
+    "Changing SAVE_KEY moves where a published player's save lives. The legacy key is read and then removed once the migrated copy is written; a reviewer should look for a sequence in which both copies can be lost."
+  ],
+  "affected_files": [
+    "src/game/state.js",
+    "src/main.js",
+    "public/index.html",
+    "src/content/locale/ja/ui.js",
+    "tools/save_migration.mjs",
+    "tools/make_save_v1_fixture.mjs",
+    "tools/fault_recovery.mjs",
+    "tools/touch_smoke.mjs",
+    "tools/i18n_report.mjs",
+    "tools/fixtures/save-v1.json",
+    "tools/fixtures/README.md",
+    "package.json",
+    "docs/STATE.md",
+    "docs/bible.md",
+    "docs/reviews/audit-incumbent.md",
+    "README.md",
+    "AI_DEVELOPMENT/PROJECT_STATE.json",
+    "AI_DEVELOPMENT/SESSION_STATE.json"
+  ],
+  "invariants": [
+    "A save that cannot be read is copied aside before anything can overwrite it, and the first rescued copy is never replaced.",
+    "A migration step must not mutate its input and must advance the version by exactly one.",
+    "The recovery panel is shown for a fault the game did not survive, not for every fault."
+  ],
+  "rollback_instructions": "Revert src/game/state.js, src/main.js, public/index.html and src/content/locale/ja/ui.js; drop the three runners, the fixture and the three package scripts; restore state to revision 2026-08-01.1. A player who has already loaded the new build has their save at cinderline.save; reverting alone will not move it back, so a revert must also restore the legacy key or accept that those saves become the rescued copy.",
+  "completion_status": "ready_for_independent_review",
+  "handoff_recipient": "integration-owner"
+}

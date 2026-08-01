@@ -346,6 +346,15 @@ should be verified on the device before any claim is made about it.
   position, vitals, filter state, world state and the full story graph. The save
   is language-independent — it contains no translated text at all — so it can be
   written in one language and opened in the other.
+* A save from an older version is migrated forward through a registry of
+  per-version steps rather than discarded, and one this build genuinely cannot
+  read (a newer version, a truncated write) is copied to
+  `cinderline.save.rescued` and reported on the title screen instead of being
+  overwritten by the next autosave. `npm run test:save` checks that against a
+  save written by the previously published build.
+* An uncaught error or rejected promise after boot saves the game and tells the
+  player; if it repeats, or the frame counter stops, it reaches the same
+  recovery panel a lost graphics context uses. `npm run test:faults`.
 * Japanese text uses whatever the device already has: Hiragino Sans on iOS,
   Noto Sans CJK JP on Android, Yu Gothic or Meiryo on Windows. Nothing is
   downloaded, so there is no webfont to fail and no flash of unstyled text. The

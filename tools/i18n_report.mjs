@@ -18,7 +18,7 @@
  * legitimate state (it degrades to English), and this is a report, not a gate.
  */
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { CAST, CONVERSATIONS, QUESTS, ENDINGS, EPILOGUE_BEATS } from '../src/content/story.js';
 import { ITEMS, CAPABILITIES, CHARACTERS } from '../src/game/state.js';
 import { buildHollisData } from '../src/content/world_data.js';
@@ -119,8 +119,30 @@ for (const id in QUESTS) {
 // Examine topics, journals and prompts live in the director and the world data,
 // which are not tables we can import cleanly — scrape them from the source, and
 // scrape the engine's own literal `t()` calls at the same time.
-const SRC = ['src/game/director.js', 'src/game/game.js', 'src/ui/hud.js',
-             'src/ui/screens.js', 'src/game/narrative.js', 'src/game/ai.js'];
+//
+// The list is DERIVED, not hand-maintained. It used to be a literal array, and
+// `src/main.js` was missing from it — so every string the boot flow shows,
+// including the whole save-file family, was invisible here while the report
+// still printed "interface 100%". A hand-kept list of everything that must be
+// remembered is a list that will be forgotten; anything importing `t` from the
+// i18n module is scanned, and nothing else is.
+const I18N_IMPORT = /import\s*\{[^}]*\bt\b[^}]*\}\s*from\s*'[^']*content\/i18n\.js'/s;
+const SRC = [];
+(function collect(dir) {
+  for (const entry of readdirSync(new URL(`../${dir}/`, import.meta.url), { withFileTypes: true })) {
+    const rel = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) { if (entry.name !== 'locale') collect(rel); continue; }
+    if (!entry.name.endsWith('.js')) continue;
+    if (rel.startsWith('src/content/')) continue;   // the tables themselves
+    const body = readFileSync(new URL(`../${rel}`, import.meta.url), 'utf8');
+    if (I18N_IMPORT.test(body)) SRC.push(rel);
+  }
+})('src');
+SRC.sort();
+if (!SRC.includes('src/main.js')) {
+  console.error('i18n report: src/main.js does not import t() - the scan is probably wrong');
+  process.exit(1);
+}
 for (const f of SRC) {
   const s = readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
   for (const m of s.matchAll(/\bt\(\s*'([a-z][A-Za-z0-9_.]*)'/g)) want('interface', m[1]);
