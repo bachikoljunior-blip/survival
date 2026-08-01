@@ -4,7 +4,7 @@
 
 import * as THREE from 'three';
 import { Game, MODE } from './game/game.js';
-import { Storage } from './game/state.js';
+import { Storage, SAVE_STATUS } from './game/state.js';
 import { moveActor } from './world/collision.js';
 import { Audio } from './audio/audio.js';
 import { setLocale, detectLocale, t } from './content/i18n.js';
@@ -87,13 +87,49 @@ async function main() {
     warnStorage();
   };
 
+  // What to say about a save this build will not load. Silence is the one
+  // unacceptable answer: the player pressed Continue, so something happened to
+  // their progress and they are owed the reason before the next autosave
+  // writes over it.
+  const saveFailureText = (status) => {
+    if (status === SAVE_STATUS.FUTURE) {
+      return t('ui.savefile.future',
+        '<b>Save not loaded.</b> It was written by a newer version of the game. ' +
+        'It has been left alone — open the newer version to continue it.');
+    }
+    if (status === SAVE_STATUS.CORRUPT || status === SAVE_STATUS.UNKNOWN_VERSION) {
+      return t('ui.savefile.corrupt',
+        '<b>Save not loaded.</b> The stored save could not be read. ' +
+        'Starting a new game will replace it.');
+    }
+    return t('ui.savefile.failed',
+      '<b>Save not loaded.</b> It could not be brought up to date with this ' +
+      'version. It has been left alone — starting a new game will replace it.');
+  };
+
   const continueGame = async () => {
     const save = Storage.load();
-    if (!save) return startNewGame();
+    const result = Storage.lastResult;
+    if (!save) {
+      if (result && result.status !== SAVE_STATUS.EMPTY) {
+        game.hud.notice(saveFailureText(result.status), 'bad', 9);
+      }
+      return startNewGame();
+    }
     game.player.group.visible = true;      // hidden for the title card
     game.menus.hideTitle();
     await game.menus.fadeOut();
-    game.director.applySave(save);
+    if (!game.director.applySave(save)) {
+      // The world has been reset but the progression was refused. Do not drop
+      // the player into a half-restored city.
+      await game.menus.fadeIn();
+      game.hud.notice(saveFailureText(SAVE_STATUS.CORRUPT), 'bad', 9);
+      return startNewGame();
+    }
+    if (result && result.status === SAVE_STATUS.MIGRATED) {
+      game.hud.notice(t('ui.savefile.migrated',
+        'Save updated from an older version of the game.'), 'good', 6);
+    }
     game.playTime = game.director.state.playTime;
     game.hud.setVisible(true);
     await game.menus.fadeIn();
@@ -143,6 +179,26 @@ async function main() {
     game.menus.setTitleWarning(t('ui.storage.warn',
       'This browser will not let the game save — private browsing, most likely. ' +
       'You can play, but nothing will be kept when you close the tab.'));
+  }
+
+  // ---- an unreadable save ----------------------------------------------
+  // Continue is hidden when the save cannot be loaded, which on its own is
+  // indistinguishable from having never played. Say which one it is, on the
+  // screen where the decision to start a new game gets made.
+  const saveInfo = Storage.inspect();
+  const saveIsBroken = storageOk
+    && saveInfo.status !== SAVE_STATUS.EMPTY
+    && saveInfo.status !== SAVE_STATUS.OK
+    && saveInfo.status !== SAVE_STATUS.MIGRATED;
+  if (saveIsBroken) {
+    game.menus.setTitleWarning(saveInfo.status === SAVE_STATUS.FUTURE
+      ? t('ui.savefile.warnFuture',
+        'There is a saved game here, but it was written by a newer version of ' +
+        'the game and this one cannot read it. It has been left untouched. ' +
+        'Starting a new game will replace it.')
+      : t('ui.savefile.warnUnreadable',
+        'There is a saved game here, but it cannot be read by this version. ' +
+        'It has been left untouched. Starting a new game will replace it.'));
   }
 
   game.hud.setVisible(false);

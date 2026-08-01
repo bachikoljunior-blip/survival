@@ -16,7 +16,110 @@ import { Emitter, clamp, clamp01, deepClone } from '../core/util.js';
 
 export const SAVE_KEY = 'cinderline.save.v1';
 export const SETTINGS_KEY = 'cinderline.settings.v1';
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
+
+/**
+ * Save migration.
+ *
+ * Version 1 shipped with the version number buried inside the state blob and
+ * nothing at all on the envelope — the player transform, the interior, the
+ * interaction ids, the gas sources and the chapter-four crisis timer all live
+ * beside `state` and were never versioned. Any change to those was a silent
+ * data loss: `load()` compared `d.state.v` to the current constant and, on a
+ * mismatch, returned null. The title screen then hid Continue and the next
+ * autosave wrote over the old file. A player who had finished three chapters
+ * lost them to a format change nobody told them about.
+ *
+ * So: a save carries its version on the envelope, and old saves are upgraded
+ * rather than dropped. Each entry takes a payload at version N and returns one
+ * at N+1; `migrateSave` runs them in order, one step at a time, and stops with
+ * an explicit reason rather than a guess.
+ *
+ * Rules a migration has to keep, because they are what makes this safe:
+ *  - it never mutates its input;
+ *  - it never invents progress the old save did not contain;
+ *  - it either returns a payload or throws, and a throw is reported, not eaten.
+ */
+export const SAVE_MIGRATIONS = {
+  // 1 -> 2: hoist the version onto the envelope. The inner `v` stays, so a
+  // build older than this one still recognises the state blob it can read.
+  1: (d) => ({ ...d, v: 2, state: { ...d.state, v: 2 } }),
+};
+
+/** Statuses `migrateSave` can return. `ok` and `migrated` are loadable. */
+export const SAVE_STATUS = {
+  OK: 'ok',                   // already current
+  MIGRATED: 'migrated',       // upgraded from an older version
+  EMPTY: 'empty',             // nothing stored
+  CORRUPT: 'corrupt',         // unparseable or not a save
+  UNKNOWN_VERSION: 'unknown', // a save, but it does not say what it is
+  FUTURE: 'future',           // written by a newer build than this one
+  NO_PATH: 'no_path',         // an old version with no migration registered
+  FAILED: 'failed',           // a migration threw
+};
+
+/** Loadable statuses, in one place so callers cannot disagree about them. */
+export const SAVE_LOADABLE = [SAVE_STATUS.OK, SAVE_STATUS.MIGRATED];
+
+/**
+ * Bring a decoded save payload up to `SAVE_VERSION`, or explain why not.
+ *
+ * Pure: it does not touch storage and does not modify `raw`. `registry` is a
+ * parameter so the staged behaviour — that a version-3 build walks 1→2→3 one
+ * step at a time rather than jumping — can be tested without waiting for a
+ * third format to exist.
+ *
+ * Returns `{ status, from, to, steps, payload, reason }`. `payload` is only
+ * set when `status` is in `SAVE_LOADABLE`; every other status leaves the
+ * stored save untouched so a build that can read it still can.
+ */
+export function migrateSave(raw, registry = SAVE_MIGRATIONS, target = SAVE_VERSION) {
+  const fail = (status, reason, from = null) =>
+    ({ status, from, to: target, steps: [], payload: null, reason });
+
+  if (raw === null || raw === undefined) return fail(SAVE_STATUS.EMPTY, 'no save is stored');
+  if (typeof raw !== 'object' || Array.isArray(raw)) return fail(SAVE_STATUS.CORRUPT, 'save is not an object');
+  if (!raw.state || typeof raw.state !== 'object') return fail(SAVE_STATUS.CORRUPT, 'save has no state block');
+
+  // The envelope is authoritative; the inner version is the v1 fallback.
+  const from = Number.isInteger(raw.v) ? raw.v
+    : Number.isInteger(raw.state.v) ? raw.state.v
+      : null;
+  if (from === null) return fail(SAVE_STATUS.UNKNOWN_VERSION, 'save carries no version');
+  if (from < 1) return fail(SAVE_STATUS.CORRUPT, `version ${from} is not a real version`, from);
+  if (from > target) {
+    return fail(SAVE_STATUS.FUTURE,
+      `save is version ${from}, this build reads ${target}`, from);
+  }
+  if (from === target) {
+    return { status: SAVE_STATUS.OK, from, to: target, steps: [], payload: raw, reason: null };
+  }
+
+  let payload = raw;
+  const steps = [];
+  for (let v = from; v < target; v++) {
+    const step = registry[v];
+    if (typeof step !== 'function') {
+      return fail(SAVE_STATUS.NO_PATH, `no migration from version ${v}`, from);
+    }
+    let next;
+    try {
+      next = step(payload);
+    } catch (e) {
+      return fail(SAVE_STATUS.FAILED,
+        `migration ${v} to ${v + 1} threw: ${(e && e.message) || e}`, from);
+    }
+    if (!next || typeof next !== 'object' || !next.state || typeof next.state !== 'object') {
+      return fail(SAVE_STATUS.FAILED,
+        `migration ${v} to ${v + 1} did not return a save`, from);
+    }
+    payload = next;
+    steps.push(`${v}->${v + 1}`);
+  }
+  // A migration that leaves the version behind would loop forever next boot.
+  payload = { ...payload, v: target, state: { ...payload.state, v: target } };
+  return { status: SAVE_STATUS.MIGRATED, from, to: target, steps, payload, reason: null };
+}
 
 /**
  * Capabilities. Each is unlocked by a specific, diegetic event — never by
@@ -331,6 +434,9 @@ export const Storage = {
 
   save(state, player, extra = {}) {
     const payload = {
+      // On the envelope, so a future format change can migrate the fields that
+      // live out here rather than only the ones inside `state`.
+      v: SAVE_VERSION,
       state: state.serialise(),
       player: player ? {
         x: player.pos.x, y: player.pos.y, z: player.pos.z, rot: player.yaw,
@@ -349,17 +455,47 @@ export const Storage = {
     }
   },
 
-  load() {
+  /**
+   * What is in storage and whether this build can read it, without loading it.
+   *
+   * The title screen needs the answer before anything is restored: a save it
+   * cannot read must not be reported as "no save", because the player is then
+   * told nothing and the next autosave overwrites it.
+   */
+  inspect() {
+    let raw;
     try {
-      const raw = localStorage.getItem(SAVE_KEY);
-      if (!raw) return null;
-      const d = JSON.parse(raw);
-      if (!d || !d.state || d.state.v !== SAVE_VERSION) return null;
-      return d;
+      const text = localStorage.getItem(SAVE_KEY);
+      if (!text) return migrateSave(null);
+      raw = JSON.parse(text);
     } catch (e) {
-      console.warn('[cinderline] load failed', e);
+      console.warn('[cinderline] save unreadable', e);
+      return { status: SAVE_STATUS.CORRUPT, from: null, to: SAVE_VERSION, steps: [],
+        payload: null, reason: (e && e.message) || String(e) };
+    }
+    return migrateSave(raw);
+  },
+
+  /**
+   * The last thing `load()` or `hasSave()` decided, for the UI to report. It
+   * is set on every call so it cannot go stale behind a screen that reads it.
+   */
+  lastResult: null,
+
+  load() {
+    const r = this.inspect();
+    this.lastResult = r;
+    if (!SAVE_LOADABLE.includes(r.status)) {
+      if (r.status !== SAVE_STATUS.EMPTY) {
+        console.warn(`[cinderline] save not loaded (${r.status}): ${r.reason}`);
+      }
       return null;
     }
+    // A migrated save is NOT written back here. Loading is not the moment to
+    // overwrite the only copy of a player's progress with a format their
+    // previous build can no longer read — if this session goes wrong they can
+    // still open the old build. The next real save writes the new format.
+    return r.payload;
   },
 
   hasSave() { return !!this.load(); },

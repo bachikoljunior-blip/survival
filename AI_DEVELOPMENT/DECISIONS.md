@@ -38,3 +38,12 @@
 - Decision: Generate and commit the root publication files with `npm run build:pages-root`; require `npm run validate:pages-root` in the Actions deployment.
 - Reason: The repository had both Actions deployment and the legacy branch-source deployment enabled. The latter completed after the former and replaced the game with rendered `README.md`.
 - Consequence: Root publication files are generated artifacts and must not be edited manually. If the Pages setting is later changed to GitHub Actions, remove the mirror only in a separately verified migration.
+
+## OD-006 — A save carries its version on the envelope, and old saves are upgraded
+
+- Date: 2026-08-01
+- Status: accepted
+- Decision: `SAVE_VERSION` is 2. The version is written on the save envelope as well as inside the state blob, and `migrateSave()` upgrades older saves one registered step at a time before anything is restored. Statuses that are not `ok` or `migrated` refuse the load, name the reason, and leave the stored bytes alone.
+- Reason: v1 compared the stored version to the current constant and returned null on any mismatch. A version bump silently hid CONTINUE and the next autosave destroyed the player's progress. The fields around `state` — player transform, interior, interaction ids, gas sources, the chapter-four crisis timer — carried no version at all and so could never have been migrated.
+- Consequence: a migrated save is **not** written back on load. The upgraded payload reaches the running game, but storage keeps the old bytes until the next real save, so a player who abandons the session can still open it with their previous build. `tools/save_migration.mjs` asserts this.
+- Obligation: the next format change captures its own "old" fixture with `tools/fixtures/capture_legacy_save.mjs` **before** the change lands. A fixture captured afterwards is produced by the code under test and proves nothing.

@@ -1,12 +1,12 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.1 -->
+<!-- state_revision: 2026-08-01.2 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
 **記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
 
-最終更新: 2026-08-01 / 作業ブランチ `main` / 検証済み基点 `cc96f3a`
+最終更新: 2026-08-01 / 作業ブランチ `claude/one-round-execution-changes-psdid4` / 検証済み基点 `193f408`
 
 ---
 
@@ -82,6 +82,20 @@
 
 2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
 
+### 2026-08-01 継続 checkpoint — GB-H1 セーブマイグレーション
+
+| コマンド | 結果 |
+|---|---|
+| `node tools/save_migration.mjs` | **OK** — 57 checks。193f408 の実コードが実際に書いた v1 セーブ（`tools/fixtures/save-v1.json`、**形式変更前**に採取）が読み込まれ、フラグ・能力・所持品・クエスト・手記が実行中のゲームに揃うことを、実タッチで押した CONTINUE 経由で確認した。新しいビルドのセーブと破損セーブは拒否され、画面に理由が出て、保存バイト列は1バイトも変わらない。現行版セーブの通常 save/load も同一に往復する |
+| negative control（意図的な9種の破壊） | **9/9 を gate が拒否**。うち1件（最終 version stamp の削除）は初回で**見逃した**ため検査を追加した |
+| `npm test` | 下表の通り |
+
+**この作業中に見つけて直した欠陥2件。**
+1. 日本語 `ui.save`（ポーズメニューの「保存」ボタン）と同名のキーを同じリテラルに追加してしまい、既存ラベルを黙って上書きしていた。esbuild の duplicate-key 警告で検出し、`ui.savefile.*` へ改名した。
+2. 最初に書いた検査は「CONTINUE を押した**後**に保存バイト列が変わらないこと」を主張していて落ちた。落ちたのは検査のほうで、プレイ中のオートセーブは正当である。書き込み元を `Director.save()` と特定してから、主張どおりの位置（タイトル画面での読み取り）へ移した。
+
+**GB-H1 は `verified` ではない。** 実装と gate は通ったが、§17 が要求する独立レビューを実行していない。状態は `under_review` とし、`GB-H1-REVIEW` を次の active task にした。
+
 ---
 
 ## 3. 次の3アクション
@@ -90,8 +104,8 @@
 
 この表示は `AI_DEVELOPMENT/PROJECT_STATE.json` の task graph と `SESSION_STATE.json` の frontier から導く。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
 
-### アクション 1 — H1: セーブマイグレーションを追加する（active）
-`src/game/state.js:292,357` にはマイグレーション層がなく、version を上げると既存進行が警告なく破棄される。`migrate(d)` を追加し、旧version fixture、段階移行、失敗時の明示通知、save/load回帰を検証する。
+### アクション 1 — GB-H1-REVIEW: マイグレーション層の独立レビュー（active）
+実装は自己承認しない。実装ソースを読む独立レビュー担当が、移行契約、拒否時にセーブを壊さないか、「load 時に書き戻さない」判断、まだどの移行も触っていない envelope 側フィールド、そして gate が正しい理由で落ちるかを反証しに行く。未解決 high が出た場合、GB-H1 は verified にできない。
 
 ### アクション 2 — H2: 起動後エラーから回復できるようにする
 `public/index.html:92` と `src/main.js:31` を対象に、`window.onerror` と `unhandledrejection` を起動後も既存回復パネルへ接続する。正常起動、同期例外、rejected promise、再試行をユーザーsurfaceから検証する。
@@ -99,7 +113,7 @@
 ### アクション 3 — 実際に見えるタッチ操作を667×375で駆動する
 `GB-TOUCH-SMOKE` として、画面上の移動・カメラ・攻撃・回避・防御・会話ボタンを実タッチ座標から操作し、44px目標、重なり、誤操作、同時入力、向き変更を検証する。既存のGate B代表スライスはproduction input chainを通るが、見えるhit target自体の証拠ではない。
 
-**その次**は `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
+**その次**は `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。GB-H1 の残課題は、実際の移行ステップが1つしか無いため段階移行が注入 registry でしか実証できていない点である（2つ目の形式変更時に、変更前の fixture 採取を `tools/fixtures/capture_legacy_save.mjs` で行うこと）。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
 
 ---
 
@@ -184,6 +198,7 @@
 | 13 | §13 の描画予算を満たす | — | — | **未達**（ドローコールが medium で超過。影キャスタ数未達。監査 §13 表） |
 | 14 | 実機で 30 FPS を満たす | — | — | **原理的に未検証。** 実機が存在しない。**主張してはならない**（§13） |
 | 15 | 想定プレイ時間 3〜5時間 | — | — | **未計測の見積もり。** バイブル §16 に見積もりと明記済み。Gate C までに実測する |
+| 16 | 旧版セーブが破棄されず移行され、読めないセーブは理由と共に拒否されて元のバイトが残る | `node tools/save_migration.mjs` → 57 checks OK、意図的破壊9件を9件とも拒否。`AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json` | 自動 | **検証済（範囲限定・独立レビュー未了）** — 実移行ステップは1つのみ。多段移行は注入 registry での実証にとどまる |
 
 ---
 
