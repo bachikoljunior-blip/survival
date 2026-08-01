@@ -68,7 +68,7 @@ execution:
       - docs/reviews/gate-b-round-h1-h2-touch.md
       - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
   modified_but_unverified:
-    - "Playwright WebKit iPhone SE 3 gate: local Chromium surrogate passed; official WebKit baseline and required-baseline run pending on GitHub."
+    - "Playwright WebKit iPhone SE 3 gate: full official run completed with only the intended missing-baseline failure; candidate reviewed and promoted, required-baseline rerun pending."
     - "iPhone SE 3 iOS Simulator / Mobile Safari Appium gate: harness syntax and missing-device refusal verified locally; real macOS runner execution pending."
     - "Pages publication and post-deploy F6 for this delivery: pending merge."
   current_blockers:
@@ -165,11 +165,11 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Run the full local suite, open the OPS-IPHONE-SE3-AUTOMATION pull request,
-    inspect and promote the first official WebKit baseline candidate, require
-    F2/F3/F5 to pass, merge, then require the iOS Simulator Mobile Safari gate,
-    Pages deployment and F6 public-surface verification to complete. Record the
-    exact workflow and merge evidence before resuming GB-IMP02.
+    Push the reviewed WebKit baseline to pull request #8, require the
+    required-baseline WebKit rerun and F2/F3/F5 to pass, merge, then require the
+    iOS Simulator Mobile Safari gate, Pages deployment and F6 public-surface
+    verification to complete. Record exact workflow and merge evidence before
+    resuming GB-IMP02.
 
 floor:
   last_check: "2026-08-02 (iPhone SE 3 automation delivery, local Level C)"
@@ -196,7 +196,7 @@ floor:
     f3_execution_check: active
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
-    iphone_webkit_release_gate: prepared_not_executed
+    iphone_webkit_release_gate: observed_initial_failure_rerun_pending
     ios_safari_release_gate: prepared_not_executed
     revert_mechanism: prepared_not_executed
     last_observed_failing: |
@@ -288,15 +288,17 @@ recovery:
 
 remote:
   branch: agent/iphone-se3-automation
-  pull_request: none
+  pull_request: 8
   deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    The automation delivery exists only in the local branch at this checkpoint.
-    The user explicitly requested push, pull request, merge and publication.
-    origin/main is b5f5f948e49fb0d53b7488aded5955b109821f4c; no automation
-    pull request or deployment has run yet, so F6 has not fired for this work.
+    Pull request #8 is open at head 7839c28824273879dad00807c31e97d7e07ff4c3.
+    Floor run 30722138303 passed F2, F5 and the existing F3 six-step execution.
+    The complete WebKit sequence ran and failed only on the designed first-run
+    missing-baseline check. Artifact 8825225421 was inspected and its candidate
+    was promoted locally; the required-baseline rerun, merge, iOS Safari,
+    deployment and F6 remain pending.
 
 updated_at: "2026-08-02"
 reconciliation_status: >-
@@ -304,5 +306,7 @@ reconciliation_status: >-
   required-input refusal and a complete local Chromium surrogate run after the
   44px Japanese-button repair. The full repository suite also passed on the
   final tree: 19 adversarial refusals plus two clean runs, five endings, save
-  migration 133/133, fault recovery 34/34 and touch 136/136. Both official
-  remote browser layers remain required before merge and publication.
+  migration 133/133, fault recovery 34/34 and touch 136/136. The official
+  WebKit first run completed with only the intended missing-baseline failure;
+  its candidate was reviewed and promoted. The required-baseline rerun and
+  official iOS Simulator layer remain required before merge and publication.

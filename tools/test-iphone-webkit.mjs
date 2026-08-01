@@ -114,13 +114,18 @@ function compareScreenshot() {
     diffPixels: null,
     diffRatio: null,
     threshold: 0.25,
-    maximumDiffRatio: 0.35,
+    maximumDiffRatio: 0.15,
     stats,
   };
 
   check(stats.meanLuma > 5 && stats.meanLuma < 248, 'gameplay render has usable luminance', JSON.stringify(stats));
   check(stats.lumaStdDev > 11, 'gameplay render is not flat or cleared', JSON.stringify(stats));
   check(stats.nearBlackRatio < 0.86, 'gameplay render is not predominantly black', JSON.stringify(stats));
+
+  if (BROWSER_NAME !== 'webkit') {
+    result.skipped = `visual comparison is WebKit-only; current surrogate is ${BROWSER_NAME}`;
+    return result;
+  }
 
   if (!result.baselinePresent) {
     copyFileSync(ACTUAL, CANDIDATE);

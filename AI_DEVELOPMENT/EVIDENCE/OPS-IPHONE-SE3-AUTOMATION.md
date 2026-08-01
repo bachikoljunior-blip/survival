@@ -53,11 +53,29 @@ falsification result for the product change.
 
 ## Remote execution status
 
-Prepared but not yet executed on this branch at the time of this record:
+Pull request: `bachikoljunior-blip/survival#8`.
 
-- reviewed Playwright WebKit baseline creation and required-baseline rerun;
+Initial Floor gates run `30722138303`, head
+`7839c28824273879dad00807c31e97d7e07ff4c3`:
+
+- F2 state update — pass.
+- F5 review record — pass, Level C.
+- Existing F3 six-step execution — pass.
+- Playwright WebKit — executed the complete sequence and exited 1 for exactly
+  the intended first-run condition: no reviewed baseline was present. Boot was
+  9.393 s and the soak was 8.320 s; movement was 6.3457 m with one attack;
+  camera delta 0.20095; persistence restore distance 0; 30 frame samples; zero
+  game faults and zero page/console/request/HTTP errors.
+- Artifact `8825225421` was inspected. The 1334x750 candidate is a complete
+  landscape gameplay frame with Japanese UI and all nine controls, not black or
+  corrupt (mean luma 8.711, luma standard deviation 23.125, near-black ratio
+  0.65837). It was promoted to
+  `tests/baselines/iphone-se3-webkit-gameplay.png`, SHA-256
+  `f7bee4aa3b42de9a184f33845091bb5d2180a9e862f462c15c9ac9f5f843f1ac`.
+
+Still required before completion:
+
+- required-baseline WebKit rerun within a 15% maximum differing-pixel ratio;
 - iPhone SE 3 Simulator / Mobile Safari run;
-- gated Pages deployment and post-deploy F6 public-surface verification.
-
-The record must be updated with the pull request, workflow run, baseline, merge
-revision and public verification before the delivery is called complete.
+- gated Pages deployment and post-deploy F6 public-surface verification;
+- exact merge revision and final workflow evidence recorded here.
