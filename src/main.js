@@ -225,7 +225,7 @@ async function main() {
   };
 
   let lastFaultSave = 0;
-  const onFault = (kind, message) => {
+  const onFault = (kind, message, opts = {}) => {
     const e = game.engine;
     const at = { kind, message: String(message || 'unknown'), t: Date.now(), frame: e.frame };
     faults.push(at);
@@ -256,12 +256,24 @@ async function main() {
     // they arrive in one, and the window let exactly that case through
     // silently. The window only decides how many DIFFERENT faults count as a
     // storm.
-    const sameAgain = faults.some((f) => f !== at && f.message === at.message);
-    const burst = faults.filter((f) => at.t - f.t < 5000).length >= 3;
-    if (sameAgain || burst) {
+    //
+    // A CAUGHT listener error is not the same thing. The bus catches so one
+    // listener cannot stop the others, and most of what it catches leaves the
+    // game entirely playable — walling those off would break more sessions
+    // than it saves, and did: a benign listener throwing twice took a
+    // playthrough out at chapter five. Only the caller decides when a caught
+    // error has actually stopped something (see the render path below).
+    const listener = kind === 'listener';
+    const sameAgain = !listener && faults.some((f) => f !== at && f.message === at.message);
+    const burst = !listener && faults.filter((f) => at.t - f.t < 5000).length >= 3;
+    if (opts.escalate || sameAgain || burst) {
       showRecoveryPanel();
       return;
     }
+    // A caught error did not stop the loop by definition — the frame counter
+    // is incremented before the render listeners run — so the stall check
+    // below cannot say anything about it.
+    if (listener) return;
     // Otherwise give the loop a moment and check whether it is still alive.
     // A frame counter that has not moved is the player's actual complaint —
     // the picture stopped — whether the loop is throwing before it can count
@@ -281,8 +293,18 @@ async function main() {
   // cannot stop the others — which also meant a throw in the `render` listener
   // stopped the picture without anything noticing. Same treatment as an
   // uncaught error: it repeats every frame, so it escalates.
+  //
+  // The drawing path is the exception: `frame` is counted before the render
+  // listeners run, so a renderer that throws every frame leaves the counter
+  // climbing while the picture is dead — measured at zero GL draw calls. That
+  // is the silent freeze, and it is what escalates. Everything else the bus
+  // catches is recorded and surfaced once, and the game carries on.
+  let drawingFaults = 0;
   onSwallowedError((where, error) => {
-    onFault('listener', `${where}: ${(error && error.message) || error}`);
+    const drawing = where === 'event:render' || where === 'event:prerender';
+    if (drawing) drawingFaults++;
+    onFault('listener', `${where}: ${(error && error.message) || error}`,
+      { escalate: drawing && drawingFaults >= 3 });
   });
   window.addEventListener('unhandledrejection', (ev) => {
     const r = ev && ev.reason;
