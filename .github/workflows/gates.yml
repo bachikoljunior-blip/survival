@@ -57,10 +57,22 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
-      - name: Install the browser the surface checks need
-        run: npx playwright install --with-deps chromium
+      - name: Install the browsers the surface checks need
+        run: npx playwright install --with-deps chromium webkit
       - name: Build, validate and drive the real build
         run: node tools/gates/f3_execution.mjs
+      - name: Exercise the iPhone SE 3 WebKit surface
+        env:
+          CINDERLINE_REQUIRE_BASELINE: "1"
+        run: npm run test:iphone-webkit
+      - name: Preserve WebKit screenshots, video, trace and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iphone-se3-webkit-${{ github.sha }}
+          path: test-results/iphone-webkit
+          if-no-files-found: warn
+          retention-days: 14
 
   f5-review-record:
     name: F5 review record

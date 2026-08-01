@@ -29,6 +29,10 @@ been repaired and retested.
 
 ## Project note
 
-The product is mobile web at 667x375. `tools/` already contains Playwright
-harnesses; `tools/save_migration.mjs` drives real touch taps at real on-screen
-coordinates. Blocker B1 stands: SwiftShader Chromium is not a physical device.
+The product is mobile web at 667x375. `tools/` contains Playwright harnesses;
+`tools/save_migration.mjs` drives touch taps at real on-screen coordinates.
+Routine delivery now adds Playwright WebKit with the iPhone SE 3 profile and an
+Appium/XCUITest pass through Mobile Safari on an iPhone SE 3 iOS Simulator.
+Blocker B1 still stands for physical GPU/FPS, thermals, memory-pressure eviction,
+touch feel/reach, haptics, speakers and audio latency; it no longer blocks a
+routine automated publication.

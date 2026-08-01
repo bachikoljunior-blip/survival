@@ -17,6 +17,8 @@
     "test": "node tools/check_operating_state.mjs && node build.mjs --dev && node tools/validate.mjs && node tools/check_benchmarks.mjs && node tools/gate_b_adversarial.mjs && node tools/gate_b_slice.mjs && node tools/playthrough.mjs && node tools/perf.mjs && npm run test:save && npm run test:faults && npm run test:touch",
     "test:faults": "node build.mjs && node tools/fault_recovery.mjs",
     "test:touch": "node build.mjs && node tools/touch_smoke.mjs",
+    "test:iphone-webkit": "node build.mjs && node tools/test-iphone-webkit.mjs",
+    "test:ios-safari": "node build.mjs && node tools/test-ios-safari.mjs",
     "gates": "node tools/gates/f2_state_update.mjs --base origin/main && node tools/gates/f3_execution.mjs",
     "test:content": "node tools/validate.mjs",
     "test:play": "node build.mjs --dev && node tools/playthrough.mjs",
@@ -39,7 +41,9 @@
   },
   "devDependencies": {
     "esbuild": "^0.25.0",
-    "playwright": "^1.56.0"
+    "pixelmatch": "^7.1.0",
+    "playwright": "^1.56.0",
+    "pngjs": "^7.0.0"
   },
   "type": "module",
   "private": true

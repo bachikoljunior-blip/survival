@@ -2,6 +2,14 @@
 
 Evidence records are append-only and identify task ID, acceptance references, baseline, exact environment, command/manual procedure, result, artifact paths and limitations.
 
+## OPS-IPHONE-SE3-AUTOMATION — Automated iPhone SE 3 release gates
+
+- Status: local harness and negative-path verification passed; official WebKit baseline, iOS Simulator Mobile Safari, Pages deploy and F6 are pending remote execution.
+- Commands: `CINDERLINE_BROWSER=chromium npm run test:iphone-webkit`; `npm run test:ios-safari` without a simulator ID as a required-input negative control.
+- Artifact: `AI_DEVELOPMENT/EVIDENCE/OPS-IPHONE-SE3-AUTOMATION.md`; remote screenshots, trace/video, logs and JSON reports are uploaded by GitHub Actions.
+- Observed local defect and repair: Japanese SAVE/RESUME pause controls were 37.656px wide; the 44 CSS px minimum was added and the full surrogate flow then passed with zero runtime/network failures.
+- Limitation: the local run is Chromium plus software rendering. Neither automated layer measures physical-phone FPS/GPU, thermals, memory-pressure eviction, touch feel/reach, haptics, speakers or audio latency.
+
 ## GB-IMP06-SLICE — Chapter 1 representative slice
 
 - Status: verified for the explicitly partial slice; not B1/B2/C1/D3, full playtime, performance or real-device evidence.

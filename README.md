@@ -319,6 +319,13 @@ software rasteriser — and would be worthless as a prediction of phone
 performance, so no fps number is quoted anywhere in this repository. The perf
 harness deliberately refuses to print one.
 
+Routine releases are nevertheless exercised in two automated layers: the
+iPhone SE 3 profile in Playwright WebKit on pull requests, then Mobile Safari on
+an iPhone SE 3 iOS Simulator through Appium/XCUITest before Pages deployment.
+Those layers validate compatibility, layout, touch paths, persistence and
+runtime stability; they do not convert any physical-only property into a
+measurement.
+
 What *has* been done is to hold the device-independent costs inside budgets an
 A15-class GPU handles comfortably: draw calls under ~160, triangles under
 ~160 k per frame, 18 shader programs, three quality tiers with automatic
