@@ -1,10 +1,25 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.1 -->
+<!-- state_revision: 2026-08-01.2 -->
+
+<!--
+  ⚠ この HTML コメントの `state_revision` 行を削除・改変しないこと。
+  `npm run validate:ops` は、この値が AI_DEVELOPMENT/STATE.yaml・WORK_GRAPH.yaml・
+  REQUIREMENTS.yaml・CAPABILITIES.yaml・POLICIES.yaml と一致することを要求する。
+  一致しなければ validate:ops が失敗し、.github/workflows/pages.yml の build job が
+  止まり、公開が古いまま静かに固定される。
+  本文書を書き換えるときは、この行を必ず残し、状態を変えたなら5ファイルすべてを同じ値に上げること。
+
+  ⚠ 本文書を docs/STATE.md 以外へ移動・改名しないこと。
+  .github/workflows/autopilot.yml は ALL_DONE 判定をこのパスに対して行う（`git show "$REF:docs/STATE.md"`）。
+  パスが変わると grep は何も見つけられず、**完了による連鎖停止条件が二度と発火しない**（fail-open）。
+  同じことが緊急ブレーキ `docs/STOP` にも当てはまる。
+-->
+
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
-**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
+**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `START_HERE.md` → `AI_DEVELOPMENT/STATE.yaml` → 本文書の順で読み、active task が参照する製品文書へ進む。運用規約の全文は `AI_DEVELOPMENT/PROTOCOL.md`。旧 `PROJECT_OPERATING_PROTOCOL.md` と2つの JSON state は 2026-08-01 の移行で `AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/legacy/` へ退避した（内容は不変のまま保存されている）。
 
 最終更新: 2026-08-01 / 作業ブランチ `main` / 検証済み基点 `cc96f3a`
 
@@ -18,7 +33,7 @@
 
 **残作業の中心は、既存コンテンツを `docs/directive.md` §16 の Gate B / C / D まで引き上げることである。** ただし `docs/bible.md` IMP-03 の BREAKER / DOG 遭遇は、Gate C の確定数値を保つ場合に限り、対象を絞った新規コンテンツを必要とする。
 
-**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）。運用上の読順は `AI_DEVELOPMENT/INDEX.md` を正とする。
+**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）。運用上の読順は `START_HERE.md` を正とする。
 **README.md を設計の根拠にしてはならない**（§14）。実装者の自己申告文書であり、実装との食い違いが実際に発見されている。
 
 ---
@@ -80,7 +95,63 @@
 
 初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
 
-2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
+2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した（その時点の検証済み基点は `cc96f3a`）。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
+
+### 2026-08-01 運用レイヤ移行 checkpoint（プロダクトは無変更）
+
+旧 `PROJECT_OPERATING_PROTOCOL.md` / `AI_DEVELOPMENT/INDEX.md` / 2つの JSON state を、正本
+`AI_DEVELOPMENT/`（`STATE.yaml` / `WORK_GRAPH.yaml` / `REQUIREMENTS.yaml` / `POLICIES.yaml` /
+`CAPABILITIES.yaml` / `LEDGER.jsonl` / `SCHEMAS/`）へ移行した。入口は `START_HERE.md`、規約全文は
+`AI_DEVELOPMENT/PROTOCOL.md`。旧記録は `AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/legacy/` に
+**内容不変のまま**保存し、rollback 手順は同 `ROLLBACK.md`、対応表は `RECORD_MAP.md` にある。
+
+**プロダクトの挙動・ビルド・公開物は一切変更していない。再公開もしていない。** 論理セッション
+`SESSION-2026-07-31-01` は active のまま、目的と active task `GB-H1` はそのまま引き継いだ。
+
+移行中に照合で見つかった記録と実態の食い違い（すべて修正済み。詳細は `LEDGER.jsonl`）:
+
+| # | 食い違い | 対応 |
+|---|---|---|
+| 1 | 検証済み基点が `cc96f3a` のままだったが、実 HEAD は `193f408`。その2commitは記録自体を変更していた | 基点と rollback point を `193f408` に訂正。公開面でハッシュ照合済みの revision が `cc96f3a` である点は別途明記 |
+| 2 | 作業ブランチが `main` と記録されていたが実際は移行ブランチ | 実態に合わせた |
+| 3 | frontier に `GB-IMP02` と `GC-IMP06-FULLRUN` が欠けていた（条件は満たしていた）。旧 validator は「列挙漏れ」を検出できない設計だった | frontier を**導出値**に変更し、`validate:ops` が再計算して照合するようにした。選択順は不変で active task は `GB-H1` のまま |
+| 4 | PR #4 が merge 済みなのに証拠記録が無かった | Pages run `30663264871` の成功と、`193f408` が記録のみの変更であることを確認して記録。公開ファイルのハッシュ再採取はしていない（その旨も記録） |
+| 5 | `GB-H1` の理由が「action 2」を指していた（本文書では action 1） | 訂正 |
+| 6 | §5 の規模数値が実態から乖離していた | 再計測して訂正 |
+| 7 | 所有権マップに `src/main.js`（`GB-H2` の対象）とルート生成物の所有者が無かった | 追加 |
+| 8 | `check_done_table` / `check_scope` / `check_reviews` はどの npm script からも実行されない | `OPS-GATE-WIRING` として **proposed** で記録。範囲を勝手に広げないため、この移行では配線しない |
+
+移行で実行した検証: `yaml_selftest`（50件、うち約半数は失敗を検出できることの確認）、`validate:ops`、
+`resume_check`（**旧記録と同じ再開地点に到達することを機械的に照合**）、`validate`、`check_done_table`、
+`check_scope --against-content`、`check_reviews --gate A`、`build`、`validate:pages-root`。
+validator 自体にも14件の故障注入を行い、すべて期待どおり非ゼロ終了することを確認した。
+
+`tools/gate_b_slice.mjs` は evidence の binding 元を `PROJECT_STATE.json` から `STATE.yaml` へ1行変更した。
+**必須ゲートへの変更なので推測せず実行した**: `npm run test:gate-b` は19の負例をすべて非ゼロ拒否したのち、
+fresh 667×375 の2回とも `distance=302.6m / 857ppm・saturation 0.229 / hits=10 / kills=3 / hp=97.4` と
+**2026-07-31 と同一の数値**を再現した（browser error 0、driver SHA-256 も不変）。
+証拠 `GB-IMP06-SLICE.json` の `bindings.state_revision` は陳腐化していた `2026-07-31.6` から
+`2026-08-01.2` へ再採取された。**範囲は変わらない — 依然として C1/D3・全編実走・実機・プレイ時間の証拠ではない。**
+
+### 移行中の実態照合で見つかった記録の欠落（すべて訂正済み）
+
+- `docs/DONE.md` の実装状況表に **B2 / C5 / D7 の行が欠けていた**（3項目とも自動検証 **可** と宣言しながら
+  スクリプトが存在しない）。`check_done_table.mjs` は**存在する行しか歩かない**ため検出できない欠落方向だった。3行追加（現在14行）
+- `GATE-C` / `GATE-D` の status `pending` はどの語彙にも無い値だった → `accepted`（合意済みだが着手不可）に対応付け。
+  `ready` にはしない（着手可能だと偽ることになる）
+- `D11` を `refuted` と判定していたのは**否定の側への過剰主張**だった → `not_verified` に訂正。
+  受け入れ表の証拠なし行は「主張していない」のであって「失敗が確認された」のではない
+- `C1/C3/D3/D4` の tool_status を `partially_implemented` → `implemented`（DONE.md は実装済み・**範囲**限定と書いている）
+- Gate A の未解決 high は10件ではなく **3件**（N-03/N-04/N-06 = IMP-12/IMP-13/IMP-14）。Gate A の通過は阻害しないが未解決である
+- 運用記録が英語で書かれている件（`REQ-ENG-06`）を `satisfied` → `partially_satisfied` に訂正し、**OD-008 として明示記録した**。
+  ゲーム内テキストは日本語 882/882 で検証済み。運用層の日本語化を望むなら機械的に可能
+- 所有権マップに `src/main.js`（次タスク GB-H2 の対象）とルート生成物の所有者が無かった → 追加
+- `.github/workflows/autopilot.yml` は `claude-code-action` を使うため **`CLAUDE.md` を自動で読み込む**。
+  loader を追加すると全 autopilot ラウンドの挙動が変わるが、autopilot.yml は変更禁止パスなので調停は
+  `CLAUDE.md` 側に置いた（「autopilot から起動された場合も STATE.md の3アクションが範囲を縛る」）
+
+**`check_reviews --gate B` は依然として失敗する（未解決 high 2件: H1 / H2）。これは移行による退行ではなく、
+`GB-H1` と `GB-H2` が frontier である理由そのものである。** 隠していないし、再分類もしていない。
 
 ---
 
@@ -88,7 +159,7 @@
 
 **§19 は「次の3アクション」を具体的な作業として書くことを要求する。範囲を広げないこと。**
 
-この表示は `AI_DEVELOPMENT/PROJECT_STATE.json` の task graph と `SESSION_STATE.json` の frontier から導く。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
+この表示は `AI_DEVELOPMENT/WORK_GRAPH.yaml` の task graph から導く。frontier は「ready/active の leaf で、依存が全て verified のもの」という定義から**導出される派生ビュー**であり、`AI_DEVELOPMENT/STATE.yaml` にキャッシュされているだけである。`npm run validate:ops` が再計算して一致を検査するため、キャッシュが第二の正本になることはない。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
 
 ### アクション 1 — H1: セーブマイグレーションを追加する（active）
 `src/game/state.js:292,357` にはマイグレーション層がなく、version を上げると既存進行が警告なく破棄される。`migrate(d)` を追加し、旧version fixture、段階移行、失敗時の明示通知、save/load回帰を検証する。
@@ -117,10 +188,16 @@
 ## 5. リポジトリ現状（§21-1 の調査結果）
 
 ### 規模
+
+**2026-08-01 に再計測した（移行コミット時点）。** 以前の記載（`src/` 25,356行 / `tools/` 44ファイル 5,322行）は
+Gate B ツール群と運用ツール群の追加後に更新されておらず、実態と乖離していた。§8 に記録した原則
+「**数える作業も計測であり、grep の目視は計測ではない**」は、この表自身にも適用される。
+
 | | |
 |---|---|
-| `src/` | 38ファイル / 25,356行（エンジン19,414 + コンテンツ5,942） |
-| `tools/` | 44ファイル / 5,322行 |
+| `src/` | 38ファイル / 25,388行（エンジン19,446 + コンテンツ5,942） |
+| `tools/` | 54ファイル / 8,693行 |
+| `AI_DEVELOPMENT/` | 44ファイル（うち archive 13） |
 | `public/styles.css` | 1,046行 |
 | 実行時依存 | `three@0.180.0` のみ |
 | 外部アセット | **ゼロ**（画像・音声・モデル・フォントのファイルが1つも無い） |
@@ -149,8 +226,10 @@
 | ワールドとミッション設計 | `src/content/world_data.js`, `src/world/city.js`, `src/world/buildings.js`, `src/world/props.js` | ワールド担当 |
 | 戦闘・進行・AI・物理・ゲームフィール | `src/game/combat.js`, `src/game/ai.js`, `src/game/state.js`, `src/world/collision.js`, `src/world/nav.js`, `src/actors/*` | ゲームプレイ担当 |
 | 環境アート・VFX・テクニカルアート | `src/render/*`, `src/world/geom.js`, `src/world/gas.js` | アート担当 |
-| モバイル入力・UI・アクセシビリティ・オーディオ・性能 | `src/core/input.js`, `src/core/engine.js`, `src/ui/*`, `src/audio/*`, `public/styles.css`, `public/index.html` | プラットフォーム担当 |
+| モバイル入力・UI・アクセシビリティ・オーディオ・性能 | `src/core/input.js`, `src/core/engine.js`, `src/main.js`, `src/core/rng.js`, `src/core/util.js`, `src/ui/*`, `src/audio/*`, `public/styles.css`, `public/index.html` | プラットフォーム担当 |
 | 自動QAと通しプレイ検証 | `tools/*` | QA担当 |
+| 運用記録（正本と履歴） | `CLAUDE.md`, `START_HERE.md`, `AI_DEVELOPMENT/*` | 主統合者 |
+| **生成物（手で編集しない）** | ルート直下の `index.html`, `styles.css`, `cinderline.*.js`, `manifest.webmanifest`, `icon.svg`, `.nojekyll`, および `dist/` | **所有者なし。** `npm run build:pages-root` が生成する。`public/` 側を編集して再生成する（OD-005 / OF-006） |
 
 **インターフェースを先に定義し、小さく検証しながら統合する。** 各担当は変更前に既存の作業を調査し、変更内容・理由・テスト・計測結果・残存リスク・影響ファイルを報告する。
 
@@ -215,3 +294,9 @@
 - 小さく統合し、小さく検証する
 - 自己評価より証拠を優先する
 - **`.github/workflows/autopilot.yml` には触らない**
+- **本文書を `docs/STATE.md` から移動・改名しない。** autopilot は `git show "$REF:docs/STATE.md"` で
+  ALL_DONE を判定するため、パスが変わると停止条件が**永久に発火しなくなる**（fail-open）
+- **冒頭の `state_revision` コメント行を消さない。** 消すと `validate:ops` が失敗し、Pages の build job が
+  止まり、公開が古いまま静かに固定される
+- **ルート直下の公開ファイルは生成物。** 手で編集せず `npm run build:pages-root` で再生成する（OD-005 / OF-006）
+- 実機性能・FPS の主張をしない（ブロッカー B1）。エミュレーション結果はそう明記する

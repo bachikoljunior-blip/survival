@@ -1,0 +1,53 @@
+{
+  "purpose": "Migration fidelity fixture. These are the answers a resuming run got from the LEGACY records at 193f408, before the canonical system replaced them. tools/resume_check.mjs re-derives the same answers from the canonical records and fails on any difference. Without this, the resumption check would only prove the new records are self-consistent, not that they resume to the same place the old ones did.",
+  "applies_to_state_revision": "2026-08-01.2",
+  "captured_from": [
+    "AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/legacy/SESSION_STATE.json",
+    "AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/legacy/PROJECT_STATE.json",
+    "docs/STATE.md at 193f408"
+  ],
+  "expected": {
+    "session_id": "SESSION-2026-07-31-01",
+    "session_status": "active",
+    "objective_statement": "Continue CINDERLINE from the published Gate B representative-slice checkpoint and implement the highest-priority verified frontier without overstating full Gate B coverage.",
+    "objective_status": "active",
+    "active_task": "GB-H1",
+    "active_task_title": "Add save migration and regression tests",
+    "active_task_criteria": ["B5", "C5"],
+    "next_action": "Implement GB-H1 as an isolated save-migration layer, then verify old-version fixtures, staged migrations, explicit failure recovery, current saves and normal save/load behavior before integration.",
+    "standing_blocker_ids": ["B1", "B2"],
+    "remote_delivery_policy": "standing_authorized"
+  },
+  "deliberately_changed": {
+    "state_revision": {
+      "legacy": "2026-08-01.1",
+      "canonical": "2026-08-01.2",
+      "reason": "The migration is itself a state change and bumps the revision."
+    },
+    "last_verified_checkpoint": {
+      "legacy": "CP-2026-08-01-01",
+      "canonical": "CP-MIG-2026-08-01",
+      "reason": "The migration created a new checkpoint. Its verified_action restates the previous one verbatim so nothing is lost."
+    },
+    "rollback_point": {
+      "legacy": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
+      "canonical": "193f408df049f068be57de7a1944089942720ad9",
+      "reason": "The legacy value was stale. Two later commits had already modified the very records that named it, so rolling back there would have discarded decision OD-005, failure OF-006 and the publication evidence. See ledger event MIG-20260801-05-BASELINE-RECONCILED."
+    },
+    "derived_frontier": {
+      "legacy": ["GB-H1", "GB-H2", "GB-TOUCH-SMOKE"],
+      "canonical": ["GB-H1", "GB-H2", "GB-TOUCH-SMOKE", "GB-IMP02", "GC-IMP06-FULLRUN"],
+      "reason": "GB-IMP02 and GC-IMP06-FULLRUN already satisfied the eligibility rule and were simply not listed; the legacy validator only checked listed entries, never completeness. Selection order is unchanged — GB-H1 is still the active task. See ledger event MIG-20260801-06-FRONTIER-CORRECTED."
+    },
+    "working_branch": {
+      "legacy": "main",
+      "canonical": "claude/legacy-canonical-migration-jcuour",
+      "reason": "The actual checkout. The legacy value did not match reality."
+    },
+    "objective_id": {
+      "legacy": null,
+      "canonical": "OBJ-GATE-B-FRONTIER",
+      "reason": "The legacy record had no identifier for the objective, only its text. The text is unchanged and is what the fidelity check compares."
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # 制作ディレクティブ — モバイルWeb オープンワールド アクションRPG
 
-このファイルは製品要件と制約の正本であり、全セッション・全 autopilot 実行が参照する。開発運用、権限、ユーザー管理の論理セッション境界は `PROJECT_OPERATING_PROTOCOL.md` を正とする。
+このファイルは製品要件と制約の正本であり、全セッション・全 autopilot 実行が参照する。開発運用、権限、ユーザー管理の論理セッション境界は `AI_DEVELOPMENT/PROTOCOL.md`（入口は `START_HERE.md`）を正とする。
 
 ---
 
@@ -314,10 +314,10 @@ Gate D の各項目を「自動検証可能」と「そうでないもの」に�
 コンテキストは必ず尽きる。したがって:
 
 - `docs/STATE.md` を人間向け進捗の正本として維持する。常に次を含む: 現在フェーズ / 完了分 / **次の3アクション**（具体的な作業として） / ブロッカー / バイブル確定後の決定変更
-- stable ID、依存関係、active frontier、論理セッション状態は `AI_DEVELOPMENT/PROJECT_STATE.json` と `AI_DEVELOPMENT/SESSION_STATE.json` に投影し、`state_revision` を同期する
+- stable ID、依存関係、論理セッション状態は `AI_DEVELOPMENT/STATE.yaml` と `AI_DEVELOPMENT/WORK_GRAPH.yaml` に投影し、`state_revision` を同期する。active frontier は WORK_GRAPH から導出される派生ビューであり、第二の正本ではない
 - コンテキストが逼迫する**前に** STATE.md を更新してコミットする
 - 小さく動く単位でコミットする。`main` は常に動作すること
-- **記憶を持たない新しいエージェントが root protocol と operating index の読順から再開できるように書く**
+- **記憶を持たない新しいエージェントが `START_HERE.md` の読順から再開できるように書く**（`node tools/resume_check.mjs` がこれを機械的に検査する）
 - 各フェーズは個別の PR とし、説明に変更内容・実行したテスト・計測結果・残存リスクを書く
 - task 完了、ターン終了、commit、PR、新しい chat/Work は論理セッションを終了しない。ユーザーが明示的に終了を宣言した場合だけ final handoff と archive を作る
 

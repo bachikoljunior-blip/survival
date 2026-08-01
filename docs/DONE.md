@@ -2,7 +2,7 @@
 
 このファイルは `docs/directive.md` §18 に従って作成されている。
 
-Gate 文言の正本は本文書のまま維持する。task と証拠への機械的な追跡は `AI_DEVELOPMENT/PROJECT_STATE.json` の `acceptance_trace` が担い、ここへ重複して転記しない。
+Gate 文言の正本は本文書のまま維持する。task と証拠への機械的な追跡は `AI_DEVELOPMENT/REQUIREMENTS.yaml` の `criteria`（および `WORK_GRAPH.yaml` の `acceptance_refs`）が担い、ここへ重複して転記しない。追跡は双方向で、`npm run validate:ops` が両向きの欠落を失敗として報告する。
 
 **ここに書かれた完了条件は §16 のプロダクションゲート A〜D をそのまま転記したものである。新しい基準は発明していない。** 文言を変えたい場合は `docs/directive.md` §16 を変更し、その変更をここに反映すること。逆はしない。
 
@@ -111,5 +111,17 @@ Gate 文言の正本は本文書のまま維持する。task と証拠への機�
 | `tools/check_console.mjs` | D6 | **未実装** |
 | `tools/check_honesty.mjs` | D8 | **未実装** |
 | `tools/check_licenses.mjs` | D9 | **未実装** |
+| `tools/check_touch_layout.mjs` | B2 / D7 | **未実装** |
+| `tools/check_save_flow.mjs` | C5 | **未実装** |
+| `tools/lib/yaml.mjs`, `tools/lib/schema.mjs`, `tools/yaml_selftest.mjs`, `tools/resume_check.mjs` | 運用記録の検証基盤（ゲート判定そのものではない） | 実装済み |
 
 Gate A の判定に必要なのは `check_scope.mjs` と `check_reviews.mjs` の2本で、どちらも実装済みである。残りは Gate C / D の判定までに用意する。
+
+> **2026-08-01 の訂正。** この表は、冒頭の規定（「自動検証 = 可 とした項目のうち、まだ実装されていない
+> 検証スクリプトを列挙する」）に反して **B2 / C5 / D7 の行を欠いていた**。3項目とも上表で自動検証 **可** と
+> 宣言されているのに、対応するスクリプトが存在せず、表にも載っていなかった。`check_done_table.mjs` は
+> **存在する行しか歩かない**ため、この欠落方向は検出できない。表が短いほど「未実装が少ない」ように読める、
+> という一番たちの悪い陳腐化である。移行時の実態照合で発見し、3行を追加した。
+>
+> D3 / D4 も自動検証 **可** だが、`playthrough.mjs` と `validate.mjs` の行が既に「実装済み・ただし範囲限定」
+> として実態を述べているため、行は増やしていない。範囲の限界は `docs/bible.md` IMP-06 が正本である。

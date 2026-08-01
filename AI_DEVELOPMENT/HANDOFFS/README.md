@@ -1,5 +1,12 @@
 # Handoff schema
 
+The machine-checkable form is `../SCHEMAS/handoff.v1.schema.json`, applied to every
+`HANDOFFS/*.json` by `npm run validate:ops`. It allows additional properties on purpose: the four
+preserved `GB-IMP06` handoffs each carry different optional sections, and the alternative to
+allowing them was editing real history to fit a schema written afterwards.
+
+No handoff is currently active — all four belong to the closed `GB-IMP06-REVIEW`.
+
 Every checkpoint or final handoff is a JSON or Markdown record containing:
 
 - `schema_version`

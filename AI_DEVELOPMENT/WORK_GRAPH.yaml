@@ -1,0 +1,844 @@
+# The single canonical hierarchy and dependency graph.
+#
+# Schema: AI_DEVELOPMENT/SCHEMAS/work-graph.v1.schema.json
+#
+# The legacy system kept PLAN_TREE, TASK_GRAPH and ACTIVE_FRONTIER as three records that could
+# disagree, and they did: the authored frontier omitted two eligible tasks and validation passed
+# anyway. Here there is one graph, and the frontier is derived from it — recomputed and compared by
+# npm run validate:ops, never authored.
+#
+# Every leaf whose status is active, ready or blocked carries a contract. A leaf without one is not
+# eligible for selection.
+schema_version: 1
+state_revision: 2026-08-01.2
+notes: >-
+  Statuses are carried over from the legacy graph unchanged. GB-IMP06 stays partial_verified: the
+  Chapter 1 slice is verified, a full route is not. GATE-C and GATE-D are proposed, not started.
+  The four TOOL-CHECK nodes and OPS-GATE-WIRING were added by the migration as proposed only.
+nodes:
+  - id: PROJECT-CINDERLINE
+    kind: project
+    parent: null
+    title: CINDERLINE release
+    status: active
+    dependencies: []
+    reason: >-
+      The project itself. Product truth lives in docs/directive.md, docs/bible.md and docs/DONE.md;
+      this node exists so the graph has a single root.
+  - id: GATE-A
+    kind: outcome
+    parent: PROJECT-CINDERLINE
+    title: Creative foundation
+    status: verified
+    dependencies: []
+    acceptance_refs:
+      - A1
+      - A2
+      - A3
+      - A4
+      - A5
+      - A6
+      - A7
+    reason: >-
+      Production gate A, transcribed verbatim in docs/DONE.md from docs/directive.md section 16. Gate
+      ordering A to D was prose in the legacy records and is now an explicit dependency.
+  - id: GATE-B
+    kind: outcome
+    parent: PROJECT-CINDERLINE
+    title: Representative vertical slice
+    status: active
+    dependencies:
+      - GATE-A
+    acceptance_refs:
+      - B1
+      - B2
+      - B3
+      - B4
+      - B5
+      - B6
+    reason: >-
+      Production gate B, transcribed verbatim in docs/DONE.md from docs/directive.md section 16. Gate
+      ordering A to D was prose in the legacy records and is now an explicit dependency.
+  - id: GATE-C
+    kind: outcome
+    parent: PROJECT-CINDERLINE
+    title: Content complete
+    status: accepted
+    status_note: >-
+      Legacy status was "pending", a word in neither the legacy nor the canonical vocabulary. Mapped
+      to accepted: the gate is agreed and transcribed from docs/directive.md section 16, but it is not
+      startable while Gate B is open. Never map it to ready — that would declare it actionable.
+    dependencies:
+      - GATE-B
+    acceptance_refs:
+      - C1
+      - C2
+      - C3
+      - C4
+      - C5
+    reason: >-
+      Production gate C, transcribed verbatim in docs/DONE.md from docs/directive.md section 16. Gate
+      ordering A to D was prose in the legacy records and is now an explicit dependency.
+  - id: GATE-D
+    kind: outcome
+    parent: PROJECT-CINDERLINE
+    title: Release candidate
+    status: accepted
+    status_note: Legacy status was "pending". Mapped to accepted for the same reason as GATE-C.
+    dependencies:
+      - GATE-C
+    acceptance_refs:
+      - D1
+      - D2
+      - D3
+      - D4
+      - D5
+      - D6
+      - D7
+      - D8
+      - D9
+      - D10
+      - D11
+    reason: >-
+      Production gate D, transcribed verbatim in docs/DONE.md from docs/directive.md section 16. Gate
+      ordering A to D was prose in the legacy records and is now an explicit dependency.
+  - id: OPS-001
+    kind: task
+    parent: GATE-B
+    title: Install persistent operating layer
+    status: verified
+    dependencies: []
+    priority_class: P3
+    priority_rationale: Enabling foundation. Completed 2026-07-31.
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/INDEX.md
+    archive_refs:
+      - AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/legacy/PROJECT_STATE.json
+    reason: >-
+      Latest explicit user instruction of 2026-07-31. Superseded in form by the 2026-08-01 canonical
+      migration, but the work itself remains verified.
+  - id: GB-IMP06
+    kind: workstream
+    parent: GATE-B
+    title: Verify a real movement, breathing and combat route
+    status: partial_verified
+    status_note: >-
+      Partial. The Chapter 1 representative slice is verified; a complete opening-to-ending route is
+      not, and this node may not be promoted to verified on slice evidence.
+    dependencies:
+      - OPS-001
+    acceptance_refs:
+      - B1
+      - B5
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json
+      - docs/reviews/gate-b-imp06-slice-closure-current.md
+    reason: >-
+      docs/STATE.md; docs/bible.md IMP-06. The legacy playthrough harness teleports the player, makes
+      them gas-immune and applies damage directly, so it proves narrative-graph reachability only.
+  - id: GB-IMP06-AC
+    kind: task
+    parent: GB-IMP06
+    title: Define honest acceptance and test boundaries
+    status: verified
+    priority_class: P2
+    priority_rationale: Critical-path Gate B work, completed 2026-07-31.
+    dependencies:
+      - OPS-001
+    acceptance_refs:
+      - B1
+      - B5
+    evidence:
+      - AI_DEVELOPMENT/HANDOFFS/README.md
+    reason: A test must execute the verbs it claims to verify.
+  - id: GB-IMP06-SLICE
+    kind: task
+    parent: GB-IMP06
+    title: Implement a deterministic Chapter 1 real-verb vertical slice
+    status: verified
+    priority_class: P2
+    priority_rationale: Critical-path Gate B work, completed 2026-07-31.
+    dependencies:
+      - GB-IMP06-AC
+    acceptance_refs:
+      - B1
+      - B5
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json
+    reason: The smallest independently verifiable step toward IMP-06. It must stay labelled partial.
+  - id: GB-IMP06-EVIDENCE
+    kind: task
+    parent: GB-IMP06
+    title: Repeat the Chapter 1 slice and record durable evidence
+    status: verified
+    priority_class: P2
+    priority_rationale: Critical-path Gate B work, completed 2026-07-31.
+    dependencies:
+      - GB-IMP06-SLICE
+    acceptance_refs:
+      - B5
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json
+    reason: Cannot start until the slice exists. It does not establish full-run playtime.
+  - id: GB-IMP06-REVIEW
+    kind: task
+    parent: GB-IMP06
+    title: Independent falsification review of the route
+    status: verified
+    priority_class: P2
+    priority_rationale: Critical-path Gate B work, completed 2026-07-31.
+    dependencies:
+      - GB-IMP06-EVIDENCE
+    acceptance_refs:
+      - B5
+    evidence:
+      - AI_DEVELOPMENT/HANDOFFS/GB-IMP06-CLOSURE-REVIEW.json
+      - docs/reviews/gate-b-imp06-slice-closure-current.md
+      - docs/reviews/gate-b-imp06-slice-closure.md
+    reason: >-
+      Implementation cannot approve itself. Five successive reviews found progressively stronger
+      invalid operations; see failure OF-005.
+  - id: GB-H1
+    kind: task
+    parent: GATE-B
+    title: Add save migration and regression tests
+    status: active
+    priority_class: P0
+    priority_rationale: >-
+      P0 — data integrity. A version bump silently discards every existing save (src/game/state.js:292
+      and :357; no migrate() exists) and the build is already publicly deployed. Silent, unrecoverable
+      loss of player progress outranks everything else open.
+    dependencies:
+      - OPS-001
+    acceptance_refs:
+      - B5
+      - C5
+    evidence: []
+    reason: >-
+      docs/STATE.md action 1; audit finding H1. The legacy record said "action 2", which did not match
+      docs/STATE.md — corrected during the migration.
+    contract:
+      objective: >-
+        Add a save-migration layer to src/game/state.js so raising SAVE_VERSION migrates existing
+        progress instead of silently discarding it, and prove the migration with fixtures and regression
+        tests.
+      allowed_scope:
+        - src/game/state.js
+        - tools/ (new save-migration fixtures and regression runner)
+        - AI_DEVELOPMENT/STATE.yaml
+        - AI_DEVELOPMENT/WORK_GRAPH.yaml
+        - AI_DEVELOPMENT/LEDGER.jsonl
+        - AI_DEVELOPMENT/EVIDENCE/
+        - docs/STATE.md (status sections only)
+      prohibited_changes:
+        - >-
+            .github/workflows/autopilot.yml — standing user instruction, restated in docs/STATE.md sections
+            5 and 9.
+        - >-
+            The six generated root publication files (index.html, styles.css, cinderline.1.0.0.js,
+            manifest.webmanifest, icon.svg, .nojekyll). Decision OD-005: they are generated artifacts. Edit
+            the source under public/ and regenerate with npm run build:pages-root.
+        - >-
+            docs/DONE.md gate wording. To change a gate, change docs/directive.md section 16 and reflect it
+            into DONE.md — never the reverse (docs/DONE.md:7).
+        - Upward revision of the docs/bible.md section 16 scope numbers, which the bible forbids outright.
+        - Using README.md as a design authority. It has documented features that do not exist.
+        - >-
+            Files owned by other subsystems in the docs/STATE.md ownership map (src/content/*, src/render/*,
+            src/world/city.js, src/ui/*) without the owning role.
+        - >-
+            Recording C5 as satisfied. C5 requires the save, death, retry, reload and resume flows to work
+            across the whole game; an isolated migration layer does not establish that.
+      affected_systems:
+        - save/load
+        - progression state
+        - QA harness
+      invariants:
+        - >-
+            A save written by the current version must still load unchanged after the migration layer
+            exists.
+        - >-
+            A migration that cannot complete must tell the player, not fail silently and not destroy the
+            save.
+        - main must stay runnable throughout.
+      required_inputs:
+        - >-
+            src/game/state.js:291-292 — deserialise version gate: if (!d || d.v !== SAVE_VERSION) return
+            false
+        - src/game/state.js:352-357 — Storage.load version gate
+        - >-
+            docs/bible.md R-02 (high): no save migration exists; one version bump silently erases every
+            player's progress
+        - docs/reviews/audit-incumbent.md finding H1
+      expected_outputs:
+        - A migrate(d) layer in src/game/state.js
+        - Old-version save fixtures
+        - A regression runner under tools/
+        - An evidence record under AI_DEVELOPMENT/EVIDENCE/ stating environment and limitations
+      assumptions:
+        - SAVE_VERSION is the only version discriminator in play. Verify before relying on it.
+      uncertainty: >-
+        No inventory exists of which shipped save shapes are in the wild. The public build has been
+        deployed, so at least one shape other than the current one may exist.
+      risks:
+        - >-
+            A migration bug is worse than no migration: it can corrupt a save that would otherwise merely
+            have been rejected.
+        - >-
+            Fixtures written from the current shape only would reproduce defect R-08 — a test that does not
+            execute the verb it claims to verify.
+      verification:
+        - Load an old-version fixture and assert the migrated state matches the expected current shape.
+        - Multi-step migration across at least two version boundaries.
+        - >-
+            Explicit failure path: a corrupt or unmigratable save surfaces a notice and leaves the stored
+            data intact.
+        - Current-version save/load regression.
+        - User-surface check that the recovery notice is actually visible.
+        - npm run validate:ops exits 0.
+      mandatory_gates:
+        - npm run validate:ops
+        - npm run validate
+        - node tools/check_reviews.mjs --gate B
+      evidence_required:
+        - Fixture inputs and migrated outputs
+        - Exact commands and environment
+        - Before-and-after behavior for the failure path
+        - A statement of what the evidence does not cover
+      active_modules:
+        - module: 10.1 minimal infrastructure bootstrap
+          activation_reason: No save fixtures or save regression runner exist, and C5 cannot be verified without them.
+          budget: Fixtures and one runner. Stop when the five verification items can be executed repeatably.
+          exit_condition: The runner executes all five checks and fails loudly when the migration is broken.
+        - module: 10.5 checkpoint and state-injection verification
+          activation_reason: >-
+            Old-version saves are not reachable by normal play from the current build; they must be injected
+            as fixtures.
+          budget: One fixture per supported prior version.
+          exit_condition: >-
+            Injection is paired with a normal-flow save/load run so injection cannot hide broken
+            initialization.
+      owner: >-
+        Gameplay owner (docs/STATE.md assigns src/game/state.js to the combat/progression/AI/physics
+        role).
+      specialists:
+        - >-
+            QA owner for tools/ — this task crosses two owners and needs the change report docs/STATE.md
+            requires.
+      integration_owner: Primary integrator
+      independence_level: B
+      rollback: >-
+        Revert only the src/game/state.js and tools/ changes (git revert, or git checkout
+        193f408df049f068be57de7a1944089942720ad9 -- src/game/state.js), then re-run npm run
+        validate:ops. Do not reset to cc96f3a: that predates the current records and would discard
+        OD-005, OF-006 and the publication evidence.
+      completion_conditions:
+        - migrate(d) exists and is reached by both the deserialise and Storage.load paths.
+        - All five pending_verification items are executed and recorded with evidence.
+        - The isolated layer is verified before integration, in that order.
+        - audit-incumbent.md H1 is resolved, so node tools/check_reviews.mjs --gate B stops reporting it.
+        - npm run validate:ops exits 0.
+  - id: GB-H2
+    kind: task
+    parent: GATE-B
+    title: Recover from runtime errors and rejected promises
+    status: ready
+    priority_class: P1
+    priority_rationale: >-
+      P1 — recoverability and failure visibility. Post-boot errors and rejected promises are uncaught,
+      so the player sees a silent freeze. Ranked below GB-H1 because it hides failures rather than
+      destroying stored data.
+    dependencies:
+      - OPS-001
+    acceptance_refs:
+      - B5
+      - D6
+    evidence: []
+    reason: docs/STATE.md action 2; audit finding H2.
+    contract:
+      objective: >-
+        Keep window.onerror and unhandledrejection connected to the existing recovery panel after
+        startup completes, so a post-boot failure shows the player something instead of a silent freeze.
+      allowed_scope:
+        - public/index.html (the boot-note and recovery-panel block)
+        - src/main.js
+        - tools/ (new Playwright error-recovery smoke)
+        - AI_DEVELOPMENT/STATE.yaml
+        - AI_DEVELOPMENT/WORK_GRAPH.yaml
+        - AI_DEVELOPMENT/LEDGER.jsonl
+        - AI_DEVELOPMENT/EVIDENCE/
+        - docs/STATE.md (status sections only)
+      prohibited_changes:
+        - >-
+            .github/workflows/autopilot.yml — standing user instruction, restated in docs/STATE.md sections
+            5 and 9.
+        - >-
+            The six generated root publication files (index.html, styles.css, cinderline.1.0.0.js,
+            manifest.webmanifest, icon.svg, .nojekyll). Decision OD-005: they are generated artifacts. Edit
+            the source under public/ and regenerate with npm run build:pages-root.
+        - The <noscript> block in public/index.html, which records a deliberate decision not to change it.
+        - >-
+            docs/DONE.md gate wording. To change a gate, change docs/directive.md section 16 and reflect it
+            into DONE.md — never the reverse (docs/DONE.md:7).
+        - Using README.md as a design authority. It has documented features that do not exist.
+        - >-
+            Claiming D6 as automatically verified. D6 routes through tools/check_console.mjs, which
+            docs/DONE.md marks not implemented and which does not exist.
+      affected_systems:
+        - boot sequence
+        - error recovery UI
+      invariants:
+        - Normal startup must still reach the game.
+        - >-
+            The recovery panel is the only surface a player sees when startup fails; it must be
+            re-smoke-tested after any change or revert.
+      required_inputs:
+        - >-
+            public/index.html:91-93 — window.__cinderlineBooted guard; the error listener early-returns once
+            it is true
+        - src/main.js:31 — sets __cinderlineBooted true at the start of main()
+        - >-
+            docs/bible.md R-03 (high): nobody catches post-startup uncaught errors or rejected promises; the
+            player sees a silent freeze
+        - docs/reviews/audit-incumbent.md finding H2
+      expected_outputs:
+        - Post-boot error and rejection handling wired to the recovery panel
+        - A Playwright error-recovery smoke under tools/
+        - An evidence record with before-and-after user-surface behavior
+      assumptions:
+        - The existing recovery panel is reusable after boot without layout changes. Verify by driving it.
+      risks:
+        - >-
+            A handler that swallows errors instead of surfacing them would be worse than the current state,
+            because it would also hide them from the console scan D6 will eventually run.
+        - >-
+            src/main.js is not assigned an owner in the docs/STATE.md ownership map; edit it only after the
+            platform owner claims it.
+      verification:
+        - Normal startup still reaches the game.
+        - A synchronous exception thrown after boot surfaces the recovery UI.
+        - A rejected promise after boot surfaces the recovery UI.
+        - Retry works from the recovery UI.
+        - All four driven from the user-visible surface, not from internal state.
+      mandatory_gates:
+        - npm run validate:ops
+        - node tools/check_reviews.mjs --gate B
+      evidence_required:
+        - Exact actions and observed surface behavior for each of the four cases
+        - Environment, stated as emulation
+        - Before-and-after evidence
+      active_modules:
+        - module: 10.4 independent user-surface testing
+          activation_reason: >-
+            The requirement is about what the player sees when something breaks, which cannot be established
+            by reading source.
+          budget: One smoke covering the four cases.
+          exit_condition: All four cases driven through the real surface with recorded evidence.
+      owner: >-
+        Platform owner (docs/STATE.md assigns public/index.html, src/core/*, src/ui/*, src/audio/*,
+        public/styles.css).
+      integration_owner: Primary integrator
+      independence_level: B
+      rollback: >-
+        Revert the public/index.html and src/main.js hunks only, then re-smoke-test the boot-failure
+        path before considering the rollback complete.
+      completion_conditions:
+        - Post-boot errors and rejections reach the recovery panel.
+        - All four cases verified from the user surface with evidence.
+        - audit-incumbent.md H2 is resolved, so node tools/check_reviews.mjs --gate B stops reporting it.
+        - >-
+            D6 is not claimed: it additionally needs a production-build console scan that does not exist
+            yet.
+  - id: GB-TOUCH-SMOKE
+    kind: task
+    parent: GATE-B
+    title: Drive the visible touch controls at 667 by 375
+    status: ready
+    priority_class: P2
+    priority_rationale: >-
+      P2 — critical-path requirement. B2 is a mandatory, automatable Gate B criterion with zero
+      evidence of any kind, and a known concrete violation waiting for it (IMP-09: 35.2 px action
+      buttons at uiScale 0.8 against a 44 px rule).
+    dependencies:
+      - OPS-001
+    acceptance_refs:
+      - B2
+    evidence: []
+    reason: >-
+      docs/STATE.md action 3. The Gate B real-verb slice uses the production input chain but is not
+      itself evidence about visible touch hit targets.
+    contract:
+      objective: >-
+        Drive the visible on-screen movement, camera, attack, dodge, block and dialogue controls from
+        real touch coordinates at 667x375, and check 44 px hit targets, overlap, mis-taps, simultaneous
+        input and orientation change.
+      allowed_scope:
+        - tools/ (new 667x375 Playwright touch smoke)
+        - >-
+            src/ui/hud.js, src/ui/screens.js, src/core/input.js, public/styles.css — only if a failing hit
+            target must be fixed, and only with the platform owner
+        - AI_DEVELOPMENT/STATE.yaml
+        - AI_DEVELOPMENT/WORK_GRAPH.yaml
+        - AI_DEVELOPMENT/LEDGER.jsonl
+        - AI_DEVELOPMENT/EVIDENCE/
+        - docs/STATE.md (status sections only)
+      prohibited_changes:
+        - >-
+            .github/workflows/autopilot.yml — standing user instruction, restated in docs/STATE.md sections
+            5 and 9.
+        - >-
+            The six generated root publication files (index.html, styles.css, cinderline.1.0.0.js,
+            manifest.webmanifest, icon.svg, .nojekyll). Decision OD-005: they are generated artifacts. Edit
+            the source under public/ and regenerate with npm run build:pages-root.
+        - >-
+            Any real-device or frame-rate claim. Blocker B1: no device exists. Emulation must be stated
+            explicitly.
+        - Loosening the 44 px requirement in docs/bible.md to make the test pass.
+        - >-
+            docs/DONE.md gate wording. To change a gate, change docs/directive.md section 16 and reflect it
+            into DONE.md — never the reverse (docs/DONE.md:7).
+      affected_systems:
+        - touch input
+        - HUD layout
+        - QA harness
+      invariants:
+        - >-
+            The production input chain is exercised; synthetic events that bypass hit testing prove nothing
+            about hit targets.
+      required_inputs:
+        - >-
+            docs/bible.md IMP-09: action buttons measure 35.2 px at uiScale 0.8, violating the 44 px rule in
+            section 11
+        - >-
+            docs/STATE.md acceptance row 12, currently partial: the map has no pan or zoom and no tutorial
+            screen exists
+        - The Gate B slice uses the production input chain but is not evidence about visible hit targets
+      expected_outputs:
+        - A 667x375 touch smoke under tools/
+        - An evidence record naming the emulation environment
+        - A finding record if a target fails
+      assumptions:
+        - >-
+            uiScale is reachable from the smoke. If it is not, the smoke cannot exercise the known IMP-09
+            failure and must say so rather than pass.
+      risks:
+        - >-
+            A green result that never exercises uiScale 0.8 would repeat defect R-08: a test that does not
+            execute the verb it claims to verify. Expect this test to fail first.
+      verification:
+        - 44 px minimum hit target at the tested uiScale values, including 0.8.
+        - Overlapping targets.
+        - Mis-taps near boundaries.
+        - Simultaneous inputs.
+        - Orientation change.
+      mandatory_gates:
+        - npm run validate:ops
+      evidence_required:
+        - Measured hit-target sizes per control and uiScale
+        - Exact touch coordinates and observed responses
+        - Explicit emulation statement and no device claim
+      active_modules:
+        - module: 10.4 independent user-surface testing
+          activation_reason: B2 is about the rendered, touchable surface and has no evidence of any kind today.
+          budget: One smoke across the listed cases.
+          exit_condition: Every listed case executed and recorded, whether it passes or fails.
+      owner: >-
+        QA owner for the smoke; platform owner for any src/ui, src/core/input.js or public/styles.css
+        fix.
+      integration_owner: Primary integrator
+      independence_level: A
+      rollback: >-
+        Test-only: delete the new tools/ file and its evidence record. Any accompanying UI fix is
+        reverted separately and re-smoke-tested.
+      completion_conditions:
+        - All six named checks executed at 667x375 through real touch coordinates.
+        - Evidence states emulation and makes no device claim.
+        - B2 status in REQUIREMENTS.yaml updated to what the evidence actually supports.
+        - A passing smoke does not resolve the missing tutorial screen or map pan/zoom; those stay open.
+  - id: GB-IMP02
+    kind: task
+    parent: GATE-B
+    title: Correct trust feedback that grades player choices
+    status: ready
+    priority_class: P3
+    priority_rationale: >-
+      P3 — design fidelity against a refuted claim. Judged by the human criterion B1 rather than by a
+      deterministic gate.
+    dependencies:
+      - OPS-001
+    acceptance_refs:
+      - B1
+      - B5
+    evidence: []
+    reason: >-
+      Legacy reason verbatim: "docs/STATE.md action 3; docs/bible.md IMP-02" (PROJECT_STATE.json:145).
+      NOTE: docs/STATE.md:99 assigns action 3 to GB-TOUCH-SMOKE, and docs/STATE.md:102 places GB-IMP02
+      under 「**その次**」 with priority to be recomputed. Legacy priority 80.
+    contract:
+      objective: >-
+        Correct the trust feedback that grades the player's choices, so trust stops being presented as a
+        five-step morality meter with coloured toasts.
+      allowed_scope:
+        - src/ui/screens.js
+        - src/game/narrative.js
+        - src/game/director.js
+        - AI_DEVELOPMENT/STATE.yaml
+        - AI_DEVELOPMENT/WORK_GRAPH.yaml
+        - AI_DEVELOPMENT/LEDGER.jsonl
+        - AI_DEVELOPMENT/EVIDENCE/
+        - docs/STATE.md (status sections only)
+      prohibited_changes:
+        - >-
+            .github/workflows/autopilot.yml — standing user instruction, restated in docs/STATE.md sections
+            5 and 9.
+        - >-
+            The six generated root publication files (index.html, styles.css, cinderline.1.0.0.js,
+            manifest.webmanifest, icon.svg, .nojekyll). Decision OD-005: they are generated artifacts. Edit
+            the source under public/ and regenerate with npm run build:pages-root.
+        - Using README.md as a design authority. It has documented features that do not exist.
+        - Recording acceptance row 6 as verified without new evidence. It is currently refuted.
+        - >-
+            docs/DONE.md gate wording. To change a gate, change docs/directive.md section 16 and reflect it
+            into DONE.md — never the reverse (docs/DONE.md:7).
+      affected_systems:
+        - trust presentation
+        - narrative feedback
+      invariants:
+        - "The creative pillar stands: the game does not grade the player's answers."
+      required_inputs:
+        - src/ui/screens.js:473-487 — trust is displayed permanently as five graded words
+        - >-
+            docs/STATE.md acceptance row 6: the claim that trust does not appear in the UI is refuted; 38 of
+            47 trust changes raise a coloured toast
+        - docs/bible.md IMP-02
+      expected_outputs:
+        - Revised trust presentation
+        - An evidence record showing the before and after surface
+      assumptions:
+        - >-
+            The narrative design intent is the bible's pillar 5, not the current implementation. Confirm
+            against docs/bible.md before changing behavior.
+      risks:
+        - >-
+            This is a design-fidelity change judged by a human criterion (B1). Implementation cannot
+            self-approve it.
+      verification:
+        - Surface evidence that trust is no longer presented as a graded score.
+        - "No regression in narrative flag handling: npm run validate stays green."
+      mandatory_gates:
+        - npm run validate
+        - npm run validate:ops
+      evidence_required:
+        - Before-and-after user-surface capture
+        - An independent review of whether the change satisfies the pillar
+      owner: >-
+        Narrative owner (docs/STATE.md assigns src/game/narrative.js and src/game/director.js); platform
+        owner for src/ui/screens.js.
+      integration_owner: Primary integrator
+      independence_level: B
+      rollback: Revert the UI and narrative hunks; npm run validate must stay green after the revert.
+      completion_conditions:
+        - Acceptance row 6 is re-evaluated with evidence and its status set to what the evidence supports.
+        - An independent reviewer, not the implementer, judges the result against pillar 5.
+  - id: GC-IMP06-FULLRUN
+    kind: task
+    parent: GATE-C
+    title: Run one complete opening-to-ending route with real traversal, survival and combat
+    status: ready
+    priority_class: P4
+    priority_rationale: P4 — Gate C work that depends on a harness whose OF-003/OF-004 repairs are still unverified.
+    dependencies:
+      - GB-IMP06-REVIEW
+    acceptance_refs:
+      - C1
+      - D3
+    evidence: []
+    reason: >-
+      Legacy reason verbatim: "Only a clean-save full run may support C1, D3 or replacement of the
+      unmeasured playtime estimate" (PROJECT_STATE.json:156). Legacy priority 79.
+    contract:
+      objective: >-
+        Run one complete opening-to-ending route from a clean save using real traversal, real survival
+        and real combat, with no teleport, no gas immunity and no direct damage.
+      allowed_scope:
+        - tools/ (full-run harness)
+        - AI_DEVELOPMENT/STATE.yaml
+        - AI_DEVELOPMENT/WORK_GRAPH.yaml
+        - AI_DEVELOPMENT/LEDGER.jsonl
+        - AI_DEVELOPMENT/EVIDENCE/
+        - docs/STATE.md (status sections only)
+      prohibited_changes:
+        - >-
+            .github/workflows/autopilot.yml — standing user instruction, restated in docs/STATE.md sections
+            5 and 9.
+        - >-
+            The six generated root publication files (index.html, styles.css, cinderline.1.0.0.js,
+            manifest.webmanifest, icon.svg, .nojekyll). Decision OD-005: they are generated artifacts. Edit
+            the source under public/ and regenerate with npm run build:pages-root.
+        - >-
+            Any placement helper, raw position write, teleport, gasImmune assignment, direct damage() or
+            kill-event emission in the traversal path. These are exactly the operations OF-005 caught being
+            accepted.
+        - Claiming C1 or D3 from anything less than a complete clean-save run.
+        - >-
+            docs/DONE.md gate wording. To change a gate, change docs/directive.md section 16 and reflect it
+            into DONE.md — never the reverse (docs/DONE.md:7).
+      affected_systems:
+        - QA harness
+        - full-route verification
+      invariants:
+        - Player position changes only through the movement, input and collision path.
+        - player.gasImmune stays false and gas exposure is sampled throughout.
+        - Hostile health changes only through a player attack action and the normal combat hit path.
+      required_inputs:
+        - AI_DEVELOPMENT/HANDOFFS/README.md — the five conditions a real-route claim must meet
+        - AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json — the verified partial slice this extends
+        - docs/bible.md IMP-06
+        - OF-003 and OF-004, both still repair under verification, which affect the same harness
+      expected_outputs:
+        - A full-run harness
+        - >-
+            An evidence record reporting distance, simulated duration, exposure range, damage exchanged and
+            the exact covered route
+        - A measured playtime figure to replace the unmeasured 3-5 hour estimate
+      assumptions:
+        - The Chapter 1 slice generalises to the whole route. It may not; the slice covers one chapter.
+      uncertainty: >-
+        OF-003 recorded a door-transition stall whose repair is not yet verified. Two fresh isolated
+        publish runs and then the complete suite are required before this task can trust the harness.
+      risks:
+        - >-
+            A full run that quietly reintroduces any prohibited operation would restate OF-005. Every
+            previously accepted invalid operation must remain an executable expected-failure fixture.
+      verification:
+        - A clean-save run from opening to an ending with real traversal throughout.
+        - All 19 adversarial fixtures still exit nonzero.
+        - Distance, duration, exposure, damage and route reported.
+      mandatory_gates:
+        - npm test
+        - npm run validate:ops
+      evidence_required:
+        - The full-run report
+        - Measured playtime
+        - A statement of which environments it covers and which it does not
+      active_modules:
+        - module: 10.4 independent user-surface testing
+          activation_reason: C1 and D3 are about the game actually being playable end to end.
+          budget: One complete route first; branch coverage is separate work.
+          exit_condition: One clean-save route completes with real verbs throughout.
+      owner: QA owner
+      integration_owner: Primary integrator
+      independence_level: B
+      rollback: "Harness-only: delete the new tools/ file and its evidence record."
+      completion_conditions:
+        - One clean-save opening-to-ending route completes with real movement, survival and combat.
+        - >-
+            OF-003 and OF-004 are verified closed first, or the run explicitly records that it ran against
+            an unverified repair.
+        - >-
+            C1 and D3 statuses updated to what the evidence supports; one route is not the full branch
+            matrix.
+  - id: OPS-REMOTE-PUBLISH
+    kind: task
+    parent: PROJECT-CINDERLINE
+    title: Push, merge and publicly publish the verified continuation checkpoint
+    status: verified
+    priority_class: P2
+    priority_rationale: Delivery of a verified checkpoint under the standing authorization. Completed 2026-08-01.
+    dependencies:
+      - GB-IMP06-REVIEW
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md
+    reason: >-
+      The user's explicit instruction authorizes and requires remote push, merge and publication
+      across session changes. PRs #2, #3 and #4 are merged and both Pages deployment paths succeeded.
+    notes: >-
+      The evidence record covers up to cc96f3a. PR #4 (193f408) changed operating records only; its
+      Pages deployment run 30663264871 concluded success, recorded as ledger event
+      MIG-20260801-07-PR4-COVERAGE.
+  - id: TOOL-CHECK-PLACEHOLDERS
+    kind: task
+    parent: GATE-C
+    title: Implement tools/check_placeholders.mjs
+    status: proposed
+    priority_class: P4
+    priority_rationale: P4 — enabling foundation for Gate C. Proposed, not accepted.
+    dependencies: []
+    acceptance_refs:
+      - C4
+    reason: >-
+      C4 is marked automatable in docs/DONE.md but its script does not exist, so C4 cannot currently
+      ground a gate pass. Proposed, not accepted: adding it is new work the user has not selected.
+    notes: >-
+      Proposed by the 2026-08-01 migration because docs/DONE.md proves the gate needs it. Not
+      accepted, not ready, and not in the frontier — accepting it is the user's call.
+  - id: TOOL-CHECK-CONSOLE
+    kind: task
+    parent: GATE-D
+    title: Implement tools/check_console.mjs
+    status: proposed
+    priority_class: P4
+    priority_rationale: P4 — enabling foundation for Gate D and the automatable half of D6. Proposed, not accepted.
+    dependencies: []
+    acceptance_refs:
+      - D6
+    reason: >-
+      D6 is marked automatable but its script does not exist. GB-H2 improves the runtime behavior D6
+      measures; it does not provide the measurement. Proposed, not accepted.
+    notes: >-
+      Proposed by the 2026-08-01 migration because docs/DONE.md proves the gate needs it. Not
+      accepted, not ready, and not in the frontier — accepting it is the user's call.
+  - id: TOOL-CHECK-HONESTY
+    kind: task
+    parent: GATE-D
+    title: Implement tools/check_honesty.mjs
+    status: proposed
+    priority_class: P4
+    priority_rationale: P4 — enabling foundation for D8, the highest-severity honesty risk. Proposed, not accepted.
+    dependencies: []
+    acceptance_refs:
+      - D8
+    reason: >-
+      D8 is the honesty gate that scans for performance claims lacking a stated measurement
+      environment. Its script does not exist. Proposed, not accepted.
+    notes: >-
+      Proposed by the 2026-08-01 migration because docs/DONE.md proves the gate needs it. Not
+      accepted, not ready, and not in the frontier — accepting it is the user's call.
+  - id: TOOL-CHECK-LICENSES
+    kind: task
+    parent: GATE-D
+    title: Implement tools/check_licenses.mjs
+    status: proposed
+    priority_class: P5
+    priority_rationale: >-
+      P5 — enabling foundation for D9. Favourable conditions today (one dependency, zero external
+      assets). Proposed, not accepted.
+    dependencies: []
+    acceptance_refs:
+      - D9
+    reason: D9 is marked automatable but its script does not exist. Proposed, not accepted.
+    notes: >-
+      Proposed by the 2026-08-01 migration because docs/DONE.md proves the gate needs it. Not
+      accepted, not ready, and not in the frontier — accepting it is the user's call.
+  - id: OPS-GATE-WIRING
+    kind: task
+    parent: PROJECT-CINDERLINE
+    title: Wire check_done_table, check_scope and check_reviews into an automated gate
+    status: proposed
+    priority_class: P3
+    priority_rationale: >-
+      P3 — enabling foundation. These three checks exist and pass, but no npm script and no workflow
+      runs them, so the docs/DONE.md staleness guard only fires when a human remembers it. That guard
+      exists precisely because the table went stale once and two independent reviews caught it.
+    dependencies: []
+    acceptance_refs: []
+    reason: >-
+      Discrepancy found during the 2026-08-01 migration: tools/check_done_table.mjs,
+      tools/check_scope.mjs and tools/check_reviews.mjs appear in no npm script and in no workflow.
+      Deliberately left proposed rather than wired in during the migration, because adding gates is
+      scope the user has not selected — and check_reviews --gate B currently fails by design, so
+      wiring it in blindly would break the build.
+    notes: >-
+      All three were executed manually during the migration: check_done_table passed, check_scope
+      --against-content passed with declared gaps, check_reviews --gate A passed, check_reviews --gate
+      B failed on H1 and H2 as expected.

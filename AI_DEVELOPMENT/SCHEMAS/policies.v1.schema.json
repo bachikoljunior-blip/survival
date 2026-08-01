@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Operating policies",
+  "version": 1,
+  "description": "AI_DEVELOPMENT/POLICIES.yaml — explicit permissions and prohibitions. Every field is required so that a permission can never be silently absent and then silently assumed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "state_revision", "source", "permissions", "prohibitions", "safety_boundary"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "state_revision": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.[0-9]+$" },
+    "source": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" },
+
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "remote_delivery",
+        "public_release",
+        "routine_connected_credentials",
+        "paid_actions",
+        "repository_visibility_change",
+        "destructive_external_actions",
+        "security_control_bypass",
+        "private_information_exposure"
+      ],
+      "properties": {
+        "remote_delivery": { "$ref": "#/definitions/policy" },
+        "public_release": { "$ref": "#/definitions/policy" },
+        "routine_connected_credentials": { "$ref": "#/definitions/policy" },
+        "paid_actions": { "$ref": "#/definitions/policy" },
+        "repository_visibility_change": { "$ref": "#/definitions/policy" },
+        "destructive_external_actions": { "$ref": "#/definitions/policy" },
+        "security_control_bypass": { "$ref": "#/definitions/policy" },
+        "private_information_exposure": { "$ref": "#/definitions/policy" }
+      }
+    },
+
+    "covered_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "prohibitions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "safety_boundary": { "type": "string", "minLength": 1 },
+
+    "gates_required_before_delivery": { "type": "array", "items": { "type": "string" } },
+
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mechanism", "required_when", "verification"],
+      "properties": {
+        "mechanism": { "type": "string" },
+        "required_when": { "type": "string" },
+        "verification": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "protected_paths": {
+      "type": "array",
+      "description": "Paths that must not be modified, with the reason. Enforced by tools/check_operating_state.mjs against the migration baseline.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "reason"],
+        "properties": {
+          "path": { "type": "string" },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "reason"],
+      "properties": {
+        "value": {
+          "enum": [
+            "standing_authorized",
+            "authorized_when_required_by_active_objective",
+            "authorized_without_secret_disclosure",
+            "requires_user_approval",
+            "prohibited"
+          ]
+        },
+        "reason": { "type": "string", "minLength": 1 },
+        "source": { "type": "string" },
+        "supersedes": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,1772 @@
+# Requirements and acceptance criteria: stable identifiers, epistemic status, verification method
+# and traceability.
+#
+# Schema: AI_DEVELOPMENT/SCHEMAS/requirements.v1.schema.json
+#
+# This file does NOT own the authored text. The Gate A-D wording belongs to docs/DONE.md, which
+# transcribes docs/directive.md section 16 verbatim; product requirements belong to
+# docs/directive.md and docs/bible.md. Restating or softening their text here would create the
+# second source of truth this record exists to prevent.
+#
+# Traceability is two-way: every criterion lists the work nodes that cover it, every work node
+# lists the criteria it claims, and npm run validate:ops fails if either direction goes missing.
+#
+# Statuses are what the evidence supports, not what would be convenient. In particular C2 and D11
+# are 'refuted' — affirmatively failing right now, not merely unverified — and acceptance row 6 in
+# docs/STATE.md is likewise refuted.
+schema_version: 1
+state_revision: 2026-08-01.2
+notes: >-
+  Extracted from docs/directive.md, docs/bible.md, docs/DONE.md and docs/STATE.md during the
+  2026-08-01 migration. Two framing corrections worth keeping visible: esbuild-instead-of-Vite is
+  an accepted deviation from a still-standing directive requirement, not a requirement itself; and
+  zero-external-assets is an inherited property of the implementation, not a directive line —
+  docs/directive.md explicitly permits third-party assets subject to licence recording.
+authorities:
+  product_requirements: docs/directive.md
+  approved_design_and_defects: docs/bible.md
+  gate_wording: docs/DONE.md
+  human_verified_position: docs/STATE.md
+  review_findings: docs/reviews
+  asset_ledger: docs/assets.md
+  device_test_procedure: docs/device-test-checklist.md
+requirements:
+  - id: REQ-BRIEF-01
+    statement: >-
+      Fixed brief, declared 変更不可 (unchangeable): genre = third-person open-world action RPG with
+      survival tension; setting = a ruined, isolated, partially collapsed modern city after a credible
+      disaster; tone = grounded, mature, tense, human, serious but not relentlessly grim; art
+      direction = realistic-leaning (pixel art / cartoon / parody forbidden), subject to the §9
+      realistic constraints; story = fully original with strong characters, dramatic tension,
+      meaningful choices, setup and payoff. Everything not on this list must be discovered, designed,
+      verified and justified during production.
+    scope: product
+    source: docs/directive.md:31-43
+    epistemic_status: user_requirement
+    status: active
+    constraints:
+      - Everything outside the fixed brief must be justified, not assumed
+      - Art direction realistic-leaning but bounded by docs/directive.md:157-166
+    criteria_refs:
+      - A1
+      - A2
+      - A3
+      - A5
+    notes: docs/directive.md:33 「以下は変更不可。それ以外は全て制作過程で発見・設計・検証・正当化すること。」
+  - id: REQ-PLATFORM-01
+    statement: Platform is the mobile web browser (iOS Safari / Android Chrome).
+    scope: platform
+    source: docs/directive.md:40
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - B2
+      - D7
+  - id: REQ-PLATFORM-02
+    statement: >-
+      Reference device is the iPhone SE 3rd generation, landscape orientation (基準端末: iPhone SE
+      第3世代、横向き).
+    scope: platform
+    source: docs/directive.md:41
+    epistemic_status: user_requirement
+    status: active
+    constraints:
+      - Design against this device from the first playable build (docs/directive.md:204)
+    criteria_refs:
+      - B2
+      - B4
+      - D7
+      - D8
+    notes: >-
+      No such physical device exists in the execution environment (docs/directive.md:220,
+      docs/STATE.md:110). See REQ-BLOCKER-01.
+  - id: REQ-PLATFORM-03
+    statement: >-
+      Deployment is a static build to GitHub Pages; the build must use relative paths (base: './'
+      equivalent) and ship a .nojekyll file for GitHub Pages subdirectory support.
+    scope: platform
+    source: docs/directive.md:11,42
+    epistemic_status: user_requirement
+    status: satisfied
+    constraints:
+      - Relative paths
+      - .nojekyll present
+    notes: >-
+      docs/STATE.md:174 records this as verified: `npm run build`, `build.mjs:36-63`,
+      `public/.nojekyll`. docs/bible.md:35 argues the esbuild build already satisfies the substantive
+      requirement.
+  - id: REQ-PLATFORM-04
+    statement: >-
+      Input is touch-first; keyboard/mouse are retained only for development.
+      「最初からタッチで設計する。デスクトップ版を作ってから仮想ボタンを重ねる進め方をしない。」
+    scope: platform
+    source: docs/directive.md:43,182
+    epistemic_status: user_requirement
+    status: active
+    constraints:
+      - No desktop-first then overlay-virtual-buttons approach
+    criteria_refs:
+      - B2
+      - D7
+  - id: REQ-PLATFORM-05
+    statement: >-
+      「開発者は iPhone しか持っていない。」 The developer has only an iPhone — no PC and no local development
+      environment. All work must be completed inside the repository, and no procedure that presupposes
+      human manual steps may be built into the design.
+    scope: platform/process
+    source: docs/directive.md:17
+    epistemic_status: user_requirement
+    status: active
+    constraints:
+      - No design that depends on human manual execution
+    criteria_refs:
+      - B4
+      - D8
+    notes: >-
+      This constraint is in direct tension with the only remedy available for the device blocker
+      (docs/STATE.md:110 states 人間のみ can run docs/device-test-checklist.md on real hardware).
+  - id: REQ-LOCAL-01
+    statement: >-
+      The game must build reproducibly from a clean checkout, use relative paths, contain no secrets
+      and no required private services, show useful load progress, tolerate non-essential asset
+      failure, present a recoverable error rather than a white screen on startup failure, version and
+      migrate saves, autosave at safe points, recover from reload and interruption, stop simulation
+      when hidden, and ship with no uncaught errors, rejected promises, missing assets or console spam
+      in production.
+    scope: engineering
+    source: docs/directive.md:198
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - C5
+      - D6
+    notes: >-
+      Save migration does not exist (docs/bible.md:497 R-02, severity high, 監査 H1 未解決;
+      docs/STATE.md:94). Post-startup uncaught errors and rejected promises are not captured
+      (docs/bible.md:498 R-03, high, 監査 H2 未解決; docs/STATE.md:96).
+  - id: REQ-LOCAL-02
+    statement: >-
+      The build makes zero network requests at runtime, and ships zero external asset files (no image,
+      audio, model or font files); textures, sound and models are generated at runtime.
+    scope: platform
+    source: docs/STATE.md:127,179; docs/bible.md:29
+    epistemic_status: accepted_decision
+    status: satisfied
+    constraints:
+      - No fetch / XHR
+      - No asset files in the repository
+    criteria_refs:
+      - D9
+    notes: >-
+      IMPORTANT PROVENANCE: this is NOT a directive requirement. docs/directive.md:165 explicitly says
+      「第三者アセットの使用は許可され、想定されている」 (third-party asset use is permitted and expected).
+      Zero-external-assets is an inherited property of the incumbent implementation that
+      docs/bible.md:29 decided to keep because 「§9 の性能要件と §3 のライセンス要件を同時に解いている」. Verified as
+      docs/STATE.md:179 row 8: audit grep for fetch/XHR returned 0 hits. Runtime dependency is
+      three@0.180.0 only (docs/STATE.md:125). docs/bible.md:378: 「全ての音は WebAudio で合成される。音声ファイルは1つも無い。」
+      Note docs/bible.md:29 also records that the initial-payload figure is 未計測 because its only
+      source was README.md.
+  - id: REQ-ENG-01
+    statement: >-
+      Renderer is Three.js, with the version pinned to one and not changed arbitrarily
+      (バージョンを1つに固定し、勝手に変えない).
+    scope: engineering
+    source: docs/directive.md:10
+    epistemic_status: user_requirement
+    status: satisfied
+    constraints:
+      - three@0.180.0 is the sole runtime dependency (docs/STATE.md:125)
+  - id: REQ-ENG-02
+    statement: >-
+      The directive specifies Vite as the build tool. The project instead uses esbuild plus a
+      hand-written build.mjs. This is recorded as an INTENTIONAL, accepted deviation (意図的逸脱), on the
+      grounds that the esbuild build already satisfies the substantive §0 requirements (relative-path
+      output, .nojekyll, reproducible build) and that migrating to Vite would only re-satisfy
+      already-satisfied requirements.
+    scope: engineering
+    source: docs/directive.md:11; docs/bible.md:35; docs/STATE.md:135; docs/bible.md:510
+    epistemic_status: accepted_decision
+    status: satisfied
+    constraints:
+      - Deviation must remain recorded in docs/bible.md §0
+    notes: >-
+      Registered as risk R-15 at severity low (docs/bible.md:510). The deviation is from the
+      directive, not a user-stated preference for esbuild — the canonical requirement text still says
+      Vite (docs/directive.md:11).
+  - id: REQ-ENG-03
+    statement: >-
+      Testing stack is Vitest (unit + integration) plus Playwright (browser smoke). Vitest is NOT
+      present: there is no unit-test layer at all, and pure-function modules (util.js / state.js /
+      collision.js) have zero tests. Introducing Vitest is an outstanding remediation item due by Gate
+      B.
+    scope: engineering
+    source: docs/directive.md:12; docs/bible.md:36,501; docs/STATE.md:136
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    constraints:
+      - Playwright is present as a devDependency (playwright ^1.56.0)
+    criteria_refs:
+      - C5
+      - B5
+    notes: >-
+      Registered as R-06 at severity high, 現状 未着手 (docs/bible.md:501). docs/STATE.md:136 flags
+      「改修対象。docs/bible.md R-06。現在のアクション3 `IMP-02` と混同しない」.
+  - id: REQ-ENG-04
+    statement: >-
+      CI must run lint + test + build on pull requests and deploy Pages on main. Currently only
+      pages.yml exists (validate + build on main); there is no PR workflow. This is an outstanding
+      remediation item.
+    scope: engineering
+    source: docs/directive.md:13; docs/STATE.md:137; docs/bible.md:510
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    notes: Registered inside R-15 at severity low, 未着手 (docs/bible.md:510).
+  - id: REQ-ENG-05
+    statement: "`.github/workflows/autopilot.yml` must never be touched."
+    scope: operations
+    source: docs/STATE.md:137,217; docs/directive.md:328-336
+    epistemic_status: user_requirement
+    status: active
+    notes: >-
+      Stated twice in docs/STATE.md — at :137 inside the CI gap table and at :217 in the restated work
+      rules.
+  - id: REQ-ENG-06
+    statement: Language of documentation, commit messages and in-game text is Japanese.
+    scope: product/process
+    source: docs/directive.md:14
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    notes: >-
+      CORRECTED 2026-08-01. Only the in-game text half is verified (npm run i18n, 882/882 Japanese
+      strings, 0 rejected glossary variants). The documentation and commit-message half is not:
+      AI_DEVELOPMENT/ has been written in English since the operating layer was installed on
+      2026-07-31, the 2026-08-01 canonical layer continued that, 7 of 11 docs/reviews records are
+      English, and recent commit subjects are English. That is a real deviation from docs/directive.md
+      section 0, and unlike the Vite deviation it had never been recorded as a decision. Recorded now
+      as OD-008 so the user can overrule it. The product-facing documents — directive, bible, DONE,
+      STATE, device checklist, assets — remain Japanese, as does all in-game text.
+  - id: REQ-ENG-07
+    statement: >-
+      Additional libraries may only be MIT / Apache / CC0 compatible, and the reason for adopting each
+      must be recorded in docs/assets.md. All third-party assets and dependencies must be recorded
+      there with source, license and URL. All placeholders must be replaced before release.
+    scope: engineering/legal
+    source: docs/directive.md:15,63-65
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - C4
+      - D9
+    notes: >-
+      docs/assets.md exists (docs/STATE.md:59: 実行時依存は three.js のみ。外部アセット0). The automated verifier
+      tools/check_licenses.mjs is 未実装 (docs/DONE.md:113).
+  - id: REQ-ENG-08
+    statement: >-
+      Modular separation of responsibilities across app lifecycle / renderer and scene / world
+      streaming / entity state / input abstraction / camera / movement and physics / combat and
+      interaction / AI and navigation / quest and narrative state / progression / UI / audio / save
+      and migration / asset loading / performance measurement / debug and test. The production build
+      must not be crammed into one file. Avoid hidden global coupling, duplicated state,
+      framerate-dependent logic, unmanaged listeners, per-frame allocation and unbounded object
+      creation. Use a fixed or bounded simulation step; pool frequently created objects; dispose
+      geometry, materials, render targets, textures, audio nodes and listeners when no longer needed.
+    scope: engineering
+    source: docs/directive.md:194-196; docs/bible.md:422-436
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    constraints:
+      - >-
+          Fixed 60Hz step with accumulator, max 4 substeps, backlog discard, render interpolation alpha
+          (docs/bible.md:436)
+    criteria_refs:
+      - B6
+    notes: >-
+      docs/STATE.md:175 row 4 records the fixed-step / framerate-independent property as 検証済 by audit
+      plus individual confirmation (`src/core/engine.js:13,318,327-333`). Corpse cleanup is unresolved
+      (R-09, medium, docs/bible.md:504).
+  - id: REQ-PERF-01
+    statement: >-
+      Design against the iPhone SE 3rd generation from the first playable build. Targets: stable 30
+      FPS or better in representative combat and traversal; 60 FPS if conditions allow; consistent
+      frame pacing with no long stalls; bounded memory across repeated area transitions; chunked
+      loading rather than loading the whole world at startup.
+    scope: performance
+    source: docs/directive.md:204-206
+    epistemic_status: user_requirement
+    status: blocked
+    constraints:
+      - 30 FPS is a design target, not a measurement (docs/STATE.md:110, docs/bible.md:496)
+    criteria_refs:
+      - B4
+      - D8
+    notes: >-
+      Blocked by REQ-BLOCKER-01. docs/STATE.md:185 row 14: 「実機で 30 FPS を満たす」 is 原理的に未検証 and 主張してはならない.
+      Chunk streaming is one of the three §13 items recorded as unimplemented (R-04, high,
+      docs/bible.md:499).
+  - id: REQ-PERF-02
+    statement: >-
+      Initial performance budgets (revisable on evidence, revisions must be recorded): draw calls ≤150
+      typical / ≤250 worst; visible triangles ≤300,000 typical; texture memory ≤200MB with max side
+      2048; on-screen skinned meshes ≤8 and realtime shadow casters ≤2; initial payload ≤15MB and
+      interactive within 8s on 4G; JS frame time ≤8ms.
+    scope: performance
+    source: docs/directive.md:210-214
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - B4
+      - D8
+    notes: >-
+      NOT MET as recorded: docs/STATE.md:184 row 13 「§13 の描画予算を満たす」 = 未達 (draw calls exceed at medium
+      tier; shadow-caster count unmet; 監査 §13 表). R-05 high, 未対策 (docs/bible.md:500). JS frame time
+      ≤8ms has NEVER been measured — R-17 high, 未解決 (docs/bible.md:512), because perf.mjs measures
+      only fixedUpdate and excludes render(), scene-graph traversal, culling, animation evaluation and
+      post effects. The initial-payload number was deleted from the bible because its only source was
+      README.md and shots/ is .gitignored (docs/STATE.md:203, docs/bible.md:29 R-19).
+  - id: REQ-PERF-03
+    statement: >-
+      Implement quality tiers and automatic degradation: DPR cap, dynamic render scale, LOD, culling,
+      instancing, shadow limits, distance-based animation decimation, AI update staggering, effect
+      density reduction.
+    scope: performance
+    source: docs/directive.md:216
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - B4
+    notes: >-
+      Three explicitly required items are unimplemented — チャンクストリーミング / AI更新のずらし / 距離によるアニメーション間引き —
+      shown with file:line by the independent audit; recorded as R-04 high, 未解決 (docs/bible.md:499).
+      This finding is what caused the concept scorecard's mobile-feasibility axis to be lowered 5→4
+      and the total 31→30 (docs/STATE.md:194).
+  - id: REQ-PERF-04
+    statement: >-
+      Implement an in-game performance HUD and a headless measurement path, and measure six scenarios
+      under Playwright CPU/GPU throttling: quiet traversal / high-density environment / combat /
+      effect overload / UI overlay / area transition.
+    scope: performance
+    source: docs/directive.md:222-223; docs/bible.md:39
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - B4
+      - D8
+    notes: >-
+      tools/perf.mjs measures device-independent cost only. docs/DONE.md:105: 「スロットリング付きシナリオ計測と
+      `render()` を含むフレーム時間計測は未実装」. docs/bible.md:39 records the six-scenario coverage as absent
+      (改修対象). R-10 (medium) additionally warns the instruments themselves were found broken and only
+      partially fixed.
+  - id: REQ-HONESTY-01
+    statement: >-
+      Verification honesty (mandatory). No iPhone SE exists in this project's execution environment.
+      Therefore: every number must be accompanied by the exact environment in which it was measured;
+      emulation results must be labelled as emulation; 「実機での結果を主張してはならない。示唆してもならない」 — real-device
+      results must not be claimed, nor even implied; and docs/device-test-checklist.md must exist as a
+      human-executable, pass/fail procedure.
+    scope: honesty
+    source: docs/directive.md:224-226; docs/DONE.md:38,73; docs/STATE.md:110
+    epistemic_status: user_requirement
+    status: active
+    constraints:
+      - No physical-device performance claim of any kind until a human executes the checklist
+    criteria_refs:
+      - B4
+      - D8
+    notes: >-
+      docs/STATE.md:181 row 10 records 「性能記述に実機主張が混入していない」 as 検証済 by code review
+      (`tools/perf.mjs:2-20,184-187` states SwiftShader explicitly and refuses fps output) plus the
+      audit — but the automated enforcement tool tools/check_honesty.mjs is 未実装 (docs/DONE.md:112).
+  - id: REQ-HONESTY-02
+    statement: >-
+      Do not fabricate assets, tests, measurements, screenshots, comparisons or completion claims. Do
+      not claim to have performed a comparison that was not performed. Do not fabricate test results,
+      user reactions, device measurements, screenshots or critic approval.
+    scope: honesty
+    source: docs/directive.md:263,332; docs/STATE.md:213
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - D11
+    notes: >-
+      docs/DONE.md:89 escalates: writing ALL_DONE without the four conditions is treated as a
+      violation of this §15 anti-fabrication rule.
+  - id: REQ-HONESTY-03
+    statement: >-
+      A critique that says only 「良い」 or 「問題なさそう」 is invalid and cannot ground a gate pass. Critiques
+      must cite concrete strengths, weaknesses, evidence and residual risk, and must be recorded under
+      docs/reviews/.
+    scope: honesty/process
+    source: docs/directive.md:259; docs/DONE.md:35
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - B1
+      - B3
+      - B6
+      - D10
+  - id: REQ-HONESTY-04
+    statement: >-
+      Critic independence: 「機能を作ったエージェントが、その機能を承認する唯一のエージェントであってはならない。」 Critic agents may take as
+      input ONLY repository artifacts, the actual build, and the acceptance criteria in docs/DONE.md.
+      They must not take implementer reports or summaries, and must not take README.md.
+    scope: honesty/process
+    source: docs/directive.md:238,240; docs/STATE.md:158-160
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - A7
+      - B5
+      - D1
+      - D2
+      - D10
+    notes: >-
+      docs/STATE.md:162 records the concrete incident justifying the rule: README claimed the air
+      gauge is tappable, the implementation explicitly denies it (`src/ui/hud.js:78-84`), and the
+      error was transcribed into the bible once before independent audit caught it.
+  - id: REQ-HONESTY-05
+    statement: >-
+      README.md must not be used as a basis for design. It is a self-reported document by the
+      implementer and discrepancies with the implementation have actually been found. README is
+      demoted to user-facing explanation only; docs/bible.md is the single source of design truth.
+    scope: honesty/process
+    source: docs/STATE.md:22; docs/bible.md:5,37
+    epistemic_status: accepted_decision
+    status: satisfied
+    notes: >-
+      Registered as R-13 medium, 検出・修正済み (docs/bible.md:508). Retained as a live example that the §14
+      rule is not theoretical.
+  - id: REQ-HONESTY-06
+    statement: >-
+      `ALL_DONE` may be written in docs/STATE.md only when ALL FOUR of the following hold: (1) all
+      automated verification passes — build / test / Playwright / branch sweep / placeholder sweep /
+      console-error sweep / license ledger; (2) docs/reviews/ contains evidence-backed critique
+      records for every Gate D item with zero unresolved critical/high; (3) all performance statements
+      satisfy the §13 honesty requirement (emulation labelled as such, no real-device claims); (4)
+      docs/device-test-checklist.md exists.
+    scope: honesty/completion
+    source: docs/directive.md:301-308; docs/DONE.md:82-89
+    epistemic_status: user_requirement
+    status: active
+    constraints:
+      - Writing ALL_DONE without all four is treated as an anti-fabrication violation
+    criteria_refs:
+      - D1
+      - D2
+      - D6
+      - D8
+      - D9
+    notes: >-
+      Condition 4 requires only EXISTENCE of the checklist, which is satisfied (docs/STATE.md:60);
+      execution count is 0 (docs/DONE.md:109) and that is tracked separately as REQ-BLOCKER-01.
+  - id: REQ-HONESTY-07
+    statement: >-
+      docs/DONE.md must transcribe directive §16 Gates A-D verbatim as the completion conditions.
+      「新しい基準を発明しない。」 To change wording, change docs/directive.md §16 and reflect it into DONE.md —
+      never the reverse. The bible adds no acceptance criteria of its own.
+    scope: process
+    source: docs/directive.md:297; docs/DONE.md:7; docs/bible.md:549
+    epistemic_status: user_requirement
+    status: satisfied
+    constraints:
+      - "One-way propagation: directive §16 → DONE.md"
+    notes: >-
+      docs/DONE.md also states that machine-level tracking of tasks and evidence belongs to
+      AI_DEVELOPMENT/REQUIREMENTS.yaml and WORK_GRAPH.yaml (updated from PROJECT_STATE.json
+      acceptance_trace by the 2026-08-01 migration) and must not be duplicated into DONE.md.
+  - id: REQ-HONESTY-08
+    statement: >-
+      The verification-script implementation-status table in docs/DONE.md is machine-checked by `node
+      tools/check_done_table.mjs`, which treats BOTH directions as failures: a file recorded as 実装済み
+      that does not exist, AND a file recorded as 未実装 that does exist. While the table says a script
+      is 未実装, that automated check cannot be used as grounds for passing the corresponding gate.
+    scope: process/honesty
+    source: docs/DONE.md:95-99
+    epistemic_status: user_requirement
+    status: satisfied
+    criteria_refs:
+      - A6
+      - A7
+      - C2
+      - C4
+      - D1
+      - D2
+      - D5
+      - D6
+      - D8
+      - D9
+    notes: >-
+      docs/DONE.md:99 records the incident that motivated the second direction: the table once listed
+      three existing files as 未実装/未作成 and two independent critiques (gate-a-narrative.md N-13,
+      gate-a-scope.md S-11) flagged it simultaneously — 「陳腐化した表はゲート判定の土台を侵す。」
+  - id: REQ-SCOPE-01
+    statement: >-
+      The bible must record six scope-fixed numbers, which Gate C judges against. Recorded values with
+      per-item provenance: quests 9 (31 quest steps) [auto-measured, tools/validate.mjs]; endings 5
+      (+8 variable epilogue beats) [auto-measured]; dialogue nodes 224 (13 conversations, 6299 words)
+      [auto-measured]; areas 14 (8 outdoor regions / 6 interiors) [direct source count — validate does
+      not output regions]; enemy archetypes 定義 5 / 本編配置 3 (5 defined, 3 placed in the main story)
+      [direct source count].
+    scope: product
+    source: docs/directive.md:93-94; docs/bible.md:448-454
+    epistemic_status: verified_fact
+    status: satisfied
+    constraints:
+      - Provenance must be stated per item, not claimed in bulk (docs/bible.md:446)
+    criteria_refs:
+      - A6
+      - C2
+    notes: >-
+      docs/bible.md:446 records that this section originally claimed all six were 実測値 from `npm run
+      validate` when validate actually outputs only three (gate-a-scope.md S-15). docs/STATE.md:196
+      records the area count correction 15→14 after actually executing world_data.js to confirm
+      regions.length === 8: 「数える作業も計測であり、grep の目視は計測ではない」.
+  - id: REQ-SCOPE-02
+    statement: >-
+      Estimated playtime is recorded as 3-5 hours (first playthrough). This is explicitly 「未計測の見積もり」 —
+      an UNMEASURED ESTIMATE. Independent critique flagged it as concretely suspected of being
+      inflated (gate-a-scope.md S-05). It must be actually measured by Gate C; if it falls short, the
+      resolution is to LOWER the time claim, not to add content.
+    scope: product
+    source: docs/bible.md:455,460
+    epistemic_status: assumption
+    status: active
+    constraints:
+      - Do not add content to justify the number
+    criteria_refs:
+      - A6
+      - C2
+    notes: >-
+      docs/bible.md:460 gives the critique's arithmetic: no voice acting so players read
+      (read-aloud-equivalent 40 min is really 20-35 min); world is 298m×232m and at speedRun 4.3 m/s
+      the farthest span is ~90 seconds; the whole game has 6 enemies and 2 encounters.
+      「3〜5時間を成立させるには非対話部分に2.3〜4.3時間が必要だが、それを支える密度がコンテンツ側に無い。」 docs/STATE.md:186 row 15 = 未計測の見積もり.
+  - id: REQ-SCOPE-03
+    statement: >-
+      Upward revision of scope is forbidden. 「起点を活かすことでスコープを広げない。」 Any proposal to increase the
+      scope-fixed numbers is treated as running the §4 cut order backwards and is rejected by default.
+      Cut order (cut from the top first): additional endings → additional districts → systemic
+      features (weather / crafting / base) → enemy archetype count → quest count → effect density.
+      Never cut: the completable opening-to-ending path, save/load integrity, touch operability, frame
+      stability.
+    scope: product
+    source: docs/bible.md:486,44; docs/directive.md:27,79
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - C2
+  - id: REQ-SCOPE-04
+    statement: >-
+      The decision on the scope numbers is 削らない (do not cut), but the ONLY admissible ground for that
+      decision is that the content already exists and is not new production to be done. The original
+      ground — 'reachability is verified by the 5-route playthrough' — was retracted as contrary to
+      fact. Reachability verification may not be used as grounds until IMP-06 produces a
+      real-traversal playthrough.
+    scope: product
+    source: docs/bible.md:470-484; docs/STATE.md:199-200
+    epistemic_status: accepted_decision
+    status: active
+    criteria_refs:
+      - C1
+      - C2
+      - C3
+    notes: >-
+      docs/bible.md:474-478 tabulates the harness bypasses: movement teleports via
+      `tools/driver.js:41-52` `goTo` → `p.placeAt(...)`; breathing bypassed by `tools/driver.js:207`
+      `G.player.gasImmune = true` (source comment: 'the harness is testing story reach, not
+      survival'); combat bypassed by `tools/driver.js:168-181` `clearHostiles` calling `e.damage({
+      amount: 9999 })` and `G.emit('kill', ...)` directly. 「本作の中心的柱『空気が地形である』が、自動検証の対象に一度もなっていない。」
+      docs/STATE.md:200 additionally retracts the assertion that no content addition remains —
+      BREAKER/DOG encounter design is by definition new content production without which C2 cannot
+      pass.
+  - id: REQ-PROD-01
+    statement: >-
+      Non-predetermination rule. Do not auto-adopt: 5-act structure / 3 factions / 4 companions / 6
+      districts / missing-family stories / corporate conspiracy / biohazard. At least 3 substantially
+      different directions must be built and compared on a written scorecard across 7 axes:
+      originality, thematic depth, gameplay potential, emotional stakes, mobile feasibility,
+      completable scope, capacity to produce meaningful consequences. Counts of characters, chapters,
+      regions, quests, systems, branches and endings are derived from the depth each element can
+      receive. 「少数の優れた要素を、多数の浅い要素より優先すること。これがこのドキュメントで最も重要な設計指示である。」
+    scope: product
+    source: docs/directive.md:49-55
+    epistemic_status: user_requirement
+    status: satisfied
+    constraints:
+      - Applies to existing assets too (docs/directive.md:23)
+    criteria_refs:
+      - A1
+      - A2
+    notes: >-
+      docs/STATE.md:36 records 3 mutually-invisible independent agents plus the incumbent
+      implementation compared on 7 axes in docs/reviews/gate-a-concepts.md. docs/bible.md:15 records
+      the incumbent won at 31/35 on mobile feasibility and completable scope specifically because it
+      is measured rather than predicted, and lost the originality axis 3/5 to concept C (5/5) —
+      「この敗北を隠さない。」
+  - id: REQ-PROD-02
+    statement: >-
+      Do not ask the user routine creative decisions. Ask only about truly blocking judgments that
+      cannot be resolved by evidence, tests or comparison.
+    scope: process
+    source: docs/directive.md:57
+    epistemic_status: user_requirement
+    status: active
+    notes: >-
+      docs/directive.md:347 further authorizes continuing implementation, testing, critique and
+      revision without routine approval within a user-started active session, and forbids fabricating
+      session start/end.
+  - id: REQ-PROD-03
+    statement: >-
+      Scope management: build a small, dense, complete world rather than a broad empty one. Every
+      reachable area must carry at least one meaningful function (story, combat, traversal, discovery,
+      resource acquisition, characterization, worldbuilding, puzzle, tactical positioning, shortcut,
+      visible consequence). Eliminate repetitive padding, copy-paste rooms, meaningless travel time,
+      generic fetch quests, meaningless collectibles, checklist design, and features included only
+      because another work has them. 「機能一覧を保つためだけに弱い実装を残さない。」
+    scope: product
+    source: docs/directive.md:71-77
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - C2
+    notes: >-
+      docs/bible.md:108 and docs/STATE.md:197 apply this same principle in reverse to originality
+      claims: the uniqueness claim was reduced 4 points → 2 points rather than padded.
+  - id: REQ-PROD-04
+    statement: >-
+      The narrative must be implemented in a playable build — a detailed narrative document does not
+      satisfy the requirement. `docs/narrative-state.md` must be maintained in machine-readable or
+      clearly tabular form covering flags, preconditions, exclusive states, quest transitions,
+      character states, consequences and endings, along with a setup-and-payoff ledger, and all routes
+      must be automatically swept for contradictions, unreachable content, dangling references and
+      softlocks.
+    scope: product
+    source: docs/directive.md:104,121; docs/bible.md:539
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - C3
+      - D5
+    notes: >-
+      NOT MET: `docs/narrative-state.md` and the setup/payoff ledger DO NOT EXIST — IMP-14, gate C,
+      source N-06 (docs/bible.md:539). The automated sweep itself exists: docs/STATE.md:172 row 1
+      records `npm run validate` → VALIDATION OK as 検証済 for no dangling references / unreachable
+      branches / dead consequences.
+  - id: REQ-PROD-05
+    statement: >-
+      Avoid a simple good/evil binary, unpredictable outcomes that exist only to surprise, and a final
+      menu choice that overwrites everything preceding it. Endings must be earned through accumulated
+      decisions and actions.
+    scope: product
+    source: docs/directive.md:119; docs/bible.md:300-308
+    epistemic_status: user_requirement
+    status: active
+    criteria_refs:
+      - C1
+      - C3
+    notes: >-
+      CURRENTLY VIOLATED and recorded as such. docs/bible.md:302: all five ENDINGS conditions are `{
+      chose: ['final', X] }` only (`src/content/story.js:2260,2341,2409,2461,2513`), resolved at
+      `src/game/director.js:1450`; the ending is fixed by a single tap on the final `choose` node
+      (`:2170-2192`). Only 2 of 5 are gated by accumulated state; `record` / `deal` / `leave` are
+      unconditional. Accumulation changes epilogue TEXT but not WHICH ending. Raised as IMP-01, gate C
+      (docs/bible.md:526). docs/bible.md:308 explicitly forbids the defense that accumulation changing
+      prose makes the ending 'effectively earned'.
+  - id: REQ-PROD-06
+    statement: >-
+      Weather, time of day, survival meters, crafting, base development, reputation, schedules,
+      vehicles and procedural events are OPTIONAL, not mandatory. Guns, melee weapons, stealth,
+      crafting, rarity, skill trees, companions, cover and base building must not be added merely
+      because they are genre conventions. The project's accepted anti-pillar declines weather /
+      crafting / base development / reputation / vehicles outright, and declines skill trees / rarity
+      / levels (no numeric inflation) and collectibles.
+    scope: product
+    source: docs/directive.md:137,145; docs/bible.md:68
+    epistemic_status: accepted_decision
+    status: satisfied
+    constraints:
+      - Anything adopted must interact meaningfully with the core loop and pass the same quality gates
+    notes: >-
+      docs/bible.md:62-70 anti-pillars. Progression is 7 capabilities each unlocked by a specific
+      diegetic event (docs/bible.md:260-270), satisfying §8's 'strategy-changing, not
+      number-inflating' progression — docs/STATE.md:178 row 7 = 検証済 (`src/game/state.js:25-61`).
+  - id: REQ-PROD-07
+    statement: >-
+      Creative pillar 5: 「ゲームはプレイヤーの答案を採点しない。」 The game does not grade the player's answers; trust is
+      not a morality meter. The main pillar is that gas simultaneously governs THREE things — player
+      survival, enemy survival (4 of 5 archetypes breathe), and visibility.
+    scope: product
+    source: docs/bible.md:56-60,110-112
+    epistemic_status: accepted_decision
+    status: active
+    constraints:
+      - >-
+          Pillar is maintained even though the implementation does not meet it — do not lower the pillar
+          to hide the gap
+    criteria_refs:
+      - B1
+    notes: >-
+      REFUTED AS AN IMPLEMENTED PROPERTY. docs/STATE.md:177 row 6: the claim 「信頼値が UI に出ない」 is 反証された —
+      trust is permanently displayed as a 5-step word (`src/ui/screens.js:473-487`) and 38 of 47 trust
+      changes are coloured toasts. docs/STATE.md:177 also records the process failure: 「主統合者が『QUIET
+      が存在する』ことだけを確認して検証済みとしたのが誤り」. docs/bible.md:58 adds that `src/content/story.js:44-50` names the
+      exact string that must never be shown, and `:479-480` fires that very string without QUIET, with
+      4 more at `:426, :890, :1491, :2062`, and it is translation-registered so it ships. Raised as
+      IMP-02, gate B. docs/STATE.md:197 records that this refutation is why the originality claim
+      dropped from 4 points to 2. The main pillar was likewise reduced from 'gas governs 4 things' to
+      3 because AI pathing does not follow gas (docs/STATE.md:198, IMP-05/R-21).
+  - id: REQ-MOBILE-01
+    statement: >-
+      Control requirements: movement and camera without gesture conflict; primary actions within reach
+      on an iPhone SE 3; nothing important placed under the thumb; suppression of page scroll, text
+      selection, pull-to-refresh and unintended browser gestures during play; safe-area handling;
+      readable at 667×375 CSS px landscape; touch targets at least 44 CSS px; correct handling of
+      simultaneous touches; safe recovery from focus loss, app switching, rotation and audio
+      interruption; sensitivity and camera-invert settings.
+    scope: platform/UX
+    source: docs/directive.md:184
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    constraints:
+      - 44 CSS px minimum touch target
+      - 667×375 landscape readable
+    criteria_refs:
+      - B2
+      - D7
+    notes: >-
+      44px is VIOLATED at uiScale 0.8, where action buttons measure 35.2px — IMP-09, gate B, from S-09
+      / 監査 L2 (docs/bible.md:534). docs/STATE.md:100 records that the existing Gate B representative
+      slice goes through the production input chain but is NOT evidence about the visible hit targets
+      themselves; GB-TOUCH-SMOKE is the task that would produce that.
+  - id: REQ-MOBILE-02
+    statement: >-
+      Every screen — menu, dialogue, inventory, map, journal, settings, death, pause, tutorial, ending
+      — must be fully operable by touch.
+    scope: platform/UX
+    source: docs/directive.md:188
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - B2
+      - D7
+    notes: >-
+      PARTIAL, not verified. docs/STATE.md:183 row 12: 「667×375 で全画面がタッチ操作可能」 = 部分的 (監査 M8) — the
+      audit confirmed most of it, but the map has no pan/zoom and a tutorial screen does not exist.
+      docs/bible.md:417-418 confirms both: チュートリアル画面 存在しない; マップのパン／ズーム 表示のみ
+      (`src/ui/screens.js:595-717`).
+  - id: REQ-MOBILE-03
+    statement: >-
+      Accessibility: UI text scaling / subtitles / individual volume sliders / high contrast for
+      critical information / non-colour-dependent state representation / screen-shake and motion
+      reduction / hold-vs-toggle choice / haptic feedback toggle.
+    scope: platform/UX
+    source: docs/directive.md:186; docs/bible.md:405-418
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    constraints:
+      - >-
+          Implemented and unimplemented items must not be listed in the same column (docs/bible.md:405,
+          gate-a-scope.md S-10)
+    criteria_refs:
+      - B2
+    notes: >-
+      Implemented per `src/game/state.js:385-408` and `src/ui/screens.js:807-834`: language, quality,
+      3 volumes, camera sensitivity, Y invert, left-handed layout, auto-sprint, UI text scaling
+      0.8-1.5x, subtitles, screen shake, damage numbers, high-contrast HUD, motion reduction, haptics,
+      perf display, gas assist, combat assist. NOT implemented (docs/bible.md:412-418): hold-vs-toggle
+      choice (guard is hard-coded to `down()` at `src/game/game.js:492`; 監査 M7 / R-12); lock-on assist
+      (exists neither in settings nor implementation — the section originally listed it as present,
+      which was wrong, S-10); non-colour-dependent state representation is only partial
+      (`.air.warn`/`.air.crit` are border colour + blink only, and the blink is removed by motion
+      reduction, `public/styles.css:304-307, 978`; the stamina bar has no numeric label); tutorial
+      screen; map pan/zoom.
+  - id: REQ-AUDIO-01
+    statement: >-
+      Audio must provide clear action feedback, location-specific ambience, useful positional audio,
+      footsteps and surface response, fair threat and detection cues, dialogue presentation, music or
+      adaptive layers that improve pacing, consistent mixing and volume hierarchy, independent volume
+      sliders, subtitles for critical information, and mobile-browser audio unlock after a user
+      gesture. All audio must be original or commercially licensed and recorded as such; temporary
+      sounds must be removed before release.
+    scope: product/platform
+    source: docs/directive.md:174,176; docs/bible.md:378-385
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    constraints:
+      - All sound is synthesized in WebAudio; zero audio files (docs/bible.md:378)
+    criteria_refs:
+      - B1
+      - C4
+    notes: >-
+      docs/bible.md:385 records the mobile audio unlock as being performed after user interaction. No
+      independent verification record for the audio criteria is cited in docs/STATE.md §7.
+  - id: REQ-OPS-01
+    statement: >-
+      Multiple agents must not edit the same file simultaneously. File/subsystem ownership is declared
+      explicitly, interfaces are defined first, and integration proceeds in small verified steps. Each
+      sub-agent must investigate existing work before changing anything and report: what changed / why
+      / what was tested / measurement results / residual risk / affected files. The lead integrator
+      holds product vision, architecture, the acceptance table, integration and the final release
+      decision.
+    scope: operations
+    source: docs/directive.md:234; docs/STATE.md:143-153
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    notes: >-
+      CORRECTED 2026-08-01. The ownership map existed but assigned no owner to src/main.js — a named
+      target of the current action 2 (GB-H2) — nor to src/core/rng.js, src/core/util.js, the
+      AI_DEVELOPMENT tree, or the six generated root publication files. An unowned file cannot enforce
+      「複数エージェントが同一ファイルを同時に編集しない」. All of them were added to the docs/STATE.md ownership map during the
+      migration; the requirement returns to satisfied once that map has been exercised by a real
+      multi-owner task.
+  - id: REQ-OPS-02
+    statement: >-
+      Session continuity: docs/STATE.md is the canonical human-facing progress record and must always
+      contain current phase / completed work / the next 3 actions as concrete work items / blockers /
+      decision changes made after the bible was fixed. Stable IDs, dependencies and logical session
+      state are projected into AI_DEVELOPMENT/STATE.yaml and AI_DEVELOPMENT/WORK_GRAPH.yaml with a
+      synchronized state_revision, and the active frontier is derived from the work graph rather than
+      authored. STATE.md must be updated and committed BEFORE context runs short. Commit in small
+      working units; main must always work. Write so that a memoryless new agent can resume from the
+      START_HERE.md reading order — node tools/resume_check.mjs checks this mechanically. Each phase
+      is a separate PR describing changes, tests run, measurements and residual risk. Task completion,
+      turn end, commit, PR and a new chat/Work do NOT end the logical session — only an explicit user
+      declaration does.
+    scope: operations
+    source: docs/directive.md:316-322
+    epistemic_status: user_requirement
+    status: satisfied
+    notes: >-
+      Statement updated by the 2026-08-01 migration to name the canonical records. The underlying
+      requirement from docs/directive.md section 19 is unchanged; only the files it projects into
+      changed.
+  - id: REQ-OPS-03
+    statement: >-
+      Per the user's latest instruction of 2026-07-31, remote push, merge, and public
+      publication/deployment of verified checkpoints are PERMANENTLY authorized and persist across
+      chat / Work / logical-session changes. This replaces the per-occasion approval rule for exactly
+      those three operations and nothing else. Safety boundary: publish only an inspected checkpoint
+      with applicable mandatory gates passing; do not expose secrets or perform paid, credential,
+      account, destructive production-data or destructive cloud actions.
+    scope: operations
+    source: docs/STATE.md:83; AI_DEVELOPMENT/PROJECT_STATE.json:21-28
+    epistemic_status: user_requirement
+    status: satisfied
+    constraints:
+      - Scoped to remote_push, remote_merge, public_publication_or_deployment only
+    notes: >-
+      docs/STATE.md:83 records PR #2 and public-compat fix PR #3 merged to main, verified baseline
+      `cc96f3a`, both GitHub Pages routes succeeded, and published HTML/JS/CSS/manifest matched the
+      production build by SHA-256. Evidence: AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md.
+  - id: REQ-OPS-04
+    statement: >-
+      An existing implementation may be used as a starting point rather than rebuilt from scratch,
+      but: the §5 creative discovery must still be run and the incumbent's title/setting/systems must
+      not be inherited unconditionally; the existing code must be evaluated against §12 architecture
+      and §13 performance budgets, with non-conforming parts remediated or discarded ('it already
+      exists' is not a reason to keep it); what was inherited, what was discarded and why must be
+      recorded in docs/bible.md; existing assets whose license cannot be confirmed in docs/assets.md
+      must not be used; and having a starting point must not widen scope.
+    scope: process
+    source: docs/directive.md:21-27; docs/bible.md:9-44
+    epistemic_status: user_requirement
+    status: satisfied
+    criteria_refs:
+      - A1
+    notes: >-
+      Inherited (docs/bible.md:19-29): gas simulation, fixed-step simulation, 7-capability
+      progression, narrative graph + tools/validate.mjs, real-trigger playthrough harness, Japanese
+      localization with the 'game logic never reads translated strings' invariant, generated-asset
+      policy. Discarded/remediated (docs/bible.md:31-40): Vitest absence, README's status, the entire
+      missing docs/ set, performance scenario coverage; build system explicitly kept.
+  - id: REQ-BLOCKER-01
+    statement: >-
+      BLOCKER B1: 「実機が存在しない。」 No physical device exists; the iPhone SE 3rd generation has never once
+      been used for verification. Consequence: Gate D's performance items are in principle not
+      automatically verifiable, and the 30 FPS target is a design goal, not a measurement. Only a
+      human can resolve it, by executing docs/device-test-checklist.md on real hardware. Until then no
+      real-device performance claim of any kind may be made (§13).
+    scope: performance/honesty
+    source: docs/STATE.md:110; docs/bible.md:496
+    epistemic_status: verified_fact
+    status: blocked
+    constraints:
+      - No real-device performance claim until a human executes the checklist
+    criteria_refs:
+      - B4
+      - D8
+    notes: >-
+      Registered as R-01 at severity 最大 (docs/bible.md:496); docs/device-test-checklist.md 実施回数 0
+      (docs/DONE.md:109, docs/STATE.md:60). docs/STATE.md:113: B1 and B2 do not stop work — all other
+      work may continue — 「ただしこの2点について検証済みであるかのように書いてはならない。」
+  - id: REQ-BLOCKER-02
+    statement: >-
+      BLOCKER B2: the Japanese text has not been read by a native speaker. Tone and register quality
+      cannot be guaranteed. The automated checks (terminology consistency, missing keys, layout
+      breakage) do pass. Only a human can resolve this.
+    scope: product
+    source: docs/STATE.md:111; docs/bible.md:506
+    epistemic_status: verified_fact
+    status: blocked
+    criteria_refs:
+      - B1
+    notes: "Registered as R-11 at severity medium, 未解決 (docs/bible.md:506): 「自動検査は通っているが、語調と語感は道具で検査できない」."
+  - id: REQ-TEST-01
+    statement: >-
+      Testing coverage required: unit (calculations, progression, combat rules, resources, quest
+      conditions, save migration, narrative flags) / integration (player actions, enemy state, mission
+      transitions, rewards, UI sync, save-load) / Playwright smoke (startup, input, menus,
+      representative gameplay, death-retry, save-reload, full completion) / viewport verification at
+      667×375 and other mobile sizes / §13 performance capture / memory growth over long sessions /
+      interruption tests (backgrounding, focus loss, rotation, reload, audio resume) / clean-save full
+      playthrough / branch and ending verification / regression tests for every fixed critical and
+      high.
+    scope: engineering
+    source: docs/directive.md:291
+    epistemic_status: user_requirement
+    status: partially_satisfied
+    criteria_refs:
+      - B2
+      - C1
+      - C3
+      - C5
+      - D3
+      - D4
+      - D7
+    notes: >-
+      The unit and integration layers do not exist at all (R-06, high, 未着手). Three of nine quests
+      (`filters` / `nessaRun` / `cellarRow`) and two of six interiors (`cellar` / `pell`) are outside
+      automated verification, and `nessaRun` is never even started on any of the 5 routes — R-18 high,
+      未解決, IMP-08 (docs/bible.md:513,533).
+  - id: REQ-TEST-02
+    statement: >-
+      R-08, the 'tests do not execute the verb' defect: every test must be asked whether it actually
+      executes the verb it claims to verify, and this question must be built into the Gate B
+      acceptance criteria.
+    scope: engineering/honesty
+    source: docs/bible.md:503
+    epistemic_status: accepted_decision
+    status: active
+    criteria_refs:
+      - B5
+      - C1
+      - D3
+    notes: >-
+      Severity high. docs/bible.md:503 records the originating incident: melee combat did not function
+      at all until late, and the 5-route playthrough passed the entire time because the driver called
+      `damage()` directly and never once pressed the attack button — 「`tools/driver.js:170-182`
+      は今もそうしている」. Recorded remediation status: 個別プローブで一部を塞いだのみ。同型の穴が他にある可能性が高い.
+criteria:
+  - id: A1
+    gate: A
+    statement: Multiple directions were examined.
+    source: docs/DONE.md:17 (criterion); docs/STATE.md:36 (status)
+    automatable: no
+    verification_method: >-
+      Not automatable (human / critic-agent judgment). Standard: docs/reviews/gate-a-concepts.md must
+      contain at least 3 substantially different directions, compared on a scorecard.
+    tool_status: not_applicable
+    status: verified
+    evidence_refs:
+      - docs/reviews/gate-a-concepts.md
+    citations:
+      - docs/STATE.md:36
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      docs/STATE.md:36 records 3 mutually-invisible independent agents plus the incumbent
+      implementation compared on 7 axes. docs/STATE.md:44 qualifies the whole gate: 「Gate A
+      は無傷では通っていない。」 Two independent critiques produced 6 criticals and 10 highs, almost all of the
+      form 'the bible is written better than the implementation'.
+    notes: "Blocking effect: Blocks all broad content production (docs/DONE.md:25)"
+  - id: A2
+    gate: A
+    statement: The selected concept has clear, distinct originality.
+    source: docs/DONE.md:18 (criterion); docs/STATE.md:37 (status)
+    automatable: no
+    verification_method: >-
+      Not automatable. Standard: the critique record describes the concrete locus of originality and
+      contains no critical findings.
+    tool_status: not_applicable
+    status: verified
+    evidence_refs:
+      - docs/reviews/gate-a-concepts.md
+      - docs/reviews/gate-a-narrative.md
+      - docs/reviews/gate-a-scope.md
+    citations:
+      - docs/reviews/gate-a-narrative.md N-05
+      - docs/reviews/gate-a-scope.md S-03
+      - docs/bible.md:99-108
+      - docs/STATE.md:37,197
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      Marked ✓（縮小後）— passed only AFTER reduction. Originality claims were cut from 4 points to 2:
+      「進行が数値ではなく能力である」 was ruled a category error (it is COMPLIANCE with §8, not originality), and
+      「信頼が UI に出ない」 was REFUTED (see acceptance-table row 6). docs/bible.md:101 also records that the
+      premise itself is not original — 3 of 4 concepts independently reached the same skeleton, making
+      it 「明白な答え」. The main pillar was separately reduced from 'gas governs 4 things' to 3
+      (docs/STATE.md:198).
+    notes: "Blocking effect: Blocks Gate A"
+  - id: A3
+    gate: A
+    statement: Gameplay, narrative and world mutually support each other.
+    source: docs/DONE.md:19 (criterion); docs/STATE.md:38 (status)
+    automatable: no
+    verification_method: >-
+      Not automatable. Standard: same as A2 (同上) — the critique record describes the concrete locus
+      and contains no critical findings.
+    tool_status: not_applicable
+    status: verified
+    evidence_refs:
+      - docs/reviews/gate-a-narrative.md
+    citations:
+      - docs/STATE.md:38
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      Basis is a single narrative-critique judgment: 「主題との結合は後付けの理屈ではない」. Note that docs/bible.md:226
+      records that two of the three core-loop options (avoid, lure into low ground) never once occur
+      in the main story because all main-story enemies are spawned with aggro = true — IMP-04.
+    notes: "Blocking effect: Blocks Gate A"
+  - id: A4
+    gate: A
+    statement: The bible is internally consistent.
+    source: docs/DONE.md:20 (criterion); docs/STATE.md:39 (status)
+    automatable: partial
+    verification_method: >-
+      Partially automatable. Standard: docs/bible.md exists and no independent critic raises a
+      contradiction as critical.
+    tool_status: not_applicable
+    status: verified
+    evidence_refs:
+      - docs/bible.md
+      - docs/reviews/gate-a-narrative.md
+      - docs/reviews/gate-a-scope.md
+    citations:
+      - docs/STATE.md:39
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      Marked ✓（大幅修正後）— passed only after MAJOR revision. Critique raised 6 criticals; all were
+      resolved by editing the BIBLE's text to conform to the implementation, not by fixing the
+      implementation. The underlying implementation defects remain open and are carried in
+      docs/bible.md §17b (IMP-01..IMP-18): 「欠陥そのものは未解決である」 (docs/bible.md:522).
+    notes: "Blocking effect: Blocks Gate A"
+  - id: A5
+    gate: A
+    statement: The scope is credible for the platform.
+    source: docs/DONE.md:21 (criterion); docs/STATE.md:40 (status)
+    automatable: no
+    verification_method: >-
+      Not automatable. Standard: the critique record contains an assessment of mobile feasibility and
+      contains no critical findings.
+    tool_status: not_applicable
+    status: partially_verified
+    evidence_refs:
+      - docs/reviews/gate-a-scope.md
+      - docs/reviews/audit-incumbent.md
+    citations:
+      - docs/STATE.md:40,194
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      Recorded in docs/STATE.md:40 as ✓（留保付き）— passed WITH RESERVATIONS, listed verbatim: content is
+      already produced, BUT 「想定プレイ時間は未計測で過大の疑いあり、敵2種は未配置」 (estimated playtime is unmeasured and
+      suspected inflated; 2 enemy types are unplaced). Separately, docs/STATE.md:194 records that the
+      mobile-feasibility scorecard axis was lowered 5→4 (total 31→30) because the independent audit
+      showed 3 explicitly required §13 items unimplemented with file:line.
+    notes: "Blocking effect: Blocks Gate A"
+  - id: A6
+    gate: A
+    statement: The scope-fixed numbers are recorded.
+    source: docs/DONE.md:22 (criterion); docs/DONE.md:106 (tool status); docs/STATE.md:41,180 (status)
+    automatable: yes
+    verification_method: >-
+      `node tools/check_scope.mjs` — docs/bible.md must contain all six items (area count / quest
+      count / ending count / enemy archetype count / estimated playtime / dialogue node count) present
+      as numeric values.
+    tool_status: implemented
+    status: verified
+    evidence_refs:
+      - docs/bible.md
+      - tools/check_scope.mjs
+    citations:
+      - node tools/check_scope.mjs → exit 0
+      - node tools/check_scope.mjs --against-content → exit 0
+      - docs/bible.md:448-455
+      - docs/STATE.md:41,79,180
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      A6 requires only that the six numbers are RECORDED, not that they are measured or achievable.
+      Two of the six carry weak provenance which the bible refuses to hide (docs/bible.md:457-460):
+      estimated playtime 3-5h is 「未計測の見積もり」 with an unresolved inflation objection (S-05), and the
+      enemy archetype row reads 「定義 5 / 本編配置 3」 with the note that this row 「現状 Gate C を通らない」.
+      docs/STATE.md:79 records `--against-content` as OK（留保付き）: recorded numbers match actual content,
+      but playtime is unmeasured and breaker/dog are unplaced. Provenance was originally over-claimed
+      in bulk and corrected (S-15, docs/bible.md:446). UPDATED 2026-08-01: re-executed during the
+      migration; `node tools/check_scope.mjs --against-content` passed with its declared gaps
+      (playtime unmeasured, breaker and dog unplaced).
+    notes: "Blocking effect: Blocks Gate A"
+  - id: A7
+    gate: A
+    statement: The narrative and design critics have no unresolved critical findings.
+    source: docs/DONE.md:23 (criterion); docs/DONE.md:107 (tool status); docs/STATE.md:42 (status)
+    automatable: yes
+    verification_method: >-
+      `node tools/check_reviews.mjs --gate A` — zero unresolved critical findings in the relevant
+      records under docs/reviews/.
+    tool_status: implemented
+    status: verified
+    evidence_refs:
+      - docs/reviews/gate-a-narrative.md
+      - docs/reviews/gate-a-scope.md
+      - tools/check_reviews.mjs
+    citations:
+      - node tools/check_reviews.mjs --gate A → exit 0
+      - docs/STATE.md:42,55
+    work_node_refs:
+      - GATE-A
+    severity_if_failed: blocker
+    limitations: >-
+      6 criticals were raised and all 6 resolved — but see A4: they were resolved by rewriting the
+      bible to match the implementation. 10 highs from the same critiques are not covered by A7 (A7 is
+      critical-only) and remain in docs/bible.md §17 / §17b. docs/STATE.md:55 records that
+      check_scope.mjs and check_reviews.mjs were confirmed to exit non-zero correctly on empty input —
+      「失敗しない検査は何も証明しない」. UPDATED 2026-08-01: `node tools/check_reviews.mjs --gate A` re-executed
+      during the migration and passed with 0 unresolved blocking findings. CORRECTED 2026-08-01: an
+      earlier draft of this limitation said 10 highs remain unresolved. Re-executed during the
+      migration, `node tools/check_reviews.mjs --gate A` reports high 10 件 (未解決 3), medium 14 (未解決 5),
+      low 5 (未解決 2), exit 0. The three unresolved highs are docs/reviews/gate-a-narrative.md N-03,
+      N-04 and N-06 (docs/bible.md IMP-12, IMP-13, IMP-14). They do not block Gate A, whose blocking
+      severities are blocker and critical only — but they are open, and IMP-14
+      (docs/narrative-state.md and the setup/payoff ledger do not exist) is a Gate C obligation.
+    notes: "Blocking effect: Blocks Gate A"
+  - id: B1
+    gate: B
+    statement: It is enjoyable and comprehensible without the developer's explanation.
+    source: >-
+      docs/DONE.md:35 (criterion); docs/STATE.md:28 (phase), AI_DEVELOPMENT/PROJECT_STATE.json:171
+      (trace)
+    automatable: no
+    verification_method: >-
+      Not automatable. Standard: an independent critic's actual-play evaluation record under
+      docs/reviews/. A critique that says only 「良い」 is invalid per §15.
+    tool_status: not_applicable
+    status: not_verified
+    evidence_refs:
+      - docs/reviews/gate-b-imp06-slice-closure-current.md
+    citations:
+      - >-
+          AI_DEVELOPMENT/PROJECT_STATE.json:171 (B1 ← GB-IMP06 partial_verified, GB-IMP06-SLICE verified,
+          GB-IMP02 ready)
+    work_node_refs:
+      - GATE-B
+      - GB-IMP06
+      - GB-IMP06-AC
+      - GB-IMP06-SLICE
+      - GB-IMP02
+    severity_if_failed: blocker
+    limitations: >-
+      Gate B is the CURRENT phase and is not passed. No independent play-based evaluation of B1 as
+      such is recorded. The nearest evidence, the IMP-06 representative-slice closure review, is
+      explicitly scoped: docs/STATE.md:81 states it judged 「この代表スライスの限定範囲では未解決 high 0 / PASS」 — a
+      limited-scope PASS for one representative slice only, NOT a Gate B pass. docs/STATE.md:77
+      further states the slice evidence is 「C1/D3・全編実走・実機・プレイ時間の証拠ではない」. Japanese tone quality is
+      unverifiable by tooling (blocker B2). NOTE 2026-08-01: the legacy records contradicted each
+      other on B1. legacy/PROJECT_STATE.json gave GB-IMP06 and GB-IMP06-SLICE acceptance_refs
+      ["B1","B5"], while AI_DEVELOPMENT/EVIDENCE/INDEX.md says the slice evidence is 「not
+      B1/B2/C1/D3」. The evidence index is the narrower and better-sourced claim, so the slice evidence
+      record cites B5 only; the work-node coverage link to B1 is retained because the task does aim at
+      B1, and aiming is not evidence.
+    notes: "Blocking effect: Blocks Gate B"
+  - id: B2
+    gate: B
+    statement: Touch operation works at the reference screen size.
+    source: >-
+      docs/DONE.md:36 (criterion); docs/DONE.md:101-113 (implementation-status table lists NO script
+      for B2); docs/STATE.md:99-100,183
+    automatable: yes
+    verification_method: Playwright touch-operation smoke test at 667×375.
+    tool_status: not_implemented
+    status: not_verified
+    citations:
+      - "AI_DEVELOPMENT/PROJECT_STATE.json:104-113 (GB-TOUCH-SMOKE, status \"ready\", evidence: [])"
+      - docs/STATE.md:99-100
+      - docs/STATE.md:183 (acceptance table row 12)
+    work_node_refs:
+      - GATE-B
+      - GB-TOUCH-SMOKE
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT PRESENT: docs/DONE.md's implementation-status table names no script for B2, and the
+      planned task GB-TOUCH-SMOKE is status "ready" with an empty evidence array. docs/STATE.md:100
+      states explicitly that the existing Gate B representative slice goes through the production
+      input chain but 「見えるhit target自体の証拠ではない」. docs/STATE.md:183 acceptance-table row 12 records the
+      related claim as 部分的 (partial) only: audit confirmed most screens, but the map has no pan/zoom
+      and no tutorial screen exists (監査 M8). IMP-09 records an outright 44px violation: action buttons
+      are 35.2px at uiScale 0.8 (docs/bible.md:534).
+    notes: >-
+      Blocking effect: Blocks Gate B; touch operability is on the 絶対に削らないもの list
+      (docs/directive.md:81)
+  - id: B3
+    gate: B
+    statement: The visuals are consistent.
+    source: docs/DONE.md:37 (criterion)
+    automatable: partial
+    verification_method: >-
+      Partially automatable. Fixed-vantage sweep images plus value-distribution measurement as
+      evidence, evaluated by an independent critic.
+    tool_status: not_applicable
+    status: not_verified
+    citations:
+      - docs/bible.md:505 (R-10)
+      - docs/bible.md:360-372
+    work_node_refs:
+      - GATE-B
+    severity_if_failed: blocker
+    limitations: >-
+      No B3 evaluation record is cited anywhere in docs/STATE.md. docs/DONE.md's implementation-status
+      table covers only items marked 自動検証=可 and therefore says nothing about B3's tooling, so the tool
+      status cannot be determined from the authoritative table. R-10 (medium) records that the
+      measuring instrument itself was found broken: the vantage sweep photographed through the title
+      screen and read the UI scrim as a crushed shadow, and 2 vantages were facing a wall a few metres
+      away — 一部修正済み only. 「計測結果が想定外の時、まず計測器を疑う。」 docs/bible.md:372 also records that the per-character
+      triangle count is deliberately absent because 「計測して書く。それまで書かない。」
+    notes: "Blocking effect: Blocks Gate B"
+  - id: B4
+    gate: B
+    statement: The representative scene meets the minimum framerate target.
+    source: docs/DONE.md:38 (criterion); docs/DONE.md:105 (tool status); docs/STATE.md:110,184,185
+    automatable: conditional
+    verification_method: >-
+      Conditionally automatable. Throttled headless measurement per §13 verification honesty.
+      「エミュレーションと明記すること。実機主張は禁止」 — must be labelled as emulation; real-device claims are forbidden.
+    tool_status: partially_implemented
+    status: not_verified
+    evidence_refs:
+      - tools/perf.mjs
+    citations:
+      - docs/STATE.md:184 (row 13, 未達)
+      - docs/STATE.md:185 (row 14, 原理的に未検証)
+      - docs/bible.md:512 (R-17)
+    work_node_refs:
+      - GATE-B
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL PARTIAL: docs/DONE.md:105 records tools/perf.mjs as 実装済み BUT 「スロットリング付きシナリオ計測と `render()`
+      を含むフレーム時間計測は未実装」 — the two things B4 actually needs. R-17 (high, 未解決): the §13 budget 'JS frame
+      time ≤8ms' has never been measured, because perf.mjs runs only fixedUpdate and excludes
+      render(), scene-graph traversal, culling, animation evaluation and post effects (IMP-07).
+      docs/STATE.md:184 row 13 records the draw-call budget as 未達 (exceeded at medium tier;
+      shadow-caster count unmet). docs/STATE.md:185 row 14 records 30 FPS on real hardware as 原理的に未検証
+      and 主張してはならない. The six §13 scenarios are not covered (docs/bible.md:39).
+    notes: "Blocking effect: Blocks Gate B; frame stability is on the 絶対に削らないもの list"
+  - id: B5
+    gate: B
+    statement: The critique loop has resolved all critical and high findings.
+    source: >-
+      docs/DONE.md:39 (criterion); docs/DONE.md:107 (tool status); docs/STATE.md:81;
+      docs/bible.md:494-517
+    automatable: yes
+    verification_method: "`node tools/check_reviews.mjs --gate B`"
+    tool_status: implemented
+    status: not_verified
+    evidence_refs:
+      - docs/reviews/gate-b-imp06-slice-closure-current.md
+      - AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json
+    citations:
+      - docs/STATE.md:81
+      - docs/bible.md:497-516 (open high-severity risks)
+    work_node_refs:
+      - GATE-B
+      - GB-IMP06
+      - GB-IMP06-AC
+      - GB-IMP06-SLICE
+      - GB-IMP06-EVIDENCE
+      - GB-IMP06-REVIEW
+      - GB-H1
+      - GB-H2
+      - GB-IMP02
+    severity_if_failed: blocker
+    limitations: >-
+      No run of `node tools/check_reviews.mjs --gate B` is recorded in docs/STATE.md. What IS recorded
+      (docs/STATE.md:77,81) is `npm run test:gate-b` → 「OK（範囲限定）」 and a final closure review judging
+      「この代表スライスの限定範囲では未解決 high 0 / PASS」 — limited to one representative slice, not Gate B. Numerous
+      HIGH findings remain open project-wide in docs/bible.md §17: R-02 (no save migration), R-03
+      (uncaught errors/rejected promises), R-04 (3 §13 items unimplemented), R-05 (draw-call/shadow
+      budget), R-06 (no Vitest layer), R-07 (escort route traversability unproven), R-08 (tests do not
+      execute the verb — 「今もそうしている」), R-16, R-17, R-18, R-19, R-20, R-21. docs/STATE.md:81 also
+      records that earlier reviews repeatedly WITHDREW passes as new highs were demonstrated, and that
+      the failing reviews are deliberately retained as an evidence history. UPDATED 2026-08-01: `node
+      tools/check_reviews.mjs --gate B` HAS now been executed, during the protocol migration, and it
+      FAILED — 2 unresolved high: audit-incumbent.md H1 (no save migration) and H2 (no post-startup
+      error recovery). Recorded as ledger event MIG-20260801-02-GATE-B-REVIEWS. That failure is why
+      GB-H1 is the active task and GB-H2 is next.
+    notes: "Blocking effect: Blocks Gate B"
+  - id: B6
+    gate: B
+    statement: The architecture can be extended without duplicating fragile code.
+    source: docs/DONE.md:40 (criterion)
+    automatable: no
+    verification_method: "Not automatable. Standard: an independent critic's code evaluation record."
+    tool_status: not_applicable
+    status: not_verified
+    citations:
+      - docs/reviews/audit-incumbent.md (critical 0 / high 2, docs/STATE.md:57)
+    work_node_refs:
+      - GATE-B
+    severity_if_failed: blocker
+    limitations: >-
+      No B6-specific evaluation record is cited in docs/STATE.md. The incumbent technical audit
+      (docs/STATE.md:57) returned critical 0 / high 2, but it was scoped as an audit of the existing
+      implementation under §0, not as a Gate B6 architecture-extensibility judgment.
+    notes: "Blocking effect: Blocks Gate B"
+  - id: C1
+    gate: C
+    statement: Playable from opening to ending.
+    source: >-
+      docs/DONE.md:52 (criterion); docs/DONE.md:104 (tool status); docs/STATE.md:77,173;
+      docs/bible.md:474-482
+    automatable: yes
+    verification_method: >-
+      A full playthrough driving a real build in a browser. 「フラグ直書き禁止。実トリガ経由のみ」 — writing flags
+      directly is forbidden; only via real triggers.
+    tool_status: implemented
+    status: not_verified
+    evidence_refs:
+      - tools/playthrough.mjs
+    citations:
+      - npm run test:play → PLAYTHROUGH OK (docs/STATE.md:69)
+      - "AI_DEVELOPMENT/PROJECT_STATE.json:148-157 (GC-IMP06-FULLRUN, status \"ready\", evidence: [])"
+      - docs/STATE.md:173 (acceptance table row 2)
+    work_node_refs:
+      - GATE-C
+      - GC-IMP06-FULLRUN
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL PARTIAL, and this is the project's central verification gap. docs/DONE.md:104 records
+      tools/playthrough.mjs as 実装済み BUT 「移動をテレポートし、プレイヤーをガス免疫にし、戦闘を直接ダメージで解決するため、検証しているのは物語グラフの到達性のみ」
+      (IMP-06). docs/STATE.md:173 acceptance-table row 2 is therefore 検証済（範囲限定）:
+      「歩行可能性・生存可能性・戦闘成立性は検証されていない」. docs/bible.md:480: 「本作の中心的柱『空気が地形である』が、自動検証の対象に一度もなっていない。」 The
+      Gate B slice evidence explicitly disclaims C1 (docs/STATE.md:77). GC-IMP06-FULLRUN, the task
+      that would supply C1, is status "ready" with no evidence. Note also IMP-01: the ending is fixed
+      by one tap on the final choose node, violating §6. CORRECTED 2026-08-01: tool_status was
+      "partially_implemented"; docs/DONE.md marks tools/playthrough.mjs 実装済み with a SCOPE caveat, not
+      an implementation caveat. The scope limit (IMP-06: the harness teleports, grants gas immunity
+      and applies damage directly, so it proves narrative-graph reachability only) stays here in
+      limitations, where it belongs.
+    notes: "Blocking effect: Blocks Gate C; the completable opening-to-ending path is on the 絶対に削らないもの list"
+  - id: C2
+    gate: C
+    statement: >-
+      All areas, encounters, quests, story beats, UI flows, audio cues and progression stages exist
+      exactly as stated in the bible's scope-fixed numbers.
+    source: >-
+      docs/DONE.md:53 (criterion); docs/DONE.md:106 (tool status); docs/bible.md:459 (refutation);
+      docs/STATE.md:79,200-201
+    automatable: yes
+    verification_method: >-
+      `node tools/check_scope.mjs --against-content` — cross-checks the bible's numbers against
+      measured actual content and reports shortfalls with a non-zero exit.
+    tool_status: implemented
+    status: refuted
+    citations:
+      - docs/bible.md:459
+      - docs/bible.md:454
+      - docs/STATE.md:79,200,201
+      - docs/reviews/gate-a-scope.md S-01
+    work_node_refs:
+      - GATE-C
+    severity_if_failed: blocker
+    limitations: >-
+      REFUTED here means AFFIRMATIVELY KNOWN TO FAIL RIGHT NOW, not merely unverified.
+      docs/bible.md:459 states in so many words: 「Gate C2 は『スコープ確定数値どおりに全遭遇が存在する』ことを要求するため、現状この行は Gate
+      C を通らない。」 BREAKER and DOG never appear in the main story (0 placed of 5 defined archetypes). The
+      decision — place the two archetypes, or lower the number to 3 — must be taken by Gate B
+      (IMP-03). Note the apparent contradiction is not one: `--against-content` currently exits 0
+      (docs/STATE.md:79, OK（留保付き）) precisely because the bible now records 「定義 5 / 本編配置 3」 and states
+      playtime is unmeasured and breaker/dog unplaced; the tool agrees with the recorded numbers, and
+      it is the recorded numbers that fail C2's requirement. docs/STATE.md:200 also retracts the
+      earlier assertion that no content addition remains: the BREAKER/DOG encounter design IS new
+      content production. Main-story encounters total 2 encounters / 6 enemies (docs/bible.md:226).
+    notes: "Blocking effect: Blocks Gate C"
+  - id: C3
+    gate: C
+    statement: All branches and all endings are reachable.
+    source: docs/DONE.md:54 (criterion); docs/DONE.md:103-104 (tool status); docs/STATE.md:173
+    automatable: yes
+    verification_method: Branch sweep plus a full playthrough per ending.
+    tool_status: implemented
+    status: not_verified
+    citations:
+      - tools/validate.mjs (実装済み, docs/DONE.md:103)
+      - tools/playthrough.mjs (実装済み but scope-limited, docs/DONE.md:104)
+      - npm run test:play → 5 routes reached 5 distinct endings (docs/STATE.md:69)
+      - docs/STATE.md:173 (acceptance table row 2)
+    work_node_refs:
+      - GATE-C
+    severity_if_failed: blocker
+    limitations: >-
+      Same limitation as C1. The 5-route green result means 「物語状態グラフの到達性のみ」 (docs/bible.md:480) —
+      narrative-graph reachability only, since the harness teleports, grants gas immunity and resolves
+      combat by direct damage. Additionally R-18 (high, 未解決): 3 of 9 quests (`filters` / `nessaRun` /
+      `cellarRow`) and 2 of 6 interiors (`cellar` / `pell`) are outside automated verification, and
+      `nessaRun` is never even STARTED on any of the 5 routes (docs/bible.md:513, IMP-08). IMP-10
+      records a duplicate spawn id `bek_out` that is silently lost last-write-wins and that validate
+      does not detect (docs/bible.md:535). CORRECTED 2026-08-01: tool_status was
+      "partially_implemented"; see C1. The tools are implemented; their scope is limited.
+    notes: "Blocking effect: Blocks Gate C"
+  - id: C4
+    gate: C
+    statement: >-
+      No placeholders, temporary dialogue, non-functioning buttons, TODO screens or deliberate
+      omissions remain.
+    source: "docs/DONE.md:55 (criterion); docs/DONE.md:110 (tool status: **未実装**)"
+    automatable: yes
+    verification_method: >-
+      `node tools/check_placeholders.mjs` — sweeps for TODO / FIXME / Lorem / 仮 / placeholder / 未実装,
+      and detects buttons with no connected handler.
+    tool_status: not_implemented
+    status: not_verified
+    citations:
+      - docs/DONE.md:110
+    work_node_refs:
+      - GATE-C
+      - TOOL-CHECK-PLACEHOLDERS
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT IMPLEMENTED. Per docs/DONE.md:95, while this list is non-empty the corresponding
+      automated verification is 「未実装」であり、通過の根拠にできない — it cannot be used as grounds for passing. Known
+      content that this check would target includes the non-existent tutorial screen
+      (docs/bible.md:417) and the display-only map (docs/bible.md:418).
+    notes: "Blocking effect: Blocks Gate C"
+  - id: C5
+    gate: C
+    statement: The save, death, retry, reload and resume flows work throughout the whole game.
+    source: >-
+      docs/DONE.md:56 (criterion); docs/DONE.md:101-113 (implementation-status table lists NO script
+      for C5); docs/bible.md:497 (R-02); docs/STATE.md:93-94
+    automatable: yes
+    verification_method: Integration tests plus a Playwright smoke test.
+    tool_status: not_implemented
+    status: not_verified
+    citations:
+      - "AI_DEVELOPMENT/PROJECT_STATE.json:114-124 (GB-H1, status \"active\", evidence: [])"
+      - AI_DEVELOPMENT/PROJECT_STATE.json:175 (C5 ← GB-H1)
+      - docs/bible.md:497,438
+      - docs/STATE.md:93-94
+    work_node_refs:
+      - GATE-C
+      - GB-H1
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT PRESENT: docs/DONE.md's status table names no script for C5, and there is no
+      unit/integration test layer at all (R-06, high, 未着手). SUBSTANTIVE DEFECT: save migration does
+      not exist — R-02, severity high, 監査 H1 未解決 — 「バージョンを1度でも上げた瞬間に全プレイヤーの進行が警告なく消える」
+      (`src/game/state.js:292,357`). docs/bible.md:438 records SAVE_VERSION = 1, key
+      `cinderline.save.v1`, and that the migration path's effectiveness 「Gate B で検証する」 since only one
+      version has ever existed so the branch has never executed. GB-H1 is the currently active task
+      with no evidence yet.
+    notes: "Blocking effect: Blocks Gate C; save/load integrity is on the 絶対に削らないもの list"
+  - id: D1
+    gate: D
+    statement: Zero blocker and critical findings.
+    source: docs/DONE.md:66 (criterion); docs/DONE.md:107 (tool status)
+    automatable: yes
+    verification_method: "`node tools/check_reviews.mjs --gate D`"
+    tool_status: implemented
+    status: not_verified
+    citations:
+      - "docs/STATE.md:28 (phase: Gate B, Gate D pending)"
+      - AI_DEVELOPMENT/PROJECT_STATE.json:34 (GATE-D status pending)
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      Never run for Gate D; the project is in Gate B. No `--gate D` invocation is recorded anywhere in
+      docs/STATE.md.
+    notes: "Blocking effect: Blocks release"
+  - id: D2
+    gate: D
+    statement: Zero high findings that affect normal play.
+    source: docs/DONE.md:67 (criterion); docs/DONE.md:107 (tool status)
+    automatable: yes
+    verification_method: "同上 — same command as D1: `node tools/check_reviews.mjs --gate D`"
+    tool_status: implemented
+    status: not_verified
+    citations:
+      - >-
+          docs/bible.md:497-516 (R-02, R-03, R-04, R-05, R-06, R-07, R-08, R-16, R-17, R-18, R-19, R-20,
+          R-21 all high, all recorded 未解決/未着手/未対策)
+      - docs/bible.md:524-543 (IMP-01..IMP-18)
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      Never run for Gate D. Substantively far from met: docs/bible.md §17 carries at least 13 risks at
+      severity high recorded as unresolved, and §17b carries 18 implementation defects
+      (IMP-01..IMP-18) of which docs/bible.md:522 says 「欠陥そのものは未解決である」. Several affect normal play
+      directly — R-20 (all main-story enemies spawn aggro=true so visibility and luring never
+      function; 2 encounters / 6 enemies total) and R-21 (player-moved gas never changes enemy
+      routing).
+    notes: "Blocking effect: Blocks release"
+  - id: D3
+    gate: D
+    statement: A full run to completion from a clean save has been performed.
+    source: docs/DONE.md:68 (criterion); docs/DONE.md:104 (tool status); docs/STATE.md:77
+    automatable: yes
+    verification_method: A full playthrough starting from a cleared-localStorage state.
+    tool_status: implemented
+    status: not_verified
+    citations:
+      - "AI_DEVELOPMENT/PROJECT_STATE.json:148-157 (GC-IMP06-FULLRUN, status \"ready\", evidence: [])"
+      - AI_DEVELOPMENT/PROJECT_STATE.json:176 (D3 ← GC-IMP06-FULLRUN)
+      - docs/STATE.md:77
+    work_node_refs:
+      - GATE-D
+      - GC-IMP06-FULLRUN
+    severity_if_failed: blocker
+    limitations: >-
+      Same harness limitation as C1: playthrough.mjs verifies narrative-graph reachability only.
+      docs/STATE.md:77 explicitly disclaims the Gate B slice as D3 evidence:
+      「C1/D3・全編実走・実機・プレイ時間の証拠ではない。」 AI_DEVELOPMENT/PROJECT_STATE.json:156 states that only a
+      clean-save full run may support C1, D3, or replacement of the unmeasured playtime estimate.
+      CORRECTED 2026-08-01: tool_status was "partially_implemented"; see C1.
+    notes: "Blocking effect: Blocks release"
+  - id: D4
+    gate: D
+    statement: All supported routes have been verified against the branch matrix.
+    source: docs/DONE.md:69 (criterion); docs/DONE.md:103-104 (tool status)
+    automatable: yes
+    verification_method: Branch sweep plus a full playthrough per route.
+    tool_status: implemented
+    status: not_verified
+    citations:
+      - tools/validate.mjs (実装済み — 物語グラフ・世界データの静的検証、C3/D4/D5 の一部)
+      - tools/playthrough.mjs (実装済み but scope-limited)
+      - docs/bible.md:513 (R-18)
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      docs/DONE.md:103 scopes validate.mjs to 「C3/D4/D5 の一部」 — part of, not all of. Combined with the
+      playthrough harness limitation (C1) and R-18 (3 quests and 2 interiors outside automated
+      verification, `nessaRun` never started on any route), the branch matrix is not covered. IMP-11
+      additionally records that the 3-way vent choice collapses to effectively 2 at the chapter 4
+      crisis (docs/bible.md:536). CORRECTED 2026-08-01: tool_status was "partially_implemented";
+      docs/DONE.md scopes tools/validate.mjs to 「C3/D4/D5 の一部」 — a scope caveat on an implemented
+      tool.
+    notes: "Blocking effect: Blocks release"
+  - id: D5
+    gate: D
+    statement: There is no progression blockage and no softlock.
+    source: docs/DONE.md:70 (criterion); docs/DONE.md:103 (tool status)
+    automatable: yes
+    verification_method: >-
+      Static sweep of the narrative state graph (detecting unreachable nodes, dangling references and
+      exclusivity contradictions).
+    tool_status: implemented
+    status: not_verified
+    evidence_refs:
+      - tools/validate.mjs
+    citations:
+      - npm run validate → VALIDATION OK (docs/STATE.md:67,172)
+      - docs/STATE.md:172 (acceptance table row 1, 検証済)
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      The static sweep itself passes and acceptance-table row 1 is 検証済 for 'no dangling references,
+      unreachable branches or dead consequences'. But docs/DONE.md:103 scopes validate.mjs to
+      「C3/D4/D5 の一部」 — a PART of D5. The static graph sweep cannot establish traversal-level
+      softlocks; R-07 (high, 未解決) records that escort-route traversability is not guaranteed by any
+      automated test (chapter 4 moves 4 people, chapter 2 moves 1 person, above the smoke). IMP-10
+      records a duplicate spawn id that validate does NOT detect. D5 has not been evaluated as a
+      whole; the project is in Gate B.
+    notes: "Blocking effect: Blocks release"
+  - id: D6
+    gate: D
+    statement: The production build has no uncaught errors and no missing assets.
+    source: "docs/DONE.md:71 (criterion); docs/DONE.md:111 (tool status: **未実装**)"
+    automatable: yes
+    verification_method: >-
+      `node tools/check_console.mjs` — starts the production build and collects console errors,
+      rejected promises and 404s.
+    tool_status: not_implemented
+    status: not_verified
+    citations:
+      - docs/DONE.md:111
+      - docs/bible.md:498 (R-03)
+      - "AI_DEVELOPMENT/PROJECT_STATE.json:126-135 (GB-H2, status \"ready\", evidence: [])"
+      - AI_DEVELOPMENT/PROJECT_STATE.json:177 (D6 ← GB-H2)
+    work_node_refs:
+      - GATE-D
+      - GB-H2
+      - TOOL-CHECK-CONSOLE
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT IMPLEMENTED; per docs/DONE.md:95 it cannot be grounds for passing. SUBSTANTIVE DEFECT:
+      R-03, severity high, 監査 H2 未解決 — nobody captures post-startup uncaught errors or rejected
+      promises, so 「プレイヤーは無言のフリーズを見る」. Remediation GB-H2 (connect window.onerror and
+      unhandledrejection to the existing recovery panel at `public/index.html:92` and
+      `src/main.js:31`) is status "ready" with no evidence. Note the Gate B slice did record browser
+      error 0 in its limited scope (docs/STATE.md:77) — that is not D6 evidence.
+    notes: "Blocking effect: Blocks release"
+  - id: D7
+    gate: D
+    statement: The touch layout passes at the reference size and at other mobile sizes.
+    source: >-
+      docs/DONE.md:72 (criterion); docs/DONE.md:101-113 (implementation-status table lists NO script
+      for D7); docs/STATE.md:183
+    automatable: yes
+    verification_method: Layout verification across multiple viewports.
+    tool_status: not_implemented
+    status: not_verified
+    citations:
+      - docs/STATE.md:183 (acceptance table row 12, 部分的)
+      - docs/bible.md:534 (IMP-09)
+      - docs/bible.md:417-418
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT PRESENT in docs/DONE.md's status table, and B2's single-viewport smoke test does not
+      exist either. docs/STATE.md:183 row 12 records only 部分的 for the reference size alone (map has no
+      pan/zoom; no tutorial screen; 監査 M8). IMP-09 is an outright violation of the 44px requirement —
+      action buttons are 35.2px at uiScale 0.8 (S-09 / 監査 L2).
+    notes: "Blocking effect: Blocks release"
+  - id: D8
+    gate: D
+    statement: >-
+      Either the performance targets are met, or — where real-device verification is impossible — that
+      constraint is clearly distinguished from the measurement results.
+    source: >-
+      docs/DONE.md:73 (criterion); docs/DONE.md:112 (tool status: **未実装**);
+      docs/STATE.md:110,181,184,185
+    automatable: partial
+    verification_method: >-
+      「可」（誠実性の側）— automatable on the HONESTY side only. `node tools/check_honesty.mjs` — sweeps
+      performance statements across the repository and detects numbers stated without their
+      measurement environment, and expressions that imply a real device.
+    tool_status: not_implemented
+    status: not_verified
+    citations:
+      - docs/DONE.md:112
+      - docs/STATE.md:181 (acceptance table row 10, 検証済 by code review)
+      - docs/STATE.md:184 (row 13, 未達)
+      - docs/STATE.md:185 (row 14, 原理的に未検証)
+      - docs/STATE.md:110 (blocker B1)
+    work_node_refs:
+      - GATE-D
+      - TOOL-CHECK-HONESTY
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT IMPLEMENTED; per docs/DONE.md:95 it cannot be grounds for passing. The
+      performance-target half is NOT met: docs/STATE.md:184 row 13 records the §13 rendering budget as
+      未達 (draw calls exceed at medium tier; shadow-caster count unmet), and R-17 records that JS frame
+      time has never been measured at all. The real-device half is PERMANENTLY BLOCKED:
+      docs/STATE.md:185 row 14 is 原理的に未検証 — no device exists — and 「主張してはならない」. Partial honesty
+      evidence exists by code review only: docs/STATE.md:181 row 10 records 検証済 that no real-device
+      claim has crept into the performance text (`tools/perf.mjs:2-20,184-187` names SwiftShader
+      explicitly and refuses to emit fps). R-19 (high, 未解決) records that ZERO performance evidence
+      artifacts are committed to the repository because shots/ is .gitignored, so no third party can
+      reproduce any performance claim from inside the repo.
+    notes: "Blocking effect: Blocks release; also the highest-severity honesty risk (R-01, 最大)"
+  - id: D9
+    gate: D
+    statement: Licensing and attribution are complete.
+    source: "docs/DONE.md:74 (criterion); docs/DONE.md:113 (tool status: **未実装**)"
+    automatable: yes
+    verification_method: >-
+      `node tools/check_licenses.mjs` — every dependency must be listed in docs/assets.md with source,
+      license and URL, and must be MIT/Apache/CC0 compatible.
+    tool_status: not_implemented
+    status: not_verified
+    evidence_refs:
+      - docs/assets.md
+    citations:
+      - docs/DONE.md:113
+      - docs/STATE.md:59,179
+    work_node_refs:
+      - GATE-D
+      - TOOL-CHECK-LICENSES
+    severity_if_failed: blocker
+    limitations: >-
+      TOOL NOT IMPLEMENTED; per docs/DONE.md:95 it cannot be grounds for passing. Favourable context,
+      but not a D9 pass: docs/assets.md exists and docs/STATE.md:59 records 実行時依存は three.js
+      のみ。外部アセット0; docs/STATE.md:179 row 8 records zero external assets and zero network requests as
+      検証済 by audit.
+    notes: "Blocking effect: Blocks release (legal)"
+  - id: D10
+    gate: D
+    statement: All critics have completed a re-check after the final fixes.
+    source: >-
+      docs/DONE.md:75 (criterion); docs/DONE.md:101-113 (implementation-status table lists NO script
+      for D10)
+    automatable: partial
+    verification_method: >-
+      Partially automatable. Standard: the last review timestamp in docs/reviews/ is later than the
+      last commit.
+    tool_status: not_applicable
+    status: not_verified
+    citations:
+      - docs/reviews/ (11 records present)
+      - docs/STATE.md:81
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      No script for this check appears in docs/DONE.md's status table. The project is in Gate B, so no
+      final-fix state exists to re-check against. docs/STATE.md:81 records the pattern this criterion
+      must survive: repeated independent source-aware reviews demonstrated new highs one after another
+      and WITHDREW the pass each time — 「過去のFAIL reviewは削除せず根拠履歴として保持する。」 CORRECTED 2026-08-01:
+      tool_status was "not_implemented". A4 and B3 are also 部分的に可 with no script and are recorded
+      not_applicable; D10 is now consistent with them. docs/DONE.md's implementation table covers 自動検証
+      可 items.
+    notes: "Blocking effect: Blocks release"
+  - id: D11
+    gate: D
+    statement: Every claim in the acceptance table has evidence.
+    source: docs/DONE.md:76 (criterion); docs/STATE.md:166-186 (the acceptance table itself)
+    automatable: no
+    verification_method: >-
+      Not automatable. Standard: every row of the acceptance table in docs/STATE.md has an evidence
+      link.
+    tool_status: not_applicable
+    status: not_verified
+    citations:
+      - docs/STATE.md:177 (row 6, evidence 「—」)
+      - docs/STATE.md:182 (row 11, evidence 「—」)
+      - docs/STATE.md:184 (row 13, evidence 「—」)
+      - docs/STATE.md:185 (row 14, evidence 「—」)
+      - docs/STATE.md:186 (row 15, evidence 「—」)
+    work_node_refs:
+      - GATE-D
+    severity_if_failed: blocker
+    limitations: >-
+      REFUTED here means AFFIRMATIVELY FAILING RIGHT NOW as directly readable from the source, not
+      merely unverified. Five rows of the acceptance table carry 「—」 in the evidence column: row 6
+      (信頼値が UI に出ない — 反証された/REFUTED, contradicted by `src/ui/screens.js:473-487` and 38 of 47 trust
+      changes being coloured toasts; docs/STATE.md:177 also records that the lead integrator wrongly
+      marked it verified after checking only that QUIET exists); row 11 (gas governs AI PATH SELECTION
+      — 未検証; visibility and retreat are confirmed, the path itself is not); row 13 (§13 rendering
+      budget — 未達/UNMET); row 14 (30 FPS on real hardware — 原理的に未検証, 主張してはならない); row 15 (playtime 3-5h
+      — 未計測の見積もり). Two further rows are qualified rather than clean: row 2 is 検証済（範囲限定） —
+      narrative-graph reachability only, walkability/survivability/combat-viability NOT verified
+      (IMP-06); row 12 is 部分的 (監査 M8). docs/STATE.md:168 states the governing rule:
+      「全ての主張には証拠が必要である。証拠の無い行は主張してはならない。」 CORRECTED 2026-08-01: previously extracted as "refuted". No
+      source states D11 fails. The rule in docs/STATE.md is 「証拠の無い行は主張してはならない」, and rows 6, 11, 13, 14
+      and 15 assert nothing — they record 反証された / 未検証 / 未達 / 原理的に未検証 / 未計測の見積もり — so the table
+      complies with its own rule. D11 has simply never been evaluated; the project is at Gate B and no
+      Gate D critic record exists. Over-claiming a negative is fabrication too. Also qualified, and
+      not previously listed: row 5, 検証済 but 「視程は本編で作用しない（敵が全員 aggro=true で生成される。IMP-04）」.
+    notes: >-
+      Blocking effect: Blocks release; and per docs/DONE.md:89 asserting completion without it is an
+      anti-fabrication violation

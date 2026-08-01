@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gate result",
+  "version": 1,
+  "description": "The `gate` payload of a gate_result ledger event. The status vocabulary has exactly six values and none of them lets an unexecuted or inconclusive check be recorded as a pass; that is the whole point of the enum.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["gate_id", "status", "environment", "expected", "observed"],
+  "properties": {
+    "gate_id": { "type": "string", "minLength": 1 },
+    "criterion_refs": { "type": "array", "items": { "type": "string" } },
+    "status": {
+      "enum": ["passed", "failed", "blocked", "not_applicable", "prepared_not_executed", "inconclusive"]
+    },
+    "command": { "type": "string" },
+    "manual_procedure": { "type": "string" },
+    "environment": { "type": "string", "minLength": 1 },
+    "revision": { "type": "string" },
+    "expected": { "type": "string", "minLength": 1 },
+    "observed": { "type": "string", "minLength": 1 },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "reproducibility": { "type": "string" },
+    "failure_severity": { "enum": ["blocker", "critical", "high", "medium", "low", "none"] },
+    "retest_required": { "type": "boolean" },
+    "limitations": { "type": "string" }
+  }
+}

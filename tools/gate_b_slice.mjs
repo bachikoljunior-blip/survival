@@ -13,6 +13,8 @@ import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from '
 import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { parseYaml } from './lib/yaml.mjs';
+
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
 const RUNNER_PATH = fileURLToPath(import.meta.url);
@@ -57,7 +59,9 @@ const atomicWriteJson = (path, value) => {
   renameSync(temporary, path);
 };
 
-const stateRevision = JSON.parse(readFileSync(join(ROOT, 'AI_DEVELOPMENT', 'PROJECT_STATE.json'), 'utf8')).state_revision;
+// Protocol 2.0.0: the canonical revision moved from PROJECT_STATE.json to STATE.yaml.
+// Evidence stays bound to it so a report cannot silently outlive the state it was produced under.
+const stateRevision = parseYaml(readFileSync(join(ROOT, 'AI_DEVELOPMENT', 'STATE.yaml'), 'utf8')).state_revision;
 const indexPath = join(DIST, 'index.html');
 const indexText = existsSync(indexPath) ? readFileSync(indexPath, 'utf8') : '';
 const bundleName = indexText.match(/<script[^>]+src=["'](?:\.\/)?([^"']+\.js)["']/)?.[1] || null;

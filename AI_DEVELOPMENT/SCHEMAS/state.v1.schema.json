@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical operating state",
+  "version": 1,
+  "description": "AI_DEVELOPMENT/STATE.yaml — the single canonical current state. Project, logical session, current objective, Claude Code run and iteration are kept distinct on purpose; collapsing them is what made the legacy PROJECT_STATE/SESSION_STATE pair drift.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "schema_versions",
+    "state_revision",
+    "project",
+    "logical_session",
+    "current_objective",
+    "current_run",
+    "active_task",
+    "derived_frontier",
+    "last_verified_checkpoint",
+    "current_blocker",
+    "rollback_point",
+    "next_action",
+    "last_reconciliation"
+  ],
+  "properties": {
+    "protocol_version": { "type": "string", "minLength": 1 },
+    "schema_versions": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 1 }
+    },
+    "state_revision": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.[0-9]+$" },
+
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "repository", "default_branch", "working_branch", "status", "phase", "verified_baseline"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "repository": { "type": "string" },
+        "default_branch": { "type": "string" },
+        "working_branch": { "type": "string" },
+        "status": { "enum": ["active", "paused", "complete", "archived"] },
+        "phase": { "type": "string" },
+        "verified_baseline": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "verified_baseline_note": { "type": "string" },
+        "last_known_good_revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "deployed_revision": { "type": "string" },
+        "public_url": { "type": "string" }
+      }
+    },
+
+    "logical_session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "opened_by_user", "end_declared_by_user", "end_condition"],
+      "properties": {
+        "id": { "type": "string" },
+        "status": { "enum": ["active", "closed"] },
+        "opened_by_user": { "type": "boolean" },
+        "end_declared_by_user": { "type": "boolean" },
+        "end_condition": { "type": "string", "minLength": 1 },
+        "opened_at": { "type": "string" },
+        "final_handoff": { "type": "string", "nullable": true },
+        "archive_reference": { "type": "string", "nullable": true }
+      }
+    },
+
+    "current_objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "statement", "status", "requirement_refs"],
+      "properties": {
+        "id": { "type": "string" },
+        "statement": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["awaiting_user_input", "active", "paused", "complete", "superseded"] },
+        "requirement_refs": { "type": "array", "items": { "type": "string" } },
+        "work_node_refs": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "current_run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "observed_at", "capability_record"],
+      "properties": {
+        "id": { "type": "string" },
+        "observed_at": { "type": "string" },
+        "capability_record": { "type": "string" },
+        "iteration": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "active_task": { "type": "string", "nullable": true },
+    "active_modules": { "type": "array", "items": { "type": "string" } },
+
+    "derived_frontier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["derived_from", "regenerate_when", "task_ids"],
+      "description": "A cached view of WORK_GRAPH.yaml, not a second authority. The validator recomputes it and fails on any difference.",
+      "properties": {
+        "derived_from": { "const": "AI_DEVELOPMENT/WORK_GRAPH.yaml" },
+        "regenerate_when": { "type": "string" },
+        "task_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+
+    "last_verified_checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision", "verified_action", "evidence_refs"],
+      "properties": {
+        "id": { "type": "string" },
+        "revision": { "type": "string" },
+        "verified_action": { "type": "string", "minLength": 1 },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "recorded_at": { "type": "string" }
+      }
+    },
+
+    "modified_unverified_artifacts": { "type": "array", "items": { "type": "string" } },
+
+    "current_blocker": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["id", "statement", "blocks", "resolvable_by"],
+      "properties": {
+        "id": { "type": "string" },
+        "statement": { "type": "string" },
+        "blocks": { "type": "array", "items": { "type": "string" } },
+        "resolvable_by": { "enum": ["human_only", "agent", "external_service", "unknown"] },
+        "stops_all_work": { "type": "boolean" }
+      }
+    },
+
+    "standing_blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "impact", "resolvable_by", "stops_all_work"],
+        "properties": {
+          "id": { "type": "string" },
+          "statement": { "type": "string" },
+          "impact": { "type": "string" },
+          "resolvable_by": { "enum": ["human_only", "agent", "external_service", "unknown"] },
+          "stops_all_work": { "type": "boolean" }
+        }
+      }
+    },
+
+    "current_hypothesis": { "type": "string", "nullable": true },
+    "rollback_point": { "type": "string", "minLength": 1 },
+    "next_action": { "type": "string", "minLength": 1 },
+    "pending_verification": { "type": "array", "items": { "type": "string" } },
+
+    "remote_delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["open_pull_request", "last_delivery"],
+      "properties": {
+        "open_pull_request": { "type": "string", "nullable": true },
+        "last_delivery": { "type": "string" },
+        "checks_state": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "last_reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["at", "result"],
+      "properties": {
+        "at": { "type": "string" },
+        "result": { "type": "string", "minLength": 1 },
+        "discrepancies_found": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "archive_references": { "type": "array", "items": { "type": "string" } }
+  }
+}

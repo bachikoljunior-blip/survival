@@ -1,0 +1,139 @@
+# Explicit permissions and prohibitions for actions that reach outside the repository.
+#
+# Schema: AI_DEVELOPMENT/SCHEMAS/policies.v1.schema.json
+#
+# These values are policy, not preference. An action whose policy value is `prohibited` is not
+# performed, not worked around, and not re-argued on the grounds that it would be convenient.
+# A missing field is a schema error rather than an implied permission, so that a permission can
+# never be silently assumed.
+
+schema_version: 1
+state_revision: 2026-08-01.2
+
+source: >-
+  Installed by the 2026-08-01 legacy-to-canonical migration instruction, Section 14. The
+  remote-delivery value carries forward the user's explicit instruction of 2026-07-31, which the
+  legacy system recorded as decision OD-004 and as the standing authorization in
+  PROJECT_OPERATING_PROTOCOL.md section 28. This is a translation of an existing authorization,
+  not a new grant.
+
+permissions:
+  remote_delivery:
+    value: standing_authorized
+    reason: >-
+      Commits, pushes, pull requests, remote check inspection, merges and releases through the
+      connected repository are normal completion steps for a verified checkpoint. They are not
+      re-approved per operation.
+    source: "User instruction 2026-07-31; migration instruction Section 14"
+    supersedes: "PROJECT_OPERATING_PROTOCOL.md section 28 per-operation approval, for these actions only"
+
+  public_release:
+    value: authorized_when_required_by_active_objective
+    reason: >-
+      GitHub Pages publication is authorized when the active objective needs a publicly reachable
+      deliverable. It is not performed merely because a change was merged. The 2026-08-01 migration
+      itself changed no runtime release artifact and therefore required no republication.
+    source: "User instruction 2026-07-31; migration instruction Section 14"
+
+  routine_connected_credentials:
+    value: authorized_without_secret_disclosure
+    reason: >-
+      The already-connected git remote and GitHub integration may be used. Credentials are never
+      created, rotated, printed, committed, logged, or written into evidence.
+
+  paid_actions:
+    value: prohibited
+    reason: "No purchase, subscription change, paid inference, domain or hosting spend."
+
+  repository_visibility_change:
+    value: prohibited
+    reason: >-
+      Visibility is never changed to solve a state-storage or publication problem. If continuity
+      information is unsuitable for this repository, it is sanitized or kept out of it instead.
+
+  destructive_external_actions:
+    value: prohibited
+    reason: >-
+      No force-push of protected history, no repository deletion, no production data deletion, no
+      destructive database or cloud operation, no irreversible unrelated migration.
+
+  security_control_bypass:
+    value: prohibited
+    reason: >-
+      Branch protection, required checks and security controls are satisfied, never suppressed,
+      disabled or worked around. A failing mandatory gate is repaired, not silenced.
+
+  private_information_exposure:
+    value: prohibited
+    reason: >-
+      No secrets, API keys, tokens, private keys, recovery information or personal data in source,
+      state, logs, evidence, screenshots, reports or artifacts. Everything committed here is
+      treated as readable by anyone who can read the repository.
+
+covered_actions:
+  - "git commit on the designated working branch"
+  - "git push to the designated working branch"
+  - "opening and updating a pull request"
+  - "inspecting remote checks and repairing the failures they report"
+  - "merging using the repository's conventions once mandatory checks and reviews pass"
+  - "triggering the established GitHub Pages deployment"
+  - "verifying the public surface after a deployment"
+
+prohibitions:
+  - "Force-pushing protected history."
+  - "Bypassing branch protection or suppressing a valid mandatory check."
+  - "Recording an unexecuted, blocked or inconclusive check as passed."
+  - "Weakening an acceptance criterion or a quality gate so that defective work passes."
+  - "Publishing a checkpoint with a known mandatory-gate failure."
+  - "Changing repository visibility."
+  - "Purchasing anything, or changing accounts, subscriptions or credentials."
+  - "Accepting legal terms on the user's behalf."
+  - "Modifying .github/workflows/autopilot.yml."
+  - "Editing the generated GitHub Pages root mirror by hand."
+  - "Claiming physical-device performance results while no physical device exists."
+
+safety_boundary: >-
+  Standing authorization covers routine delivery through the already-connected repository and the
+  already-configured GitHub Pages target. It does not extend to payment, account, credential or
+  legal actions, to private-data exposure, to destructive production or cloud operations, to
+  irreversible migrations, or to disabling security controls. It remains subject to the user's
+  later instructions, real platform capability, repository permissions, branch protection, required
+  human approval, and valid quality gates. Where a required action falls outside it, every safe step
+  is completed, the ready state is preserved, and the exact external blocker is recorded — success
+  is not claimed.
+
+gates_required_before_delivery:
+  - "node tools/yaml_selftest.mjs"
+  - "npm run validate:ops"
+  - "npm run validate"
+  - "node tools/check_done_table.mjs"
+  - "node tools/resume_check.mjs"
+
+publication:
+  mechanism: >-
+    GitHub Pages. Two paths are enabled simultaneously: the Actions workflow
+    .github/workflows/pages.yml uploads dist/, and the repository's configured branch source
+    main/(root) serves the committed mirror. Decision OD-005 requires the two to stay byte-identical,
+    generated by `npm run build:pages-root` and checked by `npm run validate:pages-root`.
+  required_when: >-
+    The active objective calls for a publicly reachable deliverable, or a runtime release artifact
+    changed. A records-only change does not trigger republication.
+  verification:
+    - "Both deployment runs completed successfully."
+    - "Public HTML, JavaScript, CSS and manifest hashes match the local production build."
+    - "The intended revision is the one actually served — an existing URL is not proof."
+  notes: >-
+    Failure OF-006 is the reason this section is explicit: a green custom Pages workflow did not
+    prove the live surface, because the second enabled Pages source completed later and replaced
+    the artifact with a rendered README.
+
+protected_paths:
+  - path: .github/workflows/autopilot.yml
+    reason: >-
+      Standing user instruction, restated in docs/STATE.md section 9 and inside the workflow's own
+      prompts. The workflow is self-restarting; editing it from inside a run it launched is how a
+      chain corrupts itself.
+  - path: AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/legacy
+    reason: >-
+      Immutable pre-migration copies. They are the rollback source and the proof that nothing was
+      rewritten during the migration.

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Structured handoff",
+  "version": 1,
+  "description": "AI_DEVELOPMENT/HANDOFFS/*.json. Additional properties are allowed on purpose — the four preserved GB-IMP06 handoffs each carry different optional sections, and the alternative to allowing them was editing real history to fit a schema written afterwards. The required core is what a consumer needs to act without inventing the missing parts.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "handoff_id",
+    "kind",
+    "session_id",
+    "task_id",
+    "producer",
+    "intended_consumer",
+    "objective",
+    "acceptance_criteria",
+    "rollback_instructions",
+    "completion_status"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "handoff_id": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["checkpoint", "final"] },
+    "session_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "producer": { "type": "string", "minLength": 1 },
+    "intended_consumer": { "type": "string", "minLength": 1 },
+    "objective": { "type": "string", "minLength": 1 },
+    "acceptance_criteria": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "rollback_instructions": { "type": "string", "minLength": 1 },
+    "completion_status": { "type": "string", "minLength": 1 },
+    "handoff_recipient": { "type": "string" },
+    "allowed_scope": { "type": "array", "items": { "type": "string" } },
+    "prohibited_changes": { "type": "array", "items": { "type": "string" } },
+    "input_artifacts": { "type": "array", "items": { "type": "string" } },
+    "output_artifacts": { "type": "array", "items": { "type": "string" } },
+    "required_inputs": { "type": "array", "items": { "type": "string" } },
+    "affected_files_and_interfaces": { "type": "array", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "items": { "type": "string" } },
+    "invariants": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "tests_required": { "type": "array", "items": { "type": "string" } },
+    "required_checks": { "type": "array", "items": { "type": "string" } },
+    "known_risks": { "type": "array", "items": { "type": "string" } },
+    "unresolved_questions": { "type": "array", "items": { "type": "string" } },
+    "end_declared_by_user": {
+      "type": "boolean",
+      "description": "May only be true on a final handoff, and only when the user actually declared the logical session finished."
+    },
+    "archive_reference": { "type": "string" }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Checkpoint",
+  "version": 1,
+  "description": "The `checkpoint` payload of a checkpoint ledger event. A checkpoint is written only after its gates have run: it records what was verified, what is still pending, where to roll back to, and the exact next action, so a fresh run can resume without replaying anything.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["checkpoint_id", "revision", "verified_action", "next_action", "rollback_point"],
+  "properties": {
+    "checkpoint_id": { "type": "string", "minLength": 1 },
+    "revision": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string" },
+    "objective_id": { "type": "string" },
+    "task_refs": { "type": "array", "items": { "type": "string" } },
+    "verified_action": { "type": "string", "minLength": 1 },
+    "gates_run": { "type": "array", "items": { "type": "string" } },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "modified_unverified_artifacts": { "type": "array", "items": { "type": "string" } },
+    "pending_verification": { "type": "array", "items": { "type": "string" } },
+    "current_failure": { "type": "string", "nullable": true },
+    "next_action": { "type": "string", "minLength": 1 },
+    "rollback_point": { "type": "string", "minLength": 1 }
+  }
+}

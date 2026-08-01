@@ -1,0 +1,127 @@
+# What this Claude Code run actually observed. Re-probed at the start of every run, because
+# availability and GitHub state change between runs. Nothing here is assumed; every entry names the
+# evidence that produced it.
+#
+# Schema: AI_DEVELOPMENT/SCHEMAS/capabilities.v1.schema.json
+
+schema_version: 1
+state_revision: 2026-08-01.2
+
+run_id: RUN-2026-08-01-MIG-01
+observed_at: "2026-08-01"
+
+environment:
+  platform: linux
+  kernel: "6.18.5"
+  node: "v22.22.2"
+  npm: "10.9.7"
+  git_root: /home/user/survival
+  branch: claude/legacy-canonical-migration-jcuour
+  head: 193f408df049f068be57de7a1944089942720ad9
+  worktree_clean_at_start: true
+  physical_device: false
+  container_ephemeral: true
+
+notes: >-
+  This run is a remote, containerised Claude Code session. The container is reclaimed after
+  inactivity, so anything not committed and pushed is lost. That is why the migration commits its
+  own records rather than holding them in context.
+
+capabilities:
+  - name: repository_read_write
+    state: available
+    evidence: "Files created and edited under AI_DEVELOPMENT/, tools/ and the repository root during this run."
+    confidence: high
+
+  - name: git_local
+    state: available
+    evidence: "git rev-parse, status, log, diff, show all returned expected results; worktree clean at capture."
+    confidence: high
+    detail: "Local `main` ref is stale at 46d4746 and 49 behind origin/main; it is a leftover ref, not project state."
+
+  - name: git_remote_fetch_push
+    state: available
+    evidence: >-
+      origin resolves to a proxied endpoint for bachikoljunior-blip/survival; origin/main and
+      origin/claude/legacy-canonical-migration-jcuour both resolved to 193f408 during this run.
+    confidence: medium
+    limitations: "Push was not exercised at the time of this record. It is confirmed only once a push completes and the remote ref is re-read."
+
+  - name: github_api
+    state: available
+    evidence: "GitHub MCP tools listed pull requests #1-#4 with real merge timestamps and head/base SHAs."
+    confidence: high
+    limitations: "Scoped to bachikoljunior-blip/survival."
+
+  - name: gh_cli
+    state: unavailable
+    evidence: "`command -v gh` found nothing."
+    confidence: high
+    detail: "Use the GitHub MCP tools instead. .github/workflows/autopilot.yml uses gh, but that runs on GitHub Actions runners, not here."
+
+  - name: npm_install
+    state: available
+    evidence: "`npm ci` installed the 5 locked packages (three, esbuild, @esbuild, playwright, playwright-core), exit 0."
+    confidence: high
+    limitations: >-
+      Requires NPM_CONFIG_CACHE and NPM_CONFIG_LOGS_DIR redirected to a writable path. Failure
+      OF-001 records the default cache being unwritable in this class of environment.
+
+  - name: production_build
+    state: available
+    evidence: "`npm run build` produced dist/cinderline.1.0.0.js (1.3 MB) in 732 ms, exit 0."
+    confidence: high
+
+  - name: content_validation
+    state: available
+    evidence: "`npm run validate` → VALIDATION OK: 224 dialogue nodes, 9 quests, 31 steps, 5 endings, 66 flags set / 55 read."
+    confidence: high
+
+  - name: operating_state_validation
+    state: available
+    evidence: "`npm run validate:ops` passed against the legacy records before migration and against the canonical records after."
+    confidence: high
+
+  - name: headless_browser
+    state: available
+    evidence: >-
+      Playwright 1.56.0 with the pre-installed browsers at /opt/pw-browsers (PLAYWRIGHT_BROWSERS_PATH
+      is already set). A launch probe reported "WebGL 2.0 (OpenGL ES 3.0 Chromium)" under SwiftShader.
+    confidence: high
+    limitations: >-
+      SwiftShader software rendering is not a GPU and not a device. It supports the Gate B
+      reachability and interaction harnesses; it supports no frame-rate, thermal or touch-hardware
+      claim. Note this differs from the earlier cloud browser recorded in OPS-REMOTE-PUBLISH, which
+      had WebGL disabled.
+
+  - name: pages_root_mirror
+    state: available
+    evidence: "`npm run validate:pages-root` → mirror matches dist/ (6 files)."
+    confidence: high
+
+  - name: physical_device
+    state: unavailable
+    evidence: "No device is attached to this environment and none has ever been available to the project."
+    confidence: high
+    limitations: "Blocker B1. docs/device-test-checklist.md has been executed 0 times. No real-device performance or FPS claim may be made."
+
+  - name: native_japanese_review
+    state: unavailable
+    evidence: "No native speaker is available to this run."
+    confidence: high
+    limitations: "Blocker B2. Automated checks (glossary consistency, missing keys, layout) pass; tone and register are unverified."
+
+  - name: scheduled_background_work
+    state: partial
+    evidence: >-
+      .github/workflows/autopilot.yml exists and is self-chaining via workflow_dispatch, so work can
+      continue on GitHub Actions after this run ends. It is not started by this run and must not be
+      modified.
+    confidence: medium
+    limitations: "Nothing continues in *this* container after the run ends. Do not promise otherwise."
+
+  - name: outbound_network
+    state: partial
+    evidence: "npm registry install succeeded through the configured agent proxy."
+    confidence: medium
+    limitations: "General outbound access is governed by the environment's network policy and was not exhaustively probed."

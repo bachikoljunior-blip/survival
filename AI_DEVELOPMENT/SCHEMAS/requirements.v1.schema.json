@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Requirements and acceptance criteria",
+  "version": 1,
+  "description": "AI_DEVELOPMENT/REQUIREMENTS.yaml. The Gate A-D criterion wording stays authored in docs/DONE.md; this file carries the stable identifiers, epistemic status, verification method and traceability, and must not silently restate or weaken the criterion text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "state_revision", "authorities", "requirements", "criteria"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "state_revision": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.[0-9]+$" },
+    "notes": { "type": "string" },
+
+    "authorities": {
+      "type": "object",
+      "description": "Files that own the authored text this record points at. Every path is checked for existence.",
+      "additionalProperties": { "type": "string" }
+    },
+
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "source", "epistemic_status", "status", "scope"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^REQ-[A-Z0-9-]+$" },
+          "statement": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string" },
+          "source": { "type": "string", "minLength": 1 },
+          "epistemic_status": {
+            "enum": [
+              "user_requirement", "verified_fact", "accepted_decision", "proposal",
+              "assumption", "hypothesis", "generated_suggestion", "unverified_claim"
+            ]
+          },
+          "status": { "enum": ["active", "partially_satisfied", "satisfied", "blocked", "deferred", "superseded"] },
+          "constraints": { "type": "array", "items": { "type": "string" } },
+          "criteria_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "work_node_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "severity_if_violated": { "enum": ["blocker", "critical", "high", "medium", "low"] },
+          "supersedes": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "gate", "statement", "source", "automatable", "verification_method", "tool_status", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[ABCD][0-9]{1,2}$" },
+          "gate": { "enum": ["A", "B", "C", "D"] },
+          "statement": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "automatable": { "enum": ["yes", "partial", "no", "conditional"] },
+          "verification_method": { "type": "string", "minLength": 1 },
+          "tool_status": { "enum": ["implemented", "partially_implemented", "not_implemented", "not_applicable"] },
+          "status": { "enum": ["verified", "partially_verified", "not_verified", "blocked", "refuted"] },
+          "evidence_refs": {
+            "type": "array",
+            "description": "Real artifact paths only. Every entry is checked for existence, which is what makes a verified status defensible.",
+            "items": { "type": "string" }
+          },
+          "citations": {
+            "type": "array",
+            "description": "Free-text provenance — file:line references, prose pointers, command names. Not existence-checked, so a citation can never be mistaken for evidence.",
+            "items": { "type": "string" }
+          },
+          "work_node_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "severity_if_failed": { "enum": ["blocker", "critical", "high", "medium", "low"] },
+          "limitations": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+
+    "uncovered_criteria": {
+      "type": "array",
+      "description": "Criteria that no work node covers yet, declared explicitly so the traceability check can distinguish a known gap from an accidental one.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "reason"],
+        "properties": {
+          "id": { "type": "string" },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,16 @@
 
 Evidence records are append-only and identify task ID, acceptance references, baseline, exact environment, command/manual procedure, result, artifact paths and limitations.
 
+Since protocol 2.0.0 each entry here also exists as an `evidence` event in `../LEDGER.jsonl`,
+validated against `../SCHEMAS/evidence-record.v1.schema.json`. That schema makes `limitations` a
+required, non-empty field: every evidence record this project has produced has real limits —
+headless SwiftShader is not a device, a representative slice is not a full run — and a record that
+omits them reads as a stronger claim than it is.
+
+`../SCHEMAS/README.md` fixes the independence vocabulary. **A** source-blind, **B**
+source-restricted, **C** a separate pass in shared context, **D** prepared but not executed. C and
+D are never described as independent.
+
 ## GB-IMP06-SLICE — Chapter 1 representative slice
 
 - Status: verified for the explicitly partial slice; not B1/B2/C1/D3, full playtime, performance or real-device evidence.

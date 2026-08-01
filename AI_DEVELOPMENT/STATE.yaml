@@ -1,0 +1,188 @@
+# The canonical current state.
+#
+# Schema: AI_DEVELOPMENT/SCHEMAS/state.v1.schema.json
+#
+# Project, logical session, current objective, Claude Code run and iteration are kept distinct on
+# purpose. The legacy system split them across PROJECT_STATE.json and SESSION_STATE.json, which
+# could disagree; collapsing them into one file without collapsing the concepts is the point.
+#
+# derived_frontier is a CACHE of a view computed from WORK_GRAPH.yaml. npm run validate:ops
+# recomputes it and fails on any difference, so it cannot become a second authority.
+
+protocol_version: 2.0.0
+
+schema_versions:
+  state: 1
+  work_graph: 1
+  requirements: 1
+  capabilities: 1
+  policies: 1
+  ledger_event: 1
+  handoff: 1
+
+state_revision: 2026-08-01.2
+
+project:
+  id: PROJECT-CINDERLINE
+  name: CINDERLINE
+  repository: bachikoljunior-blip/survival
+  default_branch: main
+  working_branch: claude/legacy-canonical-migration-jcuour
+  status: active
+  phase: GATE-B
+  verified_baseline: 193f408df049f068be57de7a1944089942720ad9
+  verified_baseline_note: >-
+    Corrected during the 2026-08-01 migration. The legacy records named cc96f3a while HEAD and
+    origin/main were already 193f408, two commits later — commits that had modified those very
+    records. Rolling back to cc96f3a would have discarded decision OD-005, failure OF-006 and the
+    publication evidence. The revision verified byte-for-byte on the public surface remains
+    cc96f3a; 193f408 changed operating records only and no release artifact, so the deployed game
+    is unchanged, and its Pages deployment run 30663264871 concluded success.
+  last_known_good_revision: 193f408df049f068be57de7a1944089942720ad9
+  deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
+  public_url: https://bachikoljunior-blip.github.io/survival/
+
+logical_session:
+  id: SESSION-2026-07-31-01
+  status: active
+  opened_by_user: true
+  end_declared_by_user: false
+  end_condition: >-
+    Only an explicit statement by the user that this logical session is finished. A new chat, a
+    context reset, a device change, a usage limit, a completed objective, a commit, a pull request,
+    a merge, a deployment and this protocol migration are none of them a session boundary.
+  opened_at: "2026-07-31"
+  final_handoff: null
+  archive_reference: null
+
+current_objective:
+  id: OBJ-GATE-B-FRONTIER
+  statement: >-
+    Continue CINDERLINE from the published Gate B representative-slice checkpoint and implement the
+    highest-priority verified frontier without overstating full Gate B coverage.
+  status: active
+  requirement_refs:
+    - REQ-OPS-02
+    - REQ-TEST-01
+    - REQ-HONESTY-02
+  work_node_refs:
+    - GATE-B
+    - GB-H1
+  notes: >-
+    Carried over verbatim from the legacy session record. The migration did not replace, complete
+    or reinterpret this objective.
+
+current_run:
+  id: RUN-2026-08-01-MIG-01
+  observed_at: "2026-08-01"
+  capability_record: AI_DEVELOPMENT/CAPABILITIES.yaml
+  iteration: legacy-to-canonical protocol migration
+  notes: >-
+    Remote container. Re-probe capabilities at the start of the next run rather than trusting this
+    record; availability and GitHub state change between runs.
+
+active_task: GB-H1
+
+active_modules:
+  - "10.1 minimal infrastructure bootstrap — the canonical records needed a validator, a parser and a resumption check that did not exist"
+
+derived_frontier:
+  derived_from: AI_DEVELOPMENT/WORK_GRAPH.yaml
+  regenerate_when: >-
+    Any node status, dependency or priority class changes. Recomputed and compared by
+    npm run validate:ops on every run.
+  task_ids:
+    - GB-H1
+    - GB-H2
+    - GB-TOUCH-SMOKE
+    - GB-IMP02
+    - GC-IMP06-FULLRUN
+
+last_verified_checkpoint:
+  id: CP-MIG-2026-08-01
+  revision: 193f408df049f068be57de7a1944089942720ad9
+  verified_action: >-
+    Migrated the legacy operating protocol to the canonical system. Every requirement, criterion,
+    task, decision, failure, gate result and evidence reference was preserved or explicitly mapped;
+    no epistemic status was upgraded; the logical session stayed active; no product behavior
+    changed and nothing was republished. The preceding verified action, unchanged, is that PRs #2
+    and #3 merged into main, both Pages deployment paths succeeded for cc96f3a, and the public
+    HTML, JavaScript, CSS and manifest matched the verified production build byte-for-byte.
+  evidence_refs:
+    - AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/PRE_MIGRATION_CHECKPOINT.md
+    - AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json
+    - AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md
+  recorded_at: "2026-08-01"
+
+modified_unverified_artifacts: []
+
+current_blocker: null
+
+standing_blockers:
+  - id: B1
+    statement: >-
+      No physical device exists. The iPhone SE 3rd generation has never been used for verification
+      and docs/device-test-checklist.md has been executed zero times.
+    impact: >-
+      The Gate D performance items cannot be verified automatically. The 30 FPS figure is a design
+      target, not a measurement. No real-device performance, frame-rate or touch-hardware claim may
+      be made by anyone, ever, until this is resolved.
+    resolvable_by: human_only
+    stops_all_work: false
+  - id: B2
+    statement: The Japanese text has not been read by a native speaker.
+    impact: >-
+      Tone and register quality cannot be guaranteed. The automated checks — glossary consistency,
+      missing keys, layout — pass, and they do not substitute for this.
+    resolvable_by: human_only
+    stops_all_work: false
+
+current_hypothesis: null
+
+rollback_point: 193f408df049f068be57de7a1944089942720ad9
+
+next_action: >-
+  Implement GB-H1 as an isolated save-migration layer, then verify old-version fixtures, staged
+  migrations, explicit failure recovery, current saves and normal save/load behavior before
+  integration.
+
+pending_verification:
+  - old-version save fixtures
+  - multi-step migration
+  - explicit migration failure behavior
+  - current-version save/load regression
+  - user-surface recovery notice
+  - "OF-003 and OF-004 repairs: two fresh isolated publish runs, then the complete suite. Until those pass the repairs are not verified and a quarantine does not count as passing."
+
+remote_delivery:
+  open_pull_request: null
+  last_delivery: >-
+    PR #4 merged 2026-07-31T20:32:39Z producing 193f408. Pages workflow run 30663264871 for that
+    commit concluded success.
+  checks_state: "No pending checks at migration time; PRs #1 through #4 are all merged and closed."
+  notes: >-
+    Standing authorization is active (POLICIES.yaml). Inspect the real remote branch, pull request,
+    checks, merge and deployment before creating duplicates or repeating operations.
+
+last_reconciliation:
+  at: "2026-08-01"
+  result: >-
+    Full audit performed as part of the protocol migration. Records reconciled against git, the
+    GitHub API and executed gates.
+  discrepancies_found:
+    - "Stale verified baseline: records said cc96f3a, reality was 193f408. Corrected; see ledger MIG-20260801-05-BASELINE-RECONCILED."
+    - "Stale rollback point: same cause, same correction."
+    - "Working branch recorded as main; the actual checkout is claude/legacy-canonical-migration-jcuour. Corrected."
+    - "Under-reported frontier: GB-IMP02 and GC-IMP06-FULLRUN met the eligibility rule but were not listed, and the legacy validator could not detect the omission. Corrected by deriving the frontier; see ledger MIG-20260801-06-FRONTIER-CORRECTED."
+    - "PR #4 was merged with no evidence record while OPS-REMOTE-PUBLISH was marked verified. Closed for the deployment; see ledger MIG-20260801-07-PR4-COVERAGE. Public file hashes were not re-sampled for 193f408."
+    - "GB-H1's reason cited docs/STATE.md action 2; docs/STATE.md lists it as action 1. Corrected."
+    - "docs/STATE.md section 5 size figures had drifted from the tree. Re-measured and corrected."
+    - "The ownership map assigned no owner to src/main.js, a named target of GB-H2, nor to the generated root publication files. Both added."
+    - "tools/check_done_table.mjs, check_scope.mjs and check_reviews.mjs run from no npm script and no workflow. Recorded as proposed node OPS-GATE-WIRING rather than wired in, because adding gates is scope the user has not selected."
+    - "The local main ref is stale at 46d4746, 49 behind origin/main. It is a leftover ref, not project state; work against origin/main."
+
+archive_references:
+  - AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/PRE_MIGRATION_CHECKPOINT.md
+  - AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/RECORD_MAP.md
+  - AI_DEVELOPMENT/ARCHIVE/MIGRATION-2026-08-01/ROLLBACK.md
+  - AI_DEVELOPMENT/ARCHIVE/SESSIONS/README.md

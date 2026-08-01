@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ledger event",
+  "version": 1,
+  "description": "One line of AI_DEVELOPMENT/LEDGER.jsonl. Append-only: existing lines are never edited or reordered. A correction is a new event that references the one it corrects, so the original claim and its withdrawal both stay visible.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["seq", "event_id", "type", "timestamp", "summary", "source"],
+  "properties": {
+    "seq": { "type": "integer", "minimum": 1 },
+    "event_id": { "type": "string", "pattern": "^[A-Z][A-Z0-9-]*$" },
+    "type": {
+      "enum": [
+        "checkpoint", "decision", "change", "failure", "gate_result",
+        "evidence", "repair", "release", "review", "session", "migration"
+      ]
+    },
+    "timestamp": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+    "summary": { "type": "string", "minLength": 1 },
+    "detail": { "type": "string" },
+    "status": { "type": "string" },
+    "epistemic_status": {
+      "enum": [
+        "user_requirement", "verified_fact", "accepted_decision", "proposal",
+        "assumption", "hypothesis", "generated_suggestion", "unverified_claim"
+      ]
+    },
+    "session_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "revision": { "type": "string" },
+    "state_revision": { "type": "string" },
+    "task_refs": { "type": "array", "items": { "type": "string" } },
+    "criteria_refs": { "type": "array", "items": { "type": "string" } },
+    "requirement_refs": { "type": "array", "items": { "type": "string" } },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "archive_refs": { "type": "array", "items": { "type": "string" } },
+    "corrects": { "type": "string" },
+    "superseded_by": { "type": "string" },
+    "source": { "type": "string", "minLength": 1 },
+
+    "gate": { "$ref": "#/definitions/gateRef" },
+    "evidence": { "$ref": "#/definitions/evidenceRef" },
+    "checkpoint": { "$ref": "#/definitions/checkpointRef" }
+  },
+
+  "definitions": {
+    "gateRef": {
+      "type": "object",
+      "description": "Validated in full against gate-result.v1.schema.json by tools/check_operating_state.mjs.",
+      "required": ["gate_id", "status"],
+      "properties": {
+        "gate_id": { "type": "string" },
+        "status": {
+          "enum": ["passed", "failed", "blocked", "not_applicable", "prepared_not_executed", "inconclusive"]
+        }
+      }
+    },
+    "evidenceRef": {
+      "type": "object",
+      "description": "Validated in full against evidence-record.v1.schema.json.",
+      "required": ["evidence_id", "artifact"],
+      "properties": {
+        "evidence_id": { "type": "string" },
+        "artifact": { "type": "string" }
+      }
+    },
+    "checkpointRef": {
+      "type": "object",
+      "description": "Validated in full against checkpoint.v1.schema.json.",
+      "required": ["checkpoint_id", "revision"],
+      "properties": {
+        "checkpoint_id": { "type": "string" },
+        "revision": { "type": "string" }
+      }
+    }
+  }
+}

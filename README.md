@@ -1,6 +1,9 @@
 # CINDERLINE
 
-Development continuity and operating rules: [`PROJECT_OPERATING_PROTOCOL.md`](PROJECT_OPERATING_PROTOCOL.md) and [`AI_DEVELOPMENT/INDEX.md`](AI_DEVELOPMENT/INDEX.md). Product requirements, verified status and release gates remain in `docs/`.
+Development continuity and operating rules: [`START_HERE.md`](START_HERE.md) and [`AI_DEVELOPMENT/PROTOCOL.md`](AI_DEVELOPMENT/PROTOCOL.md). Product requirements, verified status and release gates remain in `docs/`.
+
+> This README is a human introduction. It is **not** admissible as design evidence — it has
+> described features that do not exist. Use `docs/bible.md` and the code.
 
 A survival action RPG set in **Hollis** — a condemned industrial city sitting on an
 underground fire that has been burning for thirty-one years.
