@@ -65,105 +65,111 @@ async function main() {
   // and both handlers used to run: the save loaded, then the new game reset it,
   // and nothing on screen said the loaded game had been thrown away. One
   // transition at a time.
+  //
+  // Released when the transition FINISHES, not when the title comes back. Tying
+  // it to the title left the guard stuck for anything that starts a game
+  // without passing through the title screen — which silently swallowed every
+  // start after the first and, in the playthrough harness, left four of five
+  // routes running on the previous route's state.
   let leavingTitle = false;
-  // Back on the title — from quit-to-title, from an ending — and the buttons
-  // have to work again.
-  game.on('mode', (m) => { if (m === MODE.TITLE) leavingTitle = false; });
   const startNewGame = async () => {
     if (leavingTitle) return;
     leavingTitle = true;
-    game.menus.hideTitle();
-    await game.menus.fadeOut();
-    game.director.state.reset();
-    game.director.resetWorld();
-    game.player.group.visible = true;      // hidden for the title card
-    game.teleport('start');
-    game.player.hp = game.player.maxHp;
-    game.player.stamina = game.player.maxStamina;
-    game.player.lungs.sat = 0;
-    game.player.lungs.removeFilter();
-    game.player.dead = false;
-    game.playTime = 0;
-    game.director.refreshCast();
-    game.director.quests.start('arrival');
-    game.director.quests.start('cellarRow');
-    game.hud.setVisible(true);
-    await game.menus.fadeIn();
-    game.setMode(MODE.PLAY);
-    game.hud.showCard(
-      t('ui.card.1.kicker', 'CHAPTER ONE'),
-      t('ui.card.1.title', 'BAD AIR'),
-      t('ui.card.1.sub', 'The Stacks · Hollis'));
-    game.emit('music', 'explore');
-    warnStorage();
-  };
+    try {
+        game.menus.hideTitle();
+        await game.menus.fadeOut();
+        game.director.state.reset();
+        game.director.resetWorld();
+        game.player.group.visible = true;      // hidden for the title card
+        game.teleport('start');
+        game.player.hp = game.player.maxHp;
+        game.player.stamina = game.player.maxStamina;
+        game.player.lungs.sat = 0;
+        game.player.lungs.removeFilter();
+        game.player.dead = false;
+        game.playTime = 0;
+        game.director.refreshCast();
+        game.director.quests.start('arrival');
+        game.director.quests.start('cellarRow');
+        game.hud.setVisible(true);
+        await game.menus.fadeIn();
+        game.setMode(MODE.PLAY);
+        game.hud.showCard(
+          t('ui.card.1.kicker', 'CHAPTER ONE'),
+          t('ui.card.1.title', 'BAD AIR'),
+          t('ui.card.1.sub', 'The Stacks · Hollis'));
+        game.emit('music', 'explore');
+        warnStorage();
+      } finally { leavingTitle = false; }
+    };
 
-  // What to say about a save this build will not load. Silence is the one
-  // unacceptable answer: the player pressed Continue, so something happened to
-  // their progress and they are owed the reason before the next autosave
-  // writes over it.
-  const saveFailureText = (status) => {
-    if (status === SAVE_STATUS.FUTURE) {
-      return t('ui.savefile.future',
-        '<b>Save not loaded.</b> It was written by a newer version of the game. ' +
-        'It has been left alone — open the newer version to continue it.');
-    }
-    if (status === SAVE_STATUS.CORRUPT || status === SAVE_STATUS.UNKNOWN_VERSION) {
-      return t('ui.savefile.corrupt',
-        '<b>Save not loaded.</b> The stored save could not be read. ' +
-        'A copy of it has been kept aside.');
-    }
-    return t('ui.savefile.failed',
-      '<b>Save not loaded.</b> It could not be brought up to date with this ' +
-      'version. It has been left alone, and a copy has been kept aside.');
-  };
-
-  const continueGame = async () => {
-    if (leavingTitle) return;
-    leavingTitle = true;
-    const save = Storage.load();
-    const result = Storage.lastResult;
-    if (!save) {
-      // There WAS a save and this build could not read it. Starting a new game
-      // here is the one thing that must not happen automatically: the player
-      // asked to continue, and the old file — rescued copy or not — is the
-      // thing a new game writes over. Stay on the title, say why, and let them
-      // choose. (A HUD notice is no good for this: the title has no HUD, and
-      // the notice queue that would carry it is four deep and evicts the
-      // oldest, so a new game's own notices would delete the explanation.)
-      if (result && result.status !== SAVE_STATUS.EMPTY) {
-        game.menus.refreshTitleWarning();
-        leavingTitle = false;              // still on the title; it stays usable
-        return;
+    // What to say about a save this build will not load. Silence is the one
+    // unacceptable answer: the player pressed Continue, so something happened to
+    // their progress and they are owed the reason before the next autosave
+    // writes over it.
+    const saveFailureText = (status) => {
+      if (status === SAVE_STATUS.FUTURE) {
+        return t('ui.savefile.future',
+          '<b>Save not loaded.</b> It was written by a newer version of the game. ' +
+          'It has been left alone — open the newer version to continue it.');
       }
-      leavingTitle = false;                // startNewGame takes the guard itself
-      return startNewGame();
-    }
-    game.player.group.visible = true;      // hidden for the title card
-    game.menus.hideTitle();
-    await game.menus.fadeOut();
-    if (!game.director.applySave(save)) {
-      // The world has been reset but the progression was refused. Do not drop
-      // the player into a half-restored city.
+      if (status === SAVE_STATUS.CORRUPT || status === SAVE_STATUS.UNKNOWN_VERSION) {
+        return t('ui.savefile.corrupt',
+          '<b>Save not loaded.</b> The stored save could not be read. ' +
+          'A copy of it has been kept aside.');
+      }
+      return t('ui.savefile.failed',
+        '<b>Save not loaded.</b> It could not be brought up to date with this ' +
+        'version. It has been left alone, and a copy has been kept aside.');
+    };
+
+    const continueGame = async () => {
+      if (leavingTitle) return;
+      leavingTitle = true;
+      try {
+      const save = Storage.load();
+      const result = Storage.lastResult;
+      if (!save) {
+        // There WAS a save and this build could not read it. Starting a new game
+        // here is the one thing that must not happen automatically: the player
+        // asked to continue, and the old file — rescued copy or not — is the
+        // thing a new game writes over. Stay on the title, say why, and let them
+        // choose. (A HUD notice is no good for this: the title has no HUD, and
+        // the notice queue that would carry it is four deep and evicts the
+        // oldest, so a new game's own notices would delete the explanation.)
+        if (result && result.status !== SAVE_STATUS.EMPTY) {
+          game.menus.refreshTitleWarning();  // still on the title; it stays usable
+          return;
+        }
+        leavingTitle = false;                // startNewGame takes the guard itself
+        return startNewGame();
+      }
+      game.player.group.visible = true;      // hidden for the title card
+      game.menus.hideTitle();
+      await game.menus.fadeOut();
+      if (!game.director.applySave(save)) {
+        // The world has been reset but the progression was refused. Do not drop
+        // the player into a half-restored city.
+        await game.menus.fadeIn();
+        game.hud.notice(saveFailureText(SAVE_STATUS.CORRUPT), 'bad', 9);
+        leavingTitle = false;
+        return startNewGame();
+      }
+      if (result && result.status === SAVE_STATUS.MIGRATED) {
+        // Not "updated": nothing has been written yet. The old file is still
+        // exactly where it was, which is the point — the previous build can
+        // still open it until this session saves.
+        game.hud.notice(t('ui.savefile.migrated',
+          'Save updated from an older version — it will be written in the new ' +
+          'format the next time the game saves.'), 'good', 6);
+      }
+      game.playTime = game.director.state.playTime;
+      game.hud.setVisible(true);
       await game.menus.fadeIn();
-      game.hud.notice(saveFailureText(SAVE_STATUS.CORRUPT), 'bad', 9);
-      leavingTitle = false;
-      return startNewGame();
-    }
-    if (result && result.status === SAVE_STATUS.MIGRATED) {
-      // Not "updated": nothing has been written yet. The old file is still
-      // exactly where it was, which is the point — the previous build can
-      // still open it until this session saves.
-      game.hud.notice(t('ui.savefile.migrated',
-        'Save updated from an older version — it will be written in the new ' +
-        'format the next time the game saves.'), 'good', 6);
-    }
-    game.playTime = game.director.state.playTime;
-    game.hud.setVisible(true);
-    await game.menus.fadeIn();
-    game.setMode(MODE.PLAY);
-    game.emit('music', 'explore');
-    warnStorage();
+      game.setMode(MODE.PLAY);
+      game.emit('music', 'explore');
+      warnStorage();
+    } finally { leavingTitle = false; }
   };
 
   game.on('ui:newgame', startNewGame);
