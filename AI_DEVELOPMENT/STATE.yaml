@@ -47,26 +47,37 @@ execution:
       fault recovery and the visible touch controls — is verified: three
       mutually blind lenses, one source-blind, critical 2 / high 6 / medium 6,
       every high fixed, and node tools/check_reviews.mjs --gate B passes.
+  delivery_work:
+    id: OPS-IPHONE-SE3-AUTOMATION
+    status: verification_in_progress
+    statement: >-
+      Add a required Playwright WebKit iPhone SE 3 release gate and a pre-deploy
+      iPhone SE 3 iOS Simulator / Mobile Safari gate. Physical-only performance,
+      thermal, memory-pressure, reach, haptic and audio properties remain
+      unmeasured, but are no longer a routine publication prerequisite.
   last_verified_checkpoint:
-    revision: pending-merge-of-claude/round-remaining-work-di4vbu
+    revision: b5f5f948e49fb0d53b7488aded5955b109821f4c
     what: >-
-      Two parallel implementations of GB-H1 reconciled into one, plus GB-H2 and
-      GB-TOUCH-SMOKE. The migration keeps the published storage key and puts the
-      version on the envelope; a save this build cannot read is copied into a
-      rescue LIST before the new game that follows can overwrite it; the loader
-      and deserialise now share one predicate for "can this build read it".
-      tools/save_migration.mjs 129 checks with six negative controls, each bound
-      to the check that must catch it; tools/fault_recovery.mjs 31 checks;
-      tools/touch_smoke.mjs 136 checks.
+      Current origin/main after pull requests #6 and #7. It contains the
+      reconciled GB-H1/GB-H2/touch round and the element-level reference
+      criteria. The current automation work is based directly on this revision.
     evidence:
       - AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json
       - AI_DEVELOPMENT/EVIDENCE/GB-H2-FAULT-RECOVERY.json
       - AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json
       - docs/reviews/gate-b-round-h1-h2-touch.md
-  modified_but_unverified: []
+      - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
+  modified_but_unverified:
+    - "Playwright WebKit iPhone SE 3 gate: full official run completed with only the intended missing-baseline failure; candidate reviewed and promoted, required-baseline rerun pending."
+    - "iPhone SE 3 iOS Simulator / Mobile Safari Appium gate: harness syntax and missing-device refusal verified locally; real macOS runner execution pending."
+    - "Pages publication and post-deploy F6 for this delivery: pending merge."
   current_blockers:
     - id: B1
-      statement: No physical device has ever run this build. Gate D performance cannot be verified here.
+      statement: >-
+        No physical device has ever run this build. Gate D FPS, GPU, heat,
+        memory-pressure eviction, real-glass reach/feel, haptics and audio
+        latency cannot be verified here. This remains an evidence limitation,
+        not a routine release blocker.
       who_can_clear: human only, via docs/device-test-checklist.md
     - id: B2
       statement: The Japanese text has never been read by a native speaker.
@@ -154,17 +165,14 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Merge this round through pull request #6 once the floor gates are green
-    (F2/F3/F5), then verify the public surface with
-    tools/gates/f6_public_revision.mjs and record the served revision. The two
-    findings this round did not fix are R2-9 (a rescued save has no restore or
-    export path, which the rollback recovery depends on) and R2-10
-    (available() reports "nothing will be kept" on a full quota while writes to
-    the existing key still succeed). Take R2-9 first: it is the one that makes
-    "a copy has been kept aside" mean something to a player.
+    Push the reviewed WebKit baseline to pull request #8, require the
+    required-baseline WebKit rerun and F2/F3/F5 to pass, merge, then require the
+    iOS Simulator Mobile Safari gate, Pages deployment and F6 public-surface
+    verification to complete. Record exact workflow and merge evidence before
+    resuming GB-IMP02.
 
 floor:
-  last_check: "2026-08-01 (benchmarks merge)"
+  last_check: "2026-08-02 (iPhone SE 3 automation delivery, local Level C)"
   independence_level_used: C
   skips:
     - "F6: ATTEMPTED AND BLOCKED, still owed. main moved to e0b2815 and the Pages deployment for that revision reports success, but tools/gates/f6_public_revision.mjs cannot reach the public surface from this environment: the egress proxy answers 403 to CONNECT for bachikoljunior-blip.github.io:443 (measured 2026-08-01T15:56:50Z, recorded in the proxy's own recentRelayFailures). A deployment job reporting success is not evidence of what a visitor receives, so this delivery is NOT recorded as publicly verified. Note: an earlier entry in this file claimed the policy had been widened and the Pages URL returned 200; that is contradicted by this measurement."
@@ -188,6 +196,8 @@ floor:
     f3_execution_check: active
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
+    iphone_webkit_release_gate: observed_initial_failure_rerun_pending
+    ios_safari_release_gate: prepared_not_executed
     revert_mechanism: prepared_not_executed
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
@@ -212,6 +222,11 @@ floor:
           independence level, missing enforcement field, missing STATE.yaml).
       Blocking proven: PR #5 mergeable_state went unstable -> blocked when the
           ruleset was created with these three as required status checks.
+      iPhone WebKit delivery: the first complete local surrogate run exited 1
+          because Japanese SAVE/RESUME pause controls were only 37.656 CSS px
+          wide. It passed end to end after the 44px minimum-width repair. The
+          iOS Safari harness also exited 1 without IOS_SIMULATOR_UDID rather
+          than silently substituting a lower-fidelity target.
     ruleset:
       target: default branch (main)
       enforcement: Active
@@ -237,7 +252,8 @@ automation:
   pages_deploy:
     file: .github/workflows/pages.yml
     trigger: push to main, plus manual dispatch
-    post_deploy_verification: absent
+    pre_deploy_gates: Playwright WebKit, then iPhone SE 3 iOS Simulator / Mobile Safari
+    post_deploy_verification: tools/gates/f6_public_revision.mjs after deploy
     revert: absent
   autopilot:
     file: .github/workflows/autopilot.yml
@@ -271,23 +287,26 @@ recovery:
     Pages surface. Operating files: see AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md.
 
 remote:
-  branch: claude/one-round-execution-changes-psdid4
-  pull_request: none
+  branch: agent/iphone-se3-automation
+  pull_request: 8
   deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Branch pushed at c8608a6. No pull request was opened: the user's standing
-    instruction is that none be opened unless explicitly requested. 193f408,
-    012009b and c8608a6 have never been verified on the public surface, and the
-    deployed revision is still cc96f3a. Nothing was merged or deployed this run,
-    so F6 did not fire.
+    Pull request #8 is open at head 7839c28824273879dad00807c31e97d7e07ff4c3.
+    Floor run 30722138303 passed F2, F5 and the existing F3 six-step execution.
+    The complete WebKit sequence ran and failed only on the designed first-run
+    missing-baseline check. Artifact 8825225421 was inspected and its candidate
+    was promoted locally; the required-baseline rerun, merge, iOS Safari,
+    deployment and F6 remain pending.
 
-updated_at: "2026-08-01"
+updated_at: "2026-08-02"
 reconciliation_status: >-
-  Migration to protocol v2.2 complete and validated. Verified against the real
-  working tree, git state, and the GitHub Actions run history for autopilot.yml.
-  A fresh-run resumption check passed: START_HERE.md plus this file alone yield
-  the objective, next action, blockers, recovery and remote state. npm test
-  passed end to end (exit 0) on the tree at 012009b, and the F3 gate passes on
-  the tree at c8608a6.
+  Protocol v2.2 remains active. The new release harness has passed syntax,
+  required-input refusal and a complete local Chromium surrogate run after the
+  44px Japanese-button repair. The full repository suite also passed on the
+  final tree: 19 adversarial refusals plus two clean runs, five endings, save
+  migration 133/133, fault recovery 34/34 and touch 136/136. The official
+  WebKit first run completed with only the intended missing-baseline failure;
+  its candidate was reviewed and promoted. The required-baseline rerun and
+  official iOS Simulator layer remain required before merge and publication.

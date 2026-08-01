@@ -30,7 +30,7 @@
     {
       "name": "clean boot: the loop is running",
       "pass": true,
-      "detail": "frame 6"
+      "detail": "frame 8"
     },
     {
       "name": "sync error: caught after boot",
@@ -60,7 +60,7 @@
     {
       "name": "sync error: the loop kept advancing",
       "pass": true,
-      "detail": "3 -> 11"
+      "detail": "4 -> 13"
     },
     {
       "name": "rejection: caught after boot (nothing listened for this at all before)",
@@ -95,7 +95,7 @@
     {
       "name": "repeat: a fault that keeps happening reaches the recovery panel",
       "pass": true,
-      "detail": "3 faults, lost=false paused=false running=true frame=11"
+      "detail": "3 faults, lost=false paused=false running=true frame=13"
     },
     {
       "name": "repeat: the panel says what actually happened, not context loss",
@@ -115,7 +115,7 @@
     {
       "name": "stall: the panel waits for the stall check rather than firing on sight",
       "pass": true,
-      "detail": "10ms"
+      "detail": "13ms"
     },
     {
       "name": "stall: a fault after which the picture stopped reaches the recovery panel",
@@ -135,7 +135,7 @@
     {
       "name": "swallowed: the picture is being drawn before the break",
       "pass": true,
-      "detail": "138 draw calls"
+      "detail": "184 draw calls"
     },
     {
       "name": "swallowed: an error the event bus caught still reaches the fault path",
@@ -145,7 +145,7 @@
     {
       "name": "swallowed: and the player is told rather than left with a still picture",
       "pass": true,
-      "detail": "panel=true notices=1 draws=322"
+      "detail": "panel=true notices=1 draws=368"
     },
     {
       "name": "ja: the panel appears on a Japanese device",

@@ -187,6 +187,7 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  min-width: 44px;                  /* short Japanese labels still need a thumb-sized target */
   min-height: 44px;                 /* Apple HIG minimum, never scaled down */
   text-align: left;
   font-family: var(--ui-sans);
