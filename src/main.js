@@ -133,6 +133,83 @@ async function main() {
     if (game.atmos) game.atmos.shadowDirty = true;
   });
 
+  // ---- uncaught errors and rejected promises ---------------------------
+  // The page's own handler stops listening the moment the bundle boots, so
+  // after boot nothing caught either of these. The loop re-arms its rAF at the
+  // top of the frame, which means a throw inside a frame does not stop the
+  // loop — it repeats forever, and what the player sees is a picture that has
+  // stopped changing with no message and no way out.
+  //
+  // Not every uncaught error is fatal, so this does not put a wall in front of
+  // a player whose game is still running. One fault saves and says so; a fault
+  // that repeats, or one after which the simulation has stopped advancing,
+  // escalates to the same recovery panel context loss uses.
+  const faults = [];
+  let faultPanelShown = false;
+  const showRecoveryPanel = () => {
+    if (faultPanelShown || !ctxLost) return;
+    faultPanelShown = true;
+    const k = ctxLost.querySelector('.k');
+    const s = ctxLost.querySelector('.s');
+    if (k) k.textContent = t('ui.fault.title', 'SOMETHING BROKE');
+    if (s) {
+      s.textContent = t('ui.fault.text',
+        'The game hit an error it could not carry on from. Your progress has been saved. ' +
+        'Reload to pick up where you left off.');
+    }
+    ctxLost.classList.add('on');
+  };
+
+  let lastFaultSave = 0;
+  const onFault = (kind, message) => {
+    const e = game.engine;
+    const at = { kind, message: String(message || 'unknown'), t: Date.now(), frame: e.frame };
+    faults.push(at);
+    // A fault inside the loop arrives once per frame. Neither the list nor the
+    // save may grow with it: keeping every entry is a leak, and writing the
+    // save every frame is a stall on top of a stall.
+    if (faults.length > 24) faults.splice(0, faults.length - 24);
+    if (window.CINDERLINE) window.CINDERLINE.faults = faults;
+    console.error('[cinderline] uncaught', kind, message);
+
+    if (at.t - lastFaultSave > 5000) {
+      lastFaultSave = at.t;
+      saveOnExit();
+    }
+    if (faults.length === 1) {
+      try {
+        game.hud.notice(t('ui.fault.notice',
+          '<b>Something went wrong.</b> Your progress has been saved.'), 'bad', 6);
+      } catch { /* the HUD itself may be what broke */ }
+    }
+
+    // Repeats mean the fault is in something that runs again — a frame, an
+    // updater, a listener — and one message is not enough.
+    const recent = faults.filter((f) => at.t - f.t < 5000);
+    if (recent.length >= 3 || recent.some((f) => f !== at && f.message === at.message)) {
+      showRecoveryPanel();
+      return;
+    }
+    // Otherwise give the loop a moment and check whether it is still alive.
+    // A frame counter that has not moved is the player's actual complaint —
+    // the picture stopped — whether the loop is throwing before it can count
+    // the frame or has stopped being scheduled at all. Pause and context loss
+    // are excluded because both stop the counter on purpose and both already
+    // say so on screen.
+    setTimeout(() => {
+      if (faultPanelShown) return;
+      if (!e.isPaused && !e.lost && e.frame === at.frame) showRecoveryPanel();
+    }, 1200);
+  };
+
+  window.addEventListener('error', (ev) => {
+    onFault('error', (ev && (ev.message || (ev.error && ev.error.message))) || 'error');
+  });
+  window.addEventListener('unhandledrejection', (ev) => {
+    const r = ev && ev.reason;
+    onFault('rejection', (r && (r.message || r)) || 'rejection');
+  });
+
   // ---- storage availability --------------------------------------------
   // Storage.available() existed and was called from nowhere; in iOS private
   // browsing every write throws, every save silently fails, and the game said
@@ -147,7 +224,29 @@ async function main() {
 
   game.hud.setVisible(false);
   game.setMode(MODE.TITLE);
-  game.menus.showTitle(Storage.hasSave());
+  const hasSave = Storage.hasSave();
+
+  // ---- what happened to the save --------------------------------------
+  // A save the loader could not use is not gone: it has been copied aside by
+  // Storage.load(). Say so on the title, because the alternative is a player
+  // who sees CONTINUE missing and concludes their playthrough was deleted —
+  // and then starts a new game, which is the only thing that actually could
+  // have deleted it.
+  const loadState = Storage.lastLoad;
+  if (loadState && loadState.status === 'failed') {
+    const kept = loadState.rescued
+      ? t('ui.savefile.kept', ' The old file has been kept aside, and nothing the game does from here will overwrite it.')
+      : '';
+    const head = loadState.reason === 'from-newer-build'
+      ? t('ui.savefile.newer', 'Your save was written by a newer version of the game, so this one cannot read it.')
+      : t('ui.savefile.unreadable', 'Your save could not be read.');
+    game.menus.setTitleWarning(head + kept);
+  } else if (loadState && loadState.status === 'ok' && loadState.migrated) {
+    game.menus.setTitleWarning(t('ui.savefile.migrated',
+      'Your save was made by an older version and has been brought forward. Your progress is intact.'));
+  }
+
+  game.menus.showTitle(hasSave);
   // One place owns the title framing, so boot and return-to-title cannot
   // drift apart.
   game.setTitleCamera();

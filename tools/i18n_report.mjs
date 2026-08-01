@@ -119,8 +119,12 @@ for (const id in QUESTS) {
 // Examine topics, journals and prompts live in the director and the world data,
 // which are not tables we can import cleanly — scrape them from the source, and
 // scrape the engine's own literal `t()` calls at the same time.
+// main.js is in here because the boot, the storage warnings and the save's own
+// "we could not read this" messages are all authored there, and a player whose
+// save just failed to load is exactly the reader who needs their own language.
 const SRC = ['src/game/director.js', 'src/game/game.js', 'src/ui/hud.js',
-             'src/ui/screens.js', 'src/game/narrative.js', 'src/game/ai.js'];
+             'src/ui/screens.js', 'src/game/narrative.js', 'src/game/ai.js',
+             'src/main.js'];
 for (const f of SRC) {
   const s = readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
   for (const m of s.matchAll(/\bt\(\s*'([a-z][A-Za-z0-9_.]*)'/g)) want('interface', m[1]);

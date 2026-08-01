@@ -1,0 +1,327 @@
+{
+  "task": "GB-H1",
+  "scope": "Save migration and save-loss behaviour in src/game/state.js, over an in-memory localStorage. The old-version input is a real blob written by the published v1 build. Not a browser run and not a claim about iOS storage eviction.",
+  "saveVersion": 2,
+  "registeredMigrations": [
+    1
+  ],
+  "multiStepChainExercised": false,
+  "checks": [
+    {
+      "name": "current: save writes",
+      "pass": true
+    },
+    {
+      "name": "current: load returns a payload",
+      "pass": true
+    },
+    {
+      "name": "current: reported as an unmigrated load",
+      "pass": true
+    },
+    {
+      "name": "current: payload is at the current version",
+      "pass": true
+    },
+    {
+      "name": "current: deserialise accepts it",
+      "pass": true
+    },
+    {
+      "name": "current: state survives the round trip",
+      "pass": true
+    },
+    {
+      "name": "current: envelope survives the round trip",
+      "pass": true
+    },
+    {
+      "name": "current: stored at the versionless key",
+      "pass": true
+    },
+    {
+      "name": "v1: a published v1 save is loadable at all (it was silently discarded before)",
+      "pass": true
+    },
+    {
+      "name": "v1: carried to the current version",
+      "pass": true
+    },
+    {
+      "name": "v1: reported as a migration, with the steps it took",
+      "pass": true
+    },
+    {
+      "name": "v1: the migrated state deserialises",
+      "pass": true
+    },
+    {
+      "name": "v1: flags intact",
+      "pass": true
+    },
+    {
+      "name": "v1: inventory intact",
+      "pass": true
+    },
+    {
+      "name": "v1: capabilities intact",
+      "pass": true
+    },
+    {
+      "name": "v1: quests intact, step and data included",
+      "pass": true
+    },
+    {
+      "name": "v1: journal intact",
+      "pass": true
+    },
+    {
+      "name": "v1: chapter, play time and spawn intact",
+      "pass": true
+    },
+    {
+      "name": "v1: player envelope untouched by the migration",
+      "pass": true
+    },
+    {
+      "name": "v1: cast positions untouched",
+      "pass": true
+    },
+    {
+      "name": "v1: world pickups untouched",
+      "pass": true
+    },
+    {
+      "name": "v1: relocated to the current key",
+      "pass": true
+    },
+    {
+      "name": "v1: legacy key cleared once the new one is written",
+      "pass": true
+    },
+    {
+      "name": "v1: second load is a plain load",
+      "pass": true
+    },
+    {
+      "name": "v1: sanity — a fresh state is empty",
+      "pass": true
+    },
+    {
+      "name": "chain: at least one production migration is registered",
+      "pass": true
+    },
+    {
+      "name": "chain: registered steps span 1 .. current-1 with no hole",
+      "pass": true
+    },
+    {
+      "name": "chain: a step exists for v1",
+      "pass": true
+    },
+    {
+      "name": "chain: migrating from the oldest supported version succeeds",
+      "pass": true
+    },
+    {
+      "name": "chain: every registered step was applied, in order",
+      "pass": true
+    },
+    {
+      "name": "chain: lands exactly on the current version",
+      "pass": true
+    },
+    {
+      "name": "chain: the input payload was not mutated",
+      "pass": true
+    },
+    {
+      "name": "chain: a current save takes no steps",
+      "pass": true
+    },
+    {
+      "name": "from-newer-build: not loaded",
+      "pass": true
+    },
+    {
+      "name": "from-newer-build: reported with an explicit reason",
+      "pass": true
+    },
+    {
+      "name": "from-newer-build: reported as kept",
+      "pass": true
+    },
+    {
+      "name": "from-newer-build: the exact bytes were kept",
+      "pass": true
+    },
+    {
+      "name": "from-newer-build: survives the autosave that follows",
+      "pass": true
+    },
+    {
+      "name": "from-newer-build: the game can tell the player it is there",
+      "pass": true
+    },
+    {
+      "name": "unreadable: not loaded",
+      "pass": true
+    },
+    {
+      "name": "unreadable: reported with an explicit reason",
+      "pass": true
+    },
+    {
+      "name": "unreadable: reported as kept",
+      "pass": true
+    },
+    {
+      "name": "unreadable: the exact bytes were kept",
+      "pass": true
+    },
+    {
+      "name": "unreadable: survives the autosave that follows",
+      "pass": true
+    },
+    {
+      "name": "unreadable: the game can tell the player it is there",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: not loaded",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: reported with an explicit reason",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: reported as kept",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: the exact bytes were kept",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: survives the autosave that follows",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: the game can tell the player it is there",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: not loaded",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: reported with an explicit reason",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: reported as kept",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: the exact bytes were kept",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: survives the autosave that follows",
+      "pass": true
+    },
+    {
+      "name": "unknown-shape: the game can tell the player it is there",
+      "pass": true
+    },
+    {
+      "name": "rescue: the first rescued save is never overwritten",
+      "pass": true
+    },
+    {
+      "name": "empty: no save reads as no save, not as a failure",
+      "pass": true
+    },
+    {
+      "name": "rescue: clear() leaves the rescued save alone",
+      "pass": true
+    },
+    {
+      "name": "rescue: the player can drop it deliberately",
+      "pass": true
+    },
+    {
+      "name": "injected step that throws: refuses to load",
+      "pass": true
+    },
+    {
+      "name": "injected step that throws: reported as a failed migration",
+      "pass": true
+    },
+    {
+      "name": "injected step that throws: the original save is kept whole",
+      "pass": true
+    },
+    {
+      "name": "injected step that does not advance the version: refuses to load",
+      "pass": true
+    },
+    {
+      "name": "injected step that does not advance the version: reported as a failed migration",
+      "pass": true
+    },
+    {
+      "name": "injected step that does not advance the version: the original save is kept whole",
+      "pass": true
+    },
+    {
+      "name": "injected step that returns nothing: refuses to load",
+      "pass": true
+    },
+    {
+      "name": "injected step that returns nothing: reported as a failed migration",
+      "pass": true
+    },
+    {
+      "name": "injected step that returns nothing: the original save is kept whole",
+      "pass": true
+    },
+    {
+      "name": "injected step that drops the state: refuses to load",
+      "pass": true
+    },
+    {
+      "name": "injected step that drops the state: reported as a failed migration",
+      "pass": true
+    },
+    {
+      "name": "injected step that drops the state: the original save is kept whole",
+      "pass": true
+    }
+  ],
+  "negativeControls": [
+    {
+      "name": "no-migration-registry",
+      "rejected": true
+    },
+    {
+      "name": "pre-fix-loader",
+      "rejected": true
+    },
+    {
+      "name": "discard-instead-of-rescue",
+      "rejected": true
+    },
+    {
+      "name": "rescue-overwritten-by-later-failures",
+      "rejected": true
+    },
+    {
+      "name": "silent-migration",
+      "rejected": true
+    }
+  ],
+  "productionBehaviourRestored": true,
+  "passed": true
+}

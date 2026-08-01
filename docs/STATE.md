@@ -1,12 +1,12 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.1 -->
+<!-- state_revision: 2026-08-01.2 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
 **記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
 
-最終更新: 2026-08-01 / 作業ブランチ `main` / 検証済み基点 `cc96f3a`
+最終更新: 2026-08-01 / 作業ブランチ `claude/round-remaining-work-di4vbu` / 検証済み基点 `193f408`（`main` の先端）
 
 ---
 
@@ -58,6 +58,9 @@
 | プロダクションバイブル（§5） | `docs/bible.md` | スコープ確定数値6項目を記載。`node tools/check_scope.mjs` が通る |
 | アセット台帳（§3 / §9） | `docs/assets.md` | 実行時依存は three.js のみ。外部アセット0 |
 | 実機テスト手順書（§13） | `docs/device-test-checklist.md` | **実施回数 0** と明記 |
+| セーブ移行と喪失回帰の検査（監査 H1） | `tools/save_migration.mjs`, `tools/make_save_v1_fixture.mjs`, `tools/fixtures/save-v1.json` | 負例5種で**検査自体が落ちること**を確認済み |
+| 起動後 fault 回復の検査（監査 H2） | `tools/fault_recovery.mjs` | 開発中に実際に非ゼロ終了し、production 側の停止判定の誤りを1件検出して修正させた |
+| 実タッチ操作の検査（`GB-TOUCH-SMOKE`） | `tools/touch_smoke.mjs` | 開発中に実際に非ゼロ終了した（同時タッチの片指離しが成立していなかった） |
 
 ### 本セッションで実際に走らせた検証
 
@@ -80,7 +83,21 @@
 
 初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
 
-2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
+### 2026-08-01 ラウンド — H1 / H2 / タッチ
+
+前ラウンドの「次の3アクション」を3件とも実装した。**いずれもまだ独立批評を受けていない**（§6 の独立性規定により、実装したエージェントがそれを承認する唯一のエージェントであってはならない）。したがって3件の task 状態は `under_review` であり、`verified` ではない。
+
+| task | 変更 | 検証（本ラウンドで実走） |
+|---|---|---|
+| **GB-H1** セーブマイグレーション | `src/game/state.js` に `migrateSave()` と段階移行レジストリ `SAVE_MIGRATIONS` を追加。`SAVE_VERSION` を 2 に上げ、保存先キーを `cinderline.save.v1` → **版に依存しない `cinderline.save`** へ移した（版を鍵名に埋めていると、版を上げた瞬間に既存セーブが誰も見に行かない住所に取り残される）。読めなかったセーブは破棄せず `cinderline.save.rescued` へ退避し、タイトル画面で明示的に告知する | `npm run test:save` → **SAVE MIGRATION OK** 73検査。**入力は公開ビルド `cc96f3a` 自身の保存経路が書いた実物の v1 セーブ**（`tools/fixtures/save-v1.json`、生成器 `tools/make_save_v1_fixture.mjs`）。負例5種（マイグレーション削除／修正前ローダー／退避せず破棄／退避の上書き／移行の無告知）を全て非ゼロ拒否 |
+| **GB-H2** 起動後のエラー回復 | `src/main.js` が `error` と `unhandledrejection` を起動後も受け、保存 → 告知 → 必要なら既存回復パネルへ接続する。生きているループを止めないため、**1件目は通知のみ**、繰り返し・同一メッセージ・フレームカウンタ停止のいずれかで初めてパネルを出す。`public/index.html` の起動前ハンドラに `unhandledrejection` を追加 | `npm run test:faults` → **FAULT RECOVERY OK** 30検査。本番ビルド・667×375 実ブラウザ。素の起動／単発同期例外／rejected promise／プレイ中の保存／反復／**engine の updater が毎フレーム投げる本物の無言フリーズ**／日本語／バンドル未到達の起動前 rejection |
+| **GB-TOUCH-SMOKE** 実タッチ | 実装変更なし（検査の追加） | `npm run test:touch` → **TOUCH SMOKE OK** 118検査。`Input.dispatchTouchEvent` で、描画された要素から読んだ実座標へタッチを送る。可視9操作子は 54×54（攻撃）／44×44（他8）で重なり0・画面内・`pointer-events:auto`、操作子フレーム自体は `none`。左ゾーンのタッチで指の下にスティックが立ち0.71m実歩行、右ドラッグでカメラ回頭、攻撃タップが `actor:attackstart` まで到達、円の間の死角（496,237）は何も押さない、2本指で「移動しながら攻撃」と片指離しが成立、会話選択肢は44px・ドラッグでは確定せずタップで確定、縦持ちで回転プレートが世界を止め背後へタッチが抜けず、横に戻して操作子が再び44px・実際に反応する |
+
+本ラウンドの最後に `npm test` を通しで実走し **exit 0**（operating-state / dev build / validate / gate-b 敵対検査19件 / 代表スライス2回 = 302.6m・857ppm・10hit・3kill / 5経路通しプレイ / perf / save 73 / faults 30 / touch 118）。
+
+**この3件が主張しないこと**: 実機での動作・性能（B1 は未解決のまま）、Gate B 全体の通過、iOS Safari のジェスチャ挙動。多段（2段以上）のマイグレーション連鎖は、本番に登録された step が現在1つ（v1→v2）しかないため**未実行**である。連鎖機構そのもの（全 step を順に適用し、穴・失敗・非前進を検出する）は検査済み。
+
+2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。その後 GB-H1 / GB-H2 / GB-TOUCH-SMOKE を実装し（上表）、次の active task は `GB-ROUND-REVIEW`（本ラウンドの独立批評）である。
 
 ---
 
@@ -90,16 +107,16 @@
 
 この表示は `AI_DEVELOPMENT/PROJECT_STATE.json` の task graph と `SESSION_STATE.json` の frontier から導く。task 完了、ターン終了、commit、PR は checkpoint であり、ユーザーの明示宣言がない限り論理セッションを終了しない。プロジェクト完成は `ALL_DONE` 条件と別である。
 
-### アクション 1 — H1: セーブマイグレーションを追加する（active）
-`src/game/state.js:292,357` にはマイグレーション層がなく、version を上げると既存進行が警告なく破棄される。`migrate(d)` を追加し、旧version fixture、段階移行、失敗時の明示通知、save/load回帰を検証する。
+### アクション 1 — 本ラウンドの3件を独立批評にかける（active / `GB-ROUND-REVIEW`）
+実装したエージェントがそれを承認する唯一のエージェントであってはならない（§6）。入力はリポジトリ内の成果物・実際のビルド・`docs/DONE.md` のみとし、実装側の報告と `README.md` を入力にしない。批評対象は `src/game/state.js` の移行層、`src/main.js` / `public/index.html` の fault 経路、`tools/save_migration.mjs` / `tools/fault_recovery.mjs` / `tools/touch_smoke.mjs` の3本が**主張する動詞を実際に実行しているか**（R-08）。通れば GB-H1 / GB-H2 / GB-TOUCH-SMOKE を `verified` にする。
 
-### アクション 2 — H2: 起動後エラーから回復できるようにする
-`public/index.html:92` と `src/main.js:31` を対象に、`window.onerror` と `unhandledrejection` を起動後も既存回復パネルへ接続する。正常起動、同期例外、rejected promise、再試行をユーザーsurfaceから検証する。
+### アクション 2 — IMP-02: 選択を採点する信頼フィードバックを直す
+`GB-IMP02`。信頼値が5段階の語で常時表示され（`src/ui/screens.js:473-487`）、信頼変動47件中38件が色付きトーストで出る。受け入れ表 #6 が反証された項目であり、`docs/bible.md` IMP-02 を正とする。
 
-### アクション 3 — 実際に見えるタッチ操作を667×375で駆動する
-`GB-TOUCH-SMOKE` として、画面上の移動・カメラ・攻撃・回避・防御・会話ボタンを実タッチ座標から操作し、44px目標、重なり、誤操作、同時入力、向き変更を検証する。既存のGate B代表スライスはproduction input chainを通るが、見えるhit target自体の証拠ではない。
+### アクション 3 — 一本の通し実走（`GC-IMP06-FULLRUN`）
+クリーンセーブから開始し、実移動・実呼吸・実戦闘で開幕からエンディングまでを1経路走らせる。C1 / D3 と、未計測のプレイ時間見積もりの置換は、これ以外の根拠では主張できない。
 
-**その次**は `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
+IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
 
 ---
 
@@ -180,7 +197,7 @@
 | 9 | スコープ確定数値6項目がバイブルに記載されている | `node tools/check_scope.mjs` → exit 0 | 自動 | **検証済** |
 | 10 | 性能記述に実機主張が混入していない | `tools/perf.mjs:2-20,184-187`（SwiftShader 明記、fps 出力を拒否）、監査 | コード | **検証済** |
 | 11 | ガスが AI の**経路選択**を支配する | — | — | **未検証**（視程と退避は確認済み。経路そのものは未確認） |
-| 12 | 667×375 で全画面がタッチ操作可能 | 監査で大半を確認。ただしマップはパン/ズーム無し、チュートリアル画面は存在しない | コード | **部分的**（監査 M8） |
+| 12 | 667×375 で全画面がタッチ操作可能 | `npm run test:touch` → TOUCH SMOKE OK 118検査（`AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json`） | 自動 | **部分的（範囲拡大）** — HUD操作子・会話選択肢・向き変更は**実タッチ座標で実走検証済み**。マップのパン/ズーム無しとチュートリアル画面の不在（監査 M8）は未解決のまま。**実機ではない**（B1） |
 | 13 | §13 の描画予算を満たす | — | — | **未達**（ドローコールが medium で超過。影キャスタ数未達。監査 §13 表） |
 | 14 | 実機で 30 FPS を満たす | — | — | **原理的に未検証。** 実機が存在しない。**主張してはならない**（§13） |
 | 15 | 想定プレイ時間 3〜5時間 | — | — | **未計測の見積もり。** バイブル §16 に見積もりと明記済み。Gate C までに実測する |
@@ -191,6 +208,8 @@
 
 | 日付 | 変更 | 理由 |
 |---|---|---|
+| 2026-08-01 | **セーブの保存先キーを `cinderline.save.v1` → `cinderline.save` に変更**し、`SAVE_VERSION` を 1 → 2 に上げた。旧キーは `LEGACY_SAVE_KEYS` として読み取り側にのみ残す | 監査 H1 の是正に付随する構造的欠陥。版を鍵名に埋めたまま版を上げると、既存セーブは**誰も読みに行かない住所に取り残される**。移行層は見つけられないものを移行できない。公開済み v1 セーブは実物の fixture で移行を検証した |
+| 2026-08-01 | 起動後の未捕捉エラーで**即座に全画面パネルを出さない**設計にした（1件目は通知のみ。反復・同一メッセージ・フレーム停止で初めてパネル） | 監査 H2 の要求は「無言のフリーズをなくす」であって「あらゆる例外でゲームを止める」ではない。UI コールバック1件の例外で遊べているセッションを終わらせるのは、直そうとしている害と別の害である。エンジンは毎フレーム先頭で rAF を張り直すため、致命的な例外は必ず反復するか frame カウンタを止める。その2つを判定条件にした |
 | 2026-07-30 | スコアカードの D「モバイル実現性」を 5 → 4 に下げ、合計 31 → 30 | 独立監査が §13 の明示的要求3項目（チャンクストリーミング／AI更新のずらし／距離によるアニメーション間引き）の未実装を file:line 付きで示したため。証拠を受けても動かないスコアカードは追認でしかない |
 | 2026-07-30 | バイブル §14 の「空気ゲージはタップできる」を「タップできない」に修正 | README の記述をそのまま転写していた。実装（`src/ui/hud.js:78-84`）はタップを明示的に拒否している。**§14 が README を批評の入力として認めない理由の実例** |
 | 2026-07-30 | スコープ確定数値のエリア数を 15（屋外9/屋内6）→ **14（屋外8/屋内6）** に訂正 | grep での数え間違い。`src/content/world_data.js` を実際に実行して `regions.length === 8` を確認した。**数える作業も計測であり、grep の目視は計測ではない** |

@@ -311,4 +311,17 @@ export const UI_JA = {
     warn: 'このブラウザではゲームを保存できません。おそらくプライベートブラウズです。遊べますが、タブを閉じると何も残りません。',
     notice: '<b>保存されません。</b>このブラウザは保存を拒否しています。何も残りません。',
   },
+  // Not `save`: `ui.save` is already the pause menu's SAVE label, and a second
+  // `save` key here would silently replace it with an object.
+  savefile: {
+    unreadable: 'セーブデータを読み込めませんでした。',
+    newer: 'セーブデータは新しいバージョンのゲームで作られており、こちらでは読めません。',
+    kept: 'ただし削除していません。別の場所に保管してあり、以後このゲームが上書きすることはありません。',
+    migrated: 'セーブデータは古いバージョンのものです。移行しました。進行は保持されています。',
+  },
+  fault: {
+    title: '実行が止まりました',
+    text: 'ゲームが回復できないエラーに当たりました。進行は保存済みです。再読み込みすれば続きから始められます。',
+    notice: '<b>問題が起きました。</b>進行は保存済みです。',
+  },
 };

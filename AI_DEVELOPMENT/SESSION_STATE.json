@@ -1,24 +1,34 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.1",
+  "state_revision": "2026-08-01.2",
   "session": {
     "id": "SESSION-2026-07-31-01",
     "status": "active",
     "opened_by_user": true,
     "end_declared_by_user": false,
-    "objective": "Continue CINDERLINE from the published Gate B representative-slice checkpoint and implement the highest-priority verified frontier without overstating full Gate B coverage.",
-    "active_task": "GB-H1",
-    "active_frontier": ["GB-H1", "GB-H2", "GB-TOUCH-SMOKE"],
+    "objective": "Carry the Gate B frontier forward without overstating coverage: the save-migration, fault-recovery and visible-touch work is implemented and machine-verified, and now needs an independent review before anything is called verified.",
+    "active_task": "GB-ROUND-REVIEW",
+    "active_frontier": [
+      "GB-ROUND-REVIEW",
+      "GB-IMP02",
+      "GC-IMP06-FULLRUN"
+    ],
     "final_handoff": null,
     "archive_reference": null
   },
   "checkpoint": {
-    "id": "CP-2026-08-01-01",
-    "baseline": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
-    "last_verified_action": "PRs #2 and #3 were merged into main; both Pages deployment paths succeeded for cc96f3a, and the public HTML, JavaScript, CSS and manifest matched the verified production build byte-for-byte.",
+    "id": "CP-2026-08-01-02",
+    "baseline": "193f408",
+    "last_verified_action": "GB-H1, GB-H2 and GB-TOUCH-SMOKE were implemented and run: save migration 73 checks with 5 negative controls rejected, fault recovery 30 checks in a production build at 667x375, touch smoke 118 checks driven from dispatched touch coordinates.",
     "current_failure": null,
-    "next_action": "Implement GB-H1 as an isolated save-migration layer, then verify old-version fixtures, staged migrations, explicit failure recovery, current saves and normal save/load behavior before integration.",
-    "rollback_point": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
-    "pending_verification": ["old-version save fixtures", "multi-step migration", "explicit migration failure behavior", "current-version save/load regression", "user-surface recovery notice"]
+    "next_action": "Run an independent, source-aware falsification review of the three (GB-ROUND-REVIEW), whose inputs are the repository artefacts, the real build and docs/DONE.md only — not this round’s reports and not README.md.",
+    "rollback_point": "193f408",
+    "pending_verification": [
+      "independent review of the migration layer",
+      "independent review of the fault escalation rule",
+      "independent review of whether the three new runners execute the verbs they claim",
+      "multi-step (two or more) migration chain, unexercised until a second production step exists",
+      "anything on real hardware (blocker B1)"
+    ]
   }
 }

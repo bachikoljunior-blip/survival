@@ -14,9 +14,49 @@
 
 import { Emitter, clamp, clamp01, deepClone } from '../core/util.js';
 
-export const SAVE_KEY = 'cinderline.save.v1';
+/**
+ * Where the save lives.
+ *
+ * The key deliberately carries no version. It used to be `cinderline.save.v1`,
+ * which meant that raising SAVE_VERSION would have orphaned every existing
+ * save at an address nothing ever looked at again — a migration layer cannot
+ * migrate what it cannot find. Old addresses stay in LEGACY_SAVE_KEYS so a
+ * save written by the published v1 build is still found, migrated and kept.
+ */
+export const SAVE_KEY = 'cinderline.save';
+export const LEGACY_SAVE_KEYS = ['cinderline.save.v1'];
+/**
+ * Where a save that could NOT be migrated is put instead of being destroyed.
+ * The damage this prevents is specific: the loader used to return null for any
+ * version it did not recognise, the title screen then hid CONTINUE, and the
+ * first autosave ninety seconds later wrote over the only copy of a
+ * playthrough. Nothing here is ever overwritten once written.
+ */
+export const SAVE_RESCUE_KEY = 'cinderline.save.rescued';
 export const SETTINGS_KEY = 'cinderline.settings.v1';
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
+
+/**
+ * Save migrations, keyed by the version they upgrade FROM. Each step takes a
+ * whole save payload of version N and returns the payload of version N + 1,
+ * and `migrateSave` applies them in sequence, so a save two versions behind is
+ * carried through every intermediate step rather than being special-cased.
+ *
+ * A step must not mutate its input: a failed migration has to leave the
+ * original blob intact so it can be rescued.
+ */
+export const SAVE_MIGRATIONS = {
+  // v1 -> v2. Same game state; the change is where the save lives and what it
+  // records about itself. v1 payloads carry no envelope version and stamp the
+  // wall-clock time inside the state object, which left nothing to key a
+  // future envelope change on.
+  1: (payload) => ({
+    ...payload,
+    state: { ...payload.state, v: 2 },
+    ev: 1,
+    savedAt: payload.savedAt ?? payload.state?.t ?? null,
+  }),
+};
 
 /**
  * Capabilities. Each is unlocked by a specific, diegetic event — never by
@@ -315,11 +355,91 @@ export class GameState extends Emitter {
 
 // --------------------------------------------------------------- persistence
 
+/** Envelope version — the shape around `state` (player, world, crisis). */
+export const SAVE_ENVELOPE_VERSION = 1;
+
+/**
+ * Carry a save payload up to the current version.
+ *
+ * Returns a result rather than a payload or null, because "this save is from a
+ * build that does not exist yet" and "this save is from two versions ago" have
+ * to reach the player as different sentences, and because the caller has to
+ * know whether it is allowed to overwrite what it just read.
+ *
+ * @returns {{ok: boolean, payload: object|null, from: number|null,
+ *            to: number, steps: number[], reason: string|null}}
+ */
+export function migrateSave(payload) {
+  const fail = (reason, from = null) =>
+    ({ ok: false, payload: null, from, to: SAVE_VERSION, steps: [], reason });
+
+  if (!payload || typeof payload !== 'object' || !payload.state ||
+      typeof payload.state !== 'object') return fail('unreadable');
+
+  const from = payload.state.v;
+  if (!Number.isInteger(from) || from < 1) return fail('unknown-shape', null);
+  // A save from a newer build cannot be understood by going forwards, and
+  // guessing at it is how progress gets quietly corrupted rather than kept.
+  if (from > SAVE_VERSION) return fail('from-newer-build', from);
+  if (from === SAVE_VERSION) {
+    return { ok: true, payload, from, to: SAVE_VERSION, steps: [], reason: null };
+  }
+
+  const steps = [];
+  let current = payload;
+  let v = from;
+  // Bounded by the number of registered steps: a step that fails to advance
+  // the version must stop the chain rather than spin.
+  while (v < SAVE_VERSION) {
+    const step = SAVE_MIGRATIONS[v];
+    if (typeof step !== 'function') return fail('no-migration-path', from);
+    let next;
+    try {
+      next = step(current);
+    } catch (e) {
+      console.warn('[cinderline] save migration failed', v, e);
+      return fail('migration-failed', from);
+    }
+    if (!next || typeof next !== 'object' || !next.state ||
+        next.state.v !== v + 1) return fail('migration-failed', from);
+    steps.push(v);
+    current = next;
+    v += 1;
+  }
+  return { ok: true, payload: current, from, to: SAVE_VERSION, steps, reason: null };
+}
+
 /**
  * Storage wrapper. Private browsing on iOS can throw on write, and a game that
  * dies because it could not save is worse than one that says so and continues.
  */
 export const Storage = {
+  /**
+   * What the last load() did, for the boot to put on screen. Shapes:
+   *   { status: 'none' }                          nothing stored
+   *   { status: 'ok', migrated, from, steps }     usable save
+   *   { status: 'failed', reason, rescued }       kept, not loaded
+   */
+  lastLoad: { status: 'none' },
+
+  _read(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+  },
+
+  /** Put an unmigratable blob somewhere the game will never write over. */
+  _rescue(raw, reason, from) {
+    let rescued = false;
+    try {
+      if (raw != null && !localStorage.getItem(SAVE_RESCUE_KEY)) {
+        localStorage.setItem(SAVE_RESCUE_KEY, raw);
+      }
+      rescued = raw != null && !!localStorage.getItem(SAVE_RESCUE_KEY);
+    } catch { /* private browsing: nothing can be kept, and it already said so */ }
+    this.lastLoad = { status: 'failed', reason, from: from ?? null, rescued };
+    console.warn('[cinderline] save not loaded:', reason);
+    return null;
+  },
+
   available() {
     try {
       const k = '__cl_test__';
@@ -338,10 +458,16 @@ export const Storage = {
         sat: player.lungs.sat, filter: player.lungs.filter, masked: player.lungs.masked,
         lampOn: player.lampOn, lampBattery: player.lampBattery,
       } : null,
+      ev: SAVE_ENVELOPE_VERSION,
+      savedAt: Date.now(),
       ...extra,
     };
     try {
       localStorage.setItem(SAVE_KEY, JSON.stringify(payload));
+      // The save now lives at the current address. Leaving the v1 copy behind
+      // would make the next load find a stale playthrough the moment the new
+      // key is ever cleared.
+      for (const k of LEGACY_SAVE_KEYS) localStorage.removeItem(k);
       return true;
     } catch (e) {
       console.warn('[cinderline] save failed', e);
@@ -349,23 +475,69 @@ export const Storage = {
     }
   },
 
+  /**
+   * Read the save, migrating it if it is behind.
+   *
+   * Returns null both when there is nothing stored and when what is stored
+   * cannot be used — `lastLoad` is what tells those apart, and a save that
+   * could not be used has been copied somewhere safe before this returns.
+   */
   load() {
-    try {
-      const raw = localStorage.getItem(SAVE_KEY);
-      if (!raw) return null;
-      const d = JSON.parse(raw);
-      if (!d || !d.state || d.state.v !== SAVE_VERSION) return null;
-      return d;
-    } catch (e) {
-      console.warn('[cinderline] load failed', e);
-      return null;
+    let key = SAVE_KEY;
+    let raw = this._read(SAVE_KEY);
+    if (raw == null) {
+      for (const k of LEGACY_SAVE_KEYS) {
+        raw = this._read(k);
+        if (raw != null) { key = k; break; }
+      }
     }
+    if (raw == null) { this.lastLoad = { status: 'none' }; return null; }
+
+    let parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e) {
+      return this._rescue(raw, 'unreadable');
+    }
+
+    const result = migrateSave(parsed);
+    if (!result.ok) return this._rescue(raw, result.reason, result.from);
+
+    if (result.steps.length || key !== SAVE_KEY) {
+      // Write the migrated payload forward now rather than trusting the next
+      // autosave to do it, and keep the blob it came from until that write
+      // has actually succeeded.
+      try {
+        localStorage.setItem(SAVE_KEY, JSON.stringify(result.payload));
+        if (key !== SAVE_KEY) localStorage.removeItem(key);
+      } catch (e) {
+        console.warn('[cinderline] could not store the migrated save', e);
+      }
+    }
+    this.lastLoad = {
+      status: 'ok',
+      migrated: result.steps.length > 0,
+      from: result.from,
+      steps: result.steps,
+    };
+    return result.payload;
   },
 
   hasSave() { return !!this.load(); },
 
   clear() {
-    try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ }
+    try {
+      localStorage.removeItem(SAVE_KEY);
+      for (const k of LEGACY_SAVE_KEYS) localStorage.removeItem(k);
+    } catch { /* ignore */ }
+    this.lastLoad = { status: 'none' };
+  },
+
+  /** A rescued save is the player's, not the game's: only they may drop it. */
+  hasRescuedSave() { return this._read(SAVE_RESCUE_KEY) != null; },
+
+  clearRescuedSave() {
+    try { localStorage.removeItem(SAVE_RESCUE_KEY); } catch { /* ignore */ }
   },
 
   saveSettings(s) {
