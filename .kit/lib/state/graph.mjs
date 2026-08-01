@@ -88,20 +88,31 @@ export function evidenceExists(items, field, exists, { label = 'task' } = {}) {
  * (`game2/tools/validate-project-state.mjs:216-220`) because it is the one that stops a
  * status field from being upgraded by assertion. Without it "verified" costs nothing to
  * write.
+ *
+ * The field names are options because the repositories disagree on case, and a hard-coded
+ * `c.evidenceState` reading a snake_case state file finds `undefined` — which is in
+ * `emptyEvidence`, so the check appears to work while actually never inspecting the field.
+ * That is this kit's own failure mode, found by running the gate against real template state.
  */
 export function antiFabrication(criteria, {
   verifiedStatus = 'verified',
   emptyEvidence = ['none', '', null, undefined],
   missingApparatus = ['missing', '', null, undefined],
   label = 'criterion',
+  evidenceField = 'evidenceState',
+  apparatusField = 'apparatus',
+  measuredField = 'measured',
 } = {}) {
   const failures = [];
   for (const c of criteria) {
     if (c?.status !== verifiedStatus) continue;
-    if (emptyEvidence.includes(c.evidenceState)) failures.push(`${label} ${c.id} is ${verifiedStatus} with evidenceState ${JSON.stringify(c.evidenceState)}`);
-    if (missingApparatus.includes(c.apparatus)) failures.push(`${label} ${c.id} is ${verifiedStatus} with apparatus ${JSON.stringify(c.apparatus)}`);
-    if (c.measured === null || c.measured === undefined || String(c.measured).trim() === '') {
-      failures.push(`${label} ${c.id} is ${verifiedStatus} with no measured value`);
+    const evidence = c[evidenceField];
+    const apparatus = c[apparatusField];
+    const measured = c[measuredField];
+    if (emptyEvidence.includes(evidence)) failures.push(`${label} ${c.id} is ${verifiedStatus} with ${evidenceField} ${JSON.stringify(evidence)}`);
+    if (missingApparatus.includes(apparatus)) failures.push(`${label} ${c.id} is ${verifiedStatus} with ${apparatusField} ${JSON.stringify(apparatus)}`);
+    if (measured === null || measured === undefined || String(measured).trim() === '') {
+      failures.push(`${label} ${c.id} is ${verifiedStatus} with no ${measuredField} value`);
     }
   }
   return failures;

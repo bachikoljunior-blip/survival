@@ -13,6 +13,12 @@
  *   node tools/bootstrap.mjs --target=/path/to/repo
  *   node tools/bootstrap.mjs --target=/path/to/repo --check
  *   node tools/bootstrap.mjs --target=/path/to/repo --skills=probe,publish,critic
+ *   node tools/bootstrap.mjs --target=/path/to/repo --template
+ *
+ * `--template` is a different kind of install and is handled separately on purpose. `.kit/`
+ * is vendored and must never be edited in place; `template/` is scaffolding whose entire
+ * point is to be edited. So template files are never overwritten, never entered in the
+ * ledger, and never reported as drift.
  */
 
 import { createHash } from 'node:crypto';
@@ -71,6 +77,54 @@ function plannedFiles() {
     walk(from, join(target, '.claude', 'skills', name));
   }
   return pairs;
+}
+
+/**
+ * The protocol/state/CI scaffolding, as (source, destination) pairs.
+ *
+ * `template/README.md` is documentation *about* the template — the divergence table and the
+ * adoption procedure — so it stays in the kit rather than landing in the target.
+ */
+function plannedTemplateFiles() {
+  const from = join(KIT, 'template');
+  const pairs = [];
+  const walk = (sub = '') => {
+    for (const entry of readdirSync(join(from, sub), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      const rel = sub ? `${sub}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) walk(rel);
+      else if (rel !== 'README.md') pairs.push([join(from, rel), join(target, rel)]);
+    }
+  };
+  walk();
+  return pairs;
+}
+
+/**
+ * Install the scaffolding. Existing files are **never** overwritten: a repository that
+ * already has a protocol or a state file has one for a reason, and silently replacing it
+ * would destroy the only record of where the project actually is.
+ */
+function installTemplate() {
+  if (vendored) {
+    console.error('FAIL this is a vendored copy — the template lives in the kit repository.');
+    process.exit(2);
+  }
+  const written = [];
+  const skipped = [];
+  for (const [from, to] of plannedTemplateFiles()) {
+    const rel = relative(target, to);
+    if (existsSync(to)) { skipped.push(rel); continue; }
+    mkdirSync(dirname(to), { recursive: true });
+    copyFileSync(from, to);
+    written.push(rel);
+  }
+  for (const rel of written) console.log(`  + ${rel}`);
+  for (const rel of skipped) console.log(`  = ${rel} already exists — left alone`);
+  console.log(`template -> ${target}: ${written.length} file(s) written, ${skipped.length} left alone.`);
+  if (written.length) {
+    console.log('Next: fill in the placeholders, read template/README.md for the divergence table,');
+    console.log('then run `node tools/validate-state.mjs --selftest` and `node tools/validate-state.mjs`.');
+  }
 }
 
 const stampPath = join(target, '.kit', 'KIT_VERSION');
@@ -135,6 +189,10 @@ if (check) {
     process.exit(1);
   }
   console.log(`kit ${version} is installed and current in ${target} (${pairs.length} files).`);
+  if (argv.template) {
+    console.log('note: template/ files are scaffolding meant to be edited, so they are not in');
+    console.log('      the ledger and --check says nothing about them.');
+  }
   process.exit(0);
 }
 
@@ -184,3 +242,7 @@ if (!existsSync(notice) || readFileSync(notice, 'utf8') !== noticeText) {
 
 console.log(`kit ${version} -> ${target}: ${written} file(s) written, ${unchanged} already current.`);
 if (written === 0 && !stampChanged) console.log('(idempotent: nothing changed)');
+
+// Always after the kit, never instead of it: the template's validator imports from
+// `.kit/lib/state/`, so scaffolding without the kit is broken by construction.
+if (argv.template) installTemplate();

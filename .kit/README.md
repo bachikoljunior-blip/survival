@@ -1,4 +1,4 @@
-# Vendored kit 0.1.0
+# Vendored kit 0.2.0
 
 Installed by `node tools/bootstrap.mjs --target=.` from the kit repository.
 

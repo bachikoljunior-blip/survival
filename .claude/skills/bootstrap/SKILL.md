@@ -13,6 +13,7 @@ gets there.
 node tools/bootstrap.mjs --target=/path/to/repo            # install or update
 node tools/bootstrap.mjs --target=/path/to/repo --check    # is it current?
 node tools/bootstrap.mjs --target=/path/to/repo --skills=probe,publish   # a subset
+node tools/bootstrap.mjs --target=/path/to/repo --template # + protocol, state and CI
 ```
 
 What lands:
@@ -42,15 +43,36 @@ broken. The cost is drift, which is what `KIT_VERSION` and `--check` exist to ma
 ## Adding a repository that has no protocol yet
 
 Three of the eight repositories have no operating protocol, no state files and no CI at all.
-Installing the kit gives them the tooling but not the discipline. If the repo should also
-gain the protocol scaffolding, take `template/` as well — and read its divergence table
-first, because the existing repositories genuinely disagree on fifteen points and the
-template settles each one deliberately. The sharpest: `review_outcome` must be
-`complete_verified`, because the alternative value in use is not in the ten-value status
-vocabulary both protocols define, and the two repositories' gates therefore cannot both pass
-as written.
+Installing the kit gives them the tooling but not the discipline. `--template` adds the
+scaffolding: a product-neutral `PROJECT_OPERATING_PROTOCOL.md`, `AI_DEVELOPMENT/` with two
+YAML state files and the decision and failure ledgers, `tools/validate-state.mjs`, and CI
+that runs the gates *and proves they can fail* before running them.
+
+`--template` behaves differently from the rest of the installer, deliberately:
+
+- **It never overwrites.** A file that already exists is left alone and named in the output,
+  so the output is the reconciliation list. A repository that already has a protocol has one
+  for a reason.
+- **It is not in the ledger and `--check` says nothing about it.** `.kit/` is vendored and
+  must not be edited in place; the template exists to be edited. Reporting an edited template
+  file as drift would train people to ignore drift.
+- **It always installs alongside the kit, never instead of it.** `tools/validate-state.mjs`
+  imports from `.kit/lib/state/`.
+
+**Read `template/README.md` before adopting it.** The existing repositories genuinely
+disagree on fifteen points and the template settles each one, with the cost recorded. Three
+will bite: state files become real YAML with snake_case keys; `review_outcome` must be
+`complete_verified`, so one of the two existing floor gates fails until its state file is
+updated; and CI pins Node 22, because `.kit/` needs `node:fs.globSync` and one repository's
+CI pins 20 and therefore cannot run the kit it has installed.
+
+Expect the first `node tools/validate-state.mjs` against real state to fail. It normally
+finds a criterion marked verified with no apparatus, a dependency naming a task id that no
+longer exists, or an evidence path that was deleted.
 
 ## Before you report success
 
 Say which files changed, whether `--check` passes, and whether the second run was clean.
-"Installed" means `--check` exited 0 and you saw it.
+"Installed" means `--check` exited 0 and you saw it. With `--template`, add: the placeholder
+state validates, and `node tools/validate-state.mjs --selftest` reported every case behaving
+as specified — including the control, which must *not* fire.
