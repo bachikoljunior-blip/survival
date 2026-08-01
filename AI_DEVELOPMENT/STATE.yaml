@@ -1,0 +1,167 @@
+# Canonical active state. This file is the machine authority for continuation.
+#
+# docs/STATE.md remains the human-readable product narrative.
+# AI_DEVELOPMENT/PROJECT_STATE.json remains the work graph (task ids,
+# dependencies, acceptance trace). Neither is a competing authority for the
+# fields below; when they disagree with verified reality, verified reality wins
+# and all three are corrected.
+
+protocol_version: "2.2"
+
+project:
+  id: PROJECT-CINDERLINE
+  status: active
+  repository: bachikoljunior-blip/survival
+  default_branch: main
+
+logical_session:
+  id: SESSION-2026-07-31-01
+  status: active
+  explicit_end_required: true
+  opened_by_user: true
+  note: >-
+    Unbroken since 2026-07-31. The 2.2 migration is a checkpoint, not a session
+    boundary. Only an explicit user statement ends it.
+
+objective:
+  id: GATE-B
+  statement: >-
+    Continue CINDERLINE from the published Gate B representative-slice
+    checkpoint and implement the highest-priority verified frontier, without
+    overstating Gate B coverage.
+  status: in_progress
+  key_requirements:
+    - docs/directive.md is the product authority; docs/bible.md is the approved design
+    - docs/DONE.md holds the Gate A-D completion conditions
+    - no real-device claim may be made while blocker B1 stands
+  acceptance_evidence: AI_DEVELOPMENT/PROJECT_STATE.json (acceptance_trace)
+
+execution:
+  selected_rigor: STANDARD
+  active_work:
+    id: GB-H1-REVIEW
+    status: not_started
+    statement: >-
+      Independent falsification review of the save migration layer delivered in
+      012009b. Until it passes, GB-H1 stays complete_unverified and audit
+      finding H1 stays open.
+  last_verified_checkpoint:
+    revision: 012009b264f9838f67548586d8eadc292475a266
+    what: >-
+      Save migration layer (GB-H1). tools/save_migration.mjs passed 57 checks
+      against a real v1 save captured from 193f408 before the format changed,
+      and rejected 9 of 9 deliberate source mutations. npm test was re-run
+      clean afterwards on the same tree.
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json
+      - AI_DEVELOPMENT/EVIDENCE/GB-H1-NEGATIVE-CONTROLS.json
+  modified_but_unverified: []
+  current_blockers:
+    - id: B1
+      statement: No physical device has ever run this build. Gate D performance cannot be verified here.
+      who_can_clear: human only, via docs/device-test-checklist.md
+    - id: B2
+      statement: The Japanese text has never been read by a native speaker.
+      who_can_clear: human only
+    - id: H1-open
+      statement: Audit finding H1 stays open until GB-H1-REVIEW passes, even though the code is written and gated.
+      who_can_clear: an independent review pass
+  current_uncertainty:
+    - The shipped save-migration chain has one step, so staged multi-version migration is proved only against an injected registry.
+    - A save whose envelope version and inner state version disagree is refused safely but is not covered by a check.
+  exact_next_action: >-
+    Run GB-H1-REVIEW: an independent, source-aware falsification pass over
+    src/game/state.js, src/main.js and tools/save_migration.mjs, targeting the
+    migration contract, whether refusal can ever destroy a save, the
+    not-written-back-on-load decision, the envelope fields no migration has
+    touched, and whether the gate fails for the right reasons.
+
+floor:
+  last_check: "2026-08-01 (migration run)"
+  independence_level_used: C
+  skips:
+    - "F6: not fired this run. No merge, release or deployment changed what a user receives; the branch was pushed only."
+  waivers: []
+  enforcement:
+    # Wording is deliberate. "installed_observed_failing_not_required" means the
+    # mechanism exists, was watched failing on a deliberately bad input, and runs
+    # in CI — but cannot yet BLOCK a merge, because `main` has no branch
+    # protection (verified 2026-08-01: every branch reports protected=false) and
+    # this session has no capability to configure required status checks.
+    f2_state_update_check: installed_observed_failing_not_required
+    f3_execution_check: installed_observed_failing_not_required
+    f5_review_record_check: installed_observed_failing_not_required
+    f6_public_revision_check: prepared_not_executed
+    revert_mechanism: prepared_not_executed
+    last_observed_failing: |
+      2026-08-01, all locally executed and watched:
+      F2  tools/gates/f2_state_update.mjs --base HEAD~1 -> exit 1. Real input:
+          commit 012009b changed 8 product files with no STATE.yaml update.
+      F3  tools/gates/f3_execution.mjs -> exit 1 on a real defect it found, the
+          committed Pages root mirror being stale against dist/ after the save
+          migration landed. Passed at exit 0 once the mirror was regenerated.
+      F5  tools/gates/f5_review_record.mjs -> exit 1 on three distinct bad
+          inputs (no review trailer; level D claimed as a pass; a trailer
+          disagreeing with STATE.yaml). Exit 0 on a valid record.
+      F6  tools/gates/f6_public_revision.mjs -> exit 1 against a local server
+          serving a tampered index.html, and again against one serving a
+          previous-revision bundle. Exit 0 on a byte-exact match.
+      Validator: five negative controls against tools/check_operating_state.mjs
+          (drifted active work, unattended allowed with gates absent, invalid
+          independence level, missing enforcement field, missing STATE.yaml).
+    unenforced_items:
+      - "F6: the gate is wired into pages.yml after deploy but has NEVER run there. It cannot be exercised from this environment either - outbound HTTPS is denied by egress policy (403 on the Pages URL and on example.com alike), so the real public surface is unreachable. Verified against the shipped build only through a local server."
+      - "revert: revert-to-verified.yml is deliberately manual-dispatch, never executed. Automatic revert was not wired because it would push to main from CI unprompted."
+      - "All four gates report but do not block. They become real enforcement only when branch protection on main lists them as required status checks - a repository setting no run in this session can change."
+    unattended_allowed: false
+    note: >-
+      Every field above is rewritten to `active` only after the mechanism has
+      been observed failing once on a deliberately bad input AND is capable of
+      blocking the operation it guards. Writing a gate file never counts as
+      installing enforcement, and neither does a job that fails without being
+      required.
+
+automation:
+  pages_deploy:
+    file: .github/workflows/pages.yml
+    trigger: push to main, plus manual dispatch
+    post_deploy_verification: absent
+    revert: absent
+  autopilot:
+    file: .github/workflows/autopilot.yml
+    kind: unattended, delivery-capable, self-restarting
+    trigger: workflow_dispatch only, no schedule
+    in_flight_at_migration: false
+    last_run: "2026-07-30T09:17Z, run 5, completed"
+    satisfies_section_0_4: false
+    why_not: >-
+      It squash-merges its own pull request to main and deliberately uses a PAT
+      so the Pages deploy fires, but none of the four F9 gates are active, there
+      is no post-deploy revision check and no automatic revert. Its own stop
+      conditions (docs/STOP on the default branch, ALL_DONE, chain >= 20,
+      merge-must-succeed) satisfy only the stop-mechanism half of 0.4.
+    disposition: >-
+      Left dormant and NOT re-enabled. docs/STOP is committed on this branch so
+      that merging this migration arms the workflow's own brake on the default
+      branch. Do not dispatch it until the four gates are active.
+
+recovery:
+  last_known_good_revision_or_artifact: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
+  rollback_or_recovery_method: >-
+    Product: redeploy main at cc96f3a, the last revision verified on the public
+    Pages surface. Operating files: see AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md.
+
+remote:
+  branch: claude/one-round-execution-changes-psdid4
+  pull_request: none
+  deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
+  verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
+  public_url: https://bachikoljunior-blip.github.io/survival/
+  status: >-
+    Branch pushed. 193f408 and 012009b have never been verified on the public
+    surface. The deployed revision is still cc96f3a.
+
+updated_at: "2026-08-01"
+reconciliation_status: >-
+  Migration in progress. Verified against the real working tree, git state and
+  the GitHub Actions run history for autopilot.yml.

@@ -1,3 +1,28 @@
+> **SUPERSEDED WHERE IT CONFLICTS — 2026-08-01.**
+> The governing protocol is now `AI_DEVELOPMENT/PROTOCOL.md` (Adaptive Edition
+> with Enforced Floor, v2.2). This file is kept as the immutable legacy copy and
+> as the origin record for decisions made under it.
+>
+> Version 2.2 takes precedence **only to the extent of a conflict**. Every rule
+> below that does not conflict with it remains in force — in particular the
+> product authorities (`docs/directive.md`, `docs/bible.md`, `docs/DONE.md`),
+> the fabrication prohibitions, the evidence discipline, the ownership map, and
+> the standing remote-delivery authorization of 2026-07-31, which v2.2 carries
+> forward in its Section 14.
+>
+> Known conflicts, and how they resolve:
+>
+> | This file said | v2.2 says | Resolution |
+> |---|---|---|
+> | §3 index is `AI_DEVELOPMENT/INDEX.md` | the loader is `START_HERE.md` | mechanism migrated; INDEX.md archived |
+> | §3 machine state is the two JSON files | canonical state is `AI_DEVELOPMENT/STATE.yaml` | STATE.yaml is authoritative; `SESSION_STATE.json` is now a derived projection and `PROJECT_STATE.json` is the work graph |
+> | §9/§16 process is chosen per task | the Section 0 floor is never optional | the floor is non-discretionary; adaptive rigor applies only above it |
+> | §31 loop is followed each iteration | same loop, plus F1–F9 | preserved, with the floor made enforceable |
+> | "do not touch `.github/workflows/autopilot.yml`" | 0.4 bars unattended delivery chaining while the gates are absent | the file is **not modified**; the chain is halted with its own `docs/STOP` brake |
+>
+> Nothing recorded under this protocol was converted to complete or passed by
+> the migration. See `AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md`.
+
 # PROJECT-WIDE PERSISTENT AUTONOMOUS DEVELOPMENT PROTOCOL
 
 この文書は CINDERLINE の**開発運用規約**であり、製品ブリーフではない。ユーザーが明示的に置換・変更・削除するまで、チャット、Work 実行、端末、担当エージェントをまたいで有効である。

@@ -1,10 +1,12 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.2 -->
+<!-- state_revision: 2026-08-01.3 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
-**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開時は `PROJECT_OPERATING_PROTOCOL.md` → `AI_DEVELOPMENT/INDEX.md` → 本文書 → 2つの machine state の順で読み、active task が参照する製品文書へ進む。
+**記憶を持たない新しいエージェントが再開できるように書くこと。** 再開順は `START_HERE.md` → `AI_DEVELOPMENT/STATE.yaml`（正本）→ 本文書 → active task が参照する製品文書。
+運用規約は `AI_DEVELOPMENT/PROTOCOL.md`（v2.2、Section 0 の floor は必須）。`PROJECT_OPERATING_PROTOCOL.md` と `AI_DEVELOPMENT/INDEX.md` は**衝突する範囲でのみ**置換され、記録として残してある。
+本文書は人間向けの製品進捗であり、機械正本ではない。
 
 最終更新: 2026-08-01 / 作業ブランチ `claude/one-round-execution-changes-psdid4` / 検証済み基点 `193f408`
 
