@@ -352,6 +352,38 @@ function loaderLayer() {
       Storage.rescuedSaves().some((e) => e.raw === raw));
   }
 
+  // A save this build cannot read that appears DURING a session. The rescue
+  // used to live only in load(), so the next autosave destroyed it with no
+  // message and no copy — a second tab, or a newer deployment on the same
+  // origin, is all it takes.
+  {
+    reset();
+    const S = new GameState();
+    S.set('a_live_session');
+    Storage.save(S, null, {});
+    const fromNewerBuild = JSON.stringify({ v: SAVE_VERSION + 1,
+      state: { v: SAVE_VERSION + 1, flags: ['thirty_hours'], quests: [['arrival', {}]] } });
+    memory.set(SAVE_KEY, fromNewerBuild);        // written by something else
+    S.set('a_little_later');
+    check('write: the session saves over it', Storage.save(S, null, {}));
+    check('write: and the save it could not read was copied first',
+      Storage.rescuedSaves().some((e) => e.raw === fromNewerBuild));
+  }
+
+  // ...but a save this build CAN read is just overwritten, as it should be.
+  {
+    reset();
+    const S = new GameState();
+    S.set('ordinary');
+    Storage.save(S, null, {});
+    const mine = stored();
+    S.set('ordinary_again');
+    Storage.save(S, null, {});
+    check('write: an ordinary save is not hoarded in the rescue list',
+      !Storage.rescuedSaves().some((e) => e.raw === mine),
+      `${Storage.rescuedSaves().length} rescued`);
+  }
+
   // Nothing stored is not a failure, and clear() is not a licence to bin it.
   {
     reset();
@@ -446,6 +478,16 @@ const NEGATIVE_CONTROLS = {
     };
     return () => { Storage.load = kept; };
   },
+  'a write path that overwrites without looking': () => {
+    const kept = Storage.save;
+    Storage.save = function (state, player, extra = {}) {
+      const payload = { ...extra, v: SAVE_VERSION, state: state.serialise(), player: null,
+        savedAt: 0 };
+      try { localStorage.setItem(SAVE_KEY, JSON.stringify(payload)); return true; }
+      catch { return false; }
+    };
+    return () => { Storage.save = kept; };
+  },
   'discarding instead of rescuing': () => {
     const kept = Storage._rescue;
     Storage._rescue = () => false;
@@ -469,6 +511,7 @@ const CONTROL_EXPECTS = {
     'loader: the stored bytes are left alone until the next real save',
   'a migration that drops the progress': 'no progress is added, dropped or altered',
   'the pre-fix loader': 'loader: a real v1 save loads',
+  'a write path that overwrites without looking': 'write: and the save it could not read was copied first',
   'discarding instead of rescuing': 'loader: a newer build is copied to the rescue list',
   'a rescue slot that later failures overwrite': 'loader: and the earlier copy is still there too',
 };

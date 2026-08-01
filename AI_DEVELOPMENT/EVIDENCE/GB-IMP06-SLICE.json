@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "task_id": "GB-IMP06-SLICE",
-  "run_id": "GB-IMP06-SLICE-1785587410717-27744",
-  "generated_at": "2026-08-01T12:30:10.751Z",
+  "run_id": "GB-IMP06-SLICE-1785588045115-1399",
+  "generated_at": "2026-08-01T12:40:45.149Z",
   "scope": "Partial Gate B Chapter 1 representative slice only; does not satisfy B1, B2, C1, D3 or measure full playtime.",
   "bindings": {
     "state_revision": "2026-08-01.3",
@@ -10,7 +10,7 @@
       "engine": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
       "driver": "60147238dca48d828d485e8830ed7fd05c1eec58633a9dc1f54db3f6205d9b98",
       "runner": "cdfd13183c056be48b9493f9a57d7d9c7f6a489fb4e5237049e0ec95d3e81461",
-      "built_bundle": "36e434471fc351590900c0f5cab59567da3465c72c347e6c6ceae29d3f62431a"
+      "built_bundle": "4c30863ed45958e8a8d021334f5efeb1e3437907f1ab29f1acde8615d756fc25"
     }
   },
   "environment": {
@@ -19,7 +19,7 @@
     "real_device": false,
     "repetitions": 2
   },
-  "adversarial_probe": "attack-hitset-reentry",
+  "adversarial_probe": "precombat-hp",
   "source_guard": {
     "passed": true,
     "expected_driver_sha256": "60147238dca48d828d485e8830ed7fd05c1eec58633a9dc1f54db3f6205d9b98",

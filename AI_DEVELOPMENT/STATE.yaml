@@ -39,15 +39,14 @@ objective:
 execution:
   selected_rigor: STANDARD
   active_work:
-    id: GB-ROUND-REVIEW
-    status: in_progress
+    id: GB-IMP02
+    status: ready
     statement: >-
-      Independent falsification review of the whole round: the reconciled save
-      migration (GB-H1), post-boot fault recovery (GB-H2) and the visible touch
-      controls (GB-TOUCH-SMOKE). Three mutually blind lenses were run; their
-      findings are recorded in docs/reviews/gate-b-round-h1-h2-touch.md and the
-      HIGH ones are fixed. Nothing is verified until the record shows no
-      unresolved high for the round.
+      Correct the trust feedback that grades the player's choices (docs/bible.md
+      IMP-02). The round before it — the reconciled save migration, post-boot
+      fault recovery and the visible touch controls — is verified: three
+      mutually blind lenses, one source-blind, critical 2 / high 6 / medium 6,
+      every high fixed, and node tools/check_reviews.mjs --gate B passes.
   last_verified_checkpoint:
     revision: pending-merge-of-claude/round-remaining-work-di4vbu
     what: >-
@@ -165,13 +164,13 @@ execution:
     "a copy has been kept aside" mean something to a player.
 
 floor:
-  last_check: "2026-08-01 (close-out)"
-  independence_level_used: C
+  last_check: "2026-08-01 (round close-out)"
+  independence_level_used: A
   skips:
-    - "F6: not fired this run. No merge, release or deployment changed what a user receives; the branch was pushed only. Revisit before any merge to main."
-    - "F5 at Level A/B: not possible this run. The session instruction bars spawning subagents, so an implementation-blind reviewer is unavailable; the migration itself was checked at Level C. GB-H1 therefore stays complete_unverified and GB-H1-REVIEW stays the active task."
+    - "F6: owed. It fires on the merge this round is heading for, not before. tools/gates/f6_public_revision.mjs must run against the public surface once main has moved, and the served revision recorded here."
     - "F7: not fired. No objective was marked complete this run; GATE-B remains in progress."
-    - "F5 completeness: GB-H1-REVIEW ran at Level B for one lens of three. The other two died. Recorded as partial, not as a pass; GB-H1 stays complete_unverified."
+    - "F5 limitation: the Level A lens was source-blind and returned a verdict (claim 1 FAIL, the rest PASS), but it tested the bundle as it stood before the other lenses' findings were fixed, and it did NOT re-verify afterwards. Its two findings were reproduced and regression-checked by this session instead, which is Level C for that step. Recorded rather than smoothed over."
+    - "F5 coverage: the browser layer of tools/save_migration.mjs has no automated negative control. Its ability to fail was observed by hand only."
   waivers: []
   enforcement:
     # Wording is deliberate. "installed_observed_failing_not_required" means the

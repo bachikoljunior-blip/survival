@@ -325,6 +325,49 @@ const waitForFaults = async (page, n, ms = 6000) => {
   await ctx.close();
 }
 
+// ------------------------------- 6c. an error the game's own bus swallows
+// `emit` catches, so one listener cannot stop the others. That also meant a
+// throw in the `render` listener stopped the picture — measured at zero GL
+// draw calls — while the loop, the HUD and the clock carried on and nothing
+// appeared on screen. Caught is not the same as handled.
+{
+  const { ctx, page } = await open();
+  const drewBefore = await page.evaluate(() => {
+    const gl = window.CINDERLINE.engine.renderer.getContext();
+    window.__draws = 0;
+    for (const m of ['drawArrays', 'drawElements', 'drawArraysInstanced', 'drawElementsInstanced']) {
+      const real = gl[m] && gl[m].bind(gl);
+      if (real) gl[m] = (...a) => { window.__draws++; return real(...a); };
+    }
+    return 0;
+  });
+  await settle(page, 1500);
+  const drawsAlive = await page.evaluate(() => window.__draws);
+  expect(drawsAlive > 0, 'swallowed: the picture is being drawn before the break',
+    `${drawsAlive} draw calls`);
+
+  await page.evaluate(() => {
+    // The engine is what emits `render`; this is the listener the renderer
+    // itself hangs off, and a throw here is what stopped the picture.
+    window.CINDERLINE.engine.on('render', () => {
+      throw new Error('probe: render listener fault');
+    });
+  });
+  await page.evaluate(() => { window.__draws = 0; });
+  await waitForFaults(page, 1);
+  await settle(page, 2000);
+  const s = await surface(page);
+  const drawsAfter = await page.evaluate(() => window.__draws);
+  expect(s.faults.some((f) => f.kind === 'listener'),
+    'swallowed: an error the event bus caught still reaches the fault path',
+    JSON.stringify(s.faults.slice(-2)));
+  expect(s.panelOn || s.notices.length > 0,
+    'swallowed: and the player is told rather than left with a still picture',
+    `panel=${s.panelOn} notices=${s.notices.length} draws=${drawsAfter}`);
+  await ctx.close();
+  void drewBefore;
+}
+
 // ------------------------------------------------- 7. Japanese
 {
   const { ctx, page } = await open({ locale: 'ja-JP' });

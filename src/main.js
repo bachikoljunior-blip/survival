@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { Game, MODE } from './game/game.js';
 import { Storage, SAVE_STATUS, SAVE_LOADABLE } from './game/state.js';
 import { moveActor } from './world/collision.js';
+import { onSwallowedError } from './core/util.js';
 import { Audio } from './audio/audio.js';
 import { setLocale, detectLocale, t } from './content/i18n.js';
 
@@ -275,6 +276,13 @@ async function main() {
 
   window.addEventListener('error', (ev) => {
     onFault('error', (ev && (ev.message || (ev.error && ev.error.message))) || 'error');
+  });
+  // An exception inside a listener is caught by the event bus so one listener
+  // cannot stop the others — which also meant a throw in the `render` listener
+  // stopped the picture without anything noticing. Same treatment as an
+  // uncaught error: it repeats every frame, so it escalates.
+  onSwallowedError((where, error) => {
+    onFault('listener', `${where}: ${(error && error.message) || error}`);
   });
   window.addEventListener('unhandledrejection', (ev) => {
     const r = ev && ev.reason;

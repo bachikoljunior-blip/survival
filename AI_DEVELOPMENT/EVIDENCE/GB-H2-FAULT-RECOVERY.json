@@ -30,7 +30,7 @@
     {
       "name": "clean boot: the loop is running",
       "pass": true,
-      "detail": "frame 5"
+      "detail": "frame 6"
     },
     {
       "name": "sync error: caught after boot",
@@ -60,7 +60,7 @@
     {
       "name": "sync error: the loop kept advancing",
       "pass": true,
-      "detail": "3 -> 9"
+      "detail": "3 -> 11"
     },
     {
       "name": "rejection: caught after boot (nothing listened for this at all before)",
@@ -115,7 +115,7 @@
     {
       "name": "stall: the panel waits for the stall check rather than firing on sight",
       "pass": true,
-      "detail": "18ms"
+      "detail": "11ms"
     },
     {
       "name": "stall: a fault after which the picture stopped reaches the recovery panel",
@@ -131,6 +131,21 @@
       "name": "frozen loop: the player is given the recovery panel instead of a still picture",
       "pass": true,
       "detail": ""
+    },
+    {
+      "name": "swallowed: the picture is being drawn before the break",
+      "pass": true,
+      "detail": "138 draw calls"
+    },
+    {
+      "name": "swallowed: an error the event bus caught still reaches the fault path",
+      "pass": true,
+      "detail": "[{\"kind\":\"listener\",\"message\":\"event:render: probe: render listener fault\"},{\"kind\":\"listener\",\"message\":\"event:render: probe: render listener fault\"}]"
+    },
+    {
+      "name": "swallowed: and the player is told rather than left with a still picture",
+      "pass": true,
+      "detail": "panel=true notices=1 draws=322"
     },
     {
       "name": "ja: the panel appears on a Japanese device",
@@ -161,12 +176,7 @@
       "name": "pre-boot: it reads as a failure",
       "pass": true,
       "detail": "boot-note err"
-    },
-    {
-      "name": "forced failure",
-      "pass": false,
-      "detail": "--force-failure was passed"
     }
   ],
-  "passed": false
+  "passed": true
 }

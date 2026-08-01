@@ -597,6 +597,20 @@ export const Storage = {
         this._rescue(this._preUpgrade);
         this._preUpgrade = null;
       }
+      // And look at what is actually in the slot before writing over it.
+      //
+      // The rescue used to happen only at boot, so a save this build cannot
+      // read that appeared DURING a session — a newer deployment in another
+      // tab, a second instance on the same origin — was destroyed by the next
+      // autosave with no message and no copy. Reading before writing costs one
+      // parse per save; the alternative cost is somebody's playthrough.
+      const existing = this._read(SAVE_KEY);
+      if (existing != null && existing !== text) {
+        let mine = false;
+        try { mine = SAVE_LOADABLE.includes(migrateSave(JSON.parse(existing)).status); }
+        catch { mine = false; }
+        if (!mine) this._rescue(existing);
+      }
       localStorage.setItem(SAVE_KEY, text);
       return true;
     } catch (e) {
