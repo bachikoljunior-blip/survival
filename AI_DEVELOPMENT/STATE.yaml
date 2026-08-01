@@ -143,9 +143,16 @@ automation:
       conditions (docs/STOP on the default branch, ALL_DONE, chain >= 20,
       merge-must-succeed) satisfy only the stop-mechanism half of 0.4.
     disposition: >-
-      Left dormant and NOT re-enabled. docs/STOP is committed on this branch so
-      that merging this migration arms the workflow's own brake on the default
-      branch. Do not dispatch it until the four gates are active.
+      OFF by explicit user instruction, 2026-08-01 ("オートパイロットはオフで").
+      This is a user decision, not only a protocol consequence, and it outranks
+      the 0.4 argument that produced the same answer: do not re-enable it even
+      if the four gates later become active, until the user says otherwise.
+      docs/STOP is committed on this branch so that merging arms the workflow's
+      own brake on the default branch. Note the brake stops the CHAIN only - a
+      single manual dispatch would still run three rounds and merge. Fully
+      disabling it requires the GitHub UI (Actions -> Autopilot -> Disable
+      workflow); no API for that is exposed to this session, verified by
+      searching the available tools.
 
 recovery:
   last_known_good_revision_or_artifact: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
