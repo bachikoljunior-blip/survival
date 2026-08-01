@@ -90,9 +90,14 @@ floor:
     # in CI — but cannot yet BLOCK a merge, because `main` has no branch
     # protection (verified 2026-08-01: every branch reports protected=false) and
     # this session has no capability to configure required status checks.
-    f2_state_update_check: installed_observed_failing_not_required
-    f3_execution_check: installed_observed_failing_not_required
-    f5_review_record_check: installed_observed_failing_not_required
+    # Measured, not read from a settings page. With the ruleset active on main,
+    # pull request #5 reports mergeable_state "blocked" while F5 is red - the
+    # gate is actually stopping the operation it guards. Before the ruleset it
+    # reported "unstable" (checks red, merge still permitted) on two separate
+    # reads, which is what made the difference observable rather than assumed.
+    f2_state_update_check: active
+    f3_execution_check: active
+    f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     revert_mechanism: prepared_not_executed
     last_observed_failing: |
@@ -102,19 +107,35 @@ floor:
       F3  tools/gates/f3_execution.mjs -> exit 1 on a real defect it found, the
           committed Pages root mirror being stale against dist/ after the save
           migration landed. Passed at exit 0 once the mirror was regenerated.
+          In CI it completes green in 2m04s including chromium install, the
+          production build and the browser save-migration gate (run 1 of the
+          Floor gates workflow, 19f7235).
       F5  tools/gates/f5_review_record.mjs -> exit 1 on three distinct bad
           inputs (no review trailer; level D claimed as a pass; a trailer
-          disagreeing with STATE.yaml). Exit 0 on a valid record.
+          disagreeing with STATE.yaml). Exit 0 on a valid record. In CI it has
+          failed on every run of PR #5 so far, by design, because the review
+          was still in flight.
       F6  tools/gates/f6_public_revision.mjs -> exit 1 against a local server
           serving a tampered index.html, and again against one serving a
           previous-revision bundle. Exit 0 on a byte-exact match.
       Validator: five negative controls against tools/check_operating_state.mjs
           (drifted active work, unattended allowed with gates absent, invalid
           independence level, missing enforcement field, missing STATE.yaml).
+      Blocking proven: PR #5 mergeable_state went unstable -> blocked when the
+          ruleset was created with these three as required status checks.
+    ruleset:
+      target: default branch (main)
+      enforcement: Active
+      bypass_list: empty
+      required_checks: [F2 state update, F3 execution, F5 review record]
+      configured_by: the user, 2026-08-01, in the GitHub UI
+      note: >-
+        F6 is deliberately NOT a required pull-request check. It runs after the
+        Pages deploy, which is after the merge, so requiring it on a pull
+        request would be requiring a check that cannot run yet.
     unenforced_items:
-      - "F6: the gate is wired into pages.yml after deploy but has NEVER run there. It cannot be exercised from this environment either - outbound HTTPS is denied by egress policy (403 on the Pages URL and on example.com alike), so the real public surface is unreachable. Verified against the shipped build only through a local server."
+      - "F6: the gate is wired into pages.yml after deploy but has NEVER run there. It cannot be exercised from the development environment either - outbound HTTPS is denied by egress policy (403 on the Pages URL and on example.com alike), so the real public surface is unreachable from there. Verified against the shipped build only through a local server."
       - "revert: revert-to-verified.yml is deliberately manual-dispatch, never executed. Automatic revert was not wired because it would push to main from CI unprompted."
-      - "All four gates report but do not block. They become real enforcement only when branch protection on main lists them as required status checks - a repository setting no run in this session can change."
     unattended_allowed: false
     note: >-
       Every field above is rewritten to `active` only after the mechanism has
