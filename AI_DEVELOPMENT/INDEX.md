@@ -14,6 +14,8 @@
 | plan/task ID、依存、状態、受け入れ追跡 | `AI_DEVELOPMENT/PROJECT_STATE.json` |
 | 論理セッション、active frontier、checkpoint | `AI_DEVELOPMENT/SESSION_STATE.json` |
 | 独立批評 | `docs/reviews/` |
+| 要素別の参考作品、選定理由、品質基準、現在の品質差 | `docs/benchmarks.md` |
+| 参考基準の閾値 lock と計測成果物 | `AI_DEVELOPMENT/BENCHMARKS/` |
 | 運用上の決定 | `AI_DEVELOPMENT/DECISIONS.md` |
 | 失敗した実行・手法と回復 | `AI_DEVELOPMENT/FAILURES.md` |
 
@@ -27,8 +29,9 @@
 4. `PROJECT_STATE.json`
 5. `SESSION_STATE.json`
 6. active task が参照する `docs/directive.md` / `docs/DONE.md` / `docs/bible.md`
-7. 関連する decision / failure / handoff / skill / evidence
-8. 実リポジトリ差分と軽量 health check
+7. 品質判断を伴う task の場合は `docs/benchmarks.md`（要素別の参考基準と現在の差分）
+8. 関連する decision / failure / handoff / skill / evidence
+9. 実リポジトリ差分と軽量 health check
 
 `state_revision` が `docs/STATE.md` と2つの JSON で一致しない場合、先へ進まず実態を調べて同期する。意味上の競合は、実ファイルと実行結果を根拠に `docs/STATE.md` を修正し、その後 JSON projection を合わせる。
 

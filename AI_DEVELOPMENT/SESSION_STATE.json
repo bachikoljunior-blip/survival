@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.1",
+  "state_revision": "2026-08-01.2",
   "session": {
     "id": "SESSION-2026-07-31-01",
     "status": "active",
@@ -13,11 +13,11 @@
     "archive_reference": null
   },
   "checkpoint": {
-    "id": "CP-2026-08-01-01",
+    "id": "CP-2026-08-01-02",
     "baseline": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
-    "last_verified_action": "PRs #2 and #3 were merged into main; both Pages deployment paths succeeded for cc96f3a, and the public HTML, JavaScript, CSS and manifest matched the verified production build byte-for-byte.",
+    "last_verified_action": "BM-REF: established docs/benchmarks.md (10 reference works, 19 elements, 71 criteria), measured the current gap with tools/bench_measure.mjs and tools/perf.mjs, and locked the thresholds. The lock, the honesty rules and the no-imitation scan were each proven to reject a negative case before being trusted.",
     "current_failure": null,
-    "next_action": "Implement GB-H1 as an isolated save-migration layer, then verify old-version fixtures, staged migrations, explicit failure recovery, current saves and normal save/load behavior before integration.",
+    "next_action": "Implement GB-H1 as an isolated save-migration layer, then verify old-version fixtures, staged migrations, explicit failure recovery, current saves and normal save/load behavior before integration. BM-STB-02 in docs/benchmarks.md is the standard it must meet.",
     "rollback_point": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
     "pending_verification": ["old-version save fixtures", "multi-step migration", "explicit migration failure behavior", "current-version save/load regression", "user-surface recovery notice"]
   }

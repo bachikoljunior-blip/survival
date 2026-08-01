@@ -1,6 +1,6 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.1 -->
+<!-- state_revision: 2026-08-01.2 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
@@ -18,7 +18,7 @@
 
 **残作業の中心は、既存コンテンツを `docs/directive.md` §16 の Gate B / C / D まで引き上げることである。** ただし `docs/bible.md` IMP-03 の BREAKER / DOG 遭遇は、Gate C の確定数値を保つ場合に限り、対象を絞った新規コンテンツを必要とする。
 
-**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）。運用上の読順は `AI_DEVELOPMENT/INDEX.md` を正とする。
+**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）→ 品質判断を伴う作業では `docs/benchmarks.md`（要素別の参考基準と現在の差分）。運用上の読順は `AI_DEVELOPMENT/INDEX.md` を正とする。
 **README.md を設計の根拠にしてはならない**（§14）。実装者の自己申告文書であり、実装との食い違いが実際に発見されている。
 
 ---
@@ -58,6 +58,7 @@
 | プロダクションバイブル（§5） | `docs/bible.md` | スコープ確定数値6項目を記載。`node tools/check_scope.mjs` が通る |
 | アセット台帳（§3 / §9） | `docs/assets.md` | 実行時依存は three.js のみ。外部アセット0 |
 | 実機テスト手順書（§13） | `docs/device-test-checklist.md` | **実施回数 0** と明記 |
+| 要素別の参考基準（ユーザー指示） | `docs/benchmarks.md` | 10作品 / 19要素 / 71基準。`node tools/check_benchmarks.mjs` が通る。閾値は `AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json` に固定 |
 
 ### 本セッションで実際に走らせた検証
 
@@ -80,6 +81,25 @@
 
 初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
 
+### 2026-08-01 継続 checkpoint — 要素別参考基準（BM-REF）
+
+ユーザーの最新指示により、**要素ごとの参考作品と品質基準**を `docs/benchmarks.md` として確立した。**これは新しい完了条件ではない** — `docs/DONE.md` の Gate A〜D は不変であり（§18「新しい基準を発明しない」）、本文書は既存の directive 条項を要素別の観察可能量へ翻訳したものである。
+
+- 参考作品 **10件**で **19要素**を担当（4作品が複数要素を兼ねる）。基準 **71件**
+- **参考作品を実行・計測・撮影・並置比較した事実は一度も無い。** 参考作品側の記述は一般化された設計原則であり、計測値ではない。専門家承認・ブラインド評価・実機計測もいずれも未実施
+- 現状の実測: **適合 23 / 部分 13 / 未達 12 / 未計測 21 / 人間のみ 2**
+- 未達12件のうち**11件は既知欠陥**（R-02/R-03/R-05/R-12/IMP-01/04/05/09/14）。新規は BM-HUD-03（色に依存しない状態表現）のみ
+- **最大の発見: 可視品質が一度も検証されていない。** カメラ・世界設計・映像・アニメーション・環境ハザードにまたがる10基準が、画像証拠の不在（R-19、`shots/` が .gitignore）だけを理由に判定不能。task `GB-VISUAL-EVIDENCE` として登録した
+
+| 本 checkpoint で実際に走らせた検証 | 結果 |
+|---|---|
+| `npm run build` / `node tools/validate.mjs` | 成功 / **VALIDATION OK**（対話224・クエスト9・エンディング5） |
+| `node tools/perf.mjs` | 完走・ページエラー0。ドローコール low 132 / medium 310 / high 414、フレーム三角形 752,493–1,076,067、ワールド 242,624 三角形、sim step mean 0.254ms、ヒープ 159.3→159.3MB |
+| `node tools/bench_measure.mjs`（新規） | 完走・ページエラー0。uiScale 0.8 でタッチ対象5件が 35.2px、1.0/1.5 は 44.0px・違反0、重なり全条件で0組。影キャスタ417 / テクスチャ最大辺512px / 推定78.7MB / バンドル 1,412,013B。音声は操作前 unlocked=false |
+| `node tools/check_benchmarks.mjs` | **OK**。加えて負例3件（同一 revision 内での閾値の弱体化 / 実機でしか判定できない項目を「適合」にする / 出荷ソースへの参考作品名の混入）が**いずれも非ゼロ終了で拒否されることを確認した**。失敗しない検査は何も証明しない |
+
+**環境は Playwright Chromium + SwiftShader / 667×375 emulation であり、実機ではない。fps とフレーム時間は測っていない。**
+
 2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
 
 ---
@@ -99,7 +119,9 @@
 ### アクション 3 — 実際に見えるタッチ操作を667×375で駆動する
 `GB-TOUCH-SMOKE` として、画面上の移動・カメラ・攻撃・回避・防御・会話ボタンを実タッチ座標から操作し、44px目標、重なり、誤操作、同時入力、向き変更を検証する。既存のGate B代表スライスはproduction input chainを通るが、見えるhit target自体の証拠ではない。
 
-**その次**は `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
+**その次**は `GB-VISUAL-EVIDENCE`（可視品質の証拠を残せるようにする。`docs/benchmarks.md` §6 が特定した最大の空白で、10基準がこれ1つに阻まれている）、次いで `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b、要素別の品質差は `docs/benchmarks.md` §6 を正とする。
+
+**各 task の合格判定には、対応する `docs/benchmarks.md` の基準 ID を使うこと。** 例: GB-H1 は BM-STB-02、GB-H2 は BM-STB-03、GB-TOUCH-SMOKE は BM-TCH-01/03/04 と BM-MENU-01。
 
 ---
 
@@ -181,9 +203,14 @@
 | 10 | 性能記述に実機主張が混入していない | `tools/perf.mjs:2-20,184-187`（SwiftShader 明記、fps 出力を拒否）、監査 | コード | **検証済** |
 | 11 | ガスが AI の**経路選択**を支配する | — | — | **未検証**（視程と退避は確認済み。経路そのものは未確認） |
 | 12 | 667×375 で全画面がタッチ操作可能 | 監査で大半を確認。ただしマップはパン/ズーム無し、チュートリアル画面は存在しない | コード | **部分的**（監査 M8） |
-| 13 | §13 の描画予算を満たす | — | — | **未達**（ドローコールが medium で超過。影キャスタ数未達。監査 §13 表） |
+| 13 | §13 の描画予算を満たす | `node tools/perf.mjs` / `node tools/bench_measure.mjs` → `AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json` | 自動 | **未達（実測で確定）** — ドローコール medium 310 / high 414（最悪値250）、フレーム三角形 752,493–1,076,067（予算30万）、影キャスタ417（画面内予算2）。BM-PRF-01/02/05 |
 | 14 | 実機で 30 FPS を満たす | — | — | **原理的に未検証。** 実機が存在しない。**主張してはならない**（§13） |
 | 15 | 想定プレイ時間 3〜5時間 | — | — | **未計測の見積もり。** バイブル §16 に見積もりと明記済み。Gate C までに実測する |
+| 16 | 初期ペイロードが §13 の予算（15MB）内である | `node tools/bench_measure.mjs` → 単一バンドル 1,412,013 B、外部アセット0・ネットワーク要求0 | 自動 | **検証済**（BM-PRF-04）。バイブル §0 が R-19 により保留していた数値に、再現可能な計測成果物ができた |
+| 17 | テクスチャが §13 の予算（最大辺2048 / 200MB）内である | `node tools/bench_measure.mjs` → 最大辺 512px / 推定 78.7MB | 自動 | **検証済**（BM-PRF-03）。§13 の予算で初めて計測された項目 |
+| 18 | 可視タッチ対象が 44 CSS px 以上である | `node tools/bench_measure.mjs` → uiScale 1.0/1.5 は最小辺 44.0px・違反0、**0.8 で9件中5件が 35.2px** | 自動 | **部分**（BM-TCH-01 未達 / BM-TCH-02 適合）。重なりは全条件で0組 |
+| 19 | ユーザー操作前に音声を鳴らさない（§10） | `node tools/bench_measure.mjs` → 操作前 `unlocked=false` / AudioContext 未生成 | 自動 | **検証済**（BM-AUD-03） |
+| 20 | 要素別の参考基準が存在し、実装を通すために弱められていない | `node tools/check_benchmarks.mjs`（負例3件の拒否も確認済み） | 自動 | **検証済**（BM-REF）。閾値は `criteria.lock.json` に固定 |
 
 ---
 
@@ -201,6 +228,8 @@
 | 2026-07-30 | 敵アーキタイプ数の記載を「5」→「**定義5 / 本編配置3**」に変更 | BREAKER と DOG が本編に一度も出現しない。`node tools/check_scope.mjs --against-content` が両方を実測するようにした |
 | 2026-07-30 | バイブル §12 から「約950三角形」を削除 | 出所がコードに無かった（`grep -rn "950" src/` 該当なし）。**計測して書く。それまで書かない** |
 | 2026-07-30 | バイブル §0 から初期ペイロードの数値を削除 | 唯一の出所が README.md であり、バイブル自身が「設計の根拠にしてはならない」と宣言した文書だった。`shots/` は `.gitignore` されており再現可能な計測成果物が無い |
+| 2026-08-01 | 品質判断の基準に `docs/benchmarks.md`（要素別の参考作品と 71 基準）を追加 | ユーザーの最新指示。**Gate 条件は追加していない**（§18）。既存の directive 条項を要素別の観察可能量へ翻訳し、既知欠陥に「どの水準に対してどれだけ足りないか」という尺度を与えた |
+| 2026-08-01 | 初期ペイロードとテクスチャ予算の数値を、実測を根拠に受け入れ表へ復帰（#16, #17） | R-19 が問題にしていたのは数値そのものではなく**再現可能な計測成果物の不在**だった。`AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json` が本番バンドルの sha256 で束縛された計測結果をコミットしたため、保留の理由が解消した。**バイブル §0 の記述はまだ更新していない**（バイブルの所有権と本 checkpoint の範囲を分けるため） |
 
 ---
 
