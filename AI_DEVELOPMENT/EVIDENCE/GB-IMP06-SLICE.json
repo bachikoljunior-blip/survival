@@ -1,16 +1,16 @@
 {
   "schema_version": 2,
   "task_id": "GB-IMP06-SLICE",
-  "run_id": "GB-IMP06-SLICE-1785512846533-2",
-  "generated_at": "2026-07-31T15:47:50.744Z",
+  "run_id": "GB-IMP06-SLICE-1785596822313-20645",
+  "generated_at": "2026-08-01T15:07:31.913Z",
   "scope": "Partial Gate B Chapter 1 representative slice only; does not satisfy B1, B2, C1, D3 or measure full playtime.",
   "bindings": {
-    "state_revision": "2026-07-31.6",
+    "state_revision": "2026-08-01.3",
     "sha256": {
       "engine": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
       "driver": "60147238dca48d828d485e8830ed7fd05c1eec58633a9dc1f54db3f6205d9b98",
       "runner": "cdfd13183c056be48b9493f9a57d7d9c7f6a489fb4e5237049e0ec95d3e81461",
-      "built_bundle": "bb8b23b95dc24a67f4ec6bd350fff1c4b6c6c96c92c5449e037a6a3c8832a49b"
+      "built_bundle": "68125ac2cdd15c243e06747b2833bea79998b6b53907e872b8c90bfd7812c758"
     }
   },
   "environment": {
@@ -342,7 +342,7 @@
               "z": 11.174999999999983
             },
             "distance": 124.78968370681571,
-            "simulatedSeconds": 56.4166666666647
+            "simulatedSeconds": 56.41666666666471
           },
           {
             "name": "dangerous air correction",
@@ -428,18 +428,18 @@
         "distance": 302.58912774279025,
         "maxStep": 0.2757940086742931,
         "footsteps": 348,
-        "simulatedSeconds": 151.5333333333465
+        "simulatedSeconds": 151.53333333334643
       },
       "exposure": {
         "target": {
           "x": -112.625,
           "y": 0,
           "z": 13.474999999999994,
-          "plannedPpm": 943.5971346558739
+          "plannedPpm": 943.9279164348782
         },
         "meterReads": 1,
-        "peakPpm": 857.3158862999652,
-        "peakSaturation": 0.22881466701283376,
+        "peakPpm": 857.233235829253,
+        "peakSaturation": 0.22886180600048397,
         "criticalCrossed": true,
         "recovered": true,
         "survivedCounter": 1
@@ -455,7 +455,7 @@
         "damageTaken": 0,
         "kills": 3,
         "remainingHostiles": 0,
-        "playerHp": 97.44536446822671
+        "playerHp": 97.44443589472229
       },
       "quest": {
         "arrivalStep": 5,

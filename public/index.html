@@ -87,17 +87,28 @@
       // is never shown, and if it does not run, nothing here could reach it.
 
       // Catch a hard boot failure (parse error, unsupported syntax) so the
-      // player sees a real message instead of a black screen.
+      // player sees a real message instead of a black screen. Once the bundle
+      // is up, src/main.js owns both of these — it can save the game first and
+      // reach the recovery panel, and this handler steps aside.
       window.__cinderlineBooted = false;
-      window.addEventListener('error', function (e) {
+      var bootFail = function (msg) {
         if (window.__cinderlineBooted) return;
         var n = document.getElementById('boot-note');
         if (n) {
-          var msg = (e && e.message) ? e.message
-            : (L === 'ja' ? JA.unknown : 'unknown error');
-          n.textContent = (L === 'ja' ? JA.failed : 'failed to start — ') + msg;
+          n.textContent = (L === 'ja' ? JA.failed : 'failed to start — ')
+            + (msg || (L === 'ja' ? JA.unknown : 'unknown error'));
           n.className = 'boot-note err';
         }
+      };
+      window.addEventListener('error', function (e) {
+        bootFail(e && e.message);
+      });
+      // A boot that dies inside a promise — a failed dynamic import, a
+      // rejected WebGL setup — fires this and nothing else, and left
+      // unhandled it is a loading plate that never changes.
+      window.addEventListener('unhandledrejection', function (e) {
+        var r = e && e.reason;
+        bootFail(r && (r.message || String(r)));
       });
     }());
   </script>

@@ -1,0 +1,906 @@
+{
+  "task": "GB-TOUCH-SMOKE",
+  "scope": "Visible touch targets driven by dispatched touch points in mobile-emulated Chromium at 667x375. Not a measurement on a real device, and not a claim about iOS Safari gestures.",
+  "viewport": {
+    "width": 667,
+    "height": 375,
+    "minTarget": 44
+  },
+  "measurements": {
+    "controls": [
+      {
+        "name": "attack",
+        "x": 601,
+        "y": 307,
+        "w": 54,
+        "h": 54,
+        "cx": 628,
+        "cy": 334,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "dodge",
+        "x": 547,
+        "y": 318,
+        "w": 44,
+        "h": 44,
+        "cx": 569,
+        "cy": 340,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "guard",
+        "x": 608,
+        "y": 251,
+        "w": 44,
+        "h": 44,
+        "cx": 630,
+        "cy": 273,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "use",
+        "x": 553,
+        "y": 253,
+        "w": 44,
+        "h": 44,
+        "cx": 575,
+        "cy": 275,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "heavy",
+        "x": 495,
+        "y": 295,
+        "w": 44,
+        "h": 44,
+        "cx": 517,
+        "cy": 317,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "menu",
+        "x": 459,
+        "y": 8,
+        "w": 44,
+        "h": 44,
+        "cx": 481,
+        "cy": 30,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "map",
+        "x": 511,
+        "y": 8,
+        "w": 44,
+        "h": 44,
+        "cx": 533,
+        "cy": 30,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "lamp",
+        "x": 563,
+        "y": 8,
+        "w": 44,
+        "h": 44,
+        "cx": 585,
+        "cy": 30,
+        "pointerEvents": "auto"
+      },
+      {
+        "name": "meter",
+        "x": 615,
+        "y": 8,
+        "w": 44,
+        "h": 44,
+        "cx": 637,
+        "cy": 30,
+        "pointerEvents": "auto"
+      }
+    ],
+    "actionFrame": {
+      "pe": "none",
+      "x": 492,
+      "y": 233,
+      "w": 167,
+      "h": 134
+    },
+    "stick": {
+      "active": true,
+      "ox": 110,
+      "oy": 250,
+      "radius": 48.75,
+      "visible": true,
+      "vx": 110,
+      "vy": 250
+    },
+    "walkedMetres": 1.2925543252181266,
+    "cameraYaw": {
+      "yaw0": 11.380077870544172,
+      "yaw1": 11.53444068913488
+    },
+    "attackStarts": 1,
+    "deadSpace": {
+      "x": 496,
+      "y": 237
+    },
+    "choices": [
+      {
+        "text": "First answer",
+        "x": 118.5,
+        "y": 273,
+        "w": 430,
+        "h": 44,
+        "cx": 333.5,
+        "cy": 295
+      },
+      {
+        "text": "Second answer",
+        "x": 118.5,
+        "y": 320,
+        "w": 430,
+        "h": 44,
+        "cx": 333.5,
+        "cy": 342
+      }
+    ],
+    "afterRotate": [
+      {
+        "name": "attack",
+        "w": 54,
+        "h": 54,
+        "x": 601,
+        "y": 307,
+        "hidden": false
+      },
+      {
+        "name": "dodge",
+        "w": 44,
+        "h": 44,
+        "x": 547,
+        "y": 318,
+        "hidden": false
+      },
+      {
+        "name": "guard",
+        "w": 44,
+        "h": 44,
+        "x": 608,
+        "y": 251,
+        "hidden": false
+      },
+      {
+        "name": "use",
+        "w": 44,
+        "h": 44,
+        "x": 553,
+        "y": 253,
+        "hidden": false
+      },
+      {
+        "name": "heavy",
+        "w": 44,
+        "h": 44,
+        "x": 495,
+        "y": 295,
+        "hidden": false
+      },
+      {
+        "name": "menu",
+        "w": 44,
+        "h": 44,
+        "x": 459,
+        "y": 8,
+        "hidden": false
+      },
+      {
+        "name": "map",
+        "w": 44,
+        "h": 44,
+        "x": 511,
+        "y": 8,
+        "hidden": false
+      },
+      {
+        "name": "lamp",
+        "w": 44,
+        "h": 44,
+        "x": 563,
+        "y": 8,
+        "hidden": false
+      },
+      {
+        "name": "meter",
+        "w": 44,
+        "h": 44,
+        "x": 615,
+        "y": 8,
+        "hidden": false
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "layout: attack is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: dodge is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: guard is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: use is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: heavy is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: menu is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: map is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: lamp is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: meter is on screen at all",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "layout: exactly the expected controls are there, no more and no fewer",
+      "pass": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "layout: attack is at least 44px",
+      "pass": true,
+      "detail": "54.0x54.0"
+    },
+    {
+      "name": "layout: attack is fully on screen",
+      "pass": true,
+      "detail": "601,307"
+    },
+    {
+      "name": "layout: attack accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: dodge is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: dodge is fully on screen",
+      "pass": true,
+      "detail": "547,318"
+    },
+    {
+      "name": "layout: dodge accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: guard is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: guard is fully on screen",
+      "pass": true,
+      "detail": "608,251"
+    },
+    {
+      "name": "layout: guard accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: use is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: use is fully on screen",
+      "pass": true,
+      "detail": "553,253"
+    },
+    {
+      "name": "layout: use accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: heavy is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: heavy is fully on screen",
+      "pass": true,
+      "detail": "495,295"
+    },
+    {
+      "name": "layout: heavy accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: menu is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: menu is fully on screen",
+      "pass": true,
+      "detail": "459,8"
+    },
+    {
+      "name": "layout: menu accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: map is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: map is fully on screen",
+      "pass": true,
+      "detail": "511,8"
+    },
+    {
+      "name": "layout: map accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: lamp is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: lamp is fully on screen",
+      "pass": true,
+      "detail": "563,8"
+    },
+    {
+      "name": "layout: lamp accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: meter is at least 44px",
+      "pass": true,
+      "detail": "44.0x44.0"
+    },
+    {
+      "name": "layout: meter is fully on screen",
+      "pass": true,
+      "detail": "615,8"
+    },
+    {
+      "name": "layout: meter accepts touches",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "layout: attack and dodge do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and guard do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and use do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and heavy do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and menu do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and map do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: attack and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and guard do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and use do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and heavy do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and menu do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and map do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: dodge and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: guard and use do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: guard and heavy do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: guard and menu do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: guard and map do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: guard and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: guard and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: use and heavy do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: use and menu do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: use and map do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: use and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: use and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: heavy and menu do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: heavy and map do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: heavy and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: heavy and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: menu and map do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: menu and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: menu and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: map and lamp do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: map and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: lamp and meter do not overlap",
+      "pass": true,
+      "detail": "0.0px²"
+    },
+    {
+      "name": "layout: the action cluster frame itself swallows nothing",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "name": "stick: a touch in the left zone plants the stick",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "stick: it is planted under the thumb, not at a fixed spot",
+      "pass": true,
+      "detail": "110,250 vs 110,250"
+    },
+    {
+      "name": "stick: the drawn ring is where the finger is",
+      "pass": true,
+      "detail": "110,250 vs 110,250"
+    },
+    {
+      "name": "stick: a full push reads as a full push",
+      "pass": true,
+      "detail": "1"
+    },
+    {
+      "name": "stick: the player actually walked",
+      "pass": true,
+      "detail": "1.29m over 15 frames (0.086m/frame)"
+    },
+    {
+      "name": "stick: the HUD was told to follow the thumb",
+      "pass": true,
+      "detail": "2"
+    },
+    {
+      "name": "stick: lifting the thumb stops her",
+      "pass": true,
+      "detail": "{\"active\":false,\"mag\":0}"
+    },
+    {
+      "name": "camera: the drag point is not on a button",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "camera: a drag on the right turns the camera",
+      "pass": true,
+      "detail": "11.380 -> 11.534"
+    },
+    {
+      "name": "button: attack registers a real touch at its centre",
+      "pass": true,
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: attack itself shows pressed",
+      "pass": true,
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: attack does not light up its neighbours",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "button: attack lets go",
+      "pass": true,
+      "detail": "{\"raw\":false,\"stuck\":0}"
+    },
+    {
+      "name": "button: attack does not latch on",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "button: dodge registers a real touch at its centre",
+      "pass": true,
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: dodge itself shows pressed",
+      "pass": true,
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: dodge does not light up its neighbours",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "button: dodge lets go",
+      "pass": true,
+      "detail": "{\"raw\":false,\"stuck\":0}"
+    },
+    {
+      "name": "button: dodge does not latch on",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "button: guard registers a real touch at its centre",
+      "pass": true,
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: guard itself shows pressed",
+      "pass": true,
+      "detail": "{\"raw\":true,\"down\":true,\"thisOne\":true,\"others\":0}"
+    },
+    {
+      "name": "button: guard does not light up its neighbours",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "button: guard lets go",
+      "pass": true,
+      "detail": "{\"raw\":false,\"stuck\":0}"
+    },
+    {
+      "name": "button: guard does not latch on",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "button: the attack tap reached the combat system, not just the input layer",
+      "pass": true,
+      "detail": "1"
+    },
+    {
+      "name": "mis-hit: the cluster has dead space to aim at (that is the point of the test)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "mis-hit: dead space between the buttons presses nothing",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "mis-hit: and starts no attack",
+      "pass": true,
+      "detail": "1 -> 1"
+    },
+    {
+      "name": "mis-hit: nor does it plant the movement stick in the camera zone",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "two thumbs: moving while striking keeps moving",
+      "pass": true,
+      "detail": "{\"stick\":true,\"mag\":0.9999999999999999,\"attack\":true}"
+    },
+    {
+      "name": "two thumbs: the strike registers while the stick is held",
+      "pass": true,
+      "detail": "{\"stick\":true,\"mag\":0.9999999999999999,\"attack\":true}"
+    },
+    {
+      "name": "two thumbs: lifting one finger does not drop the other",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "two thumbs: the button it lifted from is released",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "two thumbs: the strike really happened",
+      "pass": true,
+      "detail": "1 -> 2"
+    },
+    {
+      "name": "dialogue: a conversation is on screen to answer",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dialogue: both answers are drawn",
+      "pass": true,
+      "detail": "2"
+    },
+    {
+      "name": "dialogue: \"First answer\" is at least 44px tall",
+      "pass": true,
+      "detail": "44.0"
+    },
+    {
+      "name": "dialogue: \"First answer\" is fully on screen",
+      "pass": true,
+      "detail": "119,273 430x44"
+    },
+    {
+      "name": "dialogue: \"Second answer\" is at least 44px tall",
+      "pass": true,
+      "detail": "44.0"
+    },
+    {
+      "name": "dialogue: \"Second answer\" is fully on screen",
+      "pass": true,
+      "detail": "119,320 430x44"
+    },
+    {
+      "name": "dialogue: a drag that lands on an answer does not commit it",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dialogue: the answer the thumb landed on is the one taken",
+      "pass": true,
+      "detail": "You said second."
+    },
+    {
+      "name": "dialogue: the list closes once answered",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "dialogue: tapping the box closes the conversation and returns to play",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "orientation: turning to portrait raises the landscape prompt",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "orientation: and stops the world behind it",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "orientation: the prompt is a barrier, not decoration",
+      "pass": true,
+      "detail": "auto"
+    },
+    {
+      "name": "orientation: there is a control behind the plate to try to hit",
+      "pass": true,
+      "detail": "336,626 54px"
+    },
+    {
+      "name": "orientation: touches do not fall through the prompt to the controls behind it",
+      "pass": true,
+      "detail": "{\"pressed\":false,\"attacks\":2}"
+    },
+    {
+      "name": "orientation: turning back resumes play",
+      "pass": true,
+      "detail": "false"
+    },
+    {
+      "name": "orientation: every control comes back after the turn",
+      "pass": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "orientation: attack is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "54.0x54.0 at 601,307"
+    },
+    {
+      "name": "orientation: dodge is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 547,318"
+    },
+    {
+      "name": "orientation: guard is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 608,251"
+    },
+    {
+      "name": "orientation: use is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 553,253"
+    },
+    {
+      "name": "orientation: heavy is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 495,295"
+    },
+    {
+      "name": "orientation: menu is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 459,8"
+    },
+    {
+      "name": "orientation: map is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 511,8"
+    },
+    {
+      "name": "orientation: lamp is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 563,8"
+    },
+    {
+      "name": "orientation: meter is still a 44px target on screen after the turn",
+      "pass": true,
+      "detail": "44.0x44.0 at 615,8"
+    },
+    {
+      "name": "orientation: the controls still answer a thumb after the turn",
+      "pass": true,
+      "detail": "2 -> 3"
+    },
+    {
+      "name": "run: no uncaught errors during the whole run",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "passed": true
+}

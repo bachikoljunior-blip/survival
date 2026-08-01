@@ -949,6 +949,15 @@ body.lefthanded .notice { text-align: left; border-right: 0; border-left: 2px so
 body.lefthanded .notice.good { border-left-color: var(--toxic); }
 body.lefthanded .notice.bad  { border-left-color: var(--blood); }
 
+/* The title-screen warning. Amber on near-black measures about 8:1; the old
+   --blood on the same plate was 2.6:1, under WCAG AA for body text, and the
+   high-contrast setting did not cover it. */
+.title-warn {
+  color: #ffb35c;
+  text-shadow: 0 1px 3px #000, 0 0 8px #000;
+}
+body.hicontrast .title-warn { color: #ffd9a8; }
+
 /* ------------------------------------------------- accessibility overrides -- */
 
 /* High-contrast interface: heavier panels, brighter type, stronger borders. */

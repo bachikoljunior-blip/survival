@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.2",
+  "state_revision": "2026-08-01.4",
   "project": {
     "id": "PROJECT-CINDERLINE",
     "name": "CINDERLINE",
@@ -16,23 +16,51 @@
     "approved_design_and_product_debt": "docs/bible.md",
     "acceptance_criteria": "docs/DONE.md",
     "human_project_state": "docs/STATE.md",
-    "review_findings": "docs/reviews",
-    "reference_benchmarks": "docs/benchmarks.md"
+    "review_findings": "docs/reviews"
   },
   "remote_execution_authorization": {
     "status": "active",
     "source": "Latest explicit user instruction on 2026-07-31",
     "persists_across_session_changes": true,
-    "authorized_actions": ["remote_push", "remote_merge", "public_publication_or_deployment"],
+    "authorized_actions": [
+      "remote_push",
+      "remote_merge",
+      "public_publication_or_deployment"
+    ],
     "repository": "bachikoljunior-blip/survival",
     "safety_boundary": "Publish only an inspected checkpoint with applicable mandatory gates passing; do not expose secrets or perform paid, credential, account, destructive production-data or destructive cloud actions."
   },
   "plan_nodes": [
-    { "id": "PROJECT-CINDERLINE", "parent": null, "status": "active", "title": "CINDERLINE release" },
-    { "id": "GATE-A", "parent": "PROJECT-CINDERLINE", "status": "verified", "title": "Creative foundation" },
-    { "id": "GATE-B", "parent": "PROJECT-CINDERLINE", "status": "active", "title": "Representative vertical slice" },
-    { "id": "GATE-C", "parent": "PROJECT-CINDERLINE", "status": "pending", "title": "Content complete" },
-    { "id": "GATE-D", "parent": "PROJECT-CINDERLINE", "status": "pending", "title": "Release candidate" }
+    {
+      "id": "PROJECT-CINDERLINE",
+      "parent": null,
+      "status": "active",
+      "title": "CINDERLINE release"
+    },
+    {
+      "id": "GATE-A",
+      "parent": "PROJECT-CINDERLINE",
+      "status": "verified",
+      "title": "Creative foundation"
+    },
+    {
+      "id": "GATE-B",
+      "parent": "PROJECT-CINDERLINE",
+      "status": "active",
+      "title": "Representative vertical slice"
+    },
+    {
+      "id": "GATE-C",
+      "parent": "PROJECT-CINDERLINE",
+      "status": "pending",
+      "title": "Content complete"
+    },
+    {
+      "id": "GATE-D",
+      "parent": "PROJECT-CINDERLINE",
+      "status": "pending",
+      "title": "Release candidate"
+    }
   ],
   "tasks": [
     {
@@ -43,7 +71,9 @@
       "title": "Install persistent operating layer",
       "dependencies": [],
       "acceptance_refs": [],
-      "evidence": ["AI_DEVELOPMENT/EVIDENCE/INDEX.md"],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/INDEX.md"
+      ],
       "reason": "Latest explicit user instruction"
     },
     {
@@ -52,9 +82,17 @@
       "status": "partial_verified",
       "priority": 95,
       "title": "Verify a real movement, breathing and combat route",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": ["B1", "B5"],
-      "evidence": ["AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json", "docs/reviews/gate-b-imp06-slice-closure-current.md"],
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B1",
+        "B5"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json",
+        "docs/reviews/gate-b-imp06-slice-closure-current.md"
+      ],
       "reason": "docs/STATE.md action 1; docs/bible.md IMP-06"
     },
     {
@@ -63,9 +101,16 @@
       "status": "verified",
       "priority": 96,
       "title": "Define honest acceptance and test boundaries",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": ["B1", "B5"],
-      "evidence": ["AI_DEVELOPMENT/HANDOFFS/README.md"],
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B1",
+        "B5"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/HANDOFFS/README.md"
+      ],
       "reason": "A test must execute the verbs it claims to verify"
     },
     {
@@ -74,9 +119,16 @@
       "status": "verified",
       "priority": 95,
       "title": "Implement a deterministic Chapter 1 real-verb vertical slice",
-      "dependencies": ["GB-IMP06-AC"],
-      "acceptance_refs": ["B1", "B5"],
-      "evidence": ["AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json"],
+      "dependencies": [
+        "GB-IMP06-AC"
+      ],
+      "acceptance_refs": [
+        "B1",
+        "B5"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json"
+      ],
       "reason": "Smallest independently verifiable step toward IMP-06; it must be labelled partial"
     },
     {
@@ -85,9 +137,15 @@
       "status": "verified",
       "priority": 94,
       "title": "Repeat the Chapter 1 slice and record durable evidence",
-      "dependencies": ["GB-IMP06-SLICE"],
-      "acceptance_refs": ["B5"],
-      "evidence": ["AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json"],
+      "dependencies": [
+        "GB-IMP06-SLICE"
+      ],
+      "acceptance_refs": [
+        "B5"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/GB-IMP06-SLICE.json"
+      ],
       "reason": "Cannot start until the slice exists; it does not establish full-run playtime"
     },
     {
@@ -96,74 +154,110 @@
       "status": "verified",
       "priority": 93,
       "title": "Independent falsification review of the route",
-      "dependencies": ["GB-IMP06-EVIDENCE"],
-      "acceptance_refs": ["B5"],
-      "evidence": ["AI_DEVELOPMENT/HANDOFFS/GB-IMP06-CLOSURE-REVIEW.json", "docs/reviews/gate-b-imp06-slice-closure-current.md", "docs/reviews/gate-b-imp06-slice-closure.md"],
+      "dependencies": [
+        "GB-IMP06-EVIDENCE"
+      ],
+      "acceptance_refs": [
+        "B5"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/HANDOFFS/GB-IMP06-CLOSURE-REVIEW.json",
+        "docs/reviews/gate-b-imp06-slice-closure-current.md",
+        "docs/reviews/gate-b-imp06-slice-closure.md"
+      ],
       "reason": "Implementation cannot approve itself"
-    },
-    {
-      "id": "BM-REF",
-      "parent": "PROJECT-CINDERLINE",
-      "status": "verified",
-      "priority": 91,
-      "title": "Establish the per-element reference benchmark and measure the current gap",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": [],
-      "evidence": ["docs/benchmarks.md", "AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json", "AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json"],
-      "reason": "Latest explicit user instruction. It adds no gate criterion; it turns the existing directive requirements into observable quantities per element and records the measured gap."
-    },
-    {
-      "id": "GB-VISUAL-EVIDENCE",
-      "parent": "GATE-B",
-      "status": "ready",
-      "priority": 87,
-      "title": "Make visible quality verifiable: commit screenshot evidence after validating the capture tool",
-      "dependencies": ["BM-REF"],
-      "acceptance_refs": ["B3"],
-      "evidence": [],
-      "reason": "docs/benchmarks.md §6: ten criteria across camera, world design, visuals, animation and hazard legibility are unverifiable because no image evidence is committed (R-19). R-10 recorded that the capture tool itself was once broken, so the tool must be validated before its output is used as evidence."
     },
     {
       "id": "GB-TOUCH-SMOKE",
       "parent": "GATE-B",
-      "status": "ready",
+      "status": "verified",
       "priority": 88,
       "title": "Drive the visible touch controls at 667 by 375",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": ["B2"],
-      "evidence": [],
-      "reason": "The real-verb slice uses the production input chain but does not itself prove visible touch hit targets"
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B2"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json",
+        "docs/reviews/gate-b-round-h1-h2-touch.md"
+      ],
+      "reason": "Driven 2026-08-01 by tools/touch_smoke.mjs from dispatched touch coordinates read off the rendered controls. Emulated Chromium, not a device (blocker B1). Awaiting the independent review."
     },
     {
       "id": "GB-H1",
       "parent": "GATE-B",
-      "status": "active",
+      "status": "verified",
       "priority": 90,
       "title": "Add save migration and regression tests",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": ["B5", "C5"],
-      "evidence": [],
-      "reason": "docs/STATE.md action 2; audit H1"
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B5",
+        "C5"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json",
+        "AI_DEVELOPMENT/EVIDENCE/GB-H1-NEGATIVE-CONTROLS.json",
+        "docs/reviews/gate-b-round-h1-h2-touch.md"
+      ],
+      "reason": "Two independent implementations were reconciled into one on 2026-08-01: the parameterised migrateSave/SAVE_STATUS/inspect engine, plus a rescue slot that keeps a copy of any save this build cannot read so the new game that follows cannot overwrite it. The versioned storage key was rejected because a rollback would strand every migrated save. tools/save_migration.mjs, 100 checks including six negative controls."
+    },
+    {
+      "id": "GB-ROUND-REVIEW",
+      "parent": "GATE-B",
+      "status": "verified",
+      "priority": 91,
+      "title": "Independent falsification review of the save migration, fault recovery and touch work",
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B2",
+        "B5",
+        "C5",
+        "D6"
+      ],
+      "evidence": [
+        "docs/reviews/gate-b-round-h1-h2-touch.md",
+        "AI_DEVELOPMENT/HANDOFFS/GB-ROUND-REVIEW.json"
+      ],
+      "reason": "Three mutually blind lenses, one of them source-blind. critical 2 / high 6 / medium 6; every high fixed and regression-checked. Unresolved medium: R2-9 (a rescued save has no restore path) and R2-10 (available() misreports on a full quota). node tools/check_reviews.mjs --gate B passes."
     },
     {
       "id": "GB-H2",
       "parent": "GATE-B",
-      "status": "ready",
+      "status": "verified",
       "priority": 89,
       "title": "Recover from runtime errors and rejected promises",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": ["B5", "D6"],
-      "evidence": [],
-      "reason": "docs/STATE.md action 2; audit H2"
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B5",
+        "D6"
+      ],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/GB-H2-FAULT-RECOVERY.json",
+        "docs/reviews/gate-b-round-h1-h2-touch.md"
+      ],
+      "reason": "Implemented 2026-08-01: post-boot error and unhandledrejection handling that saves, tells the player, and escalates to the existing recovery panel on repeat or a stopped frame counter. tools/fault_recovery.mjs, 30 checks in a production build at 667x375. Awaiting the independent review."
     },
     {
       "id": "GB-IMP02",
       "parent": "GATE-B",
-      "status": "ready",
+      "status": "active",
       "priority": 80,
       "title": "Correct trust feedback that grades player choices",
-      "dependencies": ["OPS-001"],
-      "acceptance_refs": ["B1", "B5"],
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [
+        "B1",
+        "B5"
+      ],
       "evidence": [],
       "reason": "docs/STATE.md action 3; docs/bible.md IMP-02"
     },
@@ -173,8 +267,13 @@
       "status": "ready",
       "priority": 79,
       "title": "Run one complete opening-to-ending route with real traversal, survival and combat",
-      "dependencies": ["GB-IMP06-REVIEW"],
-      "acceptance_refs": ["C1", "D3"],
+      "dependencies": [
+        "GB-IMP06-REVIEW"
+      ],
+      "acceptance_refs": [
+        "C1",
+        "D3"
+      ],
       "evidence": [],
       "reason": "Only a clean-save full run may support C1, D3 or replacement of the unmeasured playtime estimate"
     },
@@ -184,20 +283,106 @@
       "status": "verified",
       "priority": 92,
       "title": "Push, merge and publicly publish the verified continuation checkpoint",
-      "dependencies": ["GB-IMP06-REVIEW"],
+      "dependencies": [
+        "GB-IMP06-REVIEW"
+      ],
       "acceptance_refs": [],
-      "evidence": ["AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md"],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md"
+      ],
       "reason": "Latest explicit user instruction authorizes and requires remote push, merge and publication across session changes"
+    },
+    {
+      "id": "BM-REF",
+      "parent": "PROJECT-CINDERLINE",
+      "status": "verified",
+      "priority": 91,
+      "title": "Establish the per-element reference benchmark and measure the current gap",
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [],
+      "evidence": [
+        "docs/benchmarks.md",
+        "AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json",
+        "AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json"
+      ],
+      "reason": "Latest explicit user instruction. It adds no gate criterion; it turns the existing directive requirements into observable quantities per element and records the measured gap."
+    },
+    {
+      "id": "GB-VISUAL-EVIDENCE",
+      "parent": "GATE-B",
+      "status": "ready",
+      "priority": 87,
+      "title": "Make visible quality verifiable: commit screenshot evidence after validating the capture tool",
+      "dependencies": [
+        "BM-REF"
+      ],
+      "acceptance_refs": [
+        "B3"
+      ],
+      "evidence": [],
+      "reason": "docs/benchmarks.md §6: ten criteria across camera, world design, visuals, animation and hazard legibility are unverifiable because no image evidence is committed (R-19). R-10 recorded that the capture tool itself was once broken, so the tool must be validated before its output is used as evidence."
     }
   ],
   "acceptance_trace": [
-    { "criterion": "B1", "tasks": ["GB-IMP06", "GB-IMP06-SLICE", "GB-IMP02"] },
-    { "criterion": "B2", "tasks": ["GB-TOUCH-SMOKE"] },
-    { "criterion": "B3", "tasks": ["GB-VISUAL-EVIDENCE"] },
-    { "criterion": "B5", "tasks": ["GB-IMP06", "GB-IMP06-REVIEW", "GB-H1", "GB-H2", "GB-IMP02"] },
-    { "criterion": "C1", "tasks": ["GC-IMP06-FULLRUN"] },
-    { "criterion": "C5", "tasks": ["GB-H1"] },
-    { "criterion": "D3", "tasks": ["GC-IMP06-FULLRUN"] },
-    { "criterion": "D6", "tasks": ["GB-H2"] }
+    {
+      "criterion": "B1",
+      "tasks": [
+        "GB-IMP06",
+        "GB-IMP06-SLICE",
+        "GB-IMP02"
+      ]
+    },
+    {
+      "criterion": "B2",
+      "tasks": [
+        "GB-TOUCH-SMOKE",
+        "GB-ROUND-REVIEW"
+      ]
+    },
+    {
+      "criterion": "B5",
+      "tasks": [
+        "GB-IMP06",
+        "GB-IMP06-REVIEW",
+        "GB-H1",
+        "GB-H2",
+        "GB-IMP02",
+        "GB-ROUND-REVIEW"
+      ]
+    },
+    {
+      "criterion": "C1",
+      "tasks": [
+        "GC-IMP06-FULLRUN"
+      ]
+    },
+    {
+      "criterion": "C5",
+      "tasks": [
+        "GB-H1",
+        "GB-ROUND-REVIEW"
+      ]
+    },
+    {
+      "criterion": "D3",
+      "tasks": [
+        "GC-IMP06-FULLRUN"
+      ]
+    },
+    {
+      "criterion": "D6",
+      "tasks": [
+        "GB-H2",
+        "GB-ROUND-REVIEW"
+      ]
+    },
+    {
+      "criterion": "B3",
+      "tasks": [
+        "GB-VISUAL-EVIDENCE"
+      ]
+    }
   ]
 }
