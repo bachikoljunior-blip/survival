@@ -18,6 +18,10 @@ name: Floor gates
 on:
   pull_request:
     branches: [main]
+    # `edited` matters: the F5 check reads the pull-request body, and without it
+    # a corrected review trailer would never re-run the check that reads it,
+    # leaving a red gate that no longer reflects reality.
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 permissions:
