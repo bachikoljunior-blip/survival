@@ -95,7 +95,7 @@
     {
       "name": "repeat: a fault that keeps happening reaches the recovery panel",
       "pass": true,
-      "detail": "3 faults, lost=false paused=false running=true frame=12"
+      "detail": "3 faults, lost=false paused=false running=true frame=11"
     },
     {
       "name": "repeat: the panel says what actually happened, not context loss",
@@ -115,7 +115,7 @@
     {
       "name": "stall: the panel waits for the stall check rather than firing on sight",
       "pass": true,
-      "detail": "14ms"
+      "detail": "10ms"
     },
     {
       "name": "stall: a fault after which the picture stopped reaches the recovery panel",

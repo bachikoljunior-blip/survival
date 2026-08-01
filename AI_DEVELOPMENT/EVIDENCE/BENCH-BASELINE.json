@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "artifact": "BENCH-BASELINE",
+  "purpose": "Current-state evidence for the per-element reference benchmark in docs/benchmarks.md.",
+  "generated_at": "2026-08-01T07:40:05.495Z",
+  "environment": {
+    "browser": "Playwright Chromium with SwiftShader (software rasteriser)",
+    "viewport": "667x375 CSS px, deviceScaleFactor 2, isMobile, hasTouch",
+    "real_device": false,
+    "device_claim": "NONE. No physical iPhone SE 3 result exists. Frame rate and frame time are deliberately not measured here.",
+    "node": "v22.22.2"
+  },
+  "binding": {
+    "bundle": "cinderline.1.0.0.js",
+    "bundleBytes": 1412013,
+    "bundleSha256": "a3a8d61285b13ffc9d69ee9ee5bf280b00f2df5a11375f46f9cc1167108cf73d"
+  },
+  "reference_works_measured": false,
+  "reference_works_note": "No reference title was run, measured, or compared side by side in this environment. Reference-side statements in docs/benchmarks.md are generalised design principles, not measurements.",
+  "touchTargets": {
+    "0.80": {
+      "visibleCount": 9,
+      "minSidePx": 35.2,
+      "belowMinimum": [
+        {
+          "label": "abtn hit big attack \"HIT\"",
+          "w": 43.2,
+          "h": 43.2
+        },
+        {
+          "label": "abtn hit mid dodge \"ROLL\"",
+          "w": 35.2,
+          "h": 35.2
+        },
+        {
+          "label": "abtn hit mid guard \"GUARD\"",
+          "w": 35.2,
+          "h": 35.2
+        },
+        {
+          "label": "abtn hit sml use \"USE\"",
+          "w": 35.2,
+          "h": 35.2
+        },
+        {
+          "label": "abtn hit sml heavy \"HEAVY\"",
+          "w": 35.2,
+          "h": 35.2
+        }
+      ],
+      "overlappingPairs": [],
+      "targets": [
+        {
+          "label": "abtn hit big attack \"HIT\"",
+          "w": 43.2,
+          "h": 43.2,
+          "x": 614.2,
+          "y": 320.6
+        },
+        {
+          "label": "abtn hit mid dodge \"ROLL\"",
+          "w": 35.2,
+          "h": 35.2,
+          "x": 571,
+          "y": 329.4
+        },
+        {
+          "label": "abtn hit mid guard \"GUARD\"",
+          "w": 35.2,
+          "h": 35.2,
+          "x": 619.8,
+          "y": 275.8
+        },
+        {
+          "label": "abtn hit sml use \"USE\"",
+          "w": 35.2,
+          "h": 35.2,
+          "x": 575.8,
+          "y": 277.4
+        },
+        {
+          "label": "abtn hit sml heavy \"HEAVY\"",
+          "w": 35.2,
+          "h": 35.2,
+          "x": 529.4,
+          "y": 311
+        },
+        {
+          "label": "sysbtn hit \"≡\"",
+          "w": 44,
+          "h": 44,
+          "x": 465.4,
+          "y": 6.4
+        },
+        {
+          "label": "sysbtn hit \"◈\"",
+          "w": 44,
+          "h": 44,
+          "x": 515.8,
+          "y": 6.4
+        },
+        {
+          "label": "sysbtn hit \"☀\"",
+          "w": 44,
+          "h": 44,
+          "x": 566.2,
+          "y": 6.4
+        },
+        {
+          "label": "sysbtn hit \"⌁\"",
+          "w": 44,
+          "h": 44,
+          "x": 616.6,
+          "y": 6.4
+        }
+      ]
+    },
+    "1.00": {
+      "visibleCount": 9,
+      "minSidePx": 44,
+      "belowMinimum": [],
+      "overlappingPairs": [],
+      "targets": [
+        {
+          "label": "abtn hit big attack \"HIT\"",
+          "w": 54,
+          "h": 54,
+          "x": 601,
+          "y": 307
+        },
+        {
+          "label": "abtn hit mid dodge \"ROLL\"",
+          "w": 44,
+          "h": 44,
+          "x": 547,
+          "y": 318
+        },
+        {
+          "label": "abtn hit mid guard \"GUARD\"",
+          "w": 44,
+          "h": 44,
+          "x": 608,
+          "y": 251
+        },
+        {
+          "label": "abtn hit sml use \"USE\"",
+          "w": 44,
+          "h": 44,
+          "x": 553,
+          "y": 253
+        },
+        {
+          "label": "abtn hit sml heavy \"HEAVY\"",
+          "w": 44,
+          "h": 44,
+          "x": 495,
+          "y": 295
+        },
+        {
+          "label": "sysbtn hit \"≡\"",
+          "w": 44,
+          "h": 44,
+          "x": 459,
+          "y": 8
+        },
+        {
+          "label": "sysbtn hit \"◈\"",
+          "w": 44,
+          "h": 44,
+          "x": 511,
+          "y": 8
+        },
+        {
+          "label": "sysbtn hit \"☀\"",
+          "w": 44,
+          "h": 44,
+          "x": 563,
+          "y": 8
+        },
+        {
+          "label": "sysbtn hit \"⌁\"",
+          "w": 44,
+          "h": 44,
+          "x": 615,
+          "y": 8
+        }
+      ]
+    },
+    "1.50": {
+      "visibleCount": 9,
+      "minSidePx": 44,
+      "belowMinimum": [],
+      "overlappingPairs": [],
+      "targets": [
+        {
+          "label": "abtn hit big attack \"HIT\"",
+          "w": 81,
+          "h": 81,
+          "x": 568,
+          "y": 273
+        },
+        {
+          "label": "abtn hit mid dodge \"ROLL\"",
+          "w": 66,
+          "h": 66,
+          "x": 487,
+          "y": 289.5
+        },
+        {
+          "label": "abtn hit mid guard \"GUARD\"",
+          "w": 66,
+          "h": 66,
+          "x": 578.5,
+          "y": 189
+        },
+        {
+          "label": "abtn hit sml use \"USE\"",
+          "w": 66,
+          "h": 66,
+          "x": 496,
+          "y": 192
+        },
+        {
+          "label": "abtn hit sml heavy \"HEAVY\"",
+          "w": 66,
+          "h": 66,
+          "x": 409,
+          "y": 255
+        },
+        {
+          "label": "sysbtn hit \"≡\"",
+          "w": 44,
+          "h": 44,
+          "x": 443,
+          "y": 12
+        },
+        {
+          "label": "sysbtn hit \"◈\"",
+          "w": 44,
+          "h": 44,
+          "x": 499,
+          "y": 12
+        },
+        {
+          "label": "sysbtn hit \"☀\"",
+          "w": 44,
+          "h": 44,
+          "x": 555,
+          "y": 12
+        },
+        {
+          "label": "sysbtn hit \"⌁\"",
+          "w": 44,
+          "h": 44,
+          "x": 611,
+          "y": 12
+        }
+      ]
+    }
+  },
+  "sceneAudit": {
+    "note": "scene-wide counts, not per-frame frustum counts; an upper bound on the §13 on-screen budgets",
+    "meshes": 461,
+    "shadowCastersVisible": 417,
+    "skinnedMeshes": 1,
+    "textureCount": 92,
+    "maxTextureEdgePx": 512,
+    "estimatedTextureMemoryMB": 78.7,
+    "rendererTextures": 46,
+    "rendererGeometries": 120
+  },
+  "audio": {
+    "exists": true,
+    "unlockedBeforeGesture": false,
+    "ctxState": null
+  },
+  "perfSummary": {
+    "source": "tools/perf.mjs -> shots/perf.json (gitignored; summarised here so the evidence survives)",
+    "tiers": {
+      "low": {
+        "maxDraws": 132,
+        "maxTrisPerFrame": 875047,
+        "maxPrograms": 68,
+        "backingResolution": "720x405"
+      },
+      "medium": {
+        "maxDraws": 310,
+        "maxTrisPerFrame": 1049245,
+        "maxPrograms": 66,
+        "backingResolution": "1147x645"
+      },
+      "high": {
+        "maxDraws": 414,
+        "maxTrisPerFrame": 1076067,
+        "maxPrograms": 59,
+        "backingResolution": "1334x750"
+      }
+    },
+    "simulationStepMs": {
+      "mean": 0.254,
+      "p50": 0.1000000000349246,
+      "p90": 0.8999999999650754,
+      "p99": 1.400000000023283,
+      "max": 5,
+      "actors": 8,
+      "note": "fixedUpdate only; render(), scene traversal, culling and post are NOT included"
+    },
+    "heap": {
+      "beforeMB": 159.3,
+      "afterMB": 159.3,
+      "growthKBPerSecond": 0,
+      "steps": 26803,
+      "note": "fixedUpdate loop only"
+    },
+    "build": {
+      "worldTris": 242624,
+      "chunks": 43,
+      "collisionBoxes": 1097,
+      "materials": 15,
+      "lightMarkers": 188
+    }
+  },
+  "pageErrors": []
+}

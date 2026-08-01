@@ -1,6 +1,6 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.3 -->
+<!-- state_revision: 2026-08-01.4 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
@@ -20,7 +20,7 @@
 
 **残作業の中心は、既存コンテンツを `docs/directive.md` §16 の Gate B / C / D まで引き上げることである。** ただし `docs/bible.md` IMP-03 の BREAKER / DOG 遭遇は、Gate C の確定数値を保つ場合に限り、対象を絞った新規コンテンツを必要とする。
 
-**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）。運用上の読順は `AI_DEVELOPMENT/INDEX.md` を正とする。
+**製品文書の読順**: `docs/directive.md`（製品規則）→ `docs/bible.md`（設計）→ `docs/DONE.md`（完了条件）→ 品質判断を伴う作業では `docs/benchmarks.md`（要素別の参考基準と現在の差分）。運用上の読順は `AI_DEVELOPMENT/INDEX.md` を正とする。
 **README.md を設計の根拠にしてはならない**（§14）。実装者の自己申告文書であり、実装との食い違いが実際に発見されている。
 
 ---
@@ -60,9 +60,10 @@
 | プロダクションバイブル（§5） | `docs/bible.md` | スコープ確定数値6項目を記載。`node tools/check_scope.mjs` が通る |
 | アセット台帳（§3 / §9） | `docs/assets.md` | 実行時依存は three.js のみ。外部アセット0 |
 | 実機テスト手順書（§13） | `docs/device-test-checklist.md` | **実施回数 0** と明記 |
-| セーブ移行と喪失回帰の検査（監査 H1） | `tools/save_migration.mjs`, `tools/make_save_v1_fixture.mjs`, `tools/fixtures/save-v1.json` | 負例5種で**検査自体が落ちること**を確認済み |
-| 起動後 fault 回復の検査（監査 H2） | `tools/fault_recovery.mjs` | 開発中に実際に非ゼロ終了し、production 側の停止判定の誤りを1件検出して修正させた |
-| 実タッチ操作の検査（`GB-TOUCH-SMOKE`） | `tools/touch_smoke.mjs` | 開発中に実際に非ゼロ終了した（同時タッチの片指離しが成立していなかった） |
+| 要素別の参考基準（ユーザー指示） | `docs/benchmarks.md` | 10作品 / 19要素 / 71基準。`node tools/check_benchmarks.mjs` が通る。閾値は `AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json` に固定 |
+| セーブ移行と喪失回帰の検査（監査 H1） | `tools/save_migration.mjs`, `tools/fixtures/save-v1.json` | 負例7種で**検査自体が落ちること**を確認済み |
+| 起動後 fault 回復の検査（監査 H2） | `tools/fault_recovery.mjs` | 開発中に実際に非ゼロ終了し、production 側の欠陥を検出して修正させた |
+| 実タッチ操作の検査（`GB-TOUCH-SMOKE`） | `tools/touch_smoke.mjs` | 開発中に実際に非ゼロ終了した |
 
 ### 本セッションで実際に走らせた検証
 
@@ -85,40 +86,26 @@
 
 初回から最終までの独立 source-aware review は、placement/HP、stale evidence、computed resolver、mutable attack definition、nested damage の high を順に実証し、その都度合格を撤回した。現行 hash を対象にした最終 closure（`docs/reviews/gate-b-imp06-slice-closure-current.md`）は、全19負例・最終clean・共有evidence bindingを別コピーで再実行し、**この代表スライスの限定範囲では未解決 high 0 / PASS**と判定した。過去のFAIL reviewは削除せず根拠履歴として保持する。
 
-### 2026-08-01 ラウンド — H1 / H2 / タッチ、および2セッションの統合
+### 2026-08-01 継続 checkpoint — 要素別参考基準（BM-REF）
 
-「次の3アクション」を3件とも実装した。**同じラウンドで別セッションが GB-H1 を独自に実装していた**ため、両方を読み比べて1本に統合した（ユーザー判断）。同時に protocol v2.2（`AI_DEVELOPMENT/STATE.yaml` を正本とする）と floor gates（F2/F3/F5）を取り込んでいる。
+ユーザーの最新指示により、**要素ごとの参考作品と品質基準**を `docs/benchmarks.md` として確立した。**これは新しい完了条件ではない** — `docs/DONE.md` の Gate A〜D は不変であり（§18「新しい基準を発明しない」）、本文書は既存の directive 条項を要素別の観察可能量へ翻訳したものである。
 
-| task | 到達点 | 検証（本ラウンドで実走） |
-|---|---|---|
-| **GB-H1** セーブ移行 | `migrateSave(raw, registry, target)`＋`SAVE_STATUS`＋非破壊 `inspect()`（別セッション側の設計）に、**読めないセーブの退避リスト**（本セッション側）を合わせた。**保存キーは `cinderline.save.v1` のまま据え置く** — 版をキー名に埋める案は、ロールバック時に旧ビルドが新アドレスを見失い同じ事故を起こすため**撤回した**。版はエンベロープの `v` が持つ | `npm run test:save` → **SAVE MIGRATION OK 129検査**。単体＋実ブラウザ（実 CONTINUE・実タイトル警告）＋負例6件。負例は「どの検査が捕まえるべきか」まで指定して照合する |
-| **GB-H2** 起動後のエラー回復 | `src/main.js` が `error` と `unhandledrejection` を起動後も受け、保存・告知の上、**同一メッセージの再来**またはフレーム停止で既存回復パネルへ接続する | `npm run test:faults` → **FAULT RECOVERY OK 31検査**（本番ビルド・667×375） |
-| **GB-TOUCH-SMOKE** 実タッチ | 実装変更なし（検査の追加） | `npm run test:touch` → **TOUCH SMOKE OK 136検査** |
+- 参考作品 **10件**で **19要素**を担当（4作品が複数要素を兼ねる）。基準 **71件**
+- **参考作品を実行・計測・撮影・並置比較した事実は一度も無い。** 参考作品側の記述は一般化された設計原則であり、計測値ではない。専門家承認・ブラインド評価・実機計測もいずれも未実施
+- 現状の実測: **適合 23 / 部分 13 / 未達 12 / 未計測 21 / 人間のみ 2**
+- 未達12件のうち**11件は既知欠陥**（R-02/R-03/R-05/R-12/IMP-01/04/05/09/14）。新規は BM-HUD-03（色に依存しない状態表現）のみ
+- **最大の発見: 可視品質が一度も検証されていない。** カメラ・世界設計・映像・アニメーション・環境ハザードにまたがる10基準が、画像証拠の不在（R-19、`shots/` が .gitignore）だけを理由に判定不能。task `GB-VISUAL-EVIDENCE` として登録した
 
-**独立批評（`docs/reviews/gate-b-round-h1-h2-touch.md`）は通過した。** `node tools/check_reviews.mjs --gate B` が **OK**（Gate B 全体で未解決 high 0）。監査 H1 / H2 はこれで閉じた。相互不可視の3レンズ（実装ソース非開示1＋成果物限定2）が **critical 2 / high 8 / medium 6** を出した。うち critical 2 は**検査そのものの盲点**で、実証つきだった —
-
-- 保存キーを被試験モジュールから import していたため、**保存先を別アドレスに変えても 100/100 で通った**（全プレイヤーのセーブが孤立する変更を検知できない）
-- タッチ検査が `controls.length >= 8` を見ていたため、**操作子が1個消えても FAIL 0**（検査数が減るだけ）
-
-製品側の high も実在した — エンベロープの版だけを見て `ok` を返し、`deserialise` が拒否して**退避も告知もされないまま新規ゲームが上書きする**経路、退避スロットの先勝ちによる**「退避した」という嘘**、容量超過時の無言の失敗、ロールバック時に旧ビルドが読めない件。さらに実装ソース非開示レンズが実ビルドを叩いて2件の high を出した — **退避は起動時にしか存在せず**、セッション中に読めないセーブが現れると保存経路が黙って上書きすること（R2-16）、および**ゲーム自身のイベントバスが例外を握り潰すため、描画が死んでも誰も気づかない**こと（R2-17、GL描画コール 4秒124回→0回を実測）。さらに実装ソース非開示レンズが実ビルドを叩いて2件の high を出した — **退避は起動時にしか存在せず**、セッション中に読めないセーブが現れると保存経路が黙って上書きすること（R2-16）、および**ゲーム自身のイベントバスが例外を握り潰すため、描画が死んでも誰も気づかない**こと（R2-17、GL描画コール 4秒124回→0回を実測）。**未解決 high 0 / 未解決 medium 2**（R2-9 退避セーブの復元導線が無い、R2-10 `available()` の誤検知）まで直した。
-
-**この3件が主張しないこと**: 実機での動作・性能（B1 は未解決）、Gate B 全体の通過、iOS Safari のジェスチャ挙動、**実データによる多段（2段以上）移行**（本番 step は1つ。機構は注入レジストリで実証済み）、**ブラウザ層の自動負例**（手動観察のみ）。またレンズA は修正前のバンドルを叩いており、**修正後の再検証はレンズA 自身では行っていない**（回帰検査で代替。その旨を `STATE.yaml` の skips に記録）。またレンズA は修正前のバンドルを叩いており、**修正後の再検証はレンズA 自身では行っていない**（回帰検査で代替、その旨を `STATE.yaml` の skips に記録）。
-
-2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。その後 GB-H1 / GB-H2 / GB-TOUCH-SMOKE を実装し（上表）、次の active task は `GB-ROUND-REVIEW`（本ラウンドの独立批評）である。
-
-### 2026-08-01 継続 checkpoint — GB-H1 セーブマイグレーション
-
-| コマンド | 結果 |
+| 本 checkpoint で実際に走らせた検証 | 結果 |
 |---|---|
-| `node tools/save_migration.mjs` | **OK** — 57 checks。193f408 の実コードが実際に書いた v1 セーブ（`tools/fixtures/save-v1.json`、**形式変更前**に採取）が読み込まれ、フラグ・能力・所持品・クエスト・手記が実行中のゲームに揃うことを、実タッチで押した CONTINUE 経由で確認した。新しいビルドのセーブと破損セーブは拒否され、画面に理由が出て、保存バイト列は1バイトも変わらない。現行版セーブの通常 save/load も同一に往復する |
-| negative control（意図的な9種の破壊） | **9/9 を gate が拒否**。うち1件（最終 version stamp の削除）は初回で**見逃した**ため検査を追加した |
-| `npm test` | 下表の通り |
+| `npm run build` / `node tools/validate.mjs` | 成功 / **VALIDATION OK**（対話224・クエスト9・エンディング5） |
+| `node tools/perf.mjs` | 完走・ページエラー0。ドローコール low 132 / medium 310 / high 414、フレーム三角形 752,493–1,076,067、ワールド 242,624 三角形、sim step mean 0.254ms、ヒープ 159.3→159.3MB |
+| `node tools/bench_measure.mjs`（新規） | 完走・ページエラー0。uiScale 0.8 でタッチ対象5件が 35.2px、1.0/1.5 は 44.0px・違反0、重なり全条件で0組。影キャスタ417 / テクスチャ最大辺512px / 推定78.7MB / バンドル 1,412,013B。音声は操作前 unlocked=false |
+| `node tools/check_benchmarks.mjs` | **OK**。加えて負例3件（同一 revision 内での閾値の弱体化 / 実機でしか判定できない項目を「適合」にする / 出荷ソースへの参考作品名の混入）が**いずれも非ゼロ終了で拒否されることを確認した**。失敗しない検査は何も証明しない |
 
-**この作業中に見つけて直した欠陥2件。**
-1. 日本語 `ui.save`（ポーズメニューの「保存」ボタン）と同名のキーを同じリテラルに追加してしまい、既存ラベルを黙って上書きしていた。esbuild の duplicate-key 警告で検出し、`ui.savefile.*` へ改名した。
-2. 最初に書いた検査は「CONTINUE を押した**後**に保存バイト列が変わらないこと」を主張していて落ちた。落ちたのは検査のほうで、プレイ中のオートセーブは正当である。書き込み元を `Director.save()` と特定してから、主張どおりの位置（タイトル画面での読み取り）へ移した。
+**環境は Playwright Chromium + SwiftShader / 667×375 emulation であり、実機ではない。fps とフレーム時間は測っていない。**
 
-**GB-H1 は `verified` ではない。** 実装と gate は通ったが、§17 が要求する独立レビューを実行していない。状態は `under_review` とし、`GB-H1-REVIEW` を次の active task にした。
+2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。次のactive taskは `GB-H1` である。
 
 ---
 
@@ -136,6 +123,10 @@
 
 ### アクション 3 — 一本の通し実走（`GC-IMP06-FULLRUN`）
 クリーンセーブから開始し、実移動・実呼吸・実戦闘で開幕からエンディングまでを1経路走らせる。C1 / D3 と、未計測のプレイ時間見積もりの置換は、これ以外の根拠では主張できない。
+
+**その次**は `GB-VISUAL-EVIDENCE`（可視品質の証拠を残せるようにする。`docs/benchmarks.md` §6 が特定した最大の空白で、10基準がこれ1つに阻まれている）、次いで `GB-IMP02`、`GC-IMP06-FULLRUN` の優先度を再計算する。IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b、要素別の品質差は `docs/benchmarks.md` §6 を正とする。
+
+**各 task の合格判定には、対応する `docs/benchmarks.md` の基準 ID を使うこと。** 例: GB-H1 は BM-STB-02、GB-H2 は BM-STB-03、GB-TOUCH-SMOKE は BM-TCH-01/03/04 と BM-MENU-01。
 
 IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を正とする。
 
@@ -218,11 +209,15 @@ IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を�
 | 9 | スコープ確定数値6項目がバイブルに記載されている | `node tools/check_scope.mjs` → exit 0 | 自動 | **検証済** |
 | 10 | 性能記述に実機主張が混入していない | `tools/perf.mjs:2-20,184-187`（SwiftShader 明記、fps 出力を拒否）、監査 | コード | **検証済** |
 | 11 | ガスが AI の**経路選択**を支配する | — | — | **未検証**（視程と退避は確認済み。経路そのものは未確認） |
-| 12 | 667×375 で全画面がタッチ操作可能 | `npm run test:touch` → TOUCH SMOKE OK 118検査（`AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json`） | 自動 | **部分的（範囲拡大）** — HUD操作子・会話選択肢・向き変更は**実タッチ座標で実走検証済み**。マップのパン/ズーム無しとチュートリアル画面の不在（監査 M8）は未解決のまま。**実機ではない**（B1） |
-| 13 | §13 の描画予算を満たす | — | — | **未達**（ドローコールが medium で超過。影キャスタ数未達。監査 §13 表） |
+| 12 | 667×375 で全画面がタッチ操作可能 | `npm run test:touch` → TOUCH SMOKE OK 136検査（`AI_DEVELOPMENT/EVIDENCE/GB-TOUCH-SMOKE.json`） | 自動 | **部分的（範囲拡大）** — HUD操作子・会話選択肢・向き変更は**実タッチ座標で実走検証済み**。マップのパン/ズーム無しとチュートリアル画面の不在（監査 M8）は未解決のまま。**実機ではない**（B1） |
+| 13 | §13 の描画予算を満たす | `node tools/perf.mjs` / `node tools/bench_measure.mjs` → `AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json` | 自動 | **未達（実測で確定）** — ドローコール medium 310 / high 414（最悪値250）、フレーム三角形 752,493–1,076,067（予算30万）、影キャスタ417（画面内予算2）。BM-PRF-01/02/05 |
 | 14 | 実機で 30 FPS を満たす | — | — | **原理的に未検証。** 実機が存在しない。**主張してはならない**（§13） |
 | 15 | 想定プレイ時間 3〜5時間 | — | — | **未計測の見積もり。** バイブル §16 に見積もりと明記済み。Gate C までに実測する |
-| 16 | 旧版セーブが破棄されず移行され、読めないセーブは理由と共に拒否されて元のバイトが残る | `node tools/save_migration.mjs` → 57 checks OK、意図的破壊9件を9件とも拒否。`AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json` | 自動 | **検証済（範囲限定・独立レビュー未了）** — 実移行ステップは1つのみ。多段移行は注入 registry での実証にとどまる |
+| 16 | 初期ペイロードが §13 の予算（15MB）内である | `node tools/bench_measure.mjs` → 単一バンドル 1,412,013 B、外部アセット0・ネットワーク要求0 | 自動 | **検証済**（BM-PRF-04）。バイブル §0 が R-19 により保留していた数値に、再現可能な計測成果物ができた |
+| 17 | テクスチャが §13 の予算（最大辺2048 / 200MB）内である | `node tools/bench_measure.mjs` → 最大辺 512px / 推定 78.7MB | 自動 | **検証済**（BM-PRF-03）。§13 の予算で初めて計測された項目 |
+| 18 | 可視タッチ対象が 44 CSS px 以上である | `node tools/bench_measure.mjs` → uiScale 1.0/1.5 は最小辺 44.0px・違反0、**0.8 で9件中5件が 35.2px** | 自動 | **部分**（BM-TCH-01 未達 / BM-TCH-02 適合）。重なりは全条件で0組 |
+| 19 | ユーザー操作前に音声を鳴らさない（§10） | `node tools/bench_measure.mjs` → 操作前 `unlocked=false` / AudioContext 未生成 | 自動 | **検証済**（BM-AUD-03） |
+| 20 | 要素別の参考基準が存在し、実装を通すために弱められていない | `node tools/check_benchmarks.mjs`（負例3件の拒否も確認済み） | 自動 | **検証済**（BM-REF）。閾値は `criteria.lock.json` に固定 |
 
 ---
 
@@ -242,6 +237,8 @@ IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を�
 | 2026-07-30 | 敵アーキタイプ数の記載を「5」→「**定義5 / 本編配置3**」に変更 | BREAKER と DOG が本編に一度も出現しない。`node tools/check_scope.mjs --against-content` が両方を実測するようにした |
 | 2026-07-30 | バイブル §12 から「約950三角形」を削除 | 出所がコードに無かった（`grep -rn "950" src/` 該当なし）。**計測して書く。それまで書かない** |
 | 2026-07-30 | バイブル §0 から初期ペイロードの数値を削除 | 唯一の出所が README.md であり、バイブル自身が「設計の根拠にしてはならない」と宣言した文書だった。`shots/` は `.gitignore` されており再現可能な計測成果物が無い |
+| 2026-08-01 | 品質判断の基準に `docs/benchmarks.md`（要素別の参考作品と 71 基準）を追加 | ユーザーの最新指示。**Gate 条件は追加していない**（§18）。既存の directive 条項を要素別の観察可能量へ翻訳し、既知欠陥に「どの水準に対してどれだけ足りないか」という尺度を与えた |
+| 2026-08-01 | 初期ペイロードとテクスチャ予算の数値を、実測を根拠に受け入れ表へ復帰（#16, #17） | R-19 が問題にしていたのは数値そのものではなく**再現可能な計測成果物の不在**だった。`AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json` が本番バンドルの sha256 で束縛された計測結果をコミットしたため、保留の理由が解消した。**バイブル §0 の記述はまだ更新していない**（バイブルの所有権と本 checkpoint の範囲を分けるため） |
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.3",
+  "state_revision": "2026-08-01.4",
   "project": {
     "id": "PROJECT-CINDERLINE",
     "name": "CINDERLINE",
@@ -291,6 +291,38 @@
         "AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md"
       ],
       "reason": "Latest explicit user instruction authorizes and requires remote push, merge and publication across session changes"
+    },
+    {
+      "id": "BM-REF",
+      "parent": "PROJECT-CINDERLINE",
+      "status": "verified",
+      "priority": 91,
+      "title": "Establish the per-element reference benchmark and measure the current gap",
+      "dependencies": [
+        "OPS-001"
+      ],
+      "acceptance_refs": [],
+      "evidence": [
+        "docs/benchmarks.md",
+        "AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json",
+        "AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json"
+      ],
+      "reason": "Latest explicit user instruction. It adds no gate criterion; it turns the existing directive requirements into observable quantities per element and records the measured gap."
+    },
+    {
+      "id": "GB-VISUAL-EVIDENCE",
+      "parent": "GATE-B",
+      "status": "ready",
+      "priority": 87,
+      "title": "Make visible quality verifiable: commit screenshot evidence after validating the capture tool",
+      "dependencies": [
+        "BM-REF"
+      ],
+      "acceptance_refs": [
+        "B3"
+      ],
+      "evidence": [],
+      "reason": "docs/benchmarks.md §6: ten criteria across camera, world design, visuals, animation and hazard legibility are unverifiable because no image evidence is committed (R-19). R-10 recorded that the capture tool itself was once broken, so the tool must be validated before its output is used as evidence."
     }
   ],
   "acceptance_trace": [
@@ -344,6 +376,12 @@
       "tasks": [
         "GB-H2",
         "GB-ROUND-REVIEW"
+      ]
+    },
+    {
+      "criterion": "B3",
+      "tasks": [
+        "GB-VISUAL-EVIDENCE"
       ]
     }
   ]

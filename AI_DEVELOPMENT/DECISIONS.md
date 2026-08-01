@@ -31,6 +31,17 @@
 - Decision: Treat push, merge and publication as normal completion steps for verified CINDERLINE checkpoints across future chat, Work and logical-session boundaries until the user changes or revokes this instruction.
 - Safety boundary: Inspect the exact repository, branch, diff, mandatory gates and remote result; do not publish a known failing checkpoint or secrets. This does not authorize payment, account or credential changes, private-data exposure, destructive production data/cloud actions, irreversible migrations or disabling security controls.
 
+## OD-006 — The reference benchmark is an instrument, not a new gate
+
+- Date: 2026-08-01
+- Status: accepted
+- Source: Latest explicit user instruction: select a high-quality reference work per element, convert it into concrete evidence-based criteria, and keep it as persistent project information.
+- Decision: `docs/benchmarks.md` is the authority for per-element reference works, selection rationale, quality criteria and the current gap. It adds **no** completion condition — `docs/DONE.md` and its Gate A–D transcription remain untouched (`docs/directive.md` §18 forbids inventing new criteria). Every criterion names the directive clause or bible pillar it operationalises.
+- Reason: The project already had requirements (§4–§13) and known defects (bible §17/§17b), but no statement of *what quality level* each element is aiming at, so "how far short is this?" had no answer. A reference work per element supplies the level; the criteria supply the measurement.
+- Honesty boundary: No reference title has been run, measured, screenshotted or compared side by side in this environment, and no expert approval or blind evaluation has been performed. Reference-side statements are generalised design principles only. `tools/check_benchmarks.mjs` fails any criterion that is marked as met while its verification requires a physical device or a human.
+- Anti-weakening: `AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json` pins the sha256 of every criterion's (id + basis + threshold). Changing one inside a revision fails; changing one across revisions requires the criterion ID in the change log. This was verified by three rejected negative cases, not assumed.
+- Consequence: Work items are judged against benchmark criterion IDs (GB-H1 → BM-STB-02, GB-H2 → BM-STB-03, GB-TOUCH-SMOKE → BM-TCH-01/03/04, BM-MENU-01). A concept change updates `docs/benchmarks.md` §1 and only re-selects reference works for the elements that stop fitting (§8 of that document).
+
 ## OD-005 — Keep the branch-source Pages mirror byte-identical to `dist/`
 
 - Date: 2026-08-01

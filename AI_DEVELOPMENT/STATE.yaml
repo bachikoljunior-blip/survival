@@ -164,13 +164,14 @@ execution:
     "a copy has been kept aside" mean something to a player.
 
 floor:
-  last_check: "2026-08-01 (round close-out)"
-  independence_level_used: A
+  last_check: "2026-08-01 (benchmarks merge)"
+  independence_level_used: C
   skips:
-    - "F6: owed. It fires on the merge this round is heading for, not before. tools/gates/f6_public_revision.mjs must run against the public surface once main has moved, and the served revision recorded here."
+    - "F6: ATTEMPTED AND BLOCKED, still owed. main moved to e0b2815 and the Pages deployment for that revision reports success, but tools/gates/f6_public_revision.mjs cannot reach the public surface from this environment: the egress proxy answers 403 to CONNECT for bachikoljunior-blip.github.io:443 (measured 2026-08-01T15:56:50Z, recorded in the proxy's own recentRelayFailures). A deployment job reporting success is not evidence of what a visitor receives, so this delivery is NOT recorded as publicly verified. Note: an earlier entry in this file claimed the policy had been widened and the Pages URL returned 200; that is contradicted by this measurement."
     - "F7: not fired. No objective was marked complete this run; GATE-B remains in progress."
     - "F5 limitation: the Level A lens was source-blind and returned a verdict (claim 1 FAIL, the rest PASS), but it tested the bundle as it stood before the other lenses' findings were fixed, and it did NOT re-verify afterwards. Its two findings were reproduced and regression-checked by this session instead, which is Level C for that step. Recorded rather than smoothed over."
     - "F5 coverage: the browser layer of tools/save_migration.mjs has no automated negative control. Its ability to fail was observed by hand only."
+    - "F5 for THIS delivery is Level C, not the A recorded for the round before it. This run integrates another session's benchmark work; what was falsified here is the INTEGRATION — that the conflict resolution dropped nothing and that the merged tree runs — by reading both sides and running the full suite. The benchmark content itself (docs/benchmarks.md, the 71 criteria, the lock) has NOT been independently reviewed by this session. The A-level record for GB-H1/H2/touch stands in docs/reviews/gate-b-round-h1-h2-touch.md and in merged history."
   waivers: []
   enforcement:
     # Wording is deliberate. "installed_observed_failing_not_required" means the
