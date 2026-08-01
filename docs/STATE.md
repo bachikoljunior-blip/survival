@@ -1,6 +1,6 @@
 # STATE — 進捗の唯一の情報源
 
-<!-- state_revision: 2026-08-01.2 -->
+<!-- state_revision: 2026-08-01.3 -->
 
 `docs/directive.md` §19 が要求する継続プロトコル文書。
 
@@ -96,6 +96,8 @@
 本ラウンドの最後に `npm test` を通しで実走し **exit 0**（operating-state / dev build / validate / gate-b 敵対検査19件 / 代表スライス2回 = 302.6m・857ppm・10hit・3kill / 5経路通しプレイ / perf / save 73 / faults 30 / touch 118）。
 
 **この3件が主張しないこと**: 実機での動作・性能（B1 は未解決のまま）、Gate B 全体の通過、iOS Safari のジェスチャ挙動。多段（2段以上）のマイグレーション連鎖は、本番に登録された step が現在1つ（v1→v2）しかないため**未実行**である。連鎖機構そのもの（全 step を順に適用し、穴・失敗・非前進を検出する）は検査済み。
+
+2026-08-01 のユーザー指示により、**各セッションの終わりに作業ブランチを `main` へマージして push する**ことが恒久的な運用規則になった。前提は3つ: 作業がブランチに commit / push 済みであること、マージ結果で `npm test` が通るか、通らない場合は失敗内容を本文書に先に記録すること、`docs/STATE.md` と2つの JSON の `state_revision` が一致していること。`main` へのマージは Pages ワークフローを起動し、公開ビルドを差し替える。これは下記の恒久承認の範囲内であり、それ以外の操作は含まない。
 
 2026-07-31 のユーザー最新指示により、**検証済み checkpoint の remote push、merge、public publication/deploy は chat / Work / logical session の切替後も永続的に承認済み**となった。これは都度承認規則の当該3操作だけを置換する。PR #2 と公開互換修正 PR #3 は `main` へmerge済みで、検証済み基点は `cc96f3a`。GitHub Pages の2経路は成功し、公開HTML・JavaScript・CSS・manifestは本番buildとSHA-256一致した。詳細は `AI_DEVELOPMENT/EVIDENCE/OPS-REMOTE-PUBLISH.md`。その後 GB-H1 / GB-H2 / GB-TOUCH-SMOKE を実装し（上表）、次の active task は `GB-ROUND-REVIEW`（本ラウンドの独立批評）である。
 
@@ -231,6 +233,7 @@ IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を�
 - 未完成を「今後の拡張」で隠さない
 - **アセット・テスト・計測・スクリーンショット・比較・完了主張を捏造しない**
 - 開発を通じてゲームを常に実行可能に保つ。`main` は常に動作すること
+- **セッションの終わりに作業ブランチを `main` へマージして push する**（2026-08-01 のユーザー指示）。前提は §2 に記載
 - 小さく統合し、小さく検証する
 - 自己評価より証拠を優先する
 - **`.github/workflows/autopilot.yml` には触らない**

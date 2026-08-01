@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.2",
+  "state_revision": "2026-08-01.3",
   "session": {
     "id": "SESSION-2026-07-31-01",
     "status": "active",
@@ -21,7 +21,7 @@
     "baseline": "193f408",
     "last_verified_action": "GB-H1, GB-H2 and GB-TOUCH-SMOKE were implemented and run: save migration 73 checks with 5 negative controls rejected, fault recovery 30 checks in a production build at 667x375, touch smoke 118 checks driven from dispatched touch coordinates.",
     "current_failure": null,
-    "next_action": "Run an independent, source-aware falsification review of the three (GB-ROUND-REVIEW), whose inputs are the repository artefacts, the real build and docs/DONE.md only — not this round’s reports and not README.md.",
+    "next_action": "Run an independent, source-aware falsification review of GB-H1, GB-H2 and GB-TOUCH-SMOKE (GB-ROUND-REVIEW), whose inputs are the repository artefacts, the real build and docs/DONE.md only — not this round's reports and not README.md. At the end of the session, merge the session branch into main and push it (standing user instruction of 2026-08-01).",
     "rollback_point": "193f408",
     "pending_verification": [
       "independent review of the migration layer",

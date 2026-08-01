@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.2",
+  "state_revision": "2026-08-01.3",
   "project": {
     "id": "PROJECT-CINDERLINE",
     "name": "CINDERLINE",
@@ -20,7 +20,7 @@
   },
   "remote_execution_authorization": {
     "status": "active",
-    "source": "Latest explicit user instruction on 2026-07-31",
+    "source": "Latest explicit user instructions on 2026-07-31 (push / merge / publish) and 2026-08-01 (merge at the end of every session)",
     "persists_across_session_changes": true,
     "authorized_actions": [
       "remote_push",
@@ -28,7 +28,18 @@
       "public_publication_or_deployment"
     ],
     "repository": "bachikoljunior-blip/survival",
-    "safety_boundary": "Publish only an inspected checkpoint with applicable mandatory gates passing; do not expose secrets or perform paid, credential, account, destructive production-data or destructive cloud actions."
+    "safety_boundary": "Publish only an inspected checkpoint with applicable mandatory gates passing; do not expose secrets or perform paid, credential, account, destructive production-data or destructive cloud actions.",
+    "standing_instruction": {
+      "rule": "At the end of every work session, merge the session branch into main and push it, so main carries the verified checkpoint rather than a branch nobody reads.",
+      "given": "2026-08-01",
+      "persists_across_session_changes": true,
+      "preconditions": [
+        "The work is committed and pushed to the session branch.",
+        "npm test passes on the merge result, or the exact failure is recorded in docs/STATE.md before merging.",
+        "docs/STATE.md, PROJECT_STATE.json and SESSION_STATE.json agree on state_revision."
+      ],
+      "note": "Merging main triggers the GitHub Pages workflow, which republishes the game. That is covered by the standing publication authorization; nothing else is."
+    }
   },
   "plan_nodes": [
     {
