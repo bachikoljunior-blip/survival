@@ -143,6 +143,17 @@ async function performActions(actions) {
   await webdriver(sessionPath('/actions'), { method: 'DELETE' }).catch(() => {});
 }
 
+const WEB_ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
+
+async function clickElement(selector) {
+  const element = await webdriver(sessionPath('/element'), {
+    body: { using: 'css selector', value: selector },
+  });
+  const id = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
+  if (!id) throw new Error(`Safari did not resolve element: ${selector}`);
+  await webdriver(sessionPath(`/element/${encodeURIComponent(id)}/click`), { body: {} });
+}
+
 function finger(id, actions) {
   return { type: 'pointer', id, parameters: { pointerType: 'touch' }, actions };
 }
@@ -275,7 +286,8 @@ try {
   check(title.buttons.every((item) => item.width >= 44 && item.height >= 44),
     'title controls meet the 44 CSS px floor', JSON.stringify(title.buttons));
   const newGame = title.buttons.find((item) => item.name === 'new');
-  await tap(newGame.x + newGame.width / 2, newGame.y + newGame.height / 2);
+  check(Boolean(newGame), 'new-game control is discoverable', JSON.stringify(title.buttons));
+  await clickElement('.title-menu .btn:nth-child(2)');
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
   check(true, 'trusted Mobile Safari tap starts a new game', baseUrl);
 
