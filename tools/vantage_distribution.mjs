@@ -109,6 +109,20 @@ function distribution(samples) {
 const pinned = (values) => values.length > 0 && Math.max(...values) === Math.min(...values);
 
 /**
+ * The baseline's tolerance band for one cell: the closed interval it was actually observed
+ * in. A candidate value inside the band is indistinguishable from the rig's own drift.
+ *
+ * This replaced a stricter test that only judged cells whose baseline range was exactly
+ * zero, and the reason is measured, not stylistic. Over four sweeps 118 of 198 cells had
+ * range 0 — but the holdout control then showed 37 of the 155 cells that the first three
+ * sweeps called pinned being contradicted by the fourth. "It repeated three times" is a weak
+ * induction, and acting on it would have manufactured 37 differences that are pure drift.
+ * A band degrades gracefully instead of discarding the 80 cells that move at all, and the
+ * holdout below calibrates how often the band itself is wrong.
+ */
+const band = (values) => ({ lo: Math.min(...values), hi: Math.max(...values) });
+
+/**
  * @returns {{refused?: string} | {
  *   runs: number, stable: number, unstable: number, moving: Array,
  *   holdout?: {k: number, pinned: number, violated: number, rows: Array},
@@ -151,14 +165,27 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
   if (runs > k) {
     const early = distribution(base.filter((s) => s.run <= k));
     const late = base.filter((s) => s.run > k);
-    const h = { k, pinned: 0, violated: 0, rows: [] };
+    const h = { k, pinned: 0, pinnedViolated: 0, cells: 0, violated: 0, rows: [] };
     for (const [frame, cells] of early) {
       for (const c of CELLS) {
         const v = cells.get(c);
-        if (!pinned(v)) continue;
-        h.pinned++;
-        const off = late.filter((s) => s.frame === frame && s[c] !== v[0]);
-        if (off.length) { h.violated++; h.rows.push({ frame, cell: c, expected: v[0], got: off.map((s) => s[c]) }); }
+        const b = band(v);
+        const lateVals = late.filter((s) => s.frame === frame).map((s) => s[c]);
+        if (!lateVals.length) continue;
+
+        // The strict test, kept only as a diagnostic: how unreliable is "range 0 means pinned"?
+        if (pinned(v)) { h.pinned++; if (lateVals.some((x) => x !== v[0])) h.pinnedViolated++; }
+
+        // The test that actually gates a verdict: does a held-out BASELINE run fall outside
+        // the band built from earlier baseline runs? Every one of those is a false positive
+        // the band would have reported against an innocent candidate.
+        h.cells++;
+        const off = lateVals.filter((x) => x < b.lo || x > b.hi);
+        if (off.length) {
+          h.violated++;
+          const worst = off.reduce((a, x) => Math.max(a, x < b.lo ? b.lo - x : x - b.hi), 0);
+          h.rows.push({ frame, cell: c, band: b, got: off, by: worst });
+        }
       }
     }
     out.holdout = h;
@@ -168,19 +195,19 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
     const cand = samples.filter((s) => s.label === candidateLabel);
     if (!cand.length) { out.candidate = { missing: candidateLabel }; return out; }
     const candDist = distribution(cand);
-    const c0 = { runs: new Set(cand.map((s) => s.run)).size, inside: 0, outside: 0, untestable: 0, rows: [] };
+    const c0 = { runs: new Set(cand.map((s) => s.run)).size, inside: 0, outside: 0, rows: [] };
     for (const [frame, cells] of candDist) {
       const baseCells = baseDist.get(frame);
       if (!baseCells) { c0.rows.push({ frame, cell: '*', note: 'absent from baseline' }); continue; }
       for (const c of CELLS) {
-        const b = baseCells.get(c);
+        const b = band(baseCells.get(c));
         const vals = cells.get(c);
-        // A cell the rig could not hold still cannot judge anything. Counting it either way
-        // would be the failure this whole tool exists to prevent.
-        if (!pinned(b)) { c0.untestable++; continue; }
-        const off = vals.filter((v) => v !== b[0]);
-        if (off.length) { c0.outside++; c0.rows.push({ frame, cell: c, expected: b[0], got: vals }); }
-        else c0.inside++;
+        const off = vals.filter((v) => v < b.lo || v > b.hi);
+        if (off.length) {
+          c0.outside++;
+          const worst = off.reduce((a, v) => Math.max(a, v < b.lo ? b.lo - v : v - b.hi), 0);
+          c0.rows.push({ frame, cell: c, band: b, got: vals, by: worst });
+        } else c0.inside++;
       }
     }
     out.candidate = c0;
@@ -212,12 +239,14 @@ export function formatReport(r, baseLabel = 'base', candidateLabel = null) {
 
   if (r.holdout) {
     const h = r.holdout;
-    L.push(`\n  holdout control — pin from the first ${h.k} sweeps, test on the remaining ${r.runs - h.k}:`);
-    L.push(`    cells the first ${h.k} called pinned      : ${h.pinned}`);
-    L.push(`    of those, later sweeps contradicted : ${h.violated}` +
-      (h.violated ? '  <-- the baseline fails its own test; N is too small' : '  (the pinned set held)'));
+    L.push(`\n  holdout control — build from the first ${h.k} sweeps, test on the remaining ${r.runs - h.k}:`);
+    L.push(`    strict "range 0 == pinned" cells        : ${h.pinned}, of which later sweeps contradicted ${h.pinnedViolated}` +
+      (h.pinnedViolated ? '  <-- why the verdict uses a band, not this' : ''));
+    L.push(`    band cells tested                       : ${h.cells}`);
+    L.push(`    band FALSE POSITIVES (a held-out BASELINE run outside its own band) : ${h.violated}` +
+      (h.violated ? '  <-- the band is not yet trustworthy; collect more sweeps' : '  (the band held — a difference below is readable)'));
     for (const row of h.rows) {
-      L.push(`      ${row.frame.padEnd(14)} ${row.cell.padEnd(6)} first ${h.k} said ${row.expected}, later ${fmtSet(row.got)}`);
+      L.push(`      ${row.frame.padEnd(14)} ${row.cell.padEnd(6)} band [${row.band.lo},${row.band.hi}] got ${fmtSet(row.got)} (out by ${row.by})`);
     }
   }
 
@@ -225,13 +254,12 @@ export function formatReport(r, baseLabel = 'base', candidateLabel = null) {
     const c = r.candidate;
     if (c.missing) { L.push(`\nno samples for candidate "${c.missing}"`); return L.join('\n'); }
     L.push(`\ncandidate "${candidateLabel}": ${c.runs} sweeps\n`);
-    L.push(`  cells the baseline pinned, candidate agrees   : ${c.inside}`);
-    L.push(`  cells the baseline pinned, candidate DIFFERS  : ${c.outside}`);
-    L.push(`  cells the baseline could not pin (untestable) : ${c.untestable}`);
+    L.push(`  cells inside the baseline's observed band  : ${c.inside}`);
+    L.push(`  cells OUTSIDE it                           : ${c.outside}`);
     if (c.outside) {
-      L.push('\n  differences on cells the rig holds still — this is signal, not drift:');
+      L.push('\n  outside the range the rig ever reached on its own — read against the false-positive count above:');
       for (const row of c.rows) {
-        L.push(`    ${row.frame.padEnd(14)} ${String(row.cell).padEnd(6)} base=${row.expected} candidate={${fmtSet(row.got)}}`);
+        L.push(`    ${row.frame.padEnd(14)} ${String(row.cell).padEnd(6)} band [${row.band?.lo},${row.band?.hi}] candidate {${fmtSet(row.got)}} (out by ${row.by})`);
       }
     }
   }
@@ -276,23 +304,42 @@ function selftest() {
   const candBad = [S('cand', 1, 'alpha', { p95: 7 }), S('cand', 1, 'beta')];
   const rb = analyse([...base, ...candBad], { candidateLabel: 'cand', holdout: 3 });
   check('difference on a pinned cell is reported', () => rb.candidate.outside === 1);
-  check('and it names frame+cell+values', () => rb.candidate.rows[0].frame === 'alpha' &&
-    rb.candidate.rows[0].cell === 'p95' && rb.candidate.rows[0].expected === 100 && rb.candidate.rows[0].got[0] === 7);
+  check('and it names frame+cell+band+values', () => rb.candidate.rows[0].frame === 'alpha' &&
+    rb.candidate.rows[0].cell === 'p95' && rb.candidate.rows[0].band.lo === 100 &&
+    rb.candidate.rows[0].band.hi === 100 && rb.candidate.rows[0].got[0] === 7);
 
-  // THE CONTROL THAT MUST NOT FIRE. A candidate differing only on the cell the rig itself
-  // could not hold still is drift, not signal. A tool that flags this is as useless as one
-  // that flags nothing — it would have blamed the harness swap for the rig's own noise.
-  const candDrift = [S('cand', 1, 'alpha'), S('cand', 1, 'beta', { p50: 999 })];
+  // THE CONTROL THAT MUST NOT FIRE. beta.p50 was observed at 100 and 101 in the baseline,
+  // so a candidate landing anywhere in [100,101] is indistinguishable from the rig's own
+  // drift. A tool that flags that is as useless as one that flags nothing — it would have
+  // blamed the harness swap for noise the baseline itself produced.
+  const candDrift = [S('cand', 1, 'alpha'), S('cand', 1, 'beta', { p50: 101 })];
   const rd = analyse([...base, ...candDrift], { candidateLabel: 'cand', holdout: 3 });
-  check('CONTROL: difference on an unpinned cell is NOT reported', () => rd.candidate.outside === 0);
-  check('CONTROL: and it is counted as untestable instead', () => rd.candidate.untestable === 1);
+  check('CONTROL: a value inside the baseline band is NOT reported', () => rd.candidate.outside === 0);
 
-  // Holdout: pin from run 1 only, then let run 2 contradict it.
+  // ...but one unit outside that band is signal, and must be, or a real regression that
+  // happens to land next to a noisy cell would be waved through.
+  const candEdge = [S('cand', 1, 'alpha'), S('cand', 1, 'beta', { p50: 102 })];
+  const re = analyse([...base, ...candEdge], { candidateLabel: 'cand', holdout: 3 });
+  check('one unit outside the band IS reported', () => re.candidate.outside === 1);
+  check('and the distance outside the band is reported', () => re.candidate.rows[0].by === 1);
+
+  // The band must be two-sided. An earlier draft compared against the max only, which would
+  // have passed every darkening regression in the set.
+  const candLow = [S('cand', 1, 'alpha', { p05: 3 }), S('cand', 1, 'beta')];
+  const rl = analyse([...base, ...candLow], { candidateLabel: 'cand', holdout: 3 });
+  check('a value BELOW the band is reported too', () => rl.candidate.outside === 1 && rl.candidate.rows[0].by === 97);
+
+  // The band holdout must count a held-out baseline run falling outside its own band, since
+  // that is exactly the false positive the verdict has to be read against.
+  const rbh = analyse(base, { holdout: 1 });
+  check('band holdout counts a baseline run outside its own band', () => rbh.holdout.violated === 1);
+  check('and the strict pin diagnostic fires there too', () => rbh.holdout.pinnedViolated === 1);
+  const rbh2 = analyse(base, { holdout: 2 });
+  check('CONTROL: band holdout is clean once the band covers the drift', () => rbh2.holdout.violated === 0);
+
+  // Holdout naming.
   const rh = analyse(base, { holdout: 1 });
-  check('holdout catches a pin that later sweeps contradict', () => rh.holdout.violated === 1);
   check('holdout names the contradicted cell', () => rh.holdout.rows[0].frame === 'beta' && rh.holdout.rows[0].cell === 'p50');
-  const rh2 = analyse(base, { holdout: 2 });
-  check('CONTROL: holdout does not fire when the pinned set holds', () => rh2.holdout.violated === 0);
 
   // Refusals.
   check('refuses a single-run baseline', () => !!analyse([S('base', 1, 'alpha')]).refused);
@@ -306,7 +353,7 @@ function selftest() {
 
   // The formatter must survive every shape above.
   check('formatter runs on a refusal', () => formatReport(analyse([])).startsWith('REFUSING'));
-  check('formatter runs on a full report', () => formatReport(rb, 'base', 'cand').includes('candidate DIFFERS  : 1'));
+  check('formatter runs on a full report', () => formatReport(rb, 'base', 'cand').includes('cells OUTSIDE it                           : 1'));
 
   console.log(`\n  ${pass} passed, ${fail} failed`);
   return fail ? 1 : 0;
