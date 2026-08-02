@@ -280,8 +280,10 @@ execution:
     launch_swap_SETTLED: >-
       RESULT: adopting .kit/lib/browser/launchHeadless in tools/vantage.mjs is
       UNDETECTABLE on this rig, and every apparent difference was batch drift.
-      Six arms of 4 sweeps each against one dist hash a07b10b236ef, plus an
-      8-sweep baseline: 44 sweeps, 792 frames total. Net luma shift vs baseline
+      Five arms of 4 sweeps each against one dist hash a07b10b236ef, plus an
+      8-sweep baseline: 28 sweeps, 504 frames total. Raw samples are preserved at
+      AI_DEVELOPMENT/EVIDENCE/VANTAGE-LAUNCH-SWAP-SAMPLES.jsonl because shots/ is
+      gitignored and would not survive the container. Net luma shift vs baseline
       and sign-test asymmetry - legacynow (THE CONTROL, no change at all) -17.4
       asym 10; kitfull -14.4 asym 20; kitfull2 (replication of kitfull) -20.6
       asym 9; binary -7.1 asym 4; flags -16.1 asym 6. The control, which changed
@@ -296,7 +298,10 @@ execution:
       change was the likely pixel-mover and the flags the smaller suspect - is
       disproved. The binary-only arm is the QUIETEST of all six (total -7.1,
       asymmetry 4, 6 unique cells outside band against a baseline-split minimum
-      of 9). Recorded so it is not re-derived.
+      of 9). Recorded so it is not re-derived. NOTE: the commit message for
+      ab65a46 says "six arms ... 44 sweeps, 792 frames"; that count was wrong and
+      is corrected here to five arms, 28 sweeps, 504 frames. Every per-arm number
+      it quotes is unaffected.
     launch_swap_my_own_false_positive: >-
       Recorded because the mechanism is general and cost this session real time.
       The first kitfull arm was reported as a measured DIRECTIONAL SHIFT: 31 luma
