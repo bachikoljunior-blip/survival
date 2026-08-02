@@ -10,12 +10,23 @@
  */
 import { execFileSync } from 'node:child_process';
 import { cpSync, readFileSync, writeFileSync, rmSync, mkdtempSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 
-const REPO = '/home/user/survival';
-const OLD = '/tmp/main_cos.mjs';               // tools/check_operating_state.mjs at origin/main
-const NEW = join(REPO, 'tools/check_operating_state.mjs');
+const REPO = dirname(dirname(fileURLToPath(import.meta.url)));
+
+/**
+ * The revision to compare against, pinned rather than tracking `origin/main`.
+ *
+ * `02339ce` is the last commit before the kit integration landed — the version that carried
+ * the hand-written generic half plus the protocol-2.2 STATE.yaml block. Once the integration
+ * merged, `origin/main` became the *new* validator, so a floating base would compare this
+ * file against itself and print a confident 46/46 that means nothing. Override with `--base`
+ * only if you know what you are comparing.
+ */
+const argv = process.argv.slice(2);
+const BASE = argv.includes('--base') ? argv[argv.indexOf('--base') + 1] : '02339ce';
 
 const PROJECT = 'AI_DEVELOPMENT/PROJECT_STATE.json';
 const SESSION = 'AI_DEVELOPMENT/SESSION_STATE.json';
@@ -96,7 +107,14 @@ cpSync(REPO, base, {
   recursive: true,
   filter: (src) => !/(\/\.git$|\/\.git\/|\/node_modules$|\/node_modules\/|\/dist$)/.test(src),
 });
-cpSync(OLD, join(base, 'tools', 'check_operating_state_old.mjs'));
+const oldSource = execFileSync('git', ['show', `${BASE}:tools/check_operating_state.mjs`],
+  { cwd: REPO, encoding: 'utf8' });
+writeFileSync(join(base, 'tools', 'check_operating_state_old.mjs'), oldSource);
+
+// A base that resolves to the current file makes every comparison vacuous.
+if (oldSource === readFileSync(join(REPO, 'tools/check_operating_state.mjs'), 'utf8')) {
+  throw new Error(`base ${BASE} holds the same validator as the working tree — there is nothing to compare`);
+}
 
 const originals = Object.fromEntries(
   [PROJECT, SESSION, YAML, STATEMD].map((p) => [p, readFileSync(join(base, p), 'utf8')]),
