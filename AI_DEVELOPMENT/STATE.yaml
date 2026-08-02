@@ -438,14 +438,35 @@ narrative_and_evidence_2026_08_02:
         a bundle sha256, so a kit change that moves the harness invalidates the recorded
         numbers until the sweep is re-run.
     - id: NEXT-F3-RED
+      status: DECIDED - the gate stays red. Do not reopen this.
+      decision: >-
+        The user was given both options on 2026-08-02 and chose to leave the gate red
+        rather than register a known-defect waiver. The reasoning offered and accepted:
+        a waiver is a permission slip that quietly survives, and this check exists
+        because eight defects had already quietly survived. Recorded here because the
+        obvious temptation for a later session is to make a red gate green, and the
+        decision - not just the state - has to outlive this session.
       what: >-
         tools/validate.mjs exits 1 on main, so npm test and the F3 execution gate are
-        red. Intended, not a regression - the eight defects are real and registered.
-        F3 is a merge gate, so this blocks merges until a decision is taken.
+        red, and F3 is a merge gate, so nothing merges - including work unrelated to
+        the story. That cost was understood and accepted. It is not a regression: the
+        eight defects are real, registered as Gate B/C items, and unfixed.
       where: tools/gates/f3_execution.mjs step "story and world content"
+      the_only_way_to_green: >-
+        Fix the story. Each finding names its IMP id: IMP-01 (3 of 5 endings read no
+        accumulated state), IMP-11 (_beginCrisis folds two vents arms into the else),
+        IMP-12/13 (the relocation and evacuation arithmetic), IMP-15 (406 used for a
+        temperature and a population), IMP-17 (2.5-year hole in Ren's career),
+        IMP-14/18 (two unpaid-off foreshadowings), IMP-02 (38 of 47 trust changes
+        visible, and a forbidden sentence fired without QUIET).
+      prohibited: >-
+        Adding a waiver list, weakening a threshold in docs/narrative-state.md 4b or 5,
+        removing a rule, or dropping the validate step from f3_execution.mjs. If a
+        threshold genuinely is wrong, change it in a commit that says so and shows the
+        number - never as a side effect of wanting a green run.
       done_when: >-
-        Either the eight defects are fixed and validate exits 0, or the user decides on
-        a registered known-defect ledger. Do not silence the gate to reach green.
+        node tools/validate.mjs exits 0 because the content changed, with the fixture
+        battery still reporting 15/15 rules proven.
 
   visual_evidence:
     gate: node tools/vantage.mjs --evidence --prefix ev
