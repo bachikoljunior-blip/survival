@@ -251,7 +251,7 @@
 
 | ID | 基準（観察可能量） | 閾値 | 閾値の出所 | 検証 | 状態 | 証拠 |
 |---|---|---|---|---|---|---|
-| BM-CAM-01 | 壁際・屋内・狭所でカメラがジオメトリを貫通しない | 貫通 0 / 主要8視点 | directive §8 | 視点スイープの画像証拠（要再取得） | 部分 | 実装は `src/actors/player.js:439-448`（sphereCast ＋ 床持ち上げ）。**画像証拠がリポジトリに無い** — `shots/` は .gitignore（R-19） |
+| BM-CAM-01 | 壁際・屋内・狭所でカメラがジオメトリを貫通しない | 貫通 0 / 主要8視点 | directive §8 | `node tools/vantage.mjs --evidence`（実カメラ変換からの26方向レイ） | 適合 | 0 of 18 vantages put geometry inside the near plane (0.12m) or sat inside a solid 限界: Free-flown inspection vantages, not the follow camera under player control in a corridor, and BM-CAM-01 also asks about interiors and tight spots the sweep does not visit. See A6b: the back-face half of the probe is inert in this world, so this verdict rests on the near-plane distance alone. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
 | BM-CAM-02 | 引きは速く、寄り戻しは遅い（幾何のポップを暴露しない） | 規則として実装 | 参考原則 | ソース確認 | 適合 | `src/actors/player.js:441-442` |
 | BM-CAM-03 | 自動追従が手動操作と競合しない | 手動入力後 0.9 秒は追従を止める | 本プロジェクト | ソース確認 | 適合 | `src/actors/player.js:350,403`（`_manualT`） |
 | BM-CAM-04 | 感度・Y軸反転・画面揺れ・動きの低減が設定できる | 4項目すべて | directive §11 | 設定画面の確認 | 適合 | `src/ui/screens.js:807-834`、`src/game/game.js:278,293-295` |
@@ -265,8 +265,8 @@
 | ID | 基準（観察可能量） | 閾値 | 閾値の出所 | 検証 | 状態 | 証拠 |
 |---|---|---|---|---|---|---|
 | BM-WLD-01 | 到達可能な全エリアが最低1つの意味ある機能を持つ | 14 / 14 | directive §4 | エリア→機能の対応表と検査（未実装） | 未計測 | エリア14（屋外8／屋内6）は計数済み（`node tools/check_scope.mjs`）。機能の網羅は未検査 |
-| BM-WLD-02 | 主要ランドマークが複数地点から視認でき、自己位置を教える | 3箇所以上が2地点以上から視認 | 本プロジェクト | 視点スイープの画像証拠 | 未計測 | 過去に計測器自体の欠陥が発覚している（R-10）。証拠は再取得が必要 |
-| BM-WLD-03 | 場所の状態が、ジャーナルの文言ではなく可視的に決定へ応答する | 主要決定3件以上 | directive §7 | 実走プレイの画像証拠 | 部分 | 即時変化は `src/game/director.js:158-174`、遅延変化（第4章の危機位置）は `:456-492`。**可視性の画像証拠が無い** |
+| BM-WLD-02 | 主要ランドマークが複数地点から視認でき、自己位置を教える | 3箇所以上が2地点以上から視認 | 本プロジェクト | `node tools/vantage.mjs --evidence`（実錐台への投影＋遮蔽レイ） | 適合 | 4 of 5 landmarks visible from 2 or more of 18 vantages 限界: Visibility is geometric. It does not say the landmark is legible, or that a player would use it to place themselves. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
+| BM-WLD-03 | 場所の状態が、ジャーナルの文言ではなく可視的に決定へ応答する | 主要決定3件以上 | directive §7 | `node tools/vantage.mjs --evidence`（ヴェント決定の A/B。ガス場と同一フレーミングの再撮影） | 部分 | shutting the three west heads moved the simulated gas by 633.7 ppm across two sample points (Fenn 44.8->45.7, yard 14->646.8) and the frame mean luma by 4.910 限界: ONE decision measured, not three. The other two (the half-measure and the chapter-4 crisis siting) are not driven here, so this criterion is not yet met — it is now measurable rather than unmeasured. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
 
 ---
 
@@ -314,7 +314,7 @@
 |---|---|---|---|---|---|---|
 | BM-NAR-01 | 重要情報が単一の文書や独白に集約されない | 主要事実3件以上が2経路以上で得られる | directive §6 | 物語グラフの走査（未実装） | 未計測 | 対話ノード224 / 会話13 は計測済み |
 | BM-NAR-02 | 対話が現在のゲーム状態を反映する | 条件付きノードが全体の 20% 以上 | 本プロジェクト | `tools/validate.mjs` の拡張（未実装） | 未計測 | 条件付き beats と epilogue.told/untold は実装済み（`docs/bible.md` §9） |
-| BM-NAR-03 | 伏線と回収の台帳が存在し、全ての伏線が回収される | 未回収 0 | directive §6 | `docs/narrative-state.md` の存在と走査 | **未達** | 台帳と `docs/narrative-state.md` が**存在しない**（IMP-14） |
+| BM-NAR-03 | 伏線と回収の台帳が存在し、全ての伏線が回収される | 未回収 0 | directive §6 | `node tools/validate.mjs`（N-FORESHADOW-ANCHOR / N-FORESHADOW-PAYOFF） | **未達** | 台帳は `docs/narrative-state.md` §1 に**存在し、機械検査される**（12行24アンカー、各行の語を本文と照合）。未回収 **2件**（`letter_address` = IMP-18、`temperature_406` = IMP-15）で非ゼロ終了。証拠 `AI_DEVELOPMENT/EVIDENCE/GB-NARRATIVE-STRUCTURE.json`。IMP-14 の「台帳が存在しない」部分は解消、未回収は未解決 |
 
 ---
 
@@ -335,9 +335,9 @@
 
 | ID | 基準（観察可能量） | 閾値 | 閾値の出所 | 検証 | 状態 | 証拠 |
 |---|---|---|---|---|---|---|
-| BM-CNS-01 | エンディングが最終選択1回ではなく蓄積状態から決まる | 無条件エンディング 0 / 5 | directive §6 | `tools/validate.mjs` にエンディング条件検査を追加（未実装） | **未達** | 5件中3件（`record` / `deal` / `leave`）が無条件。条件は全て `{ chose: ['final', X] }`（`src/content/story.js:2260,2341,2409,2461,2513`、解決は `src/game/director.js:1450`）。IMP-01 |
+| BM-CNS-01 | エンディングが最終選択1回ではなく蓄積状態から決まる | 無条件エンディング 0 / 5 | directive §6 | `node tools/validate.mjs`（N-ENDING-UNCONDITIONAL、**実装済み**） | **未達** | 実測 **3 / 5** が無条件（`record` / `westward` / `nothing`）。検査は結末の条件から選択肢の記録地点まで辿り、その選択肢に `if:` が無いことを確認する。負例（全結末を無条件化）で5件、良例（蓄積フラグを追加）で0件を確認済み。IMP-01 |
 | BM-CNS-02 | エピローグの各ビートが特定の決定に結びつく | 8 / 8 | 参考原則 | 物語グラフの走査（未実装） | 部分 | epilogueBeats 8 は計測済み。結びつきの網羅は未検査 |
-| BM-CNS-03 | 帰結が即時と遅延の両方で届く | 主要決定に両方 | directive §6 | 実走プレイ | 部分 | ヴェント決定は即時（`src/game/director.js:158-174`）と遅延（`:456-492`）の両方を持つ。**ただし3択の折衷案が遅延側で潰れる**（IMP-11） |
+| BM-CNS-03 | 帰結が即時と遅延の両方で届く | 主要決定に両方 | directive §6 | 実走プレイ ＋ `node tools/validate.mjs`（N-CHOICE-ARM-COLLAPSE / N-CHOICE-MAJOR-SITE） | 部分 | ヴェント決定は即時（`src/game/director.js:158-174`）と遅延（`:456-492`）の両方を持つ。**3択の折衷案が遅延側で潰れることを機械検出した**: `director.js::_beginCrisis` は `shut` のみを読み `left`/`half` を見ない — 3択がその地点で2択になる。エンジン全体で走査した 2,046 の（地点 × 分岐）組のうち検出はこの1件のみで、偽陽性は無い。IMP-11 |
 | BM-CNS-04 | 設定されるが読まれないフラグ（死んだ帰結）が無い | 0件 | directive §6 | `npm run validate` | 適合 | 双方向フラグ検査が exit 0（本セッションで実行。VALIDATION OK） |
 
 ---
@@ -373,7 +373,7 @@
 
 | ID | 基準（観察可能量） | 閾値 | 閾値の出所 | 検証 | 状態 | 証拠 |
 |---|---|---|---|---|---|---|
-| BM-HAZ-01 | ガスが、計器を見なくても環境の見た目と音から推測できる | 非UI手がかり 3種以上が実画面で読める | 参考原則 | 実画面の画像証拠 | 未計測 | 噴気・陽炎・煤の縞が設計上存在（`docs/bible.md` §6）。**実画面での可読性の証拠が無い** |
+| BM-HAZ-01 | ガスが、計器を見なくても環境の見た目と音から推測できる | 非UI手がかり 3種以上が実画面で読める | 参考原則 | `node tools/vantage.mjs --evidence`（HUD 非表示のままガス強度を掃引した A/B） | 部分 | with the HUD withheld, a 0.15 -> 2.6 gas intensity sweep moved the frame mean luma by 4.539 (77.191 -> 72.652) at the ventfield framing, while the gas field itself moved 44.6 -> 51.4 ppm at the Fenn sample point 限界: A whole-frame luma delta proves the picture responds. It does not separate plume, shimmer and soot into three cues, and it is not a legibility test — no one was asked to read it. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
 | BM-HAZ-02 | ガスが敵にも同じ規則で作用する | 5アーキタイプ中4が呼吸する | bible 柱2 | ソース確認 | 適合 | 敵も同じ `Actor._update` 経路（`src/actors/actor.js:608-623`）。`warden` のみ `gasImmune`（`src/game/ai.js:76`） |
 | BM-HAZ-03 | プレイヤーがガスを動かせ、その帰結が世界に波及する | 敵経路・視程・生存の3系統すべて | bible 規則5 | 実走プレイ | **未達** | `applyGasCost` の呼び出しは `src/world/city.js:147` の1箇所のみで、`rigVent`・風・危機のいずれにも追随しない（IMP-05）。**本作の倫理的中心に、敵の経路という帰結が無い** |
 
@@ -411,10 +411,10 @@
 
 | ID | 基準（観察可能量） | 閾値 | 閾値の出所 | 検証 | 状態 | 証拠 |
 |---|---|---|---|---|---|---|
-| BM-VIS-01 | 支配的な1方向の光と影の階層で画面が構成される | 主要8視点すべて | 参考原則 | 視点スイープの画像証拠 | 未計測 | **画像証拠がリポジトリに1枚も無い**（`shots/` は .gitignore。R-19） |
-| BM-VIS-02 | パレットが統制されている（炭・灰・錆の暖色と空の寒色） | 空が入る全フレームに寒色 | bible §12 | 視点スイープの色ヒストグラム（未実装） | 未計測 | — |
-| BM-VIS-03 | 接地影と AO が全ての立体に付き、物が浮いて見えない | 破綻 0 | directive §9 | 画像証拠 | 未計測 | — |
-| BM-VIS-04 | テクスチャ密度とスケールが全体で統一されている | 破綻 0 | directive §9 | 画像証拠 ＋ `node tools/bench_measure.mjs` | 部分 | 実測: テクスチャ最大辺 512px、全て実行時生成のため密度は原理的に揃いやすい。**見た目の破綻は未検証** |
+| BM-VIS-01 | 支配的な1方向の光と影の階層で画面が構成される | 主要8視点すべて | 参考原則 | `node tools/vantage.mjs --evidence`（フレーム輝度分位＋キーライトのアブレーション） | 部分 | luma spread p99-p1 over the 8 main vantages: min 70.9, median 153.9, max 162.8; 0 frame(s) below a spread of 20. Key-light ablation moved the mean by -5.379 (sun DARKENS the frame — unexplained, see limitations). Directional lights in the scene graph with castShadow: 0 of 2 限界: Spread is a proxy for hierarchy, not a reading of direction. A frame can have range and still have no dominant direction; nobody has looked at these frames beside a reference. TWO OBSERVATIONS ARE RECORDED WITHOUT A MECHANISM: no directional light in the scene graph has castShadow set, while docs/benchmarks.md BM-PRF-05 records 417 scene-wide shadow casters; and zeroing every directional light makes the frame BRIGHTER, not darker. Both are symptoms. Neither is explained here, and neither should be acted on before it is. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
+| BM-VIS-02 | パレットが統制されている（炭・灰・錆の暖色と空の寒色） | 空が入る全フレームに寒色 | bible §12 | `node tools/vantage.mjs --evidence`（レイで判定した空セルのみの色測定） | **未達** | 3 of 8 main vantages see sky in 6 or more of 144 ray-tested cells. Sky R-B over those cells: stacks_yard 0.161, stacks_roof 0.201, stacks_gate 0.077. 3 of 3 have a warm sky. Ground band R-B is warm in 8 of 8 限界: Cool/warm is mean R minus mean B. It does not judge whether the palette reads as controlled — only that the two halves sit on opposite sides of neutral. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
+| BM-VIS-03 | 接地影と AO が全ての立体に付き、物が浮いて見えない | 破綻 0 | directive §9 | 未実装（AO/接地影のアブレーション対が要る） | 未計測 | **未計測のまま。** 阻害要因は変わった——「証拠を残す手段が無い」から「`src/render/` に AO/接地影のトグルが無い」へ。証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json` |
+| BM-VIS-04 | テクスチャ密度とスケールが全体で統一されている | 破綻 0 | directive §9 | `node tools/vantage.mjs --evidence`（テクスチャ辺 / メッシュ最大寸法） | **未達** | texels per metre over 411 textured meshes: p10 8.2, median 17.2, p90 222.6; p90/p10 ratio 27.14 限界: Bounding-box span is not UV area. This detects an order-of-magnitude mismatch, not a subtle one, and says nothing about how it reads. 証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json`（バンドル sha256 `8f877fd9e209…`、production） |
 
 ---
 
@@ -425,8 +425,8 @@
 | ID | 基準（観察可能量） | 閾値 | 閾値の出所 | 検証 | 状態 | 証拠 |
 |---|---|---|---|---|---|---|
 | BM-ANM-01 | 攻撃が windup / active / recover に分解され、見た目と判定が一致する | 全攻撃定義 | 参考原則 | ソース確認 | 適合 | `src/game/combat.js:28` — 3値がアニメーション長と一致する設計 |
-| BM-ANM-02 | 被弾反応に力の方向と強さが見て取れる | 全被弾 | 参考原則 | 画像・動画証拠 | 未計測 | stagger / hitstop / shake は実装（`src/game/combat.js:69-75`）。見え方は未検証 |
-| BM-ANM-03 | 遷移で足が滑らない・姿勢が飛ばない | 破綻 0 | 参考原則 | 画像・動画証拠 | 未計測 | — |
+| BM-ANM-02 | 被弾反応に力の方向と強さが見て取れる | 全被弾 | 参考原則 | 未実装（被弾側の root と胸骨の毎フレーム標本化が要る） | 未計測 | **未計測のまま。** リグは名前付きボーンを公開しており戦闘は駆動可能（`tools/probe_combat.mjs`）。不足しているのは能力ではなく作業。証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json` |
+| BM-ANM-03 | 遷移で足が滑らない・姿勢が飛ばない | 破綻 0 | 参考原則 | 未実装（接地足ボーンの毎固定ステップ標本化が要る） | 未計測 | **未計測のまま。** BM-ANM-02 と同じ装置。証拠 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json` |
 
 ---
 
@@ -505,7 +505,13 @@
 
 **未計測と部分の集中先は「画像・動画による可視品質の証拠」である。**
 
-BM-CAM-01 / BM-WLD-02 / BM-WLD-03 / BM-VIS-01 / BM-VIS-02 / BM-VIS-03 / BM-VIS-04 / BM-ANM-02 / BM-ANM-03 / BM-HAZ-01 の **10 件**が、いずれも「実際にどう見えているか」を要求しており、そのどれにもリポジトリ内の証拠が無い。原因は単一で、**`shots/` が .gitignore されており、画像証拠が一度もコミットされていない**（R-19）。
+BM-CAM-01 / BM-WLD-02 / BM-WLD-03 / BM-VIS-01 / BM-VIS-02 / BM-VIS-03 / BM-VIS-04 / BM-ANM-02 / BM-ANM-03 / BM-HAZ-01 の **10 件**が、いずれも「実際にどう見えているか」を要求していた。**2026-08-01 時点では、そのどれにもリポジトリ内の証拠が無かった**（R-19、`shots/` が .gitignore）。
+
+**2026-08-02 に、この段落が指していた単一原因は解消した。** `node tools/vantage.mjs --evidence` が、撮影物ではなく**数値・閾値・合否・手段・撮影条件**を `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json` に残す。フレームは今も `shots/` に留まりコミットされない——**コミットされるのは、第三者が反論できるもの**（数値、それが測られた閾値、フレームごとのダイジェスト、束縛したバンドルの sha256）である。
+
+現在の内訳は **適合 2 / 未達 2 / 部分 3 / 未計測 3**（10件）。**未計測3件（BM-VIS-03 / BM-ANM-02 / BM-ANM-03）は合格ではない。** 変わったのは状態ではなく阻害要因で、「証拠を残す手段が存在しない」から「名指しできる、作れば済む装置が足りない」になった。
+
+**計測器は本番の判定より先に検査される。** 装置検査 9 件のうち3件は最初に書いた時点で落ちており、**いずれもゲームではなく計測器の欠陥だった**（カメラ貫通の負例が発火しない、ランドマークが自分自身に遮蔽されて18視点中0件と報告する、空セルが常に0件になる）。詳細と限界は `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.md` を正とする。
 
 これは **カメラ・世界設計・映像・アニメーション・環境ハザードの可読性という5要素の品質が、現在まったく検証されていない**ことを意味する。71件中10件、未計測21件の約半分がここに集中している。
 

@@ -2,6 +2,25 @@
 
 Evidence records are append-only and identify task ID, acceptance references, baseline, exact environment, command/manual procedure, result, artifact paths and limitations.
 
+## GB-NARRATIVE-STRUCTURE — Machine-checked narrative shape
+
+- Status: implemented and run. It **fails**, and the failures are the eight already-registered story defects, reproduced independently by measurement rather than by reading.
+- Command: `node tools/validate.mjs --evidence=AI_DEVELOPMENT/EVIDENCE/GB-NARRATIVE-STRUCTURE.json`; `node tools/validate.mjs --selftest` runs the fixture battery alone; `--write-ledger` regenerates the generated table in `docs/narrative-state.md`.
+- Ledger: `docs/narrative-state.md` — the document `docs/directive.md` §6 required and `docs/bible.md` IMP-14 recorded as missing. Every row's anchor and quoted phrase is checked against `src/content/story.js`; a row that quotes text the game does not contain fails as a ledger defect.
+- Artifact: `AI_DEVELOPMENT/EVIDENCE/GB-NARRATIVE-STRUCTURE.json`, bound to the SHA-256 of `story.js`, `narrative-state.md`, `director.js` and the validator itself.
+- Apparatus: **15 rules, 15 proven.** Every rule is run against a negative fixture and a positive fixture *before* the real content is judged, on every invocation. A rule that cannot be made to fail is reported as an apparatus fault and invalidates the run — the guard against this repository's own history of a check passing over thirty-one empty inputs. Three rules were caught by that battery during development and rewritten: two had positive fixtures that still failed, and `N-CHOICE-ARM-COLLAPSE` in its first form could not fail at all, because `director.js` reads all three vents flags *somewhere* while folding two of them together inside one method.
+- Observed result: 2,303 items scanned, 15 findings, reproducing **IMP-01, IMP-02, IMP-11, IMP-12, IMP-13, IMP-14, IMP-15, IMP-17**. Endings: 3 of 5 unconditional. Choice collapse: 1 site of 2,046 (site × arm) pairs, `director.js::_beginCrisis`, no false positives. World ledger: 380 households need 684 people against 406 remaining (1.07 per household); the prose's own rate gives 2.9 years against a stated 11; the evacuation runs at 21.4 people/day against a canonical 0.59, a factor of 36; a 2.5-year hole in Ren's career arithmetic; 406 used for both a temperature and a population with nothing joining them. Feedback: **47 trust effects, 38 visible, ratio 0.809** — the same 47/38 the independent Gate A review counted by hand, derived here from the data.
+- Limitations: static analysis only — no browser, no build, no play. The thresholds in `docs/narrative-state.md` §4b and §5 are declared **policy**, not measurements; changing them changes the verdict, and the change shows in the diff. Nothing here judges prose quality.
+- Consequence: `node tools/validate.mjs` now exits 1 on `main`, so `npm test` stops there. That is intended and it is not a regression — the eight defects are real, registered and unfixed. Running the rest of the suite means running the later commands directly.
+
+## GB-VISUAL-EVIDENCE — Numbers, verdicts and capture conditions for the ten stalled criteria
+
+- Status: apparatus built and run. See the record for what it did and did not settle. **Not a device result and not a human judgement of the frames.**
+- Command: `node tools/vantage.mjs --evidence --prefix ev`
+- Artifacts: `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json` and the record `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.md`.
+- What R-19 actually blocked: `docs/benchmarks.md` §6 held ten criteria at 未計測 because `shots/` is gitignored and no image evidence had ever been committed. The frames stay uncommitted; what is committed is the thing a reviewer can argue with — the number, the threshold, the verdict, the per-frame digests, and the bundle SHA-256 the run was bound to.
+- Read the record before quoting any number from it.
+
 ## OPS-IPHONE-SE3-AUTOMATION — Automated iPhone SE 3 release gates
 
 - Status: local harness and negative-path verification passed; official WebKit baseline, iOS Simulator Mobile Safari, Pages deploy and F6 are pending remote execution.

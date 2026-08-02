@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "artifact": "GB-NARRATIVE-STRUCTURE",
+  "purpose": "Machine-checked narrative-shape verdicts for docs/benchmarks.md BM-NAR-03 / BM-CNS-01 / BM-CNS-03 and docs/bible.md IMP-01/02/11/12/13/14/15/17.",
+  "generated_at": "2026-08-02T09:51:05.393Z",
+  "environment": {
+    "node": "v22.22.2",
+    "browser": null,
+    "real_device": false,
+    "device_claim": "NONE. This is a static analysis of the story data in Node. It says nothing about how anything looks, feels or performs.",
+    "command": "node tools/validate.mjs --evidence=AI_DEVELOPMENT/EVIDENCE/GB-NARRATIVE-STRUCTURE.json"
+  },
+  "binding": {
+    "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+    "docs/narrative-state.md": "bba22c53d5f9464b5d915f5125bde729314f1f7790cc1c41e64bb9001a2424d9",
+    "tools/validate.mjs": "8e2ebeaffc0905c65005eb51544eeaf2e8819da37505a319004e166c081a9fb0",
+    "src/game/director.js": "f87b3e9a66cfb9cd1cb48be6463015756671867095748b1575615a73a70a0c15"
+  },
+  "apparatus": {
+    "note": "Every rule is run against a negative fixture and a positive fixture before the real content is judged. A rule that cannot be made to fail is reported as an apparatus fault and invalidates the run.",
+    "rules": 15,
+    "proven": 15,
+    "results": [
+      {
+        "id": "N-FORESHADOW-ANCHOR",
+        "imp": "IMP-14",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 24,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-FORESHADOW-PAYOFF",
+        "imp": "IMP-14",
+        "ok": true,
+        "negativeFindings": 3,
+        "positiveFindings": 0,
+        "scanned": 12,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-ENDING-UNCONDITIONAL",
+        "imp": "IMP-01",
+        "ok": true,
+        "negativeFindings": 5,
+        "positiveFindings": 0,
+        "scanned": 5,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-CHOICE-ARM-COLLAPSE",
+        "imp": "IMP-11",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 2046,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-CHOICE-MAJOR-SITE",
+        "imp": "IMP-11",
+        "ok": true,
+        "negativeFindings": 2,
+        "positiveFindings": 0,
+        "scanned": 3,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-ANCHOR",
+        "imp": "IMP-12/13/15/17",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 15,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-HOUSEHOLD-SIZE",
+        "imp": "IMP-13",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 3,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-DURATION",
+        "imp": "IMP-13",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 3,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-EVAC-RATE",
+        "imp": "IMP-12",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 4,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-COLLISION",
+        "imp": "IMP-15",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 15,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-CAREER",
+        "imp": "IMP-17",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 5,
+        "positiveDetail": []
+      },
+      {
+        "id": "W-RULE-PARITY",
+        "imp": "IMP-12/13/15/17",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 11,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-FEEDBACK-RATIO",
+        "imp": "IMP-02",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 47,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-FEEDBACK-FORBIDDEN",
+        "imp": "IMP-02",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 47,
+        "positiveDetail": []
+      },
+      {
+        "id": "N-FLAG-LEDGER",
+        "imp": "IMP-14",
+        "ok": true,
+        "negativeFindings": 1,
+        "positiveFindings": 0,
+        "scanned": 62,
+        "positiveDetail": []
+      }
+    ]
+  },
+  "scanned": 2303,
+  "metrics": {
+    "impliedPeopleForWestwardHouseholds": 684,
+    "peoplePerHouseholdImplied": 1.068,
+    "westwardImpliedYears": 2.88,
+    "evacuationPeoplePerDay": 21.37,
+    "canonicalPeoplePerDay": 0.591,
+    "evacuationSpeedup": 36.1,
+    "collisionCandidatePairs": 1,
+    "renCareerEndsAtAge": 37,
+    "renAgeAtDeparture": 39.5,
+    "renCareerGapYears": 2.5,
+    "trustEffects": 47,
+    "trustEffectsVisible": 38,
+    "trustEffectsQuiet": 9,
+    "visibleTrustRatio": 0.809,
+    "forbiddenPhrases": 1
+  },
+  "verdicts": [
+    {
+      "rule": "N-FORESHADOW-ANCHOR",
+      "imp": "IMP-14",
+      "title": "伏線台帳の各行が本文に実在する",
+      "pass": true,
+      "findings": []
+    },
+    {
+      "rule": "N-FORESHADOW-PAYOFF",
+      "imp": "IMP-14",
+      "title": "提示された伏線がすべて回収される",
+      "pass": false,
+      "findings": [
+        "foreshadow \"letter_address\": 提示されたが回収アンカーが無い — 未回収",
+        "foreshadow \"temperature_406\": 提示されたが回収アンカーが無い — 未回収"
+      ]
+    },
+    {
+      "rule": "N-ENDING-UNCONDITIONAL",
+      "imp": "IMP-01",
+      "title": "結末が無条件のタップ1回で確定しない",
+      "pass": false,
+      "findings": [
+        "ending \"record\": 到達条件が無条件の最終選択のみ — 蓄積された状態を一切読まない",
+        "ending \"westward\": 到達条件が無条件の最終選択のみ — 蓄積された状態を一切読まない",
+        "ending \"nothing\": 到達条件が無条件の最終選択のみ — 蓄積された状態を一切読まない"
+      ]
+    },
+    {
+      "rule": "N-CHOICE-ARM-COLLAPSE",
+      "imp": "IMP-11",
+      "title": "分岐を読む地点が一部の分岐だけを見ていない",
+      "pass": false,
+      "findings": [
+        "choice \"vents\": src/game/director.js::_beginCrisis は shut だけを読み left/half を見ない — 3択がここで 2択に潰れる"
+      ]
+    },
+    {
+      "rule": "N-CHOICE-MAJOR-SITE",
+      "imp": "IMP-11",
+      "title": "宣言された主要帰結地点で全分岐が判別される",
+      "pass": false,
+      "findings": [
+        "choice \"vents\": 分岐 vents_half が主要帰結地点 src/game/director.js::_beginCrisis に現れない — そこで既定値に潰れている",
+        "choice \"vents\": 分岐 vents_left が主要帰結地点 src/game/director.js::_beginCrisis に現れない — そこで既定値に潰れている"
+      ]
+    },
+    {
+      "rule": "W-ANCHOR",
+      "imp": "IMP-12/13/15/17",
+      "title": "数値台帳の典拠がすべて本文に実在する",
+      "pass": true,
+      "findings": []
+    },
+    {
+      "rule": "W-HOUSEHOLD-SIZE",
+      "imp": "IMP-13",
+      "title": "移転世帯数が残存人口と両立する",
+      "pass": false,
+      "findings": [
+        "W-HOUSEHOLD-SIZE: 380世帯には最低 684人 要るが残存人口は 406人 （世帯あたり 1.07人）"
+      ]
+    },
+    {
+      "rule": "W-DURATION",
+      "imp": "IMP-13",
+      "title": "宣言された年数が本文の移転速度と一致する",
+      "pass": false,
+      "findings": [
+        "W-DURATION: 本文の速度（33.0世帯/四半期）では 380世帯に 2.9年 しかかからないが、本文は 11年 と書く"
+      ]
+    },
+    {
+      "rule": "W-EVAC-RATE",
+      "imp": "IMP-12",
+      "title": "退去の速度が世界の制約を無言で無効化しない",
+      "pass": false,
+      "findings": [
+        "W-EVAC-RATE: 退去は 21.4人/日 で、公式の移転 0.59人/日 の 36倍。許容は 2倍で、本文に説明が無い"
+      ]
+    },
+    {
+      "rule": "W-COLLISION",
+      "imp": "IMP-15",
+      "title": "同じ数字が別々の量に使われるなら本文が結ぶ",
+      "pass": false,
+      "findings": [
+        "W-COLLISION: 値 406 が population_remaining(人) と borehole_9_3_temperature(℃) の両方に使われ、両者を結ぶ本文がどこにも無い"
+      ]
+    },
+    {
+      "rule": "W-CAREER",
+      "imp": "IMP-17",
+      "title": "経歴の算術が年齢と合う",
+      "pass": false,
+      "findings": [
+        "W-CAREER: 経歴の合計は 37歳 で終わるが、離脱は 39.5歳 — 2.5年 の空白"
+      ]
+    },
+    {
+      "rule": "W-RULE-PARITY",
+      "imp": "IMP-12/13/15/17",
+      "title": "台帳の規則一覧と実装の規則idが一致する",
+      "pass": true,
+      "findings": []
+    },
+    {
+      "rule": "N-FEEDBACK-RATIO",
+      "imp": "IMP-02",
+      "title": "信頼変動の可視化が少数にとどまる",
+      "pass": false,
+      "findings": [
+        "N-FEEDBACK-RATIO: 信頼変動 47件中 38件が可視トースト （比 0.809 > 閾値 0.25）"
+      ]
+    },
+    {
+      "rule": "N-FEEDBACK-FORBIDDEN",
+      "imp": "IMP-02",
+      "title": "設計コメントが禁じた文字列が可視化されない",
+      "pass": false,
+      "findings": [
+        "N-FEEDBACK-FORBIDDEN: convo:sol_first:s_cellar3 が「She knows what you are now」を QUIET なしで発火する — 同じファイルの設計コメントが名指しで禁じた文字列"
+      ]
+    },
+    {
+      "rule": "N-FLAG-LEDGER",
+      "imp": "IMP-14",
+      "title": "自動生成のフラグ対応表が最新である",
+      "pass": true,
+      "findings": []
+    }
+  ],
+  "content_stats": {
+    "conversations": 13,
+    "dialogueNodes": 224,
+    "dialogueWords": 6299,
+    "quests": 9,
+    "questSteps": 31,
+    "endings": 5,
+    "epilogueBeats": 8,
+    "items": 11,
+    "capabilities": 7,
+    "buildings": 41,
+    "props": 167,
+    "structures": 42,
+    "interiors": 6,
+    "interactions": 32,
+    "spawns": 27,
+    "flagsSet": 66,
+    "flagsRead": 55
+  },
+  "limitations": [
+    "Static analysis only. No browser, no build, no play.",
+    "The thresholds in docs/narrative-state.md §4b and §5 are declared policy, not measurements. Changing them changes the verdict and the change is visible in the diff.",
+    "W-COLLISION only considers values at or above collision_min_value; small numbers repeat by chance.",
+    "This says nothing about prose quality, voice, or whether a Japanese reader finds the text natural."
+  ],
+  "summary": {
+    "rulesTotal": 15,
+    "rulesPassed": 4,
+    "rulesFailed": 11,
+    "findings": 15,
+    "impIdsReproduced": [
+      "IMP-01",
+      "IMP-02",
+      "IMP-11",
+      "IMP-12",
+      "IMP-13",
+      "IMP-14",
+      "IMP-15",
+      "IMP-17"
+    ]
+  }
+}

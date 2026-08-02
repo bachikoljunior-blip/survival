@@ -1,0 +1,1165 @@
+{
+  "schema_version": 1,
+  "artifact": "GB-VISUAL-EVIDENCE",
+  "purpose": "Numbers, verdicts and capture conditions for the ten docs/benchmarks.md §6 criteria that were blocked on R-19 — image evidence never being committed. The frames are not committed; what a reviewer can argue with is.",
+  "generated_at": "2026-08-02T09:49:42.165Z",
+  "environment": {
+    "browser": "Playwright Chromium with SwiftShader (software rasteriser)",
+    "viewport": "667x375 CSS px, deviceScaleFactor 2, isMobile, hasTouch",
+    "real_device": false,
+    "device_claim": "NONE. Frame rate and frame time are not measured here. A software rasteriser is not a phone GPU.",
+    "node": "v22.22.2",
+    "command": "node tools/vantage.mjs --evidence --prefix ev"
+  },
+  "binding": {
+    "bundle": "cinderline.1.0.0.js",
+    "bundleMode": "production",
+    "bundleBytes": 1422174,
+    "bundleSha256": "8f877fd9e2098b323727cd9920c07405b377ca74dfd26a44ff3a2a3c696024e1",
+    "build": "1.0.0"
+  },
+  "world_stats": {
+    "chunks": 43,
+    "tris": 242624,
+    "collision": {
+      "boxes": 1097,
+      "cells": 4691
+    },
+    "lights": 188,
+    "fx": 51,
+    "materials": 15
+  },
+  "frames": {
+    "note": "PNGs are written to shots/, which is gitignored on purpose. Re-run the command above against the bound bundle sha to reproduce them.",
+    "captured": 18,
+    "perFrame": [
+      {
+        "name": "stacks_yard",
+        "draws": 58,
+        "tris": 825851
+      },
+      {
+        "name": "stacks_roof",
+        "draws": 137,
+        "tris": 886083
+      },
+      {
+        "name": "stacks_gate",
+        "draws": 124,
+        "tris": 865335
+      },
+      {
+        "name": "marrow_west",
+        "draws": 164,
+        "tris": 887433
+      },
+      {
+        "name": "marrow_mid",
+        "draws": 148,
+        "tris": 806097
+      },
+      {
+        "name": "marrow_east",
+        "draws": 168,
+        "tris": 898467
+      },
+      {
+        "name": "slip_edge",
+        "draws": 163,
+        "tris": 824685
+      },
+      {
+        "name": "slip_bottom",
+        "draws": 143,
+        "tris": 880205
+      },
+      {
+        "name": "slip_bridge",
+        "draws": 93,
+        "tris": 852979
+      },
+      {
+        "name": "marrow_roof",
+        "draws": 95,
+        "tris": 854995
+      },
+      {
+        "name": "cinder_line",
+        "draws": 73,
+        "tris": 769251
+      },
+      {
+        "name": "cut_trench",
+        "draws": 78,
+        "tris": 768351
+      },
+      {
+        "name": "survey",
+        "draws": 69,
+        "tris": 758885
+      },
+      {
+        "name": "ventfield",
+        "draws": 57,
+        "tris": 752501
+      },
+      {
+        "name": "south_marrow",
+        "draws": 114,
+        "tris": 807987
+      },
+      {
+        "name": "heatplant",
+        "draws": 40,
+        "tris": 803389
+      },
+      {
+        "name": "overview",
+        "draws": 148,
+        "tris": 825089
+      },
+      {
+        "name": "skyline",
+        "draws": 88,
+        "tris": 859009
+      }
+    ],
+    "digests": {
+      "stacks_yard": "1dd4c414268d18c4b87fed34b935f66eb3202b0cde36c0e4173de41139d73ed4",
+      "stacks_roof": "7c6328ad66848b92bfcdc1f0e255e2ca2f6f2311c2bfcb888db15a5a69f3c668",
+      "stacks_gate": "df8afcb924cd299eae86a36c6c53c5122a8671a37e9a6e59102855a09f8d052d",
+      "marrow_west": "8ba8370e3fb95f544e8bbf6228b008f5c1c464e4bbf553e0016811b26b2e0304",
+      "marrow_mid": "fce381e8c7a73f64e68ba3c514cd6fe40154c4a0aa9d5c67d7fe138b16c72286",
+      "marrow_east": "0d0e98daef29578d3685322504e2826c5a0b43b414fc64717045dc3063f7d178",
+      "slip_edge": "ab93ba5758de470527f1629ea8902a1171f1ddfd59fff332da7cdb6a8756fd23",
+      "slip_bottom": "1a0056a744afe92cf222cdcd7b151b0d42d603512c7340f262a589b42b6d5ac3",
+      "slip_bridge": "19975fa801cf5169a6deeb3ba38034a0fd07af001203fbdc914da2ecc876b2f4",
+      "marrow_roof": "ad3de128e1f9670fc413ab2561b82b17fb44c113cca2fb33d4575995cffd61ec",
+      "cinder_line": "5a2bdac2f1553a3d0db55e543454b401ca23a476cb864f5c8219055b4fd705cd",
+      "cut_trench": "735266fa56f9f9614aa581a3f360307176b04b4cda61d39cd2996f7317e6facc",
+      "survey": "eabd6276ee6c028bbe049f49b690c0315000da6cbdb9d3276a227f4aea51c39c",
+      "ventfield": "d4a8de79c71dcd53d8910c9ee8332ca6f8adb08937880e12cc50d0640b6ed779",
+      "south_marrow": "584fc2b1a10ff4fc809c75069ef1ec32ad98840afe72d2efb616bb634532a2e2",
+      "heatplant": "20382dd2673576259270ccb0e620309afd141d562717e4e3a028d408684199db",
+      "overview": "d7444314f0a728f78839216a56202ae945ffb0c338d6a009be1f2dffa9396476",
+      "skyline": "3aa1371e69e1a21cb87a50ce4f84d5a49f5f5a17e559f8b50c4e7ec17af75ea6"
+    }
+  },
+  "apparatus": {
+    "ok": true,
+    "note": "Checked before the content, every run. A histogram of a cleared canvas, a sweep shooting through the title screen and a key light contributing nothing have all happened in this codebase or its sibling.",
+    "checks": [
+      {
+        "check": "A1-canvas-not-cleared",
+        "ok": true,
+        "detail": "first frame mean luma 33.483, luma p1 0 p99 111.6, detail 6.2"
+      },
+      {
+        "check": "A2-ui-withheld",
+        "ok": true,
+        "detail": "#ui display=none area=0px²"
+      },
+      {
+        "check": "A3-frames-distinct",
+        "ok": true,
+        "detail": "18 distinct digests over 18 frames"
+      },
+      {
+        "check": "A4-key-light-contributes",
+        "ok": true,
+        "detail": "2 directional light(s); mean luma 75.856 -> 81.235 (sun DARKENS the frame — unexplained, see limitations)",
+        "metrics": {
+          "directionalLights": 2,
+          "meanLumaWithSun": 75.856,
+          "meanLumaWithoutSun": 81.235,
+          "delta": -5.379,
+          "direction": "sun DARKENS the frame — unexplained, see limitations"
+        }
+      },
+      {
+        "check": "A5-one-dominant-key",
+        "ok": true,
+        "detail": "2 directional light(s), dominance ratio 17.48"
+      },
+      {
+        "check": "A6-penetration-probe-can-fire",
+        "ok": true,
+        "detail": "camera stepped to 0.05m in front of a surface that was 19.8m away: nearest hit 0.050m against a 0.12m near plane, back-face fraction 0.05. Closed solids found in 72 directions: 0",
+        "metrics": {
+          "placed": true,
+          "solidPairs": 0,
+          "surfaceWas": 19.79015156670182,
+          "hits": 22,
+          "back": 1,
+          "backFraction": 0.045454545454545456,
+          "nearest": 0.04987820251298558,
+          "near": 0.12
+        }
+      },
+      {
+        "check": "A6b-no-closed-solids",
+        "ok": true,
+        "detail": "zero front/back face pairs in 72 directions: this world is built from single-sided surfaces, so \"camera inside a solid\" is not a state that exists here and the back-face half of the probe is inert. BM-CAM-01 rests on the near-plane half alone."
+      },
+      {
+        "check": "A7-landmark-probe-can-say-no",
+        "ok": true,
+        "detail": "camera pitched at the sky sees 0 of 5 landmarks"
+      },
+      {
+        "check": "A0-production-bundle",
+        "ok": true,
+        "detail": "production bundle, 1422174 bytes"
+      }
+    ],
+    "scene": {
+      "lights": [
+        {
+          "kind": "hemisphere",
+          "intensity": 1.3006533734059709,
+          "castShadow": false
+        },
+        {
+          "kind": "ambient",
+          "intensity": 0.55,
+          "castShadow": false
+        },
+        {
+          "kind": "directional",
+          "intensity": 2.7198966995730065,
+          "castShadow": false
+        },
+        {
+          "kind": "directional",
+          "intensity": 0.15562263746550714,
+          "castShadow": false
+        }
+      ],
+      "texelDensities": [
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        121.90476744083075,
+        213.33332485622864,
+        284.4444519796491,
+        150.58823107023153,
+        232.72726768304506,
+        121.90476744083075,
+        98.4615420730863,
+        159.99999761581424,
+        568.8889039592982,
+        568.8889039592984,
+        568.8889039592982,
+        568.8889039592982,
+        568.8889039592982,
+        142.22222598982455,
+        196.9230841461726,
+        159.99999761581424,
+        196.9230841461726,
+        170.66666666666666,
+        256,
+        213.33332485622864,
+        341.3333333333333,
+        0.6779585293698102,
+        0.6786473325522875,
+        0.7460188642472584,
+        0.9101122108286824,
+        0.5171561261204777,
+        12.8,
+        8.533333333333333,
+        42.5956587364153,
+        38.2089726275419,
+        42.99741729216122,
+        14.909727856757547,
+        16.224652993016825,
+        9.914794849951791,
+        15.058823529411764,
+        15.023473371220618,
+        15.037780008746978,
+        14.970760734873567,
+        14.944541639797603,
+        14.949798424363482,
+        14.869476150078782,
+        21.165111320561618,
+        38.7291946084078,
+        8.533333333333333,
+        8.533333333333333,
+        12.8,
+        8.533333333333333,
+        15.466348254083378,
+        11.591982931116442,
+        22.916195512502018,
+        12.966520846387503,
+        17.237951980535758,
+        34.285519270157195,
+        26.047017389424443,
+        55.39818605223252,
+        6.225680518012105,
+        6.834869218913791,
+        6.434181528006397,
+        6.830966247930814,
+        7.066386035169633,
+        6.287968928231238,
+        6.476041810211224,
+        9.020079526162942,
+        6.586446363596347,
+        9.320764879552318,
+        10.667157513634395,
+        8.816407071348484,
+        8.533333333333333,
+        8.701041179985399,
+        8.701041179985399,
+        9.284974185024263,
+        19.161675771305482,
+        92.15130316451916,
+        8.533333333333333,
+        10.662223971662248,
+        10.662223971662248,
+        12.307692759135788,
+        23.042302964544948,
+        22.95963811357601,
+        443.1756107305653,
+        2438.083723126947,
+        8.533333333333333,
+        18.795884609072033,
+        14.843532342737678,
+        18.103173922356003,
+        17.791460458134548,
+        13.230361225927767,
+        13.322095548893623,
+        27.408175951134123,
+        82.62852548494753,
+        8.533333333333333,
+        10.966728138688726,
+        10.966728138688726,
+        12.78721371309454,
+        15.399660540851384,
+        15.36362077519032,
+        17.160403520512155,
+        15.998813717111105,
+        1736.4572670582452,
+        18.22063413821607,
+        8.533333333333333,
+        27.675675675675677,
+        27.321241108029227,
+        27.901898076312214,
+        53.444708756845955,
+        17.290775816568843,
+        28.357795145161326,
+        19.109857127124204,
+        46.608145807277246,
+        213.77968628550312,
+        26.415988300561843,
+        159.27862720432915,
+        48.0300001131705,
+        155.60898378263067,
+        8.533333333333333,
+        8.530490075309082,
+        8.530490075309082,
+        9.180358007020455,
+        3.2360004806586025,
+        17.964912280701753,
+        25.498005643015798,
+        9.133886311882243,
+        8.201841809691071,
+        10.441272023934271,
+        10.889099917336525,
+        10.244110975912198,
+        30.564686099778015,
+        10.174557255803744,
+        8.533333333333333,
+        8.701041744054868,
+        8.701041744054868,
+        9.284974004371737,
+        2.8683831380155462,
+        23.72567095382586,
+        12.108921059931992,
+        11.000987376231162,
+        9.690995628251407,
+        9.744416364934207,
+        24.975609756097562,
+        9.635295318811927,
+        10.456632152522323,
+        8.533333333333333,
+        8.79951903736864,
+        8.77012700716937,
+        9.38056016202384,
+        3.034613538973671,
+        30.787734566331636,
+        59.67366020428193,
+        10.047562636912243,
+        10.062029560223596,
+        20.851920895764174,
+        11.305226699054137,
+        39.083971172826544,
+        206.3927602923255,
+        19.99401327666591,
+        49.70128485684978,
+        7.906115090644714,
+        7.539389963038277,
+        7.422979094021735,
+        9.227302939229668,
+        5.522001652925748,
+        10.138891874842168,
+        11.077455354342614,
+        7.006500097905777,
+        6.987376358450666,
+        12.535149164449335,
+        61.985484750675305,
+        72.31636547807628,
+        157.52949385369885,
+        8.533333333333333,
+        8.774134418000838,
+        8.448892697592601,
+        9.474463283561176,
+        4.361653701126643,
+        43.98622777137261,
+        27.721668252224774,
+        9.517696162297407,
+        8.066167976494613,
+        7.772886226129348,
+        9.593501055136935,
+        10.644490771119054,
+        11.058315630882097,
+        9.643368792820477,
+        10.671631367689175,
+        13.479636160162924,
+        25.490650361832298,
+        10.53941281590971,
+        9.662005744093781,
+        13.78673950417641,
+        42.314054922820155,
+        8.533333333333333,
+        7.756400742597502,
+        7.506230963651362,
+        8.661704215013062,
+        10.644490771119054,
+        10.824524542055489,
+        9.570541798669101,
+        9.534363483977335,
+        9.865616952742181,
+        9.713573586477699,
+        9.195131864017359,
+        7.652069525889769,
+        13.395026949689555,
+        7.3818107854827595,
+        9.415781858871538,
+        7.858586522238152,
+        7.772886226129348,
+        8.750854820429534,
+        3.253995970814687,
+        10.644490771119054,
+        10.49180349397647,
+        8.952165827205576,
+        10.742146207665746,
+        8.648420887404733,
+        9.955435575353516,
+        9.17809482591454,
+        196.617192429773,
+        9.450680328301575,
+        94.42463665035207,
+        7.985028205379449,
+        8.066167976494613,
+        7.772886226129348,
+        8.460114340487957,
+        10.644490771119054,
+        11.302428565397054,
+        9.466955644436949,
+        9.1355163530205,
+        10.402462787164533,
+        12.358638860341411,
+        11.778000328985774,
+        9.134700982883764,
+        10.463381239012149,
+        10.942508869028295,
+        8.533333333333333,
+        9.102916102274506,
+        36.31204101907023,
+        32.337273205193135,
+        36.702516989762934,
+        31.902216221869384,
+        32.17564141412204,
+        30.76351232566876,
+        34.45281499048822,
+        42.69262917824363,
+        8.228865155175162,
+        193.61211719054282,
+        7.9503108415654875,
+        12.8,
+        9.682299437879513,
+        14.620217624021919,
+        14.620217624021919,
+        47.658597484069055,
+        8.533333333333333,
+        12.337349397590362,
+        11.154684652092527,
+        16.19228195846203,
+        33.03225806451613,
+        25.822324317876614,
+        40.812905148375755,
+        47.99925614556087,
+        36.9709956500086,
+        63.84036499308408,
+        8.533333333333333,
+        9.789603690849557,
+        9.17994885214157,
+        9.138406235518866,
+        33.03225806451613,
+        10.779253817576473,
+        9.338284707148466,
+        9.900879468509551,
+        10.729280295481484,
+        10.777709629679594,
+        18.48755519362812,
+        19.50771586680577,
+        22.445066684147648,
+        8.533333333333333,
+        8.055575529283663,
+        8.055575529283663,
+        7.623998284202127,
+        3.7605976251712585,
+        33.03225806451613,
+        11.894089677433376,
+        14.896971469463717,
+        23.99549080231029,
+        13.783383306902412,
+        11.385624500188486,
+        70.59810472808066,
+        8.220937861838866,
+        8.345331587905438,
+        8.3188908850247,
+        8.555481428733012,
+        9.570709739997229,
+        28.31858120282794,
+        8.909996048620046,
+        8.674317660253534,
+        8.526227980724503,
+        8.813340795010022,
+        12.193813830984787,
+        9.369284084563233,
+        26.256410256410255,
+        16.970735417305463,
+        8.533333333333333,
+        9.03210664768784,
+        9.03210664768784,
+        9.102916102274506,
+        6.63040652559236,
+        2438.105867393279,
+        581.8181849708242,
+        581.8181849708242,
+        8.533333333333333,
+        22.5683279380519,
+        22.5683279380519,
+        40.857283233862134,
+        13.397903095844443,
+        13.88426315954987,
+        19.692307692307693,
+        19.692307692307693,
+        19.24813796711441,
+        19.25025816607996,
+        269.4736875919755,
+        28.428635334625657,
+        165.1788520232352,
+        157.63319302465425,
+        181.53848575461515,
+        1177.513756316676,
+        27.23397182001169,
+        301.1743079740064,
+        44.67729015764806,
+        48.73017938470118,
+        42.754956626334085,
+        581.8181849708242,
+        820.4820031298905,
+        28.444444444444443,
+        25.85860180084648,
+        27.531254307600413,
+        34.57124135060396,
+        275.6998984716962,
+        222.6087002673087,
+        301.1743079740064,
+        41.29044452429354,
+        30.48983745747434,
+        111.51504838881208,
+        595.3488273063566,
+        71.444419477983,
+        72.11292402386397,
+        147.97687698125148,
+        91.41900610287708,
+        136.40235991853302,
+        389.4518384304128,
+        222.6087002673087,
+        301.18512135573746,
+        256,
+        209.24961959639802,
+        42.666666666666664,
+        42.666666666666664,
+        40.634999370270975,
+        40.644449827995544,
+        67.01611369864108,
+        47.57469445625975,
+        75.79428240991723,
+        1446.0624030339598,
+        110.87119573055652,
+        869.0156428053455,
+        55.54118940106201,
+        236.39870367761026,
+        147.1608160973984,
+        221.13692202246006,
+        167.32026293712738,
+        334.3741671528559,
+        53.612633973936994,
+        53.34975006041797,
+        53.333468967358826,
+        126.10845021723117,
+        255.08918960012164,
+        84.17986773840704,
+        218.99511813079232,
+        1818.8563249251702,
+        222.6087002673087,
+        64.8264542005085,
+        411.5717903576284,
+        109.7037637642874,
+        143.74232825120848,
+        25.6,
+        24.854398388195904,
+        24.85793363400916,
+        33.05386427935347,
+        125.76079774473304,
+        146.63860434220186,
+        33.77314689932,
+        348.22675190706275,
+        222.6087002673087,
+        301.18512135573746,
+        276.7567710235581,
+        647.66893143916,
+        143.18644861842208,
+        297.8281683154679,
+        1256.6275529764116,
+        50.176841956388586
+      ],
+      "keyDominance": 17.48,
+      "shadowCastingDirectionals": 0
+    }
+  },
+  "criteria": {
+    "BM-CAM-01": {
+      "verdict": "pass",
+      "measured": "0 of 18 vantages put geometry inside the near plane (0.12m) or sat inside a solid",
+      "threshold": "0 penetrations over the sweep",
+      "method": "26-ray probe from the real camera transform against the real scene graph; back-face-first hits mean the camera is inside a solid",
+      "limitation": "Free-flown inspection vantages, not the follow camera under player control in a corridor, and BM-CAM-01 also asks about interiors and tight spots the sweep does not visit. See A6b: the back-face half of the probe is inert in this world, so this verdict rests on the near-plane distance alone.",
+      "perVantage": [
+        {
+          "vantage": "stacks_yard",
+          "hits": 26,
+          "back": 1,
+          "backFraction": 0.038461538461538464,
+          "nearest": 1.2955432658203838,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "stacks_roof",
+          "hits": 10,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 2.6456281957442584,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "stacks_gate",
+          "hits": 23,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 2.5279576024803987,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "marrow_west",
+          "hits": 18,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.216742775435402,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "marrow_mid",
+          "hits": 13,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 2.947505015185123,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "marrow_east",
+          "hits": 17,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.2167427754354017,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "slip_edge",
+          "hits": 15,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.899252157119608,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "slip_bottom",
+          "hits": 25,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 1.3282000844672481,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "slip_bridge",
+          "hits": 11,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.594251852316356,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "marrow_roof",
+          "hits": 16,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 2.399635495921105,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "cinder_line",
+          "hits": 15,
+          "back": 6,
+          "backFraction": 0.4,
+          "nearest": 0.40876941906463315,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "cut_trench",
+          "hits": 11,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.506301350414124,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "survey",
+          "hits": 12,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.2794566384396555,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "ventfield",
+          "hits": 13,
+          "back": 1,
+          "backFraction": 0.07692307692307693,
+          "nearest": 3.0695796914467786,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "south_marrow",
+          "hits": 25,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 0.7507199525065076,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "heatplant",
+          "hits": 13,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 3.182412839022976,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "overview",
+          "hits": 2,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 44.74109551507746,
+          "near": 0.12,
+          "penetrating": false
+        },
+        {
+          "vantage": "skyline",
+          "hits": 10,
+          "back": 0,
+          "backFraction": 0,
+          "nearest": 2.028129536126521,
+          "near": 0.12,
+          "penetrating": false
+        }
+      ]
+    },
+    "BM-WLD-02": {
+      "verdict": "pass",
+      "measured": "4 of 5 landmarks visible from 2 or more of 18 vantages",
+      "threshold": "3 or more landmarks from 2 or more points",
+      "method": "the five tallest authored buildings, projected into the real camera frustum and ray-tested for occlusion against the real scene",
+      "limitation": "Visibility is geometric. It does not say the landmark is legible, or that a player would use it to place themselves.",
+      "perLandmark": [
+        {
+          "id": "dray",
+          "vantages": 2,
+          "from": [
+            "marrow_roof",
+            "overview"
+          ]
+        },
+        {
+          "id": "pell",
+          "vantages": 5,
+          "from": [
+            "stacks_roof",
+            "slip_bridge",
+            "marrow_roof",
+            "overview",
+            "skyline"
+          ]
+        },
+        {
+          "id": "kettle",
+          "vantages": 1,
+          "from": [
+            "overview"
+          ]
+        },
+        {
+          "id": "mn13",
+          "vantages": 3,
+          "from": [
+            "marrow_west",
+            "marrow_mid",
+            "overview"
+          ]
+        },
+        {
+          "id": "mn1",
+          "vantages": 2,
+          "from": [
+            "stacks_roof",
+            "skyline"
+          ]
+        }
+      ]
+    },
+    "BM-WLD-03": {
+      "verdict": "partial",
+      "measured": "shutting the three west heads moved the simulated gas by 633.7 ppm across two sample points (Fenn 44.8->45.7, yard 14->646.8) and the frame mean luma by 4.910",
+      "threshold": "at least 3 major decisions produce a visible change",
+      "method": "the director's own shutVents calls, then the gas field sampled at two fixed points and the same framing re-photographed",
+      "limitation": "ONE decision measured, not three. The other two (the half-measure and the chapter-4 crisis siting) are not driven here, so this criterion is not yet met — it is now measurable rather than unmeasured.",
+      "measurements": {
+        "gasBefore": {
+          "fenn": 44.8,
+          "yard": 14
+        },
+        "gasShut": {
+          "fenn": 45.7,
+          "yard": 646.8
+        },
+        "base": 71.63,
+        "after": 76.54
+      }
+    },
+    "BM-HAZ-01": {
+      "verdict": "partial",
+      "measured": "with the HUD withheld, a 0.15 -> 2.6 gas intensity sweep moved the frame mean luma by 4.539 (77.191 -> 72.652) at the ventfield framing, while the gas field itself moved 44.6 -> 51.4 ppm at the Fenn sample point",
+      "threshold": "3 or more non-UI cues readable on the real screen",
+      "method": "the same framing photographed at two gas intensities with #ui hidden, compared by whole-frame luma",
+      "limitation": "A whole-frame luma delta proves the picture responds. It does not separate plume, shimmer and soot into three cues, and it is not a legibility test — no one was asked to read it.",
+      "measurements": {
+        "lowGas": 77.191,
+        "highGas": 72.652,
+        "lowSample": 44.6,
+        "restoredGas": {
+          "fenn": 46.3,
+          "yard": 14
+        },
+        "plumeAnchors": 51,
+        "gasScale": 2.6,
+        "sampleFenn": 51.4
+      }
+    },
+    "BM-VIS-01": {
+      "verdict": "partial",
+      "measured": "luma spread p99-p1 over the 8 main vantages: min 70.9, median 153.9, max 162.8; 0 frame(s) below a spread of 20. Key-light ablation moved the mean by -5.379 (sun DARKENS the frame — unexplained, see limitations). Directional lights in the scene graph with castShadow: 0 of 2",
+      "threshold": "a light/shadow hierarchy in all 8 main vantages",
+      "method": "per-frame luma percentiles from the committed PNGs plus a key-light ablation that proves the sun is the thing making the hierarchy",
+      "limitation": "Spread is a proxy for hierarchy, not a reading of direction. A frame can have range and still have no dominant direction; nobody has looked at these frames beside a reference. TWO OBSERVATIONS ARE RECORDED WITHOUT A MECHANISM: no directional light in the scene graph has castShadow set, while docs/benchmarks.md BM-PRF-05 records 417 scene-wide shadow casters; and zeroing every directional light makes the frame BRIGHTER, not darker. Both are symptoms. Neither is explained here, and neither should be acted on before it is.",
+      "perVantage": [
+        {
+          "vantage": "stacks_yard",
+          "meanLuma": 33.483,
+          "p1": 0,
+          "p50": 29.9,
+          "p99": 111.6,
+          "lumaSpread": 111.6,
+          "detail": 6.2,
+          "saturation": 0.565,
+          "skyWarmth": 0.1796,
+          "groundWarmth": 0.0733
+        },
+        {
+          "vantage": "stacks_roof",
+          "meanLuma": 88.96,
+          "p1": 0,
+          "p50": 107.2,
+          "p99": 151,
+          "lumaSpread": 151,
+          "detail": 6.25,
+          "saturation": 0.384,
+          "skyWarmth": 0.018,
+          "groundWarmth": 0.2004
+        },
+        {
+          "vantage": "stacks_gate",
+          "meanLuma": 22.004,
+          "p1": 0.2,
+          "p50": 12,
+          "p99": 71.2,
+          "lumaSpread": 70.9,
+          "detail": 5.46,
+          "saturation": 0.743,
+          "skyWarmth": 0.0831,
+          "groundWarmth": 0.1024
+        },
+        {
+          "vantage": "marrow_west",
+          "meanLuma": 62.231,
+          "p1": 7.9,
+          "p50": 53.7,
+          "p99": 169.7,
+          "lumaSpread": 161.8,
+          "detail": 6.03,
+          "saturation": 0.562,
+          "skyWarmth": -0.1298,
+          "groundWarmth": 0.1549
+        },
+        {
+          "vantage": "marrow_mid",
+          "meanLuma": 52.189,
+          "p1": 3.8,
+          "p50": 49.7,
+          "p99": 164.8,
+          "lumaSpread": 161,
+          "detail": 6.46,
+          "saturation": 0.612,
+          "skyWarmth": 0.0102,
+          "groundWarmth": 0.1627
+        },
+        {
+          "vantage": "marrow_east",
+          "meanLuma": 55.353,
+          "p1": 7,
+          "p50": 51,
+          "p99": 160.9,
+          "lumaSpread": 153.9,
+          "detail": 6.02,
+          "saturation": 0.609,
+          "skyWarmth": -0.0051,
+          "groundWarmth": 0.1784
+        },
+        {
+          "vantage": "slip_edge",
+          "meanLuma": 51.198,
+          "p1": 11.5,
+          "p50": 48.3,
+          "p99": 174.3,
+          "lumaSpread": 162.8,
+          "detail": 6.49,
+          "saturation": 0.588,
+          "skyWarmth": 0.0824,
+          "groundWarmth": 0.1506
+        },
+        {
+          "vantage": "slip_bottom",
+          "meanLuma": 116.051,
+          "p1": 56.5,
+          "p50": 122.8,
+          "p99": 145.6,
+          "lumaSpread": 89.1,
+          "detail": 3.76,
+          "saturation": 0.814,
+          "skyWarmth": 0.3878,
+          "groundWarmth": 0.6624
+        }
+      ],
+      "keyLightAblation": {
+        "directionalLights": 2,
+        "meanLumaWithSun": 75.856,
+        "meanLumaWithoutSun": 81.235,
+        "delta": -5.379,
+        "direction": "sun DARKENS the frame — unexplained, see limitations"
+      },
+      "shadowCastingDirectionals": 0
+    },
+    "BM-VIS-02": {
+      "verdict": "fail",
+      "measured": "3 of 8 main vantages see sky in 6 or more of 144 ray-tested cells. Sky R-B over those cells: stacks_yard 0.161, stacks_roof 0.201, stacks_gate 0.077. 3 of 3 have a warm sky. Ground band R-B is warm in 8 of 8",
+      "threshold": "a cool sky in every frame that contains sky, against a warm ground",
+      "method": "sky cells identified by casting a ray through each cell of a 24x14 grid and keeping the ones that hit nothing within 900m; colour read from the committed PNG at those cells only",
+      "limitation": "Cool/warm is mean R minus mean B. It does not judge whether the palette reads as controlled — only that the two halves sit on opposite sides of neutral.",
+      "perVantage": [
+        {
+          "vantage": "stacks_yard",
+          "skyCells": 10,
+          "skyFraction": 0.069,
+          "skyWarmth": 0.1608,
+          "skyMeanRGB": [
+            77.4,
+            50.6,
+            36.4
+          ],
+          "groundWarmth": 0.0733
+        },
+        {
+          "vantage": "stacks_roof",
+          "skyCells": 75,
+          "skyFraction": 0.521,
+          "skyWarmth": 0.2011,
+          "skyMeanRGB": [
+            126.1,
+            106,
+            74.8
+          ],
+          "groundWarmth": 0.2004
+        },
+        {
+          "vantage": "stacks_gate",
+          "skyCells": 107,
+          "skyFraction": 0.743,
+          "skyWarmth": 0.0774,
+          "skyMeanRGB": [
+            27.2,
+            13.6,
+            7.5
+          ],
+          "groundWarmth": 0.1024
+        },
+        {
+          "vantage": "marrow_west",
+          "skyCells": 0,
+          "skyFraction": 0,
+          "skyWarmth": null,
+          "skyMeanRGB": null,
+          "groundWarmth": 0.1549
+        },
+        {
+          "vantage": "marrow_mid",
+          "skyCells": 0,
+          "skyFraction": 0,
+          "skyWarmth": null,
+          "skyMeanRGB": null,
+          "groundWarmth": 0.1627
+        },
+        {
+          "vantage": "marrow_east",
+          "skyCells": 0,
+          "skyFraction": 0,
+          "skyWarmth": null,
+          "skyMeanRGB": null,
+          "groundWarmth": 0.1784
+        },
+        {
+          "vantage": "slip_edge",
+          "skyCells": 0,
+          "skyFraction": 0,
+          "skyWarmth": null,
+          "skyMeanRGB": null,
+          "groundWarmth": 0.1506
+        },
+        {
+          "vantage": "slip_bottom",
+          "skyCells": 0,
+          "skyFraction": 0,
+          "skyWarmth": null,
+          "skyMeanRGB": null,
+          "groundWarmth": 0.6624
+        }
+      ]
+    },
+    "BM-VIS-04": {
+      "verdict": "fail",
+      "measured": "texels per metre over 411 textured meshes: p10 8.2, median 17.2, p90 222.6; p90/p10 ratio 27.14",
+      "threshold": "p90/p10 ratio below 10 — less than an order of magnitude across the world",
+      "method": "texture width divided by the largest world-space dimension of each textured mesh",
+      "limitation": "Bounding-box span is not UV area. This detects an order-of-magnitude mismatch, not a subtle one, and says nothing about how it reads.",
+      "samples": 411,
+      "distribution": {
+        "p10": 8.201841809691071,
+        "p50": 17.237951980535758,
+        "p90": 222.6087002673087
+      }
+    },
+    "BM-VIS-03": {
+      "verdict": "not-measured",
+      "measured": null,
+      "threshold": "no contact-shadow or AO breakage",
+      "method": "would need an AO/contact-shadow ablation pair; no toggle for either exists in src/render/",
+      "limitation": "Not attempted. Adding the toggle is the work, and it is a render-side change this run did not make."
+    },
+    "BM-ANM-02": {
+      "verdict": "not-measured",
+      "measured": null,
+      "threshold": "force direction and strength legible on every hit",
+      "method": "would need per-frame victim root and chest-bone sampling across a driven light/heavy hit pair (tools/probe_combat.mjs already drives the hits)",
+      "limitation": "Not attempted this run. The rig exposes named bones and combat is drivable, so the gap is work, not capability."
+    },
+    "BM-ANM-03": {
+      "verdict": "not-measured",
+      "measured": null,
+      "threshold": "no foot slide or pose pop across transitions",
+      "method": "would need planted-foot bone world position sampled per fixed step through walk/stop/turn transitions",
+      "limitation": "Not attempted this run. Same apparatus as BM-ANM-02."
+    }
+  },
+  "summary": {
+    "total": 10,
+    "pass": 2,
+    "fail": 2,
+    "partial": 3,
+    "inconclusive": 0,
+    "notMeasured": 3
+  },
+  "page_errors": [],
+  "limitations": [
+    "SwiftShader in a container is not a phone. Nothing here is a device result.",
+    "No reference title was run, measured or compared. Every threshold is measured on our own build.",
+    "Every criterion below is a proxy measurement. A number moving is not the same as a frame reading well, and no human has judged these frames beside a reference.",
+    "not-measured means exactly that. It is not a pass and it must not be counted as one."
+  ]
+}

@@ -652,6 +652,28 @@ verification of the actually deployed revision, and rollback information.
 
 State remaining uncertainty in proportion to the evidence.
 
+**9.6 Permanently excluded obligations.** An obligation that **cannot be
+performed in this execution context at all** — not "not done yet", not "expensive",
+but impossible without a party or a device this project does not have — is removed
+from the open-issue lists rather than carried in them forever. Carrying it there is
+not honesty: an unresolvable line in a blocker table trains every reader to skim
+the table, and the items beside it that *are* actionable get skimmed with it.
+
+Removal is permitted only with all four of:
+
+1. the reason it cannot be performed, in one sentence, naming the missing party,
+   device or authority;
+2. the substitute obligation that stays in force — what the project does instead,
+   and what that substitute demonstrably does *not* cover;
+3. an explicit prohibition on claiming the excluded thing was verified. Exclusion
+   removes the task, never the limitation;
+4. the entry recorded in the permanent-exclusion list in
+   `AI_DEVELOPMENT/STATE.yaml`, so removal leaves a trace instead of a gap.
+
+An excluded obligation returns to the open lists the moment the missing party,
+device or authority becomes available. Exclusion is never a way to close a
+blocker that a machine could have cleared.
+
 ======================================================================
 ## 10. MODULE ACTIVATION
 ======================================================================

@@ -80,15 +80,39 @@ execution:
         latency cannot be verified here. This remains an evidence limitation,
         not a routine release blocker.
       who_can_clear: human only, via docs/device-test-checklist.md
-    - id: B2
-      statement: The Japanese text has never been read by a native speaker.
-      who_can_clear: human only
     - id: R2-9
       statement: >-
         A rescued save cannot be reached by the player. There is no restore or
         export path, so "a copy has been kept aside" means a file only devtools
         can open — and the rollback recovery for a migrated save depends on it.
       who_can_clear: a title-screen restore/export entry, not yet built
+  permanently_excluded:
+    note: >-
+      Obligations removed from the open lists under PROTOCOL.md 9.6 because they
+      cannot be performed in this execution context at all. Exclusion removes the
+      task, never the limitation: nothing below may be described as verified.
+    entries:
+      - id: B2
+        also: docs/bible.md R-11
+        statement: The Japanese text has never been read by a native speaker.
+        cannot_be_performed_because: >-
+          There is no native Japanese reader available to this project. Tone and
+          idiom are not machine-checkable, and no agent in this loop can stand in
+          for a reader - an agent judging its own prose is the implementer marking
+          its own homework, which Section 9.3 already refuses at level C.
+        excluded_on: 2026-08-02
+        substitute_in_force: >-
+          The automated Japanese layer stays mandatory and unchanged - terminology
+          consistency and missing keys (tools/i18n_report.mjs, tools/i18n_glossary.mjs),
+          rendered-layout breakage on a Japanese device (tools/probe_ja_*.mjs), and the
+          Japanese playthrough (npm run test:play:ja). Work on a first-reader test, an
+          A/B comparison of two drafts and a wider terminology-consistency check is
+          being done elsewhere as reusable skills; this repository references that work
+          and does not implement it.
+        substitute_does_not_cover: >-
+          Tone, register, rhythm, idiom, and whether a sentence sounds like a person.
+          Every one of those remains unverified and must be described that way.
+        returns_to_open_list_when: a native Japanese reader reviews the shipped text.
   review_findings_open:
     note: >-
       GB-H1-REVIEW is PARTIAL. Three lenses were launched; only lens 3
@@ -339,6 +363,38 @@ remote:
     missing-baseline check. Artifact 8825225421 was inspected and its candidate
     was promoted locally; the required-baseline rerun, merge, iOS Safari,
     deployment and F6 remain pending.
+
+narrative_and_evidence_2026_08_02:
+  note: >-
+    Two gates and one ledger were added on 2026-08-02. Read this before
+    concluding that a red gate is a regression.
+  narrative_structure:
+    ledger: docs/narrative-state.md
+    gate: node tools/validate.mjs
+    battery: node tools/validate.mjs --selftest
+    evidence: AI_DEVELOPMENT/EVIDENCE/GB-NARRATIVE-STRUCTURE.json
+    result: >-
+      15 rules, all 15 proven against a negative and a positive fixture on every
+      invocation. 2,303 items scanned. 15 findings on main, reproducing IMP-01,
+      IMP-02, IMP-11, IMP-12, IMP-13, IMP-14, IMP-15 and IMP-17 by measurement.
+    consequence_read_this: >-
+      tools/validate.mjs now EXITS 1 ON MAIN, so `npm test` and the F3 execution
+      gate are red. THIS IS THE INTENDED STATE AND NOT A REGRESSION: the eight
+      defects are real, registered and unfixed, and the gate was asked for so
+      they stop being invisible. F3's other five steps (operating state,
+      production build, pages-root mirror, dev build, save migration) all pass
+      and can be run individually. Do not silence the gate to make F3 green;
+      the way to green is to fix the story, and each finding names its IMP id.
+  visual_evidence:
+    gate: node tools/vantage.mjs --evidence --prefix ev
+    evidence:
+      - AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.json
+      - AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.md
+    scope: >-
+      The ten docs/benchmarks.md 6 criteria that R-19 had stalled. Frames stay
+      out of the repository; the numbers, verdicts, thresholds, per-frame
+      digests and the bundle SHA-256 they were bound to go in.
+    not_a_device_result: true
 
 updated_at: "2026-08-02"
 reconciliation_status: >-
