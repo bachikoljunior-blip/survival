@@ -50,3 +50,11 @@ Separate three kinds of entry, because they need different people:
 A good report says what it did *not* verify. "Read the code and calculated the real numbers,
 but did not verify in actual play" is an honest and useful statement; leaving it out turns a
 calculation into a claim about the game.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/findings-run.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

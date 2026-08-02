@@ -58,3 +58,11 @@ image says whether that reads as broken or as fine.
 Per finding: the screen, the element, the string, the measured overflow or overlap in pixels,
 and the viewport it appeared at. "Text is cramped" is not actionable. "`#quest-title` at
 390×844: scrollWidth 268 against clientWidth 214, string 「古代の炉に火を入れる」" is.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/ja-ui-check.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

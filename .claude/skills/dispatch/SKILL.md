@@ -67,3 +67,11 @@ checkable right answer: histograms, budget counts, table updates, file moves. A 
 there is caught immediately instead of becoming the next round's false premise.
 
 ## One agent per team, never two on one file.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/dispatch.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

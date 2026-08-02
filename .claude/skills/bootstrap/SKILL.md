@@ -76,3 +76,11 @@ Say which files changed, whether `--check` passes, and whether the second run wa
 "Installed" means `--check` exited 0 and you saw it. With `--template`, add: the placeholder
 state validates, and `node tools/validate-state.mjs --selftest` reported every case behaving
 as specified — including the control, which must *not* fire.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/bootstrap.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.
