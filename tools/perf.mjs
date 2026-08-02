@@ -19,33 +19,18 @@
  * they are measurable honestly here.
  */
 import { chromium } from 'playwright';
-import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { extname, join, normalize, dirname } from 'node:path';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { serveStatic } from '../.kit/lib/browser/serve.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
 const OUT = join(ROOT, 'shots');
 mkdirSync(OUT, { recursive: true });
 
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8', '.json': 'application/json',
-  '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
 const BASE = '/cinderline-test';
-const server = createServer((req, res) => {
-  let p = decodeURIComponent((req.url || '/').split('?')[0]);
-  if (!p.startsWith(BASE)) { res.writeHead(404); res.end(); return; }
-  p = p.slice(BASE.length) || '/';
-  if (p.endsWith('/')) p += 'index.html';
-  try {
-    const body = readFileSync(join(DIST, normalize(p).replace(/^(\.\.[/\\])+/, '')));
-    res.writeHead(200, { 'Content-Type': MIME[extname(p)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
-    res.end(body);
-  } catch { res.writeHead(404); res.end('404'); }
-});
-await new Promise((r) => server.listen(0, r));
-const port = server.address().port;
+const site = await serveStatic({ root: DIST, basePath: BASE });
 
 const browser = await chromium.launch({
   args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--use-angle=swiftshader',
@@ -58,7 +43,7 @@ const page = await ctx.newPage();
 const errors = [];
 page.on('pageerror', (e) => errors.push(String(e && e.stack || e)));
 
-await page.goto(`http://127.0.0.1:${port}${BASE}/index.html`, { waitUntil: 'domcontentloaded' });
+await page.goto(`${site.origin}/index.html`, { waitUntil: 'domcontentloaded' });
 await page.waitForFunction('window.CINDERLINE && window.CINDERLINE.ready === true', null, { timeout: 120000 });
 
 const bundleBytes = readFileSync(join(DIST, readFileSync(join(DIST, 'index.html'), 'utf8')
@@ -188,5 +173,5 @@ console.log('cost are device-independent and are the numbers above.');
 
 if (errors.length) { console.log('\n--- errors ---'); console.log(errors.join('\n')); }
 await browser.close();
-server.close();
+await site.close();
 process.exit(errors.length ? 1 : 0);

@@ -10,6 +10,8 @@
     "watch": "node build.mjs --watch",
     "validate:ops": "node tools/check_operating_state.mjs",
     "test:save": "node build.mjs --dev && node tools/save_migration.mjs",
+    "validate:ops:selftest": "node tools/check_operating_state.mjs --selftest",
+    "check:kit": "node .kit/tools/bootstrap.mjs --target=. --check",
     "validate:pages-root": "node tools/export_pages_root.mjs --check",
     "validate": "node tools/validate.mjs",
     "validate:benchmarks": "node tools/check_benchmarks.mjs",

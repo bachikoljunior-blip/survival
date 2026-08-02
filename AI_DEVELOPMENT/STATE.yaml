@@ -71,6 +71,7 @@ execution:
     - "Playwright WebKit iPhone SE 3 gate: full official run completed with only the intended missing-baseline failure; candidate reviewed and promoted, required-baseline rerun pending."
     - "iPhone SE 3 iOS Simulator / Mobile Safari Appium gate: harness syntax and missing-device refusal verified locally; real macOS runner execution pending."
     - "Pages publication and post-deploy F6 for this delivery: pending merge."
+    - "Shared-kit integration (branch claude/kit-rollout-integration-a4zihp): the vendored kit, the harness swap and the validator rewrite were REBUILT on this main, not merged onto it. check:kit, the 46-mutation equivalence battery, the 23/23 validator self-test, tools/perf.mjs end to end, validate, check_benchmarks and F3 all pass. NOT re-run on this tree: tools/playthrough.mjs (about an hour on this rig) and the 18-frame vantage sweep — and the sweep could not settle anything anyway, see kit_integration.vantage_noise below."
   current_blockers:
     - id: B1
       statement: >-
@@ -165,11 +166,41 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Push the reviewed WebKit baseline to pull request #8, require the
-    required-baseline WebKit rerun and F2/F3/F5 to pass, merge, then require the
-    iOS Simulator Mobile Safari gate, Pages deployment and F6 public-surface
+    Merge the shared-kit integration branch claude/kit-rollout-integration-a4zihp
+    into main, then push the reviewed WebKit baseline to pull request #8, require
+    the required-baseline WebKit rerun and F2/F3/F5 to pass, merge, then require
+    the iOS Simulator Mobile Safari gate, Pages deployment and F6 public-surface
     verification to complete. Record exact workflow and merge evidence before
     resuming GB-IMP02.
+
+  kit_integration:
+    branch: claude/kit-rollout-integration-a4zihp
+    rebuilt_on: 02339ce10e63145adf7155ca6b4b1dc2ff7d7f60
+    why_rebuilt_not_merged: >-
+      The kit branch rewrote tools/check_operating_state.mjs whole (262 added,
+      121 removed) while c8608a6 was adding 84 lines of protocol-2.2 STATE.yaml
+      checks to the same file. A whole-file rewrite merged over that deletes
+      working checks without producing a conflict. Every STATE.yaml check from
+      main is carried over and now has a self-test it did not have before.
+    disproved: >-
+      Routing the STATE.yaml block through .kit/lib/state/yaml.mjs does not
+      work and was not merely declined. That parser is strict and rejects
+      folded block scalars; this file uses them, and it throws at line 22 of
+      the real file. main's hand-rolled indentation walker is kept verbatim
+      with only its I/O made injectable.
+    equivalence: >-
+      46 of 46 mutations of the real state reach the same verdict in the
+      rebuilt validator and the one on main, run as subprocesses because main's
+      version has no CLI guard and executes on import. 43 of the 45 breakages
+      fire; the 2 that do not are deliberate valid-input controls. The previous
+      27/27 was measured against the old main and is void. Battery:
+      tools/equivalence_operating_state.mjs.
+    vantage_noise: >-
+      The 18-frame sweep was NOT used to check the harness swap on this tree,
+      and one before/after pair could not have settled it: two runs of the
+      unmodified harness against one byte-identical dist differ on 11 of 18
+      frames. That control was measured on the previous base and is not
+      re-derived here.
 
 floor:
   last_check: "2026-08-02 (iPhone SE 3 automation delivery, local Level C)"
@@ -287,7 +318,8 @@ recovery:
     Pages surface. Operating files: see AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md.
 
 remote:
-  branch: agent/iphone-se3-automation
+  branch: claude/kit-rollout-integration-a4zihp
+  previous_branch: agent/iphone-se3-automation
   pull_request: 8
   deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
