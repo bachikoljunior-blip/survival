@@ -10,7 +10,7 @@
  * pressure, real-glass touch, hand reach, haptics, speakers, or audio latency.
  */
 
-import { createServer } from 'node:http';
+import { createServer, request as httpRequest } from 'node:http';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -105,12 +105,27 @@ async function waitForHttp(url, timeout = 90000) {
 }
 
 async function webdriver(pathname, { method = 'POST', body } = {}) {
-  const response = await fetch(new URL(pathname.replace(/^\//, ''), APPIUM_URL), {
-    method,
-    headers: body === undefined ? undefined : { 'content-type': 'application/json' },
-    body: body === undefined ? undefined : JSON.stringify(body),
+  const url = new URL(pathname.replace(/^\//, ''), APPIUM_URL);
+  const encoded = body === undefined ? '' : JSON.stringify(body);
+  const response = await new Promise((resolveRequest, rejectRequest) => {
+    const request = httpRequest(url, {
+      method,
+      headers: body === undefined ? undefined : {
+        'content-type': 'application/json',
+        'content-length': Buffer.byteLength(encoded),
+      },
+    }, (incoming) => {
+      let text = '';
+      incoming.setEncoding('utf8');
+      incoming.on('data', (chunk) => { text += chunk; });
+      incoming.on('end', () => resolveRequest({ ok: incoming.statusCode >= 200 && incoming.statusCode < 300, status: incoming.statusCode, text }));
+    });
+    request.setTimeout(900000, () => request.destroy(new Error(`WebDriver ${method} ${pathname} exceeded 15 minutes`)));
+    request.on('error', rejectRequest);
+    if (encoded) request.write(encoded);
+    request.end();
   });
-  const text = await response.text();
+  const text = response.text;
   let payload;
   try { payload = text ? JSON.parse(text) : {}; }
   catch { payload = { value: text }; }
@@ -200,6 +215,14 @@ try {
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,
+          'appium:safariInitialUrl': baseUrl,
+          'appium:webviewConnectTimeout': 120000,
+          'appium:webviewConnectRetries': 20,
+          'appium:simulatorStartupTimeout': 300000,
+          'appium:wdaLaunchTimeout': 180000,
+          'appium:wdaStartupRetries': 3,
+          'appium:wdaStartupRetryInterval': 10000,
+          'appium:showXcodeLog': true,
         },
         firstMatch: [{}],
       },
@@ -271,6 +294,7 @@ try {
   check(title.buttons.every((item) => item.width >= 44 && item.height >= 44),
     'title controls meet the 44 CSS px floor', JSON.stringify(title.buttons));
   const newGame = title.buttons.find((item) => item.name === 'new');
+  check(Boolean(newGame), 'new-game control is discoverable', JSON.stringify(title.buttons));
   await tap(newGame.x + newGame.width / 2, newGame.y + newGame.height / 2);
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
   check(true, 'trusted Mobile Safari tap starts a new game', baseUrl);
@@ -308,10 +332,10 @@ try {
   const attackY = attack.y + attack.height / 2;
   await performActions([
     finger('move-thumb', [
-      move(110, 250), down(), move(110, 190, 350), pause(0), pause(150), pause(550), up(), pause(0),
+      move(110, 250), down(), move(110, 190, 350), pause(700), up(),
     ]),
     finger('attack-thumb', [
-      pause(0), pause(0), pause(350), move(attackX, attackY), down(), pause(150), up(), pause(550),
+      move(attackX, attackY), pause(350), down(), pause(700), up(),
     ]),
   ]);
   await new Promise((done) => setTimeout(done, 350));

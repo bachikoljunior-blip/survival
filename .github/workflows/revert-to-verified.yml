@@ -80,8 +80,8 @@ jobs:
           git add -A
           git commit -m "Revert published build to ${{ inputs.revision }}
 
-The public surface was not serving the intended revision. This restores the
-last build that was actually verified on it. Operating records are deliberately
-not rolled back."
+          The public surface was not serving the intended revision. This restores the
+          last build that was actually verified on it. Operating records are deliberately
+          not rolled back."
           git push origin main
           echo "Pushed. pages.yml will redeploy and its F6 job will verify the result."
