@@ -137,6 +137,57 @@ const band = (values) => ({ lo: Math.min(...values), hi: Math.max(...values) });
  * same cell every time, so this is the sensitive statistic — a real change moves the same
  * cells in the same direction on every run, and can be caught well below the per-sweep noise.
  */
+/** Luma columns only. draws/tris are counts on a different scale and a different process. */
+const LUMA = COLUMNS;
+
+const median = (a) => { const b = [...a].sort((x, y) => x - y); return b.length % 2 ? b[(b.length - 1) / 2] : (b[b.length / 2 - 1] + b[b.length / 2]) / 2; };
+
+/** `frame|cell -> median` over the given rows, luma columns only. */
+function medians(rows) {
+  const m = new Map();
+  for (const s of rows) for (const c of LUMA) {
+    const k = `${s.frame}|${c}`;
+    if (!m.has(k)) m.set(k, []);
+    m.get(k).push(s[c]);
+  }
+  const out = new Map();
+  for (const [k, v] of m) out.set(k, median(v));
+  return out;
+}
+
+/**
+ * Sign test: how many cells' medians moved down versus up.
+ *
+ * This exists because the band tests are not sensitive to a small uniform shift. A change
+ * that darkens every frame by less than the rig's own per-cell jitter puts no single cell
+ * persistently outside its band, and both band statistics report "indistinguishable" — but
+ * the DIRECTION of the movement is not noise, and 31 cells down against 11 up is not what a
+ * symmetric jitter produces. Measured: this is the only statistic here that separated the
+ * launchHeadless arm from the baseline, and both band tests missed it.
+ */
+function signTest(aRows, bRows) {
+  const a = medians(aRows), b = medians(bRows);
+  let down = 0, up = 0, same = 0;
+  for (const [k, av] of a) {
+    if (!b.has(k)) continue;
+    const d = b.get(k) - av;
+    if (d < 0) down++; else if (d > 0) up++; else same++;
+  }
+  return { down, up, same, asym: Math.abs(down - up) };
+}
+
+/** Lexicographic k-subsets of `arr`, capped so a large baseline cannot explode. */
+function subsets(arr, k, cap = 400) {
+  const out = [];
+  const rec = (start, acc) => {
+    if (out.length >= cap) return;
+    if (acc.length === k) { out.push([...acc]); return; }
+    for (let i = start; i < arr.length; i++) { acc.push(arr[i]); rec(i + 1, acc); acc.pop(); if (out.length >= cap) return; }
+  };
+  rec(0, []);
+  return out;
+}
+
 function nullDistributions(base) {
   const runs = [...new Set(base.map((s) => s.run))].sort((a, b) => a - b);
   const bandsOf = (rows) => {
@@ -171,7 +222,42 @@ function nullDistributions(base) {
     persistent = { splitAt: half, of: nSecond, count: [...per.values()].filter((n) => n === nSecond).length,
       cells: [...per.entries()].filter(([, n]) => n === nSecond).map(([k]) => k) };
   }
-  return { perSweep, lo: Math.min(...perSweep), hi: Math.max(...perSweep), persistent };
+  return { perSweep, lo: Math.min(...perSweep), hi: Math.max(...perSweep), persistent, runs };
+}
+
+/**
+ * The null for the sign test and for the unique-cells-outside count, both computed the way
+ * the candidate is computed: split the baseline into a group the size of the candidate arm
+ * and its complement, and run the same comparison. Matching the unit matters — an earlier
+ * pass compared the candidate's unique-cells-over-4-sweeps against a PER-SWEEP null and made
+ * the candidate look ordinary by dividing by four.
+ */
+function splitNull(base, m) {
+  const runs = [...new Set(base.map((s) => s.run))].sort((a, b) => a - b);
+  if (runs.length < m + 2) return null;
+  const asym = [], uniq = [];
+  for (const A of subsets(runs, m)) {
+    const B = runs.filter((r) => !A.includes(r));
+    if (!B.length) continue;
+    const aRows = base.filter((s) => B.includes(s.run));   // the "baseline" side
+    const bRows = base.filter((s) => A.includes(s.run));   // the "candidate" side
+    asym.push(signTest(aRows, bRows).asym);
+
+    const d = distribution(aRows), bands = new Map();
+    for (const [frame, cells] of d) for (const c of CELLS) bands.set(`${frame}|${c}`, band(cells.get(c)));
+    const set = new Set();
+    for (const s of bRows) for (const c of CELLS) {
+      const bb = bands.get(`${s.frame}|${c}`);
+      if (bb && (s[c] < bb.lo || s[c] > bb.hi)) set.add(`${s.frame}|${c}`);
+    }
+    uniq.push(set.size);
+  }
+  const q = (a, p) => a.slice().sort((x, y) => x - y)[Math.min(a.length - 1, Math.floor(a.length * p))];
+  return {
+    splits: asym.length, m,
+    asym: { min: Math.min(...asym), med: q(asym, 0.5), p90: q(asym, 0.9), max: Math.max(...asym), all: asym },
+    uniq: { min: Math.min(...uniq), med: q(uniq, 0.5), p90: q(uniq, 0.9), max: Math.max(...uniq), all: uniq },
+  };
 }
 
 /**
@@ -265,6 +351,10 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
         } else c0.inside++;
       }
     }
+    // The two statistics that actually decide, both matched to how the candidate is measured.
+    c0.uniqueOutside = new Set(c0.rows.filter((r) => r.cell !== '*').map((r) => `${r.frame}|${r.cell}`)).size;
+    c0.sign = signTest(base, cand);
+    c0.null = splitNull(base, c0.runs);
     out.candidate = c0;
   }
   return out;
@@ -325,6 +415,24 @@ export function formatReport(r, baseLabel = 'base', candidateLabel = null) {
     // The verdict has to be read against the nulls, not against zero. Saying "3 cells moved,
     // therefore the swap moves pixels" would be the same error the holdout already caught,
     // one level up: treating the rig's own drift as the candidate's doing.
+    if (c.null) {
+      const pct = (arr, v) => (100 * arr.filter((x) => x < v).length / arr.length).toFixed(0);
+      L.push(`  null 3 — matched: the same two statistics over ${c.null.splits} ${c.null.m}/${r.runs - c.null.m} splits of the baseline itself`);
+      L.push(`      unique cells outside : candidate ${c.uniqueOutside}  vs null min ${c.null.uniq.min} med ${c.null.uniq.med} p90 ${c.null.uniq.p90} max ${c.null.uniq.max}` +
+        `  -> ${pct(c.null.uniq.all, c.uniqueOutside)}th pct`);
+      L.push(`      sign-test asymmetry  : candidate ${c.sign.asym} (${c.sign.down} down, ${c.sign.up} up, ${c.sign.same} identical)` +
+        `  vs null min ${c.null.asym.min} med ${c.null.asym.med} p90 ${c.null.asym.p90} max ${c.null.asym.max}` +
+        `  -> ${pct(c.null.asym.all, c.sign.asym)}th pct`);
+      L.push('');
+      if (c.sign.asym > c.null.asym.max) {
+        L.push(`  VERDICT: DIRECTIONAL SHIFT. ${c.sign.down} luma cells moved down against ${c.sign.up} up; the`);
+        L.push(`           asymmetry ${c.sign.asym} exceeds every one of the ${c.null.splits} baseline splits (max ${c.null.asym.max}).`);
+        L.push('           A uniform shift smaller than the per-cell jitter puts nothing persistently outside');
+        L.push('           its band, so the band tests above CANNOT see this. Bisect the arms before naming');
+        L.push('           a cause — the flags and the browser binary are both capable of it.');
+        return L.join('\n');
+      }
+    }
     const persistNull = n.persistent ? n.persistent.count : 0;
     if (c.persistent > persistNull) {
       L.push(`  VERDICT: ${c.persistent} cell(s) outside on every candidate sweep, against a null of ${persistNull}.`);
@@ -486,6 +594,35 @@ function selftest() {
     formatReport(rc, 'base', 'cand').includes('indistinguishable'));
   check('and the report refuses to call that proof of identity', () => formatReport(rc, 'base', 'cand')
     .includes('does NOT prove the frames are identical'));
+
+  // --- the sign test, which is the statistic that caught the real effect ------------------
+  // Four frames so the sign test has cells to count, four baseline sweeps with symmetric
+  // jitter, and a two-sweep candidate.
+  const FR = ['f1', 'f2', 'f3', 'f4'];
+  const jitter = (run, i) => ((run + i) % 2 ? 1 : 0);   // deterministic, symmetric, no RNG
+  const baseN = [];
+  for (const run of [1, 2, 3, 4]) FR.forEach((f, i) => baseN.push(S('base', run, f, { p50: 100 + jitter(run, i) })));
+
+  // A candidate shifted DOWN on every frame, by less than nothing else moves.
+  const down = [];
+  for (const run of [1, 2]) FR.forEach((f) => down.push(S('cand', run, f, { p50: 98 })));
+  const rs = analyse([...baseN, ...down], { candidateLabel: 'cand' });
+  check('sign test counts the direction of the shift', () => rs.candidate.sign.down === 4 && rs.candidate.sign.up === 0);
+  check('matched null is computed over baseline splits', () => rs.candidate.null && rs.candidate.null.splits > 0);
+  check('VERDICT reports a directional shift', () => formatReport(rs, 'base', 'cand').includes('DIRECTIONAL SHIFT'));
+
+  // CONTROL: a candidate that moves cells in BOTH directions equally is not a shift, however
+  // many cells moved. Without this the sign test would fire on ordinary noise.
+  const mixed = [];
+  for (const run of [1, 2]) FR.forEach((f, i) => mixed.push(S('cand', run, f, { p50: i < 2 ? 98 : 103 })));
+  const rmix = analyse([...baseN, ...mixed], { candidateLabel: 'cand' });
+  check('CONTROL: a symmetric move is not called a directional shift', () => rmix.candidate.sign.asym === 0 &&
+    !formatReport(rmix, 'base', 'cand').includes('DIRECTIONAL SHIFT'));
+
+  // CONTROL: the unique-cells count must be counted per cell, not per sweep-occurrence. The
+  // first version of this comparison divided a 4-sweep total by 4 and compared it against a
+  // per-sweep null, which made a real effect look ordinary.
+  check('unique-outside counts cells, not occurrences', () => rs.candidate.uniqueOutside <= rs.candidate.outside);
 
   console.log(`\n  ${pass} passed, ${fail} failed`);
   return fail ? 1 : 0;
