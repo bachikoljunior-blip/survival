@@ -123,6 +123,58 @@ const pinned = (values) => values.length > 0 && Math.max(...values) === Math.min
 const band = (values) => ({ lo: Math.min(...values), hi: Math.max(...values) });
 
 /**
+ * The null distributions. Without these a candidate's out-of-band count is a bare number
+ * with nothing to be surprised against: the band is not tight enough to make "any deviation
+ * is signal" true — measured, the rig puts a few cells outside their own leave-one-out band
+ * on nearly every sweep. So the question is never "did any cell move" but "did more move,
+ * or move more persistently, than the rig does to itself".
+ *
+ * NULL 1, per-sweep: hold each baseline sweep out, rebuild the band from the rest, and count
+ * how many of its cells land outside. That is what noise alone produces per sweep.
+ *
+ * NULL 2, persistence: split the baseline in half, build the band from the first half, and
+ * count cells outside in EVERY sweep of the second half. Independent noise rarely hits the
+ * same cell every time, so this is the sensitive statistic — a real change moves the same
+ * cells in the same direction on every run, and can be caught well below the per-sweep noise.
+ */
+function nullDistributions(base) {
+  const runs = [...new Set(base.map((s) => s.run))].sort((a, b) => a - b);
+  const bandsOf = (rows) => {
+    const d = distribution(rows), out = new Map();
+    for (const [frame, cells] of d) for (const c of CELLS) out.set(`${frame}|${c}`, band(cells.get(c)));
+    return out;
+  };
+  const outside = (bands, rows) => {
+    const per = new Map();
+    for (const s of rows) for (const c of CELLS) {
+      const b = bands.get(`${s.frame}|${c}`);
+      if (b && (s[c] < b.lo || s[c] > b.hi)) per.set(`${s.frame}|${c}`, (per.get(`${s.frame}|${c}`) || 0) + 1);
+    }
+    return per;
+  };
+
+  const perSweep = runs.map((held) => {
+    const rest = base.filter((s) => s.run !== held);
+    if (!rest.length) return 0;
+    let n = 0;
+    for (const [, v] of outside(bandsOf(rest), base.filter((s) => s.run === held))) n += v;
+    return n;
+  });
+
+  const half = Math.floor(runs.length / 2);
+  let persistent = null;
+  if (half >= 2) {
+    const first = base.filter((s) => runs.indexOf(s.run) < half);
+    const second = base.filter((s) => runs.indexOf(s.run) >= half);
+    const nSecond = new Set(second.map((s) => s.run)).size;
+    const per = outside(bandsOf(first), second);
+    persistent = { splitAt: half, of: nSecond, count: [...per.values()].filter((n) => n === nSecond).length,
+      cells: [...per.entries()].filter(([, n]) => n === nSecond).map(([k]) => k) };
+  }
+  return { perSweep, lo: Math.min(...perSweep), hi: Math.max(...perSweep), persistent };
+}
+
+/**
  * @returns {{refused?: string} | {
  *   runs: number, stable: number, unstable: number, moving: Array,
  *   holdout?: {k: number, pinned: number, violated: number, rows: Array},
@@ -144,6 +196,7 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
 
   const baseDist = distribution(base);
   const out = { runs, dist: [...dists][0], frames: baseDist.size, stable: 0, unstable: 0, moving: [] };
+  out.nulls = nullDistributions(base);
 
   for (const [frame, cells] of baseDist) {
     const moving = [];
@@ -195,7 +248,7 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
     const cand = samples.filter((s) => s.label === candidateLabel);
     if (!cand.length) { out.candidate = { missing: candidateLabel }; return out; }
     const candDist = distribution(cand);
-    const c0 = { runs: new Set(cand.map((s) => s.run)).size, inside: 0, outside: 0, rows: [] };
+    const c0 = { runs: new Set(cand.map((s) => s.run)).size, inside: 0, outside: 0, persistent: 0, rows: [] };
     for (const [frame, cells] of candDist) {
       const baseCells = baseDist.get(frame);
       if (!baseCells) { c0.rows.push({ frame, cell: '*', note: 'absent from baseline' }); continue; }
@@ -206,7 +259,9 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
         if (off.length) {
           c0.outside++;
           const worst = off.reduce((a, v) => Math.max(a, v < b.lo ? b.lo - v : v - b.hi), 0);
-          c0.rows.push({ frame, cell: c, band: b, got: vals, by: worst });
+          const every = off.length === vals.length;
+          if (every) c0.persistent++;
+          c0.rows.push({ frame, cell: c, band: b, got: vals, by: worst, every });
         } else c0.inside++;
       }
     }
@@ -254,12 +309,40 @@ export function formatReport(r, baseLabel = 'base', candidateLabel = null) {
     const c = r.candidate;
     if (c.missing) { L.push(`\nno samples for candidate "${c.missing}"`); return L.join('\n'); }
     L.push(`\ncandidate "${candidateLabel}": ${c.runs} sweeps\n`);
+    const n = r.nulls;
     L.push(`  cells inside the baseline's observed band  : ${c.inside}`);
     L.push(`  cells OUTSIDE it                           : ${c.outside}`);
+    L.push(`  of those, outside on EVERY candidate sweep : ${c.persistent}`);
+    L.push('');
+    L.push(`  null 1 — the rig's own per-sweep out-of-band count, leave-one-out over ${r.runs} baseline sweeps:`);
+    L.push(`      {${n.perSweep.join(', ')}}  range ${n.lo}-${n.hi}, mean ${(n.perSweep.reduce((a, b) => a + b, 0) / n.perSweep.length).toFixed(1)}`);
+    L.push(`      candidate averages ${(c.outside / c.runs).toFixed(1)} per sweep`);
+    if (n.persistent) {
+      L.push(`  null 2 — cells the rig itself puts outside on ALL ${n.persistent.of} sweeps of a split-half baseline: ${n.persistent.count}` +
+        (n.persistent.cells.length ? `  (${n.persistent.cells.join(', ')})` : ''));
+    }
+    L.push('');
+    // The verdict has to be read against the nulls, not against zero. Saying "3 cells moved,
+    // therefore the swap moves pixels" would be the same error the holdout already caught,
+    // one level up: treating the rig's own drift as the candidate's doing.
+    const persistNull = n.persistent ? n.persistent.count : 0;
+    if (c.persistent > persistNull) {
+      L.push(`  VERDICT: ${c.persistent} cell(s) outside on every candidate sweep, against a null of ${persistNull}.`);
+      L.push('           That is more persistent than the rig is to itself — treat as signal and bisect');
+      L.push('           (binary vs flags) before naming a cause.');
+    } else if (c.outside / c.runs > n.hi) {
+      L.push(`  VERDICT: no persistent cell, but ${(c.outside / c.runs).toFixed(1)} per sweep exceeds the null's worst sweep (${n.hi}).`);
+      L.push('           Weak evidence of a difference; collect more candidate sweeps before acting.');
+    } else {
+      L.push('  VERDICT: indistinguishable from the rig\'s own drift on this evidence.');
+      L.push(`           Persistence ${c.persistent} <= null ${persistNull}, and ${(c.outside / c.runs).toFixed(1)} per sweep is inside the null range ${n.lo}-${n.hi}.`);
+      L.push('           This does NOT prove the frames are identical — it proves this rig cannot tell them apart.');
+    }
     if (c.outside) {
       L.push('\n  outside the range the rig ever reached on its own — read against the false-positive count above:');
       for (const row of c.rows) {
-        L.push(`    ${row.frame.padEnd(14)} ${String(row.cell).padEnd(6)} band [${row.band?.lo},${row.band?.hi}] candidate {${fmtSet(row.got)}} (out by ${row.by})`);
+        L.push(`    ${row.frame.padEnd(14)} ${String(row.cell).padEnd(6)} band [${row.band?.lo},${row.band?.hi}] candidate {${fmtSet(row.got)}} (out by ${row.by})` +
+          (row.every ? '  EVERY SWEEP' : ''));
       }
     }
   }
@@ -354,6 +437,55 @@ function selftest() {
   // The formatter must survive every shape above.
   check('formatter runs on a refusal', () => formatReport(analyse([])).startsWith('REFUSING'));
   check('formatter runs on a full report', () => formatReport(rb, 'base', 'cand').includes('cells OUTSIDE it                           : 1'));
+
+  // --- the nulls and the verdict --------------------------------------------------------
+  // A four-sweep baseline where `beta.p50` alternates 100/101 and everything else repeats.
+  const B4 = [
+    S('base', 1, 'alpha'), S('base', 2, 'alpha'), S('base', 3, 'alpha'), S('base', 4, 'alpha'),
+    S('base', 1, 'beta'), S('base', 2, 'beta', { p50: 101 }), S('base', 3, 'beta'), S('base', 4, 'beta', { p50: 101 }),
+  ];
+  const rn = analyse(B4, { holdout: 3 });
+  check('null 1 is computed per baseline sweep', () => rn.nulls.perSweep.length === 4);
+  // An ALTERNATING cell is invisible to leave-one-out on purpose: hold out either value and
+  // the remaining sweeps still span both, so the band covers it. That is correct behaviour,
+  // and worth pinning down — it is why null 1 alone understates the noise and why null 2
+  // exists. What leave-one-out does catch is a one-off excursion no other sweep reaches.
+  check('CONTROL: an alternating cell is inside its own leave-one-out band', () => rn.nulls.hi === 0);
+  const B4x = [
+    S('base', 1, 'alpha'), S('base', 2, 'alpha'), S('base', 3, 'alpha'), S('base', 4, 'alpha', { p50: 105 }),
+  ];
+  check('null 1 catches a one-off excursion', () => analyse(B4x, { holdout: 3 }).nulls.hi === 1);
+  check('null 2 (split-half persistence) is computed', () => rn.nulls.persistent && rn.nulls.persistent.of === 2);
+
+  // A candidate outside the band on EVERY sweep must be called signal...
+  const candPersist = [
+    S('cand', 1, 'alpha', { p50: 500 }), S('cand', 2, 'alpha', { p50: 500 }),
+    S('cand', 1, 'beta'), S('cand', 2, 'beta'),
+  ];
+  const rp = analyse([...B4, ...candPersist], { candidateLabel: 'cand', holdout: 3 });
+  check('persistent candidate deviation is counted', () => rp.candidate.persistent === 1);
+  check('and the row is marked EVERY SWEEP', () => rp.candidate.rows.some((x) => x.every));
+  check('VERDICT names it signal', () => formatReport(rp, 'base', 'cand').includes('treat as signal'));
+
+  // ...but a candidate outside on only ONE of its sweeps must NOT be, because that is what
+  // the rig does to itself. This is the control that keeps the verdict from firing on drift.
+  const candOnce = [
+    S('cand', 1, 'alpha', { p50: 500 }), S('cand', 2, 'alpha'),
+    S('cand', 1, 'beta'), S('cand', 2, 'beta'),
+  ];
+  const ro = analyse([...B4, ...candOnce], { candidateLabel: 'cand', holdout: 3 });
+  check('CONTROL: a one-sweep deviation is not persistent', () => ro.candidate.persistent === 0);
+
+  // And a candidate that never leaves the band must read as indistinguishable.
+  const candClean = [
+    S('cand', 1, 'alpha'), S('cand', 2, 'alpha'),
+    S('cand', 1, 'beta'), S('cand', 2, 'beta', { p50: 101 }),
+  ];
+  const rc = analyse([...B4, ...candClean], { candidateLabel: 'cand', holdout: 3 });
+  check('CONTROL: a clean candidate reads as indistinguishable', () => rc.candidate.outside === 0 &&
+    formatReport(rc, 'base', 'cand').includes('indistinguishable'));
+  check('and the report refuses to call that proof of identity', () => formatReport(rc, 'base', 'cand')
+    .includes('does NOT prove the frames are identical'));
 
   console.log(`\n  ${pass} passed, ${fail} failed`);
   return fail ? 1 : 0;

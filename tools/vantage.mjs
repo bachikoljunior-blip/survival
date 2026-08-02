@@ -8,11 +8,11 @@
  *   node tools/vantage.mjs --only stacks    a single vantage
  *   node tools/vantage.mjs --w 1334 --h 750 larger frames for detail review
  */
-import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveStatic } from '../.kit/lib/browser/serve.mjs';
+import { launchHeadless } from '../.kit/lib/browser/launch.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
@@ -61,10 +61,14 @@ const VANTAGES = [
 const BASE = arg('base', '/cinderline-test');
 const site = await serveStatic({ root: DIST, basePath: BASE });
 
-const browser = await chromium.launch({
-  args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--use-angle=swiftshader',
-         '--no-sandbox', '--disable-gpu-sandbox', '--ignore-gpu-blocklist'],
-});
+// `proxy: false` is load-bearing, not tidiness. launchHeadless honours HTTPS_PROXY by
+// default, and Playwright then force-appends `<-loopback>` to --proxy-bypass-list, which
+// *un*-bypasses loopback and sends this harness's own 127.0.0.1 fetches out through the
+// egress proxy. Measured here: the default returns HTTP 405 with zero page errors, so the
+// run would proceed and then time out on `CINDERLINE.ready` — reading as a boot failure in
+// the game rather than a proxy misconfiguration. With `proxy: false` the same navigation
+// returns 200. Nothing in this file talks to the public internet.
+const browser = await launchHeadless({ noSandbox: true, angleSwiftshader: true, proxy: false });
 const ctx = await browser.newContext({
   viewport: { width: W, height: H }, deviceScaleFactor: DPR, isMobile: true, hasTouch: true,
 });

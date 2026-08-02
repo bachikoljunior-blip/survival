@@ -241,6 +241,42 @@ execution:
       succeeds because the egress proxy shares this container's loopback, is
       NOT yet measured - a silent success is the worse outcome because it would
       make every future run depend on the proxy being up.
+    launch_swap_proxy_blocker_measured: >-
+      MEASURED, not inferred, and it is a hard blocker on adopting launchHeadless
+      as the kit ships it. With the kit's default proxy:true, navigating to this
+      harness's own loopback server returns HTTP 405. With proxy:false the same
+      navigation returns 200 and the real page title. The failure mode is the
+      dangerous kind: 405 arrives with ZERO page errors, so a harness proceeds and
+      then times out waiting for CINDERLINE.ready, which reads as a boot failure in
+      the game rather than a proxy misconfiguration. Cause, read out of
+      playwright-core: whenever a proxy is configured Playwright force-appends
+      "<-loopback>" to --proxy-bypass-list, which UN-bypasses loopback. Any harness
+      in any repo that serves its own content on 127.0.0.1 and adopts launchHeadless
+      without proxy:false will break the same way; the kit's default is wrong for
+      that whole class of caller, and its own doc comment says the proxy option
+      exists for reaching PUBLIC urls. Recorded against the kit, not fixed here.
+    vantage_noise_characterised: >-
+      Eight baseline sweeps against one dist hash a07b10b236ef, 18 frames x 11
+      cells. Ranges: 118 cells range 0, 53 range 1, 8 range 2, 19 range >2 - and 17
+      of those 19 are tris. The luma columns are near-deterministic; the frame-level
+      "11 of 18 frames differ" that blocked this swap was hiding that nearly all the
+      movement is triangle counts, not pixels. Leave-one-out false-positive rate by
+      column: warm and draws 0.0%, p25/cool 1.4%, p05/p75/iqr 2.8%, p50/black 3.5%,
+      p95/tris 4.9%; luma overall 2.55%, draws+tris 2.43%. The band therefore never
+      reaches zero false positives and a verdict of "any cell moved" is unusable, so
+      two nulls are computed from the baseline itself: null 1, per-sweep out-of-band
+      count leave-one-out = {0,8,5,2,3,8,2,12}, range 0-12 mean 5.0; null 2,
+      split-half persistence (band from runs 1-4, cells outside in ALL of runs 5-8)
+      = 1, slip_bridge|tris. A candidate is signal only if it beats those.
+    cinder_line_black_trap_not_reproduced: >-
+      The record's trap says v-cinder_line renders 100% black about two runs in
+      three, and that when it does it drops to 73 draws / 769,251 triangles. Across
+      8 baseline sweeps here it was NEVER black - black 0.0%, p50 84, every run -
+      and its draws/tris were 73 / 769,247-769,251 in ALL of them. So on this build
+      that draw/triangle signature is the HEALTHY state, and the draw-count drop
+      cannot be used as the black-frame tell the record offers. Not a disproof of
+      the black frame itself, which was observed on an older build; it does retire
+      the diagnostic. cinder_line is one of the 18 frames the critics judge from.
     launch_swap_experiment_design: >-
       A single before/after cannot attribute a difference when three things
       changed at once. Arms: base (unmodified), binary (force executablePath
