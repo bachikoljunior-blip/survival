@@ -37,6 +37,14 @@ objective:
   acceptance_evidence: AI_DEVELOPMENT/PROJECT_STATE.json (acceptance_trace)
 
 execution:
+  # STOP, 2026-08-02, explicit user instruction. The user's focus is verifying the
+  # nine vendored skills, NOT this repository's own work and NOT the kit rollout.
+  # CLAUDE.md tells every run to resume from the last verified checkpoint; that
+  # instruction is older than this block and must not be followed into a resume of
+  # GB-IMP02 or the kit workstream. Ask the user before starting anything here.
+  # Nothing was left broken: no processes running, tree clean, branch pushed, and
+  # the vantage samples preserved at EVIDENCE/VANTAGE-LAUNCH-SWAP-SAMPLES.jsonl.
+  paused_by_user: "2026-08-02 — focus moved to skill verification; do not auto-resume"
   selected_rigor: STANDARD
   active_work:
     id: GB-IMP02
