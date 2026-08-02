@@ -61,14 +61,48 @@ const VANTAGES = [
 const BASE = arg('base', '/cinderline-test');
 const site = await serveStatic({ root: DIST, basePath: BASE });
 
-// `proxy: false` is load-bearing, not tidiness. launchHeadless honours HTTPS_PROXY by
-// default, and Playwright then force-appends `<-loopback>` to --proxy-bypass-list, which
-// *un*-bypasses loopback and sends this harness's own 127.0.0.1 fetches out through the
-// egress proxy. Measured here: the default returns HTTP 405 with zero page errors, so the
-// run would proceed and then time out on `CINDERLINE.ready` — reading as a boot failure in
-// the game rather than a proxy misconfiguration. With `proxy: false` the same navigation
-// returns 200. Nothing in this file talks to the public internet.
-const browser = await launchHeadless({ noSandbox: true, angleSwiftshader: true, proxy: false });
+/**
+ * How this sweep launches Chromium. `CINDERLINE_VANTAGE_LAUNCH` selects it; the default is
+ * the real one and the others exist only to attribute a measured difference to a cause.
+ *
+ * This is not test scaffolding left lying around. Adopting `launchHeadless` here changes
+ * three things at once — five added flags, a different Chromium *binary*, and proxy handling
+ * — and `tools/vantage_distribution.mjs` measured a directional shift after the swap (31
+ * luma cells darker against 11 lighter, an asymmetry beyond all 70 baseline splits). A
+ * difference you cannot bisect is a difference you cannot fix, and re-editing this file by
+ * hand between arms is exactly how a review set gets mixed across two configurations.
+ *
+ * `proxy: false` is load-bearing rather than tidiness. launchHeadless honours HTTPS_PROXY by
+ * default, and Playwright then force-appends `<-loopback>` to --proxy-bypass-list, which
+ * *un*-bypasses loopback and sends this harness's own 127.0.0.1 fetches out through the
+ * egress proxy. Measured: the default returns HTTP 405 with zero page errors, so the run
+ * proceeds and then times out on `CINDERLINE.ready`, reading as a boot failure in the game
+ * rather than a proxy misconfiguration. With `proxy: false` the same navigation returns 200.
+ * Nothing in this file talks to the public internet.
+ */
+const LEGACY_ARGS = ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--use-angle=swiftshader',
+                     '--no-sandbox', '--disable-gpu-sandbox', '--ignore-gpu-blocklist'];
+const LAUNCH = process.env.CINDERLINE_VANTAGE_LAUNCH || 'kit';
+let browser;
+if (LAUNCH === 'kit') {
+  browser = await launchHeadless({ noSandbox: true, angleSwiftshader: true, proxy: false });
+} else {
+  // The pre-swap launch. Passing no executablePath is itself one of the three changes:
+  // Playwright's getExecutableName returns "chromium-headless-shell" when headless, so the
+  // legacy arms run headless_shell while the kit path runs the full chrome binary.
+  const { chromium } = await import('playwright');
+  if (LAUNCH === 'legacy') {
+    browser = await chromium.launch({ args: LEGACY_ARGS });
+  } else if (LAUNCH === 'binary') {                     // legacy flags, kit's binary
+    browser = await chromium.launch({ args: LEGACY_ARGS, executablePath: '/opt/pw-browsers/chromium' });
+  } else if (LAUNCH === 'flags') {                      // kit's flags, legacy binary
+    const { SWIFTSHADER_ARGS } = await import('../.kit/lib/browser/launch.mjs');
+    browser = await chromium.launch({ args: [...SWIFTSHADER_ARGS, '--no-sandbox', '--disable-gpu-sandbox', '--use-angle=swiftshader'] });
+  } else {
+    throw new Error(`CINDERLINE_VANTAGE_LAUNCH: expected kit|legacy|binary|flags, got "${LAUNCH}"`);
+  }
+}
+console.log(`launch mode: ${LAUNCH}`);
 const ctx = await browser.newContext({
   viewport: { width: W, height: H }, deviceScaleFactor: DPR, isMobile: true, hasTouch: true,
 });
