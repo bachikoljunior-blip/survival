@@ -165,6 +165,14 @@ function medians(rows) {
  * symmetric jitter produces. Measured: this is the only statistic here that separated the
  * launchHeadless arm from the baseline, and both band tests missed it.
  */
+/** Net movement of every cell median, summed. Direction and size, where signTest is only direction. */
+function shiftSum(aRows, bRows) {
+  const a = medians(aRows), b = medians(bRows);
+  let sum = 0;
+  for (const [k, av] of a) if (b.has(k)) sum += b.get(k) - av;
+  return sum;
+}
+
 function signTest(aRows, bRows) {
   const a = medians(aRows), b = medians(bRows);
   let down = 0, up = 0, same = 0;
@@ -267,7 +275,7 @@ function splitNull(base, m) {
  *   candidate?: {inside: number, outside: number, untestable: number, rows: Array},
  * }}
  */
-export function analyse(samples, { baseLabel = 'base', candidateLabel = null, holdout } = {}) {
+export function analyse(samples, { baseLabel = 'base', candidateLabel = null, controlLabel = null, holdout } = {}) {
   if (!samples.length) return { refused: 'no samples yet — run with --runs N first' };
 
   const dists = new Set(samples.map((s) => s.dist));
@@ -355,6 +363,14 @@ export function analyse(samples, { baseLabel = 'base', candidateLabel = null, ho
     c0.uniqueOutside = new Set(c0.rows.filter((r) => r.cell !== '*').map((r) => `${r.frame}|${r.cell}`)).size;
     c0.sign = signTest(base, cand);
     c0.null = splitNull(base, c0.runs);
+    c0.shiftSum = shiftSum(base, cand);
+    if (controlLabel) {
+      const ctl = samples.filter((s) => s.label === controlLabel);
+      if (ctl.length) {
+        const cs = signTest(base, ctl);
+        c0.control = { label: controlLabel, sum: shiftSum(base, ctl), down: cs.down, up: cs.up, asym: cs.asym };
+      }
+    }
     out.candidate = c0;
   }
   return out;
@@ -415,6 +431,27 @@ export function formatReport(r, baseLabel = 'base', candidateLabel = null) {
     // The verdict has to be read against the nulls, not against zero. Saying "3 cells moved,
     // therefore the swap moves pixels" would be the same error the holdout already caught,
     // one level up: treating the rig's own drift as the candidate's doing.
+    // A control arm outranks every computed null. It is the same configuration as the
+    // baseline collected as a separate later batch, so whatever it shows against the
+    // baseline is what "no change at all" produces on this rig right now. Measured here:
+    // the control darkened by 17.4 with an asymmetry of 10, MORE than the real swap did.
+    // Every arm verdict was batch drift. Nulls built by splitting one baseline cannot catch
+    // this, because 68 of their 70 splits interleave the batches and cancel exactly the
+    // effect being looked for.
+    if (c.control) {
+      const k = c.control;
+      L.push(`  CONTROL "${k.label}" — same configuration as the baseline, separate later batch:`);
+      L.push(`      control  total shift ${k.sum.toFixed(1)}, ${k.down} down / ${k.up} up, asymmetry ${k.asym}`);
+      L.push(`      candidate total shift ${c.shiftSum.toFixed(1)}, ${c.sign.down} down / ${c.sign.up} up, asymmetry ${c.sign.asym}`);
+      L.push('');
+      if (Math.abs(c.shiftSum) <= Math.abs(k.sum) && c.sign.asym <= k.asym) {
+        L.push('  VERDICT: the control moves at least as much as the candidate. Changing NOTHING');
+        L.push('           reproduces the difference, so this rig cannot attribute it to the change.');
+        return L.join('\n');
+      }
+      L.push('  VERDICT: candidate exceeds the control on at least one measure — see below, and');
+      L.push('           replicate before naming a cause.');
+    }
     if (c.null) {
       const pct = (arr, v) => (100 * arr.filter((x) => x < v).length / arr.length).toFixed(0);
       L.push(`  null 3 — matched: the same two statistics over ${c.null.splits} ${c.null.m}/${r.runs - c.null.m} splits of the baseline itself`);
@@ -624,6 +661,28 @@ function selftest() {
   // per-sweep null, which made a real effect look ordinary.
   check('unique-outside counts cells, not occurrences', () => rs.candidate.uniqueOutside <= rs.candidate.outside);
 
+  // --- the control arm, which is what actually settled the real question ------------------
+  // A control is the SAME configuration as the baseline, collected as a separate later
+  // batch. It measures what "no change at all" produces right now. Measured on the real rig
+  // the control moved MORE than the swap did, so every arm verdict was batch drift.
+  const ctl = [];
+  for (const run of [1, 2]) FR.forEach((f) => ctl.push(S('ctl', run, f, { p50: 97 })));
+  const rctl = analyse([...baseN, ...down, ...ctl], { candidateLabel: 'cand', controlLabel: 'ctl' });
+  check('control arm is measured against the baseline', () => rctl.candidate.control &&
+    rctl.candidate.control.label === 'ctl');
+  check('a control that moves MORE than the candidate voids the verdict', () =>
+    formatReport(rctl, 'base', 'cand').includes('Changing NOTHING'));
+  check('and that verdict outranks the computed null', () =>
+    !formatReport(rctl, 'base', 'cand').includes('DIRECTIONAL SHIFT'));
+
+  // CONTROL ON THE CONTROL: a quiet control must NOT suppress a real candidate difference,
+  // or adding a control would become a way to make any finding disappear.
+  const ctlQuiet = [];
+  for (const run of [1, 2]) FR.forEach((f, i) => ctlQuiet.push(S('ctl', run, f, { p50: 100 + jitter(run, i) })));
+  const rq = analyse([...baseN, ...down, ...ctlQuiet], { candidateLabel: 'cand', controlLabel: 'ctl' });
+  check('CONTROL: a quiet control does not suppress a real candidate shift', () =>
+    !formatReport(rq, 'base', 'cand').includes('Changing NOTHING'));
+
   console.log(`\n  ${pass} passed, ${fail} failed`);
   return fail ? 1 : 0;
 }
@@ -638,7 +697,7 @@ if (has('report')) {
   const baseLabel = arg('base', 'base');
   const candidateLabel = arg('candidate', null);
   const holdoutArg = arg('holdout', null);
-  const r = analyse(readLedger(), { baseLabel, candidateLabel, holdout: holdoutArg ? Number(holdoutArg) : undefined });
+  const r = analyse(readLedger(), { baseLabel, candidateLabel, controlLabel: arg('control', null), holdout: holdoutArg ? Number(holdoutArg) : undefined });
   console.log(formatReport(r, baseLabel, candidateLabel));
   process.exit(r.refused || r.candidate?.outside || r.holdout?.violated ? 1 : 0);
 }
