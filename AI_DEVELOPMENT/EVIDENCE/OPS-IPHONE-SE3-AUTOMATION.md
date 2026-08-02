@@ -73,9 +73,55 @@ Initial Floor gates run `30722138303`, head
   `tests/baselines/iphone-se3-webkit-gameplay.png`, SHA-256
   `f7bee4aa3b42de9a184f33845091bb5d2180a9e862f462c15c9ac9f5f843f1ac`.
 
-Still required before completion:
+Required-baseline rerun `30722581701`, head
+`49ccf350ce931ca45ccedc45f655774a588a859a`:
 
-- required-baseline WebKit rerun within a 15% maximum differing-pixel ratio;
-- iPhone SE 3 Simulator / Mobile Safari run;
-- gated Pages deployment and post-deploy F6 public-surface verification;
-- exact merge revision and final workflow evidence recorded here.
+- F2, F3 and F5 all passed.
+- The complete WebKit sequence passed with zero failures.
+- Visual difference from the reviewed baseline was 0.001728 (0.1728%), below
+  the 15% rejection threshold.
+
+Pull request #8 was squash-merged as
+`02339ce10e63145adf7155ca6b4b1dc2ff7d7f60`.
+
+## First main run and corrective action
+
+Custom Pages run `30722732856` rebuilt and passed WebKit, then failed before a
+Mobile Safari session existed. Artifact `8825445656` shows Appium 3.6.0 and the
+XCUITest 12.1.3 driver selected an iPhone SE (3rd generation) on iOS 26.2 while
+using the runner default Xcode 16.4. WebDriverAgent was therefore invoked with
+`IPHONEOS_DEPLOYMENT_TARGET=26.2` under Xcode 16.4, never listened on port 8100,
+and the report contains zero product checks. This is infrastructure failure,
+not a game pass or game failure.
+
+The pre-existing GitHub branch-source Pages workflow `30722732282` reported a
+successful deployment for the same merge before the custom Safari job
+finished. That means a post-merge-only Safari gate cannot enforce publication
+ordering for this repository.
+
+The corrective delivery therefore:
+
+- pins `/Applications/Xcode_26.2.app/Contents/Developer` to the iOS 26.2 SE 3
+  runtime instead of combining the runner's default Xcode 16.4 with the newest
+  runtime;
+- extends WDA startup to 180 seconds, permits three attempts and records full
+  Xcode output;
+- runs Mobile Safari in the pull-request workflow before the already-required
+  `F3 execution` aggregate can pass, preventing every known Pages path from
+  publishing an unverified merge;
+- keeps the main workflow's WebKit and Mobile Safari rerun before the custom
+  deploy;
+- repairs the invalid multiline shell indentation in the manual verified-build
+  revert workflow.
+
+Local verification of the corrective tree:
+
+- all changed workflows and `AI_DEVELOPMENT/STATE.yaml` parse as YAML;
+- `node --check tools/test-ios-safari.mjs`, `git diff --check`,
+  `npm run validate:ops`, F2 and the Level C F5 record all pass;
+- `npm test` exits 0: 19/19 adversarial mutations rejected, the representative
+  slice repeated twice, 5/5 endings, save migration 133/133, fault recovery
+  34/34 and touch smoke 136/136.
+
+Still required before completion: corrective PR Mobile Safari pass, merge,
+main redeploy, post-deploy F6, and exact final evidence.

@@ -59,6 +59,8 @@ jobs:
     needs: build
     runs-on: macos-15
     timeout-minutes: 45
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.2.app/Contents/Developer
     steps:
       - name: Check out WebKit-verified source
         uses: actions/checkout@v4
@@ -79,18 +81,30 @@ jobs:
           npm install --global appium@3.6.0
           appium driver install xcuitest@12.1.3
           appium driver list --installed
-      - name: Select and boot iPhone SE 3 simulator
+      - name: Select and boot the matching iPhone SE 3 simulator
         id: simulator
         shell: bash
         run: |
-          selection="$(xcrun simctl list devices available --json | jq -r '
-            [.devices | to_entries[] | .key as $runtime | .value[] |
+          set -euo pipefail
+          test -d "$DEVELOPER_DIR"
+          xcodebuild -version
+          test "$(xcodebuild -version | awk '/^Xcode / { print $2 }')" = "26.2"
+          expected_runtime="com.apple.CoreSimulator.SimRuntime.iOS-26-2"
+          selection="$(xcrun simctl list devices available --json | jq -r --arg runtime "$expected_runtime" '
+            [.devices | to_entries[] | select(.key == $runtime) | .value[] |
              select(.name == "iPhone SE (3rd generation)" and .isAvailable == true) |
              {udid: .udid, runtime: $runtime}] |
-            sort_by(.runtime) | last | [.udid, .runtime] | @tsv')"
-          test -n "$selection" && test "$selection" != "null"
+            first | [.udid, .runtime] | @tsv')"
+          if test -z "$selection" || test "$selection" = "null"; then
+            xcrun simctl list devices available
+            echo "::error::iPhone SE (3rd generation) on iOS 26.2 is unavailable for Xcode 26.2."
+            exit 1
+          fi
           IFS=$'\t' read -r udid runtime <<< "$selection"
-          test -n "$udid" && test -n "$runtime"
+          if test -z "$udid" || test -z "$runtime"; then
+            echo "::error::Simulator selection did not return both a UDID and runtime."
+            exit 1
+          fi
           platform_version="$(printf '%s' "$runtime" | sed -E 's/^.*\.iOS-//; s/-/./g')"
           echo "udid=$udid" >> "$GITHUB_OUTPUT"
           echo "platform_version=$platform_version" >> "$GITHUB_OUTPUT"
