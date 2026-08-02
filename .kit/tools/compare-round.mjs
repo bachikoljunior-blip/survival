@@ -142,6 +142,27 @@ for (const reason of result.reasons) console.error(`  ! ${reason}`);
 console.log(`[round] ${result.summary}`);
 console.log(`[round] written to ${show(outPath)}`);
 
+/* ------------------------------------------------------------ adoption */
+
+// The one state where exiting 0 is honest despite no comparison having happened: this
+// repository has never recorded a bar. Before a bar exists there is nothing to have regressed
+// against, and failing here would paint a red check across every unrelated open pull request
+// on the day the gate lands — which is how a gate gets switched off in its first week.
+//
+// One sentence of scope: while no bar exists, the job goes green unless the round itself is
+// broken. Everything else the comparison found is still printed — including required metrics
+// the harness never emits — so adoption day surfaces the work rather than hiding it behind a
+// green tick. It never prints "pass": a reader who sees the word pass believes a round was
+// judged, and none was.
+if (!baseline && argv['allow-unadopted'] && (!current.status || current.status === 'passed')) {
+  console.log('[round] NOT ADOPTED: no bar has ever been recorded here, so nothing was judged.');
+  const blockers = result.reasons.filter((r) => !r.startsWith('no baseline round is recorded yet'));
+  for (const reason of blockers) console.log(`[round] will block once a bar exists: ${reason}`);
+  console.log(`[round] record one with --bootstrap on the apparatus that will judge later rounds, commit ${show(baselinePath)},`);
+  console.log('[round] and this becomes a blocking comparison with no further change.');
+  process.exit(0);
+}
+
 /* ---------------------------------------------------------------- accept */
 
 if (argv.accept) {

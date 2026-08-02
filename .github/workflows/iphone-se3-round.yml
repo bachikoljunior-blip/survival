@@ -91,7 +91,12 @@ jobs:
           FLAGS=''
           if [ "${{ inputs.bootstrap }}" = 'true' ]; then FLAGS='--bootstrap'; fi
           if [ "${{ inputs.accept }}" = 'true' ]; then FLAGS="$FLAGS --accept"; fi
-          node .kit/tools/compare-round.mjs --config=iphone-se3-round.config.json $FLAGS \
+          # --allow-unadopted keeps the job green while this repository has never recorded a
+          # bar -- otherwise the day this lands it paints a red check across every unrelated
+          # open pull request, which is how a gate gets switched off in its first week. It
+          # still prints everything that will block once a bar exists, and it retires itself:
+          # the moment tests/baselines/iphone-se3-round.json is committed the flag is inert.
+          node .kit/tools/compare-round.mjs --config=iphone-se3-round.config.json --allow-unadopted $FLAGS \
             | tee /tmp/round.txt
 
       - name: Say plainly whether a round happened

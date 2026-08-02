@@ -179,9 +179,19 @@ export function compareRounds({ baseline, current, metrics = SUGGESTED_METRICS }
   }
 
   if (!baseline) {
-    reasons.push('no baseline round is recorded yet — run with --accept on a round you trust to establish one');
+    reasons.push('no baseline round is recorded yet — run with --bootstrap on a round you trust to establish one');
     result.metrics = metrics.map((m) => compareMetric(m, {}, current));
-    result.summary = reasons[reasons.length - 1];
+    // Evaluated even here, and this is not a detail. Without it, a repository whose harness
+    // emits none of its required metrics reports only "no baseline yet" — so the day it
+    // adopts the gate it looks clean, and the gap that makes its rounds unjudgeable stays
+    // invisible until someone records a bar and is surprised. Say it on day one.
+    for (const row of result.metrics) {
+      const declared = metrics.find((m) => m.key === row.key);
+      if (declared?.required && row.current === null) {
+        reasons.push(`required metric ${row.key} (${row.path}) is absent from this round`);
+      }
+    }
+    result.summary = `NOT ADOPTED: ${reasons[0]}`;
     return result;
   }
 
