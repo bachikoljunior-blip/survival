@@ -62,3 +62,11 @@ Write, truthfully:
 
 That last line is the one that pays for the rest. If nothing is pushed, say nothing is
 pushed. A handoff that overstates where things stand costs more than no handoff at all.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/resume.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

@@ -44,7 +44,14 @@ import { serveStatic }           from './.kit/lib/browser/serve.mjs';
 import { launchHeadless }        from './.kit/lib/browser/launch.mjs';
 import { attachPageDiagnostics } from './.kit/lib/browser/diagnostics.mjs';
 import { waitForBoot }           from './.kit/lib/browser/boot.mjs';
+
+const browser = await launchHeadless({ noSandbox: true, proxy: false });
 ```
+
+**`proxy: false` is not optional here.** `launchHeadless` honours `HTTPS_PROXY` by default and
+Playwright un-bypasses loopback, so a page served by `serveStatic` on `127.0.0.1` comes back
+as **HTTP 405 with zero page errors** — every measurement below then runs against the proxy's
+error page and reports the layout as fine. See the `probe` skill for the measurement.
 
 Reach each screen through the **production path** — the real navigation, the real touch
 handlers — not by setting state directly. A screen posed by assignment can look fine while the
@@ -58,3 +65,11 @@ image says whether that reads as broken or as fine.
 Per finding: the screen, the element, the string, the measured overflow or overlap in pixels,
 and the viewport it appeared at. "Text is cramped" is not actionable. "`#quest-title` at
 390×844: scrollWidth 268 against clientWidth 214, string 「古代の炉に火を入れる」" is.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/ja-ui-check.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

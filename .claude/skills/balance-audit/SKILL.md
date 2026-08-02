@@ -49,3 +49,11 @@ each effect's marginal value against its cost at the run length where it unlocks
 
 State what the simulation cannot see: input feel, readability, whether the numbers are *fun*.
 A balanced economy and a good game are different claims.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/balance-audit.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.
