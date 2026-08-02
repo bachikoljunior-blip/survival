@@ -400,7 +400,11 @@ narrative_and_evidence_2026_08_02:
         "write JSON to disk" and validates against .kit/lib/plan/findings.schema.json
         (verdict, score, blindComparison, findings[severity, shot, problem, why, owner,
         fix]) but states no path, and nothing under .claude/ or KIT.md mentions
-        AI_DEVELOPMENT/EVIDENCE/ at all.
+        AI_DEVELOPMENT/EVIDENCE/ at all. But the convention already exists in PRACTICE:
+        on 2026-08-02 the skills session wrote skill-validation-balance-audit.json,
+        .mjs and skill-validation-tests.tap into game2's AI_DEVELOPMENT/EVIDENCE/. So the
+        directory is agreed by use and unstated in the skills - which is the cheapest
+        possible gap to close, and the one most likely to drift if left unwritten.
       where: .claude/skills/critic/SKILL.md and .claude/skills/probe/SKILL.md (owned by
         the skills session - this session did not edit them), AI_DEVELOPMENT/EVIDENCE/INDEX.md
       done_when: >-
