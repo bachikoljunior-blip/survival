@@ -37,14 +37,31 @@ objective:
   acceptance_evidence: AI_DEVELOPMENT/PROJECT_STATE.json (acceptance_trace)
 
 execution:
-  # STOP, 2026-08-02, explicit user instruction. The user's focus is verifying the
-  # nine vendored skills, NOT this repository's own work and NOT the kit rollout.
-  # CLAUDE.md tells every run to resume from the last verified checkpoint; that
-  # instruction is older than this block and must not be followed into a resume of
-  # GB-IMP02 or the kit workstream. Ask the user before starting anything here.
+  # LOCKED, NOT STOPPED — 2026-08-02, user instruction. Two failures are possible
+  # here and both are misfires: resuming this repository's work when nobody asked,
+  # and refusing when somebody did. The decision is at the entrance only.
+  #
+  #   named  ("CINDERLINE を続けて" / "survival を続けて" / "GB-IMP02 を続けて",
+  #           or any request that plainly identifies work in THIS repository)
+  #     -> proceed normally. CLAUDE.md's every-run resume applies in full, F1-F9
+  #        apply, no extra permission is needed. Stopping here because this block
+  #        says "locked" is itself a misfire.
+  #   not named ("続けて" alone, or a message about the skills / another project)
+  #     -> do not resume GB-IMP02 or the kit work. Ask what to work on.
+  #
+  # This overrides only the entrance decision in CLAUDE.md ("resume from the last
+  # verified checkpoint" on every run), because the user's focus moved to verifying
+  # the nine vendored skills. It does not weaken anything once work has started.
+  #
   # Nothing was left broken: no processes running, tree clean, branch pushed, and
-  # the vantage samples preserved at EVIDENCE/VANTAGE-LAUNCH-SWAP-SAMPLES.jsonl.
-  paused_by_user: "2026-08-02 — focus moved to skill verification; do not auto-resume"
+  # the vantage samples preserved at EVIDENCE/VANTAGE-LAUNCH-SWAP-SAMPLES.jsonl
+  # because shots/ is gitignored.
+  #
+  # NOTE for anyone changing a vendored skill: .claude/skills/*/SKILL.md are in the
+  # kit's install ledger. Measured 2026-08-02 -- appending one blank line to
+  # .claude/skills/resume/SKILL.md makes `npm run check:kit` FAIL with "edited in
+  # place". Change a skill in the kit repository and re-install; never edit it here.
+  entry_gate: "2026-08-02 — locked to explicit naming; a bare 続けて must not resume this"
   selected_rigor: STANDARD
   active_work:
     id: GB-IMP02
