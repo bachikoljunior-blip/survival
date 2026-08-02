@@ -42,7 +42,25 @@ import { acquireLock, releaseOnExit } from './.kit/lib/browser/lock.mjs';
 import { measureLuma, regionStats, region, compareRegion } from './.kit/lib/image/measure.mjs';
 ```
 
-Four things that are not optional:
+Six things that are not optional:
+
+- **Serving your own content on `127.0.0.1`? Pass `proxy: false`.** `launchHeadless` honours
+  `HTTPS_PROXY` by default, and Playwright then force-appends `<-loopback>` to
+  `--proxy-bypass-list`, which *un*-bypasses loopback. Measured against the harness's own
+  server: the default returns **HTTP 405 with zero page errors**, so the run proceeds and
+  times out waiting for ready — it reads as a failed boot, not a proxy fault. With
+  `proxy: false`, 200. The default exists for reaching **public** URLs; every harness that
+  serves its own build is the other case.
+
+  ```js
+  const browser = await launchHeadless({ noSandbox: true, angleSwiftshader: true, proxy: false });
+  ```
+
+- **`readyExpr` is an expression, not a function.** Playwright evaluates the string, so
+  `'() => window.READY === true'` yields a truthy function object and the wait resolves on the
+  first poll — measured at 21 ms against a page that never became ready. Write
+  `'window.READY === true'`. `waitForBoot` and `verifyLive` now throw on a function source
+  rather than reporting a dead page as booted.
 
 - **`waitForBoot` polls on a timer, not rAF.** rAF does not tick inside `renderer.compile()`,
   and under SwiftShader that window is long enough that a healthy page looks hung.
@@ -75,3 +93,38 @@ Four things that are not optional:
 
 Say which apparatus checks you ran. A measurement whose rig was not checked is a claim, and
 this project has been burned by five of them.
+
+## A scan that detected nothing has not passed
+
+The gate on a *null* result, separate from the gate on the value:
+
+> A scan's empty result is evidence only when the scan has demonstrated it can detect the
+> thing it is scanning for, at a declared minimum, across every layer it claims to cover.
+
+Two instruments on these projects reported success while measuring nothing, in different
+domains and neither raised an error:
+
+| Instrument | What it reported | What it had actually done |
+|---|---|---|
+| An edge scan with limits on longest-repeat and max-jump | within limits, so pass | found no edges at all; the limits were satisfied vacuously |
+| A mutation harness reporting survivors | mutations missed | ran one of the layers it claimed to cover, so every mutation outside it was doomed to read as missed regardless of the truth |
+
+So every scan declares, next to its thresholds:
+
+- **`declaredMinimum`** — how many detections it must make before a verdict of any kind
+  means anything. Below it the result is `insufficient`, which is neither pass nor fail.
+- **`layersClaimed` against `layersRun`** — a harness that covers a subset of what its verdict
+  speaks for is not measuring the difference it reports.
+
+Absence of evidence promotes candidates. That is the whole failure: a rejected change gets in
+because the check that should have caught it found nothing, and finding nothing looked exactly
+like finding nothing wrong.
+
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/probe.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

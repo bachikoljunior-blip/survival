@@ -69,3 +69,11 @@ verification, then ask.
 State the branch, the local and pushed SHA, the served digest you measured, the URL, and
 which of the two verifications passed. If one was skipped, say so — do not let a passing
 `verifyServed` stand in for a boot that never happened.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/publish.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

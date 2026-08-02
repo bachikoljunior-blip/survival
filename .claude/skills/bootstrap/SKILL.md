@@ -9,12 +9,31 @@ Sessions here run in disposable containers: `~/.claude/` is rebuilt every time a
 outside git survives. So the tooling has to travel **in the repository**, and this is how it
 gets there.
 
+**These run from a clone of the `kit` repository, not from the repository being installed
+into.** The installer lives in the kit; a target repo only ever receives a *copy* of it under
+`.kit/`. Running `node tools/bootstrap.mjs` inside an installed repo fails with
+`Cannot find module`, which reads like a broken kit and is only a wrong working directory.
+
 ```bash
+# from a clone of the kit repository:
 node tools/bootstrap.mjs --target=/path/to/repo            # install or update
-node tools/bootstrap.mjs --target=/path/to/repo --check    # is it current?
+node tools/bootstrap.mjs --target=/path/to/repo --check    # is it current with the kit?
 node tools/bootstrap.mjs --target=/path/to/repo --skills=probe,publish   # a subset
 node tools/bootstrap.mjs --target=/path/to/repo --template # + protocol, state and CI
 ```
+
+From inside a repository that already has the kit, the vendored copy can check *itself*:
+
+```bash
+# from the repository that has the kit installed:
+node .kit/tools/bootstrap.mjs --target=. --check
+```
+
+The two `--check`s answer different questions and are not interchangeable. The vendored one
+verifies the copy against its own install ledger — it catches an in-place edit or a missing
+file, and says so in its own output. It **cannot** tell you the copy is an old version,
+because it has no kit to compare against. For "is this current with the kit?", run the first
+form from a kit clone.
 
 What lands:
 
@@ -76,3 +95,11 @@ Say which files changed, whether `--check` passes, and whether the second run wa
 "Installed" means `--check` exited 0 and you saw it. With `--template`, add: the placeholder
 state validates, and `node tools/validate-state.mjs --selftest` reported every case behaving
 as specified — including the control, which must *not* fire.
+
+---
+
+If `AI_DEVELOPMENT/SKILLS/OVERLAYS/bootstrap.md` exists in this repository, read it as part of this
+skill. It holds rules this project verified for itself that have not earned a place in the
+shared kit — staying project-local is a normal outcome, not a lesser one. Add to the overlay
+rather than editing this file: this file is vendored, so an edit in place is reported as drift
+by `bootstrap.mjs --check`, and it destroys the baseline the next comparison needs.

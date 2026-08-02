@@ -69,6 +69,7 @@ function plannedFiles() {
   walk(join(KIT, 'lib'), join(target, '.kit', 'lib'));
   pairs.push([join(KIT, 'tools', 'check-ownership.mjs'), join(target, '.kit', 'tools', 'check-ownership.mjs')]);
   pairs.push([join(KIT, 'tools', 'bootstrap.mjs'), join(target, '.kit', 'tools', 'bootstrap.mjs')]);
+  pairs.push([join(KIT, 'tools', 'skill.mjs'), join(target, '.kit', 'tools', 'skill.mjs')]);
 
   const wanted = argv.skills ? String(argv.skills).split(',') : readdirSync(join(KIT, '.claude', 'skills'));
   for (const name of wanted) {
