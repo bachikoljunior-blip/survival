@@ -24,6 +24,12 @@ const ROOT = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 
 const STEPS = [
   ['operating state', ['node', 'tools/check_operating_state.mjs']],
+  // A workflow file is the only code here that never runs locally, and a file
+  // GitHub cannot parse produces a run with zero jobs rather than a visible
+  // failure. revert-to-verified.yml was unloadable for 48 pushes while the
+  // state file recorded the revert mechanism as merely unexercised.
+  ['workflow files load', ['node', 'tools/check_workflows.mjs']],
+  ['workflow check can fail', ['node', 'tools/check_workflows.mjs', '--selftest']],
   ['production build', ['node', 'build.mjs']],
   ['pages root mirror', ['node', 'tools/export_pages_root.mjs', '--check']],
   ['dev build', ['node', 'build.mjs', '--dev']],

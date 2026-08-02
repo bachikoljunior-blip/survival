@@ -27,6 +27,16 @@ const UDID = process.env.IOS_SIMULATOR_UDID || '';
 const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
 
+// WebDriverAgent is compiled by xcodebuild on first use, into a DerivedData
+// directory that starts empty on a fresh runner. The driver's default
+// wdaLaunchTimeout is 60s, which is shorter than that build, so the session
+// dies while the build it is waiting for is still legitimately running.
+// Measured 2026-08-02 (run 30744623114): appium gave up after two 60s attempts.
+const WDA_LAUNCH_TIMEOUT = Number(process.env.CINDERLINE_IOS_WDA_TIMEOUT || 480000);
+// Keep the compiled WebDriverAgent somewhere stable so a retry, and a second
+// run on a warm runner, do not pay the whole build again.
+const WDA_DERIVED_DATA = process.env.CINDERLINE_IOS_DERIVED_DATA || '';
+
 mkdirSync(OUTPUT, { recursive: true });
 
 const report = {
@@ -200,6 +210,15 @@ try {
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,
+          'appium:wdaLaunchTimeout': WDA_LAUNCH_TIMEOUT,
+          'appium:wdaConnectionTimeout': WDA_LAUNCH_TIMEOUT,
+          // Without this, appium logs xcodebuild output only when it decides an
+          // error is present — so a WebDriverAgent build that fails outright
+          // leaves nothing behind but "ECONNREFUSED 127.0.0.1:8100", which names
+          // the symptom and hides the cause. That is what made the 2026-08-02
+          // failure take an artifact download to diagnose.
+          'appium:showXcodeLog': true,
+          ...(WDA_DERIVED_DATA ? { 'appium:derivedDataPath': WDA_DERIVED_DATA } : {}),
         },
         firstMatch: [{}],
       },

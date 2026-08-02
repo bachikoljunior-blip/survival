@@ -78,10 +78,12 @@ jobs:
             exit 0
           fi
           git add -A
-          git commit -m "Revert published build to ${{ inputs.revision }}
-
-The public surface was not serving the intended revision. This restores the
-last build that was actually verified on it. Operating records are deliberately
-not rolled back."
+          # Two -m flags, not one multi-line string. A quoted paragraph starting
+          # at column 1 ends this `run: |` block scalar, which is precisely the
+          # defect that kept this workflow from ever loading. git joins repeated
+          # -m arguments with a blank line, so the commit message is unchanged.
+          git commit \
+            -m "Revert published build to ${{ inputs.revision }}" \
+            -m "The public surface was not serving the intended revision. This restores the last build that was actually verified on it. Operating records are deliberately not rolled back."
           git push origin main
           echo "Pushed. pages.yml will redeploy and its F6 job will verify the result."

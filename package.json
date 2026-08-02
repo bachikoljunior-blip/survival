@@ -9,6 +9,8 @@
     "dev": "node build.mjs --serve",
     "watch": "node build.mjs --watch",
     "validate:ops": "node tools/check_operating_state.mjs",
+    "validate:workflows": "node tools/check_workflows.mjs",
+    "validate:workflows:selftest": "node tools/check_workflows.mjs --selftest",
     "test:save": "node build.mjs --dev && node tools/save_migration.mjs",
     "validate:ops:selftest": "node tools/check_operating_state.mjs --selftest",
     "check:kit": "node .kit/tools/bootstrap.mjs --target=. --check",
@@ -16,7 +18,7 @@
     "validate": "node tools/validate.mjs",
     "validate:benchmarks": "node tools/check_benchmarks.mjs",
     "bench": "node build.mjs && node tools/perf.mjs && node tools/bench_measure.mjs && node tools/check_benchmarks.mjs",
-    "test": "node tools/check_operating_state.mjs && node build.mjs --dev && node tools/validate.mjs && node tools/check_benchmarks.mjs && node tools/gate_b_adversarial.mjs && node tools/gate_b_slice.mjs && node tools/playthrough.mjs && node tools/perf.mjs && npm run test:save && npm run test:faults && npm run test:touch",
+    "test": "node tools/check_operating_state.mjs && node tools/check_workflows.mjs && node build.mjs --dev && node tools/validate.mjs && node tools/check_benchmarks.mjs && node tools/gate_b_adversarial.mjs && node tools/gate_b_slice.mjs && node tools/playthrough.mjs && node tools/perf.mjs && npm run test:save && npm run test:faults && npm run test:touch",
     "test:faults": "node build.mjs && node tools/fault_recovery.mjs",
     "test:touch": "node build.mjs && node tools/touch_smoke.mjs",
     "test:iphone-webkit": "node build.mjs && node tools/test-iphone-webkit.mjs",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.25.0",
+    "js-yaml": "^5.2.3",
     "pixelmatch": "^7.1.0",
     "playwright": "^1.56.0",
     "pngjs": "^7.0.0"

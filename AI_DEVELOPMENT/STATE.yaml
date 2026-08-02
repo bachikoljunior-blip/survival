@@ -48,13 +48,24 @@ execution:
       mutually blind lenses, one source-blind, critical 2 / high 6 / medium 6,
       every high fixed, and node tools/check_reviews.mjs --gate B passes.
   delivery_work:
+    id: OPS-RELEASE-MACHINERY-REPAIR
+    status: complete_unverified
+    statement: >-
+      Repair the three defects found in the release machinery on 2026-08-02, all
+      of which the previous record either missed or understated. See
+      release_machinery_findings below. The code changes are locally executed and
+      verified; none has yet been observed on GitHub, so this is
+      complete_unverified and not complete_verified.
+  previous_delivery_work:
     id: OPS-IPHONE-SE3-AUTOMATION
-    status: verification_in_progress
+    status: failed
     statement: >-
       Add a required Playwright WebKit iPhone SE 3 release gate and a pre-deploy
-      iPhone SE 3 iOS Simulator / Mobile Safari gate. Physical-only performance,
-      thermal, memory-pressure, reach, haptic and audio properties remain
-      unmeasured, but are no longer a routine publication prerequisite.
+      iPhone SE 3 iOS Simulator / Mobile Safari gate. The WebKit half works and
+      has passed on every run since 02339ce. The iOS Simulator half has FAILED on
+      all three pushes to main since it landed, taking the deploy and F6 jobs
+      down with it, and the "pre-deploy" premise itself was wrong — see
+      release_machinery_findings.RM-3.
   last_verified_checkpoint:
     revision: b5f5f948e49fb0d53b7488aded5955b109821f4c
     what: >-
@@ -68,10 +79,87 @@ execution:
       - docs/reviews/gate-b-round-h1-h2-touch.md
       - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
   modified_but_unverified:
-    - "Playwright WebKit iPhone SE 3 gate: full official run completed with only the intended missing-baseline failure; candidate reviewed and promoted, required-baseline rerun pending."
-    - "iPhone SE 3 iOS Simulator / Mobile Safari Appium gate: harness syntax and missing-device refusal verified locally; real macOS runner execution pending."
-    - "Pages publication and post-deploy F6 for this delivery: pending merge."
-    - "Shared-kit integration (branch claude/kit-rollout-integration-a4zihp): the vendored kit, the harness swap and the validator rewrite were REBUILT on this main, not merged onto it. check:kit, the 46-mutation equivalence battery, the 23/23 validator self-test, tools/perf.mjs end to end, validate, check_benchmarks and F3 all pass. NOT re-run on this tree: tools/playthrough.mjs (about an hour on this rig) and the 18-frame vantage sweep — and the sweep could not settle anything anyway, see kit_integration.vantage_noise below."
+    - "revert-to-verified.yml YAML repair: the file now parses (js-yaml, and the kit parser) and every run block is shell-valid under `bash -n`. NOT yet observed on GitHub — the proof is that pushing stops producing a zero-job run named after the file path. Until a push is observed, this is complete_unverified."
+    - "tools/check_workflows.mjs: selftest 8/8 bad inputs rejected and 5/5 good inputs accepted, executed locally. Wired into tools/gates/f3_execution.mjs and observed taking F3 from exit 0 to exit 1 on a deliberately broken gates.yml, then back to exit 0 when restored. Not yet run in CI."
+    - "ios-safari toolchain fix in pages.yml: the jq runtime selection was exercised against synthetic simctl JSON for four Xcode SDK ceilings (26 -> 26.2, 18 -> 18.5, 17 -> 17.0, 16 -> refusal) and the sed against real `xcodebuild -showsdks` shapes. The macOS half — xcode-select, the actual WDA build, the raised wdaLaunchTimeout — CANNOT be executed in this environment and has never run. This is the one change most likely to still be wrong."
+    - "Shared-kit integration: MERGED. Pull requests #10, #11 and #12 all landed; main is b404ee8. The record below that describes this as an unmerged branch is superseded and kept only for its disproved/equivalence notes."
+  release_machinery_findings:
+    measured_on: "2026-08-02, against GitHub Actions runs 30722732856, 30734830183, 30744623114 and 30744622824"
+    note: >-
+      All three were found by looking at what GitHub actually did with main
+      after the merges, rather than at what the workflow files say they do.
+      None of the three was visible from the repository alone.
+    RM-1:
+      statement: >-
+        revert-to-verified.yml has never been a workflow. A `git commit -m` whose
+        second paragraph began at column 1 terminated the enclosing `run: |`
+        block scalar, so the file is not valid YAML. GitHub responds to an
+        unloadable workflow by creating a run named after the FILE PATH, failing
+        it in under a second with zero jobs, and saying nothing else. Run 48 of
+        that non-workflow was the b404ee8 push.
+      why_the_record_missed_it: >-
+        The record called the revert mechanism `prepared_not_executed` — present
+        but never exercised. That was too generous: it could not be dispatched at
+        all, because GitHub had nothing to dispatch. `unenforced_items` reasoned
+        about why automatic revert was deliberately not wired, which read as
+        deliberate restraint over what was simply a broken file.
+      status: complete_unverified
+      fix: >-
+        Two -m arguments instead of one multi-line string, plus
+        tools/check_workflows.mjs so no workflow file can ever again be
+        unparseable without a local check failing first.
+    RM-2:
+      statement: >-
+        The ios-safari job has failed on every push to main since it landed
+        (02339ce, 325b1e1, b404ee8) and takes `deploy` and the F6 job with it —
+        both are `skipped`, which is why F6 has STILL never run anywhere. Root
+        cause, from the job's own appium.log: the runner's active Xcode was 16.4
+        while the simulator-selection step took the newest installed runtime,
+        iOS 26.2. appium therefore ran xcodebuild with
+        IPHONEOS_DEPLOYMENT_TARGET=26.2 against a toolchain with no such SDK.
+        xcodebuild exited early, WebDriverAgent never listened on port 8100, and
+        the only surfaced symptom was `connect ECONNREFUSED 127.0.0.1:8100`
+        after two 60s attempts.
+      contributing: >-
+        appium's default wdaLaunchTimeout is 60s and a cold WebDriverAgent build
+        is minutes, so the timeout would have been marginal even with a matched
+        toolchain. `showXcodeLog` was off, which is why the cause needed an
+        artifact download rather than being in the job log.
+      status: complete_unverified
+      fix: >-
+        Select the newest installed Xcode, read its maximum iphonesimulator SDK,
+        and choose the newest iPhone SE 3 runtime that toolchain can build for —
+        refusing loudly with the runtime list if none qualifies. Raise
+        wdaLaunchTimeout to 480s, persist DerivedData, turn on showXcodeLog.
+        The macOS half of this is UNEXECUTED here; see modified_but_unverified.
+    RM-3:
+      statement: >-
+        The two gates in pages.yml are not pre-deploy gates. Pages is served from
+        the branch-source root mirror (decision OD-005), so GitHub's own "pages
+        build and deployment" run publishes a push within seconds of it landing.
+        For b404ee8 that finished at 10:53:07. The WebKit gate finished at
+        10:54:45 and the iOS gate failed at 11:02:31 — the build had been public
+        for nine minutes before either verdict existed, and the failing gate
+        could not and did not withdraw it.
+      what_this_does_not_show: >-
+        No bad build reached anyone. The product bundle is byte-identical across
+        b5f5f94, 02339ce, 325b1e1 and b404ee8 — these were tooling and record
+        commits only. That also means the F6 byte comparison run this session
+        CANNOT discriminate which path published; the ordering claim rests on
+        the timestamps and OD-005, not on the byte match.
+      status: inconclusive
+      why_inconclusive: >-
+        Whether the Actions `deploy` job is a second live publisher or dead
+        weight against a branch-source setting was NOT determined. The Pages
+        source setting itself was not read — no tool available to this session
+        exposes it. Both readings are consistent with what was measured, and
+        they imply different repairs, so no change was made to the deploy path.
+      next_step: >-
+        Read the repository's Pages source setting. If it is `main/(root)`,
+        either drop the Actions deploy/F6 jobs and move verification to a
+        post-push workflow, or move Pages to the Actions source so the gates can
+        actually precede publication. Do not "fix" this by guessing which.
+
   current_blockers:
     - id: B1
       statement: >-
@@ -166,12 +254,15 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Merge the shared-kit integration branch claude/kit-rollout-integration-a4zihp
-    into main, then push the reviewed WebKit baseline to pull request #8, require
-    the required-baseline WebKit rerun and F2/F3/F5 to pass, merge, then require
-    the iOS Simulator Mobile Safari gate, Pages deployment and F6 public-surface
-    verification to complete. Record exact workflow and merge evidence before
-    resuming GB-IMP02.
+    Open a pull request for branch claude/continue-aahbtl and let the Floor gates
+    run. Then, in order: (1) confirm on GitHub that revert-to-verified.yml now
+    produces a real workflow rather than a zero-job run named after the file path
+    — this is the whole proof of RM-1; (2) watch the ios-safari job on the merge
+    push and read its appium.log, which now carries xcodebuild output, to confirm
+    or refute the RM-2 toolchain diagnosis; (3) resolve RM-3 by reading the
+    repository's Pages source setting before changing any deploy wiring. Only
+    then return to GB-IMP02, the trust feedback in docs/bible.md IMP-02, which
+    has not been started.
 
   kit_integration:
     branch: claude/kit-rollout-integration-a4zihp
@@ -211,9 +302,13 @@ execution:
       re-derived here.
 
 floor:
-  last_check: "2026-08-02 (iPhone SE 3 automation delivery, local Level C)"
+  last_check: "2026-08-02 (release machinery repair, local Level C)"
   independence_level_used: C
   skips:
+    - "F5 for THIS run is Level C: the three findings were falsified against primary evidence — the job's own appium.log, the GitHub jobs API showing deploy and verify `skipped`, and a YAML parse reproduced in two independent parsers — and the new check was watched failing and passing. No independent lens reviewed the changes. Level A/B was not attempted."
+    - "F6: still owed and now understood to be structurally unreachable until RM-2 is fixed. The byte comparison was performed and passed; the boot check could not run from this environment. Not recorded as satisfied."
+    - "F3 for the macOS half of the ios-safari fix: prepared_not_executed. There is no macOS or iOS Simulator in this environment, so xcode-select, the WebDriverAgent build and the raised timeout have never been executed. Only the jq and sed logic was exercised, against synthetic input."
+    - "F7: not fired. No objective was marked complete; GATE-B remains in progress and GB-IMP02 has not been started."
     - "F6: ATTEMPTED AND BLOCKED, still owed. main moved to e0b2815 and the Pages deployment for that revision reports success, but tools/gates/f6_public_revision.mjs cannot reach the public surface from this environment: the egress proxy answers 403 to CONNECT for bachikoljunior-blip.github.io:443 (measured 2026-08-01T15:56:50Z, recorded in the proxy's own recentRelayFailures). A deployment job reporting success is not evidence of what a visitor receives, so this delivery is NOT recorded as publicly verified. Note: an earlier entry in this file claimed the policy had been widened and the Pages URL returned 200; that is contradicted by this measurement."
     - "F7: not fired. No objective was marked complete this run; GATE-B remains in progress."
     - "F5 limitation: the Level A lens was source-blind and returned a verdict (claim 1 FAIL, the rest PASS), but it tested the bundle as it stood before the other lenses' findings were fixed, and it did NOT re-verify afterwards. Its two findings were reproduced and regression-checked by this session instead, which is Level C for that step. Recorded rather than smoothed over."
@@ -235,9 +330,27 @@ floor:
     f3_execution_check: active
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
-    iphone_webkit_release_gate: observed_initial_failure_rerun_pending
-    ios_safari_release_gate: prepared_not_executed
+    iphone_webkit_release_gate: active
+    ios_safari_release_gate: failed
     revert_mechanism: prepared_not_executed
+    workflow_loadability_check: active
+    # Corrections made 2026-08-02 after reading what GitHub actually did:
+    #   iphone_webkit_release_gate -> active. It has passed on all three main
+    #     pushes since 02339ce (job `build`, step "Exercise the iPhone SE 3
+    #     WebKit surface"), and was previously observed failing on the 37.656px
+    #     Japanese button. Observed failing, observed passing, runs in CI.
+    #   ios_safari_release_gate -> failed, not prepared_not_executed. It has
+    #     executed three times and failed three times, for the reason in RM-2.
+    #     "prepared_not_executed" would imply it had never run.
+    #   revert_mechanism stays prepared_not_executed, but for a different and
+    #     worse reason than recorded: until this run the file was not loadable
+    #     at all (RM-1). It now parses locally; that is not yet evidence that
+    #     GitHub accepts it, so the status does not improve on this run.
+    #   workflow_loadability_check -> active. tools/check_workflows.mjs was
+    #     watched taking F3 from exit 0 to exit 1 on a broken gates.yml and back
+    #     again, and its own selftest rejects 8 bad inputs including the real
+    #     RM-1 defect. It runs inside the F3 gate, which IS a required check, so
+    #     unlike the others it can block a merge today.
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
       F2  tools/gates/f2_state_update.mjs --base HEAD~1 -> exit 1. Real input:
@@ -277,8 +390,9 @@ floor:
         Pages deploy, which is after the merge, so requiring it on a pull
         request would be requiring a check that cannot run yet.
     unenforced_items:
-      - "F6: the gate is wired into pages.yml after deploy but has NEVER run there. It cannot be exercised from the development environment either - outbound HTTPS is denied by egress policy (403 on the Pages URL and on example.com alike), so the real public surface is unreachable from there. Verified against the shipped build only through a local server."
-      - "revert: revert-to-verified.yml is deliberately manual-dispatch, never executed. Automatic revert was not wired because it would push to main from CI unprompted."
+      - "F6: the gate is wired into pages.yml after deploy and has STILL never run there. The reason is now known and is not scheduling: `verify` needs `deploy`, `deploy` needs `ios-safari`, and ios-safari has failed on every push since it landed, so both are skipped (run 30744623114, jobs 91488840567 and 91488840573 — both `skipped`). Fixing RM-2 is a precondition for F6 ever running at all."
+      - "revert: revert-to-verified.yml was NOT 'deliberately manual-dispatch, never executed'. It was unloadable YAML and therefore not dispatchable at all — see RM-1. The manual-dispatch design decision is real and unchanged, but it was never what stopped this from running. Repaired this run, not yet confirmed on GitHub."
+      - "F6 from this environment: the four published files were fetched and are byte-identical to the local build (with NODE_USE_ENV_PROXY=1, which the tool still does not set for itself — see F6-TOOL-PROXY). The gate still exits 1, because its boot check drives Chromium at the public URL and the sandbox proxy resets that connection. So the bytes are confirmed and the runtime boot is not."
     unattended_allowed: false
     note: >-
       Every field above is rewritten to `active` only after the mechanism has
@@ -326,27 +440,41 @@ recovery:
     Pages surface. Operating files: see AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md.
 
 remote:
-  branch: claude/kit-rollout-integration-a4zihp
-  previous_branch: agent/iphone-se3-automation
-  pull_request: 8
-  deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
+  branch: claude/continue-aahbtl
+  previous_branch: claude/kit-rollout-integration-a4zihp
+  pull_request: none open for this branch yet
+  main_revision: b404ee8da6ee6fec1b53cbfcc409be1ac2f312c0
+  deployed_revision: b404ee8da6ee6fec1b53cbfcc409be1ac2f312c0
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
+  public_surface_measured: >-
+    2026-08-02. index.html, cinderline.1.0.0.js, styles.css and
+    manifest.webmanifest fetched from the live URL are byte-identical to the
+    local production build of b404ee8. `verified_public_revision` is deliberately
+    NOT advanced to b404ee8 on that basis: the product bundle has not changed
+    since b5f5f94, so identical bytes are equally consistent with a stale
+    deployment, and the gate's boot check could not run from here. What is
+    established is that the public bytes are current, not that b404ee8 was
+    delivered and boots.
   status: >-
-    Pull request #8 is open at head 7839c28824273879dad00807c31e97d7e07ff4c3.
-    Floor run 30722138303 passed F2, F5 and the existing F3 six-step execution.
-    The complete WebKit sequence ran and failed only on the designed first-run
-    missing-baseline check. Artifact 8825225421 was inspected and its candidate
-    was promoted locally; the required-baseline rerun, merge, iOS Safari,
-    deployment and F6 remain pending.
+    Pull requests #8, #10, #11 and #12 are all merged; main is b404ee8 and the
+    local branch claude/continue-aahbtl was at that same revision when this run
+    started. Pull request #9 (agent/premerge-ios-gate, "Require Mobile Safari
+    before publication") is STILL OPEN and was not examined this run — its
+    subject matter overlaps RM-3 and it should be read before any further deploy
+    rewiring. Since 02339ce every push to main produces two red runs: the
+    ios-safari failure (RM-2) and the unloadable revert workflow (RM-1).
 
 updated_at: "2026-08-02"
 reconciliation_status: >-
-  Protocol v2.2 remains active. The new release harness has passed syntax,
-  required-input refusal and a complete local Chromium surrogate run after the
-  44px Japanese-button repair. The full repository suite also passed on the
-  final tree: 19 adversarial refusals plus two clean runs, five endings, save
-  migration 133/133, fault recovery 34/34 and touch 136/136. The official
-  WebKit first run completed with only the intended missing-baseline failure;
-  its candidate was reviewed and promoted. The required-baseline rerun and
-  official iOS Simulator layer remain required before merge and publication.
+  Protocol v2.2 remains active. This run was a reconciliation, and the record it
+  reconciled against was wrong in three places, all in the release machinery and
+  none visible from the repository alone — see release_machinery_findings. The
+  previous `exact_next_action` was already complete: pull requests #10, #11 and
+  #12 merged the shared kit and main is b404ee8. Corrected here: the revert
+  mechanism was unloadable rather than merely unexercised; the iOS Safari gate
+  has failed three times rather than never run; the WebKit gate has earned
+  `active`; F6 has never run because it is downstream of the failing job, not
+  because of scheduling; and the "pre-deploy" gates run after branch-source
+  publication, which is recorded as inconclusive rather than fixed by guess. The
+  product itself was not touched this run and GB-IMP02 has not been started.
