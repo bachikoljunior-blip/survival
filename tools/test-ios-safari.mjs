@@ -158,24 +158,6 @@ async function performActions(actions) {
   await webdriver(sessionPath('/actions'), { method: 'DELETE' }).catch(() => {});
 }
 
-const WEB_ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
-
-async function clickElement(selector) {
-  const element = await webdriver(sessionPath('/element'), {
-    body: { using: 'css selector', value: selector },
-  });
-  const id = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
-  if (!id) throw new Error(`Safari did not resolve element: ${selector}`);
-  await webdriver(sessionPath(`/element/${encodeURIComponent(id)}/click`), { body: {} });
-}
-
-async function clickScriptElement(script) {
-  const element = await execute(script);
-  const id = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
-  if (!id) throw new Error(`Safari script did not resolve a WebDriver element: ${script}`);
-  await webdriver(sessionPath(`/element/${encodeURIComponent(id)}/click`), { body: {} });
-}
-
 function finger(id, actions) {
   return { type: 'pointer', id, parameters: { pointerType: 'touch' }, actions };
 }
@@ -313,7 +295,7 @@ try {
     'title controls meet the 44 CSS px floor', JSON.stringify(title.buttons));
   const newGame = title.buttons.find((item) => item.name === 'new');
   check(Boolean(newGame), 'new-game control is discoverable', JSON.stringify(title.buttons));
-  await clickElement('.title-menu .btn:nth-child(2)');
+  await tap(newGame.x + newGame.width / 2, newGame.y + newGame.height / 2);
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
   check(true, 'trusted Mobile Safari tap starts a new game', baseUrl);
 
@@ -350,10 +332,10 @@ try {
   const attackY = attack.y + attack.height / 2;
   await performActions([
     finger('move-thumb', [
-      move(110, 250), down(), move(110, 190, 350), pause(0), pause(150), pause(550), up(), pause(0),
+      move(110, 250), down(), move(110, 190, 350), pause(700), up(),
     ]),
     finger('attack-thumb', [
-      pause(0), pause(0), pause(350), move(attackX, attackY), down(), pause(150), up(), pause(550),
+      move(attackX, attackY), pause(350), down(), pause(700), up(),
     ]),
   ]);
   await new Promise((done) => setTimeout(done, 350));
@@ -381,7 +363,7 @@ try {
   check(cameraDelta > 0.02, 'trusted right-thumb drag moves the camera', `delta=${cameraDelta.toFixed(5)}`);
 
   const menu = controls.find((item) => item.name === 'menu');
-  await clickScriptElement('return window.CINDERLINE.game.hud.sysMenu;');
+  await tap(menu.x + menu.width / 2, menu.y + menu.height / 2);
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.MENU;');
   await screenshot(PAUSE_SHOT);
   report.screenshots.pause = PAUSE_SHOT.slice(ROOT.length + 1);
@@ -395,13 +377,13 @@ try {
     'pause actions are touch-sized in Safari', JSON.stringify(pauseButtons));
   const saveButton = pauseButtons[0];
   const resumeButton = pauseButtons[pauseButtons.length - 1];
-  await clickScriptElement("return window.CINDERLINE.game.menus.pauseNode.querySelectorAll('.btn')[0];");
+  await tap(saveButton.x + saveButton.width / 2, saveButton.y + saveButton.height / 2);
   await waitForScript("return Boolean(localStorage.getItem('cinderline.save.v1'));", 10000);
   const saved = await execute(`
     var p=window.CINDERLINE.game.player;
     return {x:p.pos.x,y:p.pos.y,z:p.pos.z,bytes:localStorage.getItem('cinderline.save.v1').length};
   `);
-  await clickScriptElement("var b=window.CINDERLINE.game.menus.pauseNode.querySelectorAll('.btn');return b[b.length-1];");
+  await tap(resumeButton.x + resumeButton.width / 2, resumeButton.y + resumeButton.height / 2);
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;');
 
   await webdriver(sessionPath('/orientation'), { body: { orientation: 'PORTRAIT' } });
@@ -428,7 +410,7 @@ try {
   `);
   check(continueButton.width >= 44 && continueButton.height >= 44,
     'saved run exposes a touch-sized Continue action', JSON.stringify(continueButton));
-  await clickScriptElement('return window.CINDERLINE.game.menus.titleButtons.continue;');
+  await tap(continueButton.x, continueButton.y);
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
   const restored = await execute(`var p=window.CINDERLINE.game.player;return{x:p.pos.x,y:p.pos.y,z:p.pos.z};`);
   const restoreDistance = Math.hypot(restored.x - saved.x, restored.y - saved.y, restored.z - saved.z);

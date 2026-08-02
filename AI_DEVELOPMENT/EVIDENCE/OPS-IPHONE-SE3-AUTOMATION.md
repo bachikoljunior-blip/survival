@@ -125,3 +125,19 @@ Local verification of the corrective tree:
 
 Still required before completion: corrective PR Mobile Safari pass, merge,
 main redeploy, post-deploy F6, and exact final evidence.
+
+The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
+to begin with `pointerMove`; a delayed second source beginning with `pause` is
+rejected before the page receives the gesture. The corrective harness now
+positions both touch sources first, then performs the bounded simultaneous
+movement/attack hold. This is a harness-compatibility repair and remains
+`complete_unverified` until the exact PR head passes Mobile Safari.
+
+PR #9 run `30726720202` created that exact Safari session and verified a
+667×311 content viewport at DPR 2, five reported touch points, Mobile Safari,
+WebGL, full-canvas rendering, no title overflow and 44 CSS px title controls.
+It then timed out starting a game because CINDERLINE's div controls deliberately
+listen to `pointerdown`/`pointerup`, while WebDriver element activation emits a
+native `click`. The harness now uses W3C coordinate taps for New Game, the
+system menu, Save, Resume and Continue. This preserves trusted browser input
+and tests the same event path as a finger; the exact-head rerun remains blocking.

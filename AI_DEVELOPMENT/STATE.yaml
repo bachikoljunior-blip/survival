@@ -57,6 +57,9 @@ execution:
       iOS 26.2 mismatch and an existing branch-source Pages path that could
       publish before the post-merge Safari job. The corrective delivery pins
       Xcode 26.2 to iOS 26.2 and moves Safari into the required F3 PR check.
+      The W3C two-pointer sequence positions both touch sources before their
+      bounded waits so Xcode 26.2 WebDriverAgent accepts the simultaneous
+      movement/attack gesture.
       Physical-only performance, thermal, memory-pressure, reach, haptic and
       audio properties remain unmeasured and non-blocking for routine release.
   last_verified_checkpoint:
@@ -76,6 +79,8 @@ execution:
     - "The first main iOS job selected iOS 26.2 while Appium inherited default Xcode 16.4. WebDriverAgent never opened port 8100, so the job failed before a Safari session and produced zero product checks. The corrective workflow pins Xcode 26.2 with iOS 26.2 and lengthens/logs WDA startup."
     - "GitHub's pre-existing branch-source Pages deployment reported success for 02339ce before the custom iOS job completed. The corrective workflow adds Mobile Safari to the required pre-merge F3 check so this publication path cannot bypass it on future merges."
     - "Corrective pull request, required Mobile Safari pass, gated redeploy and post-deploy F6 remain pending."
+    - "The Mobile Safari harness now starts both W3C touch sources with pointerMove; this preserves simultaneous movement/attack semantics while avoiding Xcode 26.2 WebDriverAgent's rejection of a second source beginning with pause. An exact-head pass remains required."
+    - "PR #9 run 30726720202 created the exact Xcode 26.2/iOS 26.2 Mobile Safari session and passed device, 667×311/DPR 2, five-touch-point, WebGL, canvas, overflow and 44px title checks. Native WebDriver click did not activate the game's pointer-only div control, so title, system, pause and Continue actions now use W3C coordinate taps; no product pass is claimed until rerun."
   current_blockers:
     - id: B1
       statement: >-
@@ -170,14 +175,14 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Open the corrective pull request with the Xcode/iOS pair pinned and Mobile
-    Safari inside the required F3 check. Require F2/F3/F5, WebKit and a real
-    Mobile Safari session to pass, merge it, then require the main redeploy and
+    Require corrective pull request #9 with the Xcode/iOS pair pinned and the
+    WDA-compatible two-pointer sequence to pass F2/F3/F5, WebKit and a real
+    Mobile Safari journey, merge it, then require the main redeploy and
     F6 public-surface verification to pass. Record exact run and merge evidence
     before resuming GB-IMP02.
 
 floor:
-  last_check: "2026-08-02 (iPhone SE 3 post-merge corrective delivery, Level C)"
+  last_check: "2026-08-02 (PR #9 WebKit passed; Mobile Safari run 30726720202 proved the exact device/layout then exposed native-click versus pointer-only controls; W3C coordinate-tap rerun pending, Level C)"
   independence_level_used: C
   skips:
     - "F6: ATTEMPTED AND BLOCKED, still owed. main moved to e0b2815 and the Pages deployment for that revision reports success, but tools/gates/f6_public_revision.mjs cannot reach the public surface from this environment: the egress proxy answers 403 to CONNECT for bachikoljunior-blip.github.io:443 (measured 2026-08-01T15:56:50Z, recorded in the proxy's own recentRelayFailures). A deployment job reporting success is not evidence of what a visitor receives, so this delivery is NOT recorded as publicly verified. Note: an earlier entry in this file claimed the policy had been widened and the Pages URL returned 200; that is contradicted by this measurement."
@@ -202,7 +207,7 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: observed_pre_session_failure_corrective_rerun_pending
+    ios_safari_release_gate: exact_session_observed_coordinate_tap_and_wda_two_pointer_rerun_pending
     revert_mechanism: invalid_yaml_corrective_fix_pending
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
