@@ -21,6 +21,8 @@
     "test:touch": "node build.mjs && node tools/touch_smoke.mjs",
     "test:iphone-webkit": "node build.mjs && node tools/test-iphone-webkit.mjs",
     "test:ios-safari": "node build.mjs && node tools/test-ios-safari.mjs",
+    "round:iphone": "npm run test:iphone-webkit && node .kit/tools/compare-round.mjs --config=iphone-se3-round.config.json",
+    "round:iphone:selftest": "node .kit/tools/compare-round.mjs --selftest",
     "gates": "node tools/gates/f2_state_update.mjs --base origin/main && node tools/gates/f3_execution.mjs",
     "test:content": "node tools/validate.mjs",
     "test:play": "node build.mjs --dev && node tools/playthrough.mjs",
