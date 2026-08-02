@@ -190,11 +190,19 @@ execution:
       with only its I/O made injectable.
     equivalence: >-
       46 of 46 mutations of the real state reach the same verdict in the
-      rebuilt validator and the one on main, run as subprocesses because main's
-      version has no CLI guard and executes on import. 43 of the 45 breakages
-      fire; the 2 that do not are deliberate valid-input controls. The previous
-      27/27 was measured against the old main and is void. Battery:
+      rebuilt validator and the one at the pinned pre-integration revision
+      02339ce, run as subprocesses because that version has no CLI guard and
+      executes on import. 43 of the 45 breakages fire; the 2 that do not are
+      deliberate valid-input controls. The previous 27/27 was measured against
+      the old main and is void. Battery:
       tools/equivalence_operating_state.mjs.
+    equivalence_base_is_pinned: >-
+      The battery's base is the fixed revision 02339ce, not origin/main, and it
+      throws if the base resolves to the same source as the working tree. Both
+      guards exist because the integration merged: a base tracking origin/main
+      would now compare the validator against itself and print a confident 46/46
+      that means nothing. It also no longer reads the old copy from a hardcoded
+      /tmp path, which did not survive a new session.
     vantage_noise: >-
       The 18-frame sweep was NOT used to check the harness swap on this tree,
       and one before/after pair could not have settled it: two runs of the
