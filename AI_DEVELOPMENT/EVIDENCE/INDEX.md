@@ -2,6 +2,16 @@
 
 Evidence records are append-only and identify task ID, acceptance references, baseline, exact environment, command/manual procedure, result, artifact paths and limitations.
 
+## KIT-INTEGRATION-PLAYTHROUGH — Full playthrough on the post-integration tree
+
+- Status: `complete_verified` for what it covers. The shared kit was REBUILT onto this `main` rather than merged, and `tools/playthrough.mjs` was the one functional suite never re-run against the result. It is now run.
+- Why it was outstanding: the integration swapped the four static servers onto `.kit/lib/browser/serve.mjs`, and `playthrough.mjs` is one of the four callers, so the swap sits on its path.
+- Command: `node tools/playthrough.mjs` against a `node build.mjs --dev` bundle, not rebuilt during the run.
+- Artifact: `AI_DEVELOPMENT/EVIDENCE/KIT-INTEGRATION-PLAYTHROUGH.json`
+- Observed: exit 0, `PLAYTHROUGH OK`, all five endings reached — publish→record, cut→cut, deal→westward, evacuate→everybody, leave→nothing; every path ch5, quests 6/8, 23 steps.
+- Budget note: about an hour on this rig. An earlier attempt was killed by a 20-minute cap after three of five paths, which reads exactly like a hang and is not one. Do not re-shorten that cap.
+- Limitation: headless Chromium with software rendering. This says the integrated tree still runs the game to completion; it says nothing about rendering, feel or any real device. Blocker B1 stands.
+
 ## OPS-IPHONE-SE3-AUTOMATION — Automated iPhone SE 3 release gates
 
 - Status: local harness and negative-path verification passed; official WebKit baseline, iOS Simulator Mobile Safari, Pages deploy and F6 are pending remote execution.

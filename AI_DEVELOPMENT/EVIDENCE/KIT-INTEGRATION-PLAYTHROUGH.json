@@ -1,0 +1,25 @@
+{
+  "task": "KIT-INTEGRATION-PLAYTHROUGH",
+  "date": "2026-08-02",
+  "scope": "tools/playthrough.mjs run end to end on the post-integration tree. The shared-kit integration was rebuilt onto this main rather than merged, and playthrough was the one functional suite never re-run against the result. This closes that gap. It is a headless-Chromium behavioural run, not a device claim.",
+  "why_it_was_outstanding": "The integration branch swapped the four static servers onto .kit/lib/browser/serve.mjs. playthrough.mjs is one of the four callers, so the swap is on its path, and it had only been run on the pre-integration tree. It takes about an hour on this rig; an earlier attempt was killed by a 20-minute cap after three of five paths, which reads exactly like a hang and is not one.",
+  "tree": {
+    "branch": "claude/kit-rollout-continuation-ozq7v9",
+    "base": "origin/main 325b1e103e74f6688f287986cac85a2dc1dcf1d5",
+    "build": "node build.mjs --dev, not rebuilt during the run"
+  },
+  "result": {
+    "exit_code": 0,
+    "verdict": "PLAYTHROUGH OK",
+    "endings_reached": 5,
+    "paths": [
+      { "path": "publish",  "chapter": "ch5", "quests": "6/8", "ending": "record",    "steps": 23 },
+      { "path": "cut",      "chapter": "ch5", "quests": "6/8", "ending": "cut",       "steps": 23 },
+      { "path": "deal",     "chapter": "ch5", "quests": "6/8", "ending": "westward",  "steps": 23 },
+      { "path": "evacuate", "chapter": "ch5", "quests": "6/8", "ending": "everybody", "steps": 23 },
+      { "path": "leave",    "chapter": "ch5", "quests": "6/8", "ending": "nothing",   "steps": 23 }
+    ]
+  },
+  "status": "complete_verified",
+  "limits": "Five distinct endings were reached and every path reported ok. This says the integrated tree still runs the game to completion in headless Chromium; it says nothing about rendering, feel, or any real device. Blocker B1 stands."
+}
