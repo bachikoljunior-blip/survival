@@ -12,7 +12,7 @@
  *
  *   node tools/bootstrap.mjs --target=/path/to/repo
  *   node tools/bootstrap.mjs --target=/path/to/repo --check
- *   node tools/bootstrap.mjs --target=/path/to/repo --skills=probe,publish,critic
+ *   node tools/bootstrap.mjs --target=/path/to/repo --skills=probe,publish,critic,first-reader
  *   node tools/bootstrap.mjs --target=/path/to/repo --template
  *
  * `--template` is a different kind of install and is handled separately on purpose. `.kit/`
@@ -69,7 +69,9 @@ function plannedFiles() {
   walk(join(KIT, 'lib'), join(target, '.kit', 'lib'));
   pairs.push([join(KIT, 'tools', 'check-ownership.mjs'), join(target, '.kit', 'tools', 'check-ownership.mjs')]);
   pairs.push([join(KIT, 'tools', 'bootstrap.mjs'), join(target, '.kit', 'tools', 'bootstrap.mjs')]);
+  pairs.push([join(KIT, 'tools', 'compare-round.mjs'), join(target, '.kit', 'tools', 'compare-round.mjs')]);
   pairs.push([join(KIT, 'tools', 'skill.mjs'), join(target, '.kit', 'tools', 'skill.mjs')]);
+  pairs.push([join(KIT, 'tools', 'first-reader.mjs'), join(target, '.kit', 'tools', 'first-reader.mjs')]);
 
   const wanted = argv.skills ? String(argv.skills).split(',') : readdirSync(join(KIT, '.claude', 'skills'));
   for (const name of wanted) {

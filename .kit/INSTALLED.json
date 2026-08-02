@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.5.0",
   "files": {
     ".claude/skills/adaptive-skill-evolution/SKILL.md": "c0d3484bf25e7ac19a123edbf77f65d3399101c8e021ed1bc2c4fefd993efc69",
     ".claude/skills/balance-audit/SKILL.md": "226eb6b561fd429c35b77e703e06c7933aa026a3d993fae07d751e68e426a9c4",
@@ -7,6 +7,7 @@
     ".claude/skills/critic/SKILL.md": "10b641f8d03f96782c331d399e2b7f83a74076b7d31c2bf2990124a8e4518a38",
     ".claude/skills/dispatch/SKILL.md": "33c5019e96e960009230c30a862ba5c60b9c33fa8d1e29675852a68a286cbecc",
     ".claude/skills/findings-run/SKILL.md": "eb86fcaffa07c0b452ad7972ce8e0ef061eba3a71096915ed68da3af92c6c91d",
+    ".claude/skills/first-reader/SKILL.md": "146c9ddc1ed5ce8fccaeaf7d17ae09fe146aa10ccb1821662a161c0002ce88dd",
     ".claude/skills/ja-ui-check/SKILL.md": "70224bde910a9fcf0a872f04e5db6d386f5c2c412a8423add5feba320c007e51",
     ".claude/skills/probe/SKILL.md": "d7a9381eeed15af966bcdf6e70072e74f4c0cafd8f4b84bd69e4363d9cb1a527",
     ".claude/skills/publish/SKILL.md": "b191d5415494b905cfdd21a686305ba0f0ba7e000ffaa4cbd00b05cfd4fbd475",
@@ -19,11 +20,18 @@
     ".kit/lib/browser/serve.mjs": "9112b870673a8f4788cd2fccfe078e5e81e322e680f2037ebbf3058fbc63d90f",
     ".kit/lib/image/measure.mjs": "1c0d6365e0e07cb0b6b7e0dc5b3d3a7ca961a22d428949a2cc9b8d44b17d6fbc",
     ".kit/lib/image/png.mjs": "58191debef238b5f5b261a848799c03c90a7e5a35ef4cef54667aa5cbe345c87",
+    ".kit/lib/mobile/device.mjs": "bfd9616c1033574f8edbe7ce7b3c9272fde3a987062b1f8a572496e3b9062cdf",
+    ".kit/lib/mobile/roundCompare.mjs": "96d97eaa9e5c0b941f7dbd63f4f32cc8e6cb1daf16ba66e7140e1028be937bdd",
     ".kit/lib/plan/contentHash.mjs": "149b51f153f06dffecacef01af57721ac9b027e92ae7a3044f7ae00efc710bbe",
     ".kit/lib/plan/dispatch.mjs": "84e79827ac6b8266879b20c1c11797394d72d37a68f322bf6e7dc3edc4f0e350",
     ".kit/lib/plan/findings.mjs": "632c75b1b5262992c89882fd9c65a540e9af18c38ccfe869333f79e0ac79245e",
     ".kit/lib/plan/findings.schema.json": "2bba1ea3d8ea79505d12bb35b75d7f32625a6676a60685aeee1dd952666ea5a8",
     ".kit/lib/plan/ownership.mjs": "a02d0df63f28e8d28e368d26c169f73927c49507dde3ecf0e54ff5c07716ac00",
+    ".kit/lib/read/agreement.mjs": "509c59d86ec98e8ad50470cbfd559c451b13806904075c24854df23baad46647",
+    ".kit/lib/read/branches.mjs": "ab6574c88fa578a3b8a840a626c0a767ddf76e2e6902982be903705d1d5c3163",
+    ".kit/lib/read/prose.mjs": "bbcb6fe3b4d1be91775707393dd2b8a829e7663bc0879586080cfe58be011860",
+    ".kit/lib/read/protocol.mjs": "72726ceea758c446878fa1a70e138a539966348a5ff5bb24b3cd581037880e8a",
+    ".kit/lib/read/reading.mjs": "306d7d9a2eccd2bb9b72558535b20ea9d937d263aa396fc140498d4ab35e2d45",
     ".kit/lib/release/mirror.mjs": "9172a45755d0a49dada1bb377fc14d14a717aff64f34748142a4d8f8eb2564a4",
     ".kit/lib/release/revision.mjs": "767b8e629d64bc2b0cc554d9fc74112f91207c812a5950cc86c23ca5dcf28feb",
     ".kit/lib/release/verifyLive.mjs": "3d3bd8a909866b8498a2510e02add2c603edf5d1d85ff0f41fda4d6934385770",
@@ -38,8 +46,10 @@
     ".kit/lib/state/secrets.mjs": "66288017f7a32b1fafb46e661b58aa91aeac523a8e8ce5b9e3d11d9ddecec480",
     ".kit/lib/state/selftest.mjs": "96cb1adf7aa5d3d58b8b270e9ed83a434c41051e5da05aca8a9fe13faa5417ed",
     ".kit/lib/state/yaml.mjs": "479ccd8a248764a77dbac709b0c633a528837c1e90080d1b3c33ad01855181fb",
-    ".kit/tools/bootstrap.mjs": "9753182b6b7fd483a319133a09133936b69b54e5900ccebcdcc1643640337072",
+    ".kit/tools/bootstrap.mjs": "2d76f087a34e6a5136be3d550bbcdec28b63b656a31bdd6f216c96cb7249c0ca",
     ".kit/tools/check-ownership.mjs": "2ed8b785e17dce90cd243f5c04749108a1329666709b3e3a1f6940f0b77f26ad",
+    ".kit/tools/compare-round.mjs": "89b64e7556d772113cae9f8c28cb21871573cd8fb4e24563e10e0b659cc6c058",
+    ".kit/tools/first-reader.mjs": "4acf3988c2eb9388c345439432c9637a9c713ae9895f320b9bf4cb985befad46",
     ".kit/tools/skill.mjs": "34f04a610abd8dd8ce53e8ec4b7250b4ebf64c62890b6a6ac6812a5026a9b129"
   }
 }
