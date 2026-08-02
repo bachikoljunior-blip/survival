@@ -105,10 +105,14 @@ execution:
           The automated Japanese layer stays mandatory and unchanged - terminology
           consistency and missing keys (tools/i18n_report.mjs, tools/i18n_glossary.mjs),
           rendered-layout breakage on a Japanese device (tools/probe_ja_*.mjs), and the
-          Japanese playthrough (npm run test:play:ja). Work on a first-reader test, an
-          A/B comparison of two drafts and a wider terminology-consistency check is
-          being done elsewhere as reusable skills; this repository references that work
-          and does not implement it.
+          Japanese playthrough (npm run test:play:ja).
+        substitute_reconciled_against_delivered_skills: >-
+          Checked on 2026-08-02 against .claude/skills/ as delivered on main at 993159d,
+          not assumed. ONE of the three named substitutes exists: terminology consistency
+          is covered by the ja-ui-check skill (its Terminology section, plus a rendered
+          pass that drives the real page). The other TWO DO NOT EXIST in any delivered
+          skill - a grep of all nine SKILL.md files for a first-reader test or an A/B
+          comparison of two drafts returns nothing. Do not cite them as available.
         substitute_does_not_cover: >-
           Tone, register, rhythm, idiom, and whether a sentence sounds like a person.
           Every one of those remains unverified and must be described that way.
@@ -385,6 +389,60 @@ narrative_and_evidence_2026_08_02:
       production build, pages-root mirror, dev build, save migration) all pass
       and can be run individually. Do not silence the gate to make F3 green;
       the way to green is to fix the story, and each finding names its IMP id.
+  next_actions:
+    note: >-
+      Written by the narrative/evidence session on 2026-08-02. The parallel skills
+      session writes its own entries elsewhere in this file; do not delete either
+      side's text when both have written.
+    - id: NEXT-SKILL-EVIDENCE-HOME
+      what: >-
+        No delivered skill names where its results are kept. The critic skill says
+        "write JSON to disk" and validates against .kit/lib/plan/findings.schema.json
+        (verdict, score, blindComparison, findings[severity, shot, problem, why, owner,
+        fix]) but states no path, and nothing under .claude/ or KIT.md mentions
+        AI_DEVELOPMENT/EVIDENCE/ at all.
+      where: .claude/skills/critic/SKILL.md and .claude/skills/probe/SKILL.md (owned by
+        the skills session - this session did not edit them), AI_DEVELOPMENT/EVIDENCE/INDEX.md
+      done_when: >-
+        A skill run writes its artifact under AI_DEVELOPMENT/EVIDENCE/ and gains an
+        INDEX.md entry carrying the same fields the two artifacts added on 2026-08-02
+        already carry - status, command, artifact path, observed result, limitation.
+        Note the shapes differ and both must be indexable: a findings file is a review
+        verdict, GB-NARRATIVE-STRUCTURE.json and GB-VISUAL-EVIDENCE.json are measurement
+        records bound to a content hash.
+    - id: NEXT-JA-SUBSTITUTES
+      what: >-
+        Two of the three substitutes named against the retired B2 do not exist - a
+        first-reader test and an A/B comparison of two drafts. Only terminology
+        consistency is delivered (ja-ui-check).
+      where: docs/STATE.md section 4 and this file's permanently_excluded entry, which
+        now say so explicitly rather than implying all three are available
+      done_when: >-
+        Either both skills exist and are named here by skill id, or the exclusion record
+        is rewritten to claim only what is delivered. It must never claim both.
+    - id: NEXT-KIT-0-2-1
+      what: >-
+        The skills session shipped vendored kit 0.2.1 on branch
+        claude/kit-rollout-skill-validation-rsenmi (e4d790d, 2026-08-02 08:58 UTC),
+        touching .claude/skills/{bootstrap,ja-ui-check,probe} and .kit/. That work is
+        NOT in this branch, which carries kit 0.2.0 as it stood on main.
+      where: this branch, after that work reaches main
+      done_when: >-
+        This branch has been rebuilt on a main containing 0.2.1 and both gates re-run -
+        node tools/validate.mjs --selftest (15/15 rules) and
+        node tools/vantage.mjs --evidence (apparatus 9/9). The vantage evidence binds to
+        a bundle sha256, so a kit change that moves the harness invalidates the recorded
+        numbers until the sweep is re-run.
+    - id: NEXT-F3-RED
+      what: >-
+        tools/validate.mjs exits 1 on main, so npm test and the F3 execution gate are
+        red. Intended, not a regression - the eight defects are real and registered.
+        F3 is a merge gate, so this blocks merges until a decision is taken.
+      where: tools/gates/f3_execution.mjs step "story and world content"
+      done_when: >-
+        Either the eight defects are fixed and validate exits 0, or the user decides on
+        a registered known-defect ledger. Do not silence the gate to reach green.
+
   visual_evidence:
     gate: node tools/vantage.mjs --evidence --prefix ev
     evidence:

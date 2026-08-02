@@ -189,6 +189,18 @@ sha256）である。
 `AI_DEVELOPMENT/EVIDENCE/GB-VISUAL-EVIDENCE.md` を正とする（本番バンドル
 1,422,174B / sha256 `8f877fd9e2098b32…` に束縛）。
 
+### 次の一手（2026-08-02、物語・証拠セッションが記入）
+
+**この節は本セッションが書いた。並行する技能セッションは別の節に書く。どちらの記述も
+消さないこと。** 正本は `AI_DEVELOPMENT/STATE.yaml` の `next_actions`。
+
+| id | 何を | どのファイルで | 何が達成されたら完了か |
+|---|---|---|---|
+| `NEXT-SKILL-EVIDENCE-HOME` | 技能の測定結果の置き場所が決まっていない。`critic` は「JSON をディスクに書く」と言い `.kit/lib/plan/findings.schema.json` で検証するが**パスを定めていない**。`.claude/` と `KIT.md` のどこにも `AI_DEVELOPMENT/EVIDENCE/` への言及が無い | `.claude/skills/critic/SKILL.md`・`probe/SKILL.md`（**技能セッションの所有物。本セッションは編集していない**）、`AI_DEVELOPMENT/EVIDENCE/INDEX.md` | 技能の実行が `AI_DEVELOPMENT/EVIDENCE/` に成果物を書き、2026-08-02 に追加した2件と同じ項目（状態・コマンド・成果物パス・実測・限界）で INDEX.md に載ること。**形は2種類あり両方載る必要がある**——findings は批評の判定、`GB-*.json` は内容ハッシュに束縛された計測記録 |
+| `NEXT-JA-SUBSTITUTES` | B2 の代替3件のうち2件（初読者テスト・2案比較）が存在しない | 本文書 §4 と `STATE.yaml` の `permanently_excluded`（**両方とも既に「存在しない」と明記済み**） | 2件が技能として実在し id で名指しできるか、または除外記録を実在するものだけの主張に書き直すか。**両方あるかのように書いてはならない** |
+| `NEXT-KIT-0-2-1` | 技能セッションが vendored kit **0.2.1** を `claude/kit-rollout-skill-validation-rsenmi`（`e4d790d`、08-02 08:58 UTC）に出した。`.claude/skills/{bootstrap,ja-ui-check,probe}` と `.kit/` を触る。**本ブランチには入っていない**（0.2.0 のまま） | 本ブランチ（当該作業が `main` に入った後） | 0.2.1 を含む `main` の上に積み直し、両ゲートを再実行すること——`node tools/validate.mjs --selftest`（15/15）と `node tools/vantage.mjs --evidence`（装置 9/9）。**視覚証拠はバンドル sha256 に束縛されているため、ハーネスが動けば記録済みの数値は無効になる** |
+| `NEXT-F3-RED` | `tools/validate.mjs` が `main` で非ゼロ終了し、`npm test` と F3 が赤。意図した状態だが F3 は merge ゲートなので merge を止める | `tools/gates/f3_execution.mjs` の `story and world content` ステップ | 8件の欠陥を直して exit 0 にするか、既知欠陥台帳にするかをユーザーが決めること。**緑にするためにゲートを黙らせないこと** |
+
 ---
 
 ## 3. 次の3アクション
@@ -241,8 +253,21 @@ IMP-02、Vitest、IMP-01/03/04/05 ほかの詳細は `docs/bible.md` §17b を�
 `tools/i18n_report.mjs`・`tools/i18n_glossary.mjs`（用語一貫性と欠落キー）、
 `tools/probe_ja_*.mjs`（日本語端末でのレイアウト破綻）、`npm run test:play:ja`。
 
-代替（初読者テスト、2案の比較、より広い用語一貫性検査）は**別セッションが再利用可能な
-技能として実装中である。本リポジトリはそれを参照するだけで、ここでは実装しない。**
+#### 代替手段の実状（2026-08-02 に配布済み技能と突き合わせた。推測ではない）
+
+`main` の `993159d` で配られた `.claude/skills/` 9件を実際に読んで確認した。
+**3件挙げた代替のうち、存在するのは1件だけである。**
+
+| 代替 | 状態 | 実体 |
+|---|---|---|
+| 用語一貫性 | **配布済み** | `ja-ui-check` 技能（§Terminology。実画面を駆動する検査も併せ持つ） |
+| 初読者テスト | **存在しない** | 9件の `SKILL.md` を全文検索して該当なし |
+| 2案の比較 | **存在しない** | 同上 |
+
+**存在しない2件を「用意されている」と書かないこと。** 本リポジトリは技能を実装しない
+が、参照するなら実在するものだけを名指しする。技能は survival / game2 / Q / Gptgame /
+kit の**5リポジトリ**の `main` に配布済みで（game2 のみ `round` を加えた10件）、
+本ブランチの履歴にも入っている。
 
 ネイティブ話者が出荷テキストを読んだ時点で、この項目は課題一覧に戻る。
 
