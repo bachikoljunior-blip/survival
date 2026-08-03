@@ -67,9 +67,10 @@ interesting. Record the reason.
 A comparison that could not be run is `not measured`, and the job is then to work out a way to
 compare it.
 
-**Never reproduce a reference work's content.** Its art, models, audio, text, levels, layout,
-icons, HUD or fiction may not be copied or near-copied into this product, and no reference is
-named in what ships. Use a reference to judge this product, never to fill it.
+**Never build a reference work's content into the game.** Its art, models, audio, text,
+levels, layout, icons, HUD or fiction may not be copied or near-copied into what ships, and no
+reference is named there. **Holding that material and comparing against it is fine** — that is
+what it is for.
 
 ### When the work is finished
 
