@@ -57,7 +57,8 @@ interesting. Record the reason.
 
 - **Material.** The real reference work and the build under development, as **images, video
   and text**. Not recollection, not an official description, not a review score, not a pixel
-  metric standing in for a comparison. Fetching reference material for this is allowed.
+  metric standing in for a comparison. Fetching reference material for this is allowed, and it
+  may be stored in this public repository.
 - **Blind.** The judge is in a state where **which side is which cannot be worked out at
   all.**
 - **The question.** Shown these unlabelled, which is stronger on this element alone.
