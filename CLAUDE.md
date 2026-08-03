@@ -111,24 +111,7 @@ will not go out. Everything — textures, audio, models, animation — is genera
 at runtime from the code in this repository. There are no external assets and no
 network requests.
 
-<!-- BEGIN PROJECT OPERATING PROTOCOL (v2.2) — managed block, do not delete -->
-
-At the start of every Claude Code run for this repository, read `START_HERE.md`,
-load the minimum relevant durable state, verify it against the actual working
-tree, GitHub state, runtime, deployment, and test evidence, and resume from the
-last verified checkpoint. Apply the mandatory floor in full, and the lowest
-sufficient level of rigor above it. Load protocol detail and module files only
-when the active work reaches them. End the run with the floor check line.
-
-- Canonical state: `AI_DEVELOPMENT/STATE.yaml`
-- Full protocol and the floor in full: `AI_DEVELOPMENT/PROTOCOL.md`
-- On-demand modules: `AI_DEVELOPMENT/MODULES/` (load only when a trigger fires)
-
-Uncertain whether a floor trigger fired? It fired. Perform the obligation.
-
-<!-- END PROJECT OPERATING PROTOCOL (v2.2) -->
-
-## Working rules that predate the protocol and still hold
+## Working rules learned here, and still in force
 
 - Investigate the existing repository before editing. Preserve unrelated work.
 - Do not stop at a plan, a design document, a mock-up or a menu.

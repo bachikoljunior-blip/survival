@@ -1,4 +1,4 @@
-> **ARCHIVED — 2026-08-01.** The boot loader is now `START_HERE.md` and the
+> **ARCHIVED — 2026-08-01.** The boot loader is now `CLAUDE.md` and the
 > canonical state is `AI_DEVELOPMENT/STATE.yaml`. This file is retained for the
 > record it carries of how the legacy structure was organised. Do not use it as
 > the resume procedure; it points at authorities that have moved.
@@ -11,7 +11,7 @@
 
 | 分類 | 正本 |
 |---|---|
-| 開発運用、セッション境界、権限、安全 | `PROJECT_OPERATING_PROTOCOL.md` |
+| 開発運用、セッション境界、権限、安全 | `CLAUDE.md` |
 | 製品要件と制約 | `docs/directive.md` |
 | 承認済み設計、製品リスク、実装欠陥 | `docs/bible.md` |
 | Gate A〜D の完了条件 | `docs/DONE.md` |
@@ -28,7 +28,7 @@
 
 ## 再開時に必ず読む順序
 
-1. `PROJECT_OPERATING_PROTOCOL.md`
+1. `CLAUDE.md`
 2. 本ファイル
 3. `docs/STATE.md`
 4. `PROJECT_STATE.json`
