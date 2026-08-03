@@ -68,6 +68,7 @@ execution:
       - docs/reviews/gate-b-round-h1-h2-touch.md
       - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
   modified_but_unverified:
+    - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
     - "Playwright WebKit iPhone SE 3 gate: full official run completed with only the intended missing-baseline failure; candidate reviewed and promoted, required-baseline rerun pending."
     - "iPhone SE 3 iOS Simulator / Mobile Safari Appium gate: harness syntax and missing-device refusal verified locally; real macOS runner execution pending."
     - "Pages publication and post-deploy F6 for this delivery: pending merge."
@@ -326,7 +327,8 @@ recovery:
     Pages surface. Operating files: see AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md.
 
 remote:
-  branch: claude/kit-rollout-integration-a4zihp
+  branch: claude/iphone-se3-auto-testing-bu73vn
+  previous_integration_branch: claude/kit-rollout-integration-a4zihp
   previous_branch: agent/iphone-se3-automation
   pull_request: 8
   deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
@@ -339,6 +341,12 @@ remote:
     missing-baseline check. Artifact 8825225421 was inspected and its candidate
     was promoted locally; the required-baseline rerun, merge, iOS Safari,
     deployment and F6 remain pending.
+
+    Separately, the iPhone SE 3 round comparison merged from
+    claude/iphone-se3-auto-testing-bu73vn. It touches no file pull request #9
+    changes, and merge-tree confirmed it introduces no new conflict against #9
+    (the one STATE.yaml conflict there predates it and is unchanged). The
+    vendored kit is regenerated at 0.4.0 rather than hand-merged.
 
 updated_at: "2026-08-02"
 reconciliation_status: >-

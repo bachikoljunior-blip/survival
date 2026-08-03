@@ -1,0 +1,136 @@
+# The comparison step of one iPhone SE 3 review round.
+#
+# This is deliberately NOT another copy of the phone gate. Tier 1 (Playwright WebKit on
+# ubuntu) and tier 2 (an iPhone SE 3 simulator driven through Appium on macOS) already run in
+# this repository's other workflows. What none of them did was compare a round against the
+# previous one: every check they make is against a fixed limit set loose enough not to flake,
+# so a build whose boot time triples and whose frame gap doubles passes all of them.
+#
+# That gap is what this workflow closes, using .kit/lib/mobile/roundCompare.mjs — one
+# implementation, vendored identically into all four game repositories.
+#
+# What this can and cannot say. Playwright reproduces the viewport, DPR, touch emulation and
+# user agent of an iPhone SE 3. It runs on a datacentre CPU with a software rasteriser and
+# reproduces none of the device's performance: a verified run of this repository's own harness
+# under that surrogate measured a 1333 ms median frame gap, which is 0.75 FPS. So the absolute
+# number is meaningless and is never asserted. The comparison against the previous round on
+# the same apparatus is meaningful, and that is the only claim made here. Whether the game
+# actually holds 30 FPS on the phone still needs the phone.
+name: iPhone SE 3 round
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      accept:
+        description: 'Record this round as the new bar (use when a slowdown is a deliberate, reviewed decision)'
+        type: boolean
+        default: false
+      bootstrap:
+        description: 'First round only: record the baseline instead of judging against one'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: iphone-se3-round-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  round:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # 22, not 20: .kit/ uses node:fs.globSync and the built-in test runner. A job that pins
+      # 20 installs the kit successfully and then cannot run it.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      # The comparison is only worth as much as the copy of the kit that performs it.
+      - name: Vendored kit integrity
+        run: node .kit/tools/bootstrap.mjs --target=. --check
+
+      # Before the gate: a silently inert gate and a passing gate both print nothing and exit
+      # 0. This makes every refusal fire on a deliberately broken round, and fails the job if
+      # any stays quiet or if the must-pass control fires.
+      - name: Prove the comparison can fail
+        run: node .kit/tools/compare-round.mjs --selftest
+
+      # game2 and Q still carry their harness on a branch. Rather than pretend a round ran, or
+      # go permanently red on main until those land, the job records what it found.
+      - name: Locate this repository's iPhone SE 3 harness
+        id: harness
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.['test:iphone-webkit'] ? 0 : 1)"; then
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Playwright WebKit
+        if: steps.harness.outputs.present == 'true'
+        run: npx playwright install --with-deps webkit
+
+      - name: Drive the iPhone SE 3 WebKit surface
+        if: steps.harness.outputs.present == 'true'
+        run: npm run test:iphone-webkit
+
+      - name: Compare this round against the recorded one
+        if: steps.harness.outputs.present == 'true'
+        run: |
+          FLAGS=''
+          if [ "${{ inputs.bootstrap }}" = 'true' ]; then FLAGS='--bootstrap'; fi
+          if [ "${{ inputs.accept }}" = 'true' ]; then FLAGS="$FLAGS --accept"; fi
+          # --allow-unadopted keeps the job green while this repository has never recorded a
+          # bar -- otherwise the day this lands it paints a red check across every unrelated
+          # open pull request, which is how a gate gets switched off in its first week. It
+          # still prints everything that will block once a bar exists, and it retires itself:
+          # the moment tests/baselines/iphone-se3-round.json is committed the flag is inert.
+          node .kit/tools/compare-round.mjs --config=iphone-se3-round.config.json --allow-unadopted $FLAGS \
+            | tee /tmp/round.txt
+
+      - name: Say plainly whether a round happened
+        if: always()
+        run: |
+          {
+            echo '### iPhone SE 3 round'
+            if [ "${{ steps.harness.outputs.present }}" != 'true' ]; then
+              echo 'NOT RUN — this ref has no `test:iphone-webkit` script, so no round was measured and'
+              echo 'no comparison was made. This is not a pass.'
+            else
+              echo '```'
+              cat /tmp/round.txt 2>/dev/null || echo '(the harness or the comparison failed before printing a verdict)'
+              echo '```'
+              echo 'Emulator round-over-round only. Not evidence about a physical iPhone SE 3.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Preserve the round
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iphone-se3-round-${{ github.sha }}
+          path: test-results/iphone-webkit
+          if-no-files-found: warn
+          retention-days: 14
+
+      # An accepted or bootstrapped baseline is a file that has to be committed to be the bar
+      # next time. Uploading it rather than pushing keeps this workflow read-only.
+      - name: Preserve the recorded baseline for committing
+        if: always() && (inputs.accept || inputs.bootstrap)
+        uses: actions/upload-artifact@v4
+        with:
+          name: iphone-se3-round-baseline-${{ github.sha }}
+          path: tests/baselines/iphone-se3-round.json
+          if-no-files-found: warn
+          retention-days: 14
