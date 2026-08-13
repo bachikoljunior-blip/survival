@@ -64,6 +64,7 @@ const UDID = process.env.IOS_SIMULATOR_UDID || '';
 const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
 const SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS = 30000;
+const NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS = 60000;
 
 mkdirSync(OUTPUT, { recursive: true });
 
@@ -514,7 +515,7 @@ async function calibrationResetWdaBarrier(expectedContext, expectedNativeWindow)
     // A timed-out response can still leave the remote context switched. Keep
     // the transition inside the exact restoration scope.
     await webdriver(sessionPath('/context'), {
-      body: { name: 'NATIVE_APP' }, timeout: 15000,
+      body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
     });
     nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET', timeout: 15000 });
     validateCalibrationResetNativeWindow(expectedNativeWindow, nativeWindow);
@@ -523,10 +524,10 @@ async function calibrationResetWdaBarrier(expectedContext, expectedNativeWindow)
   } finally {
     try {
       await webdriver(sessionPath('/context'), {
-        body: { name: expectedContext }, timeout: 15000,
+        body: { name: expectedContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       contextAfter = await webdriver(sessionPath('/context'), {
-        method: 'GET', timeout: 15000,
+        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       if (contextAfter !== expectedContext) {
         throw new Error('calibration reset WDA barrier did not restore the exact web context');
@@ -554,7 +555,7 @@ async function getNativeWindowRect() {
   let restoredContext = null;
   try {
     await webdriver(sessionPath('/context'), {
-      body: { name: 'NATIVE_APP' }, timeout: 15000,
+      body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
     });
     nativeWindow = await webdriver(sessionPath('/window/rect'), {
       method: 'GET', timeout: 15000,
@@ -564,10 +565,10 @@ async function getNativeWindowRect() {
   } finally {
     try {
       await webdriver(sessionPath('/context'), {
-        body: { name: originalContext }, timeout: 15000,
+        body: { name: originalContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       restoredContext = await webdriver(sessionPath('/context'), {
-        method: 'GET', timeout: 15000,
+        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       if (restoredContext !== originalContext) {
         throw new Error('Safari native-window read did not restore the exact web context');
@@ -596,7 +597,7 @@ async function dismissKnownSafariEducation() {
     // Keep the switch inside the restoration scope: a timed-out response can
     // leave the remote context changed even though the client saw an error.
     await webdriver(sessionPath('/context'), {
-      body: { name: 'NATIVE_APP' }, timeout: 15000,
+      body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
     });
     record.checked = true;
     const source = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 15000 });
@@ -903,10 +904,10 @@ async function dismissKnownSafariEducation() {
     record.contextRestoration = restoration;
     try {
       await webdriver(sessionPath('/context'), {
-        body: { name: originalContext }, timeout: 15000,
+        body: { name: originalContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       restoration.actual = await webdriver(sessionPath('/context'), {
-        method: 'GET', timeout: 15000,
+        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       restoration.restored = restoration.actual === originalContext;
       if (!restoration.restored) {

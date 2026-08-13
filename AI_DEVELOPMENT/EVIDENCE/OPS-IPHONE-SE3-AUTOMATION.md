@@ -565,6 +565,63 @@ fresh query plus all three live reads; one response-complete element click;
 marker absence; exact WEBVIEW restoration; and the same-run complete 30/30
 journey. Independent normal-path passes are also required.
 
+## Exact-head context-restoration and WDA-readiness result (2026-08-14)
+
+PR #9 exact head `b42ac59e4d52b279e68f0becaaa83ec9cf9e2b67`
+produced two more Floor runs and one round-comparison run. Floor runs
+`31712474359` (#53) and `31712508808` (#54) each passed F2, F5, core F3 and
+the complete WebKit journey. Their Mobile Safari jobs `94489768533` and
+`94489827723` failed, so aggregate F3 jobs `94493916956` and `94493519458`
+also failed. Round-comparison run `31712474317` passed.
+
+- Run `31712474359`, artifact `9186405554`, reached the product Safari
+  session in initial LANDSCAPE. It recognized the complete education and
+  dismissed it through one response-complete `source-derived-mobile-tap`.
+  The source changed, all markers disappeared and education restoration
+  completed, so this run did not authorize or execute the fallback
+  (`actuationsStarted:1`). Before the first calibration,
+  `getNativeWindowRect` entered NATIVE_APP, read the 667×375 native window,
+  and attempted to restore the original WEBVIEW. That POST exceeded the
+  15-second client bound. Appium's internal `setContext` completed, and its
+  log emitted HTTP 200 about 36.815 seconds after the request began; the same
+  entry reports an Appium duration of 9633 ms, so the conflicting clocks are
+  recorded and no exact server-duration inference is made. The client had
+  already rejected, and the required context GET readback did not execute.
+  Exact restoration therefore remains unproved despite the late log. The
+  report failed closed with zero checks and zero calibrations and made no
+  persistence, soak or gameplay claim.
+- Run `31712508808`, artifact `9186371964`, did not create a Safari session.
+  The Xcode build of WebDriverAgent succeeded, but port 8100 never became
+  ready within the workflow's 180-second WDA readiness window. Appium then
+  received `ECONNREFUSED` from `127.0.0.1:8100`. Device, education,
+  orientation, calibration and product checks were never entered. This is a
+  pre-session WDA infrastructure failure, not a product or interaction result.
+
+Neither result satisfies merge acceptance, and neither proves the conditional
+education fallback. The measured local correction changes no selector, input,
+retry, reconciliation or acceptance grammar. A dedicated 60000-ms bound now
+applies only to six context-transition POSTs and three exact post-restoration
+GET readbacks that are already enclosed by the education, native-window and
+calibration-reset restoration scopes. The three entry/pre-operation context
+GETs and the two other context reads remain at 15000 ms. Native-education
+window-rect, source and input commands also remain at 15000 ms; attempt-two fallback reads
+remain at 30000 ms, orientation GET/POST at 30000/60000 ms, and the pre-existing
+evidence screenshot at 60000 ms. No context command is retried. A timed-out
+POST still fails closed unless the already-required exact GET readback executes
+and proves restoration; Appium's late internal log cannot authorize progress.
+
+The combined pure/static battery passes 275/275 locally and locks the
+six POST plus three exact-readback scope while rejecting any extension to the
+entry reads, native observations or input. A fresh exact head must pass two
+independent Floor executions: each must leave every required job green and
+complete the same-run 30/30 journey with no timeout, response-unknown delivery
+or cleanup error. Within those two independent passes, at least one artifact
+must execute `maxActuations:2` and `actuationsStarted:2`: response-complete,
+byte-identical attempt one must become `fallback-eligible`, and one fresh,
+exactly verified element click must remove all education markers before the
+same run completes both zero-residual calibrations, persistence, soak, exact
+WEBVIEW restoration and valid screenshots.
+
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
 rejected before the page receives the gesture. The corrective harness now

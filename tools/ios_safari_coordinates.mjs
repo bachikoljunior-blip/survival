@@ -846,6 +846,25 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   const fallbackReadTimeoutUses = dismissSource.match(
     /\bSAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS\b/g,
   ) || [];
+  const nativeContextTimeoutDeclarations = sourceText.match(
+    /^const NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS = 60000;$/gm,
+  ) || [];
+  const nativeContextTimeoutReferences = sourceText.match(
+    /\bNATIVE_CONTEXT_TRANSITION_TIMEOUT_MS\b/g,
+  ) || [];
+  const contextEndpointTokens = sourceText.match(
+    /sessionPath\s*\(\s*(['"])\/context\1\s*\)/g,
+  ) || [];
+  const findContextEndpointCalls = (text) => String(text).match(
+    /await\s+webdriver\s*\(\s*sessionPath\s*\(\s*(['"])\/context\1\s*\)\s*,[\s\S]*?\)\s*;/g,
+  ) || [];
+  const contextEndpointCalls = findContextEndpointCalls(sourceText);
+  const extendedContextEndpointCalls = contextEndpointCalls.filter(
+    (call) => /\btimeout\s*:\s*NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS\b/.test(call),
+  );
+  const baselineContextEndpointCalls = contextEndpointCalls.filter(
+    (call) => /\btimeout\s*:\s*15000\b/.test(call),
+  );
   const educationWebdriverCalls = dismissSource.match(/await webdriver\(/g) || [];
   const educationTimeoutOptions = dismissSource.match(/\btimeout\s*:/g) || [];
   const educationDefaultTimeoutOptions = dismissSource.match(/\btimeout:\s*15000\b/g) || [];
@@ -853,7 +872,7 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     'const record = report.nativeSafariEducation;\n  try {',
   );
   const nativeContextSwitch = dismissSource.indexOf(
-    "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+    "body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
   );
   const educationTapCount = (
     dismissSource.match(/await nativeTap\(mobileAttempt\.point\.x, mobileAttempt\.point\.y, 15000\);/g) || []
@@ -883,10 +902,10 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     'classifySafariEducationPrimaryObservation(',
   );
   const restorationPost = dismissSource.indexOf(
-    "await webdriver(sessionPath('/context'), {\n        body: { name: originalContext }, timeout: 15000,",
+    "await webdriver(sessionPath('/context'), {\n        body: { name: originalContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
   );
   const restorationGet = dismissSource.indexOf(
-    "restoration.actual = await webdriver(sessionPath('/context'), {",
+    "restoration.actual = await webdriver(sessionPath('/context'), {\n        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
   );
   const activationSourceWebdriver = dismissSource.indexOf(
     "await webdriver(sessionPath('/source')",
@@ -975,9 +994,19 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || fallbackReadTimeoutDeclarations.length !== 1
       || fallbackReadTimeoutReferences.length !== 5
       || fallbackReadTimeoutUses.length !== 4
+      || nativeContextTimeoutDeclarations.length !== 1
+      || nativeContextTimeoutReferences.length !== 10
+      || contextEndpointTokens.length !== 14
+      || contextEndpointCalls.length !== 14
+      || extendedContextEndpointCalls.length !== 9
+      || baselineContextEndpointCalls.length !== 5
+      || contextEndpointCalls.some(
+        (call) => (call.match(/\btimeout\s*:/g) || []).length !== 1,
+      )
+      || findContextEndpointCalls(dismissSource).length !== 4
       || educationWebdriverCalls.length !== 21
       || educationTimeoutOptions.length !== 21
-      || educationDefaultTimeoutOptions.length !== 17
+      || educationDefaultTimeoutOptions.length !== 14
       || !dismissSource.includes(`const fallbackElements = await webdriver(sessionPath('/elements'), {
         body: { using: 'accessibility id', value: fallbackTarget.name },
         timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
@@ -1123,17 +1152,18 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   );
   const nativeWindowTry = nativeWindowSource.indexOf('try {');
   const nativeWindowSwitch = nativeWindowSource.indexOf(
-    "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+    "body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
   );
-  if (nativeWindowTry < 0 || nativeWindowSwitch < nativeWindowTry
+  if (findContextEndpointCalls(nativeWindowSource).length !== 4
+      || nativeWindowTry < 0 || nativeWindowSwitch < nativeWindowTry
       || !nativeWindowSource.includes(
         "nativeWindow = await webdriver(sessionPath('/window/rect'), {\n      method: 'GET', timeout: 15000,",
       )
       || !nativeWindowSource.includes(
-        "body: { name: originalContext }, timeout: 15000,",
+        "body: { name: originalContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
       )
       || !nativeWindowSource.includes(
-        "restoredContext = await webdriver(sessionPath('/context'), {",
+        "restoredContext = await webdriver(sessionPath('/context'), {\n        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
       )
       || !nativeWindowSource.includes('restoredContext !== originalContext')) {
     throw new Error('Mobile Safari native-window read must be bounded and restore the exact WEBVIEW after an ambiguous switch');
@@ -1144,14 +1174,18 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   );
   const resetBarrierTry = resetBarrierSource.indexOf('try {');
   const resetBarrierSwitch = resetBarrierSource.indexOf(
-    "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+    "body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
   );
-  if (resetBarrierTry < 0 || resetBarrierSwitch < resetBarrierTry
+  if (findContextEndpointCalls(resetBarrierSource).length !== 4
+      || resetBarrierTry < 0 || resetBarrierSwitch < resetBarrierTry
       || !resetBarrierSource.includes(
         "nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET', timeout: 15000 });",
       )
       || !resetBarrierSource.includes(
-        "body: { name: expectedContext }, timeout: 15000,",
+        "body: { name: expectedContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
+      )
+      || !resetBarrierSource.includes(
+        "contextAfter = await webdriver(sessionPath('/context'), {\n        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
       )
       || !resetBarrierSource.includes('contextAfter !== expectedContext')) {
     throw new Error('calibration reset WDA barrier must bound its native read and restore the exact WEBVIEW after an ambiguous switch');
@@ -2465,6 +2499,73 @@ function selfTest() {
       workflowSources,
     );
   });
+  fail('native context transition timeout budget drift is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS = 60000;',
+        'const NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS = 60001;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('native context transition cannot lose its dedicated timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
+        "body: { name: 'NATIVE_APP' },",
+      ),
+      workflowSources,
+    );
+  });
+  fail('native context transition cannot regress to the baseline timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,",
+        "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+      ),
+      workflowSources,
+    );
+  });
+  fail('compact extra native context POST is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        '  let nativeWindow;',
+        "  await webdriver(sessionPath('/context'),{body:{name:'NATIVE_APP'},timeout:60000});\n  let nativeWindow;",
+      ),
+      workflowSources,
+    );
+  });
+  fail('unawaited compact native context POST is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        '  let nativeWindow;',
+        `  void webdriver(sessionPath ( "/context" ),{body:{name:'NATIVE_APP'},timeout:60000})
+    .catch(() => {});
+  let nativeWindow;`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('pre-transition context read cannot inherit the transition timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "const contextBefore = await webdriver(sessionPath('/context'), { method: 'GET', timeout: 15000 });",
+        "const contextBefore = await webdriver(sessionPath('/context'), { method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS });",
+      ),
+      workflowSources,
+    );
+  });
+  fail('native context exact readback cannot regress to the baseline timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `contextAfter = await webdriver(sessionPath('/context'), {
+        method: 'GET', timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,`,
+        `contextAfter = await webdriver(sessionPath('/context'), {
+        method: 'GET', timeout: 15000,`,
+      ),
+      workflowSources,
+    );
+  });
   fail('fallback element query cannot lose its dedicated read timeout', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
@@ -2540,7 +2641,7 @@ function selfTest() {
   fail('education context restoration cannot inherit the extended read timeout', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        `body: { name: originalContext }, timeout: 15000,
+        `body: { name: originalContext }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
       });
       restoration.actual = await webdriver`,
         `body: { name: originalContext }, timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
@@ -2752,10 +2853,10 @@ function selfTest() {
     // Keep the switch inside the restoration scope: a timed-out response can
     // leave the remote context changed even though the client saw an error.
     await webdriver(sessionPath('/context'), {
-      body: { name: 'NATIVE_APP' }, timeout: 15000,
+      body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
     });`;
     const unscopedSwitch = `  await webdriver(sessionPath('/context'), {
-    body: { name: 'NATIVE_APP' }, timeout: 15000,
+    body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
   });
   try {`;
     validateHeadlessHarnessContract(
@@ -2791,7 +2892,7 @@ function selfTest() {
     const mutatedFunction = withoutSwitch.replace(
       '  let nativeWindow;',
       `  await webdriver(sessionPath('/context'), {
-    body: { name: 'NATIVE_APP' }, timeout: 15000,
+    body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
   });
   let nativeWindow;`,
     );
@@ -2810,7 +2911,7 @@ function selfTest() {
     const mutatedFunction = withoutSwitch.replace(
       '  let nativeWindow;',
       `  await webdriver(sessionPath('/context'), {
-    body: { name: 'NATIVE_APP' }, timeout: 15000,
+    body: { name: 'NATIVE_APP' }, timeout: NATIVE_CONTEXT_TRANSITION_TIMEOUT_MS,
   });
   let nativeWindow;`,
     );
