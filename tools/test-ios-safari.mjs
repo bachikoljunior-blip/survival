@@ -15,10 +15,12 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  classifyTrustedTapAttempt,
   coordinateResidual,
   deriveCoordinateCalibration,
   translateWebPoint,
   validateCoordinateCalibration,
+  validateStableViewport,
 } from './ios_safari_coordinates.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -42,6 +44,9 @@ const report = {
   checks: [],
   device: null,
   coordinateCalibration: [],
+  coordinateCalibrationStages: [],
+  coordinateCalibrationAttempts: [],
+  coordinateCalibrationEvents: [],
   layout: null,
   interaction: {},
   persistence: null,
@@ -234,46 +239,134 @@ async function calibrateCoordinates(stage) {
   await execute(`
     var previous = document.getElementById('__cinderlineIosCalibrationOverlay');
     if (previous) previous.remove();
-    window.__cinderlineIosCalibrationPoints = [];
-    var overlay = document.createElement('div');
-    overlay.id = '__cinderlineIosCalibrationOverlay';
-    overlay.setAttribute('aria-hidden', 'true');
-    Object.assign(overlay.style, {
-      position: 'fixed', inset: '0', zIndex: '2147483647',
-      pointerEvents: 'auto', touchAction: 'none', background: 'transparent'
-    });
-    overlay.addEventListener('click', function (event) {
-      window.__cinderlineIosCalibrationPoints.push({
-        x: event.clientX, y: event.clientY, trusted: event.isTrusted
-      });
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }, true);
-    ['pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(function (type) {
-      overlay.addEventListener(type, function (event) {
-        event.stopImmediatePropagation();
-      }, true);
-    });
-    document.documentElement.appendChild(overlay);
+    window.__cinderlineIosCalibrationAttempts = Object.create(null);
+    window.__cinderlineIosCalibrationEventLog = [];
     return true;
   `);
   try {
-    const viewport = await execute('return { width: innerWidth, height: innerHeight };');
+    const viewport = await execute(`return {width:innerWidth,height:innerHeight,
+      visualViewport:window.visualViewport
+        ? {width:visualViewport.width,height:visualViewport.height,offsetLeft:visualViewport.offsetLeft,
+          offsetTop:visualViewport.offsetTop,scale:visualViewport.scale}
+        : null};`);
     if (!viewport || ![viewport.width, viewport.height]
       .every((value) => typeof value === 'number' && Number.isFinite(value) && value > 0)) {
       throw new Error(`Safari returned an invalid CSS viewport: ${JSON.stringify(viewport)}`);
     }
+    report.coordinateCalibrationStages.push({
+      stage, nativeWindow: rect, webViewport: viewport, expectedNativePoints: nativePoints,
+    });
     const webPoints = [];
+    const settle = () => new Promise((done) => setTimeout(done, 750));
     for (let index = 0; index < nativePoints.length; index += 1) {
-      await nativeTap(nativePoints[index].x, nativePoints[index].y);
-      const value = await waitForScript(`
-        var points = window.__cinderlineIosCalibrationPoints || [];
-        return points.length > ${index} ? points[${index}] : null;
-      `, 15000);
-      if (!value?.trusted) {
-        throw new Error(`Safari calibration tap ${index + 1} was not a trusted browser event`);
+      if (index > 0) await settle();
+      let pointValue = null;
+      for (let retry = 0; retry < 2 && !pointValue; retry += 1) {
+        if (retry > 0) await settle();
+        const attemptId = `${stage}-${index + 1}-${retry + 1}`;
+        const attemptViewport = await execute(`return {width:innerWidth,height:innerHeight,
+          visualViewport:window.visualViewport
+            ? {width:visualViewport.width,height:visualViewport.height,offsetLeft:visualViewport.offsetLeft,
+              offsetTop:visualViewport.offsetTop,scale:visualViewport.scale}
+            : null};`);
+        try {
+          validateStableViewport(viewport, attemptViewport);
+        } catch (error) {
+          throw new Error(`Safari viewport changed during coordinate calibration: ${JSON.stringify({
+            initial: viewport, current: attemptViewport, attemptId,
+          })}; ${error.message}`);
+        }
+        const overlay = await execute(`
+          var previous = document.getElementById('__cinderlineIosCalibrationOverlay');
+          if (previous) previous.remove();
+          var attemptId = ${JSON.stringify(attemptId)};
+          var attempt = {id:attemptId,events:[],startedAt:performance.now()};
+          window.__cinderlineIosCalibrationAttempts[attemptId] = attempt;
+          var overlay = document.createElement('div');
+          overlay.id = '__cinderlineIosCalibrationOverlay';
+          overlay.setAttribute('aria-hidden', 'true');
+          Object.assign(overlay.style, {
+            position:'fixed',inset:'0',zIndex:'2147483647',pointerEvents:'auto',
+            touchAction:'none',background:'transparent'
+          });
+          function record(event) {
+            var entry = {
+              attemptId:attemptId,type:event.type,x:event.clientX,y:event.clientY,
+              pointerId:Number.isInteger(event.pointerId) ? event.pointerId : null,
+              pointerType:event.pointerType || '',trusted:event.isTrusted,
+              targetMatches:event.target === overlay,timeStamp:event.timeStamp
+            };
+            attempt.events.push(entry);
+            window.__cinderlineIosCalibrationEventLog.push(entry);
+          }
+          ['pointerdown','pointerup','pointercancel','click','dblclick'].forEach(function (type) {
+            overlay.addEventListener(type, function (event) {
+              record(event);
+              event.stopImmediatePropagation();
+              if (type === 'click' || type === 'dblclick') event.preventDefault();
+            }, true);
+          });
+          ['touchstart','touchend','touchcancel'].forEach(function (type) {
+            overlay.addEventListener(type, function (event) {
+              var entry = {attemptId:attemptId,type:type,trusted:event.isTrusted,
+                targetMatches:event.target === overlay,timeStamp:event.timeStamp};
+              attempt.events.push(entry);
+              window.__cinderlineIosCalibrationEventLog.push(entry);
+              event.stopImmediatePropagation();
+            }, true);
+          });
+          document.documentElement.appendChild(overlay);
+          var r=overlay.getBoundingClientRect(),s=getComputedStyle(overlay);
+          return {connected:overlay.isConnected,rect:{x:r.x,y:r.y,width:r.width,height:r.height},
+            style:{pointerEvents:s.pointerEvents,touchAction:s.touchAction,zIndex:s.zIndex}};
+        `);
+        const recordedAttempt = {
+          stage, point: index + 1, retry: retry + 1, attemptId,
+          nativePoint: nativePoints[index], webViewport: attemptViewport,
+          overlay, outcome: 'started', nativeTapCompleted: false, events: [],
+        };
+        report.coordinateCalibrationAttempts.push(recordedAttempt);
+        try {
+          await nativeTap(nativePoints[index].x, nativePoints[index].y);
+          recordedAttempt.nativeTapCompleted = true;
+          await waitForScript(`
+            var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
+            return attempt && attempt.events.some(function (event) {
+              return event.type === 'pointerup' || event.type === 'pointercancel';
+            }) ? true : null;
+          `, 5000).catch(() => null);
+          await new Promise((done) => setTimeout(done, 150));
+          const events = await execute(`
+            var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
+            return attempt ? attempt.events.slice() : [];
+          `);
+          recordedAttempt.events = events;
+          const classified = classifyTrustedTapAttempt(events, attemptId, retry + 1, 2);
+          if (classified.outcome === 'retry') {
+            recordedAttempt.outcome = 'no-events';
+            continue;
+          }
+          pointValue = classified.point;
+          recordedAttempt.outcome = 'complete';
+        } catch (error) {
+          if (recordedAttempt.events.length === 0) {
+            recordedAttempt.events = await execute(`
+              var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
+              return attempt ? attempt.events.slice() : [];
+            `).catch(() => []);
+          }
+          recordedAttempt.outcome = recordedAttempt.outcome === 'no-events' ? 'no-events' : 'rejected';
+          recordedAttempt.error = error.message;
+          throw error;
+        } finally {
+          await execute(`
+            var overlay=document.getElementById('__cinderlineIosCalibrationOverlay');
+            if (overlay) overlay.remove();
+            return true;
+          `).catch((error) => report.diagnostics.cleanupErrors.push(`attempt overlay cleanup: ${error.message}`));
+        }
       }
-      webPoints.push({ x: value.x, y: value.y });
+      webPoints.push({ x: pointValue.x, y: pointValue.y });
     }
     const value = validateCoordinateCalibration(
       deriveCoordinateCalibration(nativePoints.slice(0, 2), webPoints.slice(0, 2)),
@@ -305,7 +398,17 @@ async function calibrateCoordinates(stage) {
     coordinateCalibration = value;
     report.coordinateCalibration.push(calibration);
     return calibration;
+  } catch (error) {
+    const safeStage = stage.replace(/[^a-z0-9_-]+/gi, '-');
+    const failureShot = resolve(OUTPUT, `ios-safari-calibration-${safeStage}-failure.png`);
+    await screenshot(failureShot)
+      .then(() => { report.screenshots[`calibration-${stage}-failure`] = failureShot.slice(ROOT.length + 1); })
+      .catch((shotError) => report.diagnostics.cleanupErrors.push(`calibration failure screenshot: ${shotError.message}`));
+    throw error;
   } finally {
+    await execute('return (window.__cinderlineIosCalibrationEventLog || []).slice();')
+      .then((events) => report.coordinateCalibrationEvents.push({ stage, events }))
+      .catch((error) => report.diagnostics.cleanupErrors.push(`calibration event-log capture: ${error.message}`));
     await execute(`
       var overlay = document.getElementById('__cinderlineIosCalibrationOverlay');
       if (overlay) overlay.remove();

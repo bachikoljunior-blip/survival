@@ -239,3 +239,34 @@ its own browsers and does not depend on the temporary path.
 This is locally tested logic, not Simulator evidence. Independent Level B
 exact-diff review passed the current bytes; a fresh exact-head run remains
 mandatory before merge.
+
+## Exact-head trusted-tap delivery failure
+
+PR #9 Floor run `31682290364`, remote head `396e4f41d4d57f7f662cdeeb7ef9ca1a6ec86414`,
+passed F2, F5, core F3 and the reviewed-baseline WebKit journey. Its required
+Mobile Safari job failed before product interaction and was not treated as a
+pass. Artifact `9174347024` contains `report.json` and the complete Appium log:
+
+- the first `mobile: tap` at native `(173,128)` produced a trusted browser
+  click at CSS `(173,64)`;
+- the second native tap at `(494,248)` completed successfully in WDA, but was
+  initiated about 63 ms after the first browser event was read and produced no
+  second recorded click during the 15-second observation window. The Xcode log
+  places the two actual XCTest event syntheses about 1.2 seconds apart, so this
+  evidence does not establish a rapid/double-tap timing root cause;
+- the report therefore contains `checks: []`, no calibration, interaction,
+  persistence or soak result, and `status: failed`.
+
+The validator and three-point residual threshold remain unchanged. The pending
+correction replaces the click-only, one-shot inference with exactly one
+recorded and required trusted touch `pointerdown` followed by `pointerup` with
+the same pointer identity and per-attempt overlay target. Each attempt has an
+isolated collector; only a completely event-free first attempt permits one
+retry. Partial, cancelled, untrusted, duplicate or cross-attempt sequences fail
+immediately. Every attempt and the global captured calibration-event log are preserved even when
+calibration cannot finish. A 750 ms settle is a conservative supplement, not the asserted
+root fix.
+Cancelled, untrusted, wrong-target, changed-pointer and excessive-movement
+sequences fail closed. The expanded pure transform, event-sequence, retry and
+viewport battery passes 46/46 locally. This is not Simulator evidence; a fresh exact-head run is
+still mandatory.
