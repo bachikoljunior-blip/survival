@@ -94,7 +94,8 @@ execution:
     - "Exact head a68b8a1 run 31698939643, Mobile Safari job 94443913545, artifact 9181047364 passed the complete 30/30 product journey with failures/errors empty, two zero-residual calibrations, exact context restoration and valid screenshots. The successful rerun of companion run 31698964713, Mobile Safari job 94446998600, artifact 9181414682, supplied another 30/30 pass and green aggregate F3 job 94452792873. Its first attempt artifact 9180845875 failed closed with checks=[] at the first orientation POST: the downstream WDA session was created at 12:25:28.071, the request was proxied at 12:25:57.811 and reset at 12:25:58.583, matching WDA 16.1.0's 30-second next-header keep-alive bound; that same downstream session later accepted DELETE 200. The bounded GET-first orientation correction plus deterministic single fresh-source-derived education tap passed 206/206 locally before exact-head execution; its acceptance target required present:true, exactly one source-derived-mobile-tap, marker absence, exact restoration and the complete 30/30 journey."
     - "Exact head 0d3de5d5 Floor runs 31703811954 and 31703841207 each passed F2, F5, core F3 and WebKit, but Mobile Safari jobs 94460020820 and 94460501803 failed, leaving aggregate F3 jobs 94463581675 and 94463384345 red. Round run 31703812015 job 94459204494 passed. Artifact 9182808851 proves the single source-derived mobile tap can dismiss education and exact WEBVIEW restoration can succeed, but its gameplay portrait POST returned HTTP 200 after 15.646 seconds, 646 ms beyond the 15-second client budget; the report failed closed after 21 checks. Artifact 9182755935 proves the same tap can complete HTTP 200 yet leave the complete education byte-identical, SHA-256 0a692d3dd54261feb6f7b88b31dce0cbe205737f8eb145fd4505f260d8aa0981, with checks=[]. The correction allows one fresh-element-click only after an exact unchanged response-complete primary observation, caps education at two actuations, gives orientation POST 30000 ms and reconciles only its exact response-unknown timeout without resending. Its combined battery passes 256/256 locally; fresh exact-head fallback and complete product execution remain required."
     - "Exact head 5ca4b2d initial Floor runs 31707697434 and 31707770353 passed F2, F5, core F3, WebKit, Mobile Safari and aggregate F3; round run 31707697420 passed. Artifacts 9184459869 and 9184516978 each record 30/30, all three response-complete orientation transitions, two zero-residual calibrations, persistence, soak, exact restoration and valid screenshots, but both dismissed education on attempt one. The unchanged-head reruns were kept: artifact 9185145291 proves primary response-complete plus byte-identical source, rawSourceUnchanged=true, fallback eligibility and a fresh one-element match, then fails before click when the first live rect read exceeds 15000 ms; WDA returns the correct rect 144 ms after client disconnect. Artifact 9185166957 fails closed before education when orientation POST exceeds 30000 ms and its target-verification GET exceeds 15000 ms, although Appium later completes POST HTTP 200 and the GET returns target LANDSCAPE. Latest Mobile and aggregate F3 are red. The measured correction gives only fallback pre-actuation reads 30000 ms, keeps education actuations and all other dismissal-control commands at 15000 ms except the pre-existing 60000-ms evidence screenshot, and gives orientation GET/POST 30000/60000 ms with no client-timeout resend. Its battery passes 268/268 locally; fresh exact-head fallback and complete product execution remain required."
-    - "Exact head b42ac59 Floor runs 31712474359 and 31712508808 passed F2, F5, core F3 and WebKit but left Mobile Safari jobs 94489768533/94489827723 and aggregate F3 jobs 94493916956/94493519458 red; round run 31712474317 passed. Artifact 9186405554 dismissed education through one response-complete source-derived-mobile-tap, so fallback was not executed, then failed closed before calibration when getNativeWindowRect's NATIVE_APP-to-WEBVIEW POST exceeded 15000 ms. Appium internally completed setContext and logged HTTP 200 about 36.815 seconds wall-clock after request start but reported duration 9633 ms; the clocks conflict, the exact GET readback did not run, and restoration is not claimed. The report has zero checks and zero calibrations. Artifact 9186371964 records a separate pre-session WDA infrastructure failure: port 8100 was not ready within 180 seconds and Appium received ECONNREFUSED, so no journey ran. The local correction gives only the six restoration-scope context POSTs and three post-restore exact GETs 60000 ms. Entry/pre-operation context GETs and native-education window/source/input remain 15000 ms, fallback reads 30000 ms, orientation GET/POST 30000/60000 ms and screenshots 60000 ms; no retry or log-based acceptance is added. Its battery passes 275/275 locally; two fresh independent exact-head 30/30 passes remain required, with at least one executing both education actuations and the successful fallback in that same complete run."
+    - "Exact head b42ac59 Floor runs 31712474359 and 31712508808 passed F2, F5, core F3 and WebKit but left Mobile Safari jobs 94489768533/94489827723 and aggregate F3 jobs 94493916956/94493519458 red; round run 31712474317 passed. Artifact 9186405554 dismissed education through one response-complete source-derived-mobile-tap, so fallback was not executed, then failed closed before calibration when getNativeWindowRect's NATIVE_APP-to-WEBVIEW POST exceeded 15000 ms. Appium internally completed setContext and logged HTTP 200 about 36.815 seconds wall-clock after request start but reported duration 9633 ms; the clocks conflict, the exact GET readback did not run, and restoration is not claimed. The report has zero checks and zero calibrations. Artifact 9186371964 records a separate pre-session WDA infrastructure failure: port 8100 was not ready within 180 seconds and Appium received ECONNREFUSED, so no journey ran. That revision's correction gave only the six restoration-scope context POSTs and three post-restore exact GETs 60000 ms. Entry/pre-operation context GETs and native-education window/source/input remained 15000 ms, fallback reads 30000 ms, orientation GET/POST 30000/60000 ms and screenshots 60000 ms; no retry or log-based acceptance was added. Its battery passed 275/275 locally; two fresh independent exact-head 30/30 passes remained required, with at least one executing both education actuations and the successful fallback in that same complete run."
+    - "Exact head 55bf170 Floor runs 31715966624 and 31716012041 passed F2, F5 and core F3 including WebKit, but Mobile Safari jobs 94501878717/94501824456 and aggregate F3 jobs 94505527526/94504983741 were red; round run 31715966626 passed. Artifact 9187800279 records an initial orientation GET ECONNRESET, its exact allowed read retry returning PORTRAIT, a response-complete LANDSCAPE POST in 3.421 seconds, then the strict read-only verification GET timing out at 30000 ms; the same GET returned LANDSCAPE after 69.408 seconds at WDA and 69.475 seconds at Appium. No mutation was resent, and the failed-closed report has checks=[], device=null, education unchecked and zero calibrations. Orientation GET is now 90000 ms only; POST remains 60000 ms. Artifact 9187745897 records the exact pre-session WDA failure: TEST BUILD succeeded but no Running tests, ServerURLHere or port-8100 readiness appeared within 180 seconds. The shared gates/Pages runner permits one fresh full retry only when exact report-plus-log classification and clean process-group teardown prove that case; it reboots the exact UDID, archives attempt one only after successful recovery, then starts fresh Appium/video/harness once. Recovery failure retains the root evidence. Product/session/lifecycle/cleanup/other failures and a third attempt are never retried. Coordinate/static tests pass 287/287, recovery tests pass 26/26 and F3 passes 9/9 locally. Forced outer-job cancellation or timeout has no custom signal handler, so artifact flush is not guaranteed; it cannot falsely pass and hosted-runner teardown owns cleanup. Two independent fresh exact-head 30/30 passes, including one same-run successful two-actuation fallback, remain required."
     - "The exact current-tree WebKit command could not launch locally because this Linux host lacks its GTK/GStreamer libraries; no local WebKit pass is claimed. Exact-head Actions runs 31684968784, 31684995777, 31687125738 and 31687149960 passed the reviewed-baseline WebKit journey. Run 31684968784 also passed the complete Simulator journey; the duplicate pre-session UI-restart timeout, proved headless repair, and pending native-Safari correction are separately recorded."
   historical_modified_but_unverified:
     - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
@@ -207,20 +208,25 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Deliver the local b42 context-restoration correction to pull request #9 on
-    a fresh exact head. Preserve the bounded two-actuation native-education
-    grammar, headless session, calibration reset barriers, clean trusted
+    Deliver the local exact-head-55bf follow-up to pull request #9. Preserve the
+    bounded two-actuation native-education grammar, headless session,
+    calibration reset barriers, exact context restoration, clean trusted
     down/up acceptance, three-point residual, calibrated two-pointer sequence
-    and required Mobile Safari F3 check. Give 60000 ms only to the six context
-    transition POSTs and three post-restoration exact GET readbacks already
-    inside the education, native-window and calibration-reset restoration
-    scopes. Keep entry/pre-operation context GETs, native-education window/source/input
-    commands and education actuations at 15000 ms, attempt-two fallback reads
-    at 30000 ms, orientation GET/POST at 30000/60000 ms, and the evidence
-    screenshot at 60000 ms. Add no context retry and do not accept Appium's
-    late internal success without the exact GET readback. Run two independent
-    exact-head Floor executions. Both must pass F2, F3, F5, WebKit and Mobile
-    Safari and complete all three orientation transitions, both zero-residual
+    and required Mobile Safari F3 check. Give only read-only orientation GET a
+    90000-ms bound; keep orientation POST at 60000 ms with its exact no-resend
+    response-unknown reconciliation. Use the identical bounded
+    tools/run-ios-safari-ci.mjs lifecycle in gates.yml and pages.yml. Permit a
+    maximum of two attempts and authorize the only retry solely when exact
+    failed-report plus Appium-log classification proves WDA compiled but never
+    began tests or listened before session creation, and first-attempt owned
+    process groups stopped cleanly. Shut down, boot and await the exact UDID;
+    only after recovery succeeds, archive attempt-one evidence and create fresh
+    Appium/video processes for one full harness run. Preserve root evidence if
+    recovery itself fails. Never retry a product or established-session
+    failure, a signaled harness process, lifecycle or cleanup error, any other
+    infrastructure error, or a second failure; never send a third attempt. Run two independent exact-head
+    Floor executions. Both must pass F2, F3, F5, WebKit and Mobile Safari and
+    complete all three orientation transitions, both zero-residual
     calibrations, 30/30 checks, persistence, soak, exact WEBVIEW restoration
     and valid screenshots with no timeout, response-unknown delivery or cleanup
     error. Within that pair, require one present-education artifact with
@@ -269,7 +275,7 @@ execution:
       frames. That control was measured on the previous base and is not
       re-derived here.
 floor:
-  last_check: "2026-08-14 (exact head b42ac59 Floor runs 31712474359 and 31712508808 passed F2, F5, core F3 and WebKit but Mobile Safari jobs 94489768533/94489827723 and aggregate F3 jobs 94493916956/94493519458 were red; round run 31712474317 passed. Artifact 9186405554 dismissed education on attempt one, did not execute fallback, then recorded a 15000-ms NATIVE_APP-to-WEBVIEW restoration POST timeout before calibration; Appium's late HTTP 200 and conflicting 9633-ms internal duration cannot prove exact restoration because its GET readback never ran. The report has zero checks and zero calibrations. Artifact 9186371964 records a separate 180-second WDA port-8100 readiness failure with ECONNREFUSED before session creation. The local six-context-POST plus three-exact-GET 60000-ms correction passes 275/275 locally without extending entry reads, native-education observation/input, fallback-read, orientation or screenshot bounds and without adding retries. Two fresh independent exact-head 30/30 passes remain required, with the successful two-actuation education fallback in at least one same-run pass.)"
+  last_check: "2026-08-14 (exact head 55bf170b4f23eb2ec907a47c9f3a4871ff4f67ef Floor runs 31715966624 and 31716012041 passed F2, F5 and core F3 including WebKit but Mobile Safari jobs 94501878717/94501824456 and aggregate F3 jobs 94505527526/94504983741 were red; round run 31715966626 passed. Artifact 9187800279 recorded initial orientation GET ECONNRESET, its exact retry returning PORTRAIT, response-complete LANDSCAPE POST in 3.421 seconds, then strict verification GET timing out at 30000 ms; that same read returned LANDSCAPE after 69.408/69.475 seconds. No mutation was resent; checks=[], device=null, education unchecked and calibration empty. Artifact 9187745897 recorded TEST BUILD success but no Running tests, ServerURLHere or port-8100 readiness within 180 seconds, with the exact pre-session report. The local correction changes only orientation GET to 90000 ms and adds a shared maximum-two-attempt runner whose only retry requires exact report-plus-log pre-session WDA classification and clean process-group shutdown; it reboots the exact UDID, then archives attempt-one evidence only after recovery succeeds before one fresh full run, retaining root evidence on recovery failure. Product/session/lifecycle/cleanup/other failures and a third attempt are denied. Coordinate/static tests pass 287/287, recovery tests 26/26 and F3 9/9 locally. Forced job cancellation/timeout may prevent artifact flush because no custom signal handler exists, but cannot falsely pass. Two independent exact-head 30/30 passes remain required, with the successful two-actuation fallback in at least one same-run pass; merge, deploy and F6 remain pending.)"
   independence_level_used: B
   skips:
     - "F6: not fired for this corrective delivery because it has not merged or deployed. The public URL is reachable from this environment; post-deploy execution remains mandatory."
@@ -292,7 +298,7 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: exact_head_5ca_full_primary_pass_but_fallback_read_and_orientation_latency_correction_pending
+    ios_safari_release_gate: exact_head_55bf_orientation_read_and_pre_session_wda_recovery_correction_pending
     revert_mechanism: absent_unsafe_due_save_compatibility
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
@@ -421,24 +427,32 @@ remote:
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Pull request #9 targets current main. Exact head b42ac59 runs 31712474359
-    and 31712508808 passed F2, F5, core F3 and WebKit but Mobile Safari jobs
-    94489768533/94489827723 and aggregate F3 jobs
-    94493916956/94493519458 were red; round run 31712474317 passed. Artifact
-    9186405554 dismissed education through the primary mobile tap and did not
-    exercise fallback, then failed closed before calibration when a
-    NATIVE_APP-to-WEBVIEW restoration POST exceeded 15000 ms. Appium later
-    logged HTTP 200 with conflicting wall-clock and internal durations, but the
-    required GET readback never ran, so exact restoration is not claimed. The
-    artifact has zero checks and zero calibrations. Artifact 9186371964 failed
-    separately before session creation when WDA port 8100 was not ready within
-    180 seconds and Appium received ECONNREFUSED. The local correction gives
-    only six restoration-scope context POSTs and three exact post-restoration
-    GETs 60000 ms, adds no retry or inferred acceptance, and passes
-    275/275 locally. Two fresh independent exact-head 30/30 passes are
-    required before merge, with the successful two-actuation fallback in at
-    least one same-run artifact. Public revision fields remain conservative
-    until gated deployment and direct F6 verification.
+    Pull request #9 targets current main. Exact head
+    55bf170b4f23eb2ec907a47c9f3a4871ff4f67ef runs 31715966624 and
+    31716012041 passed F2, F5 and core F3 including WebKit but Mobile Safari
+    jobs 94501878717/94501824456 and aggregate F3 jobs
+    94505527526/94504983741 were red; round run 31715966626 passed. Artifact
+    9187800279 failed closed when a strict orientation verification GET exceeded
+    30000 ms after the LANDSCAPE POST completed in 3.421 seconds; that same GET
+    returned LANDSCAPE after 69.408/69.475 seconds, and no mutation was resent.
+    The report has checks=[], device=null, education unchecked and zero
+    calibrations. Artifact 9187745897 records exact pre-session WDA startup
+    failure: TEST BUILD succeeded but no test-run/server/port-8100 readiness
+    appeared within 180 seconds. The local correction changes only orientation
+    GET to 90000 ms and adds the identical gates/Pages maximum-two-attempt
+    lifecycle. Its only retry requires exact report-plus-log classification
+    and clean owned-process teardown; it reboots the exact UDID first, then
+    archives attempt-one evidence only after successful recovery before one
+    fresh full harness run, retaining root evidence on recovery failure.
+    Product/session/lifecycle/cleanup, a signaled harness, other failures and
+    any third attempt are denied. Coordinate/static tests pass 287/287 with
+    exact/raw orientation anchors, comment-decoy negatives and workflow
+    command-option bypass checks. Runner recovery tests pass 26/26, covering
+    signal/alias/spawn/indirect extra-attempt and reboot guards; F3 passes 9/9 locally. Two fresh
+    independent exact-head 30/30 passes are required before merge, with the
+    successful two-actuation fallback in at least one same-run artifact. Public
+    revision fields remain conservative until gated deployment and direct F6
+    verification.
 
 updated_at: "2026-08-14"
 reconciliation_status: >-
@@ -488,13 +502,23 @@ reconciliation_status: >-
   session creation when WDA port 8100 was not ready within 180 seconds. The
   first run dismissed education on attempt one, so fallback remains unexecuted;
   its late Appium HTTP 200 does not prove restoration because the exact GET
-  readback did not run. The current local correction gives 60000 ms only to six
-  restoration-scope context POSTs and three exact post-restoration GETs. Entry
-  context reads, native-education window/source/input, fallback reads, orientation and
-  screenshot budgets remain bounded as measured. No retry or inferred success
-  was added. The combined battery passes 275/275; two independent fresh-head
-  complete Simulator passes, including one same-run fallback and 30/30, remain
-  required.
+  readback did not run. Revision 55bf bounded the restoration scopes and again
+  passed F2, F5, core F3 and WebKit twice. One Mobile run then failed closed
+  when the strict orientation verification GET exceeded 30000 ms even though
+  its unchanged request returned target LANDSCAPE after 69.408/69.475 seconds;
+  no mutation was resent. The other run reproduced the exact pre-session WDA
+  case: build success with no test-run/server/port-8100 readiness within 180
+  seconds. The current local correction gives only orientation GET 90000 ms,
+  keeps POST 60000 ms, and shares one bounded lifecycle across gates and Pages.
+  It retries only an exact report-plus-log-classified pre-session WDA failure,
+  after clean owned-process shutdown and exact-UDID reboot; only successful
+  recovery is followed by evidence archival and one fresh run, while recovery
+  failure retains the root evidence. Product, session, lifecycle, cleanup and
+  every other failure remain final, with no third attempt. Coordinate/static
+  tests pass 287/287, runner recovery tests 26/26 and F3 9/9. Forced outer-job cancellation or timeout has no custom
+  signal handler and may prevent artifact flush, but cannot falsely pass; two
+  independent fresh-head complete Simulator passes, including one same-run
+  fallback and 30/30, remain required.
   Independent source-aware review drove removal of the unauthoritative manual
   F5 dispatch surface plus strict trailer parsing, exact revision F6, Pages publisher ordering, and the
   removal of an unsafe rollback claim. Exact-

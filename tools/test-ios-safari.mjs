@@ -212,7 +212,7 @@ let sessionId = '';
 const sessionPath = (suffix = '') => `session/${sessionId}${suffix}`;
 const execute = (script, args = []) => webdriver(sessionPath('/execute/sync'), { body: { script, args } });
 
-const ORIENTATION_GET_TIMEOUT_MS = 30000;
+const ORIENTATION_GET_TIMEOUT_MS = 90000;
 const ORIENTATION_POST_TIMEOUT_MS = 60000;
 const orientationSettle = () => new Promise((done) => setTimeout(done, 750));
 

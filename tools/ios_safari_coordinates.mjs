@@ -1268,9 +1268,38 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   const orientationTimeoutReadCalls = orientationTimeoutSource.match(
     /await readOrientationWithResetRetry\(/g,
   ) || [];
-  if (!sourceText.includes('const ORIENTATION_GET_TIMEOUT_MS = 30000;')
-      || !sourceText.includes('const ORIENTATION_POST_TIMEOUT_MS = 60000;')
-      || !orientationReadSource.includes('readAttempt <= 2')
+  const orientationGetTimeoutDeclarations = sourceText.match(
+    /^const ORIENTATION_GET_TIMEOUT_MS = 90000;$/gm,
+  ) || [];
+  const orientationPostTimeoutDeclarations = sourceText.match(
+    /^const ORIENTATION_POST_TIMEOUT_MS = 60000;$/gm,
+  ) || [];
+  const orientationGetTimeoutReferences = sourceText.match(
+    /\bORIENTATION_GET_TIMEOUT_MS\b/g,
+  ) || [];
+  const orientationPostTimeoutReferences = sourceText.match(
+    /\bORIENTATION_POST_TIMEOUT_MS\b/g,
+  ) || [];
+  const orientationReadRetryLoops = orientationReadSource.match(
+    /^  for \(let readAttempt = 1; readAttempt <= 2; readAttempt \+= 1\) \{$/gm,
+  ) || [];
+  const orientationReadRetryComparisons = orientationReadSource.match(
+    /\breadAttempt\s*<=/g,
+  ) || [];
+  const orientationMutationLoops = orientationSource.match(
+    /^    for \(let mutationIndex = 0; mutationIndex < 2; mutationIndex \+= 1\) \{$/gm,
+  ) || [];
+  const orientationMutationComparisons = orientationSource.match(
+    /\bmutationIndex\s*</g,
+  ) || [];
+  if (orientationGetTimeoutDeclarations.length !== 1
+      || orientationPostTimeoutDeclarations.length !== 1
+      || orientationGetTimeoutReferences.length !== 3
+      || orientationPostTimeoutReferences.length !== 4
+      || orientationReadRetryLoops.length !== 1
+      || orientationReadRetryComparisons.length !== 1
+      || orientationMutationLoops.length !== 1
+      || orientationMutationComparisons.length !== 1
       || !orientationReadSource.includes('timeoutMs: ORIENTATION_GET_TIMEOUT_MS,')
       || !orientationReadSource.includes(
         "method: 'GET', timeout: ORIENTATION_GET_TIMEOUT_MS,",
@@ -1378,10 +1407,41 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     throw new Error('both PR and Pages workflows are required');
   }
   for (const [name, source] of workflowSources) {
-    const boot = String(source).indexOf('xcrun simctl bootstatus "$udid" -b');
-    const record = String(source).indexOf('recordVideo --codec=h264');
-    if (boot < 0 || record < 0 || boot >= record) {
-      throw new Error(`${name} must finish headless boot before starting the recorder`);
+    const workflow = String(source);
+    const jobHeaders = [...workflow.matchAll(/^  ios-safari:[ \t]*$/gm)];
+    if (jobHeaders.length !== 1) {
+      throw new Error(`${name} must define exactly one ios-safari job`);
+    }
+    const jobStart = jobHeaders[0].index;
+    const afterHeader = jobStart + jobHeaders[0][0].length;
+    const nextJob = /^  [A-Za-z0-9_-]+:[ \t]*$/m.exec(workflow.slice(afterHeader));
+    const jobEnd = nextJob ? afterHeader + nextJob.index : workflow.length;
+    const iosSafariJob = workflow.slice(jobStart, jobEnd);
+    const bootLines = iosSafariJob.match(
+      /^[ \t]*xcrun simctl bootstatus "\$udid" -b[ \t]*$/gm,
+    ) || [];
+    const runnerLines = iosSafariJob.match(
+      /^[ \t]*run: node tools\/run-ios-safari-ci\.mjs[ \t]*$/gm,
+    ) || [];
+    const runnerMentions = iosSafariJob.match(/node tools\/run-ios-safari-ci\.mjs/g) || [];
+    if (bootLines.length !== 1 || runnerLines.length !== 1 || runnerMentions.length !== 1
+        || iosSafariJob.indexOf(bootLines[0]) >= iosSafariJob.indexOf(runnerLines[0])) {
+      throw new Error(`${name} ios-safari must finish one headless boot before its one exact CI runner invocation`);
+    }
+    const appiumLines = iosSafariJob.split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => /\bappium\b/.test(line));
+    const allowedAppiumLines = [
+      'npm install --global appium@3.6.0',
+      'appium driver install xcuitest@12.1.3',
+      'appium driver list --installed',
+    ];
+    if (appiumLines.length !== allowedAppiumLines.length
+        || appiumLines.some((line, index) => line !== allowedAppiumLines[index])
+        || /\brecordVideo\b/.test(iosSafariJob)
+        || /\btest:ios-safari\b/.test(iosSafariJob)
+        || /^[ \t]*-[ \t]+name:[ \t]*Stop(?:[ \t]|$)/m.test(iosSafariJob)) {
+      throw new Error(`${name} ios-safari must delegate Appium, recording, harness and cleanup lifecycle to the CI runner`);
     }
   }
   return true;
@@ -2195,7 +2255,7 @@ function selfTest() {
   });
   pass('orientation GET timeout is not reconcilable as a POST timeout', () => {
     if (isExactOrientationPostClientTimeout(
-      new Error('WebDriver GET session/session-1/orientation exceeded 60000 ms'),
+      new Error('WebDriver GET session/session-1/orientation exceeded 90000 ms'),
       'session-1',
       60000,
     )) throw new Error('orientation GET timeout accepted');
@@ -2314,7 +2374,11 @@ function selfTest() {
     name,
     readFileSync(new URL(`../.github/workflows/${name}`, import.meta.url), 'utf8'),
   ]);
-  pass('headless harness preserves the workflow-prebooted Simulator', () => {
+  const mutateFirstWorkflow = (mutate) => workflowSources.map(([name, source], index) => [
+    name,
+    index === 0 ? mutate(source) : source,
+  ]);
+  pass('headless harness preserves workflow preboot before the exact CI runner', () => {
     validateHeadlessHarnessContract(harnessSource, workflowSources);
   });
   fail('visible-mode regression is rejected', () => {
@@ -2323,16 +2387,85 @@ function selfTest() {
       workflowSources,
     );
   });
-  fail('recorder-before-boot regression is rejected', () => {
-    validateHeadlessHarnessContract(harnessSource, workflowSources.map(([name, source], index) => [
-      name,
-      index === 0
-        ? source.replace(
+  fail('legacy recorder-before-boot regression is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
           'xcrun simctl bootstatus "$udid" -b',
           'recordVideo --codec=h264\nxcrun simctl bootstatus "$udid" -b',
         )
-        : source,
-    ]));
+    )));
+  });
+  fail('legacy inline Appium server is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        'xcrun simctl bootstatus "$udid" -b',
+        'appium --base-path / --port 4723\n          xcrun simctl bootstatus "$udid" -b',
+      )
+    )));
+  });
+  fail('npx Appium server bypass is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        'xcrun simctl bootstatus "$udid" -b',
+        'npx appium --port 4723 --base-path /\n          xcrun simctl bootstatus "$udid" -b',
+      )
+    )));
+  });
+  fail('codec-independent recorder bypass is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        'xcrun simctl bootstatus "$udid" -b',
+        'xcrun simctl io "$udid" recordVideo evidence.mp4\n          xcrun simctl bootstatus "$udid" -b',
+      )
+    )));
+  });
+  fail('legacy direct Mobile Safari npm harness is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        'xcrun simctl bootstatus "$udid" -b',
+        'npm run test:ios-safari\n          xcrun simctl bootstatus "$udid" -b',
+      )
+    )));
+  });
+  fail('npm-option Mobile Safari harness bypass is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        'xcrun simctl bootstatus "$udid" -b',
+        'npm --silent run test:ios-safari\n          xcrun simctl bootstatus "$udid" -b',
+      )
+    )));
+  });
+  fail('legacy Stop lifecycle step is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        '      - name: Preserve Safari screenshots, video, logs and report',
+        '      - name: Stop recording\n        run: true\n      - name: Preserve Safari screenshots, video, logs and report',
+      )
+    )));
+  });
+  fail('runner invocation with extra arguments is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        'run: node tools/run-ios-safari-ci.mjs',
+        'run: node tools/run-ios-safari-ci.mjs --retry',
+      )
+    )));
+  });
+  fail('duplicate Mobile Safari runner invocation is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source.replace(
+        '        run: node tools/run-ios-safari-ci.mjs',
+        '        run: node tools/run-ios-safari-ci.mjs\n      - name: Duplicate Mobile Safari runner\n        run: node tools/run-ios-safari-ci.mjs',
+      )
+    )));
+  });
+  fail('runner-before-boot regression is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, mutateFirstWorkflow((source) => (
+      source
+        .replace('xcrun simctl bootstatus "$udid" -b', '__IOS_SAFARI_BOOT__')
+        .replace('run: node tools/run-ios-safari-ci.mjs', 'xcrun simctl bootstatus "$udid" -b')
+        .replace('__IOS_SAFARI_BOOT__', 'run: node tools/run-ios-safari-ci.mjs')
+    )));
   });
   fail('calibration-before-native-education-dismissal is rejected', () => {
     validateHeadlessHarnessContract(
@@ -2947,6 +3080,15 @@ function selfTest() {
       workflowSources,
     );
   });
+  fail('orientation GET retry comment decoy cannot hide widening', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'readAttempt <= 2; readAttempt += 1',
+        'readAttempt <= 3; readAttempt += 1 // readAttempt <= 2',
+      ),
+      workflowSources,
+    );
+  });
   fail('orientation mutation retry budget widening is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace('mutationIndex < 2', 'mutationIndex < 3'),
@@ -2956,8 +3098,17 @@ function selfTest() {
   fail('orientation GET timeout budget drift is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'const ORIENTATION_GET_TIMEOUT_MS = 30000;',
-        'const ORIENTATION_GET_TIMEOUT_MS = 30001;',
+        'const ORIENTATION_GET_TIMEOUT_MS = 90000;',
+        'const ORIENTATION_GET_TIMEOUT_MS = 90001;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation GET timeout comment decoy cannot hide drift', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const ORIENTATION_GET_TIMEOUT_MS = 90000;',
+        'const ORIENTATION_GET_TIMEOUT_MS = 90001; // const ORIENTATION_GET_TIMEOUT_MS = 90000;',
       ),
       workflowSources,
     );
@@ -2967,6 +3118,15 @@ function selfTest() {
       harnessSource.replace(
         'const ORIENTATION_POST_TIMEOUT_MS = 60000;',
         'const ORIENTATION_POST_TIMEOUT_MS = 60001;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation POST timeout comment decoy cannot hide drift', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const ORIENTATION_POST_TIMEOUT_MS = 60000;',
+        'const ORIENTATION_POST_TIMEOUT_MS = 60001; // const ORIENTATION_POST_TIMEOUT_MS = 60000;',
       ),
       workflowSources,
     );

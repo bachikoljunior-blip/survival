@@ -598,20 +598,21 @@ also failed. Round-comparison run `31712474317` passed.
   pre-session WDA infrastructure failure, not a product or interaction result.
 
 Neither result satisfies merge acceptance, and neither proves the conditional
-education fallback. The measured local correction changes no selector, input,
-retry, reconciliation or acceptance grammar. A dedicated 60000-ms bound now
-applies only to six context-transition POSTs and three exact post-restoration
-GET readbacks that are already enclosed by the education, native-window and
-calibration-reset restoration scopes. The three entry/pre-operation context
-GETs and the two other context reads remain at 15000 ms. Native-education
-window-rect, source and input commands also remain at 15000 ms; attempt-two fallback reads
-remain at 30000 ms, orientation GET/POST at 30000/60000 ms, and the pre-existing
-evidence screenshot at 60000 ms. No context command is retried. A timed-out
-POST still fails closed unless the already-required exact GET readback executes
-and proves restoration; Appium's late internal log cannot authorize progress.
+education fallback. At that revision, the measured correction changed no
+selector, input, retry, reconciliation or acceptance grammar. A dedicated
+60000-ms bound applied only to six context-transition POSTs and three exact
+post-restoration GET readbacks already enclosed by the education, native-window
+and calibration-reset restoration scopes. The three entry/pre-operation
+context GETs and the two other context reads remained at 15000 ms.
+Native-education window-rect, source and input commands also remained at 15000
+ms; attempt-two fallback reads remained at 30000 ms, orientation GET/POST at
+30000/60000 ms, and the pre-existing evidence screenshot at 60000 ms. No
+context command was retried. A timed-out POST still had to fail closed unless
+the already-required exact GET readback executed and proved restoration;
+Appium's late internal log could not authorize progress.
 
-The combined pure/static battery passes 275/275 locally and locks the
-six POST plus three exact-readback scope while rejecting any extension to the
+That revision's combined pure/static battery passed 275/275 locally and locked
+the six POST plus three exact-readback scope while rejecting any extension to the
 entry reads, native observations or input. A fresh exact head must pass two
 independent Floor executions: each must leave every required job green and
 complete the same-run 30/30 journey with no timeout, response-unknown delivery
@@ -621,6 +622,70 @@ byte-identical attempt one must become `fallback-eligible`, and one fresh,
 exactly verified element click must remove all education markers before the
 same run completes both zero-residual calibrations, persistence, soak, exact
 WEBVIEW restoration and valid screenshots.
+
+## Exact-head orientation-read and bounded pre-session recovery result (2026-08-14)
+
+PR #9 exact head `55bf170b4f23eb2ec907a47c9f3a4871ff4f67ef`
+produced Floor runs `31715966624` (#55) and `31716012041` (#56). Both
+passed F2, F5 and core F3, including the complete WebKit journey, but Mobile
+Safari jobs `94501878717` and `94501824456` failed, so aggregate F3 jobs
+`94505527526` and `94504983741` also failed. Round-comparison run
+`31715966626` passed.
+
+- Run `31715966624`, artifact `9187800279`, entered the first orientation
+  transition. Its initial GET received `ECONNRESET`; the already-bounded exact
+  read retry completed with PORTRAIT. The LANDSCAPE POST then completed in
+  3.421 seconds, but its mandatory read-only verification GET exceeded the
+  30-second client bound. The same request eventually returned LANDSCAPE after
+  69.408 seconds in WDA and 69.475 seconds in Appium. No POST was resent and no
+  second mutation occurred. The client failed closed with `checks:[]`,
+  `device:null`, education unchecked and zero calibrations; no product pass is
+  claimed. The measured correction changes only orientation GET from 30 to 90
+  seconds. Orientation POST remains 60 seconds, including its no-resend
+  response-unknown reconciliation grammar.
+- Run `31716012041`, artifact `9187745897`, failed before WebDriver session
+  creation. WebDriverAgent logged `TEST BUILD SUCCEEDED`, but the log contained
+  no `Running tests`, `ServerURLHere` or port-8100 readiness within the
+  180-second startup bound. Its report has the exact pre-session shape: no
+  device, orientation, education, calibration, interaction or product check.
+  This is an infrastructure startup result and does not exercise product or
+  harness acceptance.
+
+The two workflows now invoke the same bounded owner,
+`tools/run-ios-safari-ci.mjs`, for the complete Appium/video/harness lifecycle.
+It permits at most two attempts. A retry is authorized only when both the
+structured failed report and the Appium log match the exact pre-session WDA
+case above, and only after the first attempt's owned process groups terminate
+cleanly. The runner then shuts down, boots and waits for the exact selected
+UDID. Only after that recovery succeeds does it archive all first-attempt
+evidence under `attempt-1`, then start fresh Appium, video recording and the
+full Safari harness once; a recovery failure retains the root evidence. A
+product failure, any evidence that a WebDriver session or product work began,
+any non-null harness process signal, an Appium/video
+lifecycle error, unclean process-group teardown, every other infrastructure
+failure and any third attempt are rejected. The gates and Pages jobs have an
+identical runner step, so pre-merge and pre-deploy acceptance cannot diverge.
+
+The current coordinate/static self-test battery passes 287/287. It anchors the
+exact 90/60-second orientation constants and bounded retry loop by exact/raw
+occurrence and rejects three comment-decoy forms. That static battery also
+proves the workflow rejects `npx` Appium, codec-less `recordVideo` and
+npm-option bypasses. The CI recovery classifier/lifecycle battery passes 26/26:
+in addition to removing the harness-signal guard, its negatives exercise raw
+identifier, import and process spawn aliases plus indirect third-attempt and
+extra-reboot paths. F3 passes 9/9 locally.
+The merge criterion is unchanged: two independent fresh exact-head Floor runs
+must leave every required job green and complete the same-run 30/30 journey
+without timeout, response-unknown delivery or cleanup error; at least one must
+also execute both bounded education actuations and successfully dismiss through
+the fallback before that same 30/30 completion. Merge, Pages deployment and
+stamped F6 remain pending.
+
+Residual risk is LOW: if GitHub forcibly cancels or times out the outer job,
+the runner has no custom signal handler, so final artifact flushing is not
+guaranteed. Such termination cannot produce a passing exit, and hosted-runner
+teardown remains responsible for final process cleanup; this residual does not
+weaken the exact classifier or add another attempt.
 
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is

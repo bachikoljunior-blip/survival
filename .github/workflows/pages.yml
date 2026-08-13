@@ -117,31 +117,11 @@ jobs:
           echo "platform_version=$platform_version" >> "$GITHUB_OUTPUT"
           xcrun simctl boot "$udid" 2>/dev/null || true
           xcrun simctl bootstatus "$udid" -b
-      - name: Start Appium and simulator video
-        shell: bash
-        run: |
-          mkdir -p test-results/ios-safari
-          appium --base-path / --log test-results/ios-safari/appium.log > /dev/null 2>&1 &
-          echo $! > test-results/ios-safari/appium.pid
-          xcrun simctl io "${{ steps.simulator.outputs.udid }}" recordVideo --codec=h264 --force test-results/ios-safari/ios-safari.mp4 > test-results/ios-safari/video.log 2>&1 &
-          echo $! > test-results/ios-safari/video.pid
-          for attempt in {1..60}; do
-            if curl --fail --silent http://127.0.0.1:4723/status > /dev/null; then exit 0; fi
-            sleep 1
-          done
-          exit 1
-      - name: Exercise Mobile Safari through Appium
+      - name: Exercise Mobile Safari through bounded WDA recovery
         env:
           IOS_SIMULATOR_UDID: ${{ steps.simulator.outputs.udid }}
           IOS_SIMULATOR_PLATFORM_VERSION: ${{ steps.simulator.outputs.platform_version }}
-        run: npm run test:ios-safari
-      - name: Stop recording
-        if: always()
-        shell: bash
-        run: |
-          if test -f test-results/ios-safari/video.pid; then kill -INT "$(cat test-results/ios-safari/video.pid)" 2>/dev/null || true; fi
-          if test -f test-results/ios-safari/appium.pid; then kill "$(cat test-results/ios-safari/appium.pid)" 2>/dev/null || true; fi
-          sleep 2
+        run: node tools/run-ios-safari-ci.mjs
       - name: Preserve Safari screenshots, video, logs and report
         if: always()
         uses: actions/upload-artifact@v4
