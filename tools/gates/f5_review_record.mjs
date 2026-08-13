@@ -3,70 +3,170 @@
  * F5 gate — a change may not merge without a recorded independence level and
  * review outcome.
  *
- * The floor requires a deliberate falsification pass before an objective is
- * completed or a STRICT operation proceeds, and requires the independence level
- * actually used to be recorded. A level nobody wrote down is indistinguishable
- * from a pass nobody performed, so this check demands the record and fails
- * without it.
- *
  * Two things must be true:
- *   1. AI_DEVELOPMENT/STATE.yaml carries floor.independence_level_used with a
- *      real level (A, B, C or D).
- *   2. The delivery carries a review trailer naming the level and the outcome:
+ *   1. AI_DEVELOPMENT/STATE.yaml carries exactly one top-level
+ *      floor.independence_level_used scalar with level A, B, C or D.
+ *   2. The delivery description begins with exactly one canonical record as
+ *      its first non-empty line:
  *
  *        Floor-Review: C / pass
- *        Floor-Review: A / fail
  *
- *      Read from the pull-request body via F5_REVIEW_BODY, or from --body.
- *      Level D alone never completes an objective, so D is refused when the
- *      outcome claims completion.
+ *      The body comes from F5_REVIEW_BODY, --body, or
+ *      --body-file/F5_REVIEW_BODY_FILE for local tests.
+ *      Level D is prepared-only and cannot complete an objective.
  *
  * Exit 0 when satisfied, 1 otherwise. This is a gate, not a report.
  */
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ownScalar, parseStrictStateYaml } from './strict_state_yaml.mjs';
 
 const ROOT = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 const argv = process.argv.slice(2);
-const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
-const BODY = arg('body', process.env.F5_REVIEW_BODY || '');
+const has = (name) => argv.includes(`--${name}`);
+const arg = (name, fallback = '') => {
+  const index = argv.indexOf(`--${name}`);
+  return index >= 0 && argv[index + 1] ? argv[index + 1] : fallback;
+};
+const fail = (message) => {
+  console.error(`F5 gate FAILED: ${message}`);
+  process.exit(1);
+};
 
-const fail = (msg) => { console.error(`F5 gate FAILED: ${msg}`); process.exit(1); };
+function reviewRecord(state, body) {
+  let parsedState;
+  try {
+    parsedState = parseStrictStateYaml(state, 'AI_DEVELOPMENT/STATE.yaml');
+  } catch (error) {
+    throw new Error(`STATE.yaml is not structurally valid: ${error.message}`);
+  }
+  const floor = ownScalar(parsedState, 'floor');
+  const recordedLevel = ownScalar(floor, 'independence_level_used');
+  if (!/^[ABCD]$/.test(recordedLevel || '')) {
+    throw new Error('STATE.yaml must contain exactly one top-level floor.independence_level_used scalar with level A, B, C or D');
+  }
 
-let state;
+  const bodyLines = body.replace(/\r\n/g, '\n').split('\n');
+  const trailerPattern = /^Floor-Review: ([ABCD]) \/ (pass|fail|blocked|inconclusive)$/;
+  const trailers = bodyLines
+    .map((line, index) => {
+      const match = trailerPattern.exec(line);
+      return match ? { index, match } : null;
+    })
+    .filter(Boolean);
+  if (trailers.length !== 1) {
+    throw new Error(
+      `found ${trailers.length} canonical review trailers; exactly one is required. `
+      + 'The delivery must begin with Floor-Review: <A|B|C|D> / '
+      + '<pass|fail|blocked|inconclusive>. Examples and superseded outcomes '
+      + 'must not use the canonical trailer syntax',
+    );
+  }
+
+  const firstNonEmptyIndex = bodyLines.findIndex((line) => line.trim());
+  if (trailers[0].index !== firstNonEmptyIndex) {
+    throw new Error('the single canonical Floor-Review record must be the first non-empty line of the delivery description');
+  }
+
+  const level = trailers[0].match[1];
+  const outcome = trailers[0].match[2];
+  if (outcome !== 'pass') {
+    throw new Error(`the recorded review outcome is "${outcome}"; a change may not merge without a pass`);
+  }
+  if (level === 'D') {
+    throw new Error('level D is prepared-only and never completes an objective');
+  }
+  if (level !== recordedLevel) {
+    throw new Error(`the trailer claims level ${level} but STATE.yaml records ${recordedLevel}`);
+  }
+  return { level, outcome };
+}
+
+function selfTest() {
+  const state = (level = 'B') => `version: 1\nfloor:\n  independence_level_used: ${level}\nremote:\n  status: test\n`;
+  const invalid = [
+    ['missing trailer', state(), 'review pending'],
+    ['duplicated trailer', state(), 'Floor-Review: B / pass\nFloor-Review: B / pass'],
+    ['superseded pass before blocked', state(), 'Floor-Review: B / pass\nFloor-Review: B / blocked'],
+    ['fenced pass before blocked', state(), '```text\nFloor-Review: B / pass\n```\nFloor-Review: B / blocked'],
+    ['single trailer in unclosed backtick fence', state(), 'Review\n```text\nFloor-Review: B / pass'],
+    ['single trailer in unclosed tilde fence', state(), 'Review\n~~~~ text\nFloor-Review: B / pass'],
+    ['single trailer in tilde fence with backtick info', state(), 'Review\n~~~`example`\nFloor-Review: B / pass'],
+    ['single trailer in raw HTML pre block', state(), '<pre>\nFloor-Review: B / pass'],
+    ['single trailer in unclosed HTML comment', state(), 'Review pending.\n\n<!--\nFloor-Review: B / pass'],
+    ['record is not first', state(), 'Review summary\nFloor-Review: B / pass'],
+    ['blocked outcome', state(), 'Floor-Review: B / blocked'],
+    ['level mismatch', state(), 'Floor-Review: C / pass'],
+    ['prepared-only level', state('D'), 'Floor-Review: D / pass'],
+    ['out-of-section scalar only', 'independence_level_used: B\nremote:\n  status: test\n', 'Floor-Review: B / pass'],
+    ['duplicated floor scalar', 'floor:\n  independence_level_used: B\n  independence_level_used: B\n', 'Floor-Review: B / pass'],
+    ['quoted duplicate floor key', 'floor:\n  independence_level_used: B\n"floor":\n  independence_level_used: D\n', 'Floor-Review: B / pass'],
+    ['commented duplicate floor key', 'floor:\n  independence_level_used: B\nfloor: # duplicate\n  independence_level_used: D\n', 'Floor-Review: B / pass'],
+    ['quoted duplicate child key', 'floor:\n  independence_level_used: B\n  "independence_level_used": D\n', 'Floor-Review: B / pass'],
+    ['hex-escaped duplicate floor key', 'floor:\n  independence_level_used: B\n"f\\x6coor":\n  independence_level_used: D\n', 'Floor-Review: B / pass'],
+    ['long-unicode-escaped duplicate child key', 'floor:\n  independence_level_used: B\n  "independence_level_\\U00000075sed": D\n', 'Floor-Review: B / pass'],
+    ['tagged duplicate floor key', 'floor:\n  independence_level_used: B\n!!str floor:\n  independence_level_used: D\n', 'Floor-Review: B / pass'],
+    ['anchored duplicate floor key', 'floor:\n  independence_level_used: B\n&x floor:\n  independence_level_used: D\n', 'Floor-Review: B / pass'],
+    ['top-level prototype injection', '__proto__:\n  floor:\n    independence_level_used: B\n', 'Floor-Review: B / pass'],
+    ['nested prototype injection', 'floor:\n  __proto__:\n    independence_level_used: B\n', 'Floor-Review: B / pass'],
+  ];
+
+  let passed = 0;
+  try {
+    const valid = reviewRecord(
+      `independence_level_used: A\n${state('B')}`,
+      '\nFloor-Review: B / pass\n\nReview complete.\n',
+    );
+    if (valid.level !== 'B') throw new Error(`valid control returned ${valid.level}`);
+    console.log('ok  exact floor scalar + one first-line record passes');
+    passed += 1;
+  } catch (error) {
+    console.error(`FAIL valid control — ${error.message}`);
+  }
+
+  for (const [name, yaml, body] of invalid) {
+    try {
+      reviewRecord(yaml, body);
+      console.error(`FAIL ${name} — unexpectedly passed`);
+    } catch {
+      console.log(`ok  ${name} rejected`);
+      passed += 1;
+    }
+  }
+  const total = invalid.length + 1;
+  if (passed !== total) {
+    console.error(`F5 self-test FAILED — ${passed}/${total}`);
+    process.exit(1);
+  }
+  console.log(`F5 self-test OK — ${passed}/${total}`);
+  process.exit(0);
+}
+
+if (has('self-test')) selfTest();
+
+const bodyFile = arg('body-file', process.env.F5_REVIEW_BODY_FILE || '');
+let body = arg('body', process.env.F5_REVIEW_BODY || '');
+if (bodyFile) {
+  try {
+    body = readFileSync(bodyFile, 'utf8');
+  } catch (error) {
+    fail(`could not read the authoritative pull-request body file: ${error.message}`);
+  }
+}
+
+let canonicalState;
 try {
-  state = readFileSync(join(ROOT, 'AI_DEVELOPMENT/STATE.yaml'), 'utf8');
+  canonicalState = readFileSync(join(ROOT, 'AI_DEVELOPMENT/STATE.yaml'), 'utf8');
 } catch {
-  fail('AI_DEVELOPMENT/STATE.yaml is missing. The floor has no canonical state to record a review level in.');
+  fail('AI_DEVELOPMENT/STATE.yaml is missing; there is no canonical review level');
 }
 
-const recorded = /^\s*independence_level_used:\s*"?([ABCD])"?\s*$/m.exec(state);
-if (!recorded) {
-  fail('AI_DEVELOPMENT/STATE.yaml has no floor.independence_level_used with a level of A, B, C or D.');
+let record;
+try {
+  record = reviewRecord(canonicalState, body);
+} catch (error) {
+  fail(`${error.message} (searched ${body.length} characters of review body)`);
 }
 
-const trailer = /^\s*Floor-Review:\s*([ABCD])\s*\/\s*(pass|fail|blocked|inconclusive)\s*$/mi.exec(BODY);
-if (!trailer) {
-  fail(
-    'no review trailer found. The delivery description must contain a line of the form\n' +
-    '        Floor-Review: <A|B|C|D> / <pass|fail|blocked|inconclusive>\n' +
-    '      naming the independence level actually used and what the review concluded.\n' +
-    `      (searched ${BODY.length} characters of review body)`);
-}
-
-const level = trailer[1].toUpperCase();
-const outcome = trailer[2].toLowerCase();
-
-if (outcome !== 'pass') {
-  fail(`the recorded review outcome is "${outcome}". A change may not merge on a review that did not pass.`);
-}
-if (level === 'D') {
-  fail('level D is "prepared only" — review material written but never executed. It never completes an objective.');
-}
-if (level !== recorded[1].toUpperCase()) {
-  fail(`the review trailer claims level ${level} but STATE.yaml records ${recorded[1].toUpperCase()}. They must agree.`);
-}
-
-console.log(`F5 gate: ok — independence level ${level}, outcome ${outcome}, and STATE.yaml agrees.`);
-process.exit(0);
+console.log(`F5 gate: ok — independence level ${record.level}, outcome ${record.outcome}, and STATE.yaml agrees.`);

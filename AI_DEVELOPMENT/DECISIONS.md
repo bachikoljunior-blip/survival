@@ -48,7 +48,7 @@
 - Status: accepted while repository Pages source remains `main/(root)`.
 - Decision: Generate and commit the root publication files with `npm run build:pages-root`; require `npm run validate:pages-root` in the Actions deployment.
 - Reason: The repository had both Actions deployment and the legacy branch-source deployment enabled. The latter completed after the former and replaced the game with rendered `README.md`.
-- Consequence: Root publication files are generated artifacts and must not be edited manually. If the Pages setting is later changed to GitHub Actions, remove the mirror only in a separately verified migration.
+- Consequence: Root publication files are generated artifacts and must not be edited manually. The Actions workflow validates that mirror first, then creates a deploy-only revision-stamped build. Before publishing it, the workflow requires the legacy main/root build for the exact same SHA to be complete with no same-SHA build pending; the custom deployment therefore runs last and F6 verifies its public SHA. If the Pages setting is later changed to GitHub Actions, the ordering gate becomes a no-op and the mirror may be removed only in a separately verified migration.
 
 ## OD-006 — A save carries its version on the envelope, and old saves are upgraded
 
