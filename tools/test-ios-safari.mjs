@@ -18,6 +18,8 @@ import {
   classifyTrustedTapAttempt,
   coordinateResidual,
   deriveCoordinateCalibration,
+  safariEducationState,
+  selectSafariEducationClose,
   translateWebPoint,
   validateCoordinateCalibration,
   validateStableViewport,
@@ -47,6 +49,13 @@ const report = {
   coordinateCalibrationStages: [],
   coordinateCalibrationAttempts: [],
   coordinateCalibrationEvents: [],
+  nativeSafariEducation: {
+    checked: false,
+    present: null,
+    dismissed: null,
+    markers: [],
+    closeCandidates: [],
+  },
   layout: null,
   interaction: {},
   persistence: null,
@@ -125,7 +134,7 @@ async function waitForHttp(url, timeout = 90000) {
   throw new Error(`endpoint did not become reachable: ${lastError?.message || 'timeout'}`);
 }
 
-async function webdriver(pathname, { method = 'POST', body } = {}) {
+async function webdriver(pathname, { method = 'POST', body, timeout = 900000 } = {}) {
   const url = new URL(pathname.replace(/^\//, ''), APPIUM_URL);
   const encoded = body === undefined ? '' : JSON.stringify(body);
   const response = await new Promise((resolveRequest, rejectRequest) => {
@@ -141,7 +150,9 @@ async function webdriver(pathname, { method = 'POST', body } = {}) {
       incoming.on('data', (chunk) => { text += chunk; });
       incoming.on('end', () => resolveRequest({ ok: incoming.statusCode >= 200 && incoming.statusCode < 300, status: incoming.statusCode, text }));
     });
-    request.setTimeout(900000, () => request.destroy(new Error(`WebDriver ${method} ${pathname} exceeded 15 minutes`)));
+    request.setTimeout(timeout, () => request.destroy(new Error(
+      `WebDriver ${method} ${pathname} exceeded ${timeout} ms`,
+    )));
     request.on('error', rejectRequest);
     if (encoded) request.write(encoded);
     request.end();
@@ -218,6 +229,62 @@ async function getNativeWindowRect() {
   await webdriver(sessionPath('/context'), { body: { name: 'NATIVE_APP' } });
   try {
     return await webdriver(sessionPath('/window/rect'), { method: 'GET' });
+  } finally {
+    await webdriver(sessionPath('/context'), { body: { name: originalContext } });
+  }
+}
+
+async function dismissKnownSafariEducation() {
+  const originalContext = await webdriver(sessionPath('/context'), { method: 'GET' });
+  if (typeof originalContext !== 'string' || !originalContext || originalContext === 'NATIVE_APP') {
+    throw new Error(`Safari education check requires an active web context: ${JSON.stringify(originalContext)}`);
+  }
+  const record = report.nativeSafariEducation;
+  await webdriver(sessionPath('/context'), { body: { name: 'NATIVE_APP' } });
+  try {
+    record.checked = true;
+    const source = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 10000 });
+    const state = safariEducationState(source);
+    record.present = state.present;
+    record.dismissed = state.present ? false : null;
+    record.markers = state.markers;
+    if (!state.present) return record;
+
+    const nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET' });
+    const elements = await webdriver(sessionPath('/elements'), {
+      body: { using: 'accessibility id', value: 'Close' },
+    });
+    if (!Array.isArray(elements)) {
+      throw new Error(`native Safari returned invalid Close candidates: ${JSON.stringify(elements)}`);
+    }
+    const candidates = [];
+    for (const element of elements) {
+      const elementId = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
+      if (!elementId) throw new Error(`native Safari returned an invalid Close element: ${JSON.stringify(element)}`);
+      const elementRect = await webdriver(
+        sessionPath(`/element/${encodeURIComponent(elementId)}/rect`),
+        { method: 'GET' },
+      );
+      candidates.push({ elementId, rect: elementRect });
+    }
+    record.closeCandidates = candidates.map((candidate) => ({ rect: candidate.rect }));
+    const close = selectSafariEducationClose(source, candidates, nativeWindow);
+    record.closeRect = close.rect;
+    await webdriver(sessionPath(`/element/${encodeURIComponent(close.elementId)}/click`), { body: {} });
+
+    const deadline = Date.now() + 10000;
+    while (Date.now() < deadline) {
+      const currentSource = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 5000 });
+      if (!safariEducationState(currentSource).present) {
+        record.dismissed = true;
+        return record;
+      }
+      await new Promise((done) => setTimeout(done, 250));
+    }
+    throw new Error('known native Safari education remained visible after its Close control was activated');
+  } catch (error) {
+    record.error = error.message;
+    throw error;
   } finally {
     await webdriver(sessionPath('/context'), { body: { name: originalContext } });
   }
@@ -343,7 +410,7 @@ async function calibrateCoordinates(stage) {
           recordedAttempt.events = events;
           const classified = classifyTrustedTapAttempt(events, attemptId, retry + 1, 2);
           if (classified.outcome === 'retry') {
-            recordedAttempt.outcome = 'no-events';
+            recordedAttempt.outcome = classified.reason;
             continue;
           }
           pointValue = classified.point;
@@ -355,7 +422,9 @@ async function calibrateCoordinates(stage) {
               return attempt ? attempt.events.slice() : [];
             `).catch(() => []);
           }
-          recordedAttempt.outcome = recordedAttempt.outcome === 'no-events' ? 'no-events' : 'rejected';
+          recordedAttempt.outcome = ['no-events', 'trusted-cancel'].includes(recordedAttempt.outcome)
+            ? recordedAttempt.outcome
+            : 'rejected';
           recordedAttempt.error = error.message;
           throw error;
         } finally {
@@ -511,6 +580,7 @@ try {
   await execute('localStorage.clear(); return true;');
   await webdriver(sessionPath('/refresh'), { body: {} });
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  await dismissKnownSafariEducation();
   const initialCalibration = await calibrateCoordinates('initial-landscape');
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
   check(true, 'Safari web coordinates are calibrated to native screen coordinates',

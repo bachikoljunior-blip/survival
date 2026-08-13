@@ -171,7 +171,46 @@ runner needs CoreSimulator, WDA, Mobile Safari, screenshots and `simctl io`
 video, but no Simulator.app window. In XCUITest driver 12.1.3 the option is
 passed directly to the simulator runner; when the simulator server is already
 running without a UI process, headless mode preserves it rather than shutting
-it down and waiting for a window. This source repair is not a substitute for
+it down and waiting for a window.
+
+## Exact-head headless results and native-Safari correction (2026-08-13)
+
+PR #9 exact head `96803f87ab508b097b7b937a6ca39ed2f452fee0` produced two
+runs. Both proved the headless session-start correction itself: the Appium log
+contains `appium:isHeadless: true` and the already-booted headless path, with no
+attempt to launch a visible Simulator UI client. Both still failed closed
+before any product check for two separately observed Safari event-delivery
+conditions:
+
+- run `31687125738`, artifact `9176187067`: point 1 completed a trusted
+  pointer pair, but both point-2 attempts completed in WDA with no browser
+  events. The 1334x750 failure screenshot and 1,996 decoded video frames show
+  Safari's native “View Bookmarks, Share Menu, and Open Tabs” education
+  popover covering point 2 and remaining present through the attempts;
+- run `31687149960`, artifact `9176353982`: no popover appears in the failure
+  screenshot. Point 1 instead emitted exactly one trusted same-attempt,
+  same-target, same-pointer sequence `pointerdown`, `touchstart`,
+  `pointercancel`, `touchcancel`, with no up, end or click. Tap-adjacent decoded
+  frames are visually stable. An earlier loading transition was about 11.5
+  seconds before the tap and is not claimed as the cause.
+
+The correction checks native Safari before initial calibration. It recognizes
+the complete three-marker education message, requires exactly one eligible
+lower-right accessibility `Close` control, activates it and verifies the
+markers disappear. Partial markers, a missing or ambiguous control, invalid
+bounds or failed dismissal stop the run. If no recognized education is
+present, the check is a recorded no-op.
+
+The retry policy remains two attempts total. Attempt 1 may be retried only
+after zero browser events or after the exact observed cancellation grammar:
+four ordered events, all boolean-trusted and on the current overlay/attempt,
+one stable integer touch pointer, finite nondecreasing timestamps and no more
+than 2 CSS px movement. Partial, reordered, untrusted, cross-attempt, moved,
+mixed or extra events fail immediately; the same cancellation on attempt 2
+exhausts the budget. A successful coordinate still requires the original clean
+trusted pointerdown/pointerup pair, and the independent third-point residual,
+stable-viewport and native-bound checks are unchanged. The expanded pure
+battery passes 74/74 locally. This source repair is not a substitute for
 execution: a fresh exact-head required run, merge, main rerun and stamped F6
 remain pending.
 
@@ -272,9 +311,9 @@ that environment-specific browser path stopped before browser execution because
 this host does not keep Playwright binaries in its default cache; CI installs
 its own browsers and does not depend on the temporary path.
 
-This is locally tested logic, not Simulator evidence. Independent Level B
-exact-diff review passed the current bytes; a fresh exact-head run remains
-mandatory before merge.
+At that stage this was locally tested logic, not Simulator evidence.
+Independent Level B exact-diff review passed those bytes; later Simulator
+results and the current correction are recorded in the exact-head sections.
 
 ## Exact-head trusted-tap delivery failure
 
@@ -297,15 +336,15 @@ The validator and three-point residual threshold remain unchanged. The
 trusted-pointer correction replaced the click-only, one-shot inference with exactly one
 recorded and required trusted touch `pointerdown` followed by `pointerup` with
 the same pointer identity and per-attempt overlay target. Each attempt has an
-isolated collector; only a completely event-free first attempt permits one
-retry. Partial, cancelled, untrusted, duplicate or cross-attempt sequences fail
-immediately. Every attempt and the global captured calibration-event log are preserved even when
+isolated collector; at that revision only a completely event-free first
+attempt permitted one retry. Partial, cancelled, untrusted, duplicate or
+cross-attempt sequences failed immediately. Every attempt and the global captured calibration-event log are preserved even when
 calibration cannot finish. A 750 ms settle is a conservative supplement, not the asserted
 root fix. Exact-head run `31684968784` executed this correction successfully:
 all six calibration attempts completed on their first try and the full product
 journey passed 30/30 checks.
 Cancelled, untrusted, wrong-target, changed-pointer and excessive-movement
-sequences fail closed. The expanded pure transform, event-sequence, retry and
-viewport/headless-wiring battery passes 49/49 locally. The pointer path now has
-Simulator evidence; only the subsequent `isHeadless` session-start correction
-still requires a fresh exact-head run.
+sequences failed closed under that reviewed revision. The then-current pure
+transform, event-sequence, retry and viewport/headless-wiring battery passed
+49/49 locally. Later headless runs and the bounded native-Safari correction are
+recorded in the section above rather than projected onto this historical run.

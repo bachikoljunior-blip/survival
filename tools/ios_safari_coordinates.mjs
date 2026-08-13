@@ -12,6 +12,11 @@ import { readFileSync } from 'node:fs';
  */
 
 const REQUIRED_FIELDS = ['offsetX', 'offsetY', 'pixelRatioX', 'pixelRatioY'];
+const SAFARI_EDUCATION_MARKERS = [
+  'View Bookmarks',
+  'Share Menu',
+  'Open Tabs',
+];
 
 function finiteNumber(value, label) {
   if (typeof value !== 'number' || !Number.isFinite(value)) {
@@ -28,6 +33,71 @@ function point(value, label) {
     x: finiteNumber(value.x, `${label}.x`),
     y: finiteNumber(value.y, `${label}.y`),
   };
+}
+
+function rect(value, label) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error(`${label} must be a rectangle object`);
+  }
+  const result = {
+    x: finiteNumber(value.x, `${label}.x`),
+    y: finiteNumber(value.y, `${label}.y`),
+    width: finiteNumber(value.width, `${label}.width`),
+    height: finiteNumber(value.height, `${label}.height`),
+  };
+  if (result.width <= 0 || result.height <= 0) {
+    throw new Error(`${label} dimensions must be positive`);
+  }
+  return result;
+}
+
+export function safariEducationState(source) {
+  if (typeof source !== 'string') throw new Error('native Safari source must be a string');
+  if (!source.trim() || !source.includes('XCUIElementTypeApplication')) {
+    throw new Error('native Safari source must contain an application hierarchy');
+  }
+  const markers = SAFARI_EDUCATION_MARKERS.filter((marker) => source.includes(marker));
+  if (markers.length > 0 && markers.length !== SAFARI_EDUCATION_MARKERS.length) {
+    throw new Error(`native Safari education marker set is incomplete: ${markers.join(', ')}`);
+  }
+  return { present: markers.length === SAFARI_EDUCATION_MARKERS.length, markers };
+}
+
+export function selectSafariEducationClose(source, candidates, nativeWindow) {
+  const state = safariEducationState(source);
+  if (!state.present) return null;
+  if (!Array.isArray(candidates)) {
+    throw new Error('native Safari close candidates must be an array');
+  }
+  const windowRect = rect(nativeWindow, 'native Safari window');
+  const eligible = candidates.map((candidate, index) => {
+    if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)
+        || typeof candidate.elementId !== 'string' || !candidate.elementId) {
+      throw new Error(`native Safari close candidate ${index} is invalid`);
+    }
+    return {
+      elementId: candidate.elementId,
+      rect: rect(candidate.rect, `native Safari close candidate ${index}.rect`),
+    };
+  }).filter((candidate) => {
+    const centerX = candidate.rect.x + candidate.rect.width / 2;
+    const centerY = candidate.rect.y + candidate.rect.height / 2;
+    const inside = candidate.rect.x >= windowRect.x
+      && candidate.rect.y >= windowRect.y
+      && candidate.rect.x + candidate.rect.width <= windowRect.x + windowRect.width
+      && candidate.rect.y + candidate.rect.height <= windowRect.y + windowRect.height;
+    // Safari's Start Page and tab chrome can also expose a top-edge Close
+    // button. The education popover observed on the product page has its close
+    // control in the right/lower native content region, so do not guess among
+    // unrelated browser controls.
+    return inside
+      && centerX >= windowRect.x + windowRect.width * 0.5
+      && centerY >= windowRect.y + windowRect.height * 0.2;
+  });
+  if (eligible.length !== 1) {
+    throw new Error(`native Safari education requires exactly one eligible Close control; found ${eligible.length}`);
+  }
+  return { ...eligible[0], markers: state.markers };
 }
 
 export function validateCoordinateCalibration(value) {
@@ -94,7 +164,8 @@ export function validateTrustedTapSequence(events, expectedAttemptId = null) {
   const downs = events.filter((event) => event?.type === 'pointerdown');
   const ups = events.filter((event) => event?.type === 'pointerup');
   const cancels = events.filter((event) => event?.type === 'pointercancel');
-  if (cancels.length) throw new Error('trusted tap was cancelled');
+  const touchCancels = events.filter((event) => event?.type === 'touchcancel');
+  if (cancels.length || touchCancels.length) throw new Error('trusted tap was cancelled');
   if (downs.length !== 1 || ups.length !== 1) {
     throw new Error('trusted tap requires exactly one pointerdown and one pointerup');
   }
@@ -123,6 +194,45 @@ export function validateTrustedTapSequence(events, expectedAttemptId = null) {
   return { x: downPoint.x, y: downPoint.y, pointerId: down.pointerId };
 }
 
+export function validateTrustedCancellationSequence(events, expectedAttemptId = null) {
+  if (!Array.isArray(events)) throw new Error('trusted cancellation events must be an array');
+  const expectedTypes = ['pointerdown', 'touchstart', 'pointercancel', 'touchcancel'];
+  if (events.length !== expectedTypes.length
+      || events.some((event, index) => event?.type !== expectedTypes[index])) {
+    throw new Error('retryable trusted cancellation must be exactly down/start/cancel/cancel');
+  }
+  const [down, touchStart, cancel, touchCancel] = events;
+  if (events.some((event) => event.trusted !== true)) {
+    throw new Error('trusted cancellation events must be browser-trusted');
+  }
+  if (events.some((event) => event.targetMatches !== true)) {
+    throw new Error('trusted cancellation events must target the calibration overlay');
+  }
+  if (down.pointerType !== 'touch' || cancel.pointerType !== 'touch') {
+    throw new Error('trusted cancellation pointer type must be touch');
+  }
+  if (expectedAttemptId !== null
+      && events.some((event) => event.attemptId !== expectedAttemptId)) {
+    throw new Error('trusted cancellation contains an event from another attempt');
+  }
+  if (!Number.isInteger(down.pointerId) || down.pointerId !== cancel.pointerId) {
+    throw new Error('trusted cancellation pointer identity changed');
+  }
+  const times = events.map((event, index) => finiteNumber(
+    event.timeStamp,
+    `trusted cancellation event ${index}.timeStamp`,
+  ));
+  if (times.some((time, index) => index > 0 && time < times[index - 1])) {
+    throw new Error('trusted cancellation timestamps are out of order');
+  }
+  const downPoint = point(down, 'cancelled pointerdown');
+  const cancelPoint = point(cancel, 'pointercancel');
+  if (Math.hypot(cancelPoint.x - downPoint.x, cancelPoint.y - downPoint.y) > 2) {
+    throw new Error('trusted cancellation moved too far before cancellation');
+  }
+  return { x: downPoint.x, y: downPoint.y, pointerId: down.pointerId };
+}
+
 export function classifyTrustedTapAttempt(
   events,
   expectedAttemptId = null,
@@ -136,7 +246,14 @@ export function classifyTrustedTapAttempt(
   }
   if (events.length === 0) {
     if (attemptNumber === maxAttempts) throw new Error('trusted tap retry budget was exhausted with no browser events');
-    return { outcome: 'retry' };
+    return { outcome: 'retry', reason: 'no-events' };
+  }
+  if (events.some((event) => event?.type === 'pointercancel')) {
+    validateTrustedCancellationSequence(events, expectedAttemptId);
+    if (attemptNumber === maxAttempts) {
+      throw new Error('trusted tap retry budget was exhausted after a trusted cancellation');
+    }
+    return { outcome: 'retry', reason: 'trusted-cancel' };
   }
   return {
     outcome: 'complete',
@@ -195,6 +312,11 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   if (headlessCaps.length !== 1 || visibleCaps.length !== 0) {
     throw new Error('Mobile Safari harness must set appium:isHeadless to true exactly once');
   }
+  const dismiss = sourceText.indexOf('await dismissKnownSafariEducation();');
+  const calibrate = sourceText.indexOf("await calibrateCoordinates('initial-landscape');");
+  if (dismiss < 0 || calibrate < 0 || dismiss >= calibrate) {
+    throw new Error('Mobile Safari harness must clear known native education before initial calibration');
+  }
   if (!Array.isArray(workflowSources) || workflowSources.length !== 2) {
     throw new Error('both PR and Pages workflows are required');
   }
@@ -238,7 +360,7 @@ function selfTest() {
   const good = { offsetX: 5, offsetY: 11, pixelRatioX: 0.5, pixelRatioY: 0.75 };
   const tapEvent = (type, overrides = {}) => ({
     type, x: 123, y: 45, pointerId: 7, pointerType: 'touch',
-    trusted: true, targetMatches: true, attemptId: 'attempt-1', ...overrides,
+    trusted: true, targetMatches: true, attemptId: 'attempt-1', timeStamp: 100, ...overrides,
   });
   const goodTap = [
     tapEvent('pointerdown'),
@@ -247,6 +369,11 @@ function selfTest() {
     tapEvent('touchend'),
     tapEvent('click', { x: 124, y: 46 }),
   ];
+  const educationSource = '<XCUIElementTypeApplication><XCUIElementTypeStaticText label="View Bookmarks, Share Menu, and Open Tabs" /></XCUIElementTypeApplication>';
+  const nativeWindow = { x: 0, y: 0, width: 667, height: 375 };
+  const educationClose = { elementId: 'education-close', rect: {
+    x: 610, y: 170, width: 40, height: 40,
+  } };
 
   pass('valid flat numeric calibration', () => validateCoordinateCalibration(good));
   pass('two points derive the expected transform', () => {
@@ -275,8 +402,9 @@ function selfTest() {
     const result = validateTrustedTapSequence(goodTap, 'attempt-1');
     if (result.x !== 123 || result.y !== 45 || result.pointerId !== 7) throw new Error(JSON.stringify(result));
   });
-  pass('zero-event delivery is the only retryable outcome', () => {
-    if (classifyTrustedTapAttempt([], 'attempt-1', 1, 2).outcome !== 'retry') throw new Error('not retryable');
+  pass('zero-event delivery is retryable once', () => {
+    const result = classifyTrustedTapAttempt([], 'attempt-1', 1, 2);
+    if (result.outcome !== 'retry' || result.reason !== 'no-events') throw new Error('not retryable');
   });
   pass('zero-event then valid retry preserves successful attempt', () => {
     const first = classifyTrustedTapAttempt([], 'attempt-1', 1, 2);
@@ -289,6 +417,33 @@ function selfTest() {
     const result = classifyTrustedTapAttempt(goodTap.slice(0, 4), 'attempt-1', 1, 2);
     if (result.outcome !== 'complete') throw new Error(JSON.stringify(result));
   });
+  pass('one exact trusted cancellation is retryable', () => {
+    const cancelled = [
+      tapEvent('pointerdown'),
+      tapEvent('touchstart'),
+      tapEvent('pointercancel'),
+      tapEvent('touchcancel'),
+    ];
+    const result = classifyTrustedTapAttempt(cancelled, 'attempt-1', 1, 2);
+    if (result.outcome !== 'retry' || result.reason !== 'trusted-cancel') {
+      throw new Error(JSON.stringify(result));
+    }
+  });
+  pass('trusted cancellation then a clean tap uses only the retry point', () => {
+    const cancelled = [
+      tapEvent('pointerdown'),
+      tapEvent('touchstart'),
+      tapEvent('pointercancel'),
+      tapEvent('touchcancel'),
+    ];
+    const first = classifyTrustedTapAttempt(cancelled, 'attempt-1', 1, 2);
+    const retryTap = goodTap.map((event) => ({ ...event, attemptId: 'attempt-2', x: 321, y: 123 }));
+    const second = classifyTrustedTapAttempt(retryTap, 'attempt-2', 2, 2);
+    if (first.outcome !== 'retry' || first.point !== undefined
+        || second.outcome !== 'complete' || second.point.x !== 321 || second.point.y !== 123) {
+      throw new Error(JSON.stringify({ first, second }));
+    }
+  });
   pass('stable viewport is accepted', () => validateStableViewport(
     { width: 667, height: 311 }, { width: 667, height: 311 },
   ));
@@ -300,6 +455,18 @@ function selfTest() {
       width: 667, height: 311, offsetLeft: 0, offsetTop: 0, scale: 1,
     } },
   ));
+  pass('absent Safari education needs no native dismissal', () => {
+    if (selectSafariEducationClose('<XCUIElementTypeApplication />', [], nativeWindow) !== null) {
+      throw new Error('unexpected education control');
+    }
+  });
+  pass('known Safari education selects its one right-side close control', () => {
+    const selected = selectSafariEducationClose(educationSource, [
+      { elementId: 'start-page-close', rect: { x: 625, y: 8, width: 32, height: 32 } },
+      educationClose,
+    ], nativeWindow);
+    if (selected.elementId !== educationClose.elementId) throw new Error(JSON.stringify(selected));
+  });
 
   fail('actual all-null Appium failure', () => validateCoordinateCalibration({
     offsetX: null, offsetY: null, pixelRatioX: null, pixelRatioY: null,
@@ -357,6 +524,62 @@ function selfTest() {
   fail('cancelled pointer sequence', () => validateTrustedTapSequence([
     tapEvent('pointerdown'), tapEvent('pointercancel'), tapEvent('pointerup'),
   ], 'attempt-1'));
+  fail('touch-cancel mixed with an otherwise complete tap is rejected', () => validateTrustedTapSequence([
+    tapEvent('pointerdown'), tapEvent('touchstart'), tapEvent('pointerup'), tapEvent('touchcancel'),
+  ], 'attempt-1'));
+  fail('trusted cancellation exhausts the second attempt', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'), tapEvent('pointercancel'), tapEvent('touchcancel'),
+  ], 'attempt-1', 2, 2));
+  fail('partial trusted cancellation is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('pointercancel'),
+  ], 'attempt-1', 1, 2));
+  fail('reordered trusted cancellation is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('pointercancel'), tapEvent('touchstart'), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('untrusted cancellation is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'),
+    tapEvent('pointercancel', { trusted: false }), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('truthy non-boolean trusted flags are not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart', { trusted: 'yes' }),
+    tapEvent('pointercancel'), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('wrong touch target is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart', { targetMatches: false }),
+    tapEvent('pointercancel'), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('truthy non-boolean targets are not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'),
+    tapEvent('pointercancel'), tapEvent('touchcancel', { targetMatches: 'yes' }),
+  ], 'attempt-1', 1, 2));
+  fail('cross-attempt cancellation is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'),
+    tapEvent('pointercancel', { attemptId: 'attempt-0' }), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('changed cancellation pointer identity is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'),
+    tapEvent('pointercancel', { pointerId: 8 }), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('non-touch cancellation is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'),
+    tapEvent('pointercancel', { pointerType: 'mouse' }), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('moved cancellation is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown', { x: 10, y: 20 }), tapEvent('touchstart'),
+    tapEvent('pointercancel', { x: 13, y: 20 }), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('non-finite cancellation timestamp is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'),
+    tapEvent('pointercancel', { timeStamp: Number.NaN }), tapEvent('touchcancel'),
+  ], 'attempt-1', 1, 2));
+  fail('reversed cancellation timestamp is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown', { timeStamp: 10 }), tapEvent('touchstart', { timeStamp: 11 }),
+    tapEvent('pointercancel', { timeStamp: 9 }), tapEvent('touchcancel', { timeStamp: 12 }),
+  ], 'attempt-1', 1, 2));
+  fail('extra cancellation event is not retryable', () => classifyTrustedTapAttempt([
+    tapEvent('pointerdown'), tapEvent('touchstart'), tapEvent('pointercancel'),
+    tapEvent('touchcancel'), tapEvent('click'),
+  ], 'attempt-1', 1, 2));
   fail('wrong calibration target', () => validateTrustedTapSequence([
     tapEvent('pointerdown', { targetMatches: false }), tapEvent('pointerup', { targetMatches: false }),
   ], 'attempt-1'));
@@ -417,6 +640,20 @@ function selfTest() {
       width: 667, height: 311, offsetLeft: 0, offsetTop: Number.NaN, scale: 1,
     } },
   ));
+  fail('partial Safari education marker set is rejected', () => safariEducationState(
+    '<XCUIElementTypeApplication><XCUIElementTypeStaticText label="View Bookmarks and Share Menu" /></XCUIElementTypeApplication>',
+  ));
+  fail('empty native Safari source is rejected', () => safariEducationState(''));
+  fail('arbitrary non-hierarchy native Safari source is rejected', () => safariEducationState('not XML'));
+  fail('known Safari education without a close control is rejected', () => {
+    selectSafariEducationClose(educationSource, [], nativeWindow);
+  });
+  fail('ambiguous Safari education close controls are rejected', () => {
+    selectSafariEducationClose(educationSource, [
+      educationClose,
+      { elementId: 'second-close', rect: { x: 560, y: 240, width: 40, height: 40 } },
+    ], nativeWindow);
+  });
 
   const harnessSource = readFileSync(new URL('./test-ios-safari.mjs', import.meta.url), 'utf8');
   const workflowSources = ['gates.yml', 'pages.yml'].map((name) => [
@@ -442,6 +679,12 @@ function selfTest() {
         )
         : source,
     ]));
+  });
+  fail('calibration-before-native-education-dismissal is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('await dismissKnownSafariEducation();', ''),
+      workflowSources,
+    );
   });
 
   process.stdout.write(`iOS Safari coordinate self-test: ${passed}/${total}\n`);
