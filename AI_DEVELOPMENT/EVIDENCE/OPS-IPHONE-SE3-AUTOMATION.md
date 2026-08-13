@@ -357,6 +357,94 @@ restored WEBVIEW is read back and compared. The expanded fail/pass battery is
 156/156 locally; fresh exact-head
 Simulator execution remains mandatory.
 
+## Exact-head product pass and orientation keep-alive boundary (2026-08-13)
+
+PR #9 exact head `a68b8a1f160e2ccafd7ee1b3e016f1e4ce4d4ab1` supplied both
+a complete product result and a separate fail-closed transport result:
+
+- run `31698939643`, Mobile Safari job `94443913545`, artifact `9181047364`
+  records `status:passed`, 30/30 checks, `failures:[]`, `errors:[]`, two
+  three-point calibrations with zero independent residual, exact WEBVIEW
+  restoration and valid gameplay/pause screenshots. Native education was
+  present and dismissed by attempt one's source-derived element click. The
+  source-exact center fallback was not needed, so attempt two is not claimed
+  execution-verified;
+- run `31698964713`, artifact `9180845875` failed at the first landscape
+  orientation POST before navigation, education inspection, calibration or
+  product checks. The report has `checks:[]` and the exact current-session
+  `/orientation` proxy error `read ECONNRESET`. WDA created downstream session
+  `2680F9D2-D774-476F-A31F-A22A27A06EB8` at `12:25:28.071`, Appium proxied
+  the first orientation command at `12:25:57.811`, and reported the reset at
+  `12:25:58.583`: 29.740 seconds idle at request dispatch and 30.512 seconds
+  at the observed reset. There is no WDA orientation-handler line and the
+  video remains portrait. The same downstream session then accepted DELETE
+  with HTTP 200, so neither WDA death nor an invalid session explains the
+  failure. The later rerun of its Mobile Safari job `94446998600`, artifact
+  `9181414682`, passed 30/30 with failures/errors empty, two zero-residual
+  calibrations, exact restoration and valid screenshots; aggregate F3 job
+  `94452792873` was green.
+
+The exact installed WebDriverAgent 16.1.0 package source sets
+`TIMEOUT_READ_FIRST_HEADER_LINE` to 30 seconds in CocoaHTTPServer's
+`HTTPConnection.m`, and begins each next keep-alive request with that timeout.
+Its official orientation handler exposes GET and POST on `/orientation`: GET
+reads the active application's interface orientation; POST assigns the mapped
+device orientation, waits for the application to stabilize, and succeeds only
+when the interface equals the target. The installed XCUITest driver 12.1.3
+also catches and only warns on an initial-orientation failure, so an
+`appium:orientation` capability would not provide an exact verified barrier.
+Together with the timestamps and successful same-session DELETE, the evidence
+supports a stale keep-alive boundary race, not unsupported rotation. This is a
+source-and-log inference; the failed POST never reached a WDA handler, so no
+mutation side effect is claimed.
+
+The follow-up routes all three landscape/portrait transitions through one
+`ensureOrientation` path. A bounded GET preflight drains a stale socket and
+avoids POST when the exact target is already observed; only the exact
+current-session GET reset may receive one read-only retry. A completed POST is
+followed by a strict GET verification. Only the exact current-session POST
+reset enters ambiguous-response reconciliation: after fixed settles, two
+bounded GET observations must show the target (complete without resend) or the
+same opposite orientation (one resend on mutation attempt one only). A target
+that changes away, unstable/invalid state, any non-exact error, or stable
+opposite state after attempt two fails. There is no polling loop and no blind
+POST retry; the report progressively records every read, mutation, reset,
+decision and error. Pure decision tests and static mutation controls enforce
+the exact error grammar, strict orientation values, GET budget two, mutation
+budget two, three helper call sites, GET-before-POST ordering, two reset
+observations and post-success verification. The expanded battery passes
+197/197 locally. This correction has not yet run on Xcode/iOS; a fresh exact-
+head Simulator pass remains mandatory.
+
+The two successful a68 product artifacts both dismissed the education UI on
+their first element click, while artifact `9179368693` had already proved that
+the same verified element click can return HTTP 200 without dismissing it. A
+conditional second actuation therefore cannot be execution-verified
+deterministically and leaves two possible native actions in one dismissal.
+The current follow-up removes that branch. When the complete recognized native
+education is present, it retains the strict source-derived selector and exact
+live rect/enabled/displayed verification, then reads the native window and one
+fresh full source as the final remote barrier. A pure helper requires the
+window and unique control snapshot to match every verified field and derives
+the rounded center from that fresh rect. The harness sends exactly one bounded
+`mobile: tap`, records delivery as unknown until its response completes, and
+takes one post-tap window/source observation. Only complete marker absence may
+set `dismissed:true`; persistence, changed or ambiguous state, transport
+failure, a literal/cached point, an element click, a loop, direct tap bypass or
+any second actuation fails closed. Exact WEBVIEW restoration remains bounded
+and read back.
+
+The combined XML, geometry, dismissal, transport, event, viewport,
+orientation and headless contract battery passes 206/206 locally. This is
+source evidence only. Before merge, one fresh exact-head artifact must record
+`checked:true`, `present:true`, `dismissed:true`, exactly one dismissal attempt
+with method `source-derived-mobile-tap`, its pre/post sources, marker absence,
+`actuationStarted:true`, `delivery:response-complete`,
+`commandCompleted:true`, `outcome:dismissed`, null activation/actuation/
+observation errors, successful exact context restoration, 30/30 product checks and green
+aggregate F3. An artifact with `present:false` can prove the product journey
+but not this new native actuation.
+
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
 rejected before the page receives the gesture. The corrective harness now

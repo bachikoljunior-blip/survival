@@ -16,11 +16,14 @@ import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   classifyCalibrationTapProxyResetReconciliation,
-  classifySafariEducationDismissalObservation,
+  classifyOrientationObservation,
+  classifyOrientationProxyResetReconciliation,
   classifyTrustedTapAttempt,
   coordinateResidual,
   deriveCoordinateCalibration,
   isExactCalibrationTapProxyReset,
+  isExactOrientationProxyReset,
+  requireSafariEducationDismissedSnapshot,
   safariEducationButtonCandidates,
   safariEducationState,
   selectSafariEducationClose,
@@ -29,6 +32,7 @@ import {
   validateCoordinateCalibration,
   validateCalibrationResetNativeWindow,
   validateCalibrationResetSnapshot,
+  validateSafariEducationControlSnapshot,
   validateSafariEducationLiveElement,
   validateStableViewport,
 } from './ios_safari_coordinates.mjs';
@@ -41,9 +45,11 @@ const GAMEPLAY_SHOT = resolve(OUTPUT, 'ios-safari-gameplay.png');
 const PAUSE_SHOT = resolve(OUTPUT, 'ios-safari-pause.png');
 const SAFARI_EDUCATION_SOURCE = resolve(OUTPUT, 'native-safari-education.xml');
 const SAFARI_EDUCATION_SHOT = resolve(OUTPUT, 'native-safari-education.png');
-const educationObservationSource = (attempt) => resolve(
-  OUTPUT,
-  `native-safari-education-after-${attempt === 1 ? 'element-click' : 'mobile-tap'}.xml`,
+const SAFARI_EDUCATION_BEFORE_TAP_SOURCE = resolve(
+  OUTPUT, 'native-safari-education-before-mobile-tap.xml',
+);
+const SAFARI_EDUCATION_AFTER_TAP_SOURCE = resolve(
+  OUTPUT, 'native-safari-education-after-mobile-tap.xml',
 );
 const APPIUM_URL = new URL(process.env.APPIUM_URL || 'http://127.0.0.1:4723/');
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
@@ -63,6 +69,7 @@ const report = {
   coordinateCalibrationStages: [],
   coordinateCalibrationAttempts: [],
   coordinateCalibrationEvents: [],
+  orientationTransitions: [],
   nativeSafariEducation: {
     checked: false,
     present: null,
@@ -190,6 +197,157 @@ async function webdriver(pathname, { method = 'POST', body, timeout = 900000 } =
 let sessionId = '';
 const sessionPath = (suffix = '') => `session/${sessionId}${suffix}`;
 const execute = (script, args = []) => webdriver(sessionPath('/execute/sync'), { body: { script, args } });
+
+const orientationSettle = () => new Promise((done) => setTimeout(done, 750));
+
+async function readOrientationWithResetRetry(transition, phase) {
+  const observation = { phase, reads: [], result: null };
+  transition.observations.push(observation);
+  for (let readAttempt = 1; readAttempt <= 2; readAttempt += 1) {
+    const read = {
+      attempt: readAttempt,
+      commandCompleted: false,
+      proxyReset: false,
+      value: null,
+      error: null,
+    };
+    observation.reads.push(read);
+    try {
+      const value = await webdriver(sessionPath('/orientation'), {
+        method: 'GET', timeout: 15000,
+      });
+      read.commandCompleted = true;
+      read.value = value;
+      const classified = classifyOrientationObservation(transition.target, value);
+      read.value = classified.observed;
+      observation.result = classified.observed;
+      return classified.observed;
+    } catch (error) {
+      read.error = error.message;
+      read.proxyReset = isExactOrientationProxyReset(error, sessionId, 'GET');
+      if (!read.proxyReset || readAttempt === 2) throw error;
+      await orientationSettle();
+    }
+  }
+  throw new Error('orientation read retry budget was exhausted');
+}
+
+async function ensureOrientation(stage, target) {
+  // Every orientation mutation is preceded by a same-session GET. Besides
+  // observing the current state, this drains the exact stale WDA keep-alive
+  // socket seen at the 30-second boundary before any state-changing command.
+  const transition = {
+    stage,
+    target,
+    maxMutationAttempts: 2,
+    before: null,
+    observations: [],
+    mutations: [],
+    outcome: 'started',
+    error: null,
+  };
+  report.orientationTransitions.push(transition);
+  try {
+    transition.before = await readOrientationWithResetRetry(transition, 'preflight');
+    const before = classifyOrientationObservation(target, transition.before);
+    if (!before.mutationRequired) {
+      transition.outcome = 'already-confirmed';
+      return transition;
+    }
+
+    for (let mutationIndex = 0; mutationIndex < 2; mutationIndex += 1) {
+      const attemptNumber = mutationIndex + 1;
+      const mutation = {
+        attempt: attemptNumber,
+        commandCompleted: false,
+        proxyReset: false,
+        observedAfter: null,
+        reconciliation: null,
+        outcome: 'started',
+        error: null,
+      };
+      transition.mutations.push(mutation);
+      let postError = null;
+      try {
+        await webdriver(sessionPath('/orientation'), {
+          body: { orientation: target }, timeout: 15000,
+        });
+        mutation.commandCompleted = true;
+      } catch (error) {
+        postError = error;
+        mutation.error = error.message;
+        mutation.proxyReset = isExactOrientationProxyReset(error, sessionId, 'POST');
+      }
+
+      if (!postError) {
+        try {
+          await orientationSettle();
+          mutation.observedAfter = await readOrientationWithResetRetry(
+            transition,
+            `mutation-${attemptNumber}-verify`,
+          );
+          const verified = classifyOrientationObservation(target, mutation.observedAfter);
+          if (verified.mutationRequired) {
+            throw new Error(`orientation POST completed without reaching ${target}: ${verified.observed}`);
+          }
+        } catch (error) {
+          mutation.outcome = 'rejected-verification';
+          mutation.error = error.message;
+          throw error;
+        }
+        mutation.outcome = 'confirmed';
+        transition.outcome = 'confirmed';
+        return transition;
+      }
+
+      if (!mutation.proxyReset) {
+        mutation.outcome = 'rejected-non-reset';
+        throw postError;
+      }
+      const reconciliation = {
+        firstObserved: null,
+        secondObserved: null,
+        decision: null,
+        error: null,
+      };
+      mutation.reconciliation = reconciliation;
+      try {
+        await orientationSettle();
+        reconciliation.firstObserved = await readOrientationWithResetRetry(
+          transition,
+          `mutation-${attemptNumber}-reset-first`,
+        );
+        await orientationSettle();
+        reconciliation.secondObserved = await readOrientationWithResetRetry(
+          transition,
+          `mutation-${attemptNumber}-reset-second`,
+        );
+        reconciliation.decision = classifyOrientationProxyResetReconciliation(
+          target,
+          reconciliation.firstObserved,
+          reconciliation.secondObserved,
+          attemptNumber,
+          2,
+        );
+        if (!reconciliation.decision.retry) {
+          mutation.outcome = 'confirmed-after-reset';
+          transition.outcome = 'confirmed-after-reset';
+          return transition;
+        }
+      } catch (error) {
+        reconciliation.error = error.message;
+        mutation.outcome = 'rejected-reset-reconciliation';
+        throw error;
+      }
+      mutation.outcome = 'retry-stable-opposite';
+    }
+    throw new Error('orientation mutation retry budget was exhausted');
+  } catch (error) {
+    transition.outcome = 'rejected';
+    transition.error = error.message;
+    throw error;
+  }
+}
 
 async function waitForScript(script, timeout = 30000) {
   const deadline = Date.now() + timeout;
@@ -421,112 +579,108 @@ async function dismissKnownSafariEducation() {
       throw error;
     }
     record.closeRect = liveVerification.rect;
-    const settle = () => new Promise((done) => setTimeout(done, 750));
-    const observe = async (attemptNumber, attemptRecord) => {
-      const observation = {
+    const attempt = {
+      attempt: 1,
+      method: 'source-derived-mobile-tap',
+      target: null,
+      point: null,
+      activationBarrier: {
         source: null,
         nativeWindow: null,
         present: null,
         markers: [],
         selectedButton: null,
         error: null,
-      };
-      attemptRecord.observation = observation;
-      try {
-        observation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
-          method: 'GET', timeout: 15000,
-        });
-        // Source is the final remote barrier before a possible fallback tap.
-        // Do not insert another WebDriver command between this snapshot and
-        // the local exact-state classification.
-        const observedSource = await webdriver(sessionPath('/source'), {
-          method: 'GET', timeout: 15000,
-        });
-        const sourcePath = educationObservationSource(attemptNumber);
-        writeFileSync(sourcePath, observedSource);
-        observation.source = sourcePath.slice(ROOT.length + 1);
-        const observedState = safariEducationState(observedSource);
-        observation.present = observedState.present;
-        observation.markers = observedState.markers;
-        observation.selectedButton = observedState.present
-          ? selectSafariEducationClose(
-            observedSource,
-            safariEducationButtonCandidates(observedSource),
-            observation.nativeWindow,
-          )
-          : null;
-        return classifySafariEducationDismissalObservation(
-          close,
+      },
+      phase: 'pre-actuation',
+      actuationStarted: false,
+      delivery: 'not-started',
+      actuationError: null,
+      commandCompleted: false,
+      observation: {
+        source: null,
+        nativeWindow: null,
+        present: null,
+        markers: [],
+        selectedButton: null,
+        error: null,
+      },
+      outcome: 'started',
+      error: null,
+    };
+    record.dismissalAttempts.push(attempt);
+    try {
+      const activation = attempt.activationBarrier;
+      activation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
+        method: 'GET', timeout: 15000,
+      });
+      // This full native source is the final remote barrier before the only
+      // education actuation. The point is derived from this snapshot, never
+      // from a literal or cached rect.
+      const activationSource = await webdriver(sessionPath('/source'), {
+        method: 'GET', timeout: 15000,
+      });
+      writeFileSync(SAFARI_EDUCATION_BEFORE_TAP_SOURCE, activationSource);
+      activation.source = SAFARI_EDUCATION_BEFORE_TAP_SOURCE.slice(ROOT.length + 1);
+      const activationResult = validateSafariEducationControlSnapshot(
+        close,
+        activationSource,
+        nativeWindow,
+        activation.nativeWindow,
+      );
+      activation.present = activationResult.state.present;
+      activation.markers = activationResult.state.markers;
+      activation.selectedButton = activationResult.selected;
+      attempt.target = activationResult.selected;
+      attempt.point = activationResult.point;
+
+      attempt.phase = 'actuation';
+      attempt.actuationStarted = true;
+      attempt.delivery = 'unknown';
+      await nativeTap(attempt.point.x, attempt.point.y, 15000);
+      attempt.commandCompleted = true;
+      attempt.delivery = 'response-complete';
+      attempt.phase = 'post-actuation';
+      await new Promise((done) => setTimeout(done, 750));
+
+      const observation = attempt.observation;
+      observation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
+        method: 'GET', timeout: 15000,
+      });
+      const observedSource = await webdriver(sessionPath('/source'), {
+        method: 'GET', timeout: 15000,
+      });
+      writeFileSync(SAFARI_EDUCATION_AFTER_TAP_SOURCE, observedSource);
+      observation.source = SAFARI_EDUCATION_AFTER_TAP_SOURCE.slice(ROOT.length + 1);
+      const observedState = safariEducationState(observedSource);
+      observation.present = observedState.present;
+      observation.markers = observedState.markers;
+      observation.selectedButton = observedState.present
+        ? selectSafariEducationClose(
           observedSource,
-          nativeWindow,
+          safariEducationButtonCandidates(observedSource),
           observation.nativeWindow,
-          attemptNumber,
-          2,
-        );
-      } catch (error) {
-        observation.error = error.message;
-        throw error;
-      }
-    };
-
-    const firstAttempt = {
-      attempt: 1,
-      method: 'element-click',
-      target: close,
-      commandCompleted: false,
-      observation: null,
-      outcome: 'started',
-      error: null,
-    };
-    record.dismissalAttempts.push(firstAttempt);
-    let fallbackTarget = null;
-    try {
-      await webdriver(`${elementPath}/click`, { body: {}, timeout: 15000 });
-      firstAttempt.commandCompleted = true;
-      await settle();
-      const firstResult = await observe(1, firstAttempt);
-      if (firstResult.outcome === 'dismissed') {
-        firstAttempt.outcome = 'dismissed';
-        record.dismissed = true;
-        return record;
-      }
-      firstAttempt.outcome = firstResult.outcome;
-      fallbackTarget = firstResult.selected;
-    } catch (error) {
-      firstAttempt.outcome = 'rejected';
-      firstAttempt.error = error.message;
-      throw error;
-    }
-
-    const secondPoint = {
-      x: Math.round(fallbackTarget.rect.x + fallbackTarget.rect.width / 2),
-      y: Math.round(fallbackTarget.rect.y + fallbackTarget.rect.height / 2),
-    };
-    const secondAttempt = {
-      attempt: 2,
-      method: 'mobile-tap',
-      target: fallbackTarget,
-      point: secondPoint,
-      commandCompleted: false,
-      observation: null,
-      outcome: 'started',
-      error: null,
-    };
-    record.dismissalAttempts.push(secondAttempt);
-    try {
-      await nativeTap(secondPoint.x, secondPoint.y, 15000);
-      secondAttempt.commandCompleted = true;
-      await settle();
-      const secondResult = await observe(2, secondAttempt);
-      if (secondResult.outcome !== 'dismissed') {
-        throw new Error(`unexpected Safari education dismissal result: ${secondResult.outcome}`);
-      }
-      secondAttempt.outcome = 'dismissed';
+        )
+        : null;
+      requireSafariEducationDismissedSnapshot(
+        attempt.target,
+        observedSource,
+        nativeWindow,
+        observation.nativeWindow,
+      );
+      attempt.outcome = 'dismissed';
       record.dismissed = true;
       return record;
     } catch (error) {
-      secondAttempt.outcome = 'rejected';
-      secondAttempt.error = error.message;
+      if (attempt.phase === 'pre-actuation') {
+        attempt.activationBarrier.error = error.message;
+      } else if (attempt.phase === 'actuation') {
+        attempt.actuationError = error.message;
+      } else if (attempt.phase === 'post-actuation') {
+        attempt.observation.error = error.message;
+      }
+      attempt.outcome = 'rejected';
+      attempt.error = error.message;
       throw error;
     }
   } catch (error) {
@@ -917,7 +1071,7 @@ try {
   }
   if (!sessionId) throw new Error('Appium did not return a session id');
 
-  await webdriver(sessionPath('/orientation'), { body: { orientation: 'LANDSCAPE' } });
+  await ensureOrientation('initial-landscape', 'LANDSCAPE');
   await webdriver(sessionPath('/url'), { body: { url: baseUrl } });
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
   await execute('localStorage.clear(); return true;');
@@ -1092,13 +1246,13 @@ try {
   await clickScriptElement("var b=window.CINDERLINE.game.menus.pauseNode.querySelectorAll('.btn');return b[b.length-1];");
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;');
 
-  await webdriver(sessionPath('/orientation'), { body: { orientation: 'PORTRAIT' } });
+  await ensureOrientation('gameplay-portrait', 'PORTRAIT');
   await waitForScript("return document.getElementById('rotate').classList.contains('on');", 15000);
   const portrait = await execute(`return {prompt:document.getElementById('rotate').classList.contains('on'),
     paused:window.CINDERLINE.engine.isPaused,portrait:matchMedia('(orientation: portrait)').matches};`);
   check(portrait.prompt && portrait.paused && portrait.portrait,
     'turning to portrait blocks input and pauses play', JSON.stringify(portrait));
-  await webdriver(sessionPath('/orientation'), { body: { orientation: 'LANDSCAPE' } });
+  await ensureOrientation('gameplay-landscape', 'LANDSCAPE');
   await waitForScript("return !document.getElementById('rotate').classList.contains('on');", 15000);
   const landscapeAgain = await execute(`return {paused:window.CINDERLINE.engine.isPaused,
     landscape:matchMedia('(orientation: landscape)').matches};`);
