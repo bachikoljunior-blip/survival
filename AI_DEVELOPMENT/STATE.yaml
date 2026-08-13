@@ -59,9 +59,10 @@ execution:
       Xcode 26.2 to iOS 26.2 and moves Safari into the required F3 PR check.
       The W3C two-pointer sequence positions both touch sources before their
       bounded waits so Xcode 26.2 WebDriverAgent accepts the simultaneous
-      movement/attack gesture. Safari CSS coordinates are measured with
-      Appium's web-to-real calibration: DOM controls use calibrated native
-      element taps, while canvas gestures use the measured native transform.
+      movement/attack gesture. Safari CSS coordinates are measured on the
+      product page with three trusted native taps: two derive the transform and
+      one independently verifies it. DOM controls and canvas
+      gestures both use the resulting fail-closed native transform.
       Physical-only performance, thermal, memory-pressure, reach, haptic and
       audio properties remain unmeasured and non-blocking for routine release.
   last_verified_checkpoint:
@@ -80,12 +81,12 @@ execution:
       - docs/reviews/gate-b-round-h1-h2-touch.md
       - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
   modified_but_unverified:
-    - "Pull request #9 is based on stale revision 02339ce while current main is f40b6d9. Its workflow split, Xcode/iOS pin and rollback-safety correction remain necessary, but its final raw viewport-coordinate tap repeats the method already disproved by run 30724525380. The 2026-08-13 rerun 30727723649 again sent (569,102), received HTTP 200, and timed out before PLAY; artifact 9171059998 records 10 pre-interaction passes and no journey. Run 30726720202 separately showed that default JavaScript element activation emits click without the pointerdown/up CINDERLINE consumes. No prior run is a Mobile Safari product pass."
-    - "The corrective tree is rebuilt on current main. It enables nativeWebTap/nativeWebTapStrict, calls mobile: calibrateWebToRealCoordinatesTranslation, requires trusted pointerdown/up from New Game, uses native element taps for DOM controls, applies the measured offset and ratios to W3C canvas actions, and recalibrates after orientation recovery. Syntax and static checks pass locally; Linux cannot execute the Xcode/iOS journey."
-    - "The Mobile Safari report separates transient WebDriver poll/session-cleanup diagnostics from captured product runtime errors. Its error listeners begin only after each page reaches ready and Appium calibration returns; an earlier uncaught boot error that neither blocks ready nor enters CINDERLINE.faults is explicitly outside the capture window and is not claimed absent."
+    - "Pull request #9 originally remained on stale revision 02339ce while current main was f40b6d9. Its final raw viewport-coordinate tap repeated the method already disproved by run 30724525380. The 2026-08-13 rerun 30727723649 again sent (569,102), received HTTP 200, and timed out before PLAY; artifact 9171059998 records 10 pre-interaction passes and no journey. Run 30726720202 separately showed that default JavaScript element activation emits click without the pointerdown/up CINDERLINE consumes. The branch has since been reconciled to current main, but no Mobile Safari product pass exists yet."
+    - "The corrective tree is rebuilt on current main. PR #9 run 31679391955 proved its first revision reached the exact Xcode 26.2/iOS 26.2 Safari session and passed F2, F5, core F3 and WebKit, but failed before product interaction: artifact 9173308510 shows both Appium calibration taps produced the same web point {480,171}, so XCUITest 12.1.3 divided by zero and returned four null fields. The harness rejected that poisoned result and reported checks=[]; no product pass is claimed. The correction now measures three separated trusted native taps on a transparent product-page overlay, derives the transform from two, independently verifies it with the third, rejects invalid/stale points, uses it for both DOM and canvas gestures, and recalibrates after orientation recovery. Its pure parser/transform battery passes 20/20 locally; Linux cannot execute the Xcode/iOS journey."
+    - "The Mobile Safari report separates transient WebDriver poll/session-cleanup diagnostics from captured product runtime errors. Its error listeners begin only after each page reaches ready and trusted multi-point coordinate calibration completes; an earlier uncaught boot error that neither blocks ready nor enters CINDERLINE.faults is explicitly outside the capture window and is not claimed absent."
     - "The delivery correction also makes F6 identify the exact 40-character revision in public index.html, the bundle filename and window.CINDERLINE.build, and waits for the competing legacy main/root Pages build of that exact SHA to finish before the custom deploy. Because R2-9 makes cc96f3a unsafe for newer saves, revert-to-verified.yml is now a read-only, always-failing diagnostic with no repository or deployment write permissions; no working rollback is claimed. The Pages/F6 mechanisms have self-tests and local simulations but remain unexecuted in GitHub Actions."
-    - "The required exact-head Mobile Safari journey, PR merge, gated main redeploy and post-deploy F6 remain pending. Independent current-byte Level B review passed after the findings above were corrected. No release or task completion is claimed."
-    - "The exact current-tree WebKit command was attempted locally with its reviewed baseline required, but this Linux host lacks the GTK/GStreamer libraries needed to launch WebKit. It stopped before product load. Actions installs those host dependencies; its exact-head WebKit result remains required and no local pass is claimed."
+    - "The required exact-head Mobile Safari journey, PR merge, gated main redeploy and post-deploy F6 remain pending. Independent Level B exact-diff review passed the post-failure three-tap coordinate correction; it remains execution-unverified until the Simulator rerun. No release or task completion is claimed."
+    - "The exact current-tree WebKit command could not launch locally because this Linux host lacks its GTK/GStreamer libraries; no local WebKit pass is claimed. The reviewed-baseline WebKit journey did pass in PR #9 run 31679391955 on the exact merge tree. That does not replace the required Simulator journey, which failed before interaction as separately recorded."
   historical_modified_but_unverified:
     - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
     - "Shared-kit integration (branch claude/kit-rollout-integration-a4zihp): the vendored kit, the harness swap and the validator rewrite were REBUILT on this main, not merged onto it. check:kit, the 46-mutation equivalence battery, the 23/23 validator self-test, tools/perf.mjs end to end, validate, check_benchmarks and F3 all pass. NOT re-run on this tree: tools/playthrough.mjs (about an hour on this rig) and the 18-frame vantage sweep — and the sweep could not settle anything anyway, see kit_integration.vantage_noise below."
@@ -197,10 +198,10 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Reconcile corrective pull request #9 onto current main, keeping the Xcode/iOS
-    pair pinned, calibrated native DOM taps, the calibrated WDA-compatible
-    two-pointer sequence, and Mobile Safari inside the required F3 check.
-    Require F2/F3/F5, WebKit and the full Simulator Mobile Safari journey to
+    Deliver the fail-closed product-page coordinate correction to pull request
+    #9, keeping the Xcode/iOS pair pinned, trusted native DOM taps, the
+    calibrated WDA-compatible two-pointer sequence, and Mobile Safari inside
+    the required F3 check. Require F2/F3/F5, WebKit and the full Simulator journey to
     pass, inspect its report/log/video, merge it, then require the main redeploy
     and F6 public-surface verification to pass. Record exact run and merge
     evidence before delivering the already-scoped GB-IMP02 correction.
@@ -242,7 +243,7 @@ execution:
       frames. That control was measured on the previous base and is not
       re-derived here.
 floor:
-  last_check: "2026-08-13 (independent source-aware current-byte review PASS; exact-head Mobile Safari, Pages ordering and revision-stamped F6 remain CI-unexecuted; rollback is explicitly absent because of R2-9; Level B)"
+  last_check: "2026-08-13 (independent source-aware Level B exact-diff review PASS; run 31679391955 exposed Appium 12.1.3 calibration zero-division before interaction; fail-closed three-tap product-page correction passes 20/20 locally; Simulator rerun, Pages ordering and revision-stamped F6 remain pending)"
   independence_level_used: B
   skips:
     - "F6: not fired for this corrective delivery because it has not merged or deployed. The public URL is reachable from this environment; post-deploy execution remains mandatory."
@@ -265,7 +266,7 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: calibrated_native_tap_current_main_exact_head_run_pending
+    ios_safari_release_gate: exact_head_run_31679391955_failed_calibration_before_interaction_correction_pending
     revert_mechanism: absent_unsafe_due_save_compatibility
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
@@ -303,6 +304,13 @@ floor:
           main Safari run failed before session creation because default Xcode
           16.4 attempted to drive an iOS 26.2 simulator; the corrective run is
           required before this gate can be called active.
+          PR #9 run 31679391955 then reached the exact Xcode 26.2/iOS 26.2
+          Safari session but artifact 9173308510 showed both driver calibration
+          taps reporting the same web point; the driver's unguarded division by
+          zero returned four null values. The harness failed closed before any
+          product check. Its replacement three-tap parser/transform derives
+          from two points, independently verifies the third and rejects the
+          captured all-null result and malformed/stale variants (20/20).
     ruleset:
       target: default branch (main)
       enforcement: Active
@@ -376,20 +384,25 @@ remote:
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Pull request #9 remains open at stale head 5e014cf. Rerun 30727723649 failed
-    its raw New Game coordinate tap and does not test current main. A current-main
-    corrective tree has been prepared locally with calibrated native input; it
-    must replace the PR head and pass required checks before merge. Current
-    public revision fields remain conservative until the direct F6 check and
-    eventual gated deployment are recorded.
+    Pull request #9 now targets current main at remote head 43c7208. Floor run
+    31679391955 passed F2, F5, core F3 and WebKit but failed its required Safari
+    job before interaction because XCUITest 12.1.3 returned an all-null
+    calibration after two stale identical web points; artifact 9173308510 is
+    preserved. A fail-closed three-tap product-page correction is prepared
+    locally and must pass exact-head required checks before merge. Public
+    revision fields remain conservative until direct F6 and the gated
+    deployment are recorded.
 
 updated_at: "2026-08-13"
 reconciliation_status: >-
   Protocol v2.2 remains active and autopilot remains explicitly off. Current
   main f40b6d9 passed operating-state, dependency, build, save, fault and touch
   health checks. PR #9's raw-coordinate claim was disproved by its own earlier
-  artifact, so it was not merged. The corrective current-main harness now uses
-  Appium's measured Safari-to-native transform and calibrated native taps.
+  artifact, so it was not merged. Its current-main rerun then exposed Appium
+  12.1.3's unguarded same-point calibration failure before interaction. The
+  new harness derives from two trusted native taps on the product page,
+  independently verifies a third, and rejects stale/non-finite transforms
+  rather than weakening validation or guessing.
   Independent source-aware review drove removal of the unauthoritative manual
   F5 dispatch surface plus strict trailer parsing, exact revision F6, Pages publisher ordering, and the
   removal of an unsafe rollback claim. Exact-

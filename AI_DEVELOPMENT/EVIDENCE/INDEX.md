@@ -4,7 +4,7 @@ Evidence records are append-only and identify task ID, acceptance references, ba
 
 ## OPS-IPHONE-SE3-AUTOMATION — Automated iPhone SE 3 release gates
 
-- Status: local harness and negative-path verification passed; official WebKit baseline, iOS Simulator Mobile Safari, Pages deploy and F6 are pending remote execution.
+- Status: official WebKit baseline and exact current-main WebKit run passed. PR #9 run 31679391955 reached iOS Simulator Mobile Safari but failed closed before interaction when XCUITest 12.1.3 returned an all-null calibration; artifact 9173308510. Its three-tap product-page correction passes 20/20 locally; a fresh exact-head Safari run, Pages deploy and F6 remain pending.
 - Commands: `CINDERLINE_BROWSER=chromium npm run test:iphone-webkit`; `npm run test:ios-safari` without a simulator ID as a required-input negative control.
 - Artifact: `AI_DEVELOPMENT/EVIDENCE/OPS-IPHONE-SE3-AUTOMATION.md`; remote screenshots, trace/video, logs and JSON reports are uploaded by GitHub Actions.
 - Observed local defect and repair: Japanese SAVE/RESUME pause controls were 37.656px wide; the 44 CSS px minimum was added and the full surrogate flow then passed with zero runtime/network failures.

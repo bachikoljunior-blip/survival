@@ -14,6 +14,12 @@ import { createServer, request as httpRequest } from 'node:http';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  coordinateResidual,
+  deriveCoordinateCalibration,
+  translateWebPoint,
+  validateCoordinateCalibration,
+} from './ios_safari_coordinates.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -43,7 +49,7 @@ const report = {
   screenshots: {},
   runtimeErrorCapture: {
     stages: [],
-    limitation: 'Listeners start after each page has reached ready and Appium calibration has returned. Pre-listener boot errors that neither block ready nor enter CINDERLINE.faults are outside this capture window.',
+    limitation: 'Listeners start after each page has reached ready and trusted multi-point coordinate calibration has completed. Pre-listener boot errors that neither block ready nor enter CINDERLINE.faults are outside this capture window.',
   },
   errors: [],
   diagnostics: {
@@ -177,37 +183,140 @@ async function clickScriptElement(script) {
   const element = await execute(script);
   const id = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
   if (!id) throw new Error(`Safari script did not resolve a WebDriver element: ${script}`);
-  await webdriver(sessionPath(`/element/${encodeURIComponent(id)}/click`), { body: {} });
+  const rect = await execute(`
+    var rect = arguments[0].getBoundingClientRect();
+    return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+  `, [element]);
+  if (!rect || ![rect.x, rect.y, rect.width, rect.height]
+    .every((value) => typeof value === 'number' && Number.isFinite(value))
+    || rect.width <= 0 || rect.height <= 0) {
+    throw new Error(`Safari element has no tappable rect: ${JSON.stringify(rect)}`);
+  }
+  const point = realPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  await nativeTap(point.x, point.y);
 }
 
 let coordinateCalibration = null;
 
-async function calibrateCoordinates(stage) {
-  const value = await execute('mobile: calibrateWebToRealCoordinatesTranslation');
-  const calibration = {
-    stage,
-    offsetX: Number(value?.offsetX),
-    offsetY: Number(value?.offsetY),
-    pixelRatioX: Number(value?.pixelRatioX),
-    pixelRatioY: Number(value?.pixelRatioY),
-  };
-  if (![calibration.offsetX, calibration.offsetY, calibration.pixelRatioX, calibration.pixelRatioY]
-    .every(Number.isFinite)
-    || calibration.pixelRatioX <= 0
-    || calibration.pixelRatioY <= 0) {
-    throw new Error(`Appium returned invalid Safari coordinate calibration: ${JSON.stringify(value)}`);
+async function nativeTap(x, y) {
+  if (![x, y].every((value) => typeof value === 'number' && Number.isFinite(value))) {
+    throw new Error(`native Safari tap coordinates must be finite: ${JSON.stringify({ x, y })}`);
   }
-  coordinateCalibration = calibration;
-  report.coordinateCalibration.push(calibration);
-  return calibration;
+  await execute('mobile: tap', [{ x: Math.round(x), y: Math.round(y) }]);
+}
+
+async function getNativeWindowRect() {
+  const originalContext = await webdriver(sessionPath('/context'), { method: 'GET' });
+  if (typeof originalContext !== 'string' || !originalContext || originalContext === 'NATIVE_APP') {
+    throw new Error(`Safari calibration requires an active web context: ${JSON.stringify(originalContext)}`);
+  }
+  await webdriver(sessionPath('/context'), { body: { name: 'NATIVE_APP' } });
+  try {
+    return await webdriver(sessionPath('/window/rect'), { method: 'GET' });
+  } finally {
+    await webdriver(sessionPath('/context'), { body: { name: originalContext } });
+  }
+}
+
+async function calibrateCoordinates(stage) {
+  const rect = await getNativeWindowRect();
+  if (!rect || ![rect.x, rect.y, rect.width, rect.height]
+    .every((value) => typeof value === 'number' && Number.isFinite(value))
+    || rect.width < 200 || rect.height < 200) {
+    throw new Error(`Appium returned an invalid native window rect: ${JSON.stringify(rect)}`);
+  }
+  await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  const nativePoints = [
+    { x: Math.round(rect.x + rect.width * 0.26), y: Math.round(rect.y + rect.height * 0.34) },
+    { x: Math.round(rect.x + rect.width * 0.74), y: Math.round(rect.y + rect.height * 0.66) },
+    { x: Math.round(rect.x + rect.width * 0.65), y: Math.round(rect.y + rect.height * 0.40) },
+  ];
+  await execute(`
+    var previous = document.getElementById('__cinderlineIosCalibrationOverlay');
+    if (previous) previous.remove();
+    window.__cinderlineIosCalibrationPoints = [];
+    var overlay = document.createElement('div');
+    overlay.id = '__cinderlineIosCalibrationOverlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    Object.assign(overlay.style, {
+      position: 'fixed', inset: '0', zIndex: '2147483647',
+      pointerEvents: 'auto', touchAction: 'none', background: 'transparent'
+    });
+    overlay.addEventListener('click', function (event) {
+      window.__cinderlineIosCalibrationPoints.push({
+        x: event.clientX, y: event.clientY, trusted: event.isTrusted
+      });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
+    ['pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(function (type) {
+      overlay.addEventListener(type, function (event) {
+        event.stopImmediatePropagation();
+      }, true);
+    });
+    document.documentElement.appendChild(overlay);
+    return true;
+  `);
+  try {
+    const viewport = await execute('return { width: innerWidth, height: innerHeight };');
+    if (!viewport || ![viewport.width, viewport.height]
+      .every((value) => typeof value === 'number' && Number.isFinite(value) && value > 0)) {
+      throw new Error(`Safari returned an invalid CSS viewport: ${JSON.stringify(viewport)}`);
+    }
+    const webPoints = [];
+    for (let index = 0; index < nativePoints.length; index += 1) {
+      await nativeTap(nativePoints[index].x, nativePoints[index].y);
+      const value = await waitForScript(`
+        var points = window.__cinderlineIosCalibrationPoints || [];
+        return points.length > ${index} ? points[${index}] : null;
+      `, 15000);
+      if (!value?.trusted) {
+        throw new Error(`Safari calibration tap ${index + 1} was not a trusted browser event`);
+      }
+      webPoints.push({ x: value.x, y: value.y });
+    }
+    const value = validateCoordinateCalibration(
+      deriveCoordinateCalibration(nativePoints.slice(0, 2), webPoints.slice(0, 2)),
+    );
+    const verificationError = coordinateResidual(value, nativePoints[2], webPoints[2]);
+    if (verificationError > 4) {
+      throw new Error(`Safari calibration failed its independent third-point check: residual=${verificationError}`);
+    }
+    const topLeft = translateWebPoint(value, 0, 0);
+    const bottomRight = translateWebPoint(value, viewport.width, viewport.height);
+    const margin = 3;
+    if (topLeft.x < rect.x - margin || topLeft.y < rect.y - margin
+      || bottomRight.x > rect.x + rect.width + margin
+      || bottomRight.y > rect.y + rect.height + margin) {
+      throw new Error(`Safari calibration maps its viewport outside the native window: ${JSON.stringify({
+        rect, viewport, topLeft, bottomRight,
+      })}`);
+    }
+    const calibration = {
+      stage,
+      source: 'two-point transform plus an independent trusted third-point check on the product page',
+      ...value,
+      nativePoints,
+      webPoints,
+      nativeWindow: rect,
+      webViewport: viewport,
+      verificationError,
+    };
+    coordinateCalibration = value;
+    report.coordinateCalibration.push(calibration);
+    return calibration;
+  } finally {
+    await execute(`
+      var overlay = document.getElementById('__cinderlineIosCalibrationOverlay');
+      if (overlay) overlay.remove();
+      return true;
+    `).catch((error) => report.diagnostics.cleanupErrors.push(`calibration overlay cleanup: ${error.message}`));
+  }
 }
 
 function realPoint(x, y) {
   if (!coordinateCalibration) throw new Error('Safari coordinates were used before calibration');
-  return {
-    x: coordinateCalibration.offsetX + x * coordinateCalibration.pixelRatioX,
-    y: coordinateCalibration.offsetY + y * coordinateCalibration.pixelRatioY,
-  };
+  return translateWebPoint(coordinateCalibration, x, y);
 }
 
 function finger(id, actions) {
@@ -268,8 +377,6 @@ try {
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,
-          'appium:nativeWebTap': true,
-          'appium:nativeWebTapStrict': true,
           'appium:safariInitialUrl': baseUrl,
           'appium:webviewConnectTimeout': 120000,
           'appium:webviewConnectRetries': 20,

@@ -172,12 +172,13 @@ input method. None of these runs is a product pass, and the PR was not merged.
 The corrective tree is rebuilt on current main `f40b6d9`. It follows the
 XCUITest driver's documented web/native mapping rather than guessing:
 
-- `nativeWebTap` and `nativeWebTapStrict` make WebDriver element activation a
-  real native tap;
-- `mobile: calibrateWebToRealCoordinatesTranslation` measures Safari's offsets
-  and pixel ratios before interaction, and the harness records the returned
-  values;
-- DOM controls use calibrated native element taps, with New Game additionally
+- three separated `mobile: tap` calls target a transparent overlay on the real
+  product page; two trusted Safari/native point pairs solve the axis-aligned
+  transform and the third independently bounds its residual error;
+- identical, missing, non-numeric, non-finite, zero or negative-ratio results
+  fail closed; the pure helper's positive and adversarial battery passes 20/20;
+- DOM controls use their live CSS rect, transform its center and issue a native
+  tap, with New Game additionally
   required to emit trusted `pointerdown` and `pointerup` events;
 - canvas-only two-thumb and camera actions apply the measured transform to the
   CSS points before sending W3C actions to WebDriverAgent;
@@ -193,7 +194,48 @@ XCUITest driver's documented web/native mapping rather than guessing:
   repository-specific constant.
 
 Reference: Appium XCUITest driver, [calibrate web to real coordinates](https://appium.github.io/appium-xcuitest-driver/12.1/reference/execute-methods/#mobile-calibratewebtorealcoordinatestranslation)
-and [native web tap settings](https://appium.github.io/appium-xcuitest-driver/12.1/reference/settings/#nativewebtap).
+and [native mobile tap](https://appium.github.io/appium-xcuitest-driver/12.1/reference/execute-methods/#mobile-tap).
 The Linux checks can validate syntax, state, build, WebKit and the full browser
 suite, but cannot claim the Simulator journey. The exact current-main PR head
 must produce a passing report, screenshots, video and Appium log before merge.
+
+## Current-main exact-head failure and fail-closed correction
+
+PR #9 Floor run `31679391955` tested remote head `43c7208` on the synthetic
+merge tree. F2, F5, core F3 and the complete reviewed-baseline WebKit journey
+passed. The required iPhone SE 3 Mobile Safari job `94381865597` reached Xcode
+26.2, iOS 26.2, Appium 3.6.0 and XCUITest 12.1.3, then failed before the first
+product interaction. Artifact `9173308510` is decisive:
+
+- both native calibration taps reached WebDriverAgent, at `(326.5,180.5)` and
+  `(340.5,194.5)`;
+- Safari's calibration page reported the same DOM point `{x:480,y:171}` for
+  both taps;
+- XCUITest 12.1.3 divides the native delta by the DOM delta without checking
+  for zero, producing non-finite fields serialized as
+  `{offsetX:null,offsetY:null,pixelRatioX:null,pixelRatioY:null}`;
+- the CINDERLINE harness rejected the result, wrote `checks: []` and
+  `status: failed`, and made no interaction, persistence or soak claim.
+
+The validator was not relaxed and no identity/raw-coordinate fallback was
+added. The replacement calibration measures three separated trusted taps on a
+transparent overlay inside the already-ready product page, rejects a repeated
+point on either axis, derives four finite transform values from two points, and
+requires the third to reproduce its native point within four pixels. It uses
+the same transform for DOM taps and W3C canvas gestures, and avoids
+poisoning Appium's native-web-tap cache and removes that capability path. The
+20/20 self-test includes the captured all-null response, mixed null, missing
+keys, arrays, numeric strings, NaN, both infinities, zero/negative ratios,
+same/one-axis-stale points, invalid native axes and opposite-axis transforms.
+
+`PLAYWRIGHT_BROWSERS_PATH=/tmp/cinderline-playwright node
+tools/gates/f3_execution.mjs` passed all eight steps on the correction, including
+the new coordinate battery, production/dev builds, Pages-root identity, story
+validation and the real-browser save migration. An initial invocation without
+that environment-specific browser path stopped before browser execution because
+this host does not keep Playwright binaries in its default cache; CI installs
+its own browsers and does not depend on the temporary path.
+
+This is locally tested logic, not Simulator evidence. Independent Level B
+exact-diff review passed the current bytes; a fresh exact-head run remains
+mandatory before merge.
