@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { readFileSync } from 'node:fs';
+
 /**
  * Pure helpers for the iOS Safari coordinate gate.
  *
@@ -184,6 +186,26 @@ export function validateStableViewport(initial, current) {
     }
   }
   return after;
+}
+
+export function validateHeadlessHarnessContract(harnessSource, workflowSources) {
+  const sourceText = String(harnessSource);
+  const headlessCaps = sourceText.match(/^\s*['"]appium:isHeadless['"]\s*:\s*true,?\s*$/gm) || [];
+  const visibleCaps = sourceText.match(/^\s*['"]appium:isHeadless['"]\s*:\s*false,?\s*$/gm) || [];
+  if (headlessCaps.length !== 1 || visibleCaps.length !== 0) {
+    throw new Error('Mobile Safari harness must set appium:isHeadless to true exactly once');
+  }
+  if (!Array.isArray(workflowSources) || workflowSources.length !== 2) {
+    throw new Error('both PR and Pages workflows are required');
+  }
+  for (const [name, source] of workflowSources) {
+    const boot = String(source).indexOf('xcrun simctl bootstatus "$udid" -b');
+    const record = String(source).indexOf('recordVideo --codec=h264');
+    if (boot < 0 || record < 0 || boot >= record) {
+      throw new Error(`${name} must finish headless boot before starting the recorder`);
+    }
+  }
+  return true;
 }
 
 function expectPass(name, fn) {
@@ -395,6 +417,32 @@ function selfTest() {
       width: 667, height: 311, offsetLeft: 0, offsetTop: Number.NaN, scale: 1,
     } },
   ));
+
+  const harnessSource = readFileSync(new URL('./test-ios-safari.mjs', import.meta.url), 'utf8');
+  const workflowSources = ['gates.yml', 'pages.yml'].map((name) => [
+    name,
+    readFileSync(new URL(`../.github/workflows/${name}`, import.meta.url), 'utf8'),
+  ]);
+  pass('headless harness preserves the workflow-prebooted Simulator', () => {
+    validateHeadlessHarnessContract(harnessSource, workflowSources);
+  });
+  fail('visible-mode regression is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace("'appium:isHeadless': true", "'appium:isHeadless': false"),
+      workflowSources,
+    );
+  });
+  fail('recorder-before-boot regression is rejected', () => {
+    validateHeadlessHarnessContract(harnessSource, workflowSources.map(([name, source], index) => [
+      name,
+      index === 0
+        ? source.replace(
+          'xcrun simctl bootstatus "$udid" -b',
+          'recordVideo --codec=h264\nxcrun simctl bootstatus "$udid" -b',
+        )
+        : source,
+    ]));
+  });
 
   process.stdout.write(`iOS Safari coordinate self-test: ${passed}/${total}\n`);
   if (passed !== total) process.exit(1);

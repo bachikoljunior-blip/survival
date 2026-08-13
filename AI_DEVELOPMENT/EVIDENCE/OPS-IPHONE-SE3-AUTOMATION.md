@@ -139,16 +139,49 @@ Local verification of the corrective tree:
   stamped F6; the PR-body F5 record does not authenticate a distinct GitHub
   reviewer identity because the active ruleset requires zero approvals.
 
-Still required before completion: corrective PR Mobile Safari pass on the
-current-main merge tree, merge, main redeploy, post-deploy F6, and exact final
-evidence.
+Still required before completion: a fresh corrected exact-head Mobile Safari
+pass, merge, main redeploy, post-deploy F6, and exact final evidence.
+
+## Exact-head trusted-pointer result and duplicate boot failure (2026-08-13)
+
+PR #9 exact head `cac890441f59c750aa045dc08a34c5ea5a10548e` produced two
+same-tree Floor runs. Run `31684968784` passed F2, F5, core F3, WebKit and the
+full iPhone SE 3 Mobile Safari job. Artifact `9175483294` records 30/30 product
+checks, two independent three-point calibrations with transform `(offsetX 0,
+offsetY 64, ratioX 1, ratioY 1)` and zero-pixel third-point residual, and six
+complete trusted touch pointer pairs with no retry. Movement plus attack,
+camera drag, orientation recovery, save/refresh/Continue restoration and 148
+soak frames passed with no captured post-ready runtime error. The uploaded
+WDA screenshots show the running game and pause surface. The MP4 is not product
+evidence: although its container duration is 68.8 seconds, decoding yields only
+two Home-screen frames because Appium's visible-mode restart detached the
+recorder from the original CoreSimulator boot. The fresh headless run must be
+inspected for actual Safari/game frames rather than treating file presence,
+size or container duration as proof.
+
+Duplicate run `31684995777` failed before creating a WebDriver session, so it
+does not contradict those product checks but it does keep the required gate
+red. Workflow `simctl bootstatus` had reached `Finished`; XCUITest then logged
+that the simulator was booted without a visible UI, shut it down to open
+`Simulator.app`, and timed out after 300 seconds. Artifact `9175448558` honestly
+records `checks: []`, no calibration or interaction, and `status: failed`.
+
+The correction sets XCUITest's documented `appium:isHeadless` capability. The
+runner needs CoreSimulator, WDA, Mobile Safari, screenshots and `simctl io`
+video, but no Simulator.app window. In XCUITest driver 12.1.3 the option is
+passed directly to the simulator runner; when the simulator server is already
+running without a UI process, headless mode preserves it rather than shutting
+it down and waiting for a window. This source repair is not a substitute for
+execution: a fresh exact-head required run, merge, main rerun and stamped F6
+remain pending.
 
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
 rejected before the page receives the gesture. The corrective harness now
 positions both touch sources first, then performs the bounded simultaneous
 movement/attack hold. This is a harness-compatibility repair and remains
-`complete_unverified` until the exact PR head passes Mobile Safari.
+`complete_unverified` as a delivery until merge and F6. Its input behavior was
+executed successfully by exact-head run `31684968784`.
 
 PR #9 run `30724525380` created that exact Safari session and verified a
 667×311 content viewport at DPR 2, five reported touch points, Mobile Safari,
@@ -197,7 +230,10 @@ Reference: Appium XCUITest driver, [calibrate web to real coordinates](https://a
 and [native mobile tap](https://appium.github.io/appium-xcuitest-driver/12.1/reference/execute-methods/#mobile-tap).
 The Linux checks can validate syntax, state, build, WebKit and the full browser
 suite, but cannot claim the Simulator journey. The exact current-main PR head
-must produce a passing report, screenshots, video and Appium log before merge.
+must produce a passing report, decodable nonblank WDA screenshots and Appium
+log before merge. The MP4 is diagnostic only unless decoded frames actually
+show Safari/the game; file presence, byte size and container duration do not
+establish that.
 
 ## Current-main exact-head failure and fail-closed correction
 
@@ -257,16 +293,19 @@ pass. Artifact `9174347024` contains `report.json` and the complete Appium log:
 - the report therefore contains `checks: []`, no calibration, interaction,
   persistence or soak result, and `status: failed`.
 
-The validator and three-point residual threshold remain unchanged. The pending
-correction replaces the click-only, one-shot inference with exactly one
+The validator and three-point residual threshold remain unchanged. The
+trusted-pointer correction replaced the click-only, one-shot inference with exactly one
 recorded and required trusted touch `pointerdown` followed by `pointerup` with
 the same pointer identity and per-attempt overlay target. Each attempt has an
 isolated collector; only a completely event-free first attempt permits one
 retry. Partial, cancelled, untrusted, duplicate or cross-attempt sequences fail
 immediately. Every attempt and the global captured calibration-event log are preserved even when
 calibration cannot finish. A 750 ms settle is a conservative supplement, not the asserted
-root fix.
+root fix. Exact-head run `31684968784` executed this correction successfully:
+all six calibration attempts completed on their first try and the full product
+journey passed 30/30 checks.
 Cancelled, untrusted, wrong-target, changed-pointer and excessive-movement
 sequences fail closed. The expanded pure transform, event-sequence, retry and
-viewport battery passes 46/46 locally. This is not Simulator evidence; a fresh exact-head run is
-still mandatory.
+viewport/headless-wiring battery passes 49/49 locally. The pointer path now has
+Simulator evidence; only the subsequent `isHeadless` session-start correction
+still requires a fresh exact-head run.

@@ -81,21 +81,22 @@ execution:
       - docs/reviews/gate-b-round-h1-h2-touch.md
       - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
   modified_but_unverified:
-    - "Pull request #9 originally remained on stale revision 02339ce while current main was f40b6d9. Its final raw viewport-coordinate tap repeated the method already disproved by run 30724525380. The 2026-08-13 rerun 30727723649 again sent (569,102), received HTTP 200, and timed out before PLAY; artifact 9171059998 records 10 pre-interaction passes and no journey. Run 30726720202 separately showed that default JavaScript element activation emits click without the pointerdown/up CINDERLINE consumes. The branch has since been reconciled to current main, but no Mobile Safari product pass exists yet."
-    - "The corrective tree is rebuilt on current main. PR #9 run 31679391955 proved its first revision reached the exact Xcode 26.2/iOS 26.2 Safari session and passed F2, F5, core F3 and WebKit, but failed before product interaction: artifact 9173308510 shows both Appium calibration taps produced the same web point {480,171}, so XCUITest 12.1.3 divided by zero and returned four null fields. Run 31682290364 then passed F2, F5, core F3 and WebKit on remote head 396e4f4, but artifact 9174347024 records a second fail-closed pre-interaction result: native tap (173,128) produced a trusted click at CSS (173,64), while the next tap completed in WDA without producing a second recorded click. The command began about 63 ms after the first click was read, but XCTest synthesized the two taps about 1.2 seconds apart, so a double-tap timing cause is not claimed. The harness reported checks=[] and did not claim a product pass. The correction replaces click-only/one-shot inference with exactly one required trusted touch pointerdown/pointerup pair of stable identity and target, gives every attempt its own overlay collector, records all captured calibration events, permits one retry only when the first attempt has zero captured browser events, adds a conservative 750 ms settle, and retains the three-point transform and independent residual validation. Its pure parser/transform/tap-sequence/retry/viewport battery passes 46/46 locally; Linux cannot execute the Xcode/iOS journey."
+    - "Pull request #9 originally remained on stale revision 02339ce while current main was f40b6d9. Its final raw viewport-coordinate tap repeated the method already disproved by run 30724525380. The 2026-08-13 rerun 30727723649 again sent (569,102), received HTTP 200, and timed out before PLAY; artifact 9171059998 records 10 pre-interaction passes and no journey. Run 30726720202 separately showed that default JavaScript element activation emits click without the pointerdown/up CINDERLINE consumes. At that stage the branch had been reconciled to current main but no Mobile Safari product pass existed; later run 31684968784 supplied the first one."
+    - "The corrective tree is rebuilt on current main. PR #9 run 31679391955 proved its first revision reached the exact Xcode 26.2/iOS 26.2 Safari session and passed F2, F5, core F3 and WebKit, but failed before product interaction: artifact 9173308510 shows both Appium calibration taps produced the same web point {480,171}, so XCUITest 12.1.3 divided by zero and returned four null fields. Run 31682290364 then passed F2, F5, core F3 and WebKit on remote head 396e4f4, but artifact 9174347024 records a second fail-closed pre-interaction result: native tap (173,128) produced a trusted click at CSS (173,64), while the next tap completed in WDA without producing a second recorded click. The command began about 63 ms after the first click was read, but XCTest synthesized the two taps about 1.2 seconds apart, so a double-tap timing cause is not claimed. The harness reported checks=[] and did not claim a product pass. The correction replaces click-only/one-shot inference with exactly one required trusted touch pointerdown/pointerup pair of stable identity and target, gives every attempt its own overlay collector, records all captured calibration events, permits one retry only when the first attempt has zero captured browser events, adds a conservative 750 ms settle, and retains the three-point transform and independent residual validation. Its parser/transform/tap-sequence/retry/viewport and headless-wiring battery passes 49/49 locally; Linux cannot execute the Xcode/iOS journey."
     - "The Mobile Safari report separates transient WebDriver poll/session-cleanup diagnostics from captured product runtime errors. Its error listeners begin only after each page reaches ready and trusted multi-point coordinate calibration completes; an earlier uncaught boot error that neither blocks ready nor enters CINDERLINE.faults is explicitly outside the capture window and is not claimed absent."
     - "The delivery correction also makes F6 identify the exact 40-character revision in public index.html, the bundle filename and window.CINDERLINE.build, and waits for the competing legacy main/root Pages build of that exact SHA to finish before the custom deploy. Because R2-9 makes cc96f3a unsafe for newer saves, revert-to-verified.yml is now a read-only, always-failing diagnostic with no repository or deployment write permissions; no working rollback is claimed. The Pages/F6 mechanisms have self-tests and local simulations but remain unexecuted in GitHub Actions."
-    - "The required exact-head Mobile Safari journey, PR merge, gated main redeploy and post-deploy F6 remain pending. Independent Level B review passed the three-point coordinate design before run 31682290364 exposed its click-only/one-shot delivery gap; the isolated trusted-pointer collector and zero-event-only bounded retry remain execution-unverified until source review and a fresh Simulator rerun. No release or task completion is claimed."
-    - "The exact current-tree WebKit command could not launch locally because this Linux host lacks its GTK/GStreamer libraries; no local WebKit pass is claimed. The reviewed-baseline WebKit journey did pass in PR #9 run 31679391955 on the exact merge tree. That does not replace the required Simulator journey, which failed before interaction as separately recorded."
+    - "Independent Level B review passed the isolated trusted-pointer collector and zero-event-only bounded retry, and exact-head run 31684968784 executed that path successfully through the full Simulator journey. The subsequent headless-session correction has source support but remains execution-unverified; PR merge, gated main redeploy and post-deploy F6 remain pending. No release or task completion is claimed."
+    - "Exact-head run 31684968784 at cac8904 passed F2, F5, core F3, WebKit and the full iPhone SE 3 Mobile Safari journey. Artifact 9175483294 records 30/30 product checks, two three-point calibrations with zero-pixel independent residual, six complete trusted touch pointer pairs with no retry, movement plus attack, camera drag, save/Continue restoration, 148 soak frames, no captured post-ready runtime error, and real gameplay/pause screenshots. A duplicate run 31684995777 of the same merge tree failed before session creation: workflow bootstatus had reported Finished, but XCUITest detected a booted headless simulator, shut it down to open an unnecessary Simulator.app window, and timed out after 300 seconds; artifact 9175448558 has checks=[] and no product claim. Because the latest required check is red, merge remains blocked. The pending correction sets the documented isHeadless capability so XCUITest preserves the already-booted CoreSimulator state instead of restarting it for a CI-only UI window; a fresh exact-head run is required."
+    - "The exact current-tree WebKit command could not launch locally because this Linux host lacks its GTK/GStreamer libraries; no local WebKit pass is claimed. Exact-head Actions runs 31684968784 and 31684995777 both passed the reviewed-baseline WebKit journey. Run 31684968784 also passed the complete Simulator journey; the duplicate run's pre-session UI-restart timeout and its pending headless correction are separately recorded."
   historical_modified_but_unverified:
     - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
     - "Shared-kit integration (branch claude/kit-rollout-integration-a4zihp): the vendored kit, the harness swap and the validator rewrite were REBUILT on this main, not merged onto it. check:kit, the 46-mutation equivalence battery, the 23/23 validator self-test, tools/perf.mjs end to end, validate, check_benchmarks and F3 all pass. NOT re-run on this tree: tools/playthrough.mjs (about an hour on this rig) and the 18-frame vantage sweep — and the sweep could not settle anything anyway, see kit_integration.vantage_noise below."
     - "Pull request #8 merged as 02339ce10e63145adf7155ca6b4b1dc2ff7d7f60 after F2/F3/F5 and the reviewed-baseline WebKit sequence passed; WebKit visual diff was 0.1728%."
     - "The first main iOS job selected iOS 26.2 while Appium inherited default Xcode 16.4. WebDriverAgent never opened port 8100, so the job failed before a Safari session and produced zero product checks. The corrective workflow pins Xcode 26.2 with iOS 26.2 and lengthens/logs WDA startup."
     - "GitHub's pre-existing branch-source Pages deployment reported success for 02339ce before the custom iOS job completed. The corrective workflow adds Mobile Safari to the required pre-merge F3 check so this publication path cannot bypass it on future merges."
-    - "Corrective pull request, required Mobile Safari pass, gated redeploy and post-deploy F6 remain pending."
-    - "The Mobile Safari harness now starts both W3C touch sources with pointerMove; this preserves simultaneous movement/attack semantics while avoiding Xcode 26.2 WebDriverAgent's rejection of a second source beginning with pause. An exact-head pass remains required."
-    - "PR #9 run 30726720202 created the exact Xcode 26.2/iOS 26.2 Mobile Safari session and passed device, 667×311/DPR 2, five-touch-point, WebGL, canvas, overflow and 44px title checks. Native WebDriver click did not activate the game's pointer-only div control, so title, system, pause and Continue actions now use W3C coordinate taps; no product pass is claimed until rerun."
+    - "At that stage the corrective pull request, required Mobile Safari pass, gated redeploy and post-deploy F6 were pending."
+    - "The Mobile Safari harness now starts both W3C touch sources with pointerMove; this preserves simultaneous movement/attack semantics while avoiding Xcode 26.2 WebDriverAgent's rejection of a second source beginning with pause. That path later passed exact-head run 31684968784."
+    - "PR #9 run 30726720202 created the exact Xcode 26.2/iOS 26.2 Mobile Safari session and passed device, 667×311/DPR 2, five-touch-point, WebGL, canvas, overflow and 44px title checks. Native WebDriver click did not activate the game's pointer-only div control, so title, system, pause and Continue actions moved to W3C coordinate taps. This historical run made no product-pass claim; the later trusted-pointer run 31684968784 did."
   current_blockers:
     - id: B1
       statement: >-
@@ -198,13 +199,14 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Deliver the fail-closed product-page coordinate correction to pull request
-    #9, keeping the Xcode/iOS pair pinned, trusted native DOM taps, the
-    calibrated WDA-compatible two-pointer sequence, and Mobile Safari inside
-    the required F3 check. Require F2/F3/F5, WebKit and the full Simulator journey to
-    pass, inspect its report/log/video, merge it, then require the main redeploy
-    and F6 public-surface verification to pass. Record exact run and merge
-    evidence before delivering the already-scoped GB-IMP02 correction.
+    Deliver the appium:isHeadless session-start correction to pull request #9,
+    preserving the already-executed trusted DOM calibration, calibrated
+    two-pointer sequence and required Mobile Safari F3 check. Require
+    F2/F3/F5, WebKit and the full Simulator journey to pass on the new exact
+    head; inspect its report, Appium log and WDA screenshots, and use video only
+    if decoded frames show Safari/the game. Then merge, require the main
+    redeploy and F6 public-surface verification to pass, and record exact run
+    and merge evidence before delivering the scoped GB-IMP02 correction.
 
   kit_integration:
     branch: claude/kit-rollout-integration-a4zihp
@@ -243,7 +245,7 @@ execution:
       frames. That control was measured on the previous base and is not
       re-derived here.
 floor:
-  last_check: "2026-08-13 (run 31682290364 passed F2/F5/core-F3/WebKit but artifact 9174347024 exposed a click-only/one-shot DOM-delivery gap before interaction; isolated trusted-pointer/zero-event-retry correction passes 46/46 locally; independent re-review, Simulator rerun, Pages ordering and revision-stamped F6 remain pending)"
+  last_check: "2026-08-13 (exact head cac8904 run 31684968784 passed the full 30-check Simulator journey, but duplicate run 31684995777 failed before session when Appium restarted an already-booted headless Simulator to obtain an unnecessary UI window; isHeadless correction and fresh exact-head required checks pending)"
   independence_level_used: B
   skips:
     - "F6: not fired for this corrective delivery because it has not merged or deployed. The public URL is reachable from this environment; post-deploy execution remains mandatory."
@@ -266,7 +268,7 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: exact_head_run_31682290364_failed_second_calibration_tap_before_interaction_correction_pending
+    ios_safari_release_gate: exact_head_run_31684968784_full_journey_passed_but_duplicate_31684995777_infrastructure_boot_restart_failed_headless_correction_pending
     revert_mechanism: absent_unsafe_due_save_compatibility
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
@@ -321,7 +323,7 @@ floor:
           correction spaces taps by 750 ms, permits one retry only after a
           zero-event first attempt, requires exactly one trusted touch
           pointerdown then pointerup with stable identity/target, isolates and
-          records every attempt, and passes its expanded pure battery 46/46 locally.
+          records every attempt, and passes its expanded battery 49/49 locally.
     ruleset:
       target: default branch (main)
       enforcement: Active
@@ -395,14 +397,15 @@ remote:
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Pull request #9 targets current main. Its prior remote head 396e4f4 ran as
-    Floor run 31682290364: F2, F5, core F3 and WebKit passed, but the required Safari
-    job before interaction: artifact 9174347024 records one trusted calibration
-    point and then a second WDA-completed tap with no second recorded click. A bounded,
-    spaced trusted-pointer retry correction is prepared locally and must pass
-    independent review and exact-head required checks before merge. Public
-    revision fields remain conservative until direct F6 and the gated
-    deployment are recorded.
+    Pull request #9 targets current main. Exact head cac8904 run 31684968784
+    passed F2, F5, core F3, WebKit and the complete 30-check Simulator journey;
+    artifact 9175483294 is the first valid Mobile Safari product pass. Duplicate
+    run 31684995777 failed before session creation because XCUITest restarted an
+    already-booted headless Simulator to obtain a UI window and timed out;
+    artifact 9175448558 has no product checks. The documented isHeadless
+    capability correction must pass fresh exact-head required checks before
+    merge. Public revision fields remain conservative until direct F6 and the
+    gated deployment are recorded.
 
 updated_at: "2026-08-13"
 reconciliation_status: >-
@@ -413,12 +416,12 @@ reconciliation_status: >-
   12.1.3's unguarded same-point calibration failure before interaction. The
   new harness derives from two trusted native taps on the product page,
   independently verifies a third, and rejects stale/non-finite transforms
-  rather than weakening validation or guessing. Exact-head run 31682290364
-  then exposed a click-only, one-shot delivery gap; its pending correction
-  requires a complete trusted pointer sequence, isolates and records attempts,
-  adds a conservative 750 ms settle and permits one retry only after a
-  completely event-free attempt while retaining the same transform and
-  residual thresholds.
+  rather than weakening validation or guessing. Exact-head run 31684968784
+  then completed the full product journey, while a duplicate same-tree run
+  31684995777 failed before session because Appium tried to replace the
+  already-booted headless Simulator with a visible UI client. The pending
+  isHeadless capability correction preserves that CI-native state; a fresh
+  exact-head pass is still mandatory.
   Independent source-aware review drove removal of the unauthoritative manual
   F5 dispatch surface plus strict trailer parsing, exact revision F6, Pages publisher ordering, and the
   removal of an unsafe rollback claim. Exact-

@@ -477,6 +477,11 @@ try {
           'appium:udid': UDID,
           'appium:platformVersion': PLATFORM_VERSION,
           'appium:noReset': true,
+          // GitHub's macOS runner pre-boots CoreSimulator without a visible UI.
+          // Tell XCUITest to keep that supported headless state; otherwise it
+          // shuts down a ready device to launch Simulator.app and can spend the
+          // full startup timeout waiting for a window that CI does not need.
+          'appium:isHeadless': true,
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,
