@@ -75,9 +75,22 @@ export function selectSafariEducationClose(source, candidates, nativeWindow) {
         || typeof candidate.elementId !== 'string' || !candidate.elementId) {
       throw new Error(`native Safari close candidate ${index} is invalid`);
     }
+    if (typeof candidate.enabled !== 'boolean' || typeof candidate.displayed !== 'boolean') {
+      throw new Error(`native Safari close candidate ${index} visibility state must be boolean`);
+    }
+    if (candidate.name !== null && candidate.name !== undefined && typeof candidate.name !== 'string') {
+      throw new Error(`native Safari close candidate ${index}.name must be a string or null`);
+    }
+    if (candidate.label !== null && candidate.label !== undefined && typeof candidate.label !== 'string') {
+      throw new Error(`native Safari close candidate ${index}.label must be a string or null`);
+    }
     return {
       elementId: candidate.elementId,
       rect: rect(candidate.rect, `native Safari close candidate ${index}.rect`),
+      enabled: candidate.enabled,
+      displayed: candidate.displayed,
+      name: candidate.name ?? null,
+      label: candidate.label ?? null,
     };
   }).filter((candidate) => {
     const centerX = candidate.rect.x + candidate.rect.width / 2;
@@ -86,16 +99,25 @@ export function selectSafariEducationClose(source, candidates, nativeWindow) {
       && candidate.rect.y >= windowRect.y
       && candidate.rect.x + candidate.rect.width <= windowRect.x + windowRect.width
       && candidate.rect.y + candidate.rect.height <= windowRect.y + windowRect.height;
-    // Safari's Start Page and tab chrome can also expose a top-edge Close
-    // button. The education popover observed on the product page has its close
-    // control in the right/lower native content region, so do not guess among
-    // unrelated browser controls.
+    const small = candidate.rect.width >= 18 && candidate.rect.width <= 64
+      && candidate.rect.height >= 18 && candidate.rect.height <= 64;
+    const aspect = candidate.rect.width / candidate.rect.height;
+    // The iOS 26.2 education popover exposes a nameless circular x rather than
+    // an accessibility-id "Close".  Select by the independently observed
+    // geometry only while the complete three-marker education is present.
+    // This excludes Safari's top/bottom chrome and wide web-page controls; an
+    // ambiguous native hierarchy still fails instead of guessing.
     return inside
-      && centerX >= windowRect.x + windowRect.width * 0.5
-      && centerY >= windowRect.y + windowRect.height * 0.2;
+      && candidate.enabled === true
+      && candidate.displayed === true
+      && small
+      && aspect >= 0.75 && aspect <= 1.33
+      && centerX >= windowRect.x + windowRect.width * 0.85
+      && centerY >= windowRect.y + windowRect.height * 0.3
+      && centerY <= windowRect.y + windowRect.height * 0.75;
   });
   if (eligible.length !== 1) {
-    throw new Error(`native Safari education requires exactly one eligible Close control; found ${eligible.length}`);
+    throw new Error(`native Safari education requires exactly one eligible small right-side Button; found ${eligible.length}`);
   }
   return { ...eligible[0], markers: state.markers };
 }
@@ -317,6 +339,28 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   if (dismiss < 0 || calibrate < 0 || dismiss >= calibrate) {
     throw new Error('Mobile Safari harness must clear known native education before initial calibration');
   }
+  const buttonQueries = sourceText.match(/using:\s*['"]class name['"],\s*value:\s*['"]XCUIElementTypeButton['"]/g) || [];
+  if (buttonQueries.length !== 1 || sourceText.includes("using: 'accessibility id', value: 'Close'")) {
+    throw new Error('Mobile Safari education must inspect native Buttons without assuming a Close accessibility name');
+  }
+  for (const endpoint of ['/rect', '/enabled', '/displayed', '/attribute/name', '/attribute/label']) {
+    if (!sourceText.includes(`\${elementPath}${endpoint}`)) {
+      throw new Error(`Mobile Safari education must record Button ${endpoint} metadata`);
+    }
+  }
+  const candidateRecord = sourceText.indexOf('record.closeCandidates.push(telemetry);');
+  const firstCandidateRead = sourceText.indexOf('telemetry.rect = await webdriver');
+  if (candidateRecord < 0 || firstCandidateRead < 0 || candidateRecord >= firstCandidateRead
+      || sourceText.includes('await Promise.all([')) {
+    throw new Error('Mobile Safari Button telemetry must be registered before sequential native reads');
+  }
+  const sourceEvidence = sourceText.indexOf('writeFileSync(SAFARI_EDUCATION_SOURCE, source);');
+  const screenshotEvidence = sourceText.indexOf('await screenshot(SAFARI_EDUCATION_SHOT);');
+  const buttonQuery = sourceText.indexOf("body: { using: 'class name', value: 'XCUIElementTypeButton' },");
+  if (sourceEvidence < 0 || screenshotEvidence < 0 || buttonQuery < 0
+      || sourceEvidence >= buttonQuery || screenshotEvidence >= buttonQuery) {
+    throw new Error('Mobile Safari education must preserve native source and screenshot before choosing a Button');
+  }
   if (!Array.isArray(workflowSources) || workflowSources.length !== 2) {
     throw new Error('both PR and Pages workflows are required');
   }
@@ -371,9 +415,25 @@ function selfTest() {
   ];
   const educationSource = '<XCUIElementTypeApplication><XCUIElementTypeStaticText label="View Bookmarks, Share Menu, and Open Tabs" /></XCUIElementTypeApplication>';
   const nativeWindow = { x: 0, y: 0, width: 667, height: 375 };
-  const educationClose = { elementId: 'education-close', rect: {
-    x: 610, y: 170, width: 40, height: 40,
-  } };
+  const nativeButton = (elementId, nativeRect, overrides = {}) => ({
+    elementId,
+    rect: nativeRect,
+    enabled: true,
+    displayed: true,
+    name: null,
+    label: null,
+    ...overrides,
+  });
+  // Run 31690316895/31690351246 video: the iOS 26.2 education x is
+  // nameless and approximately 26 logical pixels square at (617,180).
+  const educationClose = nativeButton(
+    'education-close',
+    { x: 617, y: 180, width: 26, height: 26 },
+  );
+  const topTabs = nativeButton('top-tabs', { x: 612, y: 10, width: 44, height: 44 });
+  const wideGameButton = nativeButton('wide-game-button', {
+    x: 480, y: 145, width: 179, height: 43,
+  }, { name: 'NEW GAME', label: 'NEW GAME' });
 
   pass('valid flat numeric calibration', () => validateCoordinateCalibration(good));
   pass('two points derive the expected transform', () => {
@@ -462,10 +522,14 @@ function selfTest() {
   });
   pass('known Safari education selects its one right-side close control', () => {
     const selected = selectSafariEducationClose(educationSource, [
-      { elementId: 'start-page-close', rect: { x: 625, y: 8, width: 32, height: 32 } },
+      topTabs,
+      wideGameButton,
       educationClose,
     ], nativeWindow);
     if (selected.elementId !== educationClose.elementId) throw new Error(JSON.stringify(selected));
+    if (selected.name !== null || selected.label !== null) {
+      throw new Error('nameless observed close must remain selectable');
+    }
   });
 
   fail('actual all-null Appium failure', () => validateCoordinateCalibration({
@@ -651,7 +715,58 @@ function selfTest() {
   fail('ambiguous Safari education close controls are rejected', () => {
     selectSafariEducationClose(educationSource, [
       educationClose,
-      { elementId: 'second-close', rect: { x: 560, y: 240, width: 40, height: 40 } },
+      nativeButton('second-close', { x: 560, y: 240, width: 40, height: 40 }),
+    ], nativeWindow);
+  });
+  fail('disabled Safari education control is rejected', () => {
+    selectSafariEducationClose(educationSource, [
+      { ...educationClose, enabled: false },
+    ], nativeWindow);
+  });
+  fail('hidden Safari education control is rejected', () => {
+    selectSafariEducationClose(educationSource, [
+      { ...educationClose, displayed: false },
+    ], nativeWindow);
+  });
+  fail('non-boolean Safari control state is rejected', () => {
+    selectSafariEducationClose(educationSource, [
+      { ...educationClose, enabled: 'true' },
+    ], nativeWindow);
+  });
+  fail('top Safari chrome is not an education close control', () => {
+    selectSafariEducationClose(educationSource, [topTabs], nativeWindow);
+  });
+  fail('wide web content button is not an education close control', () => {
+    selectSafariEducationClose(educationSource, [wideGameButton], nativeWindow);
+  });
+  fail('left-side small control is not an education close control', () => {
+    selectSafariEducationClose(educationSource, [
+      nativeButton('left-control', { x: 420, y: 180, width: 26, height: 26 }),
+    ], nativeWindow);
+  });
+  fail('bottom Safari chrome is not an education close control', () => {
+    selectSafariEducationClose(educationSource, [
+      nativeButton('bottom-control', { x: 617, y: 330, width: 26, height: 26 }),
+    ], nativeWindow);
+  });
+  fail('oversize right-side control is not an education close control', () => {
+    selectSafariEducationClose(educationSource, [
+      nativeButton('oversize-control', { x: 590, y: 160, width: 70, height: 70 }),
+    ], nativeWindow);
+  });
+  fail('non-square right-side control is not an education close control', () => {
+    selectSafariEducationClose(educationSource, [
+      nativeButton('non-square-control', { x: 600, y: 180, width: 60, height: 20 }),
+    ], nativeWindow);
+  });
+  fail('non-finite Safari control geometry is rejected', () => {
+    selectSafariEducationClose(educationSource, [
+      nativeButton('invalid-control', { x: Number.NaN, y: 180, width: 26, height: 26 }),
+    ], nativeWindow);
+  });
+  fail('zero-size Safari control geometry is rejected', () => {
+    selectSafariEducationClose(educationSource, [
+      nativeButton('zero-control', { x: 617, y: 180, width: 0, height: 26 }),
     ], nativeWindow);
   });
 
@@ -683,6 +798,27 @@ function selfTest() {
   fail('calibration-before-native-education-dismissal is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace('await dismissKnownSafariEducation();', ''),
+      workflowSources,
+    );
+  });
+  fail('accessibility-name-only education locator is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "body: { using: 'class name', value: 'XCUIElementTypeButton' },",
+        "body: { using: 'accessibility id', value: 'Close' },",
+      ),
+      workflowSources,
+    );
+  });
+  fail('missing native education screenshot evidence is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('await screenshot(SAFARI_EDUCATION_SHOT);', ''),
+      workflowSources,
+    );
+  });
+  fail('late native Button telemetry registration is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('record.closeCandidates.push(telemetry);', ''),
       workflowSources,
     );
   });

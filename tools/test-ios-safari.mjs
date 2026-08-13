@@ -31,6 +31,8 @@ const OUTPUT = resolve(ROOT, process.env.CINDERLINE_IOS_OUTPUT || 'test-results/
 const REPORT = resolve(OUTPUT, 'report.json');
 const GAMEPLAY_SHOT = resolve(OUTPUT, 'ios-safari-gameplay.png');
 const PAUSE_SHOT = resolve(OUTPUT, 'ios-safari-pause.png');
+const SAFARI_EDUCATION_SOURCE = resolve(OUTPUT, 'native-safari-education.xml');
+const SAFARI_EDUCATION_SHOT = resolve(OUTPUT, 'native-safari-education.png');
 const APPIUM_URL = new URL(process.env.APPIUM_URL || 'http://127.0.0.1:4723/');
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const UDID = process.env.IOS_SIMULATOR_UDID || '';
@@ -55,6 +57,8 @@ const report = {
     dismissed: null,
     markers: [],
     closeCandidates: [],
+    nativeSource: null,
+    screenshot: null,
   },
   layout: null,
   interaction: {},
@@ -243,38 +247,60 @@ async function dismissKnownSafariEducation() {
   await webdriver(sessionPath('/context'), { body: { name: 'NATIVE_APP' } });
   try {
     record.checked = true;
-    const source = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 10000 });
+    const source = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 15000 });
     const state = safariEducationState(source);
     record.present = state.present;
     record.dismissed = state.present ? false : null;
     record.markers = state.markers;
     if (!state.present) return record;
 
+    writeFileSync(SAFARI_EDUCATION_SOURCE, source);
+    record.nativeSource = SAFARI_EDUCATION_SOURCE.slice(ROOT.length + 1);
+    await screenshot(SAFARI_EDUCATION_SHOT);
+    record.screenshot = SAFARI_EDUCATION_SHOT.slice(ROOT.length + 1);
+    report.screenshots.nativeSafariEducation = record.screenshot;
+
     const nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET' });
+    record.nativeWindow = nativeWindow;
     const elements = await webdriver(sessionPath('/elements'), {
-      body: { using: 'accessibility id', value: 'Close' },
+      body: { using: 'class name', value: 'XCUIElementTypeButton' },
+      timeout: 15000,
     });
     if (!Array.isArray(elements)) {
-      throw new Error(`native Safari returned invalid Close candidates: ${JSON.stringify(elements)}`);
+      throw new Error(`native Safari returned invalid Button candidates: ${JSON.stringify(elements)}`);
     }
+    record.buttonCount = elements.length;
     const candidates = [];
-    for (const element of elements) {
+    for (const [index, element] of elements.entries()) {
       const elementId = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
-      if (!elementId) throw new Error(`native Safari returned an invalid Close element: ${JSON.stringify(element)}`);
-      const elementRect = await webdriver(
-        sessionPath(`/element/${encodeURIComponent(elementId)}/rect`),
-        { method: 'GET' },
-      );
-      candidates.push({ elementId, rect: elementRect });
+      if (!elementId) throw new Error(`native Safari returned an invalid Button element: ${JSON.stringify(element)}`);
+      const elementPath = sessionPath(`/element/${encodeURIComponent(elementId)}`);
+      const telemetry = {
+        index, rect: null, enabled: null, displayed: null, name: null, label: null, error: null,
+      };
+      record.closeCandidates.push(telemetry);
+      try {
+        telemetry.rect = await webdriver(`${elementPath}/rect`, { method: 'GET', timeout: 15000 });
+        telemetry.enabled = await webdriver(`${elementPath}/enabled`, { method: 'GET', timeout: 15000 });
+        telemetry.displayed = await webdriver(`${elementPath}/displayed`, { method: 'GET', timeout: 15000 });
+        telemetry.name = await webdriver(`${elementPath}/attribute/name`, { method: 'GET', timeout: 15000 });
+        telemetry.label = await webdriver(`${elementPath}/attribute/label`, { method: 'GET', timeout: 15000 });
+      } catch (error) {
+        telemetry.error = error.message;
+        throw error;
+      }
+      candidates.push({ elementId, ...telemetry });
     }
-    record.closeCandidates = candidates.map((candidate) => ({ rect: candidate.rect }));
     const close = selectSafariEducationClose(source, candidates, nativeWindow);
     record.closeRect = close.rect;
     await webdriver(sessionPath(`/element/${encodeURIComponent(close.elementId)}/click`), { body: {} });
 
-    const deadline = Date.now() + 10000;
+    const deadline = Date.now() + 30000;
     while (Date.now() < deadline) {
-      const currentSource = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 5000 });
+      const requestTimeout = Math.max(1000, Math.min(15000, deadline - Date.now()));
+      const currentSource = await webdriver(sessionPath('/source'), {
+        method: 'GET', timeout: requestTimeout,
+      });
       if (!safariEducationState(currentSource).present) {
         record.dismissed = true;
         return record;

@@ -214,6 +214,45 @@ battery passes 74/74 locally. This source repair is not a substitute for
 execution: a fresh exact-head required run, merge, main rerun and stamped F6
 remain pending.
 
+## Exact-head native-education locator result (2026-08-13)
+
+PR #9 exact head `50506b0acbe80f738a00a3b15c9d2c0b96d9c1b2` produced two
+fresh Floor runs. Runs `31690316895` and `31690351246` both passed F2, F5,
+core F3 and the complete WebKit journey. Their required Mobile Safari jobs
+`94416627113` and `94416716023` both failed closed before calibration with the
+same result. Artifacts `9177494972` and `9177498873` record
+`checked:true`, `present:true`, `dismissed:false`, all three education markers,
+`closeCandidates:[]`, `checks:[]` and no coordinate calibration.
+
+The Appium logs establish the exact mechanism. Each run switched from its
+specific `WEBVIEW_*` to `NATIVE_APP`, read a valid 35,885-byte Safari hierarchy
+and a 667x375 native window, then queried `accessibility id = Close`. WDA
+returned HTTP 200 with an empty element array; no element rect was requested.
+The harness restored the exact original web context in `finally`. Video still
+shows the one education popover and its gray circular x at approximately native
+rect `{x:617,y:180,width:26,height:26}`. The failure is therefore the locator
+assumption, not the existing geometry filter or a product input result. Neither
+run reached the 30 product checks, and no gameplay/pause screenshot is claimed.
+
+The follow-up does not fall back to a raw coordinate or weaken dismissal
+verification. While the complete three-marker education is present, it obtains
+all native `XCUIElementTypeButton` elements and records each rect, enabled and
+displayed boolean, name and label. It activates a control only if exactly one is
+inside the native window, enabled, displayed, 18--64 logical pixels on each
+axis, aspect ratio 0.75--1.33, with its center in the rightmost 15% and middle
+30--75% of the screen. These constraints select the observed nameless 26x26 x
+while excluding top/bottom Safari chrome, left-side controls and the wide web
+game button. Zero, multiple, hidden, disabled, malformed, oversized or
+non-square candidates stop the run. The complete native source and a native
+screenshot are preserved before selection, the education markers must still
+disappear after activation, and the exact original web context must be restored.
+The native requests use sequential bounded reads with margin above the observed
+7.37-second source latency; every candidate is registered in the report before
+its first metadata request, so a later timeout cannot erase partial evidence or
+race an outstanding request against web-context restoration. The expanded
+source/geometry/event/viewport/headless battery passes 88/88 locally. Fresh
+exact-head Simulator execution remains mandatory.
+
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
 rejected before the page receives the gesture. The corrective harness now
