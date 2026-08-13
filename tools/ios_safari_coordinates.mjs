@@ -438,7 +438,7 @@ export function isExactOrientationProxyReset(error, currentSessionId, method) {
 export function isExactOrientationPostClientTimeout(error, currentSessionId, timeoutMs) {
   if (!(error instanceof Error) || typeof currentSessionId !== 'string'
       || !/^[A-Za-z0-9-]+$/.test(currentSessionId)
-      || timeoutMs !== 30000) return false;
+      || timeoutMs !== 60000) return false;
   return error.message === `WebDriver POST session/${currentSessionId}/orientation exceeded ${timeoutMs} ms`;
 }
 
@@ -837,6 +837,18 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     sourceText.indexOf('async function dismissKnownSafariEducation()'),
     sourceText.indexOf('async function calibrateCoordinates(stage)'),
   );
+  const fallbackReadTimeoutDeclarations = sourceText.match(
+    /^const SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS = 30000;$/gm,
+  ) || [];
+  const fallbackReadTimeoutReferences = sourceText.match(
+    /\bSAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS\b/g,
+  ) || [];
+  const fallbackReadTimeoutUses = dismissSource.match(
+    /\bSAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS\b/g,
+  ) || [];
+  const educationWebdriverCalls = dismissSource.match(/await webdriver\(/g) || [];
+  const educationTimeoutOptions = dismissSource.match(/\btimeout\s*:/g) || [];
+  const educationDefaultTimeoutOptions = dismissSource.match(/\btimeout:\s*15000\b/g) || [];
   const restorationScope = dismissSource.indexOf(
     'const record = report.nativeSafariEducation;\n  try {',
   );
@@ -898,6 +910,12 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   const fallbackValidation = dismissSource.indexOf(
     'validateSafariEducationLiveElement(fallbackTarget, fallbackLiveVerification);',
   );
+  const fallbackActuationPhase = dismissSource.indexOf(
+    "fallbackAttempt.phase = 'actuation';",
+  );
+  const fallbackActuationStarted = dismissSource.indexOf(
+    'fallbackAttempt.actuationStarted = true;',
+  );
   const fallbackClick = dismissSource.indexOf(
     'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
   );
@@ -950,8 +968,23 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     "const finalSource = await webdriver(sessionPath('/source')",
   );
   const finalProof = dismissSource.lastIndexOf('requireSafariEducationDismissedSnapshot(');
+  const fallbackFailureRecord = dismissSource.indexOf('fallbackAttempt.error = error.message;');
+  const fallbackFailureRethrow = dismissSource.indexOf('throw error;', fallbackFailureRecord);
   if (educationTapCount !== 1
       || allEducationTapCount !== 1
+      || fallbackReadTimeoutDeclarations.length !== 1
+      || fallbackReadTimeoutReferences.length !== 5
+      || fallbackReadTimeoutUses.length !== 4
+      || educationWebdriverCalls.length !== 21
+      || educationTimeoutOptions.length !== 21
+      || educationDefaultTimeoutOptions.length !== 17
+      || !dismissSource.includes(`const fallbackElements = await webdriver(sessionPath('/elements'), {
+        body: { using: 'accessibility id', value: fallbackTarget.name },
+        timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
+      });`)
+      || !dismissSource.includes('fallbackLiveVerification.rect = await webdriver(`${fallbackElementPath}/rect`, { method: \'GET\', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });')
+      || !dismissSource.includes('fallbackLiveVerification.enabled = await webdriver(`${fallbackElementPath}/enabled`, { method: \'GET\', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });')
+      || !dismissSource.includes('fallbackLiveVerification.displayed = await webdriver(`${fallbackElementPath}/displayed`, { method: \'GET\', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });')
       || !dismissSource.includes('requireSafariEducationDismissedSnapshot(')
       || !dismissSource.includes('validateSafariEducationControlSnapshot(')
       || !dismissSource.includes('classifySafariEducationPrimaryObservation(')
@@ -1013,6 +1046,8 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || fallbackLiveEnabled < 0
       || fallbackLiveDisplayed < 0
       || fallbackValidation < 0
+      || fallbackActuationPhase < 0
+      || fallbackActuationStarted < 0
       || fallbackClick < 0
       || fallbackClickCount !== 1
       || clickEndpointCount !== 1
@@ -1027,6 +1062,8 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || finalWindow < 0
       || finalSource < 0
       || finalProof < 0
+      || fallbackFailureRecord < 0
+      || fallbackFailureRethrow < 0
       || attemptRecord >= activationWindow
       || activationWindow >= activationSource
       || activationSource >= activationClassification
@@ -1048,7 +1085,9 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || fallbackLiveRect >= fallbackLiveEnabled
       || fallbackLiveEnabled >= fallbackLiveDisplayed
       || fallbackLiveDisplayed >= fallbackValidation
-      || fallbackValidation >= fallbackClick
+      || fallbackValidation >= fallbackActuationPhase
+      || fallbackActuationPhase >= fallbackActuationStarted
+      || fallbackActuationStarted >= fallbackClick
       || fallbackLiveDisplayedWebdriver < 0
       || lastWebdriverBeforeFallbackClick !== fallbackLiveDisplayedWebdriver
       || fallbackClick >= fallbackCommandCompleted
@@ -1059,6 +1098,8 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || fallbackClick >= finalWindow
       || finalWindow >= finalSource
       || finalSource >= finalProof
+      || finalProof >= fallbackFailureRecord
+      || fallbackFailureRecord >= fallbackFailureRethrow
       || activationSourceWebdriver < 0
       || lastWebdriverBeforeEducationTap !== activationSourceWebdriver
       || dismissSource.includes("script: 'mobile: tap'")
@@ -1070,6 +1111,9 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || restorationPost < 0
       || restorationGet < restorationPost
       || !dismissSource.includes('restoration.restored = restoration.actual === originalContext;')
+      || !dismissSource.includes(`fallbackAttempt.outcome = 'rejected';
+      fallbackAttempt.error = error.message;
+      throw error;`)
       || dismissSource.includes('while (Date.now() < deadline)')) {
     throw new Error('Mobile Safari education must use one source-derived mobile tap, an exact-source-gated fresh element click, and verified context restoration');
   }
@@ -1190,8 +1234,8 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   const orientationTimeoutReadCalls = orientationTimeoutSource.match(
     /await readOrientationWithResetRetry\(/g,
   ) || [];
-  if (!sourceText.includes('const ORIENTATION_GET_TIMEOUT_MS = 15000;')
-      || !sourceText.includes('const ORIENTATION_POST_TIMEOUT_MS = 30000;')
+  if (!sourceText.includes('const ORIENTATION_GET_TIMEOUT_MS = 30000;')
+      || !sourceText.includes('const ORIENTATION_POST_TIMEOUT_MS = 60000;')
       || !orientationReadSource.includes('readAttempt <= 2')
       || !orientationReadSource.includes('timeoutMs: ORIENTATION_GET_TIMEOUT_MS,')
       || !orientationReadSource.includes(
@@ -1411,7 +1455,7 @@ function selfTest() {
     'WebDriver POST session/session-1/orientation: Could not proxy command to the remote server. Original error: read ECONNRESET',
   );
   const orientationPostTimeoutError = new Error(
-    'WebDriver POST session/session-1/orientation exceeded 30000 ms',
+    'WebDriver POST session/session-1/orientation exceeded 60000 ms',
   );
 
   pass('valid flat numeric calibration', () => validateCoordinateCalibration(good));
@@ -1652,7 +1696,7 @@ function selfTest() {
     if (!isExactOrientationPostClientTimeout(
       orientationPostTimeoutError,
       'session-1',
-      30000,
+      60000,
     )) throw new Error('exact orientation POST client timeout was not recognized');
   });
   pass('orientation target observation avoids a mutation', () => {
@@ -2112,34 +2156,34 @@ function selfTest() {
   });
   pass('near-match orientation POST timeout is not reconcilable', () => {
     if (isExactOrientationPostClientTimeout(
-      new Error(`${orientationPostTimeoutError.message} extra`), 'session-1', 30000,
+      new Error(`${orientationPostTimeoutError.message} extra`), 'session-1', 60000,
     )) throw new Error('near-match orientation timeout accepted');
   });
   pass('orientation GET timeout is not reconcilable as a POST timeout', () => {
     if (isExactOrientationPostClientTimeout(
-      new Error('WebDriver GET session/session-1/orientation exceeded 30000 ms'),
+      new Error('WebDriver GET session/session-1/orientation exceeded 60000 ms'),
       'session-1',
-      30000,
+      60000,
     )) throw new Error('orientation GET timeout accepted');
   });
   pass('generic orientation POST error is not reconcilable as a timeout', () => {
     if (isExactOrientationPostClientTimeout(
-      new Error('orientation request timed out'), 'session-1', 30000,
+      new Error('orientation request timed out'), 'session-1', 60000,
     )) throw new Error('generic orientation timeout accepted');
   });
   pass('orientation POST timeout for another session is not reconcilable', () => {
     if (isExactOrientationPostClientTimeout(
-      orientationPostTimeoutError, 'session-2', 30000,
+      orientationPostTimeoutError, 'session-2', 60000,
     )) throw new Error('wrong-session orientation timeout accepted');
   });
   pass('orientation POST timeout with a different budget is not reconcilable', () => {
     if (isExactOrientationPostClientTimeout(
-      orientationPostTimeoutError, 'session-1', 15000,
+      orientationPostTimeoutError, 'session-1', 30000,
     )) throw new Error('wrong-budget orientation timeout accepted');
   });
   pass('non-Error orientation POST timeout is not reconcilable', () => {
     if (isExactOrientationPostClientTimeout(
-      { message: orientationPostTimeoutError.message }, 'session-1', 30000,
+      { message: orientationPostTimeoutError.message }, 'session-1', 60000,
     )) throw new Error('non-Error orientation timeout accepted');
   });
   fail('lowercase observed orientation is rejected', () => {
@@ -2408,6 +2452,125 @@ function selfTest() {
       harnessSource.replace(
         'observation.sourceSha256 = sourceSha256(observedSource);',
         'observation.sourceSha256 = null;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('fallback education read timeout budget drift is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS = 30000;',
+        'const SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS = 30001;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('fallback element query cannot lose its dedicated read timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `const fallbackElements = await webdriver(sessionPath('/elements'), {
+        body: { using: 'accessibility id', value: fallbackTarget.name },
+        timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
+      });`,
+        `const fallbackElements = await webdriver(sessionPath('/elements'), {
+        body: { using: 'accessibility id', value: fallbackTarget.name },
+        timeout: 15000,
+      });`,
+      ),
+      workflowSources,
+    );
+  });
+  for (const endpoint of ['rect', 'enabled', 'displayed']) {
+    fail(`fallback ${endpoint} read cannot lose its dedicated timeout`, () => {
+      validateHeadlessHarnessContract(
+        harnessSource.replace(
+          `fallbackLiveVerification.${endpoint} = await webdriver(\`\${fallbackElementPath}/${endpoint}\`, { method: 'GET', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });`,
+          `fallbackLiveVerification.${endpoint} = await webdriver(\`\${fallbackElementPath}/${endpoint}\`, { method: 'GET', timeout: 15000 });`,
+        ),
+        workflowSources,
+      );
+    });
+  }
+  fail('fallback click cannot inherit the extended read timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });',
+      ),
+      workflowSources,
+    );
+  });
+  fail('primary mobile tap cannot inherit the extended fallback read timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS);',
+      ),
+      workflowSources,
+    );
+  });
+  fail('initial education lookup cannot inherit the extended fallback read timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `const initialElements = await webdriver(sessionPath('/elements'), {
+      body: { using: 'accessibility id', value: close.name },
+      timeout: 15000,
+    });`,
+        `const initialElements = await webdriver(sessionPath('/elements'), {
+      body: { using: 'accessibility id', value: close.name },
+      timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
+    });`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('post-fallback observation cannot inherit the extended read timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `const finalSource = await webdriver(sessionPath('/source'), {
+        method: 'GET', timeout: 15000,
+      });`,
+        `const finalSource = await webdriver(sessionPath('/source'), {
+        method: 'GET', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
+      });`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('education context restoration cannot inherit the extended read timeout', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `body: { name: originalContext }, timeout: 15000,
+      });
+      restoration.actual = await webdriver`,
+        `body: { name: originalContext }, timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
+      });
+      restoration.actual = await webdriver`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('fallback reads must remain pre-actuation until live validation completes', () => {
+    const actuationState = `      fallbackAttempt.phase = 'actuation';
+      fallbackAttempt.actuationStarted = true;`;
+    validateHeadlessHarnessContract(
+      harnessSource.replace(actuationState, '__FALLBACK_ACTUATION_STATE__')
+        .replace(
+          '      const fallbackElements = await webdriver',
+          `${actuationState}\n      const fallbackElements = await webdriver`,
+        )
+        .replace('__FALLBACK_ACTUATION_STATE__', ''),
+      workflowSources,
+    );
+  });
+  fail('fallback pre-actuation failure cannot continue or retry', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `fallbackAttempt.outcome = 'rejected';
+      fallbackAttempt.error = error.message;
+      throw error;`,
+        `fallbackAttempt.outcome = 'rejected';
+      fallbackAttempt.error = error.message;`,
       ),
       workflowSources,
     );
@@ -2692,8 +2855,8 @@ function selfTest() {
   fail('orientation GET timeout budget drift is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'const ORIENTATION_GET_TIMEOUT_MS = 15000;',
-        'const ORIENTATION_GET_TIMEOUT_MS = 15001;',
+        'const ORIENTATION_GET_TIMEOUT_MS = 30000;',
+        'const ORIENTATION_GET_TIMEOUT_MS = 30001;',
       ),
       workflowSources,
     );
@@ -2701,8 +2864,8 @@ function selfTest() {
   fail('orientation POST timeout budget drift is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'const ORIENTATION_POST_TIMEOUT_MS = 30000;',
-        'const ORIENTATION_POST_TIMEOUT_MS = 30001;',
+        'const ORIENTATION_POST_TIMEOUT_MS = 60000;',
+        'const ORIENTATION_POST_TIMEOUT_MS = 60001;',
       ),
       workflowSources,
     );

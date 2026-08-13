@@ -492,15 +492,16 @@ sequentially against the fresh target, and performs exactly one
 unknown tap delivery, stale identities, live mismatch, click error,
 persistence after attempt two, loops and any third actuation fail closed.
 
-Orientation GET retains its 15-second read budget. Orientation POST uses an
-explicit 30-second mutation budget, above the observed 15.646-second valid
+Orientation GET retained its 15-second read budget. Orientation POST used an
+explicit 30-second mutation budget, above the then-observed 15.646-second valid
 response. Only the exact current-session, self-generated 30-second POST timeout
 is treated as response-unknown: two bounded post-settle GET observations must
 prove the target, and no POST resend is allowed after that client timeout.
 Changed, unstable or stable-opposite observations fail. The separate exact
 proxy-reset grammar retains its existing bounded reconciliation.
 
-The combined battery passes 256/256 locally. Before merge, all required checks
+The combined battery passed 256/256 locally before the `5ca4b2d` executions
+below. Before merge, all required checks
 must be green and one exact-head artifact must complete all three orientation
 transitions, both zero-residual calibrations, 30/30 product checks,
 persistence, soak, exact WEBVIEW restoration and valid screenshots. At least
@@ -510,6 +511,59 @@ one present-education artifact must also execute the fallback: attempt one
 two `fresh-element-click` with one fresh match, exact live verification,
 response-complete delivery, marker absence and `outcome:dismissed`. A
 one-attempt dismissal proves the primary path but not the new fallback.
+
+## Exact-head fallback and measured queue-latency result (2026-08-13)
+
+PR #9 exact head `5ca4b2d5117c118e732b99c9264a704950ffc8df`
+first produced two complete product passes. Floor runs `31707697434` and
+`31707770353` passed F2, F5, core F3, WebKit, Mobile Safari and aggregate F3;
+round run `31707697420` also passed. Artifacts `9184459869` and `9184516978`
+each record `status:passed`, empty failures/errors, 30/30 checks, three
+response-complete target orientation transitions, two zero-residual
+calibrations, zero-distance persistence restoration, 210/162 soak frames with
+zero faults, exact WEBVIEW restoration and valid gameplay/pause screenshots.
+Both education taps dismissed on attempt one (`actuationsStarted:1`), so those
+artifacts prove the normal path but not the required fallback.
+
+The unchanged exact head was then rerun without weakening its acceptance:
+
+- Run `31707697434` attempt two, Mobile Safari job `94479531099`, artifact
+  `9185145291`, executed the current fallback authorization. Attempt one's
+  source-derived mobile tap completed; before/after XML was byte-identical with
+  SHA-256 prefix `1c423512`, `rawSourceUnchanged:true`, and its outcome was
+  `fallback-eligible`. Attempt two performed a fresh element query, obtained
+  exactly one new element identity, then its first read-only rect request
+  exceeded the 15-second client bound. The report retained
+  `actuationsStarted:1`, sent no element click, restored the exact WEBVIEW and
+  failed with `checks:[]`. Appium received the rect request after queue delay;
+  WDA returned the correct `{x:616,y:180,width:27,height:26}` 144 ms after the
+  client disconnected. This is a measured read-budget miss, not selector or
+  session failure.
+- Run `31707770353` attempt two, Mobile Safari job `94479523910`, artifact
+  `9185166957`, stopped before education when initial orientation POST exceeded
+  the 30-second client bound and its first reconciliation GET exceeded 15
+  seconds. Appium later returned HTTP 200 for the POST with target LANDSCAPE,
+  then returned LANDSCAPE for the GET. No mutation was resent and the report
+  failed closed with `checks:[]`.
+
+The latest attempts therefore left Mobile Safari and aggregate F3 red. They do
+not satisfy merge acceptance, but they supply direct timing evidence. The
+follow-up changes no input grammar or retry budget. A dedicated 30-second bound
+applies only to attempt-two's read-only fresh element lookup and rect/enabled/
+displayed verification; the mobile tap, element click, primary/post sources,
+other dismissal-control commands and context restoration remain at 15 seconds,
+apart from the pre-existing 60-second evidence screenshot. Failed
+fallback reads remain pre-actuation and cannot send a click. Orientation GET
+uses 30 seconds and POST uses 60 seconds. The exact POST-timeout path still
+performs exactly two read-only observations and never resends; the separate
+exact proxy-reset path retains its existing bounded decision.
+
+The combined pure/static battery passes 268/268 locally and locks the timeout
+scope, operation counts and no-resend paths. A new exact head still must provide
+one artifact that executes response-complete, byte-identical attempt one;
+fresh query plus all three live reads; one response-complete element click;
+marker absence; exact WEBVIEW restoration; and the same-run complete 30/30
+journey. Independent normal-path passes are also required.
 
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is

@@ -63,6 +63,7 @@ const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const UDID = process.env.IOS_SIMULATOR_UDID || '';
 const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
+const SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS = 30000;
 
 mkdirSync(OUTPUT, { recursive: true });
 
@@ -210,8 +211,8 @@ let sessionId = '';
 const sessionPath = (suffix = '') => `session/${sessionId}${suffix}`;
 const execute = (script, args = []) => webdriver(sessionPath('/execute/sync'), { body: { script, args } });
 
-const ORIENTATION_GET_TIMEOUT_MS = 15000;
-const ORIENTATION_POST_TIMEOUT_MS = 30000;
+const ORIENTATION_GET_TIMEOUT_MS = 30000;
+const ORIENTATION_POST_TIMEOUT_MS = 60000;
 const orientationSettle = () => new Promise((done) => setTimeout(done, 750));
 
 async function readOrientationWithResetRetry(transition, phase) {
@@ -819,7 +820,7 @@ async function dismissKnownSafariEducation() {
       const fallbackActivation = fallbackAttempt.activationBarrier;
       const fallbackElements = await webdriver(sessionPath('/elements'), {
         body: { using: 'accessibility id', value: fallbackTarget.name },
-        timeout: 15000,
+        timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS,
       });
       fallbackActivation.matchCount = Array.isArray(fallbackElements)
         ? fallbackElements.length
@@ -831,9 +832,9 @@ async function dismissKnownSafariEducation() {
       );
       const fallbackLiveVerification = fallbackActivation.liveVerification;
       try {
-        fallbackLiveVerification.rect = await webdriver(`${fallbackElementPath}/rect`, { method: 'GET', timeout: 15000 });
-        fallbackLiveVerification.enabled = await webdriver(`${fallbackElementPath}/enabled`, { method: 'GET', timeout: 15000 });
-        fallbackLiveVerification.displayed = await webdriver(`${fallbackElementPath}/displayed`, { method: 'GET', timeout: 15000 });
+        fallbackLiveVerification.rect = await webdriver(`${fallbackElementPath}/rect`, { method: 'GET', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });
+        fallbackLiveVerification.enabled = await webdriver(`${fallbackElementPath}/enabled`, { method: 'GET', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });
+        fallbackLiveVerification.displayed = await webdriver(`${fallbackElementPath}/displayed`, { method: 'GET', timeout: SAFARI_EDUCATION_FALLBACK_READ_TIMEOUT_MS });
         validateSafariEducationLiveElement(fallbackTarget, fallbackLiveVerification);
       } catch (error) {
         fallbackLiveVerification.error = error.message;

@@ -93,6 +93,7 @@ execution:
     - "Exact head ab9af7e runs 31695111944 and 31695133214 both passed F2, F5, core F3 and WebKit but kept Mobile Safari and aggregate F3 red. Artifact 9179471218 proves the source-derived four-call education path completely: checked/present/dismissed true, 3 markers, 9 Buttons, unique xmark.circle.fill/Close {616,180,27,26}, matchCount 1, exact live rect/state, click, marker absence and WEBVIEW restoration. Its first calibration /wda/tap response reset with no recorded browser event; the command side effect remains unknown and no product check completed. Artifact 9179368693 proves a separate element-click no-op: the same exact target and live verification, WDA Find/Tap/Synthesize and HTTP 200, but four later full sources plus video retain the popover; a final source then received only 2274 ms and timed out. The bounded follow-up uses at most one fresh-source-exact center tap after an unchanged no-op and no polling loop. It reconciles only the exact calibration proxy reset behind two stable browser snapshots and a native-window WDA barrier within the unchanged Appium session and existing two-attempt budget; it never retries product input. Native operations are bounded, each observation is recorded progressively, source is the final remote barrier before fallback, and context restoration is read back exactly. The expanded battery passes 156/156 locally. Fresh exact-head full Simulator execution is still required."
     - "Exact head a68b8a1 run 31698939643, Mobile Safari job 94443913545, artifact 9181047364 passed the complete 30/30 product journey with failures/errors empty, two zero-residual calibrations, exact context restoration and valid screenshots. The successful rerun of companion run 31698964713, Mobile Safari job 94446998600, artifact 9181414682, supplied another 30/30 pass and green aggregate F3 job 94452792873. Its first attempt artifact 9180845875 failed closed with checks=[] at the first orientation POST: the downstream WDA session was created at 12:25:28.071, the request was proxied at 12:25:57.811 and reset at 12:25:58.583, matching WDA 16.1.0's 30-second next-header keep-alive bound; that same downstream session later accepted DELETE 200. The bounded GET-first orientation correction plus deterministic single fresh-source-derived education tap passed 206/206 locally before exact-head execution; its acceptance target required present:true, exactly one source-derived-mobile-tap, marker absence, exact restoration and the complete 30/30 journey."
     - "Exact head 0d3de5d5 Floor runs 31703811954 and 31703841207 each passed F2, F5, core F3 and WebKit, but Mobile Safari jobs 94460020820 and 94460501803 failed, leaving aggregate F3 jobs 94463581675 and 94463384345 red. Round run 31703812015 job 94459204494 passed. Artifact 9182808851 proves the single source-derived mobile tap can dismiss education and exact WEBVIEW restoration can succeed, but its gameplay portrait POST returned HTTP 200 after 15.646 seconds, 646 ms beyond the 15-second client budget; the report failed closed after 21 checks. Artifact 9182755935 proves the same tap can complete HTTP 200 yet leave the complete education byte-identical, SHA-256 0a692d3dd54261feb6f7b88b31dce0cbe205737f8eb145fd4505f260d8aa0981, with checks=[]. The correction allows one fresh-element-click only after an exact unchanged response-complete primary observation, caps education at two actuations, gives orientation POST 30000 ms and reconciles only its exact response-unknown timeout without resending. Its combined battery passes 256/256 locally; fresh exact-head fallback and complete product execution remain required."
+    - "Exact head 5ca4b2d initial Floor runs 31707697434 and 31707770353 passed F2, F5, core F3, WebKit, Mobile Safari and aggregate F3; round run 31707697420 passed. Artifacts 9184459869 and 9184516978 each record 30/30, all three response-complete orientation transitions, two zero-residual calibrations, persistence, soak, exact restoration and valid screenshots, but both dismissed education on attempt one. The unchanged-head reruns were kept: artifact 9185145291 proves primary response-complete plus byte-identical source, rawSourceUnchanged=true, fallback eligibility and a fresh one-element match, then fails before click when the first live rect read exceeds 15000 ms; WDA returns the correct rect 144 ms after client disconnect. Artifact 9185166957 fails closed before education when orientation POST exceeds 30000 ms and its target-verification GET exceeds 15000 ms, although Appium later completes POST HTTP 200 and the GET returns target LANDSCAPE. Latest Mobile and aggregate F3 are red. The measured correction gives only fallback pre-actuation reads 30000 ms, keeps education actuations and all other dismissal-control commands at 15000 ms except the pre-existing 60000-ms evidence screenshot, and gives orientation GET/POST 30000/60000 ms with no client-timeout resend. Its battery passes 268/268 locally; fresh exact-head fallback and complete product execution remain required."
     - "The exact current-tree WebKit command could not launch locally because this Linux host lacks its GTK/GStreamer libraries; no local WebKit pass is claimed. Exact-head Actions runs 31684968784, 31684995777, 31687125738 and 31687149960 passed the reviewed-baseline WebKit journey. Run 31684968784 also passed the complete Simulator journey; the duplicate pre-session UI-restart timeout, proved headless repair, and pending native-Safari correction are separately recorded."
   historical_modified_but_unverified:
     - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
@@ -212,8 +213,11 @@ execution:
     control byte-for-byte and field-for-field unchanged. Preserve the proved
     headless session, calibration reset barriers, clean trusted down/up
     acceptance, three-point residual, calibrated two-pointer sequence and
-    required Mobile Safari F3 check. Keep orientation GET at 15000 ms, give POST
-    30000 ms, and reconcile only the exact current-session self-generated POST
+    required Mobile Safari F3 check. Give only attempt-two's fresh element lookup
+    and rect/enabled/displayed reads 30000 ms; keep every education actuation
+    and all other dismissal-control commands at 15000 ms except the pre-existing
+    60000-ms evidence screenshot. Give orientation GET 30000 ms and
+    POST 60000 ms, and reconcile only the exact current-session self-generated POST
     timeout through two target-proving GET observations without a resend.
     Require F2/F3/F5, WebKit and the full Simulator journey on the new exact
     head. Inspect all three orientation transitions, both zero-residual
@@ -265,7 +269,7 @@ execution:
       frames. That control was measured on the previous base and is not
       re-derived here.
 floor:
-  last_check: "2026-08-13 (exact head 0d3de5d5 Floor runs 31703811954 and 31703841207 passed F2, F5, core F3 and WebKit but failed Mobile Safari jobs 94460020820 and 94460501803 and aggregate F3 jobs 94463581675 and 94463384345. Artifact 9182808851 exposed a valid 15.646-second orientation response beyond the 15-second client budget after 21 checks; artifact 9182755935 exposed a response-complete but byte-identical single-tap education no-op before product checks. The bounded fresh-element fallback and 30000-ms POST correction pass 256/256 locally; exact-head execution remains required.)"
+  last_check: "2026-08-13 (exact head 5ca4b2d initial Floor runs 31707697434 and 31707770353 passed every required check and artifacts 9184459869/9184516978 passed 30/30, but fallback was not executed. Unchanged-head rerun artifact 9185145291 executed fallback authorization and fresh element lookup, then exposed a valid live rect response just beyond the 15000-ms client bound; artifact 9185166957 exposed valid orientation POST/GET responses beyond 30000/15000 ms. Latest Mobile and aggregate F3 are red. The narrow fallback-read 30000-ms and orientation GET/POST 30000/60000-ms correction passes 268/268 locally; exact-head fallback and full product execution remain required.)"
   independence_level_used: B
   skips:
     - "F6: not fired for this corrective delivery because it has not merged or deployed. The public URL is reachable from this environment; post-deploy execution remains mandatory."
@@ -288,7 +292,7 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: exact_head_0d3_single_tap_nondeterminism_and_15s_orientation_timeout_corrective_verification_pending
+    ios_safari_release_gate: exact_head_5ca_full_primary_pass_but_fallback_read_and_orientation_latency_correction_pending
     revert_mechanism: absent_unsafe_due_save_compatibility
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
@@ -417,18 +421,16 @@ remote:
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Pull request #9 targets current main. Earlier exact heads cac8904 and
-    a68b8a1 supplied complete 30/30 Mobile Safari product passes. Exact head
-    0d3de5d5 Floor runs 31703811954 and 31703841207 each passed F2, F5, core F3
-    and WebKit, while Mobile Safari jobs 94460020820 and 94460501803 and
-    aggregate F3 jobs 94463581675 and 94463384345 failed. Round run
-    31703812015 job 94459204494 passed. Artifact 9182808851 proves primary
-    education dismissal but exposed a valid 15.646-second portrait response
-    beyond the 15-second client timeout after 21 checks. Artifact 9182755935
-    proves the same response-complete primary tap can leave the education
-    byte-identical before all product checks. The bounded fresh-element fallback
-    and 30000-ms orientation POST correction pass 256/256 locally but require
-    fresh exact-head fallback and complete product evidence before merge. Public
+    Pull request #9 targets current main. Exact head 5ca4b2d initial runs
+    31707697434 and 31707770353 passed every required check and their artifacts
+    passed complete 30/30 journeys, but both used only the primary education tap.
+    Their unchanged-head reruns retained honest red results: artifact 9185145291
+    executed fallback authorization and a fresh one-element query, then its
+    first live rect read exceeded 15000 ms before any click; artifact 9185166957
+    recorded valid target orientation responses beyond the 30000/15000-ms
+    POST/GET client bounds. The narrow fallback-read 30000-ms and orientation
+    GET/POST 30000/60000-ms correction passes 268/268 locally but requires fresh
+    exact-head fallback and complete product evidence before merge. Public
     revision fields remain conservative until gated deployment and direct F6
     verification.
 
@@ -467,13 +469,20 @@ reconciliation_status: >-
   The first artifact also exposed a separate client-budget defect: its gameplay
   portrait POST changed the device and interface and returned HTTP 200 after
   15.646 seconds, but the 15-second harness deadline had already failed closed.
-  The current correction keeps mobile tap first and permits exactly one fresh
+  Revision 5ca kept mobile tap first and permitted exactly one fresh
   element click only after a response-complete, byte-identical full-source proof
   of the same complete control; all unknown, changed, partial and third-
-  actuation paths fail. Orientation POST now has a 30000-ms budget. Only its
-  exact self-generated client timeout enters two-read target reconciliation,
-  with no resend after a client timeout. The combined pure/static battery passes
-  256/256; exact-head fallback and complete Simulator execution remain required.
+  actuation paths fail. Its first two runs completed 30/30 but did not execute
+  fallback. Unchanged-head reruns then proved exact fallback eligibility and a
+  new element identity before a 15000-ms live-read cutoff, plus target
+  orientation responses beyond the 30000/15000-ms POST/GET cutoffs. Both failed
+  closed and latest aggregate F3 remained red. The current measured correction
+  gives only fallback pre-actuation reads 30000 ms, keeps every education
+  actuation and all other dismissal-control commands 15000 ms except the
+  pre-existing 60000-ms evidence screenshot, and gives orientation GET/
+  POST 30000/60000 ms. Client-timeout reconciliation remains two read-only
+  observations with no resend. The combined battery passes 268/268; exact-head
+  fallback and complete Simulator execution remain required.
   Independent source-aware review drove removal of the unauthoritative manual
   F5 dispatch surface plus strict trailer parsing, exact revision F6, Pages publisher ordering, and the
   removal of an unsafe rollback claim. Exact-
