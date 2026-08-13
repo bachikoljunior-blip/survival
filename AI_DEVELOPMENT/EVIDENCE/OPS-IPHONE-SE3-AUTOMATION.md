@@ -111,20 +111,37 @@ The corrective delivery therefore:
   publishing an unverified merge;
 - keeps the main workflow's WebKit and Mobile Safari rerun before the custom
   deploy;
-- repairs the invalid multiline shell indentation in the manual verified-build
-  revert workflow.
+- removes the unsafe verified-build rollback claim. R2-9 means the recorded
+  revision cannot safely consume current saves, so the remaining manual
+  workflow is read-only diagnostic evidence and always exits nonzero without
+  creating a branch, PR, deployment or repository write.
 
 Local verification of the corrective tree:
 
 - all changed workflows and `AI_DEVELOPMENT/STATE.yaml` parse as YAML;
 - `node --check tools/test-ios-safari.mjs`, `git diff --check`,
-  `npm run validate:ops`, F2 and the Level C F5 record all pass;
+  `npm run validate:ops`, F2 and the Level B F5 record all pass; adversarial F5
+  controls reject duplicated, superseded, not-first, fenced, HTML-commented
+  and out-of-section claims plus quoted/commented/escaped/tagged/anchored
+  duplicate YAML keys and prototype injection (25/25), and the now-unused
+  manual gate-dispatch surface was removed;
 - `npm test` exits 0: 19/19 adversarial mutations rejected, the representative
   slice repeated twice, 5/5 endings, save migration 133/133, fault recovery
   34/34 and touch smoke 136/136.
+- The exact current-tree WebKit command was attempted with the reviewed
+  baseline required, but this Linux host lacks WebKit's GTK/GStreamer runtime
+  libraries and the browser stopped before loading the product. The Actions
+  job installs those libraries with `playwright install --with-deps webkit`;
+  its exact-head result remains required and no local WebKit pass is claimed.
+- Independent Level B source review of the current bytes passed after its
+  Safari-report, Pages-ordering, F5 and unsafe-rollback findings were corrected.
+  It remains conditional on exact-head CI WebKit/Mobile Safari and post-merge
+  stamped F6; the PR-body F5 record does not authenticate a distinct GitHub
+  reviewer identity because the active ruleset requires zero approvals.
 
-Still required before completion: corrective PR Mobile Safari pass, merge,
-main redeploy, post-deploy F6, and exact final evidence.
+Still required before completion: corrective PR Mobile Safari pass on the
+current-main merge tree, merge, main redeploy, post-deploy F6, and exact final
+evidence.
 
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
@@ -133,11 +150,50 @@ positions both touch sources first, then performs the bounded simultaneous
 movement/attack hold. This is a harness-compatibility repair and remains
 `complete_unverified` until the exact PR head passes Mobile Safari.
 
-PR #9 run `30726720202` created that exact Safari session and verified a
+PR #9 run `30724525380` created that exact Safari session and verified a
 667×311 content viewport at DPR 2, five reported touch points, Mobile Safari,
 WebGL, full-canvas rendering, no title overflow and 44 CSS px title controls.
-It then timed out starting a game because CINDERLINE's div controls deliberately
-listen to `pointerdown`/`pointerup`, while WebDriver element activation emits a
-native `click`. The harness now uses W3C coordinate taps for New Game, the
-system menu, Save, Resume and Continue. This preserves trusted browser input
-and tests the same event path as a finger; the exact-head rerun remains blocking.
+It then timed out starting a game: the W3C action sent CSS viewport coordinates
+directly to WebDriverAgent, whose action endpoint consumes native screen
+coordinates. A 200 response therefore proved only that the malformed gesture
+was accepted, not that the title control was touched.
+
+Run `30726720202` tried WebDriver element activation instead. With Appium's
+default `nativeWebTap=false`, that path used a JavaScript click atom. CINDERLINE
+deliberately listens to `pointerdown`/`pointerup`, so the game again did not
+start. The final PR head returned to the already-refuted raw-coordinate method.
+Its 2026-08-13 rerun `30727723649` on stale synthetic merge `560c6af` recorded
+the exact action at native viewport point `(569, 102)`, received HTTP 200, and
+again timed out with the title screen still active. Artifact `9171059998` has
+10 passing pre-interaction checks, zero interaction/persistence/soak results,
+the report, video and Appium log. This conclusively refutes the final-head
+input method. None of these runs is a product pass, and the PR was not merged.
+
+The corrective tree is rebuilt on current main `f40b6d9`. It follows the
+XCUITest driver's documented web/native mapping rather than guessing:
+
+- `nativeWebTap` and `nativeWebTapStrict` make WebDriver element activation a
+  real native tap;
+- `mobile: calibrateWebToRealCoordinatesTranslation` measures Safari's offsets
+  and pixel ratios before interaction, and the harness records the returned
+  values;
+- DOM controls use calibrated native element taps, with New Game additionally
+  required to emit trusted `pointerdown` and `pointerup` events;
+- canvas-only two-thumb and camera actions apply the measured transform to the
+  CSS points before sending W3C actions to WebDriverAgent;
+- calibration is repeated after the portrait/landscape transition and refresh.
+- transient WebDriver polling and session-cleanup failures are recorded as
+  diagnostics rather than mislabeled as product runtime errors. Runtime error
+  listeners cover each post-ready, post-calibration journey; a boot-time error
+  that occurs before listener installation, yet neither prevents `ready` nor
+  enters `CINDERLINE.faults`, remains an explicit report limitation;
+- F6 passes the authorized HTTP(S) proxy configuration into its Playwright
+  browser as well as Node fetch, and the Pages deploy job now exports the
+  deployment action's `page_url` instead of always falling through to the
+  repository-specific constant.
+
+Reference: Appium XCUITest driver, [calibrate web to real coordinates](https://appium.github.io/appium-xcuitest-driver/12.1/reference/execute-methods/#mobile-calibratewebtorealcoordinatestranslation)
+and [native web tap settings](https://appium.github.io/appium-xcuitest-driver/12.1/reference/settings/#nativewebtap).
+The Linux checks can validate syntax, state, build, WebKit and the full browser
+suite, but cannot claim the Simulator journey. The exact current-main PR head
+must produce a passing report, screenshots, video and Appium log before merge.

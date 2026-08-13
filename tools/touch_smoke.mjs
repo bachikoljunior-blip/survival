@@ -185,6 +185,16 @@ measurements.controls = controls;
 
 // ------------------------------------------------------- 2. the movement stick
 {
+  // Hold a deterministic, obstacle-free heading for this input check. The
+  // camera auto-follow can otherwise turn the same upward stick gesture into
+  // the nearby spawn kerb while the loaded software renderer is settling,
+  // making collision placement rather than touch movement decide the result.
+  await page.evaluate(() => {
+    const camera = window.CINDERLINE.game.camera;
+    camera.yaw = 0;
+    camera._manualT = 999;
+    camera._init = false;
+  });
   const before = await page.evaluate(() => {
     const p = window.CINDERLINE.game.player;
     return { x: p.pos.x, z: p.pos.z };

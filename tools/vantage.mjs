@@ -9,10 +9,10 @@
  *   node tools/vantage.mjs --w 1334 --h 750 larger frames for detail review
  */
 import { chromium } from 'playwright';
-import { createServer } from 'node:http';
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
-import { extname, join, normalize, dirname } from 'node:path';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { serveStatic } from '../.kit/lib/browser/serve.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
@@ -54,24 +54,12 @@ const VANTAGES = [
   ['skyline',       -112, 21.2, -62,  135, -6],
 ];
 
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8', '.json': 'application/json',
-  '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
-
-const BASE = '/cinderline-test';
-const server = createServer((req, res) => {
-  let p = decodeURIComponent((req.url || '/').split('?')[0]);
-  if (!p.startsWith(BASE)) { res.writeHead(404); res.end(); return; }
-  p = p.slice(BASE.length) || '/';
-  if (p.endsWith('/')) p += 'index.html';
-  try {
-    const body = readFileSync(join(DIST, normalize(p).replace(/^(\.\.[/\\])+/, '')));
-    res.writeHead(200, { 'Content-Type': MIME[extname(p)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
-    res.end(body);
-  } catch { res.writeHead(404); res.end('404'); }
-});
-await new Promise((r) => server.listen(0, r));
-const port = server.address().port;
+// The static server is `.kit/lib/browser/serve.mjs`. Four copies of it lived in this
+// directory — here, shot, perf and playthrough — identical apart from which MIME types
+// each had happened to list. Serving under a sub-path is not incidental: it is how the
+// build gets proved against GitHub Pages project-site hosting before it is published.
+const BASE = arg('base', '/cinderline-test');
+const site = await serveStatic({ root: DIST, basePath: BASE });
 
 const browser = await chromium.launch({
   args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--use-angle=swiftshader',
@@ -85,13 +73,13 @@ const errors = [];
 page.on('pageerror', (e) => errors.push(String(e && e.stack || e)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push('[console] ' + m.text()); });
 
-await page.goto(`http://127.0.0.1:${port}${BASE}/index.html`, { waitUntil: 'domcontentloaded' });
+await page.goto(`${site.origin}/index.html`, { waitUntil: 'domcontentloaded' });
 try {
   await page.waitForFunction('window.CINDERLINE && window.CINDERLINE.ready === true', null, { timeout: 90000 });
 } catch {
   const note = await page.evaluate(() => document.getElementById('boot-note')?.textContent);
   console.error('BOOT FAILED:', note);
-  await browser.close(); server.close();
+  await browser.close(); await site.close();
   process.exit(1);
 }
 
@@ -132,5 +120,5 @@ writeFileSync(join(OUT, `${PREFIX}-vantages.json`), JSON.stringify({ stats, resu
 if (errors.length) { console.log('--- errors ---'); console.log(errors.slice(0, 10).join('\n')); }
 
 await browser.close();
-server.close();
+await site.close();
 process.exit(errors.length ? 1 : 0);

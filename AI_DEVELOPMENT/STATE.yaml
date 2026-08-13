@@ -59,15 +59,20 @@ execution:
       Xcode 26.2 to iOS 26.2 and moves Safari into the required F3 PR check.
       The W3C two-pointer sequence positions both touch sources before their
       bounded waits so Xcode 26.2 WebDriverAgent accepts the simultaneous
-      movement/attack gesture.
+      movement/attack gesture. Safari CSS coordinates are measured with
+      Appium's web-to-real calibration: DOM controls use calibrated native
+      element taps, while canvas gestures use the measured native transform.
       Physical-only performance, thermal, memory-pressure, reach, haptic and
       audio properties remain unmeasured and non-blocking for routine release.
   last_verified_checkpoint:
-    revision: b5f5f948e49fb0d53b7488aded5955b109821f4c
+    revision: f40b6d9a37be22871a3c422e86dec2b127b16b4c
     what: >-
-      Current origin/main after pull requests #6 and #7. It contains the
-      reconciled GB-H1/GB-H2/touch round and the element-level reference
-      criteria. The current automation work is based directly on this revision.
+      Current origin/main after pull requests #10 through #14. On 2026-08-13
+      its operating-state checks, kit integrity, round-comparison self-tests,
+      story validation, benchmark validation, production build and Pages-root
+      identity passed locally. The browser save, fault and touch suites passed
+      133/133, 34/34 and 136/136 respectively; npm audit reported zero runtime
+      vulnerabilities. The corrective delivery tree is based on this revision.
     evidence:
       - AI_DEVELOPMENT/EVIDENCE/GB-H1-SAVE-MIGRATION.json
       - AI_DEVELOPMENT/EVIDENCE/GB-H2-FAULT-RECOVERY.json
@@ -75,6 +80,15 @@ execution:
       - docs/reviews/gate-b-round-h1-h2-touch.md
       - AI_DEVELOPMENT/EVIDENCE/BENCH-BASELINE.json
   modified_but_unverified:
+    - "Pull request #9 is based on stale revision 02339ce while current main is f40b6d9. Its workflow split, Xcode/iOS pin and rollback-safety correction remain necessary, but its final raw viewport-coordinate tap repeats the method already disproved by run 30724525380. The 2026-08-13 rerun 30727723649 again sent (569,102), received HTTP 200, and timed out before PLAY; artifact 9171059998 records 10 pre-interaction passes and no journey. Run 30726720202 separately showed that default JavaScript element activation emits click without the pointerdown/up CINDERLINE consumes. No prior run is a Mobile Safari product pass."
+    - "The corrective tree is rebuilt on current main. It enables nativeWebTap/nativeWebTapStrict, calls mobile: calibrateWebToRealCoordinatesTranslation, requires trusted pointerdown/up from New Game, uses native element taps for DOM controls, applies the measured offset and ratios to W3C canvas actions, and recalibrates after orientation recovery. Syntax and static checks pass locally; Linux cannot execute the Xcode/iOS journey."
+    - "The Mobile Safari report separates transient WebDriver poll/session-cleanup diagnostics from captured product runtime errors. Its error listeners begin only after each page reaches ready and Appium calibration returns; an earlier uncaught boot error that neither blocks ready nor enters CINDERLINE.faults is explicitly outside the capture window and is not claimed absent."
+    - "The delivery correction also makes F6 identify the exact 40-character revision in public index.html, the bundle filename and window.CINDERLINE.build, and waits for the competing legacy main/root Pages build of that exact SHA to finish before the custom deploy. Because R2-9 makes cc96f3a unsafe for newer saves, revert-to-verified.yml is now a read-only, always-failing diagnostic with no repository or deployment write permissions; no working rollback is claimed. The Pages/F6 mechanisms have self-tests and local simulations but remain unexecuted in GitHub Actions."
+    - "The required exact-head Mobile Safari journey, PR merge, gated main redeploy and post-deploy F6 remain pending. Independent current-byte Level B review passed after the findings above were corrected. No release or task completion is claimed."
+    - "The exact current-tree WebKit command was attempted locally with its reviewed baseline required, but this Linux host lacks the GTK/GStreamer libraries needed to launch WebKit. It stopped before product load. Actions installs those host dependencies; its exact-head WebKit result remains required and no local pass is claimed."
+  historical_modified_but_unverified:
+    - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
+    - "Shared-kit integration (branch claude/kit-rollout-integration-a4zihp): the vendored kit, the harness swap and the validator rewrite were REBUILT on this main, not merged onto it. check:kit, the 46-mutation equivalence battery, the 23/23 validator self-test, tools/perf.mjs end to end, validate, check_benchmarks and F3 all pass. NOT re-run on this tree: tools/playthrough.mjs (about an hour on this rig) and the 18-frame vantage sweep — and the sweep could not settle anything anyway, see kit_integration.vantage_noise below."
     - "Pull request #8 merged as 02339ce10e63145adf7155ca6b4b1dc2ff7d7f60 after F2/F3/F5 and the reviewed-baseline WebKit sequence passed; WebKit visual diff was 0.1728%."
     - "The first main iOS job selected iOS 26.2 while Appium inherited default Xcode 16.4. WebDriverAgent never opened port 8100, so the job failed before a Safari session and produced zero product checks. The corrective workflow pins Xcode 26.2 with iOS 26.2 and lengthens/logs WDA startup."
     - "GitHub's pre-existing branch-source Pages deployment reported success for 02339ce before the custom iOS job completed. The corrective workflow adds Mobile Safari to the required pre-merge F3 check so this publication path cannot bypass it on future merges."
@@ -134,15 +148,17 @@ execution:
   known_defects_in_our_own_tooling:
     - id: F6-TOOL-PROXY
       statement: >-
-        tools/gates/f6_public_revision.mjs uses fetch(), and Node does not read
-        proxy settings by default. In this environment every request returns
-        403 - not because the public surface is wrong, but because the request
-        never leaves. The gate would report a delivery failure that is really a
-        tooling failure. GitHub Actions has no proxy so CI is unaffected.
+        The asset fetch can use Node's authorized environment proxy, but the
+        Playwright browser previously ignored that proxy and returned
+        ERR_EMPTY_RESPONSE after the four then-compared public assets had matched. That made
+        an environment transport failure look like a public boot failure.
       fix: >-
-        NODE_USE_ENV_PROXY=1 makes it work (verified). Set it inside the tool or
-        install a proxy-aware dispatcher, so a local run is trustworthy.
-      status: known_not_fixed
+        The corrective tree maps HTTP(S)_PROXY credentials and NO_PROXY into
+        Playwright's launch proxy without logging them, and trusts the managed
+        proxy CA only when that authorized proxy is actually used. On
+        2026-08-13 the live F6 probe then matched all six published files and
+        booted the real title surface without a page error.
+      status: fixed_live_probe_passed
 
   network:
     policy_changed: >-
@@ -156,40 +172,82 @@ execution:
       stand-in.
 
   public_surface_check:
-    date: "2026-08-01"
+    date: "2026-08-13"
     what: >-
-      Fetched index.html, cinderline.1.0.0.js, styles.css and
-      manifest.webmanifest from the live Pages URL and compared SHA-256 against
-      the same files committed at origin/main (193f408).
+      Fetched index.html, cinderline.1.0.0.js, styles.css,
+      manifest.webmanifest, icon.svg and .nojekyll from the live Pages URL and
+      compared SHA-256 against the same files built from current origin/main
+      (f40b6d9), then booted the public page in Chromium at 667x375 through the
+      authorized proxy.
     result: >-
-      All four byte-identical. The live site is exactly what origin/main has
-      committed. This is the first direct confirmation since 193f408 was
-      merged; the previous evidence covered cc96f3a only.
+      All six byte-identical (including icon.svg and .nojekyll); CINDERLINE
+      reached ready and its title controls
+      existed with no page error. The public content matches f40b6d9. This run
+      intentionally had no revision stamp because the current public deployment
+      predates that corrective mechanism, so remote.verified_public_revision
+      remains conservative.
     limitation: >-
-      This verifies the F6 method against the real public surface. It does NOT
-      verify the F6 job in pages.yml, which has still never run, because that
-      only happens on a real deploy.
+      This verifies the content/boot path and repaired local proxy path against
+      the real public surface. It does NOT verify the new revision identifier,
+      legacy/custom ordering gate or F6 job in pages.yml; those require a real
+      deployment of the exact corrective revision.
 
   current_uncertainty:
     - The shipped save-migration chain has one step, so staged multi-version migration is proved only against an injected registry.
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Require corrective pull request #9 with the Xcode/iOS pair pinned and the
-    WDA-compatible two-pointer sequence to pass F2/F3/F5, WebKit and a real
-    Mobile Safari journey, merge it, then require the main redeploy and
-    F6 public-surface verification to pass. Record exact run and merge evidence
-    before resuming GB-IMP02.
+    Reconcile corrective pull request #9 onto current main, keeping the Xcode/iOS
+    pair pinned, calibrated native DOM taps, the calibrated WDA-compatible
+    two-pointer sequence, and Mobile Safari inside the required F3 check.
+    Require F2/F3/F5, WebKit and the full Simulator Mobile Safari journey to
+    pass, inspect its report/log/video, merge it, then require the main redeploy
+    and F6 public-surface verification to pass. Record exact run and merge
+    evidence before delivering the already-scoped GB-IMP02 correction.
 
+  kit_integration:
+    branch: claude/kit-rollout-integration-a4zihp
+    rebuilt_on: 02339ce10e63145adf7155ca6b4b1dc2ff7d7f60
+    why_rebuilt_not_merged: >-
+      The kit branch rewrote tools/check_operating_state.mjs whole (262 added,
+      121 removed) while c8608a6 was adding 84 lines of protocol-2.2 STATE.yaml
+      checks to the same file. A whole-file rewrite merged over that deletes
+      working checks without producing a conflict. Every STATE.yaml check from
+      main is carried over and now has a self-test it did not have before.
+    disproved: >-
+      Routing the STATE.yaml block through .kit/lib/state/yaml.mjs does not
+      work and was not merely declined. That parser is strict and rejects
+      folded block scalars; this file uses them, and it throws at line 22 of
+      the real file. main's hand-rolled indentation walker is kept verbatim
+      with only its I/O made injectable.
+    equivalence: >-
+      46 of 46 mutations of the real state reach the same verdict in the
+      rebuilt validator and the one at the pinned pre-integration revision
+      02339ce, run as subprocesses because that version has no CLI guard and
+      executes on import. 43 of the 45 breakages fire; the 2 that do not are
+      deliberate valid-input controls. The previous 27/27 was measured against
+      the old main and is void. Battery:
+      tools/equivalence_operating_state.mjs.
+    equivalence_base_is_pinned: >-
+      The battery's base is the fixed revision 02339ce, not origin/main, and it
+      throws if the base resolves to the same source as the working tree. Both
+      guards exist because the integration merged: a base tracking origin/main
+      would now compare the validator against itself and print a confident 46/46
+      that means nothing. It also no longer reads the old copy from a hardcoded
+      /tmp path, which did not survive a new session.
+    vantage_noise: >-
+      The 18-frame sweep was NOT used to check the harness swap on this tree,
+      and one before/after pair could not have settled it: two runs of the
+      unmodified harness against one byte-identical dist differ on 11 of 18
+      frames. That control was measured on the previous base and is not
+      re-derived here.
 floor:
-  last_check: "2026-08-02 (PR #9 WebKit passed; Mobile Safari run 30726720202 proved the exact device/layout then exposed native-click versus pointer-only controls; W3C coordinate-tap rerun pending, Level C)"
-  independence_level_used: C
+  last_check: "2026-08-13 (independent source-aware current-byte review PASS; exact-head Mobile Safari, Pages ordering and revision-stamped F6 remain CI-unexecuted; rollback is explicitly absent because of R2-9; Level B)"
+  independence_level_used: B
   skips:
-    - "F6: ATTEMPTED AND BLOCKED, still owed. main moved to e0b2815 and the Pages deployment for that revision reports success, but tools/gates/f6_public_revision.mjs cannot reach the public surface from this environment: the egress proxy answers 403 to CONNECT for bachikoljunior-blip.github.io:443 (measured 2026-08-01T15:56:50Z, recorded in the proxy's own recentRelayFailures). A deployment job reporting success is not evidence of what a visitor receives, so this delivery is NOT recorded as publicly verified. Note: an earlier entry in this file claimed the policy had been widened and the Pages URL returned 200; that is contradicted by this measurement."
+    - "F6: not fired for this corrective delivery because it has not merged or deployed. The public URL is reachable from this environment; post-deploy execution remains mandatory."
     - "F7: not fired. No objective was marked complete this run; GATE-B remains in progress."
-    - "F5 limitation: the Level A lens was source-blind and returned a verdict (claim 1 FAIL, the rest PASS), but it tested the bundle as it stood before the other lenses' findings were fixed, and it did NOT re-verify afterwards. Its two findings were reproduced and regression-checked by this session instead, which is Level C for that step. Recorded rather than smoothed over."
-    - "F5 coverage: the browser layer of tools/save_migration.mjs has no automated negative control. Its ability to fail was observed by hand only."
-    - "F5 for THIS delivery is Level C, not the A recorded for the round before it. This run integrates another session's benchmark work; what was falsified here is the INTEGRATION — that the conflict resolution dropped nothing and that the merged tree runs — by reading both sides and running the full suite. The benchmark content itself (docs/benchmarks.md, the 71 criteria, the lock) has NOT been independently reviewed by this session. The A-level record for GB-H1/H2/touch stands in docs/reviews/gate-b-round-h1-h2-touch.md and in merged history."
+    - "F5 for this corrective delivery passed Level B source-aware current-byte review after adversarial findings were corrected. The GitHub gate authenticates the PR body record but not a distinct reviewer identity because the ruleset requires zero approvals; that governance limitation is recorded rather than mistaken for a parser bypass. Exact Simulator and deployment evidence are still required before merge/public verification."
   waivers: []
   enforcement:
     # Wording is deliberate. "installed_observed_failing_not_required" means the
@@ -207,8 +265,8 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: exact_session_observed_coordinate_tap_and_wda_two_pointer_rerun_pending
-    revert_mechanism: invalid_yaml_corrective_fix_pending
+    ios_safari_release_gate: calibrated_native_tap_current_main_exact_head_run_pending
+    revert_mechanism: absent_unsafe_due_save_compatibility
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
       F2  tools/gates/f2_state_update.mjs --base HEAD~1 -> exit 1. Real input:
@@ -219,11 +277,15 @@ floor:
           In CI it completes green in 2m04s including chromium install, the
           production build and the browser save-migration gate (run 1 of the
           Floor gates workflow, 19f7235).
-      F5  tools/gates/f5_review_record.mjs -> exit 1 on three distinct bad
-          inputs (no review trailer; level D claimed as a pass; a trailer
-          disagreeing with STATE.yaml). Exit 0 on a valid record. In CI it has
-          failed on every run of PR #5 so far, by design, because the review
-          was still in flight.
+      F5  tools/gates/f5_review_record.mjs -> exit 1 on missing, duplicated,
+          superseded, not-first, fenced, HTML-commented, blocked and level-
+          mismatched review records, and on a review level outside the exact
+          top-level floor section. Strict structural parsing also refuses
+          quoted/commented/escaped/tagged/anchored duplicate YAML keys and
+          mapping-prototype injection.
+          Exit 0 only when one canonical record is the first non-empty line and
+          agrees with STATE.yaml. In
+          CI it failed on every run of PR #5 while that review was in flight.
       F6  tools/gates/f6_public_revision.mjs -> exit 1 against a local server
           serving a tampered index.html, and again against one serving a
           previous-revision bundle. Exit 0 on a byte-exact match.
@@ -252,8 +314,8 @@ floor:
         Pages deploy, which is after the merge, so requiring it on a pull
         request would be requiring a check that cannot run yet.
     unenforced_items:
-      - "F6: the gate is wired into pages.yml after deploy but has NEVER run there. It cannot be exercised from the development environment either - outbound HTTPS is denied by egress policy (403 on the Pages URL and on example.com alike), so the real public surface is unreachable from there. Verified against the shipped build only through a local server."
-      - "revert: revert-to-verified.yml is deliberately manual-dispatch, never executed. Automatic revert was not wired because it would push to main from CI unprompted."
+      - "F6: the gate is wired into pages.yml after an exact-SHA legacy-ordering check and custom deploy but has not yet run in that workflow. The public surface passed an unstamped content/boot probe; this does not replace the revision-stamped post-deploy job."
+      - "revert: no safe rollback mechanism exists. R2-9 means cc96f3a cannot safely consume saves written by current main. revert-to-verified.yml has read-only permissions, validates the canonical target for diagnosis, explains the blocker, and always exits nonzero without creating a branch, PR, deployment or repository write."
     unattended_allowed: false
     note: >-
       Every field above is rewritten to `active` only after the mechanism has
@@ -268,8 +330,8 @@ automation:
     trigger: push to main, plus manual dispatch
     pre_merge_gates: Playwright WebKit, then iPhone SE 3 iOS Simulator / Mobile Safari, aggregated as required check F3 execution
     pre_deploy_gates: repeat Playwright WebKit, then iPhone SE 3 iOS Simulator / Mobile Safari
-    post_deploy_verification: tools/gates/f6_public_revision.mjs after deploy
-    revert: absent
+    post_deploy_verification: exact legacy-SHA completion, then custom deploy, then tools/gates/f6_public_revision.mjs
+    revert: absent_unsafe_due_save_compatibility; revert-to-verified.yml is diagnostic-only and always fails closed
   autopilot:
     file: .github/workflows/autopilot.yml
     kind: unattended, delivery-capable, self-restarting
@@ -278,11 +340,10 @@ automation:
     last_run: "2026-07-30T09:17Z, run 5, completed"
     satisfies_section_0_4: false
     why_not: >-
-      It squash-merges its own pull request to main and deliberately uses a PAT
-      so the Pages deploy fires, but none of the four F9 gates are active, there
-      is no post-deploy revision check and no automatic revert. Its own stop
-      conditions (docs/STOP on the default branch, ALL_DONE, chain >= 20,
-      merge-must-succeed) satisfy only the stop-mechanism half of 0.4.
+      It squash-merges its own pull request to main and deliberately uses a PAT.
+      F6 has not been proven in the deployment workflow, and both manual and
+      automatic rollback are intentionally absent while R2-9 remains open. Its stop
+      conditions do not make that unattended delivery safe.
     disposition: >-
       OFF by explicit user instruction, 2026-08-01 ("オートパイロットはオフで").
       This is a user decision, not only a protocol consequence, and it outranks
@@ -298,30 +359,39 @@ automation:
 recovery:
   last_known_good_revision_or_artifact: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   rollback_or_recovery_method: >-
-    Product: redeploy main at cc96f3a, the last revision verified on the public
-    Pages surface. Operating files: see AI_DEVELOPMENT/ARCHIVE/PRE-MIGRATION-2.2.md.
+    No safe rollback is currently available. cc96f3a is the last revision
+    recorded as verified on the public Pages surface, but R2-9 means it cannot
+    safely read saves written by current main. On an incident, stop deployment,
+    preserve evidence, investigate, and deliver an independently reviewed
+    forward repair/redeploy. revert-to-verified.yml is read-only diagnostic
+    evidence that validates this canonical target, explains the incompatibility,
+    and exits nonzero; it never changes the repository or deployment.
 
 remote:
-  branch: agent/iphone-se3-automation
-  pull_request: 8
+  branch: agent/premerge-ios-gate
+  previous_integration_branch: claude/kit-rollout-integration-a4zihp
+  previous_branch: agent/iphone-se3-automation
+  pull_request: 9
   deployed_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   verified_public_revision: cc96f3a6cd94e11d3c71342ed568816ed55a9e59
   public_url: https://bachikoljunior-blip.github.io/survival/
   status: >-
-    Pull request #8 is open at head 7839c28824273879dad00807c31e97d7e07ff4c3.
-    Floor run 30722138303 passed F2, F5 and the existing F3 six-step execution.
-    The complete WebKit sequence ran and failed only on the designed first-run
-    missing-baseline check. Artifact 8825225421 was inspected and its candidate
-    was promoted locally; the required-baseline rerun, merge, iOS Safari,
-    deployment and F6 remain pending.
+    Pull request #9 remains open at stale head 5e014cf. Rerun 30727723649 failed
+    its raw New Game coordinate tap and does not test current main. A current-main
+    corrective tree has been prepared locally with calibrated native input; it
+    must replace the PR head and pass required checks before merge. Current
+    public revision fields remain conservative until the direct F6 check and
+    eventual gated deployment are recorded.
 
-updated_at: "2026-08-02"
+updated_at: "2026-08-13"
 reconciliation_status: >-
-  Protocol v2.2 remains active. The new release harness has passed syntax,
-  required-input refusal and a complete local Chromium surrogate run after the
-  44px Japanese-button repair. The full repository suite also passed on the
-  final tree: 19 adversarial refusals plus two clean runs, five endings, save
-  migration 133/133, fault recovery 34/34 and touch 136/136. The official
-  WebKit first run completed with only the intended missing-baseline failure;
-  its candidate was reviewed and promoted. The required-baseline rerun and
-  official iOS Simulator layer remain required before merge and publication.
+  Protocol v2.2 remains active and autopilot remains explicitly off. Current
+  main f40b6d9 passed operating-state, dependency, build, save, fault and touch
+  health checks. PR #9's raw-coordinate claim was disproved by its own earlier
+  artifact, so it was not merged. The corrective current-main harness now uses
+  Appium's measured Safari-to-native transform and calibrated native taps.
+  Independent source-aware review drove removal of the unauthoritative manual
+  F5 dispatch surface plus strict trailer parsing, exact revision F6, Pages publisher ordering, and the
+  removal of an unsafe rollback claim. Exact-
+  head Simulator evidence, final review verdict, merge, deployment and stamped
+  F6 remain required; GB-IMP02 stays the active product task.

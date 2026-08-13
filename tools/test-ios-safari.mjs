@@ -35,12 +35,22 @@ const report = {
   target: 'iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape',
   checks: [],
   device: null,
+  coordinateCalibration: [],
   layout: null,
   interaction: {},
   persistence: null,
   soak: null,
   screenshots: {},
+  runtimeErrorCapture: {
+    stages: [],
+    limitation: 'Listeners start after each page has reached ready and Appium calibration has returned. Pre-listener boot errors that neither block ready nor enter CINDERLINE.faults are outside this capture window.',
+  },
   errors: [],
+  diagnostics: {
+    pollErrorCount: 0,
+    pollErrors: [],
+    cleanupErrors: [],
+  },
   failures: [],
   status: 'running',
 };
@@ -146,7 +156,10 @@ async function waitForScript(script, timeout = 30000) {
       const value = await execute(script);
       if (value) return value;
     } catch (error) {
-      report.errors.push(`poll: ${error.message}`);
+      report.diagnostics.pollErrorCount += 1;
+      if (report.diagnostics.pollErrors.length < 20) {
+        report.diagnostics.pollErrors.push(error.message);
+      }
     }
     await new Promise((done) => setTimeout(done, 250));
   }
@@ -158,27 +171,66 @@ async function performActions(actions) {
   await webdriver(sessionPath('/actions'), { method: 'DELETE' }).catch(() => {});
 }
 
+const WEB_ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
+
+async function clickScriptElement(script) {
+  const element = await execute(script);
+  const id = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
+  if (!id) throw new Error(`Safari script did not resolve a WebDriver element: ${script}`);
+  await webdriver(sessionPath(`/element/${encodeURIComponent(id)}/click`), { body: {} });
+}
+
+let coordinateCalibration = null;
+
+async function calibrateCoordinates(stage) {
+  const value = await execute('mobile: calibrateWebToRealCoordinatesTranslation');
+  const calibration = {
+    stage,
+    offsetX: Number(value?.offsetX),
+    offsetY: Number(value?.offsetY),
+    pixelRatioX: Number(value?.pixelRatioX),
+    pixelRatioY: Number(value?.pixelRatioY),
+  };
+  if (![calibration.offsetX, calibration.offsetY, calibration.pixelRatioX, calibration.pixelRatioY]
+    .every(Number.isFinite)
+    || calibration.pixelRatioX <= 0
+    || calibration.pixelRatioY <= 0) {
+    throw new Error(`Appium returned invalid Safari coordinate calibration: ${JSON.stringify(value)}`);
+  }
+  coordinateCalibration = calibration;
+  report.coordinateCalibration.push(calibration);
+  return calibration;
+}
+
+function realPoint(x, y) {
+  if (!coordinateCalibration) throw new Error('Safari coordinates were used before calibration');
+  return {
+    x: coordinateCalibration.offsetX + x * coordinateCalibration.pixelRatioX,
+    y: coordinateCalibration.offsetY + y * coordinateCalibration.pixelRatioY,
+  };
+}
+
 function finger(id, actions) {
   return { type: 'pointer', id, parameters: { pointerType: 'touch' }, actions };
 }
 
-const move = (x, y, duration = 0) => ({
-  type: 'pointerMove', duration, x: Math.round(x), y: Math.round(y), origin: 'viewport',
-});
+const move = (x, y, duration = 0) => {
+  const point = realPoint(x, y);
+  return {
+    type: 'pointerMove', duration,
+    x: Math.round(point.x), y: Math.round(point.y), origin: 'viewport',
+  };
+};
 const down = () => ({ type: 'pointerDown', button: 0 });
 const up = () => ({ type: 'pointerUp', button: 0 });
 const pause = (duration) => ({ type: 'pause', duration });
-
-async function tap(x, y) {
-  await performActions([finger(`tap-${Date.now()}`, [move(x, y), down(), pause(90), up()])]);
-}
 
 async function screenshot(path) {
   const encoded = await webdriver(sessionPath('/screenshot'), { method: 'GET' });
   writeFileSync(path, Buffer.from(encoded, 'base64'));
 }
 
-async function injectErrorCapture() {
+async function injectErrorCapture(stage) {
   await execute(`
     window.__cinderlineIosErrors = [];
     window.addEventListener('error', function (event) {
@@ -189,6 +241,7 @@ async function injectErrorCapture() {
     });
     return true;
   `);
+  report.runtimeErrorCapture.stages.push({ stage, installedAt: new Date().toISOString() });
 }
 
 let localServer = null;
@@ -215,6 +268,8 @@ try {
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,
+          'appium:nativeWebTap': true,
+          'appium:nativeWebTapStrict': true,
           'appium:safariInitialUrl': baseUrl,
           'appium:webviewConnectTimeout': 120000,
           'appium:webviewConnectRetries': 20,
@@ -241,7 +296,11 @@ try {
   await execute('localStorage.clear(); return true;');
   await webdriver(sessionPath('/refresh'), { body: {} });
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
-  await injectErrorCapture();
+  const initialCalibration = await calibrateCoordinates('initial-landscape');
+  await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  check(true, 'Safari web coordinates are calibrated to native screen coordinates',
+    JSON.stringify(initialCalibration));
+  await injectErrorCapture('initial-post-ready-calibration');
 
   const device = await execute(`
     var C = window.CINDERLINE;
@@ -295,8 +354,30 @@ try {
     'title controls meet the 44 CSS px floor', JSON.stringify(title.buttons));
   const newGame = title.buttons.find((item) => item.name === 'new');
   check(Boolean(newGame), 'new-game control is discoverable', JSON.stringify(title.buttons));
-  await tap(newGame.x + newGame.width / 2, newGame.y + newGame.height / 2);
+  await execute(`
+    var node = window.CINDERLINE.game.menus.titleButtons.new;
+    window.__cinderlineIosTapProbe = [];
+    ['pointerdown', 'pointerup', 'click'].forEach(function (type) {
+      node.addEventListener(type, function (event) {
+        window.__cinderlineIosTapProbe.push({
+          type:type,
+          trusted:event.isTrusted,
+          pointerType:event.pointerType || '',
+          clientX:event.clientX,
+          clientY:event.clientY,
+          targetMatches:event.target === node
+        });
+      });
+    });
+    return true;
+  `);
+  await clickScriptElement('return window.CINDERLINE.game.menus.titleButtons.new;');
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
+  const titleTapProbe = await execute('return (window.__cinderlineIosTapProbe || []).slice();');
+  report.interaction.titleTap = titleTapProbe;
+  check(titleTapProbe.some((event) => event.type === 'pointerdown' && event.trusted && event.targetMatches)
+      && titleTapProbe.some((event) => event.type === 'pointerup' && event.trusted && event.targetMatches),
+    'native Mobile Safari tap emits trusted pointer events', JSON.stringify(titleTapProbe));
   check(true, 'trusted Mobile Safari tap starts a new game', baseUrl);
 
   await execute(`
@@ -362,8 +443,7 @@ try {
   report.interaction.camera = { before: cameraBefore, after: cameraAfter, delta: +cameraDelta.toFixed(5) };
   check(cameraDelta > 0.02, 'trusted right-thumb drag moves the camera', `delta=${cameraDelta.toFixed(5)}`);
 
-  const menu = controls.find((item) => item.name === 'menu');
-  await tap(menu.x + menu.width / 2, menu.y + menu.height / 2);
+  await clickScriptElement('return window.CINDERLINE.game.hud.sysMenu;');
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.MENU;');
   await screenshot(PAUSE_SHOT);
   report.screenshots.pause = PAUSE_SHOT.slice(ROOT.length + 1);
@@ -375,15 +455,13 @@ try {
   `);
   check(pauseButtons.length >= 3 && pauseButtons.every((item) => item.width >= 44 && item.height >= 44),
     'pause actions are touch-sized in Safari', JSON.stringify(pauseButtons));
-  const saveButton = pauseButtons[0];
-  const resumeButton = pauseButtons[pauseButtons.length - 1];
-  await tap(saveButton.x + saveButton.width / 2, saveButton.y + saveButton.height / 2);
+  await clickScriptElement("return window.CINDERLINE.game.menus.pauseNode.querySelectorAll('.btn')[0];");
   await waitForScript("return Boolean(localStorage.getItem('cinderline.save.v1'));", 10000);
   const saved = await execute(`
     var p=window.CINDERLINE.game.player;
     return {x:p.pos.x,y:p.pos.y,z:p.pos.z,bytes:localStorage.getItem('cinderline.save.v1').length};
   `);
-  await tap(resumeButton.x + resumeButton.width / 2, resumeButton.y + resumeButton.height / 2);
+  await clickScriptElement("var b=window.CINDERLINE.game.menus.pauseNode.querySelectorAll('.btn');return b[b.length-1];");
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;');
 
   await webdriver(sessionPath('/orientation'), { body: { orientation: 'PORTRAIT' } });
@@ -403,14 +481,18 @@ try {
   report.errors.push(...errorsBeforeReload);
   await webdriver(sessionPath('/refresh'), { body: {} });
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
-  await injectErrorCapture();
+  const restoredCalibration = await calibrateCoordinates('post-orientation-landscape');
+  await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  check(true, 'Safari coordinates are recalibrated after orientation changes',
+    JSON.stringify(restoredCalibration));
+  await injectErrorCapture('reload-post-ready-calibration');
   const continueButton = await execute(`
     var r=window.CINDERLINE.game.menus.titleButtons.continue.getBoundingClientRect();
     return {x:r.x+r.width/2,y:r.y+r.height/2,width:r.width,height:r.height};
   `);
   check(continueButton.width >= 44 && continueButton.height >= 44,
     'saved run exposes a touch-sized Continue action', JSON.stringify(continueButton));
-  await tap(continueButton.x, continueButton.y);
+  await clickScriptElement('return window.CINDERLINE.game.menus.titleButtons.continue;');
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
   const restored = await execute(`var p=window.CINDERLINE.game.player;return{x:p.pos.x,y:p.pos.y,z:p.pos.z};`);
   const restoreDistance = Math.hypot(restored.x - saved.x, restored.y - saved.y, restored.z - saved.z);
@@ -438,13 +520,13 @@ try {
   const errorsAfterReload = await execute('return (window.__cinderlineIosErrors || []).slice();');
   report.errors.push(...errorsAfterReload);
   check(errorsBeforeReload.length === 0 && errorsAfterReload.length === 0,
-    'no captured Mobile Safari runtime errors', JSON.stringify({ errorsBeforeReload, errorsAfterReload }));
+    'no captured post-ready Mobile Safari runtime errors', JSON.stringify({ errorsBeforeReload, errorsAfterReload }));
 } catch (error) {
   report.failures.push(error.stack || error.message || String(error));
 } finally {
   if (sessionId) {
     await webdriver(sessionPath(), { method: 'DELETE' })
-      .catch((error) => report.errors.push(`session cleanup: ${error.message}`));
+      .catch((error) => report.diagnostics.cleanupErrors.push(`session cleanup: ${error.message}`));
   }
   if (localServer?.server) await new Promise((done) => localServer.server.close(done));
   report.status = report.failures.length ? 'failed' : 'passed';

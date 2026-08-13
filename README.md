@@ -38,9 +38,11 @@ npm run build
 
 This repository's current GitHub Pages setting also publishes `main` from the
 repository root. Before a release, run `npm run build:pages-root` and commit the
-generated root files. The command mirrors the same production build used by the
-Actions deployment, so the branch-source Pages run cannot replace the game with
-the rendered README. Do not edit those generated root files by hand.
+generated root files. The command mirrors the deterministic production build.
+The Actions workflow waits until that exact main/root deployment has completed,
+then publishes a revision-stamped build last and verifies its SHA on the public
+site. This keeps the legacy publisher from overwriting a successful post-deploy
+check. Do not edit those generated root files by hand.
 
 There is no server component, no analytics, no telemetry, no external requests
 of any kind, and no secrets. Open `dist/index.html` through any static host and

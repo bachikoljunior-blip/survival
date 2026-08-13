@@ -14,10 +14,10 @@
  *   node tools/shot.mjs --q stage=settings    query string for the driver
  */
 import { chromium } from 'playwright';
-import { createServer } from 'node:http';
-import { readFileSync, mkdirSync, existsSync, writeFileSync } from 'node:fs';
-import { extname, join, normalize, dirname } from 'node:path';
+import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { serveStatic } from '../.kit/lib/browser/serve.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
@@ -37,32 +37,16 @@ const DPR = Number(arg('dpr', 2));
 const WAIT = Number(arg('wait', 4000));
 const TAG = arg('tag', 'shot');
 
-const MIME = {
-  '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8', '.json': 'application/json',
-  '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml', '.png': 'image/png',
-};
-
-// Serve from a subdirectory to prove subdirectory hosting works.
+// Serve from a subdirectory to prove subdirectory hosting works. The server is
+// `.kit/lib/browser/serve.mjs` — this file, perf, playthrough and vantage each
+// carried their own copy of it, differing only in which MIME types they had
+// remembered to list.
 const BASE = '/cinderline-test';
-const server = createServer((req, res) => {
-  let p = decodeURIComponent((req.url || '/').split('?')[0]);
-  if (!p.startsWith(BASE)) { res.writeHead(404); res.end('outside base'); return; }
-  p = p.slice(BASE.length) || '/';
-  if (p.endsWith('/')) p += 'index.html';
-  const file = join(DIST, normalize(p).replace(/^(\.\.[/\\])+/, ''));
-  try {
-    const body = readFileSync(file);
-    res.writeHead(200, { 'Content-Type': MIME[extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
-    res.end(body);
-  } catch { res.writeHead(404); res.end('404'); }
-});
-await new Promise((r) => server.listen(0, r));
-const port = server.address().port;
+const site = await serveStatic({ root: DIST, basePath: BASE });
 // `--q stage=settings` reaches the driver as location.search, which is how a
 // single probe file covers several screens without one boot per screen.
 const QUERY = arg('q', '');
-const URL_ = `http://127.0.0.1:${port}${BASE}/index.html${QUERY ? `?${QUERY}` : ''}`;
+const URL_ = `${site.origin}/index.html${QUERY ? `?${QUERY}` : ''}`;
 
 const browser = await chromium.launch({
   args: [
@@ -133,5 +117,5 @@ if (errors.length) { console.log('--- errors ---'); console.log(errors.join('\n'
 writeFileSync(join(OUT, `${TAG}-report.json`), JSON.stringify({ perf, logs, errors, viewport: { W, H, DPR } }, null, 2));
 
 await browser.close();
-server.close();
+await site.close();
 process.exit(errors.length ? 1 : 0);

@@ -43,6 +43,13 @@ jobs:
         env:
           CINDERLINE_REQUIRE_BASELINE: "1"
         run: npm run test:iphone-webkit
+      # The committed root mirror remains the deterministic package-version
+      # build. The artifact actually deployed by Actions is rebuilt with this
+      # commit SHA so the public page carries a directly verifiable revision.
+      - name: Build revision-stamped deployment artifact
+        env:
+          CINDERLINE_BUILD_ID: ${{ github.sha }}
+        run: npm run build
       - name: Preserve WebKit screenshots, video, trace and report
         if: always()
         uses: actions/upload-artifact@v4
@@ -147,10 +154,19 @@ jobs:
   deploy:
     needs: [build, ios-safari]
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+      - name: Wait out the competing branch-source deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PAGES_EXPECT_SHA: ${{ github.sha }}
+        run: node tools/gates/wait_legacy_pages.mjs
       - id: deployment
         uses: actions/deploy-pages@v4
 
@@ -172,6 +188,8 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - name: Rebuild this commit to compare against
+        env:
+          CINDERLINE_BUILD_ID: ${{ github.sha }}
         run: npm run build
       - name: Wait for the deployment to propagate
         run: sleep 45
@@ -185,5 +203,6 @@ jobs:
         run: |
           echo "::error::The public surface is not serving ${{ github.sha }}."
           echo "Do not record this delivery as verified."
-          echo "Revert with: gh workflow run revert-to-verified.yml -f revision=<last verified sha>"
-          echo "The last verified revision is recorded in AI_DEVELOPMENT/STATE.yaml."
+          echo "Stop deployment work, preserve the failed-run evidence, investigate, and prepare a reviewed forward repair/redeploy."
+          echo "Do not roll back to the recorded verified revision: R2-9 save compatibility is unresolved."
+          echo "revert-to-verified.yml is read-only diagnostic evidence and always fails closed; it is not a recovery mechanism."

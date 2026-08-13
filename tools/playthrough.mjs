@@ -22,10 +22,10 @@
  * same ending is chosen.
  */
 import { chromium } from 'playwright';
-import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { extname, join, normalize, dirname } from 'node:path';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { serveStatic } from '../.kit/lib/browser/serve.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
@@ -38,23 +38,8 @@ const ONLY = arg('path', null);
 const LANG = arg('lang', null);
 const SHOTS = argv.includes('--shots');
 
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8', '.json': 'application/json',
-  '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml' };
 const BASE = '/cinderline-test';
-const server = createServer((req, res) => {
-  let p = decodeURIComponent((req.url || '/').split('?')[0]);
-  if (!p.startsWith(BASE)) { res.writeHead(404); res.end(); return; }
-  p = p.slice(BASE.length) || '/';
-  if (p.endsWith('/')) p += 'index.html';
-  try {
-    const body = readFileSync(join(DIST, normalize(p).replace(/^(\.\.[/\\])+/, '')));
-    res.writeHead(200, { 'Content-Type': MIME[extname(p)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
-    res.end(body);
-  } catch { res.writeHead(404); res.end('404'); }
-});
-await new Promise((r) => server.listen(0, r));
-const port = server.address().port;
+const site = await serveStatic({ root: DIST, basePath: BASE });
 
 const browser = await chromium.launch({
   args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--use-angle=swiftshader',
@@ -68,7 +53,7 @@ const errors = [];
 page.on('pageerror', (e) => errors.push('PAGEERROR ' + String(e && e.stack || e)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text()); });
 
-await page.goto(`http://127.0.0.1:${port}${BASE}/index.html`, { waitUntil: 'domcontentloaded' });
+await page.goto(`${site.origin}/index.html`, { waitUntil: 'domcontentloaded' });
 await page.waitForFunction('window.CINDERLINE && window.CINDERLINE.ready === true', null, { timeout: 120000 });
 
 // Language, if one was asked for — set through the same call the settings panel
@@ -112,5 +97,5 @@ if (errors.length) { console.log('--- page errors ---'); console.log(errors.slic
 console.log(failed ? '\nPLAYTHROUGH FAILED' : '\nPLAYTHROUGH OK');
 
 await browser.close();
-server.close();
+await site.close();
 process.exit(failed ? 1 : 0);

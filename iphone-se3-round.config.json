@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "The comparison step of one iPhone SE 3 review round. See .kit/lib/mobile/roundCompare.mjs.",
+    "Run tools/test-iphone-webkit.mjs first; it writes the report this judges.",
+    "These paths are where CINDERLINE's harness already puts its numbers — adopting the",
+    "comparison did not require changing the harness.",
+    "Nothing here is evidence about a physical iPhone SE 3. It compares this round against the",
+    "recorded one on the same apparatus, which is the only phone-shaped question a datacentre",
+    "CPU with a software rasteriser can answer."
+  ],
+  "surface": "landscape",
+  "current": "test-results/iphone-webkit/report.json",
+  "baseline": "tests/baselines/iphone-se3-round.json",
+  "out": "test-results/iphone-webkit/round-comparison.json",
+  "metrics": [
+    { "key": "bootMs", "path": "timings.bootMs", "direction": "lower-is-better", "required": true },
+    { "key": "soakMs", "path": "timings.soakMs", "direction": "lower-is-better", "required": false },
+    { "key": "medianFrameGapMs", "path": "soak.medianFrameGapMs", "direction": "lower-is-better", "required": true },
+    { "key": "p95FrameGapMs", "path": "soak.p95FrameGapMs", "direction": "lower-is-better", "required": true },
+    { "key": "maxFrameGapMs", "path": "soak.maximumFrameGapMs", "direction": "lower-is-better", "required": false, "tolerance": { "relative": 0.5 } },
+    { "key": "soakSamples", "path": "soak.samples", "direction": "higher-is-better", "required": false, "tolerance": { "relative": 0.4 } },
+    { "key": "drawCalls", "path": "soak.perf.draws", "direction": "lower-is-better", "required": false, "tolerance": { "relative": 0.1, "absolute": 2 } },
+    { "key": "triangles", "path": "soak.perf.tris", "direction": "lower-is-better", "required": false, "tolerance": { "relative": 0.1 } },
+    { "key": "visualDiffRatio", "path": "visualRegression.diffRatio", "direction": "lower-is-better", "required": false, "tolerance": { "relative": 0.5, "absolute": 0.01 } }
+  ]
+}

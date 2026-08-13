@@ -22,7 +22,6 @@ on:
     # a corrected review trailer would never re-run the check that reads it,
     # leaving a red gate that no longer reflects reality.
     types: [opened, synchronize, reopened, edited]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -189,7 +188,6 @@ jobs:
   f5-review-record:
     name: F5 review record
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
       - name: Review trailer present and consistent with STATE.yaml?
