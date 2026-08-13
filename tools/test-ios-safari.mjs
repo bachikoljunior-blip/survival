@@ -18,10 +18,13 @@ import {
   classifyTrustedTapAttempt,
   coordinateResidual,
   deriveCoordinateCalibration,
+  safariEducationButtonCandidates,
   safariEducationState,
   selectSafariEducationClose,
+  singleNativeElementId,
   translateWebPoint,
   validateCoordinateCalibration,
+  validateSafariEducationLiveElement,
   validateStableViewport,
 } from './ios_safari_coordinates.mjs';
 
@@ -57,6 +60,8 @@ const report = {
     dismissed: null,
     markers: [],
     closeCandidates: [],
+    buttonCount: null,
+    selectedButton: null,
     nativeSource: null,
     screenshot: null,
   },
@@ -262,38 +267,36 @@ async function dismissKnownSafariEducation() {
 
     const nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET' });
     record.nativeWindow = nativeWindow;
+    const candidates = safariEducationButtonCandidates(source);
+    record.buttonCount = candidates.length;
+    record.closeCandidates = candidates;
+    const close = selectSafariEducationClose(source, candidates, nativeWindow);
+    record.selectedButton = {
+      sourceIndex: close.sourceIndex,
+      name: close.name,
+      label: close.label,
+      rect: close.rect,
+    };
     const elements = await webdriver(sessionPath('/elements'), {
-      body: { using: 'class name', value: 'XCUIElementTypeButton' },
+      body: { using: 'accessibility id', value: close.name },
       timeout: 15000,
     });
-    if (!Array.isArray(elements)) {
-      throw new Error(`native Safari returned invalid Button candidates: ${JSON.stringify(elements)}`);
+    record.selectedButton.matchCount = Array.isArray(elements) ? elements.length : null;
+    const elementId = singleNativeElementId(elements);
+    const elementPath = sessionPath(`/element/${encodeURIComponent(elementId)}`);
+    const liveVerification = { rect: null, enabled: null, displayed: null, error: null };
+    record.selectedButton.liveVerification = liveVerification;
+    try {
+      liveVerification.rect = await webdriver(`${elementPath}/rect`, { method: 'GET', timeout: 15000 });
+      liveVerification.enabled = await webdriver(`${elementPath}/enabled`, { method: 'GET', timeout: 15000 });
+      liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: 'GET', timeout: 15000 });
+      validateSafariEducationLiveElement(close, liveVerification);
+    } catch (error) {
+      liveVerification.error = error.message;
+      throw error;
     }
-    record.buttonCount = elements.length;
-    const candidates = [];
-    for (const [index, element] of elements.entries()) {
-      const elementId = element?.[WEB_ELEMENT_KEY] || element?.ELEMENT;
-      if (!elementId) throw new Error(`native Safari returned an invalid Button element: ${JSON.stringify(element)}`);
-      const elementPath = sessionPath(`/element/${encodeURIComponent(elementId)}`);
-      const telemetry = {
-        index, rect: null, enabled: null, displayed: null, name: null, label: null, error: null,
-      };
-      record.closeCandidates.push(telemetry);
-      try {
-        telemetry.rect = await webdriver(`${elementPath}/rect`, { method: 'GET', timeout: 15000 });
-        telemetry.enabled = await webdriver(`${elementPath}/enabled`, { method: 'GET', timeout: 15000 });
-        telemetry.displayed = await webdriver(`${elementPath}/displayed`, { method: 'GET', timeout: 15000 });
-        telemetry.name = await webdriver(`${elementPath}/attribute/name`, { method: 'GET', timeout: 15000 });
-        telemetry.label = await webdriver(`${elementPath}/attribute/label`, { method: 'GET', timeout: 15000 });
-      } catch (error) {
-        telemetry.error = error.message;
-        throw error;
-      }
-      candidates.push({ elementId, ...telemetry });
-    }
-    const close = selectSafariEducationClose(source, candidates, nativeWindow);
-    record.closeRect = close.rect;
-    await webdriver(sessionPath(`/element/${encodeURIComponent(close.elementId)}/click`), { body: {} });
+    record.closeRect = liveVerification.rect;
+    await webdriver(`${elementPath}/click`, { body: {} });
 
     const deadline = Date.now() + 30000;
     while (Date.now() < deadline) {

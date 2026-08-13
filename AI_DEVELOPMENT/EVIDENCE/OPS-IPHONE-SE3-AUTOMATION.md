@@ -253,6 +253,51 @@ race an outstanding request against web-context restoration. The expanded
 source/geometry/event/viewport/headless battery passes 88/88 locally. Fresh
 exact-head Simulator execution remains mandatory.
 
+## Exact-head education success and native-call reduction (2026-08-13)
+
+PR #9 exact head `f9e026f7410c41979ac0615e191175ee5a40d338` produced three
+Floor runs. All three passed F2, F5, core F3 and the complete WebKit journey;
+all three required Mobile Safari jobs and aggregate F3 jobs remained red:
+
+- run `31692588358`, job `94423780182`, artifact `9178351805`: the complete
+  education path succeeded. The report records `checked:true`, `present:true`,
+  `dismissed:true`, all three markers, a preserved 32,850-byte source and
+  1334x750 native PNG, and nine Buttons. Exactly one was enabled and displayed:
+  source name `xmark.circle.fill`, label `Close`, rect
+  `{x:616,y:180,width:27,height:26}`. Its live rect/state matched, the click
+  removed the markers, and the exact WEBVIEW was restored. The first subsequent
+  calibration `/wda/tap` then received one proxy `ECONNRESET`; later web execute
+  and screenshot requests succeeded, so no WDA crash is claimed. No product
+  check completed;
+- run `31692600103`, job `94423713844`, artifact `9178447264`: the source and
+  PNG again identify the same unique control, but the session was already slow
+  and the 24th per-Button metadata request, diagnostic `name` for hidden
+  `ShareButton`, exceeded 15 seconds. Partial candidate telemetry and the exact
+  error are preserved. No click or calibration occurred;
+- run `31692638684`, job `94423902632`, artifact `9178452600`: WDA never opened
+  port 8100 during the 180-second session-start window. The report correctly
+  records `checked:false`; no education or product code ran.
+
+The first artifact proves the one-of geometry, native click, marker-disappearance
+and context-restoration correction. It does not prove the full release journey.
+The 45 per-element diagnostic calls were not part of the safety decision and
+materially enlarged the unstable native-command surface. The follow-up parses
+all Button snapshots from the already-preserved WDA XML using a quote-aware,
+entity-decoding, duplicate-rejecting scanner. It requires canonical booleans and
+finite plain numeric geometry, the complete education markers and exactly one
+enabled/displayed small right-center candidate with a nonblank decoded source
+name. It then queries `accessibility id` with that exact name, requires exactly
+one element, sequentially obtains only rect/enabled/displayed, requires all four
+rect values and both booleans to match the source, and only then clicks. This
+reduces selected-element lookup and validation from 45 native metadata calls to
+four while retaining source, screenshot, selected candidate, live verification,
+post-click marker disappearance and exact WEBVIEW restoration. Comments, CDATA,
+partial tag names, malformed quotes, duplicate attributes, unknown entities,
+noncanonical booleans, unit-bearing/nonfinite/zero geometry, blank names,
+zero/multiple element matches, live mismatch, class-wide lookup and diagnostic
+attribute-call regressions are negative controls. The battery passes 114/114
+locally; fresh exact-head Simulator execution remains mandatory.
+
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
 rejected before the page receives the gesture. The corrective harness now

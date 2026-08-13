@@ -53,14 +53,162 @@ function rect(value, label) {
 
 export function safariEducationState(source) {
   if (typeof source !== 'string') throw new Error('native Safari source must be a string');
-  if (!source.trim() || !source.includes('XCUIElementTypeApplication')) {
+  if (!source.trim() || xmlStartTags(source, 'XCUIElementTypeApplication').length !== 1) {
     throw new Error('native Safari source must contain an application hierarchy');
   }
-  const markers = SAFARI_EDUCATION_MARKERS.filter((marker) => source.includes(marker));
+  const nativeText = xmlStartTags(source, 'XCUIElementTypeStaticText')
+    .flatMap((attributes) => Object.values(attributes))
+    .filter((value) => typeof value === 'string');
+  const markers = SAFARI_EDUCATION_MARKERS.filter(
+    (marker) => nativeText.some((value) => value.includes(marker)),
+  );
   if (markers.length > 0 && markers.length !== SAFARI_EDUCATION_MARKERS.length) {
     throw new Error(`native Safari education marker set is incomplete: ${markers.join(', ')}`);
   }
   return { present: markers.length === SAFARI_EDUCATION_MARKERS.length, markers };
+}
+
+function decodeXmlAttribute(value, label) {
+  let result = '';
+  let cursor = 0;
+  while (cursor < value.length) {
+    const amp = value.indexOf('&', cursor);
+    if (amp < 0) return result + value.slice(cursor);
+    result += value.slice(cursor, amp);
+    const semicolon = value.indexOf(';', amp + 1);
+    if (semicolon < 0) throw new Error(`${label} contains an unterminated XML entity`);
+    const entity = value.slice(amp + 1, semicolon);
+    const named = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
+    if (Object.hasOwn(named, entity)) {
+      result += named[entity];
+    } else {
+      const numeric = entity.match(/^#([0-9]+)$/) || entity.match(/^#x([0-9a-fA-F]+)$/);
+      if (!numeric) throw new Error(`${label} contains an unsupported XML entity &${entity};`);
+      const base = entity.startsWith('#x') ? 16 : 10;
+      const codePoint = Number.parseInt(numeric[1], base);
+      const validXmlCodePoint = codePoint === 0x9 || codePoint === 0xa || codePoint === 0xd
+        || (codePoint >= 0x20 && codePoint <= 0xd7ff)
+        || (codePoint >= 0xe000 && codePoint <= 0xfffd)
+        || (codePoint >= 0x10000 && codePoint <= 0x10ffff);
+      if (!validXmlCodePoint) throw new Error(`${label} contains an invalid XML code point`);
+      result += String.fromCodePoint(codePoint);
+    }
+    cursor = semicolon + 1;
+  }
+  return result;
+}
+
+function parseXmlAttributes(text, label) {
+  const attributes = Object.create(null);
+  let cursor = 0;
+  while (cursor < text.length) {
+    while (/\s/.test(text[cursor] || '')) cursor += 1;
+    if (cursor >= text.length || (text[cursor] === '/' && !text.slice(cursor + 1).trim())) break;
+    const nameMatch = text.slice(cursor).match(/^([A-Za-z_:][A-Za-z0-9_.:-]*)/);
+    if (!nameMatch) throw new Error(`${label} contains malformed attribute syntax`);
+    const name = nameMatch[1];
+    if (Object.hasOwn(attributes, name)) throw new Error(`${label} repeats attribute ${name}`);
+    cursor += name.length;
+    while (/\s/.test(text[cursor] || '')) cursor += 1;
+    if (text[cursor] !== '=') throw new Error(`${label}.${name} is missing =`);
+    cursor += 1;
+    while (/\s/.test(text[cursor] || '')) cursor += 1;
+    const quote = text[cursor];
+    if (quote !== '"' && quote !== "'") throw new Error(`${label}.${name} must be quoted`);
+    cursor += 1;
+    const end = text.indexOf(quote, cursor);
+    if (end < 0) throw new Error(`${label}.${name} has an unterminated quote`);
+    const rawValue = text.slice(cursor, end);
+    if (rawValue.includes('<')) throw new Error(`${label}.${name} contains raw <`);
+    attributes[name] = decodeXmlAttribute(rawValue, `${label}.${name}`);
+    cursor = end + 1;
+  }
+  return attributes;
+}
+
+function xmlStartTags(source, wantedName) {
+  const tags = [];
+  let cursor = 0;
+  while (cursor < source.length) {
+    const start = source.indexOf('<', cursor);
+    if (start < 0) break;
+    if (source.startsWith('<!--', start)) {
+      const end = source.indexOf('-->', start + 4);
+      if (end < 0) throw new Error('native Safari source contains an unterminated XML comment');
+      cursor = end + 3;
+      continue;
+    }
+    if (source.startsWith('<![CDATA[', start)) {
+      const end = source.indexOf(']]>', start + 9);
+      if (end < 0) throw new Error('native Safari source contains unterminated CDATA');
+      cursor = end + 3;
+      continue;
+    }
+    const processing = source.startsWith('<?', start);
+    let quote = null;
+    let end = -1;
+    for (let index = start + 1; index < source.length; index += 1) {
+      const character = source[index];
+      if (quote) {
+        if (character === quote) quote = null;
+      } else if (character === '"' || character === "'") {
+        quote = character;
+      } else if (processing && character === '?' && source[index + 1] === '>') {
+        end = index + 1;
+        break;
+      } else if (!processing && character === '>') {
+        end = index;
+        break;
+      }
+    }
+    if (end < 0 || quote) throw new Error('native Safari source contains an unterminated XML tag');
+    const content = source.slice(start + 1, processing ? end - 1 : end).trim();
+    cursor = end + 1;
+    if (!content || processing || content.startsWith('/')) continue;
+    if (content.startsWith('!')) {
+      throw new Error('native Safari source contains an unsupported XML declaration');
+    }
+    const nameMatch = content.match(/^([A-Za-z_:][A-Za-z0-9_.:-]*)/);
+    if (!nameMatch) throw new Error('native Safari source contains a malformed XML tag');
+    if (nameMatch[1] !== wantedName) continue;
+    tags.push(parseXmlAttributes(content.slice(nameMatch[1].length), `${wantedName} ${tags.length}`));
+  }
+  return tags;
+}
+
+function xmlBoolean(value, label) {
+  if (value === 'true') return true;
+  if (value === 'false') return false;
+  throw new Error(`${label} must be true or false`);
+}
+
+function xmlNumber(value, label) {
+  if (typeof value !== 'string' || !/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value)) {
+    throw new Error(`${label} must be a plain finite number`);
+  }
+  return finiteNumber(Number(value), label);
+}
+
+export function safariEducationButtonCandidates(source) {
+  safariEducationState(source);
+  return xmlStartTags(source, 'XCUIElementTypeButton').map((attributes, sourceIndex) => {
+    if (attributes.type !== 'XCUIElementTypeButton') {
+      throw new Error(`native Safari Button ${sourceIndex}.type is invalid`);
+    }
+    return {
+      sourceIndex,
+      name: attributes.name ?? null,
+      label: attributes.label ?? null,
+      enabled: xmlBoolean(attributes.enabled, `native Safari Button ${sourceIndex}.enabled`),
+      displayed: xmlBoolean(attributes.visible, `native Safari Button ${sourceIndex}.visible`),
+      rect: rect({
+        x: xmlNumber(attributes.x, `native Safari Button ${sourceIndex}.x`),
+        y: xmlNumber(attributes.y, `native Safari Button ${sourceIndex}.y`),
+        width: xmlNumber(attributes.width, `native Safari Button ${sourceIndex}.width`),
+        height: xmlNumber(attributes.height, `native Safari Button ${sourceIndex}.height`),
+      }, `native Safari Button ${sourceIndex}.rect`),
+    };
+  });
 }
 
 export function selectSafariEducationClose(source, candidates, nativeWindow) {
@@ -72,7 +220,7 @@ export function selectSafariEducationClose(source, candidates, nativeWindow) {
   const windowRect = rect(nativeWindow, 'native Safari window');
   const eligible = candidates.map((candidate, index) => {
     if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)
-        || typeof candidate.elementId !== 'string' || !candidate.elementId) {
+        || !Number.isInteger(candidate.sourceIndex) || candidate.sourceIndex < 0) {
       throw new Error(`native Safari close candidate ${index} is invalid`);
     }
     if (typeof candidate.enabled !== 'boolean' || typeof candidate.displayed !== 'boolean') {
@@ -85,7 +233,7 @@ export function selectSafariEducationClose(source, candidates, nativeWindow) {
       throw new Error(`native Safari close candidate ${index}.label must be a string or null`);
     }
     return {
-      elementId: candidate.elementId,
+      sourceIndex: candidate.sourceIndex,
       rect: rect(candidate.rect, `native Safari close candidate ${index}.rect`),
       enabled: candidate.enabled,
       displayed: candidate.displayed,
@@ -102,9 +250,9 @@ export function selectSafariEducationClose(source, candidates, nativeWindow) {
     const small = candidate.rect.width >= 18 && candidate.rect.width <= 64
       && candidate.rect.height >= 18 && candidate.rect.height <= 64;
     const aspect = candidate.rect.width / candidate.rect.height;
-    // The iOS 26.2 education popover exposes a nameless circular x rather than
-    // an accessibility-id "Close".  Select by the independently observed
-    // geometry only while the complete three-marker education is present.
+    // The iOS 26.2 education popover exposes a circular x whose source name is
+    // xmark.circle.fill rather than its visible label "Close". Select by the
+    // independently observed geometry only while the complete education is present.
     // This excludes Safari's top/bottom chrome and wide web-page controls; an
     // ambiguous native hierarchy still fails instead of guessing.
     return inside
@@ -119,7 +267,50 @@ export function selectSafariEducationClose(source, candidates, nativeWindow) {
   if (eligible.length !== 1) {
     throw new Error(`native Safari education requires exactly one eligible small right-side Button; found ${eligible.length}`);
   }
+  if (typeof eligible[0].name !== 'string' || !eligible[0].name.trim()) {
+    throw new Error('native Safari education Button has no usable source name');
+  }
   return { ...eligible[0], markers: state.markers };
+}
+
+export function validateSafariEducationLiveElement(expected, live) {
+  if (!expected || typeof expected !== 'object' || !expected.rect) {
+    throw new Error('expected native Safari education Button is invalid');
+  }
+  if (!live || typeof live !== 'object' || Array.isArray(live)) {
+    throw new Error('live native Safari education Button is invalid');
+  }
+  if (typeof live.enabled !== 'boolean' || typeof live.displayed !== 'boolean') {
+    throw new Error('live native Safari education Button state must be boolean');
+  }
+  const expectedRect = rect(expected.rect, 'expected native Safari education Button rect');
+  const liveRect = rect(live.rect, 'live native Safari education Button rect');
+  for (const field of ['x', 'y', 'width', 'height']) {
+    if (liveRect[field] !== expectedRect[field]) {
+      throw new Error(`live native Safari education Button ${field} does not match source`);
+    }
+  }
+  if (live.enabled !== expected.enabled || live.displayed !== expected.displayed
+      || live.enabled !== true || live.displayed !== true) {
+    throw new Error('live native Safari education Button state does not match visible source control');
+  }
+  return { rect: liveRect, enabled: true, displayed: true };
+}
+
+export function singleNativeElementId(elements) {
+  if (!Array.isArray(elements) || elements.length !== 1) {
+    throw new Error(`native Safari selected Button must match exactly once; found ${Array.isArray(elements) ? elements.length : 'invalid'}`);
+  }
+  const w3cId = elements[0]?.['element-6066-11e4-a52e-4f735466cecf'];
+  const legacyId = elements[0]?.ELEMENT;
+  const ids = [w3cId, legacyId].filter((value) => value !== undefined);
+  if (ids.length === 0 || ids.some((value) => typeof value !== 'string' || !value)) {
+    throw new Error('native Safari selected Button has no valid element id');
+  }
+  if (ids.length === 2 && ids[0] !== ids[1]) {
+    throw new Error('native Safari selected Button returned conflicting element ids');
+  }
+  return ids[0];
 }
 
 export function validateCoordinateCalibration(value) {
@@ -339,26 +530,35 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   if (dismiss < 0 || calibrate < 0 || dismiss >= calibrate) {
     throw new Error('Mobile Safari harness must clear known native education before initial calibration');
   }
-  const buttonQueries = sourceText.match(/using:\s*['"]class name['"],\s*value:\s*['"]XCUIElementTypeButton['"]/g) || [];
-  if (buttonQueries.length !== 1 || sourceText.includes("using: 'accessibility id', value: 'Close'")) {
-    throw new Error('Mobile Safari education must inspect native Buttons without assuming a Close accessibility name');
+  const sourceParse = sourceText.indexOf('safariEducationButtonCandidates(source);');
+  const selectedQuery = sourceText.indexOf("body: { using: 'accessibility id', value: close.name },");
+  if (sourceParse < 0 || selectedQuery < 0 || sourceParse >= selectedQuery
+      || sourceText.includes("using: 'accessibility id', value: 'Close'")
+      || sourceText.includes("using: 'class name', value: 'XCUIElementTypeButton'")) {
+    throw new Error('Mobile Safari education must select from source and query only its decoded Button name');
   }
-  for (const endpoint of ['/rect', '/enabled', '/displayed', '/attribute/name', '/attribute/label']) {
-    if (!sourceText.includes(`\${elementPath}${endpoint}`)) {
-      throw new Error(`Mobile Safari education must record Button ${endpoint} metadata`);
+  for (const endpoint of ['/rect', '/enabled', '/displayed']) {
+    const occurrences = sourceText.split(`\${elementPath}${endpoint}`).length - 1;
+    if (occurrences !== 1) {
+      throw new Error(`Mobile Safari education must verify selected Button ${endpoint} exactly once`);
     }
   }
-  const candidateRecord = sourceText.indexOf('record.closeCandidates.push(telemetry);');
-  const firstCandidateRead = sourceText.indexOf('telemetry.rect = await webdriver');
-  if (candidateRecord < 0 || firstCandidateRead < 0 || candidateRecord >= firstCandidateRead
+  if (sourceText.includes('/attribute/name') || sourceText.includes('/attribute/label')
       || sourceText.includes('await Promise.all([')) {
-    throw new Error('Mobile Safari Button telemetry must be registered before sequential native reads');
+    throw new Error('Mobile Safari education must not multiply diagnostic native metadata requests');
+  }
+  const liveRecord = sourceText.indexOf('record.selectedButton.liveVerification = liveVerification;');
+  const firstLiveRead = sourceText.indexOf('liveVerification.rect = await webdriver');
+  const liveValidation = sourceText.indexOf('validateSafariEducationLiveElement(close, liveVerification);');
+  const selectedClick = sourceText.indexOf('await webdriver(`${elementPath}/click`, { body: {} });');
+  if (liveRecord < 0 || firstLiveRead < 0 || liveValidation < 0 || selectedClick < 0
+      || liveRecord >= firstLiveRead || firstLiveRead >= liveValidation || liveValidation >= selectedClick) {
+    throw new Error('Mobile Safari selected Button must be recorded and source-verified before click');
   }
   const sourceEvidence = sourceText.indexOf('writeFileSync(SAFARI_EDUCATION_SOURCE, source);');
   const screenshotEvidence = sourceText.indexOf('await screenshot(SAFARI_EDUCATION_SHOT);');
-  const buttonQuery = sourceText.indexOf("body: { using: 'class name', value: 'XCUIElementTypeButton' },");
-  if (sourceEvidence < 0 || screenshotEvidence < 0 || buttonQuery < 0
-      || sourceEvidence >= buttonQuery || screenshotEvidence >= buttonQuery) {
+  if (sourceEvidence < 0 || screenshotEvidence < 0
+      || sourceEvidence >= sourceParse || screenshotEvidence >= sourceParse) {
     throw new Error('Mobile Safari education must preserve native source and screenshot before choosing a Button');
   }
   if (!Array.isArray(workflowSources) || workflowSources.length !== 2) {
@@ -413,27 +613,36 @@ function selfTest() {
     tapEvent('touchend'),
     tapEvent('click', { x: 124, y: 46 }),
   ];
-  const educationSource = '<XCUIElementTypeApplication><XCUIElementTypeStaticText label="View Bookmarks, Share Menu, and Open Tabs" /></XCUIElementTypeApplication>';
+  const educationSource = `<?xml version="1.0" encoding="UTF-8"?>
+    <XCUIElementTypeApplication type="XCUIElementTypeApplication">
+      <XCUIElementTypeStaticText label="View Bookmarks, Share Menu, and Open Tabs" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="BackButton" label="Back" enabled="false" visible="false" x="10" y="10" width="44" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="SidebarButton" label="Bookmarks" enabled="true" visible="false" x="66" y="10" width="44" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="SearchField?one=true&amp;two=false" label="Address" enabled="true" visible="false" x="202" y="10" width="262" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="PageFormatMenuButton" label="Page Menu" enabled="true" visible="false" x="206" y="14" width="39" height="36" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="ReloadButton" label="refresh" enabled="true" visible="false" x="425" y="10" width="30" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="ShareButton" label="Share" enabled="true" visible="false" x="525" y="10" width="44" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="NewTabButton" label="New tab" enabled="true" visible="false" x="569" y="10" width="44" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="TabOverviewButton" label="Tabs" enabled="true" visible="false" x="613" y="10" width="44" height="44" />
+      <XCUIElementTypeButton type="XCUIElementTypeButton" name="xmark.circle.fill" label="Close" enabled="true" visible="true" x="616" y="180" width="27" height="26" />
+    </XCUIElementTypeApplication>`;
   const nativeWindow = { x: 0, y: 0, width: 667, height: 375 };
-  const nativeButton = (elementId, nativeRect, overrides = {}) => ({
-    elementId,
+  const nativeButton = (sourceIndex, name, nativeRect, overrides = {}) => ({
+    sourceIndex,
+    name,
     rect: nativeRect,
     enabled: true,
     displayed: true,
-    name: null,
     label: null,
     ...overrides,
   });
-  // Run 31690316895/31690351246 video: the iOS 26.2 education x is
-  // nameless and approximately 26 logical pixels square at (617,180).
-  const educationClose = nativeButton(
-    'education-close',
-    { x: 617, y: 180, width: 26, height: 26 },
-  );
-  const topTabs = nativeButton('top-tabs', { x: 612, y: 10, width: 44, height: 44 });
-  const wideGameButton = nativeButton('wide-game-button', {
+  const educationCandidates = safariEducationButtonCandidates(educationSource);
+  // Runs 31692588358/31692600103 preserve the exact source candidate.
+  const educationClose = educationCandidates.find((candidate) => candidate.name === 'xmark.circle.fill');
+  const topTabs = educationCandidates.find((candidate) => candidate.name === 'TabOverviewButton');
+  const wideGameButton = nativeButton(99, 'NEW GAME', {
     x: 480, y: 145, width: 179, height: 43,
-  }, { name: 'NEW GAME', label: 'NEW GAME' });
+  }, { label: 'NEW GAME' });
 
   pass('valid flat numeric calibration', () => validateCoordinateCalibration(good));
   pass('two points derive the expected transform', () => {
@@ -520,16 +729,51 @@ function selfTest() {
       throw new Error('unexpected education control');
     }
   });
+  pass('comments and CDATA cannot fake Safari education markers', () => {
+    const state = safariEducationState(`<XCUIElementTypeApplication>
+      <!-- View Bookmarks, Share Menu, and Open Tabs -->
+      <![CDATA[View Bookmarks, Share Menu, and Open Tabs]]>
+    </XCUIElementTypeApplication>`);
+    if (state.present || state.markers.length !== 0) throw new Error(JSON.stringify(state));
+  });
   pass('known Safari education selects its one right-side close control', () => {
-    const selected = selectSafariEducationClose(educationSource, [
-      topTabs,
-      wideGameButton,
-      educationClose,
-    ], nativeWindow);
-    if (selected.elementId !== educationClose.elementId) throw new Error(JSON.stringify(selected));
-    if (selected.name !== null || selected.label !== null) {
-      throw new Error('nameless observed close must remain selectable');
+    if (educationCandidates.length !== 9) throw new Error(`buttons=${educationCandidates.length}`);
+    const selected = selectSafariEducationClose(educationSource, educationCandidates, nativeWindow);
+    if (selected.sourceIndex !== educationClose.sourceIndex
+        || selected.name !== 'xmark.circle.fill' || selected.label !== 'Close'
+        || selected.rect.x !== 616 || selected.rect.y !== 180
+        || selected.rect.width !== 27 || selected.rect.height !== 26) {
+      throw new Error(JSON.stringify(selected));
     }
+  });
+  pass('native Safari XML entities are decoded for exact element lookup', () => {
+    if (educationCandidates[2].name !== 'SearchField?one=true&two=false') {
+      throw new Error(JSON.stringify(educationCandidates[2]));
+    }
+  });
+  pass('quoted greater-than and partial Button tag names do not confuse XML scanning', () => {
+    const source = educationSource
+      .replace('name="SidebarButton"', 'name="Sidebar>Button"')
+      .replace(
+        '</XCUIElementTypeApplication>',
+        '<XCUIElementTypeButtonFake type="XCUIElementTypeButton" name="fake" enabled="true" visible="true" x="616" y="180" width="27" height="26" /></XCUIElementTypeApplication>',
+      );
+    const candidates = safariEducationButtonCandidates(source);
+    if (candidates.length !== 9 || candidates[1].name !== 'Sidebar>Button') {
+      throw new Error(JSON.stringify(candidates));
+    }
+  });
+  pass('comments and CDATA cannot inject native Safari Button candidates', () => {
+    const source = educationSource.replace(
+      '</XCUIElementTypeApplication>',
+      '<!-- <XCUIElementTypeButton type="XCUIElementTypeButton" name="fake" enabled="true" visible="true" x="616" y="180" width="27" height="26" /> -->\n<![CDATA[<XCUIElementTypeButton type="XCUIElementTypeButton" name="fake2" enabled="true" visible="true" x="616" y="180" width="27" height="26" />]]></XCUIElementTypeApplication>',
+    );
+    if (safariEducationButtonCandidates(source).length !== 9) throw new Error('false Button parsed');
+  });
+  pass('selected live native Button matches its source snapshot', () => {
+    validateSafariEducationLiveElement(educationClose, {
+      rect: { ...educationClose.rect }, enabled: true, displayed: true,
+    });
   });
 
   fail('actual all-null Appium failure', () => validateCoordinateCalibration({
@@ -709,13 +953,22 @@ function selfTest() {
   ));
   fail('empty native Safari source is rejected', () => safariEducationState(''));
   fail('arbitrary non-hierarchy native Safari source is rejected', () => safariEducationState('not XML'));
+  fail('application name token without an XML hierarchy is rejected', () => safariEducationState(
+    'junk XCUIElementTypeApplication View Bookmarks Share Menu Open Tabs',
+  ));
+  fail('raw less-than inside a native XML attribute is rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill"',
+      'name="xmark<circle.fill"',
+    ));
+  });
   fail('known Safari education without a close control is rejected', () => {
     selectSafariEducationClose(educationSource, [], nativeWindow);
   });
   fail('ambiguous Safari education close controls are rejected', () => {
     selectSafariEducationClose(educationSource, [
       educationClose,
-      nativeButton('second-close', { x: 560, y: 240, width: 40, height: 40 }),
+      nativeButton(100, 'second-close', { x: 580, y: 200, width: 40, height: 40 }),
     ], nativeWindow);
   });
   fail('disabled Safari education control is rejected', () => {
@@ -741,34 +994,106 @@ function selfTest() {
   });
   fail('left-side small control is not an education close control', () => {
     selectSafariEducationClose(educationSource, [
-      nativeButton('left-control', { x: 420, y: 180, width: 26, height: 26 }),
+      nativeButton(101, 'left-control', { x: 420, y: 180, width: 26, height: 26 }),
     ], nativeWindow);
   });
   fail('bottom Safari chrome is not an education close control', () => {
     selectSafariEducationClose(educationSource, [
-      nativeButton('bottom-control', { x: 617, y: 330, width: 26, height: 26 }),
+      nativeButton(102, 'bottom-control', { x: 617, y: 330, width: 26, height: 26 }),
     ], nativeWindow);
   });
   fail('oversize right-side control is not an education close control', () => {
     selectSafariEducationClose(educationSource, [
-      nativeButton('oversize-control', { x: 590, y: 160, width: 70, height: 70 }),
+      nativeButton(103, 'oversize-control', { x: 590, y: 160, width: 70, height: 70 }),
     ], nativeWindow);
   });
   fail('non-square right-side control is not an education close control', () => {
     selectSafariEducationClose(educationSource, [
-      nativeButton('non-square-control', { x: 600, y: 180, width: 60, height: 20 }),
+      nativeButton(104, 'non-square-control', { x: 600, y: 180, width: 60, height: 20 }),
     ], nativeWindow);
   });
   fail('non-finite Safari control geometry is rejected', () => {
     selectSafariEducationClose(educationSource, [
-      nativeButton('invalid-control', { x: Number.NaN, y: 180, width: 26, height: 26 }),
+      nativeButton(105, 'invalid-control', { x: Number.NaN, y: 180, width: 26, height: 26 }),
     ], nativeWindow);
   });
   fail('zero-size Safari control geometry is rejected', () => {
     selectSafariEducationClose(educationSource, [
-      nativeButton('zero-control', { x: 617, y: 180, width: 0, height: 26 }),
+      nativeButton(106, 'zero-control', { x: 617, y: 180, width: 0, height: 26 }),
     ], nativeWindow);
   });
+  fail('eligible Safari education control without a source name is rejected', () => {
+    selectSafariEducationClose(educationSource, [{ ...educationClose, name: null }], nativeWindow);
+  });
+  fail('eligible Safari education control with a blank source name is rejected', () => {
+    selectSafariEducationClose(educationSource, [{ ...educationClose, name: '   ' }], nativeWindow);
+  });
+  fail('duplicate native Safari XML attributes are rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill"', 'name="xmark.circle.fill" name="duplicate"',
+    ));
+  });
+  fail('unsupported native Safari XML entities are rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill"', 'name="xmark&bogus;circle"',
+    ));
+  });
+  fail('malformed native Safari XML quotes are rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill"', 'name="xmark.circle.fill',
+    ));
+  });
+  fail('noncanonical native Safari XML booleans are rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill" label="Close" enabled="true" visible="true"',
+      'name="xmark.circle.fill" label="Close" enabled="true" visible="TRUE"',
+    ));
+  });
+  fail('unit-bearing native Safari XML coordinates are rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill" label="Close" enabled="true" visible="true" x="616"',
+      'name="xmark.circle.fill" label="Close" enabled="true" visible="true" x="616px"',
+    ));
+  });
+  fail('native Safari XML zero-size controls are rejected', () => {
+    safariEducationButtonCandidates(educationSource.replace(
+      'name="xmark.circle.fill" label="Close" enabled="true" visible="true" x="616" y="180" width="27"',
+      'name="xmark.circle.fill" label="Close" enabled="true" visible="true" x="616" y="180" width="0"',
+    ));
+  });
+  fail('live Safari education rect mismatch is rejected', () => {
+    validateSafariEducationLiveElement(educationClose, {
+      rect: { ...educationClose.rect, x: educationClose.rect.x + 1 },
+      enabled: true,
+      displayed: true,
+    });
+  });
+  fail('live Safari education visibility mismatch is rejected', () => {
+    validateSafariEducationLiveElement(educationClose, {
+      rect: { ...educationClose.rect }, enabled: true, displayed: false,
+    });
+  });
+  fail('live Safari education non-boolean state is rejected', () => {
+    validateSafariEducationLiveElement(educationClose, {
+      rect: { ...educationClose.rect }, enabled: 'true', displayed: true,
+    });
+  });
+  pass('one W3C native element id is accepted', () => {
+    const id = singleNativeElementId([{
+      'element-6066-11e4-a52e-4f735466cecf': 'education-close-element',
+    }]);
+    if (id !== 'education-close-element') throw new Error(id);
+  });
+  fail('conflicting W3C and legacy native element ids are rejected', () => singleNativeElementId([{
+    'element-6066-11e4-a52e-4f735466cecf': 'w3c-id',
+    ELEMENT: 'legacy-id',
+  }]));
+  fail('zero native element matches are rejected', () => singleNativeElementId([]));
+  fail('multiple native element matches are rejected', () => singleNativeElementId([
+    { 'element-6066-11e4-a52e-4f735466cecf': 'one' },
+    { 'element-6066-11e4-a52e-4f735466cecf': 'two' },
+  ]));
+  fail('native element without an id is rejected', () => singleNativeElementId([{}]));
 
   const harnessSource = readFileSync(new URL('./test-ios-safari.mjs', import.meta.url), 'utf8');
   const workflowSources = ['gates.yml', 'pages.yml'].map((name) => [
@@ -801,11 +1126,20 @@ function selfTest() {
       workflowSources,
     );
   });
-  fail('accessibility-name-only education locator is rejected', () => {
+  fail('literal Close accessibility locator is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        "body: { using: 'class name', value: 'XCUIElementTypeButton' },",
+        "body: { using: 'accessibility id', value: close.name },",
         "body: { using: 'accessibility id', value: 'Close' },",
+      ),
+      workflowSources,
+    );
+  });
+  fail('class-wide native Button enumeration is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "body: { using: 'accessibility id', value: close.name },",
+        "body: { using: 'class name', value: 'XCUIElementTypeButton' },",
       ),
       workflowSources,
     );
@@ -816,9 +1150,24 @@ function selfTest() {
       workflowSources,
     );
   });
-  fail('late native Button telemetry registration is rejected', () => {
+  fail('missing selected Button live telemetry is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace('record.closeCandidates.push(telemetry);', ''),
+      harnessSource.replace('record.selectedButton.liveVerification = liveVerification;', ''),
+      workflowSources,
+    );
+  });
+  fail('missing source-to-live Button validation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('validateSafariEducationLiveElement(close, liveVerification);', ''),
+      workflowSources,
+    );
+  });
+  fail('per-Button diagnostic attribute calls are rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: \'GET\', timeout: 15000 });',
+        'liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: \'GET\', timeout: 15000 });\nawait webdriver(`${elementPath}/attribute/name`, { method: \'GET\' });',
+      ),
       workflowSources,
     );
   });
