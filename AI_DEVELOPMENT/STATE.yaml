@@ -90,6 +90,7 @@ execution:
     - "Exact head 96803f8 runs 31687125738 and 31687149960 passed F2, F5, core F3 and WebKit, and proved the headless session start, but both Mobile Safari jobs failed closed with checks=[] before calibration. Artifact 9176187067 shows point 1 complete, then two event-free point-2 taps while a native Safari 'View Bookmarks, Share Menu, and Open Tabs' education popover visibly covered that point. Artifact 9176353982 shows no popover and exactly trusted same-attempt/same-target pointerdown, touchstart, pointercancel, touchcancel at point 1, with no up/end/click or product action. The correction dismisses only the complete recognized education with exactly one eligible native Close control and verifies its disappearance. Attempt 1 may retry only after zero events or that exact boolean-trusted stable cancellation grammar; attempt 2 still requires the original clean down/up pair, and partial/mixed/untrusted/reordered/cross-attempt/moved/extra events fail. The independent third point, viewport and native-bound checks remain unchanged. The pure battery passes 74/74 locally; a fresh exact-head Simulator execution is required."
     - "Exact head 50506b0 runs 31690316895 and 31690351246 passed F2, F5, core F3 and WebKit, then both Mobile Safari jobs failed closed before calibration. Artifacts 9177494972 and 9177498873 record checked=true, present=true, dismissed=false, the complete three-marker native Safari education and no candidates because WDA returned an empty array for accessibility id Close. Both logs show the exact WEBVIEW to NATIVE_APP inspection and restoration to the same WEBVIEW; checks and calibration remain empty. Video shows the nameless circular x at approximately native {x:617,y:180,width:26,height:26}. The follow-up enumerates native Buttons, records rect/enabled/displayed/name/label plus the full source and screenshot, and activates only exactly one enabled/displayed small square control in the observed right-center band. Native metadata reads are sequential and bounded with margin above the measured 7.37-second source latency, and each candidate is registered before its first read. Missing, ambiguous, malformed, chrome-like, wide, hidden or disabled candidates fail. The pure battery passes 88/88 locally; fresh exact-head Simulator execution is still required."
     - "Exact head f9e026f runs 31692588358, 31692600103 and 31692638684 all passed F2, F5, core F3 and WebKit but kept Mobile Safari and aggregate F3 red. Artifact 9178351805 proves the education path: checked/present/dismissed true, 3 markers, source and PNG, 9 Buttons, unique enabled/displayed xmark.circle.fill label Close at {616,180,27,26}, matching live rect/state, click, marker disappearance and exact WEBVIEW restoration. Its first later WDA tap had one proxy ECONNRESET and no product check completed. Artifact 9178447264 stopped on the 24th of 45 diagnostic attribute requests; artifact 9178452600 failed before session because WDA never opened port 8100. The follow-up strictly parses the preserved XML, dynamically queries only the unique decoded source name, requires one element and exact live rect/enabled/displayed agreement, then clicks and verifies disappearance. It reduces native metadata calls from 45 to 4, preserves fail-closed evidence and passes 114/114 locally. Fresh exact-head full Simulator execution is still required."
+    - "Exact head ab9af7e runs 31695111944 and 31695133214 both passed F2, F5, core F3 and WebKit but kept Mobile Safari and aggregate F3 red. Artifact 9179471218 proves the source-derived four-call education path completely: checked/present/dismissed true, 3 markers, 9 Buttons, unique xmark.circle.fill/Close {616,180,27,26}, matchCount 1, exact live rect/state, click, marker absence and WEBVIEW restoration. Its first calibration /wda/tap response reset with no recorded browser event; the command side effect remains unknown and no product check completed. Artifact 9179368693 proves a separate element-click no-op: the same exact target and live verification, WDA Find/Tap/Synthesize and HTTP 200, but four later full sources plus video retain the popover; a final source then received only 2274 ms and timed out. The bounded follow-up uses at most one fresh-source-exact center tap after an unchanged no-op and no polling loop. It reconciles only the exact calibration proxy reset behind two stable browser snapshots and a native-window WDA barrier within the unchanged Appium session and existing two-attempt budget; it never retries product input. Native operations are bounded, each observation is recorded progressively, source is the final remote barrier before fallback, and context restoration is read back exactly. The expanded battery passes 156/156 locally. Fresh exact-head full Simulator execution is still required."
     - "The exact current-tree WebKit command could not launch locally because this Linux host lacks its GTK/GStreamer libraries; no local WebKit pass is claimed. Exact-head Actions runs 31684968784, 31684995777, 31687125738 and 31687149960 passed the reviewed-baseline WebKit journey. Run 31684968784 also passed the complete Simulator journey; the duplicate pre-session UI-restart timeout, proved headless repair, and pending native-Safari correction are separately recorded."
   historical_modified_but_unverified:
     - "iPhone SE 3 round comparison (shared kit 0.4.0, .kit/lib/mobile/): the comparison layer, iphone-se3-round.config.json and .github/workflows/iphone-se3-round.yml. Verified by measurement, not by reading: this repository's own harness was run twice under the Chromium surrogate and round 2 compared against round 1 (PASS, 8 metrics, boot 11854 -> 9474 ms inside a 25% tolerance); a copy of round 2 with boot x2.4, p95 x2.1 and +9 draw calls was refused with exit 1 and three named regressions; 11/11 gate self-tests behave as specified. NOT verified: any run on the WebKit apparatus CI will actually use. No baseline is committed for exactly that reason - the one recorded during verification was measured under the surrogate, and the comparison now refuses a cross-browser comparison outright. Bootstrap the bar on the runner via the workflow's bootstrap input, then commit tests/baselines/iphone-se3-round.json; until then --allow-unadopted keeps the job green and prints what will block."
@@ -202,8 +203,9 @@ execution:
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
     - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
   exact_next_action: >-
-    Deliver the fail-closed source-derived native Safari education-Button selector
-    and exact trusted-cancellation one-retry correction to pull request #9, preserving
+    Deliver the fail-closed source-derived native Safari education-Button selector,
+    bounded unchanged-control second actuation and exact calibration-response-reset
+    reconciliation to pull request #9, preserving
     the proved headless session, original clean trusted down/up acceptance,
     three-point residual, calibrated two-pointer sequence and required Mobile
     Safari F3 check. Require F2/F3/F5, WebKit and the full Simulator journey to
@@ -251,7 +253,7 @@ execution:
       frames. That control was measured on the previous base and is not
       re-derived here.
 floor:
-  last_check: "2026-08-13 (exact head f9e026f runs 31692588358/31692600103/31692638684 passed F2/F5/core F3/WebKit; artifact 9178351805 proves education selection/dismissal but a later tap reset, 9178447264 exposes excessive diagnostic-call latency, and 9178452600 is pre-session WDA failure; source-derived four-call follow-up passes 114/114 locally and fresh exact-head required checks remain pending)"
+  last_check: "2026-08-13 (exact head ab9af7e runs 31695111944/31695133214 passed F2/F5/core F3/WebKit but Safari/aggregate F3 remained red; artifact 9179471218 proves complete four-call dismissal then exact calibration proxy reset with no browser event, while 9179368693 proves an unchanged element-click no-op; bounded same-control second actuation and unchanged-session reset reconciliation pass 156/156 locally; fresh exact-head required checks remain pending)"
   independence_level_used: B
   skips:
     - "F6: not fired for this corrective delivery because it has not merged or deployed. The public URL is reachable from this environment; post-deploy execution remains mandatory."
@@ -274,7 +276,7 @@ floor:
     f5_review_record_check: active
     f6_public_revision_check: prepared_not_executed
     iphone_webkit_release_gate: active
-    ios_safari_release_gate: exact_head_f9e026f_education_dismissal_proved_but_full_journey_red_source_derived_four_call_followup_pending
+    ios_safari_release_gate: exact_head_ab9af7e_four_call_path_proved_but_element_click_noop_and_calibration_proxy_reset_reconciliation_pending
     revert_mechanism: absent_unsafe_due_save_compatibility
     last_observed_failing: |
       2026-08-01, all locally executed and watched:
@@ -406,12 +408,11 @@ remote:
     Pull request #9 targets current main. Exact head cac8904 run 31684968784
     passed F2, F5, core F3, WebKit and the complete 30-check Simulator journey;
     artifact 9175483294 is the first valid Mobile Safari product pass. Exact
-    head f9e026f runs 31692588358, 31692600103 and 31692638684 passed F2, F5,
-    core F3 and WebKit. Artifact 9178351805 proves native education selection,
-    click, marker disappearance and exact context restoration, then records a
-    later first-tap proxy reset; 9178447264 records diagnostic-call timeout and
-    9178452600 pre-session WDA failure. The source-derived four-call native-Button
-    education/cancellation correction must pass fresh exact-head required
+    head ab9af7e runs 31695111944 and 31695133214 passed F2, F5, core F3 and
+    WebKit, then failed Mobile Safari and aggregate F3. Artifact 9179471218
+    proves full four-call education dismissal before an exact first calibration
+    proxy reset; 9179368693 proves an unchanged element-click no-op. The bounded
+    same-control second actuation and unchanged-session calibration reconciliation must pass fresh exact-head required
     checks before merge. Public revision fields remain conservative until
     direct F6 and the gated deployment are recorded.
 
@@ -434,8 +435,11 @@ reconciliation_status: >-
   education selection and dismissal but exposed the cost of 45 diagnostic
   element calls plus two independent WDA infrastructure failures. The follow-up
   derives the exact lookup name from strict source XML and validates only the
-  selected element in four native calls; it is locally falsified but still
-  requires a fresh exact-head pass.
+  selected element in four native calls. Exact-head execution then exposed an
+  unchanged element-click no-op and a separate calibration response reset. The
+  follow-up bounds dismissal to one source-exact second actuation and reconciles
+  only that exact transport reset behind stable browser/WDA barriers; it is
+  locally falsified but still requires a fresh exact-head pass.
   Independent source-aware review drove removal of the unauthoritative manual
   F5 dispatch surface plus strict trailer parsing, exact revision F6, Pages publisher ordering, and the
   removal of an unsafe rollback claim. Exact-

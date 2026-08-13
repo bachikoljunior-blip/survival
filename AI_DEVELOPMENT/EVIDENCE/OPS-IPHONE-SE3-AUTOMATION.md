@@ -298,6 +298,65 @@ zero/multiple element matches, live mismatch, class-wide lookup and diagnostic
 attribute-call regressions are negative controls. The battery passes 114/114
 locally; fresh exact-head Simulator execution remains mandatory.
 
+## Exact-head four-call result and bounded delivery reconciliation (2026-08-13)
+
+PR #9 exact head `ab9af7e6f0b50e1850c743b498cf3b07438fc1ce` produced two
+Floor runs. Runs `31695111944` and `31695133214` both passed F2, F5, core F3
+8/8 and the complete WebKit journey. Their Mobile Safari jobs and aggregate F3
+jobs remained red, so neither is a release pass.
+
+- run `31695111944`, artifact `9179471218`: the native education path completed.
+  The report records `checked/present/dismissed:true`, all three markers, nine
+  source Buttons, `xmark.circle.fill` / `Close` at
+  `{x:616,y:180,width:27,height:26}`, dynamic match count one, and exact live
+  rect/enabled/displayed agreement. The Appium log contains one lookup and one
+  rect/enabled/displayed read, no name/label reads, a successful click, marker
+  disappearance and exact WEBVIEW restoration. The first later calibration
+  `/wda/tap` reached the WDA proxy, then its response connection reset. The
+  immediate attempt events and the final global event log were both empty;
+  WDA remained reachable. The command side effect is therefore unknown, not
+  claimed absent. The report failed closed with zero product checks and zero
+  completed calibrations;
+- run `31695133214`, artifact `9179368693`: the same four-call selection and
+  live agreement succeeded, and WDA logged Find, Tap and Synthesize event for
+  the element click with HTTP 200. Four subsequent full 35,885-byte sources and
+  the decoded video show the popover still present. The final source request
+  received only the 2,274 ms remaining in the polling deadline and timed out.
+  This is a real element-click no-op followed by a secondary short-timeout,
+  not selection ambiguity. The report again failed closed before calibration
+  or product checks.
+
+The follow-up replaces deadline polling with at most two explicit education
+actuations. Attempt one remains the exact source-derived element click. After a
+fixed settle it captures the native window, then one full source as the final
+remote barrier. Only if the complete
+three-marker UI and the unique Button's source index, decoded name/label,
+enabled/displayed state, rect and window all exactly match the initial verified
+snapshot may attempt two send one `mobile: tap` to the center freshly derived
+from that source rect. It then captures one more source; only marker absence may
+set `dismissed:true`. Each attempt records method, target/point, command
+completion, observation source/window/markers/selection, outcome and error.
+Literal or cached coordinates, changed/partial/ambiguous state, observation or
+activation errors, a third attempt, and persistence after attempt two fail.
+
+The calibration transport correction remains confined to the full-screen
+calibration overlay before product interaction. Only the exact current-session
+`/execute/sync` proxy error `read ECONNRESET` is eligible. The response remains
+unknown and `nativeTapCompleted` remains false. Before any resend the harness
+requires an exact WEBVIEW, URL, ready state, viewport, attempt registry and
+connected overlay snapshot; switches to `NATIVE_APP`, reads the exact same
+native window through the unchanged Appium session, restores the exact WEBVIEW; waits a
+fixed settle; and takes a second atomic snapshot whose event history must extend
+the first. A complete trusted pair is accepted without resend, the exact trusted
+cancel uses the shared retry, and two empty stable snapshots may use attempt two.
+All other errors, state changes, partial histories, health failures and attempt-
+two exhaustion fail. No retry exists in the shared native-tap or product-click
+functions. Every native actuation, observation and context restoration is
+explicitly time-bounded, partial observation telemetry is retained, and the
+restored WEBVIEW is read back and compared. The expanded fail/pass battery is
+156/156 locally; fresh exact-head
+Simulator execution remains mandatory.
+
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is
 rejected before the page receives the gesture. The corrective harness now

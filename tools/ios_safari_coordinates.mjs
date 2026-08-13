@@ -313,6 +313,116 @@ export function singleNativeElementId(elements) {
   return ids[0];
 }
 
+function sameRect(expected, current, label) {
+  const before = rect(expected, `${label} expected`);
+  const after = rect(current, `${label} current`);
+  for (const field of ['x', 'y', 'width', 'height']) {
+    if (before[field] !== after[field]) throw new Error(`${label} ${field} changed`);
+  }
+  return after;
+}
+
+export function classifySafariEducationDismissalObservation(
+  expected,
+  source,
+  expectedWindow,
+  currentWindow,
+  attemptNumber,
+  maxAttempts = 2,
+) {
+  if (!Number.isInteger(attemptNumber) || maxAttempts !== 2
+      || attemptNumber < 1 || attemptNumber > maxAttempts) {
+    throw new Error('Safari education dismissal attempt bounds are invalid');
+  }
+  sameRect(expectedWindow, currentWindow, 'native Safari education window');
+  const state = safariEducationState(source);
+  if (!state.present) return { outcome: 'dismissed', state };
+  const selected = selectSafariEducationClose(
+    source,
+    safariEducationButtonCandidates(source),
+    currentWindow,
+  );
+  if (!expected || typeof expected !== 'object' || Array.isArray(expected)) {
+    throw new Error('expected native Safari education Button is invalid');
+  }
+  for (const field of ['sourceIndex', 'name', 'label', 'enabled', 'displayed']) {
+    if (selected[field] !== expected[field]) {
+      throw new Error(`native Safari education Button ${field} changed after activation`);
+    }
+  }
+  sameRect(expected.rect, selected.rect, 'native Safari education Button');
+  if (attemptNumber === maxAttempts) {
+    throw new Error('native Safari education dismissal retry budget was exhausted');
+  }
+  return { outcome: 'retry-same-control', state, selected };
+}
+
+export function isExactCalibrationTapProxyReset(error, currentSessionId) {
+  if (!(error instanceof Error) || typeof currentSessionId !== 'string'
+      || !/^[A-Za-z0-9-]+$/.test(currentSessionId)) return false;
+  return error.message === `WebDriver POST session/${currentSessionId}/execute/sync: Could not proxy command to the remote server. Original error: read ECONNRESET`;
+}
+
+export function validateCalibrationResetSnapshot(snapshot, expected) {
+  if (!snapshot || typeof snapshot !== 'object' || Array.isArray(snapshot)
+      || !expected || typeof expected !== 'object' || Array.isArray(expected)) {
+    throw new Error('calibration reset reconciliation requires snapshot objects');
+  }
+  if (snapshot.context !== expected.context || typeof snapshot.context !== 'string') {
+    throw new Error('calibration reset reconciliation web context changed');
+  }
+  if (snapshot.href !== expected.href || typeof snapshot.href !== 'string') {
+    throw new Error('calibration reset reconciliation URL changed');
+  }
+  if (snapshot.ready !== true) throw new Error('calibration reset reconciliation product is not ready');
+  if (snapshot.attemptId !== expected.attemptId) {
+    throw new Error('calibration reset reconciliation attempt registry changed');
+  }
+  validateStableViewport(expected.viewport, snapshot.viewport);
+  const overlay = snapshot.overlay;
+  if (!overlay || typeof overlay !== 'object' || Array.isArray(overlay)
+      || overlay.connected !== true || overlay.id !== '__cinderlineIosCalibrationOverlay'
+      || overlay.attemptId !== expected.attemptId) {
+    throw new Error('calibration reset reconciliation overlay identity changed');
+  }
+  const expectedOverlay = expected.overlay;
+  if (!expectedOverlay || overlay.style?.pointerEvents !== expectedOverlay.style?.pointerEvents
+      || overlay.style?.touchAction !== expectedOverlay.style?.touchAction
+      || overlay.style?.zIndex !== expectedOverlay.style?.zIndex) {
+    throw new Error('calibration reset reconciliation overlay style changed');
+  }
+  sameRect(expectedOverlay.rect, overlay.rect, 'calibration reset reconciliation overlay');
+  if (!Array.isArray(snapshot.events)) {
+    throw new Error('calibration reset reconciliation events must be an array');
+  }
+  return snapshot;
+}
+
+export function validateCalibrationResetNativeWindow(expected, current) {
+  return sameRect(expected, current, 'calibration reset reconciliation native window');
+}
+
+export function classifyCalibrationTapProxyResetReconciliation(
+  firstSnapshot,
+  secondSnapshot,
+  expected,
+  attemptNumber,
+  maxAttempts = 2,
+) {
+  const first = validateCalibrationResetSnapshot(firstSnapshot, expected);
+  const second = validateCalibrationResetSnapshot(secondSnapshot, expected);
+  const prefix = second.events.slice(0, first.events.length);
+  if (JSON.stringify(prefix) !== JSON.stringify(first.events)) {
+    throw new Error('calibration reset reconciliation event history changed');
+  }
+  return classifyTrustedTapAttempt(
+    second.events,
+    expected.attemptId,
+    attemptNumber,
+    maxAttempts,
+  );
+}
+
 export function validateCoordinateCalibration(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error('coordinate calibration must be an object');
@@ -550,7 +660,9 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   const liveRecord = sourceText.indexOf('record.selectedButton.liveVerification = liveVerification;');
   const firstLiveRead = sourceText.indexOf('liveVerification.rect = await webdriver');
   const liveValidation = sourceText.indexOf('validateSafariEducationLiveElement(close, liveVerification);');
-  const selectedClick = sourceText.indexOf('await webdriver(`${elementPath}/click`, { body: {} });');
+  const selectedClick = sourceText.indexOf(
+    'await webdriver(`${elementPath}/click`, { body: {}, timeout: 15000 });',
+  );
   if (liveRecord < 0 || firstLiveRead < 0 || liveValidation < 0 || selectedClick < 0
       || liveRecord >= firstLiveRead || firstLiveRead >= liveValidation || liveValidation >= selectedClick) {
     throw new Error('Mobile Safari selected Button must be recorded and source-verified before click');
@@ -560,6 +672,123 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   if (sourceEvidence < 0 || screenshotEvidence < 0
       || sourceEvidence >= sourceParse || screenshotEvidence >= sourceParse) {
     throw new Error('Mobile Safari education must preserve native source and screenshot before choosing a Button');
+  }
+  if (!sourceText.includes(
+    "const nativeWindow = await webdriver(sessionPath('/window/rect'), {\n      method: 'GET', timeout: 15000,\n    });",
+  ) || !sourceText.includes(
+    "const encoded = await webdriver(sessionPath('/screenshot'), {\n    method: 'GET', timeout: 60000,\n  });",
+  )) {
+    throw new Error('Mobile Safari native observations and screenshots must have explicit measured timeouts');
+  }
+  const dismissSource = sourceText.slice(
+    sourceText.indexOf('async function dismissKnownSafariEducation()'),
+    sourceText.indexOf('async function calibrateCoordinates(stage)'),
+  );
+  const restorationScope = dismissSource.indexOf(
+    'const record = report.nativeSafariEducation;\n  try {',
+  );
+  const nativeContextSwitch = dismissSource.indexOf(
+    "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+  );
+  const fallbackTapCount = (
+    dismissSource.match(/await nativeTap\(secondPoint\.x, secondPoint\.y, 15000\);/g) || []
+  ).length;
+  const observeWindow = dismissSource.indexOf(
+    "observation.nativeWindow = await webdriver(sessionPath('/window/rect')",
+  );
+  const observeSource = dismissSource.indexOf(
+    "const observedSource = await webdriver(sessionPath('/source')",
+  );
+  const progressiveObservation = dismissSource.indexOf(
+    'attemptRecord.observation = observation;',
+  );
+  const observeClassification = dismissSource.indexOf(
+    'return classifySafariEducationDismissalObservation(',
+  );
+  const restorationPost = dismissSource.indexOf(
+    "await webdriver(sessionPath('/context'), {\n        body: { name: originalContext }, timeout: 15000,",
+  );
+  const restorationGet = dismissSource.indexOf(
+    "restoration.actual = await webdriver(sessionPath('/context'), {",
+  );
+  if (fallbackTapCount !== 1
+      || !dismissSource.includes('classifySafariEducationDismissalObservation(')
+      || !dismissSource.includes('educationObservationSource(attemptNumber)')
+      || !dismissSource.includes('fallbackTarget = firstResult.selected;')
+      || !dismissSource.includes('fallbackTarget.rect.x + fallbackTarget.rect.width / 2')
+      || (dismissSource.match(/record\.dismissalAttempts\.push\(/g) || []).length !== 2
+      || progressiveObservation < 0
+      || observeWindow < 0
+      || observeSource < 0
+      || observeClassification < 0
+      || progressiveObservation >= observeWindow
+      || observeWindow >= observeSource
+      || observeSource >= observeClassification
+      || restorationScope < 0
+      || nativeContextSwitch < restorationScope
+      || restorationPost < 0
+      || restorationGet < restorationPost
+      || !dismissSource.includes('restoration.restored = restoration.actual === originalContext;')
+      || dismissSource.includes('while (Date.now() < deadline)')) {
+    throw new Error('Mobile Safari education fallback must use two bounded recorded attempts, a source-last barrier, and verified context restoration');
+  }
+  const nativeWindowSource = sourceText.slice(
+    sourceText.indexOf('async function getNativeWindowRect()'),
+    sourceText.indexOf('async function dismissKnownSafariEducation()'),
+  );
+  const nativeWindowTry = nativeWindowSource.indexOf('try {');
+  const nativeWindowSwitch = nativeWindowSource.indexOf(
+    "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+  );
+  if (nativeWindowTry < 0 || nativeWindowSwitch < nativeWindowTry
+      || !nativeWindowSource.includes(
+        "nativeWindow = await webdriver(sessionPath('/window/rect'), {\n      method: 'GET', timeout: 15000,",
+      )
+      || !nativeWindowSource.includes(
+        "body: { name: originalContext }, timeout: 15000,",
+      )
+      || !nativeWindowSource.includes(
+        "restoredContext = await webdriver(sessionPath('/context'), {",
+      )
+      || !nativeWindowSource.includes('restoredContext !== originalContext')) {
+    throw new Error('Mobile Safari native-window read must be bounded and restore the exact WEBVIEW after an ambiguous switch');
+  }
+  const resetBarrierSource = sourceText.slice(
+    sourceText.indexOf('async function calibrationResetWdaBarrier('),
+    sourceText.indexOf('async function getNativeWindowRect()'),
+  );
+  const resetBarrierTry = resetBarrierSource.indexOf('try {');
+  const resetBarrierSwitch = resetBarrierSource.indexOf(
+    "body: { name: 'NATIVE_APP' }, timeout: 15000,",
+  );
+  if (resetBarrierTry < 0 || resetBarrierSwitch < resetBarrierTry
+      || !resetBarrierSource.includes(
+        "nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET', timeout: 15000 });",
+      )
+      || !resetBarrierSource.includes(
+        "body: { name: expectedContext }, timeout: 15000,",
+      )
+      || !resetBarrierSource.includes('contextAfter !== expectedContext')) {
+    throw new Error('calibration reset WDA barrier must bound its native read and restore the exact WEBVIEW after an ambiguous switch');
+  }
+  const calibrationSource = sourceText.slice(
+    sourceText.indexOf('async function calibrateCoordinates(stage)'),
+    sourceText.indexOf('function realPoint(x, y)'),
+  );
+  if (!calibrationSource.includes('isExactCalibrationTapProxyReset(nativeTapError, sessionId)')
+      || !calibrationSource.includes('calibrationResetWdaBarrier(calibrationWebContext, rect)')
+      || !calibrationSource.includes('classifyCalibrationTapProxyResetReconciliation(')
+      || !calibrationSource.includes('firstSnapshot')
+      || !calibrationSource.includes('secondSnapshot')
+      || !calibrationSource.includes('retry < 2')) {
+    throw new Error('calibration proxy reset handling must reconcile two snapshots behind a same-session WDA barrier within the existing budget');
+  }
+  const nativeTapSource = sourceText.slice(
+    sourceText.indexOf('async function nativeTap(x, y, timeout = 60000)'),
+    sourceText.indexOf('async function readCalibrationResetSnapshot(attemptId)'),
+  );
+  if (nativeTapSource.includes('ECONNRESET') || nativeTapSource.includes('retry')) {
+    throw new Error('nativeTap must remain one-shot; proxy reset reconciliation is calibration-only');
   }
   if (!Array.isArray(workflowSources) || workflowSources.length !== 2) {
     throw new Error('both PR and Pages workflows are required');
@@ -643,6 +872,32 @@ function selfTest() {
   const wideGameButton = nativeButton(99, 'NEW GAME', {
     x: 480, y: 145, width: 179, height: 43,
   }, { label: 'NEW GAME' });
+  const resetExpected = {
+    attemptId: 'attempt-1',
+    context: 'WEBVIEW_1',
+    href: 'http://127.0.0.1:4173/',
+    viewport: { width: 667, height: 311, visualViewport: {
+      width: 667, height: 311, offsetLeft: 0, offsetTop: 0, scale: 1,
+    } },
+    overlay: {
+      id: '__cinderlineIosCalibrationOverlay', attemptId: 'attempt-1', connected: true,
+      rect: { x: 0, y: 0, width: 667, height: 311 },
+      style: { pointerEvents: 'auto', touchAction: 'none', zIndex: '2147483647' },
+    },
+  };
+  const resetSnapshot = (events = [], overrides = {}) => ({
+    context: resetExpected.context,
+    href: resetExpected.href,
+    ready: true,
+    attemptId: resetExpected.attemptId,
+    viewport: structuredClone(resetExpected.viewport),
+    overlay: structuredClone(resetExpected.overlay),
+    events: structuredClone(events),
+    ...overrides,
+  });
+  const proxyResetError = new Error(
+    'WebDriver POST session/session-1/execute/sync: Could not proxy command to the remote server. Original error: read ECONNRESET',
+  );
 
   pass('valid flat numeric calibration', () => validateCoordinateCalibration(good));
   pass('two points derive the expected transform', () => {
@@ -774,6 +1029,60 @@ function selfTest() {
     validateSafariEducationLiveElement(educationClose, {
       rect: { ...educationClose.rect }, enabled: true, displayed: true,
     });
+  });
+  pass('same education control may receive one source-derived fallback tap', () => {
+    const result = classifySafariEducationDismissalObservation(
+      educationClose, educationSource, nativeWindow, nativeWindow, 1, 2,
+    );
+    if (result.outcome !== 'retry-same-control' || result.selected.name !== educationClose.name) {
+      throw new Error(JSON.stringify(result));
+    }
+  });
+  pass('education marker disappearance completes without another actuation', () => {
+    const absentSource = '<XCUIElementTypeApplication type="XCUIElementTypeApplication"><XCUIElementTypeStaticText label="CINDERLINE" /></XCUIElementTypeApplication>';
+    const result = classifySafariEducationDismissalObservation(
+      educationClose, absentSource, nativeWindow, nativeWindow, 1, 2,
+    );
+    if (result.outcome !== 'dismissed') throw new Error(JSON.stringify(result));
+  });
+  pass('exact calibration proxy reset is recognized only for its session', () => {
+    if (!isExactCalibrationTapProxyReset(proxyResetError, 'session-1')) {
+      throw new Error('exact reset was not recognized');
+    }
+  });
+  pass('stable calibration reset snapshots are accepted', () => {
+    validateCalibrationResetSnapshot(resetSnapshot(), resetExpected);
+  });
+  pass('calibration reset with no browser delivery retries once', () => {
+    const result = classifyCalibrationTapProxyResetReconciliation(
+      resetSnapshot(), resetSnapshot(), resetExpected, 1, 2,
+    );
+    if (result.outcome !== 'retry' || result.reason !== 'no-events') {
+      throw new Error(JSON.stringify(result));
+    }
+  });
+  pass('late complete browser delivery after a reset is accepted without resend', () => {
+    const result = classifyCalibrationTapProxyResetReconciliation(
+      resetSnapshot(), resetSnapshot(goodTap), resetExpected, 1, 2,
+    );
+    if (result.outcome !== 'complete' || result.point.x !== 123) {
+      throw new Error(JSON.stringify(result));
+    }
+  });
+  pass('late exact trusted cancellation after a reset shares the retry budget', () => {
+    const cancelled = [
+      tapEvent('pointerdown'), tapEvent('touchstart'),
+      tapEvent('pointercancel'), tapEvent('touchcancel'),
+    ];
+    const result = classifyCalibrationTapProxyResetReconciliation(
+      resetSnapshot(), resetSnapshot(cancelled), resetExpected, 1, 2,
+    );
+    if (result.outcome !== 'retry' || result.reason !== 'trusted-cancel') {
+      throw new Error(JSON.stringify(result));
+    }
+  });
+  pass('calibration reset WDA barrier preserves the native window', () => {
+    validateCalibrationResetNativeWindow(nativeWindow, { ...nativeWindow });
   });
 
   fail('actual all-null Appium failure', () => validateCoordinateCalibration({
@@ -962,6 +1271,42 @@ function selfTest() {
       'name="xmark<circle.fill"',
     ));
   });
+  fail('education dismissal cannot widen beyond two attempts', () => {
+    classifySafariEducationDismissalObservation(
+      educationClose, educationSource, nativeWindow, nativeWindow, 1, 3,
+    );
+  });
+  fail('education dismissal second-attempt persistence exhausts its budget', () => {
+    classifySafariEducationDismissalObservation(
+      educationClose, educationSource, nativeWindow, nativeWindow, 2, 2,
+    );
+  });
+  fail('education dismissal rejects a changed native window', () => {
+    classifySafariEducationDismissalObservation(
+      educationClose, educationSource, nativeWindow,
+      { ...nativeWindow, width: nativeWindow.width - 1 }, 1, 2,
+    );
+  });
+  fail('education dismissal rejects a changed source name', () => {
+    classifySafariEducationDismissalObservation(
+      educationClose,
+      educationSource.replace('name="xmark.circle.fill"', 'name="changed-close"'),
+      nativeWindow,
+      nativeWindow,
+      1,
+      2,
+    );
+  });
+  fail('education dismissal rejects changed source geometry', () => {
+    classifySafariEducationDismissalObservation(
+      educationClose,
+      educationSource.replace('x="616" y="180" width="27"', 'x="617" y="180" width="27"'),
+      nativeWindow,
+      nativeWindow,
+      1,
+      2,
+    );
+  });
   fail('known Safari education without a close control is rejected', () => {
     selectSafariEducationClose(educationSource, [], nativeWindow);
   });
@@ -1095,6 +1440,82 @@ function selfTest() {
   ]));
   fail('native element without an id is rejected', () => singleNativeElementId([{}]));
 
+  pass('near-match calibration proxy error is not retryable', () => {
+    if (isExactCalibrationTapProxyReset(new Error(`${proxyResetError.message} extra`), 'session-1')) {
+      throw new Error('near match accepted');
+    }
+  });
+  pass('calibration proxy reset for another session is not retryable', () => {
+    if (isExactCalibrationTapProxyReset(proxyResetError, 'session-2')) {
+      throw new Error('wrong session accepted');
+    }
+  });
+  pass('non-Error calibration proxy reset is not retryable', () => {
+    if (isExactCalibrationTapProxyReset({ message: proxyResetError.message }, 'session-1')) {
+      throw new Error('non-Error accepted');
+    }
+  });
+  fail('calibration reset cannot retry empty delivery on attempt two', () => {
+    classifyCalibrationTapProxyResetReconciliation(
+      resetSnapshot(), resetSnapshot(), resetExpected, 2, 2,
+    );
+  });
+  fail('calibration reset rejects removed event history', () => {
+    classifyCalibrationTapProxyResetReconciliation(
+      resetSnapshot(goodTap.slice(0, 1)), resetSnapshot(), resetExpected, 1, 2,
+    );
+  });
+  fail('calibration reset rejects a changed web context', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], { context: 'WEBVIEW_2' }), resetExpected);
+  });
+  fail('calibration reset rejects a changed URL', () => {
+    validateCalibrationResetSnapshot(
+      resetSnapshot([], { href: 'http://127.0.0.1:4173/changed' }), resetExpected,
+    );
+  });
+  fail('calibration reset rejects a product that is no longer ready', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], { ready: false }), resetExpected);
+  });
+  fail('calibration reset rejects a changed attempt registry', () => {
+    validateCalibrationResetSnapshot(
+      resetSnapshot([], { attemptId: 'attempt-2' }), resetExpected,
+    );
+  });
+  fail('calibration reset rejects a changed viewport', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], {
+      viewport: { ...structuredClone(resetExpected.viewport), width: 666 },
+    }), resetExpected);
+  });
+  fail('calibration reset rejects a disconnected overlay', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], {
+      overlay: { ...structuredClone(resetExpected.overlay), connected: false },
+    }), resetExpected);
+  });
+  fail('calibration reset rejects a changed overlay identity', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], {
+      overlay: { ...structuredClone(resetExpected.overlay), attemptId: 'attempt-2' },
+    }), resetExpected);
+  });
+  fail('calibration reset rejects a changed overlay rect', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], {
+      overlay: {
+        ...structuredClone(resetExpected.overlay),
+        rect: { ...resetExpected.overlay.rect, width: 666 },
+      },
+    }), resetExpected);
+  });
+  fail('calibration reset rejects a changed overlay style', () => {
+    validateCalibrationResetSnapshot(resetSnapshot([], {
+      overlay: {
+        ...structuredClone(resetExpected.overlay),
+        style: { ...resetExpected.overlay.style, pointerEvents: 'none' },
+      },
+    }), resetExpected);
+  });
+  fail('calibration reset rejects a changed native window', () => {
+    validateCalibrationResetNativeWindow(nativeWindow, { ...nativeWindow, height: 374 });
+  });
+
   const harnessSource = readFileSync(new URL('./test-ios-safari.mjs', import.meta.url), 'utf8');
   const workflowSources = ['gates.yml', 'pages.yml'].map((name) => [
     name,
@@ -1168,6 +1589,147 @@ function selfTest() {
         'liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: \'GET\', timeout: 15000 });',
         'liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: \'GET\', timeout: 15000 });\nawait webdriver(`${elementPath}/attribute/name`, { method: \'GET\' });',
       ),
+      workflowSources,
+    );
+  });
+  fail('missing fresh-source education fallback classification is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('classifySafariEducationDismissalObservation(', 'missingDismissalClassifier('),
+      workflowSources,
+    );
+  });
+  fail('multiple source-derived education fallback taps are rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await nativeTap(secondPoint.x, secondPoint.y, 15000);',
+        'await nativeTap(secondPoint.x, secondPoint.y, 15000);\nawait nativeTap(secondPoint.x, secondPoint.y, 15000);',
+      ),
+      workflowSources,
+    );
+  });
+  fail('cached education fallback coordinates are rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replaceAll('fallbackTarget.rect', 'close.rect'),
+      workflowSources,
+    );
+  });
+  fail('education fallback source-before-window regression is rejected', () => {
+    const windowRead = `observation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
+          method: 'GET', timeout: 15000,
+        });`;
+    const sourceRead = `const observedSource = await webdriver(sessionPath('/source'), {
+          method: 'GET', timeout: 15000,
+        });`;
+    validateHeadlessHarnessContract(
+      harnessSource.replace(windowRead, '__SOURCE_READ__')
+        .replace(sourceRead, windowRead)
+        .replace('__SOURCE_READ__', sourceRead),
+      workflowSources,
+    );
+  });
+  fail('missing progressive education observation telemetry is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('attemptRecord.observation = observation;', ''),
+      workflowSources,
+    );
+  });
+  fail('unverified education context restoration is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('restoration.actual = await webdriver(sessionPath(\'/context\'), {',
+        'restoration.actual = missingContextVerification({'),
+      workflowSources,
+    );
+  });
+  fail('education native-context switch outside restoration scope is rejected', () => {
+    const scopedSwitch = `  try {
+    // Keep the switch inside the restoration scope: a timed-out response can
+    // leave the remote context changed even though the client saw an error.
+    await webdriver(sessionPath('/context'), {
+      body: { name: 'NATIVE_APP' }, timeout: 15000,
+    });`;
+    const unscopedSwitch = `  await webdriver(sessionPath('/context'), {
+    body: { name: 'NATIVE_APP' }, timeout: 15000,
+  });
+  try {`;
+    validateHeadlessHarnessContract(
+      harnessSource.replace(scopedSwitch, unscopedSwitch),
+      workflowSources,
+    );
+  });
+  fail('unbounded education native-window observation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "const nativeWindow = await webdriver(sessionPath('/window/rect'), {\n      method: 'GET', timeout: 15000,\n    });",
+        "const nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET' });",
+      ),
+      workflowSources,
+    );
+  });
+  fail('unbounded native screenshot evidence is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        "const encoded = await webdriver(sessionPath('/screenshot'), {\n    method: 'GET', timeout: 60000,\n  });",
+        "const encoded = await webdriver(sessionPath('/screenshot'), { method: 'GET' });",
+      ),
+      workflowSources,
+    );
+  });
+  fail('native-window context switch outside restoration scope is rejected', () => {
+    const functionStart = harnessSource.indexOf('async function getNativeWindowRect()');
+    const functionEnd = harnessSource.indexOf('async function dismissKnownSafariEducation()');
+    const functionSource = harnessSource.slice(functionStart, functionEnd);
+    const switchStart = functionSource.indexOf("    await webdriver(sessionPath('/context'), {");
+    const switchEnd = functionSource.indexOf('    });', switchStart) + '    });'.length;
+    const withoutSwitch = `${functionSource.slice(0, switchStart)}${functionSource.slice(switchEnd)}`;
+    const mutatedFunction = withoutSwitch.replace(
+      '  let nativeWindow;',
+      `  await webdriver(sessionPath('/context'), {
+    body: { name: 'NATIVE_APP' }, timeout: 15000,
+  });
+  let nativeWindow;`,
+    );
+    validateHeadlessHarnessContract(
+      `${harnessSource.slice(0, functionStart)}${mutatedFunction}${harnessSource.slice(functionEnd)}`,
+      workflowSources,
+    );
+  });
+  fail('reset-barrier native switch outside restoration scope is rejected', () => {
+    const functionStart = harnessSource.indexOf('async function calibrationResetWdaBarrier(');
+    const functionEnd = harnessSource.indexOf('async function getNativeWindowRect()');
+    const functionSource = harnessSource.slice(functionStart, functionEnd);
+    const switchStart = functionSource.indexOf("    await webdriver(sessionPath('/context'), {");
+    const switchEnd = functionSource.indexOf('    });', switchStart) + '    });'.length;
+    const withoutSwitch = `${functionSource.slice(0, switchStart)}${functionSource.slice(switchEnd)}`;
+    const mutatedFunction = withoutSwitch.replace(
+      '  let nativeWindow;',
+      `  await webdriver(sessionPath('/context'), {
+    body: { name: 'NATIVE_APP' }, timeout: 15000,
+  });
+  let nativeWindow;`,
+    );
+    validateHeadlessHarnessContract(
+      `${harnessSource.slice(0, functionStart)}${mutatedFunction}${harnessSource.slice(functionEnd)}`,
+      workflowSources,
+    );
+  });
+  fail('missing calibration reset WDA barrier is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'calibrationResetWdaBarrier(calibrationWebContext, rect)',
+        'missingCalibrationResetBarrier(calibrationWebContext, rect)',
+      ),
+      workflowSources,
+    );
+  });
+  fail('missing calibration reset second snapshot is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replaceAll('secondSnapshot', 'missingReconciledSnapshot'),
+      workflowSources,
+    );
+  });
+  fail('calibration retry budget widening is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('retry < 2 && !pointValue', 'retry < 3 && !pointValue'),
       workflowSources,
     );
   });

@@ -15,15 +15,20 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  classifyCalibrationTapProxyResetReconciliation,
+  classifySafariEducationDismissalObservation,
   classifyTrustedTapAttempt,
   coordinateResidual,
   deriveCoordinateCalibration,
+  isExactCalibrationTapProxyReset,
   safariEducationButtonCandidates,
   safariEducationState,
   selectSafariEducationClose,
   singleNativeElementId,
   translateWebPoint,
   validateCoordinateCalibration,
+  validateCalibrationResetNativeWindow,
+  validateCalibrationResetSnapshot,
   validateSafariEducationLiveElement,
   validateStableViewport,
 } from './ios_safari_coordinates.mjs';
@@ -36,6 +41,10 @@ const GAMEPLAY_SHOT = resolve(OUTPUT, 'ios-safari-gameplay.png');
 const PAUSE_SHOT = resolve(OUTPUT, 'ios-safari-pause.png');
 const SAFARI_EDUCATION_SOURCE = resolve(OUTPUT, 'native-safari-education.xml');
 const SAFARI_EDUCATION_SHOT = resolve(OUTPUT, 'native-safari-education.png');
+const educationObservationSource = (attempt) => resolve(
+  OUTPUT,
+  `native-safari-education-after-${attempt === 1 ? 'element-click' : 'mobile-tap'}.xml`,
+);
 const APPIUM_URL = new URL(process.env.APPIUM_URL || 'http://127.0.0.1:4723/');
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const UDID = process.env.IOS_SIMULATOR_UDID || '';
@@ -62,6 +71,8 @@ const report = {
     closeCandidates: [],
     buttonCount: null,
     selectedButton: null,
+    dismissalAttempts: [],
+    contextRestoration: null,
     nativeSource: null,
     screenshot: null,
   },
@@ -223,34 +234,146 @@ async function clickScriptElement(script) {
 
 let coordinateCalibration = null;
 
-async function nativeTap(x, y) {
+async function nativeTap(x, y, timeout = 60000) {
   if (![x, y].every((value) => typeof value === 'number' && Number.isFinite(value))) {
     throw new Error(`native Safari tap coordinates must be finite: ${JSON.stringify({ x, y })}`);
   }
-  await execute('mobile: tap', [{ x: Math.round(x), y: Math.round(y) }]);
+  await webdriver(sessionPath('/execute/sync'), {
+    timeout,
+    body: { script: 'mobile: tap', args: [{ x: Math.round(x), y: Math.round(y) }] },
+  });
+}
+
+async function readCalibrationResetSnapshot(attemptId) {
+  const context = await webdriver(sessionPath('/context'), { method: 'GET', timeout: 15000 });
+  const value = await webdriver(sessionPath('/execute/sync'), {
+    timeout: 15000,
+    body: {
+      script: `
+        var attempt = window.__cinderlineIosCalibrationAttempts[arguments[0]];
+        var overlay = document.getElementById('__cinderlineIosCalibrationOverlay');
+        var r = overlay ? overlay.getBoundingClientRect() : null;
+        var s = overlay ? getComputedStyle(overlay) : null;
+        return {
+          attemptId: attempt ? attempt.id : null,
+          events: attempt ? attempt.events.slice() : null,
+          href: location.href,
+          ready: Boolean(window.CINDERLINE && window.CINDERLINE.ready === true),
+          viewport: {width:innerWidth,height:innerHeight,
+            visualViewport:window.visualViewport
+              ? {width:visualViewport.width,height:visualViewport.height,
+                offsetLeft:visualViewport.offsetLeft,offsetTop:visualViewport.offsetTop,
+                scale:visualViewport.scale}
+              : null},
+          overlay: overlay ? {id:overlay.id,attemptId:overlay.dataset.attemptId || null,
+            connected:overlay.isConnected,rect:{x:r.x,y:r.y,width:r.width,height:r.height},
+            style:{pointerEvents:s.pointerEvents,touchAction:s.touchAction,zIndex:s.zIndex}}
+            : null
+        };
+      `,
+      args: [attemptId],
+    },
+  });
+  return { context, ...value };
+}
+
+async function calibrationResetWdaBarrier(expectedContext, expectedNativeWindow) {
+  const contextBefore = await webdriver(sessionPath('/context'), { method: 'GET', timeout: 15000 });
+  if (contextBefore !== expectedContext) {
+    throw new Error('calibration reset WDA barrier started in a different web context');
+  }
+  let nativeWindow;
+  let operationError = null;
+  let restorationError = null;
+  let contextAfter = null;
+  try {
+    // A timed-out response can still leave the remote context switched. Keep
+    // the transition inside the exact restoration scope.
+    await webdriver(sessionPath('/context'), {
+      body: { name: 'NATIVE_APP' }, timeout: 15000,
+    });
+    nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET', timeout: 15000 });
+    validateCalibrationResetNativeWindow(expectedNativeWindow, nativeWindow);
+  } catch (error) {
+    operationError = error;
+  } finally {
+    try {
+      await webdriver(sessionPath('/context'), {
+        body: { name: expectedContext }, timeout: 15000,
+      });
+      contextAfter = await webdriver(sessionPath('/context'), {
+        method: 'GET', timeout: 15000,
+      });
+      if (contextAfter !== expectedContext) {
+        throw new Error('calibration reset WDA barrier did not restore the exact web context');
+      }
+    } catch (error) {
+      restorationError = error;
+    }
+  }
+  if (restorationError) {
+    throw new Error(`calibration reset WDA barrier context restoration failed: ${restorationError.message}`,
+      { cause: operationError || restorationError });
+  }
+  if (operationError) throw operationError;
+  return { contextBefore, nativeWindow, contextAfter };
 }
 
 async function getNativeWindowRect() {
-  const originalContext = await webdriver(sessionPath('/context'), { method: 'GET' });
+  const originalContext = await webdriver(sessionPath('/context'), { method: 'GET', timeout: 15000 });
   if (typeof originalContext !== 'string' || !originalContext || originalContext === 'NATIVE_APP') {
     throw new Error(`Safari calibration requires an active web context: ${JSON.stringify(originalContext)}`);
   }
-  await webdriver(sessionPath('/context'), { body: { name: 'NATIVE_APP' } });
+  let nativeWindow;
+  let operationError = null;
+  let restorationError = null;
+  let restoredContext = null;
   try {
-    return await webdriver(sessionPath('/window/rect'), { method: 'GET' });
+    await webdriver(sessionPath('/context'), {
+      body: { name: 'NATIVE_APP' }, timeout: 15000,
+    });
+    nativeWindow = await webdriver(sessionPath('/window/rect'), {
+      method: 'GET', timeout: 15000,
+    });
+  } catch (error) {
+    operationError = error;
   } finally {
-    await webdriver(sessionPath('/context'), { body: { name: originalContext } });
+    try {
+      await webdriver(sessionPath('/context'), {
+        body: { name: originalContext }, timeout: 15000,
+      });
+      restoredContext = await webdriver(sessionPath('/context'), {
+        method: 'GET', timeout: 15000,
+      });
+      if (restoredContext !== originalContext) {
+        throw new Error('Safari native-window read did not restore the exact web context');
+      }
+    } catch (error) {
+      restorationError = error;
+    }
   }
+  if (restorationError) {
+    throw new Error(`Safari native-window context restoration failed: ${restorationError.message}`,
+      { cause: operationError || restorationError });
+  }
+  if (operationError) throw operationError;
+  return nativeWindow;
 }
 
 async function dismissKnownSafariEducation() {
-  const originalContext = await webdriver(sessionPath('/context'), { method: 'GET' });
+  const originalContext = await webdriver(sessionPath('/context'), {
+    method: 'GET', timeout: 15000,
+  });
   if (typeof originalContext !== 'string' || !originalContext || originalContext === 'NATIVE_APP') {
     throw new Error(`Safari education check requires an active web context: ${JSON.stringify(originalContext)}`);
   }
   const record = report.nativeSafariEducation;
-  await webdriver(sessionPath('/context'), { body: { name: 'NATIVE_APP' } });
   try {
+    // Keep the switch inside the restoration scope: a timed-out response can
+    // leave the remote context changed even though the client saw an error.
+    await webdriver(sessionPath('/context'), {
+      body: { name: 'NATIVE_APP' }, timeout: 15000,
+    });
     record.checked = true;
     const source = await webdriver(sessionPath('/source'), { method: 'GET', timeout: 15000 });
     const state = safariEducationState(source);
@@ -265,7 +388,9 @@ async function dismissKnownSafariEducation() {
     record.screenshot = SAFARI_EDUCATION_SHOT.slice(ROOT.length + 1);
     report.screenshots.nativeSafariEducation = record.screenshot;
 
-    const nativeWindow = await webdriver(sessionPath('/window/rect'), { method: 'GET' });
+    const nativeWindow = await webdriver(sessionPath('/window/rect'), {
+      method: 'GET', timeout: 15000,
+    });
     record.nativeWindow = nativeWindow;
     const candidates = safariEducationButtonCandidates(source);
     record.buttonCount = candidates.length;
@@ -296,26 +421,135 @@ async function dismissKnownSafariEducation() {
       throw error;
     }
     record.closeRect = liveVerification.rect;
-    await webdriver(`${elementPath}/click`, { body: {} });
+    const settle = () => new Promise((done) => setTimeout(done, 750));
+    const observe = async (attemptNumber, attemptRecord) => {
+      const observation = {
+        source: null,
+        nativeWindow: null,
+        present: null,
+        markers: [],
+        selectedButton: null,
+        error: null,
+      };
+      attemptRecord.observation = observation;
+      try {
+        observation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
+          method: 'GET', timeout: 15000,
+        });
+        // Source is the final remote barrier before a possible fallback tap.
+        // Do not insert another WebDriver command between this snapshot and
+        // the local exact-state classification.
+        const observedSource = await webdriver(sessionPath('/source'), {
+          method: 'GET', timeout: 15000,
+        });
+        const sourcePath = educationObservationSource(attemptNumber);
+        writeFileSync(sourcePath, observedSource);
+        observation.source = sourcePath.slice(ROOT.length + 1);
+        const observedState = safariEducationState(observedSource);
+        observation.present = observedState.present;
+        observation.markers = observedState.markers;
+        observation.selectedButton = observedState.present
+          ? selectSafariEducationClose(
+            observedSource,
+            safariEducationButtonCandidates(observedSource),
+            observation.nativeWindow,
+          )
+          : null;
+        return classifySafariEducationDismissalObservation(
+          close,
+          observedSource,
+          nativeWindow,
+          observation.nativeWindow,
+          attemptNumber,
+          2,
+        );
+      } catch (error) {
+        observation.error = error.message;
+        throw error;
+      }
+    };
 
-    const deadline = Date.now() + 30000;
-    while (Date.now() < deadline) {
-      const requestTimeout = Math.max(1000, Math.min(15000, deadline - Date.now()));
-      const currentSource = await webdriver(sessionPath('/source'), {
-        method: 'GET', timeout: requestTimeout,
-      });
-      if (!safariEducationState(currentSource).present) {
+    const firstAttempt = {
+      attempt: 1,
+      method: 'element-click',
+      target: close,
+      commandCompleted: false,
+      observation: null,
+      outcome: 'started',
+      error: null,
+    };
+    record.dismissalAttempts.push(firstAttempt);
+    let fallbackTarget = null;
+    try {
+      await webdriver(`${elementPath}/click`, { body: {}, timeout: 15000 });
+      firstAttempt.commandCompleted = true;
+      await settle();
+      const firstResult = await observe(1, firstAttempt);
+      if (firstResult.outcome === 'dismissed') {
+        firstAttempt.outcome = 'dismissed';
         record.dismissed = true;
         return record;
       }
-      await new Promise((done) => setTimeout(done, 250));
+      firstAttempt.outcome = firstResult.outcome;
+      fallbackTarget = firstResult.selected;
+    } catch (error) {
+      firstAttempt.outcome = 'rejected';
+      firstAttempt.error = error.message;
+      throw error;
     }
-    throw new Error('known native Safari education remained visible after its Close control was activated');
+
+    const secondPoint = {
+      x: Math.round(fallbackTarget.rect.x + fallbackTarget.rect.width / 2),
+      y: Math.round(fallbackTarget.rect.y + fallbackTarget.rect.height / 2),
+    };
+    const secondAttempt = {
+      attempt: 2,
+      method: 'mobile-tap',
+      target: fallbackTarget,
+      point: secondPoint,
+      commandCompleted: false,
+      observation: null,
+      outcome: 'started',
+      error: null,
+    };
+    record.dismissalAttempts.push(secondAttempt);
+    try {
+      await nativeTap(secondPoint.x, secondPoint.y, 15000);
+      secondAttempt.commandCompleted = true;
+      await settle();
+      const secondResult = await observe(2, secondAttempt);
+      if (secondResult.outcome !== 'dismissed') {
+        throw new Error(`unexpected Safari education dismissal result: ${secondResult.outcome}`);
+      }
+      secondAttempt.outcome = 'dismissed';
+      record.dismissed = true;
+      return record;
+    } catch (error) {
+      secondAttempt.outcome = 'rejected';
+      secondAttempt.error = error.message;
+      throw error;
+    }
   } catch (error) {
     record.error = error.message;
     throw error;
   } finally {
-    await webdriver(sessionPath('/context'), { body: { name: originalContext } });
+    const restoration = { expected: originalContext, actual: null, restored: false, error: null };
+    record.contextRestoration = restoration;
+    try {
+      await webdriver(sessionPath('/context'), {
+        body: { name: originalContext }, timeout: 15000,
+      });
+      restoration.actual = await webdriver(sessionPath('/context'), {
+        method: 'GET', timeout: 15000,
+      });
+      restoration.restored = restoration.actual === originalContext;
+      if (!restoration.restored) {
+        throw new Error(`Safari education context restoration mismatch: ${JSON.stringify(restoration)}`);
+      }
+    } catch (error) {
+      restoration.error = error.message;
+      throw error;
+    }
   }
 }
 
@@ -327,6 +561,20 @@ async function calibrateCoordinates(stage) {
     throw new Error(`Appium returned an invalid native window rect: ${JSON.stringify(rect)}`);
   }
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  const calibrationWebContext = await webdriver(sessionPath('/context'), {
+    method: 'GET', timeout: 15000,
+  });
+  if (typeof calibrationWebContext !== 'string' || !calibrationWebContext
+      || calibrationWebContext === 'NATIVE_APP') {
+    throw new Error(`Safari calibration requires an exact web context: ${JSON.stringify(calibrationWebContext)}`);
+  }
+  const calibrationHref = await webdriver(sessionPath('/execute/sync'), {
+    timeout: 15000,
+    body: { script: 'return location.href;', args: [] },
+  });
+  if (typeof calibrationHref !== 'string' || !calibrationHref) {
+    throw new Error(`Safari calibration requires a stable URL: ${JSON.stringify(calibrationHref)}`);
+  }
   const nativePoints = [
     { x: Math.round(rect.x + rect.width * 0.26), y: Math.round(rect.y + rect.height * 0.34) },
     { x: Math.round(rect.x + rect.width * 0.74), y: Math.round(rect.y + rect.height * 0.66) },
@@ -350,7 +598,8 @@ async function calibrateCoordinates(stage) {
       throw new Error(`Safari returned an invalid CSS viewport: ${JSON.stringify(viewport)}`);
     }
     report.coordinateCalibrationStages.push({
-      stage, nativeWindow: rect, webViewport: viewport, expectedNativePoints: nativePoints,
+      stage, nativeWindow: rect, webViewport: viewport, webContext: calibrationWebContext,
+      href: calibrationHref, expectedNativePoints: nativePoints,
     });
     const webPoints = [];
     const settle = () => new Promise((done) => setTimeout(done, 750));
@@ -380,6 +629,7 @@ async function calibrateCoordinates(stage) {
           window.__cinderlineIosCalibrationAttempts[attemptId] = attempt;
           var overlay = document.createElement('div');
           overlay.id = '__cinderlineIosCalibrationOverlay';
+          overlay.dataset.attemptId = attemptId;
           overlay.setAttribute('aria-hidden', 'true');
           Object.assign(overlay.style, {
             position:'fixed',inset:'0',zIndex:'2147483647',pointerEvents:'auto',
@@ -413,31 +663,87 @@ async function calibrateCoordinates(stage) {
           });
           document.documentElement.appendChild(overlay);
           var r=overlay.getBoundingClientRect(),s=getComputedStyle(overlay);
-          return {connected:overlay.isConnected,rect:{x:r.x,y:r.y,width:r.width,height:r.height},
+          return {id:overlay.id,attemptId:overlay.dataset.attemptId,
+            connected:overlay.isConnected,rect:{x:r.x,y:r.y,width:r.width,height:r.height},
             style:{pointerEvents:s.pointerEvents,touchAction:s.touchAction,zIndex:s.zIndex}};
         `);
         const recordedAttempt = {
           stage, point: index + 1, retry: retry + 1, attemptId,
           nativePoint: nativePoints[index], webViewport: attemptViewport,
-          overlay, outcome: 'started', nativeTapCompleted: false, events: [],
+          overlay, outcome: 'started', nativeTapCompleted: false,
+          browserDeliveryObserved: false, transportOutcome: null,
+          reconciliation: null, events: [],
         };
         report.coordinateCalibrationAttempts.push(recordedAttempt);
         try {
-          await nativeTap(nativePoints[index].x, nativePoints[index].y);
-          recordedAttempt.nativeTapCompleted = true;
-          await waitForScript(`
-            var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
-            return attempt && attempt.events.some(function (event) {
-              return event.type === 'pointerup' || event.type === 'pointercancel';
-            }) ? true : null;
-          `, 5000).catch(() => null);
-          await new Promise((done) => setTimeout(done, 150));
-          const events = await execute(`
-            var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
-            return attempt ? attempt.events.slice() : [];
-          `);
-          recordedAttempt.events = events;
-          const classified = classifyTrustedTapAttempt(events, attemptId, retry + 1, 2);
+          let nativeTapError = null;
+          try {
+            await nativeTap(nativePoints[index].x, nativePoints[index].y);
+            recordedAttempt.nativeTapCompleted = true;
+            recordedAttempt.transportOutcome = 'response-complete';
+          } catch (error) {
+            nativeTapError = error;
+          }
+          let classified;
+          if (nativeTapError) {
+            if (!isExactCalibrationTapProxyReset(nativeTapError, sessionId)) throw nativeTapError;
+            recordedAttempt.transportOutcome = 'unknown-response-reset';
+            recordedAttempt.transportError = nativeTapError.message;
+            const reconciliation = {
+              firstSnapshot: null,
+              barrierStartedAt: null,
+              wdaBarrier: null,
+              barrierCompletedAt: null,
+              secondSnapshot: null,
+              decision: 'started',
+            };
+            recordedAttempt.reconciliation = reconciliation;
+            const expectedSnapshot = {
+              attemptId,
+              context: calibrationWebContext,
+              href: calibrationHref,
+              viewport: attemptViewport,
+              overlay,
+            };
+            const firstSnapshot = await readCalibrationResetSnapshot(attemptId);
+            reconciliation.firstSnapshot = firstSnapshot;
+            validateCalibrationResetSnapshot(firstSnapshot, expectedSnapshot);
+            const barrierStartedAt = new Date().toISOString();
+            reconciliation.barrierStartedAt = barrierStartedAt;
+            const barrier = await calibrationResetWdaBarrier(calibrationWebContext, rect);
+            reconciliation.wdaBarrier = barrier;
+            await settle();
+            const secondSnapshot = await readCalibrationResetSnapshot(attemptId);
+            reconciliation.secondSnapshot = secondSnapshot;
+            classified = classifyCalibrationTapProxyResetReconciliation(
+              firstSnapshot,
+              secondSnapshot,
+              expectedSnapshot,
+              retry + 1,
+              2,
+            );
+            recordedAttempt.events = secondSnapshot.events;
+            recordedAttempt.browserDeliveryObserved = classified.outcome === 'complete';
+            reconciliation.barrierCompletedAt = new Date().toISOString();
+            reconciliation.decision = classified.outcome === 'complete'
+              ? 'observed-complete'
+              : `retry-${classified.reason}`;
+          } else {
+            await waitForScript(`
+              var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
+              return attempt && attempt.events.some(function (event) {
+                return event.type === 'pointerup' || event.type === 'pointercancel';
+              }) ? true : null;
+            `, 5000).catch(() => null);
+            await new Promise((done) => setTimeout(done, 150));
+            const events = await execute(`
+              var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
+              return attempt ? attempt.events.slice() : [];
+            `);
+            recordedAttempt.events = events;
+            classified = classifyTrustedTapAttempt(events, attemptId, retry + 1, 2);
+            recordedAttempt.browserDeliveryObserved = classified.outcome === 'complete';
+          }
           if (classified.outcome === 'retry') {
             recordedAttempt.outcome = classified.reason;
             continue;
@@ -445,6 +751,10 @@ async function calibrateCoordinates(stage) {
           pointValue = classified.point;
           recordedAttempt.outcome = 'complete';
         } catch (error) {
+          if (recordedAttempt.reconciliation
+              && recordedAttempt.reconciliation.decision === 'started') {
+            recordedAttempt.reconciliation.decision = 'rejected';
+          }
           if (recordedAttempt.events.length === 0) {
             recordedAttempt.events = await execute(`
               var attempt = window.__cinderlineIosCalibrationAttempts[${JSON.stringify(attemptId)}];
@@ -536,7 +846,11 @@ const up = () => ({ type: 'pointerUp', button: 0 });
 const pause = (duration) => ({ type: 'pause', duration });
 
 async function screenshot(path) {
-  const encoded = await webdriver(sessionPath('/screenshot'), { method: 'GET' });
+  // WDA screenshots have taken more than 40 seconds on the hosted runner;
+  // retain that measured margin while avoiding webdriver's 15-minute default.
+  const encoded = await webdriver(sessionPath('/screenshot'), {
+    method: 'GET', timeout: 60000,
+  });
   writeFileSync(path, Buffer.from(encoded, 'base64'));
 }
 
