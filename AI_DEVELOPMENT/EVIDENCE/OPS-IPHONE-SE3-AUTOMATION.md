@@ -398,52 +398,118 @@ supports a stale keep-alive boundary race, not unsupported rotation. This is a
 source-and-log inference; the failed POST never reached a WDA handler, so no
 mutation side effect is claimed.
 
-The follow-up routes all three landscape/portrait transitions through one
-`ensureOrientation` path. A bounded GET preflight drains a stale socket and
-avoids POST when the exact target is already observed; only the exact
-current-session GET reset may receive one read-only retry. A completed POST is
-followed by a strict GET verification. Only the exact current-session POST
-reset enters ambiguous-response reconciliation: after fixed settles, two
-bounded GET observations must show the target (complete without resend) or the
-same opposite orientation (one resend on mutation attempt one only). A target
-that changes away, unstable/invalid state, any non-exact error, or stable
-opposite state after attempt two fails. There is no polling loop and no blind
-POST retry; the report progressively records every read, mutation, reset,
-decision and error. Pure decision tests and static mutation controls enforce
-the exact error grammar, strict orientation values, GET budget two, mutation
+The revision later published as exact head
+`0d3de5d5ffea5485d233d8d588bce8475a1ab19e` routed all three
+landscape/portrait transitions through one
+`ensureOrientation` path. A bounded GET preflight drained a stale socket and
+avoided POST when the exact target was already observed; only the exact
+current-session GET reset could receive one read-only retry. A completed POST
+was followed by a strict GET verification. Only the exact current-session POST
+reset entered ambiguous-response reconciliation: after fixed settles, two
+bounded GET observations had to show the target (complete without resend) or
+the same opposite orientation (one resend on mutation attempt one only). A
+target that changed away, unstable/invalid state, any non-exact error, or
+stable opposite state after attempt two failed. There was no polling loop and
+no blind POST retry; the report progressively recorded every read, mutation,
+reset, decision and error. Pure decision tests and static mutation controls
+enforced the exact error grammar, strict orientation values, GET budget two, mutation
 budget two, three helper call sites, GET-before-POST ordering, two reset
-observations and post-success verification. The expanded battery passes
-197/197 locally. This correction has not yet run on Xcode/iOS; a fresh exact-
-head Simulator pass remains mandatory.
+observations and post-success verification. The expanded battery passed
+197/197 locally before the exact-head executions described below.
 
 The two successful a68 product artifacts both dismissed the education UI on
 their first element click, while artifact `9179368693` had already proved that
 the same verified element click can return HTTP 200 without dismissing it. A
 conditional second actuation therefore cannot be execution-verified
 deterministically and leaves two possible native actions in one dismissal.
-The current follow-up removes that branch. When the complete recognized native
-education is present, it retains the strict source-derived selector and exact
-live rect/enabled/displayed verification, then reads the native window and one
-fresh full source as the final remote barrier. A pure helper requires the
-window and unique control snapshot to match every verified field and derives
-the rounded center from that fresh rect. The harness sends exactly one bounded
-`mobile: tap`, records delivery as unknown until its response completes, and
-takes one post-tap window/source observation. Only complete marker absence may
+That revision removed that branch. When the complete recognized native
+education was present, it retained the strict source-derived selector and exact
+live rect/enabled/displayed verification, then read the native window and one
+fresh full source as the final remote barrier. A pure helper required the
+window and unique control snapshot to match every verified field and derived
+the rounded center from that fresh rect. The harness sent exactly one bounded
+`mobile: tap`, recorded delivery as unknown until its response completed, and
+took one post-tap window/source observation. Only complete marker absence could
 set `dismissed:true`; persistence, changed or ambiguous state, transport
 failure, a literal/cached point, an element click, a loop, direct tap bypass or
-any second actuation fails closed. Exact WEBVIEW restoration remains bounded
-and read back.
+any second actuation failed closed. Exact WEBVIEW restoration remained bounded
+and was read back.
 
 The combined XML, geometry, dismissal, transport, event, viewport,
-orientation and headless contract battery passes 206/206 locally. This is
-source evidence only. Before merge, one fresh exact-head artifact must record
-`checked:true`, `present:true`, `dismissed:true`, exactly one dismissal attempt
-with method `source-derived-mobile-tap`, its pre/post sources, marker absence,
-`actuationStarted:true`, `delivery:response-complete`,
-`commandCompleted:true`, `outcome:dismissed`, null activation/actuation/
-observation errors, successful exact context restoration, 30/30 product checks and green
-aggregate F3. An artifact with `present:false` can prove the product journey
-but not this new native actuation.
+orientation and headless contract battery passed 206/206 locally before exact-
+head execution. Its acceptance target required `checked:true`, `present:true`,
+`dismissed:true`, one `source-derived-mobile-tap`, marker absence, complete
+delivery, null phase errors, exact context restoration, 30/30 product checks
+and green aggregate F3. The executions below disproved both the deterministic
+single-tap assumption and the 15-second orientation POST budget.
+
+## Exact-head single-tap and orientation-timeout result (2026-08-13)
+
+PR #9 exact head `0d3de5d5ffea5485d233d8d588bce8475a1ab19e`
+produced two Floor runs and one round-comparison run. Floor runs
+`31703811954` and `31703841207` each passed F2, F5, core F3 and the complete
+WebKit journey. Their required Mobile Safari jobs `94460020820` and
+`94460501803` failed, so aggregate F3 jobs `94463581675` and `94463384345`
+also failed. Round-comparison run `31703812015`, job `94459204494`, passed.
+
+- Run `31703811954`, artifact `9182808851`, records the complete recognized
+  education and exactly one `source-derived-mobile-tap` at native `(630,193)`.
+  Its response completed, the post-source had no education markers,
+  `dismissed:true`, all attempt errors were null, and the exact WEBVIEW was
+  restored. The first calibration then completed with zero independent
+  residual and the journey recorded 21 checks. The gameplay portrait POST
+  began at `13:27:52.964`; device and interface orientation changed to portrait
+  at `13:28:01.959` and `13:28:02.033`; WDA returned HTTP 200 at
+  `13:28:08.371`, and Appium completed HTTP 200 at `13:28:08.630`, after
+  15.646 seconds. Because this was 646 ms beyond the harness's 15-second
+  client budget, the report conservatively recorded `commandCompleted:false`
+  and `outcome:rejected-non-reset`. It did not perform a blind retry or claim
+  the third orientation transition, second calibration, persistence, soak or
+  30/30 product completion.
+
+- Run `31703841207`, artifact `9182755935`, records the same unique
+  `xmark.circle.fill` / `Close` control at `{x:616,y:180,width:27,height:26}`
+  and exactly one source-derived tap at `(630,193)`. Appium issued one
+  `/wda/tap`, XCTest synthesized it, and HTTP 200 completed, but the complete
+  education remained. The before/after XML files are byte-identical with
+  SHA-256 `0a692d3dd54261feb6f7b88b31dce0cbe205737f8eb145fd4505f260d8aa0981`.
+  The report records `checked:true`, `present:true`, `dismissed:false`,
+  response-complete delivery, exact WEBVIEW restoration and `checks:[]`.
+  No element click, second tap, calibration or product interaction occurred.
+
+Together these artifacts prove that the single coordinate tap is
+nondeterministically effective and that 15 seconds is below an observed valid
+orientation response. Neither artifact is a complete product pass.
+
+The follow-up keeps the source-derived mobile tap as attempt one. A second and
+final actuation is authorized only when attempt one's response completed and
+one fresh full source plus native-window observation proves the complete
+popover and unique control are byte-for-byte and field-for-field unchanged.
+The harness then derives the accessibility name from that fresh source,
+queries a new element identity, verifies its rect/enabled/displayed state
+sequentially against the fresh target, and performs exactly one
+`fresh-element-click`. Changed, partial, ambiguous or malformed observations,
+unknown tap delivery, stale identities, live mismatch, click error,
+persistence after attempt two, loops and any third actuation fail closed.
+
+Orientation GET retains its 15-second read budget. Orientation POST uses an
+explicit 30-second mutation budget, above the observed 15.646-second valid
+response. Only the exact current-session, self-generated 30-second POST timeout
+is treated as response-unknown: two bounded post-settle GET observations must
+prove the target, and no POST resend is allowed after that client timeout.
+Changed, unstable or stable-opposite observations fail. The separate exact
+proxy-reset grammar retains its existing bounded reconciliation.
+
+The combined battery passes 256/256 locally. Before merge, all required checks
+must be green and one exact-head artifact must complete all three orientation
+transitions, both zero-residual calibrations, 30/30 product checks,
+persistence, soak, exact WEBVIEW restoration and valid screenshots. At least
+one present-education artifact must also execute the fallback: attempt one
+`source-derived-mobile-tap` with response-complete delivery,
+`outcome:fallback-eligible` and `rawSourceUnchanged:true`, followed by attempt
+two `fresh-element-click` with one fresh match, exact live verification,
+response-complete delivery, marker absence and `outcome:dismissed`. A
+one-attempt dismissal proves the primary path but not the new fallback.
 
 The Xcode 26.2 WebDriverAgent action parser requires every W3C pointer source
 to begin with `pointerMove`; a delayed second source beginning with `pause` is

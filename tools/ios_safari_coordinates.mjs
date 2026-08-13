@@ -357,6 +357,46 @@ export function validateSafariEducationControlSnapshot(
   };
 }
 
+export function classifySafariEducationPrimaryObservation(
+  expected,
+  beforeSource,
+  afterSource,
+  expectedWindow,
+  currentWindow,
+) {
+  sameRect(expectedWindow, currentWindow, 'native Safari education window');
+  validateSafariEducationControlSnapshot(
+    expected,
+    beforeSource,
+    expectedWindow,
+    expectedWindow,
+  );
+  const state = safariEducationState(afterSource);
+  if (!state.present) {
+    return {
+      outcome: 'dismissed',
+      state,
+      selected: null,
+      rawSourceUnchanged: false,
+    };
+  }
+  if (afterSource !== beforeSource) {
+    throw new Error('native Safari education source changed after the primary mobile tap');
+  }
+  const { selected } = validateSafariEducationControlSnapshot(
+    expected,
+    afterSource,
+    expectedWindow,
+    currentWindow,
+  );
+  return {
+    outcome: 'fallback-fresh-element-click',
+    state,
+    selected,
+    rawSourceUnchanged: true,
+  };
+}
+
 export function requireSafariEducationDismissedSnapshot(
   expected,
   source,
@@ -372,7 +412,7 @@ export function requireSafariEducationDismissedSnapshot(
     expectedWindow,
     currentWindow,
   );
-  throw new Error(`native Safari education remained after its single source-derived tap: ${selected.name}`);
+  throw new Error(`native Safari education remained after its bounded mobile-tap and fresh-element-click attempts: ${selected.name}`);
 }
 
 export function isExactCalibrationTapProxyReset(error, currentSessionId) {
@@ -393,6 +433,13 @@ export function isExactOrientationProxyReset(error, currentSessionId, method) {
       || !/^[A-Za-z0-9-]+$/.test(currentSessionId)
       || (method !== 'GET' && method !== 'POST')) return false;
   return error.message === `WebDriver ${method} session/${currentSessionId}/orientation: Could not proxy command to the remote server. Original error: read ECONNRESET`;
+}
+
+export function isExactOrientationPostClientTimeout(error, currentSessionId, timeoutMs) {
+  if (!(error instanceof Error) || typeof currentSessionId !== 'string'
+      || !/^[A-Za-z0-9-]+$/.test(currentSessionId)
+      || timeoutMs !== 30000) return false;
+  return error.message === `WebDriver POST session/${currentSessionId}/orientation exceeded ${timeoutMs} ms`;
 }
 
 export function classifyOrientationObservation(target, observed) {
@@ -444,6 +491,31 @@ export function classifyOrientationProxyResetReconciliation(
     first: first.observed,
     second: second.observed,
   };
+}
+
+export function classifyOrientationPostTimeoutReconciliation(
+  target,
+  firstObserved,
+  secondObserved,
+) {
+  const first = classifyOrientationObservation(target, firstObserved);
+  const second = classifyOrientationObservation(target, secondObserved);
+  if (!second.mutationRequired) {
+    return {
+      outcome: 'complete',
+      reason: first.mutationRequired ? 'target-arrived' : 'target-stable',
+      retry: false,
+      first: first.observed,
+      second: second.observed,
+    };
+  }
+  if (!first.mutationRequired) {
+    throw new Error('orientation changed away from the target during client-timeout reconciliation');
+  }
+  if (first.observed !== second.observed) {
+    throw new Error('orientation did not remain stable during client-timeout reconciliation');
+  }
+  throw new Error('orientation remained opposite after a response-unknown client timeout; resend is prohibited');
 }
 
 export function validateCalibrationResetSnapshot(snapshot, expected) {
@@ -731,18 +803,19 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     throw new Error('Mobile Safari education must select from source and query only its decoded Button name');
   }
   for (const endpoint of ['/rect', '/enabled', '/displayed']) {
-    const occurrences = sourceText.split(`\${elementPath}${endpoint}`).length - 1;
-    if (occurrences !== 1) {
-      throw new Error(`Mobile Safari education must verify selected Button ${endpoint} exactly once`);
+    const initialOccurrences = sourceText.split(`\${initialElementPath}${endpoint}`).length - 1;
+    const fallbackOccurrences = sourceText.split(`\${fallbackElementPath}${endpoint}`).length - 1;
+    if (initialOccurrences !== 1 || fallbackOccurrences !== 1) {
+      throw new Error(`Mobile Safari education must verify both selected Button identities ${endpoint} exactly once`);
     }
   }
   if (sourceText.includes('/attribute/name') || sourceText.includes('/attribute/label')
       || sourceText.includes('await Promise.all([')) {
     throw new Error('Mobile Safari education must not multiply diagnostic native metadata requests');
   }
-  const liveRecord = sourceText.indexOf('record.selectedButton.liveVerification = liveVerification;');
-  const firstLiveRead = sourceText.indexOf('liveVerification.rect = await webdriver');
-  const liveValidation = sourceText.indexOf('validateSafariEducationLiveElement(close, liveVerification);');
+  const liveRecord = sourceText.indexOf('record.selectedButton.liveVerification = initialLiveVerification;');
+  const firstLiveRead = sourceText.indexOf('initialLiveVerification.rect = await webdriver');
+  const liveValidation = sourceText.indexOf('validateSafariEducationLiveElement(close, initialLiveVerification);');
   if (liveRecord < 0 || firstLiveRead < 0 || liveValidation < 0
       || liveRecord >= firstLiveRead || firstLiveRead >= liveValidation) {
     throw new Error('Mobile Safari selected Button must be recorded and source-verified before activation');
@@ -771,21 +844,22 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     "body: { name: 'NATIVE_APP' }, timeout: 15000,",
   );
   const educationTapCount = (
-    dismissSource.match(/await nativeTap\(attempt\.point\.x, attempt\.point\.y, 15000\);/g) || []
+    dismissSource.match(/await nativeTap\(mobileAttempt\.point\.x, mobileAttempt\.point\.y, 15000\);/g) || []
   ).length;
-  const attemptRecord = dismissSource.indexOf('record.dismissalAttempts.push(attempt);');
+  const allEducationTapCount = (dismissSource.match(/\bnativeTap\s*\(/g) || []).length;
+  const attemptRecord = dismissSource.indexOf('record.dismissalAttempts.push(mobileAttempt);');
   const activationWindow = dismissSource.indexOf(
     "activation.nativeWindow = await webdriver(sessionPath('/window/rect')",
   );
   const activationSource = dismissSource.indexOf(
-    "const activationSource = await webdriver(sessionPath('/source')",
+    "activationSource = await webdriver(sessionPath('/source')",
   );
   const activationClassification = dismissSource.indexOf(
     'const activationResult = validateSafariEducationControlSnapshot(',
   );
-  const activationPoint = dismissSource.indexOf('attempt.point = activationResult.point;');
+  const activationPoint = dismissSource.indexOf('mobileAttempt.point = activationResult.point;');
   const educationTap = dismissSource.indexOf(
-    'await nativeTap(attempt.point.x, attempt.point.y, 15000);',
+    'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
   );
   const observeWindow = dismissSource.indexOf(
     "observation.nativeWindow = await webdriver(sessionPath('/window/rect')",
@@ -794,7 +868,7 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     "const observedSource = await webdriver(sessionPath('/source')",
   );
   const observeClassification = dismissSource.indexOf(
-    'requireSafariEducationDismissedSnapshot(',
+    'classifySafariEducationPrimaryObservation(',
   );
   const restorationPost = dismissSource.indexOf(
     "await webdriver(sessionPath('/context'), {\n        body: { name: originalContext }, timeout: 15000,",
@@ -810,24 +884,118 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     'await webdriver(',
     educationTap,
   );
+  const fallbackRecord = dismissSource.indexOf('record.dismissalAttempts.push(fallbackAttempt);');
+  const mobileFailureRecord = dismissSource.indexOf('mobileAttempt.error = error.message;');
+  const mobileFailureRethrow = dismissSource.indexOf('throw error;', mobileFailureRecord);
+  const fallbackQuery = dismissSource.indexOf('const fallbackElements = await webdriver');
+  const fallbackLiveRect = dismissSource.indexOf('fallbackLiveVerification.rect = await webdriver');
+  const fallbackLiveEnabled = dismissSource.indexOf('fallbackLiveVerification.enabled = await webdriver');
+  const fallbackLiveDisplayed = dismissSource.indexOf('fallbackLiveVerification.displayed = await webdriver');
+  const fallbackLiveDisplayedWebdriver = dismissSource.indexOf(
+    'await webdriver',
+    fallbackLiveDisplayed,
+  );
+  const fallbackValidation = dismissSource.indexOf(
+    'validateSafariEducationLiveElement(fallbackTarget, fallbackLiveVerification);',
+  );
+  const fallbackClick = dismissSource.indexOf(
+    'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
+  );
+  const fallbackLiveGuard = dismissSource.slice(fallbackValidation, fallbackClick);
+  const fallbackClickCount = (
+    dismissSource.match(/await webdriver\(`\$\{fallbackElementPath\}\/click`, \{ body: \{\}, timeout: 15000 \}\);/g)
+    || []
+  ).length;
+  const clickEndpointCount = (dismissSource.match(/\/click/g) || []).length;
+  const mobileCommandCompleted = dismissSource.indexOf(
+    'mobileAttempt.commandCompleted = true;',
+    educationTap,
+  );
+  const mobileDeliveryCompleted = dismissSource.indexOf(
+    "mobileAttempt.delivery = 'response-complete';",
+    mobileCommandCompleted,
+  );
+  const mobileCompletedAt = dismissSource.indexOf(
+    'mobileAttempt.completedAt = new Date().toISOString();',
+    mobileDeliveryCompleted,
+  );
+  const mobilePostActuation = dismissSource.indexOf(
+    "mobileAttempt.phase = 'post-actuation';",
+    mobileCompletedAt,
+  );
+  const fallbackCommandCompleted = dismissSource.indexOf(
+    'fallbackAttempt.commandCompleted = true;',
+    fallbackClick,
+  );
+  const fallbackDeliveryCompleted = dismissSource.indexOf(
+    "fallbackAttempt.delivery = 'response-complete';",
+    fallbackCommandCompleted,
+  );
+  const fallbackCompletedAt = dismissSource.indexOf(
+    'fallbackAttempt.completedAt = new Date().toISOString();',
+    fallbackDeliveryCompleted,
+  );
+  const fallbackPostActuation = dismissSource.indexOf(
+    "fallbackAttempt.phase = 'post-actuation';",
+    fallbackCompletedAt,
+  );
+  const lastWebdriverBeforeFallbackClick = dismissSource.lastIndexOf(
+    'await webdriver(',
+    fallbackClick - 1,
+  );
+  const finalWindow = dismissSource.indexOf(
+    "fallbackObservation.nativeWindow = await webdriver(sessionPath('/window/rect')",
+  );
+  const finalSource = dismissSource.indexOf(
+    "const finalSource = await webdriver(sessionPath('/source')",
+  );
+  const finalProof = dismissSource.lastIndexOf('requireSafariEducationDismissedSnapshot(');
   if (educationTapCount !== 1
+      || allEducationTapCount !== 1
       || !dismissSource.includes('requireSafariEducationDismissedSnapshot(')
       || !dismissSource.includes('validateSafariEducationControlSnapshot(')
+      || !dismissSource.includes('classifySafariEducationPrimaryObservation(')
       || !dismissSource.includes("method: 'source-derived-mobile-tap'")
+      || !dismissSource.includes("method: 'fresh-element-click'")
       || !dismissSource.includes("phase: 'pre-actuation'")
       || !dismissSource.includes('actuationStarted: false')
       || !dismissSource.includes("delivery: 'not-started'")
       || !dismissSource.includes('actuationError: null')
-      || !dismissSource.includes("attempt.phase = 'actuation';")
-      || !dismissSource.includes('attempt.actuationStarted = true;')
-      || !dismissSource.includes("attempt.delivery = 'unknown';")
-      || !dismissSource.includes("attempt.delivery = 'response-complete';")
-      || !dismissSource.includes("attempt.phase = 'post-actuation';")
-      || !dismissSource.includes("if (attempt.phase === 'pre-actuation')")
-      || !dismissSource.includes("else if (attempt.phase === 'actuation')")
-      || !dismissSource.includes("else if (attempt.phase === 'post-actuation')")
-      || !dismissSource.includes('attempt.point = activationResult.point;')
-      || (dismissSource.match(/record\.dismissalAttempts\.push\(/g) || []).length !== 1
+      || !dismissSource.includes("mobileAttempt.phase = 'actuation';")
+      || !dismissSource.includes('mobileAttempt.actuationStarted = true;')
+      || !dismissSource.includes("mobileAttempt.delivery = 'unknown';")
+      || !dismissSource.includes("mobileAttempt.delivery = 'response-complete';")
+      || !dismissSource.includes("mobileAttempt.phase = 'post-actuation';")
+      || !dismissSource.includes("if (mobileAttempt.phase === 'pre-actuation')")
+      || !dismissSource.includes("else if (mobileAttempt.phase === 'actuation')")
+      || !dismissSource.includes("else if (mobileAttempt.phase === 'post-actuation')")
+      || !dismissSource.includes('mobileAttempt.point = activationResult.point;')
+      || !dismissSource.includes('record.actuationsStarted += 1;')
+      || (dismissSource.match(/record\.actuationsStarted \+= 1;/g) || []).length !== 2
+      || !dismissSource.includes('record.fallbackAuthorized = {')
+      || !dismissSource.includes('rawSourceUnchanged: observation.rawSourceUnchanged,')
+      || !sourceText.includes('maxActuations: 2,')
+      || !dismissSource.includes('observation.sourceSha256 = sourceSha256(observedSource);')
+      || !dismissSource.includes("fallbackAttempt.phase = 'actuation';")
+      || !dismissSource.includes('fallbackAttempt.actuationStarted = true;')
+      || !dismissSource.includes("fallbackAttempt.delivery = 'unknown';")
+      || !dismissSource.includes("fallbackAttempt.delivery = 'response-complete';")
+      || !dismissSource.includes("fallbackAttempt.phase = 'post-actuation';")
+      || !dismissSource.includes("if (fallbackAttempt.phase === 'pre-actuation')")
+      || !dismissSource.includes("else if (fallbackAttempt.phase === 'actuation')")
+      || !dismissSource.includes("else if (fallbackAttempt.phase === 'post-actuation')")
+      || !dismissSource.includes('authorizedByAttempt: 1,')
+      || !dismissSource.includes('const fallbackElementId = singleNativeElementId(fallbackElements);')
+      || !dismissSource.includes("body: { using: 'accessibility id', value: fallbackTarget.name },")
+      || !fallbackLiveGuard.includes(`} catch (error) {
+        fallbackLiveVerification.error = error.message;
+        throw error;
+      }`)
+      || (dismissSource.match(/mobileAttempt\.commandCompleted = true;/g) || []).length !== 1
+      || (dismissSource.match(/mobileAttempt\.completedAt = new Date\(\)\.toISOString\(\);/g) || []).length !== 1
+      || (dismissSource.match(/fallbackAttempt\.commandCompleted = true;/g) || []).length !== 1
+      || (dismissSource.match(/fallbackAttempt\.completedAt = new Date\(\)\.toISOString\(\);/g) || []).length !== 1
+      || (dismissSource.match(/record\.dismissalAttempts\.push\(/g) || []).length !== 2
       || attemptRecord < 0
       || activationWindow < 0
       || activationSource < 0
@@ -837,20 +1005,64 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || observeWindow < 0
       || observeSource < 0
       || observeClassification < 0
+      || fallbackRecord < 0
+      || mobileFailureRecord < 0
+      || mobileFailureRethrow < 0
+      || fallbackQuery < 0
+      || fallbackLiveRect < 0
+      || fallbackLiveEnabled < 0
+      || fallbackLiveDisplayed < 0
+      || fallbackValidation < 0
+      || fallbackClick < 0
+      || fallbackClickCount !== 1
+      || clickEndpointCount !== 1
+      || mobileCommandCompleted < 0
+      || mobileDeliveryCompleted < 0
+      || mobileCompletedAt < 0
+      || mobilePostActuation < 0
+      || fallbackCommandCompleted < 0
+      || fallbackDeliveryCompleted < 0
+      || fallbackCompletedAt < 0
+      || fallbackPostActuation < 0
+      || finalWindow < 0
+      || finalSource < 0
+      || finalProof < 0
       || attemptRecord >= activationWindow
       || activationWindow >= activationSource
       || activationSource >= activationClassification
       || activationClassification >= activationPoint
       || activationPoint >= educationTap
+      || educationTap >= mobileCommandCompleted
+      || mobileCommandCompleted >= mobileDeliveryCompleted
+      || mobileDeliveryCompleted >= mobileCompletedAt
+      || mobileCompletedAt >= mobilePostActuation
+      || mobilePostActuation >= observeWindow
       || educationTap >= observeWindow
       || observeWindow >= observeSource
       || observeSource >= observeClassification
+      || observeClassification >= fallbackRecord
+      || mobileFailureRecord >= mobileFailureRethrow
+      || mobileFailureRethrow >= fallbackRecord
+      || fallbackRecord >= fallbackQuery
+      || fallbackQuery >= fallbackLiveRect
+      || fallbackLiveRect >= fallbackLiveEnabled
+      || fallbackLiveEnabled >= fallbackLiveDisplayed
+      || fallbackLiveDisplayed >= fallbackValidation
+      || fallbackValidation >= fallbackClick
+      || fallbackLiveDisplayedWebdriver < 0
+      || lastWebdriverBeforeFallbackClick !== fallbackLiveDisplayedWebdriver
+      || fallbackClick >= fallbackCommandCompleted
+      || fallbackCommandCompleted >= fallbackDeliveryCompleted
+      || fallbackDeliveryCompleted >= fallbackCompletedAt
+      || fallbackCompletedAt >= fallbackPostActuation
+      || fallbackPostActuation >= finalWindow
+      || fallbackClick >= finalWindow
+      || finalWindow >= finalSource
+      || finalSource >= finalProof
       || activationSourceWebdriver < 0
       || lastWebdriverBeforeEducationTap !== activationSourceWebdriver
-      || dismissSource.includes('`${elementPath}/click`')
       || dismissSource.includes("script: 'mobile: tap'")
       || dismissSource.includes('retry-same-control')
-      || dismissSource.includes('fallbackTarget')
       || dismissSource.includes('secondPoint')
       || /\b(?:for|while)\s*\(/.test(dismissSource)
       || restorationScope < 0
@@ -859,7 +1071,7 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || restorationGet < restorationPost
       || !dismissSource.includes('restoration.restored = restoration.actual === originalContext;')
       || dismissSource.includes('while (Date.now() < deadline)')) {
-    throw new Error('Mobile Safari education must use one recorded fresh-source-derived tap, a source-last barrier, and verified context restoration');
+    throw new Error('Mobile Safari education must use one source-derived mobile tap, an exact-source-gated fresh element click, and verified context restoration');
   }
   const nativeWindowSource = sourceText.slice(
     sourceText.indexOf('async function getNativeWindowRect()'),
@@ -937,10 +1149,22 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
     'for (let mutationIndex = 0; mutationIndex < 2; mutationIndex += 1)',
   );
   const orientationPost = orientationSource.indexOf(
-    "await webdriver(sessionPath('/orientation'), {\n          body: { orientation: target }, timeout: 15000,",
+    "await webdriver(sessionPath('/orientation'), {\n          body: { orientation: target }, timeout: ORIENTATION_POST_TIMEOUT_MS,",
   );
   const orientationSuccessVerification = orientationSource.indexOf(
     '`mutation-${attemptNumber}-verify`',
+  );
+  const orientationTimeoutGate = orientationSource.indexOf(
+    'if (mutation.clientTimeout) {',
+  );
+  const orientationTimeoutFirst = orientationSource.indexOf(
+    '`mutation-${attemptNumber}-timeout-first`',
+  );
+  const orientationTimeoutSecond = orientationSource.indexOf(
+    '`mutation-${attemptNumber}-timeout-second`',
+  );
+  const orientationTimeoutClassification = orientationSource.indexOf(
+    'reconciliation.decision = classifyOrientationPostTimeoutReconciliation(',
   );
   const orientationNonResetGate = orientationSource.indexOf(
     'if (!mutation.proxyReset) {',
@@ -959,8 +1183,20 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
   );
   const orientationCalls = sourceText.match(/await ensureOrientation\(/g) || [];
   const orientationEndpoints = sourceText.match(/sessionPath\('\/orientation'\)/g) || [];
-  if (!orientationReadSource.includes('readAttempt <= 2')
-      || !orientationReadSource.includes("method: 'GET', timeout: 15000,")
+  const orientationTimeoutSource = orientationSource.slice(
+    orientationTimeoutGate,
+    orientationNonResetGate,
+  );
+  const orientationTimeoutReadCalls = orientationTimeoutSource.match(
+    /await readOrientationWithResetRetry\(/g,
+  ) || [];
+  if (!sourceText.includes('const ORIENTATION_GET_TIMEOUT_MS = 15000;')
+      || !sourceText.includes('const ORIENTATION_POST_TIMEOUT_MS = 30000;')
+      || !orientationReadSource.includes('readAttempt <= 2')
+      || !orientationReadSource.includes('timeoutMs: ORIENTATION_GET_TIMEOUT_MS,')
+      || !orientationReadSource.includes(
+        "method: 'GET', timeout: ORIENTATION_GET_TIMEOUT_MS,",
+      )
       || !orientationReadSource.includes(
         "isExactOrientationProxyReset(error, sessionId, 'GET')",
       )
@@ -972,6 +1208,10 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || orientationLoop < 0
       || orientationPost < 0
       || orientationSuccessVerification < 0
+      || orientationTimeoutGate < 0
+      || orientationTimeoutFirst < 0
+      || orientationTimeoutSecond < 0
+      || orientationTimeoutClassification < 0
       || orientationNonResetGate < 0
       || orientationResetFirst < 0
       || orientationResetSecond < 0
@@ -981,7 +1221,11 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || orientationAlreadyTargetGate >= orientationLoop
       || orientationLoop >= orientationPost
       || orientationPost >= orientationSuccessVerification
-      || orientationSuccessVerification >= orientationNonResetGate
+      || orientationSuccessVerification >= orientationTimeoutGate
+      || orientationTimeoutGate >= orientationTimeoutFirst
+      || orientationTimeoutFirst >= orientationTimeoutSecond
+      || orientationTimeoutSecond >= orientationTimeoutClassification
+      || orientationTimeoutClassification >= orientationNonResetGate
       || orientationNonResetGate >= orientationResetFirst
       || orientationResetFirst >= orientationResetSecond
       || orientationResetSecond >= orientationResetClassification
@@ -989,6 +1233,32 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || !orientationSource.includes(
         "mutation.proxyReset = isExactOrientationProxyReset(error, sessionId, 'POST');",
       )
+      || !orientationSource.includes(
+        'mutation.clientTimeout = isExactOrientationPostClientTimeout(',
+      )
+      || !orientationSource.includes('timeoutMs: ORIENTATION_POST_TIMEOUT_MS,')
+      || !orientationSource.includes('clientTimeout: false,')
+      || !orientationSource.includes("delivery: 'started',")
+      || !orientationSource.includes("mutation.delivery = 'response-complete';")
+      || !orientationSource.includes("? 'unknown-client-timeout'")
+      || !orientationTimeoutSource.includes("trigger: 'client-timeout',")
+      || !orientationTimeoutSource.includes("mutation.outcome = 'confirmed-after-timeout';")
+      || !orientationTimeoutSource.includes("transition.outcome = 'confirmed-after-timeout';")
+      || !orientationTimeoutSource.includes(`reconciliation.decision = classifyOrientationPostTimeoutReconciliation(
+            target,
+            reconciliation.firstObserved,
+            reconciliation.secondObserved,
+          );
+          mutation.outcome = 'confirmed-after-timeout';
+          transition.outcome = 'confirmed-after-timeout';
+          return transition;`)
+      || !orientationTimeoutSource.includes("mutation.outcome = 'rejected-timeout-reconciliation';")
+      || !orientationTimeoutSource.includes('reconciliation.error = error.message;')
+      || orientationTimeoutReadCalls.length !== 2
+      || orientationTimeoutSource.includes('mutation.commandCompleted = true;')
+      || orientationTimeoutSource.includes('webdriver(')
+      || orientationTimeoutSource.includes('ensureOrientation(')
+      || orientationTimeoutSource.includes("sessionPath('/orientation')")
       || !orientationSource.includes(
         'const before = classifyOrientationObservation(target, transition.before);',
       )
@@ -1024,7 +1294,7 @@ export function validateHeadlessHarnessContract(harnessSource, workflowSources) 
       || !sourceText.includes("await ensureOrientation('gameplay-portrait', 'PORTRAIT');")
       || !sourceText.includes("await ensureOrientation('gameplay-landscape', 'LANDSCAPE');")
       || /body:\s*\{\s*orientation:\s*['"](?:PORTRAIT|LANDSCAPE)['"]\s*\}/.test(sourceText)) {
-    throw new Error('all Mobile Safari orientation changes must use bounded GET-first exact-reset reconciliation and strict post-verification');
+    throw new Error('all Mobile Safari orientation changes must use bounded GET-first exact-reset/timeout reconciliation and strict post-verification');
   }
   if (!Array.isArray(workflowSources) || workflowSources.length !== 2) {
     throw new Error('both PR and Pages workflows are required');
@@ -1139,6 +1409,9 @@ function selfTest() {
   );
   const orientationPostResetError = new Error(
     'WebDriver POST session/session-1/orientation: Could not proxy command to the remote server. Original error: read ECONNRESET',
+  );
+  const orientationPostTimeoutError = new Error(
+    'WebDriver POST session/session-1/orientation exceeded 30000 ms',
   );
 
   pass('valid flat numeric calibration', () => validateCoordinateCalibration(good));
@@ -1297,7 +1570,29 @@ function selfTest() {
       throw new Error(JSON.stringify(result));
     }
   });
-  pass('education marker disappearance completes after the source-derived tap', () => {
+  pass('identical source after the primary tap authorizes one fresh element click', () => {
+    const result = classifySafariEducationPrimaryObservation(
+      educationClose,
+      educationSource,
+      educationSource,
+      nativeWindow,
+      nativeWindow,
+    );
+    if (result.outcome !== 'fallback-fresh-element-click'
+        || result.rawSourceUnchanged !== true
+        || result.selected.name !== educationClose.name) {
+      throw new Error(JSON.stringify(result));
+    }
+  });
+  pass('education marker disappearance completes after the primary tap', () => {
+    const absentSource = '<XCUIElementTypeApplication type="XCUIElementTypeApplication"><XCUIElementTypeStaticText label="CINDERLINE" /></XCUIElementTypeApplication>';
+    const result = classifySafariEducationPrimaryObservation(
+      educationClose, educationSource, absentSource, nativeWindow, nativeWindow,
+    );
+    if (result.outcome !== 'dismissed' || result.state.present
+        || result.rawSourceUnchanged !== false) throw new Error(JSON.stringify(result));
+  });
+  pass('education marker disappearance completes after the fresh element click', () => {
     const absentSource = '<XCUIElementTypeApplication type="XCUIElementTypeApplication"><XCUIElementTypeStaticText label="CINDERLINE" /></XCUIElementTypeApplication>';
     const result = requireSafariEducationDismissedSnapshot(
       educationClose, absentSource, nativeWindow, nativeWindow,
@@ -1353,6 +1648,13 @@ function selfTest() {
       throw new Error('exact orientation POST reset was not recognized');
     }
   });
+  pass('exact self-generated orientation POST timeout is recognized', () => {
+    if (!isExactOrientationPostClientTimeout(
+      orientationPostTimeoutError,
+      'session-1',
+      30000,
+    )) throw new Error('exact orientation POST client timeout was not recognized');
+  });
   pass('orientation target observation avoids a mutation', () => {
     const result = classifyOrientationObservation('LANDSCAPE', 'LANDSCAPE');
     if (result.mutationRequired || result.outcome !== 'confirmed') throw new Error(JSON.stringify(result));
@@ -1378,6 +1680,18 @@ function selfTest() {
       'LANDSCAPE', 'PORTRAIT', 'PORTRAIT', 1, 2,
     );
     if (!result.retry || result.reason !== 'stable-opposite') throw new Error(JSON.stringify(result));
+  });
+  pass('stable target after orientation POST timeout completes without resend', () => {
+    const result = classifyOrientationPostTimeoutReconciliation(
+      'PORTRAIT', 'PORTRAIT', 'PORTRAIT',
+    );
+    if (result.retry || result.reason !== 'target-stable') throw new Error(JSON.stringify(result));
+  });
+  pass('target arriving during orientation POST timeout completes without resend', () => {
+    const result = classifyOrientationPostTimeoutReconciliation(
+      'PORTRAIT', 'LANDSCAPE', 'PORTRAIT',
+    );
+    if (result.retry || result.reason !== 'target-arrived') throw new Error(JSON.stringify(result));
   });
 
   fail('actual all-null Appium failure', () => validateCoordinateCalibration({
@@ -1596,7 +1910,34 @@ function selfTest() {
       nativeWindow,
     );
   });
-  fail('persistent education after the single tap fails immediately', () => {
+  fail('one-byte source change after the primary tap cannot authorize fallback', () => {
+    classifySafariEducationPrimaryObservation(
+      educationClose,
+      educationSource,
+      educationSource.replace('label="Close"', 'label="Close "'),
+      nativeWindow,
+      nativeWindow,
+    );
+  });
+  fail('changed window after the primary tap cannot authorize fallback', () => {
+    classifySafariEducationPrimaryObservation(
+      educationClose,
+      educationSource,
+      educationSource,
+      nativeWindow,
+      { ...nativeWindow, height: nativeWindow.height - 1 },
+    );
+  });
+  fail('changed close identity after the primary tap cannot authorize fallback', () => {
+    classifySafariEducationPrimaryObservation(
+      educationClose,
+      educationSource,
+      educationSource.replace('name="xmark.circle.fill"', 'name="changed-close"'),
+      nativeWindow,
+      nativeWindow,
+    );
+  });
+  fail('persistent education after both bounded methods fails immediately', () => {
     requireSafariEducationDismissedSnapshot(
       educationClose, educationSource, nativeWindow, nativeWindow,
     );
@@ -1769,6 +2110,38 @@ function selfTest() {
       { message: orientationPostResetError.message }, 'session-1', 'POST',
     )) throw new Error('non-Error orientation reset accepted');
   });
+  pass('near-match orientation POST timeout is not reconcilable', () => {
+    if (isExactOrientationPostClientTimeout(
+      new Error(`${orientationPostTimeoutError.message} extra`), 'session-1', 30000,
+    )) throw new Error('near-match orientation timeout accepted');
+  });
+  pass('orientation GET timeout is not reconcilable as a POST timeout', () => {
+    if (isExactOrientationPostClientTimeout(
+      new Error('WebDriver GET session/session-1/orientation exceeded 30000 ms'),
+      'session-1',
+      30000,
+    )) throw new Error('orientation GET timeout accepted');
+  });
+  pass('generic orientation POST error is not reconcilable as a timeout', () => {
+    if (isExactOrientationPostClientTimeout(
+      new Error('orientation request timed out'), 'session-1', 30000,
+    )) throw new Error('generic orientation timeout accepted');
+  });
+  pass('orientation POST timeout for another session is not reconcilable', () => {
+    if (isExactOrientationPostClientTimeout(
+      orientationPostTimeoutError, 'session-2', 30000,
+    )) throw new Error('wrong-session orientation timeout accepted');
+  });
+  pass('orientation POST timeout with a different budget is not reconcilable', () => {
+    if (isExactOrientationPostClientTimeout(
+      orientationPostTimeoutError, 'session-1', 15000,
+    )) throw new Error('wrong-budget orientation timeout accepted');
+  });
+  pass('non-Error orientation POST timeout is not reconcilable', () => {
+    if (isExactOrientationPostClientTimeout(
+      { message: orientationPostTimeoutError.message }, 'session-1', 30000,
+    )) throw new Error('non-Error orientation timeout accepted');
+  });
   fail('lowercase observed orientation is rejected', () => {
     classifyOrientationObservation('LANDSCAPE', 'landscape');
   });
@@ -1785,6 +2158,16 @@ function selfTest() {
   fail('orientation mutation budget cannot be widened', () => {
     classifyOrientationProxyResetReconciliation(
       'LANDSCAPE', 'PORTRAIT', 'PORTRAIT', 1, 3,
+    );
+  });
+  fail('stable opposite orientation after POST timeout cannot be resent', () => {
+    classifyOrientationPostTimeoutReconciliation(
+      'PORTRAIT', 'LANDSCAPE', 'LANDSCAPE',
+    );
+  });
+  fail('orientation changing away from target during timeout reconciliation is rejected', () => {
+    classifyOrientationPostTimeoutReconciliation(
+      'PORTRAIT', 'PORTRAIT', 'LANDSCAPE',
     );
   });
   fail('calibration reset cannot retry empty delivery on attempt two', () => {
@@ -1905,21 +2288,21 @@ function selfTest() {
   });
   fail('missing selected Button live telemetry is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace('record.selectedButton.liveVerification = liveVerification;', ''),
+      harnessSource.replace('record.selectedButton.liveVerification = initialLiveVerification;', ''),
       workflowSources,
     );
   });
   fail('missing source-to-live Button validation is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace('validateSafariEducationLiveElement(close, liveVerification);', ''),
+      harnessSource.replace('validateSafariEducationLiveElement(close, initialLiveVerification);', ''),
       workflowSources,
     );
   });
   fail('per-Button diagnostic attribute calls are rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: \'GET\', timeout: 15000 });',
-        'liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: \'GET\', timeout: 15000 });\nawait webdriver(`${elementPath}/attribute/name`, { method: \'GET\' });',
+        'initialLiveVerification.displayed = await webdriver(`${initialElementPath}/displayed`, { method: \'GET\', timeout: 15000 });',
+        'initialLiveVerification.displayed = await webdriver(`${initialElementPath}/displayed`, { method: \'GET\', timeout: 15000 });\nawait webdriver(`${initialElementPath}/attribute/name`, { method: \'GET\' });',
       ),
       workflowSources,
     );
@@ -1933,8 +2316,26 @@ function selfTest() {
   fail('multiple source-derived education taps are rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'await nativeTap(attempt.point.x, attempt.point.y, 15000);',
-        'await nativeTap(attempt.point.x, attempt.point.y, 15000);\nawait nativeTap(attempt.point.x, attempt.point.y, 15000);',
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);\nawait nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+      ),
+      workflowSources,
+    );
+  });
+  fail('a second education native tap with different arguments is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);\n      await nativeTap(12, 34, 15000);',
+      ),
+      workflowSources,
+    );
+  });
+  fail('a whitespace-separated education native tap call is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);\n      await nativeTap (630,193,15000);',
       ),
       workflowSources,
     );
@@ -1942,8 +2343,8 @@ function selfTest() {
   fail('cached education coordinates are rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'attempt.point = activationResult.point;',
-        'attempt.point = { x: 630, y: 193 };',
+        'mobileAttempt.point = activationResult.point;',
+        'mobileAttempt.point = { x: 630, y: 193 };',
       ),
       workflowSources,
     );
@@ -1952,7 +2353,7 @@ function selfTest() {
     const windowRead = `      activation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
         method: 'GET', timeout: 15000,
       });`;
-    const sourceRead = `      const activationSource = await webdriver(sessionPath('/source'), {
+    const sourceRead = `      activationSource = await webdriver(sessionPath('/source'), {
         method: 'GET', timeout: 15000,
       });`;
     validateHeadlessHarnessContract(
@@ -1965,32 +2366,156 @@ function selfTest() {
   fail('remote command after the fresh activation source is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'attempt.point = activationResult.point;',
-        "await webdriver(sessionPath('/window/rect'), { method: 'GET' });\n      attempt.point = activationResult.point;",
+        'mobileAttempt.point = activationResult.point;',
+        "await webdriver(sessionPath('/window/rect'), { method: 'GET' });\n      mobileAttempt.point = activationResult.point;",
       ),
       workflowSources,
     );
   });
   fail('missing education attempt telemetry is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace('record.dismissalAttempts.push(attempt);', ''),
+      harnessSource.replace('record.dismissalAttempts.push(mobileAttempt);', ''),
       workflowSources,
     );
   });
-  fail('native element click regression is rejected', () => {
+  fail('missing raw exact primary observation classifier is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'await nativeTap(attempt.point.x, attempt.point.y, 15000);',
-        'await webdriver(`${elementPath}/click`, { body: {}, timeout: 15000 });',
+        'const observedResult = classifySafariEducationPrimaryObservation(',
+        'const observedResult = missingRawExactPrimaryClassifier(',
       ),
+      workflowSources,
+    );
+  });
+  fail('primary delivery or observation error cannot fall through to fallback', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `mobileAttempt.error = error.message;
+      throw error;`,
+        'mobileAttempt.error = error.message;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('missing bounded education actuation declaration is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('maxActuations: 2,', 'maxActuations: 3,'),
+      workflowSources,
+    );
+  });
+  fail('missing exact observed-source digest telemetry is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'observation.sourceSha256 = sourceSha256(observedSource);',
+        'observation.sourceSha256 = null;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('missing fresh fallback element query is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('const fallbackElements = await webdriver', 'const fallbackElements = missingFreshElementQuery'),
+      workflowSources,
+    );
+  });
+  fail('fallback query before exact primary observation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const observedResult = classifySafariEducationPrimaryObservation(',
+        "const prematureFallbackElements = await webdriver(sessionPath('/elements'), {});\n      const observedResult = classifySafariEducationPrimaryObservation(",
+      ).replace(
+        'const fallbackElements = await webdriver',
+        'const fallbackElements = prematureFallbackElements || await webdriver',
+      ),
+      workflowSources,
+    );
+  });
+  fail('fallback reusing the initial element identity is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const fallbackElementId = singleNativeElementId(fallbackElements);',
+        'const fallbackElementId = initialElementId;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('missing fallback live verification is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'validateSafariEducationLiveElement(fallbackTarget, fallbackLiveVerification);',
+        'missingFallbackLiveVerification(fallbackTarget, fallbackLiveVerification);',
+      ),
+      workflowSources,
+    );
+  });
+  fail('fallback live validation error without an immediate rethrow is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `fallbackLiveVerification.error = error.message;
+        throw error;`,
+        'fallbackLiveVerification.error = error.message;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('extra remote command after fallback live barrier is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'fallbackAttempt.phase = \'actuation\';',
+        "await webdriver(sessionPath('/source'), { method: 'GET' });\n      fallbackAttempt.phase = 'actuation';",
+      ),
+      workflowSources,
+    );
+  });
+  fail('multiple fresh element clicks are rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });\n      await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
+      ),
+      workflowSources,
+    );
+  });
+  fail('an initialElementPath click after the bounded fallback is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });\n      await webdriver(`${initialElementPath}/click`, { body: {}, timeout: 15000 });',
+      ),
+      workflowSources,
+    );
+  });
+  fail('a concatenated click endpoint after the bounded fallback is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });',
+        "await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });\n      await webdriver(fallbackElementPath + '/click', { body: {}, timeout: 15000 });",
+      ),
+      workflowSources,
+    );
+  });
+  fail('fallback element click before exact primary observation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'record.dismissalAttempts.push(fallbackAttempt);',
+        'await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });\n    record.dismissalAttempts.push(fallbackAttempt);',
+      ),
+      workflowSources,
+    );
+  });
+  fail('mobile tap and fresh element click order reversal is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('record.dismissalAttempts.push(mobileAttempt);', '__MOBILE_RECORD__')
+        .replace('record.dismissalAttempts.push(fallbackAttempt);', 'record.dismissalAttempts.push(mobileAttempt);')
+        .replace('__MOBILE_RECORD__', 'record.dismissalAttempts.push(fallbackAttempt);'),
       workflowSources,
     );
   });
   fail('direct education mobile-tap bypass is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'await nativeTap(attempt.point.x, attempt.point.y, 15000);',
-        "await webdriver(sessionPath('/execute/sync'), { body: { script: 'mobile: tap', args: [attempt.point] } });",
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+        "await webdriver(sessionPath('/execute/sync'), { body: { script: 'mobile: tap', args: [mobileAttempt.point] } });",
       ),
       workflowSources,
     );
@@ -1998,27 +2523,51 @@ function selfTest() {
   fail('looped education actuation is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
-        'await nativeTap(attempt.point.x, attempt.point.y, 15000);',
-        'for (let duplicate = 0; duplicate < 2; duplicate += 1) { await nativeTap(attempt.point.x, attempt.point.y, 15000); }',
+        'await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);',
+        'for (let duplicate = 0; duplicate < 2; duplicate += 1) { await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000); }',
       ),
       workflowSources,
     );
   });
   fail('missing unknown education delivery telemetry is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace("attempt.delivery = 'unknown';", ''),
+      harnessSource.replace("mobileAttempt.delivery = 'unknown';", ''),
+      workflowSources,
+    );
+  });
+  fail('missing primary command-completed telemetry is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('mobileAttempt.commandCompleted = true;', ''),
+      workflowSources,
+    );
+  });
+  fail('missing primary completion timestamp is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('mobileAttempt.completedAt = new Date().toISOString();', ''),
+      workflowSources,
+    );
+  });
+  fail('missing fallback command-completed telemetry is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('fallbackAttempt.commandCompleted = true;', ''),
+      workflowSources,
+    );
+  });
+  fail('missing fallback completion timestamp is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('fallbackAttempt.completedAt = new Date().toISOString();', ''),
       workflowSources,
     );
   });
   fail('missing post-actuation education error telemetry is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace("else if (attempt.phase === 'post-actuation')", 'else if (false)'),
+      harnessSource.replace("else if (mobileAttempt.phase === 'post-actuation')", 'else if (false)'),
       workflowSources,
     );
   });
   fail('missing ambiguous actuation error telemetry is rejected', () => {
     validateHeadlessHarnessContract(
-      harnessSource.replace("else if (attempt.phase === 'actuation')", 'else if (false)'),
+      harnessSource.replace("else if (mobileAttempt.phase === 'actuation')", 'else if (false)'),
       workflowSources,
     );
   });
@@ -2140,6 +2689,24 @@ function selfTest() {
       workflowSources,
     );
   });
+  fail('orientation GET timeout budget drift is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const ORIENTATION_GET_TIMEOUT_MS = 15000;',
+        'const ORIENTATION_GET_TIMEOUT_MS = 15001;',
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation POST timeout budget drift is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'const ORIENTATION_POST_TIMEOUT_MS = 30000;',
+        'const ORIENTATION_POST_TIMEOUT_MS = 30001;',
+      ),
+      workflowSources,
+    );
+  });
   fail('missing orientation GET exact-reset recognition is rejected', () => {
     validateHeadlessHarnessContract(
       harnessSource.replace(
@@ -2164,6 +2731,111 @@ function selfTest() {
         "mutation.proxyReset = isExactOrientationProxyReset(error, sessionId, 'POST');",
         'mutation.proxyReset = true;',
       ),
+      workflowSources,
+    );
+  });
+  fail('missing orientation POST exact-client-timeout recognition is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'mutation.clientTimeout = isExactOrientationPostClientTimeout(',
+        'mutation.clientTimeout = missingOrientationTimeoutMatcher(',
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation client timeout without its first observation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('`mutation-${attemptNumber}-timeout-first`', "'missing-timeout-first'"),
+      workflowSources,
+    );
+  });
+  fail('orientation client timeout without its second observation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('`mutation-${attemptNumber}-timeout-second`', "'missing-timeout-second'"),
+      workflowSources,
+    );
+  });
+  fail('orientation client timeout without pure reconciliation is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        'reconciliation.decision = classifyOrientationPostTimeoutReconciliation(',
+        'reconciliation.decision = missingOrientationTimeoutReconciliation(',
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation client-timeout confirmation without its return is rejected', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `          mutation.outcome = 'confirmed-after-timeout';
+          transition.outcome = 'confirmed-after-timeout';
+          return transition;`,
+        `          mutation.outcome = 'confirmed-after-timeout';
+          transition.outcome = 'confirmed-after-timeout';`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation client timeout cannot add a third reconciliation read', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `          reconciliation.secondObserved = await readOrientationWithResetRetry(
+            transition,
+            \`mutation-\${attemptNumber}-timeout-second\`,
+          );
+          reconciliation.decision = classifyOrientationPostTimeoutReconciliation(`,
+        `          reconciliation.secondObserved = await readOrientationWithResetRetry(
+            transition,
+            \`mutation-\${attemptNumber}-timeout-second\`,
+          );
+          await readOrientationWithResetRetry(
+            transition,
+            \`mutation-\${attemptNumber}-timeout-third\`,
+          );
+          reconciliation.decision = classifyOrientationPostTimeoutReconciliation(`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation client timeout cannot resend a direct POST', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace(
+        `          reconciliation.decision = classifyOrientationPostTimeoutReconciliation(`,
+        `          await webdriver(sessionPath('/orientation'), {
+            body: { orientation: target }, timeout: ORIENTATION_POST_TIMEOUT_MS,
+          });
+          reconciliation.decision = classifyOrientationPostTimeoutReconciliation(`,
+      ),
+      workflowSources,
+    );
+  });
+  fail('orientation client-timeout confirmation telemetry is required', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace("mutation.outcome = 'confirmed-after-timeout';", ''),
+      workflowSources,
+    );
+  });
+  fail('orientation client-timeout rejection telemetry is required', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace("mutation.outcome = 'rejected-timeout-reconciliation';", ''),
+      workflowSources,
+    );
+  });
+  fail('orientation delivery telemetry is required', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace("delivery: 'started',", ''),
+      workflowSources,
+    );
+  });
+  fail('orientation GET timeout telemetry is required', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('timeoutMs: ORIENTATION_GET_TIMEOUT_MS,', ''),
+      workflowSources,
+    );
+  });
+  fail('orientation POST timeout telemetry is required', () => {
+    validateHeadlessHarnessContract(
+      harnessSource.replace('timeoutMs: ORIENTATION_POST_TIMEOUT_MS,', ''),
       workflowSources,
     );
   });

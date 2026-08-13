@@ -10,6 +10,7 @@
  * pressure, real-glass touch, hand reach, haptics, speakers, or audio latency.
  */
 
+import { createHash } from 'node:crypto';
 import { createServer, request as httpRequest } from 'node:http';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
@@ -17,11 +18,14 @@ import { fileURLToPath } from 'node:url';
 import {
   classifyCalibrationTapProxyResetReconciliation,
   classifyOrientationObservation,
+  classifyOrientationPostTimeoutReconciliation,
   classifyOrientationProxyResetReconciliation,
+  classifySafariEducationPrimaryObservation,
   classifyTrustedTapAttempt,
   coordinateResidual,
   deriveCoordinateCalibration,
   isExactCalibrationTapProxyReset,
+  isExactOrientationPostClientTimeout,
   isExactOrientationProxyReset,
   requireSafariEducationDismissedSnapshot,
   safariEducationButtonCandidates,
@@ -51,6 +55,9 @@ const SAFARI_EDUCATION_BEFORE_TAP_SOURCE = resolve(
 const SAFARI_EDUCATION_AFTER_TAP_SOURCE = resolve(
   OUTPUT, 'native-safari-education-after-mobile-tap.xml',
 );
+const SAFARI_EDUCATION_AFTER_CLICK_SOURCE = resolve(
+  OUTPUT, 'native-safari-education-after-element-click.xml',
+);
 const APPIUM_URL = new URL(process.env.APPIUM_URL || 'http://127.0.0.1:4723/');
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const UDID = process.env.IOS_SIMULATOR_UDID || '';
@@ -58,6 +65,8 @@ const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
 
 mkdirSync(OUTPUT, { recursive: true });
+
+const sourceSha256 = (source) => createHash('sha256').update(source).digest('hex');
 
 const report = {
   schemaVersion: 1,
@@ -78,6 +87,9 @@ const report = {
     closeCandidates: [],
     buttonCount: null,
     selectedButton: null,
+    maxActuations: 2,
+    actuationsStarted: 0,
+    fallbackAuthorized: null,
     dismissalAttempts: [],
     contextRestoration: null,
     nativeSource: null,
@@ -198,6 +210,8 @@ let sessionId = '';
 const sessionPath = (suffix = '') => `session/${sessionId}${suffix}`;
 const execute = (script, args = []) => webdriver(sessionPath('/execute/sync'), { body: { script, args } });
 
+const ORIENTATION_GET_TIMEOUT_MS = 15000;
+const ORIENTATION_POST_TIMEOUT_MS = 30000;
 const orientationSettle = () => new Promise((done) => setTimeout(done, 750));
 
 async function readOrientationWithResetRetry(transition, phase) {
@@ -206,6 +220,7 @@ async function readOrientationWithResetRetry(transition, phase) {
   for (let readAttempt = 1; readAttempt <= 2; readAttempt += 1) {
     const read = {
       attempt: readAttempt,
+      timeoutMs: ORIENTATION_GET_TIMEOUT_MS,
       commandCompleted: false,
       proxyReset: false,
       value: null,
@@ -214,7 +229,7 @@ async function readOrientationWithResetRetry(transition, phase) {
     observation.reads.push(read);
     try {
       const value = await webdriver(sessionPath('/orientation'), {
-        method: 'GET', timeout: 15000,
+        method: 'GET', timeout: ORIENTATION_GET_TIMEOUT_MS,
       });
       read.commandCompleted = true;
       read.value = value;
@@ -236,6 +251,8 @@ async function ensureOrientation(stage, target) {
   // Every orientation mutation is preceded by a same-session GET. Besides
   // observing the current state, this drains the exact stale WDA keep-alive
   // socket seen at the 30-second boundary before any state-changing command.
+  // A self-generated POST timeout leaves delivery unknown: reconcile it with
+  // reads only and never resend that timed-out mutation.
   const transition = {
     stage,
     target,
@@ -259,8 +276,11 @@ async function ensureOrientation(stage, target) {
       const attemptNumber = mutationIndex + 1;
       const mutation = {
         attempt: attemptNumber,
+        timeoutMs: ORIENTATION_POST_TIMEOUT_MS,
         commandCompleted: false,
         proxyReset: false,
+        clientTimeout: false,
+        delivery: 'started',
         observedAfter: null,
         reconciliation: null,
         outcome: 'started',
@@ -270,13 +290,22 @@ async function ensureOrientation(stage, target) {
       let postError = null;
       try {
         await webdriver(sessionPath('/orientation'), {
-          body: { orientation: target }, timeout: 15000,
+          body: { orientation: target }, timeout: ORIENTATION_POST_TIMEOUT_MS,
         });
         mutation.commandCompleted = true;
+        mutation.delivery = 'response-complete';
       } catch (error) {
         postError = error;
         mutation.error = error.message;
         mutation.proxyReset = isExactOrientationProxyReset(error, sessionId, 'POST');
+        mutation.clientTimeout = isExactOrientationPostClientTimeout(
+          error,
+          sessionId,
+          ORIENTATION_POST_TIMEOUT_MS,
+        );
+        mutation.delivery = mutation.clientTimeout
+          ? 'unknown-client-timeout'
+          : mutation.proxyReset ? 'unknown-proxy-reset' : 'response-error';
       }
 
       if (!postError) {
@@ -300,11 +329,47 @@ async function ensureOrientation(stage, target) {
         return transition;
       }
 
+      if (mutation.clientTimeout) {
+        const reconciliation = {
+          trigger: 'client-timeout',
+          firstObserved: null,
+          secondObserved: null,
+          decision: null,
+          error: null,
+        };
+        mutation.reconciliation = reconciliation;
+        try {
+          await orientationSettle();
+          reconciliation.firstObserved = await readOrientationWithResetRetry(
+            transition,
+            `mutation-${attemptNumber}-timeout-first`,
+          );
+          await orientationSettle();
+          reconciliation.secondObserved = await readOrientationWithResetRetry(
+            transition,
+            `mutation-${attemptNumber}-timeout-second`,
+          );
+          reconciliation.decision = classifyOrientationPostTimeoutReconciliation(
+            target,
+            reconciliation.firstObserved,
+            reconciliation.secondObserved,
+          );
+          mutation.outcome = 'confirmed-after-timeout';
+          transition.outcome = 'confirmed-after-timeout';
+          return transition;
+        } catch (error) {
+          reconciliation.error = error.message;
+          mutation.outcome = 'rejected-timeout-reconciliation';
+          throw error;
+        }
+      }
+
       if (!mutation.proxyReset) {
         mutation.outcome = 'rejected-non-reset';
         throw postError;
       }
       const reconciliation = {
+        trigger: 'proxy-reset',
         firstObserved: null,
         secondObserved: null,
         decision: null,
@@ -560,32 +625,36 @@ async function dismissKnownSafariEducation() {
       label: close.label,
       rect: close.rect,
     };
-    const elements = await webdriver(sessionPath('/elements'), {
+    const initialElements = await webdriver(sessionPath('/elements'), {
       body: { using: 'accessibility id', value: close.name },
       timeout: 15000,
     });
-    record.selectedButton.matchCount = Array.isArray(elements) ? elements.length : null;
-    const elementId = singleNativeElementId(elements);
-    const elementPath = sessionPath(`/element/${encodeURIComponent(elementId)}`);
-    const liveVerification = { rect: null, enabled: null, displayed: null, error: null };
-    record.selectedButton.liveVerification = liveVerification;
+    record.selectedButton.matchCount = Array.isArray(initialElements) ? initialElements.length : null;
+    const initialElementId = singleNativeElementId(initialElements);
+    const initialElementPath = sessionPath(`/element/${encodeURIComponent(initialElementId)}`);
+    const initialLiveVerification = {
+      rect: null, enabled: null, displayed: null, error: null,
+    };
+    record.selectedButton.liveVerification = initialLiveVerification;
     try {
-      liveVerification.rect = await webdriver(`${elementPath}/rect`, { method: 'GET', timeout: 15000 });
-      liveVerification.enabled = await webdriver(`${elementPath}/enabled`, { method: 'GET', timeout: 15000 });
-      liveVerification.displayed = await webdriver(`${elementPath}/displayed`, { method: 'GET', timeout: 15000 });
-      validateSafariEducationLiveElement(close, liveVerification);
+      initialLiveVerification.rect = await webdriver(`${initialElementPath}/rect`, { method: 'GET', timeout: 15000 });
+      initialLiveVerification.enabled = await webdriver(`${initialElementPath}/enabled`, { method: 'GET', timeout: 15000 });
+      initialLiveVerification.displayed = await webdriver(`${initialElementPath}/displayed`, { method: 'GET', timeout: 15000 });
+      validateSafariEducationLiveElement(close, initialLiveVerification);
     } catch (error) {
-      liveVerification.error = error.message;
+      initialLiveVerification.error = error.message;
       throw error;
     }
-    record.closeRect = liveVerification.rect;
-    const attempt = {
+    record.closeRect = initialLiveVerification.rect;
+    const settleEducation = () => new Promise((done) => setTimeout(done, 750));
+    const mobileAttempt = {
       attempt: 1,
       method: 'source-derived-mobile-tap',
       target: null,
       point: null,
       activationBarrier: {
         source: null,
+        sourceSha256: null,
         nativeWindow: null,
         present: null,
         markers: [],
@@ -597,31 +666,39 @@ async function dismissKnownSafariEducation() {
       delivery: 'not-started',
       actuationError: null,
       commandCompleted: false,
+      startedAt: null,
+      completedAt: null,
       observation: {
         source: null,
+        sourceSha256: null,
+        rawSourceUnchanged: null,
         nativeWindow: null,
         present: null,
         markers: [],
         selectedButton: null,
+        observedAt: null,
         error: null,
       },
       outcome: 'started',
       error: null,
     };
-    record.dismissalAttempts.push(attempt);
+    record.dismissalAttempts.push(mobileAttempt);
+    let activationSource;
+    let fallbackTarget;
     try {
-      const activation = attempt.activationBarrier;
+      const activation = mobileAttempt.activationBarrier;
       activation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
         method: 'GET', timeout: 15000,
       });
-      // This full native source is the final remote barrier before the only
+      // This full native source is the final remote barrier before the primary
       // education actuation. The point is derived from this snapshot, never
       // from a literal or cached rect.
-      const activationSource = await webdriver(sessionPath('/source'), {
+      activationSource = await webdriver(sessionPath('/source'), {
         method: 'GET', timeout: 15000,
       });
       writeFileSync(SAFARI_EDUCATION_BEFORE_TAP_SOURCE, activationSource);
       activation.source = SAFARI_EDUCATION_BEFORE_TAP_SOURCE.slice(ROOT.length + 1);
+      activation.sourceSha256 = sourceSha256(activationSource);
       const activationResult = validateSafariEducationControlSnapshot(
         close,
         activationSource,
@@ -631,19 +708,22 @@ async function dismissKnownSafariEducation() {
       activation.present = activationResult.state.present;
       activation.markers = activationResult.state.markers;
       activation.selectedButton = activationResult.selected;
-      attempt.target = activationResult.selected;
-      attempt.point = activationResult.point;
+      mobileAttempt.target = activationResult.selected;
+      mobileAttempt.point = activationResult.point;
 
-      attempt.phase = 'actuation';
-      attempt.actuationStarted = true;
-      attempt.delivery = 'unknown';
-      await nativeTap(attempt.point.x, attempt.point.y, 15000);
-      attempt.commandCompleted = true;
-      attempt.delivery = 'response-complete';
-      attempt.phase = 'post-actuation';
-      await new Promise((done) => setTimeout(done, 750));
+      mobileAttempt.phase = 'actuation';
+      mobileAttempt.actuationStarted = true;
+      mobileAttempt.delivery = 'unknown';
+      mobileAttempt.startedAt = new Date().toISOString();
+      record.actuationsStarted += 1;
+      await nativeTap(mobileAttempt.point.x, mobileAttempt.point.y, 15000);
+      mobileAttempt.commandCompleted = true;
+      mobileAttempt.delivery = 'response-complete';
+      mobileAttempt.completedAt = new Date().toISOString();
+      mobileAttempt.phase = 'post-actuation';
+      await settleEducation();
 
-      const observation = attempt.observation;
+      const observation = mobileAttempt.observation;
       observation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
         method: 'GET', timeout: 15000,
       });
@@ -652,35 +732,166 @@ async function dismissKnownSafariEducation() {
       });
       writeFileSync(SAFARI_EDUCATION_AFTER_TAP_SOURCE, observedSource);
       observation.source = SAFARI_EDUCATION_AFTER_TAP_SOURCE.slice(ROOT.length + 1);
-      const observedState = safariEducationState(observedSource);
-      observation.present = observedState.present;
-      observation.markers = observedState.markers;
-      observation.selectedButton = observedState.present
-        ? selectSafariEducationClose(
-          observedSource,
-          safariEducationButtonCandidates(observedSource),
-          observation.nativeWindow,
-        )
-        : null;
-      requireSafariEducationDismissedSnapshot(
-        attempt.target,
+      observation.sourceSha256 = sourceSha256(observedSource);
+      observation.observedAt = new Date().toISOString();
+      const observedResult = classifySafariEducationPrimaryObservation(
+        mobileAttempt.target,
+        activationSource,
         observedSource,
         nativeWindow,
         observation.nativeWindow,
       );
-      attempt.outcome = 'dismissed';
+      observation.rawSourceUnchanged = observedResult.rawSourceUnchanged;
+      observation.present = observedResult.state.present;
+      observation.markers = observedResult.state.markers;
+      observation.selectedButton = observedResult.selected;
+      if (observedResult.outcome === 'dismissed') {
+        mobileAttempt.outcome = 'dismissed';
+        record.dismissed = true;
+        return record;
+      }
+      if (observedResult.outcome !== 'fallback-fresh-element-click') {
+        throw new Error(`unexpected Safari education primary result: ${observedResult.outcome}`);
+      }
+      mobileAttempt.outcome = 'fallback-eligible';
+      fallbackTarget = observedResult.selected;
+      record.fallbackAuthorized = {
+        byAttempt: 1,
+        reason: observedResult.outcome,
+        source: observation.source,
+        sourceSha256: observation.sourceSha256,
+        rawSourceUnchanged: observation.rawSourceUnchanged,
+      };
+    } catch (error) {
+      if (mobileAttempt.phase === 'pre-actuation') {
+        mobileAttempt.activationBarrier.error = error.message;
+      } else if (mobileAttempt.phase === 'actuation') {
+        mobileAttempt.actuationError = error.message;
+      } else if (mobileAttempt.phase === 'post-actuation') {
+        mobileAttempt.observation.error = error.message;
+      }
+      mobileAttempt.outcome = 'rejected';
+      mobileAttempt.error = error.message;
+      throw error;
+    }
+
+    const fallbackAttempt = {
+      attempt: 2,
+      method: 'fresh-element-click',
+      target: fallbackTarget,
+      point: null,
+      activationBarrier: {
+        authorizedByAttempt: 1,
+        source: mobileAttempt.observation.source,
+        sourceSha256: mobileAttempt.observation.sourceSha256,
+        rawSourceUnchanged: mobileAttempt.observation.rawSourceUnchanged,
+        nativeWindow: mobileAttempt.observation.nativeWindow,
+        selectedButton: fallbackTarget,
+        matchCount: null,
+        elementId: null,
+        liveVerification: {
+          rect: null, enabled: null, displayed: null, error: null,
+        },
+        error: null,
+      },
+      phase: 'pre-actuation',
+      actuationStarted: false,
+      delivery: 'not-started',
+      actuationError: null,
+      commandCompleted: false,
+      startedAt: null,
+      completedAt: null,
+      observation: {
+        source: null,
+        sourceSha256: null,
+        nativeWindow: null,
+        present: null,
+        markers: [],
+        selectedButton: null,
+        observedAt: null,
+        error: null,
+      },
+      outcome: 'started',
+      error: null,
+    };
+    record.dismissalAttempts.push(fallbackAttempt);
+    try {
+      const fallbackActivation = fallbackAttempt.activationBarrier;
+      const fallbackElements = await webdriver(sessionPath('/elements'), {
+        body: { using: 'accessibility id', value: fallbackTarget.name },
+        timeout: 15000,
+      });
+      fallbackActivation.matchCount = Array.isArray(fallbackElements)
+        ? fallbackElements.length
+        : null;
+      const fallbackElementId = singleNativeElementId(fallbackElements);
+      fallbackActivation.elementId = fallbackElementId;
+      const fallbackElementPath = sessionPath(
+        `/element/${encodeURIComponent(fallbackElementId)}`,
+      );
+      const fallbackLiveVerification = fallbackActivation.liveVerification;
+      try {
+        fallbackLiveVerification.rect = await webdriver(`${fallbackElementPath}/rect`, { method: 'GET', timeout: 15000 });
+        fallbackLiveVerification.enabled = await webdriver(`${fallbackElementPath}/enabled`, { method: 'GET', timeout: 15000 });
+        fallbackLiveVerification.displayed = await webdriver(`${fallbackElementPath}/displayed`, { method: 'GET', timeout: 15000 });
+        validateSafariEducationLiveElement(fallbackTarget, fallbackLiveVerification);
+      } catch (error) {
+        fallbackLiveVerification.error = error.message;
+        throw error;
+      }
+
+      fallbackAttempt.phase = 'actuation';
+      fallbackAttempt.actuationStarted = true;
+      fallbackAttempt.delivery = 'unknown';
+      fallbackAttempt.startedAt = new Date().toISOString();
+      record.actuationsStarted += 1;
+      await webdriver(`${fallbackElementPath}/click`, { body: {}, timeout: 15000 });
+      fallbackAttempt.commandCompleted = true;
+      fallbackAttempt.delivery = 'response-complete';
+      fallbackAttempt.completedAt = new Date().toISOString();
+      fallbackAttempt.phase = 'post-actuation';
+      await settleEducation();
+
+      const fallbackObservation = fallbackAttempt.observation;
+      fallbackObservation.nativeWindow = await webdriver(sessionPath('/window/rect'), {
+        method: 'GET', timeout: 15000,
+      });
+      const finalSource = await webdriver(sessionPath('/source'), {
+        method: 'GET', timeout: 15000,
+      });
+      writeFileSync(SAFARI_EDUCATION_AFTER_CLICK_SOURCE, finalSource);
+      fallbackObservation.source = SAFARI_EDUCATION_AFTER_CLICK_SOURCE.slice(ROOT.length + 1);
+      fallbackObservation.sourceSha256 = sourceSha256(finalSource);
+      fallbackObservation.observedAt = new Date().toISOString();
+      const finalState = safariEducationState(finalSource);
+      fallbackObservation.present = finalState.present;
+      fallbackObservation.markers = finalState.markers;
+      fallbackObservation.selectedButton = finalState.present
+        ? selectSafariEducationClose(
+          finalSource,
+          safariEducationButtonCandidates(finalSource),
+          fallbackObservation.nativeWindow,
+        )
+        : null;
+      requireSafariEducationDismissedSnapshot(
+        fallbackTarget,
+        finalSource,
+        nativeWindow,
+        fallbackObservation.nativeWindow,
+      );
+      fallbackAttempt.outcome = 'dismissed';
       record.dismissed = true;
       return record;
     } catch (error) {
-      if (attempt.phase === 'pre-actuation') {
-        attempt.activationBarrier.error = error.message;
-      } else if (attempt.phase === 'actuation') {
-        attempt.actuationError = error.message;
-      } else if (attempt.phase === 'post-actuation') {
-        attempt.observation.error = error.message;
+      if (fallbackAttempt.phase === 'pre-actuation') {
+        fallbackAttempt.activationBarrier.error = error.message;
+      } else if (fallbackAttempt.phase === 'actuation') {
+        fallbackAttempt.actuationError = error.message;
+      } else if (fallbackAttempt.phase === 'post-actuation') {
+        fallbackAttempt.observation.error = error.message;
       }
-      attempt.outcome = 'rejected';
-      attempt.error = error.message;
+      fallbackAttempt.outcome = 'rejected';
+      fallbackAttempt.error = error.message;
       throw error;
     }
   } catch (error) {
