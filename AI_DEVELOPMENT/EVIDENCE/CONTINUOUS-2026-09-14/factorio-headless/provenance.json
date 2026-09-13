@@ -1,0 +1,162 @@
+{
+  "recorded_at": "2026-09-14T08:41:33.018857+09:00",
+  "reference_id": "W10",
+  "element": "E-19",
+  "work": "Factorio",
+  "version": "2.0.77 (build 84539, linux64, headless)",
+  "source_url": "https://factorio.com/get-download/2.0.77/headless/linux64",
+  "official_download_page": "https://www.factorio.com/download",
+  "cli_documentation": "https://wiki.factorio.com/Command_line_parameters",
+  "terms_url": "https://www.factorio.com/terms-of-service",
+  "archive_sha256": "c4efc11529f74d37c96933e291e0db73fd9f5aa4738913d9301b24680b3e947f",
+  "archive_bytes": 57225308,
+  "binary_sha256": "c9ac91d318bdbcce5afaac30d48f4b71dc38af257712a5d4d4c4feb625737198",
+  "acquisition_and_use": "Official free headless distribution downloaded and executed locally. No authentication, multiplayer server, paid service or browser driver used. Binary and game data remain outside the repository and game distribution. Only factual execution logs and this provenance are retained here.",
+  "commands": [
+    {
+      "argv": [
+        "factorio",
+        "--version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "factorio",
+        "--config",
+        "config.ini",
+        "--create",
+        "seed-20260914.zip",
+        "--map-gen-seed",
+        "20260914"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "factorio",
+        "--config",
+        "config.ini",
+        "--benchmark",
+        "seed-20260914.zip",
+        "--benchmark-ticks",
+        "3600",
+        "--benchmark-runs",
+        "3"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "measured": {
+    "seed": 20260914,
+    "updates_per_run": 3600,
+    "runs": 3,
+    "simulation_checksums": [
+      "200320319",
+      "200320319",
+      "200320319"
+    ],
+    "save_sha256": "a66edb9d85f329c9098214ce3f51290cc03ec895daf3e3b7728373d3654b716a",
+    "invalid_input_trials": [
+      {
+        "case": "truncated",
+        "argv": [
+          "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/factorio/bin/x64/factorio",
+          "--config",
+          "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/config.ini",
+          "--benchmark",
+          "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/truncated-copy.zip",
+          "--benchmark-ticks",
+          "60"
+        ],
+        "exit_code": 1,
+        "save_unchanged": true,
+        "truncated_unchanged": true,
+        "tail": [
+          "   1.039 Info PlayerData.cpp:71: Cloud player-data.json unavailable",
+          "   1.040 Info GlobalContext.cpp:1300: Resetting config.",
+          "   1.040 Factorio initialised",
+          "   1.040 Loading map /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/truncated-copy.zip: 256 bytes.",
+          "   1.087 Goodbye",
+          "   0.000 Error Util.cpp:81: Opening zip /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/truncated-copy.zip failed: I/O error"
+        ]
+      },
+      {
+        "case": "missing",
+        "argv": [
+          "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/factorio/bin/x64/factorio",
+          "--config",
+          "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/config.ini",
+          "--benchmark",
+          "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/missing-save.zip",
+          "--benchmark-ticks",
+          "60"
+        ],
+        "exit_code": 1,
+        "save_unchanged": true,
+        "truncated_unchanged": true,
+        "tail": [
+          "   1.495 Info PlayerData.cpp:71: Cloud player-data.json unavailable",
+          "   1.496 Info GlobalContext.cpp:1300: Resetting config.",
+          "   1.496 Factorio initialised",
+          "   1.496 Loading map /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/missing-save.zip",
+          "   1.545 Goodbye",
+          "   0.000 Error Util.cpp:81: File /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/missing-save.zip does not exist."
+        ]
+      }
+    ]
+  },
+  "inference": {
+    "claim": "The observed save reload and update sequence was deterministic across these three benchmark runs.",
+    "basis": "Each run reloads the same real saved map and reports the same final simulation checksum.",
+    "assumptions": "The official binary checksum reports its simulation state as documented by its benchmark output.",
+    "scope": "A newly created map without developed machinery, players or interactions.",
+    "uncertainty": "No proof for large factories, cross-platform determinism, visual presentation, focus/resume, physical devices or the complete stability element."
+  },
+  "comparison": {
+    "performed": false,
+    "verdict": "not measured",
+    "reason": "Actual reference-side records acquired; a comparable complete source-blind packet and evaluator are still absent."
+  },
+  "evidence_files": {
+    "benchmark-3600x3.log": "b473cac5fc13c967c140f36391d0e82f895f6f23d015ccb2928044c88dfe706d",
+    "create-1.1.110.log": "5616e465e72fc0012c8ef69d196f4f3b0a814144cad1e7e1ba9718270b685e78",
+    "create.log": "35be5dc26aa9f71ee4bd2c51d51e78e49a2b1010d2dcef10d766445108f0d78f",
+    "migrate-1.1.110-to-2.0.77.log": "9d7f76406b40139f808e93cbfd269f7dd5b4cd2f9d9e96f75dae01e64fd661a6",
+    "migration-record.json": "1b7c1a6947b1234854ce1fedb1e1e1b0aa80d0c0a6f2c072e647832937ea9dbb",
+    "missing.log": "139ff0b2898b4436809ead407d0be8bf00b42df7dcf262d64ce263eadd8551e7",
+    "trial-record.json": "3a94138c97dd1db1b3259f34656b7e617e6b2b5cd5a5ef41eb696b744104fe16",
+    "truncated.log": "65ae9852246526363f48082fa96bad30f4bca8fe453ab6df4f6feb376c0ade2e"
+  },
+  "legacy_migration": {
+    "archive_url": "https://factorio.com/get-download/1.1.110/headless/linux64",
+    "archive_page": "https://factorio.com/download/archive/1.1.110",
+    "archive_sha256": "485fe6db36e5decd7dd0d70e7c97e61f818100fa3e48d87884b287027c7a646a",
+    "archive_bytes": 57187836,
+    "binary_sha256": "e9461f0d623a19fbdaffc0a130c570a8af40e8752086dff8a9f18dd4e527679d",
+    "version": "1.1.110 (build 62357, linux64, headless)",
+    "setup": "A new map was actually created by the old official 1.1.110 binary with seed 20260914, then loaded by the actual 2.0.77 binary. Not a hand-edited version field or an established factory playthrough.",
+    "record": {
+      "checked_at": "2026-09-14T08:44:01.956120+09:00",
+      "argv": [
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/factorio/bin/x64/factorio",
+        "--config",
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/config.ini",
+        "--benchmark",
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/legacy-1.1.110/run/legacy-seed-20260914.zip",
+        "--benchmark-ticks",
+        "3600",
+        "--benchmark-runs",
+        "2"
+      ],
+      "exit_code": 0,
+      "original_old_save_sha256": "c8145e5c31d666ea1623cdf10b7a22fb352411bca2bdf0369f0c8618cadd1a2a",
+      "old_save_unchanged": true
+    },
+    "update_checksums": [
+      "2717750315",
+      "2717750315"
+    ],
+    "scope": "Old-save loading and simulation succeed without changing the original file. No claim about GUI migration notices, resaving the converted map, complete inventory/quest preservation or a blind comparison."
+  }
+}

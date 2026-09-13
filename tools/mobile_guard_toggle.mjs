@@ -33,7 +33,10 @@ export async function exerciseGuardToggle({page,root,output,check,report,waitFra
     });
     await waitFrames(page,4);
     await openSettings();
-    const setting=page.locator('.screen.on .item').filter({has:page.getByText('Tap to toggle guard',{exact:true})});
+    // The visible .nm includes an italic description. Exact text for the label
+    // alone cannot match that real DOM node; keep the actual row and trusted tap.
+    const setting=page.locator('.screen.on .item').filter({hasText:'Tap to toggle guard'});
+    check(await setting.count()===1,'one visible settings row identifies toggle guard');
     await setting.scrollIntoViewIfNeeded();
     await setting.tap();
     await page.waitForFunction(()=>window.CINDERLINE.game.settings.toggleGuard===true

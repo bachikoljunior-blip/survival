@@ -1,0 +1,53 @@
+{
+  "checked_at": "2026-09-14T08:39:39.718535+09:00",
+  "save_sha256": "a66edb9d85f329c9098214ce3f51290cc03ec895daf3e3b7728373d3654b716a",
+  "truncated_sha256": "37337610bac8a474882dd19857f925f3c86cb29a7f720d444b40f7ddebd1cf9c",
+  "trials": [
+    {
+      "case": "truncated",
+      "argv": [
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/factorio/bin/x64/factorio",
+        "--config",
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/config.ini",
+        "--benchmark",
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/truncated-copy.zip",
+        "--benchmark-ticks",
+        "60"
+      ],
+      "exit_code": 1,
+      "save_unchanged": true,
+      "truncated_unchanged": true,
+      "tail": [
+        "   1.039 Info PlayerData.cpp:71: Cloud player-data.json unavailable",
+        "   1.040 Info GlobalContext.cpp:1300: Resetting config.",
+        "   1.040 Factorio initialised",
+        "   1.040 Loading map /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/truncated-copy.zip: 256 bytes.",
+        "   1.087 Goodbye",
+        "   0.000 Error Util.cpp:81: Opening zip /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/truncated-copy.zip failed: I/O error"
+      ]
+    },
+    {
+      "case": "missing",
+      "argv": [
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/factorio/bin/x64/factorio",
+        "--config",
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/config.ini",
+        "--benchmark",
+        "/workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/missing-save.zip",
+        "--benchmark-ticks",
+        "60"
+      ],
+      "exit_code": 1,
+      "save_unchanged": true,
+      "truncated_unchanged": true,
+      "tail": [
+        "   1.495 Info PlayerData.cpp:71: Cloud player-data.json unavailable",
+        "   1.496 Info GlobalContext.cpp:1300: Resetting config.",
+        "   1.496 Factorio initialised",
+        "   1.496 Loading map /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/missing-save.zip",
+        "   1.545 Goodbye",
+        "   0.000 Error Util.cpp:81: File /workspace/scratch/0b7ad82bafe7/reference-materials/factorio/run/missing-save.zip does not exist."
+      ]
+    }
+  ]
+}

@@ -17,19 +17,20 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T08:21:32.961133+09:00"
-  verified_commit: "3266b95eede7f14f6eac424d73758a9c5b956843"
-  verified_build_sha256: "77f955e05d8a14acf44ad42ba1bcefd394f36971777bbbdd4500df53927a7b53"
-  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-3266b95-provenance.json"
-  last_verified_action: "3266b95 実WebKit115/115成功。標準品質1147×645の主要8spawnで生存・接地・実simulation後の画像取得。比較16画像を1度評価したがINSIDEを認識したため無効。全19要素not measured、完了unit0。"
-  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-3266b95-provenance.json"
-  modified_but_unverified: "toggleGuard設定・JA・継続表示と独立した入力source/edge処理を追加。回転休止復帰と古い押下による再ラッチを修正。Node45検査・905翻訳キー・ビルド/配布mirror成功。新ガード操作の実WebKit検証は次commitで実施。"
-  next_action: "ガード切替の実WebKit設定・tap・attack・menu・portrait・hold検証を確認する。無効比較を達成へ変えず、看板の発光と裏返り、接地、素材の粒度、照明の階層を製品画像に基づいて改善し、参照の既知性を排除する比較方法を整える。"
+  last_progress_at: "2026-09-14T08:43:14.446388+09:00"
+  verified_commit: "2bf67e01997217d9283c7457dee1dd412fcc6aee"
+  verified_build_sha256: "525120d6ea57e998625cdf9bd098b6227a3f03a70846f5c2f30910a4c46c1755"
+  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-2bf67e0-provenance.json"
+  last_verified_action: "2bf67e0 実WebKitは87検査成功後に新guard設定行の完全一致locatorで失敗。新guard操作と後続8viewは未測定。Factorio公式headless2.0.77実行で同一saveを3回3600更新しchecksum一致、破損/欠落を非0で拒否し原save保持。旧1.1.110で実生成したsaveも2.0.77で2回読込・3600更新して原本保持。全19要素not measured。"
+  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-2bf67e0-provenance.json"
+  pending_build_sha256: "091da9d7e4de99c418c417cc95cf0a73fc89db95f03f8feb1799178074397ffb"
+  modified_but_unverified: "看板を街と同じ照明/霧の材質へ変更し裏面文字を正向きへ。外向き法線が逆だった店看板15枚の向きを修正。guard行の実DOMに合うlocatorへ修正。同一poseのshadow cached/refreshed/bias比較を追加。ビルドと6配布mirror成功、これらの実WebKitと画像確認は次commit。"
+  next_action: "新commitのWebKitでguard全操作と8場面の看板を確認。shadow同一poseのcached/refreshed/bias画像を見てから影修正を選ぶ。取得済みFactorio実旧版save移行資料を比較可能な範囲へ整理し、他参照の実資料と成立するブラインド比較を進める。"
 
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "初回映像比較で参照の出所認識が起きたため無効。全19要素に有効なブラインド比較がまだない。期限内完全達成を裏付ける進捗はまだないため、製品修正と比較成立を並行して進める"
-    - "3266b95製品のWebKit115検査は成功。新ガード変更のWebKitと有効な参照比較が不足。旧環境のbrowser失敗は許可された既存CIで代替できている"
+    - "2bf67e0の新guard検証は設定行のlocatorで失敗。既存部分の検査成功と全体成功を区別する。旧環境のbrowser失敗は許可された既存CIで代替し、保護を迂回しない"
     - "通常Gitの認証は利用できない。接続済みGitHubアプリの正規書込みで同ブランチへ保存・再読取が成功済み。旧自動承認拒否は履歴として保存し、保護の迂回はしない"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"
   continuation_mechanism: "Work Mode の survival 継続実行 予約を作成し enabled を確認。1時間ごとの再開判定であり常時稼働する処理ではない。再開要求の受信を確認。継続の成功を予約だけで保証しない。foreground活動中は競合変更をせず、外部GitHub Autopilotは停止を維持"

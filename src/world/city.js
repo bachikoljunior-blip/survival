@@ -22,6 +22,7 @@ import * as P from './props.js';
 import { Rng } from '../core/rng.js';
 import { clamp, clamp01, lerp, TAU } from '../core/util.js';
 import { signTexture } from '../render/textures.js';
+import { patchWorldMaterial } from '../render/materials.js';
 
 const CHUNK = 56;
 
@@ -317,11 +318,14 @@ export class City {
       w: 512, h: 128, seed: (s.text || '').length * 31 + 7,
       bg: '#1a1613', fg: '#d9cfba', accent: '#ff7a2f', weathered: 0.6,
     });
-    const mat = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false });
+    const mat = this._signMaterial(tex);
     const geo = new THREE.PlaneGeometry(s.w, s.h);
     const mesh = new THREE.Mesh(geo, mat);
+    mesh.receiveShadow = true;
     mesh.position.set(s.x, s.y, s.z);
-    mesh.rotation.y = -s.rot + Math.PI / 2;
+    // Facade signs store -atan2(outward.z, outward.x). PlaneGeometry faces +Z;
+    // this turns its front toward the street, including both north/south walls.
+    mesh.rotation.y = s.rot + Math.PI / 2;
     mesh.matrixAutoUpdate = false;
     mesh.updateMatrix();
     this.root.add(mesh);
@@ -678,8 +682,18 @@ export class City {
       bg: p.bg || '#16130f', fg: p.fg || '#ddd3bf', accent: p.accent || '#ff7a2f',
       weathered: p.weathered ?? 0.55, border: p.border !== false,
     });
-    const mat = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false, side: THREE.DoubleSide });
+    const mat = this._signMaterial(tex);
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(p.w || 1.6, p.h || 0.8), mat);
+    mesh.receiveShadow = true;
+    // Two outward-facing painted faces keep the lettering readable from both
+    // sides. DoubleSide drew the front UVs backwards through the rear face.
+    const back = new THREE.Mesh(mesh.geometry, mat);
+    back.receiveShadow = true;
+    back.rotation.y = Math.PI;
+    back.position.z = -0.012;
+    back.matrixAutoUpdate = false;
+    back.updateMatrix();
+    mesh.add(back);
     mesh.position.set(p.x, (p.y || 0) + (p.h || 0.8) / 2 + (p.lift || 1.2), p.z);
     mesh.rotation.y = p.rot || 0;
     mesh.matrixAutoUpdate = false;
@@ -691,6 +705,14 @@ export class City {
       const cb = this._chunk(p.x, p.z);
       cb.m('metal').cylinder(p.x, 0, p.z, 0.055, (p.lift || 1.2) + 0.2, 6, 1.4, [0.42, 0.42, 0.44], false, 0.3);
     }
+  }
+
+  _signMaterial(texture) {
+    // These are painted boards, not light sources. Match the world's sun,
+    // exposure and height fog instead of drawing bright text through smoke.
+    return patchWorldMaterial(new THREE.MeshStandardMaterial({
+      map: texture, roughness: 0.88, metalness: 0.0, side: THREE.FrontSide,
+    }), { skyGate: false, wet: false });
   }
 
   /**

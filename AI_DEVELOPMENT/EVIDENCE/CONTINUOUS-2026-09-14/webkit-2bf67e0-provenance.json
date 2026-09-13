@@ -1,0 +1,35 @@
+{
+  "checked_at": "2026-09-14T08:41:33.018857+09:00",
+  "commit": "2bf67e01997217d9283c7457dee1dd412fcc6aee",
+  "build_sha256": "525120d6ea57e998625cdf9bd098b6227a3f03a70846f5c2f30910a4c46c1755",
+  "run_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34789638405",
+  "run_id": 34789638405,
+  "job_id": 103811356376,
+  "artifact_id": 10328215678,
+  "artifact_sha256": "a71ff45b6d481c324a56236e25c120ce252624e7412d2199652a779cf319c8e6",
+  "artifact_bytes": 65250941,
+  "artifact_expires_at": "2026-09-28T08:29:04+09:00",
+  "report_sha256": "47ea6e9fd737bbdb71bc6b6618946d6353f8fe061c2dce81cff3687f0e9f429f",
+  "result": "failed",
+  "measured": {
+    "checks": 87,
+    "passed": 87,
+    "failures": [
+      "locator.scrollIntoViewIfNeeded: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.screen.on .item').filter({ has: getByText('Tap to toggle guard', { exact: true }) })\n\n    at exerciseGuardToggle (/home/runner/work/survival/survival/tools/mobile_guard_toggle.mjs:37:19)\n    at async file:///home/runner/work/survival/survival/tools/test-iphone-webkit.mjs:598:3"
+    ],
+    "guard_states": [],
+    "f3_preceding_steps": "7 successful steps including actual Chromium save migration, build, operating state, content and Node regressions"
+  },
+  "diagnosis": {
+    "evidence": "trace.zip trace.trace frame-snapshot after@call@280 contains English guard label with nested italic description in the same .nm element. The exact-text locator did not match it.",
+    "action": "Select the real row by its unique label substring, assert uniqueness, retain trusted tap and actual persisted-setting/game-state checks.",
+    "snapshot_file": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-2bf67e0-settings-snapshot.json",
+    "snapshot_sha256": "e2c1f487eb8047813884e88f6abeb8935f590a9d6eb8c98981cdb5f9c07aca65"
+  },
+  "not_measured": [
+    "Guard behavior in this WebKit run; the helper failed before the first setting tap.",
+    "The eight visual views scheduled after the failed helper.",
+    "Physical phone performance and all reference-work blind comparisons."
+  ],
+  "element_status_change": false
+}

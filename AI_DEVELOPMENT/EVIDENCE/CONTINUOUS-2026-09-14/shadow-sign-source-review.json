@@ -1,0 +1,101 @@
+{
+  "verdict": "PASS",
+  "score": 90,
+  "round": "shadow-sign-source-review-after-corrections",
+  "profile": "Independent source, geometry and control-flow review",
+  "tier": "medium is the intended capture tier; actual rendering is not measured here",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No renderer or image was evaluated in this review.",
+  "blindComparison": "No blind comparison was performed. A stranger's preference cannot be inferred from source, normals, UV coordinates or a renderer stub. This bounded review does not satisfy a concept element, pass a product gate, or complete a work unit.",
+  "scope": "Review of the frozen shadow-bias diagnostic and sign geometry/material changes. PASS applies only to the examined source and geometry after two reproduced/provenance issues were corrected. Real WebKit rendering, image quality, compile success and the diagnostic's repeat-image checks remain to be measured by the existing CI.",
+  "target": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "localHeadAtFinalSourceCheck": "4b451ac315abd462fcfaeb6288ab664cc879bb2e",
+    "initialReviewHead": "2bf67e01997217d9283c7457dee1dd412fcc6aee",
+    "sha256": {
+      "tools/mobile_shadow_contact.mjs": "5acccdef80ee630d15e8474f832779a6809be91d352329c7953471fcebea105b",
+      "tools/mobile_visual_capture.mjs": "9b7655dad28eda95c2407979a8de5e4114d1abef3f1b6826b44003bd1e0568e2",
+      "src/world/city.js": "c9d402fd1450defe5dc758ac3645870e8854af9c3217d5c8568f69f8a0b1d91e"
+    },
+    "remoteVerification": "Not performed by this read-only reviewer."
+  },
+  "findings": [],
+  "resolvedCandidates": [
+    {
+      "id": "delayed-cached-readback",
+      "originalProblem": "The initial cached row called canvas.toDataURL in a separate evaluate after two RAF callbacks and viewport/HUD screenshots. With preserveDrawingBuffer:false, that delayed readback did not establish identity with the earlier production frame.",
+      "evidence": "The parent already saved a synchronous native PNG immediately after Game.render(0). The old helper unnecessarily read the canvas again after that buffer's guaranteed capture opportunity.",
+      "measurementLimit": "No blank, stale or corrupted WebKit image was observed in this review. This was a source/provenance defect, not a claimed pixel result.",
+      "independentRefutation": "The separate refuter confirmed the missing identity guarantee.",
+      "correction": "The parent now passes cachedFrame:native. The helper reads that exact saved PNG with readFileSync, retaining its path and computing PNG/RGBA hashes. The delayed cached canvas read is removed.",
+      "currentDisposition": "Resolved on the listed hashes. The cached row and the visual capture use the same file bytes, not two nominally equivalent renders."
+    },
+    {
+      "id": "shop-signs-facing-inward",
+      "originalProblem": "The previous _placeSign rotation, -s.rot + PI/2, faced all 15 authored shop signs into their buildings. This was an existing defect retained by the initial material change, not a newly introduced sign-material regression.",
+      "measuredBefore": {"authoredSigns": 15, "normalDotOutward": -1, "outsideRayHits": 0},
+      "procedure": "Use buildHollisData, building(), ChunkBuilder and City._placeSign; stub only Canvas2D drawing/measureText. Transform PlaneGeometry's +Z normal and raycast from outside its face. No GPU or rendered text is involved.",
+      "independentRefutation": "The separate refuter avoided the s.rot-derived expected normal and instead used the actual building-center to sign-center direction. It confirmed inward normals and zero outside hits for the old formula.",
+      "correction": "The author changed the rotation to s.rot + PI/2.",
+      "independentMeasuredAfter": {"authoredSigns": 15, "normalDotOutward": 1, "outsideRayHits": 15},
+      "currentDisposition": "Resolved geometrically on the listed City hash. Text readability, lighting and occlusion by other objects remain unmeasured."
+    }
+  ],
+  "shadowVariants": [
+    {"variant": "cached", "source": "Parent's synchronous production native PNG", "bias": -0.0009, "normalBias": 0.028, "interpretation": "The shadow state used by that actual production frame; it is not guaranteed to have been stale."},
+    {"variant": "refreshed", "source": "Fresh Game.render(0) with shadowDirty=true", "bias": -0.0009, "normalBias": 0.028, "interpretation": "Original numeric settings with the map rebuilt at the frozen state."},
+    {"variant": "depth", "source": "Fresh Game.render(0) with shadowDirty=true", "bias": -0.00015, "normalBias": 0.028, "interpretation": "Change only depth bias relative to refreshed; this is a full-color frame, not a raw depth-buffer image."},
+    {"variant": "depth-normal", "source": "Fresh Game.render(0) with shadowDirty=true", "bias": -0.00015, "normalBias": 0.012, "interpretation": "Change only normalBias relative to depth. Comparing directly to refreshed changes two numeric parameters."},
+    {"variant": "repeat", "source": "Fresh Game.render(0) with shadowDirty=true", "bias": -0.0009, "normalBias": 0.028, "interpretation": "Return to the original numeric settings; decoded RGBA identity with refreshed is the control."}
+  ],
+  "shadowControlFlow": {
+    "sourceChecks": [
+      "The parent stops the engine before capture and keeps it stopped until after the diagnostic. The helper rejects a running engine.",
+      "All four alternative renders and immediate canvas reads occur synchronously inside one evaluate, without an intervening await. Each requests a shadow-map refresh.",
+      "The production render forwards shadowDirty to renderer.shadowMap.needsUpdate. The installed Three.js shadow renderer honors that flag when renderer shadow autoUpdate is false.",
+      "Frame, simulation time, player position, player hierarchy transforms and camera position/quaternion are compared before and after. Refreshed/repeat decoded RGBA hashes are checked for equality.",
+      "The helper finally restores bias and normalBias and renders once more. The parent's finally restores UI display and the prior running state; the outer finally restores settings."
+    ],
+    "measuredWithRendererStub": {
+      "procedure": "Invoke the actual page.evaluate callback through captureShadowContact with in-memory scene/renderer stubs. Stop before filesystem/image processing. Inspect render/read ordering and inject a failure at the second render.",
+      "normalPath": "Four requested variants render in order, each followed by readback then finish; a fifth render uses the restored original values.",
+      "exceptionPath": "An injected depth-variant render failure still restores bias=-0.0009 and normalBias=0.028 before the finally render.",
+      "notMeasured": "The stub produces no image evidence and cannot establish GPU completion, actual shadow refresh, production pose equality or pixel equality.",
+      "scratchFailures": "Two preliminary versions of the in-memory fixture had syntax errors and produced no results; only the corrected execution is counted."
+    },
+    "restorationBoundary": "Restoration returns numeric bias settings and a newly refreshed original-parameter frame. It does not restore the old cached shadow texture/history. That distinction is intentional and must remain explicit.",
+    "remainingValidation": "If the production pose/camera check or exact refreshed/repeat control fails, that view cannot establish a single-variable bias effect. Saved images alone do not override a failed control."
+  },
+  "signMeasurements": {
+    "standalone": {
+      "procedure": "Call actual City._standaloneSign with Canvas2D drawing stubbed, update world matrices and raycast both painted faces through two screen-horizontal sample points.",
+      "frontWorldNormal": [0, 0, 1],
+      "backWorldNormal": [1.2246467991473532e-16, 0, -1],
+      "faceSeparationMeters": 0.012,
+      "frontUV": {"screenLeftU": 0.3, "screenRightU": 0.7000000000000002},
+      "backUV": {"screenLeftU": 0.3, "screenRightU": 0.7000000000000002},
+      "conclusion": "The opposite face rotates its own UV mapping, so U increases left-to-right when viewed from either side. No mirrored-rear mapping defect was found."
+    },
+    "materialAndShaderSource": {
+      "type": "MeshStandardMaterial",
+      "side": "FrontSide",
+      "roughness": 0.88,
+      "metalness": 0,
+      "toneMapped": true,
+      "builtInFog": false,
+      "worldPatchKey": "cl-worldfog-nd",
+      "measuredSourceInjection": "Calling the actual onBeforeCompile patch on Three.js' standard shader source inserts world-position and height-fog code, and omits the wet term for wet:false.",
+      "scope": "Shader source transformation only. No GLSL compilation, lighting result or readability result was measured."
+    }
+  },
+  "limits": [
+    "The four shadow views cover stacks, arcade, cinder and ventfield in the parent's eight-spawn capture. They do not cover every pose, interior, camera, quality tier or moving actor.",
+    "Game.render(0) does call the production camera and atmosphere updates. Most state uses dt, but camera shake uses performance.now; a stopped engine alone is not proof of identical images. The actual pose and repeat checks are therefore necessary and still pending.",
+    "Recorded perfSnapshot percentiles come from the engine's prior sample window; they are not per-variant timings. This review makes no performance claim.",
+    "The diagnosis can distinguish a refresh effect from bias changes at these sampled states if its controls pass. It cannot alone prove the best shipping bias values or whole-game shadow quality.",
+    "No physical-device result, reference comparison, concept-element satisfaction, release gate pass or final completion is asserted."
+  ],
+  "independentRefuter": "/root/render_cost_review/refute_backdrop",
+  "reviewerWrites": "Only this JSON was written for this bounded task. The reviewer made no product, test, CI, remote or browser changes."
+}
