@@ -444,6 +444,8 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
   will-change: transform;
 }
 .abtn:active, .abtn.down { transform: scale(0.9); background: rgba(255, 122, 47, 0.42); border-color: var(--ember); }
+.abtn.engaged { background: rgba(255, 122, 47, 0.42); border: 2px solid var(--ember); }
+.abtn.engaged::after { content: '●'; position: absolute; bottom: 3px; font-size: 5px; }
 /* Unavailable: no stamina, nothing to use, cannot guard right now. Driven from
    HUD.update — see _updateAvailability. */
 .abtn.dis { opacity: 0.3; border-color: rgba(150, 138, 120, 0.18); color: var(--dim); }

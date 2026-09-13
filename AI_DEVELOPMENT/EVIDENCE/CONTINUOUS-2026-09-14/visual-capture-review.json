@@ -1,0 +1,168 @@
+{
+  "blindComparison": "No blind comparison was performed. The reviewer knows these source files and cannot determine which anonymous work an evaluator would prefer. This report does not mark any product element satisfied.",
+  "browserStatus": "Saved runtime report records passed; reviewer launched no browser.",
+  "findings": [],
+  "limitations": [
+    "No browser was launched by this reviewer. The later saved CI report records a successful WebKit run; the reviewer checked its metadata and PNG hashes, but did not visually judge the images or independently verify remote CI provenance.",
+    "A paused browser compositor may retain a previous canvas frame. Two animation callbacks and separate screenshots do not establish byte correspondence with the synchronous native PNG. Inspect runtime images as separate surfaces.",
+    "Positive draw/triangle counts establish submitted rendering work, not correct or nonblank pixels. The captures must be inspected.",
+    "The engine frame counter advances on rendering. Grounded is the production flag and teleport initializes it true; normal simulation updates it during the wait. The helper does not independently trace collision contacts or establish a route playthrough.",
+    "Only #ui display is temporarily hidden. The helper intentionally changes gameplay state through new game and teleport, and it does not restore the prior save, actor/camera pose or engine clock.",
+    "The eight still views cannot establish animation, combat or movement feel, interiors, physical smartphone behavior, reference-work equivalence, or any overall satisfied verdict."
+  ],
+  "nativeResolution": "1147x645",
+  "nativeResolutionMeaning": "Decoded native PNG dimensions independently checked for all 8 saved CI captures. The configured CSS viewport is 667x375.",
+  "profile": "Read-only source review, Node execution of actual settings/tier APIs and authored spawn generation, then inspection of saved CI metadata and native-PNG hashes. The reviewer did not launch a browser.",
+  "referenceBlindStatus": "not measured",
+  "reviewedCommit": "3266b95eede7f14f6eac424d73758a9c5b956843",
+  "reviewedTree": "mobile_visual_capture.mjs and integration were committed; src/game/game.js had unrelated in-progress edits. Per-file hashes identify the exact reviewed sources.",
+  "round": "continuous-2026-09-14-visual-capture-review",
+  "schema_version": 1,
+  "score": 100,
+  "scoreMeaning": "The bounded source review has no surviving defect within the terminal CI helper contract. This is not a product-quality, browser-performance or blind-comparison score.",
+  "sourceHashes": {
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/game/game.js": "19fd7bdc57aa11dc18376cd70ef669663502e971a433216040da88c1996c589e",
+    "tools/mobile_visual_capture.mjs": "c7edb077ef7b3e1ae410cc9a7798f9e494d2d201dfddd6317c24ea8d14c77f18",
+    "tools/test-iphone-webkit.mjs": "ace762e9688d47e7350bf66d7f48b57ba4f3a7df178eefb19fb54b4321204394"
+  },
+  "tier": "medium",
+  "verdict": "PASS",
+  "verified": [
+    "Both modified instrument modules pass node --check.",
+    "The eight VIEWS entries resolve in the actual buildHollisData() result: start, marrow_west, arcade_out, cinder_road, survey_out, ventfield, south_marrow, plant_out.",
+    "The integrated call follows exerciseBackdrop. The preceding layout helper removes its pause reason and restores preferences; backdrop restores the current ground geometry, UI display and running state in finally.",
+    "waitFrames reads the actual engine.frame counter and requires a further 12 rendered frames. The helper also requires frame >= placed.frame+12; this is not a claim of exactly 12 fixed simulation steps.",
+    "New game and authored-spawn teleport are expressly disclosed setup. Yaw/pitch use the real third-person camera; game.render(0) updates the actual camera, visibility, atmosphere and postprocessing.",
+    "The native PNG is copied in the same JavaScript turn as game.render(0). Its file and decoded RGBA hashes and dimensions are recorded. Later viewport and HUD screenshots are separate evidence.",
+    "The checks fail for non-PLAY/paused/non-medium state, hidden/dead/ungrounded/nonpositive-health player, nonfinite captured poses, insufficient frame progression, or zero submitted draws/triangles.",
+    "Inner finally restores #ui display and restarts the engine after file/PNG/screenshot failures. Render/toDataURL exceptions restart the engine before propagating. These are source-level cleanup checks, not browser fault-injection results.",
+    "All helper failures propagate to the main report failure list; no subsequent play test consumes its intentionally reset gameplay state."
+  ],
+  "acceptedLimitations": [
+    {
+      "id": "VC-01",
+      "observation": "Restoring the original auto quality setting leaves the actual engine tier at medium. Entry auto+low and auto+high both exited auto+medium; only auto+medium returned to its original tier.",
+      "evidence": {
+        "renderer": "None; Engine constructor only",
+        "results": [
+          {
+            "entry": {
+              "locked": false,
+              "quality": "auto",
+              "tier": "low"
+            },
+            "exit": {
+              "locked": false,
+              "quality": "auto",
+              "tier": "medium"
+            }
+          },
+          {
+            "entry": {
+              "locked": false,
+              "quality": "auto",
+              "tier": "medium"
+            },
+            "exit": {
+              "locked": false,
+              "quality": "auto",
+              "tier": "medium"
+            }
+          },
+          {
+            "entry": {
+              "locked": false,
+              "quality": "auto",
+              "tier": "high"
+            },
+            "exit": {
+              "locked": false,
+              "quality": "auto",
+              "tier": "medium"
+            }
+          }
+        ],
+        "substitutes": "Document style/class methods and an in-memory localStorage; actual production Game.applySettings and Engine.setTier"
+      },
+      "independentRefutation": "The coordinator independently confirmed the intended terminal-helper contract: original settings are restored, but prior gameplay state/position and the prior auto-selected tier are not. The CI page closes after the helper, so no subsequent measurements inherit that tier.",
+      "disposition": "The tier difference is recorded as an explicit cleanup limit, not an implementation defect or reason to add optional restoration work."
+    }
+  ],
+  "runtimeArtifactObservation": {
+    "report": "/workspace/scratch/0b7ad82bafe7/ci-3266b95/report.json",
+    "reportSha256": "17045495bb5ba8ee5165d0ceb3214aa29d63298d523ee1ca7996a0affb476ac4",
+    "checkedAt": "2026-09-13T23:06:20.766Z",
+    "reportedBrowser": "webkit",
+    "reportedStatus": "passed",
+    "passedChecks": 115,
+    "failedChecks": 0,
+    "identityBoundary": "The coordinator identified this as the 3266b95 CI artifact. This reviewer verified the saved report and image bytes, but did not independently check remote CI run provenance; report.json does not embed the git commit.",
+    "checks": "All 8 native PNGs decode to 1147x645 and match both the PNG SHA-256 and decoded-RGBA SHA-256 in the report. All 8 viewport and all 8 HUD paths also exist.",
+    "views": [
+      {
+        "name": "stacks",
+        "framesAfterPlacement": 12,
+        "draws": 62,
+        "triangles": 103665
+      },
+      {
+        "name": "marrow",
+        "framesAfterPlacement": 13,
+        "draws": 172,
+        "triangles": 166743
+      },
+      {
+        "name": "arcade",
+        "framesAfterPlacement": 12,
+        "draws": 125,
+        "triangles": 83945
+      },
+      {
+        "name": "cinder",
+        "framesAfterPlacement": 12,
+        "draws": 109,
+        "triangles": 129579
+      },
+      {
+        "name": "survey",
+        "framesAfterPlacement": 13,
+        "draws": 91,
+        "triangles": 41541
+      },
+      {
+        "name": "ventfield",
+        "framesAfterPlacement": 12,
+        "draws": 77,
+        "triangles": 33815
+      },
+      {
+        "name": "south",
+        "framesAfterPlacement": 13,
+        "draws": 145,
+        "triangles": 94815
+      },
+      {
+        "name": "plant",
+        "framesAfterPlacement": 12,
+        "draws": 53,
+        "triangles": 43393
+      }
+    ],
+    "commonRecordedState": {
+      "tier": "medium",
+      "quality": "medium",
+      "mode": "play",
+      "paused": false,
+      "player": {
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      }
+    },
+    "inference": "The stored captures and recorded states are internally consistent with execution of the reviewed helper. This does not establish image quality, collision-contact accuracy or a played route."
+  }
+}
+

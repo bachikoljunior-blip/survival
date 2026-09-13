@@ -1,0 +1,3376 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-13T23:06:20.766Z",
+  "target": "iPhone SE (3rd gen) landscape / Playwright WebKit",
+  "browser": "webkit",
+  "checks": [
+    {
+      "name": "entry responds successfully",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "iPhone SE 3 landscape viewport",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "iPhone SE 3 DPR",
+      "passed": true,
+      "detail": "dpr=2"
+    },
+    {
+      "name": "touch emulation and coarse pointer are active",
+      "passed": true,
+      "detail": "{\"profile\":\"iPhone SE (3rd gen) landscape\",\"hasTouch\":true,\"isMobile\":true,\"maxTouchPoints\":0,\"coarse\":true}"
+    },
+    {
+      "name": "landscape orientation is active",
+      "passed": true,
+      "detail": "landscape=true"
+    },
+    {
+      "name": "production engine reaches a running title",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":375},\"dpr\":2,\"maxTouchPoints\":0,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"tier\":\"medium\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":375}}"
+    },
+    {
+      "name": "render canvas fills the viewport",
+      "passed": true,
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "title has no page overflow",
+      "passed": true,
+      "detail": "{\"documentWidth\":667,\"documentHeight\":375,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":111.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":165.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":219.5,\"width\":180,\"height\":44}]}"
+    },
+    {
+      "name": "title controls meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"new\",\"x\":479,\"y\":111.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":165.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":219.5,\"width\":180,\"height\":44}]"
+    },
+    {
+      "name": "trusted title tap starts a new game",
+      "passed": true,
+      "detail": "http://127.0.0.1:43645/cinderline-test/"
+    },
+    {
+      "name": "all required touch controls are present",
+      "passed": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "every touch control is visible and at least 44 CSS px",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "every touch control remains inside the target viewport",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "gameplay render has usable luminance",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":8.723,\"lumaStdDev\":23.066,\"nearBlackRatio\":0.65365}"
+    },
+    {
+      "name": "gameplay render is not flat or cleared",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":8.723,\"lumaStdDev\":23.066,\"nearBlackRatio\":0.65365}"
+    },
+    {
+      "name": "gameplay render is not predominantly black",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":8.723,\"lumaStdDev\":23.066,\"nearBlackRatio\":0.65365}"
+    },
+    {
+      "name": "visual regression stays within tolerance",
+      "passed": true,
+      "detail": "ratio=0.000017, limit=0.15"
+    },
+    {
+      "name": "left-thumb movement moves the player",
+      "passed": true,
+      "detail": "distance=6.3457"
+    },
+    {
+      "name": "trusted second touch starts an attack during movement",
+      "passed": true,
+      "detail": "attacks=1"
+    },
+    {
+      "name": "touch release clears movement and attack",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-90.34569118048421,\"attackStarts\":1,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "interaction leaves finite player state",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-90.34569118048421,\"attackStarts\":1,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "right-thumb drag moves the camera",
+      "passed": true,
+      "detail": "delta=0.20095"
+    },
+    {
+      "name": "pause actions are touch-sized",
+      "passed": true,
+      "detail": "[{\"index\":0,\"text\":\"保存\",\"x\":8,\"y\":319,\"width\":47.25,\"height\":44},{\"index\":1,\"text\":\"タイトル\",\"x\":61.25,\"y\":319,\"width\":72.609375,\"height\":44},{\"index\":2,\"text\":\"再開\",\"x\":611.75,\"y\":319,\"width\":47.25,\"height\":44}]"
+    },
+    {
+      "name": "portrait rotation raises a blocking prompt and pauses play",
+      "passed": true,
+      "detail": "{\"prompt\":true,\"paused\":true,\"portrait\":true}"
+    },
+    {
+      "name": "returning to landscape restores play",
+      "passed": true,
+      "detail": "{\"paused\":false,\"landscape\":true}"
+    },
+    {
+      "name": "saved run exposes a touch-sized Continue action",
+      "passed": true,
+      "detail": "{\"x\":569,\"y\":106.5,\"width\":180,\"height\":44}"
+    },
+    {
+      "name": "same-tab reload and Continue restore the saved position",
+      "passed": true,
+      "detail": "distance=0.0000, bytes=1410"
+    },
+    {
+      "name": "automated play remains live with finite state and no captured game faults",
+      "passed": true,
+      "detail": "{\"samples\":30,\"medianFrameGapMs\":201,\"p95FrameGapMs\":424,\"maximumFrameGapMs\":699,\"engineFrame\":45,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"medium\",\"p50\":197,\"p90\":416,\"p99\":1042,\"fps50\":5.0761421319796955,\"fps90\":2.4038461538461537,\"draws\":53,\"tris\":100983,\"programs\":70,\"textures\":88,\"geometries\":206,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2},\"faults\":0}"
+    },
+    {
+      "name": "automated play continues producing frames",
+      "passed": true,
+      "detail": "samples=30"
+    },
+    {
+      "name": "runner frame-gap hang guard",
+      "passed": true,
+      "detail": "p95=424ms, limit=5000ms"
+    },
+    {
+      "name": "renderer submits non-empty geometry after the soak",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":197,\"p90\":416,\"p99\":1042,\"fps50\":5.0761421319796955,\"fps90\":2.4038461538461537,\"draws\":53,\"tris\":100983,\"programs\":70,\"textures\":88,\"geometries\":206,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "submission probe captures actual rendered geometry",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "title settings expose all three retained copies",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all copies can be exported and only the readable copy can be restored",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "recovery buttons are touch-sized and fit the mobile viewport",
+      "passed": true,
+      "detail": "[{\"text\":\"ファイルに保存\",\"x\":8,\"y\":186,\"width\":651,\"height\":44,\"fullyVisible\":true},{\"text\":\"ファイルに保存\",\"x\":8,\"y\":186,\"width\":651,\"height\":44,\"fullyVisible\":true},{\"text\":\"ファイルに保存\",\"x\":8,\"y\":266,\"width\":321.5,\"height\":44,\"fullyVisible\":true},{\"text\":\"このコピーを使う\",\"x\":337.5,\"y\":266,\"width\":321.5,\"height\":44,\"fullyVisible\":true}]"
+    },
+    {
+      "name": "trusted export tap downloads the exact unreadable original bytes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore preserves all four versions and title SAVE cannot overwrite it",
+      "passed": true,
+      "detail": "{\"originalBytes\":true,\"allPreserved\":true,\"saveHidden\":true,\"announcement\":\"復元しました。設定を閉じて「つづきから」を選んでください。\"}"
+    },
+    {
+      "name": "Japanese restoration notice has a visible box inside the scroller and viewport",
+      "passed": true,
+      "detail": "{\"x\":8,\"y\":290,\"width\":651,\"height\":20,\"fullyVisible\":true}"
+    },
+    {
+      "name": "Continue applies the legacy save to the real running world",
+      "passed": true,
+      "detail": "{\"legacyFlag\":true,\"position\":{\"x\":-112,\"y\":0,\"z\":-84},\"finite\":true,\"distance\":0}"
+    },
+    {
+      "name": "changing language in play keeps the gameplay SAVE available",
+      "passed": true,
+      "detail": "{\"fromTitle\":false,\"saveWidth\":52.359375,\"saveHeight\":44}"
+    },
+    {
+      "name": "manual-save witness is inserted while gameplay is paused in MENU",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manual-save witness is absent from storage before the SAVE tap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "trusted SAVE after language change retains loaded legacy progress in the current format",
+      "passed": true,
+      "detail": "{\"version\":2,\"legacyFlag\":true,\"manualWitness\":true}"
+    },
+    {
+      "name": "closing language-changed settings returns to live gameplay with the HUD",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 0.8, right handed: requested settings reached both game state and CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 0.8, right handed: all nine persistent targets meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":602.609375,\"y\":308.609375,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":548.609375,\"y\":319.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":609.609375,\"y\":252.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":554.609375,\"y\":254.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":496.609375,\"y\":296.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":465.4375,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":515.828125,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":566.21875,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":616.609375,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "scale 0.8, right handed: targets stay within the viewport",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 0.8, right handed: persistent targets do not overlap",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "scale 1, right handed: requested settings reached both game state and CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1, right handed: all nine persistent targets meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "scale 1, right handed: targets stay within the viewport",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1, right handed: persistent targets do not overlap",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "scale 1.5, right handed: requested settings reached both game state and CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1.5, right handed: all nine persistent targets meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":568,\"y\":273,\"width\":81,\"height\":81,\"visible\":true},{\"name\":\"dodge\",\"x\":487,\"y\":289.5,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"guard\",\"x\":578.5,\"y\":189,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"use\",\"x\":496,\"y\":192,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"heavy\",\"x\":409,\"y\":255,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"menu\",\"x\":443,\"y\":12,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":499,\"y\":12,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":555,\"y\":12,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":611,\"y\":12,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "scale 1.5, right handed: targets stay within the viewport",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1.5, right handed: persistent targets do not overlap",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "scale 0.8, left handed: requested settings reached both game state and CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 0.8, left handed: all nine persistent targets meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":10.390625,\"y\":308.609375,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":74.390625,\"y\":319.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":13.390625,\"y\":252.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":68.390625,\"y\":254.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":126.390625,\"y\":296.609375,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":6.390625,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":56.78125,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":107.171875,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":157.5625,\"y\":6.390625,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "scale 0.8, left handed: targets stay within the viewport",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 0.8, left handed: persistent targets do not overlap",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "scale 1, left handed: requested settings reached both game state and CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1, left handed: all nine persistent targets meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":12,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":76,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":15,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":70,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":128,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":8,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":60,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":112,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":164,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "scale 1, left handed: targets stay within the viewport",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1, left handed: persistent targets do not overlap",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "scale 1.5, left handed: requested settings reached both game state and CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1.5, left handed: all nine persistent targets meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":18,\"y\":273,\"width\":81,\"height\":81,\"visible\":true},{\"name\":\"dodge\",\"x\":114,\"y\":289.5,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"guard\",\"x\":22.5,\"y\":189,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"use\",\"x\":105,\"y\":192,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"heavy\",\"x\":192,\"y\":255,\"width\":66,\"height\":66,\"visible\":true},{\"name\":\"menu\",\"x\":12,\"y\":12,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":68,\"y\":12,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":124,\"y\":12,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":180,\"y\":12,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "scale 1.5, left handed: targets stay within the viewport",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scale 1.5, left handed: persistent targets do not overlap",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "scale 0.8: left-handed action geometry mirrors right-handed geometry",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":0,\"y\":0},{\"name\":\"dodge\",\"x\":0,\"y\":0},{\"name\":\"guard\",\"x\":0,\"y\":0},{\"name\":\"use\",\"x\":0,\"y\":0},{\"name\":\"heavy\",\"x\":0,\"y\":0}]"
+    },
+    {
+      "name": "scale 1: left-handed action geometry mirrors right-handed geometry",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":0,\"y\":0},{\"name\":\"dodge\",\"x\":0,\"y\":0},{\"name\":\"guard\",\"x\":0,\"y\":0},{\"name\":\"use\",\"x\":0,\"y\":0},{\"name\":\"heavy\",\"x\":0,\"y\":0}]"
+    },
+    {
+      "name": "scale 1.5: left-handed action geometry mirrors right-handed geometry",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":0,\"y\":0},{\"name\":\"dodge\",\"x\":0,\"y\":0},{\"name\":\"guard\",\"x\":0,\"y\":0},{\"name\":\"use\",\"x\":0,\"y\":0},{\"name\":\"heavy\",\"x\":0,\"y\":0}]"
+    },
+    {
+      "name": "ground regression street: unchanged rendering control is byte-identical",
+      "passed": true,
+      "detail": "{\"perceptualPixels\":0,\"changedPixelsExact\":0,\"totalPixels\":291600}"
+    },
+    {
+      "name": "ground regression street: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression street: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression street: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression roof: unchanged rendering control is byte-identical",
+      "passed": true,
+      "detail": "{\"perceptualPixels\":0,\"changedPixelsExact\":0,\"totalPixels\":291600}"
+    },
+    {
+      "name": "ground regression roof: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression roof: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression roof: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression city_edge: unchanged rendering control is byte-identical",
+      "passed": true,
+      "detail": "{\"perceptualPixels\":0,\"changedPixelsExact\":0,\"totalPixels\":291600}"
+    },
+    {
+      "name": "ground regression city_edge: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression city_edge: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression city_edge: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression horizon_ground: unchanged rendering control is byte-identical",
+      "passed": true,
+      "detail": "{\"perceptualPixels\":0,\"changedPixelsExact\":0,\"totalPixels\":291600}"
+    },
+    {
+      "name": "ground regression horizon_ground: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression horizon_ground: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression horizon_ground: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual stacks: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual stacks: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[-112,0,-84],\"yaw\":0,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual stacks: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":16,\"p90\":230,\"p99\":634,\"fps50\":62.5,\"fps90\":4.3478260869565215,\"draws\":62,\"tris\":103665,\"programs\":50,\"textures\":62,\"geometries\":166,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual marrow: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual marrow: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[-128,0,0],\"yaw\":0,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual marrow: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":16,\"p90\":263,\"p99\":633,\"fps50\":62.5,\"fps90\":3.802281368821293,\"draws\":172,\"tris\":166743,\"programs\":58,\"textures\":82,\"geometries\":220,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual arcade: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual arcade: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[-104.5,0.14,-6.5],\"yaw\":3.141592653589793,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual arcade: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":19,\"p90\":274,\"p99\":633,\"fps50\":52.63157894736842,\"fps90\":3.6496350364963503,\"draws\":125,\"tris\":83945,\"programs\":58,\"textures\":82,\"geometries\":227,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual cinder: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual cinder: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[25,0,-10],\"yaw\":3.141592653589793,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual cinder: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":110,\"p90\":268,\"p99\":633,\"fps50\":9.090909090909092,\"fps90\":3.7313432835820897,\"draws\":109,\"tris\":129579,\"programs\":58,\"textures\":83,\"geometries\":320,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual survey: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual survey: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[62,0,-34],\"yaw\":3.141592653589793,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual survey: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":211,\"p90\":268,\"p99\":632,\"fps50\":4.739336492890995,\"fps90\":3.7313432835820897,\"draws\":91,\"tris\":41541,\"programs\":58,\"textures\":83,\"geometries\":339,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual ventfield: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual ventfield: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[82,0,-60],\"yaw\":3.141592653589793,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual ventfield: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":215,\"p90\":268,\"p99\":632,\"fps50\":4.651162790697675,\"fps90\":3.7313432835820897,\"draws\":77,\"tris\":33815,\"programs\":59,\"textures\":85,\"geometries\":345,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual south: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual south: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[-60,0,52],\"yaw\":0,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual south: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":229,\"p90\":274,\"p99\":1278,\"fps50\":4.366812227074236,\"fps90\":3.6496350364963503,\"draws\":145,\"tris\":94815,\"programs\":77,\"textures\":85,\"geometries\":348,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "visual plant: live medium-quality gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "visual plant: player settles alive on the real ground",
+      "passed": true,
+      "detail": "{\"position\":[-46,0,-102],\"yaw\":3.141592653589793,\"hp\":120,\"dead\":false,\"grounded\":true,\"state\":\"idle\",\"visible\":true}"
+    },
+    {
+      "name": "visual plant: real simulation and non-empty render",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":232,\"p90\":274,\"p99\":1278,\"fps50\":4.310344827586207,\"fps90\":3.6496350364963503,\"draws\":53,\"tris\":43393,\"programs\":79,\"textures\":85,\"geometries\":349,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "no page errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no console errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no failed requests",
+      "passed": true,
+      "detail": "0 failure(s)"
+    },
+    {
+      "name": "no HTTP error responses",
+      "passed": true,
+      "detail": "0 error response(s)"
+    }
+  ],
+  "timings": {
+    "bootMs": 6110,
+    "soakMs": 7096
+  },
+  "device": {
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "dpr": 2,
+    "maxTouchPoints": 0,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1",
+    "coarse": true,
+    "landscape": true,
+    "ready": true,
+    "running": true,
+    "build": "1.0.0",
+    "tier": "medium",
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 667,
+      "height": 375
+    }
+  },
+  "layout": {
+    "title": {
+      "documentWidth": 667,
+      "documentHeight": 375,
+      "buttons": [
+        {
+          "name": "new",
+          "x": 479,
+          "y": 111.5,
+          "width": 180,
+          "height": 44
+        },
+        {
+          "name": "settings",
+          "x": 479,
+          "y": 165.5,
+          "width": 180,
+          "height": 44
+        },
+        {
+          "name": "credits",
+          "x": 479,
+          "y": 219.5,
+          "width": 180,
+          "height": 44
+        }
+      ]
+    },
+    "controls": [
+      {
+        "name": "attack",
+        "x": 601,
+        "y": 307,
+        "width": 54,
+        "height": 54,
+        "visible": true
+      },
+      {
+        "name": "dodge",
+        "x": 547,
+        "y": 318,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "guard",
+        "x": 608,
+        "y": 251,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "use",
+        "x": 553,
+        "y": 253,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "heavy",
+        "x": 495,
+        "y": 295,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "menu",
+        "x": 459,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "map",
+        "x": 511,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "lamp",
+        "x": 563,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "meter",
+        "x": 615,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      }
+    ]
+  },
+  "interaction": {
+    "simultaneousMoveAttack": {
+      "before": {
+        "x": -112,
+        "y": 0,
+        "z": -84,
+        "frame": 24
+      },
+      "after": {
+        "x": -112,
+        "y": 0,
+        "z": -90.34569118048421,
+        "attackStarts": 1,
+        "stickActive": false,
+        "moveMagnitude": 0,
+        "attackRaw": false,
+        "finite": true
+      },
+      "moved": 6.3457
+    },
+    "camera": {
+      "before": {
+        "yaw": 0,
+        "pitch": -0.3490658503988659
+      },
+      "after": {
+        "yaw": -0.1929535232383808,
+        "pitch": -0.4051977844318494
+      },
+      "delta": 0.20095
+    },
+    "saveRecovery": {
+      "recovered": {
+        "originalBytes": true,
+        "allPreserved": true,
+        "saveHidden": true,
+        "announcement": "復元しました。設定を閉じて「つづきから」を選んでください。"
+      },
+      "loaded": {
+        "legacyFlag": true,
+        "position": {
+          "x": -112,
+          "y": 0,
+          "z": -84
+        },
+        "finite": true,
+        "distance": 0
+      },
+      "language": {
+        "fromTitle": false,
+        "saveWidth": 52.359375,
+        "saveHeight": 44
+      },
+      "resaved": {
+        "version": 2,
+        "legacyFlag": true,
+        "manualWitness": true
+      },
+      "resumed": true,
+      "scope": "Real webkit rendering and trusted single-touch actions; seeded legacy fixture and in-memory manual-save witness. No physical-phone or full-playthrough claim."
+    }
+  },
+  "persistence": {
+    "saved": {
+      "x": -112,
+      "y": 0,
+      "z": -90.34600368018587,
+      "bytes": 1410
+    },
+    "restored": {
+      "x": -112,
+      "y": 0,
+      "z": -90.34600368046527,
+      "mode": "play"
+    },
+    "distance": 0
+  },
+  "soak": {
+    "samples": 30,
+    "medianFrameGapMs": 201,
+    "p95FrameGapMs": 424,
+    "maximumFrameGapMs": 699,
+    "engineFrame": 45,
+    "running": true,
+    "finite": true,
+    "perf": {
+      "tier": "medium",
+      "p50": 197,
+      "p90": 416,
+      "p99": 1042,
+      "fps50": 5.0761421319796955,
+      "fps90": 2.4038461538461537,
+      "draws": 53,
+      "tris": 100983,
+      "programs": 70,
+      "textures": 88,
+      "geometries": 206,
+      "res": "1147x645",
+      "css": "667x375",
+      "dpr": 2
+    },
+    "faults": 0
+  },
+  "screenshots": {
+    "gameplay": "test-results/iphone-webkit/iphone-se3-webkit-gameplay.png",
+    "pause": "test-results/iphone-webkit/pause-menu.png",
+    "savedCopies": "test-results/iphone-webkit/saved-copies.png",
+    "restorationResult": "test-results/iphone-webkit/restoration-result.png"
+  },
+  "visualRegression": {
+    "baseline": "tests/baselines/iphone-se3-webkit-gameplay.png",
+    "baselinePresent": true,
+    "actual": "test-results/iphone-webkit/iphone-se3-webkit-gameplay.png",
+    "diff": "test-results/iphone-webkit/iphone-se3-webkit-diff.png",
+    "diffPixels": 17,
+    "diffRatio": 0.000017,
+    "threshold": 0.25,
+    "maximumDiffRatio": 0.15,
+    "stats": {
+      "width": 1334,
+      "height": 750,
+      "meanLuma": 8.723,
+      "lumaStdDev": 23.066,
+      "nearBlackRatio": 0.65365
+    }
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "request": [],
+    "http": []
+  },
+  "failures": [],
+  "status": "passed",
+  "baseUrl": "http://127.0.0.1:43645/cinderline-test/",
+  "emulation": {
+    "profile": "iPhone SE (3rd gen) landscape",
+    "hasTouch": true,
+    "isMobile": true
+  },
+  "submittedGeometry": {
+    "46": [
+      {
+        "object": "Mesh",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 624,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2758,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5528,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 918,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2008,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 39308,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8304,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 584,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 276,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 692,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 96,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1680,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 780,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-1:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 948,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 808,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5000,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4932,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 48,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1420,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1336,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8740,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 3300,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 422,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 160,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 912,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 80,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:lampglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 576,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 216,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1422,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 96,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 96,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "screen",
+        "triangles": 1,
+        "calls": 1
+      }
+    ],
+    "47": [
+      {
+        "object": "Mesh",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 624,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2758,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5528,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 918,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2008,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 39308,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8304,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 584,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 276,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 692,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 96,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1680,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 780,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-1:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 948,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 808,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5000,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4932,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 48,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1420,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1336,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8740,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 3300,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 422,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 160,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 912,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 80,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:lampglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 576,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 216,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1422,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 94,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 94,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "screen",
+        "triangles": 1,
+        "calls": 1
+      }
+    ]
+  },
+  "scaledTouchLayout": {
+    "scope": "Actual webkit DOM geometry for the nine persistent gameplay targets, at three supported scales and both handedness settings. Settings are programmatic test setup; this does not measure reach, physical multitouch or the conditional interaction target.",
+    "cases": [
+      {
+        "uiScale": 0.8,
+        "leftHanded": false,
+        "targets": [
+          {
+            "name": "attack",
+            "x": 602.609375,
+            "y": 308.609375,
+            "width": 54,
+            "height": 54,
+            "visible": true
+          },
+          {
+            "name": "dodge",
+            "x": 548.609375,
+            "y": 319.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "guard",
+            "x": 609.609375,
+            "y": 252.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "use",
+            "x": 554.609375,
+            "y": 254.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "heavy",
+            "x": 496.609375,
+            "y": 296.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "menu",
+            "x": 465.4375,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "map",
+            "x": 515.828125,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "lamp",
+            "x": 566.21875,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "meter",
+            "x": 616.609375,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          }
+        ],
+        "overlaps": [],
+        "width": 667,
+        "height": 375,
+        "language": "en",
+        "appliedScale": 0.8,
+        "appliedLeftHanded": false,
+        "cssScale": 0.8,
+        "handedClass": false,
+        "screenshot": "test-results/iphone-webkit/touch-right-0.8.png"
+      },
+      {
+        "uiScale": 1,
+        "leftHanded": false,
+        "targets": [
+          {
+            "name": "attack",
+            "x": 601,
+            "y": 307,
+            "width": 54,
+            "height": 54,
+            "visible": true
+          },
+          {
+            "name": "dodge",
+            "x": 547,
+            "y": 318,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "guard",
+            "x": 608,
+            "y": 251,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "use",
+            "x": 553,
+            "y": 253,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "heavy",
+            "x": 495,
+            "y": 295,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "menu",
+            "x": 459,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "map",
+            "x": 511,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "lamp",
+            "x": 563,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "meter",
+            "x": 615,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          }
+        ],
+        "overlaps": [],
+        "width": 667,
+        "height": 375,
+        "language": "en",
+        "appliedScale": 1,
+        "appliedLeftHanded": false,
+        "cssScale": 1,
+        "handedClass": false,
+        "screenshot": "test-results/iphone-webkit/touch-right-1.png"
+      },
+      {
+        "uiScale": 1.5,
+        "leftHanded": false,
+        "targets": [
+          {
+            "name": "attack",
+            "x": 568,
+            "y": 273,
+            "width": 81,
+            "height": 81,
+            "visible": true
+          },
+          {
+            "name": "dodge",
+            "x": 487,
+            "y": 289.5,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "guard",
+            "x": 578.5,
+            "y": 189,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "use",
+            "x": 496,
+            "y": 192,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "heavy",
+            "x": 409,
+            "y": 255,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "menu",
+            "x": 443,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "map",
+            "x": 499,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "lamp",
+            "x": 555,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "meter",
+            "x": 611,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          }
+        ],
+        "overlaps": [],
+        "width": 667,
+        "height": 375,
+        "language": "en",
+        "appliedScale": 1.5,
+        "appliedLeftHanded": false,
+        "cssScale": 1.5,
+        "handedClass": false,
+        "screenshot": "test-results/iphone-webkit/touch-right-1.5.png"
+      },
+      {
+        "uiScale": 0.8,
+        "leftHanded": true,
+        "targets": [
+          {
+            "name": "attack",
+            "x": 10.390625,
+            "y": 308.609375,
+            "width": 54,
+            "height": 54,
+            "visible": true
+          },
+          {
+            "name": "dodge",
+            "x": 74.390625,
+            "y": 319.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "guard",
+            "x": 13.390625,
+            "y": 252.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "use",
+            "x": 68.390625,
+            "y": 254.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "heavy",
+            "x": 126.390625,
+            "y": 296.609375,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "menu",
+            "x": 6.390625,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "map",
+            "x": 56.78125,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "lamp",
+            "x": 107.171875,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "meter",
+            "x": 157.5625,
+            "y": 6.390625,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          }
+        ],
+        "overlaps": [],
+        "width": 667,
+        "height": 375,
+        "language": "en",
+        "appliedScale": 0.8,
+        "appliedLeftHanded": true,
+        "cssScale": 0.8,
+        "handedClass": true,
+        "screenshot": "test-results/iphone-webkit/touch-left-0.8.png"
+      },
+      {
+        "uiScale": 1,
+        "leftHanded": true,
+        "targets": [
+          {
+            "name": "attack",
+            "x": 12,
+            "y": 307,
+            "width": 54,
+            "height": 54,
+            "visible": true
+          },
+          {
+            "name": "dodge",
+            "x": 76,
+            "y": 318,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "guard",
+            "x": 15,
+            "y": 251,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "use",
+            "x": 70,
+            "y": 253,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "heavy",
+            "x": 128,
+            "y": 295,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "menu",
+            "x": 8,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "map",
+            "x": 60,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "lamp",
+            "x": 112,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "meter",
+            "x": 164,
+            "y": 8,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          }
+        ],
+        "overlaps": [],
+        "width": 667,
+        "height": 375,
+        "language": "en",
+        "appliedScale": 1,
+        "appliedLeftHanded": true,
+        "cssScale": 1,
+        "handedClass": true,
+        "screenshot": "test-results/iphone-webkit/touch-left-1.png"
+      },
+      {
+        "uiScale": 1.5,
+        "leftHanded": true,
+        "targets": [
+          {
+            "name": "attack",
+            "x": 18,
+            "y": 273,
+            "width": 81,
+            "height": 81,
+            "visible": true
+          },
+          {
+            "name": "dodge",
+            "x": 114,
+            "y": 289.5,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "guard",
+            "x": 22.5,
+            "y": 189,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "use",
+            "x": 105,
+            "y": 192,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "heavy",
+            "x": 192,
+            "y": 255,
+            "width": 66,
+            "height": 66,
+            "visible": true
+          },
+          {
+            "name": "menu",
+            "x": 12,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "map",
+            "x": 68,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "lamp",
+            "x": 124,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          },
+          {
+            "name": "meter",
+            "x": 180,
+            "y": 12,
+            "width": 44,
+            "height": 44,
+            "visible": true
+          }
+        ],
+        "overlaps": [],
+        "width": 667,
+        "height": 375,
+        "language": "en",
+        "appliedScale": 1.5,
+        "appliedLeftHanded": true,
+        "cssScale": 1.5,
+        "handedClass": true,
+        "screenshot": "test-results/iphone-webkit/touch-left-1.5.png"
+      }
+    ]
+  },
+  "backdropRegression": {
+    "scope": "Old ground geometry substituted in the same frozen current production scene. All other geometry, materials, lighting and camera are held constant within each pair. World-only diagnostic views; no gameplay, physical FPS or reference-comparison claim.",
+    "sourceCommit": "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+    "sourceSha256": "3493bc2338f0cc0f9429fab718ee179a0ad8746fc191ba6913678e66d5cb6c06",
+    "oldAttributeHashes": {
+      "position": "c7ff496cc144ed930ab58aae3f14d9d06d7b3f07e06dd43891fa20ba9415a9e0",
+      "normal": "ba7d9a4d62563e85f269f92a3961bd880f47451f1eeba883b60ba7ed120f0b4b",
+      "uv": "c5047487a6ad93aacd6c32c075a903bd67a673d13b7a9cd22d0d11335bc916de",
+      "color": "868c9ec110c02f447013f3f8b60ef767ca575b93d64dcc313a0b087bead58da9"
+    },
+    "oldIndexHash": "7448f949b3dc388b262a338ff550c0c363ba1a9f0973cf0b6297e8a83ac702c8",
+    "views": [
+      {
+        "name": "street",
+        "requestedPlayerCamera": [
+          -112,
+          1.7,
+          -78,
+          0,
+          -4
+        ],
+        "cameraPosition": [
+          -111.58,
+          3.371123305478851,
+          -74.40876941906463
+        ],
+        "cameraQuaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "time": 3.7499999999999916,
+        "tier": "low",
+        "resolution": "720x405",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-street-current.png",
+            "nativeFile": "test-results/iphone-webkit/ground-street-current-frame.png",
+            "passes": {
+              "sceneColor": 105158,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 105159,
+            "attributedTriangles": 105159,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "8cd4a90e76dfb2b0a1eb649c7c82defdbefe81237d6f6e0921e4eacdf3cb21da",
+              "rgbaSha256": "ed74a7d8610275fee0cbdb67add4afbbf323e72ef89fca448ce9292a567bc1b7"
+            }
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-street-previous.png",
+            "nativeFile": "test-results/iphone-webkit/ground-street-previous-frame.png",
+            "passes": {
+              "sceneColor": 827358,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 827359,
+            "attributedTriangles": 827359,
+            "geometryTriangles": 723456,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "8cd4a90e76dfb2b0a1eb649c7c82defdbefe81237d6f6e0921e4eacdf3cb21da",
+              "rgbaSha256": "ed74a7d8610275fee0cbdb67add4afbbf323e72ef89fca448ce9292a567bc1b7"
+            }
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-street-repeat.png",
+            "nativeFile": "test-results/iphone-webkit/ground-street-repeat-frame.png",
+            "passes": {
+              "sceneColor": 105158,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 105159,
+            "attributedTriangles": 105159,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "8cd4a90e76dfb2b0a1eb649c7c82defdbefe81237d6f6e0921e4eacdf3cb21da",
+              "rgbaSha256": "ed74a7d8610275fee0cbdb67add4afbbf323e72ef89fca448ce9292a567bc1b7"
+            }
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 291600
+        },
+        "controlDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 291600
+        },
+        "pixelComparisonSurface": "Native rendered canvas captured synchronously; viewport screenshots are separately retained.",
+        "mainSceneBudgetMet": true
+      },
+      {
+        "name": "roof",
+        "requestedPlayerCamera": [
+          -112,
+          21.2,
+          -62,
+          135,
+          -6
+        ],
+        "cameraPosition": [
+          -109.76534541358609,
+          22.99630246776355,
+          -64.8286242826106
+        ],
+        "cameraQuaternion": [
+          -0.020028103371158897,
+          0.9226133877210194,
+          0.0483521187872621,
+          0.3821589780210331
+        ],
+        "time": 3.7499999999999916,
+        "tier": "low",
+        "resolution": "720x405",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-roof-current.png",
+            "nativeFile": "test-results/iphone-webkit/ground-roof-current-frame.png",
+            "passes": {
+              "sceneColor": 136804,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 136805,
+            "attributedTriangles": 136805,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "0eb06da51b21434687cb3f12d8483e2b93714cdba81fbbba88ead70399a84748",
+              "rgbaSha256": "f29797be13fd8dd0b0f85be2461655304b869f759db84ce47117dadbd0bfdd2f"
+            }
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-roof-previous.png",
+            "nativeFile": "test-results/iphone-webkit/ground-roof-previous-frame.png",
+            "passes": {
+              "sceneColor": 859004,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 859005,
+            "attributedTriangles": 859005,
+            "geometryTriangles": 723456,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "0eb06da51b21434687cb3f12d8483e2b93714cdba81fbbba88ead70399a84748",
+              "rgbaSha256": "f29797be13fd8dd0b0f85be2461655304b869f759db84ce47117dadbd0bfdd2f"
+            }
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-roof-repeat.png",
+            "nativeFile": "test-results/iphone-webkit/ground-roof-repeat-frame.png",
+            "passes": {
+              "sceneColor": 136804,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 136805,
+            "attributedTriangles": 136805,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "0eb06da51b21434687cb3f12d8483e2b93714cdba81fbbba88ead70399a84748",
+              "rgbaSha256": "f29797be13fd8dd0b0f85be2461655304b869f759db84ce47117dadbd0bfdd2f"
+            }
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 291600
+        },
+        "controlDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 291600
+        },
+        "pixelComparisonSurface": "Native rendered canvas captured synchronously; viewport screenshots are separately retained.",
+        "mainSceneBudgetMet": true
+      },
+      {
+        "name": "city_edge",
+        "requestedPlayerCamera": [
+          -140,
+          4,
+          -124,
+          25,
+          -12
+        ],
+        "cameraPosition": [
+          -138.13117178995196,
+          6.168482086943934,
+          -120.98608963523255
+        ],
+        "cameraQuaternion": [
+          -0.10205072131859269,
+          0.21525393508649943,
+          0.02262410023519408,
+          0.9709477554413933
+        ],
+        "time": 3.7499999999999916,
+        "tier": "low",
+        "resolution": "720x405",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-city_edge-current.png",
+            "nativeFile": "test-results/iphone-webkit/ground-city_edge-current-frame.png",
+            "passes": {
+              "sceneColor": 11676,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 11677,
+            "attributedTriangles": 11677,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "575dde918236893edc5d0ab4d95b8ae84d03c57bcafb4d3ab5764c72780f3ce2",
+              "rgbaSha256": "109e2cd6b4304c4b16069cc4eeda86f96f23b0102125833a5870666eb4b64351"
+            }
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-city_edge-previous.png",
+            "nativeFile": "test-results/iphone-webkit/ground-city_edge-previous-frame.png",
+            "passes": {
+              "sceneColor": 733876,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 733877,
+            "attributedTriangles": 733877,
+            "geometryTriangles": 723456,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "04fcbb9a0caa284ee549eb6385d99be36dab6608ca89bd8efee79a9c74ca5451",
+              "rgbaSha256": "6a370def7bb3024da5de3508c842e7e0a9ff45181abef6f19095ddd6a0313246"
+            }
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-city_edge-repeat.png",
+            "nativeFile": "test-results/iphone-webkit/ground-city_edge-repeat-frame.png",
+            "passes": {
+              "sceneColor": 11676,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 11677,
+            "attributedTriangles": 11677,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "575dde918236893edc5d0ab4d95b8ae84d03c57bcafb4d3ab5764c72780f3ce2",
+              "rgbaSha256": "109e2cd6b4304c4b16069cc4eeda86f96f23b0102125833a5870666eb4b64351"
+            }
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 4468,
+          "totalPixels": 291600
+        },
+        "controlDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 291600
+        },
+        "pixelComparisonSurface": "Native rendered canvas captured synchronously; viewport screenshots are separately retained.",
+        "mainSceneBudgetMet": true
+      },
+      {
+        "name": "horizon_ground",
+        "requestedPlayerCamera": [
+          -150,
+          30,
+          90,
+          210,
+          -25
+        ],
+        "cameraPosition": [
+          -151.99508468625544,
+          32.94142574226652,
+          87.38441195800297
+        ],
+        "cameraQuaternion": [
+          0.05601869420181805,
+          0.9430295273800398,
+          0.20906461293484896,
+          -0.25268400030018506
+        ],
+        "time": 3.7499999999999916,
+        "tier": "low",
+        "resolution": "720x405",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-horizon_ground-current.png",
+            "nativeFile": "test-results/iphone-webkit/ground-horizon_ground-current-frame.png",
+            "passes": {
+              "sceneColor": 17898,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 17899,
+            "attributedTriangles": 17899,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "901cc32ce7bfde2533247805c8b355a5a176f8f18e2d88b58913f49a11ddf14f",
+              "rgbaSha256": "e0ceebdac493087509505ad5843acf3e2e0d09d6da0e04635e53971d4565d848"
+            }
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-horizon_ground-previous.png",
+            "nativeFile": "test-results/iphone-webkit/ground-horizon_ground-previous-frame.png",
+            "passes": {
+              "sceneColor": 740098,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 740099,
+            "attributedTriangles": 740099,
+            "geometryTriangles": 723456,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "90c63c91bc7ae76ed690093f9dc97d73845b271101a9e1b45eebea69d263e797",
+              "rgbaSha256": "192313796dee250d00da287bf4557d3419f7bf8a46b7d089fcc607dc768794c5"
+            }
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-horizon_ground-repeat.png",
+            "nativeFile": "test-results/iphone-webkit/ground-horizon_ground-repeat-frame.png",
+            "passes": {
+              "sceneColor": 17898,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 17899,
+            "attributedTriangles": 17899,
+            "geometryTriangles": 1256,
+            "nativeImage": {
+              "width": 720,
+              "height": 405,
+              "pngSha256": "901cc32ce7bfde2533247805c8b355a5a176f8f18e2d88b58913f49a11ddf14f",
+              "rgbaSha256": "e0ceebdac493087509505ad5843acf3e2e0d09d6da0e04635e53971d4565d848"
+            }
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 1176,
+          "totalPixels": 291600
+        },
+        "controlDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 291600
+        },
+        "pixelComparisonSurface": "Native rendered canvas captured synchronously; viewport screenshots are separately retained.",
+        "mainSceneBudgetMet": true
+      }
+    ]
+  },
+  "visualViews": {
+    "scope": "Eight existing exterior spawn points in a fresh production game, with real simulation settling and the normal player camera. Medium quality is explicitly selected through the actual settings API. Only the DOM HUD is hidden for the world-image capture; no materials, lighting, geometry, postprocessing or pixel content are edited. These images do not establish traversal, animation quality, every interior, a blind comparison or a physical device result.",
+    "setup": "Programmatic new game and teleport are test setup, not a claim of playing the route.",
+    "views": [
+      {
+        "name": "stacks",
+        "spawn": "start",
+        "requested": {
+          "yaw": 0,
+          "pitch": -4
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "start",
+            "x": -112,
+            "z": -84,
+            "y": 0,
+            "rot": 0
+          },
+          "frame": 70
+        },
+        "frame": 82,
+        "time": 5.28333333333332,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 16,
+          "p90": 230,
+          "p99": 634,
+          "fps50": 62.5,
+          "fps90": 4.3478260869565215,
+          "draws": 62,
+          "tris": 103665,
+          "programs": 50,
+          "textures": 62,
+          "geometries": 166,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            -112,
+            0,
+            -84
+          ],
+          "yaw": 0,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            -111.58,
+            1.671123305478851,
+            -80.40876941906463
+          ],
+          "quaternion": [
+            -0.03489949670250097,
+            0,
+            0,
+            0.9993908270190958
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-stacks-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "3951a91c2461e7c59c61a1c1397522ebff9f1347f41137cba203e08865ca6c62",
+          "rgbaSha256": "7d94fd6452510f747c923eae7b300ef1b2be5585848c0d35806a33573482d173"
+        },
+        "viewport": "test-results/iphone-webkit/visual-stacks-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-stacks-hud.png"
+      },
+      {
+        "name": "marrow",
+        "spawn": "marrow_west",
+        "requested": {
+          "yaw": 270,
+          "pitch": -3
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "marrow_west",
+            "x": -128,
+            "z": 0,
+            "y": 0,
+            "rot": 0
+          },
+          "frame": 82
+        },
+        "frame": 95,
+        "time": 6.083333333333317,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 16,
+          "p90": 263,
+          "p99": 633,
+          "fps50": 62.5,
+          "fps90": 3.802281368821293,
+          "draws": 172,
+          "tris": 166743,
+          "programs": 58,
+          "textures": 82,
+          "geometries": 220,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            -128,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            -131.59506632511648,
+            1.6084094424908781,
+            0.4199999999999993
+          ],
+          "quaternion": [
+            0.018509897659266823,
+            0.7068644733530208,
+            0.018509897659266826,
+            -0.7068644733530207
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-marrow-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "fb41aa7a7dd2049625e5ad23e5f475ba2beab7728799880e7ffa5d82eb847b21",
+          "rgbaSha256": "ca8966fb071aa46ae33747fa0fc48f86fc25b39cbcae264897c95d20f91bd448"
+        },
+        "viewport": "test-results/iphone-webkit/visual-marrow-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-marrow-hud.png"
+      },
+      {
+        "name": "arcade",
+        "spawn": "arcade_out",
+        "requested": {
+          "yaw": 180,
+          "pitch": -4
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "arcade_out",
+            "x": -104.5,
+            "z": -6.5,
+            "y": 0,
+            "rot": 3.141592653589793
+          },
+          "frame": 96
+        },
+        "frame": 108,
+        "time": 6.883333333333314,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 19,
+          "p90": 274,
+          "p99": 633,
+          "fps50": 52.63157894736842,
+          "fps90": 3.6496350364963503,
+          "draws": 125,
+          "tris": 83945,
+          "programs": 58,
+          "textures": 82,
+          "geometries": 227,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            -104.5,
+            0.14,
+            -6.5
+          ],
+          "yaw": 3.141592653589793,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            -104.92,
+            1.8111233054788511,
+            -10.091230580935367
+          ],
+          "quaternion": [
+            -2.136977846428571e-18,
+            0.9993908270190958,
+            0.03489949670250097,
+            6.119503887030809e-17
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-arcade-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "2ee8e664c06a51acb11156e553d5f06f23263989ad645e0f41edffb2b787beb5",
+          "rgbaSha256": "d14b75e9b7a2201d14657c649f156b7fa90204a0d033dda925f835d5d9afd1cc"
+        },
+        "viewport": "test-results/iphone-webkit/visual-arcade-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-arcade-hud.png"
+      },
+      {
+        "name": "cinder",
+        "spawn": "cinder_road",
+        "requested": {
+          "yaw": 0,
+          "pitch": -4
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "cinder_road",
+            "x": 25,
+            "z": -10,
+            "y": 0,
+            "rot": 3.141592653589793
+          },
+          "frame": 109
+        },
+        "frame": 121,
+        "time": 7.683333333333311,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 110,
+          "p90": 268,
+          "p99": 633,
+          "fps50": 9.090909090909092,
+          "fps90": 3.7313432835820897,
+          "draws": 109,
+          "tris": 129579,
+          "programs": 58,
+          "textures": 83,
+          "geometries": 320,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            25,
+            0,
+            -10
+          ],
+          "yaw": 3.141592653589793,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            25.42,
+            1.671123305478851,
+            -6.408769419064633
+          ],
+          "quaternion": [
+            -0.03489949670250097,
+            0,
+            0,
+            0.9993908270190958
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-cinder-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "6ad1a265422596c7835e1f4c47e2e367256add0a6d917ee0e6b5796212e83520",
+          "rgbaSha256": "b75b46201aa4ad659dd8aecc3d4cd59929eca57c033bec544df497cdb95dc91c"
+        },
+        "viewport": "test-results/iphone-webkit/visual-cinder-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-cinder-hud.png"
+      },
+      {
+        "name": "survey",
+        "spawn": "survey_out",
+        "requested": {
+          "yaw": 0,
+          "pitch": -4
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "survey_out",
+            "x": 62,
+            "z": -34,
+            "y": 0,
+            "rot": 3.141592653589793
+          },
+          "frame": 121
+        },
+        "frame": 134,
+        "time": 8.483333333333334,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 211,
+          "p90": 268,
+          "p99": 632,
+          "fps50": 4.739336492890995,
+          "fps90": 3.7313432835820897,
+          "draws": 91,
+          "tris": 41541,
+          "programs": 58,
+          "textures": 83,
+          "geometries": 339,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            62,
+            0,
+            -34
+          ],
+          "yaw": 3.141592653589793,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            62.42,
+            1.6711233055244892,
+            -30.408769419064633
+          ],
+          "quaternion": [
+            -0.03489949670250097,
+            0,
+            0,
+            0.9993908270190958
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-survey-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "4a7b6a47bc4654516979ae5f631f08d87a66d25515877757faa54913838efd21",
+          "rgbaSha256": "00a7a9d0de421b815e16b7e39a8d599cff59033841e80e1b1c87e79931335b50"
+        },
+        "viewport": "test-results/iphone-webkit/visual-survey-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-survey-hud.png"
+      },
+      {
+        "name": "ventfield",
+        "spawn": "ventfield",
+        "requested": {
+          "yaw": 270,
+          "pitch": -3
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "ventfield",
+            "x": 82,
+            "z": -60,
+            "y": 0,
+            "rot": 3.141592653589793
+          },
+          "frame": 135
+        },
+        "frame": 147,
+        "time": 9.283333333333374,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 215,
+          "p90": 268,
+          "p99": 632,
+          "fps50": 4.651162790697675,
+          "fps90": 3.7313432835820897,
+          "draws": 77,
+          "tris": 33815,
+          "programs": 59,
+          "textures": 85,
+          "geometries": 345,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            82,
+            0,
+            -60
+          ],
+          "yaw": 3.141592653589793,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            78.40493367488354,
+            1.6084094424745978,
+            -59.58
+          ],
+          "quaternion": [
+            0.018509897659266823,
+            0.7068644733530208,
+            0.018509897659266826,
+            -0.7068644733530207
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-ventfield-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "cc54d72e58cfadc6088b81d05e9216962c170448a02c987d22eaf78f72d2ebd3",
+          "rgbaSha256": "6860ccc5fe0a367756c6c822a132e5d9e2eb5b9b2143d1753a60c1de137da36d"
+        },
+        "viewport": "test-results/iphone-webkit/visual-ventfield-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-ventfield-hud.png"
+      },
+      {
+        "name": "south",
+        "spawn": "south_marrow",
+        "requested": {
+          "yaw": 270,
+          "pitch": -3
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "south_marrow",
+            "x": -60,
+            "z": 52,
+            "y": 0,
+            "rot": 0
+          },
+          "frame": 147
+        },
+        "frame": 160,
+        "time": 10.100000000000081,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 229,
+          "p90": 274,
+          "p99": 1278,
+          "fps50": 4.366812227074236,
+          "fps90": 3.6496350364963503,
+          "draws": 145,
+          "tris": 94815,
+          "programs": 77,
+          "textures": 85,
+          "geometries": 348,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            -60,
+            0,
+            52
+          ],
+          "yaw": 0,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            -62.54927928455404,
+            1.553602066075737,
+            52.42
+          ],
+          "quaternion": [
+            0.018509897659266823,
+            0.7068644733530208,
+            0.018509897659266826,
+            -0.7068644733530207
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-south-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "7f63438095179147b9350bccd2a2c702c99e91bcf43f99ab599f52ba52a2d23f",
+          "rgbaSha256": "2805014d6458e713f96da29b3b3284a6da7968046de528f989cc8e3c25691c5b"
+        },
+        "viewport": "test-results/iphone-webkit/visual-south-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-south-hud.png"
+      },
+      {
+        "name": "plant",
+        "spawn": "plant_out",
+        "requested": {
+          "yaw": 0,
+          "pitch": -5
+        },
+        "placed": {
+          "ok": true,
+          "spawn": {
+            "id": "plant_out",
+            "x": -46,
+            "z": -102,
+            "y": 0,
+            "rot": 3.141592653589793
+          },
+          "frame": 160
+        },
+        "frame": 172,
+        "time": 10.850000000000119,
+        "mode": "play",
+        "playMode": "play",
+        "paused": false,
+        "tier": "medium",
+        "settings": {
+          "language": "ja",
+          "quality": "medium",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1,
+          "lookSensitivity": 1,
+          "invertY": false,
+          "leftHanded": false,
+          "autoSprint": true,
+          "uiScale": 1,
+          "subtitles": true,
+          "screenShake": 1,
+          "showDamageNumbers": true,
+          "highContrastHud": false,
+          "reducedMotion": false,
+          "vibration": true,
+          "showPerf": false,
+          "gasAssist": false,
+          "combatAssist": 0
+        },
+        "perf": {
+          "tier": "medium",
+          "p50": 232,
+          "p90": 274,
+          "p99": 1278,
+          "fps50": 4.310344827586207,
+          "fps90": 3.6496350364963503,
+          "draws": 53,
+          "tris": 43393,
+          "programs": 79,
+          "textures": 85,
+          "geometries": 349,
+          "res": "1147x645",
+          "css": "667x375",
+          "dpr": 2
+        },
+        "player": {
+          "position": [
+            -46,
+            0,
+            -102
+          ],
+          "yaw": 3.141592653589793,
+          "hp": 120,
+          "dead": false,
+          "grounded": true,
+          "state": "idle",
+          "visible": true
+        },
+        "camera": {
+          "position": [
+            -45.58,
+            1.7337109091175131,
+            -98.41426790084002
+          ],
+          "quaternion": [
+            -0.043619387365336,
+            0,
+            0,
+            0.9990482215818578
+          ]
+        },
+        "wasRunning": true,
+        "uiDisplay": "",
+        "native": {
+          "path": "test-results/iphone-webkit/visual-plant-frame.png",
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "0c4f3c62abf722784b18a524124377f90ff7a3573eb0abd4f857bda79e01bc81",
+          "rgbaSha256": "7c7cc7da4226161b32534fd3ace28bab696e707b33dc1dc2987e7842ca9cd052"
+        },
+        "viewport": "test-results/iphone-webkit/visual-plant-viewport.png",
+        "hud": "test-results/iphone-webkit/visual-plant-hud.png"
+      }
+    ]
+  }
+}

@@ -31,6 +31,7 @@ import { exerciseSaveRecovery } from './mobile_save_recovery.mjs';
 import { exerciseBackdrop } from './backdrop_render_regression.mjs';
 import { exerciseMobileLayout } from './mobile_layout.mjs';
 import { captureMobileViews } from './mobile_visual_capture.mjs';
+import { exerciseGuardToggle } from './mobile_guard_toggle.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -594,6 +595,7 @@ try {
   await exerciseSaveRecovery({ page, root: ROOT, output: OUTPUT, check, report, bootTimeout: BOOT_TIMEOUT });
   await exerciseMobileLayout({ page, root: ROOT, output: OUTPUT, check, report });
   await exerciseBackdrop({ page, root: ROOT, output: OUTPUT, check, report });
+  await exerciseGuardToggle({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
   await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
 
   check(report.errors.page.length === 0, 'no page errors', `${report.errors.page.length} error(s)`);

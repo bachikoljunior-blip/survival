@@ -1,0 +1,494 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS",
+  "score": 100,
+  "scoreMeaning": "No demonstrated material visual regression from this geometry change in the reviewed low-tier native stills. This is a narrow regression-review result, not a product-quality rating or an element verdict.",
+  "round": "continuous-2026-09-14-backdrop-actual-low-review",
+  "profile": "Actual GitHub Ubuntu Playwright WebKit, iPhone SE3 landscape emulation; old ash geometry substituted into the same frozen current production scene.",
+  "tier": "low",
+  "nativeResolution": "720x405",
+  "reviewedCommit": "60b688c819d0b38cbcd2a131af0b08ed1fe1432a",
+  "oldGeometryCommit": "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+  "blindComparison": "No reference-work blind comparison was performed. The reviewer knew current and previous sources and inspected an implementation regression. E16 and the other concept elements are not marked satisfied by this review.",
+  "findings": [],
+  "actualEvidence": {
+    "directory": "/workspace/scratch/0b7ad82bafe7/ci-60b688c",
+    "report": "report.json",
+    "reportSha256": "277bd854c8903c069b9209ac07b54623c9b91919c1eac76e7a1f3c60ba2e0825",
+    "gateChecks": 91,
+    "gatePassed": 91,
+    "actualCaptureTier": "low on every one of the4 regression views",
+    "bootTier": "medium, recorded earlier in report.device; not the tier of these regression images",
+    "surfaces": "ground-*-frame.png are the native primary images. ground-*.png viewport screenshots are separate auxiliary captures and were not used as the pixel comparison source.",
+    "renderedPasses": "sceneColor plus one screen composite; no bloom target was submitted in these low-tier pairs.",
+    "verification": [
+      "Primary reviewer visually inspected all8 native current/previous images at their actual720x405 size.",
+      "Independent refuter visually inspected6 native images and checked all12 native image dimensions and PNG/RGBA hashes against the report.",
+      "Primary reviewer independently decoded current/previous/repeat for all4 views and recalculated exact differences, perceptual differences and current/repeat byte identity.",
+      "All4 current→repeat comparisons have exactly zero differing RGBA pixels.",
+      "Actual ash submissions are1256/current and723456/previous; counter attribution reconciles for each submitted variant."
+    ],
+    "decodedPixelDiagnostics": [
+      {
+        "view": "street",
+        "tier": "low",
+        "width": 720,
+        "height": 405,
+        "currentPNGMatchesReport": true,
+        "previousPNGMatchesReport": true,
+        "repeatRGBAEqual": true,
+        "changedPixelsExact": 0,
+        "maxChannelDelta": 0,
+        "absoluteChannelDeltaSum": 0,
+        "bounds": null,
+        "peakDeltaHistogram": {},
+        "topDifferences": [],
+        "perceptualPixels": 0,
+        "currentSha": "fd4c93645e61d2778b4e614ca553433626ba7d4ec24fa2333401d6bd825480c6",
+        "previousSha": "fd4c93645e61d2778b4e614ca553433626ba7d4ec24fa2333401d6bd825480c6"
+      },
+      {
+        "view": "roof",
+        "tier": "low",
+        "width": 720,
+        "height": 405,
+        "currentPNGMatchesReport": true,
+        "previousPNGMatchesReport": true,
+        "repeatRGBAEqual": true,
+        "changedPixelsExact": 0,
+        "maxChannelDelta": 0,
+        "absoluteChannelDeltaSum": 0,
+        "bounds": null,
+        "peakDeltaHistogram": {},
+        "topDifferences": [],
+        "perceptualPixels": 0,
+        "currentSha": "795493c20b59efd962aa0d0d3cc7b7b33bce7374efcc7342d48b5e195807a011",
+        "previousSha": "795493c20b59efd962aa0d0d3cc7b7b33bce7374efcc7342d48b5e195807a011"
+      },
+      {
+        "view": "city_edge",
+        "tier": "low",
+        "width": 720,
+        "height": 405,
+        "currentPNGMatchesReport": true,
+        "previousPNGMatchesReport": true,
+        "repeatRGBAEqual": true,
+        "changedPixelsExact": 4935,
+        "maxChannelDelta": 125,
+        "absoluteChannelDeltaSum": 44285,
+        "bounds": {
+          "minX": 6,
+          "minY": 164,
+          "maxX": 718,
+          "maxY": 356
+        },
+        "peakDeltaHistogram": {
+          "1": 1181,
+          "2": 1045,
+          "3": 818,
+          "4": 611,
+          "5": 456,
+          "6": 315,
+          "7": 182,
+          "8": 121,
+          "9": 79,
+          "10": 43,
+          "11": 32,
+          "12": 20,
+          "13": 16,
+          "14": 5,
+          "15": 4,
+          "16": 2,
+          "17": 1,
+          "18": 3,
+          "125": 1
+        },
+        "topDifferences": [
+          {
+            "x": 137,
+            "y": 297,
+            "peak": 125,
+            "current": [
+              235,
+              217,
+              178,
+              255
+            ],
+            "previous": [
+              126,
+              92,
+              67,
+              255
+            ]
+          },
+          {
+            "x": 109,
+            "y": 266,
+            "peak": 18,
+            "current": [
+              110,
+              80,
+              52,
+              255
+            ],
+            "previous": [
+              127,
+              98,
+              68,
+              255
+            ]
+          },
+          {
+            "x": 110,
+            "y": 266,
+            "peak": 18,
+            "current": [
+              111,
+              79,
+              53,
+              255
+            ],
+            "previous": [
+              128,
+              97,
+              69,
+              255
+            ]
+          },
+          {
+            "x": 111,
+            "y": 266,
+            "peak": 18,
+            "current": [
+              110,
+              80,
+              52,
+              255
+            ],
+            "previous": [
+              126,
+              98,
+              67,
+              255
+            ]
+          },
+          {
+            "x": 72,
+            "y": 256,
+            "peak": 17,
+            "current": [
+              110,
+              80,
+              53,
+              255
+            ],
+            "previous": [
+              126,
+              97,
+              67,
+              255
+            ]
+          },
+          {
+            "x": 73,
+            "y": 256,
+            "peak": 16,
+            "current": [
+              111,
+              77,
+              55,
+              255
+            ],
+            "previous": [
+              126,
+              93,
+              68,
+              255
+            ]
+          },
+          {
+            "x": 108,
+            "y": 266,
+            "peak": 16,
+            "current": [
+              110,
+              81,
+              52,
+              255
+            ],
+            "previous": [
+              126,
+              97,
+              66,
+              255
+            ]
+          },
+          {
+            "x": 71,
+            "y": 256,
+            "peak": 15,
+            "current": [
+              113,
+              77,
+              57,
+              255
+            ],
+            "previous": [
+              127,
+              92,
+              70,
+              255
+            ]
+          }
+        ],
+        "perceptualPixels": 1,
+        "currentSha": "7b0b4be6950a9b074cff80a161ff08ac2ca62d50b6982cffa99950b8cb1a4d3d",
+        "previousSha": "e91954d30e64b967b2b1971cbeaa46ccea5e360b6419a149e71ca4b0f46ab758"
+      },
+      {
+        "view": "horizon_ground",
+        "tier": "low",
+        "width": 720,
+        "height": 405,
+        "currentPNGMatchesReport": true,
+        "previousPNGMatchesReport": true,
+        "repeatRGBAEqual": true,
+        "changedPixelsExact": 1440,
+        "maxChannelDelta": 14,
+        "absoluteChannelDeltaSum": 10629,
+        "bounds": {
+          "minX": 46,
+          "minY": 96,
+          "maxX": 610,
+          "maxY": 398
+        },
+        "peakDeltaHistogram": {
+          "1": 470,
+          "2": 316,
+          "3": 226,
+          "4": 165,
+          "5": 109,
+          "6": 61,
+          "7": 38,
+          "8": 25,
+          "9": 16,
+          "10": 6,
+          "11": 1,
+          "12": 5,
+          "13": 1,
+          "14": 1
+        },
+        "topDifferences": [
+          {
+            "x": 339,
+            "y": 232,
+            "peak": 14,
+            "current": [
+              112,
+              82,
+              54,
+              255
+            ],
+            "previous": [
+              125,
+              96,
+              65,
+              255
+            ]
+          },
+          {
+            "x": 301,
+            "y": 221,
+            "peak": 13,
+            "current": [
+              112,
+              78,
+              54,
+              255
+            ],
+            "previous": [
+              123,
+              91,
+              65,
+              255
+            ]
+          },
+          {
+            "x": 278,
+            "y": 214,
+            "peak": 12,
+            "current": [
+              116,
+              82,
+              58,
+              255
+            ],
+            "previous": [
+              127,
+              94,
+              68,
+              255
+            ]
+          },
+          {
+            "x": 325,
+            "y": 228,
+            "peak": 12,
+            "current": [
+              110,
+              83,
+              51,
+              255
+            ],
+            "previous": [
+              122,
+              95,
+              61,
+              255
+            ]
+          },
+          {
+            "x": 338,
+            "y": 232,
+            "peak": 12,
+            "current": [
+              109,
+              80,
+              51,
+              255
+            ],
+            "previous": [
+              120,
+              92,
+              60,
+              255
+            ]
+          },
+          {
+            "x": 352,
+            "y": 236,
+            "peak": 12,
+            "current": [
+              111,
+              80,
+              54,
+              255
+            ],
+            "previous": [
+              123,
+              92,
+              63,
+              255
+            ]
+          },
+          {
+            "x": 353,
+            "y": 236,
+            "peak": 12,
+            "current": [
+              116,
+              83,
+              58,
+              255
+            ],
+            "previous": [
+              128,
+              95,
+              69,
+              255
+            ]
+          },
+          {
+            "x": 357,
+            "y": 237,
+            "peak": 11,
+            "current": [
+              112,
+              82,
+              55,
+              255
+            ],
+            "previous": [
+              123,
+              93,
+              64,
+              255
+            ]
+          }
+        ],
+        "perceptualPixels": 0,
+        "currentSha": "2ac1d57140b85f750f12020011172f08045e6ad9e8c9ff9f2e963bc9418eb386",
+        "previousSha": "ec47917ea00e37135dfcb3a20b495e67cbe1ead375f5ddc18ddd7b0a25a8a429"
+      }
+    ],
+    "pixelMetricLimit": "These numbers identify real changed pixels and validate repeatability. They are not a substitute for the visual inspection and are not a reference-work preference measure."
+  },
+  "visualInspection": [
+    {
+      "view": "street",
+      "current": "ground-street-current-frame.png",
+      "previous": "ground-street-previous-frame.png",
+      "observed": "A near courtyard, brick facade, stairs, props and playable ground dominate the frame. The two native images are byte-identical and no new visible gap or surface disruption is seen.",
+      "ashCoverage": "Limited or unestablished from this view alone. The prominent near ground and structures are not all the changed backdrop mesh. Equality here is not strong evidence of backdrop-ground quality by itself.",
+      "regressionObserved": false
+    },
+    {
+      "view": "roof",
+      "current": "ground-roof-current-frame.png",
+      "previous": "ground-roof-previous-frame.png",
+      "observed": "The foreground tiled roof, rooftop equipment and building silhouettes match exactly. The images contain no new visible roof/skyline discontinuity attributable to the ground change.",
+      "ashCoverage": "The main visible surface is roof geometry. Possible distant ground glimpses are too limited to treat this byte-identical pair as comprehensive ash coverage.",
+      "regressionObserved": false
+    },
+    {
+      "view": "city_edge",
+      "current": "ground-city_edge-current-frame.png",
+      "previous": "ground-city_edge-previous-frame.png",
+      "observed": "Exposed terrain beyond the city boundary is visible around and between the brick/corrugated blocks. The broad surface, texture layout and building-ground contact remain visually continuous. No new large hole or long seam is recognized.",
+      "ashCoverage": "The affected visible terrain is the boundary-exterior ground and the surface bands where actual old/new pixels differ. Do not label the entire lower half as backdrop ash: nearer ordinary ground and the white marking are mixed into that image region.",
+      "realDifference": "4935 native pixels differ. A single pixel at x137,y297 on the white ground-marking edge changes from RGBA[126,92,67,255] to[235,217,178,255]. Other changed pixels have maximum channel difference18. This is a real deterministic raster difference, but the native-sized pair does not establish a material visual quality loss from it.",
+      "regressionObserved": "No material visible regression established in this still; exact pixel equivalence is false."
+    },
+    {
+      "view": "horizon_ground",
+      "current": "ground-horizon_ground-current-frame.png",
+      "previous": "ground-horizon_ground-previous-frame.png",
+      "observed": "Narrow exposed ground portions can be inspected between the block masses and alongside the foreground roof. The ground remains continuous; the compared stills show no new large opening or long high-contrast seam.",
+      "ashCoverage": "Use the visible boundary-exterior ground portions and affected pixel bands. The entire left-edge strip cannot be assigned to backdrop ash because ordinary ground and other geometry may be present there.",
+      "realDifference": "1440 native pixels differ, maximum channel difference14. These small texture/raster variations are not an image-wide identity result; no material loss of surface continuity or readable form is recognized in the native pair.",
+      "regressionObserved": "No material visible regression established in this still; exact pixel equivalence is false."
+    }
+  ],
+  "conclusions": {
+    "supported": "The723456→1256 ash-triangle change shows no demonstrated material visual regression in these4 controlled low-tier720x405 stills. The city_edge and horizon_ground pairs provide the meaningful visible ground coverage; street and roof provide weaker backdrop-specific coverage.",
+    "notSupported": [
+      "Whole-image equality for city_edge or horizon_ground.",
+      "A claim that every lower-frame or left-edge surface belongs to the ash mesh.",
+      "Visual preservation at medium/high quality, higher backing resolutions or while the camera moves.",
+      "Physical iPhone FPS, a30FPS pass, or GPU speedup derived from these screenshots or software-runner timings.",
+      "E16 satisfaction, a valid source-blind reference comparison, a completed work unit, or overall project completion."
+    ],
+    "mechanismHypothesis": "Changing subdivision can alter interpolation/rasterization and depth ordering at overlapping coplanar-patch or ground-marking edges. This is plausible from the source and localization of differences, but this review does not measure the specific GPU mechanism.",
+    "nextConcreteValidation": "Before applying this visual judgement to the initially selected medium tier, lock and record the intended tier for the same visible-ground pairs, capture its actual native pixels with stable repeats, and inspect the marking edge and overlap bands. Moving-view behavior remains a separate unmeasured scope."
+  },
+  "attributionCaution": {
+    "objectIdBufferMeasured": false,
+    "basis": "Source-isolated geometry substitution, visible image regions and deterministic changed-pixel locations.",
+    "excludedComputation": "A refutation-pass ray projection initially assumed FOV55 and groundy0. The report does not record the actual FOV, camera update can change it, and ash lies aty-0.06. Those precise world-coordinate and all-pixels-outside claims are excluded from accepted evidence.",
+    "implication": "Ground attribution is deliberately narrowed to the visibly affected boundary-exterior portions; it is not an object-ID measurement."
+  },
+  "independentRefutation": {
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "result": "Supports the limited conclusion; no new large holes or long seams recognized.",
+    "acceptedCorrections": [
+      "All regression images are low720x405 despite the boot-device medium field.",
+      "City-edge lower half and horizon left strip are not entirely backdrop ash; coverage must be narrowed.",
+      "Small actual pixel differences remain and prevent an exact-image-equality claim.",
+      "Unrecorded-FOV projections are excluded from authoritative attribution."
+    ],
+    "independentMeasurements": "All12 native PNG/hash records checked; exact repeat controls and4935/1440 changed-pixel counts independently reproduced.",
+    "fileEdits": false,
+    "browserOrExternalActions": false
+  },
+  "mutationScope": "This reviewer wrote only /workspace/scratch/0b7ad82bafe7/backdrop-actual-review.json. No repository files, state, criteria, element verdicts, CI or remote were changed."
+}

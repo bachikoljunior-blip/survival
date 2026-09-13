@@ -807,6 +807,7 @@ export const DEFAULT_SETTINGS = {
   invertY: false,
   leftHanded: false,
   autoSprint: true,
+  toggleGuard: false,
   uiScale: 1.0,
   subtitles: true,
   screenShake: 1.0,

@@ -1,0 +1,96 @@
+{
+  "evaluated_at": "2026-09-13T23:14:35.448Z",
+  "viewed_files": [
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-01.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-02.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-03.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-04.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-05.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-06.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-07.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/A-08.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-01.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-02.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-03.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-04.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-05.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-06.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-07.png",
+    "/workspace/scratch/0b7ad82bafe7/review-packet-7d42/B-08.png"
+  ],
+  "source_identity_known": true,
+  "identity_observations": {
+    "source_blind_valid": false,
+    "recognized_work": {
+      "set": "A",
+      "identity": "INSIDE by Playdead",
+      "confidence": 0.99,
+      "basis": "Recognition from the images themselves: the small boy in a red shirt, the rain-soaked cornfield with yellow chicks in A-02, the underwater submersible scene in A-04, and the slumped marching people in A-08 are distinctive remembered imagery.",
+      "timing": "Recognition occurred during the first batch of image inspection; the remaining full frames were still inspected.",
+      "externally_verified": false
+    },
+    "other_work": {
+      "set": "B",
+      "identity": "Unknown",
+      "confidence_in_any_specific_title": 0,
+      "visible_clues": "The images contain recurring Hollis and H.R.A. signage and a low-poly urban setting. I do not recognize a specific existing work from these clues."
+    },
+    "inferred_packet_roles": {
+      "reference": "A",
+      "in_development": "B",
+      "confidence": 0.95,
+      "basis": "This is an inference from recognizing A as an established released work together with the comparison-task framing and B's visibly less resolved material and lighting integration. No source map, repository, other file, web page, or metadata was consulted. The roles have not been independently confirmed."
+    },
+    "validity_consequence": "This is an invalid blind attempt. The preference and visual observations below are explicitly non-blind observations and must not be counted as a successful source-blind rating."
+  },
+  "choice": "A",
+  "reasons": [
+    {
+      "dimension": "Dominant light and shadow hierarchy",
+      "better_set": "A",
+      "observations": [
+        "A repeatedly organizes the environment around a clear large light shape: the hard-edged floor illumination in A-01, the pool surrounding the column and searchlight in A-03, the underwater beam in A-04, and the roof planes in A-07. The shapes describe architecture and give the frame a clear hierarchy before small details are read.",
+        "A-02, A-06, and A-08 separate dark foreground structures, intermediate figures or props, and pale distant forms with restrained value steps. This creates readable depth even though substantial areas remain very dark.",
+        "B has real strengths in the street perspective and atmospheric recession in B-02 and B-03, and the overhead structure creates a useful broad shadow in B-07. Across the set, however, many walls, roads, and props occupy a similar warm midtone range while bright particles and luminous signs create numerous isolated attention points.",
+        "B-04 and B-05 give their signs strong graphic dominance, but the emissive borders show little corresponding colored influence on nearby walls or ground. B-08 leaves the central figure, vertical pole, and doorway close in value, reducing the local separation of forms."
+      ]
+    },
+    {
+      "dimension": "Controlled palette",
+      "better_set": "A",
+      "observations": [
+        "A maintains a narrow family of blue-gray, charcoal, and muted neutral tones while assigning small color accents to specific visible elements: the red shirt, yellow chicks in A-02, red buoy lamps in A-05, and distant vehicle lamps in A-06. Color and luminance reinforce the same hierarchy.",
+        "B consistently uses rust brown and orange against a blue sky; the warmth itself is coherent and is not a reason to rank it lower. The weakness is that orange embers, orange sign borders, pale road markings, cyan sign borders, and white lettering compete across otherwise similarly colored surfaces.",
+        "A's accents remain integrated with environmental illumination, especially the buoy lamps and their water reflections in A-05. B's signs in B-05 and B-08 are cleanly legible but appear more visually separate from the surrounding material response."
+      ]
+    },
+    {
+      "dimension": "Credible contact and grounding",
+      "better_set": "A",
+      "observations": [
+        "A-01 joins the standing figure to a directional floor shadow. A-03 gives the column a clearly attached base shadow whose direction agrees with the bright source. In A-07, the supports and rooftop planes read as one connected structure through their shading and overlaps.",
+        "A-05 is particularly persuasive: the floating buoys meet the water through rings, dark waterline contact, and reflections, while the cable and plate edges on the left are shaded at their points of contact. A-06 also uses wet-ground reflections beneath the foreground structures to establish the surface.",
+        "B does provide shadows, notably the broad overhang shadow in B-07 and the character shadows in B-01, B-06, and B-08. Their soft, localized patches and the limited contact darkening around several small blocks make object-to-surface relationships less consistently explicit than in A.",
+        "B-03 shows a visible gap between the character's feet and a soft shadow; this weakens grounding in that still but could depict an intentional airborne pose. The floating fragments elsewhere in B could also be intentional, so they are not treated as proof of a physics or grounding error."
+      ]
+    },
+    {
+      "dimension": "Coherent texture scale",
+      "better_set": "A",
+      "observations": [
+        "A generally keeps surface texture subordinate to form. Corn leaves, the hay bale edge, and foreground grass in A-02 have distinct but compatible scales; the fine water ripples in A-05 and small roof debris in A-07 reinforce the scale of larger objects.",
+        "A's texture and contrast diminish into depth in A-02, A-04, and A-06. Large smooth architectural planes remain readable without uniformly applied detail noise.",
+        "B's brick courses and corrugated surfaces are understandable, but the conspicuous pores on B-05's wall and foreground barrier, large repeated stains on B-04's left wall, and regularly repeated dark patches on B-08's asphalt compete with the geometry. The material pattern is often the first thing seen rather than a subtle scale cue.",
+        "The combination of detailed speckled ground and walls with comparatively plain, sharply block-shaped furniture and debris in B-01, B-03, and B-07 makes the texture treatment less unified. This criticism concerns the consistency of material detail, not polygon count or the choice of a stylized art direction."
+      ]
+    }
+  ],
+  "limitations": [
+    "This evaluation cannot honestly be considered source blind because A was recognized and the packet roles were inferred. The choice is retained only as a non-blind observation.",
+    "All sixteen supplied files were inspected once as complete frames with view_image using detail='original'. No image was cropped, modified, searched, or compared with external material.",
+    "The sets use different viewpoints, scene selection, and displayed resolutions. A contains varied side-view or oblique scenes, while B repeatedly depicts a related third-person urban environment. This is a set-level judgment of the supplied environment images, not a controlled match of identical scenes.",
+    "Darkness and atmosphere can conceal detail. The judgment concerns the visible image result and does not establish underlying geometry, texture resolution, renderer features, or implementation quality.",
+    "Still images cannot establish motion quality, animation consistency, camera behavior, gameplay, collision behavior, audio, or the intended temporal behavior of floating objects.",
+    "No repeated rating, alternate packet selection, or cherry-picking was performed. All eight frames from each set informed this single recorded choice."
+  ]
+}

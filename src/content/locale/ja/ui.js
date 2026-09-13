@@ -117,6 +117,8 @@ export const UI_JA = {
     'lefthanded.sub': 'スティックを右側に。',
     autosprint: '倒し切りで走る',
     'autosprint.sub': '走るボタンは不要。',
+    toggleguard: 'タップでガードを切り替える',
+    'toggleguard.sub': 'もう一度タップすると解除。攻撃・回避・メニュー表示でも解除。',
 
     display: '表示',
     quality: '画質',

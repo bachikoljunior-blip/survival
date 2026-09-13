@@ -830,6 +830,8 @@ export class Menus {
     toggle('invertY', t('ui.set.inverty', 'Invert camera Y'));
     toggle('leftHanded', t('ui.set.lefthanded', 'Left-handed layout'), t('ui.set.lefthanded.sub', 'Move stick on the right.'));
     toggle('autoSprint', t('ui.set.autosprint', 'Sprint at full stick'), t('ui.set.autosprint.sub', 'No sprint button needed.'));
+    toggle('toggleGuard', t('ui.set.toggleguard', 'Tap to toggle guard'),
+      t('ui.set.toggleguard.sub', 'Tap again to release. Attacking, dodging or opening a menu releases guard.'));
 
     section(t('ui.set.display', 'DISPLAY'));
     choice('quality', t('ui.set.quality', 'Quality'), ['auto', 'low', 'medium', 'high']);

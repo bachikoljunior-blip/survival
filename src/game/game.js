@@ -58,6 +58,7 @@ export class Game extends Emitter {
       this.atmos.setTier(t);
     });
     this.engine.on('pause', () => this.input.reset());
+    this.engine.on('resume', () => this.input.reset());
 
     this.zone = null;
     this.moodName = 'street';
@@ -276,6 +277,7 @@ export class Game extends Emitter {
     this.input.leftHanded = S.leftHanded;
     document.body.classList.toggle('lefthanded', !!S.leftHanded);
     this.input.autoSprint = S.autoSprint;
+    this.input.setToggleMode('guard', !!S.toggleGuard);
     if (this.camera) this.camera.sensitivity = S.lookSensitivity;
     if (S.quality === 'auto') this.engine.tierLocked = false;
     else this.engine.setTier(S.quality, true);
@@ -450,7 +452,10 @@ export class Game extends Emitter {
 
   _drainEvents(a) {
     if (!a.events.length) return;
-    for (const e of a.events) this.emit('actor:' + e.name, a, e.data);
+    for (const e of a.events) {
+      if (a === this.player && e.name === 'guardfail') this.input.clearToggle('guard');
+      this.emit('actor:' + e.name, a, e.data);
+    }
     a.events.length = 0;
   }
 
@@ -458,7 +463,7 @@ export class Game extends Emitter {
   _playerInput(dt) {
     const p = this.player;
     const inp = this.input;
-    if (!p || p.dead) return;
+    if (!p || p.dead) { inp.clearToggle('guard'); return; }
 
     // Camera look
     const look = inp.takeLook();
@@ -472,6 +477,7 @@ export class Game extends Emitter {
     const mag = inp.move.mag;
 
     if (p.state === STATE.CLIMB) {
+      inp.clearToggle('guard');
       p.setMove(mx, mz, mag);
       if (inp.pressed('dodge') || inp.pressed('interact')) p.exitClimb();
       return;
@@ -490,6 +496,7 @@ export class Game extends Emitter {
     if (inp.pressed('use')) this.director.quickUse();
     if (inp.pressed('menu')) this.emit('ui:menu');
     if (inp.pressed('map')) this.emit('ui:map');
+    if (p.stamina <= 1 || inp.pressed('attack') || inp.pressed('heavy') || inp.pressed('dodge')) inp.clearToggle('guard');
     p.guarding = inp.down('guard') && p.canAct && !p.isAttacking && p.stamina > 1;
 
     if (inp.pressed('lamp')) {

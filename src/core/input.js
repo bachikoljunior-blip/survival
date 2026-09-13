@@ -94,6 +94,10 @@ export class Input extends Emitter {
     this.look = { x: 0, y: 0 };         // consumed each frame by the camera
     this.buttons = {};
     for (const b of BUTTONS) this.buttons[b] = new Button();
+    this._toggleModes = new Set();
+    this._toggled = {};
+    this._togglePresses = {};
+    this._toggleSources = {};
 
     this.lastDevice = 'touch';          // 'touch' | 'key' | 'pad'
     this.touchActive = false;
@@ -117,6 +121,18 @@ export class Input extends Emitter {
   }
 
   setEnabled(v) {
+    // A key can arrive while the engine itself is paused, before step() has
+    // consumed it. Resuming must not turn that hidden press into a latch.
+    if (v && !this._enabled) {
+      for (const name of this._toggleModes) {
+        const b=this.buttons[name];
+        b._queuedPress=b._queuedRelease=0;
+        b._rawDown=b.down=b.pressed=false;
+        this._keys.delete(name);
+        this.clearToggle(name);
+        delete this._toggleSources[name];
+      }
+    }
     this._enabled = v;
     if (!v) this.reset();
   }
@@ -130,11 +146,15 @@ export class Input extends Emitter {
     this.move.x = this.move.y = this.move.mag = 0;
     this.look.x = this.look.y = 0;
     this._keys.clear();
+    this._toggled = {};
+    this._togglePresses = {};
+    this._toggleSources = {};
     for (const b of BUTTONS) {
       const btn = this.buttons[b];
       btn._rawDown = false;
       btn._queuedPress = 0;
       btn._queuedRelease = 0;
+      btn.pressed = false;
       if (btn.down) { btn.down = false; btn.released = true; }
     }
     this.emit('stick', null);
@@ -282,18 +302,40 @@ export class Input extends Emitter {
 
     this.lastDevice = 'key';
     if (down) this._keys.add(action); else this._keys.delete(action);
-    if (this.buttons[action]) this.buttons[action].set(down, this._time);
+    if (this.buttons[action]) this._setButton(action, down, e.code);
     if (down) this.emit('device', 'key');
   }
 
   // ---------------------------------------------------------------- virtual
+
+  /** Accessibility mode changes never carry a latched action across modes. */
+  setToggleMode(name, enabled) {
+    if (!this.buttons[name]) return;
+    const was = this._toggleModes.has(name);
+    if (enabled) this._toggleModes.add(name); else this._toggleModes.delete(name);
+    if (was !== !!enabled) this.clearToggle(name);
+  }
+
+  clearToggle(name) { delete this._toggled[name]; delete this._togglePresses[name]; }
+
+  _setButton(name, down, source) {
+    // Toggle edges belong to individual controls. A second thumb must be able
+    // to release guard even when Q or a gamepad shoulder is still held.
+    const sources=this._toggleSources[name] ||= new Set();
+    const was=sources.has(source);
+    if(down) sources.add(source); else sources.delete(source);
+    if(this._enabled && this._toggleModes.has(name) && down && !was) {
+      this._togglePresses[name]=(this._togglePresses[name]||0)+1;
+    }
+    this.buttons[name].set(down, this._time);
+  }
 
   /** Called by the touch UI when an on-screen action button changes state. */
   setVirtual(name, down) {
     const b = this.buttons[name];
     if (!b) return;
     this.lastDevice = 'touch';
-    b.set(down, this._time);
+    this._setButton(name, down, 'touch');
   }
 
   /** Fire a one-shot press (used by UI shortcuts and tutorial nudges). */
@@ -302,6 +344,7 @@ export class Input extends Emitter {
     if (!b) return;
     b._queuedPress++;
     b._queuedRelease++;
+    if(this._enabled && this._toggleModes.has(name)) this._togglePresses[name]=(this._togglePresses[name]||0)+1;
   }
 
   // ------------------------------------------------------------------- step
@@ -351,7 +394,13 @@ export class Input extends Emitter {
       this.buttons.sprint.set(this._keys.has('sprint') || !!(this._pad && this._pad.sprint), this._time);
     }
 
-    for (const b of BUTTONS) this.buttons[b].step(dt);
+    for (const b of BUTTONS) {
+      this.buttons[b].step(dt);
+      // Process all received toggle edges now. Delayed raw press queues must
+      // not rearm a toggle after an attack, dodge or other cancellation.
+      if (this._enabled && this._toggleModes.has(b) && (this._togglePresses[b]||0)%2) this._toggled[b] = !this._toggled[b];
+      delete this._togglePresses[b];
+    }
   }
 
   /** Consume accumulated look delta; call exactly once per frame. */
@@ -388,7 +437,7 @@ export class Input extends Emitter {
       const p = b.pressed;
       if (p !== this._padPrev[i]) {
         this._padPrev[i] = p;
-        this.buttons[map[i]].set(p, this._time);
+        this._setButton(map[i], p, `pad:${i}`);
         if (p) any = true;
       }
     }
@@ -396,7 +445,7 @@ export class Input extends Emitter {
   }
 
   /** Convenience accessors used all over the gameplay code. */
-  down(n) { return this.buttons[n].down; }
+  down(n) { return this._toggleModes.has(n) ? !!this._toggled[n] : this.buttons[n].down; }
   pressed(n) { return this.buttons[n].pressed; }
   released(n) { return this.buttons[n].released; }
   held(n) { return this.buttons[n].holdTime; }
