@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS",
+  "score": 100,
+  "scoreMeaning": "Source readiness of the revised capture method and the limited CSS correction only; not a product score, visual-equivalence result or successful new browser run.",
+  "round": "continuous-2026-09-14-backdrop-synchronous-capture-review",
+  "profile": "Read-only independent source review, archived WebKit evidence analysis and Node memory diagnostics.",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "nativeResolutionMeaning": "Actual internal scene size reported in the preceding WebKit run. The new native PNG must be checked at execution; prior viewport PNGs were1334x750.",
+  "baseCommit": "b3e7af80acd8179f8237228ff0a8a74fa80bf21f",
+  "reviewedRevision": "Uncommitted working-tree changes identified by source hashes below; a later commit is covered only if these contents match.",
+  "sourceHashes": {
+    "tools/backdrop_render_regression.mjs": "65082c5dc38e5d0033148ba709688ed4e56e6c94fc8d1b2731f51aa2c3b99eb5",
+    "tools/mobile_layout.mjs": "cee8b4a4dee22ef0d61ac2aaac64efefd21891d441a8f24ffdbbd82aa8dd2d29",
+    "public/styles.css": "edf387f145cecf12a08ed912a5c1eaa618d3409cda2fe5f3fd10b9c4b9c9bad5",
+    "tools/test-iphone-webkit.mjs": "59d720cb89409e12e0bec261e277abea15ff1b59574b7cc08f7d2f71e2df2b01"
+  },
+  "blindComparison": "No blind comparison was performed. The reviewer knows this is CINDERLINE and its old geometry, and is evaluating measurement readiness. These regression diagnostics do not mark any of the19 elements satisfied.",
+  "findings": [],
+  "previousRun": {
+    "report": "/workspace/scratch/0b7ad82bafe7/ci-b3e7af8/report.json",
+    "checks": 64,
+    "passed": 61,
+    "otherChecks": 48,
+    "otherPassed": 48,
+    "failedChecks": "Three exact unchanged-repeat image controls: roof, city_edge, horizon_ground.",
+    "imagePairValidity": "invalid for the old/new visual comparison",
+    "independentlyVerifiedPixelEvidence": {
+      "hashes": {
+        "ground-street-repeat.png": {
+          "width": 1334,
+          "height": 750,
+          "rgbaSha256": "0532b674004e7241af394dfd8f32446611888cea1a3f202811c085172d7f8ba5"
+        },
+        "ground-roof-current.png": {
+          "width": 1334,
+          "height": 750,
+          "rgbaSha256": "0532b674004e7241af394dfd8f32446611888cea1a3f202811c085172d7f8ba5"
+        },
+        "ground-roof-repeat.png": {
+          "width": 1334,
+          "height": 750,
+          "rgbaSha256": "bc43b2d205176d5471303d57644edffd32d3b766525424a8ccc0491a7a28a246"
+        },
+        "ground-city_edge-current.png": {
+          "width": 1334,
+          "height": 750,
+          "rgbaSha256": "bc43b2d205176d5471303d57644edffd32d3b766525424a8ccc0491a7a28a246"
+        },
+        "ground-city_edge-repeat.png": {
+          "width": 1334,
+          "height": 750,
+          "rgbaSha256": "1fe2e7f3232e54556cd98c6dae882a77ef88cbd4d684002be07ee6ffcfba627e"
+        },
+        "ground-horizon_ground-current.png": {
+          "width": 1334,
+          "height": 750,
+          "rgbaSha256": "762fde37d0f950e38931fbc4c22c5f81e50a1974047a8cb344e6a0a6cf7056d9"
+        }
+      },
+      "matches": [
+        {
+          "a": "ground-street-repeat.png",
+          "b": "ground-roof-current.png",
+          "equalRGBA": true
+        },
+        {
+          "a": "ground-roof-repeat.png",
+          "b": "ground-city_edge-current.png",
+          "equalRGBA": true
+        },
+        {
+          "a": "ground-city_edge-repeat.png",
+          "b": "ground-horizon_ground-current.png",
+          "equalRGBA": false
+        }
+      ]
+    },
+    "observation": "roof-current contains exactly the decoded RGBA of street-repeat; city_edge-current contains exactly the decoded RGBA of roof-repeat.",
+    "hypothesis": "The asynchronously acquired viewport snapshot is stale relative to the newly submitted WebGL frame. This explains the cross-view mismatch.",
+    "limitation": "horizon_ground-current is not exactly equal to city_edge-repeat. Do not generalize the evidence into a uniform one-frame delay for every image or every WebKit capture.",
+    "submissionMeasurementsRemainApplicable": {
+      "scope": "Synchronous per-pass counters from that actual old run remain separate evidence. Failed image pairing does not erase these counters.",
+      "views": [
+        {
+          "name": "street",
+          "currentScene": 105162,
+          "previousScene": 827362,
+          "repeatScene": 105162,
+          "allPassReconciled": true
+        },
+        {
+          "name": "roof",
+          "currentScene": 139000,
+          "previousScene": 861200,
+          "repeatScene": 139000,
+          "allPassReconciled": true
+        },
+        {
+          "name": "city_edge",
+          "currentScene": 11680,
+          "previousScene": 733880,
+          "repeatScene": 11680,
+          "allPassReconciled": true
+        },
+        {
+          "name": "horizon_ground",
+          "currentScene": 22022,
+          "previousScene": 744222,
+          "repeatScene": 22022,
+          "allPassReconciled": true
+        }
+      ],
+      "ashCurrent": 1256,
+      "ashPrevious": 723456,
+      "ashRepeat": 1256,
+      "inference": "These frozen medium views submit fewer than300000 main-scene triangles after the geometry change. This does not establish every gameplay view, GPU speed, physical-device FPS or visual preservation."
+    }
+  },
+  "captureMethodReview": {
+    "readiness": "PASS",
+    "actualNewBrowserRun": "not measured",
+    "sourceVerified": [
+      "The same synchronous page.evaluate callback changes the selected mesh geometry, resets counters and calls C.post.render.",
+      "renderBufferDirect is restored in finally before any frame export, preserving the original renderer function if rendering throws.",
+      "Immediately after post.render returns, r.domElement.toDataURL(image/png) executes without an await or requestAnimationFrame between drawing and export.",
+      "The PNG data URL is decoded directly to bytes and saved as ground-<view>-<variant>-frame.png. The transient data URL is deleted from the counter result before it is stored in the report.",
+      "pairDifference and controlDifference read nativeFile, while the separately retained viewport screenshot remains file. The report explicitly names the native rendered canvas as the pixel comparison surface.",
+      "gl.finish and the subsequent2 RAF wait occur after the synchronous native export. The viewport snapshot is auxiliary and is not substituted for the native pixels.",
+      "The prior exact-repeat, ash-submission and per-pass reconciliation checks remain intact."
+    ],
+    "whyItAddressesObservedFailure": "The old path linked counters from one JavaScript task with an asynchronously presented viewport image. The new primary pixel export happens in the same task as the measured render and no longer depends on the later viewport snapshot.",
+    "limitations": [
+      "This source ordering is not proof that the actual new WebKit PNGs are correct. The new run must decode the files, verify their actual dimensions, pass repeat equality and expose inspectable nonempty rendering.",
+      "The native canvas surface and the composited viewport differ in resolution. Use the native frames for the measured geometry comparison and the viewport image for display context; do not compare their bytes as though they have the same dimensions.",
+      "A draw count is not evidence that the ground contributes visible pixels. Inspect ground-visible parts of the new images before accepting visual preservation.",
+      "Two RAFs and gl.finish are a practical presentation wait, not a guarantee that every auxiliary viewport snapshot now corresponds perfectly. The native capture remains the primary evidence.",
+      "The helper still prepares different player/camera positions and restores only geometry/UI/running state; it remains suitable for the disposable end-of-test page, not full live-game state restoration.",
+      "No old b3e7 image-difference ratio or old source-readiness PASS should be relabelled as successful new image comparison."
+    ],
+    "minimalOptionalEvidenceBinding": "Record saved native PNG width/height and hashes that distinguish PNG bytes from decoded RGBA. This improves file/result binding; its absence does not alter the reviewed synchronous call ordering.",
+    "verificationCompleted": [
+      "node --check tools/backdrop_render_regression.mjs",
+      "node --check tools/mobile_layout.mjs",
+      "Independent RGBA-hash recomputation for the archived b3e7 images."
+    ],
+    "verificationNotPerformed": [
+      "New Playwright execution",
+      "New native image capture or inspection",
+      "New visual-equivalence judgement",
+      "Physical-device or reference-work comparison"
+    ]
+  },
+  "limitedLayoutSideEffectReview": {
+    "scope": "Source arithmetic and the newly connected DOM-measurement helper only; no actual layout results.",
+    "issueDetected": "The first CSS draft clamped action dimensions with action-scale=max(1,uiscale), but left-handed offsets still useduiscale, causing overlaps atuiScale0.8.",
+    "counterexampleBeforeCorrection": {
+      "scope": "CSS expression arithmetic from the reported pre-fix left offsets, not computed browser geometry",
+      "boxes": {
+        "attack": {
+          "x": 3.2,
+          "y": 6,
+          "w": 54,
+          "h": 54
+        },
+        "dodge": {
+          "x": 54.400000000000006,
+          "y": 5,
+          "w": 44,
+          "h": 44
+        },
+        "heavy": {
+          "x": 89.60000000000001,
+          "y": 28,
+          "w": 44,
+          "h": 44
+        }
+      },
+      "attackDodge": {
+        "x": 2.799999999999997,
+        "y": 43
+      },
+      "dodgeHeavy": {
+        "x": 8.799999999999997,
+        "y": 21
+      }
+    },
+    "correctionConfirmed": "All6 left-handed offsets now use action-scale. Heavy uses the same120px offset as right-handed mode.",
+    "correctedHorizontalIntervalsAtScale08": {
+      "attack": [
+        4,
+        58
+      ],
+      "dodge": [
+        68,
+        112
+      ],
+      "heavy": [
+        120,
+        164
+      ]
+    },
+    "resolution": "The specifically identified overlaps are removed by the current CSS expressions. Browser-computed positions and actual interactions remain unmeasured.",
+    "helperReview": [
+      "The helper runs before the backdrop diagnostic, pauses simulation with a dedicated reason, exercises3 supported scales and both handedness settings, and restores original settings and the pause reason in finally.",
+      "It checks the9 persistent target dimensions, viewport bounds and mutual overlap; actual scale and handedness are recorded.",
+      "Its scope explicitly excludes physical reach, physical multitouch and the conditional interaction button. Do not report those as validated by these9-target cases.",
+      "The font sizes continue to follow the requested UI scale while target dimensions and cluster spacing have a minimum action-scale of1. This is a deliberate touch-target floor, not proof of text readability."
+    ]
+  },
+  "independentRefutation": {
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "captureResult": "PASS for source readiness; actual new capture and visual equivalence remain unmeasured.",
+    "captureSourceSha256": "65082c5dc38e5d0033148ba709688ed4e56e6c94fc8d1b2731f51aa2c3b99eb5",
+    "reproduced": [
+      "The2 archived cross-view exact-RGBA equalities.",
+      "PNG-buffer→base64-data-URL→Buffer round trip in memory."
+    ],
+    "layoutResult": "The left-hand6-offset correction and resulting nonoverlapping intervals are independently source-verified.",
+    "sourceOnlyLimit": "No browser, external operation or file mutation was performed by the refuter."
+  },
+  "nextAction": "Execute the revised instrument on the permitted CI. Confirm12 new native captures,4 exact-repeat controls, actual ash submissions and pass reconciliation; inspect the new ground-visible image pairs. Run the6 layout cases and address any actual overlap/bounds failures. Keep old failed image comparison as invalid history and all unmeasured concept elements unmeasured.",
+  "reviewerMutationScope": "Only this JSON was written. No product, CI, tool, instruction, state, remote or browser was changed by this reviewer."
+}

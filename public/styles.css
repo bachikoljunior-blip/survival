@@ -421,11 +421,12 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
    Every button is >=44pt and every pair is >=8pt apart (Apple HIG); the
    geometry is verified in tools/_p_hud.mjs. */
 .actions {
+  --action-scale: max(1, var(--uiscale));
   position: absolute;
   right: calc(var(--pad) + var(--sa-r));
   bottom: calc(var(--pad) + var(--sa-b));
-  width: calc(167px * var(--uiscale));
-  height: calc(134px * var(--uiscale));
+  width: calc(167px * var(--action-scale));
+  height: calc(134px * var(--action-scale));
 }
 .abtn {
   position: absolute;
@@ -447,20 +448,21 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
    HUD.update — see _updateAvailability. */
 .abtn.dis { opacity: 0.3; border-color: rgba(150, 138, 120, 0.18); color: var(--dim); }
 
-.abtn.big  { width: calc(54px * var(--uiscale)); height: calc(54px * var(--uiscale)); font-size: calc(10px * var(--uiscale)); }
-.abtn.mid  { width: calc(44px * var(--uiscale)); height: calc(44px * var(--uiscale)); }
-.abtn.sml  { width: calc(44px * var(--uiscale)); height: calc(44px * var(--uiscale)); font-size: calc(8px * var(--uiscale)); }
+.abtn.big  { width: calc(54px * var(--action-scale)); height: calc(54px * var(--action-scale)); font-size: calc(10px * var(--uiscale)); }
+.abtn.mid  { width: calc(44px * var(--action-scale)); height: calc(44px * var(--action-scale)); }
+.abtn.sml  { width: calc(44px * var(--action-scale)); height: calc(44px * var(--action-scale)); font-size: calc(8px * var(--uiscale)); }
 
-.abtn.attack   { right: calc(4px * var(--uiscale));   bottom: calc(6px * var(--uiscale)); }
-.abtn.dodge    { right: calc(68px * var(--uiscale));  bottom: calc(5px * var(--uiscale)); }
-.abtn.guard    { right: calc(7px * var(--uiscale));   bottom: calc(72px * var(--uiscale)); }
-.abtn.use      { right: calc(62px * var(--uiscale));  bottom: calc(70px * var(--uiscale)); }
-.abtn.heavy    { right: calc(120px * var(--uiscale)); bottom: calc(28px * var(--uiscale)); }
+.abtn.attack   { right: calc(4px * var(--action-scale));   bottom: calc(6px * var(--action-scale)); }
+.abtn.dodge    { right: calc(68px * var(--action-scale));  bottom: calc(5px * var(--action-scale)); }
+.abtn.guard    { right: calc(7px * var(--action-scale));   bottom: calc(72px * var(--action-scale)); }
+.abtn.use      { right: calc(62px * var(--action-scale));  bottom: calc(70px * var(--action-scale)); }
+.abtn.heavy    { right: calc(120px * var(--action-scale)); bottom: calc(28px * var(--action-scale)); }
 /* Interact has its own slot. It used to be positioned on top of GUARD and
    display:none the guard button underneath a possibly-held finger, which both
    latched the input and removed the player's only defence next to a door. */
-.abtn.interact { right: calc(123px * var(--uiscale)); bottom: calc(90px * var(--uiscale));
+.abtn.interact { right: calc(123px * var(--action-scale)); bottom: calc(90px * var(--action-scale));
                  border-color: var(--ember); background: rgba(60, 34, 16, 0.72); }
+
 
 /* Context prompt (interact) floats above the action cluster. */
 .prompt {
@@ -934,12 +936,12 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
    Toggled by Game.applySettings. */
 body.lefthanded .stick { left: auto; right: calc(var(--pad) + var(--sa-r)); }
 body.lefthanded .actions { right: auto; left: calc(var(--pad) + var(--sa-l)); }
-body.lefthanded .abtn.attack   { right: auto; left: calc(4px * var(--uiscale)); }
-body.lefthanded .abtn.dodge    { right: auto; left: calc(68px * var(--uiscale)); }
-body.lefthanded .abtn.guard    { right: auto; left: calc(7px * var(--uiscale)); }
-body.lefthanded .abtn.use      { right: auto; left: calc(62px * var(--uiscale)); }
-body.lefthanded .abtn.heavy    { right: auto; left: calc(112px * var(--uiscale)); }
-body.lefthanded .abtn.interact { right: auto; left: calc(123px * var(--uiscale)); }
+body.lefthanded .abtn.attack   { right: auto; left: calc(4px * var(--action-scale)); }
+body.lefthanded .abtn.dodge    { right: auto; left: calc(68px * var(--action-scale)); }
+body.lefthanded .abtn.guard    { right: auto; left: calc(7px * var(--action-scale)); }
+body.lefthanded .abtn.use      { right: auto; left: calc(62px * var(--action-scale)); }
+body.lefthanded .abtn.heavy    { right: auto; left: calc(120px * var(--action-scale)); }
+body.lefthanded .abtn.interact { right: auto; left: calc(123px * var(--action-scale)); }
 body.lefthanded .autosave { right: auto; left: calc(var(--pad) + var(--sa-l)); }
 
 body.lefthanded .vitals { left: auto; right: calc(var(--pad) + var(--sa-r)); }

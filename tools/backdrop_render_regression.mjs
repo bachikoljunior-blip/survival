@@ -4,7 +4,7 @@
  */
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdirSync, mkdtempSync, rmSync, readFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import * as THREE from 'three';
@@ -114,16 +114,27 @@ export async function exerciseBackdrop({ page, root, output, check, report }) {
           r.info.reset();
           try { C.post.render(C.scene,C.engine.camera,C.engine.time); }
           finally { r.renderBufferDirect=original; }
+          // Capture this actual frame in the same JS turn. A paused WebKit
+          // page screenshot can otherwise retain the previous compositor frame.
+          const framePng=r.domElement.toDataURL('image/png');
+          r.getContext().finish();
           return { passes, ashTriangles:objects['backdrop:ash']||0,
             allPassTriangles:r.info.render.triangles, attributedTriangles:Object.values(passes).reduce((a,b)=>a+b,0),
-            geometryTriangles:state.mesh.geometry.index.count/3 };
+            geometryTriangles:state.mesh.geometry.index.count/3, framePng };
         }, variant);
+        const nativeFile=join(output,`ground-${name}-${variant}-frame.png`);
+        const frameBytes=Buffer.from(measured.framePng.split(',')[1],'base64');
+        writeFileSync(nativeFile,frameBytes);
+        const frame=PNG.sync.read(frameBytes);
+        measured.nativeImage={width:frame.width,height:frame.height,pngSha256:digest(frameBytes),rgbaSha256:digest(frame.data)};
+        delete measured.framePng;
+        await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         const file=join(output,`ground-${name}-${variant}.png`);
         await page.screenshot({path:file});
-        captures[variant]={file:file.slice(root.length+1),...measured};
+        captures[variant]={file:file.slice(root.length+1),nativeFile:nativeFile.slice(root.length+1),...measured};
       }
-      const pair=difference(join(root,captures.current.file),join(root,captures.previous.file));
-      const control=difference(join(root,captures.current.file),join(root,captures.repeat.file));
+      const pair=difference(join(root,captures.current.nativeFile),join(root,captures.previous.nativeFile));
+      const control=difference(join(root,captures.current.nativeFile),join(root,captures.repeat.nativeFile));
       check(control.changedPixelsExact===0,`ground regression ${name}: unchanged rendering control is byte-identical`,JSON.stringify(control));
       check(Object.values(captures).every(c=>c.attributedTriangles===c.allPassTriangles),`ground regression ${name}: pass counts reconcile exactly`);
       check(captures.current.geometryTriangles===1256 && captures.previous.geometryTriangles===723456,
@@ -131,6 +142,7 @@ export async function exerciseBackdrop({ page, root, output, check, report }) {
       check(captures.current.ashTriangles===1256 && captures.previous.ashTriangles===723456 && captures.repeat.ashTriangles===1256,
         `ground regression ${name}: both compared ground meshes are actually submitted`);
       report.backdropRegression.views.push({name,...setup,captures,pairDifference:pair,controlDifference:control,
+        pixelComparisonSurface:'Native rendered canvas captured synchronously; viewport screenshots are separately retained.',
         mainSceneBudgetMet:captures.current.passes.sceneColor<=300000});
     }
   } finally {

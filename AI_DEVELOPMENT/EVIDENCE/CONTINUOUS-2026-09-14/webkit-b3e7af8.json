@@ -1,0 +1,2685 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-13T22:38:52.467Z",
+  "target": "iPhone SE (3rd gen) landscape / Playwright WebKit",
+  "browser": "webkit",
+  "checks": [
+    {
+      "name": "entry responds successfully",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "iPhone SE 3 landscape viewport",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "iPhone SE 3 DPR",
+      "passed": true,
+      "detail": "dpr=2"
+    },
+    {
+      "name": "touch emulation and coarse pointer are active",
+      "passed": true,
+      "detail": "{\"profile\":\"iPhone SE (3rd gen) landscape\",\"hasTouch\":true,\"isMobile\":true,\"maxTouchPoints\":0,\"coarse\":true}"
+    },
+    {
+      "name": "landscape orientation is active",
+      "passed": true,
+      "detail": "landscape=true"
+    },
+    {
+      "name": "production engine reaches a running title",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":375},\"dpr\":2,\"maxTouchPoints\":0,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"tier\":\"medium\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":375}}"
+    },
+    {
+      "name": "render canvas fills the viewport",
+      "passed": true,
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "title has no page overflow",
+      "passed": true,
+      "detail": "{\"documentWidth\":667,\"documentHeight\":375,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":111.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":165.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":219.5,\"width\":180,\"height\":44}]}"
+    },
+    {
+      "name": "title controls meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"new\",\"x\":479,\"y\":111.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":165.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":219.5,\"width\":180,\"height\":44}]"
+    },
+    {
+      "name": "trusted title tap starts a new game",
+      "passed": true,
+      "detail": "http://127.0.0.1:37801/cinderline-test/"
+    },
+    {
+      "name": "all required touch controls are present",
+      "passed": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "every touch control is visible and at least 44 CSS px",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "every touch control remains inside the target viewport",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "gameplay render has usable luminance",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":9.47,\"lumaStdDev\":24.698,\"nearBlackRatio\":0.63344}"
+    },
+    {
+      "name": "gameplay render is not flat or cleared",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":9.47,\"lumaStdDev\":24.698,\"nearBlackRatio\":0.63344}"
+    },
+    {
+      "name": "gameplay render is not predominantly black",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":9.47,\"lumaStdDev\":24.698,\"nearBlackRatio\":0.63344}"
+    },
+    {
+      "name": "visual regression stays within tolerance",
+      "passed": true,
+      "detail": "ratio=0.00287, limit=0.15"
+    },
+    {
+      "name": "left-thumb movement moves the player",
+      "passed": true,
+      "detail": "distance=6.3457"
+    },
+    {
+      "name": "trusted second touch starts an attack during movement",
+      "passed": true,
+      "detail": "attacks=1"
+    },
+    {
+      "name": "touch release clears movement and attack",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-90.34569118048421,\"attackStarts\":1,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "interaction leaves finite player state",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-90.34569118048421,\"attackStarts\":1,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "right-thumb drag moves the camera",
+      "passed": true,
+      "detail": "delta=0.20095"
+    },
+    {
+      "name": "pause actions are touch-sized",
+      "passed": true,
+      "detail": "[{\"index\":0,\"text\":\"保存\",\"x\":8,\"y\":319,\"width\":47.25,\"height\":44},{\"index\":1,\"text\":\"タイトル\",\"x\":61.25,\"y\":319,\"width\":72.609375,\"height\":44},{\"index\":2,\"text\":\"再開\",\"x\":611.75,\"y\":319,\"width\":47.25,\"height\":44}]"
+    },
+    {
+      "name": "portrait rotation raises a blocking prompt and pauses play",
+      "passed": true,
+      "detail": "{\"prompt\":true,\"paused\":true,\"portrait\":true}"
+    },
+    {
+      "name": "returning to landscape restores play",
+      "passed": true,
+      "detail": "{\"paused\":false,\"landscape\":true}"
+    },
+    {
+      "name": "saved run exposes a touch-sized Continue action",
+      "passed": true,
+      "detail": "{\"x\":569,\"y\":106.5,\"width\":180,\"height\":44}"
+    },
+    {
+      "name": "same-tab reload and Continue restore the saved position",
+      "passed": true,
+      "detail": "distance=0.0000, bytes=1425"
+    },
+    {
+      "name": "automated play remains live with finite state and no captured game faults",
+      "passed": true,
+      "detail": "{\"samples\":30,\"medianFrameGapMs\":161,\"p95FrameGapMs\":402,\"maximumFrameGapMs\":459,\"engineFrame\":44,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"medium\",\"p50\":161,\"p90\":317,\"p99\":1039,\"fps50\":6.211180124223603,\"fps90\":3.1545741324921135,\"draws\":81,\"tris\":112407,\"programs\":70,\"textures\":87,\"geometries\":199,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2},\"faults\":0}"
+    },
+    {
+      "name": "automated play continues producing frames",
+      "passed": true,
+      "detail": "samples=30"
+    },
+    {
+      "name": "runner frame-gap hang guard",
+      "passed": true,
+      "detail": "p95=402ms, limit=5000ms"
+    },
+    {
+      "name": "renderer submits non-empty geometry after the soak",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":161,\"p90\":317,\"p99\":1039,\"fps50\":6.211180124223603,\"fps90\":3.1545741324921135,\"draws\":81,\"tris\":112407,\"programs\":70,\"textures\":87,\"geometries\":199,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "submission probe captures actual rendered geometry",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "title settings expose all three retained copies",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all copies can be exported and only the readable copy can be restored",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "recovery buttons are touch-sized and fit the mobile viewport",
+      "passed": true,
+      "detail": "[{\"text\":\"ファイルに保存\",\"x\":8,\"y\":186,\"width\":651,\"height\":44,\"fullyVisible\":true},{\"text\":\"ファイルに保存\",\"x\":8,\"y\":186,\"width\":651,\"height\":44,\"fullyVisible\":true},{\"text\":\"ファイルに保存\",\"x\":8,\"y\":266,\"width\":321.5,\"height\":44,\"fullyVisible\":true},{\"text\":\"このコピーを使う\",\"x\":337.5,\"y\":266,\"width\":321.5,\"height\":44,\"fullyVisible\":true}]"
+    },
+    {
+      "name": "trusted export tap downloads the exact unreadable original bytes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore preserves all four versions and title SAVE cannot overwrite it",
+      "passed": true,
+      "detail": "{\"originalBytes\":true,\"allPreserved\":true,\"saveHidden\":true,\"announcement\":\"復元しました。設定を閉じて「つづきから」を選んでください。\"}"
+    },
+    {
+      "name": "Japanese restoration notice has a visible box inside the scroller and viewport",
+      "passed": true,
+      "detail": "{\"x\":8,\"y\":290,\"width\":651,\"height\":20,\"fullyVisible\":true}"
+    },
+    {
+      "name": "Continue applies the legacy save to the real running world",
+      "passed": true,
+      "detail": "{\"legacyFlag\":true,\"position\":{\"x\":-112,\"y\":0,\"z\":-84},\"finite\":true,\"distance\":0}"
+    },
+    {
+      "name": "changing language in play keeps the gameplay SAVE available",
+      "passed": true,
+      "detail": "{\"fromTitle\":false,\"saveWidth\":52.359375,\"saveHeight\":44}"
+    },
+    {
+      "name": "manual-save witness is inserted while gameplay is paused in MENU",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manual-save witness is absent from storage before the SAVE tap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "trusted SAVE after language change retains loaded legacy progress in the current format",
+      "passed": true,
+      "detail": "{\"version\":2,\"legacyFlag\":true,\"manualWitness\":true}"
+    },
+    {
+      "name": "closing language-changed settings returns to live gameplay with the HUD",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression street: unchanged rendering control is byte-identical",
+      "passed": true,
+      "detail": "{\"perceptualPixels\":0,\"changedPixelsExact\":0,\"totalPixels\":1000500}"
+    },
+    {
+      "name": "ground regression street: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression street: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression street: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression roof: unchanged rendering control is byte-identical",
+      "passed": false,
+      "detail": "{\"perceptualPixels\":859279,\"changedPixelsExact\":1000143,\"totalPixels\":1000500}"
+    },
+    {
+      "name": "ground regression roof: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression roof: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression roof: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression city_edge: unchanged rendering control is byte-identical",
+      "passed": false,
+      "detail": "{\"perceptualPixels\":788987,\"changedPixelsExact\":1000494,\"totalPixels\":1000500}"
+    },
+    {
+      "name": "ground regression city_edge: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression city_edge: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression city_edge: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression horizon_ground: unchanged rendering control is byte-identical",
+      "passed": false,
+      "detail": "{\"perceptualPixels\":647059,\"changedPixelsExact\":1000415,\"totalPixels\":1000500}"
+    },
+    {
+      "name": "ground regression horizon_ground: pass counts reconcile exactly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression horizon_ground: actual old/new geometry counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ground regression horizon_ground: both compared ground meshes are actually submitted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no page errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no console errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no failed requests",
+      "passed": true,
+      "detail": "0 failure(s)"
+    },
+    {
+      "name": "no HTTP error responses",
+      "passed": true,
+      "detail": "0 error response(s)"
+    }
+  ],
+  "timings": {
+    "bootMs": 7520,
+    "soakMs": 5494
+  },
+  "device": {
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "dpr": 2,
+    "maxTouchPoints": 0,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1",
+    "coarse": true,
+    "landscape": true,
+    "ready": true,
+    "running": true,
+    "build": "1.0.0",
+    "tier": "medium",
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 667,
+      "height": 375
+    }
+  },
+  "layout": {
+    "title": {
+      "documentWidth": 667,
+      "documentHeight": 375,
+      "buttons": [
+        {
+          "name": "new",
+          "x": 479,
+          "y": 111.5,
+          "width": 180,
+          "height": 44
+        },
+        {
+          "name": "settings",
+          "x": 479,
+          "y": 165.5,
+          "width": 180,
+          "height": 44
+        },
+        {
+          "name": "credits",
+          "x": 479,
+          "y": 219.5,
+          "width": 180,
+          "height": 44
+        }
+      ]
+    },
+    "controls": [
+      {
+        "name": "attack",
+        "x": 601,
+        "y": 307,
+        "width": 54,
+        "height": 54,
+        "visible": true
+      },
+      {
+        "name": "dodge",
+        "x": 547,
+        "y": 318,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "guard",
+        "x": 608,
+        "y": 251,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "use",
+        "x": 553,
+        "y": 253,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "heavy",
+        "x": 495,
+        "y": 295,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "menu",
+        "x": 459,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "map",
+        "x": 511,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "lamp",
+        "x": 563,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "meter",
+        "x": 615,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      }
+    ]
+  },
+  "interaction": {
+    "simultaneousMoveAttack": {
+      "before": {
+        "x": -112,
+        "y": 0,
+        "z": -84,
+        "frame": 29
+      },
+      "after": {
+        "x": -112,
+        "y": 0,
+        "z": -90.34569118048421,
+        "attackStarts": 1,
+        "stickActive": false,
+        "moveMagnitude": 0,
+        "attackRaw": false,
+        "finite": true
+      },
+      "moved": 6.3457
+    },
+    "camera": {
+      "before": {
+        "yaw": 0,
+        "pitch": -0.3490658503988659
+      },
+      "after": {
+        "yaw": -0.1929535232383808,
+        "pitch": -0.4051977844318494
+      },
+      "delta": 0.20095
+    },
+    "saveRecovery": {
+      "recovered": {
+        "originalBytes": true,
+        "allPreserved": true,
+        "saveHidden": true,
+        "announcement": "復元しました。設定を閉じて「つづきから」を選んでください。"
+      },
+      "loaded": {
+        "legacyFlag": true,
+        "position": {
+          "x": -112,
+          "y": 0,
+          "z": -84
+        },
+        "finite": true,
+        "distance": 0
+      },
+      "language": {
+        "fromTitle": false,
+        "saveWidth": 52.359375,
+        "saveHeight": 44
+      },
+      "resaved": {
+        "version": 2,
+        "legacyFlag": true,
+        "manualWitness": true
+      },
+      "resumed": true,
+      "scope": "Real webkit rendering and trusted single-touch actions; seeded legacy fixture and in-memory manual-save witness. No physical-phone or full-playthrough claim."
+    }
+  },
+  "persistence": {
+    "saved": {
+      "x": -112,
+      "y": 0,
+      "z": -90.34600367571552,
+      "bytes": 1425
+    },
+    "restored": {
+      "x": -112,
+      "y": 0,
+      "z": -90.34600367988784,
+      "mode": "play"
+    },
+    "distance": 0
+  },
+  "soak": {
+    "samples": 30,
+    "medianFrameGapMs": 161,
+    "p95FrameGapMs": 402,
+    "maximumFrameGapMs": 459,
+    "engineFrame": 44,
+    "running": true,
+    "finite": true,
+    "perf": {
+      "tier": "medium",
+      "p50": 161,
+      "p90": 317,
+      "p99": 1039,
+      "fps50": 6.211180124223603,
+      "fps90": 3.1545741324921135,
+      "draws": 81,
+      "tris": 112407,
+      "programs": 70,
+      "textures": 87,
+      "geometries": 199,
+      "res": "1147x645",
+      "css": "667x375",
+      "dpr": 2
+    },
+    "faults": 0
+  },
+  "screenshots": {
+    "gameplay": "test-results/iphone-webkit/iphone-se3-webkit-gameplay.png",
+    "pause": "test-results/iphone-webkit/pause-menu.png",
+    "savedCopies": "test-results/iphone-webkit/saved-copies.png",
+    "restorationResult": "test-results/iphone-webkit/restoration-result.png"
+  },
+  "visualRegression": {
+    "baseline": "tests/baselines/iphone-se3-webkit-gameplay.png",
+    "baselinePresent": true,
+    "actual": "test-results/iphone-webkit/iphone-se3-webkit-gameplay.png",
+    "diff": "test-results/iphone-webkit/iphone-se3-webkit-diff.png",
+    "diffPixels": 2871,
+    "diffRatio": 0.00287,
+    "threshold": 0.25,
+    "maximumDiffRatio": 0.15,
+    "stats": {
+      "width": 1334,
+      "height": 750,
+      "meanLuma": 9.47,
+      "lumaStdDev": 24.698,
+      "nearBlackRatio": 0.63344
+    }
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "request": [],
+    "http": []
+  },
+  "failures": [
+    "ground regression roof: unchanged rendering control is byte-identical: {\"perceptualPixels\":859279,\"changedPixelsExact\":1000143,\"totalPixels\":1000500}",
+    "ground regression city_edge: unchanged rendering control is byte-identical: {\"perceptualPixels\":788987,\"changedPixelsExact\":1000494,\"totalPixels\":1000500}",
+    "ground regression horizon_ground: unchanged rendering control is byte-identical: {\"perceptualPixels\":647059,\"changedPixelsExact\":1000415,\"totalPixels\":1000500}"
+  ],
+  "status": "failed",
+  "baseUrl": "http://127.0.0.1:37801/cinderline-test/",
+  "emulation": {
+    "profile": "iPhone SE (3rd gen) landscape",
+    "hasTouch": true,
+    "isMobile": true
+  },
+  "submittedGeometry": {
+    "45": [
+      {
+        "object": "Mesh",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 624,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2758,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5528,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 918,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1256,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 320,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 584,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2008,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8304,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 39308,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1100,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 88,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 752,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 436,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 432,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 276,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 476,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 692,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 100,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 780,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1680,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 384,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 552,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 808,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 30,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 270,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5000,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 252,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 48,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4932,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 452,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1336,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1420,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 572,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 3300,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8740,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 422,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 24,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 24,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 912,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 160,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 216,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 576,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1422,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1230,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 32,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 32,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 98,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 98,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "screen",
+        "triangles": 1,
+        "calls": 1
+      }
+    ],
+    "46": [
+      {
+        "object": "Mesh",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 624,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2758,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5528,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 918,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1256,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 320,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 584,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2008,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8304,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 39308,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1100,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 88,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 752,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 436,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 432,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 276,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 476,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 692,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 100,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 780,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1680,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 384,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 552,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 808,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 30,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 270,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5000,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 252,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 48,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4932,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 452,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1336,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1420,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 572,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 3300,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8740,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 422,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 24,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 24,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 912,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 160,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 216,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 576,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1422,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1230,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 32,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 32,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 96,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 96,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "screen",
+        "triangles": 1,
+        "calls": 1
+      }
+    ],
+    "47": [
+      {
+        "object": "Mesh",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 624,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2758,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5528,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 918,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "backdrop:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1256,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 2,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:brick",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 320,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 584,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 2008,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8304,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 39308,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-1:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1100,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 88,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 752,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:dark",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 436,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:concrete",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 432,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 276,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:corrugated",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 476,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 692,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:paint",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 100,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 780,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1680,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 384,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:ash",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 552,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 808,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 30,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:asphalt",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 270,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1768,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 5000,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-3:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 252,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:rust",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 256,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 48,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4932,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:glass",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 452,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1336,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1420,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:metal",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 572,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 3300,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 8740,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:wood",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 180,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 422,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 4240,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-2:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 24,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:fabric",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 24,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-1:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 64,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 912,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:emberglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 160,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-1,-3:screenglow",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-3,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 216,
+        "calls": 1
+      },
+      {
+        "object": "chunk_-2,-2:rubble",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 576,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1422,
+        "calls": 1
+      },
+      {
+        "object": "SkinnedMesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 1230,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 32,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshStandardMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 12,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 32,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 98,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 98,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Points",
+        "material": "ShaderMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "MeshBasicMaterial",
+        "target": "1147x645",
+        "triangles": 0,
+        "calls": 0
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "286x161",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "143x80",
+        "triangles": 1,
+        "calls": 1
+      },
+      {
+        "object": "Mesh",
+        "material": "RawShaderMaterial",
+        "target": "screen",
+        "triangles": 1,
+        "calls": 1
+      }
+    ]
+  },
+  "backdropRegression": {
+    "scope": "Old ground geometry substituted in the same frozen current production scene. All other geometry, materials, lighting and camera are held constant within each pair. World-only diagnostic views; no gameplay, physical FPS or reference-comparison claim.",
+    "sourceCommit": "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+    "sourceSha256": "3493bc2338f0cc0f9429fab718ee179a0ad8746fc191ba6913678e66d5cb6c06",
+    "oldAttributeHashes": {
+      "position": "c7ff496cc144ed930ab58aae3f14d9d06d7b3f07e06dd43891fa20ba9415a9e0",
+      "normal": "ba7d9a4d62563e85f269f92a3961bd880f47451f1eeba883b60ba7ed120f0b4b",
+      "uv": "c5047487a6ad93aacd6c32c075a903bd67a673d13b7a9cd22d0d11335bc916de",
+      "color": "868c9ec110c02f447013f3f8b60ef767ca575b93d64dcc313a0b087bead58da9"
+    },
+    "oldIndexHash": "7448f949b3dc388b262a338ff550c0c363ba1a9f0973cf0b6297e8a83ac702c8",
+    "views": [
+      {
+        "name": "street",
+        "requestedPlayerCamera": [
+          -112,
+          1.7,
+          -78,
+          0,
+          -4
+        ],
+        "cameraPosition": [
+          -111.58,
+          3.371123305478851,
+          -74.40876941906464
+        ],
+        "cameraQuaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "time": 3.8833333333333244,
+        "tier": "medium",
+        "resolution": "1147x645",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-street-current.png",
+            "passes": {
+              "sceneColor": 105162,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 105169,
+            "attributedTriangles": 105169,
+            "geometryTriangles": 1256
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-street-previous.png",
+            "passes": {
+              "sceneColor": 827362,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 827369,
+            "attributedTriangles": 827369,
+            "geometryTriangles": 723456
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-street-repeat.png",
+            "passes": {
+              "sceneColor": 105162,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 105169,
+            "attributedTriangles": 105169,
+            "geometryTriangles": 1256
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 1000500
+        },
+        "controlDifference": {
+          "perceptualPixels": 0,
+          "changedPixelsExact": 0,
+          "totalPixels": 1000500
+        },
+        "mainSceneBudgetMet": true
+      },
+      {
+        "name": "roof",
+        "requestedPlayerCamera": [
+          -112,
+          21.2,
+          -62,
+          135,
+          -6
+        ],
+        "cameraPosition": [
+          -109.76534541358609,
+          22.99630246776355,
+          -64.8286242826106
+        ],
+        "cameraQuaternion": [
+          -0.020028103371158897,
+          0.9226133877210194,
+          0.0483521187872621,
+          0.3821589780210331
+        ],
+        "time": 3.8833333333333244,
+        "tier": "medium",
+        "resolution": "1147x645",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-roof-current.png",
+            "passes": {
+              "sceneColor": 139000,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 139007,
+            "attributedTriangles": 139007,
+            "geometryTriangles": 1256
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-roof-previous.png",
+            "passes": {
+              "sceneColor": 861200,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 861207,
+            "attributedTriangles": 861207,
+            "geometryTriangles": 723456
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-roof-repeat.png",
+            "passes": {
+              "sceneColor": 139000,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 139007,
+            "attributedTriangles": 139007,
+            "geometryTriangles": 1256
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 859279,
+          "changedPixelsExact": 1000143,
+          "totalPixels": 1000500
+        },
+        "controlDifference": {
+          "perceptualPixels": 859279,
+          "changedPixelsExact": 1000143,
+          "totalPixels": 1000500
+        },
+        "mainSceneBudgetMet": true
+      },
+      {
+        "name": "city_edge",
+        "requestedPlayerCamera": [
+          -140,
+          4,
+          -124,
+          25,
+          -12
+        ],
+        "cameraPosition": [
+          -138.13117178995196,
+          6.168482086943933,
+          -120.98608963523255
+        ],
+        "cameraQuaternion": [
+          -0.10205072131859269,
+          0.21525393508649943,
+          0.02262410023519408,
+          0.9709477554413933
+        ],
+        "time": 3.8833333333333244,
+        "tier": "medium",
+        "resolution": "1147x645",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-city_edge-current.png",
+            "passes": {
+              "sceneColor": 11680,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 11687,
+            "attributedTriangles": 11687,
+            "geometryTriangles": 1256
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-city_edge-previous.png",
+            "passes": {
+              "sceneColor": 733880,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 733887,
+            "attributedTriangles": 733887,
+            "geometryTriangles": 723456
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-city_edge-repeat.png",
+            "passes": {
+              "sceneColor": 11680,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 11687,
+            "attributedTriangles": 11687,
+            "geometryTriangles": 1256
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 788959,
+          "changedPixelsExact": 1000494,
+          "totalPixels": 1000500
+        },
+        "controlDifference": {
+          "perceptualPixels": 788987,
+          "changedPixelsExact": 1000494,
+          "totalPixels": 1000500
+        },
+        "mainSceneBudgetMet": true
+      },
+      {
+        "name": "horizon_ground",
+        "requestedPlayerCamera": [
+          -150,
+          30,
+          90,
+          210,
+          -25
+        ],
+        "cameraPosition": [
+          -151.99508468625544,
+          32.94142574226652,
+          87.38441195800297
+        ],
+        "cameraQuaternion": [
+          0.05601869420181805,
+          0.9430295273800398,
+          0.20906461293484896,
+          -0.25268400030018506
+        ],
+        "time": 3.8833333333333244,
+        "tier": "medium",
+        "resolution": "1147x645",
+        "captures": {
+          "current": {
+            "file": "test-results/iphone-webkit/ground-horizon_ground-current.png",
+            "passes": {
+              "sceneColor": 22022,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 22029,
+            "attributedTriangles": 22029,
+            "geometryTriangles": 1256
+          },
+          "previous": {
+            "file": "test-results/iphone-webkit/ground-horizon_ground-previous.png",
+            "passes": {
+              "sceneColor": 744222,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 723456,
+            "allPassTriangles": 744229,
+            "attributedTriangles": 744229,
+            "geometryTriangles": 723456
+          },
+          "repeat": {
+            "file": "test-results/iphone-webkit/ground-horizon_ground-repeat.png",
+            "passes": {
+              "sceneColor": 22022,
+              "bloom": 6,
+              "screen": 1
+            },
+            "ashTriangles": 1256,
+            "allPassTriangles": 22029,
+            "attributedTriangles": 22029,
+            "geometryTriangles": 1256
+          }
+        },
+        "pairDifference": {
+          "perceptualPixels": 647056,
+          "changedPixelsExact": 1000415,
+          "totalPixels": 1000500
+        },
+        "controlDifference": {
+          "perceptualPixels": 647059,
+          "changedPixelsExact": 1000415,
+          "totalPixels": 1000500
+        },
+        "mainSceneBudgetMet": true
+      }
+    ]
+  }
+}

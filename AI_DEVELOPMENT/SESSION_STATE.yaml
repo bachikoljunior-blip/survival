@@ -17,14 +17,14 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T07:33:54.384876+09:00"
-  verified_commit: 80dd49044496d5a1434a81efcc615bbbfcb0c0fd
-  verified_build_sha256: a1d0afc2cdda0be0491d1a34fe70218ae9d8021522708b4ffe302edb91c8e947
+  last_progress_at: "2026-09-14T07:48:48.087556+09:00"
+  verified_commit: b3e7af80acd8179f8237228ff0a8a74fa80bf21f
+  verified_build_sha256: 52858899cf347607250cdaaa077e4967bc438a74bfd1eed8a5c2a9b42701e31a
   evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/checkpoint.json
-  last_verified_action: "80dd の実WebKit 48検査中47成功。復元の通知が y=-84 で画面外という製品不具合1件を画像で確認。復元・全4版保全・元byte download・Continue・言語変更後SAVEは実ブラウザで成功。背景ashは3フレーム各723456 trisを実提出。今回修正後のNode36検査と本番build/root mirrorは成功。"
-  current_browser_evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-80dd490-provenance.json
-  modified_but_unverified: "復元通知を操作したコピー内へ移して最小スクロールで表示。背景地面の範囲・材質を維持して1quad/patchに削減。旧80ddの実生成形状との凍結した同じsceneでの4視点比較を追加。製品修正と新しい描画診断の実ブラウザ実行は待機中。"
-  next_action: "修正buildを同じ指定ブランチCIで実行。復元通知の実表示と旧/新地面の4視点・再描画control・pass内訳を検証し、不具合は修正する。INSIDE公式9画面/68秒B-roll取得済み、有効な比較は未実施。全19要素の実資料と出所を知らない評価を継続して確立する。"
+  last_verified_action: "b3e7af8 の実WebKit64検査中61成功。復元通知を含む既存48検査が成功。描画量は4視点で主scene11680..139000、ash1256 tris、12 captureのpass合計一致。3枚のrepeat対照画像が一致せず、少なくとも2つのcurrentが前視点の画素と完全一致。画質維持は未確認として失敗を保存。"
+  current_browser_evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-b3e7af8-provenance.json
+  modified_but_unverified: "描画直後同一JS内canvas画像を正本にし、viewport画像とは分離する計測器修正。小さいUI設定でのボタン縮小を防ぐaction-scaleと左手配置を修正。3倍率×左右の実寸・重なり・反転検査を追加。修正後WebKitは次の同ブランチcommitで実行する。"
+  next_action: "修正buildを同ブランチCIで実行し、同期canvasの旧/新地面画像・完全一致対照と、0.8/1/1.5左右のボタン検査を確認する。画像で背景地面が実際に見えることを確認してから画質差を判断する。INSIDEの実資料を用いる出所を知らない評価の成立と全19要素の改善を継続する。"
 
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:

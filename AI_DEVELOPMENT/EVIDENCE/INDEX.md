@@ -4,6 +4,8 @@ Evidence records are append-only and identify task ID, acceptance references, ba
 
 ## CONTINUOUS-2026-09-14 — Current restored checkpoint
 
+- Latest browser evidence: `CONTINUOUS-2026-09-14/webkit-b3e7af8-provenance.json`. Recovery notice now passes actual viewport validation. All 48 mobile checks passed. Four scene-color counts are 11680–139000; all 12 pass totals reconcile. Three frozen screenshot controls failed because preceding viewpoints were captured; these images cannot establish visual preservation. Synchronous canvas capture and UI-scale layout fixes are pending a fresh browser run.
+
 - Actual WebKit at `80dd490`: 47/48 checks passed; restoration notice was outside the viewport (y=-84). `CONTINUOUS-2026-09-14/webkit-80dd490-provenance.json` records the build, run, artifact hashes and scope. Recovery, original-byte export, legacy Continue and manual SAVE after changing language passed in the real browser. Background ash submitted 723456 triangles in each of 3 observed frames.
 - The notice placement and redundant ground subdivision are now changed; browser regression and frozen-view image comparison are pending. These changes do not alter any element verdict.
 
