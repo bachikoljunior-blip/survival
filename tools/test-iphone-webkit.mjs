@@ -30,6 +30,7 @@ import { chromium, devices, webkit } from 'playwright';
 import { exerciseSaveRecovery } from './mobile_save_recovery.mjs';
 import { exerciseBackdrop } from './backdrop_render_regression.mjs';
 import { exerciseMobileLayout } from './mobile_layout.mjs';
+import { captureMobileViews } from './mobile_visual_capture.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -593,6 +594,7 @@ try {
   await exerciseSaveRecovery({ page, root: ROOT, output: OUTPUT, check, report, bootTimeout: BOOT_TIMEOUT });
   await exerciseMobileLayout({ page, root: ROOT, output: OUTPUT, check, report });
   await exerciseBackdrop({ page, root: ROOT, output: OUTPUT, check, report });
+  await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
 
   check(report.errors.page.length === 0, 'no page errors', `${report.errors.page.length} error(s)`);
   check(report.errors.console.length === 0, 'no console errors', `${report.errors.console.length} error(s)`);

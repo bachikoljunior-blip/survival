@@ -17,19 +17,19 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T07:48:48.087556+09:00"
-  verified_commit: b3e7af80acd8179f8237228ff0a8a74fa80bf21f
-  verified_build_sha256: 52858899cf347607250cdaaa077e4967bc438a74bfd1eed8a5c2a9b42701e31a
-  evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/checkpoint.json
-  last_verified_action: "b3e7af8 の実WebKit64検査中61成功。復元通知を含む既存48検査が成功。描画量は4視点で主scene11680..139000、ash1256 tris、12 captureのpass合計一致。3枚のrepeat対照画像が一致せず、少なくとも2つのcurrentが前視点の画素と完全一致。画質維持は未確認として失敗を保存。"
-  current_browser_evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-b3e7af8-provenance.json
-  modified_but_unverified: "描画直後同一JS内canvas画像を正本にし、viewport画像とは分離する計測器修正。小さいUI設定でのボタン縮小を防ぐaction-scaleと左手配置を修正。3倍率×左右の実寸・重なり・反転検査を追加。修正後WebKitは次の同ブランチcommitで実行する。"
-  next_action: "修正buildを同ブランチCIで実行し、同期canvasの旧/新地面画像・完全一致対照と、0.8/1/1.5左右のボタン検査を確認する。画像で背景地面が実際に見えることを確認してから画質差を判断する。INSIDEの実資料を用いる出所を知らない評価の成立と全19要素の改善を継続する。"
+  last_progress_at: "2026-09-14T08:02:21.432832+09:00"
+  verified_commit: "60b688c819d0b38cbcd2a131af0b08ed1fe1432a"
+  verified_build_sha256: "77f955e05d8a14acf44ad42ba1bcefd394f36971777bbbdd4500df53927a7b53"
+  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-60b688c-provenance.json"
+  last_verified_action: "60b688c の実WebKit91検査すべて成功。UI 0.8/1/1.5×左右で常時9ボタン44px以上・重複なし、5操作は反転一致。背景4視点の同期canvas repeat全画素一致。背景段階は自動調整後low 720x405でありmediumとの混同をしない。"
+  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-60b688c-provenance.json"
+  modified_but_unverified: "標準品質を実設定APIで固定し、既存8spawnへ移動して実simulation後に製品world/HUD画像を得るcaptureMobileViewsを追加。構文検査成功、実ブラウザ検証は次commit。製品コードの新規変更なし。"
+  next_action: "8場面captureを同ブランチCIで実行して生存・接地・標準品質と実画像を確認する。背景旧新画像の独立レビューを保存。INSIDE実資料と出所を知らない評価の比較を成立させ、全19要素の改善へ続行。"
 
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "全19要素に有効なブラインド比較がまだない。期限内完全達成を裏付ける進捗はまだないため、製品修正と比較成立を並行して進める"
-    - "現行修正のWebKit再検証と画質差分確認が必要。旧環境のbrowser失敗は、許可された既存CIでの実行により代替できている"
+    - "現行製品のWebKit91検査は成功。主要8場面・標準品質と参照比較が次の不足。旧環境のbrowser失敗は許可された既存CIで代替できている"
     - "通常Gitの認証は利用できない。接続済みGitHubアプリの正規書込みで同ブランチへ保存・再読取が成功済み。旧自動承認拒否は履歴として保存し、保護の迂回はしない"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"
   continuation_mechanism: "Work Mode の survival 継続実行 予約を作成し enabled を確認。1時間ごとの再開判定であり常時稼働する処理ではない。再開要求の受信を確認。継続の成功を予約だけで保証しない。foreground活動中は競合変更をせず、外部GitHub Autopilotは停止を維持"
