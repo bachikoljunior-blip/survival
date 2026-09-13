@@ -16,6 +16,8 @@
 name: Floor gates
 
 on:
+  push:
+    branches: [claude/repo-instructions-constraints-r0070m]
   pull_request:
     branches: [main]
     # `edited` matters: the F5 check reads the pull-request body, and without it
