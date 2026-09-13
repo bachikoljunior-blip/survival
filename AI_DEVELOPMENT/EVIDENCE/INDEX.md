@@ -2,6 +2,12 @@
 
 Evidence records are append-only and identify task ID, acceptance references, baseline, exact environment, command/manual procedure, result, artifact paths and limitations.
 
+## CONTINUOUS-2026-09-14 — Current restored checkpoint
+
+- `CONTINUOUS-2026-09-14/checkpoint.json` identifies the current source/build, actual commands, independent review and limits. All 19 elements remain `not measured`; zero valid source-blind comparisons have completed.
+- Current local measurements: 36 regression tests, 23 state negative controls, 101 unit/loader migration checks, 903 Japanese keys, content/build/root-mirror validation and 40 vendored files. Memory storage and a DOM double do not establish mobile-browser behavior.
+- The entries below remain historical evidence, applicable only to their recorded build and scope.
+
 ## OPS-IPHONE-SE3-AUTOMATION — Automated iPhone SE 3 release gates
 
 - Status: local harness and negative-path verification passed; official WebKit baseline, iOS Simulator Mobile Safari, Pages deploy and F6 are pending remote execution.

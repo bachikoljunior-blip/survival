@@ -7,7 +7,7 @@
  */
 
 import { CAST } from '../content/story.js';
-import { ITEMS, CAPABILITIES, CHARACTERS, DEFAULT_SETTINGS } from '../game/state.js';
+import { ITEMS, CAPABILITIES, CHARACTERS, DEFAULT_SETTINGS, Storage, SAVE_LOADABLE } from '../game/state.js';
 import { clamp, clamp01, lerp, duration } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 import { t, setLocale, locale, isCJK, castName, questTitle, questSummary, stepText, LOCALES }
@@ -309,6 +309,8 @@ export class Menus {
   rebuild() {
     const wasTitle = this.titleNode && this.titleNode.classList.contains('on');
     const wasPause = this.pauseNode && this.pauseNode.classList.contains('on');
+    const wasFromTitle = this.fromTitle;
+    const restoreHudOnClose = this._hudWasVisible;
     const tab = this.currentTab;
     for (const n of [this.titleNode, this.pauseNode, this.deathNode, this.fadeNode,
                      this.rotateNode, this.endNode]) {
@@ -316,7 +318,10 @@ export class Menus {
     }
     this._build();
     if (wasTitle) this.showTitle(this._hadSave);
-    if (wasPause) this.openPause(tab || 'status', true);
+    if (wasPause) {
+      this.openPause(tab || 'status', wasFromTitle);
+      this._hudWasVisible = restoreHudOnClose;
+    }
   }
 
   // ------------------------------------------------------------------ title
@@ -430,9 +435,10 @@ export class Menus {
     foot.style.gap = '6px';
     foot.style.marginTop = '5px';
     const saveBtn = el('div', 'btn hit', foot);
+    this.saveButton = saveBtn;
     saveBtn.innerHTML = t('ui.save', 'SAVE');
     saveBtn.style.width = 'auto';
-    tap(saveBtn, () => this.game.emit('ui:save'));
+    tap(saveBtn, () => { if (!this.fromTitle) this.game.emit('ui:save'); });
     const quitBtn = el('div', 'btn hit', foot);
     quitBtn.innerHTML = t('ui.title', 'TITLE');
     quitBtn.style.width = 'auto';
@@ -495,17 +501,11 @@ export class Menus {
     el('div', 'h', p, t('ui.people', 'PEOPLE'));
     for (const id in CHARACTERS) {
       if (!S.has(`${id}_met`) && !S.flags.has(`${id}_met`) && S.trustOf(id) === 0 && id !== 'teo') continue;
-      const tr = S.trustOf(id);
       const r = el('div', 'item', p);
-      el('div', 'glyph', r, tr > 25 ? '◈' : tr < -25 ? '◇' : '◆');
+      el('div', 'glyph', r, '◆');
       const nm = el('div', 'nm', r, castName(id, CHARACTERS[id].name));
       el('i', '', nm, t(`cast.${id}.role`, CHARACTERS[id].role));
-      el('span', 'qty', r,
-        tr > 40 ? t('ui.trust.trusts', 'trusts you')
-          : tr > 12 ? t('ui.trust.warming', 'warming')
-            : tr < -40 ? t('ui.trust.done', 'done with you')
-              : tr < -12 ? t('ui.trust.wary', 'wary')
-                : t('ui.trust.neutral', 'neutral'));
+
     }
 
     el('div', 'rule', p);
@@ -854,6 +854,65 @@ export class Menus {
       '<b>0</b> standard &nbsp; <b>1</b> forgiving — more stamina, slower enemies &nbsp; ' +
       '<b>2</b> story — you cannot be killed in combat.');
     toggle('vibration', t('ui.set.vibration', 'Vibration'), t('ui.set.vibration.sub', 'Where the device supports it.'));
+    this.refreshSavedCopies(p);
+  }
+
+  refreshSavedCopies(p) {
+    // Restoring during active play would let the next autosave replace the copy.
+    if (!this.fromTitle) return;
+    el('div', 'rule', p);
+    el('div', 'h', p, t('ui.recovery.title', 'SAVED COPIES'));
+    const copies = Storage.rescuedSaves();
+    if (!copies.length) {
+      el('div', 'sub', p, t('ui.recovery.empty', 'No saved copies.'));
+      return;
+    }
+    el('div', 'sub', p, t('ui.recovery.help',
+      'Use a readable copy to continue from it. Your current save is kept first. You can also save any copy as a file.'));
+    const message = el('div', 'sub', p);
+    message.setAttribute('role', 'status');
+    message.setAttribute('aria-live', 'polite');
+    copies.slice().reverse().forEach((copy, index) => {
+      const item = el('div', 'save-copy', p);
+      const info = Storage.inspectRescuedSave(copy.raw);
+      const canRead = SAVE_LOADABLE.includes(info.status);
+      el('div', 'h', item, `${t('ui.recovery.copy', 'Copy')} ${copies.length - index}`);
+      const date = Number(copy.at);
+      el('div', 'sub', item, date > 0 && Number.isFinite(date)
+        ? new Date(date).toLocaleString(locale() === 'ja' ? 'ja-JP' : 'en-GB')
+        : t('ui.recovery.undated', 'Date not recorded'));
+      if (!canRead) el('div', 'sub', item, t('ui.recovery.unreadable',
+        'This version cannot read this copy. You can still save its original bytes as a file.'));
+      const actions = el('div', 'save-copy-actions', item);
+      const download = el('button', 'btn hit', actions, t('ui.recovery.export', 'SAVE A FILE'));
+      download.type = 'button';
+      download.addEventListener('click', () => {
+        const url = URL.createObjectURL(new Blob([copy.raw], {type: 'application/json'}));
+        const link = el('a', '', document.body);
+        link.href = url;
+        link.download = `cinderline-save-copy-${copies.length - index}.json`;
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      });
+      if (canRead) {
+        const restore = el('button', 'btn hit', actions, t('ui.recovery.restore', 'USE THIS COPY'));
+        restore.type = 'button';
+        restore.addEventListener('click', () => {
+          if (this._restoringSave || !this.fromTitle || !this.titleNode.classList.contains('on')) return;
+          this._restoringSave = true;
+          try {
+            const result = Storage.restoreRescuedSave(copy.raw);
+            if (!result.ok) {
+              message.textContent = t('ui.recovery.failed', 'The copy was not restored. Your current save is unchanged.');
+              return;
+            }
+            this.showTitle(Storage.hasSave());
+            message.textContent = t('ui.recovery.ready', 'Copy restored. Close settings and choose CONTINUE.');
+          } finally { this._restoringSave = false; }
+        });
+      }
+    });
   }
 
   /**
@@ -943,6 +1002,7 @@ export class Menus {
   openPause(panel = 'status', fromTitle = false) {
     this.pauseNode.classList.add('on');
     this.fromTitle = fromTitle;
+    this.saveButton.style.display = fromTitle ? 'none' : '';
     this.pauseTitle.textContent = fromTitle ? t('ui.settings', 'SETTINGS') : t('ui.paused', 'PAUSED');
     for (const k in this.panels) {
       const hide = fromTitle && (k === 'status' || k === 'items' || k === 'journal' || k === 'map');

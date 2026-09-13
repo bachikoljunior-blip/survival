@@ -1,0 +1,590 @@
+{
+  "round": 1,
+  "profile": "node-storage-and-dom-double",
+  "tier": "regression-review",
+  "nativeResolution": "667x375",
+  "verdict": "PASS",
+  "score": 100,
+  "blindComparison": "No source-blind reference comparison was performed. Storage and DOM-double execution cannot establish which unlabelled work an evaluator would prefer; all 19 product elements remain not measured.",
+  "base_commit": "1c761e08fdf567780b1eef3656c58b39cdb34c46",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "reviewed_at": "2026-09-14T06:49:31.551+09:00",
+  "source_sha256": {
+    "src/game/director.js": "846114a510131f222f80e84706261799b31a7940aa7b3030f6df4730475d9016",
+    "src/game/game.js": "d904affb2dab643e07c22229199a533b8c99195eb096362d5078e3c5de55596d",
+    "src/game/state.js": "2bc79c103d2a72911ebfbb70bc2b8bb94b7b9bff49d74c0ab829e22789c24d2d",
+    "src/ui/screens.js": "f494bd7d89fc538cc614be3968b968b19a8dc2defb23bf262e689318e32f380d",
+    "tools/save_recovery.test.mjs": "9d9240fe671ee6b244e9e7f4f2ce8f34787157e5bce6381e0fbc0d4b4dd6c26b",
+    "tools/trust_feedback.test.mjs": "310abf92fb9194e28acc8947d17f7b7714e2e552d2fea92e9786ffdbcfb951db"
+  },
+  "status_scope": "PASS closes only the reviewed storage/recovery/relationship regression findings, not any concept element or the user's overall objective.",
+  "repository_files_modified_by_reviewer": [],
+  "environment": {
+    "node": true,
+    "memory_localStorage": true,
+    "dom_double": true,
+    "browser_executed": false,
+    "real_touch_measured": false,
+    "visual_layout_measured": false,
+    "full_world_restore_measured": false,
+    "reference_blind_comparison_performed": false
+  },
+  "assumptions": [
+    "The memory storage model throws before changing the refused key; it does not reproduce an actual browser quota or cross-tab concurrency.",
+    "The DOM double invokes real menu and game event callbacks. It does not provide rendering, CSS geometry, accessibility-tree behavior, or browser pointer dispatch.",
+    "The review applies to the listed source hashes on the uncommitted worktree based on base_commit. It is not evidence of deployment."
+  ],
+  "findings": [],
+  "refutation_records": [
+    {
+      "id": "PR-01",
+      "prior_severity": "major",
+      "owner": "src/game/state.js",
+      "problem": "A full recovery list could lose an old copy during staging if the later main save write failed.",
+      "resolution": "Refuted on the corrected implementation for all 21 measured cases. Original three copies and prior main bytes survive normal restore, staging/main/rollback/cleanup failure, and two quota boundaries for each selection position.",
+      "evidence": "measurements.restore_conservation_after"
+    },
+    {
+      "id": "PR-02",
+      "prior_severity": "major",
+      "owner": "src/game/director.js",
+      "problem": "SAVE from title settings could overwrite a just-restored copy before CONTINUE loaded it.",
+      "resolution": "Title and title-origin menu saves are refused without changing the restored bytes. Normal menu and play saves still retain prior progress and write new progress in v2.",
+      "evidence": "measurements.save_mode_and_legacy_compatibility_after"
+    },
+    {
+      "id": "PR-03",
+      "prior_severity": "major",
+      "owner": "src/game/state.js",
+      "problem": "Malformed serialized collections could be classified as readable and restored, then fail while applying state.",
+      "resolution": "The original inventory/counters/trust/capabilities/quests/journal/scalar cases pass the refusal tests. Independent review found four malformed envelope collections still accepted; the new envelope and applySave-entry checks now reject all four before storage replacement, live state mutation, or world reset.",
+      "evidence": [
+        "measurements.malformed_envelope_before",
+        "measurements.malformed_envelope_after",
+        "measurements.authored_tests_after"
+      ]
+    },
+    {
+      "id": "PR-04",
+      "prior_severity": "major",
+      "owner": "src/ui/screens.js",
+      "problem": "Changing language from the gameplay menu changed fromTitle to true, hid SAVE, refused normal saving, and returned to title on close.",
+      "resolution": "Real language-row callbacks now retain the gameplay origin; SAVE remains available and persists the added flag. Closing returns to play and restores the previously visible HUD.",
+      "evidence": [
+        "measurements.language_transition_before",
+        "measurements.language_transition_after"
+      ]
+    }
+  ],
+  "measurements": {
+    "restore_conservation_after": {
+      "total": 21,
+      "passed": 21,
+      "results": [
+        {
+          "selected": 0,
+          "failure": "none",
+          "outcome": {
+            "ok": true
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 0,
+          "failure": "staging",
+          "outcome": {
+            "ok": false,
+            "reason": "backup_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 1
+        },
+        {
+          "selected": 0,
+          "failure": "main",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 0,
+          "failure": "rollback",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 0,
+          "failure": "cleanup",
+          "outcome": {
+            "ok": true
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 0,
+          "failure": "quota-staging",
+          "outcome": {
+            "ok": false,
+            "reason": "backup_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 1
+        },
+        {
+          "selected": 0,
+          "failure": "quota-main",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 1,
+          "failure": "none",
+          "outcome": {
+            "ok": true
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 1,
+          "failure": "staging",
+          "outcome": {
+            "ok": false,
+            "reason": "backup_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 1
+        },
+        {
+          "selected": 1,
+          "failure": "main",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 1,
+          "failure": "rollback",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 1,
+          "failure": "cleanup",
+          "outcome": {
+            "ok": true
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 1,
+          "failure": "quota-staging",
+          "outcome": {
+            "ok": false,
+            "reason": "backup_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 1
+        },
+        {
+          "selected": 1,
+          "failure": "quota-main",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 2,
+          "failure": "none",
+          "outcome": {
+            "ok": true
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 2,
+          "failure": "staging",
+          "outcome": {
+            "ok": false,
+            "reason": "backup_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 1
+        },
+        {
+          "selected": 2,
+          "failure": "main",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 2,
+          "failure": "rollback",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 2,
+          "failure": "cleanup",
+          "outcome": {
+            "ok": true
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        },
+        {
+          "selected": 2,
+          "failure": "quota-staging",
+          "outcome": {
+            "ok": false,
+            "reason": "backup_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 1
+        },
+        {
+          "selected": 2,
+          "failure": "quota-main",
+          "outcome": {
+            "ok": false,
+            "reason": "write_failed"
+          },
+          "allRetained": true,
+          "expectedOutcome": true,
+          "mainExpected": true,
+          "writes": 3
+        }
+      ]
+    },
+    "save_mode_and_legacy_compatibility_after": {
+      "checks": [
+        {
+          "mode": "title",
+          "fromTitle": false,
+          "saved": false,
+          "expected": false,
+          "originalBytesWhenBlocked": true,
+          "retainsLegacyFlag": true,
+          "normalSaveNewFlag": true,
+          "normalSaveVersion": true,
+          "retainsLegacyBytes": true
+        },
+        {
+          "mode": "title",
+          "fromTitle": true,
+          "saved": false,
+          "expected": false,
+          "originalBytesWhenBlocked": true,
+          "retainsLegacyFlag": true,
+          "normalSaveNewFlag": true,
+          "normalSaveVersion": true,
+          "retainsLegacyBytes": true
+        },
+        {
+          "mode": "menu",
+          "fromTitle": true,
+          "saved": false,
+          "expected": false,
+          "originalBytesWhenBlocked": true,
+          "retainsLegacyFlag": true,
+          "normalSaveNewFlag": true,
+          "normalSaveVersion": true,
+          "retainsLegacyBytes": true
+        },
+        {
+          "mode": "menu",
+          "fromTitle": false,
+          "saved": true,
+          "expected": true,
+          "originalBytesWhenBlocked": true,
+          "retainsLegacyFlag": true,
+          "normalSaveNewFlag": true,
+          "normalSaveVersion": true,
+          "retainsLegacyBytes": true
+        },
+        {
+          "mode": "play",
+          "fromTitle": false,
+          "saved": true,
+          "expected": true,
+          "originalBytesWhenBlocked": true,
+          "retainsLegacyFlag": true,
+          "normalSaveNewFlag": true,
+          "normalSaveVersion": true,
+          "retainsLegacyBytes": true
+        }
+      ],
+      "omittedOptionalLegacyFields": [
+        {
+          "field": "counters",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "inventory",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "capabilities",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "trust",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "choices",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "journal",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "discovered",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "chapter",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "playTime",
+          "status": "migrated",
+          "deserialises": true
+        },
+        {
+          "field": "deaths",
+          "status": "migrated",
+          "deserialises": true
+        }
+      ]
+    },
+    "malformed_envelope_before": [
+      {
+        "field": "takenIds",
+        "classification": "migrated",
+        "restore": {
+          "ok": true
+        },
+        "mainReplaced": true,
+        "worldResets": 1,
+        "thrown": "(d.takenIds || []).includes is not a function"
+      },
+      {
+        "field": "disabledIds",
+        "classification": "migrated",
+        "restore": {
+          "ok": true
+        },
+        "mainReplaced": true,
+        "worldResets": 1,
+        "thrown": "(d.disabledIds || []).includes is not a function"
+      },
+      {
+        "field": "gasSources",
+        "classification": "migrated",
+        "restore": {
+          "ok": true
+        },
+        "mainReplaced": true,
+        "worldResets": 1,
+        "thrown": "object is not iterable (cannot read property Symbol(Symbol.iterator))"
+      },
+      {
+        "field": "npcPos",
+        "classification": "migrated",
+        "restore": {
+          "ok": true
+        },
+        "mainReplaced": true,
+        "worldResets": 1,
+        "thrown": "object is not iterable (cannot read property Symbol(Symbol.iterator))"
+      }
+    ],
+    "malformed_envelope_after": [
+      {
+        "field": "takenIds",
+        "classification": "corrupt",
+        "restore": {
+          "ok": false,
+          "reason": "unreadable"
+        },
+        "mainPreserved": true,
+        "worldResets": 0,
+        "applied": false,
+        "statePreserved": true,
+        "thrown": null
+      },
+      {
+        "field": "disabledIds",
+        "classification": "corrupt",
+        "restore": {
+          "ok": false,
+          "reason": "unreadable"
+        },
+        "mainPreserved": true,
+        "worldResets": 0,
+        "applied": false,
+        "statePreserved": true,
+        "thrown": null
+      },
+      {
+        "field": "gasSources",
+        "classification": "corrupt",
+        "restore": {
+          "ok": false,
+          "reason": "unreadable"
+        },
+        "mainPreserved": true,
+        "worldResets": 0,
+        "applied": false,
+        "statePreserved": true,
+        "thrown": null
+      },
+      {
+        "field": "npcPos",
+        "classification": "corrupt",
+        "restore": {
+          "ok": false,
+          "reason": "unreadable"
+        },
+        "mainPreserved": true,
+        "worldResets": 0,
+        "applied": false,
+        "statePreserved": true,
+        "thrown": null
+      }
+    ],
+    "language_transition_before": {
+      "baselineSaved": true,
+      "before": {
+        "mode": "menu",
+        "fromTitle": false,
+        "saveDisplay": ""
+      },
+      "after": {
+        "mode": "menu",
+        "fromTitle": true,
+        "saveDisplay": "none",
+        "directSave": false,
+        "savedLatest": false
+      },
+      "closeMode": "title"
+    },
+    "language_transition_after": {
+      "baselineSaved": true,
+      "before": {
+        "mode": "menu",
+        "fromTitle": false,
+        "saveDisplay": "",
+        "hud": false
+      },
+      "after": {
+        "mode": "menu",
+        "fromTitle": false,
+        "saveDisplay": "",
+        "directSave": true,
+        "savedLatest": true
+      },
+      "closeMode": "play",
+      "hudAfterClose": true
+    },
+    "authored_tests_after": {
+      "command": "node --test tools/save_recovery.test.mjs tools/trust_feedback.test.mjs",
+      "passed": 16,
+      "total": 16,
+      "stdout": "✔ real legacy restore keeps original bytes and preserves the replaced save (2.538621ms)\n✔ future, corrupt and stale selected copies cannot replace current progress (0.559883ms)\n✔ backup refusal leaves current and all saved copies unchanged (1.598977ms)\n✔ main write refusal preserves current and all preexisting copies (0.470167ms)\n✔ inspection leaves unreadable originals available for export (0.309856ms)\n✔ full-list quota permits staging but rejects main write without losing any copy (0.840095ms)\n✔ if rollback also fails, the staged list still retains all recovery points (1.138954ms)\n✔ successful full-list restore preserves every distinct save in main or backup (1.843414ms)\n✔ malformed but valid JSON is rejected before any save or in-memory state is changed (1.351103ms)\n✔ malformed world fields are refused before replacing storage or resetting the live world (2.003154ms)\n✔ actual title recovery and SAVE wiring protect the restored copy; normal play can still save (15.792306ms)\n✔ the actual export action emits original unreadable bytes and cleans its temporary link (0.788497ms)\n✔ all authored relationship changes retain their consequence without grading choices (2.90396ms)\n✔ the real confession keeps its admission, response, trust consequence and save (1.136691ms)\n✔ authored relationship thresholds still change branch availability (0.636087ms)\n✔ the actual People panel contains no graded trust label in either language (2.02022ms)\nℹ tests 16\nℹ suites 0\nℹ pass 16\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 189.313353\n"
+    }
+  },
+  "reproduction": {
+    "conservation": "Use the real tools/fixtures/save-v1.json payload to make three distinct valid copies with padding lengths 1000, 2000, 4000 and a distinct current save padded to 900. For every selected position inject failures at staging write, main write, rollback, and cleanup; also enforce a memory quota immediately below staging size and between staging size and the increased main write. Verify every original raw is in main or rescuedSaves.",
+    "envelope": "Clone the real legacy payload, set each of takenIds, disabledIds, gasSources, npcPos to {}, and player to null. Invoke actual Storage.inspectRescuedSave, restoreRescuedSave, and Director.applySave with a counted resetWorld. Expect corrupt/unreadable, unchanged main and live state, zero resetWorld calls, false apply result, and no exception.",
+    "language": "Use actual Menus, Game._wireUI and Director with a minimal DOM and memory storage. Open settings from a gameplay menu, tap the actual Language row, add a flag, tap SAVE, and closePause. Expect fromTitle=false, SAVE visible, flag persisted, play mode, and restored HUD visibility.",
+    "compatibility": "Load the actual v1 fixture through Storage.load into GameState, add a new flag, and invoke Director.save under title/normal menu/play combinations. Verify guarded modes leave original bytes and normal saves preserve the legacy flag, new flag, and a rescued legacy copy. Removing each of ten optional state fields must retain migration/deserialisation support."
+  },
+  "inference": {
+    "scope": "The measured code paths remove the demonstrated overwrite and malformed-load failures under the stated model assumptions.",
+    "uncertainty": "Browser storage failures, UI layout and mobile interaction remain unmeasured. No result is promoted to a product element judgment."
+  }
+}

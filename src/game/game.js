@@ -226,6 +226,7 @@ export class Game extends Emitter {
       else this.setMode(MODE.PLAY);
     });
     this.on('ui:save', () => {
+      if (this.mode === MODE.TITLE || m.fromTitle) return;
       const ok = this.director.save(true);
       this.hud.notice(ok ? 'Saved.' : '<b>Not saved.</b> This browser is blocking storage.',
                       ok ? 'good' : 'bad', ok ? 2.4 : 5);

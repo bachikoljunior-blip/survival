@@ -1,0 +1,31 @@
+# Single authority for this continuous execution. Other project state is not migrated.
+schema_version: 1
+work:
+  units_requested: continuous
+  units_completed: 0
+  unit: "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる"
+  completion: "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied"
+  started_at: "2026-09-13T20:56:49+09:00"
+  deadline_at: "2026-09-20T20:56:49+09:00"
+  timezone: Asia/Tokyo
+  deadline_missed: false
+  status: active
+  units: []
+repository:
+  name: bachikoljunior-blip/survival
+  branch: claude/repo-instructions-constraints-r0070m
+  initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
+checkpoint:
+  verified_commit: 1c761e08fdf567780b1eef3656c58b39cdb34c46
+  verified_build_sha256: a1d0afc2cdda0be0491d1a34fe70218ae9d8021522708b4ffe302edb91c8e947
+  evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/checkpoint.json
+  last_verified_action: "復旧した現行ソースで36回帰検査・23状態自己検査・101移行検査・日本語903項目・kit40ファイル・内容・本番ビルドとroot mirrorを確認。独立レビューでデータ保全21ケース、モード5ケース、旧形式optional10ケースを確認。4件の製品欠陥はこの測定範囲で解消。ブラインド比較ではない"
+  modified_but_unverified: "本番ビルドは生成済み。実ブラウザの保存復元・export・CONTINUE、モバイルの描画・タッチ・言語変更、全編の実移動と戦闘、全19要素の比較は未検証。現在のコミット前差分はcheckpoint.jsonのハッシュで特定"
+  next_action: "同じ公開リポジトリ・push権限・原d536のOD-004永続承認の新しい確認結果を提示して通常pushの審査を受ける。許可された場合は同ブランチのdraft PRで既存の実行ゲートを実施。並行して実際の参照資料取得とモバイルの復元導線検査を進める。全19要素の有効な比較へ続行"
+  elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
+  blockers:
+    - "旧環境で通常git pushが自動承認審査に拒否された。追加確認は公開visibility、接続アカウントのpush権限、原リモートd536のOD-004・remote_execution_authorization。書込みの迂回はしていない"
+    - "旧環境でChromium SIGTRAP、WebKit取得失敗、クラウドfile閲覧はsecurity policy拒否。拒否された閲覧経路を迂回せず、許可された実行環境を用いる。現行ビルドの実ブラウザ検証は未成立"
+    - "全19要素の有効な比較は0件。期限内の完全達成を裏付ける進捗はまだないため、実行環境の確保と比較資料の取得を優先する"
+  recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"
+  continuation_mechanism: "未設定。稼働している背景処理はない。外部GitHub Autopilot停止を維持"

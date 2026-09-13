@@ -1054,3 +1054,7 @@ html[data-lang="ja"] .compass .tick { font-family: var(--ui-mono); }
 
 /* Vertical rhythm in the ending, which is the longest prose in the game. */
 html[data-lang="ja"] .screen.ending .sub { line-height: 1.9; }
+
+.save-copy { border-top: 1px solid var(--line); padding: 12px 0; }
+.save-copy-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.save-copy-actions .btn { flex: 1 1 150px; min-height: 44px; min-width: 44px; cursor: pointer; }

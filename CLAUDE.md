@@ -1,110 +1,120 @@
 # CINDERLINE
 
-<!-- ELEMENT-COMPARISON-RULES v1 — set by user instruction, 2026-08-02. -->
-## Elements, references, and blind comparison
+<!-- ELEMENT-COMPARISON-RULES v2 — latest user instruction, 2026-09-13. -->
+## 基本原則
 
-**These rules are the goal. Everything else about how you work is yours.** The user's latest
-explicit instruction outranks them, including this file. A stated concept replaces the
-recorded one; it is not merged with it.
+これらのルールが目標です。それ以外の作業方法は、実行するAIの裁量に任せます。
 
-### The goal
+ユーザーの最新の明示的な指示は、このファイルを含むこれらのルールより優先されます。新しいコンセプトが示された場合、記録済みのコンセプトを置き換えます。両者を混ぜ合わせてはいけません。
 
-**Every element reads `satisfied`** — for each part of the concept, a judge shown this build
-and its reference work unlabelled does not pick the reference.
+## 目標
 
-Verdicts use three words and no others: `satisfied`, `not satisfied`, `not measured`. Never a
-word stronger than the evidence. `not measured` is respectable, and not the end.
+すべての要素を「達成」にすること。
 
-### What counts as an element
+コンセプトを構成する各部分について、開発中の作品と参照作品を、どちらがどちらか分からない状態で評価者に見せたとき、参照作品が選ばれないことを意味します。
 
-**An element is one part of the concept, cut so it can be compared against a reference work.**
+判定には「達成」「未達」「未測定」の3つだけを使います。記録上の表記は、それぞれ satisfied、not satisfied、not measured です。証拠が示す以上に強い言葉を使ってはいけません。「未測定」は正当な状態ですが、そこで作業が終わるわけではありません。
 
-1. **Take the parts from the concept.** Not from the genre, and not from the build — what
-   exists in the build is evidence of what was made, not of what the concept asks for.
-2. **Take the largest grouping that can still be compared** — this build and a reference set
-   side by side on it, as images, video or text.
-3. **Check the finished list against the concept as a whole.** Every part of the concept must
-   be covered by some element.
+## 何を要素とするか
 
-**Too few is a defect. Too many is fine.**
+要素とは、コンセプトの一部分を、参照作品と比較できるように切り出したものです。
 
-**Where nothing compares an element yet, work out a way to compare it.** That is the job, not
-a reason to leave it.
+1. コンセプトから構成部分を取り出します。
+    ジャンルや、現在の実装から取り出してはいけません。実装に存在するものは、何が作られたかを示す証拠であり、コンセプトが何を求めているかを示すものではありません。
+2. 比較できる範囲で、最も大きなまとまりにします。
+    開発中の作品と参照作品を、その要素について画像・動画・文章で並べて比較できるまとまりです。
+3. 完成した要素一覧を、コンセプト全体と照合します。
+    コンセプトのすべての部分が、いずれかの要素で覆われていなければなりません。
 
-### Selecting a reference work for each element
+まだ比較する手段がない要素については、比較方法を考え出します。それが仕事であり、放置する理由にはなりません。
 
-Every element gets its own reference: the shipped work that sets the bar for **that element
-alone**. Four axes, and a replacement must be at least as strong on all four.
+## 要素ごとの参照作品の選定
 
-1. **The quality of that element in that work** — judged on the element by itself. A
-   celebrated game with an ordinary version of this element does not qualify on its fame.
-2. **Expert and player reception** — what critics and players actually said, from published
-   reviews and aggregates. Reading an aggregate is not playing the game, and the record says
-   so wherever that distinction matters.
-3. **Long-term reputation** — still held up as the bar years later, rather than praised in its
-   launch window and since overtaken.
-4. **Fit to this concept** — that element in that work is solving the same problem this
-   concept has. A brilliant solution to a different problem is not our bar.
+各要素に、その要素単独の基準となる、発売・公開済みの参照作品を選びます。選定には次の4軸を使い、参照作品を置き換える場合は、4軸すべてで従来と同等以上でなければなりません。
 
-**Device class and production scale are deliberately not axes.** The bar is what the element
-should be, not what is convenient to reach here. A reference out of reach at this scale is a
-recorded shortfall, never a reason to pick a weaker reference.
+1. その作品における、その要素自体の品質。
+    要素単独で評価します。有名な作品でも、その要素が平凡なら、作品全体の名声だけでは選定理由になりません。
+2. 専門家とプレイヤーからの評価。
+    公開されたレビューや評価集計を基に、批評家とプレイヤーが実際に何を述べているかを確認します。評価集計を読むことは、そのゲームをプレイすることではありません。この違いが重要になる箇所では、記録にもその区別を明示します。
+3. 長期的な評価。
+    発売時だけ称賛され、その後ほかの作品に追い越されたものではなく、何年も経ってなお基準として挙げられることを重視します。
+4. このコンセプトとの適合性。
+    参照作品のその要素が、このコンセプトと同じ問題を解決していることが必要です。別の問題に対する優れた解決策は、こちらの基準にはなりません。
 
-Change a reference only when it stops fitting the concept — never because another title became
-interesting. Record the reason.
+基準は、その要素がどうあるべきかを示すものであり、こちらで達成しやすい水準を示すものではありません。
 
-### Blind comparison is how an element is judged
+参照作品を変更するのは、コンセプトに適合しなくなった場合だけです。別の作品が面白そうになったことを理由に変更してはいけません。変更理由を記録します。
 
-- **Material.** The real reference work and the build under development, as **images, video
-  and text**. Not recollection, not an official description, not a review score, not a pixel
-  metric standing in for a comparison. Fetching reference material for this is allowed, and it
-  may be stored in this public repository.
-- **Blind.** The judge is in a state where **which side is which cannot be worked out at
-  all.**
-- **The question.** Shown these unlabelled, which is stronger on this element alone.
-- **The verdict.** **The judge picking the reference is the only failing answer.** Ours, or a
-  tie, and the element is `satisfied`.
+## 要素の判定方法はブラインド比較
 
-A comparison that could not be run is `not measured`, and the job is then to work out a way to
-compare it.
+比較資料。
+実際の参照作品と開発中の作品を、画像・動画・文章として用います。記憶、公式の説明文、レビュー点数、比較の代用となる画素の数値ではありません。この比較のために参照資料を取得することは許可されており、この公開リポジトリに保存しても構いません。
 
-**Never build a reference work's content into the game.** Its art, models, audio, text,
-levels, layout, icons, HUD or fiction may not be copied or near-copied into what ships, and no
-reference is named there. **Holding that material and comparing against it is fine** — that is
-what it is for.
+ブラインドの条件。
+評価者が、どちらがどちらなのかを一切判別できない状態にします。
 
-### When the work is finished
+評価する問い。
+出所を示さず並べたとき、その要素単独では、どちらが優れているかを問います。
 
-**An element that is not `satisfied` keeps the work open.** Nothing finishes while any element
-is unmet — not when the round feels done, not when the findings get smaller, and not when the
-ones left over look hard. **How you get from there to `satisfied` is yours.**
+判定。
+評価者が参照作品を選んだ場合だけ、不合格です。開発中の作品が選ばれた場合、または同等と判断された場合、その要素は「達成」です。
 
-### What runs once, and not every time
+比較を実施できなかった場合は「未測定」とします。その後の仕事は、比較する方法を考え出すことです。
 
-**Deriving the elements and choosing their references is not part of ordinary quality work.**
-It runs once, the first time these rules are applied here, and again only when the concept
-changes. Re-opening the element list or swapping a reference because a comparison went badly
-moves the target instead of the build.
+参照作品の内容をゲームに組み込んではいけません。その美術、モデル、音声、文章、レベル、配置、アイコン、HUD、創作設定を、公開するゲームにコピーしたり、ほぼ同じ形で再現したりしてはいけません。また、公開するゲーム内で参照作品の名前を出してはいけません。
 
-**When the concept changes:** re-derive the elements; an element that left the concept is
-retired, and retiring is not weakening; re-check each surviving reference under the four axes;
-re-derive the affected criteria. Making a criterion stricter is free. Weakening one needs proof
-it is unreachable as written, stored as evidence — never to reach a pass.
+比較用にその資料を保有し、比較することは問題ありません。そのための資料です。
 
-### One unit of work
+## 作業が完了する条件
 
-**A unit starts on the user's instruction and ends when a blind comparison you launched
-completes.** Everything in between is yours: what to repair, in what order, and when to launch
-the comparison. How many units — a number or continuously — is `work.units_requested` in
-`AI_DEVELOPMENT/STATE.yaml`. Nothing recorded means one.
+「達成」ではない要素が1つでもあれば、作業は未完了です。
 
-### Real hardware is out; the phone gates stand in for it
+未達の要素が残っている限り、完了にはなりません。ラウンドが終わったように感じても、指摘が小さくなっても、残った問題が難しそうに見えても同じです。
 
-Playwright WebKit and iOS Simulator Mobile Safari are the phone surface. **What they measure is
-judged normally.** What they cannot measure but can be reasoned from what they do **is
-reasoned, and the reasoning has to satisfy the criterion. It is written as reasoning, never as
-a measurement.** **Nothing is ruled permanently out of reach.**
+そこから「達成」に至る方法は、AIの裁量に任せます。
+
+## 毎回ではなく、初回に行うこと
+
+要素の抽出と参照作品の選定は、通常の品質改善作業には含めません。
+
+このルールを初めて適用するときに一度実施し、その後はコンセプトが変わった場合にだけ再実施します。比較結果が悪かったことを理由に要素一覧を作り直したり参照作品を入れ替えたりするのは、作品を改善する代わりに目標を動かすことになります。
+
+コンセプトが変わった場合：
+
+要素を抽出し直します。コンセプトから外れた要素は廃止します。この廃止は基準を弱めることには当たりません。
+
+残る参照作品を4軸で再確認し、影響を受ける判定基準を導き直します。基準を厳しくすることは自由です。基準を弱めるには、記載どおりでは達成不可能であることの証明が必要であり、その証拠を保存しなければなりません。合格させるために弱めてはいけません。
+
+## 1回の作業単位
+
+作業単位は、ユーザーの指示で始まり、AIが開始したブラインド比較が完了した時点で終わります。
+
+その間に何を修正するか、どの順序で進めるか、いつ比較を開始するかは、AIの裁量に任せます。
+
+作業単位を何回実施するか、回数を指定するか継続的に実施するかは、AI_DEVELOPMENT/SESSION_STATE.yaml の work.units_requested に記録します。記録がなければ1回です。
+
+## 実機検証は対象外とし、スマートフォン向け検証で代替する
+
+Playwright WebKitと、iOS Simulator上のMobile Safariは、スマートフォンでの動作を検証する環境の候補です。これらが測定できることは、通常どおり判定します。
+
+直接測定できないことでも、測定結果から推論できることは推論します。その推論は判定基準を満たすものでなければなりません。また、測定としてではなく、推論として記録します。
+
+実機での利用に可能な限り近い環境・条件で検証します。検証手段は固定せず、利用可能な中から最適な方法を選びます。測定した事実と推論は区別して記録します。
+
+何かを恒久的に達成不可能なものとして除外してはいけません。
 <!-- /ELEMENT-COMPARISON-RULES -->
+
+## 今回の連続実行
+
+ユーザーの今回の依頼が、連続する各作業単位の開始指示である。`AI_DEVELOPMENT/SESSION_STATE.yaml` の `work.units_requested` は `continuous`。全要素の有効な達成まで継続し、ラウンド・コミット・ビルド・途中報告で終了しない。開始時刻と168時間後の期限は同ファイルに日本時間で保存し、再開・担当変更でリセットしない。期限を超えて未達ならその事実を記録し、許可された実行が可能なら続行する。
+
+評価者に出所が分かる資料を渡した比較や自己評価を、ブラインド比較の合格にしない。匿名化で評価対象の品質を変えない。同じ未変更の作品を繰り返して都合のよい結果だけを採らない。各要素の判定を比較資料・評価結果・対象ビルドに結び付け、変更の影響を受けた判定は再検証する。測定と推論を分け、推論の根拠・仮定・範囲・不確実性を記録する。参照資料の権利と利用条件を守り、ゲームと配布物に混入させない。
+
+実行環境・権限・安全上の制約やユーザーの停止には従う。中断を完了にせず、ブランチとコミット、検証済み地点、未検証変更、要素別判定と証拠、阻害要因と復旧、正確な次の作業を同ファイルに残す。存在しない再開機構や稼働していない背景処理を報告しない。旧プロトコル文書は退役済みで再び必須にしない。既存のコンセプト・要素・参照・閾値・無関係な実装・証拠を保持する。
+
+読込経路: `AGENTS.md` または resume overlay → このファイル → `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他のプロジェクト状態は `AI_DEVELOPMENT/STATE.yaml` と既存の製品文書。
+
+## 製品と既存成果
 
 A survival action RPG for mobile web, in a city built over a coal-seam fire that
 will not go out. Everything — textures, audio, models, animation — is generated

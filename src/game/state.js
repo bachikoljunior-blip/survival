@@ -117,8 +117,52 @@ export const SAVE_LOADABLE = [SAVE_STATUS.OK, SAVE_STATUS.MIGRATED];
  * them.
  */
 function looksLikeState(state) {
-  return !!state && typeof state === 'object' && !Array.isArray(state)
-    && Array.isArray(state.flags) && Array.isArray(state.quests);
+  if (!state || typeof state !== 'object' || Array.isArray(state)
+    || !Array.isArray(state.flags) || !Array.isArray(state.quests)) return false;
+  const list = (key, entry) => state[key] == null
+    || (Array.isArray(state[key]) && state[key].every(entry));
+  const string = value => typeof value === 'string';
+  const pair = value => Array.isArray(value) && value.length === 2 && string(value[0]);
+  const object = value => value && typeof value === 'object' && !Array.isArray(value);
+  // Check the Set/Map/array inputs consumed by deserialise; optional fields
+  // retain the defaults supported by older versions of the loader.
+  return ['flags', 'capabilities', 'discovered'].every(key => list(key, string))
+    && ['counters', 'inventory', 'trust'].every(key => list(key,
+      value => pair(value) && Number.isFinite(value[1])))
+    && list('choices', value => pair(value) && string(value[1]))
+    && list('quests', value => pair(value) && object(value[1]))
+    && list('journal', value => object(value) && string(value.id)
+      && string(value.title) && string(value.text))
+    && ['chapter', 'playTime', 'deaths', 'kills', 'filtersUsed', 'metersRead', 'parries']
+      .every(key => state[key] == null || Number.isFinite(state[key]));
+}
+
+/** The world fields consumed by Director.applySave are part of the same save. */
+function looksLikeEnvelope(d) {
+  const object = value => value && typeof value === 'object' && !Array.isArray(value);
+  const string = value => typeof value === 'string';
+  const list = (key, entry) => d[key] == null || (Array.isArray(d[key]) && d[key].every(entry));
+  if (!['takenIds', 'disabledIds', 'npcState'].every(key => list(key, string))) return false;
+  if (!list('gasSources', value => Array.isArray(value) && value.length === 2
+    && string(value[0]) && typeof value[1] === 'boolean')) return false;
+  if (!list('npcPos', value => Array.isArray(value) && value.length >= 5
+    && string(value[0]) && value.slice(1, 5).every(Number.isFinite)
+    && [5, 6].every(i => value[i] === undefined || typeof value[i] === 'boolean'))) return false;
+  if (d.interior != null && !string(d.interior)) return false;
+  if (d.interiorPpm != null && !Number.isFinite(d.interiorPpm)) return false;
+  if (d.gasIntensity !== undefined && !Number.isFinite(d.gasIntensity)) return false;
+  if (d.player != null) {
+    const p = d.player;
+    if (!object(p) || !['x', 'y', 'z', 'rot', 'hp', 'stamina'].every(key => Number.isFinite(p[key]))) return false;
+    if (!['sat', 'filter', 'lampBattery'].every(key => p[key] == null || Number.isFinite(p[key]))) return false;
+    if (!['masked', 'lampOn'].every(key => p[key] === undefined || typeof p[key] === 'boolean')) return false;
+  }
+  if (d.crisis != null) {
+    const c = d.crisis;
+    if (!object(c) || !string(c.site) || !['rescued', 'lost', 'timeLeft'].every(key => Number.isFinite(c[key]))) return false;
+    if (c.done != null && (!Array.isArray(c.done) || !c.done.every(value => typeof value === 'boolean'))) return false;
+  }
+  return true;
 }
 
 /** A migration may reshape a save. It may not quietly empty one. */
@@ -154,6 +198,7 @@ export function migrateSave(raw, registry = SAVE_MIGRATIONS, target = SAVE_VERSI
     return fail(SAVE_STATUS.FUTURE,
       `save is version ${from}, this build reads ${target}`, from);
   }
+  if (!looksLikeEnvelope(raw)) return fail(SAVE_STATUS.CORRUPT, 'save has unusable world fields', from);
   if (from === target) {
     // The envelope saying "current" is not enough. A payload stamped v2 whose
     // state block is a v1 blob, an array or an empty object used to load: the
@@ -196,6 +241,7 @@ export function migrateSave(raw, registry = SAVE_MIGRATIONS, target = SAVE_VERSI
       return fail(SAVE_STATUS.FAILED,
         `migration ${v} to ${v + 1} dropped progress the old save carried`, from);
     }
+    if (!looksLikeEnvelope(next)) return fail(SAVE_STATUS.FAILED, `migration ${v} to ${v + 1} produced unusable world fields`, from);
     payload = next;
     steps.push(`${v}->${v + 1}`);
   }
@@ -473,7 +519,7 @@ export class GameState extends Emitter {
   }
 
   deserialise(d) {
-    if (!d || d.v !== SAVE_VERSION) return false;
+    if (!looksLikeState(d) || d.v !== SAVE_VERSION) return false;
     this.flags = new Set(d.flags || []);
     this.counters = new Map(d.counters || []);
     this.inventory = new Map(d.inventory || []);
@@ -559,6 +605,54 @@ export const Storage = {
       }
     } catch { /* not JSON: an older build stored the blob itself */ }
     return [{ at: null, raw: text }];
+  },
+
+  /** Inspect a saved copy without changing either storage slot. */
+  inspectRescuedSave(raw) {
+    try { return migrateSave(JSON.parse(raw)); }
+    catch { return { status: SAVE_STATUS.CORRUPT, payload: null }; }
+  },
+
+  /** Restore original bytes, preserving every recovery point on failure. */
+  restoreRescuedSave(raw) {
+    if (typeof raw !== 'string' || !this.rescuedSaves().some(e => e.raw === raw)) {
+      return { ok: false, reason: 'missing' };
+    }
+    if (!SAVE_LOADABLE.includes(this.inspectRescuedSave(raw).status)) {
+      return { ok: false, reason: 'unreadable' };
+    }
+    let rescueBefore, staged = false;
+    try {
+      const current = localStorage.getItem(SAVE_KEY);
+      rescueBefore = localStorage.getItem(SAVE_RESCUE_KEY);
+      const copies = this.rescuedSaves();
+      if (current !== null && current !== raw && !copies.some(copy => copy.raw === current)) {
+        // The main write can still fail. Never evict a copy to prepare it.
+        copies.push({ at: Date.now(), raw: current });
+        try { localStorage.setItem(SAVE_RESCUE_KEY, JSON.stringify(copies)); }
+        catch { return { ok: false, reason: 'backup_failed' }; }
+        staged = true;
+      }
+      localStorage.setItem(SAVE_KEY, raw);
+      // Selected bytes are now in the main slot. Remove only this duplicate
+      // if necessary; failed cleanup leaves the non-destructive staged list.
+      if (copies.length > SAVE_RESCUE_MAX
+        || copies.reduce((n, copy) => n + copy.raw.length, 0) > SAVE_RESCUE_BYTES) {
+        try { localStorage.setItem(SAVE_RESCUE_KEY, JSON.stringify(copies.filter(copy => copy.raw !== raw))); }
+        catch { /* all original bytes remain */ }
+      }
+      this._preUpgrade = null;
+      this.lastResult = null;
+      return { ok: true };
+    } catch {
+      if (staged) {
+        try {
+          if (rescueBefore === null) localStorage.removeItem(SAVE_RESCUE_KEY);
+          else localStorage.setItem(SAVE_RESCUE_KEY, rescueBefore);
+        } catch { /* staged list retains old copies and current */ }
+      }
+      return { ok: false, reason: 'write_failed' };
+    }
   },
 
   available() {

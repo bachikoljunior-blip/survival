@@ -1,5 +1,5 @@
 > **ARCHIVED — 2026-08-01.** The boot loader is now `CLAUDE.md` and the
-> canonical state is `AI_DEVELOPMENT/STATE.yaml`. This file is retained for the
+> work state is `AI_DEVELOPMENT/SESSION_STATE.yaml`; other state is `AI_DEVELOPMENT/STATE.yaml`. This file is retained for the
 > record it carries of how the legacy structure was organised. Do not use it as
 > the resume procedure; it points at authorities that have moved.
 

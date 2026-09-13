@@ -10,9 +10,9 @@
 import * as THREE from 'three';
 import { Actor, STATE } from '../actors/actor.js';
 import { Enemy } from './ai.js';
-import { GameState, Storage, ITEMS, CAPABILITIES } from './state.js';
+import { GameState, Storage, ITEMS, CAPABILITIES, migrateSave, SAVE_LOADABLE } from './state.js';
 import { QuestSystem, DialogueRunner, testCondition, applyEffects } from './narrative.js';
-import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS, QUIET } from '../content/story.js';
+import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS } from '../content/story.js';
 import { MODE } from './game.js';
 import { clamp, clamp01, lerp, damp } from '../core/util.js';
 import { PPM } from '../world/gas.js';
@@ -90,16 +90,8 @@ export class Director {
     this.state.on('item', (id, n, delta) => {
       if (delta > 0 && ITEMS[id]) g.hud.notice(`${t(`item.${id}.name`, ITEMS[id].name)} ×${delta}`, '', 2.4);
     });
-    // Trust changes surface as a toast — except on the beats where Ren says
-    // the hard true thing. Popping "Sol — She knows what you are now" in red
-    // over a confession turns the centre of the story into a score.
-    this.state.on('trust', (id, v, delta, reason) => {
-      if (!reason || reason === QUIET) return;
-      // The reason is an authored English sentence with no id of its own, so it
-      // goes through the phrase glossary, which is keyed on the English.
-      g.hud.notice(`<b>${castName(id, CAST[id] ? CAST[id].name : id)}</b><br>${phrase(reason)}`,
-        delta > 0 ? 'good' : 'bad', 3.4);
-    });
+    // Relationships affect dialogue, help and later events without grading the
+    // player's choice through a coloured score or commentary toast.
 
     g.on('interact', (t) => this.interact(t));
     g.on('meter:read', (r) => {
@@ -1340,6 +1332,8 @@ she has been able to get to telling somebody.`],
 
   save(silent = false) {
     const g = this.game;
+    // A title restore changes storage before CONTINUE loads its state.
+    if (g.mode === MODE.TITLE || g.menus?.fromTitle) return false;
     this.state.playTime = g.playTime;
     this.state.lastSpawn = this.currentInterior ? `${this.currentInterior}_in` : this.state.lastSpawn;
     const ok = Storage.save(this.state, g.player, {
@@ -1370,6 +1364,10 @@ she has been able to get to telling somebody.`],
 
   applySave(d) {
     const g = this.game;
+    // Refuse malformed progression or world fields before resetting live state.
+    const inspected = migrateSave(d);
+    if (!SAVE_LOADABLE.includes(inspected.status)) return false;
+    d = inspected.payload;
     // Loading from the title into a session that has already been played
     // leaves the previous run's hostiles alive and aggroed, its crisis timer
     // ticking and its runtime markers on the map. Reset first, always.

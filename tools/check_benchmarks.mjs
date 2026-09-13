@@ -5,7 +5,7 @@
  * ユーザー指示（要素別の参考基準）が要求する4つの性質を機械で守らせる:
  *
  *   1. 構造 — 必要な要素すべてに参考作品と基準があり、基準に空欄が無い
- *   2. 誠実性 — 実機・人間にしか判定できない項目を「適合」にできない。
+ *   2. 誠実性 — 判定を実際の要素比較・評価結果・対象ビルドに対応付ける。
  *      判定済みの項目は証拠を持つ。未計測を合格として数えない
  *   3. 模倣禁止 — 参考作品の固有名詞が出荷されるソースに混入していない
  *   4. **基準を弱めない** — 各基準の (ID + 基準 + 閾値) の sha256 を
@@ -23,22 +23,17 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from '
 import { createHash } from 'node:crypto';
 import { join, dirname, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { inspectWork } from './work_state.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DOC = join(ROOT, 'docs', 'benchmarks.md');
 const LOCK = join(ROOT, 'AI_DEVELOPMENT', 'BENCHMARKS', 'criteria.lock.json');
 const RELOCK = process.argv.includes('--relock');
 
-/** ユーザーが名指しした要素。いずれかを担当する節が無ければ失敗する。 */
-const REQUIRED_ELEMENTS = [
-  '戦闘', '移動', 'カメラ', '探索', '世界設計', '物語', 'キャラクター', '選択と結果',
-  'UI', 'タッチ操作', '映像', 'アニメーション', '音響', 'AI', '性能', '安定性',
-];
-
-const STATUSES = new Set(['適合', '未達', '部分', '未計測', '人間のみ']);
+const STATUSES = new Set(['satisfied', 'not satisfied', 'not measured']);
 const ORIGINS = new Set(['directive', '本プロジェクト', '参考原則', 'bible']);
 /** 判定済みとみなす状態。証拠を要求する。 */
-const DECIDED = new Set(['適合', '未達']);
+const DECIDED = new Set(['satisfied', 'not satisfied']);
 
 /**
  * 出荷されるソースに現れてはならない参考作品の固有名詞。
@@ -62,7 +57,8 @@ const FORBIDDEN_TOKENS = [
 const SHIPPED = ['src', 'public', 'index.html', 'styles.css', 'cinderline.1.0.0.js'];
 const SHIPPED_EXT = new Set(['.js', '.mjs', '.html', '.css', '.json', '.webmanifest', '.svg']);
 
-const errors = [];
+const workResult = inspectWork();
+const errors = [...workResult.errors];
 const warnings = [];
 
 if (!existsSync(DOC)) {
@@ -79,7 +75,7 @@ if (!conceptRev) errors.push('concept_revision のコメントが無い（コン
 
 // --- セル整形 ---------------------------------------------------------------
 const clean = (s) => s.replace(/\*\*/g, '').replace(/`/g, '').trim();
-/** 「適合（範囲限定）」の形を許し、括弧より前だけを状態語として判定する。 */
+/** 記録上の状態語を読む。 */
 const word = (s) => clean(s).split(/[（(]/)[0].trim();
 /** 「directive §8」の形を許し、最初の語だけを出所として判定する。 */
 const firstWord = (s) => clean(s).split(/[\s（(]/)[0].trim();
@@ -98,16 +94,13 @@ for (const line of src.split('\n')) {
 }
 if (works.size === 0) errors.push('§3 の参考作品ロスター表が読めない');
 
-// 各作品に「取らないもの」の宣言があること (§2.3)
+// 現在の4選定軸。要素一覧の保持は inspectWork が継承ロスターと照合する。
 for (const [id, w] of works) {
   const sec = src.split(new RegExp(`^### ${id} —`, 'm'))[1];
   if (!sec) { errors.push(`${id} (${w.title}): §4 に節が無い`); continue; }
   const body = sec.split(/^### /m)[0];
-  if (!body.includes('取らないもの')) {
-    errors.push(`${id} (${w.title}): 「取らないもの」の宣言が無い（§2.3 模倣禁止）`);
-  }
-  for (const axis of ['軸1', '軸4', '軸5']) {
-    if (!body.includes(axis)) errors.push(`${id} (${w.title}): 選定軸 ${axis} の説明が無い（§2.1）`);
+  for (const axis of ['軸1', '軸2', '軸3', '軸4']) {
+    if (!body.includes(axis)) errors.push(`${id} (${w.title}): 選定軸 ${axis} の説明が無い（CLAUDE.md の4軸）`);
   }
 }
 
@@ -124,12 +117,6 @@ if (!elements.length) errors.push('要素節（### E-NN 名 — Wn 作品）が1
 for (const e of elements) {
   if (!works.has(e.work)) errors.push(`${e.id} ${e.name}: 参考作品 ${e.work} が §3 のロスターに無い`);
 }
-for (const need of REQUIRED_ELEMENTS) {
-  if (!elements.some((e) => e.name.includes(need))) {
-    errors.push(`ユーザーが名指しした要素「${need}」を担当する節が無い`);
-  }
-}
-
 // --- 基準表 -----------------------------------------------------------------
 const criteria = [];
 {
@@ -182,16 +169,11 @@ for (const c of criteria) {
   if (DECIDED.has(c.status) && (!c.evidence || c.evidence === '—' || c.evidence === '-')) {
     errors.push(`${c.id}: 状態 "${c.status}" だが証拠が空。証拠の無い判定はしない`);
   }
-  // 誠実性 2: 実機・人間が要る検証を機械の合否にしない
-  if (/実機|人間/.test(c.verify) && c.status !== '人間のみ') {
-    errors.push(
-      `${c.id}: 検証が実機または人間を要求している（"${c.verify}"）のに状態が "${c.status}"。` +
-        `この環境に実機は無く、ブラインド評価も専門家承認も実施していない`
-    );
-  }
-  // 誠実性 3: 実機の主張を証拠欄に書かない
-  if (c.status !== '人間のみ' && /実機で(計測|確認|検証)|実機測定済|on device/i.test(c.evidence)) {
-    errors.push(`${c.id}: 証拠が実機での計測を主張している。実機は存在しない`);
+  // Smartphone measurements and bounded inference are allowed. A diagnostic
+  // criterion never substitutes for the element's actual blind comparison.
+  if (DECIDED.has(c.status)) {
+    const judged = workResult.catalog?.elements?.find(e => e.id === c.element);
+    if (!judged || judged.status !== c.status || !judged.comparison) errors.push(`${c.id}: no consistent valid element comparison`);
   }
 }
 
@@ -219,7 +201,7 @@ for (const file of scanned) {
 }
 
 // --- 閾値 lock --------------------------------------------------------------
-const digestOf = (c) => createHash('sha256').update(`${c.id} ${c.basis} ${c.threshold}`).digest('hex');
+const digestOf = (c) => createHash('sha256').update(`${c.id}\u0000${c.basis}\u0000${c.threshold}`).digest('hex');
 const current = {};
 for (const c of criteria) current[c.id] = digestOf(c);
 
@@ -289,7 +271,7 @@ console.log(`  concept_revision    ${conceptRev || '(無し)'}`);
 console.log(`  参考作品            ${works.size} 件`);
 console.log(`  要素                ${elements.length} 件`);
 console.log(`  基準                ${criteria.length} 件`);
-for (const s of ['適合', '部分', '未達', '未計測', '人間のみ']) {
+for (const s of ['satisfied', 'not satisfied', 'not measured']) {
   if (tally[s]) console.log(`    ${s.padEnd(8)}        ${String(tally[s]).padStart(3)} 件`);
 }
 console.log(`  1作品あたり要素     ${Object.entries(byWork).map(([w, n]) => `${w}:${n}`).join(' ')}`);

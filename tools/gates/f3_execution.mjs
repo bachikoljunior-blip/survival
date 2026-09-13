@@ -24,6 +24,7 @@ const ROOT = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 
 const STEPS = [
   ['operating state', ['node', 'tools/check_operating_state.mjs']],
+  ['continuation and save/choice regressions', ['node', '--test', 'tools/work_state.test.mjs', 'tools/trust_feedback.test.mjs', 'tools/save_recovery.test.mjs']],
   ['production build', ['node', 'build.mjs']],
   ['pages root mirror', ['node', 'tools/export_pages_root.mjs', '--check']],
   ['dev build', ['node', 'build.mjs', '--dev']],
