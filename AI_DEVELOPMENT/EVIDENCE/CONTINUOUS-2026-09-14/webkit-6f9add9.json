@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-13T22:10:36.542Z",
+  "target": "iPhone SE (3rd gen) landscape / Playwright WebKit",
+  "browser": "webkit",
+  "checks": [
+    {
+      "name": "entry responds successfully",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "iPhone SE 3 landscape viewport",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "iPhone SE 3 DPR",
+      "passed": true,
+      "detail": "dpr=2"
+    },
+    {
+      "name": "touch emulation and coarse pointer are active",
+      "passed": true,
+      "detail": "{\"profile\":\"iPhone SE (3rd gen) landscape\",\"hasTouch\":true,\"isMobile\":true,\"maxTouchPoints\":0,\"coarse\":true}"
+    },
+    {
+      "name": "landscape orientation is active",
+      "passed": true,
+      "detail": "landscape=true"
+    },
+    {
+      "name": "production engine reaches a running title",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":375},\"dpr\":2,\"maxTouchPoints\":0,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"tier\":\"medium\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":375}}"
+    },
+    {
+      "name": "render canvas fills the viewport",
+      "passed": true,
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "title has no page overflow",
+      "passed": true,
+      "detail": "{\"documentWidth\":667,\"documentHeight\":375,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":111.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":165.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":219.5,\"width\":180,\"height\":44}]}"
+    },
+    {
+      "name": "title controls meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"new\",\"x\":479,\"y\":111.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":165.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":219.5,\"width\":180,\"height\":44}]"
+    },
+    {
+      "name": "trusted title tap starts a new game",
+      "passed": true,
+      "detail": "http://127.0.0.1:35107/cinderline-test/"
+    },
+    {
+      "name": "all required touch controls are present",
+      "passed": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "every touch control is visible and at least 44 CSS px",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "every touch control remains inside the target viewport",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":307,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":318,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":251,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":253,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":295,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "gameplay render has usable luminance",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":8.786,\"lumaStdDev\":23.185,\"nearBlackRatio\":0.6523}"
+    },
+    {
+      "name": "gameplay render is not flat or cleared",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":8.786,\"lumaStdDev\":23.185,\"nearBlackRatio\":0.6523}"
+    },
+    {
+      "name": "gameplay render is not predominantly black",
+      "passed": true,
+      "detail": "{\"width\":1334,\"height\":750,\"meanLuma\":8.786,\"lumaStdDev\":23.185,\"nearBlackRatio\":0.6523}"
+    },
+    {
+      "name": "visual regression stays within tolerance",
+      "passed": true,
+      "detail": "ratio=0.000019, limit=0.15"
+    },
+    {
+      "name": "left-thumb movement moves the player",
+      "passed": true,
+      "detail": "distance=6.3457"
+    },
+    {
+      "name": "trusted second touch starts an attack during movement",
+      "passed": true,
+      "detail": "attacks=1"
+    },
+    {
+      "name": "touch release clears movement and attack",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-90.34569118048421,\"attackStarts\":1,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "interaction leaves finite player state",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-90.34569118048421,\"attackStarts\":1,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "right-thumb drag moves the camera",
+      "passed": true,
+      "detail": "delta=0.20095"
+    },
+    {
+      "name": "pause actions are touch-sized",
+      "passed": true,
+      "detail": "[{\"index\":0,\"text\":\"保存\",\"x\":8,\"y\":319,\"width\":47.25,\"height\":44},{\"index\":1,\"text\":\"タイトル\",\"x\":61.25,\"y\":319,\"width\":72.609375,\"height\":44},{\"index\":2,\"text\":\"再開\",\"x\":611.75,\"y\":319,\"width\":47.25,\"height\":44}]"
+    },
+    {
+      "name": "portrait rotation raises a blocking prompt and pauses play",
+      "passed": true,
+      "detail": "{\"prompt\":true,\"paused\":true,\"portrait\":true}"
+    },
+    {
+      "name": "returning to landscape restores play",
+      "passed": true,
+      "detail": "{\"paused\":false,\"landscape\":true}"
+    },
+    {
+      "name": "saved run exposes a touch-sized Continue action",
+      "passed": true,
+      "detail": "{\"x\":569,\"y\":106.5,\"width\":180,\"height\":44}"
+    },
+    {
+      "name": "same-tab reload and Continue restore the saved position",
+      "passed": true,
+      "detail": "distance=0.0000, bytes=1409"
+    },
+    {
+      "name": "automated play remains live with finite state and no captured game faults",
+      "passed": true,
+      "detail": "{\"samples\":30,\"medianFrameGapMs\":259,\"p95FrameGapMs\":331,\"maximumFrameGapMs\":494,\"engineFrame\":41,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"medium\",\"p50\":257,\"p90\":331,\"p99\":2207,\"fps50\":3.8910505836575875,\"fps90\":3.0211480362537766,\"draws\":118,\"tris\":863741,\"programs\":64,\"textures\":88,\"geometries\":200,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2},\"faults\":0}"
+    },
+    {
+      "name": "automated play continues producing frames",
+      "passed": true,
+      "detail": "samples=30"
+    },
+    {
+      "name": "runner frame-gap hang guard",
+      "passed": true,
+      "detail": "p95=331ms, limit=5000ms"
+    },
+    {
+      "name": "renderer submits non-empty geometry after the soak",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":257,\"p90\":331,\"p99\":2207,\"fps50\":3.8910505836575875,\"fps90\":3.0211480362537766,\"draws\":118,\"tris\":863741,\"programs\":64,\"textures\":88,\"geometries\":200,\"res\":\"1147x645\",\"css\":\"667x375\",\"dpr\":2}"
+    },
+    {
+      "name": "no page errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no console errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no failed requests",
+      "passed": true,
+      "detail": "0 failure(s)"
+    },
+    {
+      "name": "no HTTP error responses",
+      "passed": true,
+      "detail": "0 error response(s)"
+    }
+  ],
+  "timings": {
+    "bootMs": 6630,
+    "soakMs": 8258
+  },
+  "device": {
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "dpr": 2,
+    "maxTouchPoints": 0,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1",
+    "coarse": true,
+    "landscape": true,
+    "ready": true,
+    "running": true,
+    "build": "1.0.0",
+    "tier": "medium",
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 667,
+      "height": 375
+    }
+  },
+  "layout": {
+    "title": {
+      "documentWidth": 667,
+      "documentHeight": 375,
+      "buttons": [
+        {
+          "name": "new",
+          "x": 479,
+          "y": 111.5,
+          "width": 180,
+          "height": 44
+        },
+        {
+          "name": "settings",
+          "x": 479,
+          "y": 165.5,
+          "width": 180,
+          "height": 44
+        },
+        {
+          "name": "credits",
+          "x": 479,
+          "y": 219.5,
+          "width": 180,
+          "height": 44
+        }
+      ]
+    },
+    "controls": [
+      {
+        "name": "attack",
+        "x": 601,
+        "y": 307,
+        "width": 54,
+        "height": 54,
+        "visible": true
+      },
+      {
+        "name": "dodge",
+        "x": 547,
+        "y": 318,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "guard",
+        "x": 608,
+        "y": 251,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "use",
+        "x": 553,
+        "y": 253,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "heavy",
+        "x": 495,
+        "y": 295,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "menu",
+        "x": 459,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "map",
+        "x": 511,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "lamp",
+        "x": 563,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      },
+      {
+        "name": "meter",
+        "x": 615,
+        "y": 8,
+        "width": 44,
+        "height": 44,
+        "visible": true
+      }
+    ]
+  },
+  "interaction": {
+    "simultaneousMoveAttack": {
+      "before": {
+        "x": -112,
+        "y": 0,
+        "z": -84,
+        "frame": 28
+      },
+      "after": {
+        "x": -112,
+        "y": 0,
+        "z": -90.34569118048421,
+        "attackStarts": 1,
+        "stickActive": false,
+        "moveMagnitude": 0,
+        "attackRaw": false,
+        "finite": true
+      },
+      "moved": 6.3457
+    },
+    "camera": {
+      "before": {
+        "yaw": 0,
+        "pitch": -0.3490658503988659
+      },
+      "after": {
+        "yaw": -0.1929535232383808,
+        "pitch": -0.4051977844318494
+      },
+      "delta": 0.20095
+    }
+  },
+  "persistence": {
+    "saved": {
+      "x": -112,
+      "y": 0,
+      "z": -90.34600368018587,
+      "bytes": 1409
+    },
+    "restored": {
+      "x": -112,
+      "y": 0,
+      "z": -90.3460036804094,
+      "mode": "play"
+    },
+    "distance": 0
+  },
+  "soak": {
+    "samples": 30,
+    "medianFrameGapMs": 259,
+    "p95FrameGapMs": 331,
+    "maximumFrameGapMs": 494,
+    "engineFrame": 41,
+    "running": true,
+    "finite": true,
+    "perf": {
+      "tier": "medium",
+      "p50": 257,
+      "p90": 331,
+      "p99": 2207,
+      "fps50": 3.8910505836575875,
+      "fps90": 3.0211480362537766,
+      "draws": 118,
+      "tris": 863741,
+      "programs": 64,
+      "textures": 88,
+      "geometries": 200,
+      "res": "1147x645",
+      "css": "667x375",
+      "dpr": 2
+    },
+    "faults": 0
+  },
+  "screenshots": {
+    "gameplay": "test-results/iphone-webkit/iphone-se3-webkit-gameplay.png",
+    "pause": "test-results/iphone-webkit/pause-menu.png"
+  },
+  "visualRegression": {
+    "baseline": "tests/baselines/iphone-se3-webkit-gameplay.png",
+    "baselinePresent": true,
+    "actual": "test-results/iphone-webkit/iphone-se3-webkit-gameplay.png",
+    "diff": "test-results/iphone-webkit/iphone-se3-webkit-diff.png",
+    "diffPixels": 19,
+    "diffRatio": 0.000019,
+    "threshold": 0.25,
+    "maximumDiffRatio": 0.15,
+    "stats": {
+      "width": 1334,
+      "height": 750,
+      "meanLuma": 8.786,
+      "lumaStdDev": 23.185,
+      "nearBlackRatio": 0.6523
+    }
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "request": [],
+    "http": []
+  },
+  "failures": [],
+  "status": "passed",
+  "baseUrl": "http://127.0.0.1:35107/cinderline-test/",
+  "emulation": {
+    "profile": "iPhone SE (3rd gen) landscape",
+    "hasTouch": true,
+    "isMobile": true
+  }
+}

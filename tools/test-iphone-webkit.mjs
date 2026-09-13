@@ -27,6 +27,7 @@ import { fileURLToPath } from 'node:url';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { chromium, devices, webkit } from 'playwright';
+import { exerciseSaveRecovery } from './mobile_save_recovery.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -561,6 +562,33 @@ try {
     'runner frame-gap hang guard', `p95=${report.soak.p95FrameGapMs}ms, limit=${FRAME_GAP_HANG_LIMIT}ms`);
   check(soak.perf && soak.perf.draws > 0 && soak.perf.tris > 0,
     'renderer submits non-empty geometry after the soak', JSON.stringify(soak.perf));
+
+  // Observe actual submissions before changing any rendering code. Merely
+  // counting scene geometry cannot attribute this frame's renderer.info total.
+  await page.evaluate(() => {
+    const C = window.CINDERLINE, r = C.engine.renderer;
+    const original = r.renderBufferDirect;
+    C.__drawProbe = { frames: {}, restore: () => { r.renderBufferDirect = original; } };
+    r.renderBufferDirect = function (...args) {
+      const before = this.info.render.triangles, calls = this.info.render.calls;
+      const target = this.getRenderTarget();
+      const result = original.apply(this, args);
+      const frame = C.__drawProbe.frames[C.engine.frame] ||= [];
+      frame.push({ object: args[4]?.name || args[4]?.type, material: args[3]?.name || args[3]?.type,
+        target: target ? `${target.width}x${target.height}` : 'screen',
+        triangles: this.info.render.triangles - before, calls: this.info.render.calls - calls });
+      return result;
+    };
+  });
+  try {
+    await waitFrames(page, 2);
+    report.submittedGeometry = await page.evaluate(() => window.CINDERLINE.__drawProbe.frames);
+    check(Object.values(report.submittedGeometry).some(rows => rows.some(row => row.triangles > 0)),
+      'submission probe captures actual rendered geometry');
+  } finally {
+    await page.evaluate(() => { window.CINDERLINE.__drawProbe?.restore(); delete window.CINDERLINE.__drawProbe; });
+  }
+  await exerciseSaveRecovery({ page, root: ROOT, output: OUTPUT, check, report, bootTimeout: BOOT_TIMEOUT });
 
   check(report.errors.page.length === 0, 'no page errors', `${report.errors.page.length} error(s)`);
   check(report.errors.console.length === 0, 'no console errors', `${report.errors.console.length} error(s)`);

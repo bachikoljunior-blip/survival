@@ -17,17 +17,19 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T07:07:13.216212+09:00"
-  verified_commit: 4a9ace42565dd4a2477a039c351d5158152cac0e
+  last_progress_at: "2026-09-14T07:20:30.925244+09:00"
+  verified_commit: 6f9add97ff594e39f116526cb4bb267949b58104
   verified_build_sha256: a1d0afc2cdda0be0491d1a34fe70218ae9d8021522708b4ffe302edb91c8e947
   evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/checkpoint.json
   last_verified_action: "復旧した現行ソースで36回帰検査・23状態自己検査・101移行検査・日本語903項目・kit40ファイル・内容・本番ビルドとroot mirrorを確認。独立レビューでデータ保全21ケース、モード5ケース、旧形式optional10ケースを確認。4件の製品欠陥はこの測定範囲で解消。ブラインド比較ではない"
-  modified_but_unverified: "本番ビルドは生成済み。実ブラウザの保存復元・export・CONTINUE、モバイルの描画・タッチ・言語変更、全編の実移動と戦闘、全19要素の比較は未検証。現在のコミット前差分はcheckpoint.jsonのハッシュで特定"
-  next_action: "通常pushはGit認証の不在で失敗したため、承認された接続GitHubアプリで全39ファイルのblobとtree一致を確認し4a9ace4を同ブランチへ保存済み。PR #15 はmainとの競合でPR用CI未開始。指定ブランチpushにも既存Floor gatesを実行させてChromium/WebKit測定を取得する。参照資料取得とモバイル復元導線検査を続行し全19要素を比較する"
+  current_browser_evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-6f9add9-provenance.json
+  modified_but_unverified: "新しい mobile_save_recovery.mjs をWebKit検査末尾に接続。復元・元byteのdownload・Continue・言語変更後のSAVEを実タッチで確認する計測器。旧main値の採取時点とautosaveによる偽合格を独立レビューで発見し修正。ボタンと通知はスクロール領域を含む可視boxを検査。描画提出量を物体・ターゲット別に実測するprobeも追加。追加検査は実行待ち。製品ビルドは6f9add9と同じ"
+  next_action: "追加WebKit復元検査を同ブランチCIで実行し、失敗時は計測器と製品を分けて修正する。現行CIの35検査は成功、画像・video・traceを取得済み。約86万trisの内訳を実測して30万予算との差を解消する。INSIDE公式の9画面・68秒B-rollを取得、比較未実施。全19要素の実際の資料と有効な評価を継続して確立する"
+
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "旧環境で通常git pushが自動承認審査に拒否された。追加確認は公開visibility、接続アカウントのpush権限、原リモートd536のOD-004・remote_execution_authorization。書込みの迂回はしていない"
     - "旧環境でChromium SIGTRAP、WebKit取得失敗、クラウドfile閲覧はsecurity policy拒否。拒否された閲覧経路を迂回せず、許可された実行環境を用いる。現行ビルドの実ブラウザ検証は未成立"
     - "全19要素の有効な比較は0件。期限内の完全達成を裏付ける進捗はまだないため、実行環境の確保と比較資料の取得を優先する"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"
-  continuation_mechanism: "Work Mode の survival 継続実行 予約を作成し enabled を確認。1時間ごとの再開判定であり常時稼働する処理ではない。初回実行結果は未確認。foreground活動中は競合変更をせず、外部GitHub Autopilotは停止を維持"
+  continuation_mechanism: "Work Mode の survival 継続実行 予約を作成し enabled を確認。1時間ごとの再開判定であり常時稼働する処理ではない。再開要求の受信を確認。継続の成功を予約だけで保証しない。foreground活動中は競合変更をせず、外部GitHub Autopilotは停止を維持"
