@@ -957,9 +957,10 @@ export class City {
     // hole with sky underneath them. Raycasting down at (0, -180) found
     // backdrop brick at y=20.7 and then nothing until the sky dome.
     //
-    // One large, coarsely tessellated ash disc, drawn before everything and
-    // fogged to the horizon. It is two draw calls and it is the difference
-    // between a skyline and a bug.
+    // Flat patches share one mesh and one main-scene draw call. Their normals
+    // and tint are constant; UVs and world position interpolate across each
+    // quad. Subdividing every 40 m patch at 1 m added 722,200 unnecessary
+    // triangles. Keep the same patches, overlap, UV extent and horizon cover.
     {
       const outer = inner + 4 * 62 + 60;
       const seg = 26;
@@ -971,7 +972,7 @@ export class City {
           if (Math.abs(x - cx) < (B.maxX - B.minX) * 0.5 &&
               Math.abs(z - cz) < (B.maxZ - B.minZ) * 0.5) continue;
           const step = (outer * 2) / (seg - 1);
-          cb.m('ash').plane(x, -0.06, z, step * 1.06, step * 1.06, 0.34, [0.86, 0.84, 0.8], true, 1);
+          cb.m('ash').plane(x, -0.06, z, step * 1.06, step * 1.06, 0.34, [0.86, 0.84, 0.8], true, step * 1.06);
         }
       }
     }

@@ -4,6 +4,9 @@ Evidence records are append-only and identify task ID, acceptance references, ba
 
 ## CONTINUOUS-2026-09-14 — Current restored checkpoint
 
+- Actual WebKit at `80dd490`: 47/48 checks passed; restoration notice was outside the viewport (y=-84). `CONTINUOUS-2026-09-14/webkit-80dd490-provenance.json` records the build, run, artifact hashes and scope. Recovery, original-byte export, legacy Continue and manual SAVE after changing language passed in the real browser. Background ash submitted 723456 triangles in each of 3 observed frames.
+- The notice placement and redundant ground subdivision are now changed; browser regression and frozen-view image comparison are pending. These changes do not alter any element verdict.
+
 - `CONTINUOUS-2026-09-14/checkpoint.json` identifies the current source/build, actual commands, independent review and limits. All 19 elements remain `not measured`; zero valid source-blind comparisons have completed.
 - Current local measurements: 36 regression tests, 23 state negative controls, 101 unit/loader migration checks, 903 Japanese keys, content/build/root-mirror validation and 40 vendored files. Memory storage and a DOM double do not establish mobile-browser behavior.
 - The entries below remain historical evidence, applicable only to their recorded build and scope.

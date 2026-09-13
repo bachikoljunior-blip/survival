@@ -901,14 +901,19 @@ export class Menus {
         restore.addEventListener('click', () => {
           if (this._restoringSave || !this.fromTitle || !this.titleNode.classList.contains('on')) return;
           this._restoringSave = true;
+          const showResult = (text) => {
+            message.textContent = text;
+            item.appendChild(message);
+            message.scrollIntoView({ block: 'nearest' });
+          };
           try {
             const result = Storage.restoreRescuedSave(copy.raw);
             if (!result.ok) {
-              message.textContent = t('ui.recovery.failed', 'The copy was not restored. Your current save is unchanged.');
+              showResult(t('ui.recovery.failed', 'The copy was not restored. Your current save is unchanged.'));
               return;
             }
             this.showTitle(Storage.hasSave());
-            message.textContent = t('ui.recovery.ready', 'Copy restored. Close settings and choose CONTINUE.');
+            showResult(t('ui.recovery.ready', 'Copy restored. Close settings and choose CONTINUE.'));
           } finally { this._restoringSave = false; }
         });
       }

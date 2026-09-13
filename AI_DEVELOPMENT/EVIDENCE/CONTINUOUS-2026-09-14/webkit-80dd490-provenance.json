@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-09-14T07:33:54.384876+09:00",
+  "commit": "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+  "build_sha256": "a1d0afc2cdda0be0491d1a34fe70218ae9d8021522708b4ffe302edb91c8e947",
+  "run_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34786525437",
+  "run_id": 34786525437,
+  "job_id": 103802909740,
+  "artifact_id": 10326896821,
+  "artifact_sha256": "e39b134ae5b5513f66301f5c47624e22f3b4b3915c4bdee221447e4051bdbc0c",
+  "artifact_expires_at": "2026-09-27T22:24:44Z",
+  "artifact_files": [
+    {
+      "path": "report.json",
+      "bytes": 56988,
+      "sha256": "09f7dd49c67ceaa6e67cbaf767d6d41b2d630a6eccef32e2a80b43bd00696fc3"
+    },
+    {
+      "path": "trace.zip",
+      "bytes": 12120335,
+      "sha256": "33a33437cdb0bebc97604d1560ce9275ea73ae1662e9e165eabecc801f4946e2"
+    },
+    {
+      "path": "exported-unreadable-copy.json",
+      "bytes": 48,
+      "sha256": "3f21ed8c8f74365d6fd9835a6436a18755202ccc82bbe5e618bc18df43aeb134"
+    },
+    {
+      "path": "iphone-se3-webkit-gameplay.png",
+      "bytes": 987173,
+      "sha256": "c707c62bb2f460888476fb32a8b71ad61928da9b37fa7dd2570c7306af9e4ca8"
+    },
+    {
+      "path": "saved-copies.png",
+      "bytes": 461113,
+      "sha256": "6a558e4c75535c264d97ea0be833fbadb6ac3554d69e9099f4635ea8ad4754f3"
+    },
+    {
+      "path": "restoration-result.png",
+      "bytes": 423011,
+      "sha256": "90ea682b18c741b3ceeef5601238deedf64f69fc6857c3efd4d2289cb7895b45"
+    },
+    {
+      "path": "pause-menu.png",
+      "bytes": 790414,
+      "sha256": "b08a49fa8fa83240d9985a108d89c555dd2565e9a4e365c19b6f5c7b2135d023"
+    },
+    {
+      "path": "iphone-se3-webkit-diff.png",
+      "bytes": 225602,
+      "sha256": "476c2be936d936106c3fb9a0e4a5885c2d105f89374812ab04b95204a744badd"
+    },
+    {
+      "path": "video/f60df78abbde3ac4899ec5e10157b64a.webm",
+      "bytes": 2033000,
+      "sha256": "bc962b1b11243caf313b2af32782758367f8157814c0f4c5f0df449c8c4c7194"
+    }
+  ],
+  "measurement": {
+    "checks": 48,
+    "passed": 47,
+    "failures": [
+      "Japanese restoration notice has a visible box inside the scroller and viewport: {\"x\":8,\"y\":-84,\"width\":651,\"height\":20,\"fullyVisible\":false}"
+    ],
+    "ash_submission_by_frame": {
+      "41": 723456,
+      "42": 723456,
+      "43": 723456
+    }
+  },
+  "scope": "Actual GitHub Ubuntu WebKit rendering and trusted single touches at 667x375 CSS, DPR2. Seeding and manual-save witness are explicit fixture setup. The restored raw bytes, download bytes, legacy Continue, gameplay SAVE and HUD return passed; the offscreen notice failed. Three observed stationary frames submitted 723456 ash triangles each. No physical-device FPS or blind quality result. The fixed production build is still pending browser verification."
+}

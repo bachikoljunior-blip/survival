@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "No product-quality score is assigned. Zero records no valid blind-comparison evidence; FAIL here is readiness of the present render-cost evidence for judging the fixed triangle budget, not an element verdict.",
+  "round": "continuous-2026-09-14-render-cost-review",
+  "profile": "GitHub Ubuntu Playwright WebKit, iPhone SE 3 landscape emulation; software rendering per the supplied execution context, driver identity absent from report",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "nativeResolutionMeaning": "Internal scene backing resolution; CSS viewport 667x375, DPR 2, captured screenshot 1334x750.",
+  "blindComparison": "No blind comparison was performed. The reviewer was told which repository and build were being reviewed; no reference work was shown. No preference by a stranger is inferred and E18 remains not measured.",
+  "taskScope": "Read-only independent diagnosis and in-memory Node geometry experiments. No product, tools, CI, branch, remote, or evidence-status edits; this JSON is the sole written artifact.",
+  "reviewedCommit": "6f9add97ff594e39f116526cb4bb267949b58104",
+  "productCommit": "4a9ace42565dd4a2477a039c351d5158152cac0e",
+  "sourceHashes": {
+    "src/world/city.js": "3493bc2338f0cc0f9429fab718ee179a0ad8746fc191ba6913678e66d5cb6c06",
+    "src/world/geom.js": "c9a8dbc585c00ea44ac75a3d490c8a1a00fc9f0d6a3436763a27cb73ba533b4b",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/game/game.js": "d904affb2dab643e07c22229199a533b8c99195eb096362d5078e3c5de55596d",
+    "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd",
+    "tools/perf.mjs": "6772ce5178657094217d4ebb435d00a34b31e36c4c9d24391493bda130757471",
+    "tools/bench_measure.mjs": "ccea82232cffe2375017932ce82bc3a64f2f9f38bdbef73007035e2b897be85f",
+    "node_modules/three/src/renderers/WebGLRenderer.js": "35cea4871231c3fddc3517dcd03fc876bdb8f9e73f1a77042b35e3de0498c4cd",
+    "node_modules/three/src/renderers/webgl/WebGLInfo.js": "e6c56a02eaed28924ce31b76a67d7cebc717818f1ab5b87bc07320f975debddd"
+  },
+  "observed": {
+    "source": "/workspace/scratch/0b7ad82bafe7/ci-6f9add9/report.json",
+    "checkedAt": "2026-09-13T22:10:36.542Z",
+    "actualBrowserReport": {
+      "draws": 118,
+      "triangles": 863741,
+      "medianFrameGapMs": 259,
+      "p95FrameGapMs": 331,
+      "soakSamples": 30,
+      "engineFrame": 41
+    },
+    "fixedBudgetSource": "docs/directive.md §13",
+    "fixedTriangleBudget": 300000,
+    "fixedTriangleBudgetMeaning": "通常の可視三角形。合算された影・ポスト処理との測定範囲をまず区別する。",
+    "forbiddenInference": "The reported software-renderer timings do not measure physical iPhone frame rate or establish a 30 FPS pass/fail on that device."
+  },
+  "findings": [
+    {
+      "id": "RC-01",
+      "severity": "major",
+      "shot": "geometry-only backdrop:ash; actual WebKit soak requires per-object confirmation",
+      "problem": "現行の背景地面だけで723,456三角形を生成する。628枚の40.269824m平板を各軸24分割し、392,500頂点・25,951,472 bytesの属性とindex配列を持つ。通常可視三角形30万の予算を、この1物体だけで上回りうる。",
+      "why": "三角形を減らすべき対象を絞らず描画品質全体を落とすと、コンセプトの視覚要件まで損なう。影を持たず法線と頂点色が一定の地面が大部分を占めるため、品質に必要な分割かを先に検証する価値がある。",
+      "owner": "src/world/city.js",
+      "evidence": [
+        "src/world/city.js _buildBackdrop lines 957-984: ground plane(...,true,1), one merged ash mesh, no cast/receive shadows.",
+        "src/world/geom.js plane lines 157-181: segment limit24, two triangles per cell, no adaptive LOD.",
+        "Node production geometry construction independently reproduced by refute_backdrop; experiment outputs below.",
+        "city.updateVisibility only visits chunkGroups; backdrop belongs directly to city.root and is not distance-filtered with detailed chunks."
+      ],
+      "hypothesis": "この巨大な一体メッシュが現行WebKit863,741triの主要因である。境界球は半径700.06mで、部分平板ごとのフラスタム除外がない。ただし現行フレームで実際に提出された内訳は未測定であり、FPS低下の主因とはまだ断定しない。",
+      "fix": "まず実WebKitでrenderer.renderBufferDirectの前後info差分を物体・target別に4〜8完全フレーム記録し、backdrop:ash寄与を確定する。その結果に基づいて地面だけの不要分割を減らす候補を実装し、同じtier/view/timeで画面の境界・霧・反射を比較する。目標は主scene提出三角形通常300000以下、合算値との照合誤差0。既存実行入口: node tools/test-iphone-webkit.mjs。診断追加が必要で、現在のコマンドは物体内訳をまだ出さない。",
+      "refutation": {
+        "reviewer": "/root/render_cost_review/refute_backdrop",
+        "result": "survives_after_narrowing",
+        "corrections": [
+          "Isolated total backdrop triangles vary with upstream RNG and are not the runtime total. Ash is deterministic and the independently reproduced 723456 count survives.",
+          "Bytes count TypedArray storage, not GPU allocation or JS heap peak.",
+          "Geometry frustum intersections are not proof that the particular reported WebKit frame submitted this mesh.",
+          "One-quad-per-patch candidate is not claimed visually equivalent until actual image verification."
+        ]
+      }
+    },
+    {
+      "id": "RC-02",
+      "severity": "minor",
+      "shot": "engine.perfSnapshot and tools/perf.mjs build summary",
+      "problem": "既存のtrisとworldTrisは別の範囲を計測している。trisはgame.render直前のreset以降の影・主scene・ポスト処理を合算し、worldTrisはcity.stats.trisだけを読み、直接rootへ追加された背景地面を含まない。",
+      "why": "主sceneの可視三角形30万という予算との直接比較や、worldTrisからの負荷原因推定に誤解を生む。現在の合算863,741をそのまま可視主scene数に読み替えることも、低いworldTrisを全世界形状数に読み替えることもできない。",
+      "owner": "tools/perf.mjs",
+      "evidence": [
+        "src/core/engine.js renderer.info.autoReset=false at line125 and perfSnapshot info.render.triangles at line420.",
+        "src/game/game.js lines738-739 resets once before post.render.",
+        "src/render/postfx.js lines382-435 renders main scene, optional6 bloom triangle passes, final composite triangle.",
+        "node_modules/three/src/renderers/WebGLRenderer.js shadowMap.render precedes main scene and retains counters when autoReset=false; WebGLInfo update adds submitted primitives.",
+        "src/world/city.js _finalise only accumulates _chunks c.stats.tris; _backdropTris assigned separately and not added.",
+        "tools/perf.mjs results.build.worldTris reads window.CINDERLINE.stats.tris."
+      ],
+      "hypothesis": "強い統計ラベルの問題はソースから確定できる。実際の863,741中の影更新有無・影三角形数・HDR bloomの可否は現在のreportに記録されておらず未測定。",
+      "fix": "trianglesSubmittedAllPasses、sceneColorTriangles、shadowTriangles、postTrianglesを別欄に記録し、4〜8完全フレームすべてで合計とrenderer.infoの差0を確認する。worldTrisはdetailChunkTrianglesへ正確にラベル変更しbackdropTrianglesを別途収集する。node tools/perf.mjsおよびnode tools/test-iphone-webkit.mjsのJSONで確認し、71の既存基準や300000予算は変えない。",
+      "refutation": {
+        "reviewer": "/root/render_cost_review/refute_backdrop",
+        "result": "survives",
+        "corrections": [
+          "All-pass counters are not intrinsically wrong; the defect is using or labelling them as a narrower main-camera visible count without a pass breakdown.",
+          "Detailed world count omits more than background: standalone signs and runtime additions may also sit outside _chunks; do not claim detail+backdrop is necessarily every world draw."
+        ]
+      }
+    }
+  ],
+  "experiments": {
+    "geometry": {
+      "kind": "Node executed production backdrop geometry; material textures replaced for this geometry-only construction; no browser render or GPU timing",
+      "node": "v24.19.0",
+      "bounds": {
+        "minX": -150,
+        "minZ": -132,
+        "maxX": 148,
+        "maxZ": 100
+      },
+      "inner": 166.88000000000002,
+      "outer": 474.88,
+      "step": 37.9904,
+      "planeWidth": 40.269824,
+      "subdivisionsPerAxis": 24,
+      "patchCount": 628,
+      "buildMs": 156.35212,
+      "meshes": [
+        {
+          "name": "backdrop:concrete",
+          "triangles": 5234,
+          "vertices": 6884,
+          "castShadow": false,
+          "receiveShadow": false,
+          "min": [
+            -393.6960144042969,
+            0,
+            -342.94708251953125
+          ],
+          "max": [
+            383.1389465332031,
+            98.19999694824219,
+            296.56640625
+          ],
+          "sphereRadius": 404.36897228516847,
+          "geometryBytes": 334300
+        },
+        {
+          "name": "backdrop:brick",
+          "triangles": 2612,
+          "vertices": 3153,
+          "castShadow": false,
+          "receiveShadow": false,
+          "min": [
+            -394.49847412109375,
+            0,
+            -354.9815673828125
+          ],
+          "max": [
+            395.6619873046875,
+            96,
+            305.7845764160156
+          ],
+          "sphereRadius": 403.3849402096782,
+          "geometryBytes": 154404
+        },
+        {
+          "name": "backdrop:corrugated",
+          "triangles": 1222,
+          "vertices": 1468,
+          "castShadow": false,
+          "receiveShadow": false,
+          "min": [
+            -378.31585693359375,
+            0,
+            -343.0692138671875
+          ],
+          "max": [
+            390.0534973144531,
+            53.819461822509766,
+            252.33731079101562
+          ],
+          "sphereRadius": 397.9066387851894,
+          "geometryBytes": 71924
+        },
+        {
+          "name": "backdrop:paint",
+          "triangles": 180,
+          "vertices": 198,
+          "castShadow": false,
+          "receiveShadow": false,
+          "min": [
+            -273.0799865722656,
+            34,
+            -211.04440307617188
+          ],
+          "max": [
+            289.4880065917969,
+            87.19999694824219,
+            119.88031005859375
+          ],
+          "sphereRadius": 326.0061454898817,
+          "geometryBytes": 9792
+        },
+        {
+          "name": "backdrop:ash",
+          "triangles": 723456,
+          "vertices": 392500,
+          "castShadow": false,
+          "receiveShadow": false,
+          "min": [
+            -496.0149230957031,
+            -0.05999999865889549,
+            -511.0149230957031
+          ],
+          "max": [
+            494.0149230957031,
+            -0.05999999865889549,
+            479.0149230957031
+          ],
+          "sphereRadius": 700.056817819018,
+          "geometryBytes": 25951472
+        }
+      ],
+      "totalTriangles": 732704,
+      "ashAttributes": {
+        "positionY": [
+          -0.05999999865889549,
+          -0.05999999865889549
+        ],
+        "normalX": [
+          0,
+          0
+        ],
+        "normalY": [
+          1,
+          1
+        ],
+        "normalZ": [
+          0,
+          0
+        ],
+        "color": [
+          [
+            0.8600000143051147,
+            0.8600000143051147
+          ],
+          [
+            0.8399999737739563,
+            0.8399999737739563
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929
+          ]
+        ]
+      },
+      "vantages": [
+        {
+          "name": "stacks_yard",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "marrow_mid",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "slip_edge",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "marrow_roof",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "cut_trench",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "ventfield",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "south_marrow",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        },
+        {
+          "name": "combat",
+          "ashIntersectsCameraFrustum": true,
+          "note": "Geometry frustum experiment at tools/perf requested coordinates; not actual gameplay camera capture"
+        }
+      ],
+      "scope_correction": "Only ash counts are independent of upstream City.build RNG history. The isolated total 732704 is not a full-build or runtime backdrop total; Rng.fork consumes parent state. Vantage frusta use requested coordinates directly, whereas production setCamera positions the player and follows with an offset camera."
+    },
+    "diagnosticVariant": {
+      "kind": "In-memory diagnostic variant only; no repository mutation, browser render or claim of equal final visual quality",
+      "overriddenCalls": 628,
+      "originalAshTriangles": 723456,
+      "candidateAshTriangles": 1256,
+      "triangleReduction": 722200,
+      "originalAshBytes": 25951472,
+      "candidateAshBytes": 118064,
+      "nonAshBuffersByteIdentical": true,
+      "groundBoundingBoxIdentical": true,
+      "normalAndColorConstantWithin1e_12": true,
+      "maxUVInterpolationFloatError": 4.768371599794818e-7,
+      "maxPositionInterpolationFloatError": 0.00002288818365059342,
+      "candidateTotalBackdropTriangles": 10504
+    },
+    "reproductionCommand": "node --input-type=module <<'NODE'\nimport * as THREE from 'three';\nimport { City } from './src/world/city.js';\nimport { buildHollisData } from './src/content/world_data.js';\nimport { Rng } from './src/core/rng.js';\nimport { TIERS } from './src/core/engine.js';\nconst data=buildHollisData();\nconst city=new City(data,{},TIERS.medium);\ncity._mat=k=>new THREE.MeshBasicMaterial({name:k});\ncity._buildBackdrop(new Rng(data.seed).fork('backdrop'));\nconst m=city.root.getObjectByName('backdrop:ash'), g=m.geometry;\nconsole.log(JSON.stringify({\n  scope:'geometry-only Node execution, material textures replaced, no browser drawing',\n  triangles:g.index.count/3, vertices:g.attributes.position.count,\n  typedArrayBytes:Object.values(g.attributes).reduce((s,a)=>s+a.array.byteLength,0)+g.index.array.byteLength,\n  castShadow:m.castShadow, receiveShadow:m.receiveShadow,\n  min:g.boundingBox.min.toArray(), max:g.boundingBox.max.toArray()\n}));\nNODE"
+  },
+  "recommendedMinimalMeasurement": {
+    "status": "proposed, not implemented or run by this reviewer",
+    "location": "A temporary browser-page observer called from the already permitted Playwright gate; no external service and no public-game instrumentation required.",
+    "sequence": [
+      "After actual new-game/Continue recovery, capture build hash, engine.frame, player and actual camera position/orientation, tier/tierLocked, sceneRT size, post.enabled, post.hdr, tier.bloom, shadowMap.enabled/needsUpdate and available GL vendor/renderer identity. Unknown driver identity remains unknown.",
+      "Temporarily wrap renderer.renderBufferDirect, call the original function exactly once with unchanged receiver/arguments, and take deltas of info.render.calls/triangles/points/lines before and after. Aggregate using actual current target and object.name or id, not estimated geometry counts, so groups, instancing and transparent double passes are counted.",
+      "Targets: post.sceneRT = scene-color; atmosphere.sun.shadow.map = sun-shadow; post bloomA/B/C/D = named bloom targets; null with post composite material = composite; keep unknown targets in an explicit other bucket.",
+      "Capture 4–8 whole frames and compare sum of buckets to renderer.info.render after every completed game.render. Require exact zero discrepancy and restore wrappers in finally on success/error/timeout. No changes to post.enabled, lights, camera logic, tier, scene visibility or render calls in the observation phase.",
+      "Collect at least one stationary interval and an actual movement interval across the existing >3m shadow-anchor threshold. Record whether the sun shadow target was actually drawn; do not infer a shadow pass from enabled=true.",
+      "If CPU duration is wanted, collect in a separate uninstrumented interval. performance.now around render is CPU submission/traversal plus JS work, not GPU execution or physical-device latency."
+    ],
+    "expectedDiscriminators": [
+      "If backdrop:ash accounts for723456 main-scene triangles, RC-01 runtime attribution is confirmed; if it is absent or smaller, investigate the actual largest recorded object instead.",
+      "Bloom, if active HDR chain, is six fullscreen triangles plus one composite; disabling bloom cannot explain away723456 geometry triangles. This is a code-supported prediction, pending target-by-target runtime counters.",
+      "A high total only on shadow-refresh frames differs from a high stationary main-scene total and should lead to a different intervention.",
+      "Many low-triangle alpha layers may dominate software rasterization time despite low triangle count; counters alone do not establish a fragment/GPU bottleneck."
+    ]
+  },
+  "candidateChangeConstraints": [
+    "The in-memory candidate only changes backdrop ground cell size, retains628 patches, ground extent, normals, colors and non-ground geometry. It reduces the isolated ash count to1256; it is not a committed product change.",
+    "Ground patches overlap by6% and UVs restart on each patch. Fewer coplanar primitives can change depth/interpolation rounding at overlap boundaries. Compare actual full-resolution images with frozen camera, time, exposure and effects; inspect roof, boundary ground, street and near-horizon views.",
+    "Height fog, wetness and lighting calculations use interpolated world position in fragment shaders; constant vertex inputs support a quality-preserving hypothesis but do not replace actual images.",
+    "Do not reduce draw distance, renderer resolution, shadow quality or reference standards just to meet a counter budget. No blind comparison is replaced by these measurements."
+  ],
+  "rejectedOrDeferredHypotheses": [
+    {
+      "claim": "The863741 count is all shadow or post-processing duplication.",
+      "result": "Unconfirmed and insufficient: ash alone generates723456 shadow-free triangles. Runtime per-pass distribution still required."
+    },
+    {
+      "claim": "The259ms median implies the physical iPhone runs near4FPS.",
+      "result": "Rejected: software CI frame timings measure that runner only."
+    },
+    {
+      "claim": "Every isolated backdrop geometry value equals the real full City.build backdrop.",
+      "result": "Rejected for RNG-dependent buildings. Independent experiment advanced the parent RNG103 draws and total changed732704→732874 while ash stayed723456."
+    },
+    {
+      "claim": "At 41 engine frames the adaptive tier is broken because it remains medium.",
+      "result": "Not established: Engine._adapt requires120 samples. Capture tierLocked/sample count/history and actual timing before judging adaptation."
+    }
+  ],
+  "continuation": "Implement the small per-target/object observer, use the existing permitted CI to obtain actual browser attribution, then conditionally optimize only the confirmed redundant ground subdivision and verify visual preservation. Keep every element not measured until actual valid blind evidence exists."
+}

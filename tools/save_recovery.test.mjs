@@ -85,7 +85,8 @@ class Node{
   constructor(tag){this.tag=tag;this.children=[];this.events={};this.attrs={};this.style={setProperty(){}};this._classes=new Set();this.textContent='';this._html='';this.classList={add:(...v)=>v.forEach(x=>this._classes.add(x)),remove:(...v)=>v.forEach(x=>this._classes.delete(x)),contains:v=>this._classes.has(v),toggle:(v,on)=>{const value=on??!this._classes.has(v);value?this._classes.add(v):this._classes.delete(v);return value;}};}
   set className(v){this._classes=new Set(v.split(/\s+/).filter(Boolean));}get className(){return [...this._classes].join(' ');}
   set innerHTML(v){this._html=v;this.children=[];}get innerHTML(){return this._html;}
-  appendChild(n){this.children.push(n);n.parentNode=this;return n;}setAttribute(k,v){this.attrs[k]=v;}addEventListener(t,fn){(this.events[t]??=[]).push(fn);}
+  appendChild(n){if(n.parentNode)n.parentNode.removeChild(n);this.children.push(n);n.parentNode=this;return n;}setAttribute(k,v){this.attrs[k]=v;}addEventListener(t,fn){(this.events[t]??=[]).push(fn);}
+  scrollIntoView(){} // Layout is checked in WebKit, not this event-code double.
   removeChild(n){this.children=this.children.filter(child=>child!==n);n.parentNode=null;}
   setPointerCapture(){}remove(){this.parentNode.children=this.parentNode.children.filter(n=>n!==this);}
   click(){for(const fn of this.events.click??[])fn();}pointerTap(){const event={pointerId:1,clientX:10,clientY:10,stopPropagation(){}};for(const t of ['pointerdown','pointerup'])for(const fn of this.events[t]??[])fn(event);}

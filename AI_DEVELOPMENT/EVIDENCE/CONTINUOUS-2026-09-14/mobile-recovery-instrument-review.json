@@ -1,0 +1,334 @@
+{
+  "base_commit": "6f9add97ff594e39f116526cb4bb267949b58104",
+  "blindComparison": "No blind comparison or browser run was performed by this reviewer. This is an independent check of the instrument's source wiring and Node counterexamples, not a quality judgment against a reference work.",
+  "checked_at": "2026-09-14T07:21:47.746+09:00",
+  "counterexamples": {
+    "timing": {
+      "manualSave": {
+        "actualUpdateAlreadyWroteV2": true,
+        "fixedPredicateAfterActualSave": true,
+        "fixedPredicateWithoutManualSave": false,
+        "oldPredicateWithoutManualSave": true,
+        "scope": "Actual Director.update/save and extracted saveOnExit callback; world-update collaborators are Node doubles, no browser event was dispatched."
+      },
+      "reloadRace": {
+        "bytesChangedOnExit": true,
+        "exitCallbackSha256": "a8d47eb535adcf1a5cad037db70dbfa683417aaea63e29766bb87c8b0112d9b2",
+        "fixedPredicate": true,
+        "oldPredicate": false,
+        "restore": {
+          "ok": true
+        }
+      }
+    },
+    "visibility": {
+      "geometry": [
+        {
+          "accepted": true,
+          "height": 44,
+          "name": "above viewport",
+          "width": 44,
+          "x": 5,
+          "y": -200
+        },
+        {
+          "accepted": true,
+          "height": 44,
+          "name": "below viewport",
+          "width": 44,
+          "x": 5,
+          "y": 600
+        },
+        {
+          "accepted": true,
+          "height": 1000,
+          "name": "larger than viewport",
+          "width": 44,
+          "x": 5,
+          "y": -300
+        }
+      ],
+      "hiddenAnnouncement": {
+        "acceptedByVisibleAnnouncementCheck": true,
+        "elementModel": {
+          "display": "none",
+          "height": 0,
+          "opacity": 0,
+          "visibility": "hidden",
+          "y": -500
+        },
+        "reportedText": "復元しました。"
+      },
+      "scope": "Predicate counterexamples in Node. No claim about the actual rendered browser surface.",
+      "sourceSha256": "a48cccfbce10e1120032ac2866f3930ba6408ec128a89724dbe323ee528a73a0"
+    },
+    "visibility_after": {
+      "browserScope": {
+        "chromium": "Real chromium rendering and trusted single-touch actions; seeded legacy fixture and in-memory manual-save witness. No physical-phone or full-playthrough claim.",
+        "webkit": "Real webkit rendering and trusted single-touch actions; seeded legacy fixture and in-memory manual-save witness. No physical-phone or full-playthrough claim."
+      },
+      "menuAssertionBeforeWitness": true,
+      "passed": 13,
+      "results": [
+        {
+          "expected": true,
+          "measured": {
+            "fullyVisible": true,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "visible control",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 5,
+            "y": -200
+          },
+          "name": "above viewport",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 5,
+            "y": 600
+          },
+          "name": "below viewport",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 1000,
+            "width": 44,
+            "x": 5,
+            "y": -300
+          },
+          "name": "larger than viewport",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "display none",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "visibility hidden",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "opacity zero",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "hidden ancestor",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "transparent ancestor",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 110,
+            "y": 70
+          },
+          "name": "clipped vertically",
+          "passed": true
+        },
+        {
+          "expected": false,
+          "measured": {
+            "fullyVisible": false,
+            "height": 44,
+            "width": 44,
+            "x": 50,
+            "y": 110
+          },
+          "name": "clipped horizontally",
+          "passed": true
+        },
+        {
+          "expected": true,
+          "measured": {
+            "fullyVisible": true,
+            "height": 44,
+            "width": 44,
+            "x": 110,
+            "y": 110
+          },
+          "name": "inside scroller",
+          "passed": true
+        },
+        {
+          "expected": true,
+          "measured": {
+            "fullyVisible": true,
+            "height": 44,
+            "width": 44,
+            "x": 10,
+            "y": 10
+          },
+          "name": "unclipped visible overflow",
+          "passed": true
+        }
+      ],
+      "scope": "The unmodified visibleBox function executed against Node rectangle/style doubles, not a browser measurement.",
+      "sourceSha256": "7b5fc71d309a1a19ec4225c22ab8d892689856caaf95fa66b8428a897178ce3e",
+      "total": 13
+    }
+  },
+  "findings": [],
+  "hashes": {
+    "src/content/locale/ja/ui.js": "ea8e6bc956125e5ee704089bd1ace8004ca0fe96575a8b5ccaf1f73a03358ad0",
+    "src/game/director.js": "846114a510131f222f80e84706261799b31a7940aa7b3030f6df4730475d9016",
+    "src/game/state.js": "2bc79c103d2a72911ebfbb70bc2b8bb94b7b9bff49d74c0ab829e22789c24d2d",
+    "src/main.js": "11fde911070b727f8b103631baf4ae0fdcac545d6df7b96c2f66bf0be9d5d611",
+    "src/ui/screens.js": "f494bd7d89fc538cc614be3968b968b19a8dc2defb23bf262e689318e32f380d",
+    "tools/mobile_save_recovery.mjs": "7b5fc71d309a1a19ec4225c22ab8d892689856caaf95fa66b8428a897178ce3e",
+    "tools/test-iphone-webkit.mjs": "6e1049241b8436071d255eb9fcb63fcf11dbe6c2379839692f8276726d66a757"
+  },
+  "initial_checked_at": "2026-09-14T07:18:41.837+09:00",
+  "nativeResolution": "667x375",
+  "next_action": "Run commit 80dd49044496d5a1434a81efcc615bbbfcb0c0fd's corrected helper in the authorized WebKit CI environment; inspect the actual report and screenshots. Node predicate checks are not a substitute for that execution.",
+  "profile": "mobile-recovery-instrument-static-and-node",
+  "resolved_findings": [
+    {
+      "evidence": "counterexamples.timing.reloadRace",
+      "id": "MR-01",
+      "problem": "Snapshotting original main bytes before reload can disagree with the legitimate pagehide save.",
+      "resolution": "Root moved the snapshot after reload and ready. Actual exit-save callback updated bytes; old preservation predicate returned false and revised predicate true."
+    },
+    {
+      "evidence": "counterexamples.timing.manualSave",
+      "id": "MR-02",
+      "problem": "An automatic v2 save after Continue can satisfy the final manual SAVE check even if the SAVE action is inert.",
+      "resolution": "Root added a clearly labelled in-memory witness absent from storage before tapping SAVE. Actual Director.update made the old predicate true without manual SAVE; the revised predicate stayed false until actual save."
+    },
+    {
+      "evidence": "counterexamples.visibility.hiddenAnnouncement",
+      "fix": "Check the intended visible/announced condition honestly. For a visual claim, measure the status against viewport and clipping ancestors plus effective style; for a text/ARIA-only claim, name only that measured scope. Counterexample acceptance must be 0.",
+      "hypothesis": "The predicate checks text presence and never measures effective visibility or clipping.",
+      "id": "MR-03",
+      "owner": "tools/mobile_save_recovery.mjs",
+      "problem": "The instrument reports a visibly announced restoration using textContent alone. Its actual extraction/check accepts a status element with display:none, visibility:hidden, opacity:0, zero height and an offscreen position.",
+      "resolution": "The helper now uses its actual visibleBox function. All 13 control/adversarial rectangle/style cases behave as expected, including the old offscreen/hidden counterexamples and ancestor clipping.",
+      "severity": "major",
+      "shot": "tools/mobile_save_recovery.mjs: recovered announcement and visibly-announced check",
+      "validation_evidence": "counterexamples.visibility_after",
+      "why": "A passing check would claim a visual result that the instrument did not observe. The status precedes all copies, while restoring the last copy scrolls toward the bottom."
+    },
+    {
+      "evidence": "counterexamples.visibility.geometry",
+      "fix": "After the chosen scroll action, measure vertical bounds and effective clipping/visibility as well as width/height/x. All three saved geometry counterexamples must be rejected without replacing genuine browser measurement with Node results.",
+      "hypothesis": "The lower-size floor and x bounds omit y, bottom and clipping constraints.",
+      "id": "MR-04",
+      "owner": "tools/mobile_save_recovery.mjs",
+      "problem": "The recovery button 'fit the mobile viewport' predicate checks horizontal bounds only. It accepts rectangles wholly above or below 667x375 and one with height 1000.",
+      "resolution": "The helper now uses its actual visibleBox function. All 13 control/adversarial rectangle/style cases behave as expected, including the old offscreen/hidden counterexamples and ancestor clipping.",
+      "severity": "major",
+      "shot": "tools/mobile_save_recovery.mjs: recovery button viewport predicate",
+      "validation_evidence": "counterexamples.visibility_after",
+      "why": "The gate can pass a control whose touchable area is clipped or outside the mobile viewport."
+    },
+    {
+      "evidence": "tools/test-iphone-webkit.mjs BROWSER_NAME and newContext selection; helper scope literal",
+      "fix": "Use the measured caller browser value in the scope or refuse unsupported engines; a Chromium-labelled caller must never produce a WebKit claim.",
+      "hypothesis": "The helper assumes the default browser rather than using report.browser.",
+      "id": "MR-05",
+      "owner": "tools/mobile_save_recovery.mjs",
+      "problem": "The helper's scope always says Real WebKit, although the caller explicitly supports CINDERLINE_BROWSER=chromium.",
+      "resolution": "The helper now interpolates report.browser; the actual scope expression produces webkit and chromium accurately.",
+      "severity": "minor",
+      "shot": "tools/mobile_save_recovery.mjs: report.interaction.saveRecovery.scope",
+      "validation_evidence": "counterexamples.visibility_after",
+      "why": "A Chromium surrogate run would carry a contradictory engine claim inside the recovery evidence."
+    }
+  ],
+  "reviewed_commit": "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+  "round": 1,
+  "scope": {
+    "browser_executed": false,
+    "ci_dispatched": false,
+    "methods": "Read actual source; invoke actual Storage, Director.update/save, and extracted saveOnExit callback with memory storage and world collaborators doubled; evaluate instrument predicates using adversarial values.",
+    "real_layout": false,
+    "real_storage": false,
+    "repository_files_modified": false
+  },
+  "score": 100,
+  "source_wiring_checks": {
+    "copy_structure": "The actual menu reverses the three seeded copies: unreadable first, future second, readable legacy last. Current shape yields three export buttons and one restore button.",
+    "fixture_scope": "The old fixture is read from tools/fixtures/save-v1.json payload; both versions are raised for the future sample. The helper explicitly says seeding is setup rather than gameplay achievement.",
+    "geometry_probe_connection": "The newly added submittedGeometry probe is restored in a finally block before exerciseSaveRecovery; its frames-only result does not replace recovery measurements.",
+    "import_and_invocation": "exerciseSaveRecovery is imported and awaited after the soak; shared check() appends failures, and exceptions reach the caller's failed report.",
+    "locale_selector_hypothesis_refuted": "Japanese ui.set.language.row is deliberately 'Language'; export and restore labels match ファイルに保存 and このコピーを使う.",
+    "notification_observation": "The notice box is checked immediately after the restore tap without a compensating scroll; restoration-result.png is then captured. A currently offscreen notice is expected to fail honestly.",
+    "output_and_errors": "Output directory and report.screenshots/interaction exist before invocation; final page/console/request/HTTP checks run after the helper returns.",
+    "remaining_control_assumption": "The instrument now asserts actual MODE.MENU before adding the manual-save witness."
+  },
+  "tier": "measurement-integrity",
+  "validation": {
+    "predicate_tests": {
+      "passed": 13,
+      "total": 13
+    },
+    "product_or_browser_success": "not measured",
+    "syntax": "node --check passed for both final instrument files; exerciseSaveRecovery imports as a function without invoking a browser."
+  },
+  "verdict": "PASS",
+  "verdict_scope": "The requested source/Node instrument review has no unresolved findings. This does not mark the added WebKit checks or any product element passed."
+}

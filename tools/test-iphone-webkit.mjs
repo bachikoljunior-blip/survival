@@ -28,6 +28,7 @@ import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { chromium, devices, webkit } from 'playwright';
 import { exerciseSaveRecovery } from './mobile_save_recovery.mjs';
+import { exerciseBackdrop } from './backdrop_render_regression.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -589,6 +590,7 @@ try {
     await page.evaluate(() => { window.CINDERLINE.__drawProbe?.restore(); delete window.CINDERLINE.__drawProbe; });
   }
   await exerciseSaveRecovery({ page, root: ROOT, output: OUTPUT, check, report, bootTimeout: BOOT_TIMEOUT });
+  await exerciseBackdrop({ page, root: ROOT, output: OUTPUT, check, report });
 
   check(report.errors.page.length === 0, 'no page errors', `${report.errors.page.length} error(s)`);
   check(report.errors.console.length === 0, 'no console errors', `${report.errors.console.length} error(s)`);
