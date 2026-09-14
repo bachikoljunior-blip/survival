@@ -1,0 +1,210 @@
+{
+  "round": "narrative-reading-r2-refutation",
+  "profile": "independent-limited-refutation-of-two-ending-findings",
+  "tier": "diagnostic-unscored",
+  "nativeResolution": "0x0",
+  "nativeResolutionStatus": "Not measured. Text-only review; 0x0 is an explicit schema sentinel.",
+  "verdict": "FAIL",
+  "verdictScope": "対象2候補のうち実際の英語終幕の一文にminorの指摘が残るという局所診断。作品全体や人物・要素の達成を判定するものではない。",
+  "score": 0,
+  "scoreStatus": "unscored",
+  "blindComparison": "No blind or reference comparison was performed. This limited refutation uses only the supplied route text and makes no comparative preference, character-achievement or whole-product determination.",
+  "reviewStage": "separate refutation completed",
+  "independence": "反証担当は今回のraw指摘の執筆者ではない。新たな指摘や追加の代理担当は作っていない。",
+  "sources": {
+    "publish": {
+      "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-publish.json",
+      "usedEvent": "P119 paragraph 5"
+    },
+    "deal": {
+      "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-deal.json",
+      "usedEvents": [
+        "D093",
+        "D114 paragraphs 2–5"
+      ]
+    }
+  },
+  "rawReview": "/workspace/scratch/0b7ad82bafe7/narrative-reading-r2/raw-review.json",
+  "method": {
+    "skill": "/workspace/scratch/0b7ad82bafe7/survival/.claude/skills/critic/SKILL.md",
+    "schema": "/workspace/scratch/0b7ad82bafe7/survival/.kit/lib/plan/findings.mjs",
+    "qualityEvidence": "実際のevents内の文章・選択肢・ending paragraphsのみ。",
+    "eventNumbering": "P/Dはpublish/deal。event番号とending paragraph番号は1始まり、JSON配列の添字は0始まり。",
+    "limits": "移動・戦闘・時刻を短縮したdriver取得。通常プレイの行動、時間、被害集合、長期の経済モデルは推定しない。",
+    "productImplementationRead": false,
+    "bibleOrOtherWorkMaterialRead": false,
+    "browserServerOrNetworkUsed": false,
+    "knownSolLockFinding": "対象外として再検討しない。",
+    "changedFileOnly": "/workspace/scratch/0b7ad82bafe7/narrative-reading-r2/refutation.json"
+  },
+  "refutations": [
+    {
+      "id": "NR2-01",
+      "owner": "src/content/story.js",
+      "status": "refuted",
+      "originalSeverity": "minor",
+      "lenses": {
+        "correctness": {
+          "strongestCounterargument": "D093はroughly thirty households a quarterという人物の将来の概算である。D114 paragraph 3は31、28、40と実績が変わり、40になった理由をAuthority released contingencyと明示する。paragraph 4は予算が届かず住民を次の四半期へ残す判断を描き、その直後のparagraph 5が11年と380世帯の実績を示す。一定速度を維持したとは書かれていない。",
+          "result": "約30世帯を全44四半期へ延ばした値と380世帯が大きく違うという算術は否定しない。「roughly」だけでその開きを丸めて済ませる反証でもない。しかし、予算に応じて移転が変動し、取り残す仕事が続いたという原文が長期結果の直前にある。提案どおりの一定速度の要約としか読めないわけではなく、原文にない接続を必須とする指摘は維持できない。",
+          "references": [
+            "D093",
+            "D114 paragraph 3",
+            "D114 paragraph 4",
+            "D114 paragraph 5"
+          ]
+        },
+        "shortenedCaptureAndReproducibility": {
+          "strongestCounterargument": "11年、31・28・40世帯、380世帯は終幕の文章であり、短縮driverによる実際の経過時間や移転シミュレーションの測定値ではない。",
+          "result": "文面の数値差の存在は確認できるが、通常プレイの移転速度、年度別の経済モデル、対象世帯集合は推定しない。380がどの既存集計に追加されるかについて、新しい集合や期間を作って帳尻を合わせる必要もない。反証は記述済みの予算制約と概算・結果の区別だけに基づく。",
+          "references": [
+            "D093",
+            "D114 paragraphs 2–5"
+          ]
+        },
+        "materialEffectOnCharacterAndDialogue": {
+          "strongestCounterargument": "D114 paragraph 4の焦点は、Renが毎期、誰を移し誰を残すかを予算の中で決める人物になったことにある。提案された利益が長期に同じ速度で実現しなかったことは、継続的な虚偽と配分の帰結として読める。",
+          "result": "予算制約と先送りが既に示されているため、さらに減速の説明を加えなければ選択の帰結が読めないとは認定できない。人物の概算と後日談の実績の差だけを文章上の欠陥にしない。",
+          "references": [
+            "D093",
+            "D114 paragraph 4",
+            "D114 paragraph 5"
+          ]
+        }
+      },
+      "intentionalReading": {
+        "reading": "Krajcikの概算を受けて仕事を始めたRenが、予算に左右される移転と先送りを長く続けたという帰結。",
+        "support": "D114 paragraph 3は臨時予算による実績の変化、paragraph 4は予算不足による先送りを明示し、paragraph 5がその後の長期実績を置く。",
+        "limit": "特定の年度の予算削減、予算が何分の一になったか、移転費の上昇、故意の水増し説明などは書かれておらず補わない。実績差の詳細な数量原因や作者の意図を確定したとは主張しない。"
+      },
+      "reason": "数字の差はあるが、予算によって実績が変わり先送りが続く文脈は原文に既にある。一定速度の保証と長期実績の矛盾ではなく、人物の概算と予算に制限された結果の差として読めるため、説明不足という質の指摘は反証される。",
+      "minimumSurvivingClaim": null,
+      "evidence": [
+        {
+          "route": "deal",
+          "event": 93,
+          "eventId": "D093",
+          "jsonPointer": "/events/92/text",
+          "kind": "dialogue",
+          "speaker": "KRAJCIK",
+          "quote": "Come back. Survey Engineer One, my authority, your line. You redraw the boundary honestly, quarter by quarter, and I move the households on the inside of it first. Nobody is told. The contract survives. The money keeps moving.\n You would be lying, continuously, for years, and you would be saving roughly thirty households a quarter while you did it."
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/2",
+          "kind": "ending",
+          "paragraph": 3,
+          "speaker": "ending narration",
+          "quote": "Thirty-one that quarter. Twenty-eight the next. Then forty, because the winter was bad and the Authority released contingency."
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/3",
+          "kind": "ending",
+          "paragraph": 4,
+          "speaker": "ending narration",
+          "quote": "You are good at it. That is the part nobody warns you about. You are extremely good at deciding, every three months, who is told and who is moved and who is simply left where they are for one more quarter because the budget does not reach."
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/4",
+          "kind": "ending",
+          "paragraph": 5,
+          "speaker": "ending narration",
+          "quote": "Eleven years. Three hundred and eighty more households."
+        }
+      ]
+    },
+    {
+      "id": "NR2-02",
+      "owner": "src/content/story.js",
+      "status": "survives",
+      "originalSeverity": "minor",
+      "retainedSeverity": "minor",
+      "lenses": {
+        "correctness": {
+          "strongestCounterargument": "namesとpeopleの複数形が意味上の一致を誘い、名前で人を表す換喩や犠牲者の集まりを思い起こす表現として読める可能性を検討した。",
+          "result": "名前で人を表すこと自体は自然であり、その比喩を矛盾とはしない。しかし主語全体は1 of the names you read outで、中心は単数の1である。you read outはnamesを修飾する従属節であり、主節のwereを複数主語へ変えるものではない。この取得値ではwereの数の不一致は残る。peopleも当該一人を指す文として合わせて整える余地はあるが、最小主張は主節動詞の一致に限定できる。",
+          "references": [
+            "P119 paragraph 5"
+          ]
+        },
+        "shortenedCaptureAndReproducibility": {
+          "strongestCounterargument": "人数1は短縮driverで出た結果であり、通常プレイでは別の人数や別文面になる可能性がある。",
+          "result": "この反証は通常プレイでも必ず一人になるという一般化を崩すが、実際に表示されたP119 paragraph 5の文法は変えない。他人数、別経路、日本語、犠牲者の具体的集合は未確認のままにする。人数の発生原因や文面生成の実装も推定しない。",
+          "references": [
+            "P119 paragraph 5"
+          ]
+        },
+        "materialEffectOnCharacterAndDialogue": {
+          "strongestCounterargument": "意味は理解でき、テーマや人物判断の矛盾ではない。詩的な換喩を文法規則で過剰に均すべきではない。",
+          "result": "意味が通じる点は重大度をminorに限定する根拠になるが、単数主語にwereを置く不一致の解消にはならない。犠牲者を回想する一文の英語上の仕上げだけに影響を限定し、人物造形全体や物語全体の評価へ広げない。",
+          "references": [
+            "P119 paragraph 5"
+          ]
+        }
+      },
+      "intentionalReading": {
+        "reading": "名前の列を、その名前の背後にいる人々として思い返す換喩。",
+        "support": "namesとpeopleを結ぶ表現はその読みを支える。",
+        "limit": "換喩は単数の1に対して主節をwereにする根拠にはならない。この一文が意図的な非標準文法や別人物の引用であることを示す文章上の証拠は、対象段落にはない。"
+      },
+      "reason": "語りの換喩と単複の一致は別の問題であり、換喩としての自然さでは1とwereの不一致を反証できない。短縮取得の制約を踏まえても、この実際の一文に限る英語の不一致は残る。",
+      "minimumSurvivingClaim": "P119 paragraph 5の実際の取得文「1 of the names you read out were people ...」は、主語の中心が単数の1であるのに主節の動詞がwereになっている。この単数値で表示された一文の数の一致だけが指摘として残る。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/4",
+          "kind": "ending",
+          "paragraph": 5,
+          "speaker": "ending narration",
+          "quote": "1 of the names you read out were people you had carried as far as a stairwell in a filling street four days earlier, and not far enough."
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "NR2-02",
+      "severity": "minor",
+      "shot": "P119 paragraph 5",
+      "problem": "P119 paragraph 5の実際の取得文「1 of the names you read out were people ...」は、主語の中心が単数の1であるのに主節の動詞がwereになっている。この単数値で表示された一文の数の一致だけが指摘として残る。",
+      "why": "回想する一文で単数主語に複数動詞がつき、英語の読みの流れを損なう。意味は理解可能であり、影響をこの一文の仕上げに限定する。",
+      "owner": "src/content/story.js",
+      "fix": "単数の結果1を含む同等の終幕文で、単数主語と複数動詞wereの不一致を0件にする。補語も当該一人を自然に指す文に整えるか、人数に左右されない構文にする。人数や犠牲者の変更は要求しない。原文読取コマンド: python -c 'import json,sys; e=json.load(open(sys.argv[1]))[\"events\"]; print(e[118][\"paragraphs\"][4])' /workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-publish.json",
+      "hypothesis": "未検証。人数と周囲の語形が別々に扱われた可能性はあるが、文面生成の実装を読んでおらず原因は断定しない。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/4",
+          "kind": "ending",
+          "paragraph": 5,
+          "speaker": "ending narration",
+          "quote": "1 of the names you read out were people you had carried as far as a stairwell in a filling street four days earlier, and not far enough."
+        }
+      ],
+      "scopeLimit": "今回のpublish経路で実際に出た単数値の英語文のみ。通常プレイの人数・別人数・別言語は未確認。",
+      "refutationStatus": "survives",
+      "priority": 1
+    }
+  ],
+  "result": {
+    "refuted": [
+      "NR2-01"
+    ],
+    "survives": [
+      "NR2-02"
+    ],
+    "newFindings": []
+  }
+}

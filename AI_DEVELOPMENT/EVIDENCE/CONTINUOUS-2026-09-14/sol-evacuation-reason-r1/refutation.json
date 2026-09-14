@@ -1,0 +1,180 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored schema sentinel; no overall product, narrative quality, native, literary or element score.",
+  "verdictMeaning": "The original unchanged reason-text finding survives. No additional concrete defect was found in the proposed precise strings within this scope.",
+  "blindComparison": "No blind comparison was performed. Source execution and localized text checks do not measure ordinary play, rendered fit, prose preference or which complete game a stranger would choose.",
+  "round": "sol-evacuation-reason-independent-refutation-r1",
+  "profile": "local-reason-predicate-and-localization",
+  "tier": "CPU-source-refutation",
+  "nativeResolution": "0x0",
+  "findings": [
+    {
+      "id": "NR1-01-CAUSE",
+      "severity": "minor",
+      "shot": "Pinned source ac_close emission and final choose; actual capture E098-E102/E116 correspondence",
+      "problem": "With sol_debrief true after the actual ac_close node effect and Sol trust 3, the final evacuation option is correctly locked by the trust>=16 conjunct. Its unchanged English and Japanese reason nevertheless assert that Ren has not faced Sol since the flood.",
+      "why": "The static explanation denies the completed prerequisite and omits the trust requirement that still blocks this reproduced state.",
+      "owner": "src/content/story.js",
+      "fix": "Apply only candidate-text.json precise.en to final.choose e_evac why in src/content/story.js and precise.ja to c.final.choose.why.3 in src/content/locale/ja/story2.js. Keep sol_debrief AND trust[sol,16], showLocked, authored index3, goto and effects unchanged. Read python -m json.tool /workspace/scratch/0b7ad82bafe7/sol-evacuation-reason-r1/refutation-raw.json: all16 states must retain the same lock and selection outcomes; only why changes.",
+      "hypothesis": "Confirmed at the pinned CPU source boundary: DialogueRunner.goto applies ac_close effects before emitting its localized text; the choice condition is the conjunction of the completed debrief flag and trust>=16. The historical transcript does not directly record flags at E102 or the pre-debrief trust value.",
+      "refutation": "SURVIVED: independent actual flag-event ordering, local branch reproduction,16 state comparisons and real localized imports of an isolated two-string source variant did not refute the mismatch.",
+      "evidence": [
+        "refutation-raw.json checks.original-local-cause",
+        "refutation-raw.json checks.actual-source-candidate-and-16-states",
+        "refutation-probe.mjs",
+        "source/src/game/narrative.js",
+        "source/src/content/story.js:2186",
+        "source/src/content/locale/ja/story2.js:501"
+      ]
+    }
+  ],
+  "independence": {
+    "role": "Separate refuter of acquisition_path_review finding NR1-01-CAUSE",
+    "originalReview": "review.json",
+    "originalReviewModified": false,
+    "additionalAgents": 0
+  },
+  "scope": {
+    "repositoryEdits": 0,
+    "originalEvidenceEdits": 0,
+    "browserServerNativeOrNetworkRuns": 0,
+    "ordinaryFullPlaythroughs": 0,
+    "privateSourceVariant": "refutation-candidate-source/",
+    "privateVariantChangedStrings": 2,
+    "conditionOrThresholdChanges": 0
+  },
+  "refutedAlternatives": [
+    {
+      "claim": "The evacuation lock itself is wrong because Sol was already met.",
+      "result": "REFUTED",
+      "basis": "The unchanged gate requires both sol_debrief and trust>=16. True/3 correctly remains locked; true/16 and true/17 unlock. No threshold or condition change is justified."
+    },
+    {
+      "claim": "ac_close only records the debrief after its text is emitted or after finishing the conversation.",
+      "result": "REFUTED",
+      "basis": "The independent real GameState flag event precedes the real DialogueRunner ac_close node emission, and its node listener already observes sol_debrief=true."
+    },
+    {
+      "claim": "The proposed Japanese source leaf might be overridden by the later locale merge, even though mutating the already-merged JA table appears to work.",
+      "result": "REFUTED_FOR_THE_PRECISE_CANDIDATE",
+      "basis": "The separate probe edits only the proposed story.js and ja/story2.js strings in an isolated source copy and imports its real locale modules. The resulting merged JA and all conversations differ from the originals only at the intended reason values. The candidate reaches the actual localization output for all16 states."
+    },
+    {
+      "claim": "The candidate might alter visibility, authored index, goto, effects, lock state or selected final action.",
+      "result": "REFUTED",
+      "basis": "All16 state/locale combinations agree with the original predicate and primary raw table. Actual locked selection stays at choose and records no evacuation; actual unlocked selection enters e_evac and records final=evacuate. Entire choice objects differ only in why."
+    }
+  ],
+  "candidateAssessment": {
+    "acceptedForThisBoundedFix": "precise",
+    "text": {
+      "en": "Sol would have to run it with you. You need to have spoken with her since the flood, and she needs to know she can rely on you.",
+      "ja": "ソルと二人で回すしかない。水害のあとに彼女と話していて、頼れる相手だと思ってもらえている必要がある。",
+      "interpretation": "States two prerequisites without claiming either one is currently unmet. Spoken with her maps to sol_debrief and reliance maps to the existing trust predicate.",
+      "caveat": "Still a joint-prerequisite explanation, not a dynamic display of the particular missing predicate; prose quality and real rendered fit are unmeasured."
+    },
+    "semanticReading": "Both languages state the debrief and trust prerequisites generally, without asserting that either particular prerequisite is currently missing. Spoken with her since the flood and 水害のあとに彼女と話していて describe the encounter; reliance describes the existing trust requirement.",
+    "noNewConcreteContradictionFound": true,
+    "unchangedBooleanCondition": {
+      "all": [
+        {
+          "flag": "sol_debrief"
+        },
+        {
+          "trust": [
+            "sol",
+            16
+          ]
+        }
+      ]
+    },
+    "limitation": "This is a joint-prerequisite explanation, not a dynamic diagnosis of exactly which conjunct is missing. CPU truth tables verify conditions and output strings, not literary quality or every ordinary-play interpretation.",
+    "suppliedAlternative": "The supplied hear-what-happened version also does not explicitly deny the prior meeting. Sol already knowing the names supports a wording-precision caution, but does not by itself prove she knows every relevant fact or make that alternative a demonstrated new Boolean defect. The precise version avoids introducing that factual-report implication."
+  },
+  "historicalEvidenceBoundary": {
+    "actualTranscript": "../narrative-ac9cd44/transcript-en-publish.json",
+    "sha256": "7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be",
+    "matchedDisplayedEvents": [
+      98,
+      99,
+      100,
+      101,
+      102,
+      116
+    ],
+    "recordedExecutionTrustSol": 3,
+    "directlyRecordedPerEventFlags": false,
+    "originalCaptureSucceeded": false,
+    "interpretation": "The original shortened-driver capture and the fixed-source branch have matching displayed debrief text and old locked reason. The independent source run establishes the effect-before-emission mechanism. It does not retroactively create historical flag telemetry or an ordinary full-route replay.",
+    "fixture": "The CPU branch uses explicit crisis flags and entry trust -2; the actual ac_some effect adds5 and yields3. The historical pre-debrief trust -2 was not measured. Final choose is entered directly as a predicate boundary."
+  },
+  "measurements": {
+    "independentCheckGroups": 2,
+    "stateLocaleCombinations": 16,
+    "outputVariants": [
+      "original",
+      "precise"
+    ],
+    "unchangedOriginalArtifacts": true,
+    "localRuntime": "v24.19.0",
+    "raw": "refutation-raw.json"
+  },
+  "originalReviewStatus": {
+    "strictValidation": {
+      "ok": true,
+      "failures": [],
+      "warnings": []
+    },
+    "survivingFindingIds": [
+      "NR1-01-CAUSE"
+    ],
+    "additionalFindings": 0
+  },
+  "artifactPins": {
+    "originalReviewSha256": "5e6a9a114186e93a37b76382de621375eb8b58ced39fcdb313bed0eeae6ff034",
+    "originalRawSha256": "fc1e92198109eb17dcaafa8fb0fde56e9cbe97673eaba86b13d251e193ad1a2b",
+    "candidateTextSha256": "bc5fdd01783f1d1d77953b4fbdb46d674e4e6450cbd47f810b5c24ce5c0f1fe4",
+    "sourcePinsSha256": "6bca165278ff3d44666d6d65c1c4970ffc873ef9cbd92bbcef4e0e137817f7df",
+    "sourcePackageSha256": "89c47db7851f89caec72da4f215ebc21cf1e294aeef3b45d2583562d846ab035",
+    "refutationRawSha256": "d3070b1a14ccfd7f2f6d382fc43e1fbb6bc148b1fba8edde9922657b4677cefa",
+    "refutationProbeSha256": "4e7939367ca6d43c6bc97f76ef584f514392f78fea290a106eb73bfad91d37b0"
+  },
+  "sourceHashes": {
+    "review.json": "5e6a9a114186e93a37b76382de621375eb8b58ced39fcdb313bed0eeae6ff034",
+    "candidate-text.json": "bc5fdd01783f1d1d77953b4fbdb46d674e4e6450cbd47f810b5c24ce5c0f1fe4",
+    "probe.mjs": "fa8b1b9e37c04c23c9812a137523cb6f5cc7f052f19bc0ca1d27ecce27af744b",
+    "raw.json": "fc1e92198109eb17dcaafa8fb0fde56e9cbe97673eaba86b13d251e193ad1a2b",
+    "source-pins.json": "6bca165278ff3d44666d6d65c1c4970ffc873ef9cbd92bbcef4e0e137817f7df",
+    "source/src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "source/src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "source/src/content/locale/ja/content.js": "66d08acf58e0dd470de3f18834a8c65622fb7c544f59c0fa3bdb4d1069beba70",
+    "source/src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "source/src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "source/src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "source/src/content/locale/ja/ui.js": "b71791bf626a9584d5aad4416237da5826e955f86bd70f2aa584efcad5404674",
+    "source/src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "source/src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "source/src/game/narrative.js": "2535df961c19396606423dc8b98c2a3a1552cd2071080ac2be98b5860d6956b0",
+    "source/src/content/story.js": "cbdd9292f01ccce424ea3a26deeeac8a6bd8553279e241aa4355e3b9453c9487"
+  },
+  "privateSourceVariant": [
+    {
+      "file": "src/content/locale/ja/story2.js",
+      "sha256": "360d015b27089e2c0cd61dfc8e4f9302ecc39714ded4d24ac113d870376fce3e",
+      "beforeSha256": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651"
+    },
+    {
+      "file": "src/content/story.js",
+      "sha256": "84ddfbf5f81866cedb1dc9aaa39d13d8d04dbb064cad9c66f8ce6c007e837a28",
+      "beforeSha256": "cbdd9292f01ccce424ea3a26deeeac8a6bd8553279e241aa4355e3b9453c9487"
+    }
+  ],
+  "limits": [
+    "No product condition, threshold, trust value, flag behavior, target or effect was changed.",
+    "No normal full playthrough, new UI rendering, current CI capture, native device, blind comparison or element achievement was measured.",
+    "The original review/raw/candidate/source files were hashed before and after and remain byte-identical.",
+    "The private candidate source is a proof fixture only; it is not an applied repository change."
+  ],
+  "nextAction": "Apply the two precise why strings only if proceeding with this bounded text fix, preserve the predicate and acquire the changed localized output in the existing CI. No gameplay threshold adjustment or expanded route claim follows from this refutation."
+}

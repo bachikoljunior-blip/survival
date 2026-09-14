@@ -1,0 +1,84 @@
+{
+  "round": "narrative-reading-r2-wording",
+  "profile": "independent-English-review-of-proposed-NR2-02-fix",
+  "tier": "local-wording-unscored",
+  "nativeResolution": "0x0",
+  "nativeResolutionStatus": "Not measured: text-only wording review; schema sentinel.",
+  "verdict": "PASS",
+  "verdictScope": "提案文の人数1と2について、単複の不一致を解消し、指定された元の意味を維持するという限定した英文レビュー。製品実装や全域・人物・要素の達成を認定しない。",
+  "score": 0,
+  "scoreStatus": "unscored",
+  "blindComparison": "No blind or reference-work comparison was performed. This is an independent English wording review of one coordinator-authored replacement sentence for NR2-02, limited to counts 1 and 2.",
+  "reviewStage": "independent review of coordinator-authored replacement wording",
+  "independence": "この担当は提案文を作成しておらず、製品コードの修正も行っていない。",
+  "source": {
+    "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-publish.json",
+    "sha256": "34e65ce8e635348e4f6e4d231d6b3519985f162820947953a1c395b8b98b08e9",
+    "event": "P119",
+    "paragraph": 5,
+    "jsonPointer": "/events/118/paragraphs/4",
+    "originalQuote": "1 of the names you read out were people you had carried as far as a stairwell in a filling street four days earlier, and not far enough."
+  },
+  "proposedWording": "You had carried @N of the people whose names you read out as far as a stairwell\nin a filling street four days earlier, and not far enough.",
+  "coordinatorReportedCause": {
+    "report": "publishのbeatは@Nを含む固定文で、render側が件数を置換する。",
+    "verificationStatus": "親担当から報告された原因。英文レビュー担当は実装ソースを読んでおらず、この原因を独立検証したとは主張しない。"
+  },
+  "renderedExamples": [
+    {
+      "count": 1,
+      "text": "You had carried 1 of the people whose names you read out as far as a stairwell\nin a filling street four days earlier, and not far enough.",
+      "grammar": "valid",
+      "meaningPreserved": true,
+      "note": "1 of the peopleは目的語の数量句であり、主語Youとhad carriedは単数値に左右されない。"
+    },
+    {
+      "count": 2,
+      "text": "You had carried 2 of the people whose names you read out as far as a stairwell\nin a filling street four days earlier, and not far enough.",
+      "grammar": "valid",
+      "meaningPreserved": true,
+      "note": "2 of the peopleも同じ目的語の数量句として成立し、動詞を変更する必要がない。"
+    }
+  ],
+  "checks": [
+    {
+      "aspect": "数の一致",
+      "result": "pass",
+      "reason": "主節がYou had carriedとなるため、件数1/2によって動詞が変化しない。the people whose names you read outは母集団を表す複数名詞句なので、1 of the peopleでもpeople/namesを単数化する必要はない。"
+    },
+    {
+      "aspect": "人数が指す対象",
+      "result": "pass",
+      "reason": "読み上げた名前の人々を母集団とし、そのうち過去に階段室まで運んだ人数を@Nが限定する。元の文が名前から人へ換喩的に述べた関係を、人を直接の目的語にして表す。"
+    },
+    {
+      "aspect": "救助が十分ではなかった意味",
+      "result": "pass",
+      "reason": "as far as a stairwellとand not far enoughを保持し、運んだことと、その到達地点では十分でなかったことを両方残す。救助が成功した人数へ意味を変えていない。"
+    },
+    {
+      "aspect": "場所と時点",
+      "result": "pass",
+      "reason": "in a filling streetとfour days earlierを保持し、had carriedによる過去の救助と、その後の名前の読み上げの関係も維持する。"
+    },
+    {
+      "aspect": "改行",
+      "result": "pass",
+      "reason": "stairwellの後の改行は文を分断せず、次行のin a filling streetが救助の場所を続ける。実際の画面での折り返しや描画は確認していない。"
+    }
+  ],
+  "recommendation": "この提案文をそのまま採用できる。1/2のための追加の単複分岐は、この構文には不要。実際の件数置換と画面表示の確認は親担当の製品検証に属する。",
+  "findings": [],
+  "limits": [
+    "Only the proposed sentence with counts 1 and 2 was reviewed.",
+    "No product source read or edit, renderer execution, browser, network, new global narrative audit, or blind comparison.",
+    "The endings and other criteria are not regraded."
+  ],
+  "productChanges": [],
+  "elementCompletionClaims": [],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

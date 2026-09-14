@@ -1,0 +1,27 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "command": "python disco-e9-method-r2/source-probe.py",
+      "exitCode": 1,
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at source-probe.py line 96",
+      "consequence": "No probe result produced. Two list-generator delimiters were corrected in the reviewer-only probe; no product or source DB changed."
+    },
+    {
+      "attempt": 2,
+      "command": "python disco-e9-method-r2/source-probe.py",
+      "exitCode": 0,
+      "result": "source-probes.json",
+      "sourceSha256": "f955c38ffe8e4887044932c229d67c2425b652914aabff36d23ce667df2a8f07",
+      "scope": "Read-only DB probe; no runtime or blind result."
+    },
+    {
+      "attempt": 3,
+      "command": "python disco-e9-method-r2/context-probe.py",
+      "exitCode": 0,
+      "result": "context-probes.json",
+      "sourceSha256": "d0348916adafd071b0ffa021c655bc290cef7ebe9a2faf92b213210036edd752",
+      "scope": "Condition-agnostic link traversal only."
+    }
+  ]
+}

@@ -2183,7 +2183,7 @@ you to be at least as precise as I have been.`, 'quiet'),
 
         { text: "Burn it. Use their own lorries and empty Hollis.", tag: 'everybody out',
           if: { all: [{ flag: 'sol_debrief' }, { trust: ['sol', 16] }] }, showLocked: true,
-          why: 'Sol would have to run it with you, and you have not stood in front of her since the water came up.',
+          why: "Sol would have to run it with you. You need to have spoken with her since the flood, and she needs to know she can rely on you.",
           goto: 'e_evac', effects: [{ choice: ['final', 'evacuate'] }] },
 
         { text: 'Walk away. Take it with me.', tag: 'leave',
@@ -2295,7 +2295,7 @@ did not know. You have thought about that a great deal since. It was the only
 honest thing you said that week and it took you four more months to catch up
 with it.` },
       { condition: { all: [{ counter: ['crisis_lost', 1] }] },
-        text: `@N of the names you read out were people you had carried as far as a stairwell
+        text: `You had carried @N of the people whose names you read out as far as a stairwell
 in a filling street four days earlier, and not far enough.` },
       { condition: { chose: ['vents', 'left'] },
         text: `Fenn Street is in the record. Eleven people, a borehole field pulling the burn

@@ -1,0 +1,5 @@
+{
+  "first_attempt": "WebKit evidence packed; iOS failed because unanchored marker parsing also matched echoed workflow code.",
+  "fix": "Require the actual timestamped marker line (optional leading BOM), then reconstruct all original bytes and verify equality before saving.",
+  "result": "Both complete original job logs reconstruct byte-for-byte. This is storage verification, not new gameplay or quality evidence."
+}

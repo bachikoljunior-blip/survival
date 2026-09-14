@@ -1,0 +1,265 @@
+{
+  "round": "disco-e9-method-r2-refutation",
+  "profile": "separate-source-aware-method-refutation",
+  "tier": "diagnostic-unscored",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No screen resolution was measured in this text/database method review. Schema sentinel.",
+  "verdict": "FAIL",
+  "verdictMeaning": "取得時点の資料準備の不足3件は限定付きで残る。このFAILは方法の却下ではなく、旧reviewが未完成資料として示した状態の範囲だけを保持する。方法は条件付きで成立し、文章資料の組立を進められる。作品比較・人物品質・要素達成の判定ではない。",
+  "score": 0,
+  "scoreMeaning": "unscored",
+  "blindComparison": "No blind or quality comparison was performed. This refuter was explicitly told the reference is Disco Elysium and inspected named source records. Source recognition is certain. This agent must not later be represented as a source-unaware E9 evaluator. No preference or element completion is claimed.",
+  "reviewStage": "separate refutation complete; original method review and prior audits preserved",
+  "authorshipIndependence": "This refuter did not write disco-e9-method-r2/review.json and did not author or inspect product implementation for this method review. No new agent was spawned.",
+  "methodDecision": {
+    "status": "conditionally_feasible",
+    "mayProceedToAuthoredDialogueAssembly": true,
+    "meaning": "未実行であることを明示した、固定された第三者抽出DB内の著作会話資料として組み立てる方法は、ユーザーの実文章比較許可と両立する。素材の出所は、限定された表示照合より先の部分では推論であることを記録する。",
+    "doesNotAuthorizeClaims": [
+      "DB行が存在するだけで実プレイ・実表示・公開版での使用・合法な状態遷移が確認済みだとする。",
+      "条件付き文章比較の方法が成立しただけでE9やBM-CHR-01/02を達成にする。",
+      "実行されていないalternateを一つの会話履歴に合成する。",
+      "固定71基準・主要6人・6/6を下げる。"
+    ],
+    "everyLineScreenshotRequired": false,
+    "wholeDatabaseOfficialAuthenticationRequired": false,
+    "unresolvedRowsCanBeOrdinarySceneEvidenceWithoutSupport": false,
+    "sourceAttributionBeyondDisplayedExcerpt": "qualified inference, not direct authentication",
+    "methodFeasibilityIsNotPacketAdequacy": true
+  },
+  "conditionsThatKeepTheMethodValid": [
+    {
+      "condition": "文の実体と出所を保つ",
+      "operationalMeaning": "原文・話者・選択肢・alternateを座標とハッシュで追える形で保全する。工程のメタデータ・script・人物解説を批評の入力に替えない。DBの固定ハッシュは物体同一性であって著作や公開版使用の公式認証ではない。"
+    },
+    {
+      "condition": "実行を作らない",
+      "operationalMeaning": "文章の条件付き変種は変種として読ませる。親条件、相反条件、外部境界、checkとmodifierの存在を準備段階で監査し、成立状態や優先順位が不明なら不明のまま表示する。実行依存の結論は実記録に結び付く範囲にとどめる。"
+    },
+    {
+      "condition": "入口未確認を分ける",
+      "operationalMeaning": "1037:10、1037:114、765:1140、765:1203は既知入口から未到達と確認しただけで、cut contentとも外部呼出しで有効とも確定していない。通常の採用場面へ混ぜず、私的な原資料と文脈台帳に保全する。重要な論をこの行に依存させるなら個別の裏付けが必要で、除外して反証を隠してもならない。"
+    },
+    {
+      "condition": "6人と比較範囲を保つ",
+      "operationalMeaning": "十分な対立のまとまりを両作品で揃え、導入、相手の反論、選択、必要な後続文脈を対応させる。6人の所在・台詞数と、6人の論・目的を判断できることを区別する。全DBや同語数を新しい品質基準にはしない。"
+    },
+    {
+      "condition": "実プレイの既存要件を残す",
+      "operationalMeaning": "BM-CHR-02のbibleと実プレイの突合、およびE-09に記録された実際の対話文章とプレイ記録の対応を消さない。著作会話資料はその文章部分を担えるが、実行や変化を主張する不足部分を自動的に埋めない。参照側・候補側とも未実行箇所は同じルールで扱う。"
+    },
+    {
+      "condition": "匿名性を実際に確認する",
+      "operationalMeaning": "取得ラベルを私的に分離しても、文章の特徴で出所が分かれば当該比較は無効。匿名化で人物の論・関係・品質を変えない。認識は比較前に記録し、不成立の試行も残す。"
+    }
+  ],
+  "refutations": [
+    {
+      "id": "E9M-01",
+      "status": "survives",
+      "retainedScope": "取得時点の出所・文脈の準備不足。未実行の著作会話資料を一切使えないという結論にはしない。",
+      "strongestRefutation": "元のユーザー文は実作品を文章として比較することを明示的に認める。disco-material-r1自体も忠実なgraph excerptをsource materialと呼べるとしている。したがって、選択した文を著作会話として条件付きで扱うだけなのに、全台詞の画面撮影や全DBの公式認証を一律に要求する解釈は追加制約であり反証される。現reviewはこの区別を既に明記している。",
+      "whyTheLimitedFindingSurvives": "独立SQL確認で4つの文章ノードが既知入口からの条件無視の経路に入らないことは再現した。第三者DBの固定バイトと限定された画面照合が、全行の発売版での使用、選択状態、alternateの優先順位まで証明しない点も変わらない。出所を推論として採る範囲を宣言し、入口未確認行を通常場面や実行済み分岐に混ぜなければ、方法は続行できる。",
+      "minimumSurvivingClaim": "固定された第三者抽出DBに含まれる実文としての利用は条件付きで可能だが、全行を公開版の実表示または実行済み会話と呼ぶ証拠はない。4行は入口未確認として原資料に保全し、裏付けなしに通常場面の評価根拠に昇格させない。",
+      "evidence": [
+        "refutation-raw-evidence.json#/independentCounts",
+        "refutation-raw-evidence.json#/samples",
+        "refutation-raw-evidence.json#/governingEvidence/userOriginalExcerpts/0",
+        "refutation-raw-evidence.json#/priorReviewExcerpts/judgmentBoundary",
+        "review.json#/methodDecision/authenticityPosition"
+      ],
+      "removedInterpretations": [
+        "すべての文章にスクリーンショットがなければ文章比較を開始できない。",
+        "111166ノード全体の公式認証が先に必要である。",
+        "入口未確認4行があるので残るDB資料も一律に使えない。",
+        "既知のリンクがある行ならゲーム内で実行可能だと確定する。"
+      ],
+      "causeBoundary": "孤立の理由は未確定。未使用文・削除文とも、外部dispatcherから必ず呼ばれる文とも断定しない。"
+    },
+    {
+      "id": "E9M-02",
+      "status": "survives",
+      "retainedScope": "方法レビューの取得時点における六人資料の未完成。六人の十分性を台詞数や名前の数へ置き換えない。",
+      "strongestRefutation": "10会話のDBには既に6候補の発話があり、追加の参照作品を選ぶ必要はない。主要人物の論と目的を読むため、作品全編や各人物の全伝記、全DBを丸ごと評価者に渡す一律の条件はない。対立のきっかけ、相手の返答、選べた文、必要な前後の文脈が分かる十分な単位を作れるなら、文章資料として成立し得る。",
+      "whyTheLimitedFindingSurvives": "独立集計でも当初の239/659/992で6候補のうち発話があるのはBillieとKimである。新たな4人のDB所在と文字数は、まだ6人それぞれの論の立て方と独自目的を公平に評価できる資料が組み上がった証明ではない。全部のalternateを一人の連続した論として読ませると人物像を合成する。候補側の短い実経路と参照側の全分岐で有利不利を作らない提示方針も必要である。",
+      "minimumSurvivingClaim": "主要6人・6/6を保ったまま、6人それぞれを評価できる対立単位と文章・選択・分岐の対応表を用意する必要がある。所在6件や会話件数の達成を人物品質の達成と呼ばない。十分な範囲は評価する論と目的に依存し、任意の同語数や全編収録を新しい閾値にしない。",
+      "evidence": [
+        "refutation-raw-evidence.json#/units",
+        "refutation-raw-evidence.json#/governingEvidence/benchmarkRows",
+        "refutation-raw-evidence.json#/governingEvidence/e9",
+        "refutation-raw-evidence.json#/priorReviewExcerpts/findings/2",
+        "review.json#/riskAssessment/asymmetricEvidence"
+      ],
+      "removedInterpretations": [
+        "名前を6つ挙げたので6/6は既に成立した。",
+        "データ量が大きいので各人の論と目的は十分だと認定できる。",
+        "このE9方法のためにE8の3事実・2経路・伏線回収を新しい必須条件として導入する。",
+        "資料を読む方法を採ればBM-CHR-02のbibleと実プレイの突合やE9の実行依存部分は不要になる。"
+      ],
+      "causeBoundary": "10会話で十分な資料が作れる可能性はあるが、今回の方法反証は完成資料の内容比較をしていない。"
+    },
+    {
+      "id": "E9M-03",
+      "status": "survives",
+      "retainedScope": "匿名の比較資料と非認識の評価者がまだ確認されていないという不足。匿名化の恒久的不可能性は主張しない。",
+      "strongestRefutation": "DBのファイル名や作品名など取得用の外側のラベルを、評価者向け文章から外すことは可能である。この担当や元の方法担当が出所を知っていることは、今後の別評価者も必ず判別するという証明ではない。したがって現在の出所情報付き作業資料を理由に、後のブラインド比較の方法を永久に排除することはできない。",
+      "whyTheLimitedFindingSurvives": "ユーザー原文は出所を一切判別できないことと、匿名化が要素や品質を変えないことを両方要求している。人物名、固有の表現、世界の語彙だけで判別できる場合は、外側のラベルを取っても条件を満たさない。実際の文章を薄めたり論を言い換えて見分けにくくした結果を、元作品の比較とは扱えない。",
+      "minimumSurvivingClaim": "今後の評価者が実際に出所を認識しないかは未検証。非認識を確認してから優劣を問う必要があり、認識した試行は無効のまま保存する。私的な原文対応表と、品質を維持した提示変換の記録が必要である。",
+      "evidence": [
+        "refutation-raw-evidence.json#/governingEvidence/userOriginalExcerpts/1",
+        "refutation-raw-evidence.json#/governingEvidence/userOriginalExcerpts/2",
+        "review.json#/blindComparison",
+        "review.json#/riskAssessment/anonymization",
+        "refutation-raw-evidence.json#/samples"
+      ],
+      "removedInterpretations": [
+        "取得担当が作品を知ったため後の比較も永久に不可能である。",
+        "外側の作品名を消しただけでブラインド条件は達成した。",
+        "元の名前や意味を改稿し、見分けにくい素材にすれば元作品の比較としてよい。",
+        "非認識や都合の良い選択が出るまで同じ未変更資料の試行を繰り返せばよい。"
+      ],
+      "causeBoundary": "この担当は作品名を伝えられ、固有名とDB内容を読んだ。今後この担当のE9判定を、出所を知らない評価者による判定にしてはならない。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "E9M-01",
+      "severity": "major",
+      "shot": "source-probes.json databaseIdentity; context-probes.json; prior displayed-excerpt-manifest.json",
+      "problem": "固定された第三者抽出DBに含まれる実文としての利用は条件付きで可能だが、全行を公開版の実表示または実行済み会話と呼ぶ証拠はない。4行は入口未確認として原資料に保全し、裏付けなしに通常場面の評価根拠に昇格させない。",
+      "why": "独立SQL確認で4つの文章ノードが既知入口からの条件無視の経路に入らないことは再現した。第三者DBの固定バイトと限定された画面照合が、全行の発売版での使用、選択状態、alternateの優先順位まで証明しない点も変わらない。出所を推論として採る範囲を宣言し、入口未確認行を通常場面や実行済み分岐に混ぜなければ、方法は続行できる。",
+      "owner": "unassigned",
+      "hypothesis": "孤立の理由は未確定。未使用文・削除文とも、外部dispatcherから必ず呼ばれる文とも断定しない。",
+      "evidence": [
+        "refutation-raw-evidence.json#/independentCounts",
+        "refutation-raw-evidence.json#/samples",
+        "refutation-raw-evidence.json#/governingEvidence/userOriginalExcerpts/0",
+        "refutation-raw-evidence.json#/priorReviewExcerpts/judgmentBoundary",
+        "review.json#/methodDecision/authenticityPosition"
+      ],
+      "refutationStatus": "survives",
+      "scopeLimit": "取得時点の出所・文脈の準備不足。未実行の著作会話資料を一切使えないという結論にはしない。",
+      "fix": "選択した文章フィールド100%に元DB座標と一致する原文を対応させ、実測した出所確認と推論の範囲を分ける。入口未確認4行は原資料に残し、根拠なく通常会話・実行済み分岐として加える件数を0にする。具体的な不一致や重要な未確認文が評価を左右する場合に、その選択箇所の追加裏付けを得る。全文画面認証は追加しない。確認コマンド: python -c 'import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d[\"independentCounts\"],ensure_ascii=False,indent=2)); print(json.dumps(d[\"governingEvidence\"][\"benchmarkRows\"],ensure_ascii=False,indent=2))' /workspace/scratch/0b7ad82bafe7/disco-e9-method-r2/refutation-raw-evidence.json"
+    },
+    {
+      "id": "E9M-02",
+      "severity": "major",
+      "shot": "disco-material-r1/review.json DM-CAST-03; source-probes.json units and samples",
+      "problem": "主要6人・6/6を保ったまま、6人それぞれを評価できる対立単位と文章・選択・分岐の対応表を用意する必要がある。所在6件や会話件数の達成を人物品質の達成と呼ばない。十分な範囲は評価する論と目的に依存し、任意の同語数や全編収録を新しい閾値にしない。",
+      "why": "独立集計でも当初の239/659/992で6候補のうち発話があるのはBillieとKimである。新たな4人のDB所在と文字数は、まだ6人それぞれの論の立て方と独自目的を公平に評価できる資料が組み上がった証明ではない。全部のalternateを一人の連続した論として読ませると人物像を合成する。候補側の短い実経路と参照側の全分岐で有利不利を作らない提示方針も必要である。",
+      "owner": "unassigned",
+      "hypothesis": "10会話で十分な資料が作れる可能性はあるが、今回の方法反証は完成資料の内容比較をしていない。",
+      "evidence": [
+        "refutation-raw-evidence.json#/units",
+        "refutation-raw-evidence.json#/governingEvidence/benchmarkRows",
+        "refutation-raw-evidence.json#/governingEvidence/e9",
+        "refutation-raw-evidence.json#/priorReviewExcerpts/findings/2",
+        "review.json#/riskAssessment/asymmetricEvidence"
+      ],
+      "refutationStatus": "survives",
+      "scopeLimit": "方法レビューの取得時点における六人資料の未完成。六人の十分性を台詞数や名前の数へ置き換えない。",
+      "fix": "主要6人・6/6の対象を保持して6人分の文脈対応表を作る。選択単位内のalternate・選択肢・省略境界の未説明を0にし、全原資料を私的に保全する。互いに排他的な分岐を連続発話へ合成しない。両作品に同じ選択・提示方針を適用し、必要な実プレイ確認は別に残す。件数と固定閾値の読取コマンド: python -c 'import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d[\"independentCounts\"],ensure_ascii=False,indent=2)); print(json.dumps(d[\"governingEvidence\"][\"benchmarkRows\"],ensure_ascii=False,indent=2))' /workspace/scratch/0b7ad82bafe7/disco-e9-method-r2/refutation-raw-evidence.json"
+    },
+    {
+      "id": "E9M-03",
+      "severity": "major",
+      "shot": "Pinned actual speaker/prose samples; governing CLAUDE.md blind comparison and quality-preserving anonymity rules",
+      "problem": "今後の評価者が実際に出所を認識しないかは未検証。非認識を確認してから優劣を問う必要があり、認識した試行は無効のまま保存する。私的な原文対応表と、品質を維持した提示変換の記録が必要である。",
+      "why": "ユーザー原文は出所を一切判別できないことと、匿名化が要素や品質を変えないことを両方要求している。人物名、固有の表現、世界の語彙だけで判別できる場合は、外側のラベルを取っても条件を満たさない。実際の文章を薄めたり論を言い換えて見分けにくくした結果を、元作品の比較とは扱えない。",
+      "owner": "unassigned",
+      "hypothesis": "この担当は作品名を伝えられ、固有名とDB内容を読んだ。今後この担当のE9判定を、出所を知らない評価者による判定にしてはならない。",
+      "evidence": [
+        "refutation-raw-evidence.json#/governingEvidence/userOriginalExcerpts/1",
+        "refutation-raw-evidence.json#/governingEvidence/userOriginalExcerpts/2",
+        "review.json#/blindComparison",
+        "review.json#/riskAssessment/anonymization",
+        "refutation-raw-evidence.json#/samples"
+      ],
+      "refutationStatus": "survives",
+      "scopeLimit": "匿名の比較資料と非認識の評価者がまだ確認されていないという不足。匿名化の恒久的不可能性は主張しない。",
+      "fix": "評価者向け資料の取得元ラベルを0件、記録のない文章改変を0件にし、原文と提示文の対応表を私的に保全する。比較前に非認識を確認し、認識した試行は無効として保存する。この方法担当2名を未認識評価者として数えない。元ルールと読取範囲の確認コマンド: python -c 'import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d[\"independentCounts\"],ensure_ascii=False,indent=2)); print(json.dumps(d[\"governingEvidence\"][\"benchmarkRows\"],ensure_ascii=False,indent=2))' /workspace/scratch/0b7ad82bafe7/disco-e9-method-r2/refutation-raw-evidence.json"
+    }
+  ],
+  "corrections": [
+    {
+      "id": "O5-speaker-attribution",
+      "source": "review.json#/observations/4/claim",
+      "original": "Joyce responses 759:311 and 313",
+      "correction": "759:311/313は会話759内のプレイヤーの返答選択肢であり、actor387=You。Joyce本人の台詞ではない。759:316はactor11=Joyceである。",
+      "evidence": "refutation-raw-evidence.json#/samples",
+      "effect": "相反条件の選択肢を連続した実発話にしないという方法上の注意は存続する。Joyce本人の論が二つの文で変わるという証拠には使わない。元reviewは書き換えず、この反証記録に訂正を置く。"
+    },
+    {
+      "id": "benchmark-occurrence-count",
+      "correction": "最初の正規表現は歴史・要約表の再掲も含めて89行を数えた。BM IDの一意数とcriteria.lock.jsonのdigest数はどちらも71。89を新しい基準数にせず、過程と訂正をraw evidenceに保存した。",
+      "effect": "基準・閾値ファイルは変更していない。"
+    }
+  ],
+  "priorAuditPreservation": {
+    "DM-AUTH-01": "8件の完全表示履歴と3件の未選択肢という範囲を維持する。husband経路の実表示・状態・結果として不足するという指摘は残る。graphを著作会話資料と呼べるという旧audit自身の境界も維持する。",
+    "DM-ROUTES-02": "check1件・modifier9件・alternate6件・外部依存の限界を維持する。E8の3事実/2経路やsetup/payoffはE8に残し、E9の新たな採取条件へ転用しない。",
+    "DM-CAST-03": "元の3graphに独立して行動するliving NPCがBillieとKimしかいないという不足を維持する。さらに4人の所在を示すことは取得計画であり、6/6達成ではない。",
+    "unchangedFiles": [
+      "disco-material-r1/review.json",
+      "disco-material-r1/raw.json",
+      "disco-material-r1/displayed-excerpt-manifest.json",
+      "disco-e9-method-r2/review.json"
+    ]
+  },
+  "fixedStandard": {
+    "uniqueCriteria": 71,
+    "lockedDigests": 71,
+    "elements": 19,
+    "majorCharacters": 6,
+    "independentPurposeThreshold": "6 / 6",
+    "BM-CHR-01": "独立批評（実装ソースを入力にしない）",
+    "BM-CHR-02": "docs/bible.md §10 と実プレイの突合",
+    "thresholdChanges": [],
+    "criterionStatusChanges": [],
+    "referenceChanges": []
+  },
+  "evidence": {
+    "rawPath": "/workspace/scratch/0b7ad82bafe7/disco-e9-method-r2/refutation-raw-evidence.json",
+    "rawSha256": "3d60da3f274e4fd7805744554fe9d4a0b0c44c79dffef64c27743b6f0cf1866e",
+    "methodReviewPath": "/workspace/scratch/0b7ad82bafe7/disco-e9-method-r2/review.json",
+    "methodReviewSha256": "3add12858405029dfc3f23d8059a9ce236d47974ed46c5b5f0a08ab56d2efa56",
+    "independentCounts": {
+      "units": 10,
+      "rawNodes": 5791,
+      "textNodes": 3857,
+      "alternateRows": 144,
+      "checkRows": 8,
+      "entryUnconfirmedNodes": [
+        "1037:10",
+        "1037:114",
+        "765:1140",
+        "765:1203"
+      ],
+      "missingTargets": 0
+    },
+    "pinnedInputsUnchanged": true,
+    "originalUserTextProvenance": "Coordinator supplied these exact original-user excerpts in this delegated turn. The complete parent conversation is not available to this refuter. These are not represented as a newly recovered full user message."
+  },
+  "scope": {
+    "performed": [
+      "read-only local method/rule/prior-evidence review",
+      "independent SQLite topology/alternate/check/actor-attribution probes",
+      "preservation of exact user excerpts supplied by coordinator",
+      "separate per-finding refutation"
+    ],
+    "notPerformed": [
+      "network or new authentication",
+      "browser, server, CI, or gameplay",
+      "new visual screenshot audit",
+      "product implementation read or edit",
+      "new reference selection",
+      "candidate/reference quality comparison",
+      "complete reader construction or anonymity testing",
+      "any element completion judgment"
+    ]
+  },
+  "completionClaims": [],
+  "benchmarkChanges": [],
+  "productChanges": [],
+  "eligibleAsSourceUnawareE9Judge": false
+}

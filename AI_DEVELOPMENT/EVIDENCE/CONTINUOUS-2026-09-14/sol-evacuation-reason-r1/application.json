@@ -1,0 +1,17 @@
+{
+  "baseline": "4190137d65aa5f2973d89a3901b443d2d6167f9e",
+  "changed": [
+    {
+      "file": "src/content/story.js",
+      "sha256": "84ddfbf5f81866cedb1dc9aaa39d13d8d04dbb064cad9c66f8ce6c007e837a28",
+      "matches_reviewed_source": true
+    },
+    {
+      "file": "src/content/locale/ja/story2.js",
+      "sha256": "360d015b27089e2c0cd61dfc8e4f9302ecc39714ded4d24ac113d870376fce3e",
+      "matches_reviewed_source": true
+    }
+  ],
+  "first_application_check": "First byte-equality check stopped on single-versus-double-quoted JS literal in English after modifying only English. Subsequent isolated shell commands nevertheless ran. This partial intermediate build was not committed or published. Fixed by fail-fast sequence and matching the independently reviewed literal representation for both languages.",
+  "blind_comparison": false
+}

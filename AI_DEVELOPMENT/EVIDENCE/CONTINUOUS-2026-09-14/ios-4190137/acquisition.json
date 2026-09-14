@@ -1,0 +1,108 @@
+{
+  "commit": "4190137d65aa5f2973d89a3901b443d2d6167f9e",
+  "build_sha256": "3aa1d190dd286d73538f7f9266a45edfb3e440ad102c62faaef04c963adbb592",
+  "run_id": 34816817217,
+  "job_id": 103889111738,
+  "job_conclusion": "success",
+  "original_log": {
+    "bytes": 8424264,
+    "sha256": "2623d976e49906f688328a6a15cac3d43ca45f5a00dcc1131fb21790b99e24bc"
+  },
+  "images": [
+    {
+      "file": "ios-safari-pause.png",
+      "path": "test-results/ios-safari/ios-safari-pause.png",
+      "bytes": 427214,
+      "sha256": "331cd8efca6428a63fc7689c30e6f27b0455c9853b2d9bd0a13ac763311037d1",
+      "included": true
+    },
+    {
+      "file": "ios-safari-gameplay.png",
+      "path": "test-results/ios-safari/ios-safari-gameplay.png",
+      "bytes": 2102982,
+      "sha256": "f40cc8c8e6a8d55b7463455d6209df513f1f0d6f712881839b1f754cb8923f8e",
+      "included": true
+    }
+  ],
+  "startup_files": [
+    {
+      "file": "appium.log",
+      "capturedAt": "2026-09-14T07:21:32.272Z",
+      "bytes": 3608761,
+      "sha256": "eeaeb43d4f4d27a6d0281508bbea6b56a4505678e8997b47ae67760adb730cb4",
+      "complete": true,
+      "stableDuringRead": true,
+      "cap": 4194304,
+      "ranges": [
+        [
+          0,
+          3608761
+        ]
+      ]
+    },
+    {
+      "file": "simulator-selection.json",
+      "capturedAt": "2026-09-14T07:21:32.417Z",
+      "bytes": 314,
+      "sha256": "2ef373631c2f92ae2ff8b89efca9dd0a29e59c9e09c1eb604f4a9101faaaba25",
+      "complete": true,
+      "stableDuringRead": true,
+      "cap": 65536,
+      "ranges": [
+        [
+          0,
+          314
+        ]
+      ]
+    },
+    {
+      "file": "xcode-version.txt",
+      "capturedAt": "2026-09-14T07:21:32.423Z",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12",
+      "complete": true,
+      "stableDuringRead": true,
+      "cap": 65536,
+      "ranges": [
+        [
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "file": "xcode-path.txt",
+      "capturedAt": "2026-09-14T07:21:32.424Z",
+      "bytes": 48,
+      "sha256": "9014c394d2d86817f0259dec8d76bc78677354c8767ca9b36c01fbec01ea21dd",
+      "complete": true,
+      "stableDuringRead": true,
+      "cap": 65536,
+      "ranges": [
+        [
+          0,
+          48
+        ]
+      ]
+    },
+    {
+      "file": "simulator-sdk-version.txt",
+      "capturedAt": "2026-09-14T07:21:32.425Z",
+      "bytes": 5,
+      "sha256": "a63403a2472f8c14d9ac8ac94ef7e77d9e13844217cddc161cbc573aeaec8836",
+      "complete": true,
+      "stableDuringRead": true,
+      "cap": 65536,
+      "ranges": [
+        [
+          0,
+          5
+        ]
+      ]
+    }
+  ],
+  "checks": 27,
+  "failures": [],
+  "blind_comparison": false,
+  "scope": "Actual iOS Simulator Mobile Safari checks and lossless native screenshots, not physical-device or blind-quality proof. Prior transient startup cause is not established by this successful repeat."
+}
