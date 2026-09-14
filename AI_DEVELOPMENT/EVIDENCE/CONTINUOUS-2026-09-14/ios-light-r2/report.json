@@ -1,0 +1,1074 @@
+{
+  "baseUrl": "http://127.0.0.1:49624/",
+  "checkedAt": "2026-09-14T10:57:54.723Z",
+  "checks": [
+    {
+      "detail": "{\"width\":667,\"height\":325}",
+      "name": "iPhone SE 3 landscape width",
+      "passed": true
+    },
+    {
+      "detail": "{\"width\":667,\"height\":325}",
+      "name": "Mobile Safari landscape height",
+      "passed": true
+    },
+    {
+      "detail": "dpr=2",
+      "name": "iPhone SE 3 DPR",
+      "passed": true
+    },
+    {
+      "detail": "{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}",
+      "name": "landscape touch surface is active",
+      "passed": true
+    },
+    {
+      "detail": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "name": "actual Mobile Safari user agent is active",
+      "passed": true
+    },
+    {
+      "detail": "{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}",
+      "name": "production engine starts in Mobile Safari",
+      "passed": true
+    },
+    {
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":325}",
+      "name": "render canvas fills the Safari content viewport",
+      "passed": true
+    },
+    {
+      "detail": "{\"documentWidth\":667,\"viewportWidth\":667,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]}",
+      "name": "title has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "detail": "[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]",
+      "name": "title controls meet the 44 CSS px floor",
+      "passed": true
+    },
+    {
+      "detail": "[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630803,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630803,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}}]",
+      "name": "trusted Mobile Safari tap starts a new game",
+      "passed": true
+    },
+    {
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter",
+      "name": "all required touch controls are present",
+      "passed": true
+    },
+    {
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":257,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":268,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":201,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":203,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":245,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]",
+      "name": "every gameplay control is visible and touch-sized",
+      "passed": true
+    },
+    {
+      "detail": "[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630803,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630803,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630802,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630801,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630801,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630800,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630800,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-1434630802,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]",
+      "name": "two trusted touch contacts overlap in Safari",
+      "passed": true
+    },
+    {
+      "detail": "distance=0.6352",
+      "name": "trusted two-thumb movement moves the player",
+      "passed": true
+    },
+    {
+      "detail": "attacks=2",
+      "name": "trusted second thumb attacks during movement",
+      "passed": true
+    },
+    {
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-84.63524672219845,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}",
+      "name": "trusted touch release clears movement and attack",
+      "passed": true
+    },
+    {
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-84.63524672219845,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}",
+      "name": "trusted interaction leaves finite player state",
+      "passed": true
+    },
+    {
+      "detail": "delta=0.19631",
+      "name": "trusted right-thumb drag moves the camera",
+      "passed": true
+    },
+    {
+      "detail": "[{\"index\":0,\"text\":\"SAVE\",\"x\":8,\"y\":269,\"width\":51.65625,\"height\":44},{\"index\":1,\"text\":\"TITLE\",\"x\":65.65625,\"y\":269,\"width\":53.015625,\"height\":44},{\"index\":2,\"text\":\"RESUME\",\"x\":590.578125,\"y\":269,\"width\":68.421875,\"height\":44}]",
+      "name": "pause actions are touch-sized in Safari",
+      "passed": true
+    },
+    {
+      "detail": "{\"prompt\":true,\"paused\":true,\"portrait\":true}",
+      "name": "turning to portrait blocks input and pauses play",
+      "passed": true
+    },
+    {
+      "detail": "{\"paused\":false,\"landscape\":true}",
+      "name": "returning to landscape restores play",
+      "passed": true
+    },
+    {
+      "detail": "{\"x\":569,\"y\":81.5,\"width\":180,\"height\":44}",
+      "name": "saved run exposes a touch-sized Continue action",
+      "passed": true
+    },
+    {
+      "detail": "distance=0.0000, bytes=1859",
+      "name": "Safari refresh and Continue restore the saved position",
+      "passed": true
+    },
+    {
+      "detail": "{\"frame\":559,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"medium\",\"p50\":20,\"p90\":29,\"p99\":54,\"fps50\":50,\"fps90\":34.48275862068966,\"draws\":66,\"tris\":195161,\"programs\":68,\"textures\":53,\"geometries\":87,\"res\":\"1147x559\",\"css\":\"667x325\",\"dpr\":2},\"faults\":0,\"framesAdvanced\":360}",
+      "name": "Safari soak remains live with finite state and no captured game faults",
+      "passed": true
+    },
+    {
+      "detail": "advanced=360",
+      "name": "Safari soak keeps producing frames",
+      "passed": true
+    },
+    {
+      "detail": "{\"tier\":\"medium\",\"p50\":20,\"p90\":29,\"p99\":54,\"fps50\":50,\"fps90\":34.48275862068966,\"draws\":66,\"tris\":195161,\"programs\":68,\"textures\":53,\"geometries\":87,\"res\":\"1147x559\",\"css\":\"667x325\",\"dpr\":2}",
+      "name": "Safari renderer submits non-empty geometry",
+      "passed": true
+    },
+    {
+      "detail": "{\"errorsBeforeReload\":[],\"errorsAfterReload\":[]}",
+      "name": "no captured Mobile Safari runtime errors",
+      "passed": true
+    }
+  ],
+  "device": {
+    "build": "1.0.0",
+    "canvas": {
+      "height": 325,
+      "width": 667,
+      "x": 0,
+      "y": 0
+    },
+    "coarse": true,
+    "dpr": 2,
+    "landscape": true,
+    "maxTouchPoints": 5,
+    "platform": "iPhone",
+    "ready": true,
+    "running": true,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+    "viewport": {
+      "height": 325,
+      "width": 667
+    },
+    "visualViewport": {
+      "height": 325,
+      "width": 667
+    }
+  },
+  "errors": [],
+  "failures": [],
+  "inputActions": [
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 569,
+              "y": 109
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383754470",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 560,
+              "y": 155
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383754470",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    },
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 110,
+              "y": 250
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 350,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 110,
+              "y": 190
+            },
+            {
+              "duration": 550,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "move-thumb",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        },
+        {
+          "actions": [
+            {
+              "duration": 350,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 628,
+              "y": 284
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 150,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "attack-thumb",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 101,
+              "y": 296
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 350,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 101,
+              "y": 236
+            },
+            {
+              "duration": 550,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "move-thumb",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        },
+        {
+          "actions": [
+            {
+              "duration": 350,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 619,
+              "y": 330
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 150,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "attack-thumb",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    },
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 500,
+              "y": 90
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 450,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 590,
+              "y": 120
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "look-thumb",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 491,
+              "y": 136
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 450,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 581,
+              "y": 166
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "look-thumb",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    },
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 481,
+              "y": 30
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383788265",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 472,
+              "y": 76
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383788265",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    },
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 34,
+              "y": 291
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383795249",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 25,
+              "y": 337
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383795249",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    },
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 625,
+              "y": 291
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383797105",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 616,
+              "y": 337
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383797105",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    },
+    {
+      "css": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 569,
+              "y": 82
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383853739",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "native": [
+        {
+          "actions": [
+            {
+              "duration": 0,
+              "origin": "viewport",
+              "type": "pointerMove",
+              "x": 560,
+              "y": 128
+            },
+            {
+              "button": 0,
+              "type": "pointerDown"
+            },
+            {
+              "duration": 90,
+              "type": "pause"
+            },
+            {
+              "button": 0,
+              "type": "pointerUp"
+            }
+          ],
+          "id": "tap-1789383853739",
+          "parameters": {
+            "pointerType": "touch"
+          },
+          "type": "pointer"
+        }
+      ],
+      "viewport": {
+        "innerHeight": 325,
+        "innerWidth": 667,
+        "outerHeight": 375,
+        "outerWidth": 667
+      }
+    }
+  ],
+  "inputCalibration": [
+    {
+      "offsetX": -9,
+      "offsetY": 46,
+      "pixelRatioX": 0.7,
+      "pixelRatioY": 0.7
+    },
+    {
+      "offsetX": -9,
+      "offsetY": 46,
+      "pixelRatioX": 0.7,
+      "pixelRatioY": 0.7
+    }
+  ],
+  "interaction": {
+    "camera": {
+      "after": {
+        "pitch": -0.07426086956521741,
+        "yaw": -0.18866566716641686
+      },
+      "before": {
+        "pitch": -0.02,
+        "yaw": 0
+      },
+      "delta": 0.19631
+    },
+    "simultaneousMoveAttack": {
+      "after": {
+        "attackRaw": false,
+        "attackStarts": 2,
+        "finite": true,
+        "moveMagnitude": 0,
+        "stickActive": false,
+        "x": -112,
+        "y": 0,
+        "z": -84.63524672219845
+      },
+      "before": {
+        "frame": 780,
+        "x": -112,
+        "y": 0,
+        "z": -84
+      },
+      "moved": 0.6352
+    },
+    "titleInput": [
+      {
+        "activeTouches": 1,
+        "pointerId": -1434630803,
+        "pointerType": "touch",
+        "target": {
+          "className": "btn hit",
+          "id": "",
+          "tag": "DIV",
+          "text": "NEW GAME"
+        },
+        "trusted": true,
+        "type": "pointerdown",
+        "x": 560,
+        "y": 105
+      },
+      {
+        "activeTouches": 1,
+        "pointerId": -1434630803,
+        "pointerType": "touch",
+        "target": {
+          "className": "btn hit on",
+          "id": "",
+          "tag": "DIV",
+          "text": "NEW GAME"
+        },
+        "trusted": true,
+        "type": "pointerup",
+        "x": 560,
+        "y": 105
+      }
+    ],
+    "twoThumbInput": [
+      {
+        "activeTouches": 1,
+        "pointerId": -1434630803,
+        "pointerType": "touch",
+        "target": {
+          "className": "btn hit",
+          "id": "",
+          "tag": "DIV",
+          "text": "NEW GAME"
+        },
+        "trusted": true,
+        "type": "pointerdown",
+        "x": 560,
+        "y": 105
+      },
+      {
+        "activeTouches": 1,
+        "pointerId": -1434630803,
+        "pointerType": "touch",
+        "target": {
+          "className": "btn hit on",
+          "id": "",
+          "tag": "DIV",
+          "text": "NEW GAME"
+        },
+        "trusted": true,
+        "type": "pointerup",
+        "x": 560,
+        "y": 105
+      },
+      {
+        "activeTouches": 1,
+        "pointerId": -1434630802,
+        "pointerType": "touch",
+        "target": {
+          "className": "",
+          "id": "gl",
+          "tag": "CANVAS",
+          "text": ""
+        },
+        "trusted": true,
+        "type": "pointerdown",
+        "x": 101,
+        "y": 246
+      },
+      {
+        "activeTouches": 2,
+        "pointerId": -1434630801,
+        "pointerType": "touch",
+        "target": {
+          "className": "abtn hit big attack",
+          "id": "",
+          "tag": "DIV",
+          "text": "HIT"
+        },
+        "trusted": true,
+        "type": "pointerdown",
+        "x": 619,
+        "y": 280
+      },
+      {
+        "activeTouches": 2,
+        "pointerId": -1434630801,
+        "pointerType": "touch",
+        "target": {
+          "className": "abtn hit big attack down",
+          "id": "",
+          "tag": "DIV",
+          "text": "HIT"
+        },
+        "trusted": true,
+        "type": "pointerup",
+        "x": 619,
+        "y": 280
+      },
+      {
+        "activeTouches": 2,
+        "pointerId": -1434630800,
+        "pointerType": "touch",
+        "target": {
+          "className": "abtn hit big attack",
+          "id": "",
+          "tag": "DIV",
+          "text": "HIT"
+        },
+        "trusted": true,
+        "type": "pointerdown",
+        "x": 619,
+        "y": 280
+      },
+      {
+        "activeTouches": 2,
+        "pointerId": -1434630800,
+        "pointerType": "touch",
+        "target": {
+          "className": "abtn hit big attack down",
+          "id": "",
+          "tag": "DIV",
+          "text": "HIT"
+        },
+        "trusted": true,
+        "type": "pointerup",
+        "x": 619,
+        "y": 280
+      },
+      {
+        "activeTouches": 1,
+        "pointerId": -1434630802,
+        "pointerType": "touch",
+        "target": {
+          "className": "",
+          "id": "gl",
+          "tag": "CANVAS",
+          "text": ""
+        },
+        "trusted": true,
+        "type": "pointerup",
+        "x": 101,
+        "y": 186
+      }
+    ]
+  },
+  "layout": {
+    "controls": [
+      {
+        "height": 54,
+        "name": "attack",
+        "visible": true,
+        "width": 54,
+        "x": 601,
+        "y": 257
+      },
+      {
+        "height": 44,
+        "name": "dodge",
+        "visible": true,
+        "width": 44,
+        "x": 547,
+        "y": 268
+      },
+      {
+        "height": 44,
+        "name": "guard",
+        "visible": true,
+        "width": 44,
+        "x": 608,
+        "y": 201
+      },
+      {
+        "height": 44,
+        "name": "use",
+        "visible": true,
+        "width": 44,
+        "x": 553,
+        "y": 203
+      },
+      {
+        "height": 44,
+        "name": "heavy",
+        "visible": true,
+        "width": 44,
+        "x": 495,
+        "y": 245
+      },
+      {
+        "height": 44,
+        "name": "menu",
+        "visible": true,
+        "width": 44,
+        "x": 459,
+        "y": 8
+      },
+      {
+        "height": 44,
+        "name": "map",
+        "visible": true,
+        "width": 44,
+        "x": 511,
+        "y": 8
+      },
+      {
+        "height": 44,
+        "name": "lamp",
+        "visible": true,
+        "width": 44,
+        "x": 563,
+        "y": 8
+      },
+      {
+        "height": 44,
+        "name": "meter",
+        "visible": true,
+        "width": 44,
+        "x": 615,
+        "y": 8
+      }
+    ],
+    "title": {
+      "buttons": [
+        {
+          "height": 44,
+          "name": "new",
+          "width": 180,
+          "x": 479,
+          "y": 86.5
+        },
+        {
+          "height": 44,
+          "name": "settings",
+          "width": 180,
+          "x": 479,
+          "y": 140.5
+        },
+        {
+          "height": 44,
+          "name": "credits",
+          "width": 180,
+          "x": 479,
+          "y": 194.5
+        }
+      ],
+      "documentWidth": 667,
+      "viewportWidth": 667
+    }
+  },
+  "persistence": {
+    "distance": 0,
+    "restored": {
+      "x": -112,
+      "y": 0,
+      "z": -84.63524672219845
+    },
+    "saved": {
+      "bytes": 1859,
+      "x": -112,
+      "y": 0,
+      "z": -84.63524672219845
+    }
+  },
+  "schemaVersion": 1,
+  "screenshots": {
+    "gameplay": "test-results/ios-safari/ios-safari-gameplay.png",
+    "pause": "test-results/ios-safari/ios-safari-pause.png"
+  },
+  "soak": {
+    "faults": 0,
+    "finite": true,
+    "frame": 559,
+    "framesAdvanced": 360,
+    "perf": {
+      "css": "667x325",
+      "dpr": 2,
+      "draws": 66,
+      "fps50": 50,
+      "fps90": 34.48275862068966,
+      "geometries": 87,
+      "p50": 20,
+      "p90": 29,
+      "p99": 54,
+      "programs": 68,
+      "res": "1147x559",
+      "textures": 53,
+      "tier": "medium",
+      "tris": 195161
+    },
+    "running": true
+  },
+  "status": "passed",
+  "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+  "transport": {
+    "client": "node:http/https",
+    "commandRequestTimeoutMs": 90000,
+    "sessionRequestTimeoutMs": 900000
+  }
+}

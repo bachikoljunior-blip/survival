@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.1",
   "files": {
     ".claude/skills/adaptive-skill-evolution/SKILL.md": "c0d3484bf25e7ac19a123edbf77f65d3399101c8e021ed1bc2c4fefd993efc69",
     ".claude/skills/balance-audit/SKILL.md": "226eb6b561fd429c35b77e703e06c7933aa026a3d993fae07d751e68e426a9c4",
@@ -19,6 +19,8 @@
     ".kit/lib/browser/serve.mjs": "9112b870673a8f4788cd2fccfe078e5e81e322e680f2037ebbf3058fbc63d90f",
     ".kit/lib/image/measure.mjs": "1c0d6365e0e07cb0b6b7e0dc5b3d3a7ca961a22d428949a2cc9b8d44b17d6fbc",
     ".kit/lib/image/png.mjs": "58191debef238b5f5b261a848799c03c90a7e5a35ef4cef54667aa5cbe345c87",
+    ".kit/lib/mobile/device.mjs": "bfd9616c1033574f8edbe7ce7b3c9272fde3a987062b1f8a572496e3b9062cdf",
+    ".kit/lib/mobile/roundCompare.mjs": "d48183d3c2918469dfe5aa769d1f854ea31987775bf70983cf208ac514245729",
     ".kit/lib/plan/contentHash.mjs": "149b51f153f06dffecacef01af57721ac9b027e92ae7a3044f7ae00efc710bbe",
     ".kit/lib/plan/dispatch.mjs": "84e79827ac6b8266879b20c1c11797394d72d37a68f322bf6e7dc3edc4f0e350",
     ".kit/lib/plan/findings.mjs": "632c75b1b5262992c89882fd9c65a540e9af18c38ccfe869333f79e0ac79245e",
@@ -38,8 +40,9 @@
     ".kit/lib/state/secrets.mjs": "66288017f7a32b1fafb46e661b58aa91aeac523a8e8ce5b9e3d11d9ddecec480",
     ".kit/lib/state/selftest.mjs": "96cb1adf7aa5d3d58b8b270e9ed83a434c41051e5da05aca8a9fe13faa5417ed",
     ".kit/lib/state/yaml.mjs": "479ccd8a248764a77dbac709b0c633a528837c1e90080d1b3c33ad01855181fb",
-    ".kit/tools/bootstrap.mjs": "9753182b6b7fd483a319133a09133936b69b54e5900ccebcdcc1643640337072",
+    ".kit/tools/bootstrap.mjs": "a69727c08aa6b4d0a0037442e9415bf7f9e314d3a180022cce5d05870f9a5dd1",
     ".kit/tools/check-ownership.mjs": "2ed8b785e17dce90cd243f5c04749108a1329666709b3e3a1f6940f0b77f26ad",
-    ".kit/tools/skill.mjs": "34f04a610abd8dd8ce53e8ec4b7250b4ebf64c62890b6a6ac6812a5026a9b129"
+    ".kit/tools/compare-round.mjs": "89b64e7556d772113cae9f8c28cb21871573cd8fb4e24563e10e0b659cc6c058",
+    ".kit/tools/skill.mjs": "fc3ec1c93b7b689075a903c7f1095a4ea2dbf6dd9477fcf1801dc719833037a0"
   }
 }

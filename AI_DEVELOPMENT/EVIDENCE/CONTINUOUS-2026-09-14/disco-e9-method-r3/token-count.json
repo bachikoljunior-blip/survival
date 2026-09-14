@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "raw input measured without truncation; native prompt and comparison pending",
+  "checks": [
+    {
+      "name": "tokenizers version fixed",
+      "passed": true
+    },
+    {
+      "name": "official file returned HTTP 200",
+      "passed": true
+    },
+    {
+      "name": "official tokenizer size and hash match",
+      "passed": true
+    },
+    {
+      "name": "truncation and padding disabled",
+      "passed": true
+    },
+    {
+      "name": "A-readable.txt equals frozen r3 output",
+      "passed": true
+    },
+    {
+      "name": "A-readable.txt survives encode/decode without changing authored bytes",
+      "passed": true
+    },
+    {
+      "name": "B-readable.txt equals frozen r3 output",
+      "passed": true
+    },
+    {
+      "name": "B-readable.txt survives encode/decode without changing authored bytes",
+      "passed": true
+    },
+    {
+      "name": "complete pair round-trips",
+      "passed": true
+    }
+  ],
+  "files": [
+    {
+      "file": "A-readable.txt",
+      "bytes": 200075,
+      "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+      "tokens": 63718,
+      "decoded_bytes_identical": true
+    },
+    {
+      "file": "B-readable.txt",
+      "bytes": 62026,
+      "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+      "tokens": 19847,
+      "decoded_bytes_identical": true
+    }
+  ],
+  "tokenizer_url": "https://huggingface.co/Qwen/Qwen3.5-9B/resolve/21eca8a083a2121a92fba681f4a7c72cf20ff1a7/tokenizer.json",
+  "tokenizer_sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+  "scope": "Actual raw text token counts using the pinned official Qwen tokenizer, with no truncation. GGUF runtime and final chat-template token equality remain to be verified before comparison.",
+  "not_claimed": [
+    "comparison performed",
+    "model understood the input",
+    "GGUF prompt count measured",
+    "E9 satisfied"
+  ],
+  "tokenizers_version": "0.22.2",
+  "pair": {
+    "bytes": 262103,
+    "sha256": "1c5f648e913b7a3743d99414ed594a7fcc7cbbff888093ff81df1d6ddacda8a7",
+    "tokens": 83565
+  },
+  "budget_planning": {
+    "raw_pair_tokens": 83565,
+    "question_template_reserve_tokens": 4096,
+    "generation_reserve_tokens": 8192,
+    "required_total_with_reserves": 95853,
+    "fits_65536_with_these_reserves": false,
+    "qualification": "The native runtime must count the actual completed chat prompt before generating; these reserves do not permit silently dropping either reader."
+  },
+  "elapsed_seconds": 36.09616149800422
+}

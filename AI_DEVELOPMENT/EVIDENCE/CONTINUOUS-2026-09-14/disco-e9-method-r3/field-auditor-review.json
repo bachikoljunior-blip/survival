@@ -1,0 +1,334 @@
+{
+  "round": 3,
+  "profile": "e9-readable-r3-independent-field-auditor",
+  "tier": "bounded-source-review-and-in-memory-contract-check",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "verdictMeaning": "The supplied independent auditor is adequate for the specified fixed-reader/output fidelity check. This verdict does not report a successful audit of the real A/B files; that execution remains pending in CI.",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "blindComparison": "No blind comparison, preference, game-quality judgment, E9 completion, or actual-play claim. This is a source-aware review of an acquisition audit method.",
+  "source": {
+    "repository": "bachikoljunior-blip/survival",
+    "scriptPath": "tools/audit-e9-readable.mjs",
+    "scriptGitBlob": "7f1747da5aeae79bfce8cff0ddeabccec86f622f",
+    "scriptCharacters": 11677,
+    "scriptLines": 192,
+    "githubRoundtripExact": true,
+    "formatterGrammarReviewedGitBlob": "7c59fccf5c80f55caf4e4fe77940d6878da2029c",
+    "branchUpdates": 0,
+    "localProcessAttempts": 0,
+    "localFilesystemAccesses": 0,
+    "escalationAttempts": 0,
+    "ciStarts": 0
+  },
+  "method": {
+    "independentParsing": "Build source field/graph ledgers; consume the actual readable document, locate each encountered node by its parsed ID, read original-length value spans, and build an observed ledger from parsed labels/metadata. No formatter import, formatter execution, or reconstructed expected document.",
+    "prose": "After production Buffer UTF-8 roundtrip checks, every text, mood, tag, locked_reason and alternate string must match its original exact string span with its separator LF. Empty strings remain required fields. Marker-looking lines within original values are consumed as prose, not parsed as metadata.",
+    "graph": "Every subject, unit, boundary note, entry sequence, node ID, speaker, effective boolean flag, ordered alternate variant/state pair, and ordered continuation sequence is checked. Repeated edges are preserved. Required fields and nodes cannot be omitted, repeated or substituted; trailing output fails.",
+    "nullRouting": "A null text node must have the routing marker and is counted as a graph node and null_routing, not as an authored string. No inferred missing field is created for null.",
+    "order": "Display node order may differ from raw storage. For player_option IDs with a present N... parent and C-number suffix, the parent must occur first. Entries and continuations remain authoritative; numeric display order is not asserted to be execution order.",
+    "publication": "Public output contains aggregate counts, whole-input/output hashes, aggregate field/graph ledger hashes, status, fixed error codes and this static scope. No original text, per-field prose, speaker labels, node IDs, exception messages or stacks are emitted.",
+    "failures": "The case loop continues to B if A fails. Any case failure keeps the overall result and exit code failed. Report-write failure also leaves nonzero exitCode. No process.exit is used."
+  },
+  "pins": {
+    "referenceReader": {
+      "relativeToRunnerTemp": "survival-e9-reader-recovery-r2/disco-e9-reader-r2/reader.json",
+      "sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e"
+    },
+    "candidateReader": {
+      "relativeToRunnerTemp": "survival-e9-reader-recovery-r2/readable-r3/candidate-reader.json",
+      "sha256": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b"
+    },
+    "readableFiles": [
+      "survival-e9-reader-recovery-r2/readable-r3/A-readable.txt",
+      "survival-e9-reader-recovery-r2/readable-r3/B-readable.txt"
+    ],
+    "publicReportPath": "test-results/e9-readable-r3/field-audit.json"
+  },
+  "verification": {
+    "environment": "Pure in-memory JavaScript through functions.exec only; no local process, server, browser or real CI run.",
+    "positiveFixture": {
+      "handAuthored": true,
+      "expected_counts": {
+        "alternate": 2,
+        "continuations": 5,
+        "entry_refs": 1,
+        "fields": 9,
+        "locked_reason": 1,
+        "mood": 2,
+        "nodes": 4,
+        "null_routing": 1,
+        "state_true": [
+          1,
+          2,
+          1,
+          1
+        ],
+        "subjects": 1,
+        "tag": 1,
+        "text": 3,
+        "units": 1
+      },
+      "observed_counts": {
+        "alternate": 2,
+        "continuations": 5,
+        "entry_refs": 1,
+        "fields": 9,
+        "locked_reason": 1,
+        "mood": 2,
+        "nodes": 4,
+        "null_routing": 1,
+        "state_true": [
+          1,
+          2,
+          1,
+          1
+        ],
+        "subjects": 1,
+        "tag": 1,
+        "text": 3,
+        "units": 1
+      },
+      "exact_value_spans": 11,
+      "parent_before_option_pairs": 1,
+      "consumed_output_utf8_bytes": 840,
+      "unconsumed_output_utf8_bytes": 0,
+      "covers": [
+        "Japanese and emoji",
+        "embedded metadata-looking prose",
+        "internal newlines",
+        "empty string fields",
+        "null routing",
+        "alternate true/false markers",
+        "all four effective flags",
+        "mood/tag/locked reason",
+        "repeated continuation destination",
+        "option stored before parent but displayed after it"
+      ]
+    },
+    "negativeFixtures": [
+      {
+        "error_code": "FIELD_TEXT",
+        "name": "text_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_TEXT",
+        "name": "japanese_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_OMISSION",
+        "name": "mood_dropped",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_OMISSION",
+        "name": "tag_dropped",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_OMISSION",
+        "name": "locked_reason_dropped",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_OMISSION",
+        "name": "alternate_dropped",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_TEXT",
+        "name": "alternate_text_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "alternate_state_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "true_flag_dropped",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "false_flag_added",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "edge_duplicate_lost",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "edge_order_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "speaker_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "GRAPH_LEDGER",
+        "name": "entry_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "NULL_ROUTING_OMISSION",
+        "name": "null_marker_dropped",
+        "rejected": true
+      },
+      {
+        "error_code": "SUBJECT_VALUE",
+        "name": "subject_changed",
+        "rejected": true
+      },
+      {
+        "error_code": "NODE_MISSING_EXTRA_DUPLICATE",
+        "name": "node_duplicate",
+        "rejected": true
+      },
+      {
+        "error_code": "UNMAPPED_TRAILING_OUTPUT",
+        "name": "trailing_output",
+        "rejected": true
+      },
+      {
+        "error_code": "OPTION_BEFORE_PROMPT",
+        "name": "option_before_parent",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_OMISSION",
+        "name": "empty_text_missing",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_MISSING_EXTRA_DUPLICATE",
+        "name": "duplicate_metadata",
+        "rejected": true
+      },
+      {
+        "error_code": "FIELD_TEXT",
+        "name": "notice_changed",
+        "rejected": true
+      }
+    ],
+    "cliControlSimulations": [
+      {
+        "case_statuses": [
+          {
+            "error_code": null,
+            "label": "A",
+            "status": "PASS"
+          },
+          {
+            "error_code": null,
+            "label": "B",
+            "status": "PASS"
+          }
+        ],
+        "continued_to_B": true,
+        "exit_code": 0,
+        "name": "both_valid",
+        "public_text_leaked": false,
+        "report_status": "PASS",
+        "report_writes": 1,
+        "stdout_lines": 1
+      },
+      {
+        "case_statuses": [
+          {
+            "error_code": "FIELD_TEXT",
+            "label": "A",
+            "status": "FAIL"
+          },
+          {
+            "error_code": null,
+            "label": "B",
+            "status": "PASS"
+          }
+        ],
+        "continued_to_B": true,
+        "exit_code": 1,
+        "name": "A_text_failed_B_continues",
+        "public_text_leaked": false,
+        "report_status": "FAIL",
+        "report_writes": 1,
+        "stdout_lines": 1
+      },
+      {
+        "case_statuses": [
+          {
+            "error_code": "READ_PARSE_OR_UNEXPECTED",
+            "label": "A",
+            "status": "FAIL"
+          },
+          {
+            "error_code": null,
+            "label": "B",
+            "status": "PASS"
+          }
+        ],
+        "continued_to_B": true,
+        "exit_code": 1,
+        "name": "A_read_failed_B_continues",
+        "public_text_leaked": false,
+        "report_status": "FAIL",
+        "report_writes": 1,
+        "stdout_lines": 1
+      },
+      {
+        "continued_to_B": true,
+        "exit_code": 1,
+        "name": "report_write_failure_nonzero",
+        "public_text_leaked": false,
+        "report_writes": 0,
+        "stdout_lines": 1
+      }
+    ],
+    "limits": "Synthetic parser tests used a clearly labelled noncryptographic fixture digest; CLI simulations used mocked Buffer/filesystem/crypto boundaries. These tests establish parser equality/rejection and branch/error-output behavior, not Node built-in correctness or actual private-input success. Production uses node:crypto SHA-256 and real Buffer UTF-8 byte roundtrips.",
+    "staticCorrectionBeforeFirstTest": "Replaced numeric header-prefix slice offsets with literal prefix.length, including correction of the AUTHORED FLAGS prefix offset. The first executed positive fixture passed; no failed executed test was discarded."
+  },
+  "findings": [],
+  "upstreamEvidenceReportedByCoordinator": {
+    "run": "34835017168",
+    "job": "103946755736",
+    "commit": "44e023301172bd508e53f0e866c673ed9033ecc0",
+    "originalCandidateR1ThreeHashesMatch": true,
+    "originalCandidateR2HashMatch": true,
+    "reference": {
+      "nodes": 1337,
+      "nullRouting": 420,
+      "alternates": 40,
+      "stringFields": 957
+    },
+    "candidate": {
+      "nodes": 320,
+      "stringFields": 373
+    },
+    "countInterpretation": "1337 minus 420 null text nodes gives 917 original text strings; adding 40 alternate strings gives 957. The earlier total that counted null routing slots is not evidence of prose loss.",
+    "provenance": "Parent task report only. This reviewer did not independently read those private outputs or execute their audit."
+  },
+  "remainingMeasuredResult": "Run node tools/audit-e9-readable.mjs after preparation. Its real cases must pass, including every actual alternate and graph record; inspect resulting counts and input/output hashes. No current real-input PASS is asserted here.",
+  "scopeLimits": [
+    "Fixed reader fidelity only; does not prove that the reader itself contains every original DB/game-source condition.",
+    "Effective false flags are reconstructed from absence of a true marker; no runtime unconditional-availability claim.",
+    "Original missing formatter remains unrecovered.",
+    "No product edits, benchmark changes, new mandatory role or new comparison stage.",
+    "Independent refutation of this script is not represented as completed."
+  ],
+  "validation": {
+    "jsonSerializationChecked": true,
+    "requiredCriticFieldsCheckedInMemory": true,
+    "strictProjectValidatorExecuted": false
+  },
+  "productChanges": [],
+  "benchmarkChanges": [],
+  "completionClaims": []
+}

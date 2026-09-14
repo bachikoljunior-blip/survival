@@ -20,7 +20,7 @@
 
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { dirname, isAbsolute, join, resolve } from 'node:path';
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { screenLearning, evaluateAdoptionGate, adoptionGateScenarios } from '../lib/skill/policy.mjs';
@@ -74,15 +74,37 @@ function readdirSafe(p) {
   try { return readdirSync(p); } catch { return []; }
 }
 
-function changedFiles() {
-  if (argv.changed) return String(argv.changed).split(',').filter(Boolean);
+/**
+ * The change set the adoption gate judges.
+ *
+ * It must include **the files this adoption is about to write**, not only the ones already
+ * dirty. Reading the worktree alone was a real defect: `adopt` run on a clean checkout saw no
+ * skill paths, the gate short-circuited on its "nothing to judge" branch, and G1 through G6
+ * never ran — so an adoption with zero completed product units was accepted. It only ever
+ * appeared to work because the candidate directory happened to be untracked at the time.
+ *
+ * That is the exact failure this repository keeps paying for: a gate that is silently inert
+ * looks identical to a gate that passed. The self-tests did not catch it because they hand the
+ * gate its input directly — they prove the function fires, not that the caller feeds it the
+ * right thing. So the worktree is still read, for G6's benefit, but it is a union, never the
+ * whole answer.
+ */
+function changedFiles({ willWrite = [] } = {}) {
+  const set = new Set(willWrite.filter(Boolean));
+  if (argv.changed) {
+    for (const f of String(argv.changed).split(',').filter(Boolean)) set.add(f);
+    return [...set];
+  }
   try {
     const out = execFileSync('git', ['-C', repo, 'status', '--porcelain'], { encoding: 'utf8' });
-    return out.split('\n').filter(Boolean).map((l) => l.slice(3).trim()).filter(Boolean);
+    for (const line of out.split('\n').filter(Boolean)) {
+      const f = line.slice(3).trim();
+      if (f) set.add(f);
+    }
   } catch {
-    die('could not read changed files; pass --changed=a,b');
-    return [];
+    if (!set.size) die('could not read changed files; pass --changed=a,b');
   }
+  return [...set];
 }
 
 switch (command) {
@@ -141,7 +163,7 @@ switch (command) {
     const ledger = readLedger(LEDGER);
 
     const failures = evaluateAdoptionGate({
-      changedFiles: changedFiles(),
+      changedFiles: changedFiles({ willWrite: [candidate.live_path, relative(repo, LEDGER)] }),
       roundRecord: { round: String(argv.round || ''), product_units_completed: Number(argv['product-units'] ?? -1) },
       evaluation,
       candidate: { ...candidate, prior_sha256: ledger.skills[candidate.name]?.sha256 ?? null },
