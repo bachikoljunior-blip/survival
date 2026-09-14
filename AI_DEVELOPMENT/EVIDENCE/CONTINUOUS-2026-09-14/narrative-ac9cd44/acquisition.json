@@ -1,0 +1,102 @@
+[
+  {
+    "metadata": {
+      "path": "publish",
+      "language": "en",
+      "bytes": 26166,
+      "sha256": "7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be"
+    },
+    "scope": "Actual production dialogue and ending UI method outputs from the existing deterministic story driver. The driver teleports, makes the player gas-immune and clears hostiles with forced damage. This establishes emitted text and story transitions, not ordinary-paced play, combat, movement, survival, rendering quality or a blind comparison.",
+    "captureSucceeded": false,
+    "executionSucceeded": true,
+    "captureErrors": [
+      "Complete ending text not captured"
+    ],
+    "browserErrors": [],
+    "execution": {
+      "path": "publish",
+      "chapter": 5,
+      "ending": "record",
+      "reachedEnding": true,
+      "questsDone": 6,
+      "questsTotal": 8,
+      "steps": 23,
+      "trust": [
+        [
+          "teo",
+          18
+        ],
+        [
+          "sol",
+          3
+        ],
+        [
+          "nessa",
+          26
+        ],
+        [
+          "iris",
+          0
+        ],
+        [
+          "krajcik",
+          -10
+        ]
+      ],
+      "choices": [
+        [
+          "vents",
+          "shut"
+        ],
+        [
+          "log_intent",
+          "publish"
+        ],
+        [
+          "krajcik_offer",
+          "refused"
+        ],
+        [
+          "nessa_truth",
+          "told"
+        ],
+        [
+          "final",
+          "publish"
+        ]
+      ],
+      "flags": 40,
+      "journal": 11,
+      "errors": [],
+      "log": [
+        "new game",
+        "courtyard",
+        "meter",
+        "sol first",
+        "raid",
+        "sol after raid",
+        "teo first",
+        "over the slip",
+        "cinder road",
+        "found venting",
+        "garage",
+        "sol vents",
+        "vent decision: shut",
+        "log taken",
+        "teo log",
+        "iris",
+        "order",
+        "krajcik",
+        "crisis_2 not out — ppmHead=768",
+        "crisis_3 not out — ppmHead=902",
+        "crisis: 3/4 out",
+        "crisis",
+        "sol debrief",
+        "nessa",
+        "trench line",
+        "ending"
+      ]
+    },
+    "eventCount": 118
+  }
+]

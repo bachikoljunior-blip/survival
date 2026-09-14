@@ -1,0 +1,171 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored schema placeholder, not a product quality score.",
+  "round": "dialogue-lifecycle-r1-10ddee9",
+  "profile": "Independent user-reachable reading lifecycle review",
+  "tier": "Exact source and CPU UI-state boundaries",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison was performed. Source identity is known. CPU class state and callbacks were observed without rendering, browser hit testing or trusted smartphone input; no concept element is judged satisfied by these results.",
+  "checkedAt": "2026-09-14T04:58:47.889Z",
+  "baseCommit": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "reviewer": "/root/acquisition_path_review",
+  "independentRefuter": "/root/acquisition_path_review/acquisition_refutation",
+  "verdictScope": "One minor user-reachable examine presentation/callback lifecycle defect survives independent refutation. This is not evidence of old conversation-choice effects, save corruption, permanent lockout, a rendered overlay or smartphone behavior.",
+  "sources": {
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/game/director.js": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "public/styles.css": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "three": "0.180.0"
+  },
+  "findings": [
+    {
+      "severity": "minor",
+      "owner": "src/game/director.js",
+      "shot": "dialogue-lifecycle-r1-probe.json: newgame returned-to-play and subsequent old-box tap",
+      "problem": "Reading the authored cellar text until natural gas death, then using GET UP or TITLE followed by NEW GAME/CONTINUE, returns to PLAY with the old dialogue on state and its advance closure still attached. Tapping the old box advances the prior cellar reading after recovery.",
+      "why": "Director._examine installs a local show closure and hides the HUD. Actor/Lungs continue updating in DIALOGUE, so gas death is reachable. The death, retry, title, resetWorld, new-game and save-restore path does not hide or invalidate that reading UI; it reuses the same DialogueUI object.",
+      "hypothesis": "Confirmed for the examine UI and callback lifecycle in the exact10ddee9 source CPU reproduction. No active DialogueRunner is involved in this particular text path. Rendered placement and smartphone tap hit testing were not measured.",
+      "fix": "Add a non-committing dismissal at the shared player-death boundary, optionally exposed as a reusable UI cancellation for reset/restore. Clear the old onAdvance/onChoose and typing/pending-choice state and hide the reading without advancing or completing it. For each recorded GET UP/TITLE-new/TITLE-continue path, assert dialogueVisible=false and callbacks null immediately after recovery, and that an old-box tap cannot advance old text. Keep the legitimate reading interaction functional before death. Do not use DialogueRunner.finish as cancellation because its onEnd effects commit story outcomes.",
+      "evidence": "The exact title/death/pause pointer handlers, Game._wireUI and source-extracted main closures were executed against a minimal DOM contract. Full Game/Director/Actor/Lungs/collision produced a natural gas death49.1833 simulation seconds after reading began at120HP, following ordinary inside movement. Each of three recovery paths retained identical text and an onAdvance function. A subsequent box tap advanced the previous topic. Independent refutation reproduced the same retention after a natural gas death and a no-save retry.",
+      "severityRationale": "The stale reading can be dismissed using existing taps. No permanent inability to play or persisted progression loss was demonstrated. Nevertheless NEW GAME and a restored session can expose text and active callbacks from the discarded reading."
+    }
+  ],
+  "reproduction": [
+    "Start a new game using the actual title button. The CPU fixture then stages the player at the authored exterior spawn cellar_out without changing health, gas, items or progression. The full outdoor walk from the initial spawn was not simulated.",
+    "At the unlocked door_cellar, face the door and use the normal Game interaction input. The actual door transition sets the cellar interior concentration to the authored1600ppm.",
+    "Walk through the actual interior collision along(857.3,3.05),(859.5,3.05),(861.9,2.65), face cellar_floor, and interact. No direct call to startConversation or _examine is used by this probe.",
+    "Leave the first text open. Full-health natural gas exposure kills the player; deliver the existing1400ms death-screen callback through the deterministic timer boundary.",
+    "Use the actual GET UP button, or TITLE then NEW GAME, or TITLE then CONTINUE. The continuation case also uses the actual pause SAVE button before entering; subsequent authored autosave may replace that snapshot.",
+    "Observe PLAY with dialogueVisible=true and the prior text/onAdvance still present. The old box pointer handlers advance the discarded reading. Existing taps can dismiss it."
+  ],
+  "measured": [
+    {
+      "area": "Door and indoor reachability",
+      "fact": "The actual target selector picks door_cellar. Normal input enters it. Actual collision movement reaches all three waypoints in19,32,37 ticks and selects cellar_floor."
+    },
+    {
+      "area": "Natural mortality",
+      "fact": "The full Game probe has no manual HP, saturation or gas changes; health reaches zero after49.18333333333174 reading seconds. The independent stationary-vitals control starts at zero saturation and takes52.45 seconds. The difference follows the full probe having already walked in the cellar."
+    },
+    {
+      "area": "Recovery",
+      "fact": "GET UP, TITLE→NEW GAME and TITLE→CONTINUE all reach PLAY/alive while retaining old text and callback state. The separate refuter also checks the no-save retry branch."
+    },
+    {
+      "area": "Residual callback",
+      "fact": "The actual box pointer handler advances from the first prior text to its second paragraph after recovery. All recorded runnerActive values are false."
+    },
+    {
+      "area": "Dismissibility",
+      "fact": "After the first old-text advance, eight further synthetic taps dismiss the old reading. The refuter independently confirms that ordinary tap logic can close this examine."
+    }
+  ],
+  "refutation": {
+    "path": "dialogue-lifecycle-r1-refutation.json",
+    "result": "The narrow stale examine finding survives. Broader permanent lockout, active-runner choice corruption and persistence-across-reload claims were rejected or left unmeasured."
+  },
+  "observations": [
+    {
+      "area": "Reload",
+      "claim": "A complete page reload constructs fresh Game/DialogueUI/Director objects and does not serialize the local examine closure.",
+      "kind": "Source inference, not a browser reload measurement."
+    },
+    {
+      "area": "Visual impact",
+      "claim": "The stylesheet displays #dlg.on and its hit descendants receive pointer events. This supports relevance after PLAY resumes but does not measure pixel overlap or browser hit testing.",
+      "kind": "Source inference."
+    },
+    {
+      "area": "Conversation runner",
+      "claim": "A separate quick Sol probe was attempted from the actual new-game position but its bounded approach ended outside a selected interaction, so PLAY never entered DIALOGUE. That attempt is retained as failed setup and provides no evidence about conversation-runner lifecycle or consequences.",
+      "kind": "Failed attempt retained in dialogue-lifecycle-r2-sol-probe.json; excluded from the finding."
+    }
+  ],
+  "minimalRepairScope": "The confirmed three UI routes share Director.onPlayerDeath, so cancelling the active reading there is the smallest demonstrated product repair. A broader runner/reset cleanup should be tested on its own behavior and must not fire normal completion effects merely to discard an interrupted exchange.",
+  "evidenceFiles": [
+    {
+      "path": "dialogue-lifecycle-r1-probe.mjs",
+      "bytes": 9357,
+      "sha256": "e2e53bab4cb8c63aebcf1e99ce18e14586b8dfd38f797ec2ec841d7b92f0d0ec"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-probe.json",
+      "bytes": 32245,
+      "sha256": "9af7ae2d61c1dd87c70acc79b575753c08508f6bef19593ed7362cccdb7da4e5"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-dom-fixture.mjs",
+      "bytes": 2990,
+      "sha256": "33aa6ae90d96bbfbd0d915b0fab769cf974e28d5628678f66dbd077952e2d607"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-game-fixture.mjs",
+      "bytes": 6667,
+      "sha256": "30da76a2ab4dbcd45d154b42907f72b613f2d98f63e109f9b27a1cbf7cfda171"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-city-fixture.mjs",
+      "bytes": 3024,
+      "sha256": "b1577a930599fe3710b2858feef593da805a4a56e646acb14001818b9f9ff5e5"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-source.json",
+      "bytes": 4231,
+      "sha256": "bc516fd3f86cab4c1535671d83f14003b9394f3b647a92065a769eda272ea46b"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-refutation.json",
+      "bytes": 6253,
+      "sha256": "6bda99529a04768101d122f189efd894fc41b2b112b3970efcede33168992c7c"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-refutation-probe.mjs",
+      "bytes": 16800,
+      "sha256": "96bdecb4c3ebb502c63c8ecf81096022fe4d66d2f420ec0fc26aafce043bcf92"
+    },
+    {
+      "path": "dialogue-lifecycle-r1-refutation-probe.json",
+      "bytes": 7194,
+      "sha256": "d31689fe1603f2b39b79b31aea1de7f90615868b2a6167171d5659d1fef519a8"
+    },
+    {
+      "path": "dialogue-lifecycle-r2-sol-probe.mjs",
+      "bytes": 8314,
+      "sha256": "8a03ec7e92095dac52582f63c758ab898c9d2be5e8ba46f92cac1b8d40988700"
+    },
+    {
+      "path": "dialogue-lifecycle-r2-sol-probe.json",
+      "bytes": 3375,
+      "sha256": "c92cb8347808ce9a22346e56bfc5e5c18f08642b7b27e77eaa728c606d2bb1b4"
+    }
+  ],
+  "snapshots": [
+    "dialogue-lifecycle-r1-source/",
+    "dialogue-lifecycle-r1-refutation-sources/"
+  ],
+  "limitations": [
+    "The exact committed source is frozen; product files were not edited. Later root changes are not assumed to be covered.",
+    "The DOM contract records classList, text, callbacks and synthetic pointer dispatch only. It has no CSS layout, hit testing, rendering, browser engine or trusted events.",
+    "The authored exterior staging position is explicit. The complete outdoor journey from the initial spawn to the cellar door was not played in this review.",
+    "Timer callbacks and menu panel content are deterministic fixtures. Simulation seconds were measured; wall-clock delays and fade rendering were not.",
+    "This examine route does not start DialogueRunner, so it cannot support a claim that old dialogue choices change the new progression.",
+    "No browser/server/socket was launched, no screenshot or smartphone result was produced, and no element status was changed."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

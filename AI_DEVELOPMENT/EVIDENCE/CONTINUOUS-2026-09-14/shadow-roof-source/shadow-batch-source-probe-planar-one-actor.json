@@ -1,0 +1,375 @@
+{
+  "environment": {
+    "node": "v24.19.0",
+    "three": "180",
+    "renderer": "installed WebGLShadowMap with recording renderBufferDirect; no WebGL context or pixels",
+    "materials": "opaque shadow-equivalent substitutes; signs use inert canvas",
+    "actorCostumes": [
+      "ren"
+    ],
+    "productPerformance": "not measured; Node timings are source CPU diagnostics only"
+  },
+  "sourceHashes": {
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/game/game.js": "8ceb37dba71927f2eb950b93fb60941d65b66c44c5dd995d393e99f2ed896354",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3"
+  },
+  "planarChecks": {
+    "geometries": 414,
+    "faces": 74253,
+    "originalTriangles": 252060,
+    "simplifiedTriangles": 167480,
+    "maxPlaneError": 0.000016948271470695886,
+    "maxBoundaryError": 0.000016948271469213592,
+    "maxRelativeAreaError": 7.941910808652801e-7
+  },
+  "world": {
+    "chunks": 43,
+    "tris": 241420,
+    "collision": {
+      "boxes": 1094,
+      "cells": 4691
+    },
+    "lights": 188,
+    "fx": 51,
+    "materials": 15
+  },
+  "vantages": [
+    {
+      "name": "stacks_yard",
+      "sourceShadowDraws": 81,
+      "proxyShadowDraws": 2,
+      "staticSources": 76,
+      "dynamicSources": 5,
+      "staticTriangles": 90908,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 28.952252000000044,
+      "vertices": 202587,
+      "maxVertexError": 0.000008264738890603956,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 53,
+        "triangles": 104112,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 196292,
+      "sourceSceneTotalDraws": 55
+    },
+    {
+      "name": "marrow_mid",
+      "sourceShadowDraws": 138,
+      "proxyShadowDraws": 2,
+      "staticSources": 133,
+      "dynamicSources": 5,
+      "staticTriangles": 62446,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 15.148533000000043,
+      "vertices": 149567,
+      "maxVertexError": 0.0000018417467230943197,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 152,
+        "triangles": 83646,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 147364,
+      "sourceSceneTotalDraws": 154
+    },
+    {
+      "name": "slip_edge",
+      "sourceShadowDraws": 137,
+      "proxyShadowDraws": 2,
+      "staticSources": 132,
+      "dynamicSources": 5,
+      "staticTriangles": 117714,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 34.99131299999999,
+      "vertices": 266742,
+      "maxVertexError": 0.000005910748647236052,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 168,
+        "triangles": 101834,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 220820,
+      "sourceSceneTotalDraws": 170
+    },
+    {
+      "name": "marrow_roof",
+      "sourceShadowDraws": 137,
+      "proxyShadowDraws": 2,
+      "staticSources": 132,
+      "dynamicSources": 5,
+      "staticTriangles": 118974,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 17.55323300000009,
+      "vertices": 270819,
+      "maxVertexError": 0.0000036811764603847873,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 118,
+        "triangles": 155008,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 275254,
+      "sourceSceneTotalDraws": 120
+    },
+    {
+      "name": "cut_trench",
+      "sourceShadowDraws": 109,
+      "proxyShadowDraws": 2,
+      "staticSources": 104,
+      "dynamicSources": 5,
+      "staticTriangles": 33888,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 5.800382000000127,
+      "vertices": 82757,
+      "maxVertexError": 0.000006037191037235077,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 103,
+        "triangles": 52364,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 87524,
+      "sourceSceneTotalDraws": 105
+    },
+    {
+      "name": "ventfield",
+      "sourceShadowDraws": 70,
+      "proxyShadowDraws": 2,
+      "staticSources": 65,
+      "dynamicSources": 5,
+      "staticTriangles": 15434,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 2.1575269999998454,
+      "vertices": 37348,
+      "maxVertexError": 0.000007405355387698065,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 60,
+        "triangles": 30548,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 47254,
+      "sourceSceneTotalDraws": 62
+    },
+    {
+      "name": "south_marrow",
+      "sourceShadowDraws": 140,
+      "proxyShadowDraws": 2,
+      "staticSources": 135,
+      "dynamicSources": 5,
+      "staticTriangles": 63110,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 9.853282000000036,
+      "vertices": 147841,
+      "maxVertexError": 0.000004564661857011255,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 140,
+        "triangles": 92650,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 157032,
+      "sourceSceneTotalDraws": 142
+    },
+    {
+      "name": "combat",
+      "sourceShadowDraws": 78,
+      "proxyShadowDraws": 2,
+      "staticSources": 73,
+      "dynamicSources": 5,
+      "staticTriangles": 88668,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 4.1740729999999076,
+      "vertices": 196504,
+      "maxVertexError": 0.000008264738890603956,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 49,
+        "triangles": 102612,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 192552,
+      "sourceSceneTotalDraws": 51
+    }
+  ],
+  "poses": [
+    {
+      "clip": "atk1",
+      "phase": 0.25,
+      "vertices": 196504,
+      "maxVertexError": 0.000010276444401479776,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "atk1",
+      "phase": 0.5,
+      "vertices": 196504,
+      "maxVertexError": 0.000010254105168015239,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "atk1",
+      "phase": 0.75,
+      "vertices": 196504,
+      "maxVertexError": 0.000011972080786632905,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "heavy",
+      "phase": 0.25,
+      "vertices": 196504,
+      "maxVertexError": 0.000010197352187307523,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "heavy",
+      "phase": 0.5,
+      "vertices": 196504,
+      "maxVertexError": 0.000012525586670419763,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "heavy",
+      "phase": 0.75,
+      "vertices": 196504,
+      "maxVertexError": 0.00000951422338787237,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "dodge",
+      "phase": 0.25,
+      "vertices": 196504,
+      "maxVertexError": 0.000009909272815455466,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "dodge",
+      "phase": 0.5,
+      "vertices": 196504,
+      "maxVertexError": 0.000011172385206034893,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "dodge",
+      "phase": 0.75,
+      "vertices": 196504,
+      "maxVertexError": 0.000009374975490019486,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "death",
+      "phase": 0.25,
+      "vertices": 196504,
+      "maxVertexError": 0.000009808503422772243,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "death",
+      "phase": 0.5,
+      "vertices": 196504,
+      "maxVertexError": 0.000013265908815071878,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "death",
+      "phase": 0.75,
+      "vertices": 196504,
+      "maxVertexError": 0.000010133706716108195,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "throw",
+      "phase": 0.25,
+      "vertices": 196504,
+      "maxVertexError": 0.000010694305416141467,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "throw",
+      "phase": 0.5,
+      "vertices": 196504,
+      "maxVertexError": 0.000008762201183972451,
+      "missing": 0,
+      "indexErrors": 0
+    },
+    {
+      "clip": "throw",
+      "phase": 0.75,
+      "vertices": 196504,
+      "maxVertexError": 0.00001037923307918639,
+      "missing": 0,
+      "indexErrors": 0
+    }
+  ],
+  "edgeCases": {
+    "hiddenActorPackIncluded": false,
+    "removedActorOwned": false,
+    "readdedActorIncluded": true,
+    "morphYDelta": 0.5250000953674316
+  },
+  "lifecycle": {
+    "geometryMemoryAfterGrowth": 2,
+    "geometryMemoryAfterDispose": 0,
+    "trackedAttributesAfterDispose": 0
+  },
+  "nodePrepareTiming": {
+    "samples": 120,
+    "p50": 0.3676030000001447,
+    "p95": 0.6000030000000152,
+    "max": 1.4422010000000682,
+    "dynamicPackTypedArrayBytesPerUpdate": 0,
+    "frameBudgetMs": 8
+  }
+}

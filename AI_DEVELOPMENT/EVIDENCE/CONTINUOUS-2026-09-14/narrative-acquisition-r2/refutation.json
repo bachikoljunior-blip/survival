@@ -1,0 +1,121 @@
+{
+  "round": 2,
+  "profile": "narrative-acquisition-method-independent-refutation",
+  "tier": "frozen-source-cpu-only",
+  "originalReview": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/review-raw.json",
+  "sourceManifest": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/source-manifest.json",
+  "independentScript": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/independent-cpu-refutation.mjs",
+  "independentResults": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/independent-cpu-results.json",
+  "result": "qualified",
+  "summary": "The narrow CPU-contract PASS survives. Six independent checks passed with no failed checks. One index-description claim needs correction, and the count-check and deterministic-driver limits must remain explicit. No real acquisition or product-quality conclusion follows.",
+  "originalReviewPreserved": true,
+  "frozenSourceUnmodified": true,
+  "productEdits": false,
+  "browserOrServerStarted": false,
+  "mutableRootRead": false,
+  "qualityJudgeEligibility": false,
+  "qualityJudgeRestriction": "Implementation source, CPU fixtures, and this review are not E8/E9 judge material. Eventual assessors require actual CI-emitted game material.",
+  "checks": {
+    "independentPassed": 6,
+    "independentFailed": 0,
+    "failedChecks": [],
+    "originalReportedGroups": 10,
+    "originalReportedFailures": 0,
+    "originalHarnessRerun": false,
+    "reason": "The original harness setup reads mutable root and rewrites snapshot metadata; it was inspected but not executed."
+  },
+  "claims": [
+    {
+      "id": "O1",
+      "status": "qualified",
+      "attemptedRefutation": "Instrumentation might alter receiver, arguments, return, or original exception identity; recorded values might be authored rather than localized UI values.",
+      "evidence": "Independent checks verified both wrappers' exact receiver, all four supplied arguments, one original call each, return identity, and original thrown-object identity. Real DialogueUI.show and showEnding methods were exercised with the actual Japanese localizer under DOM stubs.",
+      "correction": "The dialogue field is normalized this.full, and offered choices are localized arguments intended for the UI; these are not proof of finished rendered text. Ending paragraphs are post-method DOM text. Preservation is established for valid current receiver/data shapes, not arbitrary collector failures."
+    },
+    {
+      "id": "O2",
+      "status": "qualified",
+      "attemptedRefutation": "The recorded index might be an original authored node index, or localization might cause a different choice to be selected.",
+      "evidence": "Using actual translation c.sol_first.s2.choices.1, a filtered list retained original ci=1 while the driver recorded index=0 and called ui.onChoose(0). The selected text matched the actual Japanese translation.",
+      "correction": "Replace original authored index with position in the current filtered authored-language choice list. It is not the stable original node index ci. Source-language and localized list order agree in the tested case; no input recording is established."
+    },
+    {
+      "id": "O3",
+      "status": "qualified",
+      "attemptedRefutation": "A raw driver success could conceal browser errors or missing capture; count equality might be mistaken for event identity verification.",
+      "evidence": "Independent evaluation of the frozen predicates rejected driver errors, browser errors, no events, no ending, duplicate endings, missing selection, and empty ending title/body. The frozen final failure expression and exitCode assignment propagate those failures. Existing saved host fixtures also show process exit 1.",
+      "correction": "Retain raw per-path ok as driver-only status and require acquisition plus final process/report status. A same-count choice with index 99 and unoffered text passes the basic capture predicates: identity, ordering, and full event completeness are not verified. Startup/serialization failures can prevent an artifact entirely."
+    },
+    {
+      "id": "O4",
+      "status": "sustained",
+      "attemptedRefutation": "A manifest could describe bytes different from the frozen target or an index could reference a different bundle.",
+      "evidence": "Independent byte/hash checks matched the three target files, screens.js, i18n.js, index.html, and cinderline.1.0.0.js. The index names that bundle, whose SHA-256 is 0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b. Source checks bundle cardinality before server/browser launch; the saved CPU control reports pre-launch rejection of multiple matches.",
+      "correction": "This proves those frozen bytes and index correspondence. It does not authenticate a later build, live loaded assets, CI revision, or a clean tree at the manifest head."
+    },
+    {
+      "id": "O5",
+      "status": "sustained",
+      "attemptedRefutation": "Base64 chunks could omit bytes, corrupt UTF-8, differ from artifact newlines, or use a hash of different data.",
+      "evidence": "Independent parsing verified contiguous chunk offsets, lossless decoding, fatal UTF-8 decoding, exact file-byte equality, final newline, byte count and SHA. English: 2 chunks, 5893 bytes, SHA 35b73ddd84a2431a472f34ae42471b6d2ffcaf91e7eae31eea468d8f44ff326e. Japanese: 4 chunks, 11911 bytes, SHA 187379937c4889aff6373395165029ef9d62ab33b8fda78b8861067c02a0c1f3, including supplementary character, emoji and combining text.",
+      "correction": "Retain fixture-only and no-remote-retrieval limits. These saved CPU payloads are not actual playthrough material."
+    },
+    {
+      "id": "O6",
+      "status": "sustained",
+      "attemptedRefutation": "The workflow might omit the production build, transcript flag, second path, or failure-preserving upload.",
+      "evidence": "The frozen narrative-material job runs node build.mjs, then publish and deal with --transcript, followed by upload-artifact for shots with if: always().",
+      "correction": "No CI execution is demonstrated. Publish failure can prevent deal in this sequential shell step. Upload can preserve partial or failed material, so artifact presence alone is insufficient. No Japanese story path appears in this workflow job."
+    },
+    {
+      "id": "C1",
+      "claim": "The saved original suite reports ten passing groups.",
+      "status": "sustained",
+      "attemptedRefutation": "The reported count might differ from its result file or conceal an included failed control.",
+      "evidence": "cpu-contract-results.json reports ten PASS entries and zero failures, including the five incomplete-capture controls. Independent results are six targeted checks, not a claim to have rerun the ten-group harness.",
+      "correction": null
+    },
+    {
+      "id": "C2",
+      "claim": "Actual localized UI, choices and ending data are covered by the CPU contracts.",
+      "status": "qualified",
+      "attemptedRefutation": "Synthetic Japanese strings alone would not establish production localization behavior.",
+      "evidence": "The independent pass used actual localiseNode output and real Japanese choice, ending title and ending body translations with extracted production UI methods.",
+      "correction": "This establishes method/data contracts. It does not run the director's actual conditional ending selection, every translation, full narrative transitions, the complete DOM, or browser rendering."
+    },
+    {
+      "id": "C3",
+      "claim": "The deterministic-driver limits are honest.",
+      "status": "qualified",
+      "attemptedRefutation": "Source comments claiming the driver never fakes state could be mistaken for ordinary input-driven play.",
+      "evidence": "Code teleports with placeAt, sets gasImmune, forces hostile damage, finishes typewriter text, shortens crisis.timeLeft to 0.01, and forces Nessa's group visible. These directly support withholding ordinary-play and quality claims.",
+      "correction": "Preserve the review's restricted scope. If the driver is described in detail, include the forced countdown and visibility changes; do not adopt broad source comments about never faking state."
+    },
+    {
+      "id": "C4",
+      "claim": "PASS means no remaining demonstrated defect within this source/CPU contract review; score zero is Unscored.",
+      "status": "qualified",
+      "attemptedRefutation": "PASS or numeric zero could be consumed as acquisition success or a quality grade.",
+      "evidence": "The review explicitly withholds real browser acquisition, ordinary play, element completion, and E8/E9 judgments. The independent pass found no failed checked contract.",
+      "correction": "Retain those meanings and apply the O2 wording correction. PASS is not authorization to treat missing/failed CI material as successful evidence, and zero is not a performance score."
+    }
+  ],
+  "findings": [],
+  "survivingQualifications": [
+    "Recorded index is a current filtered-list position, not original ci.",
+    "Nonempty/count predicates do not establish event identity, order, or full transcript completeness.",
+    "Actual localizer/UI CPU contracts do not establish browser capture or conditional-ending integration.",
+    "Driver-assisted progression includes forced countdown and visibility changes as well as the already disclosed shortcuts."
+  ],
+  "evidenceFiles": [
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-contract.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-contract-results.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-incomplete-capture-cases.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-pageerror-case.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-log-en.txt",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-log-ja.txt",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-payload-en.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-payload-ja.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/independent-cpu-results.json"
+  ]
+}

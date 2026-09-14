@@ -1,0 +1,258 @@
+{
+  "baseCommit": "f13df49df4e8eea7870d6f2a18a408e82c1ba861",
+  "baseProductBundleSha256": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+  "checkedAt": "2026-09-14T19:13:06.177+09:00",
+  "completedWorkUnits": 0,
+  "elementVerdictsChanged": [],
+  "files": [
+    {
+      "bytes": 1350024,
+      "file": "light-direction-arcade-trial.png",
+      "sha256": "6b1f47e10e5785ef3ae39ea6b5e3d65a59d29134660a29314385ad8616460245"
+    },
+    {
+      "bytes": 1343305,
+      "file": "light-direction-cinder-trial.png",
+      "sha256": "8d1596e6647c0abf51f7f411b3ca5a071bbf7a20afe5953fba4b0b5c911c77e0"
+    },
+    {
+      "bytes": 1342942,
+      "file": "light-direction-marrow-trial.png",
+      "sha256": "2ad8f65eaf25f49ded084a73af3032b51c3615a5622c7ee14353e3c69bde3d2a"
+    },
+    {
+      "bytes": 1391428,
+      "file": "light-direction-plant-trial.png",
+      "sha256": "65edd5cf43bfe6f63c702a5e301c1ea0dff7589a348fc5757e43d6408aafe638"
+    },
+    {
+      "bytes": 1326347,
+      "file": "light-direction-south-trial.png",
+      "sha256": "24c31da7ef2eb0b152ce0dd987f265838a9105d4a0e33744fa6f94711937793c"
+    },
+    {
+      "bytes": 1372946,
+      "file": "light-direction-stacks-trial.png",
+      "sha256": "8251ff5bd0b29067f208f6fa4ba58357a12d45e703ba4fba99bb0029165d4611"
+    },
+    {
+      "bytes": 1322741,
+      "file": "light-direction-survey-trial.png",
+      "sha256": "8d58f743671d4f5f38c784c58e6d390b6abf223f1015a1c0414be9a72ba3548c"
+    },
+    {
+      "bytes": 1266346,
+      "file": "light-direction-ventfield-trial.png",
+      "sha256": "4dfa432199e8bc440875d81733a191df48ba9707c0914f1be8e772cadad02395"
+    },
+    {
+      "bytes": 360774,
+      "file": "report.json",
+      "sha256": "115e84d9a59f8c3130d4f7fbf6b5218bb58af1b836c96c25ff46e38dd1184018"
+    },
+    {
+      "bytes": 1341667,
+      "file": "visual-arcade-frame.png",
+      "sha256": "355283f0eda440e517e8355074876853c5bcf8ac575bcb4a3cf1b664a95d6bdc"
+    },
+    {
+      "bytes": 1337068,
+      "file": "visual-cinder-frame.png",
+      "sha256": "3208ab73ce1fd0dddbbf8cbf427e12ec74a0e0dbd0a79be1c2e094c6e776fbb9"
+    },
+    {
+      "bytes": 1341010,
+      "file": "visual-marrow-frame.png",
+      "sha256": "e5833dd745f6185d0c35ee98afd6548f0c4a9f3c4dbf4e5e8c77b5e73295a75f"
+    },
+    {
+      "bytes": 1024986,
+      "file": "visual-marrow_roof-frame.png",
+      "sha256": "4da412350140152d44fe2f25f77e4330de2162671691e2ddfee0b97363e9346a"
+    },
+    {
+      "bytes": 1384865,
+      "file": "visual-plant-frame.png",
+      "sha256": "f5cd413b517dc9940e3051e0944752f35cfceaa4cf12ae6a50962d9aa07f4359"
+    },
+    {
+      "bytes": 1326093,
+      "file": "visual-south-frame.png",
+      "sha256": "5a5aad06b44616d0c60e0b303d5c61962e2c8a8a3298b71cc3d789ee0e3de556"
+    },
+    {
+      "bytes": 1370455,
+      "file": "visual-stacks-frame.png",
+      "sha256": "ffc2677a35bbf903ede81b6386a1dcbfa46ca16fbd1191a4555a2e337566819f"
+    },
+    {
+      "bytes": 1323686,
+      "file": "visual-survey-frame.png",
+      "sha256": "a707e99c52fe7623c6efa01b5d75b5e50d14e09b6a0b061e3b9d986f1f89eb5b"
+    },
+    {
+      "bytes": 1252285,
+      "file": "visual-ventfield-frame.png",
+      "sha256": "9cdedb379cf5284e766e469135fbfa4e77a1fab1f00aa5a02a7c6ffc8ea9eb1b"
+    }
+  ],
+  "helper": {
+    "gitBlob": "641f9d15eff29e5e92c8e81f60759b1270daa5b7",
+    "sha256": "992126dba26564ca3e911c9799fe24cca652bac45ca593b9d5921e84a206c8fd",
+    "staticReview": "static-review.json"
+  },
+  "inference": {
+    "assumptions": "The recorded state envelope and source inspection cover relevant changes in this stopped, dt=0 rendering path.",
+    "claim": "The supplied frozen-view differences can be attributed to the main light direction in this bounded capture.",
+    "grounds": "Source inspection limits the intentional mutation to that offset; all eight state envelopes remain equal and restoring the original method/offset yields the exact original PNG pixels and bytes.",
+    "limits": "Does not demonstrate traversed gameplay, moving shadows, every interior, physical-device speed, whole-game quality or a blind preference."
+  },
+  "job": {
+    "conclusion": "success",
+    "id": 103934400786,
+    "rawLog": {
+      "bytes": 31433320,
+      "sha256": "81e155447405dfe1ea338c07fd6e3dc6a323b4cf30fd1eda9bbab4a18962b224"
+    },
+    "run": 34831102708,
+    "url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34831102708/job/103934400786"
+  },
+  "measured": {
+    "allCapturesAtNativeResolution": "1147x645",
+    "checks": 68,
+    "controlledViews": [
+      {
+        "before": "ffc2677a35bbf903ede81b6386a1dcbfa46ca16fbd1191a4555a2e337566819f",
+        "beforeDraws": 66,
+        "beforeTriangles": 195293,
+        "name": "stacks",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "ffc2677a35bbf903ede81b6386a1dcbfa46ca16fbd1191a4555a2e337566819f",
+        "stateUnchanged": true,
+        "trial": "8251ff5bd0b29067f208f6fa4ba58357a12d45e703ba4fba99bb0029165d4611",
+        "trialDraws": 66,
+        "trialTriangles": 195185,
+        "updateRestored": true
+      },
+      {
+        "before": "e5833dd745f6185d0c35ee98afd6548f0c4a9f3c4dbf4e5e8c77b5e73295a75f",
+        "beforeDraws": 187,
+        "beforeTriangles": 278001,
+        "name": "marrow",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "e5833dd745f6185d0c35ee98afd6548f0c4a9f3c4dbf4e5e8c77b5e73295a75f",
+        "stateUnchanged": true,
+        "trial": "2ad8f65eaf25f49ded084a73af3032b51c3615a5622c7ee14353e3c69bde3d2a",
+        "trialDraws": 187,
+        "trialTriangles": 280169,
+        "updateRestored": true
+      },
+      {
+        "before": "355283f0eda440e517e8355074876853c5bcf8ac575bcb4a3cf1b664a95d6bdc",
+        "beforeDraws": 130,
+        "beforeTriangles": 202237,
+        "name": "arcade",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "355283f0eda440e517e8355074876853c5bcf8ac575bcb4a3cf1b664a95d6bdc",
+        "stateUnchanged": true,
+        "trial": "6b1f47e10e5785ef3ae39ea6b5e3d65a59d29134660a29314385ad8616460245",
+        "trialDraws": 130,
+        "trialTriangles": 201677,
+        "updateRestored": true
+      },
+      {
+        "before": "3208ab73ce1fd0dddbbf8cbf427e12ec74a0e0dbd0a79be1c2e094c6e776fbb9",
+        "beforeDraws": 115,
+        "beforeTriangles": 182139,
+        "name": "cinder",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "3208ab73ce1fd0dddbbf8cbf427e12ec74a0e0dbd0a79be1c2e094c6e776fbb9",
+        "stateUnchanged": true,
+        "trial": "8d1596e6647c0abf51f7f411b3ca5a071bbf7a20afe5953fba4b0b5c911c77e0",
+        "trialDraws": 115,
+        "trialTriangles": 194623,
+        "updateRestored": true
+      },
+      {
+        "before": "a707e99c52fe7623c6efa01b5d75b5e50d14e09b6a0b061e3b9d986f1f89eb5b",
+        "beforeDraws": 97,
+        "beforeTriangles": 76087,
+        "name": "survey",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "a707e99c52fe7623c6efa01b5d75b5e50d14e09b6a0b061e3b9d986f1f89eb5b",
+        "stateUnchanged": true,
+        "trial": "8d58f743671d4f5f38c784c58e6d390b6abf223f1015a1c0414be9a72ba3548c",
+        "trialDraws": 97,
+        "trialTriangles": 86509,
+        "updateRestored": true
+      },
+      {
+        "before": "9cdedb379cf5284e766e469135fbfa4e77a1fab1f00aa5a02a7c6ffc8ea9eb1b",
+        "beforeDraws": 83,
+        "beforeTriangles": 54141,
+        "name": "ventfield",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "9cdedb379cf5284e766e469135fbfa4e77a1fab1f00aa5a02a7c6ffc8ea9eb1b",
+        "stateUnchanged": true,
+        "trial": "4dfa432199e8bc440875d81733a191df48ba9707c0914f1be8e772cadad02395",
+        "trialDraws": 83,
+        "trialTriangles": 60939,
+        "updateRestored": true
+      },
+      {
+        "before": "5a5aad06b44616d0c60e0b303d5c61962e2c8a8a3298b71cc3d789ee0e3de556",
+        "beforeDraws": 157,
+        "beforeTriangles": 158431,
+        "name": "south",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "5a5aad06b44616d0c60e0b303d5c61962e2c8a8a3298b71cc3d789ee0e3de556",
+        "stateUnchanged": true,
+        "trial": "24c31da7ef2eb0b152ce0dd987f265838a9105d4a0e33744fa6f94711937793c",
+        "trialDraws": 157,
+        "trialTriangles": 158785,
+        "updateRestored": true
+      },
+      {
+        "before": "f5cd413b517dc9940e3051e0944752f35cfceaa4cf12ae6a50962d9aa07f4359",
+        "beforeDraws": 58,
+        "beforeTriangles": 136071,
+        "name": "plant",
+        "offsetsVerified": true,
+        "pixelsRestored": true,
+        "restored": "f5cd413b517dc9940e3051e0944752f35cfceaa4cf12ae6a50962d9aa07f4359",
+        "stateUnchanged": true,
+        "trial": "65edd5cf43bfe6f63c702a5e301c1ea0dff7589a348fc5757e43d6408aafe638",
+        "trialDraws": 58,
+        "trialTriangles": 143079,
+        "updateRestored": true
+      }
+    ],
+    "drawCounts": "Unchanged within every before/trial pair. This is rendered workload, not frame rate or physical-device performance.",
+    "environment": "iPhone SE (3rd gen) landscape / Playwright webkit",
+    "failures": [],
+    "fixedDelta": {
+      "before": [
+        -30,
+        92,
+        34
+      ],
+      "trial": [
+        -56,
+        74,
+        43
+      ]
+    },
+    "scope": "Production view acquisition and optional reversible lighting diagnosis only; not the complete mobile surface gate."
+  },
+  "productChange": "none; trial temporarily changes the main light offset inside the existing frozen production renderer, then restores the original property descriptor and pixels",
+  "qualityEvaluation": "Independent source-known review completed: see visual-review.json. Mixed gain: clear local Marrow improvement, limited Arcade effect and Ventfield foot/ground contrast cost. No global product adoption; test a smaller direction change next.",
+  "schemaVersion": 1,
+  "transport": "Original PNG and report bytes recovered from contiguous 3000-byte base64 chunks with matching meta/end size and SHA-256. No crop, resize, recompression or colour transformation. The raw transport log is pinned; its complete decoded original files are preserved here."
+}

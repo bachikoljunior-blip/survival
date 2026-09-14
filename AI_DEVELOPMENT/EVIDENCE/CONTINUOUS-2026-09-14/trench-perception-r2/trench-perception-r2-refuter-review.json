@@ -1,0 +1,303 @@
+{
+  "round": "trench-perception-repair-separate-refutation-02",
+  "profile": "Separate hostile CPU/source refutation of traversal and repeated-entry repair findings",
+  "tier": "medium CPU geometry; no GPU or physical audio",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "Required no-raster sentinel; no resolution was measured.",
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Required schema sentinel only; not a product or element score.",
+  "blindComparison": "Not performed. These source-labelled CPU probes cannot establish an unlabelled stranger preference, visual or audio quality, or an element/product pass.",
+  "scope": "Independent source-labelled CPU refutation. Real City/Player/Actor movement and collision, Game input mapping, AI/perception, Combat/Director/QuestSystem/Storage. Appearance, input acquisition, UI, camera/post outputs and WebAudio device are fixture stubs. No browser, renderer, listening, product pass or blind comparison.",
+  "reviewedSourcePins": {
+    "src/game/director.js": "0ca1755de0ca76bbe18b48cba1753ff2ba107aaea3b4ff7c89a2bc9d139ebd22",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "sourceHashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "a45c2ce94362ee5489089a245087567f1ace550388f5c49366d4f7e6dc1ec772",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "b50ab205bd9a91df3a44cda7e2385802c926a18c620c66ebf15c5ca870afe3b8",
+    "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "0ca1755de0ca76bbe18b48cba1753ff2ba107aaea3b4ff7c89a2bc9d139ebd22",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "sourceUnchangedAcrossIndependentProbes": true,
+  "independence": "A separate refuter wrote fresh probes and used actual production methods. Prior draft and failed/successful probes were retained. No product source file was edited and no subagents were spawned.",
+  "findings": [
+    {
+      "id": "R2-REENTRY",
+      "severity": "minor",
+      "shot": "trench-perception-r2-refuter-probe-01.json :: prepoll-reentry-real-timer-and-previous-control/current",
+      "problem": "A normal Game tick resets the reach timer; a real order interaction on the following tick produces trench_talked=true, trench_passed=false and cinderline step 1 at t=0.033333 s, with 0.233333 s remaining before the next poll. A valid saved/restored state then contains three neutral enemies. Two immediate reenterActiveSteps calls increase the count to six and nine. The previous reviewed Director holds three, three, three under the same current AI/City/Props code.",
+      "why": "This is an introduced violation of the explicit idempotence contract on active-step hooks and the requested repeated-spawn control. Nine neutral bodies remain after the later poll advances the quest. It is minor: ordinary repeated applySave calls reset the world and stay at three, and a normal user journey that repeats the hook without reset was not established.",
+      "owner": "src/game/director.js",
+      "fix": "Make spawnTrenchLine idempotent for talked=true/passed=false before the passage poll, while preserving next-poll quest progression. Target: constant neutral Enemy count across applySave then two reenterActiveSteps calls, with step 2 after the subsequent normal poll. Run a fresh-named copy of trench-perception-r2-refuter-probe-01.mjs and inspect prepoll-reentry-real-timer-and-previous-control/current.counts; it must be constant. Do not treat normal applySave reset alone as a repair to repeated-hook behavior.",
+      "hypothesis": "Confirmed source mechanism: spawnTrenchLine proceeds while trench_passed is false; _spawnRaid creates a group, then _standDownTrench neutralizes it and clears _raidActive. The next identical entry has no live-group identity guard, so another neutral group is created. The previous Director retains the raid identity.",
+      "introducedByChange": true,
+      "classification": "New repair regression relative to previously reviewed Director eb347f5eed42b31ed5db61dd8d3e3a6d8ff9ea400fe874e356fe78cde6aaef61, with all other current modules held fixed.",
+      "refutationStatus": "survived-with-materiality-limit",
+      "refutationAttempts": {
+        "correctness": "Failed to refute. The independent setup does not assign the poll timer or any passage flag. One actual Game tick establishes the timer, then normal target selection and input handoff grant the order. Storage.save/load/applySave accept the actual state; repeat calls create distinct Enemy IDs.",
+        "reproducibility": "Failed to refute. Independent current pins reproduce 3/6/9 versus previous-reviewed 3/3/3, with zero probe errors, zero swallowed errors and all tracked source hashes unchanged.",
+        "materiality": "Only the minor contract defect survives. The normal save state can occur, and main.js saveOnExit explicitly permits dialogue saves. However production applySave resets the world, and the known retry path also clears enemies before its single reentry. Direct repeated reenterActiveSteps is an intentional contract probe, not evidence that a routine single load creates nine enemies.",
+        "baselineVersusIntroduced": "Failed to refute introduced classification. Counterfactual swaps only the previous pinned Director while retaining current AI, City and Props, isolating the loss of the active-group guard."
+      },
+      "measurements": [
+        {
+          "label": "current",
+          "acceptanceTime": 0.03333333333333333,
+          "reachTimer": 0.23333333333333334,
+          "acceptedQuest": {
+            "state": "active",
+            "step": 1,
+            "data": {}
+          },
+          "acceptedFlags": [
+            "trench_talked"
+          ],
+          "normalApplySaveCounts": [
+            3,
+            3,
+            3
+          ],
+          "reenterCounts": [
+            3,
+            6,
+            9
+          ],
+          "afterPollQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "afterPollEnemyCount": 9
+        },
+        {
+          "label": "previous-reviewed",
+          "acceptanceTime": 0.03333333333333333,
+          "reachTimer": 0.23333333333333334,
+          "acceptedQuest": {
+            "state": "active",
+            "step": 1,
+            "data": {}
+          },
+          "acceptedFlags": [
+            "trench_talked"
+          ],
+          "normalApplySaveCounts": [
+            3,
+            3,
+            3
+          ],
+          "reenterCounts": [
+            3,
+            3,
+            3
+          ],
+          "afterPollQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "afterPollEnemyCount": 3
+        }
+      ],
+      "evidence": [
+        "trench-perception-r2-refuter-probe-01.mjs",
+        "trench-perception-r2-refuter-probe-01.json",
+        "trench-perception-r2-refuter-probe-01.log",
+        "trench-perception-r2-fixture-v1.mjs",
+        "trench-perception-reviewed-director-current.js",
+        "src/game/director.js::_hooks/spawnTrenchLine/_standDownTrench/applySave",
+        "src/game/narrative.js::reenterActiveSteps",
+        "src/main.js::saveOnExit"
+      ]
+    }
+  ],
+  "refutedFindings": [
+    {
+      "id": "R2-HEAP-CLIMB",
+      "status": "refuted-as-open-traversal-defect",
+      "keepAsFinding": false,
+      "disposition": "Remove from surviving findings. Preserve the six direct-approach failures as an observed input-path limitation, not proof that the heap traversal repair remains incomplete.",
+      "whatSurvives": "The original six direct-to-center routes failed. Independent east and south direct routes reproduce 1.3 m and 0 m maximum grounded height respectively. Their actual tryVault landing probes are overlapped by the next tier, exactly as the draft says.",
+      "whatIsRefuted": "Those sampled failures do not establish that a supported normal Player route cannot complete the climb. Three bounded oblique input paths climb to grounded 2.6 m through two real auto-vaults, and one succeeds again with the actual cinderline quest and Enemy/AI systems active.",
+      "correctness": "The draft measurements and sampled rejection mechanism are correct. The inference that the repair cannot close the advertised over-the-line traversal is displaced by a successful continuous real-input path.",
+      "reproducibility": "Probe 01 preserves all two direct failures, initial failed tryVault attempts within each later-successful route, and all three successful oblique paths. Probe 02 repeats one successful path with the actual quest, all four target hashes unchanged and zero errors.",
+      "materiality": "A change to tier count is not justified by this finding alone. Discoverability, visual readability, touch difficulty, or whether ordinary players naturally choose this path were not measured and must not be substituted as new asserted defects.",
+      "classification": "Previous heap absence was preexisting and the current runtime geometry is new. Its direction-dependent vault rejections are introduced by the new tier layout, but the complete physical and positional-quest route now has CPU evidence; introducedByChange=false on a removed generic defect is not an actionable regression classification.",
+      "successfulRoute": {
+        "start": [
+          96,
+          16
+        ],
+        "initial": {
+          "ground": {
+            "y": 0.9000000000000004,
+            "tag": "pitwall"
+          },
+          "overlap": null
+        },
+        "waypoints": [
+          [
+            92.75,
+            15.3
+          ],
+          [
+            91.9,
+            17.5
+          ],
+          [
+            90,
+            16
+          ]
+        ],
+        "input": "Actual Game input, magnitude 1, no sprint. Seek (92.75,15.3) until distance<0.14, then seek (91.9,17.5) until grounded height>1.9, then seek (90,16). No position/Y assignments after the initial supported setup.",
+        "elapsedSeconds": 2.3833333333333298,
+        "maxGroundedY": 2.6,
+        "finalPosition": [
+          90.01529122570088,
+          2.6,
+          16.415701443106556
+        ],
+        "quest": {
+          "state": "active",
+          "step": 2,
+          "data": {}
+        },
+        "flags": [
+          "trench_passed",
+          "trench_slipped"
+        ],
+        "mode": "dialogue",
+        "vaultTimes": [
+          1.0500000000000012,
+          1.8499999999999983
+        ],
+        "scope": "This establishes the segment from an explicitly supported approach point through grounded arrival and the positional quest transition. It does not establish a complete chapter journey from an earlier location, rendered surface correspondence, player discoverability or touch feel."
+      },
+      "evidence": [
+        "trench-perception-r2-refuter-probe-01.mjs",
+        "trench-perception-r2-refuter-probe-01.json",
+        "trench-perception-r2-refuter-probe-01.log",
+        "trench-perception-r2-refuter-probe-02.mjs",
+        "trench-perception-r2-refuter-probe-02.json",
+        "trench-perception-r2-refuter-probe-02.log",
+        "src/actors/player.js::tryVault/_updateMovement",
+        "src/world/city.js::_prop",
+        "src/game/director.js::_checkTrenchPassed"
+      ]
+    }
+  ],
+  "controlsRefutation": [
+    {
+      "claim": "Accepted order cancels an already committed attack before damage",
+      "status": "survives",
+      "evidence": "trench-perception-r2-refuter-probe-01.json :: committed-attack-cancel-and-natural-hit-control",
+      "detail": "Independent no-acceptance positive control reaches two real Warden hits totaling 23 damage from a naturally committed swing/chain. The separate accepted case uses actual target selection/input just before the active frame, clears attack/token/target/camera lock and takes zero Warden damage over the following eight CPU seconds. No attack or perception method was forced.",
+      "limits": "Games use process-global actor-ID RNG, so exact timing differs between cases. This is a real-production-path cancellation control, not an identical-state deterministic rewind."
+    },
+    {
+      "claim": "Neutral line members do not reacquire Ren or join unrelated reinforcement calls",
+      "status": "survives",
+      "evidence": "trench-perception-r2-refuter-probe-01.json :: neutral-reinforcement-exclusion-with-hostile-positive",
+      "detail": "Actual new Warden perception triggers the real _alertNearby call. A nearby hostile is recruited; nearby neutral line members and a player-faction control are excluded. The neutral scav retains actual gas-flee behavior. Current AI source checks faction both before sight/hearing acquisition and inside reinforcement recruitment."
+    },
+    {
+      "claim": "Legacy rubble calls preserve geometry arrays and RNG stream when new options are omitted",
+      "status": "survives-for-tested-controls",
+      "evidence": "trench-perception-r2-refuter-probe-01.json :: legacy-rubble-identity-and-runtime-cleanup",
+      "detail": "Independent calls at radius 3/h1.5 with seed refuter and radius8/h2.6 with seed plant exactly match all geometry arrays and the next RNG value against baseline Props. Parent probe02 adds three deterministic controls. This is geometry/RNG compatibility evidence; it is not a rendered appearance judgment."
+    },
+    {
+      "claim": "Runtime removal restores collision/support/lights and removes collider IDs",
+      "status": "survives",
+      "evidence": "trench-perception-r2-refuter-probe-01.json :: legacy-rubble-identity-and-runtime-cleanup",
+      "detail": "Full City before/raised/removed counts are 1094/1108/1094 collision boxes, center support 0.9/2.6/0.9 m and 188/193/188 lights. Removed runtime collider IDs are absent from the actual query, and the runtime group is absent from its map."
+    },
+    {
+      "claim": "Topic-only read-to-PLAY and 90-second autosave control",
+      "status": "survives-as-isolated-lifecycle-control",
+      "evidence": "trench-perception-r2-probe-02.mjs/json :: read-completion-and-90-second-autosave-lifecycle",
+      "detail": "Reviewed the retained script/output. It explicitly omits the active finale quest and relocates once to avoid unrelated gas death before the timer. Its successful autosave demonstrates the active-raid policy is released; it cannot establish normal post-ending PLAY."
+    },
+    {
+      "claim": "Actual final dialogue, passed-save reentry and completed ending flow",
+      "status": "supported-by-reviewed-parent-probe-not-independently-rerun",
+      "evidence": "trench-perception-r2-probe-03.mjs/json/log :: normal-final-dialogue-ending-and-passed-save-reentry",
+      "detail": "Reviewed the fresh source-stable raw probe. Actual order handoff and eight seconds of final dialogue, step2 save/apply and repeated reentry/hooks, then actual DialogueRunner callbacks through authored leave choice produce CINEMATIC and a completed save. Eight further CPU seconds contain zero Warden damage. Loaded step2 has zero enemies. This closes the specifically missing finale integration observation within CPU scope, without asserting normal post-ending PLAY or rendered ending quality."
+    }
+  ],
+  "observations": [
+    {
+      "id": "R2-DIRECT-APPROACH",
+      "status": "measured-route-limitation",
+      "detail": "Direct-to-center east/south attempts stop at 1.3 m/0 m because the next tier overlaps the sampled vault landing. Oblique steering succeeds. Retain both outcomes; do not discard failed paths or call all paths untraversable."
+    },
+    {
+      "id": "R2-ITEM",
+      "status": "prior-observation-not-upgraded",
+      "detail": "Parent runtime setup with countItem(trenchOrder)=0 accepts the authored interaction, and requiresItem has no consuming branch. Full authored progression reachability in that state remains unmeasured. No new introduced exploit or mandatory repair is asserted here."
+    }
+  ],
+  "retainedAttempts": {
+    "probeErrors": [],
+    "failedTraversalAttempts": [
+      "probe-01 east-direct: max grounded 1.3 m, no vault",
+      "probe-01 south-direct: max grounded 0 m, no vault",
+      "probe-01 oblique routes: initial rejected tryVault attempts preserved before later successful vaults"
+    ],
+    "counterexampleEvidence": "probe-01 three successful oblique routes and probe-02 actual-quest successful route are preserved alongside direct failures.",
+    "predecessors": "All previous round 1 and round 2 artifacts remain unchanged; no earlier output was overwritten."
+  },
+  "recommendations": [
+    "Remove R2-HEAP-CLIMB from surviving defects; retain direct-approach measurements as observations and successful route as a CPU control.",
+    "Keep R2-REENTRY as an introduced minor hook-idempotence defect with normal-single-load limitation.",
+    "Do not make a tier redesign solely to resolve the refuted generic traversal finding.",
+    "Keep attack cancellation, neutral faction, legacy geometry/RNG, cleanup and finale claims within their measured scopes."
+  ],
+  "rawArtifacts": [
+    "trench-perception-r2-refuter-probe-01.mjs",
+    "trench-perception-r2-refuter-probe-01.json",
+    "trench-perception-r2-refuter-probe-01.log",
+    "trench-perception-r2-refuter-probe-02.mjs",
+    "trench-perception-r2-refuter-probe-02.json",
+    "trench-perception-r2-refuter-probe-02.log"
+  ],
+  "productFilesEdited": []
+}

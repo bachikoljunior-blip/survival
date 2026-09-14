@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "purpose": "Recover the already selected and locally verified E9 Joyce r2 extraction without restarting selection or changing the benchmark.",
+  "recovery_agent": "/root/acquisition_path_review",
+  "recovery_method": "Memory-only reconstruction from this agent's previously observed source/tool outputs. No current local execution, file access, file write, deletion or source reacquisition.",
+  "status": "Source and metadata recovery only; no new extraction execution, comparison, or benchmark verdict.",
+  "retained_store_inventory": {
+    "existing_exact_key_probes": "13 requested filename/path variants returned undefined. No known original store key; unknown keys were not enumerated or exhaustively probed.",
+    "new_recovery_keys": [
+      "e9_recovery_retained_r1_extract_source",
+      "e9_recovery_r2_extract_from_retained_r1_and_observed_diff",
+      "e9_recovery_extract_source_provenance"
+    ],
+    "absent_full_contents": [
+      "disco-e9-reader-r2/reference-reader.json",
+      "disco-e9-reader-r2/reader.json",
+      "r2 field-pins.json",
+      "r2 private-source-audit.json",
+      "candidate source/body",
+      "formatter source",
+      "verification.json original serialized bytes",
+      "verification-raw.json original serialized bytes"
+    ],
+    "verification_script": "The complete verify-joyce.py patch was authored in prior work, but its exact bytes and original SHA are not recoverable from the currently retained summarized output; this capsule does not invent an exact copy."
+  },
+  "extraction": {
+    "r1": {
+      "filename": "disco-e9-reader-r1/extract.py",
+      "utf8_bytes": 7514,
+      "sha256": "112725987c714912d6d706492248ba7236e709075c66c47d9dd97464400b7b89",
+      "known_original_sha256_matched_in_memory": true,
+      "source": "\"\"\"Private authored-dialogue reader; no game execution or state inference.\"\"\"\nfrom pathlib import Path\nfrom collections import defaultdict,deque\nimport sqlite3,json,hashlib\nroot=Path(__file__).resolve().parent.parent;out=Path(__file__).resolve().parent\ndbpath=root/'reference-materials/disco/public-dialogue-db/disco.db'\nassert hashlib.sha256(dbpath.read_bytes()).hexdigest()=='ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5'\ndb=sqlite3.connect('file:'+str(dbpath)+'?mode=ro',uri=True);db.row_factory=sqlite3.Row;db.execute('PRAGMA query_only=ON')\ndef rows(sql,params=()):return [dict(x) for x in db.execute(sql,params)]\nactors={a['id']:a['name'] for a in rows('select id,name from actors')}\n# Topic boundaries are existing return hubs, not word-count truncations.\nplan=[\n {'subject':72,'units':[{'cid':992,'roots':[0],'stops':[]}],'reason':'Bereavement notification and the children; whole existing conversation, including alternate responses.'},\n {'subject':3,'units':[{'cid':659,'roots':[31,35],'stops':[3]}],'reason':'Disposition of the body and responsibility for the case, stopping at the existing general inspection hub. Also appears with Billie in the first unit.'},\n {'subject':6,'units':[{'cid':1274,'roots':[317],'stops':[]}],'reason':'Attempting to leave opens the debt dispute; include every ensuing branch to its endpoint.'},\n {'subject':5,'units':[{'cid':1038,'roots':[371],'stops':[]},{'cid':1037,'roots':[2,115,23],'stops':[17]}],'reason':'Signature request with every address variant, then separate post-letter context and fine-print dispute; these are separate authored units, not an executed timeline.'},\n {'subject':11,'units':[{'cid':759,'roots':[300],'stops':[439]}],'reason':'The takeover report through escalation and response, stopping at the existing subsequent conversation hub.'},\n {'subject':18,'units':[{'cid':865,'roots':[0],'stops':[]}],'reason':'Whole existing conversation about his relationship, pressure and agency; not a merged path through all choices.'},\n]\nprivate=[];reader=[];pins=[];all_rows=[];unresolved={(1037,10),(1037,114),(765,1140),(765,1203)}\nfor person_i,p in enumerate(plan,1):\n    group={'subject':actors[p['subject']],'units':[]};reader.append(group)\n    for unit_i,spec in enumerate(p['units'],1):\n        cid=spec['cid'];nodes={n['id']:n for n in rows('select * from temp_table where conversationid=? order by id',(cid,))}\n        links=rows('select rowid,* from dlinks where originconversationid=? order by rowid',(cid,));edges=defaultdict(list)\n        for l in links:edges[l['origindialogueid']].append(l)\n        q=deque(spec['roots']);selected=[];seen=set();bounds=[]\n        while q:\n            n=q.popleft()\n            if n in seen:continue\n            seen.add(n)\n            if n in spec['stops'] or (cid,n) in unresolved:continue\n            assert n in nodes;selected.append(n)\n            for l in edges[n]:\n                if l['destinationconversationid']!=cid or l['destinationdialogueid'] in spec['stops'] or (cid,l['destinationdialogueid']) in unresolved:\n                    bounds.append(l)\n                else:q.append(l['destinationdialogueid'])\n        label={n:f'N{i:03}' for i,n in enumerate(selected,1)}\n        unit={'id':f'U{person_i}.{unit_i}','entry':[label[n] for n in spec['roots']],'nodes':[],'boundary_note':'Leaving this selected authored unit ends the excerpt; linked material outside is not represented as an executed event.'}\n        group['units'].append(unit)\n        audit={'subject_id':p['subject'],'reason':p['reason'],'spec':spec,'selected_ids':selected,'boundaries':bounds,'incoming_from_outside':[],'raw_nodes':[],'alternates':[],'checks':[],'modifiers':[]}\n        for n in selected:\n            v=nodes[n];alts=rows('select rowid,* from alternates where conversationid=? and dialogueid=? order by rowid',(cid,n));checks=rows('select * from checks where conversationid=? and dialogueid=?',(cid,n));mods=rows('select * from modifiers where conversationid=? and dialogueid=?',(cid,n))\n            audit['raw_nodes'].append(v);audit['alternates'].extend(alts);audit['checks'].extend(checks);audit['modifiers'].extend(mods)\n            for link in rows('select * from dlinks where destinationconversationid=? and destinationdialogueid=?',(cid,n)):\n                if link['originconversationid']!=cid or link['origindialogueid'] not in label:audit['incoming_from_outside'].append(link)\n            raw=v['dialoguetext'];prose=raw if raw is not None and raw.strip() not in ('','0') else None\n            item={'id':label[n],'speaker':actors.get(v['actor'],'Unspecified'),'text':prose,'state_dependent':bool(v['conditionstring']),'alternates':[{'variant':f'V{i:02}','text':a['alternateline'],'state_dependent':bool(a['condition'])} for i,a in enumerate(alts,1)],'continuations':[label[l['destinationdialogueid']] if l['destinationconversationid']==cid and l['destinationdialogueid'] in label else 'outside selected unit' for l in edges[n]],'conditional_routing':bool(v['isgroup'] or v['conditionstring'] or checks),'check_authored':bool(checks)}\n            unit['nodes'].append(item)\n            fields=[('dialoguetext',raw)]+[(f'alternates.rowid={a[\"rowid\"]}.alternateline',a['alternateline']) for a in alts]\n            for field,text in fields:\n                b=('' if text is None else text).encode();pins.append({'unit':unit['id'],'node':label[n],'coordinate':f'{cid}:{n}','field':field,'null':text is None,'utf8_bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})\n        private.append(audit)\npackage={'notice':'Authored dialogue with alternatives, not a played transcript. Listed paths and state variants need not be simultaneously available or executable. Separate units are not asserted to occur in the displayed order. Parent-state requirements may apply even when a line has no own state condition. No spoken text has been added.','subjects':reader}\nfor name,value in [('reader.json',package),('private-source-audit.json',private),('field-pins.json',pins)]:\n    b=json.dumps(value,ensure_ascii=False,indent=2).encode();assert json.loads(b)==value;(out/name).write_bytes(b+b'\\n')\nmanifest={'status':'constructed; independent source/context adequacy review pending; not blind-comparison ready','database_sha256':hashlib.sha256(dbpath.read_bytes()).hexdigest(),'source_inference':'Pinned third-party extraction with only a limited prior displayed-text cross-check; not official full-game certification. Runtime execution, alternate priority and state satisfiability are not measured.','subjects':len(reader),'units':len(private),'nodes':sum(len(a['raw_nodes']) for a in private),'alternates':sum(len(a['alternates']) for a in private),'text_fields':len(pins),'source_word_count':sum(len((n['dialoguetext'] or '').split()) for a in private for n in a['raw_nodes']),'reader_sha256':hashlib.sha256((out/'reader.json').read_bytes()).hexdigest(),'entry_unconfirmed_rows':'The previously identified four rows remain in the original DB and private audit; none is silently inserted into a selected scene.','excluded_context':'All outgoing and incoming excerpt boundaries are explicit in private-source-audit.json. Six names/counts alone do not establish adequate character coverage.','role':'Coordinator source extraction only. No benchmark/reference/status change. Full dialogue analysis remains private and is excluded from the game and distribution.'}\n(out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\\n');print(json.dumps(manifest,ensure_ascii=False))\n"
+    },
+    "sole_observed_r1_to_r2_change": {
+      "filename": "extract.py",
+      "before": " {'subject':11,'units':[{'cid':759,'roots':[300],'stops':[439]}],'reason':'The takeover report through escalation and response, stopping at the existing subsequent conversation hub.'},",
+      "after": " {'subject':11,'units':[{'cid':759,'roots':[300],'stops':[440,441,442,443]}],'reason':'The takeover report and its direct decision, plan and authority responses through439→444. Optional historical follow-ups440-443 are explicit excerpt boundaries. Preserve alternate decisions as separate branches.'},",
+      "occurrence_count": 1,
+      "qualification": "This exact one-line diff was observed during the completed r2 verification. All other extractor bytes were unchanged at that comparison."
+    },
+    "r2_reconstructed": {
+      "filename": "disco-e9-reader-r2/extract.py",
+      "utf8_bytes": 7633,
+      "sha256": "6fd09d2d7d1b3e006b48c224e9065b6cfe6e4e4462c73e518c8c357bdb2edcaa",
+      "source": "\"\"\"Private authored-dialogue reader; no game execution or state inference.\"\"\"\nfrom pathlib import Path\nfrom collections import defaultdict,deque\nimport sqlite3,json,hashlib\nroot=Path(__file__).resolve().parent.parent;out=Path(__file__).resolve().parent\ndbpath=root/'reference-materials/disco/public-dialogue-db/disco.db'\nassert hashlib.sha256(dbpath.read_bytes()).hexdigest()=='ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5'\ndb=sqlite3.connect('file:'+str(dbpath)+'?mode=ro',uri=True);db.row_factory=sqlite3.Row;db.execute('PRAGMA query_only=ON')\ndef rows(sql,params=()):return [dict(x) for x in db.execute(sql,params)]\nactors={a['id']:a['name'] for a in rows('select id,name from actors')}\n# Topic boundaries are existing return hubs, not word-count truncations.\nplan=[\n {'subject':72,'units':[{'cid':992,'roots':[0],'stops':[]}],'reason':'Bereavement notification and the children; whole existing conversation, including alternate responses.'},\n {'subject':3,'units':[{'cid':659,'roots':[31,35],'stops':[3]}],'reason':'Disposition of the body and responsibility for the case, stopping at the existing general inspection hub. Also appears with Billie in the first unit.'},\n {'subject':6,'units':[{'cid':1274,'roots':[317],'stops':[]}],'reason':'Attempting to leave opens the debt dispute; include every ensuing branch to its endpoint.'},\n {'subject':5,'units':[{'cid':1038,'roots':[371],'stops':[]},{'cid':1037,'roots':[2,115,23],'stops':[17]}],'reason':'Signature request with every address variant, then separate post-letter context and fine-print dispute; these are separate authored units, not an executed timeline.'},\n {'subject':11,'units':[{'cid':759,'roots':[300],'stops':[440,441,442,443]}],'reason':'The takeover report and its direct decision, plan and authority responses through439→444. Optional historical follow-ups440-443 are explicit excerpt boundaries. Preserve alternate decisions as separate branches.'},\n {'subject':18,'units':[{'cid':865,'roots':[0],'stops':[]}],'reason':'Whole existing conversation about his relationship, pressure and agency; not a merged path through all choices.'},\n]\nprivate=[];reader=[];pins=[];all_rows=[];unresolved={(1037,10),(1037,114),(765,1140),(765,1203)}\nfor person_i,p in enumerate(plan,1):\n    group={'subject':actors[p['subject']],'units':[]};reader.append(group)\n    for unit_i,spec in enumerate(p['units'],1):\n        cid=spec['cid'];nodes={n['id']:n for n in rows('select * from temp_table where conversationid=? order by id',(cid,))}\n        links=rows('select rowid,* from dlinks where originconversationid=? order by rowid',(cid,));edges=defaultdict(list)\n        for l in links:edges[l['origindialogueid']].append(l)\n        q=deque(spec['roots']);selected=[];seen=set();bounds=[]\n        while q:\n            n=q.popleft()\n            if n in seen:continue\n            seen.add(n)\n            if n in spec['stops'] or (cid,n) in unresolved:continue\n            assert n in nodes;selected.append(n)\n            for l in edges[n]:\n                if l['destinationconversationid']!=cid or l['destinationdialogueid'] in spec['stops'] or (cid,l['destinationdialogueid']) in unresolved:\n                    bounds.append(l)\n                else:q.append(l['destinationdialogueid'])\n        label={n:f'N{i:03}' for i,n in enumerate(selected,1)}\n        unit={'id':f'U{person_i}.{unit_i}','entry':[label[n] for n in spec['roots']],'nodes':[],'boundary_note':'Leaving this selected authored unit ends the excerpt; linked material outside is not represented as an executed event.'}\n        group['units'].append(unit)\n        audit={'subject_id':p['subject'],'reason':p['reason'],'spec':spec,'selected_ids':selected,'boundaries':bounds,'incoming_from_outside':[],'raw_nodes':[],'alternates':[],'checks':[],'modifiers':[]}\n        for n in selected:\n            v=nodes[n];alts=rows('select rowid,* from alternates where conversationid=? and dialogueid=? order by rowid',(cid,n));checks=rows('select * from checks where conversationid=? and dialogueid=?',(cid,n));mods=rows('select * from modifiers where conversationid=? and dialogueid=?',(cid,n))\n            audit['raw_nodes'].append(v);audit['alternates'].extend(alts);audit['checks'].extend(checks);audit['modifiers'].extend(mods)\n            for link in rows('select * from dlinks where destinationconversationid=? and destinationdialogueid=?',(cid,n)):\n                if link['originconversationid']!=cid or link['origindialogueid'] not in label:audit['incoming_from_outside'].append(link)\n            raw=v['dialoguetext'];prose=raw if raw is not None and raw.strip() not in ('','0') else None\n            item={'id':label[n],'speaker':actors.get(v['actor'],'Unspecified'),'text':prose,'state_dependent':bool(v['conditionstring']),'alternates':[{'variant':f'V{i:02}','text':a['alternateline'],'state_dependent':bool(a['condition'])} for i,a in enumerate(alts,1)],'continuations':[label[l['destinationdialogueid']] if l['destinationconversationid']==cid and l['destinationdialogueid'] in label else 'outside selected unit' for l in edges[n]],'conditional_routing':bool(v['isgroup'] or v['conditionstring'] or checks),'check_authored':bool(checks)}\n            unit['nodes'].append(item)\n            fields=[('dialoguetext',raw)]+[(f'alternates.rowid={a[\"rowid\"]}.alternateline',a['alternateline']) for a in alts]\n            for field,text in fields:\n                b=('' if text is None else text).encode();pins.append({'unit':unit['id'],'node':label[n],'coordinate':f'{cid}:{n}','field':field,'null':text is None,'utf8_bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})\n        private.append(audit)\npackage={'notice':'Authored dialogue with alternatives, not a played transcript. Listed paths and state variants need not be simultaneously available or executable. Separate units are not asserted to occur in the displayed order. Parent-state requirements may apply even when a line has no own state condition. No spoken text has been added.','subjects':reader}\nfor name,value in [('reader.json',package),('private-source-audit.json',private),('field-pins.json',pins)]:\n    b=json.dumps(value,ensure_ascii=False,indent=2).encode();assert json.loads(b)==value;(out/name).write_bytes(b+b'\\n')\nmanifest={'status':'constructed; independent source/context adequacy review pending; not blind-comparison ready','database_sha256':hashlib.sha256(dbpath.read_bytes()).hexdigest(),'source_inference':'Pinned third-party extraction with only a limited prior displayed-text cross-check; not official full-game certification. Runtime execution, alternate priority and state satisfiability are not measured.','subjects':len(reader),'units':len(private),'nodes':sum(len(a['raw_nodes']) for a in private),'alternates':sum(len(a['alternates']) for a in private),'text_fields':len(pins),'source_word_count':sum(len((n['dialoguetext'] or '').split()) for a in private for n in a['raw_nodes']),'reader_sha256':hashlib.sha256((out/'reader.json').read_bytes()).hexdigest(),'entry_unconfirmed_rows':'The previously identified four rows remain in the original DB and private audit; none is silently inserted into a selected scene.','excluded_context':'All outgoing and incoming excerpt boundaries are explicit in private-source-audit.json. Six names/counts alone do not establish adequate character coverage.','role':'Coordinator source extraction only. No benchmark/reference/status change. Full dialogue analysis remains private and is excluded from the game and distribution.'}\n(out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\\n');print(json.dumps(manifest,ensure_ascii=False))\n",
+      "qualification": "Reconstructed from SHA-matched r1 and the observed sole r2 diff. The original local r2 extractor SHA was not printed, so no independent comparison with that original SHA is claimed."
+    }
+  },
+  "reference_source": {
+    "private_database_path": "reference-materials/disco/public-dialogue-db/disco.db",
+    "bytes": 40517632,
+    "sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5",
+    "repository": "msyavuz/disco-api",
+    "commit": "70adf5c3e2d254e364cd92bdc09d927bf1fa9553",
+    "git_blob_sha": "38ab716dc2c52c9f5ad0a485898274660c9f6c2d",
+    "extraction_tables": "Full temp_table and dlinks; dentries is an incomplete search subset and must not replace temp_table.",
+    "qualification": "Third-party source, limited prior displayed-text corroboration, not official full-game or edition authentication. No raw database or game dialogue text is included in this recovery blob."
+  },
+  "r2_manifest": {
+    "content": {
+      "status": "constructed; independent source/context adequacy review pending; not blind-comparison ready",
+      "database_sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5",
+      "source_inference": "Pinned third-party extraction with only a limited prior displayed-text cross-check; not official full-game certification. Runtime execution, alternate priority and state satisfiability are not measured.",
+      "subjects": 6,
+      "units": 7,
+      "nodes": 1337,
+      "alternates": 40,
+      "text_fields": 1377,
+      "source_word_count": 13997,
+      "reader_sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+      "entry_unconfirmed_rows": "The previously identified four rows remain in the original DB and private audit; none is silently inserted into a selected scene.",
+      "excluded_context": "All outgoing and incoming excerpt boundaries are explicit in private-source-audit.json. Six names/counts alone do not establish adequate character coverage.",
+      "role": "Coordinator source extraction only. No benchmark/reference/status change. Full dialogue analysis remains private and is excluded from the game and distribution."
+    },
+    "qualification": "All manifest field values were returned in the earlier tool output. JSON serialization here is new and is not claimed to preserve the original manifest file bytes."
+  },
+  "previously_observed_file_identity": [
+    {
+      "filename": "disco-e9-reader-r1/reader.json",
+      "sha256": "0a6c7b7b9ffd61d3dfb7788832c9321873928e4bc656929cd65251d2f214aef4"
+    },
+    {
+      "filename": "disco-e9-reader-r2/reader.json",
+      "bytes": 563486,
+      "sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e"
+    },
+    {
+      "filename": "disco-e9-reader-r2/field-pins.json",
+      "bytes": 316159,
+      "sha256": "b74bfed4b94d198d9869f6fffd5a3708ddd963bdd90079e535010f2bd1bd1a81"
+    },
+    {
+      "filename": "disco-e9-reader-r2/private-source-audit.json",
+      "bytes": 670263,
+      "sha256": "645bea55392946c918d52acc0c34100a91aaddf3bc1c0e55dbc9825f7f27ee3c"
+    },
+    {
+      "filename": "disco-e9-reader-r2/verification.json",
+      "sha256": "fb45c25af686e226d2410b422f8adb84d8e618324ce6b918b55deb8e94021bc6"
+    },
+    {
+      "filename": "disco-e9-reader-r2/verification-raw.json",
+      "sha256": "be3b75a663a9216b3290da64416cc5f9a729d2fbdae87a003db53b9d17780cfe"
+    },
+    {
+      "filename": "disco-e9-reader-r1/review.json",
+      "sha256": "6590d62ed2ea24a955dc94b3ffe5e32ae2fde68181a430d80dfec2e43d1e13d6"
+    },
+    {
+      "filename": "disco-e9-reader-r1/refutation.json",
+      "sha256": "f58b8a6edeaa2605fa1194037ff2f36757a9526e0517323c5f4d74e97493c37b"
+    }
+  ],
+  "completed_joyce_verification_summary": {
+    "qualification": "These are the prior completed local source/DB verification results, not newly rerun checks and not rendered, played, smartphone, or blind evidence.",
+    "readyForReadableFormatting": true,
+    "remaining_requested_repair_issues": [],
+    "joyce": {
+      "conversation": 759,
+      "roots": [
+        300
+      ],
+      "old_stops": [
+        439
+      ],
+      "new_stops": [
+        440,
+        441,
+        442,
+        443
+      ],
+      "old_nodes": 136,
+      "new_nodes": 288,
+      "added_nodes": 152,
+      "old_alternates": 5,
+      "new_alternates": 17,
+      "added_alternates": 12,
+      "checked_original_utf8_fields": 305,
+      "checked_ordered_continuation_edges": 369,
+      "checked_required_coordinates": [
+        439,
+        444,
+        369,
+        370,
+        371,
+        376,
+        377,
+        378,
+        465,
+        466,
+        472,
+        479,
+        493,
+        494,
+        515
+      ],
+      "preserved": "Original base text, speakers, alternate text/labels and source conditions, raw row data, UTF8 field hashes, and ordered continuations were compared with the pinned read-only database. The decision branches to 376 and 377 were retained separately; no jointly executed or simultaneously available route was asserted.",
+      "boundary": "440-443 remain explicit outside-selected-unit boundaries. All prior Joyce coordinates were retained; semantic fields were compared independently of relabeled node IDs.",
+      "edge_count_note": "Actual final verification output says 369 edges. A dormant initial explanatory string in the original verify-joyce.py said 345, then was replaced with the computed value before output; the source script is not reproduced here."
+    },
+    "other_characters": "All other five subject reader objects, corresponding field-pin arrays, and six private unit audits were unchanged. Kim roots [31,35] and stop [3] were unchanged.",
+    "prior_refutation_resolution": {
+      "E9R1_01": "The concrete Joyce decision/response cut was the remaining required repair; r2 verified that repair.",
+      "E9R1_02": "The claimed required Kim entrance addition was refuted. Do not reintroduce it as a new gate."
+    },
+    "unit_inventory": [
+      {
+        "subject": 72,
+        "cid": 992,
+        "roots": [
+          0
+        ],
+        "stops": [],
+        "nodes": 364,
+        "alternates": 2,
+        "boundaries": 0
+      },
+      {
+        "subject": 3,
+        "cid": 659,
+        "roots": [
+          31,
+          35
+        ],
+        "stops": [
+          3
+        ],
+        "nodes": 36,
+        "alternates": 0,
+        "boundaries": 4
+      },
+      {
+        "subject": 6,
+        "cid": 1274,
+        "roots": [
+          317
+        ],
+        "stops": [],
+        "nodes": 278,
+        "alternates": 7,
+        "boundaries": 0
+      },
+      {
+        "subject": 5,
+        "cid": 1038,
+        "roots": [
+          371
+        ],
+        "stops": [],
+        "nodes": 8,
+        "alternates": 4,
+        "boundaries": 1
+      },
+      {
+        "subject": 5,
+        "cid": 1037,
+        "roots": [
+          2,
+          115,
+          23
+        ],
+        "stops": [
+          17
+        ],
+        "nodes": 74,
+        "alternates": 5,
+        "boundaries": 5
+      },
+      {
+        "subject": 11,
+        "cid": 759,
+        "roots": [
+          300
+        ],
+        "stops": [
+          440,
+          441,
+          442,
+          443
+        ],
+        "nodes": 288,
+        "alternates": 17,
+        "boundaries": 4
+      },
+      {
+        "subject": 18,
+        "cid": 865,
+        "roots": [
+          0
+        ],
+        "stops": [],
+        "nodes": 289,
+        "alternates": 5,
+        "boundaries": 7
+      }
+    ],
+    "prior_validation_summary": {
+      "json_valid": true,
+      "evidence_hashes_match": true,
+      "requested_repair_verified": true,
+      "comparative_or_benchmark_verdict_issued": false
+    }
+  },
+  "continuation": {
+    "needed_input": "The exact pinned private database, an execution environment with storage capacity, and the reconstructed extractor. Do not assume a newly named reference-reader.json equals the verified reader.json.",
+    "reproducible_next_step": "Run this unchanged r2 extractor from its expected directory against the pinned DB when local execution is available, then compare all three generated output hashes with the known r2 hashes above. Continue readable graph formatting while preserving alternatives, boundaries, and the authored-graph/not-played notice.",
+    "still_missing_from_this_agent": "Full later reference-reader.json, formatter, and candidate contents. Reproducing the verified raw r2 reader does not recover an unobserved later formatter or prove it byte-identical.",
+    "prohibitions_and_scope": "Do not publish the full DB or long game dialogue; keep reference-only contents out of the game/distribution. No reference/criterion weakening or blind/satisfied claim. Branches/commits are not changed by this unreferenced recovery blob."
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Schema-required unscored sentinel. No material, visual, native or product-quality score was assigned.",
+  "verdictMeaning": "Actual current-build GitHub material delivery remains unmeasured. No concrete defect survived within the authorized CPU byte-transport and f3 workflow scope.",
+  "blindComparison": "No blind visual comparison or native capture was performed. Existing prior CI files and synthetic byte fixtures test preservation and transport only, and cannot establish which current game presentation a stranger would prefer.",
+  "round": "webkit-material-export-independent-refutation-r1",
+  "profile": "byte-transport-boundaries-and-f3-step",
+  "tier": "CPU-only",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No new raster/native capture was evaluated.",
+  "findings": [],
+  "result": "NO_CONCRETE_DEFECT_FOUND_IN_AUTHORIZED_SCOPE",
+  "scope": {
+    "product_harness_workflow_edits": 0,
+    "browser_server_native_network_calls": 0,
+    "extra_agents": 0,
+    "actual_exporter_CPU_child_runs": 4,
+    "image_transformations": 0,
+    "reviewed_workflow_area": "jobs.f3-execution added export step only",
+    "separate_narrative_job": "excluded"
+  },
+  "refutations": [
+    {
+      "id": "PREVIOUS-MATERIAL-IDENTITY",
+      "result": "SURVIVES",
+      "challenge": "The exporter may alter files, label old images as newly captured, or fail to preserve them under real stdout backpressure.",
+      "evidence": "refuter-01.json / prior-originals and prior_report_grounding",
+      "outcome": "An independent real exporter child with a 150 ms delayed reader delivered the prior ci-d19c424 report and all nine frame PNGs exactly: bytes, SHA256, offsets and end markers agree. Nine original PNG hashes also match their entries in the prior report. Original files and copied fixture inputs remained unchanged. The prior report records checkedAt 2026-09-14T00:58:12.160Z and status passed; neither is adopted as a current-build verdict.",
+      "limit": "The emitted commit field is the exporter environment’s GITHUB_SHA, not intrinsic proof of when reused material was captured. The independent fixture explicitly used a context-only sentinel. Prior byte identity is not new native evidence or a visual assessment."
+    },
+    {
+      "id": "AT-CAP-BOUNDARY",
+      "result": "SURVIVES",
+      "challenge": "The 2 MiB boundary may be exclusive or apply inconsistently to the report and PNG filenames.",
+      "evidence": "refuter-01.json / combined-failure-large-success",
+      "outcome": "A 2097152-byte valid synthetic report and a 2097152-byte synthetic PNG-named byte fixture each emit complete:true, all 2097152 bytes, exact hash, 700 chunks and an end marker. The cap is inclusive and applies per allowed file."
+    },
+    {
+      "id": "FAILURE-PLUS-LARGE-OUTPUT",
+      "result": "SURVIVES",
+      "challenge": "Earlier over-cap failure might force process termination or prevent a later large accepted file from draining before exit 1.",
+      "evidence": [
+        "refuter-01.json / combined-failure-large-success",
+        "refuter-combined-failure-large-success-01.stdout.log.gz"
+      ],
+      "outcome": "The same run first emits the complete 2 MiB report, then rejects a 2097153-byte PNG-named fixture with its full byte count/SHA, complete:false and no chunks/end, then fully emits a later accepted 2 MiB file, then records ENOENT for another required PNG. All later allowed small files also arrive. Exit status remains 1 after 5710984 stdout bytes through the delayed real pipe. The accepted later file hash is 5d0930c72a53828aec014fbecdaf87dfc6f71723521bc2a723a515bfc52353c5."
+    },
+    {
+      "id": "MISSING-AND-ALLOWLIST",
+      "result": "SURVIVES",
+      "challenge": "Missing files may be silently skipped, or non-allowlisted material may be exported.",
+      "outcome": "A missing allowed PNG emits exactly one ENOENT error and no metadata/chunks/end for that file, while the exporter exits 1. A present unallowlisted file is absent from every output record. Records remain in the exact ten-file allowlist order."
+    },
+    {
+      "id": "FAILED-REPORT-PRESERVATION",
+      "result": "SURVIVES",
+      "challenge": "Transport success might rewrite a failed report or turn failed producer execution into passing evidence.",
+      "outcome": "The synthetic report with status failed and its failures array is byte-identical after export, including an exit-0 empty-PNG transport case. The exporter’s code is a transport result, not a report-status judgment. The producer independently sets report.status and exits nonzero when failures exist; the workflow’s added always() step has no continue-on-error and does not rewrite earlier step outcomes.",
+      "limit": "No GitHub runner was executed by this review; workflow failure semantics are source-level conclusions."
+    },
+    {
+      "id": "EMPTY-FILE-INTERPRETATION",
+      "result": "OBSERVATION_NOT_ACTIONABLE_DEFECT_IN_THIS_SCOPE",
+      "challenge": "Accepting empty PNG/report files as complete:true may violate the requested exporter contract.",
+      "outcome": "Both independent empty-file cases produce bytes:0, SHA256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855, complete:true, zero chunks, an end marker and transport exit 0. That accurately preserves the captured zero bytes. It does not prove valid PNG/JSON. The authorized scope explicitly requires oversized transport failure and checking the empty case; it does not establish a new format-validity requirement. The normal producer parses PNG bytes before writing them and serializes the report as JSON.",
+      "limit": "An empty file is not a valid picture/report and must not be described as valid material based solely on complete:true. The exporter does not claim or perform such validation; no new mandatory validity process or rejection rule is proposed."
+    },
+    {
+      "id": "F3-WORKFLOW-MINIMALNESS",
+      "result": "SURVIVES_WITH_F3_SCOPE",
+      "evidence": "refuter-01.json / workflow_and_producer",
+      "outcome": "Independent YAML comparison finds exactly one export step in f3-execution, with if:always() and no continue-on-error, after existing WebKit artifact preservation and before fault recovery. Removing it restores the entire f3 job to HEAD deep equality. The producer remains before artifact/export, and the next fault step retains its original !cancelled() condition.",
+      "limit": "This is not a claim that the whole gates.yml has only one change; the separate narrative job change is outside this review."
+    }
+  ],
+  "acceptedLimitations": [
+    "complete describes successful inclusion of the captured stable byte snapshot under the per-file cap; it does not certify valid PNG, valid JSON, capture quality or gameplay success.",
+    "stableDuringRead compares file size/mtime around the read and returned length. Static fixtures satisfy it; this review did not prove atomic capture or detection of every possible concurrent replacement.",
+    "The per-file 2 MiB cap bounds emitted content, not whole-file readFileSync memory or total log size across ten files.",
+    "Natural Node exit drains the measured local stdout pipes. Actual GitHub provider truncation, masking or log-access limits remain to be checked against byte counts, hashes, chunk offsets and end markers when real material is collected.",
+    "Synthetic boundary payloads are explicitly arbitrary transport bytes; they are not measured pictures or native frames. Prior real PNGs were not transformed.",
+    "Local CPU runtime was Node v24.19.0 on Linux. No current-build browser, server, simulator, iOS, blind comparison or element pass is claimed."
+  ],
+  "sourceEvidence": [
+    {
+      "file": "source/tools_export-webkit-material.mjs",
+      "claim": "Fixed ten-file allowlist, per-file cap, snapshot metadata, natural exitCode, read-only byte handling."
+    },
+    {
+      "file": "source/tools_mobile_visual_capture.mjs",
+      "lines": [
+        75,
+        77
+      ],
+      "claim": "PNG.sync.read(bytes) precedes writeFileSync(native,bytes) in the normal producer."
+    },
+    {
+      "file": "source/tools_test-iphone-webkit.mjs",
+      "lines": [
+        633,
+        634,
+        643
+      ],
+      "claim": "Normal report writer serializes status/failures as JSON and failed producer execution exits nonzero."
+    },
+    {
+      "file": "source/.github_workflows_gates.yml",
+      "lines": [
+        66,
+        70,
+        78,
+        81
+      ],
+      "claim": "Producer/artifact/export/fault ordering and independent step conditions."
+    }
+  ],
+  "rawEvidence": [
+    "refuter-01.py",
+    "refuter-01.json",
+    "refuter-01.log",
+    "refuter-prior-originals-01.stdout.log.gz",
+    "refuter-combined-failure-large-success-01.stdout.log.gz",
+    "refuter-empty-png-01.stdout.log.gz",
+    "refuter-empty-report-01.stdout.log.gz",
+    "refuter-fixtures-01/"
+  ],
+  "retainedFailedAttempts": [
+    {
+      "file": "refuter-initial-read-failure.txt",
+      "result": "Initial source read used the wrong snapshot filename and returned ENOENT. Correct pinned source was then read; no source or prior output was overwritten."
+    },
+    {
+      "file": "raw/initial-read-failures.txt",
+      "result": "Parent initial read failures remain retained; parent probe outputs were not rerun or overwritten."
+    }
+  ],
+  "independentProbeErrors": [],
+  "sourceHashes": {
+    "source/tools_export-webkit-material.mjs": "f2e5cf3e150748ee1018d387d2aade1067e72c13ea5c1f86d95b46d4b1df1c05",
+    "source/.github_workflows_gates.yml": "caf6b9be60636b84808263b1f39c2af0a5449ea1bc47a375ea5dc69f540b5856",
+    "source/tools_test-iphone-webkit.mjs": "4cdcf9d6cdcf72e6ab49f93a8d04a63fdfaefc5b1f59267706a004d1af499717",
+    "source/tools_mobile_visual_capture.mjs": "057fc56c417f7e606403f6c74c1c2428f7d54271521cf7e53613c39ef33aa4fa",
+    "source/HEAD-gates.yml": "9be553d6ac69afa078f6d2f94261bcd46242ba35581be284075b44e1354548e1"
+  },
+  "sourceBytesUnchanged": true,
+  "priorOriginalBytesUnchanged": true,
+  "ownershipMap": {
+    "knownOwners": [
+      "tools/export-webkit-material.mjs",
+      ".github/workflows/gates.yml"
+    ]
+  }
+}

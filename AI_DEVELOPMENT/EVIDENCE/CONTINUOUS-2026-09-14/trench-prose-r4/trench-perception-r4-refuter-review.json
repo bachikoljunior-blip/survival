@@ -1,0 +1,555 @@
+{
+  "round": "trench-perception-prose-separate-refutation-04",
+  "profile": "Separate hostile exact-delta, legacy-save, localization and ending-routing refutation",
+  "tier": "CPU source/data and presentation-call text; no raster or physical output evaluation",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "Required no-raster sentinel; not a measured resolution.",
+  "verdict": "FAIL",
+  "verdictMeaning": "Conservative critic default; no narrative-quality, blind, element or product approval. No concrete prose/routing defect survives this bounded review.",
+  "score": 0,
+  "scoreMeaning": "Required unscored sentinel, not a narrative or product score.",
+  "blindComparison": "Not performed. Source-labelled text and CPU routing checks cannot establish an unlabelled reader preference, narrative quality, sensory quality, or an element/product pass.",
+  "baseline": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "sourceSnapshot": "/workspace/scratch/0b7ad82bafe7/trench-perception-r4-source",
+  "sourceHashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "7d41d9193774839c037a1a2dede439344fa8bc43100a1d5ee7b12930d2370da1",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "b71791bf626a9584d5aad4416237da5826e955f86bd70f2aa584efcad5404674",
+    "src/content/story.js": "be15373dc9a80348be2b1d84c46ae62ae561c985e14d3359b6b909bde44f039b",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "a38da6cb89c186b11eeb9960917f8decc6bd6292d635efc65676634ab47e93d2",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "reviewedChangedSourcePins": {
+    "src/content/locale/ja/content.js": "7d41d9193774839c037a1a2dede439344fa8bc43100a1d5ee7b12930d2370da1",
+    "src/content/locale/ja/ui.js": "b71791bf626a9584d5aad4416237da5826e955f86bd70f2aa584efcad5404674",
+    "src/content/story.js": "be15373dc9a80348be2b1d84c46ae62ae561c985e14d3359b6b909bde44f039b",
+    "src/game/director.js": "a38da6cb89c186b11eeb9960917f8decc6bd6292d635efc65676634ab47e93d2"
+  },
+  "snapshotUnchangedAcrossIndependentProbe": true,
+  "threeDependencyHashesUnchanged": true,
+  "scope": "Independent exact source/data diff and old-save ending routing against the immutable R4 snapshot. Actual applySave/DialogueRunner/Director.finish/Storage; presentation is observed at menus.showEnding. Appearance/UI input acquisition/output devices are fixture stubs. Retained actual route replay is inspected, not repeated. No narrative-quality, sensory, blind, product or full-story-journey claim.",
+  "independence": "Separate refuter used fresh scripts/results and only snapshot production imports. The legacy payload and route replay were read from retained evidence; the entire eight-case save/choice/finish/presentation matrix was independently executed. Live survival production modules were not imported, and no mechanical replay or prolonged reading simulation was added.",
+  "findings": [],
+  "refutationOutcome": "All requested concrete consistency and routing controls survive. No new route flag, content condition, identifier, or quality criterion was introduced by the reviewed delta.",
+  "controlsRefutation": [
+    {
+      "id": "R4-DELTA",
+      "status": "survives-independent-exact-comparison",
+      "evidence": "trench-perception-r4-refuter-probe-01.json :: exact-delta-independent-leaf-diff",
+      "attempt": "Challenged the possibility that masking named changes concealed a behavioral/content-routing edit. Independently compared every snapshot production source against the baseline and computed generic recursive exported-value differences without masking values.",
+      "result": {
+        "changedSourcePaths": [
+          "src/content/locale/ja/content.js",
+          "src/content/locale/ja/ui.js",
+          "src/content/story.js",
+          "src/game/director.js"
+        ],
+        "storyLeafPaths": [
+          "ENDINGS.0.beats.8.text",
+          "ENDINGS.3.beats.1.text"
+        ],
+        "japaneseUiLeafPaths": [
+          "hud.pastthem"
+        ],
+        "japaneseContentLeafPaths": [
+          "e.record.beats.8",
+          "e.everybody.beats.1"
+        ],
+        "director": {
+          "oldHash": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d",
+          "snapshotHash": "a38da6cb89c186b11eeb9960917f8decc6bd6292d635efc65676634ab47e93d2",
+          "reversedHash": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d",
+          "onlyOneNoticeAndTwoCommentLines": true
+        },
+        "beatConditions": {
+          "record": {
+            "flag": "trench_slipped"
+          },
+          "everybody": {
+            "flag": "trench_slipped"
+          }
+        }
+      },
+      "conclusion": "Only the two English beat texts, corresponding two Japanese beat strings and one Japanese notice differ as exported data. Removing precisely the two added comment lines and reversing the one English notice literal makes Director byte-identical to baseline. All other production src hashes match baseline, including the route/save conditions and identifiers."
+    },
+    {
+      "id": "R4-NOTICES",
+      "status": "survives-captured-runtime-evidence-review",
+      "evidence": [
+        "trench-perception-r4-probe-01.mjs/json/log :: original-director-save-and-current-notice-boundaries",
+        "trench-perception-r4-refuter-probe-01.json :: captured-original-save-and-notice-provenance"
+      ],
+      "attempt": "Checked whether the updated notice was merely a source literal never selected by real routing, and whether the input replay used simulated perception or a different route flag.",
+      "result": [
+        {
+          "label": "original-director-en",
+          "language": "en",
+          "expectedNotice": "<b>Past them.</b><br>Nobody looked up.",
+          "noticeCount": 1,
+          "noticeTime": 2.1499999999999972,
+          "finalTime": 2.3833333333333298,
+          "finalPosition": [
+            90.01529122570088,
+            2.6,
+            16.415701443106556
+          ],
+          "quest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "flags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "enemyAlert": [
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat",
+              "lastSeen": {
+                "x": 91.7276455890235,
+                "y": 1.9500000000000002,
+                "z": 17.263865626341648,
+                "t": 1.6999999999999988
+              }
+            },
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat",
+              "lastSeen": {
+                "x": 90.01529122570088,
+                "y": 2.6,
+                "z": 16.415701443106556,
+                "t": 2.3833333333333298
+              }
+            },
+            {
+              "kind": "scav",
+              "aggro": true,
+              "state": "flee",
+              "lastSeen": {
+                "x": 91.7276455890235,
+                "y": 1.9500000000000002,
+                "z": 17.263865626341648,
+                "t": 1.6999999999999988
+              }
+            }
+          ],
+          "scope": "Inspected captured production-path replay. Final alert state is not relabelled as a separately observed event at the exact notice frame."
+        },
+        {
+          "label": "current-en",
+          "language": "en",
+          "expectedNotice": "<b>Over the line.</b><br>You have the high ground.",
+          "noticeCount": 1,
+          "noticeTime": 2.1499999999999972,
+          "finalTime": 2.3833333333333298,
+          "finalPosition": [
+            90.01529122570088,
+            2.6,
+            16.415701443106556
+          ],
+          "quest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "flags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "enemyAlert": [
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat",
+              "lastSeen": {
+                "x": 91.7276455890235,
+                "y": 1.9500000000000002,
+                "z": 17.263865626341648,
+                "t": 1.6999999999999988
+              }
+            },
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat",
+              "lastSeen": {
+                "x": 90.01529122570088,
+                "y": 2.6,
+                "z": 16.415701443106556,
+                "t": 2.3833333333333298
+              }
+            },
+            {
+              "kind": "scav",
+              "aggro": true,
+              "state": "flee",
+              "lastSeen": {
+                "x": 91.7276455890235,
+                "y": 1.9500000000000002,
+                "z": 17.263865626341648,
+                "t": 1.6999999999999988
+              }
+            }
+          ],
+          "scope": "Inspected captured production-path replay. Final alert state is not relabelled as a separately observed event at the exact notice frame."
+        },
+        {
+          "label": "current-ja",
+          "language": "ja",
+          "expectedNotice": "<b>列を越えた。</b><br>高所に出た。",
+          "noticeCount": 1,
+          "noticeTime": 2.1499999999999972,
+          "finalTime": 2.3833333333333298,
+          "finalPosition": [
+            90.01529122570088,
+            2.6,
+            16.415701443106556
+          ],
+          "quest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "flags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "enemyAlert": [
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat",
+              "lastSeen": {
+                "x": 91.7276455890235,
+                "y": 1.9500000000000002,
+                "z": 17.263865626341648,
+                "t": 1.6999999999999988
+              }
+            },
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat",
+              "lastSeen": {
+                "x": 90.01529122570088,
+                "y": 2.6,
+                "z": 16.415701443106556,
+                "t": 2.3833333333333298
+              }
+            },
+            {
+              "kind": "scav",
+              "aggro": true,
+              "state": "flee",
+              "lastSeen": {
+                "x": 91.7276455890235,
+                "y": 1.9500000000000002,
+                "z": 17.263865626341648,
+                "t": 1.6999999999999988
+              }
+            }
+          ],
+          "scope": "Inspected captured production-path replay. Final alert state is not relabelled as a separately observed event at the exact notice frame."
+        }
+      ],
+      "conclusion": "Retained actual Game/Player/City/AI replay selects the original English notice once under the baseline Director and the revised English/Japanese notices once under snapshot routing. All end at the same 2.6 m position and quest step 2 with trench_slipped and alerted enemies. The revised notice describes the route/high ground without asserting unawareness.",
+      "limits": "This refuter inspected the existing runtime replay and did not repeat it. Guard alert state is captured at the final replay snapshot; it is not recast as an independently instrumented event at the precise earlier notice call. Notices are observed at HUD call boundaries, not rendered."
+    },
+    {
+      "id": "R4-LEGACY-SAVE-ENDINGS",
+      "status": "survives-independent-eight-case-runtime-matrix",
+      "evidence": "trench-perception-r4-refuter-probe-01.mjs/json/log :: legacy-save-locales-endings-and-exact-flag-toggle",
+      "attempt": "Tried to expose changed old-save semantics, missing Japanese entries silently falling back to English, wrong ending selection, duplicated paragraphs, stale old paragraphs, or collateral changes when the route flag is absent.",
+      "writerProvenance": {
+        "legacyPayloadSha256": "eed53702a0c8936e2bc645312f185bec26b6b2cb058c73f51c33d255ffbc1b4e",
+        "scope": "Original pre-edit Director; all other production modules come from the pinned current snapshot. Save, progression and physics sources are identical to the pre-edit revision. Story/locale differences are prose only and not saved into the route flag.",
+        "sampleMeaning": "Generated by the original pre-edit Director running unchanged storage/progression/physics. This is a synthetic valid production-path save, not a real-user historical sample. Current story/locale differences are presentation text and are not saved as the route flag."
+      },
+      "cases": [
+        {
+          "language": "en",
+          "endingId": "record",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 1,
+          "expectedBeat": "At the hearing, you marked your way over the line on a section drawing. On\nthe paper it was a few millimetres. You could still feel the height in your knees.",
+          "presentedEndingId": "record",
+          "completed": true,
+          "savedRouteFlag": true,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "en",
+          "endingId": "record",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 0,
+          "expectedBeat": "At the hearing, you marked your way over the line on a section drawing. On\nthe paper it was a few millimetres. You could still feel the height in your knees.",
+          "presentedEndingId": "record",
+          "completed": true,
+          "savedRouteFlag": false,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "en",
+          "endingId": "everybody",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 1,
+          "expectedBeat": "You had gone over the line above the cut. The people you brought to the\nlorries could not all have followed you. You stayed beside the steps while they\nclimbed aboard, with your hands out and nothing useful to say.",
+          "presentedEndingId": "everybody",
+          "completed": true,
+          "savedRouteFlag": true,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "en",
+          "endingId": "everybody",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 0,
+          "expectedBeat": "You had gone over the line above the cut. The people you brought to the\nlorries could not all have followed you. You stayed beside the steps while they\nclimbed aboard, with your hands out and nothing useful to say.",
+          "presentedEndingId": "everybody",
+          "completed": true,
+          "savedRouteFlag": false,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "ja",
+          "endingId": "record",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 1,
+          "expectedBeat": "審理で、列の上を越えた経路を断面図に書き込んだ。紙の上では数ミリだった。膝にはまだ、あの高さが残っていた。",
+          "presentedEndingId": "record",
+          "completed": true,
+          "savedRouteFlag": true,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "ja",
+          "endingId": "record",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 0,
+          "expectedBeat": "審理で、列の上を越えた経路を断面図に書き込んだ。紙の上では数ミリだった。膝にはまだ、あの高さが残っていた。",
+          "presentedEndingId": "record",
+          "completed": true,
+          "savedRouteFlag": false,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "ja",
+          "endingId": "everybody",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 1,
+          "expectedBeat": "カットでは列の上を越えた。トラックへ連れてきた人たちが、全員あそこをついて来られたわけではない。一人ずつ乗り込む間、踏み段の脇で手を差し出していた。役に立つ言葉は出てこなかった。",
+          "presentedEndingId": "everybody",
+          "completed": true,
+          "savedRouteFlag": true,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        },
+        {
+          "language": "ja",
+          "endingId": "everybody",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "selectedBeatOccurrences": 0,
+          "expectedBeat": "カットでは列の上を越えた。トラックへ連れてきた人たちが、全員あそこをついて来られたわけではない。一人ずつ乗り込む間、踏み段の脇で手を差し出していた。役に立つ言葉は出てこなかった。",
+          "presentedEndingId": "everybody",
+          "completed": true,
+          "savedRouteFlag": false,
+          "allRestoredFlagsRetained": true,
+          "mode": "cinematic",
+          "simulationTime": 0
+        }
+      ],
+      "strongerPairedControl": [
+        {
+          "language": "en",
+          "endingId": "record",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        },
+        {
+          "language": "en",
+          "endingId": "everybody",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        },
+        {
+          "language": "ja",
+          "endingId": "record",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        },
+        {
+          "language": "ja",
+          "endingId": "everybody",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        }
+      ],
+      "conclusion": "Eight actual applySave -> final DialogueRunner callbacks -> authored available choice -> Director.finish -> menus.showEnding cases succeed. Flag-present saves select the correct new paragraph exactly once; flag-absent controls select it zero times. Removing the paragraph from the flag-present body exactly reproduces its paired flag-absent body, and paired epilogues are identical. Wrong-ending paragraphs and the old replaced paragraphs are absent; Japanese output is checked directly against authored Japanese strings and cannot pass via English fallback. Every restored flag persists into the completed save.",
+      "missingChangedLocaleKeys": [],
+      "limits": "The absence control removes only trench_slipped from a copy of the generated valid payload to test its condition; it is not a claimed complete alternate authored journey. Ending callbacks advance no simulation time, so this does not evaluate dialogue survival, death/reset, presentation timing, rendered layout or physical audio."
+    }
+  ],
+  "consistencyAssessment": {
+    "status": "no concrete contradiction found in the changed prose within reviewed scope",
+    "englishAndJapaneseMeaning": "The notice describes crossing the line and reaching higher ground. The record beat describes marking that physical route on a section drawing at the hearing. The everybody beat describes that route and helping evacuees board lorries. Neither English nor Japanese changed text asserts that no guard detected Ren or that nobody was touched/hurt.",
+    "existingRoutingMeaning": "Both ending beats still use only condition {flag:trench_slipped}; the route flag remains a positional record and carries no new stealth or no-harm criterion.",
+    "limit": "This is a concrete consistency/routing observation, not an assessment that the new prose is more compelling or an independently verified account of all future narrative events."
+  },
+  "scopeRecommendations": [
+    "Retain the exact prose/routing closure at the recorded R4 snapshot hashes.",
+    "Do not claim the positional route flag verifies unseen or untouched passage.",
+    "Keep dialogue death/reset and prolonged reading simulation separate from this prose-routing result.",
+    "Carry no narrative-quality, blind-comparison, element or product pass from these checks."
+  ],
+  "retainedAttempts": {
+    "independentProbeErrors": [],
+    "swallowedErrors": [],
+    "negativeControls": "All four flag-absent cases are preserved together with their four flag-present counterparts. No failed output or prior replay was overwritten.",
+    "sourcePinLookup": "The initially requested nested source/source-pins.json path was absent; the existing workspace trench-perception-r4-source-pins.json was used and verified. Snapshot content was not edited."
+  },
+  "rawArtifacts": [
+    "trench-perception-r4-refuter-probe-01.mjs",
+    "trench-perception-r4-refuter-probe-01.json",
+    "trench-perception-r4-refuter-probe-01.log"
+  ],
+  "retainedParentArtifacts": [
+    "trench-perception-r4-probe-01.mjs",
+    "trench-perception-r4-probe-01.json",
+    "trench-perception-r4-probe-01.log",
+    "trench-perception-r4-source-pins.json",
+    "trench-perception-r4-input-fixture.mjs",
+    "trench-perception-r4-fixture.mjs",
+    "trench-perception-r4-cpu-city-fixture.mjs"
+  ],
+  "productFilesEdited": [],
+  "snapshotFilesEdited": []
+}

@@ -208,6 +208,7 @@ export class HUD {
     for (const [name, cls, label] of defs) {
       const b = el('div', `abtn hit ${cls}`, this.actions, t(`ui.btn.${label}`, label));
       this.buttons[name] = b;
+      if (name === 'guard') b.setAttribute('role', 'button');
       this._bindButton(b, name);
     }
 
@@ -398,7 +399,9 @@ export class HUD {
     set(this.buttons.heavy, busy || p.isAttacking || winded || p.stamina < cost('heavy', 26));
     set(this.buttons.dodge, busy || p.stamina < 16);
     // Raising guard costs stamina now, and holding it drains.
-    set(this.buttons.guard, busy || p.isAttacking || p.stamina < 8);
+    set(this.buttons.guard, busy || p.isAttacking || (!p.guarding && p.stamina < 8));
+    this.buttons.guard.classList.toggle('engaged', !!p.guarding);
+    this.buttons.guard.setAttribute('aria-pressed', String(!!p.guarding));
     // quickUse spends a filter or a dressing, and only when one is useful.
     const canUse = !!S && ((S.hasItem('filter') && (p.lungs.filter === null || p.lungs.filter < 0.2)) ||
                            (S.hasItem('bandage') && p.hp < p.maxHp));
@@ -593,9 +596,16 @@ export class HUD {
   }
 
   showAutosave() {
+    this.autosave.hidden = false;
     this.autosave.classList.add('on');
     clearTimeout(this._asT);
     this._asT = setTimeout(() => this.autosave.classList.remove('on'), 1600);
+  }
+
+  hideAutosave() {
+    clearTimeout(this._asT);
+    this.autosave.hidden = true;
+    this.autosave.classList.remove('on');
   }
 
   /** A spoken line with no dialogue box — barks, thoughts, radio. */

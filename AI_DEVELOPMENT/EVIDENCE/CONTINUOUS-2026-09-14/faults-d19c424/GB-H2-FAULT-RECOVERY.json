@@ -1,0 +1,297 @@
+{
+  "task": "GB-H2",
+  "checked_at": "2026-09-14T01:03:32.298Z",
+  "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "build_sha256": "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897",
+  "browser": {
+    "name": "webkit",
+    "version": "26.0"
+  },
+  "scope": "Post-boot uncaught errors and rejected promises, in a production build at 667x375. Not a claim about any specific real-world crash, and not a device measurement.",
+  "viewport": {
+    "width": 667,
+    "height": 375
+  },
+  "crashed": null,
+  "checks": [
+    {
+      "name": "clean boot: the recovery panel stays hidden",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "clean boot: no fault notice",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "clean boot: no faults recorded",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "clean boot: the browser saw no uncaught errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "clean boot: the loop is running",
+      "pass": true,
+      "detail": "frame 10"
+    },
+    {
+      "name": "sync error: caught after boot",
+      "pass": true,
+      "detail": "[{\"kind\":\"error\",\"message\":\"Error: probe: one-off sync error\"}]"
+    },
+    {
+      "name": "sync error: the message is carried, not swallowed",
+      "pass": true,
+      "detail": "[{\"kind\":\"error\",\"message\":\"Error: probe: one-off sync error\"}]"
+    },
+    {
+      "name": "sync error: the player is told",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "title fault: visible notice makes no claim that gameplay was saved",
+      "pass": true,
+      "detail": "[{\"text\":\"Something went wrong. Your saved data has not been changed.\",\"x\":93.5,\"y\":12,\"width\":480,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "sync error: a survivable fault does not put a wall in front of the player",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "sync error: still no panel once the stall check has run",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "sync error: the loop kept advancing",
+      "pass": true,
+      "detail": "1 -> 15"
+    },
+    {
+      "name": "rejection: caught after boot (nothing listened for this at all before)",
+      "pass": true,
+      "detail": "[{\"kind\":\"rejection\",\"message\":\"probe: rejected promise\"}]"
+    },
+    {
+      "name": "rejection: the reason is carried",
+      "pass": true,
+      "detail": "[{\"kind\":\"rejection\",\"message\":\"probe: rejected promise\"}]"
+    },
+    {
+      "name": "rejection: the player is told",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "in play: nothing else was about to write a save",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "in play: the game saved itself when the fault arrived",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "in play: the save it wrote is at the current version",
+      "pass": true,
+      "detail": "envelope 2, state 2"
+    },
+    {
+      "name": "in play: visible notice reports the successful recovery save",
+      "pass": true,
+      "detail": "[{\"text\":\"Bad Air\",\"x\":609.4375,\"y\":58,\"width\":49.5625,\"height\":21,\"visible\":true},{\"text\":\"Cellar Row\",\"x\":593.3125,\"y\":82,\"width\":65.6875,\"height\":21,\"visible\":true},{\"text\":\"Note added — Back in Hollis\",\"x\":540.9645385742188,\"y\":106,\"width\":132,\"height\":1.71875,\"visible\":false},{\"text\":\"Something went wrong. A recovery save was written.\",\"x\":93.5,\"y\":12,\"width\":480,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "failed-save setup: a real previous save exists before blocking writes",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "failed save: visible warning does not announce success",
+      "pass": true,
+      "detail": "[{\"text\":\"Ilya Bek's letter ×1\",\"x\":563.328125,\"y\":58,\"width\":95.671875,\"height\":21,\"visible\":true},{\"text\":\"Bad Air\",\"x\":609.4375,\"y\":82,\"width\":49.5625,\"height\":21,\"visible\":true},{\"text\":\"Cellar Row\",\"x\":593.3125,\"y\":106,\"width\":65.6875,\"height\":21,\"visible\":true},{\"text\":\"Note added — Back in Hollis\",\"x\":527,\"y\":130,\"width\":132,\"height\":34,\"visible\":true},{\"text\":\"Something went wrong. A recovery save could not be written. Reloading may lose recent progress.\",\"x\":93.5,\"y\":12,\"width\":480,\"height\":62,\"visible\":true}]"
+    },
+    {
+      "name": "failed save: prior saved bytes remain intact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "failed save: the previous successful-save indicator is immediately invisible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "storage recovery: a later real successful save can show its indicator",
+      "pass": true,
+      "detail": "{\"saved\":true,\"visible\":true}"
+    },
+    {
+      "name": "repeat: a fault that keeps happening reaches the recovery panel",
+      "pass": true,
+      "detail": "3 faults, lost=false paused=false running=true frame=14"
+    },
+    {
+      "name": "repeat: the panel says what actually happened, not context loss",
+      "pass": true,
+      "detail": "SOMETHING BROKE / The game could not carry on after an error. Your saved data "
+    },
+    {
+      "name": "repeat: the panel offers a way out",
+      "pass": true,
+      "detail": "RELOAD"
+    },
+    {
+      "name": "repeat: reloading actually recovers",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "stall: the panel waits for the stall check rather than firing on sight",
+      "pass": true,
+      "detail": "60ms"
+    },
+    {
+      "name": "stall: a fault after which the picture stopped reaches the recovery panel",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "frozen loop: the frame counter really did stop",
+      "pass": true,
+      "detail": "1 -> 1"
+    },
+    {
+      "name": "frozen loop: the player is given the recovery panel instead of a still picture",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "swallowed: the picture is being drawn before the break",
+      "pass": true,
+      "detail": "432 draw calls"
+    },
+    {
+      "name": "swallowed: an error the event bus caught still reaches the fault path",
+      "pass": true,
+      "detail": "[{\"kind\":\"listener\",\"message\":\"event:render: probe: render listener fault\"},{\"kind\":\"listener\",\"message\":\"event:render: probe: render listener fault\"}]"
+    },
+    {
+      "name": "swallowed: the real game drawing path stopped",
+      "pass": true,
+      "detail": "0 draw calls"
+    },
+    {
+      "name": "swallowed: stopped drawing reaches the recovery panel",
+      "pass": true,
+      "detail": "panel=true notices=0 draws=0"
+    },
+    {
+      "name": "ja: the first visible fault notice is in Japanese",
+      "pass": true,
+      "detail": "[{\"text\":\"問題が起きました。 保存データは変更していません。\",\"x\":93.5,\"y\":12,\"width\":480,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "ja: the panel appears on a Japanese device",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "ja: the panel is in Japanese",
+      "pass": true,
+      "detail": "panel on: \"実行が止まりました\" vs \"実行が止まりました\""
+    },
+    {
+      "name": "pre-boot: the bundle really did not boot",
+      "pass": true,
+      "detail": "false"
+    },
+    {
+      "name": "pre-boot: a rejected promise reaches the loading plate",
+      "pass": true,
+      "detail": "failed to start — probe: boot broke"
+    },
+    {
+      "name": "pre-boot: it reads as a failure",
+      "pass": true,
+      "detail": "boot-note err"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "clean-boot",
+      "path": "test-results/fault-recovery/clean-boot.png",
+      "sha256": "9292e081acfec98eb4c0d3e503e055c646ee884a0818d10f26db8d4b1a5b6789"
+    },
+    {
+      "name": "single-error-notice",
+      "path": "test-results/fault-recovery/single-error-notice.png",
+      "sha256": "d27a3760f5639dd853a308982a040b7ee8c56db8814561c93dc7ec53a8f9f636"
+    },
+    {
+      "name": "rejected-promise-notice",
+      "path": "test-results/fault-recovery/rejected-promise-notice.png",
+      "sha256": "1b02df4911f2534b184b10bdbd91177ae700f1aa48c41df889e5ecbb71950789"
+    },
+    {
+      "name": "saved-play-error",
+      "path": "test-results/fault-recovery/saved-play-error.png",
+      "sha256": "7b25904bb0cbabb40d8d904195d69987e2f8fe2489c97b48df218d73b30f0609"
+    },
+    {
+      "name": "unsaved-play-error",
+      "path": "test-results/fault-recovery/unsaved-play-error.png",
+      "sha256": "fb3054f4321b398c697139cbd13252081188b3b9f98067dfc56cfbc6498f4280"
+    },
+    {
+      "name": "repeating-error-recovery",
+      "path": "test-results/fault-recovery/repeating-error-recovery.png",
+      "sha256": "d410a3d80a50ed14081c298f315513c7d96243fc2cc6a95699db44af3b853a72"
+    },
+    {
+      "name": "reloaded-after-error",
+      "path": "test-results/fault-recovery/reloaded-after-error.png",
+      "sha256": "c3684511eb6ff88db30a68eb4b47546f323db1077b3bdebc83e2e3dd3e50b3d3"
+    },
+    {
+      "name": "stopped-loop-recovery",
+      "path": "test-results/fault-recovery/stopped-loop-recovery.png",
+      "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866"
+    },
+    {
+      "name": "updater-error-recovery",
+      "path": "test-results/fault-recovery/updater-error-recovery.png",
+      "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866"
+    },
+    {
+      "name": "render-error-recovery",
+      "path": "test-results/fault-recovery/render-error-recovery.png",
+      "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866"
+    },
+    {
+      "name": "japanese-error-notice",
+      "path": "test-results/fault-recovery/japanese-error-notice.png",
+      "sha256": "0c5339c979c7fae72b3f20f3f119091c820407dd7f93658f3dcde06af4700868"
+    },
+    {
+      "name": "japanese-error-recovery",
+      "path": "test-results/fault-recovery/japanese-error-recovery.png",
+      "sha256": "c5c665daaf4243560f92812e82461a19fd81c7eb1d67f97029c4185494cf07c1"
+    },
+    {
+      "name": "boot-failure",
+      "path": "test-results/fault-recovery/boot-failure.png",
+      "sha256": "768d5e29c185fc55432ee29e3bdbac61a1d68eae2cfd25ca73d75777e724eb89"
+    }
+  ],
+  "not_measured": [],
+  "passed": true
+}

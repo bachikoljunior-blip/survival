@@ -131,6 +131,9 @@
           if (open < 0) { err('no unlocked choice in ' + (G.director.dialogue.convo?.id)); break; }
           idx = open;
         }
+        if (window.__CLTranscript) window.__CLTranscript.push({
+          kind: 'choice', index: idx, text: choices[idx].text,
+        });
         ui.onChoose(idx);
       } else {
         ui.onAdvance();

@@ -1,0 +1,142 @@
+{
+  "method": "CPU-only execution of frozen source with explicit browser/server/DOM stubs. No real game playthrough or browser/server was started.",
+  "sourceManifest": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/source-manifest.json",
+  "checks": [
+    {
+      "name": "wrappers preserve exact receiver, arguments, return and original exceptions",
+      "status": "PASS",
+      "detail": "Two wrappers called the original once with exact identity; original exceptions propagated without invented events."
+    },
+    {
+      "name": "actual UI methods after actual Japanese localization produce normalized full text and DOM ending paragraphs",
+      "status": "PASS",
+      "detail": "Actual UI show/showEnding and production Japanese localizer were exercised with CPU DOM stubs; this is a method contract, not a browser capture."
+    },
+    {
+      "name": "driver records localized selected choice while choosing by authored index; preserves baseline calls",
+      "status": "PASS",
+      "detail": {
+        "baselineCalls": [
+          1
+        ],
+        "recordedCalls": [
+          1
+        ],
+        "localizedChoiceRecorded": true
+      }
+    },
+    {
+      "name": "new exitCode path is present and transcript-disabled run creates no transcript",
+      "status": "PASS",
+      "detail": "No transcript event storage or file when optional flag is absent; final path assigns exitCode rather than forcing exit."
+    },
+    {
+      "name": "reported bundle SHA matches exact frozen bundle and multiple matches fail before launch",
+      "status": "PASS",
+      "detail": {
+        "bundle": "cinderline.1.0.0.js",
+        "sha256": "0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b",
+        "multipleMatchesRejectedBeforeStubLaunch": true
+      }
+    },
+    {
+      "name": "lossless base64 payload and byte/hash roundtrip en",
+      "status": "PASS",
+      "detail": {
+        "chunks": 2,
+        "payloadBytes": 5893,
+        "artifactBytes": 5893,
+        "payloadSha256": "35b73ddd84a2431a472f34ae42471b6d2ffcaf91e7eae31eea468d8f44ff326e",
+        "artifactSha256": "35b73ddd84a2431a472f34ae42471b6d2ffcaf91e7eae31eea468d8f44ff326e",
+        "jsonValuesIdentical": true,
+        "byteIdenticalToArtifact": true,
+        "newlineIncludedInBoth": true
+      }
+    },
+    {
+      "name": "lossless base64 payload and byte/hash roundtrip ja",
+      "status": "PASS",
+      "detail": {
+        "chunks": 4,
+        "payloadBytes": 11911,
+        "artifactBytes": 11911,
+        "payloadSha256": "187379937c4889aff6373395165029ef9d62ab33b8fda78b8861067c02a0c1f3",
+        "artifactSha256": "187379937c4889aff6373395165029ef9d62ab33b8fda78b8861067c02a0c1f3",
+        "jsonValuesIdentical": true,
+        "byteIdenticalToArtifact": true,
+        "newlineIncludedInBoth": true
+      }
+    },
+    {
+      "name": "negative control: driver failure remains overall failure",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 1,
+        "driverErrors": [
+          "CPU injected driver failure"
+        ]
+      }
+    },
+    {
+      "name": "incomplete-capture negative controls fail acquisition without changing raw driver result",
+      "status": "PASS",
+      "detail": [
+        {
+          "case": "no events",
+          "exitCode": 1,
+          "captureErrors": [
+            "No dialogue text captured",
+            "Complete ending text not captured"
+          ],
+          "rawDriverReachedEnding": true
+        },
+        {
+          "case": "no ending",
+          "exitCode": 1,
+          "captureErrors": [
+            "Complete ending text not captured"
+          ],
+          "rawDriverReachedEnding": true
+        },
+        {
+          "case": "duplicate ending",
+          "exitCode": 1,
+          "captureErrors": [
+            "Complete ending text not captured"
+          ],
+          "rawDriverReachedEnding": true
+        },
+        {
+          "case": "no selected event",
+          "exitCode": 1,
+          "captureErrors": [
+            "Offered choice nodes 1 do not match selections 0"
+          ],
+          "rawDriverReachedEnding": true
+        },
+        {
+          "case": "empty ending title and paragraphs",
+          "exitCode": 1,
+          "captureErrors": [
+            "Complete ending text not captured"
+          ],
+          "rawDriverReachedEnding": true
+        }
+      ]
+    },
+    {
+      "name": "browser-error negative control exports explicit failure despite successful raw driver result",
+      "status": "PASS",
+      "detail": {
+        "overallExitCode": 1,
+        "transcriptRawDriverErrors": 0,
+        "browserErrors": 1,
+        "executionSucceeded": false,
+        "captureSucceeded": false,
+        "interpretation": "Raw driver result is retained; aggregate browser/acquisition failure is explicit and process fails."
+      }
+    }
+  ],
+  "passed": 10,
+  "failed": 0
+}

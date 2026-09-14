@@ -1,0 +1,188 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Schema-required unscored sentinel; no product, touch or visual-quality score was assigned.",
+  "verdictMeaning": "Conservative unmeasured-product verdict required by the critic workflow. There are no unresolved actionable findings in the bounded actual-r2 helper review; this is not a product or iOS element pass.",
+  "result": "NO_UNRESOLVED_FINDINGS_IN_BOUNDED_ACTUAL_R2_SCOPE",
+  "blindComparison": "No blind comparison or native rendering comparison was performed. Synthetic one-pixel PNGs test byte handling only and cannot establish which game presentation a stranger would prefer.",
+  "round": "ios55-followup-independent-refutation-r2",
+  "profile": "helper-routing-timing-and-lossless-logging",
+  "tier": "CPU-and-pinned-source-only",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No native game raster was captured or evaluated.",
+  "scope": {
+    "repo_or_product_edits": 0,
+    "browser_or_server_runs": 0,
+    "iOS_or_ObjectiveC_execution": 0,
+    "extra_agents": 0,
+    "real_node_footer_child_runs": 10,
+    "new_game_captures": 0
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "IOS55-LOG-FLUSH-01",
+      "severity": "major",
+      "shot": "Failure footer stdout capture with an included 8,000,000-byte synthetic PNG",
+      "problem": "The original follow-up footer can terminate before queued stdout is delivered. With a declared 150 ms reader delay, the independently executed footer exited 1 after delivering only 36,000 of 8,000,000 PNG bytes, although its complete metadata said included:true. A promptly drained pipe had delivered all bytes, so truncation is scheduling-dependent.",
+      "why": "A CI log consumer can receive an incomplete image that cannot match the advertised SHA256 or reconstruct the saved PNG. This affects the new lossless log recovery path; the evidence does not show corruption of the screenshot file itself.",
+      "owner": "tools/test-ios-safari.mjs",
+      "fix": "Replace the forced process.exit(1) after logging with process.exitCode = 1, or explicitly await stream completion, while preserving failure exit status 1. In the independent 8,000,000-byte pipe control require all 8,000,000 bytes, SHA256 82c62fbf0cfd0826493d00d2bff22392e19e95ac8fa682b6573ea330d9fb022f, exact report JSON and exit 1. Read the retained verification using python3 -m json.tool /workspace/scratch/0b7ad82bafe7/ios55-followup-refuter-02.json. Preserve old probes; use fresh paths for any future execution.",
+      "hypothesis": "Confirmed at the isolated footer boundary: under identical controlled pipe backpressure, changing only the final forced exit to exitCode (plus a comment) lets Node drain the full output. The complete actual r2 source was used. Neither deterministic truncation on every run nor the amount lost in macOS CI is claimed.",
+      "status": "RESOLVED_IN_ACTUAL_R2_CPU_BOUNDARY",
+      "resolution_sha256": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d",
+      "classification": "The forced-exit pattern predates this change in baseline 55fa. The 8,000,000-byte cap newly exposes larger images to it; the baseline omitted these larger images entirely. This is a pre-existing drain defect affecting the newly expanded logging path, not a newly invented exit operation.",
+      "evidence": [
+        {
+          "file": "ios55-followup-refuter-01.json",
+          "claim": "Eight promptly drained real child runs: actual r2 is exact at 1,500,001 and 8,000,000 bytes with exit 1; original follow-up also happened to drain completely. The no-truncation assertion failure is retained and limits the claim."
+        },
+        {
+          "file": "ios55-followup-refuter-02.json",
+          "claim": "Identical 150 ms reader delay: original follow-up 36,000/8,000,000 bytes, actual r2 8,000,000/8,000,000 bytes, both exact report JSON and exit 1."
+        },
+        {
+          "file": "ios55-followup-source/test-ios-safari-r2.mjs",
+          "claim": "Independent byte comparison confirms that the actual r2 delta is only the final exit operation and its explanatory comment."
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "CI-GROUNDING",
+      "result": "SURVIVES",
+      "evidence": [
+        "ios55-followup-source/ios55-job.log",
+        "ios55-followup-refuter-01.json",
+        "ios55-followup-refuter-actions-01.mjs"
+      ],
+      "details": "Fresh extraction of the actual CI report confirms 12 recorded checks passed, trusted touch title pointerup, and PLAY before the two-thumb request was rejected for a leading one-millisecond pause. The baseline snapshot equals git object 55fa8fe10db89946d6ead8ae5e396f65adcdfe01:tools/test-ios-safari.mjs. Independent execution of its actual helper excerpts reproduces the recorded CSS/native payload exactly. This is a helper-format failure, not evidence of a game two-thumb failure."
+    },
+    {
+      "id": "CURRENT-PAYLOAD",
+      "result": "SURVIVES",
+      "evidence": [
+        "ios55-followup-refuter-fixtures-01/actions.stdout.json"
+      ],
+      "details": "Actual helper excerpts and the pinned nativePointerActions mapper produce move native (101,296)->(101,236), durations [0,0,350,550,0], and attack native (619,330), durations [350,0,150,0]. Both chains start with pointerMove; all actual pauses are positive. The mapper preserves authored durations. This does not claim that durations are unchanged from the invalid baseline chain."
+    },
+    {
+      "id": "WDA-TIMING",
+      "result": "SURVIVES_AS_SOURCE_INTERPRETATION",
+      "evidence": [
+        "ios55-followup-source/wda16-FBW3CActionsSynthesizer.m",
+        "ios55-followup-source/wda-v16-FBBaseActionsSynthesizer.m",
+        "ios55-followup-wda-timeline.json"
+      ],
+      "details": "Each pointer chain initializes its own durationOffset=0. Its offsets accumulate action durations. The first pointerMove creates a touch at offset+duration; index-1 pointerDown immediately after that move returns no new path. Base asEventPaths retains the previous path after an empty array, so pause and suppressed down do not reset it. Up lifts at the accumulated offset. This gives exactly one path per supplied pointer chain: movement 0–900 ms, attack 350–500 ms, 150 ms overlap. This describes event paths constructed by the pinned sources, not measured native delivery, universal WebDriver tick behavior or game response.",
+      "source_dependencies": {
+        "wda16": "5cf3ec579c8edeeac3e9e7db357bd007b62584696d7c9c3a191b4cecd21d5c6b",
+        "base_v16": "797ac498085ee91bbb3f3cfc7979bc856907c8e46b6858f73fce4b74225bbd96"
+      },
+      "negative_controls": "A leading pause has no preceding position and rejects. Inserting a positive pause between first move and down makes down index 2, which bypasses the special suppression and can create an extra path. Those source-derived negatives agree with the retained parent interpretation. Neither appears in the actual current payload."
+    },
+    {
+      "id": "PNG-AND-CAP-FORMAT",
+      "result": "SURVIVES_WITH_STREAM_SCOPE_LIMIT",
+      "evidence": [
+        "ios55-followup-refuter-01.json",
+        "ios55-followup-image-boundaries.log.gz",
+        "ios55-followup-image-boundaries-before.log.gz"
+      ],
+      "details": "Independent Python zlib/CRC parsing confirms valid 1x1 RGBA PNGs, identical pixel [7,11,13,255], exact base64 reassembly and recorded SHA256 for 70, 1,500,001, 7,999,999 and 8,000,000 bytes. The omitted 8,000,001-byte PNG was independently reconstructed from the authored tEXt padding and also matches metadata/CRC/pixel checks. Metadata exists for all five; only sizes <=8,000,000 have data. The complete report preserves CI fields and escaped Unicode/NUL/newline. These complete VM logs establish format and cap policy, not real stdout flushing."
+    },
+    {
+      "id": "ACTUAL-R2-PIPE",
+      "result": "SURVIVES_BOUNDED_CPU_VERIFICATION",
+      "evidence": [
+        "ios55-followup-refuter-01.json",
+        "ios55-followup-refuter-02.json",
+        "ios55-followup-r2-exit-probe.json"
+      ],
+      "details": "Independent actual-r2 footer children preserve full 1,500,001 and 8,000,000-byte PNGs and exit 1 under prompt draining. With a 150 ms delayed reader, the actual-r2 8,000,000-byte PNG still matches every byte and SHA, while the old follow-up footer truncates it. Parent’s additional actual-r2 mixed-image control was read: complete 8,000,000-byte image followed by included:false metadata for 8,000,001 bytes, with no following data and exit 1. The mixed sequence was not redundantly rerun."
+    },
+    {
+      "id": "APPIUM-WRAPPER",
+      "result": "SURVIVES_AS_SOURCE_INTERPRETATION",
+      "evidence": [
+        "ios55-followup-driver-wrapper.json",
+        "ios55-followup-source/appium-12.1.3-gesture.ts"
+      ],
+      "details": "Independent read of pinned appium-xcuitest-driver 12.1.3 confirms performActions forces touch and removes only zero-duration pauses before passing the payload to WDA. The current chains already use touch and contain no zero-duration pauses, so this wrapper preserves their timing/action positions. releaseActions is explicitly a no-op: contact release relies on the authored pointerUp, not the helper’s subsequent DELETE."
+    }
+  ],
+  "refuted_overclaims": [
+    {
+      "claim": "The old follow-up footer always truncates these PNGs.",
+      "result": "REFUTED",
+      "reason": "Independent promptly drained runs retained complete images. The failure depends on output backpressure/scheduling; the failed reproduction is retained."
+    },
+    {
+      "claim": "A correct WDA source timeline proves trusted simultaneous game input or absence of all native phantom touches.",
+      "result": "NOT_ESTABLISHED",
+      "reason": "Only the two supplied pointer paths and pinned source branches are analyzed. No new native event stream, XCTest execution or game input response was measured."
+    },
+    {
+      "claim": "The old CI log proves that the missing native PNG exceeded the old cap.",
+      "result": "NOT_ESTABLISHED",
+      "reason": "The original native screenshot bytes and byte-count metadata are unavailable. Absence of image metadata does not uniquely identify its size or logging-loss cause."
+    },
+    {
+      "claim": "Synthetic PNG boundary tests prove native screenshot quality or complete macOS CI log delivery.",
+      "result": "REFUTED",
+      "reason": "The fixtures are valid one-pixel images with ancillary text padding. CPU byte checks establish format and local pipe behavior only."
+    }
+  ],
+  "limitations": [
+    "Current helper input mechanics are unchanged between the first follow-up and actual r2; only footer exit/comment changed, verified byte-for-byte. Unchanged mechanical controls were not expanded.",
+    "The independent stdout probes ran Node v24.19.0 on the local Linux CPU environment, not the macOS runner or iOS device.",
+    "Dropped byte counts are not a stable invariant. The reproduced cause is premature forced termination with queued output.",
+    "The exact original CI report and its completed checks are preserved. No downstream simultaneous input, camera, pause/reload, soak, native screenshot or full-suite completion is asserted.",
+    "No broader documentation requirements, quality criteria or new mandatory process was introduced."
+  ],
+  "retainedFailedAttempts": [
+    {
+      "path": "ios55-followup-refuter-01.py",
+      "outputs": [
+        "ios55-followup-refuter-01.json",
+        "ios55-followup-refuter-01.log",
+        "ios55-followup-refuter-fixtures-01/"
+      ],
+      "result": "Expected truncation assertion failed because Python promptly drained both large original-follow-up images. All eight child runs, including positive actual-r2 results, remain on disk."
+    },
+    {
+      "path": "ios55-followup-wda-origin.json",
+      "result": "Parent records the initial extra-newline source-save artifact and retains it. The reviewed exact WDA source matches the pinned fetched bytes."
+    }
+  ],
+  "rawEvidence": [
+    "ios55-followup-refuter-01.py",
+    "ios55-followup-refuter-01.json",
+    "ios55-followup-refuter-01.log",
+    "ios55-followup-refuter-actions-01.mjs",
+    "ios55-followup-refuter-fixtures-01/",
+    "ios55-followup-refuter-02.py",
+    "ios55-followup-refuter-02.json",
+    "ios55-followup-refuter-02.log",
+    "ios55-followup-refuter-fixtures-02/"
+  ],
+  "sourceHashes": {
+    "ios55-followup-source/test-ios-safari.mjs": "db769c26dcb7447a0183f9733981cd0ade6d8487373863da7f8ac41b9766c64b",
+    "ios55-followup-source/ios-pointer-coordinates.mjs": "ddbdf1f0606fc40796efc87845ebf0b72776172ca3121bd41e64e4ead98732ca",
+    "ios55-followup-source/webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    "ios55-followup-source/wda16-FBW3CActionsSynthesizer.m": "5cf3ec579c8edeeac3e9e7db357bd007b62584696d7c9c3a191b4cecd21d5c6b",
+    "ios55-followup-source/ios55-job.log": "3cc5c1da4696fbf4c0e1af8202a267e416987321753b4fe8bfed50f571565702",
+    "ios55-followup-source/test-ios-safari-before.mjs": "e9be30fb7e6c33c2086abca618e9cbe5ae899f830172660d21aa88740db24c11",
+    "ios55-followup-source/wda-v16-FBBaseActionsSynthesizer.m": "797ac498085ee91bbb3f3cfc7979bc856907c8e46b6858f73fce4b74225bbd96",
+    "ios55-followup-source/test-ios-safari-r2.mjs": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d",
+    "ios55-followup-source/appium-12.1.3-gesture.ts": "98971229c92fcd72964c2c49a3e24ec61981a7791ed316beaa495a88e577186d"
+  },
+  "sourceBytesUnchangedDuringRefutation": true,
+  "ownershipMap": {
+    "repository": "survival",
+    "knownOwners": [
+      "tools/test-ios-safari.mjs"
+    ]
+  }
+}

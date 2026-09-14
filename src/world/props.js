@@ -376,7 +376,7 @@ export function barricade(cb, x, z, rot, len, rng) {
 }
 
 /** Rubble mound — collapsed masonry, walkable if low enough. */
-export function rubblePile(cb, x, z, radius, height, rng) {
+export function rubblePile(cb, x, z, radius, height, rng, { depthScale = 1, y = 0 } = {}) {
   const b = cb.m('rubble');
   const steps = 4;
   for (let s = 0; s < steps; s++) {
@@ -387,15 +387,15 @@ export function rubblePile(cb, x, z, radius, height, rng) {
     for (let i = 0; i < n; i++) {
       const a = (i / n) * TAU;
       const rr = r * (0.72 + rng.f() * 0.5);
-      pts.push([x + Math.cos(a) * rr, z + Math.sin(a) * rr]);
+      pts.push([x + Math.cos(a) * rr, z + Math.sin(a) * rr * depthScale]);
     }
-    b.prism(pts, 0, height * (t + 1 / steps), 0.6, [0.72 + t * 0.2, 0.7 + t * 0.2, 0.66 + t * 0.2], true, 0.5);
+    b.prism(pts, y, y + height * (t + 1 / steps), 0.6, [0.72 + t * 0.2, 0.7 + t * 0.2, 0.66 + t * 0.2], true, 0.5);
   }
   // Protruding slabs and rebar catch the light and break the silhouette.
   for (let i = 0; i < Math.round(radius * 2.2); i++) {
     const a = rng.f() * TAU, d = rng.f() * radius * 0.85;
     cb.m('concrete').boxRot({
-      x: x + Math.cos(a) * d, y: rng.range(0.05, height * 0.7), z: z + Math.sin(a) * d,
+      x: x + Math.cos(a) * d, y: y + rng.range(0.05, height * 0.7), z: z + Math.sin(a) * d * depthScale,
       w: rng.range(0.5, 1.5), h: 0.13, d: rng.range(0.35, 0.9),
       rot: rng.f() * TAU, uvScale: 0.8, tint: [0.74, 0.72, 0.68], ao: 0.3,
     });
@@ -403,7 +403,7 @@ export function rubblePile(cb, x, z, radius, height, rng) {
   for (let i = 0; i < Math.round(radius); i++) {
     const a = rng.f() * TAU, d = rng.f() * radius * 0.7;
     cb.m('rust').boxRot({
-      x: x + Math.cos(a) * d, y: height * 0.4, z: z + Math.sin(a) * d,
+      x: x + Math.cos(a) * d, y: y + height * 0.4, z: z + Math.sin(a) * d * depthScale,
       w: 0.04, h: rng.range(0.5, 1.4), d: 0.04, rot: rng.f() * TAU, uvScale: 3, tint: T.rust,
     });
   }

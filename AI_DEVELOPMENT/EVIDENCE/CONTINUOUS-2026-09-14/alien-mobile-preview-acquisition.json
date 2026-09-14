@@ -1,0 +1,114 @@
+{
+  "checked_at": "2026-09-14T11:21:58.985670+09:00",
+  "reference_id": "W3",
+  "reference_work": "Alien: Isolation",
+  "source": "https://apps.apple.com/us/app/alien-isolation/id1573029040",
+  "media_download": [
+    {
+      "name": "video",
+      "url": "https://apptrailers.itunes.apple.com/itunes-assets/PurpleVideo126/v4/a6/13/5e/a6135ed6-5327-0646-4fef-63156873a614/P789453828_Anull_video_gr290_sdr_1920x886-.mp4",
+      "checked_at": "2026-09-14T02:12:06.361394+00:00",
+      "status": 200,
+      "bytes": 33039949,
+      "sha256": "b9253adac6a865ee6d22bcf13cc40a5aa1996ded3655792c2415df243fc3f2ba",
+      "file": "video-original.mp4"
+    },
+    {
+      "name": "audio",
+      "url": "https://apptrailers.itunes.apple.com/itunes-assets/PurpleVideo126/v4/ac/45/3b/ac453ba3-416f-864d-034f-2c7a95030fee/P789453828_Anull_audio_en_gr128_mp4a-40-2-.mp4",
+      "checked_at": "2026-09-14T02:12:06.361897+00:00",
+      "status": 200,
+      "bytes": 507040,
+      "sha256": "1752ed0c0687916ab4149a6f56f739bd01f51e14e1d675205442a99dc59b1838",
+      "file": "audio-original.mp4"
+    }
+  ],
+  "selection": "Highest bandwidth advertised 1920x886 SDR variant plus advertised 128kbps stereo audio. Public original URLs, no login or protected access used.",
+  "assembly": "ffmpeg stream copy of original native video and audio; no re-encoding, normalization or content alteration.",
+  "probe": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 886,
+        "duration": "29.766667"
+      },
+      {
+        "codec_name": "aac",
+        "sample_rate": "44100",
+        "channels": 2,
+        "duration": "29.837642"
+      }
+    ],
+    "format": {
+      "duration": "29.837642",
+      "size": "33558913"
+    }
+  },
+  "files": [
+    {
+      "name": "video.m3u8",
+      "bytes": 909,
+      "sha256": "fe008266fdb43e5dd7317a9f6f16cf9b5a237872c11941d82d0122d950325d59"
+    },
+    {
+      "name": "acquisition.json",
+      "bytes": 393,
+      "sha256": "69fbb206e55623ab9b899d03b50c2bfbe4a52faad212ced63baece1535ec7b9e"
+    },
+    {
+      "name": "video-original.mp4",
+      "bytes": 33039949,
+      "sha256": "b9253adac6a865ee6d22bcf13cc40a5aa1996ded3655792c2415df243fc3f2ba"
+    },
+    {
+      "name": "audio-original.mp4",
+      "bytes": 507040,
+      "sha256": "1752ed0c0687916ab4149a6f56f739bd01f51e14e1d675205442a99dc59b1838"
+    },
+    {
+      "name": "variants.json",
+      "bytes": 2324,
+      "sha256": "023b19b9916870f196f4b472ca37bf33fbeca19b27c7c9c8dbf5a3944f0a8e0e"
+    },
+    {
+      "name": "media-download.json",
+      "bytes": 834,
+      "sha256": "273a6af15d2d15cd815172a8bb966731aed3b3072d12e54782a74b2ed4c0dad2"
+    },
+    {
+      "name": "master.m3u8",
+      "bytes": 7843,
+      "sha256": "628ec26fc53e11d97852dc09d0dfbe54125c383e19937ded9312e9322bfcc9ec"
+    },
+    {
+      "name": "original-av.mp4",
+      "bytes": 33558913,
+      "sha256": "087a453ea702f179f87c4ae4970ca265903558ac6d2d6b44aa8fafda6e17be7e"
+    },
+    {
+      "name": "audio.m3u8",
+      "bytes": 697,
+      "sha256": "2c34102465341505250d763d573e7ce6674df619d5fb3a1e853e63592a0a65d3"
+    }
+  ],
+  "inspection": {
+    "visual": "Five decoded frames at about 3/9/15/21/27 seconds were viewed. The clip includes review quotation cards, a cinematic close-up, actual touch-HUD gameplay featuring the creature, and a final branded title card. It is an edited promotional preview, not a continuous playthrough.",
+    "audio": "Direct audio input was attempted for an 8-second stream-copy excerpt. Tool returned: audio content omitted because you do not support audio input. No listening judgement is claimed.",
+    "comparison": "Not administered. Caption/title recognition and edited trailer context prevent accepting the complete clip as an unmodified source-blind gameplay comparison. Further material/evaluation method is needed."
+  },
+  "storage_scope": "Original reference media remains in separate reference-materials/alien/appstore-video, outside game source/build/distribution. Metadata only is retained here; no reference assets are incorporated into the game.",
+  "verdict": "not measured",
+  "evaluation_capability_search": {
+    "query": "audio analysis sound understanding",
+    "results": [
+      "VisualSong: local spectrum visualization only",
+      "Shutterstock: stock assets",
+      "SoundBreak: licensed music generation",
+      "Transkriptor: existing speech transcripts only",
+      "Descript: editing/transcription"
+    ],
+    "conclusion": "No listed capability established source-blind qualitative listening. None was installed, purchased, or treated as an evaluator."
+  }
+}

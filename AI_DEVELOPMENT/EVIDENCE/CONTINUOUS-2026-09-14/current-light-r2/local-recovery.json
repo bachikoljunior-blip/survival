@@ -1,0 +1,12 @@
+{
+  "checked_at_utc": "2026-09-14T11:32:25Z",
+  "path": "evaluator-qwen35-r1/Qwen3.5-9B-Q8_0.gguf.download",
+  "expected_complete_bytes": 9527502048,
+  "scope": "Remove only the reproducible incomplete Qwen3.5 model prefix after normal sandbox execution recovered; keep complete Omni model, reference source, reader, project and verification evidence.",
+  "observed_bytes": 3665821696,
+  "gguf_magic": true,
+  "is_symlink": false,
+  "removed": true,
+  "free_bytes_after": 8457641984,
+  "remaining_uncertainty": "The writer or restoration process behind the earlier prefix reappearance remains unconfirmed. This cleanup does not prove it cannot recur. No local large model download will restart without complete-space preflight."
+}

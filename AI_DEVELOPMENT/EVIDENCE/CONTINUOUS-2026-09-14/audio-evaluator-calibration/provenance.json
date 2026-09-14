@@ -1,0 +1,120 @@
+{
+  "at": "2026-09-14T12:51:31.720933+09:00",
+  "status": "rejected as a quality evaluator after failed calibration",
+  "measured": {
+    "model_and_projector_publisher_hashes_verified": true,
+    "capacity_recovery": "Deleted only incomplete duplicate model downloads after recording hashes; approximately 15.7 GB free confirmed before successful projector download.",
+    "backend_recovery": "First CLI invocation failed: no backends loaded. Running from the bundled CPU runtime directory loaded a backend and completed actual audio inference.",
+    "known_sequence": "0-2 s silence, 2-4 s continuous tone, 4-6 s intermittent higher tone. Output reversed/misdescribed order.",
+    "negative_control": "4 s of exact zero PCM. Output falsely reported two continuous sine-wave sounds separated by silence.",
+    "negative_control_zero_sample_count": 64000,
+    "model": "ggml-org/Qwen2.5-Omni-7B-GGUF Q8_0 + f16 projector at 89b785438c8901d4635e42f50480ba5985a1bbf1",
+    "runtime": "llama.cpp b10809 / 5266f24da, official Ubuntu x64 archive"
+  },
+  "inference": "This exact runtime/model configuration does not reliably establish that a described sound was present and cannot support the requested audio quality or blind-comparison judgment. The test does not prove all audio models fail.",
+  "blind_comparison": false,
+  "elements_unchanged": "all 19 not measured",
+  "product_assets_added": false,
+  "files": [
+    {
+      "path": "MODEL-LICENSE",
+      "bytes": 11343,
+      "sha256": "8d5eb5f806d01e8f5ea2c5a52f7d68ebc54b196b1cfbe1cd5dfa4b94e482a9c6"
+    },
+    {
+      "path": "model-info.json",
+      "bytes": 2993,
+      "sha256": "9f71b5b751af029b35935593617ac3feae5737bff36f9f8c0eacb7f74ca0df26"
+    },
+    {
+      "path": "model-tree.json",
+      "bytes": 1773,
+      "sha256": "60678a734c5cb4c3ad300a1c91b00ac55caefef85c02b0978b8c2170a1b50eb2"
+    },
+    {
+      "path": "model-download.json",
+      "bytes": 817,
+      "sha256": "cd5595df0fff6628928fc1017d27f0300be043e24755e5c432e96ec775a7d1ba"
+    },
+    {
+      "path": "projector-recovery-download.json",
+      "bytes": 645,
+      "sha256": "5dedf606c8007fd20ee65565108191270fbc4505963c31142d3b880ffa58417d"
+    },
+    {
+      "path": "capacity-recovery.json",
+      "bytes": 1877,
+      "sha256": "e27ecf90cc8b9239c23136e5f942fff8e1e0b6ab6fefea5a0f5d28bddc7edb88"
+    },
+    {
+      "path": "runtime-binary-release.json",
+      "bytes": 60735,
+      "sha256": "641de35a408556e23f3031b487866fcd785ce05b9f740a95ad1ed2757e94176b"
+    },
+    {
+      "path": "nightly-tag.txt",
+      "bytes": 7,
+      "sha256": "bd0afc13ffe4aaa2f02eb7df8882a2617907d7f232012ae2ca0f21f6b865fbe0"
+    },
+    {
+      "path": "calibration.wav",
+      "bytes": 192044,
+      "sha256": "ee98ccf97b5a2b5d1663512b95664bb5d4476d5e94ffb8426dce7dbf093f2c69"
+    },
+    {
+      "path": "calibration-prompt.txt",
+      "bytes": 227,
+      "sha256": "97cbeca4c3e019163b29c1d25ebbf78677920496c962fdf529a19ec62ef0d777"
+    },
+    {
+      "path": "calibration-record.json",
+      "bytes": 1146,
+      "sha256": "123f0ec2557d811de231b9fa9d1f6510ec0e82ebab16b6a4e839b7ff7e592190"
+    },
+    {
+      "path": "calibration-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "calibration-stderr.txt",
+      "bytes": 815,
+      "sha256": "06da269d540755498c00329966d12db1dac126fb5fd1d1e09a2185ae95acebe2"
+    },
+    {
+      "path": "calibration-v2-record.json",
+      "bytes": 1299,
+      "sha256": "4ed1973262c37b021b049443589b24a3b4a7ba7de03e58435f3d78734aa57eb3"
+    },
+    {
+      "path": "calibration-v2-stdout.txt",
+      "bytes": 173,
+      "sha256": "4c61abc8bba73cd9e7a577a60223ff995818b5d269a4cb49665b49be2447aae6"
+    },
+    {
+      "path": "calibration-v2-stderr.txt",
+      "bytes": 1333,
+      "sha256": "04e381baa88adef4162b74a5d54c16530c091da329abfa95705725b85a671b1e"
+    },
+    {
+      "path": "silence-control.wav",
+      "bytes": 128044,
+      "sha256": "f751fd7094be088dc785125e4a1a0222a17c2bd20469aa31728ca5e515ed5809"
+    },
+    {
+      "path": "silence-control-record.json",
+      "bytes": 894,
+      "sha256": "da3fa81354a94b6ee6edf1d3d5b97263de3e2996915d9e4e286827bda1808c14"
+    },
+    {
+      "path": "silence-control-stdout.txt",
+      "bytes": 211,
+      "sha256": "8cd5b7197834c3ea815c361d964b1321f110f5a7ddcc2d0e0e49fa44a063af8f"
+    },
+    {
+      "path": "silence-control-stderr.txt",
+      "bytes": 1333,
+      "sha256": "22c4f7ba548d18d470639a3c6068ae9f6c73f1e6161a2389cf93b41152722495"
+    }
+  ]
+}

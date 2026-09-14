@@ -1,0 +1,364 @@
+{
+  "round": "trench-perception-repair-cpu-02",
+  "profile": "Independent CPU/source review of order stand-down and runtime rubble repairs",
+  "tier": "medium CPU geometry; no GPU",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No raster target; absence marker only.",
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Schema-required unscored sentinel, not product quality.",
+  "blindComparison": "Not performed. Source-labelled CPU behavior and geometry controls cannot judge an unlabelled stranger preference or establish any product/element quality verdict.",
+  "previousReviewedDirectorSha256": "eb347f5eed42b31ed5db61dd8d3e3a6d8ff9ea400fe874e356fe78cde6aaef61",
+  "sourceHashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "a45c2ce94362ee5489089a245087567f1ace550388f5c49366d4f7e6dc1ec772",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "b50ab205bd9a91df3a44cda7e2385802c926a18c620c66ebf15c5ca870afe3b8",
+    "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "0ca1755de0ca76bbe18b48cba1753ff2ba107aaea3b4ff7c89a2bc9d139ebd22",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "scope": "New stand-down, neutral perception/call exclusion, save and autosave, runtime rubble dispatch/default compatibility/removal, and actual Player climb segment. Full City/Enemy/AI/Actor/Combat/Player/Director/Storage code; appearance/output devices and input acquisition are stubs. No perception or Player movement mocks.",
+  "findings": [
+    {
+      "id": "R2-REENTRY",
+      "severity": "minor",
+      "shot": "trench-perception-r2-probe-02.json :: accepted-prepoll-save-repeated-reentry",
+      "problem": "A valid save captured after the order interaction but before the next Director poll has trench_talked=true, trench_passed=false and cinderline step 1. After applySave, calling reenterActiveSteps twice grows the neutral Enemy count from 3 to 6 to 9. The previously reviewed Director holds 3,3,3 in the same counterfactual setup.",
+      "why": "The active-step hook violates the requested repeated-spawn idempotence in the accepted-but-not-polled save state. Multiple neutral bodies can be created; normal single applySave resets the world first and is not claimed to duplicate by itself.",
+      "owner": "src/game/director.js",
+      "fix": "Make accepted pre-poll reentry idempotent before the later passage poll: keep neutral Enemy count constant across repeated active-step entry, whether accepted actors are retained or omitted. Run a fresh-named r2-probe-02 and inspect accepted-prepoll-save-repeated-reentry.cases[current].counts for a constant sequence; preserve next-poll progression. The number to inspect is max(counts)-min(counts), required 0, rather than the current 6. Counts can be read with node -p \"JSON.stringify(require('./trench-perception-r2-refuter-probe-01.json').checks[0].result.cases.map(c=>({label:c.label,counts:c.counts})))\"; use a new evidence filename for a repaired run.",
+      "hypothesis": "Confirmed source mechanism: spawnTrenchLine spawns because trench_passed is still false, then _standDownTrench clears _raidActive. The next identical onEnter no longer sees a live raid guard and spawns another neutral group. The previous Director retained _raidActive across repeats.",
+      "introducedByChange": true,
+      "evidence": [
+        "trench-perception-r2-probe-02.mjs",
+        "trench-perception-r2-probe-02.json",
+        "src/game/director.js::_hooks/spawnTrenchLine/_standDownTrench",
+        "src/game/narrative.js::reenterActiveSteps",
+        "trench-perception-r2-refuter-probe-01.mjs",
+        "trench-perception-r2-refuter-probe-01.json"
+      ],
+      "refutationStatus": "survived separate refutation with actual unmodified poll timer; ordinary repeated applySave negative control remains constant"
+    }
+  ],
+  "verifiedControls": [
+    "A real AI Warden swing just before its active frame is canceled by normal input handoff in the same tick; attack, token, target and camera lock clear; no Warden damage occurs during the following 8-second dialogue interval.",
+    "Neutral line members do not reacquire the player or join an actual unrelated Warden call; nearby hostile positive control is alerted. A player-faction control is excluded. Scav still flees actual authored gas.",
+    "A topic-only lifecycle control reads all order lines through the actual UI callback to PLAY and takes no Warden damage for eight further seconds. With finale quest omitted, actual 90-second autosave succeeds after explicit clear-air relocation; this is not a normal post-ending PLAY claim.",
+    "Three deterministic legacy rubble calls match every geometry array and next RNG value against original c65853f props when the new options are omitted.",
+    "Runtime plant/rubble removal restores the prior collision count, center support and lights; removed collider IDs are absent from actual collision queries.",
+    "Separate refuter reproduced a real Warden damage hit without handing over the order, then reproduced zero Warden damage for eight seconds when the imminent attack was canceled through normal interaction. This is a working damage-path negative control.",
+    "Normal cinderline final dialogue stays free of Warden damage for eight seconds, then actual callbacks and the available leave choice produce CINEMATIC with a completed save; eight further seconds also have zero Warden damage. Fully passed step-2 save/applySave, repeated active-step entry and repeated spawn hook retain zero enemies.",
+    "Actual quest oblique heap route starts on supported pitwall y=0.9 at (96,16), reaches grounded (90.015291,2.6,16.415701) in 2.383333 seconds using only real Player input and two auto-vaults, and advances step 1 to step 2 with trench_slipped/trench_passed and no trench_talked. The fixture only establishes this final traversal segment, not a complete approach from an earlier chapter."
+  ],
+  "observations": [
+    {
+      "id": "R2-ITEM",
+      "status": "candidate-observation-preexisting",
+      "detail": "Normal interaction selection from a chapter-5 CPU setup with countItem(trenchOrder)=0 still grants all passage flags/step2 and neutralizes the line. requiresItem is authored but unused. Full authored chapter progression reachability without that item is unmeasured; do not assert a newly introduced gameplay exploit or require repair on that basis alone. Source control also shows office chapter-3 progression requires collecting trenchOrder, which is a key item. No full normal no-order journey has been demonstrated."
+    },
+    {
+      "id": "R2-HEAP-DIRECT-APPROACHES",
+      "status": "bounded observation, not retained defect",
+      "detail": "Six center-directed approaches fail to climb. Real landing-overlap rejection explains the sampled direct directions, but oblique landings succeed, so no universal impassability or mandatory geometry redesign is claimed.",
+      "evidence": [
+        "trench-perception-r2-probe-01.json",
+        "trench-perception-r2-probe-02.json",
+        "trench-perception-r2-refuter-probe-01.json"
+      ]
+    }
+  ],
+  "approachData": [
+    {
+      "start": [
+        96,
+        16
+      ],
+      "initial": {
+        "ground": {
+          "y": 0.9000000000000004,
+          "tag": "pitwall"
+        },
+        "overlap": null
+      },
+      "maxY": 1.3,
+      "maxGroundedY": 1.3,
+      "events": [],
+      "scope": "Only initial supported placement. Thereafter actual Game input/Player movement/auto-vault/collision/gas run; no Y assignment, obstacle edits, or player motion stubs.",
+      "holdSeconds": 12,
+      "input": "normal Game input, magnitude 1 toward (90,16), no sprint; actual Player auto-vault/collision",
+      "traceArtifact": "trench-perception-r2-probe-01.json"
+    },
+    {
+      "start": [
+        84,
+        16
+      ],
+      "initial": {
+        "ground": {
+          "y": 0.9000000000000004,
+          "tag": "pitwall"
+        },
+        "overlap": null
+      },
+      "maxY": 1.3,
+      "maxGroundedY": 1.3,
+      "events": [],
+      "scope": "Only initial supported placement. Thereafter actual Game input/Player movement/auto-vault/collision/gas run; no Y assignment, obstacle edits, or player motion stubs.",
+      "holdSeconds": 12,
+      "input": "normal Game input, magnitude 1 toward (90,16), no sprint; actual Player auto-vault/collision",
+      "traceArtifact": "trench-perception-r2-probe-01.json"
+    },
+    {
+      "start": [
+        90,
+        11
+      ],
+      "initial": {
+        "ground": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "overlap": null
+      },
+      "maxY": 0.05,
+      "maxGroundedY": 0,
+      "events": [],
+      "scope": "Only initial supported placement. Thereafter actual Game input/Player movement/auto-vault/collision/gas run; no Y assignment, obstacle edits, or player motion stubs.",
+      "holdSeconds": 12,
+      "input": "normal Game input, magnitude 1 toward (90,16), no sprint; actual Player auto-vault/collision",
+      "traceArtifact": "trench-perception-r2-probe-01.json"
+    },
+    {
+      "start": [
+        90,
+        21
+      ],
+      "initial": {
+        "ground": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "overlap": null
+      },
+      "maxY": 0.05,
+      "maxGroundedY": 0,
+      "events": [],
+      "scope": "Only initial supported placement. Thereafter actual Game input/Player movement/auto-vault/collision/gas run; no Y assignment, obstacle edits, or player motion stubs.",
+      "holdSeconds": 12,
+      "input": "normal Game input, magnitude 1 toward (90,16), no sprint; actual Player auto-vault/collision",
+      "traceArtifact": "trench-perception-r2-probe-01.json"
+    },
+    {
+      "start": [
+        95,
+        21
+      ],
+      "initial": {
+        "ground": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "overlap": null
+      },
+      "maxY": 0.05,
+      "maxGroundedY": 0,
+      "events": [],
+      "scope": "Only initial supported placement. Thereafter actual Game input/Player movement/auto-vault/collision/gas run; no Y assignment, obstacle edits, or player motion stubs.",
+      "holdSeconds": 12,
+      "input": "normal Game input, magnitude 1 toward (90,16), no sprint; actual Player auto-vault/collision",
+      "traceArtifact": "trench-perception-r2-probe-01.json"
+    },
+    {
+      "start": [
+        85,
+        21
+      ],
+      "initial": {
+        "ground": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "overlap": null
+      },
+      "maxY": 0.05,
+      "maxGroundedY": 0,
+      "events": [],
+      "scope": "Only initial supported placement. Thereafter actual Game input/Player movement/auto-vault/collision/gas run; no Y assignment, obstacle edits, or player motion stubs.",
+      "holdSeconds": 12,
+      "input": "normal Game input, magnitude 1 toward (90,16), no sprint; actual Player auto-vault/collision",
+      "traceArtifact": "trench-perception-r2-probe-01.json"
+    }
+  ],
+  "rawArtifacts": [
+    "trench-perception-r2-fixture-v1.mjs",
+    "trench-perception-r2-probe-01.mjs",
+    "trench-perception-r2-probe-01.json",
+    "trench-perception-r2-probe-01.log",
+    "trench-perception-r2-probe-02.mjs",
+    "trench-perception-r2-probe-02.json",
+    "trench-perception-r2-probe-02.log",
+    "trench-perception-r2-probe-03.mjs",
+    "trench-perception-r2-probe-03.json",
+    "trench-perception-r2-probe-03.log",
+    "trench-perception-r2-refuter-probe-01.mjs",
+    "trench-perception-r2-refuter-probe-01.json",
+    "trench-perception-r2-refuter-probe-01.log",
+    "trench-perception-r2-refuter-probe-02.mjs",
+    "trench-perception-r2-refuter-probe-02.json",
+    "trench-perception-r2-refuter-probe-02.log"
+  ],
+  "refutation": {
+    "agent": "/root/trench_perception_review/trench_refuter",
+    "independent": true,
+    "pinDependentWorkComplete": true,
+    "retained": [
+      "R2-REENTRY"
+    ],
+    "removed": [
+      "R2-HEAP-CLIMB"
+    ],
+    "reentryCounts": [
+      {
+        "label": "current",
+        "ordinaryApplySave": [
+          3,
+          3,
+          3
+        ],
+        "reenterActiveSteps": [
+          3,
+          6,
+          9
+        ],
+        "afterPollStep": 2
+      },
+      {
+        "label": "previous-reviewed",
+        "ordinaryApplySave": [
+          3,
+          3,
+          3
+        ],
+        "reenterActiveSteps": [
+          3,
+          3,
+          3
+        ],
+        "afterPollStep": 2
+      }
+    ],
+    "rawEvidence": [
+      "trench-perception-r2-refuter-probe-01.mjs",
+      "trench-perception-r2-refuter-probe-01.json",
+      "trench-perception-r2-refuter-probe-01.log",
+      "trench-perception-r2-refuter-probe-02.mjs",
+      "trench-perception-r2-refuter-probe-02.json",
+      "trench-perception-r2-refuter-probe-02.log"
+    ]
+  },
+  "createdAt": "2026-09-14T04:26:02.216Z",
+  "baseRepositoryRevision": "6efddea15a8e7b59ffc598180a94bc65033b2934",
+  "rejectedFindings": [
+    {
+      "id": "R2-HEAP-CLIMB",
+      "outcome": "Removed after separate refutation",
+      "originalClaim": "The failed direct approaches were treated as evidence that the repaired heap had not met the playable climb target.",
+      "correction": "Three oblique input routes reach actual grounded height 2.6 m through two auto-vaults. One route repeated with the actual trench quest also sets trench_slipped and trench_passed and advances to step 2. The broad repair-unmet implication is false; direct-route failures remain bounded observations.",
+      "evidence": [
+        "trench-perception-r2-refuter-probe-01.json",
+        "trench-perception-r2-refuter-probe-02.json"
+      ]
+    }
+  ],
+  "successfulClimb": {
+    "start": [
+      96,
+      16
+    ],
+    "initial": {
+      "ground": {
+        "y": 0.9000000000000004,
+        "tag": "pitwall"
+      },
+      "overlap": null
+    },
+    "cameraYaw": 0,
+    "targets": [
+      [
+        92.75,
+        15.3
+      ],
+      [
+        91.9,
+        17.5
+      ],
+      [
+        90,
+        16
+      ]
+    ],
+    "input": "Normal magnitude-1 movement toward each target, no sprint; camera yaw stays zero in the fixture.",
+    "phaseTransitions": [
+      "Distance to first target below 0.14 m",
+      "Grounded, not vaulting, and y above 1.9 m"
+    ],
+    "elapsedSeconds": 2.3833333333333298,
+    "finalPosition": [
+      90.01529122570088,
+      2.6,
+      16.415701443106556
+    ],
+    "groundedHeight": 2.6,
+    "vaultTimes": [
+      1.0500000000000012,
+      1.8499999999999983
+    ],
+    "flags": [
+      "trench_passed",
+      "trench_slipped"
+    ],
+    "quest": {
+      "state": "active",
+      "step": 2,
+      "data": {}
+    },
+    "mode": "dialogue",
+    "rawScript": "trench-perception-r2-refuter-probe-02.mjs",
+    "sampledTrace": "trench-perception-r2-refuter-probe-02.json",
+    "scope": "One supported setup. All later displacement and Y changes come from actual Player physics/vaulting driven only by normal Game input. Waypoint switches use position or grounded height feedback; no obstacle/AI edits and no later position assignment."
+  },
+  "retention": "All previous drafts, failed approaches, failed earlier-round probes and source-mismatch runs are retained. This final review removes the disproved implication rather than overwriting evidence."
+}

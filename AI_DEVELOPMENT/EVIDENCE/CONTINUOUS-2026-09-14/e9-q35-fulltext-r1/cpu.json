@@ -1,0 +1,242 @@
+{
+  "helper": {
+    "bytes": 30339,
+    "sha256": "9a04b54a670c7085118baf822a24e7c4e494cb6099db94ec45248352e165d43c"
+  },
+  "scope": "CPU formatting/tokenizer and orchestration only; no target GGUF download or inference.",
+  "private_directory": "/workspace/scratch/0b7ad82bafe7/e9-helper-cpu-private-70u96os9",
+  "tests": [
+    {
+      "name": "official_template_full_reader_byte_identity",
+      "passed": true,
+      "evidence": {
+        "full_reader_bytes_unchanged": true,
+        "spans": [
+          {
+            "label": "A",
+            "offset_bytes": 2652,
+            "bytes": 200075,
+            "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9"
+          },
+          {
+            "label": "B",
+            "offset_bytes": 202743,
+            "bytes": 62026,
+            "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048"
+          }
+        ],
+        "chat_bytes": 264828,
+        "chat_sha256": "5a7a5149de7a4ad0445c2cc47c252312f501fb0e8ae71994883fcb2025aaaf32",
+        "native_completion_file_after_one_LF_strip_equal": true,
+        "renderer": {
+          "Jinja2": "3.1.6",
+          "MarkupSafe": "3.0.3"
+        },
+        "limitation": "Official frozen HF template exercised; downloaded target GGUF template is checked only during CI."
+      }
+    },
+    {
+      "name": "native_tokenizer_vocab_only_small_dummy",
+      "passed": true,
+      "evidence": {
+        "binary": {
+          "bytes": 40960,
+          "sha256": "eed376ff4589e92e0696559990bbee04b639deebf91490e933fb14436f375886"
+        },
+        "fixture": {
+          "bytes": 5928682,
+          "sha256": "63ed952ff338996cf0bdf24a7b10015124273f75c6dc9bb427356aa3f67ec62c"
+        },
+        "run": {
+          "status": "process_finished",
+          "exit_code": 0,
+          "seconds": 0.4166260650017648,
+          "stdout": {
+            "bytes": 3287,
+            "sha256": "0173c780e02047bfc8c4ecacfb416ba2e6ff93c5a773f2d592b04083bc8265ca"
+          },
+          "stderr": {
+            "bytes": 247,
+            "sha256": "70b869e03473bf1a9c442aa0b9f0618eb2f8080277330922b9741432815409af"
+          }
+        },
+        "dummy_native_tokens": 573,
+        "literal_backslashes_and_UTF8_retained": true,
+        "fixture_architecture": "qwen2",
+        "limitation": "Repository vocabulary fixture (qwen2 metadata), not the frozen 9B GGUF; no final E9 native count claimed."
+      }
+    },
+    {
+      "name": "context_boundary_and_count_integrity",
+      "passed": true,
+      "evidence": {
+        "max_exact_prompt_tokens": 90108,
+        "overflow_and_corruption_rejected": [
+          "full_input_plus_output_exceeds_context_no_truncation",
+          "native_token_count_inconsistent",
+          "native_tokenizer_output_unparseable",
+          "native_tokenizer_output_unparseable"
+        ]
+      }
+    },
+    {
+      "name": "subprocess_failure_timeout_and_alarm",
+      "passed": true,
+      "evidence": {
+        "nonzero": {
+          "status": "process_finished",
+          "exit_code": 7,
+          "seconds": 0.033341895999910776,
+          "stdout": {
+            "bytes": 15,
+            "sha256": "9bc06cfb87e845bcd0f9b6419f3e164a62bc67ff54cf9f43236d630f01be08db"
+          },
+          "stderr": {
+            "bytes": 15,
+            "sha256": "c8bab59e01d2f656e25663b5511c1e791a006ad6ab156ea70192aa517568a6db"
+          }
+        },
+        "timeout": {
+          "status": "timeout",
+          "exit_code": null,
+          "error_type": "TimeoutExpired",
+          "terminated_exit_code": -9,
+          "seconds": 0.15288798400433734,
+          "stdout": {
+            "bytes": 23,
+            "sha256": "e6ca470d8ae7dd61fbbe1b6f18ed423e69bfa8220ff5e1259aede2f5490199e4"
+          },
+          "stderr": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "whole_prepare_alarm": {
+          "status": "timeout",
+          "exit_code": null,
+          "error_type": "TimeoutError",
+          "terminated_exit_code": -9,
+          "seconds": 0.15053574799821945,
+          "stdout": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "scope": "Small Python child processes, no LLM execution."
+      }
+    },
+    {
+      "name": "private_export_and_copy_guard",
+      "passed": true,
+      "evidence": {
+        "all_tested_quote_offsets_blocked": true,
+        "lossless_export_bytes": 12403,
+        "private_files_and_symlink_not_exported": true
+      }
+    },
+    {
+      "name": "actual_help_argv_compatibility",
+      "passed": true,
+      "evidence": {
+        "args": [
+          "/native/llama-completion",
+          "-m",
+          "/private/model.gguf",
+          "--offline",
+          "-ngl",
+          "0",
+          "--fit",
+          "off",
+          "-t",
+          "4",
+          "-c",
+          "98304",
+          "-b",
+          "512",
+          "-ub",
+          "128",
+          "-n",
+          "8192",
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--no-context-shift",
+          "--no-conversation",
+          "--no-display-prompt",
+          "--simple-io",
+          "--no-escape",
+          "--log-verbosity",
+          "3",
+          "--log-colors",
+          "off",
+          "--temp",
+          "1.0",
+          "--top-p",
+          "0.95",
+          "--top-k",
+          "20",
+          "--min-p",
+          "0",
+          "--presence-penalty",
+          "1.5",
+          "--repeat-penalty",
+          "1.0",
+          "--seed",
+          "917",
+          "-f",
+          "/private/chat.txt"
+        ],
+        "all_checked_options_advertised_by_actual_release_help": true,
+        "no_second_template_application_no_media_no_server_CLI": true
+      }
+    },
+    {
+      "name": "native_special_token_policy_equivalence",
+      "passed": true,
+      "evidence": {
+        "equivalent_policies": [
+          {
+            "model": "gpt2",
+            "pre": "qwen35",
+            "effective_add_bos": false,
+            "effective_add_eos": false,
+            "missing_flag_defaults": false,
+            "tokenizer_and_completion_special_policy_equal": true
+          },
+          {
+            "model": "gpt2",
+            "pre": "qwen35",
+            "effective_add_bos": true,
+            "effective_add_eos": false,
+            "missing_flag_defaults": false,
+            "tokenizer_and_completion_special_policy_equal": true
+          },
+          {
+            "model": "gpt2",
+            "pre": "qwen35",
+            "effective_add_bos": true,
+            "effective_add_eos": true,
+            "missing_flag_defaults": false,
+            "tokenizer_and_completion_special_policy_equal": true
+          }
+        ],
+        "mismatched_policy_rejected": [
+          "native_tokenizer_completion_special_policy_mismatch"
+        ],
+        "pinned_Qwen_BPE_default": {
+          "model": "gpt2",
+          "pre": "qwen2",
+          "effective_add_bos": false,
+          "effective_add_eos": false,
+          "missing_flag_defaults": false,
+          "tokenizer_and_completion_special_policy_equal": true
+        }
+      }
+    }
+  ]
+}

@@ -10,9 +10,9 @@
 import * as THREE from 'three';
 import { Actor, STATE } from '../actors/actor.js';
 import { Enemy } from './ai.js';
-import { GameState, Storage, ITEMS, CAPABILITIES } from './state.js';
+import { GameState, Storage, ITEMS, CAPABILITIES, migrateSave, SAVE_LOADABLE } from './state.js';
 import { QuestSystem, DialogueRunner, testCondition, applyEffects } from './narrative.js';
-import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS, QUIET } from '../content/story.js';
+import { QUESTS, CONVERSATIONS, CAST, ENDINGS, EPILOGUE_BEATS } from '../content/story.js';
 import { MODE } from './game.js';
 import { clamp, clamp01, lerp, damp } from '../core/util.js';
 import { PPM } from '../world/gas.js';
@@ -90,16 +90,8 @@ export class Director {
     this.state.on('item', (id, n, delta) => {
       if (delta > 0 && ITEMS[id]) g.hud.notice(`${t(`item.${id}.name`, ITEMS[id].name)} ×${delta}`, '', 2.4);
     });
-    // Trust changes surface as a toast — except on the beats where Ren says
-    // the hard true thing. Popping "Sol — She knows what you are now" in red
-    // over a confession turns the centre of the story into a score.
-    this.state.on('trust', (id, v, delta, reason) => {
-      if (!reason || reason === QUIET) return;
-      // The reason is an authored English sentence with no id of its own, so it
-      // goes through the phrase glossary, which is keyed on the English.
-      g.hud.notice(`<b>${castName(id, CAST[id] ? CAST[id].name : id)}</b><br>${phrase(reason)}`,
-        delta > 0 ? 'good' : 'bad', 3.4);
-    });
+    // Relationships affect dialogue, help and later events without grading the
+    // player's choice through a coloured score or commentary toast.
 
     g.on('interact', (t) => this.interact(t));
     g.on('meter:read', (r) => {
@@ -128,6 +120,11 @@ seconds and I already know which one I believe.`);
       if (n >= 5 && !this.state.can('hardHands')) this.state.unlock('hardHands');
     });
     g.on('actor:death', (a) => { if (a === g.player) this.onPlayerDeath(a); });
+    g.on('actor:aggro', (a) => {
+      // Quiet encounters raise the score when their guards actually detect
+      // Ren. Actor events arrive through Game._drainEvents after the AI tick.
+      if (this._raidActive?.group.includes(a)) g.emit('music', 'combat');
+    });
 
     // Reaching places is the single most common quest trigger, so it is polled
     // rather than event-driven — cheap, and it cannot be missed.
@@ -145,9 +142,16 @@ seconds and I already know which one I believe.`);
         ['scav', -100, -74], ['scav', -96, -88], ['slinger', -92, -82],
       ]),
       spawnTrenchLine: () => {
+        if (this.state.has('trench_passed')) return;
+        // A save can fall between accepting the order and the next reach
+        // poll. Re-entering that still-active step must not spawn a new shift.
+        if (this.state.has('trench_talked')) {
+          this._standDownTrench();
+          return;
+        }
         this._spawnRaid('trench', [
           ['warden', 70, 14], ['warden', 78, 16], ['scav', 74, 24],
-        ]);
+        ], { alerted: false });
         // The line is a shift, not a crusade. There are three ways past it and
         // only one of them is the fight.
         this._addRuntimeInteraction({
@@ -164,12 +168,15 @@ seconds and I already know which one I believe.`);
           g.atmos.plumes.setAnchorActive(`vent_west_${i}`, false);
         }
         g.gas.setSourceActive('yard_seep', true);
+        g.gas.setSourceActive('yard_half_seep', false);
         g.hud.notice(t('ui.hud.drawreverses', 'The draw reverses. You can hear it change.'), '', 5);
       },
       halfVents: () => {
         g.gas.setSourceActive('vent_west_2', false);
         g.atmos.setMarkerActive('vent_west_2', false);
         g.atmos.plumes.setAnchorActive('vent_west_2', false);
+        g.gas.setSourceActive('yard_seep', false);
+        g.gas.setSourceActive('yard_half_seep', true);
         g.gas.setIntensity(1.15);
         g.hud.notice(t('ui.hud.halfvents',
           'One head shut. Both places are worse than one could have been.'), '', 5);
@@ -200,6 +207,7 @@ seconds and I already know which one I believe.`);
    */
   resetWorld() {
     const g = this.game;
+    this.cancelDialogue();
 
     // Geometry a run raised: the chapter-five compound, and any survivors or
     // followers still standing about from a crisis.
@@ -233,7 +241,7 @@ seconds and I already know which one I believe.`);
     // Props declare their own vents; those default to on.
     for (const p of g.city.data.props) {
       if (p.kind !== 'vent' || !p.id) continue;
-      g.gas.setSourceActive(p.id, p.hot !== false);
+      g.gas.setSourceActive(p.gasId ?? p.id, p.hot !== false);
       g.atmos.setMarkerActive(p.id, p.hot !== false);
       g.atmos.plumes.setAnchorActive(p.id, p.hot !== false);
     }
@@ -378,7 +386,7 @@ seconds and I already know which one I believe.`);
     list.push({ ...it, _runtime: true });
   }
 
-  _spawnRaid(id, list) {
+  _spawnRaid(id, list, { alerted = true } = {}) {
     const g = this.game;
     // Idempotent: a load re-enters the active step, and a raid that is already
     // on the ground must not be doubled.
@@ -387,15 +395,22 @@ seconds and I already know which one I believe.`);
     const group = [];
     for (const [kind, x, z] of list) {
       const e = g.spawnEnemy(kind, x, z);
-      e.aggro = true;
-      e.awareness = 1;
-      e.target = g.player;
-      e.aiState = 'combat';
+      // The courtyard is an active raid. The trench is a staffed boundary:
+      // its guards must actually see or hear Ren before beginning combat.
+      // Preserve the Enemy constructor's unaware state for that encounter.
+      if (alerted) {
+        e.aggro = true;
+        e.awareness = 1;
+        e.target = g.player;
+        e.aiState = 'combat';
+      }
       group.push(e);
     }
     this._raidActive = { id, group };
-    g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
-    g.emit('music', 'combat');
+    if (alerted) {
+      g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
+      g.emit('music', 'combat');
+    }
     return group;
   }
 
@@ -405,12 +420,40 @@ seconds and I already know which one I believe.`);
    * inside — or by putting Krajcik's own unissued cut order in a foreman's
    * hand, which is the thing Ren is actually good at.
    */
+  _standDownTrench() {
+    const raid = this._raidActive;
+    if (!raid || raid.id !== 'trench') return;
+    const g = this.game;
+    for (const e of raid.group) {
+      if (e.dead) continue;
+      e.faction = 'neutral';
+      e.aggro = false;
+      e.awareness = 0;
+      e.target = null;
+      e.aiState = 'idle';
+      e.attack = null;
+      e.comboWindow = 0;
+      e.comboNext = null;
+      e.guarding = false;
+      e.path = null;
+      e.setMove(0, 0, 0);
+      e.animator.stopAction(0.12);
+      g.combat.releaseToken(e);
+    }
+    if (raid.group.includes(g.camera.lockTarget)) g.camera.lockTarget = null;
+    // The passage is resolved. Keeping a live raid here would also prevent
+    // the normal autosave, even after every guard has accepted the order.
+    this._raidActive = null;
+    g.emit('music', g.zone?.music || 'explore');
+  }
+
   _checkTrenchPassed() {
     if (this.state.has('trench_passed')) return;
     const g = this.game;
     const p = g.player;
     // Showing the foreman the order is a way through in its own right.
     if (this.state.has('trench_talked')) {
+      this._standDownTrench();
       this.state.set('trench_passed');
       this.state.set('trench_talked_through');
       g.hud.notice(t('ui.hud.stepsaside',
@@ -424,8 +467,10 @@ seconds and I already know which one I believe.`);
     if (p.pos.x > 76 && p.pos.x < 96 && p.pos.z > 6 && p.pos.z < 26 && p.pos.y > 2.4) {
       this.state.set('trench_passed');
       if (this._raidActive && this._raidActive.group.some((e) => !e.dead)) {
+        // This records the route, including a climb made under pursuit. It
+        // does not establish that no guard saw Ren or that nobody was hurt.
         this.state.set('trench_slipped');
-        g.hud.notice(t('ui.hud.pastthem', '<b>Past them.</b><br>Nobody looked up.'), 'good', 4);
+        g.hud.notice(t('ui.hud.pastthem', '<b>Over the line.</b><br>You have the high ground.'), 'good', 4);
       }
       this.quests.notify('custom', { id: 'trenchPassed' });
     }
@@ -755,6 +800,12 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
   interact(it) {
     const g = this.game;
     if (!it) return;
+    if (it.requiresItem && !this.state.hasItem(it.requiresItem)) {
+      const item = t(`item.${it.requiresItem}.name`, ITEMS[it.requiresItem]?.name || it.requiresItem);
+      g.hud.notice(t('ui.hud.requireditem', 'You need @item.').replace('@item', item), 'bad', 3);
+      g.emit('sfx', 'locked');
+      return;
+    }
 
     switch (it.kind) {
       case 'climb':
@@ -1049,6 +1100,9 @@ she has been able to get to telling somebody.`],
     if (topic.journal) this.state.addJournal(topic.journal[0], topic.journal[1], topic.journal[2]);
     else this.state.addJournal(`examine:${spec.topic}`, topic.title, topic.lines.join(' '));
     if (topic.flag) this.state.set(topic.flag);
+    // Cancel an already committed swing in the same interaction tick, before
+    // the next actor/combat update can hit Ren while she reads the order.
+    if (spec.topic === 'trench_line') this._standDownTrench();
     if (spec.startsQuest) this.quests.start(spec.startsQuest);
   }
 
@@ -1293,8 +1347,19 @@ she has been able to get to telling somebody.`],
 
   // ------------------------------------------------------------------ death
 
+  cancelDialogue() {
+    // Death and world replacement interrupt reading; they do not finish it.
+    // In particular, finish() could apply choices, rescue or ending effects.
+    this.dialogue.cancel();
+    this.game.dialogueUI.hide();
+    this._talkNpc?.animator.stopAction(0.1);
+    this._talkNpc = null;
+    this._pendingTrade = false;
+  }
+
   onPlayerDeath(p) {
     const g = this.game;
+    this.cancelDialogue();
     this.state.deaths++;
     g.setMode(MODE.DEAD);
     g.hud.setVisible(false);
@@ -1340,6 +1405,8 @@ she has been able to get to telling somebody.`],
 
   save(silent = false) {
     const g = this.game;
+    // A title restore changes storage before CONTINUE loads its state.
+    if (g.mode === MODE.TITLE || g.menus?.fromTitle) return false;
     this.state.playTime = g.playTime;
     this.state.lastSpawn = this.currentInterior ? `${this.currentInterior}_in` : this.state.lastSpawn;
     const ok = Storage.save(this.state, g.player, {
@@ -1365,11 +1432,16 @@ she has been able to get to telling somebody.`],
       } : null,
     });
     if (ok && !silent) g.hud.showAutosave();
+    if (!ok) g.hud.hideAutosave();
     return ok;
   }
 
   applySave(d) {
     const g = this.game;
+    // Refuse malformed progression or world fields before resetting live state.
+    const inspected = migrateSave(d);
+    if (!SAVE_LOADABLE.includes(inspected.status)) return false;
+    d = inspected.payload;
     // Loading from the title into a session that has already been played
     // leaves the previous run's hostiles alive and aggroed, its crisis timer
     // ticking and its runtime markers on the map. Reset first, always.
@@ -1402,12 +1474,7 @@ she has been able to get to telling somebody.`],
       it.taken = (d.takenIds || []).includes(it.id);
       it.disabled = (d.disabledIds || []).includes(it.id);
     }
-    for (const [id, active] of d.gasSources || []) {
-      g.gas.setSourceActive(id, active);
-      g.atmos.setMarkerActive(id, active);
-      g.atmos.plumes.setAnchorActive(id, active);
-    }
-    if (d.gasIntensity !== undefined) g.gas.setIntensity(d.gasIntensity);
+    this._restoreGas(d);
     this.currentInterior = d.interior || null;
     g.interiorPpm = d.interiorPpm ?? null;
     g.forcedMood = this.currentInterior ? 'interior' : null;
@@ -1436,6 +1503,32 @@ she has been able to get to telling somebody.`],
     this.quests.reenterActiveSteps();
     this.quests.emitObjective();
     return true;
+  }
+
+  /** Old saves omitted the West Heads because their runtime IDs were null.
+   * Recover only those missing entries from the already saved choice flags.
+   * Explicit source states and every unrelated progression field are retained.
+   */
+  _restoreGas(d) {
+    const g = this.game;
+    const sources = new Map(d.gasSources || []);
+    for (let i = 1; i <= 3; i++) {
+      const id = `vent_west_${i}`;
+      if (!sources.has(id)) sources.set(id,
+        !(this.state.has('vents_shut') || (i === 2 && this.state.has('vents_half'))));
+    }
+    if (!sources.has('yard_seep') && this.state.has('vents_shut')) sources.set('yard_seep', true);
+    if (!sources.has('yard_half_seep')) sources.set('yard_half_seep',
+      this.state.has('vents_half') && !this.state.has('vents_shut'));
+    for (const [id, active] of sources) {
+      g.gas.setSourceActive(id, active);
+      g.atmos.setMarkerActive(id, active);
+      g.atmos.plumes.setAnchorActive(id, active);
+    }
+    g.gas.setIntensity(d.gasIntensity ?? (this.state.has('vents_half') ? 1.15 : 1));
+    g.gas.globalScale = g.gas._targetScale;
+    g.gas.bake();
+    g.nav?.applyGasCost(g.gas);
   }
 
   // --------------------------------------------------------------- endings
@@ -1494,7 +1587,10 @@ she has been able to get to telling somebody.`],
       paras.push(t(`e.${ending.id}.epilogue.${which}`, ending.epilogue[which]));
     }
     for (const b of EPILOGUE_BEATS) {
-      if (testCondition(b.condition, S)) paras.push(fill(t(`ep.${b.id}`, b.text)));
+      if (testCondition(b.condition, S)) {
+        const passage = (b.variants || []).find(v => testCondition(v.condition, S)) || b;
+        paras.push(fill(t(`ep.${passage.id}`, passage.text)));
+      }
     }
     // The run's own record, in Ren's voice and in her units, rather than a
     // scoreboard. Every ending in the game used to finish on "Time in Hollis:

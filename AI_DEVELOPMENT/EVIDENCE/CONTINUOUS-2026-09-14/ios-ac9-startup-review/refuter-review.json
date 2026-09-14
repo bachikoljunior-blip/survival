@@ -1,0 +1,185 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Schema-required unscored sentinel. No native startup, element or product-quality score is assigned.",
+  "verdictMeaning": "The recorded ac9 startup failure remains unresolved. This bounded separate refutation found no concrete defect in the proposed diagnostic export; CPU export checks do not repair or pass native startup.",
+  "blindComparison": "No blind comparison or native presentation evaluation was performed. The evidence consists of actual CI text, pinned source and synthetic file-export controls, which cannot determine which game presentation a stranger would prefer.",
+  "round": "ios-ac9-startup-independent-refutation-1",
+  "profile": "startup-boundary-and-minimal-diagnostic-export",
+  "tier": "pinned-source-actual-log-and-CPU-export",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No native screenshot or raster output was evaluated.",
+  "findings": [],
+  "proposalResult": "NO_CONCRETE_PROPOSAL_DEFECT_FOUND",
+  "scope": {
+    "product_or_helper_or_workflow_edits": 0,
+    "browser_server_simulator_CDP_network_calls": 0,
+    "denied_route_retries": 0,
+    "extra_agents": 0,
+    "CPU_export_child_runs": 2,
+    "executed": "Only the proposed YAML-extracted observation step against synthetic local files; no startup request or native execution."
+  },
+  "critiqueClaimSurvival": [
+    {
+      "id": "AC9-ERROR-BOUNDARY",
+      "result": "SURVIVES",
+      "claim": "The recorded failure is an Appium POST /session error response about an empty remote-debugger application list, before the helper’s explicit game navigation and touch checks.",
+      "refutationAttempt": "Checked whether this could instead be a client total-budget timeout, a later navigation/gesture error, or a misleading report label.",
+      "evidence": "The actual report has zero checks/inputActions and device:null. Its IncomingMessage stack references webdriver-request.mjs:33, the response-end rejection branch using the returned payload message. The source waits for session creation before assigning sessionId and issuing /orientation and /url. The explicit helper /url, title and touch path is therefore not reached.",
+      "limits": "Appium may have attempted Safari/WDA work internally before returning the error. This does not establish exactly which internal stage failed, prove no Safari process ran, or prove the game could never have been loaded by another mechanism."
+    },
+    {
+      "id": "AC9-TIME-MEASURES",
+      "result": "SURVIVES_WITH_PRECISE_LABELS",
+      "claim": "The 900000 ms client budget did not expire. 43484 ms is the interval reported in the remote error; 583847 ms is initialization-to-logged-error at millisecond precision.",
+      "refutationAttempt": "Independently parsed the original timestamps and examined where checkedAt and the POST occur in the helper.",
+      "evidence": "Independent parsing gives 583847 ms at the parent’s Date.parse millisecond precision (583847485 microseconds from the printed timestamps at Python microsecond precision). checkedAt precedes local setup and both HTTP readiness calls. The logged error is emitted by the helper after its response-error handling. Neither interval is an instrumented full POST duration.",
+      "limits": "There is no exact POST-start timestamp or complete stage trace. Increasing the total client budget is not a verified remedy for a returned error occurring before that budget; the remote error’s timeout suggestion is not proof of a cause or repair."
+    },
+    {
+      "id": "55FA-COMPARISON",
+      "result": "SURVIVES",
+      "claim": "The reviewed startup session block, mobile/pages workflows, selector and transport are byte-identical across 55fa, ac9 and current, while the earlier actual report records startup progress into PLAY.",
+      "refutationAttempt": "Compared exact file bytes and session block hashes and reread both original reports; challenged an implied full-job pass or identical-runtime guarantee.",
+      "evidence": "All three session blocks are exactly 1098 bytes with SHA256 97a1a2ac54daa757a4c80cdb4c086a8a4128d7304e6e495e0dfbec12b8bf51ef. The four complete supporting files match across all three snapshots. The actual 55fa report has 12 recorded checks passed and failureState.mode=play, but its whole-job status is failed.",
+      "limits": "Matching reported runner image/macOS/iOS selections and source are not proof of an identical complete installed runtime, live simulator instance, cache state or timing. Earlier startup success does not prove a deterministic ac9 regression or establish ac9’s cause."
+    },
+    {
+      "id": "IOS-AC9-STARTUP-TRACE",
+      "result": "SURVIVES_AS_PREEXISTING_ORDINARY_LOG_GAP",
+      "claim": "The available ordinary ac9 job log lacks the Appium launch/WDA/remote-debugger chronology needed to select a concrete startup fix.",
+      "refutationAttempt": "Checked whether the trace is present in ordinary output, whether the artifact was absent, or whether the gap was introduced with ac9.",
+      "evidence": "The unchanged workflow writes Appium to appium.log, redirects its process stdout/stderr to /dev/null and preserves the output directory through the artifact step. The ordinary log includes the command and returned error, not the trace’s actual contents. Artifact upload success is recorded. The same logging pattern existed in 55fa.",
+      "owner": ".github/workflows/mobile-simulator.yml",
+      "classification": "Preexisting observability/accessibility gap in ordinary logs. The underlying file is not claimed nonexistent, corrupt, lost or absent from the uploaded artifact.",
+      "hypothesis": "The logging route explains why the available ordinary log lacks the trace. It does not identify the native startup root cause.",
+      "action": "The proposed single observation step is a concrete next diagnostic experiment. Global timeout changes, prelaunch and reset behavior remain unverified remedies."
+    }
+  ],
+  "proposalControls": [
+    {
+      "id": "EXACT-MINIMALNESS",
+      "result": "SURVIVES",
+      "evidence": "refuter-01.json / proposal_minimality_and_inline_shell",
+      "details": "Independent PyYAML parsing finds exactly one new always() Bash step between existing Stop recording and artifact upload. Removing it restores both original parsed workflow and exact original bytes. Its shell contains the exact exporter source plus one trailing blank separator line. Bash syntax check passes. Existing capabilities, timeout values, cleanup, upload and other steps are unchanged."
+    },
+    {
+      "id": "REAL-INLINE-EXECUTION",
+      "result": "SURVIVES_BOUNDED_CPU_CONTROL",
+      "evidence": "refuter-01.json / independent_export_ranges_and_pipe",
+      "details": "The actual YAML-extracted inline step was executed through Bash/Node with real filesystem input and real stdout pipes. Python waited 150 ms before reading both runs. Both exited 0, with empty stderr and complete structured output. No fake console or native behavior was used."
+    },
+    {
+      "id": "FULL-AND-PARTIAL-RANGES",
+      "result": "SURVIVES",
+      "details": "An exactly 4194304-byte Appium file produces complete:true and exact [0,4194304) output. A 4194305-byte file produces complete:false and exactly [0,2097152) plus [2097153,4194305), explicitly omitting one byte. The four-MiB output cap is observed. Independent 65536/65537-byte environment controls likewise preserve exact full or split ranges; per-chunk offsets, lengths and bytes have no gaps within declared ranges or duplicate data."
+    },
+    {
+      "id": "EMPTY-MISSING-ALLOWLIST-END",
+      "result": "SURVIVES",
+      "details": "An empty allowed file emits the empty-file SHA256, range [0,0), complete:true and an end marker with no chunks. Missing simulator-sdk-version.txt emits a single ENOENT record. A present unallowlisted file is not exported. Every present file’s end record agrees with metadata byte count, snapshot hash and complete flag; all included base64 is canonical and exact."
+    },
+    {
+      "id": "BINARY-LOG-CONTENT",
+      "result": "SURVIVES",
+      "details": "Synthetic inputs contain raw workflow-command syntax, NUL and invalid UTF-8 bytes. Every emitted line remains a prefixed JSON record; file content is base64. The decoded bytes match inputs without turning file text into ordinary workflow-command lines."
+    },
+    {
+      "id": "SNAPSHOT-COMPLETENESS",
+      "result": "SURVIVES_ONLY_WITH_DECLARED_LIMITS",
+      "details": "complete describes whether the captured file snapshot fits the emission cap. stableDuringRead compares size/mtime around the read and observed length. Neither field proves terminal process finality or that every Appium startup event was written. Full snapshot hashes on partial output aid later identity matching; omitted middle bytes cannot be independently reconstructed or verified from that partial output alone."
+    }
+  ],
+  "notEstablished": [
+    "The ac9 failure was caused by WDA build/launch, Safari launch, inspection settings, simulator state or a specific remote-debugger timeout setting.",
+    "The proposed step will contain every needed stage in the next actual CI run or guarantee root-cause identification; real file contents and cap coverage remain to be observed.",
+    "CPU stdout tests establish macOS/GitHub log delivery or native startup success.",
+    "Same selected UDID and image/version labels prove identical complete runtime state."
+  ],
+  "limits": [
+    "The cap bounds emitted file bytes, not readFileSync memory: the entire captured file is read and hashed before selecting ranges. This is explicitly acknowledged and was not misreported as bounded memory.",
+    "After-cleanup observation does not itself prove the Appium file is permanently final. A missing or partial record remains visibly distinguishable in the proposed format.",
+    "The original Appium trace/environment-file contents were not retrieved. No denied retrieval route, network, CDP, simulator, browser or server was retried.",
+    "Only startup failure and the proposed diagnostic step were reviewed. Unchanged touch/gesture mechanics and broad product criteria were not re-reviewed.",
+    "Node v24.19.0 on local Linux executes the CPU fixtures; the workflow’s configured Node 22/macOS environment was not newly executed.",
+    "The metadata completeness flag is not a substitute for checking all declared ranges and the end record when recovering a real CI stream."
+  ],
+  "minorReportWordingRecommendations": [
+    "Keep initialization-to-logged-error terminology rather than labeling 583847 ms as the POST duration or exact remote failure instant.",
+    "Read retained JSON for review; use fresh output paths if rerunning analyze-startup.mjs or proposal verification, since the existing scripts write over their named artifacts."
+  ],
+  "retainedFailedAttempts": [
+    {
+      "files": [
+        "verify-proposal.mjs",
+        "raw/proposal-verification.stdout.txt",
+        "raw/proposal-verification.stderr.txt"
+      ],
+      "status": "Parent first attempt missed the child close event; retained."
+    },
+    {
+      "files": [
+        "verify-proposal-r2.mjs",
+        "raw/proposal-verification-r2.stdout.txt",
+        "raw/proposal-verification-r2.stderr.txt",
+        "raw/export-r2-small.stdout.log.gz"
+      ],
+      "status": "Parent second attempt attached its data listener late and lost output; retained. This is not attributed to the exporter."
+    },
+    {
+      "files": [
+        "verify-proposal-r3.mjs",
+        "raw/proposal-verification-r3.json"
+      ],
+      "status": "Corrected parent handler ordering and successful full/partial transport controls retained; read without rerunning or overwriting."
+    }
+  ],
+  "independentFailedAttempts": [],
+  "rawEvidence": [
+    "refuter-01.py",
+    "refuter-01.json",
+    "refuter-01.log",
+    "refuter-inline-step-01.sh",
+    "refuter-at-cap-01.stdout.log.gz",
+    "refuter-at-cap-01.stderr.log",
+    "refuter-over-cap-01.stdout.log.gz",
+    "refuter-over-cap-01.stderr.log",
+    "refuter-fixtures-01/"
+  ],
+  "sourceHashes": {
+    "source/current-tools_test-ios-safari.mjs": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d",
+    "source/ac9cd44-tools_test-ios-safari.mjs": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d",
+    "source/55fa8fe-tools_test-ios-safari.mjs": "e9be30fb7e6c33c2086abca618e9cbe5ae899f830172660d21aa88740db24c11",
+    "source/current-tools_webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    "source/ac9cd44-tools_webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    "source/55fa8fe-tools_webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    "source/current-.github_workflows_mobile-simulator.yml": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa",
+    "source/ac9cd44-.github_workflows_mobile-simulator.yml": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa",
+    "source/55fa8fe-.github_workflows_mobile-simulator.yml": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa",
+    "source/current-.github_workflows_pages.yml": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8",
+    "source/ac9cd44-.github_workflows_pages.yml": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8",
+    "source/55fa8fe-.github_workflows_pages.yml": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8",
+    "source/current-tools_select-ios-simulator.mjs": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74",
+    "source/ac9cd44-tools_select-ios-simulator.mjs": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74",
+    "source/55fa8fe-tools_select-ios-simulator.mjs": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74",
+    "raw/mobile-ac9cd44_ios-job.log": "616d99ff037194953cda9f1e9aa2d5d7e4a52a011969e99f3158dd0cc43c7538",
+    "raw/ios55-job.log": "3cc5c1da4696fbf4c0e1af8202a267e416987321753b4fe8bfed50f571565702",
+    "source/appium-12.1.3-web.ts": "e6a1f019a79585c4b71aa1411a03c2f8d8c8f58b8ddaf6fc36d59f19ef3edbc5",
+    "source/appium-12.1.3-gesture.ts": "98971229c92fcd72964c2c49a3e24ec61981a7791ed316beaa495a88e577186d",
+    "proposed-startup-log-export.mjs": "d9efe58574a4899d748afdb0123f1e53886a2ddf55021b552fcd7ec0cde374ee",
+    "proposed-mobile-simulator.yml": "316f1e2f873abab0f4e85151ca764303d4b733756882e4c0c5c3cabf869edf8b"
+  },
+  "sourceBytesUnchanged": true,
+  "ownershipMap": {
+    "knownOwners": [
+      ".github/workflows/mobile-simulator.yml"
+    ]
+  },
+  "additionalEnvironmentComparison": {
+    "evidence": "raw/environment-comparison.json",
+    "independentlyCheckedAgainstOriginalLines": true,
+    "sharedReportedNode": "v22.23.2",
+    "sharedReportedNpm": "10.9.8",
+    "limit": "These additional matching reported versions still do not establish identical complete installed/runtime or simulator state. CPU exporter probes used local Node v24.19.0."
+  }
+}

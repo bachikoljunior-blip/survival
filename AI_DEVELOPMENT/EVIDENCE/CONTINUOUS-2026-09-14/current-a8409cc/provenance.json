@@ -1,0 +1,202 @@
+{
+  "recordedAt": "2026-09-14T18:17:40.384+09:00",
+  "productCommit": "a8409cc0de04a503f50395487478fe0cfb2a98e7",
+  "productBundleSha256": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "measurement": {
+    "webkit": {
+      "job": 103909238072,
+      "run": 34823195679,
+      "status": "passed",
+      "checks": 177,
+      "failures": 0,
+      "report": "../webkit-a8409cc/report.json",
+      "originalPngs": 9
+    },
+    "ios": {
+      "job": 103909238290,
+      "run": 34823195728,
+      "status": "passed",
+      "checks": 27,
+      "failures": 0,
+      "report": "../ios-a8409cc/report.json",
+      "originalPngs": 2
+    },
+    "narrative": {
+      "job": 103909237928,
+      "run": 34823195679,
+      "paths": {
+        "publish": {
+          "events": 119,
+          "endings": 1
+        },
+        "deal": {
+          "events": 114,
+          "endings": 1
+        }
+      },
+      "eventComparison": "narrative-diff.json"
+    }
+  },
+  "originalLogPins": [
+    {
+      "bytes": 16764179,
+      "job": 103909238072,
+      "sha256": "c5e4fbb884046659aa817da8cbaca274ed63283adae724b76d916ed768cf42ca"
+    },
+    {
+      "bytes": 117789,
+      "job": 103909237928,
+      "sha256": "4e4b9fb96c4e49666ac262064a95e1671be879665b6420d25e6eeb16ffc7992b"
+    },
+    {
+      "bytes": 8346741,
+      "job": 103909238290,
+      "sha256": "1284220e53a589c73a38af3979a08a70d9000b6956178bd59662c1c29753e7ab"
+    }
+  ],
+  "rawMaterialFiles": [
+    {
+      "bytes": 1379664,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-stacks-frame.png",
+      "sha": "a546cfc3be43e1a27c2bef3669ff64ee716e76ae",
+      "sha256": "ee04fb4a3e946136aed8ce46ac9b37de4deb62631fa276275b1004259fb8a947",
+      "type": "blob"
+    },
+    {
+      "bytes": 1319434,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-survey-frame.png",
+      "sha": "efdeb534c47faed39007da18e9ee2f861ab4d40c",
+      "sha256": "cdcb0e06db16d690850c71ab5f86d2dd5717fcf53ed43e5a2d1684f6852b485d",
+      "type": "blob"
+    },
+    {
+      "bytes": 1251154,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-ventfield-frame.png",
+      "sha": "7980041d8bc021df0f23289ad13196d0dd6f013d",
+      "sha256": "59de6218f2f393c9c191359549f368debc1ef79f774633f961327ebe6608639b",
+      "type": "blob"
+    },
+    {
+      "bytes": 372877,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/report.json",
+      "sha": "8ecec4c3e6d3293b71651b9c40d2b134744d5e2d",
+      "sha256": "edea1ca0071dd84d86a4ca0bb8c559bd743dffee333319d3a58674f6d2fc3ec9",
+      "type": "blob"
+    },
+    {
+      "bytes": 1344498,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-arcade-frame.png",
+      "sha": "6da2e1b76f653a0f8aa0f4120a2b038ada8c55ba",
+      "sha256": "5484424a4fcfc8614e9a3746fc20a2bccedaa86839223ca6e465c6759341bd3c",
+      "type": "blob"
+    },
+    {
+      "bytes": 1337651,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-cinder-frame.png",
+      "sha": "af00ba3eb1d28aad1b41a276c0a9b795a2e6ca60",
+      "sha256": "5dd9c498f77bc713d24b967bf8abb818e39eee2c35480878e8a1aa59fea9507b",
+      "type": "blob"
+    },
+    {
+      "bytes": 1346435,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-marrow-frame.png",
+      "sha": "d036e9aa7a3afd2ffd999d6ad95f08402db9de98",
+      "sha256": "26406617dcf8e3f3cbffa91eecb7e4879efe6a53d36400a9b61187cca37a3624",
+      "type": "blob"
+    },
+    {
+      "bytes": 1026310,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-marrow_roof-frame.png",
+      "sha": "e9d8753bdca7bacb4adcab582904ec89c994d8b4",
+      "sha256": "6fdba92126e76e4a15cdaf87b3c31928a34843863c4a87ccd0fff064982a48d7",
+      "type": "blob"
+    },
+    {
+      "bytes": 1389518,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-plant-frame.png",
+      "sha": "d7a205e6e094649f28c951545e220cda66af2476",
+      "sha256": "c8fd39a56926bac0082aacabc5638c48e832732ba98a101c8d8630896958922f",
+      "type": "blob"
+    },
+    {
+      "bytes": 1329117,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-a8409cc/visual-south-frame.png",
+      "sha": "41432403f10b78ad57b00d5cabb6c7fe79ba7347",
+      "sha256": "537f7fcf23d17581458a0ff05d427b1eb085f75f9d36a39c1abbfb6454c55bce",
+      "type": "blob"
+    },
+    {
+      "bytes": 2043603,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/ios-a8409cc/ios-safari-gameplay.png",
+      "sha": "d74682831dc7d33bc4df232e127f22ff1d4d6bb2",
+      "sha256": "fff162eba8db6420efca9fc9bcda3b2d899cbb7c9293418423321933aaaf4f56",
+      "type": "blob"
+    },
+    {
+      "bytes": 393738,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/ios-a8409cc/ios-safari-pause.png",
+      "sha": "2d55671f0a3c03787de8adc803959eae8ef5f45d",
+      "sha256": "e7b6a8848eb51788821a8f39eb3a8230c9c0da045b858622f6d681b7f1f44504",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/ios-a8409cc/report.json",
+      "sha": "83b7e3c7bc970601b1feb5ea0f42cc4bd87d91ae",
+      "type": "blob"
+    },
+    {
+      "bytes": 26875,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/narrative-a8409cc/deal.json",
+      "sha": "697644c2d3a2789feaa673ffddb8253616f7fbe8",
+      "sha256": "a612d9ab9a604307f93fd6b615fdba2e4b5b2d8d41fb7bf62653650694739f47",
+      "type": "blob"
+    },
+    {
+      "bytes": 28549,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/narrative-a8409cc/publish.json",
+      "sha": "e8fd38f0d9be526bb4a58743247e4c3346fc669a",
+      "sha256": "3410eb7e3e65a9833a84be43a888f1069ff42f7b8b2adb867d3957ecb46b38c5",
+      "type": "blob"
+    },
+    {
+      "bytes": 117789,
+      "mode": "100644",
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/narrative-a8409cc/original-job.log",
+      "sha": "04082343f07d336b34a89052e3c003a84873bc1c",
+      "sha256": "4e4b9fb96c4e49666ac262064a95e1671be879665b6420d25e6eeb16ffc7992b",
+      "type": "blob"
+    }
+  ],
+  "recoveryVerification": "All original WebKit (9 PNG + report), iOS (2 PNG), narrative (2 full JSON) decoded with contiguous offsets and independently recalculated full-byte SHA256 matching exported pins.",
+  "sourceKnownVisualDiagnosis": "mvd-02-independent-review.json",
+  "inference": {
+    "claim": "The recorded material change reduced the specific high-frequency contrast problem at 8 captured views; targeted 3 view effects independently observed.",
+    "basis": "Actual original before/after images and bounded material-only source delta.",
+    "assumptions": "Capture routes comparable; smoke/particles and Plant road differences are not fully state-matched.",
+    "scope": "These still views only; not all movement, all runtime conditions or E16 parity.",
+    "uncertainty": "Plant lower-right dark pattern source remains unconfirmed; no global causal attribution."
+  },
+  "elementJudgement": "All 19 remain not measured; source-known diagnosis and browser gates do not replace source-blind comparison.",
+  "unitsCompleted": 0,
+  "publication": {
+    "merged": false,
+    "deployed": false,
+    "gameDistributionContainsReferenceMedia": false
+  }
+}

@@ -1,0 +1,199 @@
+﻿2026-09-14T10:49:10.5994724Z Current runner version: '2.337.0'
+2026-09-14T10:49:10.6014338Z ##[group]Runner Image Provisioner
+2026-09-14T10:49:10.6015112Z Hosted Compute Agent
+2026-09-14T10:49:10.6015611Z Version: 20260828.587
+2026-09-14T10:49:10.6016127Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-14T10:49:10.6016816Z Build Date: 2026-08-28T16:44:25Z
+2026-09-14T10:49:10.6017404Z Worker ID: {1b21876b-a67c-437a-b5f3-6a84d00d07b6}
+2026-09-14T10:49:10.6018018Z Azure Region: westus
+2026-09-14T10:49:10.6018501Z ##[endgroup]
+2026-09-14T10:49:10.6019610Z ##[group]Operating System
+2026-09-14T10:49:10.6020238Z Ubuntu
+2026-09-14T10:49:10.6020680Z 24.04.5
+2026-09-14T10:49:10.6021140Z LTS
+2026-09-14T10:49:10.6021724Z ##[endgroup]
+2026-09-14T10:49:10.6022184Z ##[group]Runner Image
+2026-09-14T10:49:10.6022761Z Image: ubuntu-24.04
+2026-09-14T10:49:10.6023253Z Version: 20260907.300.1
+2026-09-14T10:49:10.6024355Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-14T10:49:10.6025615Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-14T10:49:10.6026715Z ##[endgroup]
+2026-09-14T10:49:10.6027634Z ##[group]GITHUB_TOKEN Permissions
+2026-09-14T10:49:10.6029346Z Contents: read
+2026-09-14T10:49:10.6029839Z Metadata: read
+2026-09-14T10:49:10.6030313Z ##[endgroup]
+2026-09-14T10:49:10.6032220Z Secret source: Actions
+2026-09-14T10:49:10.6033013Z Cache mode: write
+2026-09-14T10:49:10.6033658Z Prepare workflow directory
+2026-09-14T10:49:10.6285238Z Prepare all required actions
+2026-09-14T10:49:10.6323368Z Getting action download info
+2026-09-14T10:49:10.9783701Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-14T10:49:11.0964686Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-09-14T10:49:11.2299430Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-14T10:49:11.4651123Z Complete job name: Restore candidate graph and prepare faithful E9 reading material
+2026-09-14T10:49:11.5233751Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T10:49:11.5240348Z ##[group]Run actions/checkout@v4
+2026-09-14T10:49:11.5240887Z with:
+2026-09-14T10:49:11.5241236Z   persist-credentials: false
+2026-09-14T10:49:11.5241828Z   repository: bachikoljunior-blip/survival
+2026-09-14T10:49:11.5244826Z   token: ***
+2026-09-14T10:49:11.5245169Z   ssh-strict: true
+2026-09-14T10:49:11.5245517Z   ssh-user: git
+2026-09-14T10:49:11.5245847Z   clean: true
+2026-09-14T10:49:11.5246193Z   sparse-checkout-cone-mode: true
+2026-09-14T10:49:11.5246594Z   fetch-depth: 1
+2026-09-14T10:49:11.5246928Z   fetch-tags: false
+2026-09-14T10:49:11.5247292Z   show-progress: true
+2026-09-14T10:49:11.5247638Z   lfs: false
+2026-09-14T10:49:11.5247987Z   submodules: false
+2026-09-14T10:49:11.5248331Z   set-safe-directory: true
+2026-09-14T10:49:11.5248724Z   allow-unsafe-pr-checkout: false
+2026-09-14T10:49:11.5249268Z ##[endgroup]
+2026-09-14T10:49:11.6081988Z Syncing repository: bachikoljunior-blip/survival
+2026-09-14T10:49:11.6083540Z ##[group]Getting Git version info
+2026-09-14T10:49:11.6084104Z Working directory is '/home/runner/work/survival/survival'
+2026-09-14T10:49:11.6084879Z [command]/usr/bin/git version
+2026-09-14T10:49:11.6146238Z git version 2.55.0
+2026-09-14T10:49:11.6174739Z ##[endgroup]
+2026-09-14T10:49:11.6186329Z Temporarily overriding HOME='/home/runner/work/_temp/f2601750-944c-4ecb-9aa7-bd353a8c5c93' before making global git config changes
+2026-09-14T10:49:11.6187557Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T10:49:11.6188501Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/survival/survival
+2026-09-14T10:49:11.6229732Z Deleting the contents of '/home/runner/work/survival/survival'
+2026-09-14T10:49:11.6236265Z ##[group]Initializing the repository
+2026-09-14T10:49:11.6244078Z [command]/usr/bin/git init /home/runner/work/survival/survival
+2026-09-14T10:49:11.6340395Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-14T10:49:11.6341725Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-14T10:49:11.6342736Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-14T10:49:11.6343671Z hint: call:
+2026-09-14T10:49:11.6344169Z hint:
+2026-09-14T10:49:11.6344803Z hint: 	git config --global init.defaultBranch <name>
+2026-09-14T10:49:11.6345598Z hint:
+2026-09-14T10:49:11.6346328Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-14T10:49:11.6347491Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-14T10:49:11.6348466Z hint:
+2026-09-14T10:49:11.6348990Z hint: 	git branch -m <name>
+2026-09-14T10:49:11.6349595Z hint:
+2026-09-14T10:49:11.6350362Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-14T10:49:11.6351828Z Initialized empty Git repository in /home/runner/work/survival/survival/.git/
+2026-09-14T10:49:11.6354188Z [command]/usr/bin/git remote add origin https://github.com/bachikoljunior-blip/survival
+2026-09-14T10:49:11.6399050Z ##[endgroup]
+2026-09-14T10:49:11.6399995Z ##[group]Disabling automatic garbage collection
+2026-09-14T10:49:11.6401817Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-14T10:49:11.6426790Z ##[endgroup]
+2026-09-14T10:49:11.6427631Z ##[group]Setting up auth
+2026-09-14T10:49:11.6431845Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T10:49:11.6458560Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T10:49:11.6784896Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T10:49:11.6816515Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T10:49:11.7027792Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T10:49:11.7062420Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T10:49:11.7267072Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-14T10:49:11.7297959Z ##[endgroup]
+2026-09-14T10:49:11.7305330Z ##[group]Fetching the repository
+2026-09-14T10:49:11.7306800Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +44e023301172bd508e53f0e866c673ed9033ecc0:refs/remotes/origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T10:49:29.6842288Z From https://github.com/bachikoljunior-blip/survival
+2026-09-14T10:49:29.6844288Z  * [new ref]         44e023301172bd508e53f0e866c673ed9033ecc0 -> origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T10:49:29.6848927Z ##[endgroup]
+2026-09-14T10:49:29.6849880Z ##[group]Determining the checkout info
+2026-09-14T10:49:29.6850972Z ##[endgroup]
+2026-09-14T10:49:29.6852118Z [command]/usr/bin/git sparse-checkout disable
+2026-09-14T10:49:29.6896959Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-14T10:49:29.6961883Z ##[group]Checking out the ref
+2026-09-14T10:49:29.6963753Z [command]/usr/bin/git checkout --progress --force -B claude/repo-instructions-constraints-r0070m refs/remotes/origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T10:49:29.9374397Z Switched to a new branch 'claude/repo-instructions-constraints-r0070m'
+2026-09-14T10:49:29.9377843Z branch 'claude/repo-instructions-constraints-r0070m' set up to track 'origin/claude/repo-instructions-constraints-r0070m'.
+2026-09-14T10:49:29.9411798Z ##[endgroup]
+2026-09-14T10:49:29.9452689Z [command]/usr/bin/git log -1 --format=%H
+2026-09-14T10:49:29.9475094Z 44e023301172bd508e53f0e866c673ed9033ecc0
+2026-09-14T10:49:29.9482597Z ##[group]Removing auth
+2026-09-14T10:49:29.9485315Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T10:49:29.9518897Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T10:49:29.9705455Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T10:49:29.9729277Z http.https://github.com/.extraheader
+2026-09-14T10:49:29.9734279Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-14T10:49:29.9762247Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T10:49:29.9944705Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T10:49:29.9970542Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T10:49:30.0153163Z ##[endgroup]
+2026-09-14T10:49:30.0355032Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T10:49:30.0356814Z ##[group]Run actions/setup-node@v4
+2026-09-14T10:49:30.0357112Z with:
+2026-09-14T10:49:30.0415886Z   node-version: 20
+2026-09-14T10:49:30.0416188Z   always-auth: false
+2026-09-14T10:49:30.0416489Z   check-latest: false
+2026-09-14T10:49:30.0418780Z   token: ***
+2026-09-14T10:49:30.0419014Z ##[endgroup]
+2026-09-14T10:49:30.1505258Z Attempting to download 20...
+2026-09-14T10:49:30.1586894Z (node:2128) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T10:49:30.1588044Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T10:49:30.7175863Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-linux-x64.tar.gz
+2026-09-14T10:49:31.1058715Z Extracting ...
+2026-09-14T10:49:31.1151365Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/a7595848-17cb-47f3-b8bb-2237a62c51dd -f /home/runner/work/_temp/a2889ac5-6f35-4391-bac2-7af65116f9c2
+2026-09-14T10:49:31.9784343Z Adding to the cache ...
+2026-09-14T10:49:33.7552917Z ##[group]Environment details
+2026-09-14T10:49:33.9343799Z node: v20.20.2
+2026-09-14T10:49:33.9344364Z npm: 10.8.2
+2026-09-14T10:49:33.9344796Z yarn: 1.22.22
+2026-09-14T10:49:33.9345350Z ##[endgroup]
+2026-09-14T10:49:33.9502414Z ##[group]Run node --check tools/prepare-e9-readable.mjs
+2026-09-14T10:49:33.9502802Z [36;1mnode --check tools/prepare-e9-readable.mjs[0m
+2026-09-14T10:49:33.9540567Z shell: /usr/bin/bash -e {0}
+2026-09-14T10:49:33.9540804Z ##[endgroup]
+2026-09-14T10:49:33.9823289Z ##[group]Run python3 tools/restore-e9-reader.py
+2026-09-14T10:49:33.9823606Z [36;1mpython3 tools/restore-e9-reader.py[0m
+2026-09-14T10:49:33.9853686Z shell: /usr/bin/bash -e {0}
+2026-09-14T10:49:33.9853910Z ##[endgroup]
+2026-09-14T10:49:41.3868828Z [e9-reader-recovery-report] {"schema_version": 1, "status": "original raw reader and audit restored byte-for-byte", "claim": "Exact restoration of a previously checked authored graph only; not gameplay, comparison readiness, blind comparison, or an element judgment.", "reference_source": {"url": "https://raw.githubusercontent.com/msyavuz/disco-api/70adf5c3e2d254e364cd92bdc09d927bf1fa9553/disco.db", "bytes": 40517632, "sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5", "qualification": "Third-party extraction with limited prior displayed-text corroboration; no new official edition authentication."}, "extractor_sha256": "6fd09d2d7d1b3e006b48c224e9065b6cfe6e4e4462c73e518c8c357bdb2edcaa", "private_output_policy": "Database, original prose, raw source audit, and reader stay only under RUNNER_TEMP. Logs and uploaded report contain pins and structural checks only.", "stage": "completed", "checks": [{"name": "reconstructed extractor matches pinned reviewed bytes", "passed": true}, {"name": "workspace has one GiB free for bounded recovery", "passed": true}, {"name": "source returned HTTP 200", "passed": true}, {"name": "database bytes and SHA match original private source", "passed": true}, {"name": "recovered extractor completed", "passed": true}, {"name": "original reader.json is byte-identical", "passed": true}, {"name": "original field-pins.json is byte-identical", "passed": true}, {"name": "original private-source-audit.json is byte-identical", "passed": true}, {"name": "all original manifest values retained", "passed": true}, {"name": "fixed six subjects seven units 1337 nodes and 40 alternatives retained", "passed": true}, {"name": "every internal link resolves inside its original unit", "passed": true}], "download": {"bytes": 40517632, "sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5", "seconds": 1.209989065000002}, "extraction_process": {"returncode": 0, "stdout_bytes": 1124, "stdout_sha256": "ffa339f5d36720138491f5f963a700ce4ead368892f558d2062d82fbdf6f0179", "stderr_bytes": 0, "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}, "outputs": [{"file": "reader.json", "bytes": 563486, "sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e", "expected_bytes": 563486, "expected_sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e"}, {"file": "field-pins.json", "bytes": 316159, "sha256": "b74bfed4b94d198d9869f6fffd5a3708ddd963bdd90079e535010f2bd1bd1a81", "expected_bytes": 316159, "expected_sha256": "b74bfed4b94d198d9869f6fffd5a3708ddd963bdd90079e535010f2bd1bd1a81"}, {"file": "private-source-audit.json", "bytes": 670263, "sha256": "645bea55392946c918d52acc0c34100a91aaddf3bc1c0e55dbc9825f7f27ee3c", "expected_bytes": 670263, "expected_sha256": "645bea55392946c918d52acc0c34100a91aaddf3bc1c0e55dbc9825f7f27ee3c"}], "structural_counts": {"subjects": 6, "units": 7, "nodes": 1337, "alternates": 40}, "next_action": "Recover or reconstruct the later readable formatter, verify every field/alternative/boundary, then prepare an adequate source-blind comparison. Do not call these hashes a quality judgment.", "elapsed_seconds": 7.356204019999993}
+2026-09-14T10:49:41.3970301Z ##[group]Run node tools/prepare-e9-readable.mjs
+2026-09-14T10:49:41.3970623Z [36;1mnode tools/prepare-e9-readable.mjs[0m
+2026-09-14T10:49:41.4004684Z shell: /usr/bin/bash -e {0}
+2026-09-14T10:49:41.4004904Z ##[endgroup]
+2026-09-14T10:49:41.5170732Z [e9-readable-report] {"schema_version":1,"status":"original candidate r1/r2 restored and new readable r3 generated; independent formatting review pending","scope":"Restored authored graphs and a newly reconstructed readable presentation. This does not recover the missing old formatter, prove gameplay, establish source blindness, or judge E9.","checks":[{"name":"reference reader restored to original pinned r2","passed":true},{"name":"story source is the independently checked original","passed":true},{"name":"recovered candidate generator matches its recorded bytes","passed":true},{"name":"original r1 candidate-reader.json is byte-identical","passed":true},{"name":"original r1 candidate-field-pins.json is byte-identical","passed":true},{"name":"original r1 candidate-private-source-audit.json is byte-identical","passed":true},{"name":"the two previously observed headers are present","passed":true},{"name":"exact known r2 reader recovered by the two observed header changes","passed":true},{"name":"both sides carry the exact same authored-graph notice","passed":true},{"name":"MATERIAL A U1.1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL A U2.1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL A U3.1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL A U4.1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL A U4.2 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL A U5.1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL A U6.1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U1 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U2 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U3 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U4 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U5 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U6 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U7 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U8 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U9 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U10 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U11 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U12 has unique nodes and valid entry points","passed":true},{"name":"MATERIAL B U13 has unique nodes and valid entry points","passed":true}],"outputs":[{"role":"restored original candidate r1","file":"candidate-reader.json","bytes":159103,"sha256":"2c8f38ec1786efe40f3b8436ec2b5f8a844b563c1ad62cce83cf0ba59c43455d"},{"role":"restored original candidate r1","file":"candidate-field-pins.json","bytes":79448,"sha256":"97a477df4933d56f45d2ae5cb8d42923a0d1038ea6ff6780e14d44221711b84a"},{"role":"restored original candidate r1","file":"candidate-private-source-audit.json","bytes":105912,"sha256":"00901acc0f91093708438fc2a0f0bc1641688039db97ba799477b9b593eea96d"},{"role":"restored candidate r2","file":"candidate-reader.json","bytes":159109,"sha256":"884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b"},{"role":"A readable authored graph","file":"A-readable.txt","bytes":200075,"sha256":"bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9","words":30628,"authored_fields":957,"nodes":1337},{"role":"A field and structural pins","file":"A-private-field-audit.json","bytes":405984,"sha256":"6005041dbec2592e231ff99b6b0a5f32206f81492ffb8da6d5dbbb60731cf22b"},{"role":"B readable authored graph","file":"B-readable.txt","bytes":62026,"sha256":"83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048","words":10692,"authored_fields":373,"nodes":320},{"role":"B field and structural pins","file":"B-private-field-audit.json","bytes":121928,"sha256":"998981e436b86e9ea74520e6446a9eaf73160f32f54e26a352a43a66b5829ea4"}],"candidate_process_stdout":{"bytes":1390,"sha256":"22609539768907ad445885bfb6d0199b8bc5c35a92a406b11bbb5a51a248c8ee"},"prose_policy":"Full reference/candidate reading material stays under RUNNER_TEMP. Public logs/artifacts contain only this report and reproducible scripts/pins.","not_claimed":["original missing formatter recovered","new r3 equals previous r2 readable bytes","source-blindness","played transcript","E9 satisfied"]}
+2026-09-14T10:49:41.5263577Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T10:49:41.5264580Z ##[group]Run actions/upload-artifact@v4
+2026-09-14T10:49:41.5264959Z with:
+2026-09-14T10:49:41.5265199Z   name: e9-readable-r3-44e023301172bd508e53f0e866c673ed9033ecc0
+2026-09-14T10:49:41.5265626Z   path: test-results/e9-readable-r3/report.json
+test-results/e9-reader-recovery-r2/report.json
+
+2026-09-14T10:49:41.5265990Z   if-no-files-found: warn
+2026-09-14T10:49:41.5266174Z   retention-days: 14
+2026-09-14T10:49:41.5266372Z   compression-level: 6
+2026-09-14T10:49:41.5266591Z   overwrite: false
+2026-09-14T10:49:41.5266768Z   include-hidden-files: false
+2026-09-14T10:49:41.5266967Z ##[endgroup]
+2026-09-14T10:49:41.6559362Z (node:2198) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T10:49:41.6560101Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T10:49:41.6603704Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-14T10:49:41.6606082Z The least common ancestor is /home/runner/work/survival/survival/test-results. This will be the root directory of the artifact
+2026-09-14T10:49:41.6607301Z With the provided path, there will be 2 files uploaded
+2026-09-14T10:49:41.6609976Z Artifact name is valid!
+2026-09-14T10:49:41.6621087Z Root directory input is valid!
+2026-09-14T10:49:42.0416429Z Beginning upload of artifact content to blob storage
+2026-09-14T10:49:42.0566489Z (node:2198) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-14T10:49:42.3323938Z Uploaded bytes 3153
+2026-09-14T10:49:42.4083604Z Finished uploading artifact content to blob storage!
+2026-09-14T10:49:42.4084555Z SHA256 digest of uploaded artifact zip is 16c22015947a19711d38050056c20e0e123ac181e429afef092c30192459d4f8
+2026-09-14T10:49:42.4085926Z Finalizing artifact upload
+2026-09-14T10:49:42.6897062Z Artifact e9-readable-r3-44e023301172bd508e53f0e866c673ed9033ecc0.zip successfully finalized. Artifact ID 10343763500
+2026-09-14T10:49:42.6898684Z Artifact e9-readable-r3-44e023301172bd508e53f0e866c673ed9033ecc0 has been successfully uploaded! Final size is 3153 bytes. Artifact ID is 10343763500
+2026-09-14T10:49:42.6903444Z Artifact download URL: https://github.com/bachikoljunior-blip/survival/actions/runs/34835017168/artifacts/10343763500
+2026-09-14T10:49:42.7042809Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T10:49:42.7043775Z Post job cleanup.
+2026-09-14T10:49:42.8019630Z (node:2211) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T10:49:42.8020286Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T10:49:42.8192997Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T10:49:42.8194327Z Post job cleanup.
+2026-09-14T10:49:42.8880220Z [command]/usr/bin/git version
+2026-09-14T10:49:42.8914388Z git version 2.55.0
+2026-09-14T10:49:42.8944461Z Temporarily overriding HOME='/home/runner/work/_temp/ea7b650d-327a-42c9-a8f1-4a03d5b5df91' before making global git config changes
+2026-09-14T10:49:42.8945628Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T10:49:42.8948776Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/survival/survival
+2026-09-14T10:49:42.8978842Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T10:49:42.9012920Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T10:49:42.9273363Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T10:49:42.9323550Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T10:49:42.9585561Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T10:49:42.9653104Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T10:49:43.0022326Z Cleaning up orphan processes
+2026-09-14T10:49:43.0255175Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

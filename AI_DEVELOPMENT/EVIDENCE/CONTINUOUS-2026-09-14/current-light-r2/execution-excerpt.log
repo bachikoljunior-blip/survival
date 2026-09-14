@@ -1,0 +1,55 @@
+2026-09-14T10:56:19.5718404Z F3 gate: operating state ... ok
+2026-09-14T10:56:20.1273330Z F3 gate: continuation, save/choice and input regressions ... ok
+2026-09-14T10:56:20.3626787Z F3 gate: shadow surfaces and ray normals ... ok
+2026-09-14T10:56:20.6619452Z F3 gate: gas choices, save restoration and navigation ... ok
+2026-09-14T10:56:20.8301001Z F3 gate: family consequences and ending restoration ... ok
+2026-09-14T10:56:20.9945643Z F3 gate: production build ... ok
+2026-09-14T10:56:21.0236520Z F3 gate: pages root mirror ... ok
+2026-09-14T10:56:21.2218718Z F3 gate: dev build ... ok
+2026-09-14T10:56:21.2703618Z F3 gate: story and world content ... ok
+2026-09-14T10:57:18.0654300Z F3 gate: save migration ... ok
+2026-09-14T10:57:18.0656635Z F3 gate: ok — 10 steps actually executed and succeeded.
+2026-09-14T11:00:35.7898764Z [iphone-webkit] PASSED: 0 failure(s)
+2026-09-14T11:02:23.8004372Z   ok   clean boot: the recovery panel stays hidden
+2026-09-14T11:02:23.8005301Z   ok   clean boot: no fault notice — []
+2026-09-14T11:02:23.8006446Z   ok   clean boot: no faults recorded — []
+2026-09-14T11:02:23.8006984Z   ok   clean boot: the browser saw no uncaught errors
+2026-09-14T11:02:23.8007550Z   ok   clean boot: the loop is running — frame 12
+2026-09-14T11:02:23.8008356Z   ok   sync error: caught after boot — [{"kind":"error","message":"Error: probe: one-off sync error"}]
+2026-09-14T11:02:23.8009471Z   ok   sync error: the message is carried, not swallowed — [{"kind":"error","message":"Error: probe: one-off sync error"}]
+2026-09-14T11:02:23.8010189Z   ok   sync error: the player is told
+2026-09-14T11:02:23.8011488Z   ok   title fault: visible notice makes no claim that gameplay was saved — [{"text":"Something went wrong. Your saved data has not been changed.","x":93.5,"y":12,"width":480,"height":44,"visible":true}]
+2026-09-14T11:02:23.8012731Z   ok   sync error: a survivable fault does not put a wall in front of the player
+2026-09-14T11:02:23.8013341Z   ok   sync error: still no panel once the stall check has run
+2026-09-14T11:02:23.8014006Z   ok   sync error: the loop kept advancing — 1 -> 17
+2026-09-14T11:02:23.8014910Z   ok   rejection: caught after boot (nothing listened for this at all before) — [{"kind":"rejection","message":"probe: rejected promise"}]
+2026-09-14T11:02:23.8015961Z   ok   rejection: the reason is carried — [{"kind":"rejection","message":"probe: rejected promise"}]
+2026-09-14T11:02:23.8016763Z   ok   rejection: the player is told
+2026-09-14T11:02:23.8017155Z   ok   in play: nothing else was about to write a save
+2026-09-14T11:02:23.8017601Z   ok   in play: the game saved itself when the fault arrived
+2026-09-14T11:02:23.8018228Z   ok   in play: the save it wrote is at the current version — envelope 2, state 2
+2026-09-14T11:02:23.8020560Z   ok   in play: visible notice reports the successful recovery save — [{"text":"Bad Air","x":609.4375,"y":58,"width":49.5625,"height":21,"visible":true},{"text":"Cellar Row","x":593.3125,"y":82,"width":65.6875,"height":21,"visible":true},{"text":"Note added — Back in Hollis","x":540.64013671875,"y":106,"width":132,"height":2.75,"visible":false},{"text":"Something went wrong. A recovery save was written.","x":93.5,"y":12,"width":480,"height":44,"visible":true}]
+2026-09-14T11:02:23.8022650Z   ok   failed-save setup: a real previous save exists before blocking writes
+2026-09-14T11:02:23.8025576Z   ok   failed save: visible warning does not announce success — [{"text":"Ilya Bek's letter ×1","x":563.328125,"y":58,"width":95.671875,"height":21,"visible":true},{"text":"Bad Air","x":609.4375,"y":82,"width":49.5625,"height":21,"visible":true},{"text":"Cellar Row","x":593.3125,"y":106,"width":65.6875,"height":21,"visible":true},{"text":"Note added — Back in Hollis","x":527,"y":130,"width":132,"height":34,"visible":true},{"text":"Something went wrong. A recovery save could not be written. Reloading may lose recent progress.","x":93.5,"y":12,"width":480,"height":62,"visible":true}]
+2026-09-14T11:02:23.8030392Z   ok   failed save: the previous successful-save indicator is immediately invisible
+2026-09-14T11:02:23.8031199Z   ok   storage recovery: a later real successful save can show its indicator — {"saved":true,"visible":true}
+2026-09-14T11:02:23.8034331Z   ok   repeat: a fault that keeps happening reaches the recovery panel — 3 faults, lost=false paused=false running=true frame=10
+2026-09-14T11:02:23.8035664Z   ok   repeat: the panel says what actually happened, not context loss — SOMETHING BROKE / The game could not carry on after an error. Your saved data 
+2026-09-14T11:02:23.8036438Z   ok   repeat: the panel offers a way out — RELOAD
+2026-09-14T11:02:23.8036896Z   ok   repeat: reloading actually recovers — []
+2026-09-14T11:02:23.8037477Z   ok   stall: the panel waits for the stall check rather than firing on sight — 141ms
+2026-09-14T11:02:23.8038084Z   ok   stall: a fault after which the picture stopped reaches the recovery panel
+2026-09-14T11:02:23.8038763Z   ok   frozen loop: the frame counter really did stop — 1 -> 1
+2026-09-14T11:02:23.8039399Z   ok   frozen loop: the player is given the recovery panel instead of a still picture
+2026-09-14T11:02:23.8040137Z   ok   swallowed: the picture is being drawn before the break — 528 draw calls
+2026-09-14T11:02:23.8041500Z   ok   swallowed: an error the event bus caught still reaches the fault path — [{"kind":"listener","message":"event:render: probe: render listener fault"},{"kind":"listener","message":"event:render: probe: render listener fault"}]
+2026-09-14T11:02:23.8043181Z   ok   swallowed: the real game drawing path stopped — 0 draw calls
+2026-09-14T11:02:23.8043895Z   ok   swallowed: stopped drawing reaches the recovery panel — panel=true notices=0 draws=0
+2026-09-14T11:02:23.8044904Z   ok   ja: the first visible fault notice is in Japanese — [{"text":"問題が起きました。 保存データは変更していません。","x":93.5,"y":12,"width":480,"height":44,"visible":true}]
+2026-09-14T11:02:23.8045596Z   ok   ja: the panel appears on a Japanese device
+2026-09-14T11:02:23.8046162Z   ok   ja: the panel is in Japanese — panel on: "実行が止まりました" vs "実行が止まりました"
+2026-09-14T11:02:23.8046655Z   ok   pre-boot: the bundle really did not boot — false
+2026-09-14T11:02:23.8047264Z   ok   pre-boot: a rejected promise reaches the loading plate — failed to start — probe: boot broke
+2026-09-14T11:02:23.8047831Z   ok   pre-boot: it reads as a failure — boot-note err
+2026-09-14T11:02:23.8048432Z FAULT RECOVERY OK — 42/42 checks; 0 not measured
+2026-09-14T11:04:51.2050541Z [iphone-webkit] PASSED: 0 failure(s)

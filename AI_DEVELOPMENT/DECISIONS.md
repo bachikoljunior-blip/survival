@@ -1,5 +1,7 @@
 # Operational decisions
 
+固定指示・完了・要素比較・継続・スマートフォン代替検証は `CLAUDE.md` の最新ユーザー全文を優先する。作業回数・初回開始・期限・続行地点の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の状態は `AI_DEVELOPMENT/STATE.yaml`。退役手順を必須に戻さない。既存の製品要件と過去の証拠は保持し、旧ビルドの記録を現行判定と混同しない。
+
 ## OD-001 — Thin operating layer
 
 - Date: 2026-07-31

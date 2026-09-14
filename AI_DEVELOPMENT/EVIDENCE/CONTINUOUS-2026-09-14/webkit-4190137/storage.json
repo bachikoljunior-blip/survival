@@ -1,0 +1,8 @@
+{
+  "original_log_bytes": 17042227,
+  "original_log_sha256": "548a62f6cefa6b0849131f342fcf6d1f91925b81e27e31a99029182fee063568",
+  "exact_reconstruction_verified": true,
+  "recipe": "job.log.lossless.json.gz",
+  "source_files": "Paths are relative to this evidence directory. startup/appium.log is stored as startup/appium.log.gz and must be decompressed before slicing. PNG files are original unmodified bytes.",
+  "parser_recovery": "GitHub log segments contain leading U+FEFF; parser accepts only that prefix and retains original bytes. The first iOS parse failed its strict offset assertion because the original parser skipped a BOM-prefixed chunk. decode-before-bom-fix.py retains that failure source; no delivery loss was observed after correction."
+}

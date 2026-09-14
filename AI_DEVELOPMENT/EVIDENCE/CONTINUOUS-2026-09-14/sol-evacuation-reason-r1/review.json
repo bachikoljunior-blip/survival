@@ -1,0 +1,144 @@
+{
+  "reviewedAt": "2026-09-14T16:11:10.774122+09:00",
+  "round": "sol-evacuation-reason-r1",
+  "profile": "independent-predicate-reason-cause-check",
+  "tier": "fixed-source-cpu-boundary",
+  "nativeResolution": "0x0",
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored sentinel. FAIL refers to the current unchanged locked-reason text; the mechanism is confirmed in the pinned source boundary, not an overall product or quality failure.",
+  "blindComparison": "No blind comparison was performed. The reviewer read source code and an existing shortened-driver transcript. This review does not measure source-blind preference, ordinary gameplay, smartphone rendering, literary quality or element achievement.",
+  "scope": "NR1-01 only: final evacuation choice reason after Sol debrief. Mechanism, threshold 16, unlock condition, targets, effects, visibility and garage repair remain unchanged. No repository product edits occurred. Separate refutation is assigned by parent, not yet included here.",
+  "findings": [
+    {
+      "id": "NR1-01-CAUSE",
+      "severity": "minor",
+      "shot": "Actual transcript E098-E102/E116; raw.json debrief and observedFinal",
+      "problem": "In the pinned source reproduction, Sol completes the same five displayed debrief lines as captured E098-E102. sol_debrief is already true when ac_close emits. At final choose, trust.sol is 3, so the evacuation option remains locked, but its reason still asserts that the player has not stood in front of Sol since the flood.",
+      "why": "The unmet requirement is trust>=16 in this state. A reason that denies the already completed meeting can send the player back to repeat the wrong prerequisite and hides the reason the conjunction still fails.",
+      "owner": "src/content/story.js",
+      "fix": "Change only the English c.final.choose choice e_evac why and Japanese c.final.choose.why.3 to a statement of both prerequisites without denying the completed meeting. Keep {all:[{flag:\"sol_debrief\"},{trust:[\"sol\",16]}]}, showLocked, goto and effects identical. Candidate wording is in candidate-text.json. Read the 16 preserved state checks with python3 -c \"import json; r=json.load(open(\"sol-evacuation-reason-r1/raw.json\")); print([(x[\"language\"],x[\"debriefDone\"],x[\"trust\"],x[\"unlocked\"]) for x in r[\"table\"]])\".",
+      "hypothesis": "Confirmed at the fixed-source CPU boundary: DialogueRunner.goto applies ac_close effects before emitting the localized node, and final choose uses debrief AND trust. The static reason covers only missing debrief. The historical capture itself does not record per-event flags; ordinary-play reproduction of the original run is not claimed.",
+      "evidence": [
+        "raw.json debrief[5]: solDebriefAtEmit=true and trustAtEmit=3",
+        "raw.json observedFinal: solDebrief=true, trust=3, locked=true, old why retained",
+        "raw.json table: all 16 locale/debrief/threshold-boundary states agree with the unchanged conjunction",
+        "Actual transcript SHA 7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be; E102 text equals ac_close and E116 why equals original source."
+      ]
+    }
+  ],
+  "observedAndReproduced": {
+    "actualCaptured": "Actual ac9 production UI-method outputs contain the five debrief lines and the later locked reason; execution summary has trust.sol=3. CaptureSucceeded is false because complete ending text was not captured.",
+    "cpuMeasured": "Actual DialogueRunner selected again→after_crisis→ac_some→ac_end→ac_stacks→ac_close. The ac_close node listener observed sol_debrief=true before its text reached the listener. Actual final choose with that state is locked; selecting the locked option records no final action.",
+    "fixtures": "The branch flags and pre-conversation trust -2 are explicit source-boundary fixtures. The actual ac_some +5 produces the captured final value 3. The historical per-event pre-value -2 was not measured. Final choose is entered directly to inspect its predicate, not reached by a full world route.",
+    "scopeCorrection": "This evidence can establish a local predicate/reason mismatch without claiming the entire shortened-driver timeline reproduces ordinary play. It does not confirm a faulty unlock gate or a wrong Sol decision."
+  },
+  "predicateTruthTable": [
+    {
+      "debrief": false,
+      "trust": "below 16",
+      "locked": true,
+      "missing": [
+        "debrief",
+        "trust"
+      ]
+    },
+    {
+      "debrief": false,
+      "trust": "16 or higher",
+      "locked": true,
+      "missing": [
+        "debrief"
+      ]
+    },
+    {
+      "debrief": true,
+      "trust": "below 16",
+      "locked": true,
+      "missing": [
+        "trust"
+      ]
+    },
+    {
+      "debrief": true,
+      "trust": "16 or higher",
+      "locked": false,
+      "missing": []
+    }
+  ],
+  "candidateAssessment": {
+    "supplied": {
+      "text": {
+        "en": "Sol would have to run it with you. She needs to hear what happened in the flood, and to know she can rely on you.",
+        "ja": "ソルと二人で回すしかない。水害で何が起きたかを彼女に話し、頼れる相手だと思ってもらう必要がある。",
+        "interpretation": "General conjunction of a flood debrief and sufficient trust; it does not assert the debrief has not already happened.",
+        "caveat": "Hear what happened can suggest missing factual information. The actual debrief is largely Sol speaking and saying she already has the names; the code requires this encounter, not a new factual report."
+      },
+      "booleanAdequacy": "As a general statement of both prerequisites, it removes the explicitly false claim that the meeting has not happened and covers the three locked combinations. It is not a per-state missing-prerequisite diagnosis.",
+      "semanticQualification": "Hear what happened suggests Sol lacks factual knowledge. Captured E099 says she already has the names, and the debrief is Sol speaking. The predicate requires having this encounter, not delivering new information to her. This is a wording-precision caveat, not a demonstrated new Boolean defect."
+    },
+    "recommended": {
+      "text": {
+        "en": "Sol would have to run it with you. You need to have spoken with her since the flood, and she needs to know she can rely on you.",
+        "ja": "ソルと二人で回すしかない。水害のあとに彼女と話していて、頼れる相手だと思ってもらえている必要がある。",
+        "interpretation": "States two prerequisites without claiming either one is currently unmet. Spoken with her maps to sol_debrief and reliance maps to the existing trust predicate.",
+        "caveat": "Still a joint-prerequisite explanation, not a dynamic display of the particular missing predicate; prose quality and real rendered fit are unmeasured."
+      },
+      "reason": "Have spoken with her since the flood maps directly to the completed debrief and avoids the factual-report implication. The reliance clause maps to the unchanged trust condition. Both are prerequisites; neither claims the meeting remains undone in the trust-only locked state.",
+      "meaningPreservation": "English and Japanese candidate state the same two prerequisites without adding numbers or changing any actual game condition. Their wording has not been tested for rendered length or blind prose quality."
+    },
+    "cpuDifferenceScope": "All 16 states were run through actual choice localization with original, supplied and precise reason text. Locked state, offered choice, index 3, if, goto and effects remain unchanged; resetting only the why field restores an exact JSON match to the original final conversation.",
+    "recommendedRepositoryEdits": 0,
+    "pending": "Independent separate refutation to be assigned by parent before application/final acceptance."
+  },
+  "source": {
+    "sourcePins": "source-pins.json",
+    "sha256": "6bca165278ff3d44666d6d65c1c4970ffc873ef9cbd92bbcef4e0e137817f7df",
+    "fileCount": 11,
+    "originalEvidencePins": [
+      {
+        "path": "narrative-reading-r1/final-review.json",
+        "sha256": "c38c0d8fc6b8ebab8d0c1e802ab4b622ad0dcac8ca41d63778ff4c98068bcbf7",
+        "bytes": 19161
+      },
+      {
+        "path": "narrative-review-input-r1/dialogue.json",
+        "sha256": "cc7cb31dff452c23baa2e5ca6481206638704c8ca46a373cecac00eddd95db54",
+        "bytes": 33080
+      },
+      {
+        "path": "narrative-ac9cd44/transcript-en-publish.json",
+        "sha256": "7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be",
+        "bytes": 26166
+      }
+    ],
+    "garageRepair7FilesUnchanged": true
+  },
+  "evidence": [
+    {
+      "path": "raw.json",
+      "sha256": "fc1e92198109eb17dcaafa8fb0fde56e9cbe97673eaba86b13d251e193ad1a2b"
+    },
+    {
+      "path": "candidate-text.json",
+      "sha256": "bc5fdd01783f1d1d77953b4fbdb46d674e4e6450cbd47f810b5c24ce5c0f1fe4"
+    },
+    {
+      "path": "probe.mjs",
+      "sha256": "fa8b1b9e37c04c23c9812a137523cb6f5cc7f052f19bc0ca1d27ecce27af744b"
+    },
+    {
+      "path": "source-pins.json",
+      "sha256": "6bca165278ff3d44666d6d65c1c4970ffc873ef9cbd92bbcef4e0e137817f7df"
+    }
+  ],
+  "limits": [
+    "No product file changed; proposed text exists only in private evidence/process-local candidate objects.",
+    "No browser, server, CI, or network acquisition in this review.",
+    "No ordinary route or smartphone measurement.",
+    "The raw transcript remains a deterministic shortened-driver capture, with its ending-capture failure preserved.",
+    "No literary/preference/whole-character judgment and no element promotion.",
+    "Semantic reading of candidate wording is distinct from CPU predicate measurement."
+  ],
+  "exactNextAction": "Parent assigns a separate refuter to the local cause and candidate semantics. If sustained, apply only the approved why strings in src/content/story.js and src/content/locale/ja/story2.js, then verify unchanged predicate and acquire the changed output in existing CI. Do not alter trust values, count completed meetings differently or broaden the change into the garage repair."
+}

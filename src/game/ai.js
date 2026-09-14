@@ -260,8 +260,9 @@ export class AISystem {
     // --- perception -------------------------------------------------------
     const dx = player.pos.x - e.pos.x, dz = player.pos.z - e.pos.z;
     const dist = Math.hypot(dx, dz);
-    const sees = !player.dead && e.canSee(player, game.world, gas);
-    const hears = !player.dead && e.hears(player, gas, game.world);
+    const hostile = e.faction !== 'neutral' && e.faction !== player.faction;
+    const sees = hostile && !player.dead && e.canSee(player, game.world, gas);
+    const hears = hostile && !player.dead && e.hears(player, gas, game.world);
 
     if (sees) {
       // Awareness fills faster the closer and the more lit the target is.
@@ -365,6 +366,7 @@ export class AISystem {
   _alertNearby(game, source, radius) {
     for (const a of game.actors) {
       if (!(a instanceof Enemy) || a === source || a.dead || a.aggro) continue;
+      if (a.faction === 'neutral' || a.faction === game.player.faction) continue;
       if (Math.hypot(a.pos.x - source.pos.x, a.pos.z - source.pos.z) > radius) continue;
       a.awareness = 1;
       a.aggro = true;
@@ -659,32 +661,51 @@ export class AISystem {
     const dx = tx - e.pos.x, dz = tz - e.pos.z;
     const d = Math.hypot(dx, dz);
 
-    const direct = d < 6 && game.world.lineOfSight(
+    const ignoreGas = !!e.arch.gasImmune;
+    const direct = d < 6 && (!game.nav || game.nav.canSteerDirect(e.pos.x, e.pos.y, e.pos.z, tx, tz, ignoreGas)) && game.world.lineOfSight(
       e.pos.x, e.pos.y + 0.9, e.pos.z, tx, e.pos.y + 0.9, tz, LAYER.SOLID);
 
     if (direct || !game.nav) {
       e.setMove(dx / (d || 1), dz / (d || 1), speedScale);
       e.path = null;
+      e.pathSearch = null;
       return;
     }
 
     e.pathTime -= 1 / 60;
-    const needPath = !e.path || e.pathTime <= 0 ||
-      Math.hypot(e.pathGoal.x - tx, e.pathGoal.z - tz) > 3.5;
+    const goalChanged = !e.pathGoal || Math.hypot(e.pathGoal.x - tx, e.pathGoal.z - tz) > 3.5;
+    if (e.pathSearch && (goalChanged || e.pathSearch.sourceRevision !== game.nav._gasRevision)) {
+      e.pathSearch = null; e.pathTime = 0;
+    }
+    const needPath = !e.pathSearch && (e.pathTime <= 0 || goalChanged || e.pathCostRevision !== game.nav.costRevision);
     if (needPath) {
       e.pathTime = 0.6;
       e.pathGoal = { x: tx, z: tz };
-      e.path = game.nav.findPath(e.pos.x, e.pos.y, e.pos.z, tx, e.pos.y, tz, 700);
+      e.path = null;
+      e.pathSearch = game.nav.createPathSearch(e.pos.x, e.pos.y, e.pos.z, tx, e.pos.y, tz, ignoreGas);
+      e.pathCostRevision = game.nav.costRevision;
       e.pathIndex = 0;
     }
+    if (e.pathSearch) {
+      const search = e.pathSearch;
+      search.step(700);
+      if (search.done) {
+        e.path = search.path;
+        e.pathCostRevision = search.costRevision;
+        e.pathSearch = null;
+        e.pathTime = 0.6;
+      } else { e.setMove(0, 0, 0); return; }
+    }
 
+    while (e.path && e.pathIndex < e.path.length &&
+      Math.hypot(e.path[e.pathIndex].x - e.pos.x, e.path[e.pathIndex].z - e.pos.z) < 0.35) e.pathIndex++;
     if (!e.path || e.pathIndex >= e.path.length) {
-      e.setMove(dx / (d || 1), dz / (d || 1), speedScale * 0.8);
+      // A failed search does not authorize a shortcut through gas or a wall.
+      e.setMove(0, 0, 0);
       return;
     }
     const wp = e.path[e.pathIndex];
     const wd = Math.hypot(wp.x - e.pos.x, wp.z - e.pos.z);
-    if (wd < 1.0) { e.pathIndex++; return; }
     e.setMove((wp.x - e.pos.x) / wd, (wp.z - e.pos.z) / wd, speedScale);
   }
 

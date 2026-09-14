@@ -1,0 +1,175 @@
+{
+  "round": 1,
+  "profile": "major-visual-difference-4190137",
+  "tier": "independent-known-source-visual-diagnosis",
+  "nativeResolution": "0x0",
+  "verdict": "FAIL",
+  "verdictMeaning": "Critic-schema diagnostic status: unresolved observations remain. This field is not an E16 judgment, a benchmark failure, a blind preference or a product pass/fail decision.",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "blindComparison": "This is explicitly a source-known visual diagnosis. The coordinator identified the candidate as build 4190137 and the reference as INSIDE before viewing. All sixteen full original images were opened with view_image at original detail. No A/B preference, blind result, element completion or other comparison result was consulted or produced.",
+  "phase": "original independent diagnosis; separate refutation will be assigned by the coordinator",
+  "language": "ja",
+  "summary": "優先順は、大きな明暗のまとまり、表面模様の強さと尺度、人物と背景の局所的な重なり。最初の2件が広い画面領域に影響する。3件目は2視点に限定した構図上の修正候補。物量やポリゴン数の追加、参照美術・配置の模写は提案しない。",
+  "scope": {
+    "candidateBuildLabel": "4190137, supplied by coordinator; this review did not audit the build or capture code",
+    "candidateImages": [
+      "webkit-4190137/visual-south-frame.png",
+      "webkit-4190137/visual-cinder-frame.png",
+      "webkit-4190137/visual-arcade-frame.png",
+      "webkit-4190137/visual-marrow-frame.png",
+      "webkit-4190137/visual-stacks-frame.png",
+      "webkit-4190137/visual-survey-frame.png",
+      "webkit-4190137/visual-ventfield-frame.png",
+      "webkit-4190137/visual-plant-frame.png"
+    ],
+    "referenceImages": [
+      "reference-materials/inside/INSIDE_01.png",
+      "reference-materials/inside/INSIDE_02.png",
+      "reference-materials/inside/INSIDE_03.png",
+      "reference-materials/inside/INSIDE_04.png",
+      "reference-materials/inside/INSIDE_05.png",
+      "reference-materials/inside/INSIDE_06.png",
+      "reference-materials/inside/INSIDE_07.png",
+      "reference-materials/inside/INSIDE_08.png"
+    ],
+    "selection": "The existing INSIDE 01-08 selection was confirmed by the coordinator. INSIDE_09 and candidate marrow_roof were not viewed or used.",
+    "sourceManifest": "image-manifest.json",
+    "sourceManifestSha256": "23da1ca2bb2813d2207a4c583e0c0b8c4ba843b163e918712c685f182c0a41ce",
+    "viewing": "Actual full original images; no crops, thumbnails, edited images or contact sheets used as substitutes.",
+    "candidateResolution": "1147x645",
+    "referenceResolution": "1920x1080",
+    "positionConvention": "Pixel rectangles [x0,y0,x1,y1] use the full native image, origin at top left. They identify exact inspection areas, with visually estimated object bounds; they are not segmentation measurements.",
+    "notInspected": [
+      "Product implementation, shaders, geometry, camera scripts, capture jobs or runtime settings",
+      "comparison-c02e or any blind comparison result",
+      "Animation, camera motion, gameplay, touch response, frame rate or temporal texture stability"
+    ],
+    "benchmarkChanges": [],
+    "elementVerdicts": [],
+    "productEdits": []
+  },
+  "findings": [
+    {
+      "id": "MVD-01",
+      "priority": 1,
+      "severity": "major",
+      "category": ["light hierarchy", "palette", "composition"],
+      "shot": "visual-arcade-frame.png: broad road and flanking facades; visual-marrow-frame.png: road/facade middle values; visual-ventfield-frame.png: broad warm ground/building field",
+      "problem": "Arcade・Marrowでは、路面と左右の建物が広く似た茶色の中間調で見え、空の青と細かな発光点は分かれる一方、世界の中で見せたい場所を選ぶ大きな光の面が弱い。Ventfieldにも広い橙色の地面と建物が続く。遠近の霞や影は既にあるが、各面の模様まで広く同程度に目に入り、光による焦点より個々の直方体と表面模様を先に読む。",
+      "why": "照らす場所と抑える場所の差が弱いと、街の距離や目的地より同程度の壁・床の列が画面の主題になる。広い面積に関わるため、既存の街の形を保ったまま画像全体の読み順を改善できる余地が大きい。",
+      "owner": "unassigned",
+      "fix": "既存の街・暖色の設定・警告の可読性を保ち、まず Arcade・Marrow・Ventfield の3視点で、見せたい既存ランドマークまたは通路の面と周囲の面に意図した明暗差を作る。画面全体を一律に暗くする処置にはしない。同じカメラ・解像度の新しい実画像を view_image(detail='original') で旧画像と照合し、指定領域で主要な光のまとまりを指し示せ、床境界・危険表示・人物輪郭が失われていないことを確認する。変更後の効果は未測定。",
+      "hypothesis": "広い環境光、色付け、表面の明るさの関係が影響している可能性がある。ただしコードや光源設定は見ておらず、特定のライト・露出・トーンマッピングを原因として確定しない。",
+      "candidateEvidence": [
+        {"image":"webkit-4190137/visual-arcade-frame.png","rect":[0,160,1147,516],"observation":"左右の壁、道、前景の障害物が暖色の中間調を共有する。奥へ薄くなる霞は見えるが、近中景の大きな面の明暗差より煉瓦・床の模様や孤立した発光点が目に入る。"},
+        {"image":"webkit-4190137/visual-marrow-frame.png","rect":[113,134,976,645],"observation":"左右の煉瓦建物と広い路面の茶色が連続する。白い道路線と暗い人物は明確なので、通路が見えない・人物が消えているとは言わない。"},
+        {"image":"webkit-4190137/visual-ventfield-frame.png","rect":[0,146,966,645],"observation":"多数の橙色の小さな発光縁と煙がある一方、その間の地面・背景建物にも広く暖色がかかる。熱の場としての色の一貫性はあるが、広い領域の明暗の変化は穏やか。"}
+      ],
+      "referenceEvidence": [
+        {"image":"reference-materials/inside/INSIDE_01.png","rect":[0,736,918,1080],"observation":"人物と床の明るいまとまりが、暗い大空間から分かれる。物の数によらず光の面が視線の順を作っている。"},
+        {"image":"reference-materials/inside/INSIDE_03.png","rect":[694,295,1459,806],"observation":"明るい機器と床の光、遮蔽物の黒い形が一つの関係として読める。照明の配置や機器をコピーする提案ではない。"},
+        {"image":"reference-materials/inside/INSIDE_02.png","rect":[0,380,1920,961],"observation":"明るい屋外でも、前景の暗い形、人物周辺、遠い建物の薄さが分かれる。改善を夜景化や参照の青灰色への変更と同一視しないための反例。"}
+      ],
+      "counterEvidenceAndLimits": [
+        "Southには手前の強い影と明るい奥が既にあり、全8枚に光の階層が無いとは言えない。",
+        "Cinderの大きな看板は明瞭な焦点であり、全視点が無焦点という指摘ではない。",
+        "明るさの違いそのものを優劣とせず、候補作品の独自の暖色・昼光表現を保持する。",
+        "実際の視線、操作上の誘導、改善後の品質や処理負荷は計測していない。"
+      ],
+      "confidence": {"observedAppearance":"high","specificCause":"unverified","expectedImprovement":"hypothesis; ranked high because the symptom occupies broad regions in multiple supplied views"}
+    },
+    {
+      "id": "MVD-02",
+      "priority": 2,
+      "severity": "major",
+      "category": ["material scale", "surface contrast", "grounding"],
+      "shot": "visual-stacks-frame.png: upper brick wall; visual-survey-frame.png: pitted wall and foreground barrier; visual-ventfield-frame.png: foreground granular ground",
+      "problem": "Stacksの大きな壁では煉瓦の細かい明暗の反復が面全体を覆う。Surveyでは丸い穴状の模様が外壁にも手前の障害物にも強く出て、Ventfieldでは地面の粒状模様が下半分に広く続く。表面の細かい刻みが、材質ごとの大きな面や使用・傷みの位置より目立ち、建物や障害物が同じ密度の模様を貼った形として見えやすい。",
+      "why": "大きな形と小さな傷の強さが近いと、素材の尺度や面の広さを読み分けにくい。物の追加より、既存表面の強い反復と細かなコントラストを整理する方が、複数視点の画面密度と材質のまとまりに直接効く可能性がある。",
+      "owner": "unassigned",
+      "fix": "Stacks壁・Survey外壁と障害物・Ventfield地面の3領域群で、煉瓦・コンクリート・地面の区別を残しながら強い反復模様の主張を抑え、静かな広い面と既存の縁・接合部が読めるようにする。傷や汚れを追加する場合も、全面同密度に増やす目標にはしない。同じ3実画像を view_image(detail='original') で比較し、指定領域で構造の輪郭が細かな穴・粒より先に読め、近接面の尺度が破綻せず、単なる暗潰れで隠していないことを確認する。新しい模様・素材は独自制作とし、参照から採らない。",
+      "hypothesis": "模様の反復単位、明暗の振幅、材質ごとの変化が関係している可能性がある。元のテクスチャ、シェーダー、照明、粒子や画面ノイズの寄与は未調査であり、どれか一つの実装を原因と決めない。",
+      "candidateEvidence": [
+        {"image":"webkit-4190137/visual-stacks-frame.png","rect":[0,0,836,269],"observation":"広い壁の煉瓦列に明暗の小矩形が密に反復し、壁の大きな面より個別の小さな凹凸を強く意識する。煉瓦の実寸が不正だと測定したわけではない。"},
+        {"image":"webkit-4190137/visual-survey-frame.png","rect":[805,17,1137,336],"observation":"外壁の面に、縁まで広く細かな丸い穴状の斑点が見える。"},
+        {"image":"webkit-4190137/visual-survey-frame.png","rect":[31,527,793,614],"observation":"手前の障害物にも同系統の穴状の印が高い密度で見え、面の広さと模様の尺度の関係が強く主張される。同じテクスチャの再利用をコードで確認したという意味ではない。"},
+        {"image":"webkit-4190137/visual-ventfield-frame.png","rect":[22,455,1120,645],"observation":"地面の粒状模様が下端まで広く見える。人物の暗い形と明るい熱源は区別できるため、何も読めないという指摘ではない。"}
+      ],
+      "referenceEvidence": [
+        {"image":"reference-materials/inside/INSIDE_07.png","rect":[376,350,1212,795],"observation":"広い屋上面は比較的静かで、梁・看板の脚・縁・影が大きな尺度を作り、小さな破片は局所に留まる。屋上や看板の形・配置を移植する提案ではない。"},
+        {"image":"reference-materials/inside/INSIDE_05.png","rect":[0,332,1501,714],"observation":"床の継ぎ目、水面の反射、機器の縁という異なる表面の手掛かりが分かれる。細部の総量を下げること自体が品質基準だとは扱わない。"}
+      ],
+      "counterEvidenceAndLimits": [
+        "候補でも煉瓦、穴状のコンクリート、波板、舗装の区別は既にある。全材質が同一だという指摘ではない。",
+        "候補と参照の原解像度・カメラ距離が違うため、画素当たりの模様数を優劣の尺度にしていない。",
+        "静止画だけからテクスチャのちらつき、ミップ、圧縮、UV密度の不具合を断定しない。",
+        "接地影は複数画像で見える。影なし・物理的に浮いているという機能不具合は認定しない。"
+      ],
+      "confidence": {"observedAppearance":"high","specificCause":"unverified","expectedImprovement":"hypothesis; broad repeated surfaces make this a higher priority than adding geometric detail"}
+    },
+    {
+      "id": "MVD-03",
+      "priority": 3,
+      "severity": "minor",
+      "category": ["composition", "silhouette separation"],
+      "shot": "visual-cinder-frame.png: character head against lower orange sign edge; visual-plant-frame.png: dark vertical pole aligned behind character",
+      "problem": "Cinderでは看板の明るい橙色の下辺が人物の頭付近を横切り、Plantでは暗い細い縦材が看板から人物の頭・胴の直後まで重なる。2枚とも重要な人物の外形と背景の硬い線が接近し、人物と建物を独立した形として読む際に局所的な混線がある。",
+      "why": "単体の人物や建物の精密さを増しても、この接近した輪郭は残る。対象が2箇所に限られ、既存の背景線と人物の分離を確認する狭い修正候補として扱える。",
+      "owner": "unassigned",
+      "fix": "Cinder頭部とPlant頭部から胴部の2箇所で、既存看板・縦材と人物の輪郭が分かれるよう、世界側の明暗または独自の配置を調整する。診断用カメラだけを都合の良い角度に変更して解消扱いにはしない。同じ2視点の実画像を view_image(detail='original') で照合し、頭・肩の形を背景の線から追えて、看板の意味や可読性を損ねていないことを確認する。",
+      "hypothesis": "指定カメラ、人物の立ち位置、既存の看板・縦材の投影上の関係による可能性がある。通常プレイでも持続するのか、カメラの機能不具合なのかは静止画では判断できない。",
+      "candidateEvidence": [
+        {"image":"webkit-4190137/visual-cinder-frame.png","rect":[471,253,542,321],"observation":"橙色の看板下辺と、頭部・頭の直後の暗い支持部材が同じ狭い領域に集まる。人物全体や看板全文が読めないとは言わない。"},
+        {"image":"webkit-4190137/visual-plant-frame.png","rect":[476,0,577,439],"observation":"画面上端から続く暗い縦材が、人物の頭のすぐ右・身体の直後に重なる。"}
+      ],
+      "referenceEvidence": [
+        {"image":"reference-materials/inside/INSIDE_08.png","rect":[712,525,844,770],"observation":"人物の顔、赤い上衣、手と背後の明度差が輪郭の手掛かりとなる。色や衣装をコピーするのではなく、候補独自の人物と背景の分離だけを確認する。"},
+        {"image":"reference-materials/inside/INSIDE_03.png","rect":[744,545,918,779],"observation":"参照でも柱と人物が重なる場面はあるが、顔・手や局所的な光が関係を読ませる。したがって重なり自体を禁じる基準ではない。"}
+      ],
+      "counterEvidenceAndLimits": [
+        "画面中央の人物や正面の看板は、第三者視点のゲームでそれ自体が欠点ではない。",
+        "8視点全体の構図不良、動的な遮蔽バグ、移動時の見失いには一般化しない。",
+        "影や材質より改善効果が大きいと断言せず、上位2件の後に扱う局所候補とする。"
+      ],
+      "confidence": {"observedAppearance":"high for these two frames","specificCause":"unverified","expectedImprovement":"bounded local hypothesis; implementation effort not inspected"}
+    }
+  ],
+  "viewCoverage": {
+    "candidate": [
+      {"shot":"south","observed":"天井状の暗い前景と明るい奥の差が既にある。人物は暗い形として見える。全景に明暗の階層が無いという一般化を退ける対照。"},
+      {"shot":"cinder","observed":"看板の内容と枠は強く読める。大きな看板を無条件に小さくする診断にはせず、頭部周辺の局所的な重なりのみ採った。"},
+      {"shot":"arcade","observed":"道路の奥行き、白い線、建物、煙は区別できる。影もあり、空虚な画面や接地影なしとは診断しない。広い中間調の面をV1の対象とした。"},
+      {"shot":"marrow","observed":"中央の通りは奥まで追える。左右の暖色の建物と路面の光の扱いをV1で対象とした。"},
+      {"shot":"stacks","observed":"大きな煉瓦壁が上側を占め、その反復が強い。壁に出口がない、登れない等のゲーム機能は推測せず、V2の面の読みだけを採った。"},
+      {"shot":"survey","observed":"看板、壁、窓状の凹部、手前の障害物は見える。正面構図の機能的な意図は不明なので構図の欠陥とは断定せず、穴状模様をV2の対象とした。"},
+      {"shot":"ventfield","observed":"煙、暖色の霞、小さな発光縁が熱の場としてまとまる。V1の明暗の面とV2の地面模様を選び、煙の量やポリゴン数の追加は求めない。"},
+      {"shot":"plant","observed":"波板と煉瓦は区別でき、建物の看板は読める。人物背後の縦材の重なりをV3の対象とした。"}
+    ],
+    "reference": [
+      {"shot":"INSIDE_01","observed":"暗い高い空間と局所的な明るい床、そこにいる小さな人物。"},
+      {"shot":"INSIDE_02","observed":"明るい空、暗い前景の植物、中景の人物と小さな黄色、薄い遠景。"},
+      {"shot":"INSIDE_03","observed":"機器の白い光、柱と人物、床の光と影が同じ構図で関係する。"},
+      {"shot":"INSIDE_04","observed":"水中の限られた形と光の方向、照らされた粒子。水中効果を候補へ追加する提案には使わない。"},
+      {"shot":"INSIDE_05","observed":"床、液面の反射、機器の明るい点、暗い前景が分かれる。"},
+      {"shot":"INSIDE_06","observed":"近い障害物と人物、奥の人・犬・車両が異なる明度の層で見える。警戒行動の実動作は静止画から判定しない。"},
+      {"shot":"INSIDE_07","observed":"広い静かな面と、大きな縁・梁・影。画面の物量を候補へ模写する根拠にはしない。"},
+      {"shot":"INSIDE_08","observed":"左右の暗い建物に挟まれた明るい中景、人々の層と手前の人物。人数や街の配置をコピーする提案にはしない。"}
+    ]
+  },
+  "deadlinePrioritization": {
+    "order": ["MVD-01", "MVD-02", "MVD-03"],
+    "basis": "最初の2件は複数の画像の広い領域に現れ、既存の形を読みやすくする問題であるため優先する。3件目は2視点の狭い問題として後順位。",
+    "notMeasured": "各修正に要する時間、実装手段、性能、改善後の画像品質。期限内に効果が大きいという順位は、画像上の影響範囲からの仮説であり実測した成功ではない。",
+    "stoppingRule": "この3件を超えて一般的なレビュー項目を追加しない。親が別担当へ反証を依頼し、生き残った所見だけを改善候補にする。"
+  },
+  "limits": [
+    "原画像を見た静止画診断であり、実行環境・画面取得の真正性を再監査したものではない。",
+    "参考と候補の視点・原解像度・題材は異なる。参考のカメラ距離、夜景、色、衣装、美術、配置をそのまま目標にしない。",
+    "同じ姿勢の候補画像から、アニメーションの欠如や多様性不足を断定しない。",
+    "8視点で接地影や物の底面は見えるが、静止画だけで物理的な接地や影の正しさを合格にも不合格にもしない。",
+    "画像の粒や模様の量を機械計数して品質指標に置き換えていない。",
+    "E16、71基準、参照選定、要素判定は変更していない。ブラインド比較の結果や合格は一切生成していない。"
+  ],
+  "completionClaims": []
+}

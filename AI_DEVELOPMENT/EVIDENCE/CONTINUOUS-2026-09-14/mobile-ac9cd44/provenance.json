@@ -1,0 +1,28 @@
+{
+  "commit": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+  "bundle_sha256": "0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b",
+  "floor_run": 34812994077,
+  "floor_f3_job": 103877862043,
+  "floor_f3_status": "success",
+  "floor_workflow_status": "failure from independent narrative-material job; F3 itself passed",
+  "ios_run": 34812994101,
+  "ios_job": 103877862413,
+  "ios_status": "failed before session creation and before game navigation; checks 0",
+  "ios_error": "Error: WebDriver POST /session: The remote debugger did not return any connected web applications after 43484ms. Make sure your web application is debuggable and could be inspected in Safari Web Inspector. You may try to change the 'webviewConnectTimeout' capability value to customize the retrieval timeout.\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)",
+  "measurement": "Appium returned no connected web applications; no current game operation or two-finger measurement",
+  "inference": "Not evidence of a game or two-finger regression: application was not reached. Underlying debugger discovery cause remains unknown. Prior same-capability success does not prove this attempt succeeded.",
+  "raw_files": [
+    {
+      "path": "ios-job.log",
+      "sha256": "616d99ff037194953cda9f1e9aa2d5d7e4a52a011969e99f3158dd0cc43c7538"
+    },
+    {
+      "path": "floor-job.log",
+      "sha256": "4c8e8dfa94000e9c5eef98f09d1831a02c75bf52dbddd56750663d7e0c788a01"
+    },
+    {
+      "path": "ios-report.json",
+      "sha256": "b9514eca285d2f3ce4d284eac5d731594ea029292558490e7c79293b45ed64ba"
+    }
+  ]
+}

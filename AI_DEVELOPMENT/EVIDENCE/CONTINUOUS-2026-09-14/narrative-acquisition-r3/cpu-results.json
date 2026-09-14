@@ -1,0 +1,172 @@
+{
+  "scope": "Only observed ending-state/UI race, timeout failure retention, and two-path continuation. No broad r2 rerun. CPU fixtures do not establish real CI success or E8/E9 quality.",
+  "checks": [
+    {
+      "name": "original CI failure bytes and exact event counts retained",
+      "status": "PASS",
+      "detail": {
+        "bytes": 26166,
+        "sha256": "7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be",
+        "eventKinds": {
+          "dialogue": 95,
+          "choice": 23
+        },
+        "endingEvents": 0,
+        "captureSucceeded": false
+      }
+    },
+    {
+      "name": "actual Director.finish and actual 1800ms fade reproduce old race; new capture waits for actual showEnding output",
+      "status": "PASS",
+      "detail": {
+        "method": "Extracted unchanged production Director.finish, Menus.fadeOut/fadeIn/showEnding, and actual collector wrapper/capture blocks. Story selection is a CPU fixture; timers are controlled, DOM is stubbed.",
+        "old": {
+          "captureSucceeded": false,
+          "failed": true,
+          "endingEvents": 0
+        },
+        "fixed": {
+          "captureSucceeded": true,
+          "failed": false,
+          "endingEvents": 1
+        },
+        "timeline": [
+          {
+            "action": "ending state assigned",
+            "value": "record",
+            "time": 0
+          },
+          {
+            "action": "timer scheduled",
+            "delay": 1800,
+            "time": 0
+          },
+          {
+            "action": "event snapshot read",
+            "endings": 0
+          },
+          {
+            "action": "ending wait begins",
+            "predicate": false
+          },
+          {
+            "action": "timer released",
+            "delay": 1800,
+            "time": 1800
+          },
+          {
+            "action": "showEnding called",
+            "time": 1800
+          },
+          {
+            "action": "Storage.save called",
+            "time": 1800
+          },
+          {
+            "action": "timer scheduled",
+            "delay": 1800,
+            "time": 1800
+          },
+          {
+            "action": "ending wait completes"
+          },
+          {
+            "action": "event snapshot read",
+            "endings": 1
+          },
+          {
+            "action": "timer released",
+            "delay": 1800,
+            "time": 3600
+          }
+        ]
+      }
+    },
+    {
+      "name": "controlled wait timeout retains all original events and raw driver result as a failed capture",
+      "status": "PASS",
+      "detail": {
+        "method": "CPU controlled timeout at the actual fade barrier; no real 30-second wait or browser execution.",
+        "retainedEvents": 118,
+        "rawExecutionUnchanged": true,
+        "captureErrors": [
+          "Ending UI did not arrive after the recorded ending state",
+          "Complete ending text not captured"
+        ],
+        "executionSucceeded": true,
+        "captureSucceeded": false,
+        "failed": true
+      }
+    },
+    {
+      "name": "non-ending driver result skips wait and remains incomplete",
+      "status": "PASS",
+      "detail": {
+        "waits": 0,
+        "executionSucceeded": false,
+        "captureSucceeded": false,
+        "failed": true
+      }
+    },
+    {
+      "name": "actual workflow shell block always attempts both paths and preserves nonzero status",
+      "status": "PASS",
+      "detail": {
+        "method": "Exact frozen workflow run block executed with Bash -e -o pipefail; node is a shell stub returning selected statuses, so no game/browser/server/CI is invoked.",
+        "oldFailureControl": {
+          "publishStatus": 7,
+          "dealStatus": 0,
+          "exitStatus": 7,
+          "paths": [
+            "publish"
+          ],
+          "stderr": ""
+        },
+        "current": [
+          {
+            "publishStatus": 0,
+            "dealStatus": 0,
+            "exitStatus": 0,
+            "paths": [
+              "publish",
+              "deal"
+            ],
+            "stderr": ""
+          },
+          {
+            "publishStatus": 7,
+            "dealStatus": 0,
+            "exitStatus": 7,
+            "paths": [
+              "publish",
+              "deal"
+            ],
+            "stderr": ""
+          },
+          {
+            "publishStatus": 0,
+            "dealStatus": 9,
+            "exitStatus": 9,
+            "paths": [
+              "publish",
+              "deal"
+            ],
+            "stderr": ""
+          },
+          {
+            "publishStatus": 7,
+            "dealStatus": 9,
+            "exitStatus": 9,
+            "paths": [
+              "publish",
+              "deal"
+            ],
+            "stderr": ""
+          }
+        ]
+      }
+    }
+  ],
+  "passed": 5,
+  "failed": 0
+}

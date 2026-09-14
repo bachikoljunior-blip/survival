@@ -1,0 +1,120 @@
+{
+  "method": "Independent frozen-source-only CPU checks; no browser/server, mutable root, original-review edits, or product edits.",
+  "checks": [
+    {
+      "name": "frozen target and bundle bytes match manifest; index names hashed bundle",
+      "status": "PASS",
+      "evidence": {
+        "verifiedFiles": [
+          "tools/playthrough.mjs",
+          "tools/driver.js",
+          ".github/workflows/gates.yml",
+          "src/ui/screens.js",
+          "src/content/i18n.js",
+          "dist/index.html",
+          "dist/cinderline.1.0.0.js"
+        ],
+        "bundleSha256": "0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b"
+      }
+    },
+    {
+      "name": "independent log/base64/file UTF-8 identity en",
+      "status": "PASS",
+      "evidence": {
+        "chunks": 2,
+        "bytes": 5893,
+        "sha256": "35b73ddd84a2431a472f34ae42471b6d2ffcaf91e7eae31eea468d8f44ff326e",
+        "newline": true
+      }
+    },
+    {
+      "name": "independent log/base64/file UTF-8 identity ja",
+      "status": "PASS",
+      "evidence": {
+        "chunks": 4,
+        "bytes": 11911,
+        "sha256": "187379937c4889aff6373395165029ef9d62ab33b8fda78b8861067c02a0c1f3",
+        "newline": true
+      }
+    },
+    {
+      "name": "both wrappers preserve exact receiver, every argument, result and thrown object",
+      "status": "PASS",
+      "evidence": {
+        "originalCalls": 2,
+        "allArgumentsPreserved": true,
+        "exceptionIdentity": true,
+        "scope": "Valid current UI receiver shapes; recording can itself throw if its assumptions are broken."
+      }
+    },
+    {
+      "name": "actual localization/UI outputs and filtered-list choice index agree",
+      "status": "PASS",
+      "evidence": {
+        "choiceTranslationKey": "c.sol_first.s2.choices.1",
+        "originalCi": 1,
+        "recordedFilteredIndex": 0,
+        "endingTitleKey": "e.record.title",
+        "endingBodyKey": "e.record.text",
+        "scope": "Real localizer and UI methods under DOM stubs; not director ending-condition integration or browser rendering."
+      }
+    },
+    {
+      "name": "frozen acquisition predicates separate driver, browser and incomplete events; count boundary retained",
+      "status": "PASS",
+      "evidence": {
+        "negativeCases": [
+          {
+            "name": "driver",
+            "executionSucceeded": false,
+            "captureErrors": []
+          },
+          {
+            "name": "browser",
+            "executionSucceeded": false,
+            "captureErrors": []
+          },
+          {
+            "name": "no events",
+            "executionSucceeded": true,
+            "captureErrors": [
+              "No dialogue text captured",
+              "Complete ending text not captured"
+            ]
+          },
+          {
+            "name": "no ending",
+            "executionSucceeded": true,
+            "captureErrors": [
+              "Complete ending text not captured"
+            ]
+          },
+          {
+            "name": "duplicate ending",
+            "executionSucceeded": true,
+            "captureErrors": [
+              "Complete ending text not captured"
+            ]
+          },
+          {
+            "name": "no choice",
+            "executionSucceeded": true,
+            "captureErrors": [
+              "Offered choice nodes 1 do not match selections 0"
+            ]
+          },
+          {
+            "name": "empty ending",
+            "executionSucceeded": true,
+            "captureErrors": [
+              "Complete ending text not captured"
+            ]
+          }
+        ],
+        "boundary": "A same-count unoffered choice passes these basic predicates. This demonstrates the disclosed absence of event identity/order verification, not a full host or browser run."
+      }
+    }
+  ],
+  "passed": 6,
+  "failed": 0
+}

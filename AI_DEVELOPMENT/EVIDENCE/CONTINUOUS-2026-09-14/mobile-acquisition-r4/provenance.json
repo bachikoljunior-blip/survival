@@ -1,0 +1,25 @@
+{
+  "recordedAt": "2026-09-14T13:43:52.504647+09:00",
+  "archive": {
+    "path": "raw-review.tar.gz",
+    "sha256": "f5141d5be12000f44149c999c5f7c97f10b30e0f2c352262ce5d60e9fb1afe67",
+    "files": 53
+  },
+  "buildSha256": "72d4805cd0638a0826ea1814128369f223f727f9e6fe4d4ac6f2a2beb53a9cb0",
+  "sourceHashes": {
+    "tools/select-ios-simulator.mjs": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74",
+    "tools/test-ios-safari.mjs": "9aad1a0dcec02b9a4e37eaf3a9af80a52fb23aa641a0694c659c0717b274b1fb",
+    "tools/webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    ".github/workflows/mobile-simulator.yml": "e8ceaa87ed97d0f4935bf3db22b7ff900f09d2a76e8d9e1d980f38f52ee75c84",
+    ".github/workflows/pages.yml": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8",
+    "tools/mobile_trench_consequences.mjs": "49495954200bf2c6305ba92bc04132fb860ef24dbcd470b83ed8689e234fa3df",
+    "tools/test-iphone-webkit.mjs": "4cdcf9d6cdcf72e6ab49f93a8d04a63fdfaefc5b1f59267706a004d1af499717"
+  },
+  "result": "Bounded source/CPU review and separate refutation passed; actual browser/Simulator run still pending.",
+  "retainedFailures": "Old yaw failure, endpoint damage omission, null envelope exception, and all source snapshots retained. The prior actual WDA CI remains failed; its startup root cause is not established.",
+  "dependencies": [
+    "../trench-perception-r1/raw-review.tar.gz",
+    "../trench-perception-r2/raw-review.tar.gz",
+    "../ios-safari-3aa5e4f/raw-artifact.tar.gz"
+  ]
+}

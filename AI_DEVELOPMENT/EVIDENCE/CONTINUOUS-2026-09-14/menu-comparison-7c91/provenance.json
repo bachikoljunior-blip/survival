@@ -1,0 +1,52 @@
+{
+  "reference": "A",
+  "candidate": "B",
+  "created_at": "2026-09-14T12:02:10.787204+09:00",
+  "candidate_commit": "c8f63c6063c98306e4c95e85b6055c0263957593",
+  "candidate_build_sha256": "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05",
+  "scope": "First limited menu/subtitle comparison attempt; no full-element or interaction coverage is implied",
+  "files": [
+    {
+      "role": "reference",
+      "source": "/workspace/scratch/0b7ad82bafe7/reference-materials/tlou2/the-last-of-us-part-ii-accessibility-controller-remap-en-12jan21.png",
+      "packet": "A-01.png",
+      "bytes": 346993,
+      "sha256": "9e52068bdcecc4fe2ede9fd641fdf6d381932eee34912022205eeaf8035123af",
+      "pixel_or_file_edit": "none: exact byte copy"
+    },
+    {
+      "role": "reference",
+      "source": "/workspace/scratch/0b7ad82bafe7/reference-materials/tlou2/the-last-of-us-part-ii-accessibility-subtitles-en-12jan21.jpg",
+      "packet": "A-02.jpg",
+      "bytes": 696862,
+      "sha256": "948e701f0fcf125ba391eb3d6c8d90a126cce62a3b52ea0026cd27115ca533d0",
+      "pixel_or_file_edit": "none: exact byte copy"
+    },
+    {
+      "role": "candidate",
+      "source": "/workspace/scratch/0b7ad82bafe7/ci-c8f63c6/guard-toggle-settings.png",
+      "packet": "B-01.png",
+      "bytes": 769090,
+      "sha256": "54cb89f38e037c3923ec0edb8641b1f87fec797912acfdea1d0c96ccb12d4006",
+      "pixel_or_file_edit": "none: exact byte copy"
+    },
+    {
+      "role": "candidate",
+      "source": "/workspace/scratch/0b7ad82bafe7/ci-c8f63c6/gas-yard-half-choice.png",
+      "packet": "B-02.png",
+      "bytes": 1046813,
+      "sha256": "b1ac7c40b16e1738bb23e250938440d15a09e508464ff0bd05b94ff6efe127e8",
+      "pixel_or_file_edit": "none: exact byte copy"
+    }
+  ],
+  "blind_result_valid": false,
+  "element": "E-14",
+  "element_status": "not measured",
+  "reason": "Assessor recognized reference character/faction. Four static samples do not cover the whole element. No valid blind work unit completed.",
+  "comparison_completed": false,
+  "attempt_finished": true,
+  "selection_policy": "Retain all results. Do not re-evaluate the same unchanged packet with new assessors seeking a favorable result.",
+  "reference_attribution": "The Last of Us Part II screenshots published by PlayStation/Naughty Dog; original source URLs in reference-acquisition.json. Separate comparison evidence only; no general redistribution license or game-asset permission is asserted.",
+  "assessor_raw_sha256": "749bf6223a1f9ed0ff38c938eaa69fe318653200ddf3a6521742bd74b997173d",
+  "refuter_sha256": "6214b78ab6bdc31b7c223108c5195877216d189c02afd8e73f41f180b8e61cc9"
+}

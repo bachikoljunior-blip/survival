@@ -180,11 +180,18 @@ async function main() {
   // raid, and iOS Safari discards backgrounded tabs without warning. Save on
   // the way out instead of losing up to a minute and a half in silence.
   const saveOnExit = () => {
-    if (!game.director) return;
-    if (game.mode !== MODE.PLAY && game.mode !== MODE.MENU && game.mode !== MODE.DIALOGUE) return;
-    try { game.director.save(true); } catch (e) { console.warn('[cinderline] exit save failed', e); }
+    if (!game.director || game.menus?.fromTitle) return null;
+    if (game.mode !== MODE.PLAY && game.mode !== MODE.MENU && game.mode !== MODE.DIALOGUE) return null;
+    try { return game.director.save(true); }
+    catch (e) { console.warn('[cinderline] exit save failed', e); return false; }
   };
   game.engine.on('background', saveOnExit);
+  const saveResultText = (result) => result === true
+    ? t('ui.fault.saved', 'A recovery save was written.')
+    : result === false
+      ? t('ui.fault.unsaved', 'A recovery save could not be written. Reloading may lose recent progress.')
+      : t('ui.fault.noSave', 'Your saved data has not been changed.');
+  const reloadHint = () => t('ui.fault.reloadHint', 'Reload to return to the title screen.');
 
   // ---- WebGL context loss ----------------------------------------------
   // Engine sets lost=true and pauses; _frame then returns early forever. Left
@@ -192,10 +199,16 @@ async function main() {
   // and Safari frequently never fires webglcontextrestored.
   const ctxLost = document.getElementById('ctxlost');
   const ctxReload = document.getElementById('ctxlost-reload');
+  const faultNotice = document.getElementById('fault-notice');
   if (ctxReload) ctxReload.addEventListener('click', () => window.location.reload());
   game.engine.on('contextlost', () => {
-    saveOnExit();
-    if (ctxLost) ctxLost.classList.add('on');
+    const saved = saveOnExit();
+    if (ctxLost) {
+      const k = ctxLost.querySelector('.k'), s = ctxLost.querySelector('.s');
+      if (k) k.textContent = t('ui.fault.contextTitle', 'THE PICTURE STOPPED');
+      if (s) s.textContent = t('ui.fault.contextText', 'The graphics connection was lost.') + ' ' + saveResultText(saved) + ' ' + reloadHint();
+      ctxLost.classList.add('on');
+    }
   });
   game.engine.on('contextrestored', () => {
     if (ctxLost) ctxLost.classList.remove('on');
@@ -216,16 +229,17 @@ async function main() {
   // escalates to the same recovery panel context loss uses.
   const faults = [];
   let faultPanelShown = false;
+  let lastFaultSaveResult = null;
   const showRecoveryPanel = () => {
     if (faultPanelShown || !ctxLost) return;
     faultPanelShown = true;
+    if (faultNotice) faultNotice.hidden = true;
     const k = ctxLost.querySelector('.k');
     const s = ctxLost.querySelector('.s');
     if (k) k.textContent = t('ui.fault.title', 'SOMETHING BROKE');
     if (s) {
-      s.textContent = t('ui.fault.text',
-        'The game hit an error it could not carry on from. Your progress has been saved. ' +
-        'Reload to pick up where you left off.');
+      s.textContent = t('ui.fault.text', 'The game could not carry on after an error.')
+        + ' ' + saveResultText(lastFaultSaveResult) + ' ' + reloadHint();
     }
     ctxLost.classList.add('on');
   };
@@ -244,13 +258,18 @@ async function main() {
 
     if (at.t - lastFaultSave > 5000) {
       lastFaultSave = at.t;
-      saveOnExit();
+      lastFaultSaveResult = saveOnExit();
     }
     if (faults.length === 1) {
       try {
-        game.hud.notice(t('ui.fault.notice',
-          '<b>Something went wrong.</b> Your progress has been saved.'), 'bad', 6);
-      } catch { /* the HUD itself may be what broke */ }
+        // A HUD child is invisible at the title, in menus, or when the HUD
+        // itself failed. Keep this alert outside that render/update lifecycle.
+        if (faultNotice) {
+          faultNotice.textContent = t('ui.fault.notice', 'Something went wrong.') + ' ' + saveResultText(lastFaultSaveResult);
+          faultNotice.hidden = false;
+          setTimeout(() => { faultNotice.hidden = true; }, 8000);
+        }
+      } catch { /* a damaged document must not recursively fault */ }
     }
 
     // Repeats mean the fault is in something that runs again — a frame, an

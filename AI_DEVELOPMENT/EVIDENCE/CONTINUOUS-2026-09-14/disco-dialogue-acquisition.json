@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-09-14T05:29:48.179853+00:00",
+  "source": "https://github.com/msyavuz/disco-api/blob/70adf5c3e2d254e364cd92bdc09d927bf1fa9553/disco.db",
+  "acquisition": {
+    "url": "https://raw.githubusercontent.com/msyavuz/disco-api/70adf5c3e2d254e364cd92bdc09d927bf1fa9553/disco.db",
+    "expectedGitBlob": "38ab716dc2c52c9f5ad0a485898274660c9f6c2d",
+    "expectedBytes": 40517632,
+    "method": "ordinary public GET of exact committed source; private analysis only",
+    "retrievedAt": "2026-09-14T05:25:52Z",
+    "status": 200,
+    "bytes": 40517632,
+    "sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5",
+    "gitBlobMatches": true
+  },
+  "dataVersion": {
+    "version-date": "3/29/2021 9:32:09 PM"
+  },
+  "readOnly": true,
+  "counts": {
+    "dialogues": 1428,
+    "dentries": 77290,
+    "temp_table": 111166,
+    "dlinks": 134491,
+    "checks": 235,
+    "alternates": 2843,
+    "variables": 10513
+  },
+  "integrity": {
+    "dentriesMissingLinkTargets": 39102,
+    "tempTableMissingLinkTargets": 0,
+    "tempTableDuplicateKeys": 0,
+    "spokenTextDifferencesBetweenTables": 0
+  },
+  "methodCorrection": "The API-facing dentries table omits group/empty nodes and cannot reproduce full branches alone. Preserve the original temp_table plus dlinks, checks, alternates, conditions and scripts; do not infer order from sorted IDs.",
+  "scope": "Raw game dialogue graph claimed by public data repository, not a playthrough. Authenticity cross-check against actual displayed game material remains required. All element judgments remain not measured.",
+  "rights": "Original game words/assets remain their rights holder property. Database and full dialogue exports stay outside the public project and production distribution. Only acquisition/provenance and structural integrity metadata are saved to the repository.",
+  "nextAction": "Select a complete human conflict arc and verify original graph/text against actual game evidence before constructing anonymous comparison materials."
+}

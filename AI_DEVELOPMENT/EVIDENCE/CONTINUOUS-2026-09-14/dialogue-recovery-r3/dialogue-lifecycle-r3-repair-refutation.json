@@ -1,0 +1,59 @@
+{
+  "verdict": "PASS",
+  "score": 100,
+  "round": "dialogue-lifecycle-r3-repair-independent-refutation",
+  "profile": "Cancel-versus-finish semantics, delayed callbacks and shared lifecycle entry",
+  "tier": "Source and CPU event boundary",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison or rendered browser measurement occurred. Source identities are known; the DOM boundary has no native hit testing, pointer capture, layout or pixels. No element judgment is changed.",
+  "checkedAt": "2026-09-14T05:04:02.588Z",
+  "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+  "sources": {
+    "src/game/director.js": "6ef77a062ec5334c0324816fc7ffd9a090aa391b760267c693857bfc3e5d021e",
+    "src/game/narrative.js": "2535df961c19396606423dc8b98c2a3a1552cd2071080ac2be98b5860d6956b0",
+    "src/ui/screens.js": "558d65579cbf782788119da354f99da73ce4c0e55e630ec3a4758f4c3c714afd"
+  },
+  "scope": "Independent source/CPU lifecycle cancellation review using pinned actual Director, DialogueRunner, DialogueUI and GameState. The parent DOM boundary supplies event listeners only; no pixels, native capture or trusted input.",
+  "verdictScope": "The assigned repair passes the confirmed cancellation/normal-finish boundary checks. A forced detached-listener delivery after a newer conversation is an unmeasured browser reachability observation, not a surviving product finding.",
+  "findings": [],
+  "checks": {
+    "total": 5,
+    "passed": 5
+  },
+  "conclusions": [
+    "Normal choice completion still applies the chosen effect, conversation onEnd, Director onEnd callback, NPC met flag, talk notification and one save.",
+    "Cancel does not call finish, apply an unchosen choice, run onEnd, mark the NPC met or save. It preserves already applied start effects.",
+    "Hidden-box and old-choice listeners delivered after cancellation and before replacement cannot act; saved runner callback references also remain inert while canceled.",
+    "Death and resetWorld perform the same cancellation before their remaining work, including talk animation stop and pending-trade removal."
+  ],
+  "observations": [
+    {
+      "area": "Old choice event after a newer conversation has opened",
+      "oldAbsentFromTree": true,
+      "currentChoiceWasDifferentNode": true,
+      "forcedOldListenerAfterReplacementCommittedNewChoice": true,
+      "lostCaptureControlCommittedNewChoice": false,
+      "browserReproduction": "not measured",
+      "scope": "The minimal DOM dispatches to a detached object and does not implement implicit pointer-capture release. This artificial callback delivery does not establish a reachable trusted browser event.",
+      "disposition": "Do not claim every arbitrary retained callback is guarded across all later conversations. The minimal DOM can force a removed choice listener to call the replacement onChoose. Browser retargeting/capture behavior is absent, so no browser failure or blocking finding is asserted.",
+      "source": "https://www.w3.org/TR/pointerevents3/#implicit-release-of-pointer-capture"
+    }
+  ],
+  "limitations": [
+    "No browser/server/socket or native pointer action was executed.",
+    "Synthetic conversations isolate effects and are not new product story content.",
+    "Full death -> retry/title/new/continue and normal authored examine progress are independently checked by the parent and are not duplicated here.",
+    "The pointer-capture standard is primary-source context; actual engine conformance was not measured."
+  ],
+  "evidenceFiles": [
+    "dialogue-lifecycle-r3-repair-refutation-probe.mjs",
+    "dialogue-lifecycle-r3-repair-refutation-probe.json",
+    "dialogue-lifecycle-r3-repair-source.json",
+    "dialogue-lifecycle-r1-dom-fixture.mjs"
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

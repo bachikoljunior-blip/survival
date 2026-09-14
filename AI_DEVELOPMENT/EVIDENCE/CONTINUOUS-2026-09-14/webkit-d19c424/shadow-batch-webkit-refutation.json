@@ -1,0 +1,3103 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "No comparative quality score measured; zero is an unscored schema value.",
+  "round": "d19c424-shadow-batch-actual-refutation",
+  "profile": "iPhone SE (3rd gen) landscape / Playwright WebKit",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "blindComparison": "No source-blind reference comparison was conducted, and no stranger preference is asserted. These labelled production/unbatched diagnostic images cannot make any element satisfied.",
+  "verdictScope": "Complete visual-readability and retained-roof coverage claims remain unsupported; this review found no definite new shadow-batching regression in the five inspected static views.",
+  "checkedAt": "2026-09-14T01:12:30.381Z",
+  "reviewer": "/root/render_cost_review/refute_backdrop",
+  "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "buildSha256": "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897",
+  "buildProvenanceScope": "Commit/build assignment supplied by parent and matching current session checkpoint; this agent did not fetch CI metadata or independently attest the CI build archive.",
+  "report": {
+    "path": "/workspace/scratch/0b7ad82bafe7/ci-d19c424/report.json",
+    "sha256": "d8e657fd49b59da6623c31d2189c2feedff1703b92253cc58e7e5c0ece7dc795",
+    "checkedAt": "2026-09-14T00:58:12.160Z",
+    "status": "passed",
+    "checks": 148,
+    "failedChecks": []
+  },
+  "findings": [
+    {
+      "severity": "minor",
+      "shot": "visual-marrow_roof-frame.png and shadow-marrow_roof-unbatched.png",
+      "problem": "In this captured rooftop view, the head and upper body around x480..545/y275..365 merge into the almost black forward wall; arm pose and clothing outlines are hard to distinguish in both variants.",
+      "why": "The third-person character loses readable upper-body detail at this view. Lower legs remain silhouetted against the brighter floor, so the observation does not mean the whole character is invisible.",
+      "owner": "src/render/atmosphere.js",
+      "fix": "Investigate the lighting/material/camera contribution before changing it; recapture this exact view plus a supported roof view and require independently readable head/torso/arm boundaries while retaining the dark scene. Native images, not luma counters alone, must demonstrate the result.",
+      "hypothesis": "Mechanism unconfirmed. Identical batched/unbatched pixels refute attribution to this batching toggle; the observation does not establish whether light direction, surface normals, material response, or framing is the main cause.",
+      "refutation": "survives_after_narrowing",
+      "evidence": {
+        "files": [
+          "visual-marrow_roof-frame.png",
+          "shadow-marrow_roof-unbatched.png"
+        ],
+        "region": [
+          480,
+          275,
+          545,
+          365
+        ],
+        "lowerBodyReadable": true,
+        "batchRegressionProven": false
+      }
+    }
+  ],
+  "observations": [
+    {
+      "topic": "Cinder foot shadow",
+      "result": "The current production image already has a dark shadow adjoining the feet and extending right. It is visually present without the separate forced-refresh capture, and cached/refreshed RGBA are identical here.",
+      "scope": "This static pose only; continuous moving shadow behaviour is not measured by these images."
+    },
+    {
+      "topic": "Arcade old unsupported roof props",
+      "result": "The previously identified AC block and three debris primitives are absent at their old projected locations in this view, consistent with the prior exact-geometry removal measurements.",
+      "scope": "This is not a claim that all city props are supported. The rusty vertical panel around x632..694/y134..254 remains visible and appears elevated, but no new support diagnosis has been established for it."
+    },
+    {
+      "topic": "Retained roof dressing coverage",
+      "result": "marrow_roof looks toward a large dark forward wall. It does not visibly establish preservation of all retained pellroof/kettleroof/drayroof props; CPU support checks cannot be recast as their rendered visual verification.",
+      "scope": "The picture is a valid current rooftop scene and shadow comparison, but is insufficient to close the separate retained-dressing image coverage claim."
+    }
+  ],
+  "independentRawReconciliation": [
+    {
+      "name": "stacks",
+      "actualTier": "medium",
+      "native": [
+        1147,
+        645
+      ],
+      "sameRecordedPoseCameraTime": true,
+      "camera": {
+        "position": [
+          -111.58,
+          1.671123305478851,
+          -80.40876941906463
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 57.999896027873724,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -112,
+          0,
+          -84
+        ],
+        "yaw": 0,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "differences": [
+        {
+          "againstCached": "refreshed",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "unbatched",
+          "differentDecodedRGBAPixels": 1,
+          "maxRGBDelta": 3,
+          "bbox": [
+            528,
+            394,
+            528,
+            394
+          ]
+        },
+        {
+          "againstCached": "repeat",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        }
+      ],
+      "frames": [
+        {
+          "variant": "cached",
+          "file": "visual-stacks-frame.png",
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-stacks-refreshed.png",
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1",
+          "allPassDraws": 66,
+          "allPassTriangles": 195293,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 91620,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 266148
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 8712
+            }
+          ],
+          "batchStats": {
+            "staticSources": 74,
+            "dynamicSources": 9,
+            "staticTriangles": 88716,
+            "dynamicTriangles": 2904,
+            "unsupportedSources": 0,
+            "prepareMs": 5
+          }
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-stacks-unbatched.png",
+          "pngSha256": "4dfde65995ca6d06e71003e4504ac54301bbcdaca63416fc92e640e0a597e8dc",
+          "rgbaSha256": "93e6302d44e05475a90ad3a24f2e663474ae7a77462b13a0d10eda87ce2f19bf",
+          "allPassDraws": 145,
+          "allPassTriangles": 223759,
+          "observedShadowCallbacks": 83,
+          "shadowSubmittedTriangles": 120086,
+          "shadowSubmissions": [
+            {
+              "name": "chunk_-3,-3:ash",
+              "indices": 768
+            },
+            {
+              "name": "chunk_-2,-3:ash",
+              "indices": 1152
+            },
+            {
+              "name": "chunk_-2,-3:asphalt",
+              "indices": 90
+            },
+            {
+              "name": "chunk_-2,-3:concrete",
+              "indices": 264
+            },
+            {
+              "name": "chunk_-2,-3:paint",
+              "indices": 12
+            },
+            {
+              "name": "chunk_-2,-3:rust",
+              "indices": 756
+            },
+            {
+              "name": "chunk_-2,-3:dark",
+              "indices": 720
+            },
+            {
+              "name": "chunk_-1,-3:ash",
+              "indices": 1656
+            },
+            {
+              "name": "chunk_-1,-3:corrugated",
+              "indices": 1428
+            },
+            {
+              "name": "chunk_-1,-3:brick",
+              "indices": 960
+            },
+            {
+              "name": "chunk_-1,-3:glass",
+              "indices": 1356
+            },
+            {
+              "name": "chunk_-1,-3:metal",
+              "indices": 1716
+            },
+            {
+              "name": "chunk_-1,-3:rust",
+              "indices": 768
+            },
+            {
+              "name": "chunk_-1,-3:dark",
+              "indices": 1308
+            },
+            {
+              "name": "chunk_-1,-3:concrete",
+              "indices": 1296
+            },
+            {
+              "name": "chunk_-1,-3:wood",
+              "indices": 540
+            },
+            {
+              "name": "chunk_-3,-2:ash",
+              "indices": 2340
+            },
+            {
+              "name": "chunk_-3,-2:rust",
+              "indices": 5304
+            },
+            {
+              "name": "chunk_-3,-2:dark",
+              "indices": 1752
+            },
+            {
+              "name": "chunk_-3,-2:metal",
+              "indices": 4008
+            },
+            {
+              "name": "chunk_-3,-2:wood",
+              "indices": 9900
+            },
+            {
+              "name": "chunk_-3,-2:fabric",
+              "indices": 1266
+            },
+            {
+              "name": "chunk_-3,-2:glass",
+              "indices": 144
+            },
+            {
+              "name": "chunk_-3,-2:rubble",
+              "indices": 648
+            },
+            {
+              "name": "chunk_-3,-2:emberglow",
+              "indices": 240
+            },
+            {
+              "name": "chunk_-3,-2:paint",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-3,-2:lampglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-2,-2:ash",
+              "indices": 5040
+            },
+            {
+              "name": "chunk_-2,-2:asphalt",
+              "indices": 2424
+            },
+            {
+              "name": "chunk_-2,-2:concrete",
+              "indices": 117924
+            },
+            {
+              "name": "chunk_-2,-2:paint",
+              "indices": 2076
+            },
+            {
+              "name": "chunk_-2,-2:dark",
+              "indices": 24912
+            },
+            {
+              "name": "chunk_-2,-2:fabric",
+              "indices": 12720
+            },
+            {
+              "name": "chunk_-2,-2:wood",
+              "indices": 26220
+            },
+            {
+              "name": "chunk_-2,-2:glass",
+              "indices": 14796
+            },
+            {
+              "name": "chunk_-2,-2:screenglow",
+              "indices": 2736
+            },
+            {
+              "name": "chunk_-2,-2:rust",
+              "indices": 15000
+            },
+            {
+              "name": "chunk_-2,-2:metal",
+              "indices": 4260
+            },
+            {
+              "name": "chunk_-2,-2:corrugated",
+              "indices": 828
+            },
+            {
+              "name": "chunk_-2,-2:rubble",
+              "indices": 1728
+            },
+            {
+              "name": "chunk_-2,-2:emberglow",
+              "indices": 480
+            },
+            {
+              "name": "chunk_-2,-2:lampglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-1,-2:ash",
+              "indices": 2304
+            },
+            {
+              "name": "chunk_-1,-2:asphalt",
+              "indices": 810
+            },
+            {
+              "name": "chunk_-1,-2:concrete",
+              "indices": 2256
+            },
+            {
+              "name": "chunk_-1,-2:paint",
+              "indices": 300
+            },
+            {
+              "name": "chunk_-1,-2:dark",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-3,-1:ash",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_-3,-1:brick",
+              "indices": 1056
+            },
+            {
+              "name": "chunk_-3,-1:concrete",
+              "indices": 2340
+            },
+            {
+              "name": "chunk_-3,-1:asphalt",
+              "indices": 396
+            },
+            {
+              "name": "chunk_-3,-1:dark",
+              "indices": 1956
+            },
+            {
+              "name": "chunk_-3,-1:metal",
+              "indices": 1080
+            },
+            {
+              "name": "chunk_-3,-1:wood",
+              "indices": 1068
+            },
+            {
+              "name": "chunk_-3,-1:rust",
+              "indices": 2868
+            },
+            {
+              "name": "chunk_-3,-1:corrugated",
+              "indices": 144
+            },
+            {
+              "name": "chunk_-2,-1:ash",
+              "indices": 4404
+            },
+            {
+              "name": "chunk_-2,-1:asphalt",
+              "indices": 1254
+            },
+            {
+              "name": "chunk_-2,-1:concrete",
+              "indices": 6324
+            },
+            {
+              "name": "chunk_-2,-1:paint",
+              "indices": 900
+            },
+            {
+              "name": "chunk_-2,-1:dark",
+              "indices": 6024
+            },
+            {
+              "name": "chunk_-2,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-2,-1:metal",
+              "indices": 2208
+            },
+            {
+              "name": "chunk_-2,-1:wood",
+              "indices": 4236
+            },
+            {
+              "name": "chunk_-2,-1:glass",
+              "indices": 576
+            },
+            {
+              "name": "chunk_-2,-1:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_-2,-1:rust",
+              "indices": 10080
+            },
+            {
+              "name": "chunk_-2,-1:rubble",
+              "indices": 576
+            },
+            {
+              "name": "chunk_-1,-1:dark",
+              "indices": 3228
+            },
+            {
+              "name": "chunk_-3,0:asphalt",
+              "indices": 1482
+            },
+            {
+              "name": "chunk_-3,0:concrete",
+              "indices": 7656
+            },
+            {
+              "name": "chunk_-2,0:rubble",
+              "indices": 4176
+            },
+            {
+              "name": "chunk_-1,0:dark",
+              "indices": 6216
+            },
+            {
+              "name": "chunk_-1,0:emberglow",
+              "indices": 288
+            },
+            {
+              "name": "",
+              "indices": 4266
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 4194
+            }
+          ],
+          "batchStats": {
+            "staticSources": 74,
+            "dynamicSources": 9,
+            "staticTriangles": 88716,
+            "dynamicTriangles": 2904,
+            "unsupportedSources": 0,
+            "prepareMs": 5
+          }
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-stacks-repeat.png",
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1",
+          "allPassDraws": 66,
+          "allPassTriangles": 195293,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 91620,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 266148
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 8712
+            }
+          ],
+          "batchStats": {
+            "staticSources": 74,
+            "dynamicSources": 9,
+            "staticTriangles": 88716,
+            "dynamicTriangles": 2904,
+            "unsupportedSources": 0,
+            "prepareMs": 27
+          }
+        }
+      ]
+    },
+    {
+      "name": "arcade",
+      "actualTier": "medium",
+      "native": [
+        1147,
+        645
+      ],
+      "sameRecordedPoseCameraTime": true,
+      "camera": {
+        "position": [
+          -104.92,
+          1.8111233054782914,
+          -10.091230580935367
+        ],
+        "quaternion": [
+          -2.136977846428571e-18,
+          0.9993908270190958,
+          0.03489949670250097,
+          6.119503887030809e-17
+        ],
+        "fov": 57.999999999999865,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -104.5,
+          0.14,
+          -6.5
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "differences": [
+        {
+          "againstCached": "refreshed",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "unbatched",
+          "differentDecodedRGBAPixels": 229,
+          "maxRGBDelta": 6,
+          "bbox": [
+            97,
+            10,
+            560,
+            347
+          ]
+        },
+        {
+          "againstCached": "repeat",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        }
+      ],
+      "frames": [
+        {
+          "variant": "cached",
+          "file": "visual-arcade-frame.png",
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-arcade-refreshed.png",
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4",
+          "allPassDraws": 130,
+          "allPassTriangles": 202237,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 118966,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 352380
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 121,
+            "dynamicSources": 8,
+            "staticTriangles": 117460,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 29
+          }
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-arcade-unbatched.png",
+          "pngSha256": "2d682bee8256349da2cab36eab7533b318729c339404faad57792f00a719c931",
+          "rgbaSha256": "be8e581d7157df17644af98a2eadaa9950a6dfbec2989e4db36a2839377df1d0",
+          "allPassDraws": 255,
+          "allPassTriangles": 244247,
+          "observedShadowCallbacks": 129,
+          "shadowSubmittedTriangles": 160976,
+          "shadowSubmissions": [
+            {
+              "name": "chunk_-3,-2:ash",
+              "indices": 2340
+            },
+            {
+              "name": "chunk_-3,-2:rust",
+              "indices": 5304
+            },
+            {
+              "name": "chunk_-3,-2:dark",
+              "indices": 1752
+            },
+            {
+              "name": "chunk_-3,-2:wood",
+              "indices": 9900
+            },
+            {
+              "name": "chunk_-3,-2:fabric",
+              "indices": 1266
+            },
+            {
+              "name": "chunk_-2,-2:ash",
+              "indices": 5040
+            },
+            {
+              "name": "chunk_-2,-2:asphalt",
+              "indices": 2424
+            },
+            {
+              "name": "chunk_-2,-2:concrete",
+              "indices": 117924
+            },
+            {
+              "name": "chunk_-2,-2:paint",
+              "indices": 2076
+            },
+            {
+              "name": "chunk_-2,-2:dark",
+              "indices": 24912
+            },
+            {
+              "name": "chunk_-2,-2:fabric",
+              "indices": 12720
+            },
+            {
+              "name": "chunk_-2,-2:wood",
+              "indices": 26220
+            },
+            {
+              "name": "chunk_-2,-2:glass",
+              "indices": 14796
+            },
+            {
+              "name": "chunk_-2,-2:screenglow",
+              "indices": 2736
+            },
+            {
+              "name": "chunk_-2,-2:rust",
+              "indices": 15000
+            },
+            {
+              "name": "chunk_-2,-2:metal",
+              "indices": 4260
+            },
+            {
+              "name": "chunk_-2,-2:corrugated",
+              "indices": 828
+            },
+            {
+              "name": "chunk_-2,-2:rubble",
+              "indices": 1728
+            },
+            {
+              "name": "chunk_-2,-2:emberglow",
+              "indices": 480
+            },
+            {
+              "name": "chunk_-2,-2:lampglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-3,-1:ash",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_-3,-1:brick",
+              "indices": 1056
+            },
+            {
+              "name": "chunk_-3,-1:concrete",
+              "indices": 2340
+            },
+            {
+              "name": "chunk_-3,-1:asphalt",
+              "indices": 396
+            },
+            {
+              "name": "chunk_-3,-1:tile",
+              "indices": 144
+            },
+            {
+              "name": "chunk_-3,-1:dark",
+              "indices": 1956
+            },
+            {
+              "name": "chunk_-3,-1:metal",
+              "indices": 1080
+            },
+            {
+              "name": "chunk_-3,-1:wood",
+              "indices": 1068
+            },
+            {
+              "name": "chunk_-3,-1:paint",
+              "indices": 360
+            },
+            {
+              "name": "chunk_-3,-1:fabric",
+              "indices": 72
+            },
+            {
+              "name": "chunk_-3,-1:rust",
+              "indices": 2868
+            },
+            {
+              "name": "chunk_-3,-1:corrugated",
+              "indices": 144
+            },
+            {
+              "name": "chunk_-3,-1:glass",
+              "indices": 360
+            },
+            {
+              "name": "chunk_-3,-1:rubble",
+              "indices": 108
+            },
+            {
+              "name": "chunk_-2,-1:ash",
+              "indices": 4404
+            },
+            {
+              "name": "chunk_-2,-1:asphalt",
+              "indices": 1254
+            },
+            {
+              "name": "chunk_-2,-1:concrete",
+              "indices": 6324
+            },
+            {
+              "name": "chunk_-2,-1:paint",
+              "indices": 900
+            },
+            {
+              "name": "chunk_-2,-1:dark",
+              "indices": 6024
+            },
+            {
+              "name": "chunk_-2,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-2,-1:brick",
+              "indices": 1620
+            },
+            {
+              "name": "chunk_-2,-1:tile",
+              "indices": 204
+            },
+            {
+              "name": "chunk_-2,-1:metal",
+              "indices": 2208
+            },
+            {
+              "name": "chunk_-2,-1:wood",
+              "indices": 4236
+            },
+            {
+              "name": "chunk_-2,-1:glass",
+              "indices": 576
+            },
+            {
+              "name": "chunk_-2,-1:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_-2,-1:rust",
+              "indices": 10080
+            },
+            {
+              "name": "chunk_-2,-1:corrugated",
+              "indices": 180
+            },
+            {
+              "name": "chunk_-2,-1:rubble",
+              "indices": 576
+            },
+            {
+              "name": "chunk_-1,-1:ash",
+              "indices": 3132
+            },
+            {
+              "name": "chunk_-1,-1:asphalt",
+              "indices": 1194
+            },
+            {
+              "name": "chunk_-1,-1:concrete",
+              "indices": 6684
+            },
+            {
+              "name": "chunk_-1,-1:paint",
+              "indices": 384
+            },
+            {
+              "name": "chunk_-1,-1:dark",
+              "indices": 3228
+            },
+            {
+              "name": "chunk_-1,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-1,-1:metal",
+              "indices": 1836
+            },
+            {
+              "name": "chunk_-1,-1:glass",
+              "indices": 816
+            },
+            {
+              "name": "chunk_-1,-1:wood",
+              "indices": 2268
+            },
+            {
+              "name": "chunk_-1,-1:rust",
+              "indices": 11424
+            },
+            {
+              "name": "chunk_-1,-1:fabric",
+              "indices": 324
+            },
+            {
+              "name": "chunk_-1,-1:rubble",
+              "indices": 756
+            },
+            {
+              "name": "chunk_0,-1:ash",
+              "indices": 3864
+            },
+            {
+              "name": "chunk_0,-1:dark",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_-3,0:ash",
+              "indices": 2580
+            },
+            {
+              "name": "chunk_-3,0:asphalt",
+              "indices": 1482
+            },
+            {
+              "name": "chunk_-3,0:concrete",
+              "indices": 7656
+            },
+            {
+              "name": "chunk_-3,0:paint",
+              "indices": 546
+            },
+            {
+              "name": "chunk_-3,0:brick",
+              "indices": 1308
+            },
+            {
+              "name": "chunk_-3,0:tile",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-3,0:dark",
+              "indices": 2856
+            },
+            {
+              "name": "chunk_-3,0:metal",
+              "indices": 2568
+            },
+            {
+              "name": "chunk_-3,0:wood",
+              "indices": 1332
+            },
+            {
+              "name": "chunk_-3,0:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_-3,0:glass",
+              "indices": 876
+            },
+            {
+              "name": "chunk_-3,0:screenglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-3,0:rust",
+              "indices": 1236
+            },
+            {
+              "name": "chunk_-3,0:corrugated",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-3,0:plaster",
+              "indices": 468
+            },
+            {
+              "name": "chunk_-3,0:emberglow",
+              "indices": 120
+            },
+            {
+              "name": "chunk_-2,0:ash",
+              "indices": 3348
+            },
+            {
+              "name": "chunk_-2,0:asphalt",
+              "indices": 2082
+            },
+            {
+              "name": "chunk_-2,0:concrete",
+              "indices": 12252
+            },
+            {
+              "name": "chunk_-2,0:paint",
+              "indices": 804
+            },
+            {
+              "name": "chunk_-2,0:brick",
+              "indices": 1368
+            },
+            {
+              "name": "chunk_-2,0:tile",
+              "indices": 312
+            },
+            {
+              "name": "chunk_-2,0:dark",
+              "indices": 4788
+            },
+            {
+              "name": "chunk_-2,0:metal",
+              "indices": 3240
+            },
+            {
+              "name": "chunk_-2,0:glass",
+              "indices": 1620
+            },
+            {
+              "name": "chunk_-2,0:wood",
+              "indices": 2520
+            },
+            {
+              "name": "chunk_-2,0:screenglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-2,0:fabric",
+              "indices": 648
+            },
+            {
+              "name": "chunk_-2,0:rust",
+              "indices": 10248
+            },
+            {
+              "name": "chunk_-2,0:corrugated",
+              "indices": 432
+            },
+            {
+              "name": "chunk_-2,0:rubble",
+              "indices": 4176
+            },
+            {
+              "name": "chunk_-2,0:emberglow",
+              "indices": 240
+            },
+            {
+              "name": "chunk_-1,0:asphalt",
+              "indices": 2310
+            },
+            {
+              "name": "chunk_-1,0:concrete",
+              "indices": 12036
+            },
+            {
+              "name": "chunk_-1,0:paint",
+              "indices": 1032
+            },
+            {
+              "name": "chunk_-1,0:dark",
+              "indices": 6216
+            },
+            {
+              "name": "chunk_-1,0:emberglow",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-1,0:metal",
+              "indices": 3756
+            },
+            {
+              "name": "chunk_-1,0:wood",
+              "indices": 4776
+            },
+            {
+              "name": "chunk_-1,0:fabric",
+              "indices": 684
+            },
+            {
+              "name": "chunk_-1,0:rubble",
+              "indices": 1224
+            },
+            {
+              "name": "chunk_-3,1:ash",
+              "indices": 2700
+            },
+            {
+              "name": "chunk_-3,1:asphalt",
+              "indices": 768
+            },
+            {
+              "name": "chunk_-3,1:concrete",
+              "indices": 3204
+            },
+            {
+              "name": "chunk_-3,1:metal",
+              "indices": 636
+            },
+            {
+              "name": "chunk_-2,1:ash",
+              "indices": 4188
+            },
+            {
+              "name": "chunk_-2,1:asphalt",
+              "indices": 1416
+            },
+            {
+              "name": "chunk_-2,1:concrete",
+              "indices": 6276
+            },
+            {
+              "name": "chunk_-2,1:paint",
+              "indices": 324
+            },
+            {
+              "name": "chunk_-2,1:dark",
+              "indices": 1620
+            },
+            {
+              "name": "chunk_-2,1:wood",
+              "indices": 1800
+            },
+            {
+              "name": "chunk_-2,1:glass",
+              "indices": 900
+            },
+            {
+              "name": "chunk_-2,1:metal",
+              "indices": 1020
+            },
+            {
+              "name": "chunk_-2,1:rust",
+              "indices": 648
+            },
+            {
+              "name": "chunk_-2,1:corrugated",
+              "indices": 180
+            },
+            {
+              "name": "chunk_-2,1:rubble",
+              "indices": 948
+            },
+            {
+              "name": "chunk_-2,1:fabric",
+              "indices": 432
+            },
+            {
+              "name": "chunk_-1,1:dark",
+              "indices": 2580
+            },
+            {
+              "name": "",
+              "indices": 4266
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            }
+          ],
+          "batchStats": {
+            "staticSources": 121,
+            "dynamicSources": 8,
+            "staticTriangles": 117460,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 29
+          }
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-arcade-repeat.png",
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4",
+          "allPassDraws": 130,
+          "allPassTriangles": 202237,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 118966,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 352380
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 121,
+            "dynamicSources": 8,
+            "staticTriangles": 117460,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 49
+          }
+        }
+      ]
+    },
+    {
+      "name": "cinder",
+      "actualTier": "medium",
+      "native": [
+        1147,
+        645
+      ],
+      "sameRecordedPoseCameraTime": true,
+      "camera": {
+        "position": [
+          25.42,
+          1.671123305478851,
+          -6.408769419064633
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          25,
+          0,
+          -10
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "differences": [
+        {
+          "againstCached": "refreshed",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "unbatched",
+          "differentDecodedRGBAPixels": 66,
+          "maxRGBDelta": 3,
+          "bbox": [
+            410,
+            247,
+            1112,
+            344
+          ]
+        },
+        {
+          "againstCached": "repeat",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        }
+      ],
+      "frames": [
+        {
+          "variant": "cached",
+          "file": "visual-cinder-frame.png",
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-cinder-refreshed.png",
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c",
+          "allPassDraws": 115,
+          "allPassTriangles": 182139,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 52788,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 153846
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 122,
+            "dynamicSources": 8,
+            "staticTriangles": 51282,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 2
+          }
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-cinder-unbatched.png",
+          "pngSha256": "367933378d01145a5ddc1dec0bf05a2339b497c4114203023d85720c7b4ccf68",
+          "rgbaSha256": "8e5e0f1bef0b352e05e70495834e1029a1cfbc4d315922289317aaf8e59a53de",
+          "allPassDraws": 241,
+          "allPassTriangles": 216635,
+          "observedShadowCallbacks": 130,
+          "shadowSubmittedTriangles": 87284,
+          "shadowSubmissions": [
+            {
+              "name": "chunk_0,-3:ash",
+              "indices": 1152
+            },
+            {
+              "name": "chunk_0,-2:ash",
+              "indices": 3456
+            },
+            {
+              "name": "chunk_0,-2:asphalt",
+              "indices": 600
+            },
+            {
+              "name": "chunk_0,-2:concrete",
+              "indices": 1056
+            },
+            {
+              "name": "chunk_0,-2:paint",
+              "indices": 156
+            },
+            {
+              "name": "chunk_0,-2:metal",
+              "indices": 168
+            },
+            {
+              "name": "chunk_0,-2:dark",
+              "indices": 72
+            },
+            {
+              "name": "chunk_0,-2:lampglow",
+              "indices": 72
+            },
+            {
+              "name": "chunk_0,-2:fabric",
+              "indices": 36
+            },
+            {
+              "name": "chunk_1,-2:ash",
+              "indices": 3456
+            },
+            {
+              "name": "chunk_-2,-1:ash",
+              "indices": 4404
+            },
+            {
+              "name": "chunk_-2,-1:dark",
+              "indices": 6024
+            },
+            {
+              "name": "chunk_-2,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-2,-1:wood",
+              "indices": 4236
+            },
+            {
+              "name": "chunk_-1,-1:ash",
+              "indices": 3132
+            },
+            {
+              "name": "chunk_-1,-1:asphalt",
+              "indices": 1194
+            },
+            {
+              "name": "chunk_-1,-1:concrete",
+              "indices": 6684
+            },
+            {
+              "name": "chunk_-1,-1:paint",
+              "indices": 384
+            },
+            {
+              "name": "chunk_-1,-1:dark",
+              "indices": 3228
+            },
+            {
+              "name": "chunk_-1,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-1,-1:tile",
+              "indices": 228
+            },
+            {
+              "name": "chunk_-1,-1:metal",
+              "indices": 1836
+            },
+            {
+              "name": "chunk_-1,-1:glass",
+              "indices": 816
+            },
+            {
+              "name": "chunk_-1,-1:wood",
+              "indices": 2268
+            },
+            {
+              "name": "chunk_-1,-1:rust",
+              "indices": 11424
+            },
+            {
+              "name": "chunk_-1,-1:brick",
+              "indices": 1188
+            },
+            {
+              "name": "chunk_-1,-1:fabric",
+              "indices": 324
+            },
+            {
+              "name": "chunk_-1,-1:lampglow",
+              "indices": 72
+            },
+            {
+              "name": "chunk_-1,-1:rubble",
+              "indices": 756
+            },
+            {
+              "name": "chunk_0,-1:ash",
+              "indices": 3864
+            },
+            {
+              "name": "chunk_0,-1:asphalt",
+              "indices": 1356
+            },
+            {
+              "name": "chunk_0,-1:concrete",
+              "indices": 4476
+            },
+            {
+              "name": "chunk_0,-1:paint",
+              "indices": 780
+            },
+            {
+              "name": "chunk_0,-1:dark",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_0,-1:brick",
+              "indices": 576
+            },
+            {
+              "name": "chunk_0,-1:tile",
+              "indices": 120
+            },
+            {
+              "name": "chunk_0,-1:metal",
+              "indices": 1416
+            },
+            {
+              "name": "chunk_0,-1:wood",
+              "indices": 1548
+            },
+            {
+              "name": "chunk_0,-1:screenglow",
+              "indices": 432
+            },
+            {
+              "name": "chunk_0,-1:rust",
+              "indices": 3288
+            },
+            {
+              "name": "chunk_0,-1:corrugated",
+              "indices": 324
+            },
+            {
+              "name": "chunk_0,-1:plaster",
+              "indices": 552
+            },
+            {
+              "name": "chunk_0,-1:lampglow",
+              "indices": 216
+            },
+            {
+              "name": "chunk_0,-1:glass",
+              "indices": 36
+            },
+            {
+              "name": "chunk_0,-1:fabric",
+              "indices": 108
+            },
+            {
+              "name": "chunk_0,-1:rubble",
+              "indices": 72
+            },
+            {
+              "name": "chunk_1,-1:ash",
+              "indices": 4188
+            },
+            {
+              "name": "chunk_1,-1:asphalt",
+              "indices": 1344
+            },
+            {
+              "name": "chunk_1,-1:concrete",
+              "indices": 9156
+            },
+            {
+              "name": "chunk_1,-1:paint",
+              "indices": 192
+            },
+            {
+              "name": "chunk_1,-1:dark",
+              "indices": 3720
+            },
+            {
+              "name": "chunk_1,-1:screenglow",
+              "indices": 684
+            },
+            {
+              "name": "chunk_1,-1:glass",
+              "indices": 1200
+            },
+            {
+              "name": "chunk_1,-1:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_1,-1:metal",
+              "indices": 1488
+            },
+            {
+              "name": "chunk_1,-1:rust",
+              "indices": 2328
+            },
+            {
+              "name": "chunk_1,-1:wood",
+              "indices": 972
+            },
+            {
+              "name": "chunk_1,-1:lampglow",
+              "indices": 144
+            },
+            {
+              "name": "chunk_1,-1:rubble",
+              "indices": 108
+            },
+            {
+              "name": "chunk_2,-1:ash",
+              "indices": 2304
+            },
+            {
+              "name": "chunk_2,-1:asphalt",
+              "indices": 600
+            },
+            {
+              "name": "chunk_2,-1:concrete",
+              "indices": 2088
+            },
+            {
+              "name": "chunk_2,-1:paint",
+              "indices": 72
+            },
+            {
+              "name": "chunk_2,-1:dark",
+              "indices": 1260
+            },
+            {
+              "name": "chunk_2,-1:emberglow",
+              "indices": 432
+            },
+            {
+              "name": "chunk_-2,0:asphalt",
+              "indices": 2082
+            },
+            {
+              "name": "chunk_-2,0:concrete",
+              "indices": 12252
+            },
+            {
+              "name": "chunk_-2,0:rust",
+              "indices": 10248
+            },
+            {
+              "name": "chunk_-2,0:rubble",
+              "indices": 4176
+            },
+            {
+              "name": "chunk_-1,0:ash",
+              "indices": 2940
+            },
+            {
+              "name": "chunk_-1,0:asphalt",
+              "indices": 2310
+            },
+            {
+              "name": "chunk_-1,0:concrete",
+              "indices": 12036
+            },
+            {
+              "name": "chunk_-1,0:paint",
+              "indices": 1032
+            },
+            {
+              "name": "chunk_-1,0:dark",
+              "indices": 6216
+            },
+            {
+              "name": "chunk_-1,0:emberglow",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-1,0:brick",
+              "indices": 1956
+            },
+            {
+              "name": "chunk_-1,0:tile",
+              "indices": 396
+            },
+            {
+              "name": "chunk_-1,0:metal",
+              "indices": 3756
+            },
+            {
+              "name": "chunk_-1,0:glass",
+              "indices": 1776
+            },
+            {
+              "name": "chunk_-1,0:wood",
+              "indices": 4776
+            },
+            {
+              "name": "chunk_-1,0:fabric",
+              "indices": 684
+            },
+            {
+              "name": "chunk_-1,0:rust",
+              "indices": 6084
+            },
+            {
+              "name": "chunk_-1,0:screenglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-1,0:rubble",
+              "indices": 1224
+            },
+            {
+              "name": "chunk_0,0:ash",
+              "indices": 3492
+            },
+            {
+              "name": "chunk_0,0:asphalt",
+              "indices": 1824
+            },
+            {
+              "name": "chunk_0,0:concrete",
+              "indices": 6936
+            },
+            {
+              "name": "chunk_0,0:paint",
+              "indices": 1842
+            },
+            {
+              "name": "chunk_0,0:plaster",
+              "indices": 1320
+            },
+            {
+              "name": "chunk_0,0:tile",
+              "indices": 144
+            },
+            {
+              "name": "chunk_0,0:dark",
+              "indices": 2856
+            },
+            {
+              "name": "chunk_0,0:metal",
+              "indices": 2868
+            },
+            {
+              "name": "chunk_0,0:glass",
+              "indices": 1596
+            },
+            {
+              "name": "chunk_0,0:wood",
+              "indices": 1944
+            },
+            {
+              "name": "chunk_0,0:screenglow",
+              "indices": 360
+            },
+            {
+              "name": "chunk_0,0:fabric",
+              "indices": 180
+            },
+            {
+              "name": "chunk_0,0:rust",
+              "indices": 1584
+            },
+            {
+              "name": "chunk_0,0:corrugated",
+              "indices": 1008
+            },
+            {
+              "name": "chunk_0,0:brick",
+              "indices": 876
+            },
+            {
+              "name": "chunk_0,0:lampglow",
+              "indices": 72
+            },
+            {
+              "name": "chunk_1,0:ash",
+              "indices": 2604
+            },
+            {
+              "name": "chunk_1,0:rust",
+              "indices": 1464
+            },
+            {
+              "name": "chunk_1,0:rubble",
+              "indices": 2412
+            },
+            {
+              "name": "chunk_-1,1:asphalt",
+              "indices": 1896
+            },
+            {
+              "name": "chunk_-1,1:concrete",
+              "indices": 7248
+            },
+            {
+              "name": "chunk_-1,1:dark",
+              "indices": 2580
+            },
+            {
+              "name": "chunk_-1,1:emberglow",
+              "indices": 576
+            },
+            {
+              "name": "chunk_0,1:ash",
+              "indices": 4320
+            },
+            {
+              "name": "chunk_0,1:asphalt",
+              "indices": 1470
+            },
+            {
+              "name": "chunk_0,1:concrete",
+              "indices": 5460
+            },
+            {
+              "name": "chunk_0,1:paint",
+              "indices": 180
+            },
+            {
+              "name": "chunk_0,1:corrugated",
+              "indices": 876
+            },
+            {
+              "name": "chunk_0,1:glass",
+              "indices": 852
+            },
+            {
+              "name": "chunk_0,1:metal",
+              "indices": 1344
+            },
+            {
+              "name": "chunk_0,1:rust",
+              "indices": 1872
+            },
+            {
+              "name": "chunk_0,1:dark",
+              "indices": 1752
+            },
+            {
+              "name": "chunk_0,1:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_0,1:wood",
+              "indices": 2376
+            },
+            {
+              "name": "chunk_0,1:lampglow",
+              "indices": 72
+            },
+            {
+              "name": "chunk_0,1:rubble",
+              "indices": 468
+            },
+            {
+              "name": "chunk_1,1:dark",
+              "indices": 624
+            },
+            {
+              "name": "chunk_1,1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "",
+              "indices": 4266
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            }
+          ],
+          "batchStats": {
+            "staticSources": 122,
+            "dynamicSources": 8,
+            "staticTriangles": 51282,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 2
+          }
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-cinder-repeat.png",
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c",
+          "allPassDraws": 115,
+          "allPassTriangles": 182139,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 52788,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 153846
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 122,
+            "dynamicSources": 8,
+            "staticTriangles": 51282,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 13
+          }
+        }
+      ]
+    },
+    {
+      "name": "ventfield",
+      "actualTier": "medium",
+      "native": [
+        1147,
+        645
+      ],
+      "sameRecordedPoseCameraTime": true,
+      "camera": {
+        "position": [
+          78.40493367488354,
+          1.608409452894917,
+          -59.58
+        ],
+        "quaternion": [
+          0.018509897659266823,
+          0.7068644733530208,
+          0.018509897659266826,
+          -0.7068644733530207
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          82,
+          0,
+          -60
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "differences": [
+        {
+          "againstCached": "refreshed",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "unbatched",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "repeat",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        }
+      ],
+      "frames": [
+        {
+          "variant": "cached",
+          "file": "visual-ventfield-frame.png",
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-ventfield-refreshed.png",
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04",
+          "allPassDraws": 83,
+          "allPassTriangles": 54121,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 20330,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 56472
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 73,
+            "dynamicSources": 8,
+            "staticTriangles": 18824,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 1
+          }
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-ventfield-unbatched.png",
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04",
+          "allPassDraws": 160,
+          "allPassTriangles": 71193,
+          "observedShadowCallbacks": 81,
+          "shadowSubmittedTriangles": 37402,
+          "shadowSubmissions": [
+            {
+              "name": "chunk_1,-3:ash",
+              "indices": 1152
+            },
+            {
+              "name": "chunk_2,-3:ash",
+              "indices": 768
+            },
+            {
+              "name": "chunk_0,-2:ash",
+              "indices": 3456
+            },
+            {
+              "name": "chunk_0,-2:asphalt",
+              "indices": 600
+            },
+            {
+              "name": "chunk_0,-2:concrete",
+              "indices": 1056
+            },
+            {
+              "name": "chunk_0,-2:paint",
+              "indices": 156
+            },
+            {
+              "name": "chunk_0,-2:fabric",
+              "indices": 36
+            },
+            {
+              "name": "chunk_1,-2:ash",
+              "indices": 3456
+            },
+            {
+              "name": "chunk_1,-2:concrete",
+              "indices": 1080
+            },
+            {
+              "name": "chunk_1,-2:rust",
+              "indices": 1092
+            },
+            {
+              "name": "chunk_1,-2:dark",
+              "indices": 2496
+            },
+            {
+              "name": "chunk_1,-2:emberglow",
+              "indices": 1080
+            },
+            {
+              "name": "chunk_1,-2:wood",
+              "indices": 1152
+            },
+            {
+              "name": "chunk_1,-2:paint",
+              "indices": 216
+            },
+            {
+              "name": "chunk_1,-2:fabric",
+              "indices": 144
+            },
+            {
+              "name": "chunk_1,-2:rubble",
+              "indices": 324
+            },
+            {
+              "name": "chunk_1,-2:glass",
+              "indices": 108
+            },
+            {
+              "name": "chunk_2,-2:ash",
+              "indices": 2304
+            },
+            {
+              "name": "chunk_2,-2:asphalt",
+              "indices": 288
+            },
+            {
+              "name": "chunk_2,-2:concrete",
+              "indices": 1776
+            },
+            {
+              "name": "chunk_2,-2:paint",
+              "indices": 36
+            },
+            {
+              "name": "chunk_2,-2:rust",
+              "indices": 648
+            },
+            {
+              "name": "chunk_2,-2:dark",
+              "indices": 1704
+            },
+            {
+              "name": "chunk_2,-2:emberglow",
+              "indices": 720
+            },
+            {
+              "name": "chunk_2,-2:wood",
+              "indices": 396
+            },
+            {
+              "name": "chunk_2,-2:rubble",
+              "indices": 396
+            },
+            {
+              "name": "chunk_2,-2:glass",
+              "indices": 36
+            },
+            {
+              "name": "chunk_2,-2:fabric",
+              "indices": 108
+            },
+            {
+              "name": "chunk_-1,-1:ash",
+              "indices": 3132
+            },
+            {
+              "name": "chunk_-1,-1:asphalt",
+              "indices": 1194
+            },
+            {
+              "name": "chunk_-1,-1:concrete",
+              "indices": 6684
+            },
+            {
+              "name": "chunk_-1,-1:dark",
+              "indices": 3228
+            },
+            {
+              "name": "chunk_0,-1:ash",
+              "indices": 3864
+            },
+            {
+              "name": "chunk_0,-1:asphalt",
+              "indices": 1356
+            },
+            {
+              "name": "chunk_0,-1:concrete",
+              "indices": 4476
+            },
+            {
+              "name": "chunk_0,-1:paint",
+              "indices": 780
+            },
+            {
+              "name": "chunk_0,-1:dark",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_0,-1:metal",
+              "indices": 1416
+            },
+            {
+              "name": "chunk_0,-1:wood",
+              "indices": 1548
+            },
+            {
+              "name": "chunk_0,-1:corrugated",
+              "indices": 324
+            },
+            {
+              "name": "chunk_0,-1:lampglow",
+              "indices": 216
+            },
+            {
+              "name": "chunk_1,-1:ash",
+              "indices": 4188
+            },
+            {
+              "name": "chunk_1,-1:asphalt",
+              "indices": 1344
+            },
+            {
+              "name": "chunk_1,-1:concrete",
+              "indices": 9156
+            },
+            {
+              "name": "chunk_1,-1:paint",
+              "indices": 192
+            },
+            {
+              "name": "chunk_1,-1:dark",
+              "indices": 3720
+            },
+            {
+              "name": "chunk_1,-1:screenglow",
+              "indices": 684
+            },
+            {
+              "name": "chunk_1,-1:glass",
+              "indices": 1200
+            },
+            {
+              "name": "chunk_1,-1:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_1,-1:metal",
+              "indices": 1488
+            },
+            {
+              "name": "chunk_1,-1:rust",
+              "indices": 2328
+            },
+            {
+              "name": "chunk_1,-1:wood",
+              "indices": 972
+            },
+            {
+              "name": "chunk_1,-1:corrugated",
+              "indices": 204
+            },
+            {
+              "name": "chunk_1,-1:brick",
+              "indices": 96
+            },
+            {
+              "name": "chunk_1,-1:lampglow",
+              "indices": 144
+            },
+            {
+              "name": "chunk_1,-1:emberglow",
+              "indices": 360
+            },
+            {
+              "name": "chunk_1,-1:rubble",
+              "indices": 108
+            },
+            {
+              "name": "chunk_2,-1:ash",
+              "indices": 2304
+            },
+            {
+              "name": "chunk_2,-1:asphalt",
+              "indices": 600
+            },
+            {
+              "name": "chunk_2,-1:concrete",
+              "indices": 2088
+            },
+            {
+              "name": "chunk_2,-1:paint",
+              "indices": 72
+            },
+            {
+              "name": "chunk_2,-1:dark",
+              "indices": 1260
+            },
+            {
+              "name": "chunk_2,-1:emberglow",
+              "indices": 432
+            },
+            {
+              "name": "chunk_2,-1:rust",
+              "indices": 120
+            },
+            {
+              "name": "chunk_2,-1:metal",
+              "indices": 204
+            },
+            {
+              "name": "chunk_-1,0:emberglow",
+              "indices": 288
+            },
+            {
+              "name": "chunk_0,0:concrete",
+              "indices": 6936
+            },
+            {
+              "name": "chunk_0,0:paint",
+              "indices": 1842
+            },
+            {
+              "name": "chunk_1,0:ash",
+              "indices": 2604
+            },
+            {
+              "name": "chunk_1,0:rust",
+              "indices": 1464
+            },
+            {
+              "name": "chunk_1,0:rubble",
+              "indices": 2412
+            },
+            {
+              "name": "chunk_1,1:dark",
+              "indices": 624
+            },
+            {
+              "name": "chunk_1,1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "",
+              "indices": 4266
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            }
+          ],
+          "batchStats": {
+            "staticSources": 73,
+            "dynamicSources": 8,
+            "staticTriangles": 18824,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 1
+          }
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-ventfield-repeat.png",
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04",
+          "allPassDraws": 83,
+          "allPassTriangles": 54121,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 20330,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 56472
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 73,
+            "dynamicSources": 8,
+            "staticTriangles": 18824,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 8.999999999985448
+          }
+        }
+      ]
+    },
+    {
+      "name": "marrow_roof",
+      "actualTier": "medium",
+      "native": [
+        1147,
+        645
+      ],
+      "sameRecordedPoseCameraTime": true,
+      "camera": {
+        "position": [
+          -56.419721217280134,
+          11.95630253345137,
+          -16.42
+        ],
+        "quaternion": [
+          -0.03700710955926801,
+          0.7061377159181261,
+          0.037007109559268,
+          0.7061377159181262
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -60,
+          10.159999999999998,
+          -16
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "differences": [
+        {
+          "againstCached": "refreshed",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "unbatched",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        },
+        {
+          "againstCached": "repeat",
+          "differentDecodedRGBAPixels": 0,
+          "maxRGBDelta": 0,
+          "bbox": null
+        }
+      ],
+      "frames": [
+        {
+          "variant": "cached",
+          "file": "visual-marrow_roof-frame.png",
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-marrow_roof-refreshed.png",
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61",
+          "allPassDraws": 135,
+          "allPassTriangles": 276673,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 120696,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 357570
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 133,
+            "dynamicSources": 8,
+            "staticTriangles": 119190,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 7.000000000029104
+          }
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-marrow_roof-unbatched.png",
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61",
+          "allPassDraws": 272,
+          "allPassTriangles": 326445,
+          "observedShadowCallbacks": 141,
+          "shadowSubmittedTriangles": 170468,
+          "shadowSubmissions": [
+            {
+              "name": "chunk_-2,-3:rust",
+              "indices": 756
+            },
+            {
+              "name": "chunk_-2,-3:dark",
+              "indices": 720
+            },
+            {
+              "name": "chunk_-2,-2:ash",
+              "indices": 5040
+            },
+            {
+              "name": "chunk_-2,-2:asphalt",
+              "indices": 2424
+            },
+            {
+              "name": "chunk_-2,-2:concrete",
+              "indices": 117924
+            },
+            {
+              "name": "chunk_-2,-2:paint",
+              "indices": 2076
+            },
+            {
+              "name": "chunk_-2,-2:dark",
+              "indices": 24912
+            },
+            {
+              "name": "chunk_-2,-2:fabric",
+              "indices": 12720
+            },
+            {
+              "name": "chunk_-2,-2:wood",
+              "indices": 26220
+            },
+            {
+              "name": "chunk_-2,-2:glass",
+              "indices": 14796
+            },
+            {
+              "name": "chunk_-2,-2:screenglow",
+              "indices": 2736
+            },
+            {
+              "name": "chunk_-2,-2:rust",
+              "indices": 15000
+            },
+            {
+              "name": "chunk_-2,-2:metal",
+              "indices": 4260
+            },
+            {
+              "name": "chunk_-2,-2:corrugated",
+              "indices": 828
+            },
+            {
+              "name": "chunk_-2,-2:rubble",
+              "indices": 1728
+            },
+            {
+              "name": "chunk_-1,-2:ash",
+              "indices": 2304
+            },
+            {
+              "name": "chunk_-1,-2:asphalt",
+              "indices": 810
+            },
+            {
+              "name": "chunk_-1,-2:concrete",
+              "indices": 2256
+            },
+            {
+              "name": "chunk_-1,-2:paint",
+              "indices": 300
+            },
+            {
+              "name": "chunk_0,-2:ash",
+              "indices": 3456
+            },
+            {
+              "name": "chunk_-3,-1:ash",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_-3,-1:brick",
+              "indices": 1056
+            },
+            {
+              "name": "chunk_-3,-1:concrete",
+              "indices": 2340
+            },
+            {
+              "name": "chunk_-3,-1:asphalt",
+              "indices": 396
+            },
+            {
+              "name": "chunk_-3,-1:tile",
+              "indices": 144
+            },
+            {
+              "name": "chunk_-3,-1:dark",
+              "indices": 1956
+            },
+            {
+              "name": "chunk_-3,-1:metal",
+              "indices": 1080
+            },
+            {
+              "name": "chunk_-3,-1:wood",
+              "indices": 1068
+            },
+            {
+              "name": "chunk_-3,-1:paint",
+              "indices": 360
+            },
+            {
+              "name": "chunk_-3,-1:fabric",
+              "indices": 72
+            },
+            {
+              "name": "chunk_-3,-1:rust",
+              "indices": 2868
+            },
+            {
+              "name": "chunk_-3,-1:glass",
+              "indices": 360
+            },
+            {
+              "name": "chunk_-3,-1:rubble",
+              "indices": 108
+            },
+            {
+              "name": "chunk_-2,-1:ash",
+              "indices": 4404
+            },
+            {
+              "name": "chunk_-2,-1:asphalt",
+              "indices": 1254
+            },
+            {
+              "name": "chunk_-2,-1:concrete",
+              "indices": 6324
+            },
+            {
+              "name": "chunk_-2,-1:paint",
+              "indices": 900
+            },
+            {
+              "name": "chunk_-2,-1:dark",
+              "indices": 6024
+            },
+            {
+              "name": "chunk_-2,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-2,-1:brick",
+              "indices": 1620
+            },
+            {
+              "name": "chunk_-2,-1:tile",
+              "indices": 204
+            },
+            {
+              "name": "chunk_-2,-1:metal",
+              "indices": 2208
+            },
+            {
+              "name": "chunk_-2,-1:wood",
+              "indices": 4236
+            },
+            {
+              "name": "chunk_-2,-1:glass",
+              "indices": 576
+            },
+            {
+              "name": "chunk_-2,-1:fabric",
+              "indices": 216
+            },
+            {
+              "name": "chunk_-2,-1:rust",
+              "indices": 10080
+            },
+            {
+              "name": "chunk_-2,-1:corrugated",
+              "indices": 180
+            },
+            {
+              "name": "chunk_-2,-1:rubble",
+              "indices": 576
+            },
+            {
+              "name": "chunk_-1,-1:ash",
+              "indices": 3132
+            },
+            {
+              "name": "chunk_-1,-1:asphalt",
+              "indices": 1194
+            },
+            {
+              "name": "chunk_-1,-1:concrete",
+              "indices": 6684
+            },
+            {
+              "name": "chunk_-1,-1:paint",
+              "indices": 384
+            },
+            {
+              "name": "chunk_-1,-1:dark",
+              "indices": 3228
+            },
+            {
+              "name": "chunk_-1,-1:emberglow",
+              "indices": 192
+            },
+            {
+              "name": "chunk_-1,-1:tile",
+              "indices": 228
+            },
+            {
+              "name": "chunk_-1,-1:metal",
+              "indices": 1836
+            },
+            {
+              "name": "chunk_-1,-1:glass",
+              "indices": 816
+            },
+            {
+              "name": "chunk_-1,-1:wood",
+              "indices": 2268
+            },
+            {
+              "name": "chunk_-1,-1:rust",
+              "indices": 11424
+            },
+            {
+              "name": "chunk_-1,-1:brick",
+              "indices": 1188
+            },
+            {
+              "name": "chunk_-1,-1:fabric",
+              "indices": 324
+            },
+            {
+              "name": "chunk_-1,-1:lampglow",
+              "indices": 72
+            },
+            {
+              "name": "chunk_-1,-1:rubble",
+              "indices": 756
+            },
+            {
+              "name": "chunk_0,-1:ash",
+              "indices": 3864
+            },
+            {
+              "name": "chunk_0,-1:asphalt",
+              "indices": 1356
+            },
+            {
+              "name": "chunk_0,-1:concrete",
+              "indices": 4476
+            },
+            {
+              "name": "chunk_0,-1:paint",
+              "indices": 780
+            },
+            {
+              "name": "chunk_0,-1:dark",
+              "indices": 2844
+            },
+            {
+              "name": "chunk_0,-1:brick",
+              "indices": 576
+            },
+            {
+              "name": "chunk_0,-1:metal",
+              "indices": 1416
+            },
+            {
+              "name": "chunk_0,-1:wood",
+              "indices": 1548
+            },
+            {
+              "name": "chunk_0,-1:screenglow",
+              "indices": 432
+            },
+            {
+              "name": "chunk_0,-1:rust",
+              "indices": 3288
+            },
+            {
+              "name": "chunk_0,-1:corrugated",
+              "indices": 324
+            },
+            {
+              "name": "chunk_0,-1:plaster",
+              "indices": 552
+            },
+            {
+              "name": "chunk_0,-1:lampglow",
+              "indices": 216
+            },
+            {
+              "name": "chunk_0,-1:fabric",
+              "indices": 108
+            },
+            {
+              "name": "chunk_-3,0:ash",
+              "indices": 2580
+            },
+            {
+              "name": "chunk_-3,0:asphalt",
+              "indices": 1482
+            },
+            {
+              "name": "chunk_-3,0:concrete",
+              "indices": 7656
+            },
+            {
+              "name": "chunk_-3,0:paint",
+              "indices": 546
+            },
+            {
+              "name": "chunk_-3,0:tile",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-3,0:dark",
+              "indices": 2856
+            },
+            {
+              "name": "chunk_-3,0:metal",
+              "indices": 2568
+            },
+            {
+              "name": "chunk_-3,0:wood",
+              "indices": 1332
+            },
+            {
+              "name": "chunk_-3,0:glass",
+              "indices": 876
+            },
+            {
+              "name": "chunk_-3,0:rust",
+              "indices": 1236
+            },
+            {
+              "name": "chunk_-3,0:corrugated",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-2,0:ash",
+              "indices": 3348
+            },
+            {
+              "name": "chunk_-2,0:asphalt",
+              "indices": 2082
+            },
+            {
+              "name": "chunk_-2,0:concrete",
+              "indices": 12252
+            },
+            {
+              "name": "chunk_-2,0:paint",
+              "indices": 804
+            },
+            {
+              "name": "chunk_-2,0:brick",
+              "indices": 1368
+            },
+            {
+              "name": "chunk_-2,0:tile",
+              "indices": 312
+            },
+            {
+              "name": "chunk_-2,0:dark",
+              "indices": 4788
+            },
+            {
+              "name": "chunk_-2,0:metal",
+              "indices": 3240
+            },
+            {
+              "name": "chunk_-2,0:glass",
+              "indices": 1620
+            },
+            {
+              "name": "chunk_-2,0:wood",
+              "indices": 2520
+            },
+            {
+              "name": "chunk_-2,0:screenglow",
+              "indices": 36
+            },
+            {
+              "name": "chunk_-2,0:fabric",
+              "indices": 648
+            },
+            {
+              "name": "chunk_-2,0:rust",
+              "indices": 10248
+            },
+            {
+              "name": "chunk_-2,0:corrugated",
+              "indices": 432
+            },
+            {
+              "name": "chunk_-2,0:rubble",
+              "indices": 4176
+            },
+            {
+              "name": "chunk_-2,0:emberglow",
+              "indices": 240
+            },
+            {
+              "name": "chunk_-1,0:ash",
+              "indices": 2940
+            },
+            {
+              "name": "chunk_-1,0:asphalt",
+              "indices": 2310
+            },
+            {
+              "name": "chunk_-1,0:concrete",
+              "indices": 12036
+            },
+            {
+              "name": "chunk_-1,0:paint",
+              "indices": 1032
+            },
+            {
+              "name": "chunk_-1,0:dark",
+              "indices": 6216
+            },
+            {
+              "name": "chunk_-1,0:emberglow",
+              "indices": 288
+            },
+            {
+              "name": "chunk_-1,0:brick",
+              "indices": 1956
+            },
+            {
+              "name": "chunk_-1,0:tile",
+              "indices": 396
+            },
+            {
+              "name": "chunk_-1,0:metal",
+              "indices": 3756
+            },
+            {
+              "name": "chunk_-1,0:glass",
+              "indices": 1776
+            },
+            {
+              "name": "chunk_-1,0:wood",
+              "indices": 4776
+            },
+            {
+              "name": "chunk_-1,0:fabric",
+              "indices": 684
+            },
+            {
+              "name": "chunk_-1,0:rust",
+              "indices": 6084
+            },
+            {
+              "name": "chunk_-1,0:rubble",
+              "indices": 1224
+            },
+            {
+              "name": "chunk_0,0:asphalt",
+              "indices": 1824
+            },
+            {
+              "name": "chunk_0,0:concrete",
+              "indices": 6936
+            },
+            {
+              "name": "chunk_-2,1:ash",
+              "indices": 4188
+            },
+            {
+              "name": "chunk_-2,1:asphalt",
+              "indices": 1416
+            },
+            {
+              "name": "chunk_-2,1:concrete",
+              "indices": 6276
+            },
+            {
+              "name": "chunk_-2,1:dark",
+              "indices": 1620
+            },
+            {
+              "name": "chunk_-2,1:wood",
+              "indices": 1800
+            },
+            {
+              "name": "chunk_-2,1:metal",
+              "indices": 1020
+            },
+            {
+              "name": "chunk_-2,1:rust",
+              "indices": 648
+            },
+            {
+              "name": "chunk_-1,1:ash",
+              "indices": 2928
+            },
+            {
+              "name": "chunk_-1,1:asphalt",
+              "indices": 1896
+            },
+            {
+              "name": "chunk_-1,1:concrete",
+              "indices": 7248
+            },
+            {
+              "name": "chunk_-1,1:paint",
+              "indices": 216
+            },
+            {
+              "name": "chunk_-1,1:dark",
+              "indices": 2580
+            },
+            {
+              "name": "chunk_-1,1:emberglow",
+              "indices": 576
+            },
+            {
+              "name": "",
+              "indices": 4266
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            },
+            {
+              "name": "",
+              "indices": 36
+            }
+          ],
+          "batchStats": {
+            "staticSources": 133,
+            "dynamicSources": 8,
+            "staticTriangles": 119190,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 7.000000000029104
+          }
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-marrow_roof-repeat.png",
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61",
+          "allPassDraws": 135,
+          "allPassTriangles": 276673,
+          "observedShadowCallbacks": 2,
+          "shadowSubmittedTriangles": 120696,
+          "shadowSubmissions": [
+            {
+              "name": "world-shadow",
+              "indices": 357570
+            },
+            {
+              "name": "actor-shadow",
+              "indices": 4518
+            }
+          ],
+          "batchStats": {
+            "staticSources": 133,
+            "dynamicSources": 8,
+            "staticTriangles": 119190,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 35
+          }
+        }
+      ]
+    }
+  ],
+  "claimRefutations": [
+    {
+      "claim": "Exactly two shadow casters and zero unsupported sources",
+      "result": "Supported for recorded refreshed/repeat shadow callbacks in each of the five views: two callbacks named world-shadow/actor-shadow and unsupportedSources=0.",
+      "scope": "unsupportedSources counts visible material/geometry types the batch converter cannot handle; it does not mean zero floating or physically unsupported world objects."
+    },
+    {
+      "claim": "Cached, refreshed, repeat native images match",
+      "result": "Independently decoded and hashed all 20 PNGs. In each view cached/refreshed/repeat RGBA are exactly equal.",
+      "scope": "This tests the frozen five poses, not every animation frame or long-run update."
+    },
+    {
+      "claim": "Unbatched is an old-build comparison",
+      "result": "Refuted. It is the same current build with batching disabled and original caster meshes restored. It retains current roof-prop removals and current simulation state."
+    },
+    {
+      "claim": "Arcade 255 to 130; roof 272/326445 to 135/276673",
+      "result": "Confirmed from raw same-view unbatched/refreshed all-pass counters. Shadow callback counts are separately 129 to 2 and 141 to 2.",
+      "scope": "Draw/triangle counters include colour, shadow, post, and zero-count proxy calls. They are not FPS or physical-device speed measurements."
+    },
+    {
+      "claim": "New shadow quality defect",
+      "result": "No definite new batching defect observed in ten inspected production/unbatched images. Small decoded differences remain in stacks/arcade/cinder; these numbers locate differences and are not aesthetic scores.",
+      "scope": "Five static views at actual medium/native1147x645 only."
+    }
+  ],
+  "visuallyInspected": [
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/visual-stacks-frame.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/shadow-stacks-unbatched.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/visual-arcade-frame.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/shadow-arcade-unbatched.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/visual-cinder-frame.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/shadow-cinder-unbatched.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/visual-ventfield-frame.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/shadow-ventfield-unbatched.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/visual-marrow_roof-frame.png",
+    "/workspace/scratch/0b7ad82bafe7/ci-d19c424/shadow-marrow_roof-unbatched.png"
+  ],
+  "limitations": [
+    "No browser was started, no renderer was modified, and no remote action was performed.",
+    "The real image inspection covers ten unique production/unbatched frames; refreshed/repeat content is linked by independent exact decoded equality.",
+    "No physical phone FPS, motion judgement, shadow validity for all scene/material types, or valid blind reference comparison is measured."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

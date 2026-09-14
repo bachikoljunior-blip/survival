@@ -1,0 +1,150 @@
+{
+  "checked_at": "2026-09-14T07:48:48.087556+09:00",
+  "commit": "b3e7af80acd8179f8237228ff0a8a74fa80bf21f",
+  "build_sha256": "52858899cf347607250cdaaa077e4967bc438a74bfd1eed8a5c2a9b42701e31a",
+  "run_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34787324088",
+  "run_id": 34787324088,
+  "job_id": 103805042914,
+  "artifact_id": 10326878042,
+  "artifact_sha256": "0c99b0f6c882752d93907c8ff48ff3fa758957ea2a08924097512022bf4b2944",
+  "artifact_files": [
+    {
+      "path": "ground-street-previous.png",
+      "bytes": 1569925,
+      "sha256": "bce8c3609f2b51f200617e4de60c9367a036d31bca5e143c25e0da77765e089b"
+    },
+    {
+      "path": "ground-roof-current.png",
+      "bytes": 1569925,
+      "sha256": "bce8c3609f2b51f200617e4de60c9367a036d31bca5e143c25e0da77765e089b"
+    },
+    {
+      "path": "ground-horizon_ground-repeat.png",
+      "bytes": 1533118,
+      "sha256": "16341aeea5d8bbfd0459171b8f0f89a9fecd7c0b968950f95dcb57dad8d5bbd6"
+    },
+    {
+      "path": "report.json",
+      "bytes": 72280,
+      "sha256": "2508c7e3200ece5938244291a1d8838487a525581d00ab5d4e9bb58a9211c873"
+    },
+    {
+      "path": "trace.zip",
+      "bytes": 18016157,
+      "sha256": "ff1f07ef57a7073a304e64f304bbda978a1d5df06846d70c14938a4ab82f517c"
+    },
+    {
+      "path": "exported-unreadable-copy.json",
+      "bytes": 48,
+      "sha256": "3f21ed8c8f74365d6fd9835a6436a18755202ccc82bbe5e618bc18df43aeb134"
+    },
+    {
+      "path": "iphone-se3-webkit-gameplay.png",
+      "bytes": 1011658,
+      "sha256": "cb48f62e193490d1ea9825d69d428ed090a01ad816dcb2ef2d9218b0a4acdb57"
+    },
+    {
+      "path": "ground-roof-repeat.png",
+      "bytes": 1411753,
+      "sha256": "f1f97ec852b23aa0615cb67567bf7db108747a70cfaad6b80f89d46ccbb7dcc7"
+    },
+    {
+      "path": "saved-copies.png",
+      "bytes": 462519,
+      "sha256": "015202f908537b01524dec8f1da3998e0b1d0dc20297737624939946bfb105ec"
+    },
+    {
+      "path": "restoration-result.png",
+      "bytes": 417017,
+      "sha256": "e8adee0a004f2c64345c2971d1ccd4be5ba56e86b482d6d470ed8e29dba55325"
+    },
+    {
+      "path": "pause-menu.png",
+      "bytes": 787144,
+      "sha256": "84d02ea6de99710f6ed63d48c53faed40da8948ca3292443a2830aa735bc28ef"
+    },
+    {
+      "path": "ground-street-current.png",
+      "bytes": 1569925,
+      "sha256": "bce8c3609f2b51f200617e4de60c9367a036d31bca5e143c25e0da77765e089b"
+    },
+    {
+      "path": "ground-roof-previous.png",
+      "bytes": 1411753,
+      "sha256": "f1f97ec852b23aa0615cb67567bf7db108747a70cfaad6b80f89d46ccbb7dcc7"
+    },
+    {
+      "path": "ground-street-repeat.png",
+      "bytes": 1569925,
+      "sha256": "bce8c3609f2b51f200617e4de60c9367a036d31bca5e143c25e0da77765e089b"
+    },
+    {
+      "path": "ground-city_edge-current.png",
+      "bytes": 1411753,
+      "sha256": "f1f97ec852b23aa0615cb67567bf7db108747a70cfaad6b80f89d46ccbb7dcc7"
+    },
+    {
+      "path": "ground-city_edge-repeat.png",
+      "bytes": 1526201,
+      "sha256": "8b2d95d7916f2d5a25aa17734080f35227bb3071c19b19fc54e5a5ea22d12ed7"
+    },
+    {
+      "path": "iphone-se3-webkit-diff.png",
+      "bytes": 229223,
+      "sha256": "d2873a6b57244a49e66f453352dbc3372f42f2bf813c1c144aafc0e8c25dfd3b"
+    },
+    {
+      "path": "ground-horizon_ground-current.png",
+      "bytes": 1525950,
+      "sha256": "553d051da6045bb30aaeecdc013759326f947eb3870f44d25a94e9c3b6e461a9"
+    },
+    {
+      "path": "ground-city_edge-previous.png",
+      "bytes": 1525950,
+      "sha256": "553d051da6045bb30aaeecdc013759326f947eb3870f44d25a94e9c3b6e461a9"
+    },
+    {
+      "path": "ground-horizon_ground-previous.png",
+      "bytes": 1533136,
+      "sha256": "0b802dd0bc700001863fae745b94555c5bca1f5fe314bc268407120191db25d3"
+    },
+    {
+      "path": "video/6ae00b37482f49cbb2657228210ff853.webm",
+      "bytes": 2032662,
+      "sha256": "838eb385bd16a601b5476b7317fe8ad440201221b5bb9f5ba5490b979e969800"
+    }
+  ],
+  "measured": {
+    "checks": 64,
+    "passed": 61,
+    "failures": [
+      "ground regression roof: unchanged rendering control is byte-identical: {\"perceptualPixels\":859279,\"changedPixelsExact\":1000143,\"totalPixels\":1000500}",
+      "ground regression city_edge: unchanged rendering control is byte-identical: {\"perceptualPixels\":788987,\"changedPixelsExact\":1000494,\"totalPixels\":1000500}",
+      "ground regression horizon_ground: unchanged rendering control is byte-identical: {\"perceptualPixels\":647059,\"changedPixelsExact\":1000415,\"totalPixels\":1000500}"
+    ],
+    "recovery_checks": "All 48 pre-regression mobile checks passed, including actual visible restoration notice.",
+    "submitted_color_triangles": {
+      "street": 105162,
+      "roof": 139000,
+      "city_edge": 11680,
+      "horizon_ground": 22022
+    },
+    "ground_count_per_view": 1256,
+    "all_pass_reconciliation": "exact in all 12 captures"
+  },
+  "invalid_image_comparison": {
+    "reason": "The roof-current decoded RGBA is identical to street-repeat, and city_edge-current is identical to roof-repeat. At least two screenshots contain the preceding viewpoint. Repeat controls failed; no visual-preservation claim is made.",
+    "independent_confirmation": "render_cost_review independently recomputed hashes",
+    "next_method": "Capture actual canvas synchronously in the render JS turn, compare those native PNGs, and retain viewport screenshots separately after a compositor wait."
+  },
+  "inferences": [
+    {
+      "claim": "Removing redundant flat-ground subdivisions reduced actual submitted ground triangles by 722200 per observed frame.",
+      "basis": "Actual old/current geometry substitution and renderer counters, with exact pass reconciliation.",
+      "assumptions": "Per-object renderBufferDirect counters reflect submitted primitives as Three records them.",
+      "scope": "These 4 views at medium tier; sceneColor 11680..139000, all within fixed300000 budget.",
+      "uncertainty": "Not a physical-phone FPS result; selected views do not prove every gameplay situation. The failed screenshot comparison does not establish visual equivalence."
+    }
+  ],
+  "element_verdicts": "All 19 remain not measured; no blind comparison has completed."
+}

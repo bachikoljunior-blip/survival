@@ -1,0 +1,31 @@
+{
+  "blindComparison": "No inference or visual comparison was performed. PASS covers only this bounded static proposal review; score zero is unscored.",
+  "findings": [],
+  "nativeResolution": "0x0",
+  "operations": "GitHub UTF-8読取とFunctions内JSのみ。保存・branch変更・ローカル操作・推論なし。",
+  "pinVerification": "原案・r2・最終案すべて、取得テキストから再計算したGit blob SHA-1が指定値と一致。",
+  "profile": "independent-read-only",
+  "refutation": "別担当trench_refuterも最終blobを独立読取し、元の2経路の解消を確認。残存findingsなし。",
+  "resolved": [
+    "prepare 1800秒＋control 300秒＋比較7200秒＝9300秒。job 10800秒との差1500秒を残し、元の予算不整合を解消。",
+    "github.run_attempt == 1 が同一push runの再実行を除外。別pushまでの重複防止は主張しない。"
+  ],
+  "round": "e16-q35-ci-static-r3",
+  "score": 0,
+  "sourceBlob": "cc5d4c8a797655ce9977b599dfd6159fb92bd79e",
+  "tier": "source-only",
+  "unmeasured": [
+    "実GGUF load、CPU速度、OOM、全16画像処理、回答完結、出所認識、観察・4軸・全体選好の妥当性。",
+    "disk最低12057643615 bytes、総物理メモリ最低14 GiBという検査は、利用可能RAMや実際のcache/compute使用量を保証しない。",
+    "実workflowへの適用、SIGALRM動作、raw export完遂。"
+  ],
+  "verdict": "PASS",
+  "verified": [
+    "原16PNGをhash照合し、同bytesを中立名へコピーする実装。16markerとargv画像順が一致。",
+    "固定llama.cpp 5266f24da75dc449bd56cbed7addb9c8e4a6a73eにqwen35実装と指定flagsが存在。反復--imageはappend順で処理。",
+    "比較promptに作品名・候補側対応なし。exit 0でも品質と盲検有効性はnot measured。",
+    "timeout/nonzeroのraw記録とbyte offset/base64/hashによるexport経路がある。",
+    "既存workflowの指定pushブランチ、marker付き初回runで到達する構成。"
+  ],
+  "verifiedBytes": 19889
+}

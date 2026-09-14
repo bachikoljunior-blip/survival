@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba",
+  "bundle": {
+    "file": "cinderline.1.0.0.js",
+    "bytes": 1445501,
+    "sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+    "source": "C25 source/root match and current narrative capture independently reports this bundle hash"
+  },
+  "measured": {
+    "f3": {
+      "run": 34835544300,
+      "job": 103948402864,
+      "conclusion": "success",
+      "steps": 10,
+      "webkit": {
+        "checks": 177,
+        "failures": 0,
+        "errors": {
+          "console": [],
+          "http": [],
+          "page": [],
+          "request": []
+        },
+        "report": "../webkit-light-r2/report.json",
+        "checkedAt": "2026-09-14T10:57:18.586Z",
+        "target": "iPhone SE (3rd gen) landscape / Playwright webkit"
+      },
+      "fault_recovery": {
+        "checks": 42,
+        "failures": 0,
+        "not_measured": 0,
+        "scope": "post-boot injected exceptions/rejections/updater/render/loop failures, save-write failure, and pre-boot failure; full original screen artifact remains in original CI run"
+      },
+      "raw_log": {
+        "bytes": 16807294,
+        "commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba",
+        "job_id": 103948402864,
+        "run_id": 34835544300,
+        "sha256": "5dde891fc3a830e6f799f06127597a27d07bc9d0809be63be084260c3dfaa896"
+      }
+    },
+    "ios": {
+      "run": 34835544206,
+      "job": 103948403177,
+      "conclusion": "success",
+      "checks": 27,
+      "failures": 0,
+      "report": "../ios-light-r2/report.json",
+      "report_preservation": "Object parsed from [ios-safari-report], reserialized with indentation. report-emitted.json retains original logged JSON bytes; no claim of exact original artifact report bytes.",
+      "emitted_report": {
+        "bytes": 17983,
+        "sha256": "ab9a7d3ad099e920a9eaba9cfec17aeae06025392147a5701f0764c2cecb6b01"
+      },
+      "images": [
+        {
+          "bytes": 397709,
+          "included": true,
+          "path": "test-results/ios-safari/ios-safari-pause.png",
+          "sha256": "2ecab07ff102befa513cadc8312e039fd2154284782fbd3b1785e59953366b06"
+        },
+        {
+          "bytes": 2052675,
+          "included": true,
+          "path": "test-results/ios-safari/ios-safari-gameplay.png",
+          "sha256": "f6f0e6b410e8b6c94ab8ca8e8138726b8de1b056ace804eac69faea63b0e2c8b"
+        }
+      ],
+      "raw_log": {
+        "bytes": 8350124,
+        "commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba",
+        "job": 103948403177,
+        "run": 34835544206,
+        "sha256": "a41c4ba746535c138d72e42663e51682eed24ba886ba9d978b038803cff5cc71"
+      },
+      "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape"
+    },
+    "narrative": {
+      "run": 34835544300,
+      "job": 103948402862,
+      "conclusion": "success",
+      "files": [
+        {
+          "bytes": 28549,
+          "language": "en",
+          "path": "publish",
+          "sha256": "6d606c8c14722ce8fa3d586ab82411ce5c2ee2f7b04f0cb209c51c81a40c6f0f"
+        },
+        {
+          "bytes": 26875,
+          "language": "en",
+          "path": "deal",
+          "sha256": "bb7a776f01b9ea3745250cdb84a3e560218f8e4edb281eb9f02c18471a9a334a"
+        }
+      ],
+      "equivalence": [
+        {
+          "allDifferences": [
+            {
+              "after": "crisis_2 not out — ppmHead=776",
+              "before": "crisis_2 not out — ppmHead=778",
+              "path": ".execution.log.18"
+            },
+            {
+              "after": "crisis_3 not out — ppmHead=902",
+              "before": "crisis_3 not out — ppmHead=895",
+              "path": ".execution.log.19"
+            },
+            {
+              "after": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+              "before": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+              "path": ".bundleSha256"
+            }
+          ],
+          "browserErrors": [],
+          "bundleSha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+          "captureErrors": [],
+          "captureSucceeded": true,
+          "eventValuesEqualToA840": true,
+          "events": 119,
+          "executionSucceeded": true,
+          "path": "publish"
+        },
+        {
+          "allDifferences": [
+            {
+              "after": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+              "before": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+              "path": ".bundleSha256"
+            }
+          ],
+          "browserErrors": [],
+          "bundleSha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+          "captureErrors": [],
+          "captureSucceeded": true,
+          "eventValuesEqualToA840": true,
+          "events": 114,
+          "executionSucceeded": true,
+          "path": "deal"
+        }
+      ]
+    }
+  },
+  "recovered_webkit_originals": [
+    {
+      "file": "report.json",
+      "bytes": 382701,
+      "sha256": "9a47ea6335d405a216bb6eae0943c3069e0e930ae5060e52c5ad90c06d9a0dd0",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-arcade-frame.png",
+      "bytes": 1347799,
+      "sha256": "eb8f27a59db1edb116468b87b51a11ca000ed45405b6435bfec8120f76e54ae8",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-cinder-frame.png",
+      "bytes": 1341192,
+      "sha256": "b75b994b7ff6835895bb51e00c1639866dbc4b2a02f675918c0073f5f70f0a8c",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-marrow-frame.png",
+      "bytes": 1347657,
+      "sha256": "15edfc3f140471f5d974ed53242dd1e5128fdc176c210dbc4b5d8865540c8821",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-marrow_roof-frame.png",
+      "bytes": 1039096,
+      "sha256": "d2e1ceb4837a63254a2dcb100e93c19c4fa3d18b25492393ce0682f8bcdc7ed3",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-plant-frame.png",
+      "bytes": 1388376,
+      "sha256": "c9b3554f1b388fa2105db7856f42349d4811bf027ef7a527f83e37fbc9049c36",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-south-frame.png",
+      "bytes": 1325235,
+      "sha256": "41919fea9b42d8e94b795ab60ac3e3325ad4fc2fcfae6e87dc49fe1e177593d2",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-stacks-frame.png",
+      "bytes": 1379498,
+      "sha256": "796fb2dc46beba848ecf8e8170ad0a858e2ba9ed43b26f74e3cbc1f07477b888",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-survey-frame.png",
+      "bytes": 1322926,
+      "sha256": "118c45ecbedc96b122ac984f0c1b68ff6adbf05adc65024286cced6377cf9219",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    },
+    {
+      "file": "visual-ventfield-frame.png",
+      "bytes": 1253888,
+      "sha256": "9aef8c17c7dc168fc13f69e57a28cce595aa1c20fcc32a145ef4c65d61181c12",
+      "offsets_complete": true,
+      "meta_end_size_hash_match": true,
+      "original_commit": "2bf9ae9bf5d772f83f5a28d8e10e374e03b720ba"
+    }
+  ],
+  "source_aware_inspection": {
+    "reviewed_by_root": [
+      "original iOS pause/gameplay frames",
+      "original WebKit Marrow/Ventfield frames"
+    ],
+    "observations": [
+      "Mobile Safari pause text/buttons and gameplay controls are present without an obvious blank rendering defect in these two frames.",
+      "Adopted sun direction renders a foreground road shadow and a readable lit central line in Marrow; Ventfield feet remain distinguishable in this actual current frame."
+    ],
+    "limits": "Not a reference comparison, no general MVD-01/MVD-03 closure, no proof for every scene. The full r2 source-aware pair review remains separate."
+  },
+  "measurement_and_inference": {
+    "measurements": "All check counts, image bytes, frame gaps and emitted dialogue originate from the listed running builds on the listed apparatus.",
+    "inference": "C25 source/story retains its pinned story hash; complete event values on both actually driven paths match a840. That supports dialogue-content preservation for these two paths only. Other execution metrics are not asserted identical.",
+    "not_inferred": [
+      "physical-device sustained frame rate/thermals/audio latency",
+      "reference parity",
+      "whole-concept completion",
+      "blind comparison pass"
+    ]
+  },
+  "verdicts": {
+    "elements_satisfied": 0,
+    "elements_not_measured": 19,
+    "valid_blind_comparisons": 0,
+    "work_units_completed": 0
+  },
+  "public_state": "No main merge or deployment has occurred for C25 as of this record. Main integration is being prepared under the latest explicit instruction."
+}

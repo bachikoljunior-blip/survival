@@ -1,0 +1,118 @@
+{
+  "round": 3,
+  "profile": "e9-readable-preparation-v2-static",
+  "tier": "independent-static-source-review",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "verdictMeaning": "No confirmed blocker found in this bounded static review of the v2 preparation helper. This does not assert successful regeneration, complete rendered r3 material, reference-blindness, actual play or E9 quality.",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "blindComparison": "No blind comparison or preference was performed. This reviewer knows the reference/candidate identities and inspected the helper code only to check acquisition fidelity and presentation structure. The review itself is coordinator-only and supplies no element-completion evidence.",
+  "phase": "Independent original static review. No new agent spawned; separate refutation is not claimed completed.",
+  "source": {
+    "repository": "bachikoljunior-blip/survival",
+    "helperPath": "tools/prepare-e9-readable.mjs",
+    "initialBlob": "c7de134d9307e3dc7f7d07b24ad505d80846419d",
+    "reviewedBlob": "7c59fccf5c80f55caf4e4fe77940d6878da2029c",
+    "reviewedSourceCharacters": 8831,
+    "reviewedSourceUtf8Bytes": 8831,
+    "retrieval": "Official connected GitHub fetch_blob for each exact blob SHA.",
+    "v2OnlySortingChangeVerified": true,
+    "change": "One comment and a sorted copy of unit.nodes replace iteration over the raw array. Other v1 text is identical after mechanically removing that delta.",
+    "recoveryCapsuleBlob": "e63e292ca2c7b40384b0019aa1e10b666e6ce41b",
+    "capsuleCommitReportedByCoordinator": "5109bc6409c7bf80b228147f9a3672a2c0bc8f2f"
+  },
+  "findings": [],
+  "observations": [
+    {
+      "id": "P1",
+      "claim": "The recovered r1 generator is written unchanged only after its 4319-byte length and recovered-source SHA-256 are checked. candidate-reader-r1 and the survival symlink are siblings under the temporary root, matching the original generator's ../survival imports and repo path.",
+      "evidence": "try block: source digest/length check, mkdirSync(candidateDir), symlinkSync(repo, join(temporary,'survival')), writeFileSync candidate.mjs, execFileSync using that path.",
+      "limit": "Static path reasoning only. This reviewer did not start a process or confirm Node resolution in the next runner."
+    },
+    {
+      "id": "P2",
+      "claim": "The helper verifies bytes and SHA-256 for the regenerated r1 reader, field pins and private audit before editing headings. It verifies the expected old U11/U12 headings, changes only those two subject strings, serializes with the original two-space JSON plus final LF, and requires the known r2 reader SHA before formatting.",
+      "evidence": "Original-output loop followed by U11/U12 check and mutations, then candidateR2 hash check.",
+      "expectedR1Reader": "2c8f38ec1786efe40f3b8436ec2b5f8a844b563c1ad62cce83cf0ba59c43455d",
+      "expectedR2Reader": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b",
+      "limit": "This is a fail-closed verification plan, not a report that this helper has already regenerated either hash. The recorded extractor-text hash alone is not substituted for output-hash equality."
+    },
+    {
+      "id": "P3",
+      "claim": "Both sides are passed to the same format function after the reference r2 reader hash and exact shared notice are checked. String-valued text, mood, tag and locked_reason are appended directly and hashed in addField. Internal line breaks and original word contents are not normalized. The words statistic operates on a derived expression and does not alter the saved text.",
+      "evidence": "format/addField and common [['A', reference], ['B', candidate]] loop.",
+      "expectedReferenceReader": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+      "limit": "The new text adds explicit labels/separators. It is a new r3 presentation, not a byte reproduction of the missing old formatter output and not final game DOM text."
+    },
+    {
+      "id": "P4",
+      "claim": "The formatter iterates every node.alternates entry without filtering and emits its variant identifier, state_dependent marker and text. Every node's complete continuations array is printed, retaining branches and cycles as links. Duplicate node IDs, invalid entry IDs and unresolved internal continuation targets fail preparation.",
+      "evidence": "for (const alt of node.alternates), addField alternate.variant/alt.text, destinations validation, CONTINUATIONS output and structure audit.",
+      "limit": "Static inspection of the formatter's expected schema only. This agent did not inspect the just-restored reference r2's actual 40 alternate records or execute an emitted-field count. Null/undefined values are skipped by addField, so this routine is not by itself a general arbitrary-schema completeness validator. The known fixed-reader schema and actual r3 field/structure outputs remain the basis of the ensuing result."
+    },
+    {
+      "id": "P5",
+      "claim": "All true state_dependent, conditional_routing, check_authored and player_option flags are printed and retained in the structural audit. Alternative state_dependent is printed explicitly. The shared notice preserves the non-execution, non-simultaneity and inherited-parent-gate qualifications.",
+      "evidence": "flags fixed-key filter, AUTHORED FLAGS, ALTERNATIVE state marker, reader.notice.",
+      "limit": "False top-level flags are represented by absence from the printed true-flag list, not by four explicit false strings. A missing true flag is not observed here; absence must not be interpreted as proof of unconditional runtime availability. The readable document is not a lossless serialization of every JSON property."
+    },
+    {
+      "id": "P6",
+      "claim": "Sorting a copy with localeCompare('en',{numeric:true}) addresses the observed candidate storage order: the parent N001 is displayed before N001C1, N001C2 and subsequent N002. Raw node objects, original arrays, text, alternate order and continuation arrays are not mutated by this change.",
+      "evidence": "const displayNodes = [...unit.nodes].sort(...); for (const node of displayNodes). Mechanical v1/v2 source comparison finds no other substantive changes.",
+      "limit": "Node-ID order is an authored index, not a topological or played route. The notice, ENTRIES and CONTINUATIONS must remain attached, especially where branches point backward or skip numbered nodes. The sort does not prove a linear story or a selected option."
+    },
+    {
+      "id": "P7",
+      "claim": "The helper writes full readers and readable prose beneath RUNNER_TEMP. Its public report contains counts, hashes, identifiers and statuses; generator stdout is summarized by byte length/hash. It does not print reference text or exception messages. Caught preparation errors set a failure status and process.exitCode=1; report-write failure also remains nonzero.",
+      "evidence": "temporary/referenceDir/candidateDir/formattedDir definitions; reportPath; candidate_process_stdout summary; catch/finally.",
+      "limit": "This describes this file's data flow. The surrounding workflow's artifact upload configuration was not part of this input and was not newly audited."
+    },
+    {
+      "id": "P8",
+      "claim": "The helper explicitly withholds claims that the missing formatter was recovered, that the new r3 matches old r2 readable bytes, or that blindness, gameplay or E9 quality has been established.",
+      "evidence": "report.scope, success status 'independent formatting review pending', report.not_claimed.",
+      "limit": "The upstream reference recovery success, duration and 6/7/1337/40 counts came from the coordinator's report, not execution by this reviewer."
+    }
+  ],
+  "resolvedDuringReview": [
+    {
+      "version": "v1",
+      "symptom": "Raw candidate insertion order puts option nodes before the prompt parent.",
+      "resolution": "The v2 sorted-copy iteration fixes that local presentation order while keeping the authored graph intact.",
+      "status": "Source change inspected; actual r3 rendering not measured."
+    }
+  ],
+  "upstreamEvidenceReportedNotRerun": {
+    "referenceR2Recovery": "Coordinator reports real CI restoration in 9.40 seconds with original DB/reader/pins/audit/manifest hashes matching.",
+    "subjects": 6,
+    "units": 7,
+    "nodes": 1337,
+    "alternates": 40,
+    "provenance": "Parent agent's current task message; no independent new execution claim."
+  },
+  "executionBoundary": {
+    "localProcessAttempts": 0,
+    "filesystemReads": 0,
+    "escalationAttempts": 0,
+    "CIStarts": 0,
+    "reason": "Local execution previously failed before launch with ENOSPC and escalation was denied. No retry or alternate local execution route was attempted.",
+    "activities": "Two authorized GitHub blob reads, static text inspection, in-memory source comparison and this review record only."
+  },
+  "remainingMeasuredResults": [
+    "The next actual run must determine whether r1's three hashes and the known r2 reader hash really match.",
+    "The generated r3 text and its field/structure audit are still pending; this static review does not assert that all 40 reference alternates are present in a produced file.",
+    "No final readable packet, hidden/locked runtime state, actual selected choices, ordinary play or source-blind judge result was measured."
+  ],
+  "validation": {
+    "jsonSerializationChecked": true,
+    "requiredTopLevelFieldsCheckedInMemory": true,
+    "projectStrictValidatorExecuted": false,
+    "reason": "No local command attempted under the current execution restriction. The report supplies the critic-required fields and has no findings requiring owner mapping."
+  },
+  "benchmarkChanges": [],
+  "productChanges": [],
+  "branchChanges": [],
+  "completionClaims": []
+}

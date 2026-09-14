@@ -1,0 +1,57 @@
+{
+  "commit": "6f9add97ff594e39f116526cb4bb267949b58104",
+  "build_sha256": "a1d0afc2cdda0be0491d1a34fe70218ae9d8021522708b4ffe302edb91c8e947",
+  "run": "https://github.com/bachikoljunior-blip/survival/actions/runs/34785877483",
+  "artifact_id": 10326940519,
+  "artifact_sha256": "d5a52c6e92864b182aaf7ee44637b706f7548b3ec7964bcc7c61508c5498227c",
+  "artifact_expires_at": "2026-09-27T22:11:29Z",
+  "checks": 35,
+  "passed": true,
+  "environment": "GitHub Actions ubuntu-latest; Playwright WebKit; iPhone SE3 landscape profile 667x375 CSS px, DPR2; software rendering, not physical iPhone",
+  "source_of_execution": "Existing Floor gates on push of the exact specified branch. F3 seven steps and WebKit35 checks completed. F5 is a PR-only review check and was skipped on this push, not passed.",
+  "files": [
+    {
+      "path": "iphone-se3-webkit-diff.png",
+      "bytes": 225220,
+      "sha256": "1b36b8b9a1a4ac0a01e8f0609bf31789bcd09247079c71cfee1d2cd2e7ebfe0d"
+    },
+    {
+      "path": "iphone-se3-webkit-gameplay.png",
+      "bytes": 991258,
+      "sha256": "123fdeaa17fb0683b945dc9fa59152b0674a6f9a15e34a83a60593f4d933f5c6"
+    },
+    {
+      "path": "pause-menu.png",
+      "bytes": 791256,
+      "sha256": "38ef34ab9aee671d46dfde4dd76b8a7464f25d460c736c4d12fbce53d1ad2cf2"
+    },
+    {
+      "path": "report.json",
+      "bytes": 13348,
+      "sha256": "264c274aeb189bb02698d01e7389ede9d6b3355ff255cdfa9d0f041a369988fc"
+    },
+    {
+      "path": "trace.zip",
+      "bytes": 9624272,
+      "sha256": "2c7a493f4039d46ff261b98c11381278c3567346c02e3e997bb93db5ff0090b8"
+    },
+    {
+      "path": "video/3278ba08472f4ea52ff255d7691a8b56.webm",
+      "bytes": 1562371,
+      "sha256": "62070614b3add53a12ec4dc9d271fa9d344bc0deb2422f46d4ddd2ac685e4866"
+    }
+  ],
+  "observations": [
+    "The fixed-camera regression screenshot faces a nearby dark brick wall; it is not a representative complete visual comparison.",
+    "The runtime report measures 863741 submitted triangles at the captured medium scene; this exceeds the retained 300000 triangle budget.",
+    "Thirty frame-gap samples on the software renderer are not a physical-iPhone performance measurement."
+  ],
+  "not_inferred": [
+    "physical iPhone FPS",
+    "thumb reach or feel",
+    "Mobile Safari download behavior",
+    "source-blind preference"
+  ],
+  "blind_comparison_performed": false,
+  "new_recovery_instrument_executed": false
+}

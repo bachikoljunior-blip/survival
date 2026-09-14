@@ -32,17 +32,16 @@ export class NavGrid {
     this.height = new Float32Array(n).fill(NaN);
     /** Cost multiplier — raised in bad air and near hazards so AI avoids them. */
     this.cost = new Float32Array(n).fill(1);
+    this.costRevision = 0;
+    this._nextCost = new Float32Array(n).fill(1);
+    this._gasCursor = -1;
+    this._gasAge = 0;
     /** Connected-region id, so we never path between disjoint surfaces. */
     this.region = new Int32Array(n).fill(-1);
 
     // A* working sets, preallocated.
     this._g = new Float32Array(n);
-    this._f = new Float32Array(n);
     this._came = new Int32Array(n);
-    this._state = new Uint8Array(n);
-    this._stamp = new Int32Array(n);
-    this._epoch = 0;
-    this._open = new BinaryHeap((i) => this._f[i]);
     this.regionCount = 0;
   }
 
@@ -151,126 +150,69 @@ export class NavGrid {
    * A*. Returns an array of {x,y,z} waypoints, already string-pulled, or null.
    * `budget` bounds node expansion so a pathological request cannot stall a frame.
    */
-  findPath(sx, sy, sz, tx, ty, tz, budget = 900) {
-    const start = this.nearest(sx, sz, sy);
-    const goal = this.nearest(tx, tz, ty);
-    if (start < 0 || goal < 0) return null;
-    if (this.region[start] !== this.region[goal]) return null;
-    if (start === goal) return [{ x: tx, y: this.height[goal], z: tz }];
+  findPath(sx, sy, sz, tx, ty, tz, budget = 900, ignoreGas = false) {
+    const search = this.createPathSearch(sx, sy, sz, tx, ty, tz, ignoreGas);
+    if (!search) return null;
+    const path = search.step(budget);
+    // Retain the last synchronous predecessor/cost trace for diagnostics.
+    for (const [i, node] of search.nodes) { this._g[i] = node.g; this._came[i] = node.parent; }
+    return path;
+  }
 
-    this._epoch++;
-    const ep = this._epoch;
-    const heap = this._open;
-    heap.clear();
-
-    const gx = goal % this.nx, gz = (goal / this.nx) | 0;
-    const h = (i) => {
-      const ix = i % this.nx, iz = (i / this.nx) | 0;
-      const dx = Math.abs(ix - gx), dz = Math.abs(iz - gz);
-      // Octile distance — admissible for 8-connected grids.
-      return (dx + dz) + (DIAG - 2) * Math.min(dx, dz);
-    };
-
-    this._g[start] = 0;
-    this._f[start] = h(start);
-    this._came[start] = -1;
-    this._stamp[start] = ep;
-    this._state[start] = 1;
-    heap.push(start);
-
-    let expanded = 0;
-    let found = false;
-    while (heap.size > 0 && expanded < budget) {
-      const cur = heap.pop();
-      if (cur === goal) { found = true; break; }
-      this._state[cur] = 2;
-      expanded++;
-
-      const cx = cur % this.nx, cz = (cur / this.nx) | 0;
-      const hy = this.height[cur];
-      for (let k = 0; k < 8; k++) {
-        const nx = cx + NB[k * 2], nz = cz + NB[k * 2 + 1];
-        if (!this.inBounds(nx, nz)) continue;
-        const ni = this.i(nx, nz);
-        if (Number.isNaN(this.height[ni])) continue;
-        if (Math.abs(this.height[ni] - hy) > 0.45) continue;
-        // Do not cut diagonal corners through a blocked cell.
-        if (k >= 4) {
-          const a = this.i(cx + NB[k * 2], cz);
-          const b = this.i(cx, cz + NB[k * 2 + 1]);
-          if (Number.isNaN(this.height[a]) || Number.isNaN(this.height[b])) continue;
-        }
-        if (this._stamp[ni] === ep && this._state[ni] === 2) continue;
-
-        const step = (k >= 4 ? DIAG : 1) * this.cost[ni];
-        const ng = this._g[cur] + step;
-        if (this._stamp[ni] !== ep) {
-          this._stamp[ni] = ep;
-          this._state[ni] = 0;
-          this._g[ni] = Infinity;
-        }
-        if (ng < this._g[ni]) {
-          this._g[ni] = ng;
-          this._f[ni] = ng + h(ni) * 1.04;   // slight weight: faster, still good paths
-          this._came[ni] = cur;
-          if (this._state[ni] !== 1) { this._state[ni] = 1; heap.push(ni); }
-          else heap.update(ni);
-        }
-      }
-    }
-
-    if (!found) return null;
-
-    // Reconstruct
-    const raw = [];
-    let cur = goal;
-    while (cur !== -1 && raw.length < 512) {
-      raw.push(cur);
-      cur = this._came[cur];
-    }
-    raw.reverse();
-
-    // String-pull: drop waypoints that are directly reachable from the last
-    // kept one. Turns a staircase of grid cells into a natural walk line.
-    const pts = [];
-    let anchor = 0;
-    pts.push(this._pt(raw[0]));
-    for (let i = 2; i < raw.length; i++) {
-      if (!this._clear(raw[anchor], raw[i])) {
-        anchor = i - 1;
-        pts.push(this._pt(raw[anchor]));
-      }
-    }
-    const last = this._pt(raw[raw.length - 1]);
-    pts.push({ x: tx, y: last.y, z: tz });
-    return pts;
+  /** Each caller owns its pending search; other enemies cannot reset it. */
+  createPathSearch(sx, sy, sz, tx, ty, tz, ignoreGas = false) {
+    const start = this.nearest(sx, sz, sy), goal = this.nearest(tx, tz, ty);
+    if (start < 0 || goal < 0 || this.region[start] !== this.region[goal]) return null;
+    return new PathSearch(this, start, goal, tx, tz, ignoreGas);
   }
 
   _pt(i) {
     return { x: this.xOf(i % this.nx), y: this.height[i], z: this.zOf((i / this.nx) | 0) };
   }
 
-  /** Bresenham-ish walkability test between two cells. */
-  _clear(a, b) {
+  /** Walkability and traversal cost along a grid line, including corner walls. */
+  _segmentCost(a, b, ignoreGas = false, maxCellCost = Infinity, costs = this.cost) {
     let x0 = a % this.nx, z0 = (a / this.nx) | 0;
     const x1 = b % this.nx, z1 = (b / this.nx) | 0;
     const dx = Math.abs(x1 - x0), dz = Math.abs(z1 - z0);
     const sx = x0 < x1 ? 1 : -1, sz = z0 < z1 ? 1 : -1;
     let err = dx - dz;
     let hy = this.height[a];
+    if (Number.isNaN(hy) || (!ignoreGas && costs[a] > maxCellCost)) return Infinity;
+    let total = 0;
     let guard = 0;
     while (guard++ < 512) {
-      if (x0 === x1 && z0 === z1) return true;
+      if (x0 === x1 && z0 === z1) return total;
+      const px = x0, pz = z0;
       const e2 = 2 * err;
       if (e2 > -dz) { err -= dz; x0 += sx; }
       if (e2 < dx) { err += dx; z0 += sz; }
-      if (!this.inBounds(x0, z0)) return false;
+      if (!this.inBounds(x0, z0)) return Infinity;
       const i = this.i(x0, z0);
-      if (Number.isNaN(this.height[i])) return false;
-      if (Math.abs(this.height[i] - hy) > 0.45) return false;
+      if (Number.isNaN(this.height[i])) return Infinity;
+      if (Math.abs(this.height[i] - hy) > 0.45) return Infinity;
+      const diagonal = px !== x0 && pz !== z0;
+      if (diagonal) {
+        for (const j of [this.i(px, z0), this.i(x0, pz)]) {
+          if (Number.isNaN(this.height[j]) || Math.abs(this.height[j] - hy) > 0.45) return Infinity;
+        }
+      }
+      const cost = ignoreGas ? 1 : costs[i];
+      if (cost > maxCellCost) return Infinity;
+      total += (diagonal ? DIAG : 1) * cost;
       hy = this.height[i];
     }
-    return false;
+    return Infinity;
+  }
+
+  _clear(a, b) { return Number.isFinite(this._segmentCost(a, b, true)); }
+
+  /** Cheap short steering is reserved for walkable, unpolluted corridors. */
+  canSteerDirect(sx, sy, sz, tx, tz, ignoreGas = false) {
+    if (!this.walkable(sx, sz, sy) || !this.walkable(tx, tz, sy)) return false;
+    const a = this.i(this.ixOf(sx), this.izOf(sz));
+    const b = this.i(this.ixOf(tx), this.izOf(tz));
+    return Number.isFinite(this._segmentCost(a, b, ignoreGas, 1 + 200 / 900 * 5.5));
   }
 
   /**
@@ -279,13 +221,49 @@ export class NavGrid {
    * player's use of the gas feel like a real tactic against a real opponent.
    */
   applyGasCost(gas, agentHeight = 1.7) {
-    for (let iz = 0; iz < this.nz; iz++) {
-      for (let ix = 0; ix < this.nx; ix++) {
-        const i = this.i(ix, iz);
-        if (Number.isNaN(this.height[i])) continue;
-        const ppm = gas.sample(this.xOf(ix), this.height[i] + agentHeight * 0.6, this.zOf(iz));
-        this.cost[i] = 1 + clamp01(ppm / 900) * 5.5;
-      }
+    this._sampleGasCost(gas, this.cost, 0, this.cost.length, agentHeight);
+    this.costRevision++;
+    this._gasRevision = gas.revision;
+    this._gasCursor = -1;
+    this._gasAge = 0;
+  }
+
+  _sampleGasCost(gas, output, start, end, agentHeight = 1.7) {
+    let changed = false;
+    for (let i = start; i < end; i++) {
+      if (Number.isNaN(this.height[i])) { output[i] = 1; continue; }
+      const ix = i % this.nx, iz = (i / this.nx) | 0;
+      const ppm = gas.sample(this.xOf(ix), this.height[i] + agentHeight * 0.6, this.zOf(iz));
+      output[i] = 1 + clamp01(ppm / 900) * 5.5;
+      if (output[i] !== this.cost[i]) changed = true;
+    }
+    return changed;
+  }
+
+  /** Bound work per simulation tick, then publish a complete cost grid at once.
+   * Source rebakes restart the pending sweep. Wind/intensity are resampled at
+   * least every 0.5 s plus one sweep; actors never see a half-written grid.
+   */
+  updateGasCost(gas, dt, maxCells = 4096) {
+    this._gasAge += dt;
+    if (this._gasCursor >= 0 && this._gasJobRevision !== gas.revision) this._gasCursor = -1;
+    if (this._gasCursor < 0) {
+      if (this._gasRevision === gas.revision && this._gasAge < 0.5) return;
+      this._gasCursor = 0;
+      this._gasJobRevision = gas.revision;
+      this._gasChanged = false;
+    }
+    const end = Math.min(this._gasCursor + maxCells, this.cost.length);
+    this._gasChanged = this._sampleGasCost(gas, this._nextCost, this._gasCursor, end) || this._gasChanged;
+    this._gasCursor = end;
+    if (end === this.cost.length) {
+      const previous = this.cost;
+      this.cost = this._nextCost;
+      this._nextCost = previous;
+      if (this._gasChanged) this.costRevision++;
+      this._gasRevision = this._gasJobRevision;
+      this._gasCursor = -1;
+      this._gasAge = 0;
     }
   }
 
@@ -297,6 +275,84 @@ export class NavGrid {
 }
 
 const NB = new Int8Array([1, 0, -1, 0, 0, 1, 0, -1, 1, 1, 1, -1, -1, 1, -1, -1]);
+
+/** A resumable A*. The expansion limit is per step, not a reason to discard
+ * explored alternatives or stop permanently at a wall. The cost snapshot is
+ * consistent while other actors run and the live gas grid is refreshed.
+ */
+class PathSearch {
+  constructor(nav, start, goal, tx, tz, ignoreGas) {
+    this.nav = nav; this.start = start; this.goal = goal;
+    this.tx = tx; this.tz = tz; this.ignoreGas = ignoreGas;
+    this.cost = ignoreGas ? null : nav.cost.slice();
+    this.costRevision = nav.costRevision;
+    this.sourceRevision = nav._gasRevision;
+    this.nodes = new Map();
+    this.open = new BinaryHeap(i => this.nodes.get(i).f);
+    this.nodes.set(start, {g:0, f:this.heuristic(start), parent:-1, closed:false});
+    this.open.push(start);
+    this.done = false; this.path = null; this.expanded = 0; this.lastExpanded = 0;
+  }
+
+  heuristic(i) {
+    const n = this.nav.nx;
+    const dx = Math.abs(i % n - this.goal % n);
+    const dz = Math.abs(((i / n) | 0) - ((this.goal / n) | 0));
+    return dx + dz + (DIAG - 2) * Math.min(dx, dz);
+  }
+
+  step(budget = 700) {
+    this.lastExpanded = 0;
+    if (this.done) return this.path;
+    const nav = this.nav;
+    while (this.open.size && this.lastExpanded < budget) {
+      const cur = this.open.pop(), node = this.nodes.get(cur);
+      if (cur === this.goal) { this.done = true; this.path = this.finish(); return this.path; }
+      node.closed = true;
+      this.lastExpanded++; this.expanded++;
+      const cx = cur % nav.nx, cz = (cur / nav.nx) | 0, hy = nav.height[cur];
+      for (let k = 0; k < 8; k++) {
+        const nx = cx + NB[k * 2], nz = cz + NB[k * 2 + 1];
+        if (!nav.inBounds(nx, nz)) continue;
+        const ni = nav.i(nx, nz), nh = nav.height[ni];
+        if (Number.isNaN(nh) || Math.abs(nh - hy) > 0.45) continue;
+        if (k >= 4) {
+          const a = nav.height[nav.i(nx, cz)], b = nav.height[nav.i(cx, nz)];
+          if (Number.isNaN(a) || Number.isNaN(b) || Math.abs(a - hy) > 0.45 || Math.abs(b - hy) > 0.45) continue;
+        }
+        let next = this.nodes.get(ni);
+        if (next?.closed) continue;
+        const g = node.g + (k >= 4 ? DIAG : 1) * (this.ignoreGas ? 1 : this.cost[ni]);
+        if (!next) {
+          next = {g, f:g + this.heuristic(ni) * 1.04, parent:cur, closed:false};
+          this.nodes.set(ni, next); this.open.push(ni);
+        } else if (g < next.g) {
+          next.g = g; next.f = g + this.heuristic(ni) * 1.04; next.parent = cur;
+          this.open.update(ni);
+        }
+      }
+    }
+    if (!this.open.size) this.done = true;
+    return null;
+  }
+
+  finish() {
+    const nav = this.nav, raw = [];
+    for (let cur = this.goal; cur !== -1; cur = this.nodes.get(cur).parent) raw.push(cur);
+    raw.reverse();
+    if (raw.length === 1) return [{x:this.tx, y:nav.height[this.goal], z:this.tz}];
+    const points = [nav._pt(raw[0])];
+    let anchor = 0;
+    for (let i = 2; i < raw.length; i++) {
+      const replacedCost = this.nodes.get(raw[i]).g - this.nodes.get(raw[anchor]).g + 0.001;
+      if (nav._segmentCost(raw[anchor], raw[i], this.ignoreGas, Infinity, this.cost) > replacedCost) {
+        anchor = i - 1; points.push(nav._pt(raw[anchor]));
+      }
+    }
+    points.push({x:this.tx, y:nav.height[this.goal], z:this.tz});
+    return points;
+  }
+}
 
 /** Indexed binary heap with decrease-key. */
 class BinaryHeap {

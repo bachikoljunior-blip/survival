@@ -1,0 +1,158 @@
+{
+  "kind": "separate_refutation_pass",
+  "finalFindings": false,
+  "reviewedRepository": "/workspace/scratch/0b7ad82bafe7/survival",
+  "instructions": {
+    "skill": ".claude/skills/critic/SKILL.md",
+    "criticOverlay": "absent",
+    "standingInstructions": [
+      "AGENTS.md",
+      "CLAUDE.md"
+    ]
+  },
+  "scope": "Read-only review of current source, coordinator-provided deterministic VM fault evidence, and independent Node execution of installed Playwright error serialization. No browser, server, real audio/media or remote operation; no product edits or implementer summaries.",
+  "reviewedSourceHashes": {
+    "tools/mobile_audio_capture.mjs": "047926fa22b722e4accb50aa1fb7bd37642f7338c0ef7bcd197d0e857a529bda",
+    "tools/test-iphone-webkit.mjs": "1a6c4df7a204b0f7130b8c778d3dcabe5e541a7b68089496239184fee2eabc1c",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/game/director.js": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760"
+  },
+  "currentSurvivingCandidates": [],
+  "candidates": [
+    {
+      "id": "recording_exception_cleanup",
+      "survives": false,
+      "severity": "minor",
+      "owner": "tools/mobile_audio_capture.mjs",
+      "problem": "The helper has no deterministic local cleanup for failures after destination/canvas-track creation but before its inner try or global cleanup registration. Once cleanup exists, one throwing release step skips subsequent track release and global-handle deletion.",
+      "mechanism": "Confirmed source control flow. Destination and canvas stream are allocated at lines 57-58; MediaStream/MediaRecorder construction occurs at 59-60. cleanup is defined only at 77 and the guarded block starts at 83. The outer finally can only reach C.__audioRecording, assigned at 86. cleanup executes stop, disconnect, tracks.stop, deletion sequentially without independent finally blocks.",
+      "evidence": [
+        "tools/mobile_audio_capture.mjs:55-90: allocation precedes both guarded setup and global cleanup registration.",
+        "tools/mobile_audio_capture.mjs:77-82: a stop/disconnect/track.stop exception prevents the following release steps.",
+        "tools/mobile_audio_capture.mjs:109-112,130-134: outer release depends on the global handle; final cleanup and settings restoration also share a single sequential callback.",
+        "tools/test-iphone-webkit.mjs outer catch records the error; outer finally closes page, context and browser with per-close catches, bounding these resources to the aborted test run."
+      ],
+      "refutationsAttempted": [
+        "The MIME capability probe is not a try/finally or resource owner; it cannot clean up a later constructor/setup rejection.",
+        "recorder.state guarding stop rejects the most ordinary inactive-recorder concern; therefore an injected stop failure is a robustness fault model, not proof of a normal browser failure.",
+        "Production source does not otherwise disconnect the compressor branch, making disconnect failure unlikely after a normal successful setup; a failed connection/setup can still lead cleanup through an unconnected-destination error path.",
+        "Closing the page/context/browser is a real fallback, so an indefinite resource leak or persistent product audio failure is not supported."
+      ],
+      "meaningfulFailureCases": [
+        "A recorder/stream constructor rejects after a canvas track and recording destination exist: no local registered cleanup is reachable.",
+        "A setup failure invokes cleanup, but a release step also rejects: later tracks/global state are not released and the original diagnostic may be masked."
+      ],
+      "practicalLimit": "Minor harness exception-safety and diagnostic preservation gap. It affects exceptional capture failures and can retain resources until browser teardown; no source evidence of normal product silence, persistent leakage, or speaker-path disconnection.",
+      "verificationTarget": "Node fault injection of each allocation/setup/release stage leaves every already-created track stopped, removes the recording handle, attempts settings restoration, and preserves the initiating failure; successful cleanup disconnects only the added destination.",
+      "firstPassSurvived": true,
+      "currentStatus": "addressed",
+      "resolution": "All setup is guarded from the first resource acquisition. Created audio/video tracks are registered immediately; cleanup attempts stop, branch disconnect and each track independently, clears the handle, and reports cleanup errors. Settings restoration is in finally. Persistent injected release faults can still leave the failing resource unreleased; every other release is attempted, and outer browser teardown remains the fallback."
+    },
+    {
+      "id": "hardcoded_webkit_evidence_label",
+      "survives": false,
+      "severity": "minor",
+      "owner": "tools/mobile_audio_capture.mjs",
+      "problem": "The audio evidence scope always identifies the recording as WebKit even when the supported test runner selection is Chromium.",
+      "mechanism": "Confirmed branch/string mismatch. The helper hardcodes Actual WebKit production AudioContext in evidence.scope, while the caller selects chromium for CINDERLINE_BROWSER=chromium and invokes the same helper unconditionally.",
+      "evidence": [
+        "tools/mobile_audio_capture.mjs:10-11: hardcoded WebKit evidence text.",
+        "tools/test-iphone-webkit.mjs BROWSER_NAME configuration, conditional browserType selection and report.browser field explicitly support and record Chromium.",
+        "tools/test-iphone-webkit.mjs unconditional captureMobileAudio call uses the same helper for both browser selections."
+      ],
+      "refutationsAttempted": [
+        "The script filename is WebKit-specific, but its actual browser choice is configurable; filename alone does not make the WebKit label true.",
+        "report.browser correctly identifies Chromium, which limits the ambiguity but does not correct the contradictory per-capture scope."
+      ],
+      "practicalLimit": "Evidence provenance error on the Chromium branch, not an audio or codec defect. No browser run is required to establish the deterministic string mismatch.",
+      "verificationTarget": "The scope names report.browser accurately for both supported browser choices, or uses browser-neutral wording while retaining report.browser as provenance.",
+      "firstPassSurvived": true,
+      "currentStatus": "addressed",
+      "resolution": "Current evidence records browser:report.browser and interpolates that actual browser value into scope. The coordinator Chromium VM case now reports no label mismatch."
+    },
+    {
+      "id": "combined_primary_cleanup_diagnostics",
+      "survives": false,
+      "severity": "minor",
+      "owner": "tools/mobile_audio_capture.mjs",
+      "problem": "When recording/waiting fails and cleanup also fails, the cleanup AggregateError replaces the primary failure. Diagnostics stored only in AggregateError.errors also do not reliably reach the final persisted test failure text.",
+      "mechanism": "Confirmed JavaScript finally semantics: throwing rec.cleanup at line 116 replaces a pending recorder/stop/Blob failure, and throwing cleanup from lines 118-120 replaces a pending wait/input failure. Setup catch at 96-98 aggregates both errors, but its public message is generic; the final caller persists only error.stack/message, not nested errors.",
+      "evidence": [
+        "tools/mobile_audio_capture.mjs:111-120: recording and per-clip finalizers throw cleanup errors without preserving any outstanding primary exception.",
+        "Coordinator exact-source VM probe for aa89d9fd: recording-wait+disconnect returns only injected comp.disconnect in errorTree; recorder-error+disconnect also loses the asynchronous recorder error. Both stop tracks, clear the handle and restore settings.",
+        "Coordinator recorder-start+disconnect case retains both errors only in nested AggregateError.errors; its public message is audio capture setup and cleanup failed.",
+        "tools/test-iphone-webkit.mjs outer catch appends error.stack || error.message || String(error), so it never traverses nested AggregateError.errors.",
+        "Installed node_modules/playwright-core/lib/server/webkit/wkExecutionContext.js: evaluateWithArguments uses response.result.description to construct JavaScriptErrorInEvaluate; it does not preserve arbitrary nested errors fields.",
+        "Independent installed Playwright server serializeError/parseError execution preserves only message, stack and name for an AggregateError. Result has no errors property and serialized text contains neither injected primary nor nested cleanup message."
+      ],
+      "refutationsAttempted": [
+        "Resource-release resilience is fixed: combined-failure evidence shows all ordinary track releases, handle deletion and settings restoration still occur. This remaining finding is diagnostic loss only.",
+        "Setup already uses AggregateError, but recording/per-clip paths do not. Even setup needs important component messages exposed in data the caller actually persists.",
+        "The direct VM helper does retain AggregateError.errors where constructed; treating that alone as proof of final report diagnostic preservation would omit the page/RPC and stack-only reporting boundaries."
+      ],
+      "practicalLimit": "Minor exceptional test-harness diagnosability defect. No audio silence, normal capture failure, persistent leak or false passing result is established. This pass did not execute a browser.",
+      "verificationTarget": "For combined recorder/wait/setup plus cleanup faults, final surfaced error text or explicitly persisted structured diagnostics include both initiating and release messages. All independent cleanup/settings attempts still run; no real media is needed to verify this through callback fault injection and installed error serialization.",
+      "reproduce": "node /workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe.mjs; inspect combined cases and final error text, not only errorTree",
+      "boundaryEvidence": "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe.json",
+      "firstPassSurvived": true,
+      "currentStatus": "addressed",
+      "resolution": "Recording callback, clip finalizer and outer finalizer retain the pending primary Error and concatenate its message with independently caught cleanup/input/settings messages. Cleanup AggregateError and setup combination also include component text in their public message. Required text therefore survives even when nested errors fields are stripped.",
+      "currentEvidence": [
+        "tools/mobile_audio_capture.mjs:69-99: all setup allocations remain guarded, track/recorder/disconnect release attempts remain independent, and combined setup/release messages expose both causes.",
+        "tools/mobile_audio_capture.mjs:113-130: callback failure and per-clip recordingFailure are retained; cleanup/key-release errors are appended instead of replacing the primary diagnostic.",
+        "tools/mobile_audio_capture.mjs:149-161: outer captureFailure is retained; key release and page cleanup/settings callback are each attempted, and cleanup and settings calls remain independent inside the page callback.",
+        "Independent boundary-instrumented VM: all six combined faults retain every required message after actual installed Playwright serializeError/parseError at page.evaluate boundaries and subsequent final stack-only reporting.",
+        "The six cases additionally verify handle deletion, both track-stop attempts, preserved original audible connection, and attempted key release/settings restoration. Injected settings-restoration failure remains a surfaced failure rather than a success claim."
+      ],
+      "currentReproduce": "node /workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe.mjs"
+    }
+  ],
+  "rejectedConcerns": [
+    {
+      "id": "production_output_replaced_or_volume_forced",
+      "rejected": true,
+      "evidence": "Audio._create connects masterGain -> comp -> ctx.destination. The helper adds comp.connect(destination) and removes only comp.disconnect(destination); it never disconnects ctx.destination or changes compressor parameters. applySettings spreads current settings and changes only quality, preserving master/music/sfx values before restoring original settings."
+    },
+    {
+      "id": "incorrect_audio_fields_or_false_unlock_fixture",
+      "rejected": true,
+      "evidence": "Audio defines ready, unlocked, ctx, ambienceState, musicState, _voiceList and masterGain/musicGain/sfxGain. It installs actual pointerdown/keydown/touchstart unlock listeners. The helper uses a trusted touchscreen tap and observes the existing context; it creates no replacement AudioContext. The initial caller probe precedes any test gesture."
+    },
+    {
+      "id": "fake_arcade_interior_setup",
+      "rejected": true,
+      "evidence": "world_data contains door_arcade targeting arcade_in with interiorId arcade. The helper selects that actual interaction and awaits director.enterDoor. enterDoor teleports, records currentInterior, applies mood/ppm, refreshes cast and returns to PLAY. This is programmatic use of the production transition, not a claimed touch interaction."
+    },
+    {
+      "id": "capture_unavailable_reported_as_success",
+      "rejected": true,
+      "evidence": "Missing recorder/canvasCapture/MIME sets status not measured and a reason, then returns. Failure of the actual production AudioContext readiness/unlock/running check is still recorded as a test failure. A captured clip is explicitly not an audio-quality verdict; decoding, checking non-silence/stereo and listening remain requested subsequent validation."
+    }
+  ],
+  "nonFindings": [
+    "Scene names do not force a target ambience/music preset; the helper records actual production state. Existing zone/interior ambience routing is unchanged and no false assertion about a specific preset is made.",
+    "The tap-to-running observation is immediate rather than a bounded running-state wait. This is a possible standalone-helper timing limitation, but this pass established no failing supported run; it is not promoted to a defect finding."
+  ],
+  "validation": {
+    "syntax": "node --check tools/mobile_audio_capture.mjs passed; caller remains at the previously checked 1a6c4df7 hash.",
+    "providedVM": "Coordinator source probe has 20 fixtures on 047926fa22b722e4accb50aa1fb7bd37642f7338c0ef7bcd197d0e857a529bda: original resource/label cases and combined faults are preserved in its structured evidence.",
+    "independentNode": "Six combined-fault cases through exact helper callbacks, installed Playwright error serialization, and stack-only final reporting passed. Includes additional persistent keyboard-release and settings-restoration faults.",
+    "runtimeLimits": "The fixtures use fake media/track objects and a write spy. No actual AudioContext, browser, real MediaRecorder or media file was created. A persistently failing release API cannot be guaranteed to release its resource; this review verifies best-effort independent attempts and diagnostic retention."
+  },
+  "currentAssessment": "No source finding survives the assigned capture-helper refutation passes on the recorded hashes. No actual audiovisual capture, audible output, sound quality or device performance was measured.",
+  "boundaryVerification": {
+    "sourceHash": "047926fa22b722e4accb50aa1fb7bd37642f7338c0ef7bcd197d0e857a529bda",
+    "fixtures": 6,
+    "allRequiredMessagesSurvived": true,
+    "allIndependentReleasesAttempted": true,
+    "originalAudibleConnectionPreserved": true,
+    "mediaFilesWritten": 0,
+    "resultPath": "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe.json"
+  },
+  "historicalBoundaryEvidence": {
+    "path": "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe-aa89d9fd.json",
+    "relatedHelperRevision": "aa89d9fd746f90803874f9601c5606c229fa0aee6f1dceab1e5d56c91fc52879",
+    "preservation": "Exact earlier measured JSON reconstructed from this conversation tool output after the current boundary run replaced the shared output filename. Not rerun or inferred."
+  }
+}

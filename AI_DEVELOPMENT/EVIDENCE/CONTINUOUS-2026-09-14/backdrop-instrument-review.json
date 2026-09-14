@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS",
+  "score": 100,
+  "scoreMeaning": "Readiness of the narrowly scoped diagnostic to run in the already permitted CI, after the three instrument corrections. This score is not a product-quality score or a visual comparison result.",
+  "round": "continuous-2026-09-14-backdrop-instrument-review",
+  "profile": "Read-only source review plus Node in-memory counterexamples and geometry construction. Browser execution of this new instrument has not been observed.",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "nativeResolutionMeaning": "Resolution of the prior80dd WebKit scene used for context. The new diagnostic records its actual current resolution separately and has not yet run.",
+  "reviewedCommit": "0ba0bb3985b29e813adc88d00a6c8be108bd860e",
+  "previousSourceCommit": "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+  "blindComparison": "No reference-work blind comparison took place. The reviewer knows the sources and is reviewing a diagnostic, not judging which anonymous work a stranger prefers. No element is marked satisfied by this review.",
+  "findings": [],
+  "sourceHashes": {
+    "tools/backdrop_render_regression.mjs": "58c2fe7bbbd5edcfcac137cdced663ff55987909b2864a590865178364175ae6",
+    "tools/test-iphone-webkit.mjs": "47b8066923d4ed950210a65b17edf20c607cd523e085175c0a7a87312b41de7c",
+    "src/world/city.js": "6176c4a6774d2bedc521006923220d046c88890d93e696155e1b66791e377331",
+    "src/world/geom.js": "c9a8dbc585c00ea44ac75a3d490c8a1a00fc9f0d6a3436763a27cb73ba533b4b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "package-lock.json": "36873e3c91cddeab1cae6ae512ae0d5cf332756bd81a0b235af3360aea30c167"
+  },
+  "priorActualBrowserEvidence": {
+    "path": "/workspace/scratch/0b7ad82bafe7/ci-80dd490/report.json",
+    "sha256": "09f7dd49c67ceaa6e67cbaf767d6d41b2d630a6eccef32e2a80b43bd00696fc3",
+    "capturedFrames": [
+      {
+        "frame": 41,
+        "ash": [
+          {
+            "target": "1147x645",
+            "triangles": 723456,
+            "calls": 1
+          }
+        ],
+        "trianglesAllCapturedRows": 835821
+      },
+      {
+        "frame": 42,
+        "ash": [
+          {
+            "target": "1147x645",
+            "triangles": 723456,
+            "calls": 1
+          }
+        ],
+        "trianglesAllCapturedRows": 835403
+      },
+      {
+        "frame": 43,
+        "ash": [
+          {
+            "target": "1147x645",
+            "triangles": 723456,
+            "calls": 1
+          }
+        ],
+        "trianglesAllCapturedRows": 835403
+      }
+    ],
+    "scope": "Actual archived WebKit report: backdrop:ash submitted723456 triangles once in each of3 captured frames. These are old-build submission measurements, not results for the new tessellation or regression instrument."
+  },
+  "newNodeMeasurement": {
+    "scope": "Executed current production City._buildBackdrop with a material-only replacement in Node; no browser rendering.",
+    "ashTriangles": 1256,
+    "ashVertices": 2512,
+    "castShadow": false,
+    "receiveShadow": false
+  },
+  "resolvedFindings": [
+    {
+      "id": "BI-01",
+      "severity": "major",
+      "problemBefore": "The unchanged-repeat control used pixelmatch threshold0.1 with default antialias exclusion. A zero result did not mean identical pixels.",
+      "counterexample": {
+        "diagnostic": "repeat control false-positive",
+        "width": 32,
+        "height": 32,
+        "rgbaDifferingBytes": 3072,
+        "changedPixels": 1024,
+        "pixelmatchThreshold01": 0,
+        "buffersEqual": false
+      },
+      "owner": "tools/backdrop_render_regression.mjs",
+      "correction": "difference() now reports changedPixelsExact by comparing all4 decoded RGBA bytes per pixel. Repeat requires changedPixelsExact===0. The perceptual metric is separately named perceptualPixels.",
+      "resolution": "Source verified in0ba0bb. The previously accepted all-pixel+1RGB counterexample is now rejected by the explicit byte comparison. Actual browser repeat results remain unmeasured."
+    },
+    {
+      "id": "BI-02",
+      "severity": "major",
+      "problemBefore": "All-pass reconciliation could pass0===0 and the expected geometry buffers could exist while neither compared ash mesh was actually submitted.",
+      "owner": "tools/backdrop_render_regression.mjs",
+      "correction": "Each view checks actual ash submissions: current1256, previous723456 and repeat1256, in addition to geometry count and aggregate reconciliation.",
+      "resolution": "Source verified in0ba0bb. A zero-submission scene can no longer satisfy the new ash checks. Submission does not prove visible pixels; that separate limitation remains."
+    },
+    {
+      "id": "BI-03",
+      "severity": "minor",
+      "problemBefore": "Before screen target detection, target===sun.shadow.map mislabelled a null framebuffer as sunShadow when no shadow map was allocated.",
+      "counterexample": {
+        "diagnostic": "null target pass alias",
+        "screenWithAllocatedShadow": "screen",
+        "screenWithoutAllocatedShadow": "sunShadow",
+        "realShadowTarget": "sceneColor"
+      },
+      "owner": "tools/backdrop_render_regression.mjs",
+      "correction": "Null target is classified as screen first.",
+      "resolution": "Source verified in0ba0bb. The measured prior medium scene had an allocated map; the counterexample concerned low/unallocated-shadow conditions."
+    }
+  ],
+  "reviewConclusions": {
+    "frozenPair": {
+      "finding": "Valid within the stated controlled-page scope.",
+      "evidence": [
+        "Engine.stop cancels the engine RAF and sets running=false; the frame loop checks running before simulation.",
+        "Each view calls setCamera and game.render(0) once to prepare the real scene, lights, camera and cached shadow map.",
+        "Within current/previous/repeat, only mesh.geometry is switched and C.post.render(scene,camera,engine.time) is invoked. No normal fixedUpdate, Camera.update, Atmosphere.update or engine adaptation is called between variants.",
+        "PostFX receives the same engine.time; current material, lights, world geometry, camera and uniforms remain shared within the pair.",
+        "The exact current→repeat image control tests whether the controlled state rendered identically before and after substitution."
+      ],
+      "limitations": [
+        "No general browser-clock or resize/orientation event freeze is installed. External events must not be introduced during capture.",
+        "The exact repeat control validates the end points. It is not a substitute for reviewing the actual three images and recorded pose/resolution.",
+        "Camera preparation may depend on existing boom collision distance or shake; the actual camera pose is recorded. Different views are deliberately different states, so only within-view pairs are compared."
+      ]
+    },
+    "oldGeometryIdentity": {
+      "finding": "Correctly scoped as old ash geometry in the current world.",
+      "evidence": [
+        "previousGround pins git archive to80dd490 and imports that archived source tree, including the old MeshBuilder and world data.",
+        "Only the material resolver is replaced in Node. Geometry construction does not depend on material shading.",
+        "The ash patches do not consume RNG; equality of all exported attribute/index hashes across2 seeds provides an additional check.",
+        "Exported TypedArray types, itemSize, normalized flag and exact bytes are reconstructed as browser BufferAttributes; the existing mesh retains its current material and transform.",
+        "At the reviewed commit package-lock, world geometry builder, world data, materials, postfx and engine have no changes relative to80dd490."
+      ],
+      "limitations": [
+        "This is not an old-build screenshot: actors, all non-ash world geometry, materials, lighting and other current state belong to the current scene.",
+        "The80dd live submission artifact contains primitive counts, not old live BufferAttribute hashes. Byte identity to the live old mesh follows from the pinned deterministic source, not from an independently captured old-browser buffer dump.",
+        "The recorded city source hash plus pinned commit identify the generator. Do not label the isolated RNG-dependent background building geometry as a reconstruction of the entire old world."
+      ]
+    },
+    "triangleReconciliation": {
+      "finding": "The revised counter collection is appropriate for submitted triangle attribution.",
+      "evidence": [
+        "renderBufferDirect is wrapped without changing its receiver, arguments or call count, and original is restored in finally.",
+        "Actual before/after renderer.info deltas include draw groups, instancing and separate transparent passes instead of estimating index counts.",
+        "One explicit reset occurs before each measured PostFX render, with info.autoReset=false in the unchanged engine.",
+        "Target buckets partition every intercepted draw, preserving an explicit other bucket.",
+        "Each complete variant requires sum(target buckets)===renderer.info.render.triangles and actual ash submission counts."
+      ],
+      "limitations": [
+        "No runtime reconciliation results for this new instrument exist yet.",
+        "These diagnostic pairs normally reuse the shadow cache already prepared by game.render(0); they do not measure moving shadow-refresh costs or gameplay frame pacing.",
+        "mainSceneBudgetMet is a recorded boolean, not a passing visual-quality judgement. It applies only to each frozen current view, not every gameplay state."
+      ]
+    },
+    "captureInterpretation": {
+      "finding": "Images and pixel differences are evidence to inspect, not automatic visual equivalence.",
+      "requirements": [
+        "Inspect the current/previous/repeat PNGs at their captured resolution and verify nonempty rendering and visible ground in the relevant part of the view.",
+        "If ground is hidden by buildings or fog in all selected views, add a view where it is visible or a temporary ground-removed negative control to establish sensitivity; do not count an insensitive pair as proof of quality preservation.",
+        "Read changedPixelsExact and perceptualPixels separately. A zero thresholded perceptual count is not exact pixel equality.",
+        "A stable repeat cannot by itself exclude three equally blank or stale captures; actual image inspection is still required.",
+        "Any visible change at the overlapping ground-patch or UV boundaries must be assessed from the images before accepting the optimization."
+      ]
+    },
+    "cleanup": {
+      "finding": "Suitable for this disposable end-of-test page, not a general gameplay-state restoration helper.",
+      "evidence": "finally restores current geometry, disposes the temporary old geometry, restores UI display and restarts only if the engine had been running.",
+      "limitation": "setCamera changes player position and movement/fall-related fields and camera yaw/pitch/boom state; these are not restored. The current caller runs this helper at the end and then closes its isolated browser context. Do not reuse it before further gameplay assertions without saving/restoring that state."
+    }
+  },
+  "independentRefutation": {
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "result": "PASS for diagnostic execution readiness after corrections",
+    "confirmed": [
+      "Exact-repeat and actual-submission fixes close the two reproduced false positives.",
+      "Null target is now classified correctly.",
+      "Pair freezing is valid in the controlled page; no observed product simulation advance occurs within a pair.",
+      "Old ash/current-scene scope is honest."
+    ],
+    "survivingLimits": [
+      "Submission is not visible-pixel evidence.",
+      "Old/new visual equivalence is unmeasured.",
+      "Cleanup does not restore the full player/camera state."
+    ],
+    "externalActions": false,
+    "fileMutationsByRefuter": false
+  },
+  "nextAction": "Run0ba0bb on the already permitted WebKit CI, inspect the actual4-view PNG triplets, read exact-repeat controls and per-pass sums, and accept the ground optimization only on applicable visual and submission evidence. Do not mark any concept element satisfied from this diagnostic alone.",
+  "authoringScope": "Reviewer read sources and actual80dd evidence, executed only Node memory diagnostics, and wrote this JSON. No product, CI, tool, repository state or remote was modified by the reviewer."
+}

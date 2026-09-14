@@ -1,0 +1,313 @@
+{
+  "verdict": "PASS",
+  "score": 100,
+  "round": "roof-scatter-support-repair-cpu",
+  "profile": "Independent source and full City CPU geometry review",
+  "tier": "medium",
+  "nativeResolution": "0x0",
+  "blindComparison": "This is a source and CPU geometry review of an identified repair, not a blind comparison with a reference work. It makes no image-quality, concept-element satisfaction, physical-device performance or whole-product completion claim.",
+  "scope": "PASS means no confirmed defect remains within this bounded roof-scatter repair after separate refutation. 0x0 indicates that no new native browser frame was captured by this review. The original ecccf34 Arcade image remains the prior defect evidence only.",
+  "target": {
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "baseCommit": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+    "checkoutHeadAtReport": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+    "uncommittedSourceHashes": {
+      "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+      "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+      "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+      "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd",
+      "src/world/props.js": "14d1f3aa6c1056d909e3a854eb5a45ea1b409cfffc19235e6ae2397c1cfbc7fb"
+    },
+    "sourceStillMatchesMeasurements": true
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "issue": "Fully supported props were initially rejected because downward collision rays returned ny=-1 at the top surface.",
+      "before": {
+        "topY": 10,
+        "rayOriginY": 10.15,
+        "hitY": 10,
+        "hitNormalY": -1,
+        "accepted": false
+      },
+      "after": {
+        "hitY": 10,
+        "hitNormalY": 1,
+        "accepted": true
+      },
+      "change": "The author corrected the slab entry-face normal sign. The primary reviewer and independent refuter reproduced both old failure and new acceptance with the actual CollisionWorld code.",
+      "history": "roof-scatter-normal-failure-history.json",
+      "limit": "The roof support control is measured; this review does not certify every collision consumer or substitute for the author's direction/rotation regression tests."
+    }
+  ],
+  "measurements": {
+    "generation": {
+      "fullBuilds": "Previous City source from commit 2220b65 and current City source executed against shared current dependencies. Their color geometry is compared below; this is not a replay of every historical runtime dependency.",
+      "previousGeometryTriangles": 253374,
+      "currentGeometryTriangles": 252170,
+      "meshCount": 469,
+      "triangleCountMeaning": "Summed generated main geometry indices, including hidden city geometry, not a renderer draw-submission or performance measurement.",
+      "previousGeometryNamesPositionsIndicesSha256": "179091c1de358558e0fdaac9e9613e6438873dd4fe0d541d7483fb398026a7ac",
+      "currentGeometryNamesPositionsIndicesSha256": "e77cefd27f5fd3c1bc475de4a3a9d09fb61129e6abe41fe93f90f274b8165e40",
+      "previousGeometryMatchesEarlierDiagnosis": true,
+      "roofCandidates": 27,
+      "acceptedRoofItems": 11,
+      "roofZones": [
+        {
+          "id": "pellroof",
+          "previousTriangles": 292,
+          "currentTriangles": 292,
+          "generatedAttributesIdentical": true,
+          "previousColliders": 1,
+          "currentColliders": 1,
+          "collidersIdentical": true
+        },
+        {
+          "id": "kettleroof",
+          "previousTriangles": 268,
+          "currentTriangles": 268,
+          "generatedAttributesIdentical": true,
+          "previousColliders": 2,
+          "currentColliders": 2,
+          "collidersIdentical": true
+        },
+        {
+          "id": "drayroof",
+          "previousTriangles": 248,
+          "currentTriangles": 248,
+          "generatedAttributesIdentical": true,
+          "previousColliders": 1,
+          "currentColliders": 1,
+          "collidersIdentical": true
+        },
+        {
+          "id": "marrowroof_n",
+          "previousTriangles": 484,
+          "currentTriangles": 0,
+          "generatedAttributesIdentical": false,
+          "previousColliders": 1,
+          "currentColliders": 0,
+          "collidersIdentical": false
+        },
+        {
+          "id": "marrowroof_s",
+          "previousTriangles": 720,
+          "currentTriangles": 0,
+          "generatedAttributesIdentical": false,
+          "previousColliders": 2,
+          "currentColliders": 0,
+          "collidersIdentical": false
+        }
+      ]
+    },
+    "originalFaultLocations": {
+      "before": [
+        {
+          "originalPixel": [
+            606,
+            91
+          ],
+          "matchingWorldTriangles": 1
+        },
+        {
+          "originalPixel": [
+            551,
+            95
+          ],
+          "matchingWorldTriangles": 1
+        },
+        {
+          "originalPixel": [
+            570,
+            95
+          ],
+          "matchingWorldTriangles": 1
+        },
+        {
+          "originalPixel": [
+            595,
+            112
+          ],
+          "matchingWorldTriangles": 1
+        }
+      ],
+      "after": [
+        {
+          "originalPixel": [
+            606,
+            91
+          ],
+          "matchingWorldTriangles": 0
+        },
+        {
+          "originalPixel": [
+            551,
+            95
+          ],
+          "matchingWorldTriangles": 0
+        },
+        {
+          "originalPixel": [
+            570,
+            95
+          ],
+          "matchingWorldTriangles": 0
+        },
+        {
+          "originalPixel": [
+            595,
+            112
+          ],
+          "matchingWorldTriangles": 0
+        }
+      ],
+      "interpretation": "The four known original world triangles exist exactly once in the baseline reconstruction and zero times after the placement guard. Their removal alone is not used as proof; retained roof dressing and actual support are checked separately."
+    },
+    "controls": [
+      {
+        "name": "none",
+        "accepted": false,
+        "centerHit": null
+      },
+      {
+        "name": "full",
+        "accepted": true,
+        "centerHit": {
+          "y": 10,
+          "ny": 1,
+          "top": 10
+        }
+      },
+      {
+        "name": "half",
+        "accepted": false,
+        "centerHit": {
+          "y": 10,
+          "ny": 1,
+          "top": 10
+        }
+      },
+      {
+        "name": "two-edge-strips",
+        "accepted": true,
+        "centerHit": null
+      }
+    ],
+    "preservation": {
+      "nonRoofZones": 12,
+      "nonRoofGeometryAndColliderChecks": [
+        {
+          "id": "yard",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "plantyard",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "surveyyard",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "ventscatter",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "cutyard",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "southst",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "southrubble",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "marrow_n",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "marrow_s",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "kell",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "dray_st",
+          "identical": true,
+          "collidersIdentical": true
+        },
+        {
+          "id": "cinder_st",
+          "identical": true,
+          "collidersIdentical": true
+        }
+      ],
+      "buildingGeometryIdentical": true,
+      "attributeHashBoundary": "Hashes compare generated positions, normals, UVs, colors and normalized indices before the occlusion bake. They are not a guarantee of identical final rendered color under concurrent shadow changes."
+    },
+    "actualRenderSurfaceSupport": {
+      "acceptedItems": 11,
+      "distinctProjectedVertices": 257,
+      "missingUpwardRenderSurfaceHits": 0,
+      "gapRange": [
+        0.014999771118162641,
+        0.015000534057616477
+      ],
+      "method": "CPU rays use all real generated meshes and world transforms, including hidden parents. All roof-scatter output face ranges are excluded to avoid counting self or other newly accepted props as supporting roofs. DoubleSide intersections are filtered by actual upward geometric normal.",
+      "interpretation": "All 257 sampled projected vertices of 11 retained props have actual roof ash surfaces approximately 0.015 m below the item base. This is geometric support evidence, not a visual contact-quality judgment."
+    }
+  },
+  "independentRefutation": {
+    "agent": "/root/render_cost_review/refute_backdrop",
+    "file": "roof-scatter-refutation.json",
+    "result": "No additional confirmed defect in the current authored city. Independently reproduced old and fixed normal controls and the 11-item, 257-point render-surface result."
+  },
+  "limitations": [
+    "The guard checks projected vertices, not every point in the footprint area. A constructed box whose vertices rest on two thin edge strips is accepted even with no center support; this is retained as a boundary, not reported as a reproduced current-city failure.",
+    "The current guard tolerates approximately 0.15 m height difference. The separate controls accept 0.14 m and reject 0.16 m. Current retained items measure approximately 0.015 m above the rendered roof surface; exact physical contact is not claimed.",
+    "Temporary generation consumes the original random values for each considered item. Rejected crate colliders can change later overlap outcomes in another seed or layout. Actual authored non-roof zones and retained roof zones are verified unchanged; all-seed RNG identity is not claimed.",
+    "The concurrent geom.js shadowFaces extension is included in the recorded dependency hash. Its depth simplification, shadow pipeline, cast-shadow quality and draw costs are outside this roof-placement review.",
+    "No post-repair WebKit native image, moving gameplay, camera behavior or blind comparison was performed by this reviewer."
+  ],
+  "nextRequiredEvidence": "Use the next approved WebKit run to inspect the same Arcade view and the retained supported rooftops. Record actual camera projection and the current build identifier. Confirm floating silhouettes are gone and roof dressing remains visually appropriate; keep that image evaluation separate from CPU support and element blind comparisons.",
+  "reproducibility": {
+    "commands": [
+      "node ../roof-scatter-diagnosis.mjs",
+      "node ../roof-render-support-probe.mjs"
+    ],
+    "workingDirectory": "/workspace/scratch/0b7ad82bafe7/survival",
+    "fixture": "../cpu-city-fixture-v2.mjs",
+    "fixtureBoundary": "Actual full City.build with Canvas2D/text metrics and texture/material appearance stubbed. It imports the current checkout; source hashes must be checked on every reuse."
+  },
+  "artifacts": {
+    "roof-scatter-cpu-measurements.json": "97be1acbd1d0c8b0542f577902afb04deb826ac973da47af388604c3a8945a71",
+    "roof-render-support-measurements.json": "4bf194847d2fa44078b3543c5eff7d9cf04dc8662dcbca80f2c5dc935b91a18f",
+    "roof-scatter-normal-failure-history.json": "c89a12503341591c06ec32538f69ce20ea33a2318117227d0b5daf9d1c8d0844",
+    "roof-scatter-refutation.json": "b6ca6a13124554ade813600eb4f8c372d3537885c3dd5de36a78a0b7543bad62",
+    "roof-scatter-diagnosis.mjs": "d721aa498e122e00dd72dc80ab72b948dc2631f6f1340d84fc082f1409f42f42",
+    "roof-render-support-probe.mjs": "d6048391183e2aa7e29b50b1937ac1bc5a18d61c96efdeac278dc9150817d7dc",
+    "cpu-city-fixture-v2.mjs": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+  },
+  "completedAtUTC": "2026-09-14T00:46:51.430Z",
+  "structuredValidation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "verdict": "PASS",
+  "score": 90,
+  "round": "guard-toggle-independent-review-after-corrections",
+  "profile": "Node input, pause lifecycle and combat state-machine review; source inspection",
+  "tier": "not measured; no renderer was used by this review",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "Sentinel for a non-rendering review, not an image dimension or measured browser viewport.",
+  "blindComparison": "No blind comparison was performed. These Node experiments cannot establish which work an unidentified evaluator would prefer. This PASS is limited to the reviewed toggle-guard behavior and does not satisfy any concept element or complete a work unit.",
+  "scope": "Independent review of the pending optional toggleGuard change, after the author corrected reproduced issues. PASS means no remaining concrete defect survived the bounded review and separate refutation. Browser touchscreen behavior, settings persistence in WebKit, physical multitouch and reference-work quality were not measured here.",
+  "target": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "baseCommit": "3266b95eede7f14f6eac424d73758a9c5b956843",
+    "state": "uncommitted working diff at the listed file hashes; no remote or publication claim",
+    "sha256": {
+      "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+      "src/game/game.js": "e9c1390feae1fb7fa6f94609ba845b2b339b9e54565b14c29bba99b825aff0bf",
+      "tools/guard_toggle.test.mjs": "d94523131ec23384bbf987b14ff858205f03c3f28bd4b9ed75bceb1ddb755f4f"
+    }
+  },
+  "findings": [],
+  "measurements": [
+    {
+      "id": "input-suite",
+      "command": "node --test tools/guard_toggle.test.mjs",
+      "result": "9 tests passed, 0 failed",
+      "scope": "Actual Input/Button state machines. EventTarget substitutes only the DOM wiring. This is not trusted browser input."
+    },
+    {
+      "id": "mode-preserving-pause",
+      "methods": ["Input", "Engine.addPause", "Engine.removePause", "Menus.setRotateVisible"],
+      "procedure": "Attach the current Game pause and resume callbacks, enter portrait pause, receive a KeyQ down/up without a simulation step, leave pause, then step twice. Repeat with the context-lost pause reason.",
+      "results": [
+        {"reason": "portrait", "pendingTogglePressesBeforeResume": 1, "pendingAfterResume": 0, "latchedAfterResume": false, "rawAfterResume": false},
+        {"reason": "context-lost", "pendingTogglePressesBeforeResume": 1, "pendingAfterResume": 0, "latchedAfterResume": false, "rawAfterResume": false}
+      ],
+      "scope": "Real pause-state methods and production reset callbacks; DOM plate class changes are stubbed. No actual WebGL context loss or browser orientation event was produced."
+    },
+    {
+      "id": "old-guard-presses-before-attack",
+      "independentReviewer": "/root/render_cost_review/refute_backdrop",
+      "procedure": "Queue two complete guard taps followed by an attack tap before the first step. Run actual Input, Game._playerInput, Player/Actor and CombatSystem with a floor-only CollisionWorld. Supply no further input through step 65; make a new guard tap at step 66.",
+      "result": "No delayed relatch or guard raise through step 65, including the end of the actual attack. The fresh step-66 tap raises guard successfully.",
+      "scope": "The separate refuter reran the real attack and actor state machines; attack completion was not simulated by a stub in that rerun. Rendering, real touch events, opponents and the full city are outside this fixture."
+    },
+    {
+      "id": "independent-input-sources",
+      "independentReviewer": "/root/render_cost_review/refute_backdrop",
+      "procedure": "Hold KeyQ after latching guard, then issue complete virtual guard taps without releasing KeyQ.",
+      "result": "The first virtual tap releases guard and the second raises it. A held source no longer hides the next source's rising edge in toggle mode.",
+      "scope": "Actual Input state machine, not physical concurrent fingers or a real controller."
+    },
+    {
+      "id": "actual-guard-failure-cancellation",
+      "methods": ["Input.step", "Game._playerInput", "Actor._updateGuard", "Actor._updateVitals", "Game._drainEvents"],
+      "procedure": "Start at 3 stamina, issue one complete guard tap, and run 40 steps at 1/60 second with no further input. Use the production guard/vitals/event-drain methods and stub camera, movement surroundings and animation output.",
+      "result": {"guardfailEvents": 1, "guardraiseEvents": 0},
+      "samples": [
+        {"step": 1, "latched": false, "guarding": false, "stamina": 3.4},
+        {"step": 26, "latched": false, "guarding": false, "stamina": 13.400000000000007},
+        {"step": 40, "latched": false, "guarding": false, "stamina": 19}
+      ],
+      "scope": "Partial gameplay integration. Before adding the production guardfail drain callback, the same fixture automatically raised guard at step 26; after correction it does not."
+    },
+    {
+      "id": "hold-mode-compatibility",
+      "procedure": "Leave toggleGuard disabled, hold virtual guard, then issue attack while running the actual Game._playerInput cancellation path.",
+      "result": {"toggleMode": false, "guardEffectiveInput": true, "guardRawInput": true},
+      "scope": "clearToggle no longer affects toggle mode when it is disabled, and it does not consume the physical hold. This measurement describes input state, not whether the actor can guard during its attack animation."
+    }
+  ],
+  "resolvedHistory": [
+    {
+      "id": "pause-replay",
+      "originalObservation": "The earlier pause-only reset wiring allowed a KeyQ tap received while simulation was paused to latch guard on the next step after a mode-preserving resume.",
+      "restriction": "Ordinary hidden/blur pause enters MENU, so that path was excluded from the finding. The live working files changed during the review; the earlier pause-only failure is not attributed to a Game file hash captured after the author added the resume callback.",
+      "correction": "Game now resets Input on engine resume as well as pause.",
+      "disposition": "Corrected; independently retested. Not an active finding."
+    },
+    {
+      "id": "cancelled-press-replay",
+      "originalInputSha256": "ca2d38522962e9ec7d7ab1c87753fad91793be3309d006166855cb9524d9a5e7",
+      "originalObservation": "Two guard taps queued before an attack left a raw guard press after cancellation. The separate actual-combat fixture relatched at step 3 and raised guard without new input at step 39 after the attack ended.",
+      "correction": "Per-source toggle edges are accumulated separately and all consumed in the current step. clearToggle removes the latch and pending toggle edges without altering the raw hold queues.",
+      "disposition": "Survived independent refutation before correction; no longer reproduces on the listed final hashes."
+    },
+    {
+      "id": "mixed-source-press-loss",
+      "originalObservation": "A touch press made while KeyQ remained held was lost by the shared raw button state.",
+      "restriction": "This shared-state behavior also existed in hold mode; it was not classified as a new toggle-exclusive blocker.",
+      "correction": "The new toggle queue records individual source rising edges. The two-source toggle sequence now succeeds.",
+      "disposition": "Resolved within toggle mode; no claim that the older raw hold-source aggregation was redesigned."
+    },
+    {
+      "id": "low-stamina-retry",
+      "originalObservation": "A failed raise at 3 stamina retained the request and automatically raised guard after recovery.",
+      "restriction": "This might have been intentional hold-like behavior and was reported as an observation, not an asserted specification violation.",
+      "correction": "The author elected to cancel the player's latch when an actual guardfail event is drained.",
+      "disposition": "The chosen behavior is verified in the partial integration fixture. Guardbreak is a distinct event and is not claimed to be a guardfail cancellation."
+    }
+  ],
+  "sourceObservations": [
+    "toggleGuard defaults to false and applySettings merges saved settings over DEFAULT_SETTINGS, preserving the legacy default for settings without this property. Browser persistence awaits the author's actual WebKit run.",
+    "Attack, heavy attack, dodge, death, climbing and stamina <= 1 clear the effective toggle. Six isolated Game._playerInput cancellation cases were measured before the edge-queue correction; the latest edge-queue change does not remove those call sites.",
+    "Opening the gameplay menu disables/reset input. Hidden/blur routes into that menu. The separate engine resume reset also covers mode-preserving pauses.",
+    "The HUD's engaged class and aria-pressed are driven by actual player.guarding. Their rendered appearance and trusted pointer behavior were not judged here."
+  ],
+  "separateRefutation": {
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "role": "Independent of both the implementation author and the primary reviewer; asked to refute reproduced candidates and then rerun after corrections.",
+    "finalInputSha256": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "finalGameSha256": "e9c1390feae1fb7fa6f94609ba845b2b339b9e54565b14c29bba99b825aff0bf",
+    "result": "Earlier attack-queue defect no longer reproduces; new input still works. Mixed-source toggle transitions work. Mode-preserving pause replay was removed by the resume reset."
+  },
+  "notMeasured": [
+    "The pending build's trusted WebKit touch/settings/menu tests and screenshots.",
+    "Physical smartphone interaction, concurrent real fingers, or a physical gamepad.",
+    "A blind comparison against a reference work, any element's satisfied status, or whole-product completion."
+  ],
+  "nextValidation": "Run the author's real WebKit harness against the exact committed build, preserve results and match them to that build. A Node/source PASS must not replace that browser evidence or a blind comparison.",
+  "reviewerWrites": "Only this JSON was written for this bounded task. No repository source, CI, test, remote, or publication operation was performed by the reviewer."
+}

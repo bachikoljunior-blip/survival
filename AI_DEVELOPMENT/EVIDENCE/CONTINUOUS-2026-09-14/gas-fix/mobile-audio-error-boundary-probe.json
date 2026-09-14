@@ -1,0 +1,85 @@
+{
+  "sourceHash": "047926fa22b722e4accb50aa1fb7bd37642f7338c0ef7bcd197d0e857a529bda",
+  "scope": "Node VM fixture only. Exact helper callbacks run with fake APIs; every page.evaluate exception uses installed Playwright serializeError/parseError, then final stack-only reporting is checked. No browser, AudioContext, canvas, real MediaRecorder or media file is created.",
+  "fixtureSource": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe.mjs",
+  "results": [
+    {
+      "fault": "recording-wait+disconnect",
+      "error": "injected recording wait failure; audio capture cleanup failed: injected comp.disconnect",
+      "allRequiredMessagesPreserved": true,
+      "finalSerializedStackPreservesMessages": true,
+      "liveTracks": [],
+      "recordingHandleRetained": false,
+      "originalAudibleConnectionPreserved": true,
+      "releaseKeyAttempts": 2,
+      "settingsRestorationAttempted": true,
+      "settingsRestored": true,
+      "mediaFilesWritten": 0
+    },
+    {
+      "fault": "recorder-error+disconnect",
+      "error": "audio recording failed: injected asynchronous recorder error; audio capture cleanup failed: injected comp.disconnect",
+      "allRequiredMessagesPreserved": true,
+      "finalSerializedStackPreservesMessages": true,
+      "liveTracks": [],
+      "recordingHandleRetained": false,
+      "originalAudibleConnectionPreserved": true,
+      "releaseKeyAttempts": 3,
+      "settingsRestorationAttempted": true,
+      "settingsRestored": true,
+      "mediaFilesWritten": 0
+    },
+    {
+      "fault": "recorder-start+disconnect",
+      "error": "audio capture setup failed: injected MediaRecorder.start; audio capture cleanup failed: injected comp.disconnect",
+      "allRequiredMessagesPreserved": true,
+      "finalSerializedStackPreservesMessages": true,
+      "liveTracks": [],
+      "recordingHandleRetained": false,
+      "originalAudibleConnectionPreserved": true,
+      "releaseKeyAttempts": 1,
+      "settingsRestorationAttempted": true,
+      "settingsRestored": true,
+      "mediaFilesWritten": 0
+    },
+    {
+      "fault": "recording-wait+keyboard-release",
+      "error": "injected recording wait failure; injected keyboard release; injected keyboard release",
+      "allRequiredMessagesPreserved": true,
+      "finalSerializedStackPreservesMessages": true,
+      "liveTracks": [],
+      "recordingHandleRetained": false,
+      "originalAudibleConnectionPreserved": true,
+      "releaseKeyAttempts": 2,
+      "settingsRestorationAttempted": true,
+      "settingsRestored": true,
+      "mediaFilesWritten": 0
+    },
+    {
+      "fault": "recording-wait+keyboard-release+settings-restore",
+      "error": "injected recording wait failure; injected keyboard release; injected keyboard release; injected settings restore",
+      "allRequiredMessagesPreserved": true,
+      "finalSerializedStackPreservesMessages": true,
+      "liveTracks": [],
+      "recordingHandleRetained": false,
+      "originalAudibleConnectionPreserved": true,
+      "releaseKeyAttempts": 2,
+      "settingsRestorationAttempted": true,
+      "settingsRestored": false,
+      "mediaFilesWritten": 0
+    },
+    {
+      "fault": "recorder-start+disconnect+keyboard-release+settings-restore",
+      "error": "audio capture setup failed: injected MediaRecorder.start; audio capture cleanup failed: injected comp.disconnect; injected keyboard release; injected settings restore",
+      "allRequiredMessagesPreserved": true,
+      "finalSerializedStackPreservesMessages": true,
+      "liveTracks": [],
+      "recordingHandleRetained": false,
+      "originalAudibleConnectionPreserved": true,
+      "releaseKeyAttempts": 1,
+      "settingsRestorationAttempted": true,
+      "settingsRestored": false,
+      "mediaFilesWritten": 0
+    }
+  ]
+}

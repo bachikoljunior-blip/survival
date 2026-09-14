@@ -1,0 +1,65 @@
+{
+  "kind": "independent_material_scope_audit",
+  "source_commit": "70adf5c3e2d254e364cd92bdc09d927bf1fa9553",
+  "source_db_sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5",
+  "reference_content_in_distribution": false,
+  "public_record_scope": "hashes and acquisition findings only; full source dialogue, conditions and raw review remain private comparison preparation",
+  "observed_material": {
+    "screenshot": 10,
+    "dialogue_history_utterances": 8,
+    "offered_unselected_choices": 3
+  },
+  "insufficient_for": [
+    "E-08 full narrative",
+    "E-09 six major characters"
+  ],
+  "next_required_conversation_ids": [
+    239,
+    659,
+    660,
+    464,
+    876,
+    992,
+    664
+  ],
+  "findings": [
+    "Only two independently acting living NPCs in current three conversation exports",
+    "Auxiliary checks/modifiers/alternates referenced by selected passages must accompany those passages",
+    "Initial hypothesis of missing word me was refuted by original-size screenshot and withdrawn"
+  ],
+  "method": "Authenticate only the exact original passages needed for the next comparison; do not add full-database authentication as a stop condition. Never interpret sorted graph IDs as a played route.",
+  "status": "not measured",
+  "blind_comparison_performed": false,
+  "private_raw_files": [
+    {
+      "path": "disco-material-r1/auxiliary-sidecar.json",
+      "bytes": 4482,
+      "sha256": "9e114fe4b9f5fc2c7cd92c9193b7f7451ce87bd2405bee73c4a421488d73b497"
+    },
+    {
+      "path": "disco-material-r1/displayed-excerpt-manifest.json",
+      "bytes": 25649,
+      "sha256": "f4b00c037fe53b7ef4b46e53dbd043fc5c404ff00b27e01f309901e2be1339fb"
+    },
+    {
+      "path": "disco-material-r1/next-source-targets.json",
+      "bytes": 44873,
+      "sha256": "f71cd1e7297aa9bbe91a268b7ce070696aed30e7522d4e5831ce2dd3cdd0ac98"
+    },
+    {
+      "path": "disco-material-r1/raw.json",
+      "bytes": 4210,
+      "sha256": "5ad53ef6391f43499657c8a621235a80b1fb9f493370f3556ea39c3b19910623"
+    },
+    {
+      "path": "disco-material-r1/review.json",
+      "bytes": 12171,
+      "sha256": "83c4c1d24bf38d34d61e0ce82ae35715fc18f477e9d72b97f63325d2adae0135"
+    },
+    {
+      "path": "disco-material-r1/validation.json",
+      "bytes": 6960,
+      "sha256": "71854d803a7553d244092717cdee4a7198c5247a89a3454aeea38cb03f9aa96a"
+    }
+  ]
+}

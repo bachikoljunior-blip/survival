@@ -1,0 +1,261 @@
+{
+  "reviewedAt": "2026-09-14T14:58:37.311799+09:00",
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Schema-required unscored sentinel. No numerical product or perceptual quality score was measured.",
+  "round": "audio-evaluator-floor-r1",
+  "profile": "independent-refutation",
+  "tier": "single-negative-control-runtime-repair",
+  "nativeResolution": "0x0",
+  "blindComparison": "No product/reference material was compared, no blinded evaluator was used, and no stranger preference was measured. This is an independent audit of a completed zero-PCM negative control only; no survival element judgment changes.",
+  "scope": "Refute the claim that the one-line Whisper floor correction made the tested complete audio runtime usable after its original false-sound silence result. Read-only verification of pinned source, launcher, inputs, build artifacts and one already-completed new result; no inference, build or source execution by this refuter.",
+  "findings": [
+    {
+      "id": "AE-FLOOR-CTRL-01",
+      "severity": "major",
+      "category": "evaluator-validity",
+      "shot": "audio-evaluator-floor-r1/silence-floor1e10-stdout.txt",
+      "problem": "The rebuilt runtime completed the four-second zero-PCM control with exit code 0 and asserted continuous music from 2.02 seconds until 28.02 seconds. The verified input contains no nonzero PCM samples. The false-sound defect therefore remains present in this tested repaired pipeline.",
+      "why": "An evaluator that invents an audible event on this known-silent input has failed the predeclared control. Successful model execution and media encoding cannot qualify its captions for product/reference evaluation.",
+      "owner": "tools/mtmd/mtmd-cli.cpp",
+      "ownerRepository": "ggml-org/llama.cpp",
+      "ownerRole": "Tested audio pipeline entrypoint for diagnostic routing; this finding does not locate the root cause in the CLI source.",
+      "fix": "Keep this runtime candidate excluded from audio comparison and evaluator qualification. Change the evaluation method or repair a separately evidenced remaining defect before a justified new control. A valid silence result must not assert nonexistent audible events. Do not repeat the unchanged test to select a favorable output.",
+      "hypothesis": "The remaining failure mechanism is unlocated. Possible preprocessing, model/projection, prompt/template and inference-runtime contributions were not isolated here. Neither generic warnings nor this single result prove a model-only cause. Different compiler/build/full environment prevent sole-floor causal attribution across the old and new runs.",
+      "correctness": "The independently decoded original WAV has 64,000 mono PCM16 frames at 16 kHz, duration 4.0 seconds, and zero nonzero samples; the nonempty retained caption positively asserts music. This directly falsifies silence correctness without a perceptual or causal assumption.",
+      "reachability": "The actual one-attempt launcher used the recorded input and prompt with the same 22 arguments except executable path, completed media encoding and returned this output with exit code 0 in 38.035880099996575 seconds.",
+      "importance": "Major for this proposed evaluator: evidence from it cannot support an audio quality or blind-comparison decision. This is not a demonstrated defect in the survival game audio."
+    }
+  ],
+  "sourceVerification": {
+    "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+    "fileCount": 3527,
+    "actualChangedPaths": [
+      "tools/mtmd/mtmd-audio.cpp"
+    ],
+    "sourceHashes": {
+      "archiveOriginal": "f0bf28dabdf22251efb03552bae21a2ac5ba753715c61b7be7b0a0a89681e251",
+      "variant": "969469fbfa9e01f75942797ef139ab85afa2399f81ab33aafd0eaffc1d9e66a8",
+      "oldConnectorText": "1d3eed8a85ea98d5c8cd96223fdb561b699affccea23f5b668d602bd3b22521f"
+    },
+    "manifestSha256": "d6f272a65f7dca778e604bfe3c33a7496a80f738051fc9ec6962cf3d289ece04",
+    "delta": "Only params.mel_floor = 1e-10f was inserted in the Whisper preprocess filter_params configuration. All 3527 original and variant manifest entries were checked.",
+    "connectorDifference": "The retained connector text has one additional final LF versus the exact public-archive source; all earlier bytes match.",
+    "checksPassed": 3
+  },
+  "control": {
+    "ruleRecordedBeforeRun": {
+      "path": "audio-evaluator-floor-r1/silence-run-plan.json",
+      "preparedAt": "2026-09-14T05:47:37.667940+00:00",
+      "text": "The known input contains no sounds. Any asserted audible sound event fails this negative control. A silence-compatible caption would establish only this single changed-pipeline control; compiler/build/environment differ from the original release, so sole causal attribution and evaluator qualification remain unproven."
+    },
+    "refuterContractTiming": "refuter-control-contract.json was written after the recorded inference finish and before the refuter examined the returned output. The earlier parent plan, not that later file timestamp, establishes the pre-run rule.",
+    "input": {
+      "channels": 1,
+      "sampleWidth": 2,
+      "sampleRate": 16000,
+      "frames": 64000,
+      "durationSeconds": 4.0,
+      "nonzeroSamples": 0,
+      "sha256": "f751fd7094be088dc785125e4a1a0222a17c2bd20469aa31728ca5e515ed5809"
+    },
+    "prompt": {
+      "sha256": "97cbeca4c3e019163b29c1d25ebbf78677920496c962fdf529a19ec62ef0d777",
+      "text": "Describe the audible events in chronological order. Distinguish silence, continuous sounds, intermittent sounds and any speech. If you cannot perceive the audio, say so. Do not infer a game, scene or cause that is not audible.\n"
+    },
+    "run": {
+      "startedAt": "2026-09-14T05:49:32.054052+00:00",
+      "finishedAt": "2026-09-14T05:50:10.090631+00:00",
+      "seconds": 38.035880099996575,
+      "exitCode": 0,
+      "attempts": 1,
+      "toneInferenceAttempts": 0
+    },
+    "caption": "\nThe audio begins with silence, then a continuous sound of music starts at 2.02 seconds and lasts until 28.02 seconds. There is no speech or other sounds present in the audio.\n\n\n",
+    "outputHashes": {
+      "stdout": "898e2a75304d422cc2190c10fe6488ba4864dcbe37b5d6a40b3a71152916769d",
+      "stderr": "d14f1f86e09d2d7900bb126ae042299af7c96d991e87e3b40d3e2c293bdba357"
+    },
+    "auditGroupsPassed": 5,
+    "changedArguments": "Only argv[0], the executable path, differs from the original argument list. Same model files, mmproj, WAV, prompt and generation parameters.",
+    "launchEnvironment": {
+      "PATH": "/usr/bin:/bin",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "LD_LIBRARY_PATH": "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin"
+    },
+    "launchCwd": "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin",
+    "launcherAudit": "The exact launcher passes the recorded complete environment and cwd to subprocess.Popen. Exclusive record/output creation prevents replacing the old result; no parent retry or tone run was performed.",
+    "mediaEncodingCompleted": true
+  },
+  "buildAndIntegrity": {
+    "buildManifest": "audio-evaluator-floor-r1/build-manifest.json",
+    "independentlyVerifiedRuntimeArtifacts": {
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin/libllama.so.0.4.0": {
+        "bytes": 4740896,
+        "sha256": "b6a439812610d58f5de4cda8154f8ec0d8bb6dc1befafc2a34104ca506549be7",
+        "manifestName": "libllama.so"
+      },
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin/libmtmd.so.0.4.0": {
+        "bytes": 1964968,
+        "sha256": "9aeec2f81179f5286933a7db665b848d8d21305c0203d24a9726de62e6069d84",
+        "manifestName": "libmtmd.so"
+      },
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin/llama-mtmd-cli": {
+        "bytes": 96704,
+        "sha256": "cdf3e19aafc1a989681e66e5ccdeff8d50161b59061190c6279192bf7442b6fb",
+        "manifestName": "llama-mtmd-cli"
+      }
+    },
+    "compileCommandSource": "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/source-floor1e10/tools/mtmd/mtmd-audio.cpp",
+    "originalCompiler": "GNU 11.4",
+    "newCompiler": "GNU 13.3",
+    "environmentParity": "Original complete launcher environment was not archived; exact original/rebuild environment parity is not established.",
+    "postRunOriginalIntegrity": {
+      "source": "audio-evaluator-floor-r1/post-run-integrity.json",
+      "checkedAt": "2026-09-14T05:52:10.836642+00:00",
+      "models": {
+        "Qwen2.5-Omni-7B-Q8_0.gguf": {
+          "sha256": "2cb12eb661bc8db5536463dd2dadd4a25c8bd42a2346bc1cefddd2e2245f641a",
+          "matchesBefore": true
+        },
+        "mmproj-Qwen2.5-Omni-7B-f16.gguf": {
+          "sha256": "7ed062b35f15f3c4cacdac72d5291db2f908f178ba4fb19e210b555f233e069d",
+          "matchesBefore": true
+        }
+      },
+      "runtimeFileCount": 60,
+      "controlFileCount": 5,
+      "auditAttribution": "Parent post-run hash record read and accepted here. The multi-gigabyte model hashes were not redundantly recomputed by this refuter."
+    },
+    "linkage": "Post-run ldd/readelf in the same recorded environment resolves libmtmd, libllama, common and ggml to the new build bin and records $ORIGIN RUNPATH. This supports the intended build identity but is not an observation of the inference process loaded maps.",
+    "liveLoadedMaps": {
+      "measured": false,
+      "error": "FileNotFoundError(2, 'No such file or directory')",
+      "meaning": "The failed during-run /proc capture remains explicit. Post-run metadata is not substituted for that missing measurement."
+    }
+  },
+  "refutationConclusions": [
+    {
+      "claim": "The floor-corrected tested pipeline still fails the exact zero-PCM control.",
+      "decision": "supported",
+      "basis": "Verified silent input and completed output asserting music directly conflict."
+    },
+    {
+      "claim": "The floor correction alone made this tested runtime usable for evaluation.",
+      "decision": "refuted",
+      "basis": "The predeclared necessary silence control still fails; execution success does not establish content correctness."
+    },
+    {
+      "claim": "This is an exact old/new runtime A/B experiment differing only in the floor line.",
+      "decision": "not established",
+      "basis": "Source delta is one line, but compiler/build and original complete environment differ or are unarchived."
+    },
+    {
+      "claim": "The floor mismatch was not a real preprocessing defect because the caption still fails.",
+      "decision": "unsupported",
+      "basis": "The prior numerical preprocessing finding is independent of this later end-to-end control; failure does not revoke it."
+    },
+    {
+      "claim": "Model weights alone, feature padding, or the stderr warnings caused the remaining false music.",
+      "decision": "not established",
+      "basis": "This result contains no isolation of those mechanisms or actual rendered prompt/tensor trace."
+    },
+    {
+      "claim": "The floor repair fixed tone ordering.",
+      "decision": "not established",
+      "basis": "The retained original and floor tone feature buffers remain byte-identical; no new tone inference or tone reevaluation occurred."
+    }
+  ],
+  "unmeasured": [
+    "Product audio quality",
+    "Reference comparison",
+    "Stereo localization",
+    "Any blinded preference or survival element satisfaction",
+    "Exact original full-environment parity",
+    "Inference process live loaded-library maps",
+    "Sole causal attribution of old/new output differences"
+  ],
+  "toneFeatureIntegrity": {
+    "audio-evaluator-diagnostic-preprocess-calibration-original.f32": "68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5",
+    "audio-evaluator-diagnostic-preprocess-calibration-floor1e10.f32": "68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5"
+  },
+  "actionsByRefuter": {
+    "newInferenceAttempts": 0,
+    "toneInferenceAttempts": 0,
+    "builds": 0,
+    "productEdits": 0,
+    "sourceEdits": 0,
+    "browserServerSocketStarts": 0,
+    "sourceAndResultReadOnlyAudits": true
+  },
+  "preservedFailures": [
+    {
+      "path": "audio-evaluator-floor-r1/refuter-preflight-setup-failure.json",
+      "meaning": "The first refuter setup asserted the trailing-LF delta in the wrong direction; corrected and recorded as a reviewer setup mistake, not a runtime failure."
+    }
+  ],
+  "evidence": {
+    "audio-evaluator-floor-r1/source-manifest.json": {
+      "bytes": 417258,
+      "sha256": "d6f272a65f7dca778e604bfe3c33a7496a80f738051fc9ec6962cf3d289ece04"
+    },
+    "audio-evaluator-floor-r1/floor1e10.patch": {
+      "bytes": 344,
+      "sha256": "85ab0d2d158c1c3e90cb372f66407638fd3384907d19e1a4bb7bbab0512b08b4"
+    },
+    "audio-evaluator-floor-r1/refuter-preflight.py": {
+      "bytes": 5152,
+      "sha256": "b40cfd6bb68f73faafce38f1734fc58c713cd8173ea1593d7b915e5001855e3b"
+    },
+    "audio-evaluator-floor-r1/refuter-preflight.json": {
+      "bytes": 4065,
+      "sha256": "df5103fa58a8d73fcfbe2eb40544b203745900e07c5d803c733d690d181712cb"
+    },
+    "audio-evaluator-floor-r1/refuter-preflight-setup-failure.json": {
+      "bytes": 478,
+      "sha256": "11ceab002a8028e0f75ff4c08ef1bb7b8a0378d14850cf7c1f04283819254d56"
+    },
+    "audio-evaluator-floor-r1/refuter-control-contract.json": {
+      "bytes": 1383,
+      "sha256": "560689f42dc2466fcb5e5ec7af80a3383f3670edaf154015c5c4f1795a92ca7f"
+    },
+    "audio-evaluator-floor-r1/refuter-result-audit.py": {
+      "bytes": 7020,
+      "sha256": "c1f87cec0bc978968986e21bbabe0eec14845c5b1e731f775cce2b555cfc2efc"
+    },
+    "audio-evaluator-floor-r1/refuter-result-audit.json": {
+      "bytes": 7579,
+      "sha256": "49c224322c59475b7bf8f5e878f512105ebf7084792c059c11648c9e010c8ba0"
+    },
+    "audio-evaluator-floor-r1/silence-run-plan.json": {
+      "bytes": 2889,
+      "sha256": "138418118d51075cdccf427dba362a16a18867d71e65810dec5fc9f736782ae0"
+    },
+    "audio-evaluator-floor-r1/run-silence-once.py": {
+      "bytes": 4977,
+      "sha256": "fc680cf4552a1b3c14be92a3b1e7eaa337141be870afa6307b2f3c446c4ab51f"
+    },
+    "audio-evaluator-floor-r1/build-manifest.json": {
+      "bytes": 7075,
+      "sha256": "fcf09dc6a77a373cde57ab4fe41ab449fa04567074b391872212fe02eb60c9d4"
+    },
+    "audio-evaluator-floor-r1/silence-floor1e10-record.json": {
+      "bytes": 4208,
+      "sha256": "2b279ce981e6ecdd0f2c9b37569a9ca7d96bd2f7fe4a47739d5ca34eb308ee4d"
+    },
+    "audio-evaluator-floor-r1/silence-floor1e10-stdout.txt": {
+      "bytes": 178,
+      "sha256": "898e2a75304d422cc2190c10fe6488ba4864dcbe37b5d6a40b3a71152916769d"
+    },
+    "audio-evaluator-floor-r1/silence-floor1e10-stderr.txt": {
+      "bytes": 1538,
+      "sha256": "d14f1f86e09d2d7900bb126ae042299af7c96d991e87e3b40d3e2c293bdba357"
+    },
+    "audio-evaluator-floor-r1/post-run-integrity.json": {
+      "bytes": 13983,
+      "sha256": "fd9e1564fc047c29ff7c454fcd8d513b4baddc54638cb1d3b39d6ef210e32886"
+    }
+  },
+  "nextAction": "Return this bounded FAIL result for a method change. No additional control runs are authorized or needed in this independent review; retain all original and variant evidence."
+}

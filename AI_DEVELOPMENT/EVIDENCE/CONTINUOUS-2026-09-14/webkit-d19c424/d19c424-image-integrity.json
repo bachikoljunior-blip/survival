@@ -1,0 +1,807 @@
+{
+  "checkedAt": "2026-09-14T01:11:43.871Z",
+  "testedCommit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "reportSha256": "d8e657fd49b59da6623c31d2189c2feedff1703b92253cc58e7e5c0ece7dc795",
+  "reportedChecks": 148,
+  "reportedPassing": 148,
+  "reportedFailures": [],
+  "verifiedNativeFiles": 20,
+  "views": [
+    {
+      "name": "stacks",
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-stacks-frame.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-stacks-refreshed.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-stacks-unbatched.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "4dfde65995ca6d06e71003e4504ac54301bbcdaca63416fc92e640e0a597e8dc",
+          "rgbaSha256": "93e6302d44e05475a90ad3a24f2e663474ae7a77462b13a0d10eda87ce2f19bf"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-stacks-repeat.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        }
+      ],
+      "poseBeforeAfterExactlyEqual": true,
+      "captureMatchesDiagnosticBefore": true,
+      "camera": {
+        "position": [
+          -111.58,
+          1.671123305478851,
+          -80.40876941906463
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 57.999896027873724,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -112,
+          0,
+          -84
+        ],
+        "yaw": 0,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "variants": [
+        {
+          "variant": "refreshed",
+          "draws": 66,
+          "triangles": 195293,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 91620,
+          "nonShadowTriangles": 103673,
+          "nonShadowDrawResidual": 64,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 74,
+            "dynamicSources": 9,
+            "staticTriangles": 88716,
+            "dynamicTriangles": 2904,
+            "unsupportedSources": 0,
+            "prepareMs": 5
+          }
+        },
+        {
+          "variant": "unbatched",
+          "draws": 145,
+          "triangles": 223759,
+          "shadowCallbacks": 83,
+          "shadowTriangles": 120086,
+          "nonShadowTriangles": 103673,
+          "nonShadowDrawResidual": 62,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": false,
+          "batchStats": {
+            "staticSources": 74,
+            "dynamicSources": 9,
+            "staticTriangles": 88716,
+            "dynamicTriangles": 2904,
+            "unsupportedSources": 0,
+            "prepareMs": 5
+          }
+        },
+        {
+          "variant": "repeat",
+          "draws": 66,
+          "triangles": 195293,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 91620,
+          "nonShadowTriangles": 103673,
+          "nonShadowDrawResidual": 64,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 74,
+            "dynamicSources": 9,
+            "staticTriangles": 88716,
+            "dynamicTriangles": 2904,
+            "unsupportedSources": 0,
+            "prepareMs": 27
+          }
+        }
+      ],
+      "cachedRefreshed": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedRepeat": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedUnbatched": {
+        "differentPixels": 1,
+        "differentChannels": 3,
+        "maxChannelDifference": 3,
+        "meanAbsoluteChannelDifference": 0.0000027033785473395374,
+        "bbox": [
+          528,
+          394,
+          528,
+          394
+        ]
+      }
+    },
+    {
+      "name": "arcade",
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-arcade-frame.png",
+          "bytes": 1365958,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-arcade-refreshed.png",
+          "bytes": 1365958,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-arcade-unbatched.png",
+          "bytes": 1365953,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "2d682bee8256349da2cab36eab7533b318729c339404faad57792f00a719c931",
+          "rgbaSha256": "be8e581d7157df17644af98a2eadaa9950a6dfbec2989e4db36a2839377df1d0"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-arcade-repeat.png",
+          "bytes": 1365958,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        }
+      ],
+      "poseBeforeAfterExactlyEqual": true,
+      "captureMatchesDiagnosticBefore": true,
+      "camera": {
+        "position": [
+          -104.92,
+          1.8111233054782914,
+          -10.091230580935367
+        ],
+        "quaternion": [
+          -2.136977846428571e-18,
+          0.9993908270190958,
+          0.03489949670250097,
+          6.119503887030809e-17
+        ],
+        "fov": 57.999999999999865,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -104.5,
+          0.14,
+          -6.5
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "variants": [
+        {
+          "variant": "refreshed",
+          "draws": 130,
+          "triangles": 202237,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 118966,
+          "nonShadowTriangles": 83271,
+          "nonShadowDrawResidual": 128,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 121,
+            "dynamicSources": 8,
+            "staticTriangles": 117460,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 29
+          }
+        },
+        {
+          "variant": "unbatched",
+          "draws": 255,
+          "triangles": 244247,
+          "shadowCallbacks": 129,
+          "shadowTriangles": 160976,
+          "nonShadowTriangles": 83271,
+          "nonShadowDrawResidual": 126,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": false,
+          "batchStats": {
+            "staticSources": 121,
+            "dynamicSources": 8,
+            "staticTriangles": 117460,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 29
+          }
+        },
+        {
+          "variant": "repeat",
+          "draws": 130,
+          "triangles": 202237,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 118966,
+          "nonShadowTriangles": 83271,
+          "nonShadowDrawResidual": 128,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 121,
+            "dynamicSources": 8,
+            "staticTriangles": 117460,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 49
+          }
+        }
+      ],
+      "cachedRefreshed": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedRepeat": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedUnbatched": {
+        "differentPixels": 229,
+        "differentChannels": 487,
+        "maxChannelDifference": 6,
+        "meanAbsoluteChannelDifference": 0.00028858565992849564,
+        "bbox": [
+          97,
+          10,
+          560,
+          347
+        ]
+      }
+    },
+    {
+      "name": "cinder",
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-cinder-frame.png",
+          "bytes": 1338983,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-cinder-refreshed.png",
+          "bytes": 1338983,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-cinder-unbatched.png",
+          "bytes": 1338990,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "367933378d01145a5ddc1dec0bf05a2339b497c4114203023d85720c7b4ccf68",
+          "rgbaSha256": "8e5e0f1bef0b352e05e70495834e1029a1cfbc4d315922289317aaf8e59a53de"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-cinder-repeat.png",
+          "bytes": 1338983,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        }
+      ],
+      "poseBeforeAfterExactlyEqual": true,
+      "captureMatchesDiagnosticBefore": true,
+      "camera": {
+        "position": [
+          25.42,
+          1.671123305478851,
+          -6.408769419064633
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          25,
+          0,
+          -10
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "variants": [
+        {
+          "variant": "refreshed",
+          "draws": 115,
+          "triangles": 182139,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 52788,
+          "nonShadowTriangles": 129351,
+          "nonShadowDrawResidual": 113,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 122,
+            "dynamicSources": 8,
+            "staticTriangles": 51282,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 2
+          }
+        },
+        {
+          "variant": "unbatched",
+          "draws": 241,
+          "triangles": 216635,
+          "shadowCallbacks": 130,
+          "shadowTriangles": 87284,
+          "nonShadowTriangles": 129351,
+          "nonShadowDrawResidual": 111,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": false,
+          "batchStats": {
+            "staticSources": 122,
+            "dynamicSources": 8,
+            "staticTriangles": 51282,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 2
+          }
+        },
+        {
+          "variant": "repeat",
+          "draws": 115,
+          "triangles": 182139,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 52788,
+          "nonShadowTriangles": 129351,
+          "nonShadowDrawResidual": 113,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 122,
+            "dynamicSources": 8,
+            "staticTriangles": 51282,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 13
+          }
+        }
+      ],
+      "cachedRefreshed": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedRepeat": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedUnbatched": {
+        "differentPixels": 66,
+        "differentChannels": 157,
+        "maxChannelDifference": 3,
+        "meanAbsoluteChannelDifference": 0.00009123902597270939,
+        "bbox": [
+          410,
+          247,
+          1112,
+          344
+        ]
+      }
+    },
+    {
+      "name": "ventfield",
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-ventfield-frame.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-ventfield-refreshed.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-ventfield-unbatched.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-ventfield-repeat.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        }
+      ],
+      "poseBeforeAfterExactlyEqual": true,
+      "captureMatchesDiagnosticBefore": true,
+      "camera": {
+        "position": [
+          78.40493367488354,
+          1.608409452894917,
+          -59.58
+        ],
+        "quaternion": [
+          0.018509897659266823,
+          0.7068644733530208,
+          0.018509897659266826,
+          -0.7068644733530207
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          82,
+          0,
+          -60
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "variants": [
+        {
+          "variant": "refreshed",
+          "draws": 83,
+          "triangles": 54121,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 20330,
+          "nonShadowTriangles": 33791,
+          "nonShadowDrawResidual": 81,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 73,
+            "dynamicSources": 8,
+            "staticTriangles": 18824,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 1
+          }
+        },
+        {
+          "variant": "unbatched",
+          "draws": 160,
+          "triangles": 71193,
+          "shadowCallbacks": 81,
+          "shadowTriangles": 37402,
+          "nonShadowTriangles": 33791,
+          "nonShadowDrawResidual": 79,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": false,
+          "batchStats": {
+            "staticSources": 73,
+            "dynamicSources": 8,
+            "staticTriangles": 18824,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 1
+          }
+        },
+        {
+          "variant": "repeat",
+          "draws": 83,
+          "triangles": 54121,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 20330,
+          "nonShadowTriangles": 33791,
+          "nonShadowDrawResidual": 81,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 73,
+            "dynamicSources": 8,
+            "staticTriangles": 18824,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 8.999999999985448
+          }
+        }
+      ],
+      "cachedRefreshed": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedRepeat": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedUnbatched": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      }
+    },
+    {
+      "name": "marrow_roof",
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-marrow_roof-frame.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-marrow_roof-refreshed.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-marrow_roof-unbatched.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-marrow_roof-repeat.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        }
+      ],
+      "poseBeforeAfterExactlyEqual": true,
+      "captureMatchesDiagnosticBefore": true,
+      "camera": {
+        "position": [
+          -56.419721217280134,
+          11.95630253345137,
+          -16.42
+        ],
+        "quaternion": [
+          -0.03700710955926801,
+          0.7061377159181261,
+          0.037007109559268,
+          0.7061377159181262
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -60,
+          10.159999999999998,
+          -16
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "variants": [
+        {
+          "variant": "refreshed",
+          "draws": 135,
+          "triangles": 276673,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 120696,
+          "nonShadowTriangles": 155977,
+          "nonShadowDrawResidual": 133,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 133,
+            "dynamicSources": 8,
+            "staticTriangles": 119190,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 7.000000000029104
+          }
+        },
+        {
+          "variant": "unbatched",
+          "draws": 272,
+          "triangles": 326445,
+          "shadowCallbacks": 141,
+          "shadowTriangles": 170468,
+          "nonShadowTriangles": 155977,
+          "nonShadowDrawResidual": 131,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": false,
+          "batchStats": {
+            "staticSources": 133,
+            "dynamicSources": 8,
+            "staticTriangles": 119190,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 7.000000000029104
+          }
+        },
+        {
+          "variant": "repeat",
+          "draws": 135,
+          "triangles": 276673,
+          "shadowCallbacks": 2,
+          "shadowTriangles": 120696,
+          "nonShadowTriangles": 155977,
+          "nonShadowDrawResidual": 133,
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true,
+          "batchStats": {
+            "staticSources": 133,
+            "dynamicSources": 8,
+            "staticTriangles": 119190,
+            "dynamicTriangles": 1506,
+            "unsupportedSources": 0,
+            "prepareMs": 35
+          }
+        }
+      ],
+      "cachedRefreshed": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedRepeat": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      },
+      "refreshedUnbatched": {
+        "differentPixels": 0,
+        "differentChannels": 0,
+        "maxChannelDifference": 0,
+        "meanAbsoluteChannelDifference": 0,
+        "bbox": null
+      }
+    }
+  ],
+  "interpretation": "Image hashes establish identity/control equality. Different pixel counts locate changes and are not image-quality scores. onBeforeShadow records actual callback index ranges. Draw/triangle counters are renderer submissions in CI, not physical-device speed."
+}

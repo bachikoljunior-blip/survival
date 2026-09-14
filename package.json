@@ -31,7 +31,11 @@
     "test:perf": "node build.mjs && node tools/perf.mjs",
     "shots": "node build.mjs --dev && node tools/vantage.mjs",
     "i18n": "node tools/i18n_report.mjs ja && node tools/i18n_glossary.mjs ja",
-    "test:play:ja": "node build.mjs --dev && node tools/playthrough.mjs --lang ja"
+    "test:play:ja": "node build.mjs --dev && node tools/playthrough.mjs --lang ja",
+    "work:status": "node tools/work_state.mjs",
+    "test:work-state": "node --test tools/work_state.test.mjs",
+    "test:trust-feedback": "node --test tools/trust_feedback.test.mjs",
+    "test:save-recovery": "node --test tools/save_recovery.test.mjs"
   },
   "repository": {
     "type": "git",

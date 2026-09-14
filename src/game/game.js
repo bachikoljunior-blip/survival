@@ -13,6 +13,7 @@ import { Input } from '../core/input.js';
 import { MaterialLibrary, updateWorldUniforms } from '../render/materials.js';
 import { PostFX } from '../render/postfx.js';
 import { Atmosphere, MOODS } from '../render/atmosphere.js';
+import { ShadowBatches } from '../render/shadow_batches.js';
 import { City } from '../world/city.js';
 import { buildHollisData } from '../content/world_data.js';
 import { Player, ThirdPersonCamera } from '../actors/player.js';
@@ -44,6 +45,7 @@ export class Game extends Emitter {
     this.post.setSize(this.engine.size.w, this.engine.size.h);
     this.scene = this.engine.scene;
     this.atmos = new Atmosphere(this.scene, this.engine.tier, this.engine.camera);
+    this.shadowBatches = new ShadowBatches(this.scene);
 
     this.mode = MODE.BOOT;
     this.actors = [];
@@ -58,6 +60,7 @@ export class Game extends Emitter {
       this.atmos.setTier(t);
     });
     this.engine.on('pause', () => this.input.reset());
+    this.engine.on('resume', () => this.input.reset());
 
     this.zone = null;
     this.moodName = 'street';
@@ -226,6 +229,7 @@ export class Game extends Emitter {
       else this.setMode(MODE.PLAY);
     });
     this.on('ui:save', () => {
+      if (this.mode === MODE.TITLE || m.fromTitle) return;
       const ok = this.director.save(true);
       this.hud.notice(ok ? 'Saved.' : '<b>Not saved.</b> This browser is blocking storage.',
                       ok ? 'good' : 'bad', ok ? 2.4 : 5);
@@ -275,6 +279,7 @@ export class Game extends Emitter {
     this.input.leftHanded = S.leftHanded;
     document.body.classList.toggle('lefthanded', !!S.leftHanded);
     this.input.autoSprint = S.autoSprint;
+    this.input.setToggleMode('guard', !!S.toggleGuard);
     if (this.camera) this.camera.sensitivity = S.lookSensitivity;
     if (S.quality === 'auto') this.engine.tierLocked = false;
     else this.engine.setTier(S.quality, true);
@@ -413,6 +418,7 @@ export class Game extends Emitter {
     // the cast pauses. A city that freezes when you open a menu feels like a
     // diorama.
     this.gas.update(playing || this.mode === MODE.DIALOGUE ? dt : dt * 0.25);
+    this.nav?.updateGasCost(this.gas, dt);
 
     if (playing) {
       this._playerInput(dt);
@@ -449,7 +455,10 @@ export class Game extends Emitter {
 
   _drainEvents(a) {
     if (!a.events.length) return;
-    for (const e of a.events) this.emit('actor:' + e.name, a, e.data);
+    for (const e of a.events) {
+      if (a === this.player && e.name === 'guardfail') this.input.clearToggle('guard');
+      this.emit('actor:' + e.name, a, e.data);
+    }
     a.events.length = 0;
   }
 
@@ -457,7 +466,7 @@ export class Game extends Emitter {
   _playerInput(dt) {
     const p = this.player;
     const inp = this.input;
-    if (!p || p.dead) return;
+    if (!p || p.dead) { inp.clearToggle('guard'); return; }
 
     // Camera look
     const look = inp.takeLook();
@@ -471,6 +480,7 @@ export class Game extends Emitter {
     const mag = inp.move.mag;
 
     if (p.state === STATE.CLIMB) {
+      inp.clearToggle('guard');
       p.setMove(mx, mz, mag);
       if (inp.pressed('dodge') || inp.pressed('interact')) p.exitClimb();
       return;
@@ -489,6 +499,7 @@ export class Game extends Emitter {
     if (inp.pressed('use')) this.director.quickUse();
     if (inp.pressed('menu')) this.emit('ui:menu');
     if (inp.pressed('map')) this.emit('ui:map');
+    if (p.stamina <= 1 || inp.pressed('attack') || inp.pressed('heavy') || inp.pressed('dodge')) inp.clearToggle('guard');
     p.guarding = inp.down('guard') && p.canAct && !p.isAttacking && p.stamina > 1;
 
     if (inp.pressed('lamp')) {
@@ -730,6 +741,7 @@ export class Game extends Emitter {
                                this.engine.tier.drawDistance);
 
     updateWorldUniforms(this.engine.time);
+    if (this.engine.tier.shadows) this.shadowBatches.update(this.atmos.sun, this.engine.camera);
     if (this.atmos.shadowDirty) {
       this.engine.renderer.shadowMap.needsUpdate = true;
       this.atmos.shadowDirty = false;

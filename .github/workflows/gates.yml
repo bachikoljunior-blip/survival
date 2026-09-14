@@ -1,21 +1,11 @@
-# Floor enforcement gates (protocol v2.2, Section 0 F9).
-#
-# These exist because a run that skipped a floor obligation and reported it as
-# satisfied is otherwise indistinguishable from a run that performed it. A rule
-# in a document cannot fail. These can.
-#
-# Each job is a thin wrapper: the logic lives in tools/gates/ so it can be run
-# locally and, more importantly, so it can be observed failing on a deliberately
-# bad input. A gate never seen to fail is recorded as prepared_not_executed.
-#
-# To make these binding rather than advisory, add them to the ruleset for `main`
-# as required status checks. The job names below are exactly the strings to type
-# into "Add checks", and they are deliberately plain ASCII so they can be typed
-# on a phone. Until that is done they run and report but do not block, and
-# AI_DEVELOPMENT/STATE.yaml must say so.
+# Existing state, build and product checks are retained.
+# Retired protocol text is historical; CLAUDE.md and the current user instruction
+# govern completion. Optional marker-selected jobs measure named experiments.
 name: Floor gates
 
 on:
+  push:
+    branches: [claude/repo-instructions-constraints-r0070m]
   pull_request:
     branches: [main]
     # `edited` matters: the F5 check reads the pull-request body, and without it
@@ -73,6 +63,42 @@ jobs:
           path: test-results/iphone-webkit
           if-no-files-found: warn
           retention-days: 14
+      - name: Export original WebKit frames and report for inspection
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Exercise post-boot recovery in mobile WebKit
+        if: ${{ !cancelled() }}
+        env:
+          CINDERLINE_FAULT_BROWSER: webkit
+          CINDERLINE_FAULT_OUTPUT: test-results/fault-recovery
+        run: npm run test:faults
+      - name: Preserve actual fault-recovery screens and checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-fault-recovery-${{ github.sha }}
+          path: test-results/fault-recovery
+          if-no-files-found: error
+          retention-days: 14
+
+      # This WebKit build exposes no MediaRecorder. Use the already installed
+      # Chromium only to acquire actual sound and simultaneous world video;
+      # it does not replace any WebKit surface or fault-recovery measurements.
+      - name: Capture production sound and video in Chromium
+        if: ${{ !cancelled() }}
+        env:
+          CINDERLINE_BROWSER: chromium
+          CINDERLINE_AUDIO_ONLY: "1"
+          CINDERLINE_WEBKIT_OUTPUT: test-results/mobile-audio
+        run: npm run test:iphone-webkit
+      - name: Preserve original production audiovisual recordings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-audio-${{ github.sha }}
+          path: test-results/mobile-audio
+          if-no-files-found: error
+          retention-days: 14
 
   f5-review-record:
     name: F5 review record
@@ -84,3 +110,234 @@ jobs:
         env:
           F5_REVIEW_BODY: ${{ github.event.pull_request.body }}
         run: node tools/gates/f5_review_record.mjs
+
+  narrative-material:
+    name: Actual narrative material
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node build.mjs
+      - name: Record emitted dialogue and endings on contrasting story paths
+        run: |
+          capture_status=0
+          node tools/playthrough.mjs --path publish --transcript || capture_status=$?
+          node tools/playthrough.mjs --path deal --transcript || capture_status=$?
+          exit "$capture_status"
+      - name: Preserve original narrative output and execution results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: narrative-material-${{ github.sha }}
+          path: shots
+          if-no-files-found: error
+          retention-days: 14
+
+  comparison-e16-q35:
+    name: Frozen E16 Qwen 3.5 comparison attempt
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e16-q35-a840-r3]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check comparison helper syntax
+        run: python3 -m py_compile tools/compare-e16-q35.py
+      - name: Verify original inputs and acquire one pinned evaluator
+        run: python3 tools/compare-e16-q35.py prepare
+      - name: Record the new evaluator's visual input control
+        run: python3 tools/compare-e16-q35.py control
+      - name: Run the single frozen sixteen-image comparison
+        run: python3 tools/compare-e16-q35.py compare
+      - name: Export complete comparison records for independent audit
+        if: always()
+        run: python3 tools/compare-e16-q35.py export
+      - name: Preserve raw comparison outputs and exact input provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-e16-q35-a840-r3-${{ github.sha }}
+          path: test-results/e16-q35-a8409cc-r3
+          if-no-files-found: warn
+          retention-days: 14
+
+  light-direction-trial:
+    name: Frozen light direction diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[light-direction-a840-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_LIGHT_DIRECTION_TRIAL: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/light-direction-a840-r2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_light_direction_trial.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed views and reversible single-variable trial
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: light-direction-a840-r2-${{ github.sha }}
+          path: test-results/light-direction-a840-r2
+          if-no-files-found: warn
+          retention-days: 14
+
+  e9-reader-recovery:
+    name: Reproduce fixed E9 reader and private audit
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[restore-e9-reader-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check restored reader runner syntax
+        run: python3 -m py_compile tools/restore-e9-reader.py
+      - name: Reproduce the original private reader and compare all pinned outputs
+        run: python3 tools/restore-e9-reader.py
+      - name: Preserve only the non-prose recovery report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-reader-recovery-r2-${{ github.sha }}
+          path: test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  prepare-reviewed-light:
+    name: Prepare reviewed light source and production root
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-light-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-reviewed-light.mjs
+      - name: Generate the reviewed source and matching root build
+        run: node tools/prepare-reviewed-light.mjs
+      - name: Export exact prepared files
+        run: node tools/prepare-reviewed-light.mjs --export
+      - name: Preserve prepared product and verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-light-build-r2-${{ github.sha }}
+          path: test-results/reviewed-light-build-r2
+          if-no-files-found: warn
+          retention-days: 14
+
+  prepare-e9-readable:
+    name: Restore candidate graph and prepare faithful E9 reading material
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-e9-readable-r3]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/prepare-e9-readable.mjs
+      - name: Recreate the pinned private reference input in this fresh runner
+        run: python3 tools/restore-e9-reader.py
+      - name: Restore the original candidate and preserve both authored graphs
+        run: node tools/prepare-e9-readable.mjs
+      - name: Preserve non-prose preparation and fidelity records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-readable-r3-${{ github.sha }}
+          path: |
+            test-results/e9-readable-r3/report.json
+            test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  comparison-e9-q35:
+    name: Frozen full-text E9 Qwen 3.5 comparison attempt
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e9-q35-readable-r3-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install only the pinned native-chat template dependencies
+        run: python3 -m pip install --disable-pip-version-check --no-cache-dir 'Jinja2==3.1.6' 'MarkupSafe==3.0.3'
+      - name: Check the single-attempt helper and fidelity auditor
+        run: |
+          python3 -m py_compile tools/compare-e9-q35.py tools/restore-e9-reader.py
+          node --check tools/prepare-e9-readable.mjs
+          node --check tools/audit-e9-readable.mjs
+      - name: Restore the pinned private reference input
+        run: python3 tools/restore-e9-reader.py
+      - name: Prepare complete unchanged reading packets
+        run: node tools/prepare-e9-readable.mjs
+      - name: Independently audit every displayed field and graph edge
+        run: node tools/audit-e9-readable.mjs
+      - name: Acquire one fixed evaluator and count its exact final chat input
+        run: python3 tools/compare-e9-q35.py prepare
+      - name: Run the single complete-packet comparison without a server or truncation
+        run: python3 tools/compare-e9-q35.py compare
+      - name: Export the complete permissible response and non-prose provenance
+        if: always()
+        run: python3 tools/compare-e9-q35.py export
+      - name: Preserve comparison outputs and non-prose fidelity records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-q35-readable-r3-r1-${{ github.sha }}
+          path: |
+            test-results/e9-q35-readable-r3-r1
+            test-results/e9-readable-r3/report.json
+            test-results/e9-readable-r3/field-audit.json
+            test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14

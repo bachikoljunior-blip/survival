@@ -1,0 +1,111 @@
+{
+  "round": 2,
+  "profile": "narrative-acquisition-method",
+  "tier": "cpu-contract",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "verdictMeaning": "No remaining demonstrated defect within the reviewed source and focused CPU contracts. This is not a successful real browser acquisition, ordinary play verification, or element-completion judgment.",
+  "blindComparison": "Not a blind comparison: implementation source was used only for this acquisition-method review. No stranger preference or E-08/E-09 quality judgment is made. Eventual quality judges must receive actual CI-emitted material without implementation source, these fixtures, or this review.",
+  "findings": [],
+  "sourceManifest": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/source-manifest.json",
+  "targetHashes": {
+    "tools/playthrough.mjs": {
+      "bytes": 8241,
+      "sha256": "28f5b17a675c20e63ceafaf3a16fecccc893638aeada1c7b1cc09f6dc29d2681"
+    },
+    "tools/driver.js": {
+      "bytes": 19511,
+      "sha256": "6e229394d85140b7df721fd70ab777cd48085fe2779053af689d7edf9e4824cf"
+    },
+    ".github/workflows/gates.yml": {
+      "bytes": 5574,
+      "sha256": "9be553d6ac69afa078f6d2f94261bcd46242ba35581be284075b44e1354548e1"
+    }
+  },
+  "evidence": [
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-contract.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-contract-results.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-incomplete-capture-cases.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-pageerror-case.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-log-en.txt",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/cpu-log-ja.txt"
+  ],
+  "checks": {
+    "groupsPassed": 10,
+    "groupsFailed": 0,
+    "description": "Original receiver/arguments/return/exception identity; actual UI methods plus Japanese localization under CPU DOM stubs; localized selection with authored-index baseline; optional mode; exact frozen bundle hash; English/Japanese lossless multichunk file/hash/base64; driver failure; five incomplete-capture controls; browser-error failure."
+  },
+  "observations": [
+    {
+      "id": "O1",
+      "statement": "The two wrappers call the original once using apply(this,args), then record post-method UI text/ending DOM paragraphs, and return the original result. CPU identity and exception checks pass.",
+      "limit": "Preservation is established for valid current receiver/data shapes. Dialogue is normalized this.full and choices are localized UI arguments; this does not prove finished browser rendering, typewriter timing, audio, or visual obstruction. Ending paragraphs are post-method DOM text."
+    },
+    {
+      "id": "O2",
+      "statement": "The driver still selects by position in the current filtered authored-language choice list and calls ui.onChoose(idx). The new event reads the corresponding localized UI choice text before that call. Baseline and instrumented selected positions match; this index is not the stable original node choice index ci.",
+      "limit": "Selections are made by the deterministic driver, not by a human input recording."
+    },
+    {
+      "id": "O3",
+      "statement": "The final transcript retains raw driver execution separately from browserErrors, executionSucceeded, captureErrors, and captureSucceeded. Driver errors, injected browser errors, and five incomplete event cases produce non-success and process exit 1.",
+      "limit": "The ordinary per-path ok line describes the raw driver result; captureSucceeded and final process/report status govern acquisition eligibility. Basic nonempty/count predicates do not establish event identity, order, or full transcript completeness; the independent control demonstrated that a same-count unoffered choice can pass them. Startup/browser/serialization exceptions can terminate before producing a transcript; absence is not success."
+    },
+    {
+      "id": "O4",
+      "statement": "The frozen bundle is cinderline.1.0.0.js, SHA-256 0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b. The matching index names that file. Multiple matching bundles are rejected before launch.",
+      "limit": "This is a local file provenance check; actual CI output must carry its own exact SHA and be matched to its build."
+    },
+    {
+      "id": "O5",
+      "statement": "Encoded payload bytes match the exact newline-terminated artifact bytes and metadata SHA for both English and Japanese; Japanese fixture includes a supplementary character, emoji, combining text and multiple chunks.",
+      "limit": "This verifies byte fidelity under the source protocol. It does not establish remote log retrieval success, and fixtures are not product comparison material."
+    },
+    {
+      "id": "O6",
+      "statement": "The existing workflow builds production output and runs publish then deal with --transcript, preserving shots with an always upload step.",
+      "limit": "Actual CI has not run here. The sequential step can stop after a failed publish command, so deal must not be presumed captured after such a failure. Artifact upload can preserve failed or partial material; artifact presence alone is insufficient. This job does not run a Japanese story path."
+    }
+  ],
+  "scopeLimits": [
+    "CPU-only: no local browser, server, mobile helper, CI launch, or actual game recording.",
+    "Driver teleports, grants gas immunity, applies forced hostile damage, finishes typewriter text, shortens the crisis countdown, forces Nessa visible, and accelerates progression. It does not verify ordinary-paced play, combat, movement, survival, conditional-ending integration or full narrative quality.",
+    "The new nonempty/count checks establish basic acquisition completeness, not every dialogue branch, every ending, temporal fidelity, or full narrative causality.",
+    "E-08 and E-09 remain not measured by this method review. Eventual assessors must use actual emitted game material, not implementation source or these CPU fixtures."
+  ],
+  "historicalFailuresPreservedAt": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r1",
+  "separateRefutation": {
+    "path": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/refutation.json",
+    "independentChecksPassed": 6,
+    "independentChecksFailed": 0,
+    "originalReviewPreserved": true
+  },
+  "productEdits": false,
+  "refutationDisposition": {
+    "survivingFindings": 0,
+    "wordingCorrected": "Filtered choice-list position is distinguished from stable ci. Nonempty/count checks are explicitly limited; detailed driver shortcuts remain outside ordinary-play claims.",
+    "rawReview": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/review-raw.json",
+    "independentReplay": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/independent-cpu-refutation.mjs",
+    "independentResults": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r2/independent-cpu-results.json",
+    "harnessReplayCaution": "The original cpu-contract.mjs is the recorded acquisition harness and has snapshot/setup side effects. The independent script uses only frozen material."
+  },
+  "currentTargetCheck": [
+    {
+      "path": "tools/playthrough.mjs",
+      "sha256": "28f5b17a675c20e63ceafaf3a16fecccc893638aeada1c7b1cc09f6dc29d2681",
+      "matchesReviewedSnapshot": true
+    },
+    {
+      "path": "tools/driver.js",
+      "sha256": "6e229394d85140b7df721fd70ab777cd48085fe2779053af689d7edf9e4824cf",
+      "matchesReviewedSnapshot": true
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "sha256": "9be553d6ac69afa078f6d2f94261bcd46242ba35581be284075b44e1354548e1",
+      "matchesReviewedSnapshot": true
+    }
+  ]
+}

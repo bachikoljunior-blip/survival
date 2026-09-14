@@ -1,0 +1,18 @@
+{
+  "checked_at": "2026-09-14T09:45:26.406878+09:00",
+  "verified_public_source": "https://factorio.com/download",
+  "source_description": "Official page identifies stable 2.0.77 and a free publicly accessible demo subset; reading that page is not execution.",
+  "attempts": [
+    {
+      "url": "https://factorio.com/download",
+      "method": "ordinary Python urllib GET",
+      "result": "HTTP 403; no page downloaded"
+    },
+    {
+      "url": "https://factorio.com/get-download/2.0.77/demo/linux64",
+      "method": "ordinary Python urllib GET",
+      "result": "HTTP 403; no demo downloaded or executed"
+    }
+  ],
+  "boundary": "No authentication, altered identity, security bypass or alternative browser route was used. Previously acquired/executed headless references remain preserved. GUI reference acquisition is still incomplete."
+}

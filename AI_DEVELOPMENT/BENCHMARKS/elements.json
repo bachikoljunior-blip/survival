@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "concept_revision": "2026-08-01.1",
+  "inherited_from_commit": "d5369219a99c37191e4affd170a752142a6cdc63",
+  "criteria_lock": "AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json",
+  "concept_authorities": [
+    "docs/directive.md",
+    "docs/bible.md"
+  ],
+  "coverage": {
+    "空気が地形である・同じ制約が全員にかかる": [
+      "E-02",
+      "E-04",
+      "E-06",
+      "E-13"
+    ],
+    "現代都市・危機・探索・三人称の連続した地区": [
+      "E-03",
+      "E-04",
+      "E-05",
+      "E-16"
+    ],
+    "生存の緊張と意味ある戦闘": [
+      "E-01",
+      "E-06",
+      "E-11",
+      "E-12",
+      "E-13",
+      "E-17"
+    ],
+    "成熟した人間的な物語・悪役の不在・真実と他者の生存・採点しない選択と帰結": [
+      "E-08",
+      "E-09",
+      "E-10"
+    ],
+    "数値膨張のない能力による進行": [
+      "E-07"
+    ],
+    "モバイルWeb・タッチ優先・利用可能性・静的で生成される独自の作品": [
+      "E-14",
+      "E-15",
+      "E-16",
+      "E-18",
+      "E-19"
+    ]
+  },
+  "coverage_audit": "既存コンセプトの構成部分を既存一覧に対応付けた。分割・参照変更はしていない。最大比較単位の根拠と4軸の公開資料裏付けには旧記録の欠落があり、補完を継続する。",
+  "elements": [
+    {
+      "id": "E-01",
+      "name": "戦闘",
+      "reference_id": "W1",
+      "reference_work": "Dark Souls",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "戦闘の予備動作・入力後の応答・防御回避・離脱を含む実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-02",
+      "name": "移動",
+      "reference_id": "W1",
+      "reference_work": "Dark Souls",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "段差・登坂・走行・スタミナ制約を含む実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-03",
+      "name": "カメラ",
+      "reference_id": "W6",
+      "reference_work": "God of War",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "壁際・狭所・旋回・戦闘中の追従と遮蔽物を含む実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-04",
+      "name": "世界設計",
+      "reference_id": "W2",
+      "reference_work": "Dishonored 2",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "地区内の高低差・経路の選択肢・ランドマークを連続移動する動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-05",
+      "name": "探索",
+      "reference_id": "W2",
+      "reference_work": "Dishonored 2",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "誘導情報から寄り道と発見・再合流までの実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-06",
+      "name": "AI",
+      "reference_id": "W2",
+      "reference_work": "Dishonored 2",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "感知から追跡・遮蔽・危険回避・探索解除までの実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-07",
+      "name": "進行",
+      "reference_id": "W2",
+      "reference_work": "Dishonored 2",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "能力獲得の文脈と獲得前後に可能な経路・戦術が変わる実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-08",
+      "name": "物語",
+      "reference_id": "W4",
+      "reference_work": "Disco Elysium",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "伏線から葛藤・選択・回収まで対応する実際のゲーム内文章とプレイ記録",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-09",
+      "name": "キャラクター",
+      "reference_id": "W4",
+      "reference_work": "Disco Elysium",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "対立時の話し方・目的・変化が分かる実際の対話文章とプレイ記録",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-10",
+      "name": "選択と結果",
+      "reference_id": "W5",
+      "reference_work": "Fallout: New Vegas",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "同じ決断の選択肢と異なる帰結を映す複数の実プレイ記録",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-11",
+      "name": "UI（HUD・情報設計）",
+      "reference_id": "W3",
+      "reference_work": "Alien: Isolation",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "危険・資源・目標・入力の状態を読む実プレイ動画と画面",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-12",
+      "name": "音響",
+      "reference_id": "W3",
+      "reference_work": "Alien: Isolation",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "環境音・敵・ガス・命中の音を含む同条件の実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-13",
+      "name": "環境ハザードの可読性",
+      "reference_id": "W3",
+      "reference_work": "Alien: Isolation",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "危険の予兆・侵入・対処・回復を読む実プレイ動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-14",
+      "name": "UI（メニュー・字幕・アクセシビリティ）",
+      "reference_id": "W8",
+      "reference_work": "The Last of Us Part II",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "メニュー・字幕・設定変更・復帰を含むスマートフォン相当の実画面記録",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-15",
+      "name": "タッチ操作",
+      "reference_id": "W9",
+      "reference_work": "Genshin Impact",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "複数指操作・持ち替え・設定・中断から復帰するタッチ実行動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-16",
+      "name": "映像",
+      "reference_id": "W7",
+      "reference_work": "INSIDE",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "構図・光・素材・奥行きを比較できる対応する実際の場面の画面と動画",
+      "blocker": "実際の両作品8画像ずつを評価したが参照を認識したため無効。画質差と比較方法の両方を改善する。",
+      "attempts": [
+        "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/comparison-7d42/provenance.json"
+      ]
+    },
+    {
+      "id": "E-17",
+      "name": "アニメーション",
+      "reference_id": "W1",
+      "reference_work": "Dark Souls",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "歩行・走行・着地・回避・被弾・攻撃の連続した実アニメーション動画",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-18",
+      "name": "性能",
+      "reference_id": "W9",
+      "reference_work": "Genshin Impact",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "近いスマートフォン条件の移動・戦闘・高密度場面・遷移の実動画。測定値は診断のみ",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    },
+    {
+      "id": "E-19",
+      "name": "安定性",
+      "reference_id": "W10",
+      "reference_work": "Factorio",
+      "status": "not measured",
+      "build": null,
+      "comparison": null,
+      "comparison_method": "起動・保存・中断・復帰・失敗時回復を実際に行った実画面記録",
+      "blocker": "実際の参照資料と、出所を識別できない評価者による有効な比較が未取得"
+    }
+  ]
+}

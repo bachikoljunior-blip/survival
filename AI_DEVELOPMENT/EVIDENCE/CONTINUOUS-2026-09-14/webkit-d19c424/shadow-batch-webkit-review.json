@@ -1,0 +1,757 @@
+{
+  "verdict": "FAIL",
+  "score": 90,
+  "scoreMeaning": "Bounded visual review: one remaining minor readability finding. This is not an element score or a product-wide verdict.",
+  "round": "d19c424-actual-shadow-batch-webkit",
+  "profile": "Source-aware review of actual Playwright WebKit native frames with same-pose renderer controls",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "blindComparison": "No source-blind reference comparison was performed. The reviewers know the production source and build. Neither image-control equality nor reduced renderer submissions establishes a concept-element satisfied verdict or physical-smartphone frame rate.",
+  "verdictScope": "FAIL concerns the remaining Marrow roof upper-body readability issue. No new visible regression caused by the batching toggle was found in the five sampled still views. The verified renderer correction may be retained within this measured scope; image-quality work remains.",
+  "target": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "testedCommit": "d19c4240c8dd83b72530abe780315c456367358f",
+    "checkoutHeadAtReview": "d19c4240c8dd83b72530abe780315c456367358f",
+    "buildFingerprint": "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897",
+    "buildFingerprintDefinition": "tools/work_state.mjs currentBuildHash(): hashes src, public, build inputs and distributable bytes. Independently recomputed and matched; not a single bundle hash.",
+    "bundleSha256": "fcfed5d46fa2deb0ca3eef507b6da0f80a8b1b027e1059bf6db45a48b6b19d1a",
+    "sourceHashes": {
+      "src/game/game.js": "8ceb37dba71927f2eb950b93fb60941d65b66c44c5dd995d393e99f2ed896354",
+      "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+      "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+      "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+      "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+      "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+      "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+      "tools/mobile_visual_capture.mjs": "057fc56c417f7e606403f6c74c1c2428f7d54271521cf7e53613c39ef33aa4fa",
+      "tools/mobile_shadow_contact.mjs": "e40a21800bd1920ba43c933402442c59405891487c8403ac11d63561f4d16b4b"
+    },
+    "report": "ci-d19c424/report.json",
+    "reportSha256": "d8e657fd49b59da6623c31d2189c2feedff1703b92253cc58e7e5c0ece7dc795",
+    "reportCheckedAtUTC": "2026-09-14T00:58:12.160Z",
+    "reportCheckedAtJST": "2026-09-14T09:58:12.160+09:00",
+    "runId": 34794241077,
+    "jobId": 103824151402,
+    "artifactId": 10329202308,
+    "remoteIdProvenance": "Run, job and artifact identifiers were supplied by the coordinator; this reviewer did not perform a remote lookup.",
+    "archive": {
+      "file": "survival-webkit-d19c424.zip",
+      "bytes": 193139881,
+      "sha256": "02a1ad1ad0ea7d6e6a8a9e61a429615bc8718f7ec261fdc933b5f45e6b1c61ed",
+      "verified": true,
+      "fileEntries": 83,
+      "extractedFiles": 83,
+      "correction": "The actual zip and extraction contain 83 files, not the initially stated 84."
+    }
+  },
+  "environment": {
+    "browser": "webkit",
+    "viewportCSS": "667x375",
+    "dpr": 2,
+    "native": "1147x645",
+    "tier": "medium",
+    "shadowMap": "1024x1024",
+    "bias": -0.0009,
+    "normalBias": 0.028,
+    "setup": "Programmatic fresh-game teleport/inspection placement and simulation settling. This is not a traversal playthrough.",
+    "boundary": "The CI browser emulates an iPhone viewport; no physical iPhone speed is inferred."
+  },
+  "findings": [
+    {
+      "severity": "minor",
+      "shot": "visual-marrow_roof-frame.png and shadow-marrow_roof-unbatched.png",
+      "problem": "In this captured rooftop view, the head and upper body around x480..545/y275..365 merge into the almost black forward wall; arm pose and clothing outlines are hard to distinguish in both variants.",
+      "why": "The third-person character loses readable upper-body detail at this view. Lower legs remain silhouetted against the brighter floor, so the observation does not mean the whole character is invisible.",
+      "owner": "src/render/atmosphere.js",
+      "fix": "Diagnose the material, illumination and camera contributions while keeping this recorded pose/view available. Run node tools/test-iphone-webkit.mjs after a correction and have an independent viewer check head, torso and arm boundaries in this same native roof view plus the other four controls; zero unresolved upper-body silhouette-loss observations in those sampled views is the target. Add an actual view of the retained supported roof items. Image inspection must demonstrate the result; pixel statistics alone are not a quality test.",
+      "hypothesis": "Mechanism unconfirmed. Identical batched/unbatched pixels refute attribution to this batching toggle; the observation does not establish whether light direction, surface normals, material response, or framing is the main cause.",
+      "refutation": "survives_after_narrowing",
+      "evidence": {
+        "files": [
+          "visual-marrow_roof-frame.png",
+          "shadow-marrow_roof-unbatched.png"
+        ],
+        "region": [
+          480,
+          275,
+          545,
+          365
+        ],
+        "lowerBodyReadable": true,
+        "batchRegressionProven": false,
+        "images": [
+          {
+            "variant": "cached",
+            "file": "visual-marrow_roof-frame.png",
+            "bytes": 1048029,
+            "width": 1147,
+            "height": 645,
+            "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+            "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+          },
+          {
+            "variant": "refreshed",
+            "file": "shadow-marrow_roof-refreshed.png",
+            "bytes": 1048029,
+            "width": 1147,
+            "height": 645,
+            "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+            "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+          },
+          {
+            "variant": "unbatched",
+            "file": "shadow-marrow_roof-unbatched.png",
+            "bytes": 1048029,
+            "width": 1147,
+            "height": 645,
+            "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+            "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+          },
+          {
+            "variant": "repeat",
+            "file": "shadow-marrow_roof-repeat.png",
+            "bytes": 1048029,
+            "width": 1147,
+            "height": 645,
+            "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+            "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+          }
+        ],
+        "independentRefutation": "The second reviewer retained the upper-body issue and narrowed it: lower legs remain readable. Both render paths share it, so the batching toggle is refuted as its cause."
+      }
+    }
+  ],
+  "validation": {
+    "reportedChecks": 148,
+    "reportedPassing": 148,
+    "reportedFailures": [],
+    "independentlyVerifiedNativeFiles": 20,
+    "pngAndRgbaHashesMatchReport": 20,
+    "nativeDimensionsMatchReport": 20,
+    "poseBeforeAfterPairsEqual": 5,
+    "productionCaptureMatchesDiagnosticBefore": 5,
+    "cachedRefreshedPairsWithZeroDifferentPixels": 5,
+    "refreshedRepeatPairsWithZeroDifferentPixels": 5,
+    "visualInspection": "Each reviewer viewed all five production and all five unbatched source files. The separately verified identical cached/refreshed/repeat bytes carry the same visual contents; no invented new render was used.",
+    "unsupportedSourceMeaning": "unsupportedSources=0 means no active caster source was unsupported by the batch conversion. It is not a count of physically unsupported world props."
+  },
+  "rendererSubmissionComparison": [
+    {
+      "name": "stacks",
+      "unbatched": {
+        "draws": 145,
+        "triangles": 223759,
+        "shadowCallbacks": 83,
+        "shadowTriangles": 120086
+      },
+      "production": {
+        "draws": 66,
+        "triangles": 195293,
+        "shadowCallbacks": 2,
+        "shadowTriangles": 91620
+      },
+      "triangleReduction": 28466,
+      "nonShadowTriangles": 103673,
+      "nonShadowTrianglesEqual": true,
+      "extraNonShadowDrawResidual": 2,
+      "unsupportedBatchSources": 0
+    },
+    {
+      "name": "arcade",
+      "unbatched": {
+        "draws": 255,
+        "triangles": 244247,
+        "shadowCallbacks": 129,
+        "shadowTriangles": 160976
+      },
+      "production": {
+        "draws": 130,
+        "triangles": 202237,
+        "shadowCallbacks": 2,
+        "shadowTriangles": 118966
+      },
+      "triangleReduction": 42010,
+      "nonShadowTriangles": 83271,
+      "nonShadowTrianglesEqual": true,
+      "extraNonShadowDrawResidual": 2,
+      "unsupportedBatchSources": 0
+    },
+    {
+      "name": "cinder",
+      "unbatched": {
+        "draws": 241,
+        "triangles": 216635,
+        "shadowCallbacks": 130,
+        "shadowTriangles": 87284
+      },
+      "production": {
+        "draws": 115,
+        "triangles": 182139,
+        "shadowCallbacks": 2,
+        "shadowTriangles": 52788
+      },
+      "triangleReduction": 34496,
+      "nonShadowTriangles": 129351,
+      "nonShadowTrianglesEqual": true,
+      "extraNonShadowDrawResidual": 2,
+      "unsupportedBatchSources": 0
+    },
+    {
+      "name": "ventfield",
+      "unbatched": {
+        "draws": 160,
+        "triangles": 71193,
+        "shadowCallbacks": 81,
+        "shadowTriangles": 37402
+      },
+      "production": {
+        "draws": 83,
+        "triangles": 54121,
+        "shadowCallbacks": 2,
+        "shadowTriangles": 20330
+      },
+      "triangleReduction": 17072,
+      "nonShadowTriangles": 33791,
+      "nonShadowTrianglesEqual": true,
+      "extraNonShadowDrawResidual": 2,
+      "unsupportedBatchSources": 0
+    },
+    {
+      "name": "marrow_roof",
+      "unbatched": {
+        "draws": 272,
+        "triangles": 326445,
+        "shadowCallbacks": 141,
+        "shadowTriangles": 170468
+      },
+      "production": {
+        "draws": 135,
+        "triangles": 276673,
+        "shadowCallbacks": 2,
+        "shadowTriangles": 120696
+      },
+      "triangleReduction": 49772,
+      "nonShadowTriangles": 155977,
+      "nonShadowTrianglesEqual": true,
+      "extraNonShadowDrawResidual": 2,
+      "unsupportedBatchSources": 0
+    }
+  ],
+  "rendererInterpretation": "These are same-build original-caster versus production-batch totals. Arcade is 255 draws/244247 triangles versus 130/202237, and Marrow roof is 272/326445 versus 135/276673. Across all five views the total triangle reduction exactly equals shadow triangle reduction and non-shadow triangles remain equal. The batched path has two additional non-shadow draw residuals consistent with its two zero-count proxy color calls, as documented by the hooks; these calls add no triangles. perfSnapshot timing percentiles describe the prior sample window, not timings of the three individual diagnostic variants.",
+  "views": [
+    {
+      "name": "stacks",
+      "observation": "The production and original-caster images retain the player, ground debris and brick-wall shading. No obvious new shadow-shape regression is visible in this still comparison.",
+      "camera": {
+        "position": [
+          -111.58,
+          1.671123305478851,
+          -80.40876941906463
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 57.999896027873724,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -112,
+          0,
+          -84
+        ],
+        "yaw": 0,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-stacks-frame.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-stacks-refreshed.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-stacks-unbatched.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "4dfde65995ca6d06e71003e4504ac54301bbcdaca63416fc92e640e0a597e8dc",
+          "rgbaSha256": "93e6302d44e05475a90ad3a24f2e663474ae7a77462b13a0d10eda87ce2f19bf"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-stacks-repeat.png",
+          "bytes": 1433640,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2",
+          "rgbaSha256": "26f7eb61996c05264a346d78b9a7dfac38e4a3e222627f35655c8a72700f63c1"
+        }
+      ],
+      "controls": {
+        "cachedRefreshed": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedRepeat": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedUnbatched": {
+          "differentPixels": 1,
+          "differentChannels": 3,
+          "maxChannelDifference": 3,
+          "meanAbsoluteChannelDifference": 0.0000027033785473395374,
+          "bbox": [
+            528,
+            394,
+            528,
+            394
+          ]
+        }
+      }
+    },
+    {
+      "name": "arcade",
+      "observation": "The former sky AC body around x588..625/y76..108 and the three nearby debris silhouettes are absent. The road scene, wall-mounted pieces and remaining props remain visible. The large vertical rusty fire-escape panel around x632..694/y134..254 remains visually isolated; its support is not established by this image, and it is not attributed to batching. The darkest player shadow patch still lies to the lower-left; its displacement alone does not establish floating feet.",
+      "camera": {
+        "position": [
+          -104.92,
+          1.8111233054782914,
+          -10.091230580935367
+        ],
+        "quaternion": [
+          -2.136977846428571e-18,
+          0.9993908270190958,
+          0.03489949670250097,
+          6.119503887030809e-17
+        ],
+        "fov": 57.999999999999865,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -104.5,
+          0.14,
+          -6.5
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-arcade-frame.png",
+          "bytes": 1365958,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-arcade-refreshed.png",
+          "bytes": 1365958,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-arcade-unbatched.png",
+          "bytes": 1365953,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "2d682bee8256349da2cab36eab7533b318729c339404faad57792f00a719c931",
+          "rgbaSha256": "be8e581d7157df17644af98a2eadaa9950a6dfbec2989e4db36a2839377df1d0"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-arcade-repeat.png",
+          "bytes": 1365958,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7",
+          "rgbaSha256": "7f439aadd3ef30b9f70899e599cb0a9fd8f87b879371ddc386d0e9d4c0b696c4"
+        }
+      ],
+      "controls": {
+        "cachedRefreshed": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedRepeat": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedUnbatched": {
+          "differentPixels": 229,
+          "differentChannels": 487,
+          "maxChannelDifference": 6,
+          "meanAbsoluteChannelDifference": 0.00028858565992849564,
+          "bbox": [
+            97,
+            10,
+            560,
+            347
+          ]
+        }
+      }
+    },
+    {
+      "name": "cinder",
+      "observation": "A dark player shadow is present next to and to the right of the boots in the ordinary production image. Forced refresh produces identical bytes, resolving the previous captured stale-map symptom here. The full character and right-building shadow details remain visible in the unbatched comparison.",
+      "camera": {
+        "position": [
+          25.42,
+          1.671123305478851,
+          -6.408769419064633
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          25,
+          0,
+          -10
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-cinder-frame.png",
+          "bytes": 1338983,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-cinder-refreshed.png",
+          "bytes": 1338983,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-cinder-unbatched.png",
+          "bytes": 1338990,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "367933378d01145a5ddc1dec0bf05a2339b497c4114203023d85720c7b4ccf68",
+          "rgbaSha256": "8e5e0f1bef0b352e05e70495834e1029a1cfbc4d315922289317aaf8e59a53de"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-cinder-repeat.png",
+          "bytes": 1338983,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4",
+          "rgbaSha256": "3914c31ce667f71b8bcb541b8bc4e981331a4bcec4b20d151037c4b8c26af86c"
+        }
+      ],
+      "controls": {
+        "cachedRefreshed": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedRepeat": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedUnbatched": {
+          "differentPixels": 66,
+          "differentChannels": 157,
+          "maxChannelDifference": 3,
+          "meanAbsoluteChannelDifference": 0.00009123902597270939,
+          "bbox": [
+            410,
+            247,
+            1112,
+            344
+          ]
+        }
+      }
+    },
+    {
+      "name": "ventfield",
+      "observation": "The side-on player, yard props and gas field retain the same visible shadows. The production and unbatched images are exactly identical in this captured pose; no new visual regression is identified.",
+      "camera": {
+        "position": [
+          78.40493367488354,
+          1.608409452894917,
+          -59.58
+        ],
+        "quaternion": [
+          0.018509897659266823,
+          0.7068644733530208,
+          0.018509897659266826,
+          -0.7068644733530207
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          82,
+          0,
+          -60
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-ventfield-frame.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-ventfield-refreshed.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-ventfield-unbatched.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-ventfield-repeat.png",
+          "bytes": 1286051,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443",
+          "rgbaSha256": "eb0c1bea71fb35de23938a9983523f54673b2e35ef0b96e1fac812db0694fb04"
+        }
+      ],
+      "controls": {
+        "cachedRefreshed": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedRepeat": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedUnbatched": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        }
+      }
+    },
+    {
+      "name": "marrow_roof",
+      "observation": "The production and unbatched images are exactly identical. The roof floor and lower-body silhouette remain readable, but the head and upper body merge into the nearly black wall. This view does not make the previously retained pellroof/kettleroof/drayroof scatter items sufficiently identifiable for a visual-retention judgment.",
+      "camera": {
+        "position": [
+          -56.419721217280134,
+          11.95630253345137,
+          -16.42
+        ],
+        "quaternion": [
+          -0.03700710955926801,
+          0.7061377159181261,
+          0.037007109559268,
+          0.7061377159181262
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "player": {
+        "position": [
+          -60,
+          10.159999999999998,
+          -16
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "files": [
+        {
+          "variant": "cached",
+          "file": "visual-marrow_roof-frame.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "refreshed",
+          "file": "shadow-marrow_roof-refreshed.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "unbatched",
+          "file": "shadow-marrow_roof-unbatched.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        },
+        {
+          "variant": "repeat",
+          "file": "shadow-marrow_roof-repeat.png",
+          "bytes": 1048029,
+          "width": 1147,
+          "height": 645,
+          "pngSha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18",
+          "rgbaSha256": "4fa3ec328df9355d519846e4501d43f17f725a6884986ca80ade47f5f584df61"
+        }
+      ],
+      "controls": {
+        "cachedRefreshed": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedRepeat": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        },
+        "refreshedUnbatched": {
+          "differentPixels": 0,
+          "differentChannels": 0,
+          "maxChannelDifference": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "bbox": null
+        }
+      }
+    }
+  ],
+  "pixelDifferenceInterpretation": "Batched/unbatched differences are 1, 229, 66, 0 and 0 pixels with maximum channel differences 3, 6, 3, 0 and 0 for stacks, Arcade, Cinder, Ventfield and Marrow roof. These values describe exact changes and controls, not preference or image quality. The lack of a visible batching regression is based on direct inspection as well as the controlled scope.",
+  "supportedRoofEvidenceBoundary": "The prior CPU repair review established 11 retained items with 257 supported projected vertices. The current named Marrow roof view does not clearly show those retained pellroof/kettleroof/drayroof items. Their post-repair appearance is not marked visually verified by this image set; capture an identifiable supported roof view in the next approved run.",
+  "independentRefutation": {
+    "agent": "/root/render_cost_review/refute_backdrop",
+    "file": "shadow-batch-webkit-refutation.json",
+    "sha256": "2fd208546f85441e6eb181c7fb80cfcd7ebceafaa05254979b7a421d454a0ac1",
+    "outcome": "One narrowed minor upper-body readability finding survives. New batching regression was not found; unsupported-panel geometry and physical foot floating are not concluded."
+  },
+  "measurementArtifacts": {
+    "file": "d19c424-image-integrity.json",
+    "sha256": "042f8a2689bb779c05ecc2cdda962bddf5a55928cfca340242aeae6a4381b24c"
+  },
+  "nextActions": [
+    "Retain the measured stale-shadow correction and batching evidence without promoting any element to satisfied.",
+    "Diagnose and correct the surviving roof upper-body readability issue, preserving matched before/after evidence.",
+    "Capture supported roof dressing at an identifiable retained location. Investigate the remaining isolated Arcade fire-escape panel before attributing or changing its support."
+  ],
+  "completedAtUTC": "2026-09-14T01:15:06.226Z",
+  "structuredValidation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

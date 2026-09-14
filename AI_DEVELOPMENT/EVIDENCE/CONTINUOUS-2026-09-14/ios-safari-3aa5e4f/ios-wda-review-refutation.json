@@ -1,0 +1,265 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "verdictScope": "The actual 3aa5e4f WDA/Safari execution failed before any browser check. The proposed next trial is not a passed implementation or proven root-cause repair.",
+  "round": "ios-wda-startup-independent-refutation-2026-09-14",
+  "profile": "Independent recorded-log and primary-documentation refutation of the proposed SDK-aligned runtime, extended WDA launch wait and Xcode log visibility",
+  "tier": "Source/log review only; no browser or simulator execution",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No images were evaluated in this review.",
+  "blindComparison": "No blind comparison or quality preference was evaluated. This is a startup-log review with known provenance. All actual Safari/game behavior after the proposed changes remains not measured.",
+  "checkedAt": "2026-09-14T04:07:10.693Z",
+  "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+  "scope": "Run 34803864630 at commit prefix 3aa5e4f, its preserved Appium log and report, and the proposed changes stated by the parent. At initial review git diff for tools/test-ios-safari.mjs and both relevant workflows was empty: the new SDK-selector/timeout/log settings are a proposal, not an implementation validated here. No repository target, raw log or earlier review JSON was edited.",
+  "observedRun": {
+    "runId": 34803864630,
+    "url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34803864630",
+    "commitPrefix": "3aa5e4f",
+    "appium": "3.6.0",
+    "xcuitest": "12.1.3",
+    "xcode": "16.4",
+    "runtime": "26.2",
+    "headlessAccepted": true,
+    "reportStatus": "failed",
+    "executedSafariChecks": 0
+  },
+  "evidenceFiles": [
+    {
+      "path": "ci-ios-3aa5e4f/appium.log",
+      "bytes": 63713,
+      "sha256": "7eaea76261f560a05e95559a2d192169a8b29b2c0adb8a7a6e41c462b1ea472a"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/report.json",
+      "bytes": 847,
+      "sha256": "d02a8e19ff6e9b66983014b8c294655a6221e47b0c81d80b311793adabe4135a"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/simulator-inventory.json",
+      "bytes": 265506,
+      "sha256": "1d73dd6d107ed54d13278e47bd688b1c83f2e915dfb90cbe7a70cd570e59d20c"
+    },
+    {
+      "path": "survival/tools/test-ios-safari.mjs",
+      "bytes": 20591,
+      "sha256": "079019b0632d7c0e1b293f699cf837b4628b257c1a573c369eb7198215fd71b7"
+    },
+    {
+      "path": "survival/.github/workflows/mobile-simulator.yml",
+      "bytes": 4166,
+      "sha256": "c13b82cdfa28d4a9d16fef96c38f86ad8991db46c7a71e1d6b5a012dae93dede"
+    },
+    {
+      "path": "survival/.github/workflows/pages.yml",
+      "bytes": 6620,
+      "sha256": "e179a39c2adf188f6f59894d6d93212ed4ba9abcdfa93846881271e133553c37"
+    },
+    {
+      "path": "ios-bootstrap-refutation.json",
+      "bytes": 10392,
+      "sha256": "cb88bd482aa644d3ff03f76e0dedefa402edd23f641de997a5c457185477025e"
+    }
+  ],
+  "measuredLogFacts": {
+    "sessionRequest": {
+      "capabilities": {
+        "alwaysMatch": {
+          "platformName": "iOS",
+          "browserName": "Safari",
+          "appium:automationName": "XCUITest",
+          "appium:deviceName": "iPhone SE (3rd generation)",
+          "appium:udid": "48B2DA2E-AF18-4E36-BB25-B25969A4EBCF",
+          "appium:platformVersion": "26.2",
+          "appium:noReset": true,
+          "appium:isHeadless": true,
+          "appium:newCommandTimeout": 300,
+          "appium:safariAllowPopups": true,
+          "appium:includeSafariInWebviews": true
+        },
+        "firstMatch": [
+          {}
+        ]
+      }
+    },
+    "headlessAlreadyBooted": {
+      "line": 81,
+      "text": "2026-09-14 03:53:52:963 [f4013cf3][XCUITestDriver@9da3] Simulator with UDID '48B2DA2E-AF18-4E36-BB25-B25969A4EBCF' is already booted in headless mode.",
+      "timeUtc": "2026-09-14T03:53:52.963Z"
+    },
+    "simStarted": {
+      "line": 84,
+      "text": "2026-09-14 03:54:00:884 [f4013cf3][XCUITestDriver@9da3] Event 'simStarted' logged at 1789358040883 (03:54:00 GMT+0000 (Coordinated Universal Time))",
+      "timeUtc": "2026-09-14T03:54:00.884Z"
+    },
+    "priorVisibleUiRestartMessagePresent": false,
+    "xcodebuildCommands": [
+      {
+        "line": 107,
+        "text": "2026-09-14 03:54:05:802 [f4013cf3][XCUITestDriver@9da3] Beginning test with command 'xcodebuild build-for-testing test-without-building -project /Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination id=48B2DA2E-AF18-4E36-BB25-B25969A4EBCF IPHONEOS_DEPLOYMENT_TARGET=26.2 GCC_TREAT_WARNINGS_AS_ERRORS=0 COMPILER_INDEX_STORE_ENABLE=NO' in directory '/Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'",
+        "timeUtc": "2026-09-14T03:54:05.802Z"
+      },
+      {
+        "line": 499,
+        "text": "2026-09-14 03:56:23:308 [f4013cf3][XCUITestDriver@9da3] Beginning test with command 'xcodebuild build-for-testing test-without-building -project /Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination id=48B2DA2E-AF18-4E36-BB25-B25969A4EBCF IPHONEOS_DEPLOYMENT_TARGET=26.2 GCC_TREAT_WARNINGS_AS_ERRORS=0 COMPILER_INDEX_STORE_ENABLE=NO' in directory '/Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'",
+        "timeUtc": "2026-09-14T03:56:23.308Z"
+      }
+    ],
+    "declaredWaits": [
+      {
+        "line": 109,
+        "text": "2026-09-14 03:54:08:721 [f4013cf3][XCUITestDriver@9da3] Waiting up to 60000ms for WebDriverAgent to start",
+        "timeUtc": "2026-09-14T03:54:08.721Z"
+      },
+      {
+        "line": 501,
+        "text": "2026-09-14 03:56:27:472 [f4013cf3][XCUITestDriver@9da3] Waiting up to 60000ms for WebDriverAgent to start",
+        "timeUtc": "2026-09-14T03:56:27.472Z"
+      }
+    ],
+    "firstWaitToTimeoutMessageMs": 123905,
+    "firstAttemptStatusPollCount": 120,
+    "firstTimeout": {
+      "line": 478,
+      "text": "2026-09-14 03:56:12:626 [f4013cf3][XCUITestDriver@9da3] Unable to start WebDriverAgent: Error: We were not able to retrieve the /status response from the WebDriverAgent server after 60000ms timeout.Try to increase the value of 'appium:wdaLaunchTimeout' capability as a possible workaround.",
+      "timeUtc": "2026-09-14T03:56:12.626Z"
+    },
+    "teardown": {
+      "line": 486,
+      "text": "2026-09-14 03:56:12:643 [f4013cf3][XCUITestDriver@9da3] Shutting down 'xcodebuild' process (pid '7364')",
+      "timeUtc": "2026-09-14T03:56:12.643Z"
+    },
+    "observedXcodebuildExit": {
+      "line": 487,
+      "text": "2026-09-14 03:56:12:836 [f4013cf3][Xcode] xcodebuild exited with code 'null' and signal 'SIGTERM'",
+      "timeUtc": "2026-09-14T03:56:12.836Z"
+    },
+    "xcodeOutputLines": [
+      {
+        "line": 487,
+        "text": "2026-09-14 03:56:12:836 [f4013cf3][Xcode] xcodebuild exited with code 'null' and signal 'SIGTERM'",
+        "timeUtc": "2026-09-14T03:56:12.836Z"
+      }
+    ],
+    "secondAttempt": {
+      "line": 488,
+      "text": "2026-09-14 03:56:23:157 [f4013cf3][XCUITestDriver@9da3] Event 'wdaStartAttempted' logged at 1789358183157 (03:56:23 GMT+0000 (Coordinated Universal Time))",
+      "timeUtc": "2026-09-14T03:56:23.157Z"
+    },
+    "secondWaitToSessionAttemptMs": 7,
+    "secondWaitToSessionFailureMs": 121,
+    "secondSessionAttempt": {
+      "line": 502,
+      "text": "2026-09-14 03:56:27:479 [f4013cf3][XCUITestDriver@9da3] Event 'wdaSessionAttempted' logged at 1789358187479 (03:56:27 GMT+0000 (Coordinated Universal Time))",
+      "timeUtc": "2026-09-14T03:56:27.479Z"
+    },
+    "secondSessionFailure": {
+      "line": 507,
+      "text": "2026-09-14 03:56:27:593 [f4013cf3][XCUITestDriver@9da3] Event 'wdaSessionFailed' logged at 1789358187593 (03:56:27 GMT+0000 (Coordinated Universal Time))",
+      "timeUtc": "2026-09-14T03:56:27.593Z"
+    }
+  },
+  "officialSources": [
+    {
+      "url": "https://developer.apple.com/xcode/system-requirements/",
+      "retrievedAt": "2026-09-14T04:07:10.694Z",
+      "paraphrase": "Xcode 16.4 includes iOS SDK 18.5. Its Deployment Target range is iOS 15–18, but the legend defines that column as App Store Connect upload support. The separate Simulator column is iOS 15 or later.",
+      "interpretation": "These entries alone do not prove a Simulator compiler error for the observed IPHONEOS_DEPLOYMENT_TARGET=26.2 invocation."
+    },
+    {
+      "url": "https://appium.github.io/appium-xcuitest-driver/latest/reference/capabilities/",
+      "retrievedAt": "2026-09-14T04:07:10.694Z",
+      "paraphrase": "wdaLaunchTimeout controls the wait for WDA to answer and defaults to 60000 ms. showXcodeLog defaults to false and enables Xcode command output when true.",
+      "interpretation": "Both are supported diagnostic controls. The documented timeout is not proof that a larger value will succeed."
+    }
+  ],
+  "causalRefutations": [
+    {
+      "claim": "The headless change did not resolve the previously observed UI restart.",
+      "result": "Refuted for this actual run.",
+      "reason": "The accepted headless capability is followed by already booted in headless mode and simStarted. The prior visible-UI restart message is absent. Execution proceeds to WDA initialization; Safari/game success does not follow from this."
+    },
+    {
+      "claim": "The recorded Xcode16.4/SDK18.5 versus target26.2 proves compilation failed because the target is unsupported.",
+      "result": "Not established; reject the claimed certainty.",
+      "reason": "The raw log has the xcodebuild command with IPHONEOS_DEPLOYMENT_TARGET=26.2, but no recorded autonomous compiler diagnostic or numeric xcodebuild failure status. The only recorded xcodebuild exit is null/SIGTERM after Appium explicitly shuts it down. The Apple table column is not a compiler-error result."
+    },
+    {
+      "claim": "xcodebuild independently failed, causing Appium to stop waiting.",
+      "result": "Contradicted by the visible event order for the recorded exit.",
+      "reason": "WDA status polling fails first, Appium announces timeout, then shutdown, then xcodebuild exits with SIGTERM. This does not establish what xcodebuild was doing or exclude a hidden underlying build problem."
+    },
+    {
+      "claim": "The runner only waited 60 actual seconds, and insufficient wait is the confirmed root cause.",
+      "result": "Not established.",
+      "reason": "The log declares 60000 ms but the first wait announcement to timeout-message timestamps span 123905 ms with 120 status polls. There is no observation of later successful WDA startup. Cold compilation, a hang, runtime interaction or another cause may fit the same symptom."
+    },
+    {
+      "claim": "The second attempt supplies an independent full 60-second failed readiness wait.",
+      "result": "Refuted by recorded timing.",
+      "reason": "The second wait announcement is followed by wdaSessionAttempted after 7 ms and wdaSessionFailed after 121 ms. Why this retry progresses immediately is not resolved by this log review."
+    }
+  ],
+  "proposedChangeAssessment": [
+    {
+      "proposal": "Set appium:showXcodeLog=true.",
+      "assessment": "Directly justified diagnostic improvement.",
+      "reason": "The current log cannot separate compiler progress/failure from later WDA startup problems. Preserve full command output and process outcome in the next authorized CI evidence."
+    },
+    {
+      "proposal": "Set appium:wdaLaunchTimeout=240000.",
+      "assessment": "Reasonable finite recovery experiment; not a proven sufficient fix or confirmed cause.",
+      "reason": "The reported failure is WDA readiness timeout and Appium identifies this capability as a possible workaround. A longer bounded interval may let a cold build finish. Report actual timestamps and process output; do not equate the configured number with actual measured wait duration."
+    },
+    {
+      "proposal": "Select an available iPhone SE3 runtime matching active iphonesimulator SDK major/minor.",
+      "assessment": "Reasonable environment alignment trial; not proven mandatory by the failure evidence.",
+      "reason": "The inventory has an available iOS18.5 SE3, so the proposed alignment is possible if the actual selected SDK is 18.5. Read the active SDK on the runner rather than hard-code it from the public table. Require explicit failure when no match exists; do not silently claim a match or relabel the old iOS26.2 measurements."
+    },
+    {
+      "proposal": "Apply the bounded changes together to reach the next startup point.",
+      "assessment": "Permissible for progress, with causal attribution limited.",
+      "reason": "A success after multiple changes would establish the combined configuration, not which individual change was necessary. No repeated factorial trial is required merely to assign credit."
+    }
+  ],
+  "requiredNextEvidence": [
+    "The exact selected Xcode path, active iphonesimulator SDK version and chosen runtime/UDID.",
+    "The actual accepted Appium capabilities including the proposed timeout/log settings.",
+    "Visible xcodebuild progress or diagnostics, its exit status/signal, and WDA readiness timestamps.",
+    "Actual Mobile Safari and game checks after WDA startup; preserve failures and do not convert a bootstrap improvement into element satisfaction."
+  ],
+  "findings": [
+    {
+      "severity": "major",
+      "shot": "run34803864630/ci-ios-3aa5e4f/report.json and appium.log",
+      "problem": "The actual Mobile Safari gate completed zero browser checks because WDA never supplied a successful /status response and session creation failed.",
+      "why": "Simulator boot progressed, but the test never reached Safari/game behavior; no current simulator gameplay validation can be claimed from this run.",
+      "owner": "tools/test-ios-safari.mjs",
+      "fix": "In the next authorized CI, preserve active SDK/runtime selection and full Xcode output, use a finite WDA startup wait, and obtain a working WDA session followed by actual Safari checks. Inspect report.json: checks.length must be greater than zero; overall Safari success also requires status=passed. Preserve any remaining failure without relabeling it.",
+      "hypothesis": "The cause of WDA unavailability is unconfirmed. SDK/runtime alignment and a finite 240000 ms launch wait with showXcodeLog=true are a bounded next trial; this log does not prove compiler incompatibility or insufficient wait.",
+      "evidence": [
+        "report.json status=failed and checks=[]",
+        "appium.log headless already booted and simStarted before WDA initialization",
+        "appium.log WDA status timeout precedes explicit xcodebuild shutdown and null/SIGTERM exit"
+      ],
+      "refutation": "Independent log review confirms the symptom and zero-check count. No counterexample found. Root-cause certainty was explicitly rejected."
+    }
+  ],
+  "limitations": [
+    "This artifact critiques claims and a stated proposal; it is not a source review of an implemented new selector or timeout patch.",
+    "No browser, Appium server, Simulator, xcodebuild process or additional general test sweep was started.",
+    "Absence of a compiler error in this filtered log is not proof that compilation is healthy.",
+    "SDK/runtime alignment, longer wait and their combination remain unexecuted in this review.",
+    "Earlier ios-bootstrap-refutation.json is preserved as a separate historical review."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  },
+  "proposalReviewStatus": "Suggestions are diagnostic/recovery options only, not mandatory prerequisites proven by a compiler result."
+}

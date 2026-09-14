@@ -1,0 +1,356 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored sentinel required by critic schema. No audio quality score assigned.",
+  "verdictMeaning": "The recorded evaluator remains rejected. This bounded diagnostic verifies a runtime preprocessing mismatch, not model repair or a product/element result.",
+  "blindComparison": "No blind comparison or reference-media evaluation was performed. Nothing here predicts which sound a stranger would prefer, and all product/audio elements remain unmeasured.",
+  "round": "audio-evaluator-diagnostic-1",
+  "profile": "exact-input-runtime-source-critic",
+  "tier": "CPU-source-and-preprocessing-only",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No raster output applies to this diagnostic.",
+  "refutationStatus": "COMPLETE_SEPARATE_REFUTER",
+  "scope": {
+    "new_inference_runs": 0,
+    "model_downloads": 0,
+    "paid_api_calls": 0,
+    "product_edits": 0,
+    "reference_media_evaluations": 0,
+    "unchanged_controls_repeated_inference": 0,
+    "performed": "Read-only archive/PCM/GGUF/hash/version inspection; pinned upstream source review; isolated preprocessing source execution against both original controls."
+  },
+  "findings": [
+    {
+      "id": "AE-PREPROC-01",
+      "severity": "major",
+      "shot": "Exact zeroPCM negative control in b10809 Qwen2.5Omni audio preprocessing",
+      "problem": "The pinned runtime Whisper preprocessor yields -0.8061800003 in all 384000 mel values for the original four-second zeroPCM control; the Qwen reference Whisper processor yields -1.5. A single floor override makes the isolated source result match all 384000 values exactly.",
+      "why": "The selected runtime changes the representation of this known silent input before model encoding. This supports a controlled diagnostic correction and prevents attributing the failed negative control solely to model weights.",
+      "owner": "tools/mtmd/mtmd-audio.cpp",
+      "ownerRepository": "ggml-org/llama.cpp",
+      "ownerRef": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "fix": "Apply the reference 1e-10 floor in a separate copy of the validated Qwen/Whisper runtime path, preserving original binaries and outputs. Target: max absolute silence-feature error0 over384000 values; tone-control features unchanged. Read retained numeric evidence with python -m json.tool /workspace/scratch/0b7ad82bafe7/audio-evaluator-diagnostic-preprocess.json. A new full-runtime caption test requires fresh output paths; this preprocessing result does not establish inference repair.",
+      "hypothesis": "Confirmed mechanism for the feature mismatch: filter_params defaults mel_floor to5.960464477539063e-08 and Whisper does not override it before log10/clamp/normalization. Causality for the false silence caption is UNPROVEN. The same floor cannot explain the known-sequence transposition: original and changed tone features are byte-identical.",
+      "evidence": [
+        {
+          "file": "audio-evaluator-diagnostic-source-clip.cpp",
+          "lines": [
+            1285,
+            1288,
+            1765,
+            1785
+          ],
+          "claim": "qwen2.5o audio is remapped to QWEN2A; audio uses16kHz/400FFT/400window/160hop."
+        },
+        {
+          "file": "audio-evaluator-diagnostic-source-mtmd.cpp",
+          "lines": [
+            930,
+            938
+          ],
+          "claim": "QWEN2A/QWEN25O select mtmd_audio_preprocessor_whisper."
+        },
+        {
+          "file": "audio-evaluator-diagnostic-source-mtmd-audio.cpp",
+          "lines": [
+            285,
+            350,
+            568,
+            577
+          ],
+          "sha256": "1d3eed8a85ea98d5c8cd96223fdb561b699affccea23f5b668d602bd3b22521f",
+          "claim": "Default floor, clamp, and missing Whisper override."
+        },
+        {
+          "file": "audio-evaluator-diagnostic-source-qwen-processor-v4523.py",
+          "lines": [
+            68,
+            71,
+            98,
+            160,
+            170
+          ],
+          "claim": "Reference Qwen processor selects WhisperFeatureExtractor,16k and max-length padding."
+        },
+        {
+          "file": "audio-evaluator-diagnostic-source-whisper-feature-v4523.py",
+          "lines": [
+            114,
+            136,
+            158,
+            164
+          ],
+          "claim": "Reference NumPy method uses audio_utils floor; Torch explicitly clamps1e-10."
+        },
+        {
+          "file": "audio-evaluator-diagnostic-preprocess.json",
+          "claim": "All original/floor-only/reference values and source-compilation scope; tone feature hash68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5 for both variants."
+        }
+      ],
+      "notEstablished": [
+        "This difference caused the false sine-wave caption.",
+        "A corrected full runtime captions silence correctly.",
+        "A corrected frontend fixes the sequence transposition.",
+        "The evaluator can judge product sound or stereo positioning."
+      ],
+      "refutation": {
+        "status": "survived narrowly",
+        "evidence": "audio-evaluator-diagnostic-refuter-01.json",
+        "changes_after_refutation": [
+          "Removed implication that correction is mandatory.",
+          "Replaced an overwriting harness rerun command with a read-only command.",
+          "Retained explicit no-causality/no-caption-repair scope."
+        ]
+      }
+    }
+  ],
+  "controls": [
+    {
+      "id": "INPUT-IDENTITY",
+      "result": "confirmed",
+      "evidence": "audio-evaluator-diagnostic-01.json",
+      "details": "Original WAV headers are mono16k PCM16. Silence has64000/64000 zero samples. Calibration0-2s zero,2-4s440Hz,4-6s1kHz alternating0.25s on/off. Numeric measures identify controls only and do not replace listening."
+    },
+    {
+      "id": "ARCHIVE-IDENTITY",
+      "result": "confirmed",
+      "evidence": "audio-evaluator-diagnostic-02.json",
+      "details": "All20 preserved calibration archive members match both provenance SHA256 and current originals. Runtime archive matches publisher digest/size;21 selected runtime binary/library members match originals. Both full GGUF hashes match recorded publisher LFS hashes."
+    },
+    {
+      "id": "MODEL-RUNTIME-PIN",
+      "result": "confirmed metadata, not accuracy",
+      "evidence": "audio-evaluator-diagnostic-01.json and-02.json",
+      "details": "Actual version0.4.0-dev build10809 commit5266f24da. Q8 qwen2vl text width3584 and audio projector qwen2.5o output3584,128mel. Audio boundary tokens are present. Matching metadata does not prove neural correctness."
+    },
+    {
+      "id": "CLI-TEMPLATE-ATTACHMENT",
+      "result": "no concrete input/template error found",
+      "evidence": "pinned arg.cpp1803-1810,2631-2637;mtmd-cli.cpp260-310,483-501;mtmd.cpp930-938,1570-1598,1643-1650;mtmd-helper.cpp304-402",
+      "details": "-f reads the prompt;--audio fills the media vector;CLI prepends a media marker, loads the WAV and interleaves it into the formatted text;mtmd adds audio_bos/eos. Recorded runs completed a media encoding batch. Missing--jinja is not an evidenced fix."
+    },
+    {
+      "id": "FLOOR-NEGATIVE-CAUSAL-CONTROL",
+      "result": "strong mechanism claim refuted for tone transposition",
+      "evidence": "audio-evaluator-diagnostic-preprocess.json",
+      "details": "Both original/floor1e-10 tone buffers are byte-identical. Both differ from the NumPy reference by max1.9669533e-5 in3 of384000 values; overall mean error3.7956e-9. The floor mismatch cannot account for that control ordering error."
+    },
+    {
+      "id": "CHANNEL-RETENTION",
+      "result": "mono only",
+      "evidence": "audio-evaluator-diagnostic-source-mtmd-helper.cpp325-328",
+      "details": "decode_audio_from_buf hardcodes channels=1 and requests float mono from miniaudio. Stereo channels are not retained independently; this route cannot substantiate stereo localization. No sound criterion is reduced to accommodate this limitation."
+    }
+  ],
+  "recorded_outcomes": [
+    {
+      "run": "calibration",
+      "exit_code": 1,
+      "outcome": "No backends loaded; no inference or caption. Preserved initial failure is separate from successful runs."
+    },
+    {
+      "run": "calibration-v2",
+      "exit_code": 0,
+      "stdout": "\nThe audio contains a sequence of sounds starting with a beep, followed by a series of beeps, and then a continuous sound. There is no speech or other discernible sounds.\n\n\n",
+      "interpretation": "Misses initial silence and reports intermittent-before-continuous order, unlike the original input."
+    },
+    {
+      "run": "silence-control",
+      "exit_code": 0,
+      "stdout": "\nThe audio begins with silence, then a continuous sound of a sine wave is heard, followed by a brief period of silence, and then another continuous sine wave sound. There is no speech or other audible events.\n\n\n",
+      "interpretation": "Reports two sine-wave events in exact zeroPCM. This exact recorded pipeline failed its negative control."
+    }
+  ],
+  "limits": [
+    "No model-only causal attribution is supported: weights, frontend and downstream runtime are not isolated by the recorded captions.",
+    "The separate source harness executes pinned preprocessing calculations with a metadata-only context shim; it does not invoke original shared-library model/projector inference.",
+    "Full original launcher source/environment and an actual rendered multimodal prompt/tensor dump were not archived. Calibration-v2 records corrected runtime cwd; parent confirms scopedLD_LIBRARY_PATH. The current bare--version failure is a reproducibility limitation, not a cause of completed captions.",
+    "The initial missing backend, generic image-token warning and experimental-runtime warning do not demonstrate the later caption mechanism.",
+    "HF Transformersv4.52.3 is the pinned model-family reference processor used for this numerical comparison, not a claim that this package/version executed in the recorded GGUF run.",
+    "No element pass, blind result, spatial-audio result, criteria narrowing or spectral replacement of listening is claimed."
+  ],
+  "sourcePins": [
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-cli.cpp",
+      "bytes": 20906,
+      "sha256": "6f3a9bd6ec84d554d13ea0c81fd1ace89c4f84b1ea402788055fde258adfdb34",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/mtmd-cli.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd-cli.cpp",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd.cpp",
+      "bytes": 106955,
+      "sha256": "75c4a02a9207ef995185a7e22cf2db787203c95ec231cd5095fa964a3471e4aa",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/mtmd.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd.cpp",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-helper.cpp",
+      "bytes": 35123,
+      "sha256": "9b11ebee1d87111f72bb63159814dd7449e8816eafd28e6045f759689ee7de19",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/mtmd-helper.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd-helper.cpp",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-audio.cpp",
+      "bytes": 59134,
+      "sha256": "1d3eed8a85ea98d5c8cd96223fdb561b699affccea23f5b668d602bd3b22521f",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/mtmd-audio.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd-audio.cpp",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-audio.h",
+      "bytes": 7011,
+      "sha256": "483464d4957d97a1e21c8e64952533b8e22c58ee5fd39280f87702e7d1db0b87",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/mtmd-audio.h",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd-audio.h",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-clip.cpp",
+      "bytes": 318664,
+      "sha256": "fbbb9d0a5284d44bbc98a0dc36db8bb1c353aa7fece10eccfa64f926d0a7d8bb",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/clip.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip.cpp",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-clip-model.h",
+      "bytes": 33476,
+      "sha256": "9efca2c5358bfbdc0bd71221e1f47b9b66cd8116700a101be7a2b0c83f915ebe",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "tools/mtmd/clip-model.h",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip-model.h",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-arg.cpp",
+      "bytes": 221623,
+      "sha256": "d663b4c2e67c88f24741f4e1be30a4e80bbaf42308bbffa8526fcc17e707d850",
+      "repository": "ggml-org/llama.cpp",
+      "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "upstream_path": "common/arg.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/5266f24da75dc449bd56cbed7addb9c8e4a6a73e/common/arg.cpp",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-qwen-processor-v4523.py",
+      "bytes": 17553,
+      "sha256": "b80d364677257cb4455211c4cf0e9215a3eacb4cd98829565a653f5817c578af",
+      "repository": "huggingface/transformers",
+      "ref": "v4.52.3",
+      "upstream_path": "src/transformers/models/qwen2_5_omni/processing_qwen2_5_omni.py",
+      "url": "https://github.com/huggingface/transformers/blob/v4.52.3/src/transformers/models/qwen2_5_omni/processing_qwen2_5_omni.py",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-whisper-feature-v4523.py",
+      "bytes": 15802,
+      "sha256": "bb81e5ef7af5dbd4d4e9fb3ff018487f62bff98516431cc370a0dfdd2f756f0e",
+      "repository": "huggingface/transformers",
+      "ref": "v4.52.3",
+      "upstream_path": "src/transformers/models/whisper/feature_extraction_whisper.py",
+      "url": "https://github.com/huggingface/transformers/blob/v4.52.3/src/transformers/models/whisper/feature_extraction_whisper.py",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-audio-utils-v4523.py",
+      "bytes": 54301,
+      "sha256": "e3095ff11adc879d9bbaee60aeceea9ec57a6757ef164f3842b90650c3592201",
+      "repository": "huggingface/transformers",
+      "ref": "v4.52.3",
+      "upstream_path": "src/transformers/audio_utils.py",
+      "url": "https://github.com/huggingface/transformers/blob/v4.52.3/src/transformers/audio_utils.py",
+      "acquisition": "GitHub connector fetch; read-only exact relevant public source"
+    }
+  ],
+  "modelPins": [
+    {
+      "name": "Qwen2.5-Omni-7B-Q8_0.gguf",
+      "bytes": 8098524032,
+      "sha256": "2cb12eb661bc8db5536463dd2dadd4a25c8bd42a2346bc1cefddd2e2245f641a",
+      "seconds": 5.974655161000555,
+      "original_record": "model-download.json"
+    },
+    {
+      "name": "mmproj-Qwen2.5-Omni-7B-f16.gguf",
+      "bytes": 2643656480,
+      "sha256": "7ed062b35f15f3c4cacdac72d5291db2f908f178ba4fb19e210b555f233e069d",
+      "seconds": 1.9660785770029179,
+      "original_record": "projector-recovery-download.json"
+    }
+  ],
+  "runtimePin": {
+    "path": "audio-evaluator/llama-b10809-bin-ubuntu-x64.tar.gz",
+    "bytes": 16734586,
+    "sha256": "5e34434ddc6d03cd1584f403201aff0d4bd1a5793a72ff7e286532dfd1e4b941",
+    "matches_release_digest": true,
+    "matches_release_size": true,
+    "release_tag": "b10809",
+    "release_commit": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e"
+  },
+  "rawEvidence": [
+    "audio-evaluator-diagnostic-01.py",
+    "audio-evaluator-diagnostic-01.json",
+    "audio-evaluator-diagnostic-01.log",
+    "audio-evaluator-diagnostic-02.py",
+    "audio-evaluator-diagnostic-02.json",
+    "audio-evaluator-diagnostic-02.log",
+    "audio-evaluator-diagnostic-preprocess.py",
+    "audio-evaluator-diagnostic-preprocess.json",
+    "audio-evaluator-diagnostic-preprocess.log",
+    "audio-evaluator-diagnostic-refuter-01.py",
+    "audio-evaluator-diagnostic-refuter-01.json",
+    "audio-evaluator-diagnostic-refuter-01.log",
+    "audio-evaluator-diagnostic-original-integrity.json",
+    "audio-evaluator-diagnostic-refuter-review.json",
+    "audio-evaluator-diagnostic-refuter-validation.json"
+  ],
+  "retainedFailedAttempts": [
+    "Original calibration backend failure remains archived.",
+    "Bare metadata-only--version fails before load; successful scoped-path--version also recorded in-02.json.",
+    "web__run upstream opens returned DisabledError, captured retrospectively in-02.json.",
+    "Wrong qwen2.5omni.cpp path returned404; exact response retained in-source-qwen25omni-fetch.json.",
+    "HFv4.51.3 Qwen processor path returned404; exact response retained in-source-processor-v4513-fetch.json. Relevantv4.52.3 source succeeded."
+  ],
+  "ownershipMap": {
+    "repository": "ggml-org/llama.cpp",
+    "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+    "knownOwners": [
+      "tools/mtmd/mtmd-cli.cpp",
+      "tools/mtmd/mtmd.cpp",
+      "tools/mtmd/mtmd-helper.cpp",
+      "tools/mtmd/mtmd-audio.cpp",
+      "tools/mtmd/mtmd-audio.h",
+      "tools/mtmd/clip.cpp",
+      "tools/mtmd/clip-model.h",
+      "common/arg.cpp"
+    ]
+  },
+  "independentRefutation": {
+    "agent": "/root/trench_perception_review/trench_refuter",
+    "evidence": "audio-evaluator-diagnostic-refuter-01.json",
+    "groups": 4,
+    "errors": 0,
+    "result": "AE-PREPROC-01 survives as a source preprocessing mismatch. Tone-order causality is refuted; silence-caption repair is unproven. Refuter independently recomputed reference features and both isolated source variants, inspected source extraction/one-line delta, and checked original PCM/archive identity.",
+    "report": "audio-evaluator-diagnostic-refuter-review.json"
+  },
+  "integrity": "Original25 evidence/runtime files pinned before diagnosis remain byte-identical; all models/runtime archives separately hashed in-02.json."
+}

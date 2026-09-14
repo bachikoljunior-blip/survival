@@ -1,0 +1,207 @@
+{
+  "round": "continuous-2026-09-14-ios-wda-startup",
+  "profile": "Independent diagnosis of actual WDA startup failure and review of the bounded next configuration",
+  "tier": "Recorded CI artifacts, primary documentation and offline inventory analysis only",
+  "nativeResolution": "0x0",
+  "verdict": "FAIL",
+  "verdictScope": "The actual reviewed CI run failed before Safari checks. This verdict does not reject the proposed next experiment or claim a confirmed compiler defect.",
+  "score": 0,
+  "scoreMeaning": "Unscored schema placeholder; no game-quality score was measured.",
+  "blindComparison": "No blind comparison was conducted. Source provenance was known; no product/reference preference was evaluated. The earlier headless bootstrap improvement is an actual log observation, not an element-level achievement.",
+  "checkedAt": "2026-09-14T04:09:41.113Z",
+  "reviewer": "/root/acquisition_path_review",
+  "target": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "commit": "3aa5e4febbd52a44ddc87aca7aa6ecd7ab20e185",
+    "runId": 34803864630,
+    "runUrl": "https://github.com/bachikoljunior-blip/survival/actions/runs/34803864630",
+    "sourceHashes": {
+      "tools/test-ios-safari.mjs": "079019b0632d7c0e1b293f699cf837b4628b257c1a573c369eb7198215fd71b7",
+      ".github/workflows/mobile-simulator.yml": "c13b82cdfa28d4a9d16fef96c38f86ad8991db46c7a71e1d6b5a012dae93dede",
+      ".github/workflows/pages.yml": "e179a39c2adf188f6f59894d6d93212ed4ba9abcdfa93846881271e133553c37"
+    }
+  },
+  "conclusion": "The headless change removed the recorded visible-UI restart and execution reached WDA. The next failure is WDA readiness/session creation, with zero Safari/game checks. The available logs do not establish why WDA never became reachable. SDK-aligned runtime selection, visible Xcode output and a finite 240000 ms WDA wait form a reasonable next combined trial, whose outcome must be measured.",
+  "observations": [
+    {
+      "kind": "actual recorded fact",
+      "source": "ci-ios-3aa5e4f/appium.log:23,44,81,84",
+      "detail": "isHeadless=true was sent and recognized. The driver logged an already-booted headless simulator and simStarted; the prior visible-window restart messages are absent."
+    },
+    {
+      "kind": "actual recorded fact",
+      "source": "ci-ios-3aa5e4f/appium.log:107,499; xcode-version.txt",
+      "detail": "Xcode16.4 launched xcodebuild with IPHONEOS_DEPLOYMENT_TARGET=26.2 twice. This establishes the invocation, not a compiler failure."
+    },
+    {
+      "kind": "actual recorded fact",
+      "source": "ci-ios-3aa5e4f/appium.log:108-109,470-487",
+      "detail": "The first start announces a 60000 ms readiness wait. All 120 recorded initial status polls fail. Appium reports the readiness timeout and explicitly shuts down xcodebuild; the recorded xcodebuild exit is null/SIGTERM, after that shutdown."
+    },
+    {
+      "kind": "timestamp calculation from raw log",
+      "source": "ios-wda-review-evidence.json; ios-wda-review-refutation.json",
+      "detail": "First wait announcement 2026-09-14T12:54:08.721+09:00 to timeout 12:56:12.626+09:00 spans 123.905 seconds. Configured/reported 60000 ms is not the measured elapsed duration."
+    },
+    {
+      "kind": "timestamp calculation from raw log",
+      "source": "ios-wda-review-refutation.json",
+      "detail": "The second wait announcement is followed by wdaSessionAttempted after 7 ms and wdaSessionFailed after 121 ms. This is not a second observed complete 60-second readiness trial; why it advances immediately is unresolved."
+    },
+    {
+      "kind": "actual recorded fact",
+      "source": "ci-ios-3aa5e4f/report.json",
+      "detail": "The final POST /session returns HTTP500; report.status is failed, checks is empty and device is null. The game validation path never starts."
+    },
+    {
+      "kind": "offline inventory result",
+      "source": "ios-wda-review-evidence.json",
+      "detail": "The stored inventory contains available SE3 devices for18.5,18.6,26.0,26.1,26.2. If the active simulator SDK is measured as18.5, matching numeric major/minor selects the18.5 device22A3039C-6A45-47F4-82D4-80C58CA94379 uniquely. The failed run did not save its active simulator SDK output, so18.5 here is an explicit official-table assumption."
+    }
+  ],
+  "rejectedCausalClaims": [
+    {
+      "claim": "SDK18.5 versus deployment target26.2 proves this was a compiler failure.",
+      "reason": "No autonomous compiler error or numeric failure exit is recorded. Apple defines the Deployment Target table column as App Store Connect upload support and separately lists Simulator support. The mismatch is a relevant condition to control, not a diagnosed compiler result."
+    },
+    {
+      "claim": "The task failed because xcodebuild exited by itself.",
+      "reason": "The visible exit follows Appium timeout and explicit shutdown. This does not exclude a hidden build problem, but it does refute treating this SIGTERM as its proof."
+    },
+    {
+      "claim": "Only60 actual seconds were allowed and240000 will necessarily cure the problem.",
+      "reason": "The initial observed span is123.905 seconds and no later healthy WDA response exists. A cold build, hang, runtime interaction or other condition remains possible."
+    },
+    {
+      "claim": "The prior headless repair has not worked.",
+      "reason": "The precise old failure path disappears in this run, and simStarted/WDA initialization are observed. Overall Safari success remains absent."
+    }
+  ],
+  "proposedScope": [
+    {
+      "change": "Enable appium:showXcodeLog=true.",
+      "purpose": "Reveal build/test progress or diagnostics that the current log filters out.",
+      "status": "Directly justified diagnostic improvement.",
+      "verification": "Retain the next actual Appium/Xcode output, command and process exit or readiness outcome."
+    },
+    {
+      "change": "Use appium:wdaLaunchTimeout=240000 while keeping finite job/retry limits.",
+      "purpose": "Allow a bounded longer first startup and observe whether WDA becomes ready.",
+      "status": "Reasonable recovery experiment; no proof that insufficient wait caused this failure.",
+      "verification": "Record the accepted capability and actual wait/readiness timestamps. Do not describe its configured value as an exact wall-clock bound."
+    },
+    {
+      "change": "Read the active iphonesimulator SDK and choose an available SE3 runtime with the same numeric major/minor.",
+      "purpose": "Remove the automatic latest-runtime selection from a controlled WDA startup trial.",
+      "status": "Reasonable environment alignment; not a proven mandatory compiler repair.",
+      "verification": "Save active Xcode path, xcrun --sdk iphonesimulator --show-sdk-version output, selected runtime.version and UDID. If no match exists, report the actual available choices and fail explicitly instead of silently selecting latest."
+    },
+    {
+      "change": "Keep the runtime selection consistent in mobile-simulator.yml and the existing identical pages.yml path.",
+      "purpose": "Avoid the same helper later using a different unexamined runtime policy.",
+      "status": "Implementation scope recommendation when applying the selector; no workflow/product file was edited by this reviewer.",
+      "verification": "Use the runtime inventory version rather than reconstructing it from the identifier; the stored iOS-26-0 identifier has version26.0.1."
+    }
+  ],
+  "attribution": "Testing these bounded changes together is acceptable to reach a usable validation environment. If the next run succeeds, it establishes the combined configuration; it does not isolate which change was necessary. Extra factorial retries solely to assign credit are not required.",
+  "officialSources": [
+    {
+      "url": "https://developer.apple.com/xcode/system-requirements/",
+      "checkedOn": "2026-09-14",
+      "paraphrase": "Xcode16.4 includes iOS SDK18.5. Its Deployment Target row lists iOS15–18, whose legend concerns App Store Connect uploads. The separate Simulator column lists iOS15 or later."
+    },
+    {
+      "url": "https://appium.github.io/appium-xcuitest-driver/latest/reference/capabilities/",
+      "checkedOn": "2026-09-14",
+      "paraphrase": "wdaLaunchTimeout waits for WDA responsiveness and defaults to60000 ms. showXcodeLog controls Xcode output and defaults to false."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "major",
+      "shot": "CI34803864630/WDA startup",
+      "problem": "The actual Mobile Safari run performed zero browser checks because no usable WDA session was established after Simulator boot.",
+      "why": "The intended iOS/Safari validation cannot evaluate any game behavior while session creation fails; the headless bootstrap improvement alone does not supply that evidence.",
+      "owner": "tools/test-ios-safari.mjs",
+      "fix": "In the next authorized CI, preserve SDK/runtime selection and full Xcode diagnostics, apply a finite readiness wait, and reach WDA plus actual Safari checks. Inspect test-results/ios-safari/report.json: checks.length must exceed0; an overall pass additionally requires status=passed. Preserve any failure and its exact build.",
+      "hypothesis": "WDA unavailability is observed; its root cause is not established. The SDK-aligned, logged240000 ms trial is supported as a next diagnostic/recovery step, not a guaranteed fix.",
+      "evidence": [
+        "ci-ios-3aa5e4f/report.json:failed/checks=[]",
+        "ci-ios-3aa5e4f/appium.log:headless simStarted followed by refused WDA status",
+        "ci-ios-3aa5e4f/appium.log:timeout then explicit xcodebuild shutdown"
+      ],
+      "refutation": "The separate reviewer confirmed this symptom and rejected unsupported compiler and exact60-second causal claims."
+    }
+  ],
+  "independentRefutation": {
+    "path": "ios-wda-review-refutation.json",
+    "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+    "verdict": "FAIL",
+    "findings": 1,
+    "strictValidation": {
+      "ok": true,
+      "failures": [],
+      "warnings": []
+    }
+  },
+  "limitations": [
+    "This is analysis of an actual failed run and a proposed next configuration, not a review of an implemented new selector or proof of startup under it.",
+    "No browser, local server, Simulator, xcodebuild or Appium process was launched; no product, workflow, raw log or earlier review file was edited.",
+    "The absence of compiler diagnostics in a filtered log does not prove a healthy build.",
+    "No source-level explanation of the unusual wait/retry timing is established.",
+    "All actual game/reference comparisons and physical-phone properties remain outside this review."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "ios-wda-review-evidence.json",
+      "bytes": 7135,
+      "sha256": "d74eac88ac805278b476c99168f5bdfa2d06ab7357e970b3fbe105a27e5f27fd"
+    },
+    {
+      "path": "ios-wda-review-refutation.json",
+      "bytes": 15887,
+      "sha256": "1d05f55d704079f6d8a79c421ffdb87b4bf21fc7ec9f2b6a23fd5b6696407e91"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/appium.log",
+      "bytes": 63713,
+      "sha256": "7eaea76261f560a05e95559a2d192169a8b29b2c0adb8a7a6e41c462b1ea472a"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/report.json",
+      "bytes": 847,
+      "sha256": "d02a8e19ff6e9b66983014b8c294655a6221e47b0c81d80b311793adabe4135a"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/simulator-inventory.json",
+      "bytes": 265506,
+      "sha256": "1d73dd6d107ed54d13278e47bd688b1c83f2e915dfb90cbe7a70cd570e59d20c"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/video.log",
+      "bytes": 75,
+      "sha256": "fee056264f0f4a399d27fc82958070d101a13d90fdbd3799fd6b7ca965f4d711"
+    },
+    {
+      "path": "ios-bootstrap-review.json",
+      "bytes": 9336,
+      "sha256": "158e1b6856521577ffae63d7b35a02efd9bc4b55e7f774909a280ede916e6a90"
+    },
+    {
+      "path": "ios-bootstrap-refutation.json",
+      "bytes": 10392,
+      "sha256": "cb88bd482aa644d3ff03f76e0dedefa402edd23f641de997a5c457185477025e"
+    }
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

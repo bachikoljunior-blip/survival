@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-14T19:54:30.503+09:00",
+  "product_build_sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+  "prepared_at_commit": "44e023301172bd508e53f0e866c673ed9033ecc0",
+  "raw_log": {
+    "bytes": 2137481,
+    "commit": "44e023301172bd508e53f0e866c673ed9033ecc0",
+    "job": 103946755486,
+    "run": 34835017168,
+    "sha256": "720cd42f04f433e619378bfea1a26cbae41533eeae7024b05b94df03af13af84"
+  },
+  "report": {
+    "change": "Only the directional sun offset in constructor and per-frame update, from [-30,92,34] to [-43,85,38].",
+    "expectedSourceSha": "4bc604f65d390b7cdcf34c7c8c9939d26f0810202ea2d651895cf989a3ab51b5",
+    "files": [
+      {
+        "bytes": 40378,
+        "changed": true,
+        "output": "src__render__atmosphere.js",
+        "path": "src/render/atmosphere.js",
+        "sha256": "4bc604f65d390b7cdcf34c7c8c9939d26f0810202ea2d651895cf989a3ab51b5"
+      },
+      {
+        "bytes": 1445501,
+        "changed": true,
+        "output": "cinderline.1.0.0.js",
+        "path": "cinderline.1.0.0.js",
+        "sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b"
+      },
+      {
+        "bytes": 5023,
+        "changed": false,
+        "output": "index.html",
+        "path": "index.html",
+        "sha256": "c0b374c2d1746764a9555c0405992cda46f1c4f196db44c856c59a9c0b6fcc20"
+      },
+      {
+        "bytes": 46883,
+        "changed": false,
+        "output": "styles.css",
+        "path": "styles.css",
+        "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3"
+      },
+      {
+        "bytes": 419,
+        "changed": false,
+        "output": "manifest.webmanifest",
+        "path": "manifest.webmanifest",
+        "sha256": "04581fc9c19cf89456169c3f850c4421c72acafd4409d3f2a78292d17e971049"
+      },
+      {
+        "bytes": 777,
+        "changed": false,
+        "output": "icon.svg",
+        "path": "icon.svg",
+        "sha256": "40168ac465534358bdd17c222e221a6d504805e40f1cb224ec4bdd279fa93132"
+      },
+      {
+        "bytes": 0,
+        "changed": false,
+        "output": ".nojekyll",
+        "path": ".nojekyll",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "limits": "Preparing a production source/root pair does not publish it. Current-build mobile checks follow adoption. No blind result or element verdict is produced.",
+    "originalBundleSha": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+    "originalSourceSha": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "schema_version": 1,
+    "sourceCommit": "44e023301172bd508e53f0e866c673ed9033ecc0",
+    "sourcePath": "src/render/atmosphere.js",
+    "status": "prepared and content/root verified",
+    "visualEvidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/light-direction-a840-r2/visual-review.json"
+  },
+  "product_files": [
+    {
+      "mode": "100644",
+      "path": "src/render/atmosphere.js",
+      "sha": "036acce63f9eff6b6c637cd31cd13419b2ebde9d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "cinderline.1.0.0.js",
+      "sha": "136953098c42054cd91c4bb346d1f46c184e8e90",
+      "type": "blob"
+    }
+  ],
+  "source_diff": {
+    "lines_changed": 2,
+    "constructor": "[-30,92,34] to [-43,85,38]",
+    "update": "player-relative [-30,92,34] to [-43,85,38]",
+    "all_other_source_bytes_unchanged": true
+  },
+  "visual_basis": "../light-direction-a840-r2/visual-review.json",
+  "pending": [
+    "WebKit on adopted product commit",
+    "Mobile Safari on adopted product commit",
+    "current-build original views and moving play",
+    "valid blind element comparisons"
+  ],
+  "not_claimed": [
+    "MVD-01 completely resolved",
+    "MVD-03 resolved",
+    "E16 satisfied",
+    "final completion",
+    "merge",
+    "deployment"
+  ]
+}

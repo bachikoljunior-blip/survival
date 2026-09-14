@@ -2183,7 +2183,7 @@ you to be at least as precise as I have been.`, 'quiet'),
 
         { text: "Burn it. Use their own lorries and empty Hollis.", tag: 'everybody out',
           if: { all: [{ flag: 'sol_debrief' }, { trust: ['sol', 16] }] }, showLocked: true,
-          why: 'Sol would have to run it with you, and you have not stood in front of her since the water came up.',
+          why: "Sol would have to run it with you. You need to have spoken with her since the flood, and she needs to know she can rely on you.",
           goto: 'e_evac', effects: [{ choice: ['final', 'evacuate'] }] },
 
         { text: 'Walk away. Take it with me.', tag: 'leave',
@@ -2295,7 +2295,7 @@ did not know. You have thought about that a great deal since. It was the only
 honest thing you said that week and it took you four more months to catch up
 with it.` },
       { condition: { all: [{ counter: ['crisis_lost', 1] }] },
-        text: `@N of the names you read out were people you had carried as far as a stairwell
+        text: `You had carried @N of the people whose names you read out as far as a stairwell
 in a filling street four days earlier, and not far enough.` },
       { condition: { chose: ['vents', 'left'] },
         text: `Fenn Street is in the record. Eleven people, a borehole field pulling the burn
@@ -2312,9 +2312,8 @@ own director's signature at the bottom and the foreman read the date, and by the
 time he looked up you were past him. He gave evidence too. He was not asked to
 and he came anyway.` },
       { condition: { flag: 'trench_slipped' },
-        text: `You did not touch any of them getting in. Two of the three gave evidence and
-neither could say how you had got past the line, and the transcript records both
-of them saying, separately, that they had not been looking.` },
+        text: `At the hearing, you marked your way over the line on a section drawing. On
+the paper it was a few millimetres. You could still feel the height in your knees.` },
       { condition: { flag: 'trench_fought' },
         text: `You put two Authority men and a scavenger on the ground getting in. That was
 in the record too. Your counsel wanted it framed as necessity and you would not
@@ -2480,10 +2479,9 @@ thing you have ever done that you cannot tell anybody about.`,
 by name, and the four hundred and six does not include the @n you left in a
 ground-floor room in a street that was already gone.` },
       { condition: { flag: 'trench_slipped' },
-        text: `Nobody ever established how you got past the line at the cut that morning,
-because you went over the spoil heap in daylight in front of forty people and
-not one of them mentioned it to anybody, ever, which is the single clearest
-thing anyone in Hollis has told you about whose side they were on.` },
+        text: `You had gone over the line above the cut. The people you brought to the
+lorries could not all have followed you. You stayed beside the steps while they
+climbed aboard, with your hands out and nothing useful to say.` },
       { condition: { flag: 'crisis_saved_all' },
         text: `Sol had watched you bring four people up a stairwell in a filling street once
 already. That is the only reason she said yes to this in under a minute. She
@@ -2563,20 +2561,41 @@ export const EPILOGUE_BEATS = [
   {
     id: 'nessa_shop',
     condition: { flag: 'nessa_shop_told' },
-    text: `Nessa went down Fenn Street. Ostrowski's wife made her sit down in her own
-father's workshop and would not let her leave until she had eaten something, and
-she has been back every week since, and the ironwork over the door has been
-cleaned.`,
+    text: `Nessa went down Fenn Street while the workshop was still open. Ostrowski's
+wife made her sit down in her own father's workshop and would not let her leave
+until she had eaten something. The next time she came, she brought a wire brush.
+The ironwork still said Bek & Daughter when the shutter came down.`,
+    variants: [{
+      id: 'nessa_shop_bereaved',
+      condition: { all: [{ flag: 'met_garage' }, { flag: 'vents_left' },
+        { not: { any: [{ flag: 'vents_shut' }, { flag: 'vents_half' }, { flag: 'gave_garage_filter' }] } }] },
+      text: `Nessa went down Fenn Street after the Ostrowskis had left. There were three
+names on the forwarding address taped inside the window. She copied the address,
+then stayed to clean the ironwork over the door. It still said Bek & Daughter.
+She had brought food and nowhere to put it.`,
+    }],
   },
   {
     id: 'garage_lived',
-    condition: { all: [{ flag: 'met_garage' }, { any: [{ flag: 'vents_shut' }, { flag: 'gave_garage_filter' }] }] },
+    condition: { all: [{ flag: 'met_garage' }, { any: [{ flag: 'vents_shut' },
+      { flag: 'vents_half' }, { flag: 'gave_garage_filter' }] }] },
     text: `The Ostrowskis got out. All four. He wrote down your name on the back of a
 docket at the relocation office and spelled it wrong and would not be corrected.`,
+    variants: [{
+      id: 'garage_lived_half',
+      condition: { all: [{ flag: 'vents_half' }, { notFlag: 'vents_shut' },
+        { notFlag: 'gave_garage_filter' }] },
+      text: `One shut head did not make the workshop safe. Ostrowski locked it and took
+the tools upstairs. By the time the relocation office found them a room, there
+was nothing left that he could repair for money. All four names went onto the
+form. Under occupation he wrote mechanic, pressed hard enough to tear the paper,
+and wrote it again.`,
+    }],
   },
   {
     id: 'garage_died',
-    condition: { all: [{ flag: 'met_garage' }, { flag: 'vents_left' }] },
+    condition: { all: [{ flag: 'met_garage' }, { flag: 'vents_left' },
+      { not: { any: [{ flag: 'vents_shut' }, { flag: 'vents_half' }, { flag: 'gave_garage_filter' }] } }] },
     text: `The Ostrowskis did not all get out. He did, and the children did. She had not
 come down from the first floor in some time, and on the night the draw turned
 there was nobody downstairs to hear anything, and there was nothing to hear.`,

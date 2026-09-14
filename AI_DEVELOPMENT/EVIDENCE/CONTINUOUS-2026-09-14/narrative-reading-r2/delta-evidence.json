@@ -1,0 +1,856 @@
+{
+  "eventNumbering": "P and D use each source events array, 1-based. Ending paragraph numbers are 1-based; jsonPointer is exact and 0-based.",
+  "sources": {
+    "publish": {
+      "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-publish.json",
+      "sha256": "34e65ce8e635348e4f6e4d231d6b3519985f162820947953a1c395b8b98b08e9",
+      "eventCount": 119,
+      "endingCount": 1,
+      "scope": "Actual production dialogue and ending UI method outputs from the existing deterministic story driver. The driver teleports, makes the player gas-immune and clears hostiles with forced damage. This establishes emitted text and story transitions, not ordinary-paced play, combat, movement, survival, rendering quality or a blind comparison."
+    },
+    "deal": {
+      "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-deal.json",
+      "sha256": "ba514dfcccc838c49182dbdb6f81b94472db04ebbedf0de3609faf8909f022bb",
+      "eventCount": 114,
+      "endingCount": 1,
+      "scope": "Actual production dialogue and ending UI method outputs from the existing deterministic story driver. The driver teleports, makes the player gas-immune and clears hostiles with forced damage. This establishes emitted text and story transitions, not ordinary-paced play, combat, movement, survival, rendering quality or a blind comparison."
+    }
+  },
+  "oldSource": {
+    "path": "/workspace/scratch/0b7ad82bafe7/narrative-review-input-r1/dialogue.json",
+    "sha256": "cc7cb31dff452c23baa2e5ca6481206638704c8ca46a373cecac00eddd95db54"
+  },
+  "deltas": {
+    "publish": {
+      "sourceCount": 119,
+      "opcodes": [
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            0,
+            118
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            0,
+            118
+          ]
+        },
+        {
+          "operation": "insert",
+          "oldRangeZeroBasedHalfOpen": [
+            118,
+            118
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            118,
+            119
+          ]
+        }
+      ],
+      "changedOrAddedEvents": [
+        {
+          "event": 119,
+          "original": {
+            "kind": "ending",
+            "title": "ON THE RECORD",
+            "paragraphs": [
+              "You put it on the record. All of it — the log, the order, the July sheet with your own initials in the check box.",
+              "The contract voided in eleven days. The Authority withdrew its plant on a Tuesday, and the trench, which was never going to work where they were cutting it, stopped at a hundred and forty metres and is still there.",
+              "Hollis burned faster after that. Everybody knew why. It turns out that matters more than people say it does, and less than you hoped.",
+              "You were charged as a party to it. Nine counts. The hearing took four days and your evidence took two of them, and at no point in it did you say that you had been young, or tired, or under contract.",
+              "1 of the names you read out were people you had carried as far as a stairwell in a filling street four days earlier, and not far enough.",
+              "The Stacks courtyard is in the record too. You put it there yourself: the date, the three heads, the bar, the wedge, and the name of the person who turned them. Sol did not attend. She sent a note through Marsh that said only *right*, and it is the shortest and least kind letter anyone has ever sent you.",
+              "You put two Authority men and a scavenger on the ground getting in. That was in the record too. Your counsel wanted it framed as necessity and you would not let her, because it was not necessity, it was nine minutes and a temper.",
+              "You had already said it out loud, by then, to nearly everyone it belonged to. The hearing was not the hard part. The hearing was the last part.",
+              "Nessa came. She sat at the back with her arms folded and she did not look at you and she came every single day.",
+              "She wrote to you afterwards. One line: *You didn't make me find out on my own. That's the whole letter.*",
+              "The Ostrowskis got out. All four. He wrote down your name on the back of a docket at the relocation office and spelled it wrong and would not be corrected.",
+              "The Stacks lost the courtyard in a fortnight, exactly as Sol said they would. They moved the generator to the second floor of Pell and the rota got harder and they did not lose anybody, which Sol has never once called luck.",
+              "Teodor Marsh closed the exchange and went to his sister's. He posted you one letter, on time, and it said only: *That was the small thing. Done now.*",
+              "3 minutes in Hollis. You lifted the meter 2 times. 3 people up a stairwell."
+            ]
+          }
+        }
+      ]
+    },
+    "deal": {
+      "sourceCount": 114,
+      "opcodes": [
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            0,
+            55
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            0,
+            55
+          ]
+        },
+        {
+          "operation": "replace",
+          "oldRangeZeroBasedHalfOpen": [
+            55,
+            57
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            55,
+            57
+          ]
+        },
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            57,
+            93
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            57,
+            93
+          ]
+        },
+        {
+          "operation": "replace",
+          "oldRangeZeroBasedHalfOpen": [
+            93,
+            95
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            93,
+            95
+          ]
+        },
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            95,
+            98
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            95,
+            98
+          ]
+        },
+        {
+          "operation": "replace",
+          "oldRangeZeroBasedHalfOpen": [
+            98,
+            99
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            98,
+            99
+          ]
+        },
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            99,
+            100
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            99,
+            100
+          ]
+        },
+        {
+          "operation": "replace",
+          "oldRangeZeroBasedHalfOpen": [
+            100,
+            101
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            100,
+            101
+          ]
+        },
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            101,
+            104
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            101,
+            104
+          ]
+        },
+        {
+          "operation": "replace",
+          "oldRangeZeroBasedHalfOpen": [
+            104,
+            111
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            104,
+            106
+          ]
+        },
+        {
+          "operation": "equal",
+          "oldRangeZeroBasedHalfOpen": [
+            111,
+            115
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            106,
+            110
+          ]
+        },
+        {
+          "operation": "replace",
+          "oldRangeZeroBasedHalfOpen": [
+            115,
+            118
+          ],
+          "newRangeZeroBasedHalfOpen": [
+            110,
+            114
+          ]
+        }
+      ],
+      "changedOrAddedEvents": [
+        {
+          "event": 56,
+          "original": {
+            "kind": "choice",
+            "index": 1,
+            "text": "[Leave them] A hundred and six against eleven."
+          }
+        },
+        {
+          "event": 57,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "REN",
+            "text": "I left them.",
+            "choices": []
+          }
+        },
+        {
+          "event": 94,
+          "original": {
+            "kind": "choice",
+            "index": 1,
+            "text": "I'll take it."
+          }
+        },
+        {
+          "event": 95,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "KRAJCIK",
+            "text": "...Right.\n I'd like to say I'm pleased. I find I'm not, particularly. I think I wanted one person to look at it and say no.\n Report Monday. There's a desk.",
+            "choices": []
+          }
+        },
+        {
+          "event": 99,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "SOL — quiet",
+            "text": "Four out of four. I have done this for eleven years and I have had four out of four twice.\n I'm going to say the thing I don't say. If you'd been here eighteen months ago with that in you, Cellar Row would have been nine people at a window instead of nine people in a bed.",
+            "choices": []
+          }
+        },
+        {
+          "event": 101,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "SOL — quiet",
+            "text": "Fenn Street. Which is not my block, which is why nobody but you and I are going to say anything about it at all.\n Eleven people lived down there this morning. I could tell you the number every week for two years and nobody came. You came.",
+            "choices": []
+          }
+        },
+        {
+          "event": 105,
+          "original": {
+            "kind": "choice",
+            "index": 2,
+            "text": "It's not ready. Not yet."
+          }
+        },
+        {
+          "event": 106,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "NESSA",
+            "text": "Right. Sure.\n You know what's funny? Everyone in this city has decided what I'm ready for. Sol decides. Marsh decides. Now you.\n I'm nineteen. I go into basements at four hundred parts so a hundred people can breathe. I think I can read a temperature table.",
+            "choices": []
+          }
+        },
+        {
+          "event": 111,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "REN",
+            "text": "Forty people. A man on a heap of spoil. Every true sentence I have and about nine seconds to pick one.",
+            "choices": [
+              {
+                "text": "Put it on the record. All of it, including me.",
+                "locked": false,
+                "tag": "record"
+              },
+              {
+                "text": "Make him cut it on the true line, openly.",
+                "locked": true,
+                "why": "He told you to ask him in front of them. You never asked.",
+                "tag": "the cut"
+              },
+              {
+                "text": "Take the desk. Draw the line honestly and tell nobody.",
+                "locked": false,
+                "tag": "the deal"
+              },
+              {
+                "text": "Burn it. Use their own lorries and empty Hollis.",
+                "locked": false,
+                "why": "Sol would have to run it with you, and you have not stood in front of her since the water came up.",
+                "tag": "everybody out"
+              },
+              {
+                "text": "Walk away. Take it with me.",
+                "locked": false,
+                "tag": "leave"
+              }
+            ]
+          }
+        },
+        {
+          "event": 112,
+          "original": {
+            "kind": "choice",
+            "index": 2,
+            "text": "Take the desk. Draw the line honestly and tell nobody."
+          }
+        },
+        {
+          "event": 113,
+          "original": {
+            "kind": "dialogue",
+            "speaker": "REN",
+            "text": "I put the log back in my coat and tell him I will start Monday.",
+            "choices": []
+          }
+        },
+        {
+          "event": 114,
+          "original": {
+            "kind": "ending",
+            "title": "THE LINE MOVES WEST",
+            "paragraphs": [
+              "You took the desk.",
+              "Q4 went out with the line eighty metres west of where the reduction put it, and you signed the check box, and the households on the inside of it were moved in January with the deposits paid.",
+              "Thirty-one that quarter. Twenty-eight the next. Then forty, because the winter was bad and the Authority released contingency.",
+              "You are good at it. That is the part nobody warns you about. You are extremely good at deciding, every three months, who is told and who is moved and who is simply left where they are for one more quarter because the budget does not reach.",
+              "Eleven years. Three hundred and eighty more households.",
+              "You had already done the sum her way once, on the west side, and found you could live with the answer. That was the afternoon that made this possible. Everything after it was administration.",
+              "Sol had heard the whole thing from you, in her own courtyard, before any of it. She is the only person alive who can put the two Rens in the same sentence, and she has never been asked to.",
+              "Nobody ever knew, which was the point, and you have never settled whether that was mercy or the largest thing you have taken from anybody.",
+              "You saw Nessa twice more, at a distance, in a town with a functioning school. She looked well. You did not cross the road.",
+              "The Ostrowskis did not all get out. He did, and the children did. She had not come down from the first floor in some time, and on the night the draw turned there was nobody downstairs to hear anything, and there was nothing to hear.",
+              "The Stacks held their courtyard through the winter. Sol never thanked you for it, because by her count you had done nothing but decline to make it worse.",
+              "Teodor Marsh closed the exchange and went to his sister's. He posted you one letter, on time, and it said only: *That was the small thing. Done now.*",
+              "2 minutes in Hollis. You lifted the meter 2 times. 4 people up a stairwell."
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "findings": {
+    "NR2-01": [
+      {
+        "route": "deal",
+        "event": 93,
+        "eventId": "D093",
+        "jsonPointer": "/events/92/text",
+        "kind": "dialogue",
+        "quote": "Come back. Survey Engineer One, my authority, your line. You redraw the boundary honestly, quarter by quarter, and I move the households on the inside of it first. Nobody is told. The contract survives. The money keeps moving.\n You would be lying, continuously, for years, and you would be saving roughly thirty households a quarter while you did it.",
+        "speaker": "KRAJCIK"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/1",
+        "kind": "ending",
+        "paragraph": 2,
+        "quote": "Q4 went out with the line eighty metres west of where the reduction put it, and you signed the check box, and the households on the inside of it were moved in January with the deposits paid.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/2",
+        "kind": "ending",
+        "paragraph": 3,
+        "quote": "Thirty-one that quarter. Twenty-eight the next. Then forty, because the winter was bad and the Authority released contingency.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/3",
+        "kind": "ending",
+        "paragraph": 4,
+        "quote": "You are good at it. That is the part nobody warns you about. You are extremely good at deciding, every three months, who is told and who is moved and who is simply left where they are for one more quarter because the budget does not reach.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/4",
+        "kind": "ending",
+        "paragraph": 5,
+        "quote": "Eleven years. Three hundred and eighty more households.",
+        "speaker": "ending narration"
+      }
+    ],
+    "NR2-02": [
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/4",
+        "kind": "ending",
+        "paragraph": 5,
+        "quote": "1 of the names you read out were people you had carried as far as a stairwell in a filling street four days earlier, and not far enough.",
+        "speaker": "ending narration"
+      }
+    ]
+  },
+  "observations": {
+    "R2-O1": [
+      {
+        "route": "publish",
+        "event": 117,
+        "eventId": "P117",
+        "jsonPointer": "/events/116/text",
+        "kind": "choice",
+        "quote": "Put it on the record. All of it, including me.",
+        "speaker": "selected player choice"
+      },
+      {
+        "route": "publish",
+        "event": 118,
+        "eventId": "P118",
+        "jsonPointer": "/events/117/text",
+        "kind": "dialogue",
+        "quote": "I walk to the far side, where the forty people are, and I start with my own name.",
+        "speaker": "REN"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/0",
+        "kind": "ending",
+        "paragraph": 1,
+        "quote": "You put it on the record. All of it — the log, the order, the July sheet with your own initials in the check box.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/3",
+        "kind": "ending",
+        "paragraph": 4,
+        "quote": "You were charged as a party to it. Nine counts. The hearing took four days and your evidence took two of them, and at no point in it did you say that you had been young, or tired, or under contract.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 56,
+        "eventId": "D056",
+        "jsonPointer": "/events/55/text",
+        "kind": "choice",
+        "quote": "[Leave them] A hundred and six against eleven.",
+        "speaker": "selected player choice"
+      },
+      {
+        "route": "deal",
+        "event": 89,
+        "eventId": "D089",
+        "jsonPointer": "/events/88/text",
+        "kind": "dialogue",
+        "quote": "I am not asking you to think I am a good man. I'm asking you to do the determination I am required to make every quarter and make every morning anyway.\n If you publish, the contract voids inside a fortnight. The Authority withdraws. The relocation stops. Four hundred and six people are still in Hollis and there is no longer anybody in the world whose job it is to move them.",
+        "speaker": "KRAJCIK"
+      },
+      {
+        "route": "deal",
+        "event": 93,
+        "eventId": "D093",
+        "jsonPointer": "/events/92/text",
+        "kind": "dialogue",
+        "quote": "Come back. Survey Engineer One, my authority, your line. You redraw the boundary honestly, quarter by quarter, and I move the households on the inside of it first. Nobody is told. The contract survives. The money keeps moving.\n You would be lying, continuously, for years, and you would be saving roughly thirty households a quarter while you did it.",
+        "speaker": "KRAJCIK"
+      },
+      {
+        "route": "deal",
+        "event": 94,
+        "eventId": "D094",
+        "jsonPointer": "/events/93/text",
+        "kind": "choice",
+        "quote": "I'll take it.",
+        "speaker": "selected player choice"
+      },
+      {
+        "route": "deal",
+        "event": 95,
+        "eventId": "D095",
+        "jsonPointer": "/events/94/text",
+        "kind": "dialogue",
+        "quote": "...Right.\n I'd like to say I'm pleased. I find I'm not, particularly. I think I wanted one person to look at it and say no.\n Report Monday. There's a desk.",
+        "speaker": "KRAJCIK"
+      },
+      {
+        "route": "deal",
+        "event": 113,
+        "eventId": "D113",
+        "jsonPointer": "/events/112/text",
+        "kind": "dialogue",
+        "quote": "I put the log back in my coat and tell him I will start Monday.",
+        "speaker": "REN"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/3",
+        "kind": "ending",
+        "paragraph": 4,
+        "quote": "You are good at it. That is the part nobody warns you about. You are extremely good at deciding, every three months, who is told and who is moved and who is simply left where they are for one more quarter because the budget does not reach.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/5",
+        "kind": "ending",
+        "paragraph": 6,
+        "quote": "You had already done the sum her way once, on the west side, and found you could live with the answer. That was the afternoon that made this possible. Everything after it was administration.",
+        "speaker": "ending narration"
+      }
+    ],
+    "R2-O2": [
+      {
+        "route": "publish",
+        "event": 109,
+        "eventId": "P109",
+        "jsonPointer": "/events/108/text",
+        "kind": "dialogue",
+        "quote": "Why are you telling me?\n No — genuinely. Why now. Is it so I say something that makes it easier? Because I'm not going to. I don't have that.",
+        "speaker": "NESSA"
+      },
+      {
+        "route": "publish",
+        "event": 110,
+        "eventId": "P110",
+        "jsonPointer": "/events/109/text",
+        "kind": "choice",
+        "quote": "I'm not telling you so you'll say anything. I'm telling you because it's yours.",
+        "speaker": "selected player choice"
+      },
+      {
+        "route": "publish",
+        "event": 111,
+        "eventId": "P111",
+        "jsonPointer": "/events/110/text",
+        "kind": "dialogue",
+        "quote": "...Yeah.\n Yeah, all right.\n Go and do something with it. That's the only thing that's any use to me now. Don't stand there.",
+        "speaker": "NESSA"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/8",
+        "kind": "ending",
+        "paragraph": 9,
+        "quote": "Nessa came. She sat at the back with her arms folded and she did not look at you and she came every single day.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/9",
+        "kind": "ending",
+        "paragraph": 10,
+        "quote": "She wrote to you afterwards. One line: *You didn't make me find out on my own. That's the whole letter.*",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 104,
+        "eventId": "D104",
+        "jsonPointer": "/events/103/text",
+        "kind": "dialogue",
+        "quote": "She says it proves they knew. Which — good. Fine. That's what everyone's always said and now there's paper.\n I want to read it.",
+        "speaker": "NESSA"
+      },
+      {
+        "route": "deal",
+        "event": 105,
+        "eventId": "D105",
+        "jsonPointer": "/events/104/text",
+        "kind": "choice",
+        "quote": "It's not ready. Not yet.",
+        "speaker": "selected player choice"
+      },
+      {
+        "route": "deal",
+        "event": 106,
+        "eventId": "D106",
+        "jsonPointer": "/events/105/text",
+        "kind": "dialogue",
+        "quote": "Right. Sure.\n You know what's funny? Everyone in this city has decided what I'm ready for. Sol decides. Marsh decides. Now you.\n I'm nineteen. I go into basements at four hundred parts so a hundred people can breathe. I think I can read a temperature table.",
+        "speaker": "NESSA"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/8",
+        "kind": "ending",
+        "paragraph": 9,
+        "quote": "You saw Nessa twice more, at a distance, in a town with a functioning school. She looked well. You did not cross the road.",
+        "speaker": "ending narration"
+      }
+    ],
+    "R2-O3": [
+      {
+        "route": "publish",
+        "event": 53,
+        "eventId": "P053",
+        "jsonPointer": "/events/52/text",
+        "kind": "dialogue",
+        "quote": "A hundred and six here. Eleven there. The heads pull about nine hundred parts off my courtyard overnight and put about eleven hundred onto Fenn Street. Fenn Street is upstairs-capable; every building down there has a first floor and every one of those eleven people knows to use it. My courtyard is where the water is, the generator is, and the only clear ground for two blocks.\n If I shut the heads, I lose the yard. If I lose the yard I lose the block inside a fortnight.",
+        "speaker": "SOL"
+      },
+      {
+        "route": "publish",
+        "event": 99,
+        "eventId": "P099",
+        "jsonPointer": "/events/98/text",
+        "kind": "dialogue",
+        "quote": "You got some of them. That's the job. The job is not everybody, it has never been everybody, and anyone who tells you it is has not done it.\n You'll want to give me the names of the ones you didn't. Don't. I already have them. I write them down before I need to.",
+        "speaker": "SOL"
+      },
+      {
+        "route": "publish",
+        "event": 101,
+        "eventId": "P101",
+        "jsonPointer": "/events/100/text",
+        "kind": "dialogue",
+        "quote": "It was my yard, Vasko. My yard, at four in the morning, because of three borehole heads that a month ago were doing their job.\n I am telling you that as a fact, not as a knife. I have to be able to say the true shape of a thing out loud or I stop being able to do this.",
+        "speaker": "SOL — flat"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/5",
+        "kind": "ending",
+        "paragraph": 6,
+        "quote": "The Stacks courtyard is in the record too. You put it there yourself: the date, the three heads, the bar, the wedge, and the name of the person who turned them. Sol did not attend. She sent a note through Marsh that said only *right*, and it is the shortest and least kind letter anyone has ever sent you.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/11",
+        "kind": "ending",
+        "paragraph": 12,
+        "quote": "The Stacks lost the courtyard in a fortnight, exactly as Sol said they would. They moved the generator to the second floor of Pell and the rota got harder and they did not lose anybody, which Sol has never once called luck.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 56,
+        "eventId": "D056",
+        "jsonPointer": "/events/55/text",
+        "kind": "choice",
+        "quote": "[Leave them] A hundred and six against eleven.",
+        "speaker": "selected player choice"
+      },
+      {
+        "route": "deal",
+        "event": 99,
+        "eventId": "D099",
+        "jsonPointer": "/events/98/text",
+        "kind": "dialogue",
+        "quote": "Four out of four. I have done this for eleven years and I have had four out of four twice.\n I'm going to say the thing I don't say. If you'd been here eighteen months ago with that in you, Cellar Row would have been nine people at a window instead of nine people in a bed.",
+        "speaker": "SOL — quiet"
+      },
+      {
+        "route": "deal",
+        "event": 101,
+        "eventId": "D101",
+        "jsonPointer": "/events/100/text",
+        "kind": "dialogue",
+        "quote": "Fenn Street. Which is not my block, which is why nobody but you and I are going to say anything about it at all.\n Eleven people lived down there this morning. I could tell you the number every week for two years and nobody came. You came.",
+        "speaker": "SOL — quiet"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/10",
+        "kind": "ending",
+        "paragraph": 11,
+        "quote": "The Stacks held their courtyard through the winter. Sol never thanked you for it, because by her count you had done nothing but decline to make it worse.",
+        "speaker": "ending narration"
+      }
+    ],
+    "R2-O4": [
+      {
+        "route": "publish",
+        "event": 29,
+        "eventId": "P029",
+        "jsonPointer": "/events/28/text",
+        "kind": "dialogue",
+        "quote": "Bek gave that letter to me to post. Eleven days before. I put it in my coat and I forgot it, because I was sixty-one years old and I was tired and it was a Thursday.\n I found it again in a coat I hadn't worn since the funeral.",
+        "speaker": "TEO"
+      },
+      {
+        "route": "publish",
+        "event": 32,
+        "eventId": "P032",
+        "jsonPointer": "/events/31/text",
+        "kind": "dialogue",
+        "quote": "So. Now there are two of us who didn't do the small thing at the time.",
+        "speaker": "TEO — quiet"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/12",
+        "kind": "ending",
+        "paragraph": 13,
+        "quote": "Teodor Marsh closed the exchange and went to his sister's. He posted you one letter, on time, and it said only: *That was the small thing. Done now.*",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/11",
+        "kind": "ending",
+        "paragraph": 12,
+        "quote": "Teodor Marsh closed the exchange and went to his sister's. He posted you one letter, on time, and it said only: *That was the small thing. Done now.*",
+        "speaker": "ending narration"
+      }
+    ],
+    "R2-O5": [
+      {
+        "route": "publish",
+        "event": 9,
+        "eventId": "P009",
+        "jsonPointer": "/events/8/text",
+        "kind": "dialogue",
+        "quote": "Nine people. I was on the third floor of Pell when it went. We heard nothing. That's the thing nobody understands about the black — there's nothing to hear.",
+        "speaker": "SOL"
+      },
+      {
+        "route": "publish",
+        "event": 43,
+        "eventId": "P043",
+        "jsonPointer": "/events/42/text",
+        "kind": "dialogue",
+        "quote": "...You're not a crew. Crews don't knock.\n There's four of us. My wife's on the first floor, she doesn't come down any more. The two kids sleep up there too.",
+        "speaker": "OSTROWSKI"
+      },
+      {
+        "route": "publish",
+        "event": 45,
+        "eventId": "P045",
+        "jsonPointer": "/events/44/text",
+        "kind": "dialogue",
+        "quote": "Because the workshop's down here and the workshop is how we eat. I do two hours and I go up. I know what I'm doing. I've lived on this street forty years.",
+        "speaker": "OSTROWSKI"
+      },
+      {
+        "route": "publish",
+        "event": 46,
+        "eventId": "P046",
+        "jsonPointer": "/events/45/text",
+        "kind": "dialogue",
+        "quote": "If you're going west, tell whoever's up there that there's four of us. That's all. Just the number.",
+        "speaker": "OSTROWSKI"
+      },
+      {
+        "route": "publish",
+        "event": 119,
+        "eventId": "P119",
+        "jsonPointer": "/events/118/paragraphs/10",
+        "kind": "ending",
+        "paragraph": 11,
+        "quote": "The Ostrowskis got out. All four. He wrote down your name on the back of a docket at the relocation office and spelled it wrong and would not be corrected.",
+        "speaker": "ending narration"
+      },
+      {
+        "route": "deal",
+        "event": 114,
+        "eventId": "D114",
+        "jsonPointer": "/events/113/paragraphs/9",
+        "kind": "ending",
+        "paragraph": 10,
+        "quote": "The Ostrowskis did not all get out. He did, and the children did. She had not come down from the first floor in some time, and on the night the draw turned there was nobody downstairs to hear anything, and there was nothing to hear.",
+        "speaker": "ending narration"
+      }
+    ],
+    "R2-O6": [
+      {
+        "route": "publish",
+        "event": 78,
+        "eventId": "P078",
+        "jsonPointer": "/events/77/text",
+        "kind": "dialogue",
+        "quote": "...I could. I'm not going to.\n I have eleven months on this contract and a mother in a place that costs four hundred a month and I am not — I can't be the one who —\n There's a service door on the north elevation. The hasp is rusted through. I'm not telling you that. I'm saying it out loud in a yard.",
+        "speaker": "IRIS"
+      },
+      {
+        "route": "publish",
+        "event": 115,
+        "eventId": "P115",
+        "jsonPointer": "/events/114/text",
+        "kind": "dialogue",
+        "quote": "There is no entry against your name for the fourteenth. I looked, because I am the sort of man who looks.\n You came in off the north elevation, which means somebody told you the hasp was gone, which means somebody in my office decided you should be in it. I have not asked who and I am not going to.",
+        "speaker": "KRAJCIK — quiet"
+      },
+      {
+        "route": "deal",
+        "event": 110,
+        "eventId": "D110",
+        "jsonPointer": "/events/109/text",
+        "kind": "dialogue",
+        "quote": "There is no entry against your name for the fourteenth. I looked, because I am the sort of man who looks.\n You came in off the north elevation, which means somebody told you the hasp was gone, which means somebody in my office decided you should be in it. I have not asked who and I am not going to.",
+        "speaker": "KRAJCIK — quiet"
+      }
+    ]
+  },
+  "numericDiagnostic": {
+    "offeredApproximateHouseholdsPerQuarter": 30,
+    "firstThreeQuarters": [
+      31,
+      28,
+      40
+    ],
+    "firstThreeQuartersSum": 99,
+    "statedYears": 11,
+    "quartersAtFourPerYear": 44,
+    "statedFurtherHouseholds": 380,
+    "averageIf380IncludesFirstThree": 8.636363636363637,
+    "averageIf380AdditionalToFirstThree": 10.886363636363637,
+    "interpretationLimit": "Neither calculation proves that a forecast must be fulfilled. The candidate concerns whether the large difference is sufficiently explained, not impossibility of a variable budget."
+  }
+}

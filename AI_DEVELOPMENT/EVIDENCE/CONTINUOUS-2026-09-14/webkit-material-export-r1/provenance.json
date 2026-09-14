@@ -1,0 +1,17 @@
+{
+  "scope": "Independent byte transport verification with separate refutation, not native game or blind comparison.",
+  "archive": {
+    "file": "raw-review.tar.gz",
+    "bytes": 164599,
+    "sha256": "b21b7ec9a7e9c14b65f672a5d881009d751b069ffbca76d76eb6df9b13d1fb5c"
+  },
+  "duplicate_inputs_referenced": 20,
+  "original_stdout_streams_losslessly_preserved": 2,
+  "verification": "Both original decoded stdout byte streams were reconstructed from the stored literals and exact committed input ranges; equality asserted before archiving. Original source index preserves all digests, including replaced gzip wrappers.",
+  "blind_comparisons": 0,
+  "storage_probe_failure_retained": {
+    "symptom": "First deduplication packer treated an intentionally unallowlisted synthetic fixture file as a historical original and stopped with an assertion.",
+    "correction": "Only files that actually exist in the committed historical input set are deduplicated; the synthetic extra is preserved as raw.",
+    "product_or_review_change": false
+  }
+}

@@ -1,0 +1,524 @@
+{
+  "save_version": 2,
+  "fixture": {
+    "what": "A real save written by the real game, frozen as a migration fixture.",
+    "captured_by": "tools/fixtures/capture_legacy_save.mjs",
+    "source_revision": "193f408df049f068be57de7a1944089942720ad9",
+    "build_id": "1.0.0",
+    "save_version": 1,
+    "note": "Do not hand-edit. To reproduce, check out source_revision, build, and re-run the capture script."
+  },
+  "passed": true,
+  "scope": "unit and loader only",
+  "browser_checks_completed": false,
+  "crashed": null,
+  "results": [
+    {
+      "name": "the save is still stored where the published build put it",
+      "ok": true,
+      "detail": "SAVE_KEY is \"cinderline.save.v1\", the published build wrote \"cinderline.save.v1\""
+    },
+    {
+      "name": "the rescue list is where the game says it is",
+      "ok": true,
+      "detail": "cinderline.save.rescued"
+    },
+    {
+      "name": "the revision the fixture came from really shipped an older format",
+      "ok": true,
+      "detail": "193f408 shipped SAVE_VERSION 1"
+    },
+    {
+      "name": "and the fixture is in that format, not this one",
+      "ok": true,
+      "detail": "state.v=1 envelope v=undefined"
+    },
+    {
+      "name": "the fixture carries real progress",
+      "ok": true,
+      "detail": "1 flags, 2 quests"
+    },
+    {
+      "name": "null is empty, not corrupt",
+      "ok": true,
+      "detail": "status=empty reason=no save is stored"
+    },
+    {
+      "name": "undefined is empty",
+      "ok": true,
+      "detail": "status=empty reason=no save is stored"
+    },
+    {
+      "name": "a string is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save is not an object"
+    },
+    {
+      "name": "a number is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save is not an object"
+    },
+    {
+      "name": "an array is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save is not an object"
+    },
+    {
+      "name": "an object with no state is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save has no usable state block"
+    },
+    {
+      "name": "a non-object state is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save has no usable state block"
+    },
+    {
+      "name": "an unversioned save is unknown",
+      "ok": true,
+      "detail": "status=unknown reason=save carries no version"
+    },
+    {
+      "name": "a non-integer envelope version is corrupt, not a licence to fall back",
+      "ok": true,
+      "detail": "status=corrupt reason=envelope version 1.5 is not a version"
+    },
+    {
+      "name": "so is a null envelope version",
+      "ok": true,
+      "detail": "status=corrupt reason=envelope version null is not a version"
+    },
+    {
+      "name": "so is Infinity",
+      "ok": true,
+      "detail": "status=corrupt reason=envelope version Infinity is not a version"
+    },
+    {
+      "name": "an envelope and a state block that disagree is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=envelope says version 2, the state block says 1"
+    },
+    {
+      "name": "a state block that is an array is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save has no usable state block"
+    },
+    {
+      "name": "a state block with no progress fields is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=save has no usable state block"
+    },
+    {
+      "name": "version 0 is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=version 0 is not a real version"
+    },
+    {
+      "name": "a negative version is corrupt",
+      "ok": true,
+      "detail": "status=corrupt reason=version -3 is not a real version"
+    },
+    {
+      "name": "a newer save is refused, not guessed at",
+      "ok": true,
+      "detail": "status=future reason=save is version 3, this build reads 2"
+    },
+    {
+      "name": "a far-future save is refused",
+      "ok": true,
+      "detail": "status=future reason=save is version 9999, this build reads 2"
+    },
+    {
+      "name": "a real v1 save migrates",
+      "ok": true,
+      "detail": "1 -> 2 via 1->2"
+    },
+    {
+      "name": "it is upgraded one step at a time",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "the version lands on the envelope and the state",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "migrating does not mutate the stored save",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "migration is idempotent at the current version",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no progress is added, dropped or altered",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "the migrated state deserialises",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "the old save's progress survives the round trip",
+      "ok": true,
+      "detail": "chapter 1, 1 flags, 2 quests"
+    },
+    {
+      "name": "a v1 state is still refused by deserialise directly",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "a two-version gap walks every step in order",
+      "ok": true,
+      "detail": "steps=1->2,2->3 saw=[[1,1],[2,2]]"
+    },
+    {
+      "name": "every step's output reaches the next one and the result",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "a migration that forgets to set the version fails instead of being stamped",
+      "ok": true,
+      "detail": "migration 1 to 2 produced version undefined/1"
+    },
+    {
+      "name": "a migration that lands on the wrong version fails",
+      "ok": true,
+      "detail": "migration 1 to 2 produced version 47/47"
+    },
+    {
+      "name": "a migration that empties the save fails instead of reporting success",
+      "ok": true,
+      "detail": "migration 1 to 2 dropped progress the old save carried"
+    },
+    {
+      "name": "a missing step stops instead of skipping",
+      "ok": true,
+      "detail": "no migration from version 2"
+    },
+    {
+      "name": "a throwing migration fails loudly",
+      "ok": true,
+      "detail": "migration 1 to 2 threw: boom"
+    },
+    {
+      "name": "a migration that returns a non-save fails",
+      "ok": true,
+      "detail": "migration 1 to 2 did not return a save"
+    },
+    {
+      "name": "the shipped registry covers every version below the current one",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "only ok and migrated are loadable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a current save writes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: it loads",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: nothing is lost",
+      "ok": true,
+      "detail": "filters 3/3"
+    },
+    {
+      "name": "loader: and it is not reported as a migration",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "loader: no rescue copy is made for a save that loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a real v1 save loads",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: reported as migrated",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: the stored bytes are left alone until the next real save",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: no rescue copy is made for a save that migrated",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a newer build does not load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a newer build is reported as future",
+      "ok": true,
+      "detail": "future"
+    },
+    {
+      "name": "loader: a newer build is left byte-for-byte alone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a newer build is copied to the rescue list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a newer build reports that THIS save was kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a newer build survives the new game that follows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: and the rescue list is visible to the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a truncated write does not load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a truncated write is reported as corrupt",
+      "ok": true,
+      "detail": "corrupt"
+    },
+    {
+      "name": "loader: a truncated write is left byte-for-byte alone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a truncated write is copied to the rescue list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a truncated write reports that THIS save was kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a truncated write survives the new game that follows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: and the rescue list is visible to the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save with no version does not load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save with no version is reported as unknown",
+      "ok": true,
+      "detail": "unknown"
+    },
+    {
+      "name": "loader: a save with no version is left byte-for-byte alone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save with no version is copied to the rescue list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save with no version reports that THIS save was kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save with no version survives the new game that follows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: and the rescue list is visible to the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save whose versions disagree does not load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save whose versions disagree is reported as corrupt",
+      "ok": true,
+      "detail": "corrupt"
+    },
+    {
+      "name": "loader: a save whose versions disagree is left byte-for-byte alone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save whose versions disagree is copied to the rescue list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save whose versions disagree reports that THIS save was kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a save whose versions disagree survives the new game that follows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: and the rescue list is visible to the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: earlier junk does not squat the rescue list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: and the earlier copy is still there too",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: \"it was kept\" is reported for the save it is said about",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: a rescue that could not be written reports false, not true",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "loader: a migrated save is not rescued while it is still readable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: the pre-upgrade bytes are kept before the format changes under them",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "write: the session saves over it",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "write: and the save it could not read was copied first",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "write: an ordinary save is not hoarded in the rescue list",
+      "ok": true,
+      "detail": "0 rescued"
+    },
+    {
+      "name": "loader: no save reads as empty, not as a fault",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: clear() drops the save",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: clear() keeps the rescued copies",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: the player can drop the rescued copy deliberately",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loader: storage that throws on every call does not take the game down",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "negative control rejected: no migration registered",
+      "ok": true,
+      "detail": "caught by \"a real v1 save migrates\" and 11 other(s)"
+    },
+    {
+      "name": "negative control rejected: a loader that writes the migration back immediately",
+      "ok": true,
+      "detail": "caught by \"loader: the stored bytes are left alone until the next real save\" and 0 other(s)"
+    },
+    {
+      "name": "negative control rejected: a migration that drops the progress",
+      "ok": true,
+      "detail": "caught by \"no progress is added, dropped or altered\" and 10 other(s)"
+    },
+    {
+      "name": "negative control rejected: the pre-fix loader",
+      "ok": true,
+      "detail": "caught by \"loader: a real v1 save loads\" (the layer also threw: Cannot read properties of null (reading 'status')) and 0 other(s)"
+    },
+    {
+      "name": "negative control rejected: a write path that overwrites without looking",
+      "ok": true,
+      "detail": "caught by \"write: and the save it could not read was copied first\" and 1 other(s)"
+    },
+    {
+      "name": "negative control rejected: discarding instead of rescuing",
+      "ok": true,
+      "detail": "caught by \"loader: a newer build is copied to the rescue list\" and 21 other(s)"
+    },
+    {
+      "name": "negative control rejected: a rescue slot that later failures overwrite",
+      "ok": true,
+      "detail": "caught by \"loader: and the earlier copy is still there too\" and 1 other(s)"
+    },
+    {
+      "name": "production behaviour is restored after the controls",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "page_errors": [],
+  "when": "2026-09-13T21:56:12.739Z"
+}

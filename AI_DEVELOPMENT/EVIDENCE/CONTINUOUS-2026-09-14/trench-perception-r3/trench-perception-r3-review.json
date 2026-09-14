@@ -1,0 +1,397 @@
+{
+  "round": "trench-perception-repair-cpu-03",
+  "profile": "Independent narrow CPU/source review of repeated-entry and declared-item repairs",
+  "tier": "medium CPU geometry; no GPU or output-device evaluation",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No raster target; absence marker only.",
+  "verdict": "FAIL",
+  "verdictMeaning": "Conservative schema field only: this CPU evidence does not establish an element or product approval. Within the specified repair checks, there is no surviving verified defect after separate refutation.",
+  "score": 0,
+  "scoreMeaning": "Required unscored sentinel, not a product quality score.",
+  "blindComparison": "Not performed. Source-labelled CPU controls cannot establish a blind stranger preference, sensory quality, an element pass, or a product pass.",
+  "scope": "Narrow repair review: normal Game input, actual Director/QuestSystem/Storage, Enemy/AI/Combat, Player/City collision. Appearance/output devices and input acquisition are fixture stubs; locale DOM attributes use an inert sink. No perception, damage, movement or collision result is forced.",
+  "sourceHashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "a45c2ce94362ee5489089a245087567f1ace550388f5c49366d4f7e6dc1ec772",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "5d47dd0ceba8079a28568da0e66235d59ad31fd6a7935e4e1e05409d9cb611b7",
+    "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "changedSourcePins": {
+    "src/game/director.js": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d",
+    "src/content/locale/ja/ui.js": "5d47dd0ceba8079a28568da0e66235d59ad31fd6a7935e4e1e05409d9cb611b7"
+  },
+  "findings": [],
+  "repairOutcome": "The repeated-entry defect is resolved within its stated contract. Declared item enforcement, localized notice text, nonconsumption, imminent-attack cancellation and actual-quest oblique climb are supported by source-pinned CPU evidence. No surviving finding remains in this bounded review.",
+  "resolvedCandidates": [
+    {
+      "id": "R2-REENTRY",
+      "status": "resolved within the measured contract; separately reproduced and counterfactually checked",
+      "detail": "Before the passage poll, repeated active-step entry preserves the three existing neutral actors. Accepted-state save/load creates no replacement line; repeated entry and repeated applySave remain zero. The next ordinary poll advances to step 2."
+    }
+  ],
+  "controls": [
+    {
+      "id": "R3-REENTRY",
+      "evidence": "trench-perception-r3-probe-01.json :: accepted-prepoll-live-and-save-reentry",
+      "setup": "One actual Game tick establishes the normal poll phase; normal input handoff on the next tick. No timer or passage-flag assignments.",
+      "liveCounts": [
+        3,
+        3,
+        3
+      ],
+      "loadedReentryCounts": [
+        0,
+        0,
+        0
+      ],
+      "repeatedApplySaveCounts": [
+        0,
+        0,
+        0
+      ],
+      "nextPollQuest": {
+        "state": "active",
+        "step": 2,
+        "data": {}
+      },
+      "itemCount": 1
+    },
+    {
+      "id": "R3-ITEM",
+      "evidence": "trench-perception-r3-probe-01.json :: required-item-normal-input-locales-and-nonconsumption",
+      "cases": [
+        {
+          "language": "en",
+          "blockedMode": "play",
+          "blockedQuest": {
+            "state": "active",
+            "step": 1,
+            "data": {}
+          },
+          "blockedFlags": [],
+          "notices": [
+            {
+              "time": 0.016666666666666666,
+              "method": "notice",
+              "args": [
+                "You need Trench cut order.",
+                "bad",
+                3
+              ]
+            }
+          ],
+          "acceptedFlags": [
+            "trench_talked"
+          ],
+          "acceptedItemCount": 1,
+          "afterPollItemCount": 1
+        },
+        {
+          "language": "ja",
+          "blockedMode": "play",
+          "blockedQuest": {
+            "state": "active",
+            "step": 1,
+            "data": {}
+          },
+          "blockedFlags": [],
+          "notices": [
+            {
+              "time": 0.016666666666666666,
+              "method": "notice",
+              "args": [
+                "「掘削指示書」が必要だ。",
+                "bad",
+                3
+              ]
+            }
+          ],
+          "acceptedFlags": [
+            "trench_talked"
+          ],
+          "acceptedItemCount": 1,
+          "afterPollItemCount": 1
+        }
+      ],
+      "scope": "Declared requiresItem enforcement and localization only. A normal full-chapter journey with no order is not established; no exploit claim is made. Notice text is inspected at the UI call boundary, not rendered."
+    },
+    {
+      "id": "R3-ATTACK",
+      "evidence": "trench-perception-r3-probe-01.json :: committed-swing-item-gate-negative-and-cancel-positive",
+      "cases": [
+        {
+          "hasItem": false,
+          "committedAttacks": [
+            {
+              "id": 21,
+              "kind": "warden",
+              "faction": "hostile",
+              "aggro": true,
+              "state": "combat",
+              "awareness": 1,
+              "target": 19,
+              "attack": {
+                "name": "wardenJab",
+                "t": 0.3833333333333333,
+                "windup": 0.4
+              }
+            }
+          ],
+          "postInputRaid": "trench",
+          "postInputTokens": [
+            [
+              21,
+              1.35
+            ]
+          ],
+          "postInputLock": 21,
+          "wardenHits": 2,
+          "wardenDamage": 22,
+          "afterItemCount": 0,
+          "durationSeconds": 1.2
+        },
+        {
+          "hasItem": true,
+          "committedAttacks": [
+            {
+              "id": 25,
+              "kind": "warden",
+              "faction": "hostile",
+              "aggro": true,
+              "state": "combat",
+              "awareness": 1,
+              "target": 23,
+              "attack": {
+                "name": "wardenJab",
+                "t": 0.3833333333333333,
+                "windup": 0.4
+              }
+            }
+          ],
+          "postInputRaid": null,
+          "postInputTokens": [],
+          "postInputLock": null,
+          "wardenHits": 0,
+          "wardenDamage": 0,
+          "afterItemCount": 1,
+          "durationSeconds": 8
+        }
+      ],
+      "scope": "Without the item, the request is rejected and two real Warden hits occur; with it, an imminent actual AI attack is canceled and eight seconds show zero Warden damage. Cases are separate games with process-global Actor-ID RNG, not identical-state rewinds."
+    },
+    {
+      "id": "R3-CLIMB",
+      "evidence": "trench-perception-r3-probe-01.json :: actual-quest-oblique-climb-segment",
+      "start": [
+        96,
+        16
+      ],
+      "initial": {
+        "ground": {
+          "y": 0.9000000000000004,
+          "tag": "pitwall"
+        },
+        "overlap": null
+      },
+      "targets": [
+        [
+          92.75,
+          15.3
+        ],
+        [
+          91.9,
+          17.5
+        ],
+        [
+          90,
+          16
+        ]
+      ],
+      "cameraYaw": 0,
+      "phaseTransitions": [
+        "distance below 0.14 m from first target",
+        "grounded, not vaulting, y above 1.9 m"
+      ],
+      "elapsedSeconds": 2.3833333333333298,
+      "position": [
+        90.01529122570088,
+        2.6,
+        16.415701443106556
+      ],
+      "groundedHeight": 2.6,
+      "vaultTimes": [
+        1.0500000000000012,
+        1.8499999999999983
+      ],
+      "quest": {
+        "state": "active",
+        "step": 2,
+        "data": {}
+      },
+      "flags": [
+        "trench_passed",
+        "trench_slipped"
+      ],
+      "scope": "Only supported initial position setup; later movement comes from real normal Game input/Player physics/vault/collision. No sprint. This is the final climb segment, not the complete earlier-chapter approach. The final snapshot is alerted/combat; the positional trench_slipped flag must not be interpreted as confirmed unseen passage."
+    }
+  ],
+  "carriedEvidence": [
+    {
+      "detail": "AI, City, Props, Player, Combat, Game, Storage and narrative source hashes remain identical to round 2; their separately refuted neutral reinforcement, legacy geometry/RNG and cleanup controls are retained in round-2 evidence. No optional rerun is used to inflate coverage.",
+      "report": "trench-perception-r2-review.json",
+      "refutation": "trench-perception-r2-refuter-review.json"
+    }
+  ],
+  "limitations": [
+    "No browser, rendered surface correspondence, physical touch acquisition, discoverability, combat feel, audible music, or full prior-chapter journey was measured.",
+    "The climb begins at one explicitly supported approach point; all later motion comes from actual Player physics.",
+    "No product/element quality approval or blind comparison follows from these source controls."
+  ],
+  "rawArtifacts": [
+    "trench-perception-r3-probe-01.mjs",
+    "trench-perception-r3-probe-01.json",
+    "trench-perception-r3-probe-01.log",
+    "trench-perception-r2-fixture-v1.mjs",
+    "trench-perception-fixture-v3.mjs",
+    "cpu-city-fixture-v2.mjs",
+    "trench-perception-r3-refuter-probe-01.mjs",
+    "trench-perception-r3-refuter-probe-01.json",
+    "trench-perception-r3-refuter-probe-01.log",
+    "trench-perception-r3-reviewed-director.js",
+    "trench-perception-r3-reviewed-ja-ui.js",
+    "trench-perception-r3-targeted-diff.patch"
+  ],
+  "refutation": {
+    "agent": "/root/trench_perception_review/trench_refuter",
+    "independent": true,
+    "pinDependentWorkComplete": true,
+    "report": "trench-perception-r3-refuter-review.json",
+    "validation": "trench-perception-r3-refuter-validation.json",
+    "rawScript": "trench-perception-r3-refuter-probe-01.mjs",
+    "rawOutput": "trench-perception-r3-refuter-probe-01.json",
+    "rawLog": "trench-perception-r3-refuter-probe-01.log",
+    "survivingFindings": [],
+    "checks": [
+      {
+        "name": "live-and-fresh-instance-prepoll-reentry-counterfactual",
+        "status": "completed"
+      },
+      {
+        "name": "normal-item-rejection-localization-then-acceptance",
+        "status": "completed"
+      },
+      {
+        "name": "imminent-attack-noitem-negative-and-item-positive",
+        "status": "completed"
+      }
+    ],
+    "scope": "Fresh independent execution of reentry, fresh-instance load, prior-Director counterfactual, item/localization and real attack controls. The new climb trace is separately inspected rather than independently rerun; unchanged earlier controls are carried by exact source hashes."
+  },
+  "retention": "All earlier attempts, failed direct routes, disproved findings and source-mismatch runs remain unchanged.",
+  "createdAt": "2026-09-14T04:37:53.528Z",
+  "observations": [
+    {
+      "id": "R3-CLIMB-DETECTION",
+      "status": "scope clarification, not a new defect",
+      "detail": "The successful oblique climb final snapshot has two hostile Wardens in combat, the scav aggro while fleeing gas, and combat music. The trench_slipped flag demonstrates the positional quest branch; this route is not evidence of unseen or undetected passage. This qualification also applies to the retained round-2 actual-quest route.",
+      "evidence": "trench-perception-r3-probe-01.json :: actual-quest-oblique-climb-segment/final"
+    }
+  ],
+  "independentReentryCounterfactual": [
+    {
+      "label": "current",
+      "liveCounts": [
+        3,
+        3,
+        3
+      ],
+      "restoredCounts": [
+        0,
+        0,
+        0
+      ],
+      "repeatedApplySaveCounts": [
+        0,
+        0,
+        0
+      ],
+      "nextPollQuest": {
+        "state": "active",
+        "step": 2,
+        "data": {}
+      },
+      "itemCount": 1
+    },
+    {
+      "label": "prior-r2",
+      "liveCounts": [
+        3,
+        6,
+        9
+      ],
+      "restoredCounts": [
+        3,
+        6,
+        9
+      ],
+      "repeatedApplySaveCounts": [
+        3,
+        3,
+        3
+      ],
+      "nextPollQuest": {
+        "state": "active",
+        "step": 2,
+        "data": {}
+      },
+      "itemCount": 1
+    }
+  ],
+  "priorArtifactIntegrity": [
+    {
+      "manifest": "trench-perception-artifact-manifest.json",
+      "checkedFiles": 37,
+      "changedFiles": 0
+    },
+    {
+      "manifest": "trench-perception-r2-artifact-manifest.json",
+      "checkedFiles": 27,
+      "changedFiles": 0
+    }
+  ]
+}

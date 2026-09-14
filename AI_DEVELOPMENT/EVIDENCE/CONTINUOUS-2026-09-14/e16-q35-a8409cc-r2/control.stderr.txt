@@ -1,0 +1,38 @@
+0.00.543.658 I cmn          init: llama threadpool init, n_threads = 4
+0.01.089.780 I mtmd_cli_context: chat template example:
+<|im_start|>system
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+<think>
+
+0.01.089.788 I main: loading model: /home/runner/work/_temp/e16-q35-a8409cc-r2/Qwen3.5-9B-Q8_0.gguf
+0.01.090.036 W WARN: This is an experimental CLI for testing multimodal capability.
+0.01.090.041 W       For normal use cases, please use the standard llama-cli
+0.06.965.154 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.23.035.568 I mtmd batch encoding done in 76071 ms
+1.23.037.649 W find_slot: non-consecutive token position 57 after 56 for sequence 0 with 128 new tokens
+1.23.037.660 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+1.23.037.661 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+1.23.037.661 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+1.23.038.082 W find_slot: non-consecutive token position 57 after 56 for sequence 0 with 128 new tokens
+1.36.055.889 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+1.49.080.419 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.02.114.405 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.15.195.958 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.15.196.036 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.15.196.062 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.15.196.088 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.15.196.551 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.28.279.439 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.41.342.822 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+2.54.421.940 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 128 new tokens
+3.07.522.377 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 34 new tokens
+3.07.522.446 W find_slot: non-consecutive token position 57 after 57 for sequence 0 with 34 new tokens
+3.11.068.542 W find_slot: non-consecutive token position 110 after 57 for sequence 0 with 8 new tokens
+3.11.068.635 W find_slot: non-consecutive token position 110 after 57 for sequence 0 with 8 new tokens

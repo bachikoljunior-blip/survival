@@ -1,0 +1,117 @@
+{
+  "verdict": "FAIL",
+  "score": 65,
+  "round": "ecccf348-actual-shadow-contact",
+  "profile": "Actual Playwright WebKit native-image review; iPhone SE landscape emulation",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "blindComparison": "This is an identified production-build diagnostic, not a blind comparison with a reference work. No preference by an unidentified evaluator, concept-element satisfaction or product-wide completion is claimed.",
+  "scope": "FAIL concerns the stale-looking shadow/contact problem in the captured build. The diagnostic controls are valid for these four frozen views. Neither the technical 133/133 result nor this review is a whole-product verdict.",
+  "target": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "testedCommit": "ecccf348117767dd9f815d820dc3b6dcd2c78cd0",
+    "evidenceDirectory": "/workspace/scratch/0b7ad82bafe7/ci-ecccf34",
+    "report": "/workspace/scratch/0b7ad82bafe7/ci-ecccf34/report.json",
+    "reportSha256": "77cadf7c0a6dcab7e4cdc72965a0a161b86c52352091f19ad4b06c3154e3f926",
+    "checkedAtJST": "2026-09-14T08:50:05.574+09:00",
+    "browser": "webkit",
+    "viewportCSS": "667x375",
+    "dpr": 2,
+    "shadowMapSize": "1024x1024",
+    "environmentBoundary": "Browser emulation on the CI environment; not a physical iPhone or physical-device speed measurement."
+  },
+  "findings": [
+    {
+      "severity": "major",
+      "shot": "visual-cinder-frame.png compared with shadow-cinder-refreshed.png",
+      "problem": "The cached Cinder frame lacks the clearly visible dark ground shadow next to the player's right boot that appears after rebuilding the shadow map with exactly the original bias values and unchanged captured pose/camera. The refreshed frame also changes shadows around windows and surfaces of the right-hand building.",
+      "why": "The cached frame makes the standing player appear less connected to the ground. A numeric bias change is not required to produce the missing shadow detail, so shipping different bias values alone would leave the demonstrated update problem unresolved.",
+      "owner": "src/render/atmosphere.js",
+      "hypothesis": "Shadow-map content or its associated caster/visibility state is stale. The production 3 m player-anchor refresh trigger is one candidate mechanism; the four still images do not prove that this threshold alone is the cause.",
+      "fix": "Prioritize a verified shadow invalidation/refresh correction. Re-run tools/test-iphone-webkit.mjs and inspect the four native cached/refreshed pairs: the Cinder production capture should retain its current player ground shadow without the diagnostic forcing a refresh. Record refresh-frame/caster-state evidence and added draw/triangle cost; no particular unconditional refresh frequency is prescribed.",
+      "evidence": {
+        "parametersBothFrames": {"bias": -0.0009, "normalBias": 0.028},
+        "poseAndCameraControl": "Exact recorded equality; cached frame/time/player position/camera also agree with diagnostic before-state.",
+        "repeatControl": "Refreshed and restored-repeat decoded RGBA differ at 0 pixels.",
+        "localizedPixelExample": {"position": [571, 518], "cachedRGB": [116, 88, 62], "refreshedRGB": [51, 31, 32]},
+        "pixelExampleUse": "This locates a visible change inspected in the actual image; it is not a quality score or reference-comparison substitute.",
+        "separateRefutation": "The independent refuter confirmed the visible player-shadow change at unchanged bias, and narrowed the building claim to its visible window/wall shadows rather than an unproven attribution of all ground shadows."
+      }
+    }
+  ],
+  "adoptionDecision": {
+    "bias": -0.0009,
+    "normalBias": 0.028,
+    "recommendation": "Retain the current numeric values for now and address the demonstrated refresh problem first. The four views do not provide a clear contact-quality reason to adopt -0.00015 / 0.028 or -0.00015 / 0.012 globally.",
+    "reason": "The major Cinder gain already occurs at the original values. The reduced-bias variants change edge shading, but the visible Arcade separation between the boots and the dark blob remains in both alternatives. Stacks and Ventfield provide no clear contrary adoption benefit.",
+    "sideEffectsObserved": "No obvious widespread new acne or severe striping was identified in the four inspected still views, but the changed edge shading is not proof of absence of artifacts in motion or other surfaces. No alternative is certified as a shipping-wide improvement.",
+    "separateRefutation": "The independent image reviewer did not refute prioritizing update conditions over global numeric bias adoption. Small edge differences were not represented as zero effect."
+  },
+  "variantMeaning": {
+    "cached": "Synchronous native production frame saved by the parent capture.",
+    "refreshed": "Fresh shadow map at bias -0.0009, normalBias 0.028.",
+    "depth": "Fresh shadow map at bias -0.00015, normalBias 0.028; a full-color image, not a raw depth image.",
+    "depth-normal": "Fresh shadow map at bias -0.00015, normalBias 0.012.",
+    "repeat": "Fresh shadow map after restoring -0.0009 / 0.028; control is equality with refreshed, not with cached."
+  },
+  "validation": {
+    "reportedChecks": 133,
+    "reportedPassed": 133,
+    "reportedFailures": [],
+    "independentlyCheckedNativeFiles": 20,
+    "fileAndDecodedHashesMatchingReport": 20,
+    "nativeDimensionsMatching": 20,
+    "poseControlsEqual": 4,
+    "refreshedRepeatPairsWithZeroDifferentPixels": 4,
+    "imageInspection": "Primary reviewer viewed all 20 requested files. Separate reviewer viewed the 16 unique images and independently checked the four exact repeat copies.",
+    "controlBoundary": "These controls establish reproducibility of the sampled diagnostic frames. They do not establish image quality, ongoing animation correctness or a reference-work comparison."
+  },
+  "views": [
+    {
+      "name": "stacks",
+      "files": ["visual-stacks-frame.png", "shadow-stacks-refreshed.png", "shadow-stacks-depth.png", "shadow-stacks-depth-normal.png", "shadow-stacks-repeat.png"],
+      "observation": "Refresh changes are small around the player. The foreground slab obscures part of foot-ground contact, so this view is a weaker contact test than Cinder or Arcade. Reduced bias changes shadow edges without a clear overall contact gain.",
+      "submissions": {"cached": {"draws": 62, "triangles": 103669}, "eachRefreshedVariant": {"draws": 145, "triangles": 224067}},
+      "differentPixels": {"cachedToRefreshed": 3350, "refreshedToDepth": 48041, "depthToDepthNormal": 74915, "refreshedToRepeat": 0}
+    },
+    {
+      "name": "arcade",
+      "files": ["visual-arcade-frame.png", "shadow-arcade-refreshed.png", "shadow-arcade-depth.png", "shadow-arcade-depth-normal.png", "shadow-arcade-repeat.png"],
+      "observation": "The feet around x470-531/y539-557 and the dark lower-left blob centered near x430/y578 remain visually separated in refreshed, depth and depth-normal. Lowering the two numeric parameters does not resolve this visible symptom in the sampled view.",
+      "submissions": {"cached": {"draws": 126, "triangles": 83947}, "eachRefreshedVariant": {"draws": 255, "triangles": 245843}},
+      "differentPixels": {"cachedToRefreshed": 478, "refreshedToDepth": 18501, "depthToDepthNormal": 39360, "refreshedToRepeat": 0}
+    },
+    {
+      "name": "cinder",
+      "files": ["visual-cinder-frame.png", "shadow-cinder-refreshed.png", "shadow-cinder-depth.png", "shadow-cinder-depth-normal.png", "shadow-cinder-repeat.png"],
+      "observation": "Original-parameter refresh makes a clearly visible player ground shadow appear next to and right of the boots and changes right-building window/wall shadows. This is the strongest evidence that refresh state needs attention before bias adoption.",
+      "submissions": {"cached": {"draws": 111, "triangles": 129583}, "eachRefreshedVariant": {"draws": 241, "triangles": 217739}},
+      "differentPixels": {"cachedToRefreshed": 30170, "refreshedToDepth": 14091, "depthToDepthNormal": 24296, "refreshedToRepeat": 0}
+    },
+    {
+      "name": "ventfield",
+      "files": ["visual-ventfield-frame.png", "shadow-ventfield-refreshed.png", "shadow-ventfield-depth.png", "shadow-ventfield-depth-normal.png", "shadow-ventfield-repeat.png"],
+      "observation": "A side-on player and a soft ground shadow are visible in all variants. Refresh and bias alternatives make smaller changes than in Cinder; this view supplies no clear reason for global numeric bias adoption.",
+      "submissions": {"cached": {"draws": 79, "triangles": 33819}, "eachRefreshedVariant": {"draws": 160, "triangles": 71433}},
+      "differentPixels": {"cachedToRefreshed": 3355, "refreshedToDepth": 11602, "depthToDepthNormal": 14628, "refreshedToRepeat": 0}
+    }
+  ],
+  "submissionInterpretation": "The fresh-map frames submit additional shadow work. All four fresh variants have identical draw/triangle counts within each view; the values are renderer submission counters, not unique scene triangles. perfSnapshot percentiles belong to the prior sample window and are not per-variant timings. No physical FPS improvement or regression is inferred.",
+  "pixelCountInterpretation": "Different-pixel counts document exact control identity and the existence of changes only. Neither greater nor fewer changed pixels is treated as better image quality.",
+  "incidentalArcadeObservation": {
+    "symptom": "A cuboid around x588-625/y76-108 and nearby smaller pieces appear unsupported against the sky in all five Arcade variants.",
+    "confirmedBoundary": "The phenomenon survives both tested bias alternatives and refresh, so those alternatives do not resolve it. Exact mesh identity and its intended supporting structure are not established.",
+    "visibilityHypothesis": "City.updateVisibility toggles whole detailed chunk groups using camera distance. However, ordinary building mass and roofClutter are authored into the same ChunkBuilder; a simple same-building roof-only chunk-cull explanation is therefore not supported by that source path.",
+    "otherPossibilities": "Separate props/structures, geometry placement, individual material-mesh frustum behavior or another scene relationship remain unconfirmed possibilities.",
+    "nextDiagnostic": "Identify the actual meshes corresponding to these screen regions and record their parent chunk/visibility/bounds before attributing a cause. No geometry removal or culling change is recommended without that identification."
+  },
+  "independentRefuter": "/root/render_cost_review/refute_backdrop",
+  "unmeasured": [
+    "The exact invalidation failure that made the cached map differ, including whether the 3 m anchor trigger is the sole cause.",
+    "The performance and moving-image effects of any new refresh policy.",
+    "Other quality tiers, interiors, materials, poses and camera angles.",
+    "A valid source-blind comparison or any of the 19 elements becoming satisfied."
+  ],
+  "reviewerWrites": "Only this JSON was written for this task. No product, CI, renderer or external state was changed."
+}

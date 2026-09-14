@@ -1,4 +1,5 @@
-# Canonical active state. This file is the machine authority for continuation.
+# Canonical remaining project state. Work count, clock and continuation checkpoint
+# have a single authority in AI_DEVELOPMENT/SESSION_STATE.yaml.
 #
 # docs/STATE.md remains the human-readable product narrative.
 # AI_DEVELOPMENT/PROJECT_STATE.json remains the work graph (task ids,
@@ -6,7 +7,10 @@
 # fields below; when they disagree with verified reality, verified reality wins
 # and all three are corrected.
 
+# Legacy schema version, not an active retired procedure.
 protocol_version: "2.2"
+
+# Work count moved to SESSION_STATE.yaml; previous value was 1.
 
 project:
   id: PROJECT-CINDERLINE
@@ -26,13 +30,13 @@ logical_session:
 objective:
   id: GATE-B
   statement: >-
-    Continue CINDERLINE from the published Gate B representative-slice
-    checkpoint and implement the highest-priority verified frontier, without
-    overstating Gate B coverage.
+    Make all concept elements satisfied through valid source-blind comparisons
+    with evidence applicable to the final product. Continue from the current
+    checkpoint in AI_DEVELOPMENT/SESSION_STATE.yaml.
   status: in_progress
   key_requirements:
     - docs/directive.md is the product authority; docs/bible.md is the approved design
-    - docs/DONE.md holds the Gate A-D completion conditions
+    - CLAUDE.md defines completion; docs/DONE.md retains the product checks
     - no real-device claim may be made while blocker B1 stands
   acceptance_evidence: AI_DEVELOPMENT/PROJECT_STATE.json (acceptance_trace)
 
@@ -40,7 +44,7 @@ execution:
   selected_rigor: STANDARD
   active_work:
     id: GB-IMP02
-    status: ready
+    status: verification_in_progress
     statement: >-
       Correct the trust feedback that grades the player's choices (docs/bible.md
       IMP-02). The round before it — the reconciled save migration, post-boot
@@ -76,20 +80,20 @@ execution:
   current_blockers:
     - id: B1
       statement: >-
-        No physical device has ever run this build. Gate D FPS, GPU, heat,
-        memory-pressure eviction, real-glass reach/feel, haptics and audio
-        latency cannot be verified here. This remains an evidence limitation,
-        not a routine release blocker.
-      who_can_clear: human only, via docs/device-test-checklist.md
+        Current-build smartphone execution remains unmeasured. Physical-device
+        testing is out of scope; no element is permanently excluded. Use the
+        best available environment and distinguish measurements from bounded
+        criterion-satisfying inference.
+      who_can_clear: smartphone execution and documented inference
     - id: B2
-      statement: The Japanese text has never been read by a native speaker.
-      who_can_clear: human only
+      statement: Current Japanese expression quality has no valid comparative evaluation.
+      who_can_clear: independent evaluation of actual game text and valid source-blind comparison
     - id: R2-9
       statement: >-
-        A rescued save cannot be reached by the player. There is no restore or
-        export path, so "a copy has been kept aside" means a file only devtools
-        can open — and the rollback recovery for a migrated save depends on it.
-      who_can_clear: a title-screen restore/export entry, not yet built
+        Restore and exact-byte export are implemented in title settings.
+        Twelve storage and event-wiring tests pass after restoration. Full
+        browser interaction and restored-world verification remain unmeasured.
+      who_can_clear: current-build smartphone execution of restore, export and Continue
   review_findings_open:
     note: >-
       GB-H1-REVIEW is PARTIAL. Three lenses were launched; only lens 3
@@ -165,14 +169,12 @@ execution:
   current_uncertainty:
     - The shipped save-migration chain has one step, so staged multi-version migration is proved only against an injected registry.
     - The browser layer of the save gate has no automated negative control; its ability to fail has been observed by hand only.
-    - A rolled-back release cannot read a migrated save. The pre-upgrade bytes are kept, but nothing offers them back (R2-9).
+    - R2-9 now has a tested storage/event restore path, but browser recovery is still unverified.
   exact_next_action: >-
-    Merge the shared-kit integration branch claude/kit-rollout-integration-a4zihp
-    into main, then push the reviewed WebKit baseline to pull request #8, require
-    the required-baseline WebKit rerun and F2/F3/F5 to pass, merge, then require
-    the iOS Simulator Mobile Safari gate, Pages deployment and F6 public-surface
-    verification to complete. Record exact workflow and merge evidence before
-    resuming GB-IMP02.
+    Continue on claude/repo-instructions-constraints-r0070m. Current execution,
+    original clock, deadline, verified scope and exact next step are solely in
+    AI_DEVELOPMENT/SESSION_STATE.yaml. The old checkpoint descriptions below
+    remain historical; do not restart their completed work or switch branches.
 
   kit_integration:
     branch: claude/kit-rollout-integration-a4zihp
@@ -347,6 +349,8 @@ remote:
     changes, and merge-tree confirmed it introduces no new conflict against #9
     (the one STATE.yaml conflict there predates it and is unchanged). The
     vendored kit is regenerated at 0.4.0 rather than hand-merged.
+
+procedure_retired_2026_08_03: "START_HERE.md, AI_DEVELOPMENT/PROTOCOL.md, PROJECT_OPERATING_PROTOCOL.md and AI_DEVELOPMENT/MODULES/ moved to AI_DEVELOPMENT/ARCHIVE/PROCEDURE_2026-08-03/ by user instruction. CLAUDE.md is the whole standing instruction. The gates in tools/gates/ and .github/workflows/gates.yml are unaffected; floor.enforcement below still records which are active."
 
 updated_at: "2026-08-02"
 reconciliation_status: >-

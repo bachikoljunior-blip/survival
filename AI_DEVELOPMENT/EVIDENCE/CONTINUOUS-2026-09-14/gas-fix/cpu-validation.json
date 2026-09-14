@@ -1,0 +1,20 @@
+{
+  "at": "2026-09-14T10:42:17.789118+09:00",
+  "build_sha256": "58b10c7f913676be143dc90d4b4a87e671c473dfd0119de1b5f3e5c93bad4920",
+  "command": [
+    "node",
+    "--test",
+    "tools/work_state.test.mjs",
+    "tools/trust_feedback.test.mjs",
+    "tools/save_recovery.test.mjs",
+    "tools/guard_toggle.test.mjs",
+    "tools/shadow_batches.test.mjs",
+    "tools/collision_normals.test.mjs",
+    "tools/gas_navigation.test.mjs"
+  ],
+  "exit": 0,
+  "checks": 62,
+  "log_sha256": "e60c4798289bc72bff5c7af147815bcec172ac561b86938f2a3736e04a5f55cf",
+  "browser": "not run for this build yet",
+  "blind_comparison": "not measured"
+}

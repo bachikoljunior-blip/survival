@@ -1,0 +1,513 @@
+{
+  "round": "ae50ac9-gas-fix-independent-source-cpu-review",
+  "profile": "Source and actual production CPU simulation",
+  "tier": "no raster tier assessment",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No browser or raster measurement was performed.",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Required schema placeholder for an unscored mechanical review, not a quality score.",
+  "blindComparison": "No blind comparison was performed. The reviewer knew the product identity and used no reference material. E-13 remains not measured; closing source defects or observing CPU movement does not establish a reference preference.",
+  "element": {
+    "id": "E-13",
+    "benchmark": "BM-HAZ-03",
+    "status": "not measured"
+  },
+  "target": {
+    "baselineCommit": "d19c4240c8dd83b72530abe780315c456367358f",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "uncommittedWorktree": false,
+    "sourceHashes": {
+      "src/world/city.js": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5",
+      "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+      "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+      "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+      "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+      "src/game/ai.js": "349821330229e32653cdb362e5331bde535fbfd5340fb8faafa7562bff844e7b",
+      "src/game/director.js": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec",
+      "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+      "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+    },
+    "build": "The 53 committed source/input/Pages-mirror object hashes independently reproduce the build hash. Runtime measurements used matching source bytes before commit; no browser execution or final distributable behavior is asserted here.",
+    "frozenSourceSnapshot": "gas-resumable-source/",
+    "sourceSnapshotManifest": "gas-resumable-source-manifest.json",
+    "commit": "ae50ac9b8a072ee0e91617a703a0116ee68534f7",
+    "tree": "7c66fc27a14d01dff9d4517ad84bb3e980af6f5f",
+    "buildSha256": "58b10c7f913676be143dc90d4b4a87e671c473dfd0119de1b5f3e5c93bad4920",
+    "commitBindingEvidence": "gas-fix-ae50ac9-commit-binding.json",
+    "measuredSourceHashesMatchedCommittedBlobs": 9,
+    "laterEditsExcluded": "Subsequent halfVents/world_data edits are outside this fixed ae50ac9 review and require their own evidence."
+  },
+  "scope": {
+    "measured": [
+      "Actual full City geometry/collision/gas/navigation, Game.fixedUpdate and Director source hooks.",
+      "Actual Enemy/AISystem perception/state/steering and Actor physics/vitals on explicitly described diagnostic setups.",
+      "Source and independent in-memory save/reset/applySave with actual Storage/GameState; no real browser storage."
+    ],
+    "substitutions": [
+      "Full City fixture substitutes Canvas drawing/text metrics and surface material appearance.",
+      "Diagnostic patrol endpoints and inactive distant player isolate movement; they are not a recorded game playthrough.",
+      "HUD/atmosphere marker and plume calls use intent-recording stubs; their pixels are not measured.",
+      "The 10000-node pathfinding override is a diagnostic counterfactual, not the shipping implementation."
+    ],
+    "notMeasured": [
+      "Browser/WebKit rendering or physical device performance.",
+      "Full E-13 gameplay quality, comparison/reference identity hiding and preference.",
+      "Entire real-City path reachability; its 10000-node control also encounters a separate physical movement obstruction.",
+      "The real-City route obstacle previously observed with a 10000-node diagnostic has not been diagnosed or declared fixed."
+    ]
+  },
+  "closedBaselineFindings": [
+    {
+      "id": "GAS-VENT-ID",
+      "result": "closed within source/CPU scope",
+      "evidence": "gas-vent-id-fix-cpu-evidence.json",
+      "observed": {
+        "actualHookReturns": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "sidePpmBefore": [
+          2425.948478335389,
+          2610.284744713199,
+          1893.2648326996004
+        ],
+        "sidePpmAfter": [
+          99.65682151262321,
+          120.31533142969373,
+          104.53776087360127
+        ]
+      },
+      "saveRestore": "Independent actual new save/reset/applySave, old flags missing rows, explicit rows precedence and unrelated state retention passed 54 controls in gas-consequence-fix-refutation.json at its recorded source hashes. The Director, City, Gas, GameState and restore operations remain at those hashes; the later nav changes are separately measured in the current source/CPU controls. This is not an unqualified final-build storage assertion."
+    },
+    {
+      "id": "GAS-STALE-NAV",
+      "result": "closed within source/CPU scope",
+      "evidence": "gas-runtime-motion-resumable-cpu-evidence.json",
+      "observed": {
+        "cells": 52520,
+        "maxSamplesPerTick": 4096,
+        "firstPublicationTick": 13,
+        "changedBeforePublication": false,
+        "changedCells": 37853
+      },
+      "publicationTimesSeconds": [
+        0.21666666666666665,
+        0.9333333333333346,
+        1.649999999999999,
+        2.366666666666663
+      ],
+      "scope": "52,520 actual City grid cells; source change first publishes after 13 fixed ticks (0.2167 s). Wind/intensity sweeps publish complete buffers with bounded sampling; this is simulation work accounting, not FPS. At the earlier one-second measurement the incremental snapshot differed from a simultaneous full resample by at most 0.0607791 cost, so no zero-lag equality is claimed."
+    },
+    {
+      "id": "GAS-SMOOTHING",
+      "result": "closed for the original failing case",
+      "evidence": "gas-navigation-resumable-cpu-evidence.json",
+      "observed": {
+        "returnedPath": [
+          {
+            "x": 1.5,
+            "y": 0,
+            "z": 4.5
+          },
+          {
+            "x": 2.5,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 4.5,
+            "y": 0,
+            "z": 0.5
+          },
+          {
+            "x": 8.5,
+            "y": 0,
+            "z": 0.5
+          },
+          {
+            "x": 11.5,
+            "y": 0,
+            "z": 3.5
+          },
+          {
+            "x": 11.5,
+            "y": 0,
+            "z": 4.5
+          }
+        ],
+        "rawMaxCost": 1.376745581626892,
+        "centerCost": 6.5
+      },
+      "scope": "Actual A* plus string-pull retains the original plume detour; no universal navigation completeness claim."
+    },
+    {
+      "id": "GAS-DIRECT-SHORTCUT",
+      "result": "closed for the original failing case and integrated motion control",
+      "evidence": "gas-runtime-motion-resumable-cpu-evidence.json",
+      "observed": [
+        {
+          "kind": "scav",
+          "reached": true,
+          "elapsedSeconds": 1.7999999999999985,
+          "distanceTravelled": 2.6039061538461628,
+          "maxPpm": 14,
+          "zRange": [
+            4.5,
+            4.5
+          ],
+          "panicEvents": 0,
+          "searchCount": 0
+        },
+        {
+          "kind": "scav",
+          "reached": true,
+          "elapsedSeconds": 4.383333333333323,
+          "distanceTravelled": 6.161118228528212,
+          "maxPpm": 374.5226991939924,
+          "zRange": [
+            2.2447755936762075,
+            4.5
+          ],
+          "panicEvents": 0,
+          "searchCount": 9
+        },
+        {
+          "kind": "warden",
+          "reached": true,
+          "elapsedSeconds": 1.7166666666666655,
+          "distanceTravelled": 2.6112871794871895,
+          "maxPpm": 1935.2656314121762,
+          "zRange": [
+            4.5,
+            4.5
+          ],
+          "panicEvents": 0,
+          "searchCount": 0
+        }
+      ],
+      "scope": "Actual fixed-step actor movement and collision, not an inference from changed desired velocity. Clear scav and bottled-air warden cross directly; vulnerable scav takes a detour and reaches the target radius without panic."
+    }
+  ],
+  "followupChanges": {
+    "nullRetry": {
+      "earlierSource": {
+        "nav": "ac83a787f91494576bca3476020b8a531eb4a24a8d40c12440767c719d471e7d",
+        "ai": "e5c0dcbca4c98ef0f2bc4c631153a019879c6510560d15a12ac445e9bc91f9ff"
+      },
+      "earlierEvidence": "gas-runtime-motion-fix-cpu-evidence.json",
+      "observation": "An isolated production steering control retried 180 null paths in 180 ticks. Its scav was above the panic threshold, so this is not a normal full-AI freeze claim. The !path retry condition already existed at d19; the new stop behavior exposed it.",
+      "latestEvidence": "gas-budget-motion-fix-cpu-evidence.json",
+      "latestObservation": "After cooldown and prefix changes, diffuse 227..474 ppm air over a 20 m route yields a safe partial path and actual full AI moves 4.0875 m in three seconds, with six searches and no panic. This limited success does not close the wall-detour failure below."
+    },
+    "prefixCandidateCounts": "Historical prefix arrays were not completed-route evidence. The resumable implementation again returns null from synchronous findPath when one step is incomplete; actual AI completion is measured via its PathSearch jobs and trajectories."
+  },
+  "findings": [],
+  "knownUnclosedIssue": {
+    "issue": "halfVents leaves yard_seep closed and the sampled yard at 14 ppm.",
+    "status": "not corrected or accepted by this review",
+    "evidence": "Independent actual half hook/save/restore observations in gas-consequence-fix-refutation.json; parent separately identified this issue.",
+    "scope": "No claim that all three consequence channels are complete for every choice."
+  },
+  "rawMeasurementsAndInferences": {
+    "measured": "Source hashes, source activation returns, storage round trips under in-memory fixtures, sample counts and grid revisions, actual trajectories/HP/state, null-search counts and arrival.",
+    "inference": "The source mechanism explains repeated local-minimum failure under the held-static diagnostic conditions. Runtime samples and trajectories are not a player/reference preference and do not establish physical performance."
+  },
+  "evidenceFiles": [
+    {
+      "path": "gas-consequence-source-review.json",
+      "sha256": "b6db441d453ff5d0c90ad8f3af9df67ffa0397f43980dab1be6b412c9d947d28"
+    },
+    {
+      "path": "gas-consequence-fix-probe.mjs",
+      "sha256": "4d520055fb15f6ab68e0c8e6744666be5a51bcee6ae652ae6e5022a42f5b363c"
+    },
+    {
+      "path": "gas-consequence-fix-cpu-evidence.json",
+      "sha256": "0cef010cce5aa98f31018aab3daaf709f54dd1ffe9a3622177583e9ad8a35887"
+    },
+    {
+      "path": "gas-vent-id-fix-probe.mjs",
+      "sha256": "d3abebfe9981fd353a57d2725aa790c6edcd5779c11d1769038b2b07ebfeeeee"
+    },
+    {
+      "path": "gas-vent-id-fix-cpu-evidence.json",
+      "sha256": "6ecfed0f3e4514b8261cfa0ea5d42acb4112a638d5c8f12f6f468674e2208142"
+    },
+    {
+      "path": "gas-navigation-fix-probe.mjs",
+      "sha256": "3247124d0655016f3185766df4b170133d1771eee5df3eccf5c1758f2590d8b4"
+    },
+    {
+      "path": "gas-navigation-fix-cpu-evidence.json",
+      "sha256": "ae9678177cc2a3677f8c964e67788f98f3ed40cef8620ac3195aa764549a0590"
+    },
+    {
+      "path": "gas-navigation-final-cpu-evidence.json",
+      "sha256": "fa6a323767d80b8f440db386bcc5fe4330c7e6789e31fb7aaa5d626aa7a32400"
+    },
+    {
+      "path": "gas-runtime-motion-fix-probe.mjs",
+      "sha256": "07b374af06910f0c23ba719943eb9cddd115e5401b14f3aae6f99ef4e5c2f3fe"
+    },
+    {
+      "path": "gas-runtime-motion-fix-cpu-evidence.json",
+      "sha256": "33b3caaff11384f25bc55ce7e35b9a83145152c3cf13ccd51d59c917899ddb93"
+    },
+    {
+      "path": "gas-runtime-motion-final-probe.mjs",
+      "sha256": "b402864231142425a8cf4973f01b1afea6b48b28288df67fa37f9a514e61c963"
+    },
+    {
+      "path": "gas-runtime-motion-final-cpu-evidence.json",
+      "sha256": "1491519aa0da739c145674584e52f080941177cac9740453f1f9d47f81b67bab"
+    },
+    {
+      "path": "gas-budget-motion-fix-probe.mjs",
+      "sha256": "d7c4c1e0999b278a064543a9bed2f5ca568498a9c2ca787698e937a5af80c370"
+    },
+    {
+      "path": "gas-budget-motion-fix-cpu-evidence.json",
+      "sha256": "ee3e082b6a886646394eeafc515bd6e7ce4c63627a385d0b9b18a166bcc67e1a"
+    },
+    {
+      "path": "gas-city-prefix-fix-probe.mjs",
+      "sha256": "345571d7c0d4f848fdf379816a713c70f50e64fe4923e65559f345aaa607787a"
+    },
+    {
+      "path": "gas-city-prefix-fix-cpu-evidence.json",
+      "sha256": "a4ba6dc2a34e50c82398dcff842948620b39fcb16be2e4a1f93e315e09d0cd09"
+    },
+    {
+      "path": "gas-wall-prefix-fix-probe.mjs",
+      "sha256": "aba0e426bfc55f22945f4c164f54e16776806deaed1bbe34fb8d9517b98aa77d"
+    },
+    {
+      "path": "gas-wall-prefix-fix-cpu-evidence.json",
+      "sha256": "f0460cc2a95116d34c119b6c917607eda0e8eca4a25cc9488dad2a6fa0ed7708"
+    },
+    {
+      "path": "gas-consequence-fix-refutation.json",
+      "sha256": "951d79526a7d8f4f4c6c03764ae1fbda555c290c982c9c324c25142f82f81133"
+    },
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    },
+    {
+      "path": "gas-prefix-failed-source-manifest.json",
+      "sha256": "9550791307f2c73f92acc33b3cfb65c1884b6d2a7c212b34292654604b0afccb"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/city.js",
+      "sha256": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/gas.js",
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/nav.js",
+      "sha256": "8aee4019679dede3ccc87581660812a9e30c74a44a337b9131373ae7c6a15065"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/collision.js",
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/game/game.js",
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/game/ai.js",
+      "sha256": "e1ed8831e55695bf8229dc6ddb4846934aaab7f6603ce6149fe7b119507416ca"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/game/director.js",
+      "sha256": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/actors/actor.js",
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/content/world_data.js",
+      "sha256": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+    },
+    {
+      "path": "gas-wall-resumable-probe.mjs",
+      "sha256": "ee5949f9f2511aaf90491379d866b47fb7baba4d6c61c1c1313c3a543dd4d16a"
+    },
+    {
+      "path": "gas-wall-resumable-cpu-evidence.json",
+      "sha256": "5bb6bff35fd1c48ee983eaf0a3fbb536f65e98e968260ea3a24728629374e617"
+    },
+    {
+      "path": "gas-runtime-motion-resumable-probe.mjs",
+      "sha256": "2dde3b46c9fd4c7f4618cd025b2cb90bf06f7a5453a7c25fdc2a8b5eadce7ba7"
+    },
+    {
+      "path": "gas-runtime-motion-resumable-cpu-evidence.json",
+      "sha256": "de5dc54a71854257ed5ac189d51f354bd82d62a4ef8edb073e7dfdab2973aac3"
+    },
+    {
+      "path": "gas-runtime-motion-resumable-summary.json",
+      "sha256": "68b165322cf17e00c16fcb36dbb39dd6d8714b69039d03ce2d2654fe6d1a245c"
+    },
+    {
+      "path": "gas-navigation-resumable-cpu-evidence.json",
+      "sha256": "d9aa24432b32320fcbafdfa1cdbcfa79744bbf7f001480959474bfc38500f5ed"
+    },
+    {
+      "path": "gas-resumable-source-manifest.json",
+      "sha256": "8f253658c18de3fb688fb9f812a07005dc71c8900af53bb78331966b1fdde501"
+    },
+    {
+      "path": "gas-resumable-source/src/world/city.js",
+      "sha256": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5"
+    },
+    {
+      "path": "gas-resumable-source/src/world/gas.js",
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    {
+      "path": "gas-resumable-source/src/world/nav.js",
+      "sha256": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234"
+    },
+    {
+      "path": "gas-resumable-source/src/world/collision.js",
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+    },
+    {
+      "path": "gas-resumable-source/src/game/game.js",
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "gas-resumable-source/src/game/ai.js",
+      "sha256": "349821330229e32653cdb362e5331bde535fbfd5340fb8faafa7562bff844e7b"
+    },
+    {
+      "path": "gas-resumable-source/src/game/director.js",
+      "sha256": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec"
+    },
+    {
+      "path": "gas-resumable-source/src/actors/actor.js",
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    {
+      "path": "gas-resumable-source/src/content/world_data.js",
+      "sha256": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+    },
+    {
+      "path": "gas-consequence-prefix-review.json",
+      "sha256": "ce0589900d087667409e67bb0082fc190df6532ded7a0a0f1ee3d378c41a8aab"
+    },
+    {
+      "path": "gas-resumable-search-refutation.json",
+      "sha256": "0a486d3a0844920f1513a4c4d585a6cb54788ba61311c77fa49a75c4f7fae64d"
+    },
+    {
+      "path": "gas-resumable-independent-cpu-evidence.json",
+      "sha256": "fc3516a908e12cc8925b475f4b8fdab38a015250c86a3c10000a115ec9812135"
+    },
+    {
+      "path": "gas-resumable-independent-probe.mjs",
+      "sha256": "7a08a3ca34e2f716a8520b16afd4d7aef09e819c5497564f08a0d8094482cb9a"
+    },
+    {
+      "path": "gas-fix-ae50ac9-commit-binding.json",
+      "sha256": "f22680250a65e12a022bf2a4ebe29bc821f73e37bd7c48cb91678f61adfedaef"
+    }
+  ],
+  "probeRepairLog": [
+    {
+      "file": "gas-runtime-motion-fix-probe.mjs",
+      "error": "First run incorrectly addressed City.world, which is undefined; it aborted before producing evidence.",
+      "correction": "Read actual City and Game assignment and used City.collision. Successful rerun is the recorded evidence; no product defect was assigned to the fixture error."
+    }
+  ],
+  "independentRefutation": {
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "historicalPrefixRefutation": {
+      "path": "gas-consequence-fix-refutation.json",
+      "sha256": "951d79526a7d8f4f4c6c03764ae1fbda555c290c982c9c324c25142f82f81133"
+    },
+    "currentPathSearchRefutation": {
+      "path": "gas-resumable-search-refutation.json",
+      "sha256": "0a486d3a0844920f1513a4c4d585a6cb54788ba61311c77fa49a75c4f7fae64d",
+      "verdict": "PASS"
+    },
+    "currentRawEvidence": {
+      "path": "gas-resumable-independent-cpu-evidence.json",
+      "sha256": "fc3516a908e12cc8925b475f4b8fdab38a015250c86a3c10000a115ec9812135"
+    },
+    "controlsPassed": 17,
+    "controlsTotal": 17,
+    "conclusion": "No additional confirmed defect within the tested source/CPU boundary. Interleaved searches match isolated paths/endpoints/expansion counts; live buffer reuse does not mutate job snapshots; source and moved-goal cancellation use the actual production steering method.",
+    "limits": [
+      "A source rebake cancels the pending job after the nav grid publishes that source revision, not at the instant the gas is toggled.",
+      "A moved target cancels only after displacement exceeds 3.5 m; a 3 m change deliberately retains the current job.",
+      "A cost-only change preserves the pending snapshot to completion. Completion supplies one steering request from that older path, and the next steering call notices the live revision and starts a new search. This does not claim zero-lag response to wind/intensity changes.",
+      "The CPU step budget is not a physical-device frame-time measurement."
+    ]
+  },
+  "verdictScope": "The four original source defects and the tested wall-prefix failure are closed within the recorded CPU/source scope; known halfVents yard issue and whole-element comparison are outside this PASS.",
+  "closedPrefixFailure": {
+    "historicalReview": "gas-consequence-prefix-review.json",
+    "historicalEvidence": "gas-wall-prefix-fix-cpu-evidence.json",
+    "newEvidence": "gas-wall-resumable-cpu-evidence.json",
+    "implementation": "Each enemy keeps its open set, explored nodes and traversal-cost snapshot, continuing at most 700 expansions per simulation tick. Movement receives a completed path, not a heuristic prefix.",
+    "observed": {
+      "reached": true,
+      "elapsedSeconds": 43.83333333333213,
+      "distanceTravelled": 61.26500456547669,
+      "final": {
+        "tick": 2630,
+        "time": 43.83333333333213,
+        "position": [
+          55.09885015654835,
+          0,
+          51.8228183994861
+        ],
+        "velocity": [
+          0.4289786225614724,
+          0,
+          -1.4145856571396662
+        ],
+        "distance": 1.3823059411433694,
+        "ppm": 14,
+        "hp": 62,
+        "state": "patrol",
+        "grounded": true,
+        "move": {
+          "x": 0,
+          "z": 0,
+          "mag": 0
+        }
+      },
+      "firstSearchSteps": [
+        {
+          "time": 0.016666666666666666,
+          "budget": 700,
+          "expanded": 700,
+          "total": 700,
+          "done": false,
+          "hasPath": false
+        },
+        {
+          "time": 0.03333333333333333,
+          "budget": 700,
+          "expanded": 478,
+          "total": 1178,
+          "done": true,
+          "hasPath": true
+        }
+      ],
+      "maxExpansionsPerStep": 700
+    },
+    "scope": "Actual production Game/AISystem/Actor movement/collision on the same diagnostic wall layout and endpoint; no increased budget override. Synchronous path700 remains null correctly because one step is incomplete."
+  },
+  "checkedAt": "2026-09-14T01:51:12.629510+00:00"
+}

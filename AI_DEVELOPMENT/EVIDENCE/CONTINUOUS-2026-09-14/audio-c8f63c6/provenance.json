@@ -1,0 +1,74 @@
+{
+  "commit": "c8f63c6063c98306e4c95e85b6055c0263957593",
+  "build_sha256": "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05",
+  "workflow_run": 34799450041,
+  "job": 103838966456,
+  "url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34799450041",
+  "artifact_id": 10331760158,
+  "artifact_zip_sha256": "47148603748dd8480e8b357dcf37cf552fafb98a46b9f01e05ea0e9d89013873",
+  "artifact_zip_bytes": 43358658,
+  "archive_digest_verified": true,
+  "files": [
+    {
+      "path": "report.json",
+      "bytes": 15608,
+      "sha256": "1769173873b7b8a583d081631b194fe854eae84a0426deba1462da1b0decc1f1"
+    },
+    {
+      "path": "decoded-media.json",
+      "bytes": 4257,
+      "sha256": "f2a5406528b97c2cc6cc5b7592654ad7c55f941e4d872816e97e4d492ba4e4ef"
+    },
+    {
+      "path": "audio-street-walk.mp4",
+      "bytes": 517694,
+      "sha256": "daf93a77c04bbe29cc627de32b20624da295e9580a532f6a929a6d03bdff926c"
+    },
+    {
+      "path": "audio-vent-air.mp4",
+      "bytes": 213432,
+      "sha256": "a1c3bb89b404aa93f9b2b3f6ec0ea0a47c6542bb031f028561ce5935dd3e4c92"
+    },
+    {
+      "path": "audio-arcade-room.mp4",
+      "bytes": 264090,
+      "sha256": "986c7a546c25167c1df88d9a65fe6ce052dd836fd0496e983d507f0d32415981"
+    },
+    {
+      "path": "amplitude-integrity.json",
+      "bytes": 1977,
+      "sha256": "db1af11e9d6a8795bf644f17ffb97217502f8b5bcf2ddb309d7c366c0f2c7471"
+    }
+  ],
+  "acquired_at": "2026-09-14T12:04:50.411511+09:00",
+  "clock_measurements": [
+    {
+      "scene": "street-walk",
+      "wall_seconds": 26.250800000000048,
+      "audio_seconds": 26.25015873015873,
+      "engine_seconds": 1.0666666666666633,
+      "engine_frames": 16
+    },
+    {
+      "scene": "vent-air",
+      "wall_seconds": 11.74470000000007,
+      "audio_seconds": 11.737687074829935,
+      "engine_seconds": 0.7999999999999972,
+      "engine_frames": 12
+    },
+    {
+      "scene": "arcade-room",
+      "wall_seconds": 9.849899999999908,
+      "audio_seconds": 9.85106575963718,
+      "engine_seconds": 1.0000000000000497,
+      "engine_frames": 15
+    }
+  ],
+  "limitations": [
+    "Actual CI artifacts, not physical-device measurements. All element judgments remain not measured.",
+    "Only listed files are persisted in Git; full trace and general run videos remain in Actions artifacts until their recorded 2026-09-28 expiry and local scratch.",
+    "Media decodes successfully with stereo Opus and native VP9 frames, but the software renderer advances much less game time than wall/audio time. These clips cannot represent normal-paced play.",
+    "Native audio input was unavailable to the current evaluator. No listening, audio quality or blind comparison result is claimed.",
+    "The stated W down duration is the intended coordinator wait, not an independently measured native input-hold duration."
+  ]
+}

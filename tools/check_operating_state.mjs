@@ -26,6 +26,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { inspectWork } from './work_state.mjs';
 
 import { uniqueIds, checkRefs, detectCycles, exactlyOne, evidenceExists } from '../.kit/lib/state/graph.mjs';
 import { scanSecretKeys } from '../.kit/lib/state/secrets.mjs';
@@ -259,6 +260,7 @@ export function validate({ root = ROOT, readText, exists } = {}) {
     }
   }
 
+  errors.push(...inspectWork({ root, readText: read, exists: onDisk }).errors);
   return { errors, project, session };
 }
 

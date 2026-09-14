@@ -1,0 +1,643 @@
+{
+  "round": "narrative-reading-r2",
+  "profile": "independent-ending-and-delta-reading-of-two-captured-routes",
+  "tier": "diagnostic-unscored",
+  "nativeResolution": "0x0",
+  "nativeResolutionStatus": "Not measured. Text-only review; 0x0 is a schema sentinel.",
+  "verdict": "FAIL",
+  "verdictScope": "反証後、取得された英語終幕の一文にminorが1件残るという局所診断。人物理由・帰結・伏線の全域の合否、6/6や全19要素の達成判定ではない。",
+  "score": 0,
+  "scoreStatus": "unscored",
+  "blindComparison": "No blind or reference-work comparison was performed. This is a source-aware diagnostic reading of two actual emitted candidate dialogue/ending texts. It does not supply any relative preference, six-character achievement or whole-product status.",
+  "reviewStage": "final: independent raw diagnosis followed by separate refutation",
+  "sources": {
+    "publish": {
+      "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-publish.json",
+      "sha256": "34e65ce8e635348e4f6e4d231d6b3519985f162820947953a1c395b8b98b08e9",
+      "eventCount": 119,
+      "endingCount": 1,
+      "scope": "Actual production dialogue and ending UI method outputs from the existing deterministic story driver. The driver teleports, makes the player gas-immune and clears hostiles with forced damage. This establishes emitted text and story transitions, not ordinary-paced play, combat, movement, survival, rendering quality or a blind comparison."
+    },
+    "deal": {
+      "path": "/workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-deal.json",
+      "sha256": "ba514dfcccc838c49182dbdb6f81b94472db04ebbedf0de3609faf8909f022bb",
+      "eventCount": 114,
+      "endingCount": 1,
+      "scope": "Actual production dialogue and ending UI method outputs from the existing deterministic story driver. The driver teleports, makes the player gas-immune and clears hostiles with forced damage. This establishes emitted text and story transitions, not ordinary-paced play, combat, movement, survival, rendering quality or a blind comparison."
+    }
+  },
+  "continuity": {
+    "previousReview": "/workspace/scratch/0b7ad82bafe7/narrative-reading-r1/final-review.json",
+    "previousDialogueSource": "/workspace/scratch/0b7ad82bafe7/narrative-review-input-r1/dialogue.json",
+    "previousSourceSha256": "cc7cb31dff452c23baa2e5ca6481206638704c8ca46a373cecac00eddd95db54",
+    "publishFirst118EventsExactlyMatchPrevious": true,
+    "workFocus": "既存118eventsの人物読解を繰り返さず、publish末尾P119とdealの差分・終幕を中心に読んだ。",
+    "excludedKnownIssue": "Solの既存ロック理由文。親担当が修正準備済みとして除外を指示。"
+  },
+  "method": {
+    "qualityEvidence": "Only original authored event text, choices and ending paragraphs in the two supplied transcripts.",
+    "metadataPolicy": "ファイル形状を確認した際にexecution metadataの存在は見たが、trust・flags・quests・内部ending名を人物の理由や実行の因果判定には使っていない。",
+    "noProductCodeOrBibleRead": true,
+    "noBrowserOrServerOrNetwork": true,
+    "sourceAwareness": "Earlier method work disclosed the reference identity to this reviewer. This reviewer is not source-unaware, and no blind comparison is attempted."
+  },
+  "coverage": {
+    "requiredCharacters": [
+      "Ren",
+      "Teo",
+      "Sol",
+      "Nessa",
+      "Iris",
+      "Krajcik"
+    ],
+    "standard": "主要6人・独自目的6/6を変えない。人物の出番が増えたことを達成判定へ換算しない。",
+    "endingsObserved": [
+      "publish: ON THE RECORD",
+      "deal: THE LINE MOVES WEST"
+    ],
+    "unobserved": [
+      "other final choices and branches",
+      "ordinary-paced full play",
+      "combat and travel causality",
+      "exact victim sets and non-dialogue chronology",
+      "full-area foreshadowing ledger",
+      "all later character consequences"
+    ],
+    "elementAchievement": "not assessed",
+    "wholeNineteenElementAchievement": "not assessed",
+    "unreturnedThreadCount": null,
+    "zeroUnreturnedThreadsClaim": false
+  },
+  "characterContinuation": [
+    {
+      "character": "Ren",
+      "newEvidenceReading": "自己を含む公表と訴追、または虚偽を維持する配分の仕事という、選んだ経路に応じた帰結が描かれる。",
+      "observationRefs": [
+        "R2-O1"
+      ]
+    },
+    {
+      "character": "Teo",
+      "newEvidenceReading": "遅れて出した手紙という過去と、期日どおりに出す手紙の後日談が接続する。",
+      "observationRefs": [
+        "R2-O4"
+      ]
+    },
+    {
+      "character": "Sol",
+      "newEvidenceReading": "中庭・当番・被害の数という既存の判断材料が両後日談でも使われる。",
+      "observationRefs": [
+        "R2-O3"
+      ]
+    },
+    {
+      "character": "Nessa",
+      "newEvidenceReading": "非開示経路では自分の地下での仕事と閲覧能力を主張する発話が加わり、主人公以外の住民のために働く目的が原文で補強される。両結末で告白の有無がRenとの距離に関係して描かれる。",
+      "observationRefs": [
+        "R2-O2"
+      ]
+    },
+    {
+      "character": "Iris",
+      "newEvidenceReading": "既存読解を維持。結末での新たな直接描写はなく、その後の仕事・母親は不明。",
+      "observationRefs": [
+        "R2-O6"
+      ]
+    },
+    {
+      "character": "Krajcik",
+      "newEvidenceReading": "受諾されて喜べないという反応が追加される。公開時は警告した契約失効が描かれ、受諾時は継続事業の配分をRenも担う。",
+      "observationRefs": [
+        "R2-O1"
+      ]
+    }
+  ],
+  "setupAndConsequenceObservations": [
+    {
+      "id": "R2-O1",
+      "topic": "RenとKrajcikの選択理由",
+      "observation": "公開経路は自分の署名を含む公表から、自分も訴追され弁明を拒む終幕へ進む。受諾経路は「106対11」を採ったあとKrajcikの提案を受け、終幕がその先の継続的な配分判断を描く。Teoのところで公表を望んだRenが後に受諾することには、Krajcikから新たに知らされた移転資金と雇用提案が間にあるため、単純な人物矛盾として扱わない。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 117,
+          "eventId": "P117",
+          "jsonPointer": "/events/116/text",
+          "kind": "choice",
+          "quote": "Put it on the record. All of it, including me.",
+          "speaker": "selected player choice"
+        },
+        {
+          "route": "publish",
+          "event": 118,
+          "eventId": "P118",
+          "jsonPointer": "/events/117/text",
+          "kind": "dialogue",
+          "quote": "I walk to the far side, where the forty people are, and I start with my own name.",
+          "speaker": "REN"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/0",
+          "kind": "ending",
+          "paragraph": 1,
+          "quote": "You put it on the record. All of it — the log, the order, the July sheet with your own initials in the check box.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/3",
+          "kind": "ending",
+          "paragraph": 4,
+          "quote": "You were charged as a party to it. Nine counts. The hearing took four days and your evidence took two of them, and at no point in it did you say that you had been young, or tired, or under contract.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "deal",
+          "event": 56,
+          "eventId": "D056",
+          "jsonPointer": "/events/55/text",
+          "kind": "choice",
+          "quote": "[Leave them] A hundred and six against eleven.",
+          "speaker": "selected player choice"
+        },
+        {
+          "route": "deal",
+          "event": 89,
+          "eventId": "D089",
+          "jsonPointer": "/events/88/text",
+          "kind": "dialogue",
+          "quote": "I am not asking you to think I am a good man. I'm asking you to do the determination I am required to make every quarter and make every morning anyway.\n If you publish, the contract voids inside a fortnight. The Authority withdraws. The relocation stops. Four hundred and six people are still in Hollis and there is no longer anybody in the world whose job it is to move them.",
+          "speaker": "KRAJCIK"
+        },
+        {
+          "route": "deal",
+          "event": 93,
+          "eventId": "D093",
+          "jsonPointer": "/events/92/text",
+          "kind": "dialogue",
+          "quote": "Come back. Survey Engineer One, my authority, your line. You redraw the boundary honestly, quarter by quarter, and I move the households on the inside of it first. Nobody is told. The contract survives. The money keeps moving.\n You would be lying, continuously, for years, and you would be saving roughly thirty households a quarter while you did it.",
+          "speaker": "KRAJCIK"
+        },
+        {
+          "route": "deal",
+          "event": 94,
+          "eventId": "D094",
+          "jsonPointer": "/events/93/text",
+          "kind": "choice",
+          "quote": "I'll take it.",
+          "speaker": "selected player choice"
+        },
+        {
+          "route": "deal",
+          "event": 95,
+          "eventId": "D095",
+          "jsonPointer": "/events/94/text",
+          "kind": "dialogue",
+          "quote": "...Right.\n I'd like to say I'm pleased. I find I'm not, particularly. I think I wanted one person to look at it and say no.\n Report Monday. There's a desk.",
+          "speaker": "KRAJCIK"
+        },
+        {
+          "route": "deal",
+          "event": 113,
+          "eventId": "D113",
+          "jsonPointer": "/events/112/text",
+          "kind": "dialogue",
+          "quote": "I put the log back in my coat and tell him I will start Monday.",
+          "speaker": "REN"
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/3",
+          "kind": "ending",
+          "paragraph": 4,
+          "quote": "You are good at it. That is the part nobody warns you about. You are extremely good at deciding, every three months, who is told and who is moved and who is simply left where they are for one more quarter because the budget does not reach.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/5",
+          "kind": "ending",
+          "paragraph": 6,
+          "quote": "You had already done the sum her way once, on the west side, and found you could live with the answer. That was the afternoon that made this possible. Everything after it was administration.",
+          "speaker": "ending narration"
+        }
+      ],
+      "limit": "Krajcikの自己説明の真偽と、実際の長期移転モデルは未測定。約30世帯/四半期の提案と11年380世帯の数値差はあるが、終幕は臨時予算と予算不足による先送りを明示するため、一定速度の保証との矛盾や追加説明が必須という指摘は残さない。詳細な数量原因を推測して補わない。"
+    },
+    {
+      "id": "R2-O2",
+      "topic": "Nessaの拒否と後の関係",
+      "observation": "公開経路では告白後の「慰めない」という態度が、毎日出廷しても目を合わせず、先に本人から聞けたことだけを手紙に書く終幕へ続く。受諾経路では閲覧を保留されることに反発し、自分が人々の呼吸のため地下で働いていると述べる。終幕はRenが彼女を見かけても道路を渡らない距離を示す。どちらも包括的な許しや拒絶へ勝手に置き換えない。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 109,
+          "eventId": "P109",
+          "jsonPointer": "/events/108/text",
+          "kind": "dialogue",
+          "quote": "Why are you telling me?\n No — genuinely. Why now. Is it so I say something that makes it easier? Because I'm not going to. I don't have that.",
+          "speaker": "NESSA"
+        },
+        {
+          "route": "publish",
+          "event": 110,
+          "eventId": "P110",
+          "jsonPointer": "/events/109/text",
+          "kind": "choice",
+          "quote": "I'm not telling you so you'll say anything. I'm telling you because it's yours.",
+          "speaker": "selected player choice"
+        },
+        {
+          "route": "publish",
+          "event": 111,
+          "eventId": "P111",
+          "jsonPointer": "/events/110/text",
+          "kind": "dialogue",
+          "quote": "...Yeah.\n Yeah, all right.\n Go and do something with it. That's the only thing that's any use to me now. Don't stand there.",
+          "speaker": "NESSA"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/8",
+          "kind": "ending",
+          "paragraph": 9,
+          "quote": "Nessa came. She sat at the back with her arms folded and she did not look at you and she came every single day.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/9",
+          "kind": "ending",
+          "paragraph": 10,
+          "quote": "She wrote to you afterwards. One line: *You didn't make me find out on my own. That's the whole letter.*",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "deal",
+          "event": 104,
+          "eventId": "D104",
+          "jsonPointer": "/events/103/text",
+          "kind": "dialogue",
+          "quote": "She says it proves they knew. Which — good. Fine. That's what everyone's always said and now there's paper.\n I want to read it.",
+          "speaker": "NESSA"
+        },
+        {
+          "route": "deal",
+          "event": 105,
+          "eventId": "D105",
+          "jsonPointer": "/events/104/text",
+          "kind": "choice",
+          "quote": "It's not ready. Not yet.",
+          "speaker": "selected player choice"
+        },
+        {
+          "route": "deal",
+          "event": 106,
+          "eventId": "D106",
+          "jsonPointer": "/events/105/text",
+          "kind": "dialogue",
+          "quote": "Right. Sure.\n You know what's funny? Everyone in this city has decided what I'm ready for. Sol decides. Marsh decides. Now you.\n I'm nineteen. I go into basements at four hundred parts so a hundred people can breathe. I think I can read a temperature table.",
+          "speaker": "NESSA"
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/8",
+          "kind": "ending",
+          "paragraph": 9,
+          "quote": "You saw Nessa twice more, at a distance, in a town with a functioning school. She looked well. You did not cross the road.",
+          "speaker": "ending narration"
+        }
+      ],
+      "limit": "Nessaの独自行動の全域や、その後に何を知ったかはこの終幕から確定しない。「機能する学校がある町」はNessaが在学しているという記述ではない。"
+    },
+    {
+      "id": "R2-O3",
+      "topic": "Solの判断と中庭の後日談",
+      "observation": "中庭を保つことを優先した経路では、終幕のSolは感謝ではなく悪化させなかっただけだと数える。閉鎖して公開した経路では、記録に中庭の件も載せ、Solの短い返事と設備の移転、より厳しい当番が描かれる。これらはSolの運営上の物差しに結び付く。災害後の会話での被害数と、その後の設備移転での「誰も失わなかった」を、同じ時点・同じ集団と決めて矛盾にしない。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 53,
+          "eventId": "P053",
+          "jsonPointer": "/events/52/text",
+          "kind": "dialogue",
+          "quote": "A hundred and six here. Eleven there. The heads pull about nine hundred parts off my courtyard overnight and put about eleven hundred onto Fenn Street. Fenn Street is upstairs-capable; every building down there has a first floor and every one of those eleven people knows to use it. My courtyard is where the water is, the generator is, and the only clear ground for two blocks.\n If I shut the heads, I lose the yard. If I lose the yard I lose the block inside a fortnight.",
+          "speaker": "SOL"
+        },
+        {
+          "route": "publish",
+          "event": 99,
+          "eventId": "P099",
+          "jsonPointer": "/events/98/text",
+          "kind": "dialogue",
+          "quote": "You got some of them. That's the job. The job is not everybody, it has never been everybody, and anyone who tells you it is has not done it.\n You'll want to give me the names of the ones you didn't. Don't. I already have them. I write them down before I need to.",
+          "speaker": "SOL"
+        },
+        {
+          "route": "publish",
+          "event": 101,
+          "eventId": "P101",
+          "jsonPointer": "/events/100/text",
+          "kind": "dialogue",
+          "quote": "It was my yard, Vasko. My yard, at four in the morning, because of three borehole heads that a month ago were doing their job.\n I am telling you that as a fact, not as a knife. I have to be able to say the true shape of a thing out loud or I stop being able to do this.",
+          "speaker": "SOL — flat"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/5",
+          "kind": "ending",
+          "paragraph": 6,
+          "quote": "The Stacks courtyard is in the record too. You put it there yourself: the date, the three heads, the bar, the wedge, and the name of the person who turned them. Sol did not attend. She sent a note through Marsh that said only *right*, and it is the shortest and least kind letter anyone has ever sent you.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/11",
+          "kind": "ending",
+          "paragraph": 12,
+          "quote": "The Stacks lost the courtyard in a fortnight, exactly as Sol said they would. They moved the generator to the second floor of Pell and the rota got harder and they did not lose anybody, which Sol has never once called luck.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "deal",
+          "event": 56,
+          "eventId": "D056",
+          "jsonPointer": "/events/55/text",
+          "kind": "choice",
+          "quote": "[Leave them] A hundred and six against eleven.",
+          "speaker": "selected player choice"
+        },
+        {
+          "route": "deal",
+          "event": 99,
+          "eventId": "D099",
+          "jsonPointer": "/events/98/text",
+          "kind": "dialogue",
+          "quote": "Four out of four. I have done this for eleven years and I have had four out of four twice.\n I'm going to say the thing I don't say. If you'd been here eighteen months ago with that in you, Cellar Row would have been nine people at a window instead of nine people in a bed.",
+          "speaker": "SOL — quiet"
+        },
+        {
+          "route": "deal",
+          "event": 101,
+          "eventId": "D101",
+          "jsonPointer": "/events/100/text",
+          "kind": "dialogue",
+          "quote": "Fenn Street. Which is not my block, which is why nobody but you and I are going to say anything about it at all.\n Eleven people lived down there this morning. I could tell you the number every week for two years and nobody came. You came.",
+          "speaker": "SOL — quiet"
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/10",
+          "kind": "ending",
+          "paragraph": 11,
+          "quote": "The Stacks held their courtyard through the winter. Sol never thanked you for it, because by her count you had done nothing but decline to make it worse.",
+          "speaker": "ending narration"
+        }
+      ],
+      "limit": "Solの以前の予測と実際の適応の差は人物の誤りとしても読める。短縮された救助の対象者集合や洪水の厳密な時系列は原文だけでは確定しない。既知のSolロック理由文は指摘対象外。"
+    },
+    {
+      "id": "R2-O4",
+      "topic": "Teoの手紙",
+      "observation": "手紙を出す小さな行為を怠ったと述べたTeoが、両終幕では期日どおりに手紙を出す。同じ文章が両方に置かれていることだけで、分岐の反応漏れとは認定しない。Teo自身が行った小さな行為の決着として読め、Renの全選択を承認したという意味までは確定しない。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 29,
+          "eventId": "P029",
+          "jsonPointer": "/events/28/text",
+          "kind": "dialogue",
+          "quote": "Bek gave that letter to me to post. Eleven days before. I put it in my coat and I forgot it, because I was sixty-one years old and I was tired and it was a Thursday.\n I found it again in a coat I hadn't worn since the funeral.",
+          "speaker": "TEO"
+        },
+        {
+          "route": "publish",
+          "event": 32,
+          "eventId": "P032",
+          "jsonPointer": "/events/31/text",
+          "kind": "dialogue",
+          "quote": "So. Now there are two of us who didn't do the small thing at the time.",
+          "speaker": "TEO — quiet"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/12",
+          "kind": "ending",
+          "paragraph": 13,
+          "quote": "Teodor Marsh closed the exchange and went to his sister's. He posted you one letter, on time, and it said only: *That was the small thing. Done now.*",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/11",
+          "kind": "ending",
+          "paragraph": 12,
+          "quote": "Teodor Marsh closed the exchange and went to his sister's. He posted you one letter, on time, and it said only: *That was the small thing. Done now.*",
+          "speaker": "ending narration"
+        }
+      ],
+      "limit": "手紙の短い言葉が何をどこまで承認するかは余韻を残す。詩的な多義性を事実の矛盾にはしない。"
+    },
+    {
+      "id": "R2-O5",
+      "topic": "音のない危険とOstrowski家",
+      "observation": "冒頭で語られた黒い危険の無音性と、Ostrowskiの妻が上階から下りてこないという情報が、受諾終幕の妻の死の描写で再び使われる。公開終幕では四人が外へ出たと記される。単なる語の反復ではなく、具体的な家族の異なる後日談に接続している。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 9,
+          "eventId": "P009",
+          "jsonPointer": "/events/8/text",
+          "kind": "dialogue",
+          "quote": "Nine people. I was on the third floor of Pell when it went. We heard nothing. That's the thing nobody understands about the black — there's nothing to hear.",
+          "speaker": "SOL"
+        },
+        {
+          "route": "publish",
+          "event": 43,
+          "eventId": "P043",
+          "jsonPointer": "/events/42/text",
+          "kind": "dialogue",
+          "quote": "...You're not a crew. Crews don't knock.\n There's four of us. My wife's on the first floor, she doesn't come down any more. The two kids sleep up there too.",
+          "speaker": "OSTROWSKI"
+        },
+        {
+          "route": "publish",
+          "event": 45,
+          "eventId": "P045",
+          "jsonPointer": "/events/44/text",
+          "kind": "dialogue",
+          "quote": "Because the workshop's down here and the workshop is how we eat. I do two hours and I go up. I know what I'm doing. I've lived on this street forty years.",
+          "speaker": "OSTROWSKI"
+        },
+        {
+          "route": "publish",
+          "event": 46,
+          "eventId": "P046",
+          "jsonPointer": "/events/45/text",
+          "kind": "dialogue",
+          "quote": "If you're going west, tell whoever's up there that there's four of us. That's all. Just the number.",
+          "speaker": "OSTROWSKI"
+        },
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/10",
+          "kind": "ending",
+          "paragraph": 11,
+          "quote": "The Ostrowskis got out. All four. He wrote down your name on the back of a docket at the relocation office and spelled it wrong and would not be corrected.",
+          "speaker": "ending narration"
+        },
+        {
+          "route": "deal",
+          "event": 114,
+          "eventId": "D114",
+          "jsonPointer": "/events/113/paragraphs/9",
+          "kind": "ending",
+          "paragraph": 10,
+          "quote": "The Ostrowskis did not all get out. He did, and the children did. She had not come down from the first floor in some time, and on the night the draw turned there was nobody downstairs to hear anything, and there was nothing to hear.",
+          "speaker": "ending narration"
+        }
+      ],
+      "limit": "両driver経路は複数の選択と救助の結果が同時に変わっている。終幕の差をどれか一つのフラグの因果効果と測定したことにはしない。"
+    },
+    {
+      "id": "R2-O6",
+      "topic": "Irisの援助の範囲",
+      "observation": "Irisが名義の通行証を渡すことは断り、裏口を教えるという既存読解は維持する。二つの終幕自体にはIrisの追加の後日談はない。直前のKrajcikの発話は、誰かが裏口を教えたと気づきながら誰かは問わないという範囲で彼女のリスクに関わる。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 78,
+          "eventId": "P078",
+          "jsonPointer": "/events/77/text",
+          "kind": "dialogue",
+          "quote": "...I could. I'm not going to.\n I have eleven months on this contract and a mother in a place that costs four hundred a month and I am not — I can't be the one who —\n There's a service door on the north elevation. The hasp is rusted through. I'm not telling you that. I'm saying it out loud in a yard.",
+          "speaker": "IRIS"
+        },
+        {
+          "route": "publish",
+          "event": 115,
+          "eventId": "P115",
+          "jsonPointer": "/events/114/text",
+          "kind": "dialogue",
+          "quote": "There is no entry against your name for the fourteenth. I looked, because I am the sort of man who looks.\n You came in off the north elevation, which means somebody told you the hasp was gone, which means somebody in my office decided you should be in it. I have not asked who and I am not going to.",
+          "speaker": "KRAJCIK — quiet"
+        },
+        {
+          "route": "deal",
+          "event": 110,
+          "eventId": "D110",
+          "jsonPointer": "/events/109/text",
+          "kind": "dialogue",
+          "quote": "There is no entry against your name for the fourteenth. I looked, because I am the sort of man who looks.\n You came in off the north elevation, which means somebody told you the hasp was gone, which means somebody in my office decided you should be in it. I have not asked who and I am not going to.",
+          "speaker": "KRAJCIK — quiet"
+        }
+      ],
+      "limit": "Irisの雇用や母親のその後を推測して補わない。終幕に直接登場しないことだけを人物の目的欠如や未回収の確定例にしない。"
+    }
+  ],
+  "negativeControls": [
+    "Teoの同文の手紙を、その一致だけで分岐不整合としない。",
+    "Nobody ever knewやtwo Rensなどの詩的な限定を、文脈を捨てた形式論理上の矛盾にしない。",
+    "ゲーム内の回想日数や文章上の九分を、短縮driverの末尾の2/3 minutes表示と直接比較して通常プレイの時間矛盾としない。",
+    "移動・戦闘短縮下で出た被害人数や暴力への語りを、自然なプレイヤー動機の実証にしない。",
+    "本文が意図・予測として述べたことと、後日談が結果として述べたことを区別する。"
+  ],
+  "findings": [
+    {
+      "id": "NR2-02",
+      "severity": "minor",
+      "shot": "P119 paragraph 5",
+      "problem": "P119 paragraph 5の実際の取得文「1 of the names you read out were people ...」は、主語の中心が単数の1であるのに主節の動詞がwereになっている。この単数値で表示された一文の数の一致だけが指摘として残る。",
+      "why": "回想する一文で単数主語に複数動詞がつき、英語の読みの流れを損なう。意味は理解可能であり、影響をこの一文の仕上げに限定する。",
+      "owner": "src/content/story.js",
+      "fix": "単数の結果1を含む同等の終幕文で、単数主語と複数動詞wereの不一致を0件にする。補語も当該一人を自然に指す文に整えるか、人数に左右されない構文にする。人数や犠牲者の変更は要求しない。原文読取コマンド: python -c 'import json,sys; e=json.load(open(sys.argv[1]))[\"events\"]; print(e[118][\"paragraphs\"][4])' /workspace/scratch/0b7ad82bafe7/narrative-4190137/transcript-en-publish.json",
+      "hypothesis": "未検証。人数と周囲の語形が別々に扱われた可能性はあるが、文面生成の実装を読んでおらず原因は断定しない。",
+      "evidence": [
+        {
+          "route": "publish",
+          "event": 119,
+          "eventId": "P119",
+          "jsonPointer": "/events/118/paragraphs/4",
+          "kind": "ending",
+          "paragraph": 5,
+          "speaker": "ending narration",
+          "quote": "1 of the names you read out were people you had carried as far as a stairwell in a filling street four days earlier, and not far enough."
+        }
+      ],
+      "scopeLimit": "今回のpublish経路で実際に出た単数値の英語文のみ。通常プレイの人数・別人数・別言語は未確認。",
+      "refutationStatus": "survives",
+      "priority": 1
+    }
+  ],
+  "targetBuild": {
+    "revision": "4190137",
+    "association": "Coordinator-supplied association for the two pinned transcript files."
+  },
+  "refutationSummary": {
+    "agent": "/root/narrative_reading_r1/refute_reading_r1",
+    "rawPath": "/workspace/scratch/0b7ad82bafe7/narrative-reading-r2/raw-review.json",
+    "refutationPath": "/workspace/scratch/0b7ad82bafe7/narrative-reading-r2/refutation.json",
+    "rawFindingCount": 2,
+    "survivingFindingCount": 1,
+    "survives": [
+      "NR2-02"
+    ],
+    "refuted": [
+      "NR2-01"
+    ],
+    "decisions": [
+      {
+        "id": "NR2-01",
+        "status": "refuted",
+        "reason": "数字の差はあるが、予算によって実績が変わり先送りが続く文脈は原文に既にある。一定速度の保証と長期実績の矛盾ではなく、人物の概算と予算に制限された結果の差として読めるため、説明不足という質の指摘は反証される。",
+        "minimumSurvivingClaim": null
+      },
+      {
+        "id": "NR2-02",
+        "status": "survives",
+        "reason": "語りの換喩と単複の一致は別の問題であり、換喩としての自然さでは1とwereの不一致を反証できない。短縮取得の制約を踏まえても、この実際の一文に限る英語の不一致は残る。",
+        "minimumSurvivingClaim": "P119 paragraph 5の実際の取得文「1 of the names you read out were people ...」は、主語の中心が単数の1であるのに主節の動詞がwereになっている。この単数値で表示された一文の数の一致だけが指摘として残る。"
+      }
+    ],
+    "originalRawAndRefutationPreserved": true,
+    "commandNormalizations": []
+  },
+  "resultScope": {
+    "blockerFindings": 0,
+    "majorFindings": 0,
+    "minorFindings": 1,
+    "newActionableFinding": "P119 paragraph 5の単数主語1に対するwereの一致。",
+    "narrativeClaims": "今回挙げた移転規模の説明不足は反証された。観測できる人物理由と後日談の対応を残すが、全編の整合性や伏線の全回収を認定しない。",
+    "unreturnedThreadCount": null,
+    "productEditsPerformed": false,
+    "knownSolIssueReRaised": false
+  }
+}

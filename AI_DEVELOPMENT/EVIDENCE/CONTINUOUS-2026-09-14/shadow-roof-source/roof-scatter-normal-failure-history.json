@@ -1,0 +1,53 @@
+{
+  "status": "resolved",
+  "issue": "A fully supported roof prop was rejected because a downward collider ray returned the entry point with ny=-1.",
+  "measuredBefore": {
+    "sourceCitySha256": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "sourceCollisionSha256": "891a57687468c723a8aeb4b209bd49381444328057ec8e95483a9dc4cb59524a",
+    "collider": {
+      "centerXZ": [
+        0,
+        0
+      ],
+      "y0": 9,
+      "y1": 10,
+      "width": 10,
+      "depth": 10
+    },
+    "prop": {
+      "baseY": 10,
+      "width": 1,
+      "depth": 1
+    },
+    "ray": {
+      "origin": [
+        0,
+        10.15,
+        0
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "distance": 0.3
+    },
+    "actualHit": {
+      "y": 10,
+      "ny": -1,
+      "t": 0.15000000000000036
+    },
+    "supportAccepted": false
+  },
+  "separateRefutation": "The separate reviewer independently reproduced the wrong normal and rejection before the fix.",
+  "measuredAfter": {
+    "sourceCollisionSha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "hit": {
+      "y": 10,
+      "ny": 1
+    },
+    "supportAccepted": true,
+    "source": "roof-scatter-cpu-measurements.json"
+  },
+  "boundary": "This record preserves the actual intermediate failure. Current diagnosis uses the repaired collision normals; it is not a whole collision-system or browser quality certification."
+}

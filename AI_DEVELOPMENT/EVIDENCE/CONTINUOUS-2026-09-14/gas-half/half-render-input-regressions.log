@@ -1,0 +1,27 @@
+✔ each box face returns its outward normal from positive and negative ray directions (1.93824ms)
+✔ rotated side normals remain perpendicular and oppose entry rays (0.26603ms)
+✔ a roof below a downward probe reports a top face without changing the hit height (0.191138ms)
+✔ the default guard still requires a hold (1.436183ms)
+✔ a subframe tap latches guard until the next tap, not the release (0.810381ms)
+✔ holding changes state only once and two subframe taps cancel each other (0.349867ms)
+✔ pause/reset, explicit cancellation and changing modes clear latched guard (0.307784ms)
+✔ disabled input cannot latch a press behind a menu (0.215805ms)
+✔ a press queued while simulation is paused is discarded on resume (0.25243ms)
+✔ keyboard guard follows the same toggle path and does not alter attack semantics (0.169285ms)
+✔ a second source can release a toggle while the first source is still held (0.223677ms)
+✔ cancelling discards old queued toggle presses without delayed rearming (1.275812ms)
+✔ same transformed triangles are retained while hidden and distant objects are excluded (11.018353ms)
+✔ moving skinned bodies and held props use the current actual bone transforms (5.825691ms)
+✔ instance count and changed matrices update the actual retained silhouettes (2.591604ms)
+✔ winding preserves side choices and negative object transforms (3.404839ms)
+✔ material sampling and custom depth paths retain their original casters (0.848288ms)
+✔ the shadow proxy emits no colour triangles and cannot intercept a ray pick (0.55761ms)
+✔ planar depth indices preserve mixed primitive surfaces and translated appends (102.378356ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 250.843051

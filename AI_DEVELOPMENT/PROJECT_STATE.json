@@ -1,22 +1,23 @@
 {
   "schema_version": 1,
-  "state_revision": "2026-08-01.4",
+  "state_revision": "2026-09-14.25",
   "project": {
     "id": "PROJECT-CINDERLINE",
     "name": "CINDERLINE",
     "repository": "bachikoljunior-blip/survival",
     "default_branch": "main",
-    "working_branch": "main",
+    "working_branch": "claude/repo-instructions-constraints-r0070m",
     "verified_baseline": "cc96f3a6cd94e11d3c71342ed568816ed55a9e59",
     "phase": "GATE-B"
   },
   "authorities": {
-    "operating_protocol": "PROJECT_OPERATING_PROTOCOL.md",
+    "operating_protocol": "CLAUDE.md",
     "requirements_and_constraints": "docs/directive.md",
     "approved_design_and_product_debt": "docs/bible.md",
     "acceptance_criteria": "docs/DONE.md",
     "human_project_state": "docs/STATE.md",
-    "review_findings": "docs/reviews"
+    "review_findings": "docs/reviews",
+    "work_execution": "AI_DEVELOPMENT/SESSION_STATE.yaml"
   },
   "remote_execution_authorization": {
     "status": "active",
@@ -258,7 +259,10 @@
         "B1",
         "B5"
       ],
-      "evidence": [],
+      "evidence": [
+        "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/checkpoint.json",
+        "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/independent-product-review.json"
+      ],
       "reason": "docs/STATE.md action 3; docs/bible.md IMP-02"
     },
     {

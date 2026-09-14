@@ -1,0 +1,5 @@
+{
+  "checkedAt": "2026-09-14T05:57:35.623130+00:00",
+  "error": "Earlier committed reference-acquisition-sep14-afternoon.json records non-retryable safety rejection on this archive.org advancedsearch query. Root overlooked that record before submitting an ordinary public GET during a new method search; upon reading it, requested interruption and will not use this route or its results.",
+  "prevention": "Read the existing per-source failure record before any alternate-source acquisition, not only the summarized checkpoint. Do not access rejected source through another transport."
+}

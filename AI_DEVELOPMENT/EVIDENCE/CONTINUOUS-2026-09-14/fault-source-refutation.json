@@ -1,0 +1,427 @@
+{
+  "checkedAt": "2026-09-14T00:04:49.221Z",
+  "reviewer": "/root/render_cost_review/refute_backdrop",
+  "head": "ecccf348117767dd9f815d820dc3b6dcd2c78cd0",
+  "sourceHashes": {
+    "tools/fault_recovery.mjs": "43332726e2443305b694c6b34a19321eb19779b61d927d103644326a60d4cbf9",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/game/game.js": "e9c1390feae1fb7fa6f94609ba845b2b339b9e54565b14c29bba99b825aff0bf",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "styles.css": "a8385ac9a4ecfd0250f47dfb7d2e45e015634912d8b783ffc27f884df06d2d37",
+    "index.html": "c0b374c2d1746764a9555c0405992cda46f1c4f196db44c856c59a9c0b6fcc20",
+    ".github/workflows/gates.yml": "eb31c21e83bbdb8e0a2d9dfa845c8a79f7c77fe0d879b7c53f0a273816ee376e"
+  },
+  "scope": "Read-only source review and Node memory adversarial checks of the three original instrumentation findings. No browser run, GL measurement, or visual/blind verdict.",
+  "verdict": "Original three findings closed at source/Node readiness; fresh browser evidence remains required.",
+  "ioResults": [
+    {
+      "scenario": "success",
+      "exitCode": 0,
+      "logs": [
+        [
+          "log",
+          "  ok   fixture check"
+        ],
+        [
+          "log",
+          "\nFAULT RECOVERY OK — 1/1 checks; 0 not measured"
+        ]
+      ],
+      "reportedPassed": true,
+      "correct": true
+    },
+    {
+      "scenario": "mkdir_failure",
+      "exitCode": 1,
+      "logs": [
+        [
+          "log",
+          "  ok   fixture check"
+        ],
+        [
+          "error",
+          "could not write the evidence:",
+          "EACCES"
+        ],
+        [
+          "log",
+          "\nFAULT RECOVERY FAILED — 1/1 checks; 0 not measured"
+        ]
+      ],
+      "reportedPassed": null,
+      "correct": true
+    },
+    {
+      "scenario": "write_failure",
+      "exitCode": 1,
+      "logs": [
+        [
+          "log",
+          "  ok   fixture check"
+        ],
+        [
+          "error",
+          "could not write the evidence:",
+          "ENOSPC"
+        ],
+        [
+          "log",
+          "\nFAULT RECOVERY FAILED — 1/1 checks; 0 not measured"
+        ]
+      ],
+      "reportedPassed": null,
+      "correct": true
+    },
+    {
+      "scenario": "existing_failed_check",
+      "exitCode": 1,
+      "logs": [
+        [
+          "log",
+          "  FAIL fixture check"
+        ],
+        [
+          "log",
+          "\nFAULT RECOVERY FAILED — 0/1 checks; 0 not measured"
+        ]
+      ],
+      "reportedPassed": false,
+      "correct": true
+    }
+  ],
+  "visibilityResults": [
+    {
+      "scenario": "visible_notice",
+      "expected": true,
+      "actual": true,
+      "correct": true
+    },
+    {
+      "scenario": "hidden_hud_ancestor",
+      "expected": false,
+      "actual": false,
+      "correct": true
+    },
+    {
+      "scenario": "ancestor_opacity_zero",
+      "expected": false,
+      "actual": false,
+      "correct": true
+    },
+    {
+      "scenario": "hidden_attribute",
+      "expected": false,
+      "actual": false,
+      "correct": true
+    },
+    {
+      "scenario": "offscreen",
+      "expected": false,
+      "actual": false,
+      "correct": true
+    },
+    {
+      "scenario": "clipped_text",
+      "expected": false,
+      "actual": false,
+      "correct": true
+    },
+    {
+      "scenario": "no_text_rects",
+      "expected": false,
+      "actual": false,
+      "correct": true
+    },
+    {
+      "scenario": "external_notice_visible",
+      "expected": true,
+      "actual": true,
+      "correct": true
+    }
+  ],
+  "drawingResult": {
+    "implementation": "real Game.start and Emitter; memory counter as the game render body, unmodified instrument replacement",
+    "drawsBefore": 1,
+    "drawsAfter": 0,
+    "errorCount": 4,
+    "errors": [
+      {
+        "where": "event:render",
+        "message": "probe: render listener fault"
+      },
+      {
+        "where": "event:render",
+        "message": "probe: render listener fault"
+      },
+      {
+        "where": "event:render",
+        "message": "probe: render listener fault"
+      },
+      {
+        "where": "event:render",
+        "message": "probe: render listener fault"
+      }
+    ],
+    "requireDrawsZero": true,
+    "requirePanel": true,
+    "correct": true
+  },
+  "caveats": [
+    "Visibility predicates inspect ancestor styles and text/element clipping; they are not pixel-level occlusion or contrast proof.",
+    "The Node drawing fixture proves the real dynamic Game.start listener reaches the replacement; it does not itself measure native GPU draw calls.",
+    "An I/O failure can leave an old artifact on disk, but no longer produces a successful process result.",
+    "Current product save-status claims are being reviewed independently by restore_state_review."
+  ],
+  "panelVisibilityReview": {
+    "checkedAt": "2026-09-14T00:11:57.166Z",
+    "sourceSha256": "faf1153be7ba60165ac9f8d4dc89858678f5c24435c980d7bf59f117d93a69c2",
+    "scope": "Unmodified current surface executed in Node with DOM/style/Range substitutes; no browser or GPU run.",
+    "results": [
+      {
+        "scenario": "visible_panel",
+        "expected": true,
+        "actual": true,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": true
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "no_on_class",
+        "expected": false,
+        "actual": false,
+        "panelClass": false,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": true
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "missing_panel",
+        "expected": false,
+        "actual": false,
+        "panelClass": false,
+        "boxes": [],
+        "correct": true
+      },
+      {
+        "scenario": "missing_title",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": false
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": true
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "missing_text",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": false
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": true
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "missing_reload",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": false
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "hidden_panel_ancestor",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": false
+          },
+          {
+            "selector": ".s",
+            "visible": false
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": false
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "transparent_panel",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": false
+          },
+          {
+            "selector": ".s",
+            "visible": false
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": false
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "reload_offscreen",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": false
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "text_clipped",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": false
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": true
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "title_zero_size",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": false
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": true
+          }
+        ],
+        "correct": true
+      },
+      {
+        "scenario": "reload_no_text_rects",
+        "expected": false,
+        "actual": false,
+        "panelClass": true,
+        "boxes": [
+          {
+            "selector": ".k",
+            "visible": true
+          },
+          {
+            "selector": ".s",
+            "visible": true
+          },
+          {
+            "selector": "#ctxlost-reload",
+            "visible": false
+          }
+        ],
+        "correct": true
+      }
+    ],
+    "allExpected": true,
+    "conclusion": "The prior class-only panel success path is closed for the tested hidden, missing, clipped and offscreen conditions. All three labeled regions must pass the visibility predicate.",
+    "limits": [
+      "Style/rectangle checks do not prove freedom from higher stacking-layer occlusion or adequate visual contrast.",
+      "Browser screenshots, readability and actual reload behavior are not measured by these Node controls."
+    ]
+  }
+}

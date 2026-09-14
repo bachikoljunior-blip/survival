@@ -204,6 +204,15 @@ export class DialogueRunner extends Emitter {
     return this.goto(n.next || 'end');
   }
 
+  /** Abandon an interrupted conversation without committing its onEnd effects. */
+  cancel() {
+    this.active = false;
+    this.convo = null;
+    this.node = null;
+    this.history = [];
+    this.clear();
+  }
+
   finish() {
     if (!this.active) return null;
     this.active = false;

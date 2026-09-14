@@ -1,0 +1,58 @@
+{
+  "raw": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  },
+  "rawEvidence": {
+    "ok": true,
+    "quoteCounts": {
+      "raw-review.json": 49,
+      "delta-evidence.json": 49
+    },
+    "allQuotesExact": true,
+    "sourcesUnchanged": true,
+    "readCommands": [
+      {
+        "id": "NR2-01",
+        "ok": true
+      },
+      {
+        "id": "NR2-02",
+        "ok": true
+      }
+    ],
+    "failures": []
+  },
+  "strict": {
+    "raw-review.json": {
+      "ok": true,
+      "failures": [],
+      "warnings": []
+    },
+    "refutation.json": {
+      "ok": true,
+      "failures": [],
+      "warnings": []
+    },
+    "final-review.json": {
+      "ok": true,
+      "failures": [],
+      "warnings": []
+    }
+  },
+  "finalEvidence": {
+    "ok": true,
+    "quoteCounts": {
+      "refutation.json": 6,
+      "final-review.json": 44
+    },
+    "allQuotesExact": true,
+    "sourcesUnchanged": true,
+    "finalReadCommandSucceeded": true,
+    "survivorsMatchRefutation": true,
+    "requiredCharacters": 6,
+    "unreturnedThreadCount": null,
+    "failures": []
+  }
+}

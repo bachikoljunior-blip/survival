@@ -22,6 +22,7 @@ import * as P from './props.js';
 import { Rng } from '../core/rng.js';
 import { clamp, clamp01, lerp, TAU } from '../core/util.js';
 import { signTexture } from '../render/textures.js';
+import { patchWorldMaterial } from '../render/materials.js';
 
 const CHUNK = 56;
 
@@ -317,11 +318,14 @@ export class City {
       w: 512, h: 128, seed: (s.text || '').length * 31 + 7,
       bg: '#1a1613', fg: '#d9cfba', accent: '#ff7a2f', weathered: 0.6,
     });
-    const mat = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false });
+    const mat = this._signMaterial(tex);
     const geo = new THREE.PlaneGeometry(s.w, s.h);
     const mesh = new THREE.Mesh(geo, mat);
+    mesh.receiveShadow = true;
     mesh.position.set(s.x, s.y, s.z);
-    mesh.rotation.y = -s.rot + Math.PI / 2;
+    // Facade signs store -atan2(outward.z, outward.x). PlaneGeometry faces +Z;
+    // this turns its front toward the street, including both north/south walls.
+    mesh.rotation.y = s.rot + Math.PI / 2;
     mesh.matrixAutoUpdate = false;
     mesh.updateMatrix();
     this.root.add(mesh);
@@ -618,6 +622,21 @@ export class City {
     const y = p.y || 0;
     let r = null;
     switch (p.kind) {
+      case 'rubble': {
+        const w = p.w ?? (p.r ?? 3) * 2;
+        const d = p.d ?? w;
+        const h = p.h ?? 1.5;
+        P.rubblePile(cb, p.x, p.z, w / 2, h, rng, { depthScale: d / w, y });
+        for (let i = 0; i < 4; i++) {
+          const t = i / 4;
+          // Keep the walkable core inside even the smallest generated
+          // seven-sided contour; its top matches the visible layer exactly.
+          const core = (1 - t * 0.72) * 0.45;
+          this.solid(p.x, y + h * (t + 0.25) - 0.2, p.z,
+            w * core, 0.2, d * core, 0, LAYER.PLATFORM, 'rubble');
+        }
+        break;
+      }
       case 'drum': r = P.drum(cb, p.x, y, p.z, rng, p); break;
       case 'crate': P.crate(cb, p.x, y, p.z, rng, p); this.solid(p.x, y, p.z, 0.7, 0.62, 0.7, p.rot || 0, LAYER.SOLID, 'prop'); break;
       case 'pallet': P.pallet(cb, p.x, y, p.z, rng, p); break;
@@ -628,7 +647,7 @@ export class City {
       case 'worklight': r = P.workLight(cb, p.x, y, p.z, rng, p); break;
       case 'vent': r = P.ventHead(cb, p.x, y, p.z, rng, p);
         this.solid(p.x, y, p.z, 1.3, 1.4, 1.3, 0, LAYER.SOLID, 'prop');
-        this.gas.addSource(p.x, p.z, p.gasStrength ?? 2400, p.gasRadius ?? 20, p.gasId || null, p.hot !== false);
+        this.gas.addSource(p.x, p.z, p.gasStrength ?? 2400, p.gasRadius ?? 20, p.gasId ?? p.id ?? null, p.hot !== false);
         break;
       case 'excavator': r = P.excavator(cb, p.x, y, p.z, p.rot || 0, rng, p);
         this.solid(p.x, y, p.z, 4.6, 2.4, 2.6, p.rot || 0, LAYER.SOLID, 'plant'); break;
@@ -678,8 +697,18 @@ export class City {
       bg: p.bg || '#16130f', fg: p.fg || '#ddd3bf', accent: p.accent || '#ff7a2f',
       weathered: p.weathered ?? 0.55, border: p.border !== false,
     });
-    const mat = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false, side: THREE.DoubleSide });
+    const mat = this._signMaterial(tex);
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(p.w || 1.6, p.h || 0.8), mat);
+    mesh.receiveShadow = true;
+    // Two outward-facing painted faces keep the lettering readable from both
+    // sides. DoubleSide drew the front UVs backwards through the rear face.
+    const back = new THREE.Mesh(mesh.geometry, mat);
+    back.receiveShadow = true;
+    back.rotation.y = Math.PI;
+    back.position.z = -0.012;
+    back.matrixAutoUpdate = false;
+    back.updateMatrix();
+    mesh.add(back);
     mesh.position.set(p.x, (p.y || 0) + (p.h || 0.8) / 2 + (p.lift || 1.2), p.z);
     mesh.rotation.y = p.rot || 0;
     mesh.matrixAutoUpdate = false;
@@ -691,6 +720,14 @@ export class City {
       const cb = this._chunk(p.x, p.z);
       cb.m('metal').cylinder(p.x, 0, p.z, 0.055, (p.lift || 1.2) + 0.2, 6, 1.4, [0.42, 0.42, 0.44], false, 0.3);
     }
+  }
+
+  _signMaterial(texture) {
+    // These are painted boards, not light sources. Match the world's sun,
+    // exposure and height fog instead of drawing bright text through smoke.
+    return patchWorldMaterial(new THREE.MeshStandardMaterial({
+      map: texture, roughness: 0.88, metalness: 0.0, side: THREE.FrontSide,
+    }), { skyGate: false, wet: false });
   }
 
   /**
@@ -711,7 +748,10 @@ export class City {
     for (let i = 0; i < n; i++) {
       const px = x + rng.sym(w / 2), pz = z + rng.sym(d / 2);
       if (!inside(px, pz)) continue;
-      const cb = this._chunk(px, pz);
+      // Roof scatter spans authored rectangles, including gaps between
+      // buildings. Build each decorative item before checking its footprint
+      // so rejection consumes the same random stream as the original item.
+      const cb = character === 'roof' ? new ChunkBuilder('roof-scatter') : this._chunk(px, pz);
       const roll = rng.f();
 
       switch (character) {
@@ -781,13 +821,31 @@ export class City {
 
         case 'roof':
           if (roll < 0.3) P.acUnit(cb, px, y, pz, rng.f() * TAU, rng, {});
-          else if (roll < 0.46) { P.crate(cb, px, y, pz, rng); this.solid(px, y, pz, 0.7, 0.62, 0.7, 0, LAYER.SOLID, 'prop'); }
+          else if (roll < 0.46) P.crate(cb, px, y, pz, rng);
           else if (roll < 0.6) P.drum(cb, px, y, pz, rng, { tipped: rng.chance(0.5) });
           else if (roll < 0.72) P.pallet(cb, px, y, pz, rng, {});
           else P.debris(cb, px, pz, 2, rng.int(4, 10), rng, y);
+          if (this._roofScatterSupported(cb, y)) {
+            const destination = this._chunk(px, pz);
+            for (const [key, geometry] of cb.groups) destination.m(key).append(geometry);
+            if (roll >= 0.3 && roll < 0.46) this.solid(px, y, pz, 0.7, 0.62, 0.7, 0, LAYER.SOLID, 'prop');
+          }
           break;
       }
     }
+  }
+
+  _roofScatterSupported(builder, baseY) {
+    let vertices = 0;
+    for (const geometry of builder.groups.values()) {
+      for (let i = 0; i < geometry.pos.length; i += 3) {
+        const x = geometry.pos[i], z = geometry.pos[i + 2];
+        const hit = this.collision.raycast(x, baseY + 0.15, z, 0, -1, 0, 0.3, LAYER.SOLID | LAYER.PLATFORM);
+        if (!hit || hit.ny < 0.9 || Math.abs(hit.y - baseY) > 0.15) return false;
+        vertices++;
+      }
+    }
+    return vertices > 0;
   }
 
   /**
@@ -957,9 +1015,10 @@ export class City {
     // hole with sky underneath them. Raycasting down at (0, -180) found
     // backdrop brick at y=20.7 and then nothing until the sky dome.
     //
-    // One large, coarsely tessellated ash disc, drawn before everything and
-    // fogged to the horizon. It is two draw calls and it is the difference
-    // between a skyline and a bug.
+    // Flat patches share one mesh and one main-scene draw call. Their normals
+    // and tint are constant; UVs and world position interpolate across each
+    // quad. Subdividing every 40 m patch at 1 m added 722,200 unnecessary
+    // triangles. Keep the same patches, overlap, UV extent and horizon cover.
     {
       const outer = inner + 4 * 62 + 60;
       const seg = 26;
@@ -971,7 +1030,7 @@ export class City {
           if (Math.abs(x - cx) < (B.maxX - B.minX) * 0.5 &&
               Math.abs(z - cz) < (B.maxZ - B.minZ) * 0.5) continue;
           const step = (outer * 2) / (seg - 1);
-          cb.m('ash').plane(x, -0.06, z, step * 1.06, step * 1.06, 0.34, [0.86, 0.84, 0.8], true, 1);
+          cb.m('ash').plane(x, -0.06, z, step * 1.06, step * 1.06, 0.34, [0.86, 0.84, 0.8], true, step * 1.06);
         }
       }
     }

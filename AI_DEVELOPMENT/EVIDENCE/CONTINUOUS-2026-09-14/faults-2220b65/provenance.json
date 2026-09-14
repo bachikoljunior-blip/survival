@@ -1,0 +1,100 @@
+{
+  "checked_at": "2026-09-14T09:45:26.406878+09:00",
+  "commit": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+  "build_sha256": "dfa8bd7d668e0b2bca94853313fe12dcf8d5ef5e37417180560e8930d30f67f5",
+  "run_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34792130296",
+  "run_id": 34792130296,
+  "job_id": 103818185883,
+  "artifact_id": 10327698755,
+  "artifact_sha256": "8723381e1700cd0591041393a6eb97031f763b5b9ae6e5dece3f1514b6f5162e",
+  "artifact_bytes": 8905956,
+  "artifact_expires_at": "2026-09-28T09:22:47+09:00",
+  "files": [
+    {
+      "path": "GB-H2-FAULT-RECOVERY.json",
+      "bytes": 10022,
+      "sha256": "62d868d1787f6f319cb0f497749a091ed3b5936e007f4aae3ef406963098435d"
+    },
+    {
+      "path": "actual-review.json",
+      "bytes": 21301,
+      "sha256": "cb52ff84c77efb136d04c7ef39300c32ac3d56e381ab77ad7df659013176863d"
+    },
+    {
+      "path": "boot-failure.png",
+      "bytes": 23278,
+      "sha256": "87d15b6c752161fb7dac7dccebc1bce7e1868087b4b8d248a035d9e8cd7d9722"
+    },
+    {
+      "path": "clean-boot.png",
+      "bytes": 1139885,
+      "sha256": "e850fed1974223cb4b54d1cad2243969ce600c7446aca8a82962e9c85983d425"
+    },
+    {
+      "path": "japanese-error-notice.png",
+      "bytes": 1029997,
+      "sha256": "b97943ed7e07518ff45a32d525ebfc931d8f93ca315c3cffa2099525854d1f36"
+    },
+    {
+      "path": "japanese-error-recovery.png",
+      "bytes": 253669,
+      "sha256": "a876070207962b9882f38cece24d03b9af020dcc6ded02af4d4cd6412a9b384d"
+    },
+    {
+      "path": "rejected-promise-notice.png",
+      "bytes": 1032441,
+      "sha256": "43b73d5591809f6e3e030aa876908dca3f57179c2ab04a24fcc713014ba0e08e"
+    },
+    {
+      "path": "reloaded-after-error.png",
+      "bytes": 1113753,
+      "sha256": "7d9db926fe0e81bf351a8d6abd6053cf7449514f8fdca21fd22535afefd30c7d"
+    },
+    {
+      "path": "render-error-recovery.png",
+      "bytes": 57835,
+      "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866"
+    },
+    {
+      "path": "repeating-error-recovery.png",
+      "bytes": 244560,
+      "sha256": "a51ec4bb802cbe22e44d942d1bc09d6be9d84fb2e4fd38111aca3e44f81bab3c"
+    },
+    {
+      "path": "saved-play-error.png",
+      "bytes": 1473708,
+      "sha256": "e84eb29f684a6a264fe8e7c5872a05a8e35534a702f95e30f6c381c61ef6bdfb"
+    },
+    {
+      "path": "single-error-notice.png",
+      "bytes": 1025544,
+      "sha256": "2477809eb4ed91b143179386d8c9ede58346797257dff8b93220fd3c022c126b"
+    },
+    {
+      "path": "stopped-loop-recovery.png",
+      "bytes": 57835,
+      "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866"
+    },
+    {
+      "path": "unsaved-play-error.png",
+      "bytes": 1407246,
+      "sha256": "c37f61412942f08f0c5ce956422cc2f9fc9b8907b60fa92e24b9bf4e88e596f4"
+    },
+    {
+      "path": "updater-error-recovery.png",
+      "bytes": 57835,
+      "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866"
+    }
+  ],
+  "result": "passed",
+  "measured_checks": 40,
+  "not_measured_checks": 0,
+  "measured": "Actual WebKit 667x375/DPR2 production faults, visible English/Japanese notices and panels, real failed-save byte equality in the live page, draw-count stop and new-document reload. See the unchanged primary report and 13 screenshots.",
+  "observed_limitation": "The failed-write image also shows the preceding legitimate SAVED indicator before its 1600ms lifetime and fade finish. The following product change clears it immediately; that followup is not yet browser tested.",
+  "not_claimed": [
+    "No primary raw save-byte artifact was retained by this harness; the result is the live equality check.",
+    "Reload evidence is title/ready recovery, not Continue/full-world restoration in this fault run.",
+    "No real-device performance or valid reference-work blind comparison."
+  ],
+  "element_status_change": false
+}

@@ -1,0 +1,114 @@
+{
+  "verdict": "FAIL",
+  "score": 85,
+  "round": "dialogue-lifecycle-r1-independent-refutation",
+  "profile": "Authored cellar examine: reachability and severity",
+  "tier": "Source and bounded CPU",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison was performed. The source is known, and no actual rendered image, trusted input, reference preference or product quality element is judged by these source/CPU results.",
+  "checkedAt": "2026-09-14T04:54:54.613Z",
+  "baseCommit": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+  "scope": "Independent user-reachability/severity refutation for the authored cellar-examine death path. Product files were not changed. Only new scratch evidence files were written.",
+  "sources": {
+    "src/main.js": {
+      "sha256": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+      "bytes": 19931
+    },
+    "src/ui/screens.js": {
+      "sha256": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+      "bytes": 48630
+    },
+    "src/game/game.js": {
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+      "bytes": 30458
+    },
+    "src/game/director.js": {
+      "sha256": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d",
+      "bytes": 75703
+    },
+    "src/game/state.js": {
+      "sha256": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+      "bytes": 33880
+    },
+    "src/game/narrative.js": {
+      "sha256": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+      "bytes": 15872
+    },
+    "src/content/world_data.js": {
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+      "bytes": 45904
+    },
+    "src/actors/actor.js": {
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+      "bytes": 35441
+    },
+    "src/world/gas.js": {
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+      "bytes": 15059
+    },
+    "src/core/util.js": {
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+      "bytes": 5255
+    },
+    "styles.css": {
+      "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3",
+      "bytes": 46883
+    }
+  },
+  "verdictScope": "A stale examine presentation/advance closure survives the natural-gas-death and no-save retry path. Broader active-runner corruption, permanent lockout and persisted-save damage claims are not established by this route.",
+  "findings": [
+    {
+      "severity": "minor",
+      "owner": "src/game/director.js",
+      "shot": "dialogue-lifecycle-r1-refutation-probe.json: natural gas death and no-save retry",
+      "problem": "After the authored cellar examine remains open through natural gas death, the actual retry handler returns to PLAY while the old examine on state and advance closure still remain.",
+      "why": "The death and retry lifecycle does not terminate the examine presentation; the local show closure retains its remaining lines across the respawn.",
+      "fix": "Cancel the prior dialogue presentation and its callbacks on lifecycle transitions. The death and retry controls in this probe must show dialogueOn=false and onAdvance/onChoose=null without completing remaining story lines as a side effect.",
+      "hypothesis": "The missing cancellation mechanism is source-supported and reproduced at the bounded CPU API boundary. The exact rendered overlap and browser control path require the separate parent/mobile validation.",
+      "severityRationale": "For this narrow examine-only route the old text can be dismissed with existing taps, after which PLAY remains usable; this is not evidence of a permanent lockout or old conversation-choice effects."
+    }
+  ],
+  "refutedOrLimitedClaims": [
+    {
+      "claim": "Cellar interaction is locked behind a key or chapter.",
+      "result": "Refuted for the recorded authored door and both examine specs; the production dispatch contains only explicit requiresItem/locked checks, absent here. Navigation has not been fully walked in this review."
+    },
+    {
+      "claim": "Dialogue automatically finishes or pauses natural gas death.",
+      "result": "Refuted by actual fixedUpdate/vitals/Lungs CPU execution and the typing updater. Text finishes typing but does not advance; death occurs while the closure remains."
+    },
+    {
+      "claim": "The cited cellar examine leaves an active DialogueRunner.",
+      "result": "Refuted for this route: _examine does not start the runner. Its local advance closure is a distinct surviving object."
+    },
+    {
+      "claim": "The stale examine makes the run permanently unusable.",
+      "result": "Not supported: normal UI tap logic dismisses the remaining text. Other active conversation routes need their own evidence."
+    },
+    {
+      "claim": "A full page reload necessarily carries the same stale callback back.",
+      "result": "Refuted by construction/serialisation reasoning. It creates new Game/DialogueUI/Director objects, and the save does not serialise this closure or current runner. Actual reload is not measured."
+    },
+    {
+      "claim": "The death/title overlay would prevent reaching the recovery controls.",
+      "result": "Source stacking has death/title above the dialogue, which argues against that blocker. This is not computed hit-test evidence."
+    }
+  ],
+  "evidenceFiles": [
+    "dialogue-lifecycle-r1-refutation-probe.mjs",
+    "dialogue-lifecycle-r1-refutation-probe.json",
+    "dialogue-lifecycle-r1-refutation-sources/"
+  ],
+  "limitations": [
+    "No browser, server, socket, actual touchscreen, screenshot, full navigation walk or reload was run.",
+    "The gas CPU fixture delegates only vitals to Actor.update; normal locomotion/rendering are not measured.",
+    "The exact base Director methods are extracted from git show. Unchanged imported product modules are SHA-checked against that base.",
+    "TITLE -> NEW GAME/CONTINUE with the actual Menus/DOM fixture belongs to the parent review; it is not independently re-measured here."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

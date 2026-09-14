@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "scope": "Actual fixed-reader/r3-output fidelity audit only; no quality, blind comparison or gameplay claim.",
+  "started_at_utc": "2026-09-14T11:16:59.493Z",
+  "auditor_invocations": 1,
+  "phases": [
+    {
+      "phase": "input_copy",
+      "status": "PASS",
+      "elapsed_ms": 2.62806599999999
+    },
+    {
+      "phase": "two_header_restore",
+      "status": "PASS",
+      "elapsed_ms": 3.5772249999999985
+    },
+    {
+      "phase": "canonical_r3_format",
+      "status": "PASS",
+      "elapsed_ms": 40.970285000000004,
+      "canonical_checks": 20
+    },
+    {
+      "phase": "independent_real_parser",
+      "status": "PASS",
+      "elapsed_ms": 106.68229199999999
+    }
+  ],
+  "inputs": [
+    {
+      "role": "A_reader",
+      "bytes": 563486,
+      "sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+      "pin_matches": true
+    },
+    {
+      "role": "B_reader_r1",
+      "bytes": 159103,
+      "sha256": "2c8f38ec1786efe40f3b8436ec2b5f8a844b563c1ad62cce83cf0ba59c43455d",
+      "pin_matches": true
+    }
+  ],
+  "outputs": [
+    {
+      "role": "B_reader_r2",
+      "bytes": 159109,
+      "sha256": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b",
+      "pin_matches": true
+    },
+    {
+      "role": "A_text",
+      "bytes": 200075,
+      "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+      "pin_matches": true
+    },
+    {
+      "role": "A_audit",
+      "bytes": 405984,
+      "sha256": "6005041dbec2592e231ff99b6b0a5f32206f81492ffb8da6d5dbbb60731cf22b",
+      "pin_matches": true
+    },
+    {
+      "role": "B_text",
+      "bytes": 62026,
+      "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+      "pin_matches": true
+    },
+    {
+      "role": "B_audit",
+      "bytes": 121928,
+      "sha256": "998981e436b86e9ea74520e6446a9eaf73160f32f54e26a352a43a66b5829ea4",
+      "pin_matches": true
+    }
+  ],
+  "script_pins": {
+    "canonical": {
+      "git_blob": "7c59fccf5c80f55caf4e4fe77940d6878da2029c",
+      "bytes": 8831,
+      "sha256": "37f3567c5cfaeb2d7730c06ab356c8e3f6e0a847935c45cb73252e6e40389630"
+    },
+    "auditor": {
+      "git_blob": "7f1747da5aeae79bfce8cff0ddeabccec86f622f",
+      "bytes": 11677,
+      "sha256": "853d2bea575fcc7259c86fcf6727aa11ff882d8b306865bed966b51842fd7eb9"
+    },
+    "exact_format_function": {
+      "bytes": 2700,
+      "sha256": "9126b9957b8a0a2ce7a40178506b8990bcbc78e3bdd403b57805cd79dd87ac1b"
+    }
+  },
+  "source_immutability": [
+    {
+      "role": "A_reader",
+      "bytes": 563486,
+      "sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+      "unchanged": true
+    },
+    {
+      "role": "B_reader_r1",
+      "bytes": 159103,
+      "sha256": "2c8f38ec1786efe40f3b8436ec2b5f8a844b563c1ad62cce83cf0ba59c43455d",
+      "unchanged": true
+    }
+  ],
+  "auditor_exit_code": 0,
+  "auditor_stdout": {
+    "bytes": 2519,
+    "sha256": "a075a747a20f28615a66a557dd081a01bc2b9038f21e844016c51b728a824951"
+  },
+  "auditor_report": {
+    "bytes": 3558,
+    "sha256": "617e4cae8934abc51954e8dac06d81183d6a63ce7a1c1e26efb19c925969fafc"
+  },
+  "actual_audit": {
+    "schema_version": 1,
+    "status": "PASS",
+    "scope": "Exact authored-text spans and parsed graph metadata; no game execution or quality judgment.",
+    "cases": [
+      {
+        "label": "A",
+        "status": "PASS",
+        "input_bytes": 563486,
+        "output_bytes": 200075,
+        "input_sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+        "output_sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+        "expected_counts": {
+          "subjects": 6,
+          "units": 7,
+          "nodes": 1337,
+          "fields": 957,
+          "text": 917,
+          "mood": 0,
+          "tag": 0,
+          "locked_reason": 0,
+          "alternate": 40,
+          "null_routing": 420,
+          "continuations": 1647,
+          "entry_refs": 10,
+          "state_true": [
+            261,
+            470,
+            4,
+            0
+          ]
+        },
+        "observed_counts": {
+          "subjects": 6,
+          "units": 7,
+          "nodes": 1337,
+          "fields": 957,
+          "text": 917,
+          "mood": 0,
+          "tag": 0,
+          "locked_reason": 0,
+          "alternate": 40,
+          "null_routing": 420,
+          "continuations": 1647,
+          "entry_refs": 10,
+          "state_true": [
+            261,
+            470,
+            4,
+            0
+          ]
+        },
+        "expected_field_ledger_sha256": "316f7269afa1296952f1fdff1942d184d48bb1ecf6c4b8525a26deae234ff47c",
+        "observed_field_ledger_sha256": "316f7269afa1296952f1fdff1942d184d48bb1ecf6c4b8525a26deae234ff47c",
+        "expected_graph_ledger_sha256": "f9340023a75da36301972a38812964afcc99e2def07c61117d6c9c03fdf7afa6",
+        "observed_graph_ledger_sha256": "f9340023a75da36301972a38812964afcc99e2def07c61117d6c9c03fdf7afa6",
+        "exact_value_spans": 965,
+        "parent_before_option_pairs": 0,
+        "consumed_output_utf8_bytes": 200075,
+        "unconsumed_output_utf8_bytes": 0
+      },
+      {
+        "label": "B",
+        "status": "PASS",
+        "input_bytes": 159109,
+        "output_bytes": 62026,
+        "input_sha256": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b",
+        "output_sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+        "expected_counts": {
+          "subjects": 13,
+          "units": 13,
+          "nodes": 320,
+          "fields": 373,
+          "text": 320,
+          "mood": 46,
+          "tag": 5,
+          "locked_reason": 2,
+          "alternate": 0,
+          "null_routing": 0,
+          "continuations": 423,
+          "entry_refs": 20,
+          "state_true": [
+            15,
+            35,
+            0,
+            96
+          ]
+        },
+        "observed_counts": {
+          "subjects": 13,
+          "units": 13,
+          "nodes": 320,
+          "fields": 373,
+          "text": 320,
+          "mood": 46,
+          "tag": 5,
+          "locked_reason": 2,
+          "alternate": 0,
+          "null_routing": 0,
+          "continuations": 423,
+          "entry_refs": 20,
+          "state_true": [
+            15,
+            35,
+            0,
+            96
+          ]
+        },
+        "expected_field_ledger_sha256": "01bfb8f1c3ddaf7743fb92b829e29b9f751841779741adb8046158d07c229cca",
+        "observed_field_ledger_sha256": "01bfb8f1c3ddaf7743fb92b829e29b9f751841779741adb8046158d07c229cca",
+        "expected_graph_ledger_sha256": "4d9bf08d1eea05ea8b424c499944b7e75a0cc1b24db00c22d3adc2cd9f9b56ab",
+        "observed_graph_ledger_sha256": "4d9bf08d1eea05ea8b424c499944b7e75a0cc1b24db00c22d3adc2cd9f9b56ab",
+        "exact_value_spans": 387,
+        "parent_before_option_pairs": 96,
+        "consumed_output_utf8_bytes": 62026,
+        "unconsumed_output_utf8_bytes": 0
+      }
+    ]
+  },
+  "elapsed_ms": 155.103864,
+  "completed_at_utc": "2026-09-14T11:16:59.648Z"
+}

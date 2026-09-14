@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-14T18:59:42.375+09:00",
+  "attempt": "e16-q35-a8409cc-r2",
+  "commit": "7874c7e1a07e08aa83fff6541b8f690fbbd3b84c",
+  "job": {
+    "run": 34829615213,
+    "id": 103929599948,
+    "url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34829615213/job/103929599948",
+    "conclusion": "failure"
+  },
+  "rawJobLog": {
+    "bytes": 92320,
+    "sha256": "4f2f8cb6dd86b0f67e48de5c03c069bf1f75e6dfb442925fceedda4e369637f5"
+  },
+  "observations": [
+    "Reference cache verification succeeded for the fixed eight files, without any reference network request.",
+    "Runtime, 9,527,502,048-byte model and 918,166,080-byte projector passed exact pinned size and SHA-256 checks. Model acquisition took 228.528759547s and projector acquisition 10.656467986s.",
+    "Control ran for 300.009285256s and was killed by the configured timeout. No sixteen-image comparison ran.",
+    "Control stdout contains 1,833 bytes: reasoning about the image and an incomplete final response ending after red circle and green square. It is not a completed visual control.",
+    "Control stderr records one image encoding in 76,071ms and processing through approximately 191s before generation. It also includes non-consecutive-token-position warnings; their impact on correctness has not been established."
+  ],
+  "confirmedStopCause": "The control's 300-second wall-time budget expired during incomplete output generation. There is no observed OOM or reference-download failure in this attempt.",
+  "hypothesis": "The budget underestimated visual preprocessing plus unrestricted thinking before a final description. The fixed 512 output-token allowance could also truncate the requested complete response; actual EOS/completion was not reached.",
+  "repair": {
+    "attempt": "e16-q35-a8409cc-r3",
+    "controlSeconds": {
+      "old": 300,
+      "new": 600
+    },
+    "controlOutputTokens": {
+      "old": 512,
+      "new": 1024
+    },
+    "unchanged": "Fixed control image/question, model/runtime, sampling, image preprocessing, comparison prompt, all sixteen originals/order, candidate build, four axes and 7,200-second comparison budget.",
+    "rejectedAlternative": "Do not add thinking/kwargs flags: actual pinned mtmd --help does not advertise them, and arg.cpp limits those options to other executables while mtmd chat_add_and_format does not forward template kwargs.",
+    "budget": "prepare 1800 + control 600 + comparison 7200 = 9600 seconds, inside existing 10800-second job with 1200 seconds for setup/export.",
+    "actualVerification": "pending; source difference is exactly attempt ID, control timeout and control output-token cap. Not a successful runtime repair yet."
+  },
+  "qualityVerdict": "not measured",
+  "blindValidity": "not measured",
+  "completedWorkUnits": 0,
+  "nextAction": "Run revised control and the first frozen a840 sixteen-image inference if the process completes; inspect raw completeness, perception, source recognition and all four axes before any verdict. Independently execute the reversible eight-view lighting diagnosis."
+}

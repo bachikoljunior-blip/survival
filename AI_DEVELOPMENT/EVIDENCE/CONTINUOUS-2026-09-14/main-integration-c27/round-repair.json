@@ -1,0 +1,49 @@
+{
+  "cause": "Shallow checkout lacks the immutable historical source that the existing harness archives. Required Floor F3 already fetches full history.",
+  "change": {
+    "checks_and_baselines_unchanged": true,
+    "fetch_depth": 0,
+    "path": ".github/workflows/iphone-se3-round.yml",
+    "product_unchanged": true
+  },
+  "head_before": "97ab074e7a35137b53ab72a400d4beeab5f0ca52",
+  "job": 103959832677,
+  "main_before": "f40b6d9a37be22871a3c422e86dec2b127b16b4c",
+  "next": "Run unchanged harness with historical source, require existing mandatory checks, then normal PR merge and remote readback.",
+  "observed": {
+    "checkout_depth": 1,
+    "error": "fatal: not a tree object: 80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+    "result": "failure",
+    "source": "tools/backdrop_render_regression.mjs:previousGround",
+    "step": "Drive the iPhone SE 3 WebKit surface"
+  },
+  "pr_review": {
+    "draft": false,
+    "old_failure": "Old B / blocked body in prior event payload; corrected by ordinary PR body edit.",
+    "pr": 15,
+    "scope": "independent integration falsification; not blind element attainment",
+    "trailer": "Floor-Review: C / pass"
+  },
+  "quality": {
+    "elements_not_measured": 19,
+    "elements_satisfied": 0,
+    "valid_comparisons": 0
+  },
+  "recorded_at": "2026-09-14T20:46:35.435+09:00",
+  "run": 34839160175,
+  "schema": 1,
+  "verification": {
+    "complete_ci": "pending",
+    "local_historical_archive": {
+      "bytes": 1187840,
+      "command": [
+        "git",
+        "archive",
+        "80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+        "src"
+      ],
+      "exit": 0,
+      "sha256": "3926ae0d91e2eb86effe8a7ff8e26d2362305627e16c7234acf574e52764571b"
+    }
+  }
+}

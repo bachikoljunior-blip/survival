@@ -1,0 +1,59 @@
+{
+  "captured_at": "2026-09-14T12:40:53.877801+09:00",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "commit": "c65853f105bc192fae9d952d7e73eba62870dfcb",
+  "build_sha256": "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05",
+  "run": "https://github.com/bachikoljunior-blip/survival/actions/runs/34802288089",
+  "job_id": 103847206676,
+  "artifact_id": 10331278908,
+  "artifact_zip_sha256": "20096b4001b27fb2ad7af930c1ef7bf7c860509df18501dc6cdcbe634edbbcd6",
+  "artifact_zip_bytes": 1087504,
+  "measured": "Simulator bootstatus succeeded. Appium then restarted the booted simulator to show a desktop UI and timed out after 120s before Safari session creation. Report checks are empty and no game behavior was measured.",
+  "proposed_fix": "Use documented appium:isHeadless:true to keep the prebooted simulator without requiring its desktop window. Actual rerun pending.",
+  "source": "https://appium.github.io/appium-xcuitest-driver/latest/reference/capabilities/",
+  "inference_limit": "This log establishes the UI restart path, not that headless mode necessarily resolves all later setup or product failures.",
+  "blind_comparison": false,
+  "elements_unchanged": "all 19 not measured",
+  "files": [
+    {
+      "path": "appium.log",
+      "bytes": 13187,
+      "sha256": "b9e11050f0fe3596c3004c27e1bab4ede32d370ba51f35e8e3b945d95f001e70"
+    },
+    {
+      "path": "appium.pid",
+      "bytes": 6,
+      "sha256": "928ea8a1259a9e0c5db214c2f3feac852c6774a3bd803b91a9e2c0bd67aded88"
+    },
+    {
+      "path": "ios-safari.mp4",
+      "bytes": 1072381,
+      "sha256": "5ed7820167ef09658afa9da757f0b5bb84c174e7cf538d696c2f15b4600b8cf9"
+    },
+    {
+      "path": "report.json",
+      "bytes": 803,
+      "sha256": "8054afbd85695e3ca1fb60bb7a100ac227f0350f7fd8830278358337963391e8"
+    },
+    {
+      "path": "simulator-inventory.json",
+      "bytes": 265506,
+      "sha256": "1d73dd6d107ed54d13278e47bd688b1c83f2e915dfb90cbe7a70cd570e59d20c"
+    },
+    {
+      "path": "video.log",
+      "bytes": 169,
+      "sha256": "9a7035e5b6b3c14b00bde38070cc032d904e6031b1f64bfb1d715a8b437048cb"
+    },
+    {
+      "path": "video.pid",
+      "bytes": 6,
+      "sha256": "2def3e76e8728bf89f6e0fde1851903ec6968c41780ae7b47cef5cc244a98946"
+    },
+    {
+      "path": "xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12"
+    }
+  ]
+}

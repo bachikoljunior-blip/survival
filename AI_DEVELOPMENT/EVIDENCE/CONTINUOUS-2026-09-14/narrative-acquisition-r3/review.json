@@ -1,0 +1,110 @@
+{
+  "round": 3,
+  "profile": "narrative-acquisition-race-and-two-path-continuation",
+  "tier": "focused-cpu-contract",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "verdictMeaning": "The two targeted changes pass the narrow frozen-source CPU checks. This is not a successful real CI acquisition or a product-quality verdict.",
+  "blindComparison": "Not a blind comparison. Source is used only to review the acquisition method; no E-08/E-09 preference or completion claim is made. Original CI-emitted material, not implementation source or CPU fixtures, is required for eventual judging.",
+  "findings": [],
+  "changedFiles": [
+    "tools/playthrough.mjs",
+    ".github/workflows/gates.yml"
+  ],
+  "targetHashes": {
+    "tools/playthrough.mjs": {
+      "bytes": 8618,
+      "sha256": "cc6ba0eafca27c5105cb818f1594bae4c00fa7820f617a3d4499ef052fd8f3f5"
+    },
+    ".github/workflows/gates.yml": {
+      "bytes": 5676,
+      "sha256": "ac700fc88f5d285ceb48267a8462fc5e0af9cceea7cfc53adead86ea181cad46"
+    }
+  },
+  "sourceManifest": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source-manifest.json",
+  "observations": [
+    {
+      "id": "O1",
+      "problem": "The original ac9cd44 CI acquisition is incomplete: 95 dialogue events, 23 choice events, zero ending events, reachedEnding=true, ending=record, no browser errors, and captureSucceeded=false.",
+      "evidence": "original-ci/transcript-en-publish.json and acquisition.json: 26166 exact bytes; SHA-256 7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be. Original job.log prints PLAYTHROUGH FAILED.",
+      "hypothesis": "The collector may have serialized events while Director.finish was awaiting the ending fade."
+    },
+    {
+      "id": "O2",
+      "problem": "The unchanged production method assigns S.ending before awaiting the actual 1800ms fadeOut promise. With that promise pending, the original collector reads zero ending events; the repaired collector waits, then reads the ending event emitted by actual showEnding.",
+      "evidence": "cpu-state-ui-race.json: state assigned at controlled time 0; old event read sees 0 endings; actual fade timer released at 1800; actual showEnding is called; new wait completes; new read sees 1 ending. Director and UI supporting source bytes match ac9cd44 exactly.",
+      "hypothesis": "This reproduces a concrete race that fits the CI symptom. It does not uniquely establish the timing cause of the historical CI run because that run did not include an internal finish/fade timeline."
+    },
+    {
+      "id": "O3",
+      "problem": "A controlled ending-wait timeout produces capture failure while preserving all 118 original events, raw reachedEnding/ending fields, and empty browserErrors. A non-ending result skips the wait and remains incomplete.",
+      "evidence": "cpu-timeout-retention.json and cpu-results.json. Timeout records both the wait failure and missing ending; failed expression is true. The exact wait invocation uses timeout 30000.",
+      "hypothesis": "The catch-and-serialize path protects partial material while a page remains available; it cannot establish recovery after a destroyed browser execution context."
+    },
+    {
+      "id": "O4",
+      "problem": "The original workflow stops before deal after a normal publish command failure. The repaired shell block executes publish then deal for all four tested success/failure combinations and returns zero only when both return zero.",
+      "evidence": "cpu-two-path-shell.json: original 7/0 exits 7 after publish only; repaired 0/0→0, 7/0→7, 0/9→9, 7/9→9, with both path calls in every repaired case. Exact frozen run block was executed with Bash -e -o pipefail and a node shell stub.",
+      "hypothesis": "The OR-list handles each command failure without shell errexit; capture_status preserves a nonzero result through later success and uses the last failure code if both fail."
+    }
+  ],
+  "checks": {
+    "groupsPassed": 5,
+    "groupsFailed": 0,
+    "scope": "Original CI bytes; actual state/fade/UI ordering old-versus-new; timeout retention; no-ending branch; original/new shell continuation controls."
+  },
+  "evidence": [
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-targeted.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-results.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-state-ui-race.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-timeout-retention.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-two-path-shell.json"
+  ],
+  "limits": [
+    "The CPU reproduction uses actual Director.finish, Menus.fadeOut/fadeIn/showEnding and collector blocks, with fixture ending-selection data, controlled timers and DOM stubs; it is not a whole-game or browser run.",
+    "A 30000ms timeout argument is checked; no real 30-second browser wait was executed.",
+    "Timeout preservation assumes event serialization remains possible. Browser context destruction, CI cancellation, runner loss and job timeout are outside these checks.",
+    "The two-path test covers normal process exit statuses and unchanged always-upload source, not real CI scheduling or artifact delivery.",
+    "Previously reviewed r2 behavior is not broadly re-tested or regraded. story.js and its unrelated garage-condition edit are excluded.",
+    "Actual repaired CI capture success and E-08/E-09 quality remain not measured.",
+    "The new wait establishes that the ending event has been recorded. It does not await all fadeIn, saving, rendering or Director.finish completion, and makes no assertion about those later stages."
+  ],
+  "preservedFailures": [
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/original-ci/job.log",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/original-ci/transcript-en-publish.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-results-initial-failure.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-targeted-initial-failure.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/harness-failure-note.txt",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/independent-check-initial-failure.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/independent-results-initial-failure.json"
+  ],
+  "reviewerHarnessFailure": "Initial extractor assumed new declaration order in the old capture block; generalized only the block boundary, preserved the first failing script/result, and reran the same five targeted groups. No product code changed.",
+  "separateRefutation": {
+    "path": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/refutation.json",
+    "groupsPassed": 2,
+    "groupsFailed": 0,
+    "result": "sustained-with-scope-limits"
+  },
+  "productEdits": false,
+  "browserServerOrCIStarted": false,
+  "refutationDisposition": {
+    "remainingFindings": 0,
+    "historicalCausation": "The race is directly reproduced using the actual unchanged methods and fits the CI symptom; no exclusive historical timing cause is claimed.",
+    "barrierScope": "Ending-event acquisition only; later ending-lifecycle completion is outside scope.",
+    "originalReviewPreserved": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/review-raw.json"
+  },
+  "currentTargetCheck": [
+    {
+      "path": "tools/playthrough.mjs",
+      "sha256": "cc6ba0eafca27c5105cb818f1594bae4c00fa7820f617a3d4499ef052fd8f3f5",
+      "matchesFrozen": true
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "sha256": "ac700fc88f5d285ceb48267a8462fc5e0af9cceea7cfc53adead86ea181cad46",
+      "matchesFrozen": true
+    }
+  ]
+}

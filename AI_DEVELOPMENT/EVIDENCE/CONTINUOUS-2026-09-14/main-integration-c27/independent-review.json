@@ -1,0 +1,60 @@
+{
+  "round": 27,
+  "profile": "c27-workflow-adoption",
+  "tier": "independent-scoped-workflow-review",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "verdictMeaning": "履歴取得修正と任意E9ジョブの接続に関する採用レビュー。実CI成功、helper全内部、ブラインド比較成立、19要素達成の認定ではない。",
+  "score": 0,
+  "scoreMeaning": "unscored",
+  "blindComparison": "This is a source-known, read-only workflow integration review. It checks the bounded C27 change against the exact C26 files; it does not execute the evaluator, certify private-output contents, or perform a blind element comparison.",
+  "baseCommit": "97ab074e7a35137b53ab72a400d4beeab5f0ca52",
+  "candidateBlobs": {
+    "SESSION_STATE.yaml": "1a12dda5e325da5dc929daefd77b7148aa0a0ded",
+    "gates.yml": "1ac771aee28d95bb5a8879fd42f4f5240ad2d620",
+    "iphone-se3-round.yml": "96bde9843df8707e531d56ee2ace58c2257f0b62",
+    "round-repair.json": "5f3202d5c2148a30a4468c0f2871902e64af3e10"
+  },
+  "sourceEvidence": {
+    "c26RoundBlob": "984ed67c34f0b88aaf3f95b688a2582fd48b3bd6",
+    "c26GatesBlob": "d5de3d4279b9fc42339f304af368af0c4ace216f",
+    "failingJob": 103959832677,
+    "checkout": "git fetch --depth=1 origin +a32089f16c7a6e257e39c1336d77b8696dc4d194:refs/remotes/pull/15/merge",
+    "observedFailure": "fatal: not a tree object: 80dd49044496d5a1434a81efcc615bbbfcb0c0fd",
+    "observedCall": "git archive 80dd49044496d5a1434a81efcc615bbbfcb0c0fd src; previousGround at tools/backdrop_render_regression.mjs:27",
+    "localArchive": "root提供のexit 0 / 1187840 bytes / SHA256 3926ae0d91e2eb86effe8a7ff8e26d2362305627e16c7234acf574e52764571b。今回再実行していない。"
+  },
+  "checks": [
+    "round workflowのC26との差はcheckoutのfetch-depth:0、説明コメント、末尾空行1行のみ。ハーネス、検査、比較baseline、受入flag、uploadは変更なし。",
+    "gates.ymlはC26全文を保持し、comparison-e9-q35を1jobだけ末尾追加。既存9jobと必須F2/F3/F5に変更なし。YAML重複keyなし。",
+    "追加jobは指定commit markerを含むpushの初回attemptだけ。contents:read、checkout資格情報非保持、既存必須jobへの依存追加なし。",
+    "追加jobのupload対象は下記test-results配下のみ。RUNNER_TEMPやrunner.temp、親ディレクトリ、ワイルドカードは指定されていない。",
+    "追加部分にAutopilot呼出し、ref更新、PR merge、別workflowの起動処理はない。",
+    "SESSION_STATEのwork・repository部分はC26とbyte同一。制作branch、開始/期限、continuous、完了0を保持。"
+  ],
+  "uploadPaths": [
+    "test-results/e9-q35-readable-r3-r1",
+    "test-results/e9-readable-r3/report.json",
+    "test-results/e9-readable-r3/field-audit.json",
+    "test-results/e9-reader-recovery-r2/report.json"
+  ],
+  "findings": [
+    {
+      "id": "C27-STATE-F5",
+      "severity": "minor",
+      "shot": "SESSION_STATE.yaml checkpoint.modified_but_unverified",
+      "owner": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "category": "record consistency",
+      "problem": "候補に『編集イベント再検証待ち』が残るが、今回の依頼ではF5が実成功済みと報告されている。現行checkpointとして読むと状態が古い。",
+      "why": "実成功と未検証を区別する継続記録のため、過去の失敗を残しつつ最新結果を反映する必要がある。",
+      "fix": "旧本文による失敗と本文修正の履歴を保持し、最新F5は実成功済みと記録する。ワークフローの修正や再実行はこの記録訂正には不要。",
+      "hypothesis": "候補作成時点の待機記述が、F5成功確認後も残った可能性がある。",
+      "disposition": "nonblocking metadata correction; coordinator notified"
+    }
+  ],
+  "limits": [
+    "helper自体は別担当のレビュー範囲。私的原文が実際にRUNNER_TEMPにのみ書かれるか、公開出力に混入しないかは、このupload設定だけで保証しない。",
+    "修正版の全CIは未実行。fetch-depth修正が観測された履歴欠落に対応することと、ハーネス全工程成功を区別する。",
+    "モデル取得、helper実行、branch/ref/PR変更、Autopilot起動は行っていない。"
+  ]
+}

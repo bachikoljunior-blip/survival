@@ -1,0 +1,352 @@
+{
+  "archive": "raw-cpu-evidence.tar.gz",
+  "archive_sha256": "8e991bd2e7c0019fe46b790c7acb02142959ba513a80e207a49de25af7bda950",
+  "scope": "Original failure and correction evidence. Each stage retains its actual source hashes. Superseded files with the same name remain under previous-snapshots/<sha256>/; no failed evidence is dropped. Final gas review is fixed to ae50ac9 and excludes the following half-choice edits. No reference blind comparison is claimed.",
+  "files": [
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "bytes": 2944,
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    },
+    {
+      "path": "gas-budget-motion-fix-cpu-evidence.json",
+      "bytes": 273990,
+      "sha256": "ee3e082b6a886646394eeafc515bd6e7ce4c63627a385d0b9b18a166bcc67e1a"
+    },
+    {
+      "path": "gas-budget-motion-fix-probe.mjs",
+      "bytes": 3685,
+      "sha256": "d7c4c1e0999b278a064543a9bed2f5ca568498a9c2ca787698e937a5af80c370"
+    },
+    {
+      "path": "gas-city-prefix-fix-cpu-evidence.json",
+      "bytes": 9486350,
+      "sha256": "a4ba6dc2a34e50c82398dcff842948620b39fcb16be2e4a1f93e315e09d0cd09"
+    },
+    {
+      "path": "gas-city-prefix-fix-probe.mjs",
+      "bytes": 4860,
+      "sha256": "345571d7c0d4f848fdf379816a713c70f50e64fe4923e65559f345aaa607787a"
+    },
+    {
+      "path": "gas-consequence-fix-cpu-evidence.json",
+      "bytes": 7348,
+      "sha256": "0cef010cce5aa98f31018aab3daaf709f54dd1ffe9a3622177583e9ad8a35887"
+    },
+    {
+      "path": "gas-consequence-fix-probe.mjs",
+      "bytes": 8058,
+      "sha256": "4d520055fb15f6ab68e0c8e6744666be5a51bcee6ae652ae6e5022a42f5b363c"
+    },
+    {
+      "path": "gas-consequence-fix-refutation.json",
+      "bytes": 71834,
+      "sha256": "951d79526a7d8f4f4c6c03764ae1fbda555c290c982c9c324c25142f82f81133"
+    },
+    {
+      "path": "gas-consequence-fix-review-draft.json",
+      "bytes": 19426,
+      "sha256": "b12429cd3ae5f4f7b6a96df2ccf46343487e31b22660646d438b7266f59be4ad"
+    },
+    {
+      "path": "gas-consequence-fix-review.json",
+      "bytes": 22213,
+      "sha256": "d78b36b8b38240e8ff81b88cc78a548e287b0d852a6c7cbbdeab8dd5887a2a17"
+    },
+    {
+      "path": "gas-consequence-prefix-review.json",
+      "bytes": 19842,
+      "sha256": "ce0589900d087667409e67bb0082fc190df6532ded7a0a0f1ee3d378c41a8aab"
+    },
+    {
+      "path": "gas-consequence-resumable-review-draft.json",
+      "bytes": 19199,
+      "sha256": "12820ad085af012799967428ba1ffa7fa1323f3b9393cf7f7ca2e61a508f9862"
+    },
+    {
+      "path": "gas-consequence-source-review.json",
+      "bytes": 25805,
+      "sha256": "b6db441d453ff5d0c90ad8f3af9df67ffa0397f43980dab1be6b412c9d947d28"
+    },
+    {
+      "path": "gas-fix-ae50ac9-commit-binding.json",
+      "bytes": 9534,
+      "sha256": "f22680250a65e12a022bf2a4ebe29bc821f73e37bd7c48cb91678f61adfedaef"
+    },
+    {
+      "path": "gas-navigation-final-cpu-evidence.json",
+      "bytes": 4906,
+      "sha256": "fa6a323767d80b8f440db386bcc5fe4330c7e6789e31fb7aaa5d626aa7a32400"
+    },
+    {
+      "path": "gas-navigation-fix-cpu-evidence.json",
+      "bytes": 4906,
+      "sha256": "ae9678177cc2a3677f8c964e67788f98f3ed40cef8620ac3195aa764549a0590"
+    },
+    {
+      "path": "gas-navigation-fix-probe.mjs",
+      "bytes": 5063,
+      "sha256": "3247124d0655016f3185766df4b170133d1771eee5df3eccf5c1758f2590d8b4"
+    },
+    {
+      "path": "gas-navigation-resumable-cpu-evidence.json",
+      "bytes": 4906,
+      "sha256": "d9aa24432b32320fcbafdfa1cdbcfa79744bbf7f001480959474bfc38500f5ed"
+    },
+    {
+      "path": "gas-prefix-failed-source-manifest.json",
+      "bytes": 1302,
+      "sha256": "9550791307f2c73f92acc33b3cfb65c1884b6d2a7c212b34292654604b0afccb"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/actors/actor.js",
+      "bytes": 35441,
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/content/world_data.js",
+      "bytes": 45643,
+      "sha256": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/game/ai.js",
+      "bytes": 31794,
+      "sha256": "e1ed8831e55695bf8229dc6ddb4846934aaab7f6603ce6149fe7b119507416ca"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/game/director.js",
+      "bytes": 73062,
+      "sha256": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/game/game.js",
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/city.js",
+      "bytes": 51923,
+      "sha256": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/collision.js",
+      "bytes": 21291,
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/gas.js",
+      "bytes": 15059,
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    {
+      "path": "gas-prefix-failed-source/src/world/nav.js",
+      "bytes": 15487,
+      "sha256": "8aee4019679dede3ccc87581660812a9e30c74a44a337b9131373ae7c6a15065"
+    },
+    {
+      "path": "gas-resumable-independent-cpu-evidence.json",
+      "bytes": 11887,
+      "sha256": "fc3516a908e12cc8925b475f4b8fdab38a015250c86a3c10000a115ec9812135"
+    },
+    {
+      "path": "gas-resumable-independent-probe.mjs",
+      "bytes": 10791,
+      "sha256": "7a08a3ca34e2f716a8520b16afd4d7aef09e819c5497564f08a0d8094482cb9a"
+    },
+    {
+      "path": "gas-resumable-search-refutation.json",
+      "bytes": 21871,
+      "sha256": "0a486d3a0844920f1513a4c4d585a6cb54788ba61311c77fa49a75c4f7fae64d"
+    },
+    {
+      "path": "gas-resumable-source-manifest.json",
+      "bytes": 1122,
+      "sha256": "8f253658c18de3fb688fb9f812a07005dc71c8900af53bb78331966b1fdde501"
+    },
+    {
+      "path": "gas-resumable-source/src/actors/actor.js",
+      "bytes": 35441,
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    {
+      "path": "gas-resumable-source/src/content/world_data.js",
+      "bytes": 45643,
+      "sha256": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+    },
+    {
+      "path": "gas-resumable-source/src/game/ai.js",
+      "bytes": 32342,
+      "sha256": "349821330229e32653cdb362e5331bde535fbfd5340fb8faafa7562bff844e7b"
+    },
+    {
+      "path": "gas-resumable-source/src/game/director.js",
+      "bytes": 73062,
+      "sha256": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec"
+    },
+    {
+      "path": "gas-resumable-source/src/game/game.js",
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "gas-resumable-source/src/world/city.js",
+      "bytes": 51923,
+      "sha256": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5"
+    },
+    {
+      "path": "gas-resumable-source/src/world/collision.js",
+      "bytes": 21291,
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+    },
+    {
+      "path": "gas-resumable-source/src/world/gas.js",
+      "bytes": 15059,
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    {
+      "path": "gas-resumable-source/src/world/nav.js",
+      "bytes": 15759,
+      "sha256": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234"
+    },
+    {
+      "path": "gas-runtime-motion-final-cpu-evidence.json",
+      "bytes": 346431,
+      "sha256": "1491519aa0da739c145674584e52f080941177cac9740453f1f9d47f81b67bab"
+    },
+    {
+      "path": "gas-runtime-motion-final-probe.mjs",
+      "bytes": 8258,
+      "sha256": "b402864231142425a8cf4973f01b1afea6b48b28288df67fa37f9a514e61c963"
+    },
+    {
+      "path": "gas-runtime-motion-fix-cpu-evidence.json",
+      "bytes": 650001,
+      "sha256": "33b3caaff11384f25bc55ce7e35b9a83145152c3cf13ccd51d59c917899ddb93"
+    },
+    {
+      "path": "gas-runtime-motion-fix-probe.mjs",
+      "bytes": 8256,
+      "sha256": "07b374af06910f0c23ba719943eb9cddd115e5401b14f3aae6f99ef4e5c2f3fe"
+    },
+    {
+      "path": "gas-runtime-motion-resumable-cpu-evidence.json",
+      "bytes": 588589,
+      "sha256": "de5dc54a71854257ed5ac189d51f354bd82d62a4ef8edb073e7dfdab2973aac3"
+    },
+    {
+      "path": "gas-runtime-motion-resumable-probe.mjs",
+      "bytes": 8765,
+      "sha256": "2dde3b46c9fd4c7f4618cd025b2cb90bf06f7a5453a7c25fdc2a8b5eadce7ba7"
+    },
+    {
+      "path": "gas-runtime-motion-resumable-summary.json",
+      "bytes": 4884,
+      "sha256": "68b165322cf17e00c16fcb36dbb39dd6d8714b69039d03ce2d2654fe6d1a245c"
+    },
+    {
+      "path": "gas-vent-id-fix-cpu-evidence.json",
+      "bytes": 4452,
+      "sha256": "6ecfed0f3e4514b8261cfa0ea5d42acb4112a638d5c8f12f6f468674e2208142"
+    },
+    {
+      "path": "gas-vent-id-fix-probe.mjs",
+      "bytes": 2881,
+      "sha256": "d3abebfe9981fd353a57d2725aa790c6edcd5779c11d1769038b2b07ebfeeeee"
+    },
+    {
+      "path": "gas-wall-prefix-fix-cpu-evidence.json",
+      "bytes": 4846626,
+      "sha256": "f0460cc2a95116d34c119b6c917607eda0e8eca4a25cc9488dad2a6fa0ed7708"
+    },
+    {
+      "path": "gas-wall-prefix-fix-probe.mjs",
+      "bytes": 5207,
+      "sha256": "aba0e426bfc55f22945f4c164f54e16776806deaed1bbe34fb8d9517b98aa77d"
+    },
+    {
+      "path": "gas-wall-resumable-cpu-evidence.json",
+      "bytes": 1698426,
+      "sha256": "5bb6bff35fd1c48ee983eaf0a3fbb536f65e98e968260ea3a24728629374e617"
+    },
+    {
+      "path": "gas-wall-resumable-probe.mjs",
+      "bytes": 5913,
+      "sha256": "ee5949f9f2511aaf90491379d866b47fb7baba4d6c61c1c1313c3a543dd4d16a"
+    },
+    {
+      "path": "mobile-audio-capture-refutation-aa89d9fd.json",
+      "bytes": 13448,
+      "sha256": "efd3bc38c74875a20828587da388d59fe2b8ea48f9fa03dd8e6ab1ef20696d23"
+    },
+    {
+      "path": "mobile-audio-capture-refutation-initial.json",
+      "bytes": 8716,
+      "sha256": "69a99b1accc4c39a232ebcbedc31a72660234d45febc4b9e1765b4c6b7001398"
+    },
+    {
+      "path": "mobile-audio-capture-refutation.json",
+      "bytes": 16380,
+      "sha256": "abcc01e62abf6bef31fdfef8a992e885a0e26aaf421d98629d8792baf5417c42"
+    },
+    {
+      "path": "mobile-audio-capture-source-probe-aa89d9fd.json",
+      "bytes": 20528,
+      "sha256": "b010ef7eb6293d2bf52295d7bb7c064a9742c9049d51c175c4c3a87eaa428d5d"
+    },
+    {
+      "path": "mobile-audio-capture-source-probe-initial.json",
+      "bytes": 14952,
+      "sha256": "9f65e7d0c9720291913ce8502f071e1d0c05952eded03533dcf0a960e848b8a3"
+    },
+    {
+      "path": "mobile-audio-capture-source-probe-initial.log",
+      "bytes": 8810,
+      "sha256": "69a2f2bb5d12d01c645d58008c6b49142a8a00a3875e4ff0916fc0f8b53faf3e"
+    },
+    {
+      "path": "mobile-audio-capture-source-probe.json",
+      "bytes": 20521,
+      "sha256": "ebfcf04d9fccd079320c3834f9c31cd0323327118dd7c9377e8f482858bb5444"
+    },
+    {
+      "path": "mobile-audio-capture-source-probe.log",
+      "bytes": 13295,
+      "sha256": "5cb3bbfba82f4b78a4440b42c35a6f2db210f3665d48c9fbafa1c4b66bd4e19f"
+    },
+    {
+      "path": "mobile-audio-capture-source-probe.mjs",
+      "bytes": 7949,
+      "sha256": "f48f2199bf6c2733ffd7c642768d4eaf242e495a40cfd6815c653a914901e18d"
+    },
+    {
+      "path": "mobile-audio-capture-source-review-aa89d9fd.json",
+      "bytes": 9572,
+      "sha256": "9c309e2bb23a878c0b8979e48de1e740c63b24e11518704a671768bf3f887982"
+    },
+    {
+      "path": "mobile-audio-capture-source-review.json",
+      "bytes": 10206,
+      "sha256": "3ad94b5ecaf66c82e7291da4aa022fe9d6faa15c104ed47bf9e1bf18f470c31c"
+    },
+    {
+      "path": "mobile-audio-error-boundary-probe.json",
+      "bytes": 3764,
+      "sha256": "48635a848b3261dbf7f5189c4b9f1d8a4abb10780e9047c14b4d3ab9b4339283"
+    },
+    {
+      "path": "mobile-audio-error-boundary-probe.mjs",
+      "bytes": 4469,
+      "sha256": "e7f2daebd4655d566a5303cb216cae55c7731a538753a59e53c51a0db935d3b7"
+    },
+    {
+      "path": "previous-snapshots/9c309e2bb23a878c0b8979e48de1e740c63b24e11518704a671768bf3f887982/mobile-audio-capture-source-review.json",
+      "bytes": 9572,
+      "sha256": "9c309e2bb23a878c0b8979e48de1e740c63b24e11518704a671768bf3f887982"
+    },
+    {
+      "path": "previous-snapshots/efd3bc38c74875a20828587da388d59fe2b8ea48f9fa03dd8e6ab1ef20696d23/mobile-audio-capture-refutation.json",
+      "bytes": 13448,
+      "sha256": "efd3bc38c74875a20828587da388d59fe2b8ea48f9fa03dd8e6ab1ef20696d23"
+    }
+  ]
+}

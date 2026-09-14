@@ -1,0 +1,794 @@
+{
+  "files": [
+    {
+      "path": "check-prior-provenance.mjs",
+      "bytes": 1651,
+      "sha256": "5c27751cc2bca0bb564c84b93aadb34c1aa3c2fe51aac7fc0ed23e39a08bddcb"
+    },
+    {
+      "path": "finalize.mjs",
+      "bytes": 3534,
+      "sha256": "ab4a283a36948b0850d8bd463870ec0d382348e07777e6d62daa00e4c30581d8"
+    },
+    {
+      "path": "pins.json",
+      "bytes": 1311,
+      "sha256": "4c4d682a1bfb9b107350061ba820c270badf8f1b5864ce69d083fc43a7e19d6f"
+    },
+    {
+      "path": "probe.py",
+      "bytes": 5855,
+      "sha256": "54e32a14a1a1d9cdc217ec90f32e13b3f53777163386451058c23ba961c5eeb9"
+    },
+    {
+      "path": "raw/at-cap.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/at-cap.stdout.log.gz",
+      "bytes": 21888,
+      "sha256": "e65f9740931f0a0861814672bf2235faa83dc74fab9fa398c9d81455280b4eca"
+    },
+    {
+      "path": "raw/empty-png.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/empty-png.stdout.log.gz",
+      "bytes": 656,
+      "sha256": "27a621a6f5895764a7c4c5b058044288bbba03285f5b0da49f7701b7047a0ab3"
+    },
+    {
+      "path": "raw/empty-report.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/empty-report.stdout.log.gz",
+      "bytes": 542,
+      "sha256": "09ecda55d255e6d1abbe584c8b441e52e09bf8bc1f3dc08290925b8a891fb8e1"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/not-allowed.png",
+      "bytes": 27,
+      "sha256": "c167e5aa0dde2e8777cca45580aa9cec9451146df8b480b24b4e5b1d3f7cb604"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/report.json",
+      "bytes": 47,
+      "sha256": "d8406d2663a9cc82fc6cb99269c37863e59451b226ddb171f558a9f66a2480c9"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 2097152,
+      "sha256": "91d3beb88a9b2f778a6c44a1c53b63d3c79931845a9aef84b3fb414610bd1938"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-at-cap/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/not-allowed.png",
+      "bytes": 27,
+      "sha256": "c167e5aa0dde2e8777cca45580aa9cec9451146df8b480b24b4e5b1d3f7cb604"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/report.json",
+      "bytes": 47,
+      "sha256": "d8406d2663a9cc82fc6cb99269c37863e59451b226ddb171f558a9f66a2480c9"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-png/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/not-allowed.png",
+      "bytes": 27,
+      "sha256": "c167e5aa0dde2e8777cca45580aa9cec9451146df8b480b24b4e5b1d3f7cb604"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/report.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-empty-report/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/not-allowed.png",
+      "bytes": 27,
+      "sha256": "c167e5aa0dde2e8777cca45580aa9cec9451146df8b480b24b4e5b1d3f7cb604"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/report.json",
+      "bytes": 47,
+      "sha256": "d8406d2663a9cc82fc6cb99269c37863e59451b226ddb171f558a9f66a2480c9"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-missing/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/not-allowed.png",
+      "bytes": 27,
+      "sha256": "c167e5aa0dde2e8777cca45580aa9cec9451146df8b480b24b4e5b1d3f7cb604"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/report.json",
+      "bytes": 47,
+      "sha256": "d8406d2663a9cc82fc6cb99269c37863e59451b226ddb171f558a9f66a2480c9"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 2097153,
+      "sha256": "6f448c3d729e573b39b1ec314d92e423a1e7356da90605df926e910ea2ef6013"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-over-cap/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 42,
+      "sha256": "5be927b17bb88e230b96d4b2d3223ab8575c7b3d1913029b4cad8029079142fb"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/not-allowed.png",
+      "bytes": 27,
+      "sha256": "c167e5aa0dde2e8777cca45580aa9cec9451146df8b480b24b4e5b1d3f7cb604"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/report.json",
+      "bytes": 355388,
+      "sha256": "d8e657fd49b59da6623c31d2189c2feedff1703b92253cc58e7e5c0ece7dc795"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 1365958,
+      "sha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 1338983,
+      "sha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 1351372,
+      "sha256": "24b3aedbc7dbd1c2fba37e2f3acf827ef9989d326cea4da8daeb2a97f8058242"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 1048029,
+      "sha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 1394143,
+      "sha256": "bda02a1de4d7edd5f457333ee22c1b60c08a13f1b2eeff51247e2600de8f28f0"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 1334739,
+      "sha256": "12c3f493f1bf460f235a12fc15e25801ed89d74861aa60429a7c176b28462027"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 1433640,
+      "sha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 1368300,
+      "sha256": "6dfbe08a5b2a9838244683b2711982430184479ede9de1f5ff7de3e13e2841f9"
+    },
+    {
+      "path": "raw/fixture-prior-originals/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 1286051,
+      "sha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443"
+    },
+    {
+      "path": "raw/initial-read-failures.txt",
+      "bytes": 233,
+      "sha256": "7dfe2b4f39b9165a7830166738c9836e5b5e89561d1879b95faf0adf0a301634"
+    },
+    {
+      "path": "raw/missing.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/missing.stdout.log.gz",
+      "bytes": 669,
+      "sha256": "80a518dad916ab4bef280fa53bdf26028db8e05d1605387a448e7a804b70db96"
+    },
+    {
+      "path": "raw/over-cap.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/over-cap.stdout.log.gz",
+      "bytes": 655,
+      "sha256": "aca75f1926f0c61fdae05154f7a3ced977b5f9345d659f8c3c1e6fee9515cf9e"
+    },
+    {
+      "path": "raw/pin-integrity.json",
+      "bytes": 745,
+      "sha256": "945923c5520775a0a7dd50b9ae3ab5603057fe267ef0d6f3adf4928ae4bbe1bc"
+    },
+    {
+      "path": "raw/prior-originals.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/prior-originals.stdout.log.gz",
+      "bytes": 12126387,
+      "sha256": "260155289ac52fe52c9de0edf08b830d990bdbe7a64c94a2f799cefe3d8a69c7"
+    },
+    {
+      "path": "raw/prior-provenance.json",
+      "bytes": 3280,
+      "sha256": "95466d4d9ddd98e06ada50f05ad7b8375c64d27b20b09fd3f42eca90f7a47b60"
+    },
+    {
+      "path": "raw/prior-provenance.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/prior-provenance.stdout.txt",
+      "bytes": 84,
+      "sha256": "812c0c7d71a2df25d709d68d3eaa24977743746c1211c6512a85b676dac68620"
+    },
+    {
+      "path": "raw/probe.json",
+      "bytes": 18246,
+      "sha256": "343538ce55679bbf4f05a1ce65c322d5982d8fb8ba5d6bdc6a06e1494321c8a1"
+    },
+    {
+      "path": "raw/probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/probe.stdout.txt",
+      "bytes": 638,
+      "sha256": "ee7c36878ff67a9acda44f0b6bf8ae2de2dd1dd6d889349802190ab6d610fbad"
+    },
+    {
+      "path": "raw/review-draft-validation.json",
+      "bytes": 53,
+      "sha256": "86fd39049fe0cc4432ba8c4179a3c25650875f7f9a91aafa9a6b13abfb01024b"
+    },
+    {
+      "path": "raw/write-review.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/write-review.stdout.txt",
+      "bytes": 40,
+      "sha256": "eb659ed9afb9bedcb7fbeb60114a1a030aea8dc4c76d108bdbd60482dff7e0d6"
+    },
+    {
+      "path": "refuter-01.json",
+      "bytes": 16719,
+      "sha256": "b20a3956c900c80170878567cb9e3291385840af88e7d6c61e615367cc80aaae"
+    },
+    {
+      "path": "refuter-01.log",
+      "bytes": 989,
+      "sha256": "f972649c340834bd2779468354bbb3f9a19f358b00dc45d6361aeb72cf179de0"
+    },
+    {
+      "path": "refuter-01.py",
+      "bytes": 9819,
+      "sha256": "4dd96c7c93cb1bacb9f4b272702592eb8770718ffbc49712016daba5bba14e7c"
+    },
+    {
+      "path": "refuter-combined-failure-large-success-01.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refuter-combined-failure-large-success-01.stdout.log.gz",
+      "bytes": 28990,
+      "sha256": "2e895a212b3845b403b615a12bb11caeb0d607a4e2a68b7e4f206977ee2792c4"
+    },
+    {
+      "path": "refuter-empty-png-01.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refuter-empty-png-01.stdout.log.gz",
+      "bytes": 667,
+      "sha256": "b7ac7b18fc568e7463a9d505311196c5c3bab578af2bb319739d7cb71a69f46f"
+    },
+    {
+      "path": "refuter-empty-report-01.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refuter-empty-report-01.stdout.log.gz",
+      "bytes": 547,
+      "sha256": "317f849b7e9cdcd154d86d71e93c0eb1019f85820e91cb7d3dbd8d6b6e9779c8"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/not-allowlisted.txt",
+      "bytes": 40,
+      "sha256": "8ace729af985a2a28a2d305765854f1f1cfbdca46fe67d498b5134d61fe2ef30"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/report.json",
+      "bytes": 2097152,
+      "sha256": "dd306941bd874c306a4af825dfe78241b4cf6f26a66cb1bf319d69946b602fa2"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 2097152,
+      "sha256": "5d0930c72a53828aec014fbecdaf87dfc6f71723521bc2a723a515bfc52353c5"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 2097153,
+      "sha256": "6f448c3d729e573b39b1ec314d92e423a1e7356da90605df926e910ea2ef6013"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/combined-failure-large-success/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/not-allowlisted.txt",
+      "bytes": 40,
+      "sha256": "8ace729af985a2a28a2d305765854f1f1cfbdca46fe67d498b5134d61fe2ef30"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/report.json",
+      "bytes": 57,
+      "sha256": "f41b0814c007a3844ec8e09e581ab0619d2ef1a048f6ee0b562138e4f2ce0a26"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-png/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/not-allowlisted.txt",
+      "bytes": 40,
+      "sha256": "8ace729af985a2a28a2d305765854f1f1cfbdca46fe67d498b5134d61fe2ef30"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/report.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/empty-report/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 43,
+      "sha256": "98c5e2d5ed51caa777b1cf3933c275d51c67cf6509d954f72d7cac1a431c077e"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/not-allowlisted.txt",
+      "bytes": 40,
+      "sha256": "8ace729af985a2a28a2d305765854f1f1cfbdca46fe67d498b5134d61fe2ef30"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/report.json",
+      "bytes": 355388,
+      "sha256": "d8e657fd49b59da6623c31d2189c2feedff1703b92253cc58e7e5c0ece7dc795"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-arcade-frame.png",
+      "bytes": 1365958,
+      "sha256": "d54650ab7f62e096e43bdb3a21ccb8e02f91306eb85b9e6383009c809d9072e7"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-cinder-frame.png",
+      "bytes": 1338983,
+      "sha256": "aefaabd469cfb537324470ae0bec62251a15d17c0e9a6746286eb669cdeec6d4"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-marrow-frame.png",
+      "bytes": 1351372,
+      "sha256": "24b3aedbc7dbd1c2fba37e2f3acf827ef9989d326cea4da8daeb2a97f8058242"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-marrow_roof-frame.png",
+      "bytes": 1048029,
+      "sha256": "76a6afd4177a57cece9ce336645896d2b4c565ed646dc6e8a2fe6b3e1f6cad18"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-plant-frame.png",
+      "bytes": 1394143,
+      "sha256": "bda02a1de4d7edd5f457333ee22c1b60c08a13f1b2eeff51247e2600de8f28f0"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-south-frame.png",
+      "bytes": 1334739,
+      "sha256": "12c3f493f1bf460f235a12fc15e25801ed89d74861aa60429a7c176b28462027"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-stacks-frame.png",
+      "bytes": 1433640,
+      "sha256": "77b58a28be1bc938a2f333c62a143c26ca3242cad4822564a0efc6fe727c0fa2"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-survey-frame.png",
+      "bytes": 1368300,
+      "sha256": "6dfbe08a5b2a9838244683b2711982430184479ede9de1f5ff7de3e13e2841f9"
+    },
+    {
+      "path": "refuter-fixtures-01/prior-originals/test-results/iphone-webkit/visual-ventfield-frame.png",
+      "bytes": 1286051,
+      "sha256": "326333ffefb693a68f7a5f47023a78a97b73a57145ce01ae8ac9d4256215d443"
+    },
+    {
+      "path": "refuter-initial-read-failure.txt",
+      "bytes": 187,
+      "sha256": "1d25a1a6c578065500fc2d743a672c7c723ecde90372af6cee555ee1b7681f19"
+    },
+    {
+      "path": "refuter-prior-originals-01.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refuter-prior-originals-01.stdout.log.gz",
+      "bytes": 12126400,
+      "sha256": "85c00291f001b8b50010f6653b862a43de5793d18fc2836c3dc5e7dd23b30734"
+    },
+    {
+      "path": "refuter-review.json",
+      "bytes": 10183,
+      "sha256": "3c5585457da3798bcca8d55ac40919b78d7aeeb884a2057c6e9a1b373b5ab790"
+    },
+    {
+      "path": "refuter-validation.json",
+      "bytes": 53,
+      "sha256": "86fd39049fe0cc4432ba8c4179a3c25650875f7f9a91aafa9a6b13abfb01024b"
+    },
+    {
+      "path": "review-draft.json",
+      "bytes": 8062,
+      "sha256": "fd76bc571daa2ee588fb319de17ddefa9e0b68b75ca51aea13db4ff02a68c59f"
+    },
+    {
+      "path": "review.json",
+      "bytes": 9018,
+      "sha256": "18f0049389916628b01b561e9f0567acc6e80dac559484b4fbe6b74d48eefb48"
+    },
+    {
+      "path": "source/.github_workflows_gates.yml",
+      "bytes": 5818,
+      "sha256": "caf6b9be60636b84808263b1f39c2af0a5449ea1bc47a375ea5dc69f540b5856"
+    },
+    {
+      "path": "source/HEAD-gates.yml",
+      "bytes": 5574,
+      "sha256": "9be553d6ac69afa078f6d2f94261bcd46242ba35581be284075b44e1354548e1"
+    },
+    {
+      "path": "source/tools_export-webkit-material.mjs",
+      "bytes": 1777,
+      "sha256": "f2e5cf3e150748ee1018d387d2aade1067e72c13ea5c1f86d95b46d4b1df1c05"
+    },
+    {
+      "path": "source/tools_mobile_visual_capture.mjs",
+      "bytes": 6368,
+      "sha256": "057fc56c417f7e606403f6c74c1c2428f7d54271521cf7e53613c39ef33aa4fa"
+    },
+    {
+      "path": "source/tools_test-iphone-webkit.mjs",
+      "bytes": 29508,
+      "sha256": "4cdcf9d6cdcf72e6ab49f93a8d04a63fdfaefc5b1f59267706a004d1af499717"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 152,
+      "sha256": "3377ca77988d5cfcb01402df02ca0c6580c8b11902198402a81bd2656e7d043e"
+    },
+    {
+      "path": "write-review.mjs",
+      "bytes": 7459,
+      "sha256": "bde87bdeb78dd38487dcceb8d6d9a9c3e7da4e004d75100f610a37fc8f1b49a1"
+    }
+  ]
+}

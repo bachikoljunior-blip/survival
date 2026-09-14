@@ -1,0 +1,26 @@
+{
+  "verdict": "PASS",
+  "score": 0,
+  "round": "mvd01-light-static-r2",
+  "profile": "independent-read-only",
+  "tier": "source-only",
+  "nativeResolution": "0x0",
+  "blindComparison": "Static review only. No rendering or visual comparison was performed; score zero is unscored.",
+  "helperBlob": "641f9d15eff29e5e92c8e81f60759b1270daa5b7",
+  "otherFilesAndJobBlob": "6a6f8150265647d336a6e3e2caa34c572a76885d",
+  "findings": [],
+  "closed": [
+    "MVD-RESTORE：元descriptorの保存とdefineProperty/deleteによる復元、所有状態・属性・関数同一性の検査で解消。",
+    "MVD-PNG：cached再利用をPNG全bytes一致時に限定。異なるcaptured bytesは保存される。"
+  ],
+  "verified": [
+    "追加変更はexposureBiasとemberFill強度・色の記録。offsetと描画経路は不変。",
+    "scene.updateMatrixWorld(true)がshadow.updateMatricesに先行し、新位置は同じ描画のshadow frustumへ反映される。",
+    "停止済みengineでbefore/trial/restoredをrender(0)。不変条件・復元RGBA・offset検査の失敗はcaptureを無効化する。",
+    "通常gateの分岐は維持。任意jobのnpm scriptはbuildを含む。",
+    "対象の原PNGを再圧縮せず輸出し、容量超過は失敗を維持。"
+  ],
+  "refutation": "別担当trench_refuterも最終blobを独立確認。2findingの閉鎖を確認し、追加findingなし。",
+  "unmeasured": "実WebKit完走、8視点の状態・復元画素一致、原PNG輸出完遂、照明改善。静的PASSを因果評価・盲検合格・製品採用には使わない。",
+  "operations": "GitHub読取とFunctionsのみ。ローカル操作・保存・変更・描画・推論なし。"
+}

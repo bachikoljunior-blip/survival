@@ -1,0 +1,184 @@
+{
+  "round": 2,
+  "profile": "disco-e9-reference-text-acquisition-method",
+  "tier": "independent-method-review",
+  "nativeResolution": "0x0",
+  "verdict": "FAIL",
+  "verdictMeaning": "The existing material is not yet a complete, authenticated-with-stated-limits, anonymous six-character evaluator packet. This is an evidence-readiness verdict, not rejection of text as a medium, not an E9 quality judgment, and not a requirement to screenshot every line.",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "blindComparison": "No blind comparison was performed. This reviewer was explicitly told the reference is Disco Elysium and read its named database. Source recognition is certain. The review assesses an acquisition method and cannot supply an A/B preference, a blind pass, or any element completion claim.",
+  "phase": "pre-refutation; coordinator will assign a separate reviewer and preserve this original",
+  "methodDecision": {
+    "answer": "Conditionally feasible as authored-dialogue source material, explicitly unexecuted. The current evidence does not justify declaring the eventual packet complete or the E9 result measured.",
+    "everyLineScreenshotRequired": false,
+    "reason": "The governing CLAUDE.md expressly permits actual works as text. BM-CHR-01 assesses six people's ways of reasoning through independent criticism without implementation source as judge input; it does not prescribe one screenshot per utterance. Accurately preserved spoken prose, choices, alternatives and conversational context can expose a written argument and an articulated purpose without observing each line rendered. Requiring every DB line to be captured on screen would add an acquisition requirement not present in those rules.",
+    "retainedRequirements": [
+      "E9 remains a six-person character element; isolated memorable quotations or six actor names are not evidence of six adequate character profiles.",
+      "E9's declared comparison method includes actual dialogue and play records. BM-CHR-02 retains its development bible versus actual-play cross-check. A reference text dossier cannot replace the candidate's actual-play evidence or turn a DB path into a play record.",
+      "BM-CHR-01 still excludes implementation source from evaluator input. A private DB extraction/condition audit is preparation; a judge sees actual authored text and choices with necessary context, not scripts, variable identifiers, author descriptions or an engineer's inferred character motives.",
+      "Every outcome or character change attributed to an executed state still needs execution evidence. This method does not measure delivery, timing, animation, voice, encounter frequency, natural play, check success, or actual runtime reachability.",
+      "Source identity must remain undisclosed to the judge, recognition must be recorded honestly, and anonymization must preserve the writing being assessed. No criterion, reference, threshold or completion status changes."
+    ],
+    "authenticityPosition": "Whole-DB official certification and screenshot coverage for every sentence are not blanket prerequisites established by the governing rules. The pinned third-party extraction plus limited displayed-text corroboration can support a qualified, explicitly inferential source attribution. It cannot support the stronger claim that every row is authenticated published-game output. Any acceptance of that inference must state the source/version uncertainty and handle contradictory or disconnected records; perfect-certainty language is unjustified."
+  },
+  "scope": {
+    "inspected": [
+      "Existing disco-material-r1 review, raw record, sidecar, source targets and displayed-excerpt manifest",
+      "The actual read-only public-dialogue SQLite database, acquisition/integrity/schema/cross-check records",
+      "Ten existing conversation locators: 239, 659, 992, 1274, 1037, 1038, 765, 759, 865, 868",
+      "Selected actual base and alternate prose plus parent/child nodes, not merely character or dialogue descriptions",
+      "Current governing text and exact BM-CHR-01/BM-CHR-02 rows"
+    ],
+    "notPerformed": [
+      "Network access, retries of denied routes, browser/server/CI execution",
+      "Product changes, benchmark changes, new reference selection, or actual A/B comparison",
+      "Whole-game semantic/reachability audit, condition interpreter or alternate-priority emulation",
+      "New independent visual authentication of the publisher screenshot",
+      "Judge-packet construction, candidate-material inspection, translation, or blind-anonymity test"
+    ],
+    "evidenceFiles": ["source-probes.json", "context-probes.json", "source-probe.py", "context-probe.py", "probe-attempts.json"],
+    "originalAuditPreserved": "../disco-material-r1/review.json",
+    "sourceManifest": "source-probes.json#/sourcePins"
+  },
+  "observations": [
+    {
+      "id": "O1",
+      "claim": "The local DB is exactly 40517632 bytes; SHA-256 ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5 and Git blob SHA-1 38ab716dc2c52c9f5ad0a485898274660c9f6c2d match the saved acquisition record for public commit 70adf5c3e2d254e364cd92bdc09d927bf1fa9553.",
+      "evidence": "source-probes.json#/databaseIdentity and original acquisition.json",
+      "limit": "This verifies local byte identity against the recorded public repository object. It is not an official game-build signature or a new network authentication of the acquisition record. The DB's internal version-date is 3/29/2021 9:32:09 PM; an exact official edition/build correspondence is not established here."
+    },
+    {
+      "id": "O2",
+      "claim": "The existing corrected visual audit identifies eight completely visible history entries and three pending options in conversation 1274. The highlighted option is not recorded as chosen, and the clipped Kim line is excluded.",
+      "evidence": "../disco-material-r1/displayed-excerpt-manifest.json and review.json",
+      "limit": "This review relies on that prior direct-image audit. It does not re-authenticate the screenshot or expand the corroboration to the other nine conversations, all alternates, every DB row or a successful check."
+    },
+    {
+      "id": "O3",
+      "claim": "The ten candidate conversation units contain 5791 raw nodes, 3857 base text fields after excluding empty/zero sentinels, 144 alternate rows and eight check records. All outgoing link targets from these units exist in temp_table. Substituting dentries alone leaves 1883 outgoing-link rows with missing targets.",
+      "evidence": "source-probes.json#/units",
+      "limit": "These are structural DB counts, not spoken events, character-quality scores, condition coverage or play completion. The corrected zero-sentinel predicate and the initial overcounting attempt are recorded."
+    },
+    {
+      "id": "O4",
+      "claim": "Evrart node 1038:364 has four alternate rows, 2086-2089, whose political or transactional address changes with four recorded variables. Joyce 759:316 has an IsKimHere alternate. The base Joyce introduction 765:2 has no own condition but is entered through 765:8, whose condition excludes Kim. Billie 992:16 likewise has an unconditioned own field but a TASK-gated parent at 992:26.",
+      "evidence": "source-probes.json#/samples; actual text read directly from the pinned DB",
+      "limit": "The changes can matter to textual argument and relationships. No alternate precedence, satisfiable combination, actual speaker occurrence or game-function behavior was inferred. DB rowid order is not demonstrated runtime priority."
+    },
+    {
+      "id": "O5",
+      "claim": "The 992:60 check is followed by group node 61 and two branches. Its record is a red Empathy check of difficulty 13 with nine modifiers. Joyce responses 759:311 and 313 are gated by opposing values of one variable; they are alternatives, not successive statements.",
+      "evidence": "source-probes.json#/samples and ../disco-material-r1/auxiliary-sidecar.json",
+      "limit": "A check record and links do not establish a roll, a selected response, a legal save state or a successful play path."
+    },
+    {
+      "id": "O6",
+      "claim": "Ignoring conditions, four nonempty prose nodes have no dlinks path from node 0 or listed incoming external-graph entrypoints within their respective units: 1037:10, 1037:114, 765:1140 and 765:1203. The two 1037 nodes have no incoming or outgoing dlinks.",
+      "evidence": "context-probes.json; context-probe.py",
+      "limit": "These are graph-entry-unconfirmed rows. This does not prove cut content or that a runtime dispatcher cannot call them directly. Conversely, connected rows are not proven runtime reachable. Do not silently insert these rows into an ordinary scene or silently delete them from the source archive."
+    },
+    {
+      "id": "O7",
+      "claim": "Base text and alternate fields for all ten units survive an in-memory UTF-8 JSON round trip exactly, without text normalization: 5791 base rows and 144 alternate rows, 430099 serialized bytes.",
+      "evidence": "source-probes.json#/serialization",
+      "limit": "This establishes a feasible lossless serialization step only. No final reader, displayed-game punctuation equivalence, language translation, Japanese material, text rendering or branch-reader correctness was tested."
+    },
+    {
+      "id": "O8",
+      "claim": "The existing review already says a faithful graph excerpt may be source material and must not be called a played transcript. Its findings correctly reject the husband's unexecuted route as a play record and the original three graphs as six-character coverage.",
+      "evidence": "../disco-material-r1/review.json#/judgmentBoundary and findings",
+      "limit": "The audit does not literally require a screenshot for every DB line. Its selected-scene corroboration requests should not be expanded into that universal rule. This method review narrows that potential overreading; it does not refute the valid runtime and coverage findings."
+    }
+  ],
+  "sixCharacterSourcePlan": [
+    {"actorId":72,"sourceName":"Working Class Woman / Billie","units":[239,992],"locators":["239:45→50","992:319"],"textualMaterialObserved":"A reply challenges the assumption that work exhausts her life; another concerns her children's return home.","limit":"Context and all relevant alternatives are needed; this does not itself certify an adequate complete character profile."},
+    {"actorId":3,"sourceName":"Kim Kitsuragi","units":[659,992],"locators":["659:175→174","992:16 alternate context"],"textualMaterialObserved":"Procedural evidence gathering and returning to the central investigation are explicitly discussed.","limit":"A procedural instruction alone does not settle whether an independently motivated character is adequately shown."},
+    {"actorId":6,"sourceName":"Garte","units":[1274],"locators":["1274:326","1274:329","1274:332"],"textualMaterialObserved":"The debt dispute distinguishes an establishment's financial claim from the player's attempted use of police authority.","limit":"The existing displayed excerpt is narrow; its pending check cannot supply an observed outcome."},
+    {"actorId":5,"sourceName":"Evrart Claire","units":[1037,1038],"locators":["1037:39","1038:363→364","1038:364 alternates 2086-2089"],"textualMaterialObserved":"A development proposal, a request for signatures and variations in how compliance is solicited are present in actual text.","limit":"Do not infer actual motive, good faith or a played payoff from author descriptions, scripts or these isolated statements; retain competing responses and relevant later context."},
+    {"actorId":11,"sourceName":"Joyce Messier","units":[765,759],"locators":["765:2","765:25","759:314→316"],"textualMaterialObserved":"Her representative role and the move from a labor dispute to threats of violence are discussed in the spoken material.","limit":"These are candidates for conflict context, not a measured complete arc; related external units and graph-entry-unconfirmed rows must be handled explicitly."},
+    {"actorId":18,"sourceName":"Cuno","units":[865,868],"locators":["865:77→84","865:197","868:7","868:16"],"textualMaterialObserved":"Responses concern his relationship with Cunoesse, trouble involving his father and resistance to the player's demand.","limit":"Preserve the initiating challenge and response context. Adult skill voices, the protagonist and described dead people cannot be counted as extra independent cast members."}
+  ],
+  "riskAssessment": {
+    "sourceMisrepresentation": "No evidence of fabrication was found. The supported label is a pinned third-party dialogue extraction with local displayed-text corroboration. Calling it an official full transcript, an actual playthrough, a verified successful check or a fully authenticated published-game corpus would exceed the evidence. A repository hash authenticates an object identity, not its authorship or runtime use.",
+    "scope": "Six candidate actors are present, but locators and counts do not demonstrate six complete comparable conflict profiles. E8 facts, routes and foreshadowing criteria must not be imported as new E9 acquisition gates; E9's own context and actual-play requirements remain.",
+    "conditionMisreading": "A blank leaf condition is not an unconditional line. Preserve hidden parents, choices, checks, modifiers, alternatives, scripts and external boundaries privately. In a reader, label unresolved state gates and branches honestly; do not invent satisfied states, infer roll success or treat opposite conditions as a continuous conversation.",
+    "textIdentity": "Retain exact original speaker attribution, prose, choices, emphasis markers, punctuation and alternate text; track every field to DB coordinates and hashes. Private structural metadata cannot substitute for these words. Formatting transformations need an audited reversible mapping and semantic verification, not automatic whitespace/word normalization. Current UTF-8 roundtrip is limited evidence, not a final renderer certification.",
+    "anonymization": "Source names in acquisition files and author metadata belong only in the coordinator manifest. Removing those outer labels can preserve text quality. Replacing names within dialogue, rewriting culturally specific references, suppressing skill voices, merging branches or paraphrasing reasoning changes the character writing. Keeping faithful text may still reveal its source; no successful blind evaluator is established. A prose-recognizing judge's result must remain invalid rather than being fixed through rewriting or outcome shopping.",
+    "asymmetricEvidence": "Giving one side all its alternate arguments and the other one short played path can skew apparent depth and conceal counterexamples. Use the same presentation policy and sufficiently comparable conflict scope, with all alternatives retained in the selected units and omissions declared. Equal word counts or artificial truncation are not a substitute for adequate matched scope. The candidate side was not inspected here."
+  },
+  "minimalViableMethod": [
+    {
+      "step": 1,
+      "action": "Freeze the reference DB and existing corroboration in a coordinator-only manifest. Name the exact public commit, byte hash, internal date and source limitations. Label the material as an unexecuted authored-dialogue extraction, not a played transcript.",
+      "verifiableTarget": "Every selected text field has a DB coordinate and exact UTF-8 hash; zero fields are described as executed solely because they exist in the DB. No claim that the eight-plus-three excerpt authenticates the whole DB."
+    },
+    {
+      "step": 2,
+      "action": "Use the six existing actor candidates as starting locators, then choose coherent conflict units that actually permit judgments about reasoning and purposes. Keep the initiating challenge, interlocutor replies, offered choices, relevant prior context and change/consequence context. Preserve all branches, checks and alternate prose inside those units; maintain explicit cross-unit boundaries and an appendix for entry-unconfirmed rows.",
+      "verifiableTarget": "A six-person coverage manifest distinguishes source availability from adequate assessed coverage. Every outgoing boundary and every omitted context unit is accounted for. No concatenation across mutually exclusive alternatives; no inference that all conditions are satisfiable. A coherent unit, not an arbitrary quotation quota, determines extent."
+    },
+    {
+      "step": 3,
+      "action": "Build two equivalent readers from actual authored text, keeping raw source and scripts out of judge input. Present alternative exchanges as alternatives rather than player events. Keep exact wording and speaker relationships; disclose state uncertainty in the same neutral format on both sides. If a condition cannot be explained without inventing context, show the bounded variant as conditional and leave the affected conclusion unresolved.",
+      "verifiableTarget": "Lossless text-field roundtrip, complete selected-unit alternate/choice accounting and independently checked branch labels. No invented connective prose presented as game text; no misleading statement that all authored options were simultaneously offered. No source-specific acquisition labels in judge materials."
+    },
+    {
+      "step": 4,
+      "action": "Keep candidate actual-play evidence and the BM-CHR-02 bible cross-check separate from the literary comparison. Corroborate or qualify source identity at the selected-unit level using available evidence and record inference, rather than adding a universal per-line screenshot rule. Additional display evidence is targeted when a concrete text or state discrepancy matters.",
+      "verifiableTarget": "Each runtime-dependent conclusion has actual play support or remains unmeasured. Each source-authenticity conclusion identifies which facts are observed and which are inferred. No relaxation of the six-person threshold or implementation-source exclusion."
+    },
+    {
+      "step": 5,
+      "action": "Have a separate reviewer refute the extraction/context claims before a later source-unaware comparison. Record recognition before soliciting preference. Preserve raw and refuted records, all failed blind attempts and the exact material-to-build association.",
+      "verifiableTarget": "Separate refutation record and a later comparison record that either establishes non-recognition and adequate scope, or honestly remains not measured. This method review itself supplies neither."
+    }
+  ],
+  "findings": [
+    {
+      "id": "E9M-01",
+      "severity": "major",
+      "shot": "source-probes.json databaseIdentity; context-probes.json; prior displayed-excerpt-manifest.json",
+      "problem": "Current provenance establishes a frozen third-party DB and a narrow displayed excerpt, while four candidate text nodes have no route from the known graph entrypoints; it does not establish that every selected row is published-game output.",
+      "why": "A corpus can preserve authored alternatives and still contain context-unconfirmed material. Treating all rows as displayed dialogue would give the character comparison stronger evidence than was acquired.",
+      "owner": "unassigned",
+      "fix": "Create a manifest with 100% of selected fields traced to exact DB coordinates/hashes, explicit observed-versus-inferred source status, and all 4 graph-entry-unconfirmed rows labeled separately. Verify with python disco-e9-method-r2/context-probe.py; require 0 unsupported execution or whole-DB official-authentication claims. This does not require a screenshot for every line.",
+      "hypothesis": "The unconnected rows could be orphaned content or externally dispatched entries. Neither explanation was established; no row should be declared cut or played on this evidence alone.",
+      "evidence": ["O1", "O2", "O6"]
+    },
+    {
+      "id": "E9M-02",
+      "severity": "major",
+      "shot": "disco-material-r1/review.json DM-CAST-03; source-probes.json units and samples",
+      "problem": "The original husband's three graphs supply only two independent living NPC subjects, and the additional four actor locators have not yet been turned into six complete contextual reader units.",
+      "why": "Having six names in the database does not demonstrate enough dialogue and counterposition to judge six ways of reasoning or six independent purposes.",
+      "owner": "unassigned",
+      "fix": "Produce a 6-of-6 source-unit coverage manifest and reader inventory tied to the exact authored exchanges, including every selected-unit alternate and unresolved context boundary; keep the E9 status unmeasured until that material supports the locked six-person assessment. Inspect counts with python disco-e9-method-r2/source-probe.py, and assess adequacy separately from counts.",
+      "hypothesis": "The ten existing locator units may be sufficient starting material. Their size and candidate content do not prove that a fair, complete six-person comparative packet has been assembled.",
+      "evidence": ["O3", "sixCharacterSourcePlan", "O8"]
+    },
+    {
+      "id": "E9M-03",
+      "severity": "major",
+      "shot": "Pinned actual speaker/prose samples; governing CLAUDE.md blind comparison and quality-preserving anonymity rules",
+      "problem": "All current acquisition material is source-identifying, and no quality-preserving anonymous reader or non-recognizing evaluator has been tested for the proposed six-character text comparison.",
+      "why": "The work's names and distinctive reasoning may identify the source even after outer labels are removed. Editing those qualities to hide identity changes the material under assessment.",
+      "owner": "unassigned",
+      "fix": "Keep 0 source/acquisition labels in the judge packet and 0 untracked prose rewrites; retain a private exact-text hash map and record the assigned judge's recognition before preference. A recognized source invalidates that blind attempt and remains preserved rather than being rewritten or repeatedly re-run for a favorable outcome.",
+      "hypothesis": "A new judge may or may not recognize faithful text. Feasibility of anonymity is unmeasured, not permanently impossible and not guaranteed by removing filenames.",
+      "evidence": ["blindComparison", "riskAssessment.anonymization", "survival/CLAUDE.md"]
+    }
+  ],
+  "remainingInsufficiency": [
+    "No complete six-person reference/candidate reader pair has been created or reviewed.",
+    "No independent source-unaware preference exists; this reviewer is source-aware.",
+    "Official edition/build correspondence and full published-game use of every DB row remain unverified; source attribution beyond the displayed excerpt is inferential.",
+    "Runtime condition semantics, alternate precedence and dispatcher entrypoints were not established; this is compatible with bounded authored-text analysis but not with invented execution claims.",
+    "Current candidate actual-play evidence, bible cross-check and material symmetry were outside this review.",
+    "Separate refutation of this method review remains pending."
+  ],
+  "completionClaims": [],
+  "benchmarkChanges": [],
+  "productChanges": [],
+  "preservedFailures": "probe-attempts.json records the reviewer's initial probe syntax error; source-probes.json records the initial sentinel-count correction. Neither failed attempt is claimed successful."
+}

@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "round": "continuous-2026-09-14-arcade-ground-contact",
+  "profile": "Actual saved native-frame inspection plus read-only Node geometry, animation and shadow-matrix diagnosis.",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "verdict": "FAIL",
+  "score": 0,
+  "verdictScope": "No corrected render or controlled shadow comparison has been validated. This is not a finding that the actor actually floats and not an overall product verdict.",
+  "scoreMeaning": "Rendered correction verification remains 0 of 1. No game-quality score is assigned.",
+  "diagnosticStatus": "completed",
+  "blindComparison": "No reference-work blind comparison was performed. The reviewer knows the development image and source. The analysis cannot determine which anonymous work an evaluator would prefer and marks no element satisfied.",
+  "findings": [],
+  "conclusion": "The observed separation from the dark shadow does not establish physically floating feet. Actual static rig/idle geometry reaches below the 0.14 m pavement surface; render/collision pavement heights agree. There is no separate blob-shadow mesh or plane. Directional shadow bias is a strong, mathematically supported candidate for weak contact shadows, but its responsibility for this exact image has not been isolated in a GPU comparison.",
+  "image": {
+    "path": "/workspace/scratch/0b7ad82bafe7/ci-3266b95/visual-arcade-frame.png",
+    "provenance": "Saved 3266b95 CI artifact supplied by the coordinator; report/image hash matching was already checked in visual-capture-review.json.",
+    "observation": "Both dark boots end over the paved foreground. The darkest diffuse shadow patch lies toward the lower-left rather than forming an obvious attached contact edge. Shadow-centre displacement alone is not a measurable vertical foot gap.",
+    "recorded": {
+      "camera": {
+        "position": [
+          -104.92,
+          1.8111233054788511,
+          -10.091230580935367
+        ],
+        "quaternion": [
+          -2.136977846428571e-18,
+          0.9993908270190958,
+          0.03489949670250097,
+          6.119503887030809e-17
+        ]
+      },
+      "frame": 108,
+      "perf": {
+        "css": "667x375",
+        "dpr": 2,
+        "draws": 125,
+        "fps50": 52.63157894736842,
+        "fps90": 3.6496350364963503,
+        "geometries": 227,
+        "p50": 19,
+        "p90": 274,
+        "p99": 633,
+        "programs": 58,
+        "res": "1147x645",
+        "textures": 82,
+        "tier": "medium",
+        "tris": 83945
+      },
+      "position": [
+        -104.5,
+        0.14,
+        -6.5
+      ],
+      "time": 6.883333333333314,
+      "yaw": 3.141592653589793
+    }
+  },
+  "sourceIdentity": {
+    "currentCommit": "2bf67e01997217d9283c7457dee1dd412fcc6aee",
+    "relationToImage": "git diff 3266b95 confirms actor, rig, animator, player, atmosphere, world geometry/collision/data and package-lock are unchanged. City differs only in sign construction/material; the ground and streets methods used here are unchanged.",
+    "hashes": {
+      "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+      "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+      "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+      "src/render/atmosphere.js": "f77e58bf75ed2448fd4e0f77f8d0e332f97e399e9d7cf4a4f69543046ce09af6",
+      "src/world/geom.js": "c9a8dbc585c00ea44ac75a3d490c8a1a00fc9f0d6a3436763a27cb73ba533b4b",
+      "src/world/collision.js": "891a57687468c723a8aeb4b209bd49381444328057ec8e95483a9dc4cb59524a",
+      "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+    }
+  },
+  "measurements": {
+    "rig": {
+      "method": "Constructed actual Player with actual Ren detail-2 rig and Animator; substituted only MeshStandardMaterial/MeshBasicMaterial creation. Used SkinnedMesh.getVertexPosition after world/skeleton updates. Selected the 12 bottom-face vertex entries of each sole by actual foot skin weights and bind y < -0.002.",
+      "bindSoleY": {
+        "left": 0.1369999999739232,
+        "right": 0.1369999999739232
+      },
+      "idleAtTimeZero": {
+        "left": {
+          "minimumY": 0.11974576852265681,
+          "maximumSoleY": 0.16144762746612965
+        },
+        "right": {
+          "minimumY": 0.11619694226486543,
+          "maximumSoleY": 0.1523889554427307
+        }
+      },
+      "stationaryIdle60SecondsAt60Hz": {
+        "L": {
+          "maxOfMinY": 0.12301433768828607,
+          "minY": 0.11305930055566607
+        },
+        "R": {
+          "maxOfMinY": 0.12286222999186071,
+          "minY": 0.11309067332772167
+        }
+      },
+      "interpretation": "Bind soles are 3 mm below the 0.14 m pavement. The lowest vertex of each normal idle sole remains about 17–27 mm below it over this sample; other sole corners rise a few centimetres as ankles/hips rotate. This refutes a fixed positive rig-root offset in the tested poses; it is not an exact replay of the captured animation."
+    },
+    "terrain": {
+      "method": "Actual City._buildGround/_buildStreets and MeshBuilder in Node with a material-only substitute; excludes unrelated structures and props.",
+      "points": [
+        {
+          "x": -104.5,
+          "z": -6.5,
+          "topRenderedY": 0.14000000059604667,
+          "topMesh": "chunk_-2,-1:concrete",
+          "collision": {
+            "tag": "pavement",
+            "y": 0.14
+          }
+        },
+        {
+          "x": -104.65,
+          "z": -6.66,
+          "topRenderedY": 0.14000000059604667,
+          "topMesh": "chunk_-2,-1:concrete",
+          "collision": {
+            "tag": "pavement",
+            "y": 0.14
+          }
+        },
+        {
+          "x": -104.65,
+          "z": -6.41,
+          "topRenderedY": 0.14000000059604667,
+          "topMesh": "chunk_-2,-1:concrete",
+          "collision": {
+            "tag": "pavement",
+            "y": 0.14
+          }
+        },
+        {
+          "x": -104.4,
+          "z": -6.66,
+          "topRenderedY": 0.14000000059604645,
+          "topMesh": "chunk_-2,0:concrete",
+          "collision": {
+            "tag": "pavement",
+            "y": 0.14
+          }
+        },
+        {
+          "x": -104.4,
+          "z": -6.41,
+          "topRenderedY": 0.14000000059604645,
+          "topMesh": "chunk_-2,0:concrete",
+          "collision": {
+            "tag": "pavement",
+            "y": 0.14
+          }
+        }
+      ],
+      "interpretation": "The centre and both sole footprints lie over concrete at y≈0.14 and collision pavement at y=0.14. Asphalt at 0.025 and ash at 0 are below that pavement, not the visible supporting top."
+    },
+    "shadow": {
+      "type": "Directional sun shadow map with PCFSoftShadowMap. No blob-shadow object or fixed blob plane exists in src.",
+      "method": "Actual Three.js directional shadow matrix and installed shader comparison equation, using current production settings. Ideal same-UV depth examples; no GPU texture, rasterization or PCF simulation.",
+      "near": 1,
+      "far": 150,
+      "bias": -0.0009,
+      "normalBias": 0.028,
+      "lightDirection": [
+        -0.2924915909876369,
+        0.8969742123620865,
+        0.3314904697859885
+      ],
+      "shadowTexelWorldWidth": 0.09375,
+      "lightRayDepthExemption": 0.1341,
+      "idealHorizontalCasterHeightThreshold": 0.1482842418777558,
+      "examples": [
+        {
+          "casterHeightAbovePavement": 0.11769742123620863,
+          "idealUnfilteredResult": "lit",
+          "lightRayDistance": 0.1,
+          "receiverCompareDepth": 0.6805895030987821,
+          "storedCasterDepth": 0.6808183621591848,
+          "uvDelta": 1.1102230246251565e-16
+        },
+        {
+          "casterHeightAbovePavement": 0.17151587397793383,
+          "idealUnfilteredResult": "shadowed",
+          "lightRayDistance": 0.16,
+          "receiverCompareDepth": 0.6805895030987821,
+          "storedCasterDepth": 0.6804156775954264,
+          "uvDelta": 1.1102230246251565e-16
+        }
+      ],
+      "interpretation": "The installed shader adds -0.0009 to receiver depth after applying a 0.028 m upward normal offset. With this orthographic range, same-UV caster separations up to 0.1341 m along the light ray remain lit. On a horizontal receiver this corresponds to an ideal caster height of 0.148284 m. This is an analytic explanation of suppressed near-contact occlusion, not a measurement of this image's shadow texture."
+    }
+  },
+  "refutation": {
+    "fixedFloatingRig": "Refuted for bind and normal stationary idle by actual skinned vertices reaching the rendered support plane.",
+    "mismatchedCurbHeight": "Refuted at the measured footprint points by actual production mesh raycasts and collision queries.",
+    "misplacedBlobPlane": "Refuted by source inspection: the dark region is not produced by a separately positioned blob-shadow plane.",
+    "entirelyLegitimatePose": "A few centimetres of toe/heel tilt are produced by the real idle pose. That does not by itself explain or validate the detached shadow appearance.",
+    "shadowBiasAsExactImageCause": "Not yet confirmed. The depth-exemption calculation supports the candidate, but does not simulate shadow-map rasterization, PCF taps, surface normal maps or the capture's exact cached actor pose."
+  },
+  "nextVerification": "Keep the current camera, world and exact rig pose fixed; record the actual foot vertices, supporting surface and shadow-update frame. In the existing permitted WebKit CI, capture the current bias, a bias-only control and an unchanged repeat with native canvas output. Compare the contact region and distant self-shadow artifacts before changing production values. Do not lower the player or reframe the camera to conceal the symptom.",
+  "limits": [
+    "The original artifact omits bone matrices, Animator.time/action/locomotion parameters and shadow-map bytes. The exact captured foot deformation and cached shadow pose cannot be reconstructed from grounded=true and state=idle alone.",
+    "No browser was launched, no product file was edited, and no material/lighting/camera correction was applied.",
+    "The terrain reconstruction covers actual ground and street generation only; unrelated props/structures were omitted. It proves the pavement exists beneath the feet, not every visible occluder's identity.",
+    "The initial Node harness attempt failed because its material-only substitute omitted mats.glow; adding that substitute allowed the unchanged production Player construction to run. The failed attempt supplied no measurement."
+  ]
+}

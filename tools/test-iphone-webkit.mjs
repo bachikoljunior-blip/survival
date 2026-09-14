@@ -27,6 +27,14 @@ import { fileURLToPath } from 'node:url';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { chromium, devices, webkit } from 'playwright';
+import { exerciseSaveRecovery } from './mobile_save_recovery.mjs';
+import { exerciseBackdrop } from './backdrop_render_regression.mjs';
+import { exerciseMobileLayout } from './mobile_layout.mjs';
+import { captureMobileViews } from './mobile_visual_capture.mjs';
+import { captureMobileAudio } from './mobile_audio_capture.mjs';
+import { exerciseGasConsequences } from './mobile_gas_consequences.mjs';
+import { exerciseTrenchConsequences } from './mobile_trench_consequences.mjs';
+import { exerciseGuardToggle } from './mobile_guard_toggle.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -38,6 +46,8 @@ const DIFF = resolve(OUTPUT, 'iphone-se3-webkit-diff.png');
 const REPORT = resolve(OUTPUT, 'report.json');
 const TRACE = resolve(OUTPUT, 'trace.zip');
 const BROWSER_NAME = process.env.CINDERLINE_BROWSER || 'webkit';
+const AUDIO_ONLY = process.env.CINDERLINE_AUDIO_ONLY === '1';
+const VISUAL_ONLY = process.env.CINDERLINE_VISUAL_ONLY === '1';
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const REQUIRE_BASELINE = process.env.CINDERLINE_REQUIRE_BASELINE === '1';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_BOOT_TIMEOUT || 180000);
@@ -51,7 +61,8 @@ mkdirSync(OUTPUT, { recursive: true });
 const report = {
   schemaVersion: 1,
   checkedAt: new Date().toISOString(),
-  target: 'iPhone SE (3rd gen) landscape / Playwright WebKit',
+  target: `iPhone SE (3rd gen) landscape / Playwright ${BROWSER_NAME}`,
+  scope: AUDIO_ONLY ? 'Production audiovisual acquisition only; not the complete mobile surface gate.' : VISUAL_ONLY ? 'Production view acquisition and optional reversible lighting diagnosis only; not the complete mobile surface gate.' : 'Complete mobile surface gate.',
   browser: BROWSER_NAME,
   checks: [],
   timings: {},
@@ -315,6 +326,7 @@ try {
       running: C.engine.running,
       build: C.build,
       tier: C.engine.tier?.name || null,
+      audio: {unlocked:C.game.audio.unlocked,contextCreated:Boolean(C.game.audio.ctx)},
       canvas: { x: canvas.x, y: canvas.y, width: canvas.width, height: canvas.height },
     };
   });
@@ -329,7 +341,19 @@ try {
   check(device.landscape, 'landscape orientation is active', `landscape=${device.landscape}`);
   check(device.ready && device.running, 'production engine reaches a running title', JSON.stringify(device));
   check(device.canvas.width === W && device.canvas.height === H, 'render canvas fills the viewport', JSON.stringify(device.canvas));
+  check(!device.audio.unlocked&&!device.audio.contextCreated,
+    'audio: no context or playback is started before a user gesture',JSON.stringify(device.audio));
 
+  if (AUDIO_ONLY) {
+    await captureMobileAudio({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+    check(report.audioCapture.status === 'captured' && report.audioCapture.clips.length === 3,
+      'audio acquisition produces all three actual audiovisual clips', JSON.stringify(report.audioCapture.capabilities));
+  } else if (VISUAL_ONLY) {
+    await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+    if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') {
+      check(report.lightDirectionTrial?.views.length === 8, 'lighting experiment captures all eight fixed views');
+    }
+  } else {
   const titleLayout = await page.evaluate(() => {
     const buttons = window.CINDERLINE.game.menus.titleButtons;
     const names = ['new', 'settings', 'credits'];
@@ -561,6 +585,41 @@ try {
     'runner frame-gap hang guard', `p95=${report.soak.p95FrameGapMs}ms, limit=${FRAME_GAP_HANG_LIMIT}ms`);
   check(soak.perf && soak.perf.draws > 0 && soak.perf.tris > 0,
     'renderer submits non-empty geometry after the soak', JSON.stringify(soak.perf));
+
+  // Observe actual submissions before changing any rendering code. Merely
+  // counting scene geometry cannot attribute this frame's renderer.info total.
+  await page.evaluate(() => {
+    const C = window.CINDERLINE, r = C.engine.renderer;
+    const original = r.renderBufferDirect;
+    C.__drawProbe = { frames: {}, restore: () => { r.renderBufferDirect = original; } };
+    r.renderBufferDirect = function (...args) {
+      const before = this.info.render.triangles, calls = this.info.render.calls;
+      const target = this.getRenderTarget();
+      const result = original.apply(this, args);
+      const frame = C.__drawProbe.frames[C.engine.frame] ||= [];
+      frame.push({ object: args[4]?.name || args[4]?.type, material: args[3]?.name || args[3]?.type,
+        target: target ? `${target.width}x${target.height}` : 'screen',
+        triangles: this.info.render.triangles - before, calls: this.info.render.calls - calls });
+      return result;
+    };
+  });
+  try {
+    await waitFrames(page, 2);
+    report.submittedGeometry = await page.evaluate(() => window.CINDERLINE.__drawProbe.frames);
+    check(Object.values(report.submittedGeometry).some(rows => rows.some(row => row.triangles > 0)),
+      'submission probe captures actual rendered geometry');
+  } finally {
+    await page.evaluate(() => { window.CINDERLINE.__drawProbe?.restore(); delete window.CINDERLINE.__drawProbe; });
+  }
+  await exerciseSaveRecovery({ page, root: ROOT, output: OUTPUT, check, report, bootTimeout: BOOT_TIMEOUT });
+  await exerciseMobileLayout({ page, root: ROOT, output: OUTPUT, check, report });
+  await exerciseBackdrop({ page, root: ROOT, output: OUTPUT, check, report });
+  await exerciseGuardToggle({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await exerciseGasConsequences({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await exerciseTrenchConsequences({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await captureMobileAudio({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  }
 
   check(report.errors.page.length === 0, 'no page errors', `${report.errors.page.length} error(s)`);
   check(report.errors.console.length === 0, 'no console errors', `${report.errors.console.length} error(s)`);

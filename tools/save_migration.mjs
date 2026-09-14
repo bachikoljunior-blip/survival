@@ -558,20 +558,24 @@ for (const [name, apply] of Object.entries(NEGATIVE_CONTROLS)) {
 }
 
 let crashed = null;
+const pageErrors = [];
+let browserChecksCompleted = false;
 const finish = () => {
   if (crashed) sink.push({ name: 'the run completed', ok: false, detail: crashed });
   if (FORCE_FAILURE) results.push({ name: 'forced failure', ok: false, detail: '--force-failure was passed' });
-  const failed = results.filter((r) => !r.ok);
   try {
     mkdirSync(OUT, { recursive: true });
     writeFileSync(join(OUT, 'save-migration.json'), JSON.stringify({
       save_version: SAVE_VERSION,
       fixture: FIXTURE._provenance,
-      passed: failed.length === 0,
+      passed: results.every(r => r.ok),
+      scope: UNIT_ONLY ? 'unit and loader only' : 'unit, loader and browser',
+      browser_checks_completed: browserChecksCompleted,
       crashed,
       results, page_errors: pageErrors, when: new Date().toISOString(),
     }, null, 2));
-  } catch (e) { console.error('could not write the report:', e.message); }
+  } catch (e) { results.push({ name: 'the evidence report was saved', ok: false, detail: e.message }); }
+  const failed = results.filter(r => !r.ok);
   for (const r of results.filter((x) => !x.ok)) console.log(`FAIL  ${r.name}${r.detail ? `  — ${r.detail}` : ''}`);
   console.log(failed.length
     ? `\nSAVE MIGRATION FAILED (${failed.length} of ${results.length})`
@@ -618,7 +622,6 @@ const browser = await chromium.launch({
          '--no-sandbox', '--disable-gpu-sandbox', '--ignore-gpu-blocklist'],
 });
 
-const pageErrors = [];
 /**
  * Boot the game with `seed` already in storage, exactly as a returning player
  * would find it. A fresh context each time: a migration test that inherits the
@@ -865,4 +868,5 @@ const storedSave = (page) => page.evaluate((k) => localStorage.getItem(k), SAVE_
 
 check('no page errors in any case', pageErrors.length === 0, pageErrors.slice(0, 5).join(' / '));
 
+browserChecksCompleted = true;
 finish();

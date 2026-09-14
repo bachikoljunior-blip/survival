@@ -1,0 +1,138 @@
+{
+  "kind": "candidate-e9-extractor-retained-source-recovery",
+  "status": "r1 extractor transcript recovered; r2 output delta recorded separately; formatter not retained",
+  "repository": "bachikoljunior-blip/survival",
+  "scope": "Retained current-conversation text and in-session store only. No local process, filesystem access, escalation retry, game extraction, branch update, benchmark change or quality comparison.",
+  "recovered_r1": {
+    "original_path": "disco-e9-reader-r1/candidate.mjs",
+    "source_origin": "Full file output from the earlier independent review's sed -n '1,240p' read in this conversation; the whole file was visible.",
+    "source": "import { readFileSync,writeFileSync } from 'node:fs';\nimport { createHash } from 'node:crypto';\nimport { execFileSync } from 'node:child_process';\nimport { fileURLToPath } from 'node:url';\nimport { resolve,dirname } from 'node:path';\nimport { CONVERSATIONS,CAST } from '../survival/src/content/story.js';\nconst out=dirname(fileURLToPath(import.meta.url)),repo=resolve(out,'../survival');\nconst sha=b=>createHash('sha256').update(b).digest('hex');\nconst source=readFileSync(resolve(repo,'src/content/story.js'));\nconst notice=JSON.parse(readFileSync(resolve(out,'reader.json'),'utf8')).notice;\nconst displaySpeaker=id=>id==='ren'?'REN':id==='ostrowski'?'OSTROWSKI':id==='system'?'':(CAST[id]?.name||String(id||'')).toUpperCase();\nconst groups=[],pins=[],audit=[];\nlet ci=0;\nfor(const [cid,c] of Object.entries(CONVERSATIONS)){\n  ci++;const ids=Object.keys(c.nodes),map=new Map(ids.map((n,i)=>[n,`N${String(i+1).padStart(3,'0')}`]));\n  const dest=n=>n==='end'||!n?'end of unit':map.get(n)||'outside selected unit';\n  const unit={id:`U${ci}`,entry:(c.entry||[{goto:c.start||'start'}]).map(e=>dest(e.goto)),nodes:[],boundary_note:'Leaving this selected authored unit ends the excerpt; linked material outside is not represented as an executed event.'};\n  groups.push({subject:displaySpeaker(c.who),units:[unit]});audit.push({conversation:cid,raw:c});\n  const pin=(nid,field,text)=>pins.push({unit:unit.id,node:map.get(nid),coordinate:`${cid}:${nid}`,field,utf8_bytes:Buffer.byteLength(text),sha256:sha(text)});\n  for(const [nid,n] of Object.entries(c.nodes)){\n    if(n.text!==undefined)pin(nid,'text',n.text);\n    const item={id:map.get(nid),speaker:displaySpeaker(n.speaker),text:n.text??null,state_dependent:false,alternates:[],continuations:n.next?[dest(n.next)]:(n.branch||[]).map(b=>dest(b.goto)),conditional_routing:!!n.branch,check_authored:false};\n    if(n.mood){item.mood=n.mood;pin(nid,'mood',n.mood);}\n    if(n.choices){\n      item.continuations=n.choices.map((ch,i)=>`${map.get(nid)}C${i+1}`);\n      for(let i=0;i<n.choices.length;i++){\n        const ch=n.choices[i],id=`${map.get(nid)}C${i+1}`;pin(nid,`choices[${i}].text`,ch.text);\n        const option={id,speaker:displaySpeaker('ren'),text:ch.text,state_dependent:!!ch.if&&Object.keys(ch.if).length>0,alternates:[],continuations:[dest(ch.goto)],conditional_routing:!!ch.if&&Object.keys(ch.if).length>0,check_authored:false,player_option:true};\n        if(ch.tag){option.tag=ch.tag;pin(nid,`choices[${i}].tag`,ch.tag);}\n        if(ch.why){option.locked_reason=ch.why;pin(nid,`choices[${i}].why`,ch.why);}\n        unit.nodes.push(option);\n      }\n    }\n    unit.nodes.push(item);\n  }\n}\nconst packageData={notice,subjects:groups};\nfor(const [name,data] of [['candidate-reader.json',packageData],['candidate-private-source-audit.json',audit],['candidate-field-pins.json',pins]])writeFileSync(resolve(out,name),JSON.stringify(data,null,2)+'\\n');\nconst summary={status:'constructed; independent fidelity/context/presentation review pending; no blind comparison',commit:execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim(),source_sha256:sha(source),build_sha256:sha(readFileSync(resolve(repo,'cinderline.1.0.0.js'))),authored_main_cast:Object.values(CAST).map(x=>x.full),conversation_units:ci,fields:pins.length,reader_sha256:sha(readFileSync(resolve(out,'candidate-reader.json'))),source_scope:'All thirteen conversation definitions and all their authored option text/tags/locked reasons, with effects and condition internals in coordinator-only audit. Speaker labels follow the actual English UI rule from src/ui/screens.js, rather than full cast biographies. Authored mood labels shown in that UI are retained. No biographies, goals, code comments or implementation scripts in reader. All conditional branches are alternatives, not an executed playthrough.',actual_play:'Keep the independently acquired production dialogues/endings and bible cross-check separate. This export is not new execution evidence.',limits:'No epilogue or actual observed delivery is represented by these conversation definitions. Candidate and reference topic/scope adequacy and presentation symmetry still need independent review.'};\nwriteFileSync(resolve(out,'candidate-manifest.json'),JSON.stringify(summary,null,2)+'\\n');console.log(JSON.stringify(summary));\n",
+    "recovered_source_utf8_bytes": 4319,
+    "recovered_source_sha256": "953eea8ecd4d08c695e45b7bd466a7240b4b89ee50142d63b597b94ae587350c",
+    "original_source_file_sha256_retained": false,
+    "fidelity_limit": "The full observed source text is transcribed here with LF and a final newline. Its original file hash was not printed in the retained record. Regeneration against the known r1 reader hash is still required to prove byte-accurate reproduction.",
+    "shared_notice": {
+      "text": "Authored dialogue with alternatives, not a played transcript. Listed paths and state variants need not be simultaneously available or executable. Separate units are not asserted to occur in the displayed order. Parent-state requirements may apply even when a line has no own state condition. No spoken text has been added.",
+      "origin": "Exact notice printed from both candidate-reader.json and reference reader.json during the earlier review.",
+      "purpose": "The extractor reads only this notice from reader.json. No reference-game dialogue is required in this recovery record."
+    },
+    "dependencies_for_later_regeneration": [
+      "Original src/content/story.js and CAST/CONVERSATIONS at the pinned source hash",
+      "A reader.json containing the exact recovered notice",
+      "Original relative directory relationship to survival",
+      "The generator also reads the built bundle and git HEAD when writing its separate manifest; neither is evidence of fresh execution."
+    ],
+    "original_output_pins": {
+      "candidate_reader": {
+        "bytes": 159103,
+        "sha256": "2c8f38ec1786efe40f3b8436ec2b5f8a844b563c1ad62cce83cf0ba59c43455d"
+      },
+      "candidate_field_pins": {
+        "bytes": 79448,
+        "sha256": "97a477df4933d56f45d2ae5cb8d42923a0d1038ea6ff6780e14d44221711b84a"
+      },
+      "candidate_private_source_audit": {
+        "bytes": 105912,
+        "sha256": "00901acc0f91093708438fc2a0f0bc1641688039db97ba799477b9b593eea96d"
+      },
+      "candidate_manifest": {
+        "bytes": 1468,
+        "sha256": "537171e2b8e709d8727d3306e9d55b7f5b58893022bd7b136cccf098a887d32c"
+      },
+      "story_source_sha256": "76023ad5a9fba4716393b555f3562573fd179c3fb3c4c9d560fda8522a22e07c",
+      "screens_source_sha256": "558d65579cbf782788119da354f99da73ce4c0e55e630ec3a4758f4c3c714afd",
+      "manifest_commit": "241431207475ceae1aa2acde6bbbdbde167b1714",
+      "manifest_bundle_sha256": "318affb8800f9ea3719486db74a2787b9676dfe87096733a436c81117d40c9ee",
+      "independent_review_sha256": "476b1a279b61b937e2a344e35c78fde48b3f81aebbc86d29778f15063435ff4d"
+    },
+    "prior_independent_verification": {
+      "units": 13,
+      "base_nodes": 224,
+      "player_options": 96,
+      "nonempty_moods": 46,
+      "option_tags": 5,
+      "locked_reasons": 2,
+      "field_pins": 373,
+      "conditional_branch_nodes": 20,
+      "conditional_options": 15,
+      "entry_selection_units": 6,
+      "field_and_continuation_mismatches": 0,
+      "audit_equals_story_definitions": true,
+      "source_inputs_unchanged_during_probe": true,
+      "ui_rule_scope": "Original Dialogue.show body was called on lightweight receivers with isCJK=false and castName returning the raw English fallback. 224 dialogue speaker labels and 46 moods matched. No browser, renderer, real localization resolver, timing, portrait or game-state execution.",
+      "player_option_scope": "96 options carry REN as graph attribution. The actual UI buttons do not repeat REN, and no selected or spoken player event was claimed.",
+      "raw_versus_display_whitespace": {
+        "different_fields": 119,
+        "words_preserved": true,
+        "reason": "UI rejoins source hard wraps, collapses repeated spaces and trims. The reader preserves authored strings, not final DOM bytes."
+      },
+      "preserved_previous_fix": {
+        "node_speaker_label_differences": 320,
+        "previously_missing_moods": 46,
+        "old_artifact": "candidate-before-display-label-fix/candidate-reader.json",
+        "status": "The old artifact was preserved and not overwritten during review."
+      },
+      "sole_current_finding": "Minor: subject headers U11 GARAGE and U12 empty come from interaction targets while base node speakers are OSTROWSKI and REN. All node-level source text remained correct.",
+      "original_evidence_path": "disco-e9-reader-r1/candidate-review-evidence.json",
+      "original_probe_path": "disco-e9-reader-r1/candidate-review-probe.mjs",
+      "result_limits": "Authored source availability and extraction fidelity only; no six-of-six quality, independent-purpose completion, E9 achievement or blind preference."
+    }
+  },
+  "confirmed_r2_delta_separate_from_r1": {
+    "source": "Coordinator's current message reports these as the sole observed r2 changes and says other units were previously confirmed unchanged. This agent did not retain or re-open the r2 original.",
+    "changes": [
+      {
+        "json_pointer": "/subjects/10/subject",
+        "unit": "U11",
+        "before": "GARAGE",
+        "after": "OSTROWSKI"
+      },
+      {
+        "json_pointer": "/subjects/11/subject",
+        "unit": "U12",
+        "before": "",
+        "after": "REN"
+      }
+    ],
+    "original_r2_generator_source_retained": false,
+    "original_r2_reader_sha256": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b",
+    "regeneration_performed": false,
+    "regenerated_hash_match": false,
+    "next_verification": "Later authorized execution can regenerate r1 from the retained source and exact notice, verify r1 hash, apply the separately recorded two heading changes without changing other fields, serialize exactly as the generator, and compare to the known r2 hash. This record does not claim that comparison has succeeded.",
+    "no_invented_source_patch": "The semantic output changes are retained; no guessed r2 source-code patch is presented as recovered original."
+  },
+  "formatter": {
+    "name": "format-reader.py",
+    "source_retained": false,
+    "source": null,
+    "exact_reconstruction_available": false,
+    "original_text_display_sha256_supplied_by_coordinator": "4e959f089740d78df555dcaa0eb350528f6e18a75d2b52a50faabfaeb9710ebb",
+    "generated_display_text_retained": false,
+    "status": "Unknown in this agent's retained context. No formatter implementation or formatting policy guessed from the output hash."
+  },
+  "store_lookup": {
+    "relevant_keys_checked_once": [
+      "candidate-reader-r2",
+      "candidate_reader_r2",
+      "candidateReaderR2",
+      "candidate-reader-r2-extractor",
+      "candidate-extractor-r2",
+      "candidate_r2_source",
+      "candidate.mjs",
+      "format-reader.py",
+      "format_reader_py",
+      "formatReaderSource",
+      "disco-e9-reader-r2",
+      "disco-e9-reader-r1"
+    ],
+    "hits": 0,
+    "limit": "No hit under these bounded keys does not prove no store entry exists under any other key. Coordinator instructed no further key guessing."
+  },
+  "blocked_execution_record": {
+    "source": "Coordinator's current report",
+    "failure": "Local execution failed before launch with ENOSPC and escalation was denied.",
+    "retry_or_circumvention_attempted": false
+  },
+  "reference_copyright_boundary": "No reference-game prose, source DB or long reference text is included. The shared notice is coordinator-authored procedural text, not the reference's dialogue.",
+  "persistence_requested": "One unreferenced GitHub blob only. No ref, tree, commit, branch, CI or product update."
+}

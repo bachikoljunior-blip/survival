@@ -1,0 +1,402 @@
+{
+  "artifactType": "independent-refutation",
+  "originalReview": "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91-review.json",
+  "recognitionBeforeReview": {
+    "A": {
+      "basis": [
+        "A-02 character appearance recognized from memory",
+        "A-02 visible WLF Soldier subtitle"
+      ],
+      "confidence": "high, unverified",
+      "identification": "Very likely The Last of Us Part II",
+      "limitations": "Recognition from these images and prior general knowledge only; no source or provenance lookup.",
+      "recognized": true
+    },
+    "B": {
+      "basis": [],
+      "confidence": "No title or source recognition",
+      "identification": null,
+      "limitations": "Low-detail rendering and the name REN do not establish a source or development origin.",
+      "recognized": false
+    },
+    "blind_eligibility": false,
+    "recorded_before_review_read": true,
+    "reference_or_development_origin": "Not established for either set; visible rendering differences and the A-02 PS4 Pro capture label cannot establish the packet's reference/development roles."
+  },
+  "method": {
+    "materialsRead": [
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/brief.json",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/A-01.png",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/A-02.jpg",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/B-01.png",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/B-02.png",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91-review.json"
+    ],
+    "images": "All four actual full frames were opened with view_image at original detail before reading the review.",
+    "scope": "Pixels in these four stills, the supplied brief, and the preserved original review only.",
+    "limitations": "An independent refuter is not necessarily a blind assessor. I recognize A. No source identity, provenance, behavior, or reviewer mental state was independently verified.",
+    "originalReviewPreserved": true,
+    "packetUnaltered": true,
+    "outsideSourceLookup": false,
+    "productEdits": false
+  },
+  "statusDefinitions": {
+    "sustained": "Survives the stated counterargument within its explicit scope.",
+    "qualified": "Core survives, but a component or interpretation needs the stated restriction.",
+    "refuted": "The stated categorical claim is contradicted by the evidence or its logical scope.",
+    "not-verifiable": "The allowed evidence cannot establish or disprove the assertion; this is not an allegation of falsehood."
+  },
+  "overallAssessment": {
+    "status": "qualified",
+    "conclusion": "The evidence-adequacy FAIL and explicitly Unscored zero are defensible. All six core pixel observations and all four wider-coverage inadequacy results survive. F3 is an observed presentation concern, not an established implementation defect. The categorical claim that obstruction cannot be compared is too broad: static overlay footprint is visible, while timing and gameplay impact remain unknown.",
+    "blindWinner": "not measurable",
+    "productImplementationFailureEstablished": false
+  },
+  "recognitionAssertions": [
+    {
+      "id": "R1",
+      "claim": "Recognition was recorded before grading.",
+      "status": "not-verifiable",
+      "attemptedRefutation": "The review file contains a chronology assertion, not an independent record of the assessor's sequence.",
+      "reason": "I cannot establish the original assessor's chronology from the allowed files. My own recognition was recorded before I read the review.",
+      "correction": "Treat the original chronology as self-report."
+    },
+    {
+      "id": "R2",
+      "claim": "A is recognized as very likely The Last of Us Part II, with high visual-memory confidence.",
+      "status": "qualified",
+      "attemptedRefutation": "A familiar character and faction label do not authenticate the exact title, edition, or source file.",
+      "reason": "I independently had the same high-confidence tentative recognition. This corroborates recognizability, not provenance or the original assessor's private confidence.",
+      "correction": "Retain the tentative identification and its no-external-verification limitation."
+    },
+    {
+      "id": "R3",
+      "claim": "A-02 shows a character recognized as Ellie and the label WLF Soldier.",
+      "status": "qualified",
+      "attemptedRefutation": "The character is not named Ellie within this frame; that part is memory-based identification.",
+      "reason": "WLF Soldier is directly legible. Ellie is a plausible recognition that I also had, rather than an on-image name.",
+      "correction": "Keep the distinction between visible faction text and remembered character identity."
+    },
+    {
+      "id": "R4",
+      "claim": "A-01's menu styling is familiar and supports recognition.",
+      "status": "not-verifiable",
+      "attemptedRefutation": "Menu typography and a controller diagram are not unique source identifiers, and familiarity is an internal response.",
+      "reason": "The frame does show the described menu, but cannot prove the original assessor's familiarity or independently authenticate its source.",
+      "correction": "Use only as reported recognition context, not proof of title."
+    },
+    {
+      "id": "R5",
+      "claim": "A-02 says CAPTURED FROM PS4 PRO; this is a visible platform label, not a title identifier.",
+      "status": "sustained",
+      "attemptedRefutation": "A capture label could be reproduced and does not authenticate capture hardware.",
+      "reason": "The review correctly limits the claim to the visible label, which is present.",
+      "correction": null
+    },
+    {
+      "id": "R6",
+      "claim": "The assessor does not recognize B from its scene, REN label, or settings.",
+      "status": "not-verifiable",
+      "attemptedRefutation": "An assessor's absence of recognition cannot be proven from the screenshot or their written assertion.",
+      "reason": "I also do not recognize B, and see no explicit title, but cannot independently verify another assessor's mental state.",
+      "correction": "Treat as honest self-report unless contrary evidence exists; none is available here."
+    },
+    {
+      "id": "R7",
+      "claim": "Neither reference/development assignment is established, although A's apparent identity prompts suspicion that it is the reference.",
+      "status": "qualified",
+      "attemptedRefutation": "A recognizable commercially familiar title and B's rendering style might tempt a source-role inference.",
+      "reason": "Neither the brief nor the images assigns those roles. The suspicion is explicitly disclosed speculation. Style cannot establish development status.",
+      "correction": "Keep the assignment undetermined and exclude the suspicion from comparative evidence."
+    },
+    {
+      "id": "R8",
+      "claim": "Recognition of A invalidates a blind result.",
+      "status": "sustained",
+      "attemptedRefutation": "The title is not externally authenticated, so one could argue that exact identity knowledge is uncertain.",
+      "reason": "The brief requires disclosure of recognition and forbids pretending unfamiliarity. High-confidence title recognition creates the relevant nonblind condition even without source authentication.",
+      "correction": "Keep all comparative preferences explicitly nonblind."
+    }
+  ],
+  "observations": [
+    {
+      "id": "O1",
+      "status": "sustained",
+      "directPixels": "The two-part Customize Controls / Custom Scheme 1 heading, bright Jump / Climb row, matching right-hand heading, explanation, controller diagram, and two red Unbound messages are present.",
+      "attemptedRefutation": "Spatial co-presence does not establish that remapping occurred, that warnings are accurate, or that the displayed old/new buttons have any particular semantics.",
+      "reason": "The observation and implication concern inspecting displayed context together. Its limit explicitly withholds execution, saving, focus, and button-display interpretation.",
+      "correction": "Read textual consequences as consequences stated by this menu, not verified gameplay effects."
+    },
+    {
+      "id": "O2",
+      "status": "sustained",
+      "directPixels": "Other action labels appear muted gray; Jump / Climb is bright; Reset to Defaults and Back are labeled along the bottom.",
+      "attemptedRefutation": "Muted rows could be disabled, unfocused, or styled for another state; brightness alone does not prove actual selection or sufficient contrast.",
+      "reason": "Unselected-looking is appropriately cautious, and the review expressly does not infer disabled state or successful operation.",
+      "correction": "The hierarchy is visible; its usability and contrast adequacy are untested."
+    },
+    {
+      "id": "O3",
+      "status": "sustained",
+      "directPixels": "Settings has orange fill. The three named rows and explanations are readable. The first inner square is outlined and the other two are filled.",
+      "attemptedRefutation": "An indicator can depict a state without the setting being applied, operable, saved, or even implemented.",
+      "reason": "The review distinguishes the visible indicators from actual state and behavior.",
+      "correction": null
+    },
+    {
+      "id": "O4",
+      "status": "sustained",
+      "directPixels": "Two rectangular top borders and short side segments appear below Quality near the lower right, ending at the region above the bottom buttons; their contents are not legible.",
+      "attemptedRefutation": "These could be intentional partial next-row cues or unrelated shapes; neither a control identity nor an occlusion cause follows.",
+      "reason": "The observation already states that their purpose is undetermined and gives alternatives. Approximate y=592–620 is consistent with the visible region.",
+      "correction": "A static bottom region is visible; persistence during scrolling or other states is not established."
+    },
+    {
+      "id": "O5",
+      "status": "sustained",
+      "directPixels": "The single displayed line reads WLF Soldier: This is dumb, we should be pushing in. The label is yellowish, the utterance light, dark backing is present, and an icon appears at the left.",
+      "attemptedRefutation": "WLF Soldier is a generic role, not necessarily a unique person identifier; a still cannot establish the whole spoken utterance or audio context.",
+      "reason": "The observation correctly calls this role-based identification for this particular displayed line. I can also read it at the supplied resolution.",
+      "correction": "Do not extend this to distinguishing multiple WLF soldiers or all speech."
+    },
+    {
+      "id": "O6",
+      "status": "sustained",
+      "directPixels": "The dark panel displays orange REN, the light line One head. The middle one., and TAP TO CONTINUE, with an orange silhouette in a separate small panel at the left.",
+      "attemptedRefutation": "A name and generic silhouette do not prove which visible character is speaking, whether speech is audible, or that tapping works.",
+      "reason": "The stated implication is limited to this readable named dialogue example and the limit already withholds those behaviors.",
+      "correction": "The frame supports an explicit text speaker label, not complete speaker-to-actor or audio verification."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "C1",
+      "criterion": "All-screen primary-input operation",
+      "status": "sustained",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "attemptedRefutation": "A includes controller prompts; B includes large tabs, button-like elements, and a tap prompt. These are evidence of intended input affordances.",
+      "reason": "None demonstrates successful operation, focus movement, scrolling, return paths, recovery, or an inventory of all screens. A depicted input scheme is not proof of the supported primary input across the product.",
+      "missingEvidenceAssessment": "The claimed gaps follow from the packet containing only these four still states.",
+      "evidenceNeededAssessment": "The proposed inventory and continuous demonstrations are a valid evidence route, not the only possible rigorous verification method.",
+      "correction": "Retain not measurable; do not translate visible affordances into either a pass or a failure."
+    },
+    {
+      "id": "C2",
+      "criterion": "Text-size layout over 0.8–1.5",
+      "status": "sustained",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "attemptedRefutation": "Current text is readable and the two sets have different pixel dimensions, which might look like a size comparison.",
+      "reason": "Different image dimensions do not establish controlled text-scale settings. No screen is supplied at known 0.8 and 1.5 values or at wrapping/layout transition states.",
+      "missingEvidenceAssessment": "Controlled scale states, long-content coverage, and the supported viewport matrix are absent.",
+      "evidenceNeededAssessment": "Endpoint and layout-change captures across relevant content and viewports address the stated gap. Endpoints alone would not prove every intermediate layout.",
+      "correction": "Retain not measurable and keep screenshot dimensions separate from text-scale settings."
+    },
+    {
+      "id": "C3",
+      "criterion": "Hold/toggle choices for major held actions",
+      "status": "sustained",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "attemptedRefutation": "B visibly offers Tap to toggle guard and describes sprint without a sprint button, so the still provides some relevant positive evidence.",
+      "reason": "It establishes labels only. Sprint at full stick is not itself a sprint toggle and may still require holding the movement stick. No major-action inventory, complete mode set, or enabled/disabled behavior is demonstrated. A's unshown settings remain unknown.",
+      "missingEvidenceAssessment": "The missing action inventory and behavior tests are material to the universal criterion.",
+      "evidenceNeededAssessment": "Action coverage plus demonstrations of choices and release/cancellation behavior is an appropriate route; the precise recording format is not intrinsically required.",
+      "correction": "Retain the positive label evidence and the overall not-measurable result."
+    },
+    {
+      "id": "C4",
+      "criterion": "All dialogue/bark speaker identification",
+      "status": "sustained",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "attemptedRefutation": "Both displayed lines have explicit speaker text, including one role-based label and one name.",
+      "reason": "Two examples cannot cover all utterances, barks, offscreen or overlapping speakers. WLF Soldier does not necessarily distinguish different people sharing that role. B's audible-speech status is also unshown.",
+      "missingEvidenceAssessment": "The claimed system/content coverage gaps are real.",
+      "evidenceNeededAssessment": "The proposed inventory and contextual examples are appropriate if accompanied by evidence connecting that inventory to every required speech path; examples alone would not prove all coverage.",
+      "correction": "Retain not measurable; define the required degree of speaker disambiguation in any future evidence."
+    }
+  ],
+  "scopedPreferences": [
+    {
+      "id": "P1",
+      "field": "overall",
+      "status": "sustained",
+      "choice": "not measurable",
+      "attemptedRefutation": "An assessor could still give an aggregate subjective impression from four frames.",
+      "reason": "That would not be a valid blind aggregate winner or an overall accessibility measurement. No matched-function comparison or aggregation rule is supplied.",
+      "correction": null
+    },
+    {
+      "id": "P2",
+      "field": "menuPresentation",
+      "status": "qualified",
+      "choice": "A",
+      "attemptedRefutation": "B shows clear tabs, separated setting rows, and concise descriptions. A also contains dim gray and red text. The frames serve different functions, and the partial B shapes may be intentional overflow cues rather than incomplete controls.",
+      "reason": "A's grouped remapping context is visible, but selecting A for completeness is an observer preference with limited matched evidence. It is not an objective menu-quality result.",
+      "subclaims": [
+        {
+          "claim": "A presents explanation and textual unbinding consequences together.",
+          "status": "sustained"
+        },
+        {
+          "claim": "B has a persistent footer.",
+          "status": "not-verifiable",
+          "correction": "Call it the visible bottom footer; persistence requires another state or interaction evidence."
+        },
+        {
+          "claim": "Partial shapes justify a preference for A.",
+          "status": "qualified",
+          "correction": "They may inform a subjective presentation preference, but do not establish a B defect."
+        }
+      ],
+      "correction": "Retain A only as the explicitly nonblind static preference, with no comparative implementation conclusion."
+    },
+    {
+      "id": "P3",
+      "field": "visibleHeldActionOptionLabels",
+      "status": "sustained",
+      "choice": "B",
+      "attemptedRefutation": "A's remapping page could coexist with more comprehensive unshown hold/toggle settings, while B's visible controls could be nonfunctional.",
+      "reason": "The criterion is explicitly the alternative-action labels shown in this packet. B displays them; A's supplied frame does not show corresponding mode labels.",
+      "correction": "Keep labels-only wording. Do not call Sprint at full stick a proven toggle or infer that B supports more choices overall."
+    },
+    {
+      "id": "P4",
+      "field": "visibleDialogueReadabilityAndSpeakerLabel",
+      "status": "qualified",
+      "choice": "tie",
+      "attemptedRefutation": "A uses a role label, B a personal name; B's dark panel has a much larger visible footprint. These are observable differences that might matter under another rubric.",
+      "reason": "Both lines are readable to me and each has explicit speaker text, so a subjective tie on those two properties survives. It is not equivalent identification performance, measured legibility, or universal readability.",
+      "subclaims": [
+        {
+          "claim": "Both displayed text examples have readable explicit speaker labels.",
+          "status": "sustained"
+        },
+        {
+          "claim": "Both show a complete line.",
+          "status": "qualified",
+          "correction": "The visible text appears untruncated; completeness of the spoken utterance cannot be established."
+        },
+        {
+          "claim": "Different panel sizes and dialogue forms prevent a timing or obstruction comparison.",
+          "status": "refuted",
+          "reason": "Timing is unmeasurable, but static overlay footprint is directly comparable. B's main panel and silhouette occupy substantially more of its frame than A's subtitle strip.",
+          "correction": "Say: Timing and the gameplay impact of obstruction cannot be assessed; the visible overlay footprint is larger in B's supplied frame."
+        }
+      ],
+      "correction": "Retain the observer readability tie while narrowing the obstruction limitation."
+    },
+    {
+      "id": "P5",
+      "field": "globalSettingsDiscoverability",
+      "status": "sustained",
+      "choice": "not measurable",
+      "attemptedRefutation": "B explicitly displays PAUSED and a prominent Settings tab, giving useful local wayfinding evidence.",
+      "reason": "This shows the tab's location in one pause-menu state, not the route or input required from ordinary play. A is already inside Customize Controls.",
+      "correction": "Preserve B's observable local labeling without inferring global access or navigation."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "status": "sustained",
+      "attemptedRefutation": "Recognition is tentative and exact source identity is not authenticated; nonblind observations can still be useful.",
+      "reason": "The brief bars a blind result after recognition. The finding is correctly about the validity of a blind assessment, not either game's implementation.",
+      "severityAssessment": "Blocking is justified only for reporting this result as blind.",
+      "hypothesisAssessment": "Character appearance and the WLF label are plausible recognition triggers; causal introspection and source roles remain unverified.",
+      "fixAssessment": "Keeping the review nonblind is justified. A future assessor must honestly report recognition before grading and also disclose recognition if it arises during assessment.",
+      "correction": "Do not treat this blocker as invalidating all explicitly nonblind static observations."
+    },
+    {
+      "id": "F2",
+      "status": "sustained",
+      "attemptedRefutation": "The stills contain relevant affordances, readable text, and setting labels; they are not devoid of evidence.",
+      "reason": "They nevertheless do not cover any of the four universal behavioral/range criteria. The finding explicitly avoids concluding implementation failure.",
+      "severityAssessment": "Blocking is justified for claiming those wider criteria are demonstrated.",
+      "hypothesisAssessment": "Whether the packet was intended merely as a visual sample is not verifiable and is not needed for this finding.",
+      "fixAssessment": "The coverage evidence requests address the actual gaps; equivalent rigorous evidence could also suffice.",
+      "correction": "Retain the evidence-gap finding without treating the proposed recording form as the sole acceptable verification method."
+    },
+    {
+      "id": "F3",
+      "status": "qualified",
+      "attemptedRefutation": "A deliberately clipped next row can be a scrolling cue. The rectangles could be noninteractive or temporarily at a scroll boundary. This frame cannot prove unreachable or obscured intended controls.",
+      "reason": "The partial outlines are real. Their designation as an implementation defect and a required clipping correction do not follow from the still.",
+      "subclaims": [
+        {
+          "claim": "Two incomplete rectangular outlines are visible below Quality without readable contents.",
+          "status": "sustained"
+        },
+        {
+          "claim": "This is a definite minor defect.",
+          "status": "not-verifiable",
+          "correction": "Label it a possible presentation concern; defect status and severity require intended behavior or interaction context."
+        },
+        {
+          "claim": "The partial presentation can leave their function unclear.",
+          "status": "qualified",
+          "correction": "This is a reasonable observer reaction, not proof that users cannot discover or reach the elements."
+        },
+        {
+          "claim": "A fixed footer or scroll boundary is covering a settings row.",
+          "status": "not-verifiable",
+          "correction": "Keep this explicitly hypothetical; element identity and causal implementation are unknown."
+        },
+        {
+          "claim": "A required fix is to fully display the controls or cleanly remove their partial outlines.",
+          "status": "qualified",
+          "correction": "First verify the shapes' role and scroll/focus behavior at 1334x750. If intended controls are actually obscured or unreachable, adjust the boundary and verify readable access. Intentional partial overflow cues need not be removed solely because they are partial."
+        }
+      ],
+      "correction": "Preserve the pixel observation; make the defect claim and remediation conditional."
+    }
+  ],
+  "verdictAndScore": [
+    {
+      "claim": "verdict FAIL",
+      "status": "sustained",
+      "reason": "The supplied verdictMeaning explicitly defines an evidence-adequacy failure for blindness and four wider criteria. That definition is supported.",
+      "attemptedRefutation": "A bare FAIL could be mistaken for a product accessibility failure.",
+      "correction": "Always retain its evidence-adequacy meaning alongside the verdict; no game implementation failure is established."
+    },
+    {
+      "claim": "score 0 with scoreMeaning Unscored",
+      "status": "sustained",
+      "reason": "The review explicitly designates zero as an unscored sentinel, not a measured quality or accessibility score.",
+      "attemptedRefutation": "A consumer reading only the numeric field could misinterpret zero as worst performance.",
+      "correction": "Retain Unscored in any downstream representation and exclude the sentinel from averages or rankings."
+    }
+  ],
+  "protocolAndFormatNotes": [
+    {
+      "claim": "The original reviewer read only allowed materials, viewed full originals, performed no outside lookup or product edits.",
+      "status": "not-verifiable",
+      "reason": "Those original conduct claims are not independently auditable from the final review file. Nothing in the allowed evidence contradicts them. My own allowed actions are recorded under method."
+    },
+    {
+      "claim": "The original review contains no product completion claim and requests a separate refutation.",
+      "status": "sustained",
+      "reason": "Its text withholds implementation conclusions, and this separate assignment confirms the refutation request."
+    },
+    {
+      "claim": "nativeResolution 0x0 is a literal image resolution.",
+      "status": "refuted",
+      "reason": "The actual frames are nonzero images, and the review itself records two distinct nonzero image sizes in imageResolutions.",
+      "correction": "Treat 0x0 only as an unspecified aggregate sentinel, if the schema requires it; use the per-image resolutions for pixel claims."
+    },
+    {
+      "claim": "Raw severity and fix fields are schema normalized.",
+      "status": "qualified",
+      "reason": "The raw review uses blocking and fix objects. The coordinator has identified normalization to blocker and a nonempty fix string as a separate task. This is distinct from the substantive evidence assessment.",
+      "correction": "Normalize only in a separate artifact and preserve the original."
+    }
+  ],
+  "recommendedSubstantiveCorrections": [
+    "Qualify F3 as an observed possible presentation concern and make any corrective action conditional on interaction/context evidence.",
+    "Replace the absolute obstruction limitation with a distinction between observable static overlay footprint and unmeasured gameplay impact.",
+    "Replace persistent footer with visible bottom footer unless persistence is independently demonstrated.",
+    "Keep the entire assessment nonblind, the wider criteria not measurable, FAIL explicitly about evidence adequacy, and score 0 explicitly Unscored."
+  ]
+}

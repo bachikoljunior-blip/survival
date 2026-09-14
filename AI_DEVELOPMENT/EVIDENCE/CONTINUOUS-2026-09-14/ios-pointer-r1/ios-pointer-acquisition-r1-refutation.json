@@ -1,0 +1,53 @@
+{
+  "verdict": "PASS",
+  "score": 100,
+  "round": "ios-pointer-acquisition-r1-independent-refutation",
+  "profile": "Coordinate source conformance, action timing and trust-negative controls",
+  "tier": "Source and CPU only",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison or actual iOS input measurement occurred. The source identities are known. CPU boundary values do not count as trusted browser events, a rendered quality result or satisfied product elements.",
+  "checkedAt": "2026-09-14T05:30:02.939Z",
+  "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+  "scope": "Independent bounded review of pinned coordinate conversion, pause preservation/contact schedule and trust predicates. No product edit, browser, socket, server, actual iOS or new CI.",
+  "verdictScope": "No concrete finding survived this bounded review of the pinned implementation. Actual Safari coordinate calibration, contact overlap and gameplay remain subject to the real gate.",
+  "sources": {
+    "tools/test-ios-safari.mjs": "e9be30fb7e6c33c2086abca618e9cbe5ae899f830172660d21aa88740db24c11",
+    "tools/ios-pointer-coordinates.mjs": "ddbdf1f0606fc40796efc87845ebf0b72776172ca3121bd41e64e4ead98732ca",
+    "tools/webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    ".github/workflows/mobile-simulator.yml": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa"
+  },
+  "upstreamSources": {
+    "appium-12.1.3-gesture.ts": "98971229c92fcd72964c2c49a3e24ec61981a7791ed316beaa495a88e577186d",
+    "appium-12.1.3-web.ts": "e6a1f019a79585c4b71aa1411a03c2f8d8c8f58b8ddaf6fc36d59f19ef3edbc5",
+    "10ddee9-ios-job.log": "b12d1c857d0baeb5015c11e9b7ecc2664590b845f7dbd018e3725aa8872d635b"
+  },
+  "findings": [],
+  "conclusions": [
+    "The helper uses the pinned calibrated OR condition: either exceeding dimension activates both pixel ratios; equal or smaller dimensions use only offsets.",
+    "Native integer output equals Math.round of the pinned branch for each tested axis; extra quantization is acknowledged rather than called identical floating-point translation.",
+    "Malformed supplied calibration/viewport and unsupported/nonfinite pointer coordinates throw; negative offsets remain allowed.",
+    "The helper leaves frozen input arrays and action values unchanged. Nested metadata sharing is harmless within the current nonmutating use but is not a deep-clone guarantee.",
+    "All actual placeholder pauses are positive and survive the pinned driver filter. The preserved eight-tick two-finger schedules overlap under both checked timing interpretations.",
+    "The actual recorder/predicates reject untrusted/wrong-type/outside new-game traces and nonoverlapping, repeated-id, untrusted or mouse-only two-contact traces."
+  ],
+  "checks": {
+    "total": 6,
+    "passed": 6
+  },
+  "limitations": [
+    "CPU schedule arithmetic is not native WDA timing and cannot establish actual simultaneous touches.",
+    "This review does not test display geometry, Safari chrome offsets, rotation/calibration reload order, full gate execution, report/PNG failure transport or original CI diagnosis; those are the parent scope.",
+    "Trust booleans are supplied only to exercise the exact predicate truth table; no input was represented as actually trusted.",
+    "The source calibration command rounds returned offsets while the internal driver stores floating offsets; this helper follows the public returned data with final integer rounding. Actual tap placement remains unmeasured."
+  ],
+  "evidenceFiles": [
+    "ios-pointer-acquisition-r1-refutation-probe.mjs",
+    "ios-pointer-acquisition-r1-refutation-probe.json",
+    "ios-pointer-acquisition-r1-source.json"
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

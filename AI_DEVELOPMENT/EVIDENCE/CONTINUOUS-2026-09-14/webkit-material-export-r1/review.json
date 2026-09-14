@@ -1,0 +1,149 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored schema sentinel. No element, native device, visual or product score.",
+  "verdictMeaning": "Current-build material delivery through actual GitHub CI remains unmeasured. The bounded CPU transport controls do not pass the product or turn prior screenshots into current-build evidence.",
+  "blindComparison": "No blind comparison or visual quality evaluation was performed. File transport and source checks cannot establish which game presentation a stranger would prefer.",
+  "round": "webkit-material-export-r1",
+  "profile": "original-file-byte-transport",
+  "tier": "CPU-source-review",
+  "nativeResolution": "0x0",
+  "findings": [],
+  "refutationStatus": "COMPLETE_SEPARATE_REFUTER",
+  "scope": {
+    "source": "tools/export-webkit-material.mjs",
+    "workflowStep": ".github/workflows/gates.yml jobs.f3-execution export step",
+    "productEdits": 0,
+    "harnessEdits": 0,
+    "workflowEdits": 0,
+    "browserOrServerOrSimulatorRuns": 0,
+    "networkOrArtifactFetches": 0,
+    "imageTransformations": 0,
+    "originalNativeIOSMeasurements": 0
+  },
+  "verifiedControls": [
+    {
+      "id": "ACTUAL-PRIOR-BYTES",
+      "evidence": [
+        "raw/probe.json",
+        "raw/prior-originals.stdout.log.gz",
+        "raw/prior-provenance.json"
+      ],
+      "result": "Actual prior ci-d19c424 report plus all nine original frame PNGs round-trip byte-identically through the pinned exporter and a real stdout pipe, with a 150 ms delayed reader. 16730612 output bytes were retained. Input file bytes remain unchanged. PNG and decoded RGBA hashes/dimensions match that original report.",
+      "limit": "This is transport evidence using older existing material, not a new browser capture or current-build image delivery."
+    },
+    {
+      "id": "EXACT-CAP",
+      "evidence": "raw/probe.json cases.at-cap",
+      "result": "2097152 bytes produces complete:true, all 2097152 bytes in contiguous chunks and a matching end record; process exits 0."
+    },
+    {
+      "id": "OVER-CAP",
+      "evidence": "raw/probe.json cases.over-cap",
+      "result": "2097153 bytes produces complete:false and full captured-file bytes/SHA256 metadata, zero chunks and zero end record for that file; process exits 1. The file is not cut or recompressed."
+    },
+    {
+      "id": "MISSING-AND-ALLOWLIST",
+      "evidence": "raw/probe.json cases.missing",
+      "result": "Missing allowlisted PNG emits ENOENT, no metadata/chunks/end and exit 1. A present unallowlisted PNG is absent from every output case."
+    },
+    {
+      "id": "REPORT-FAILURE-PRESERVED",
+      "evidence": "raw/probe.json and raw/fixture-at-cap/test-results/iphone-webkit/report.json",
+      "result": "A synthetic report with status:failed and a failure remains byte-identical in output and on disk. Export success denotes transport success; the script does not rewrite report status."
+    },
+    {
+      "id": "WORKFLOW-BOUNDARY",
+      "evidence": [
+        "source/.github_workflows_gates.yml",
+        "source/HEAD-gates.yml",
+        "raw/probe.json workflow"
+      ],
+      "result": "The f3 job adds exactly one export step after the WebKit capture and its existing artifact upload, before post-boot recovery. It has if:always() and no continue-on-error. Removing it restores the original f3 job structure. A separate narrative-job edit is outside this focused review.",
+      "limit": "Preservation of earlier step failure follows workflow structure/semantics. This reviewer did not execute a GitHub Actions runner."
+    },
+    {
+      "id": "FAILURE-EXIT-DRAIN",
+      "evidence": "refuter-01.json cases.combined-failure-large-success",
+      "result": "With a 2097153-byte oversized fixture and a missing PNG, the exporter exits 1 while a valid failed-status report of 2097152 bytes and a subsequent 2097152-byte fixture at an allowed PNG filename both round-trip exactly, including end markers. The separate 150 ms delayed reader retains all 5710984 stdout bytes. This independently verifies natural draining on the actual failure exit path; the synthetic image-named fixture is not claimed to contain PNG pixels."
+    }
+  ],
+  "explicitBoundaryObservations": [
+    {
+      "id": "EMPTY-FILE",
+      "observed": "An empty PNG or report file is accepted: bytes:0, empty SHA256, stableDuringRead:true, complete:true, no chunks, an end marker and exit 0.",
+      "evidence": "raw/probe.json cases.empty-png and empty-report",
+      "interpretation": "complete currently describes lossless byte delivery, not a valid PNG or JSON document. The task expressly requires oversized files to fail but does not expressly require semantic decoding or empty-file rejection.",
+      "assessment": "The separate refuter confirmed this is a disclosed transport boundary in the authorized scope. Empty delivery is not usable image/report evidence; no new semantic-validation requirement is introduced.",
+      "producerCounterevidence": "The existing capture producer runs PNG.sync.read(bytes) before writing each frame; the main producer serializes report JSON. Their normal completed outputs are nonempty. No production empty-output path is demonstrated here."
+    },
+    {
+      "id": "COMMIT-METADATA",
+      "observed": "Metadata copies GITHUB_SHA from the exporting job. The script does not derive a capture commit from PNG bytes.",
+      "interpretation": "The old-file CPU fixture uses an explicit CPU exporting-context label. Its metadata must not be used to relabel older images as current-build captures."
+    },
+    {
+      "id": "STABILITY",
+      "observed": "The source compares file size and mtime before and after reading; unstable files receive complete:false and exit 1.",
+      "interpretation": "This is snapshot stability, not a guarantee of permanent file finality or semantic image validity. Concurrent same-size writes with restored mtime are not ruled out by this check; no such production race is evidenced."
+    }
+  ],
+  "realInputProvenance": {
+    "directory": "ci-d19c424",
+    "reportCheckedAt": "2026-09-14T00:58:12.160Z",
+    "reportBytes": 355388,
+    "imageCount": 9,
+    "largestImageBytes": 1433640,
+    "artifact": "raw/prior-provenance.json",
+    "rewrittenOrRecompressed": false
+  },
+  "nextActualVerification": [
+    "Run the existing GitHub workflow at the exact saved commit. The added step only reads existing capture output; it starts no browser and changes no picture bytes.",
+    "Recover the report and nine PNGs from ordinary job-log chunks. Require all expected metadata/end records and contiguous offsets, verify reconstructed byte counts/SHA256, and preserve actual report failure status and any missing/oversized/unstable result.",
+    "Treat an empty exported file as empty material, not a picture or usable report. Current-build image availability is established only by the actual next CI output, not these older-file transport controls."
+  ],
+  "limits": [
+    "The 2 MiB cap is per file, including report.json; it limits emitted content, not readFileSync memory. Multiple files can produce a larger overall job log.",
+    "Synthetic boundary files are byte-transport controls and are not claimed to be valid pictures.",
+    "A successful file exporter cannot erase an earlier failed workflow step. The actual CI provider may still truncate or mask log output; real reconstruction must verify completeness.",
+    "No visual criteria, benchmark, mandatory process, element pass, blind pass or reference-media evaluation was added."
+  ],
+  "sourcePins": [
+    {
+      "source": "tools/export-webkit-material.mjs",
+      "snapshot": "source/tools_export-webkit-material.mjs",
+      "bytes": 1777,
+      "sha256": "f2e5cf3e150748ee1018d387d2aade1067e72c13ea5c1f86d95b46d4b1df1c05"
+    },
+    {
+      "source": ".github/workflows/gates.yml",
+      "snapshot": "source/.github_workflows_gates.yml",
+      "bytes": 5818,
+      "sha256": "caf6b9be60636b84808263b1f39c2af0a5449ea1bc47a375ea5dc69f540b5856"
+    },
+    {
+      "source": "tools/test-iphone-webkit.mjs",
+      "snapshot": "source/tools_test-iphone-webkit.mjs",
+      "bytes": 29508,
+      "sha256": "4cdcf9d6cdcf72e6ab49f93a8d04a63fdfaefc5b1f59267706a004d1af499717"
+    },
+    {
+      "source": "tools/mobile_visual_capture.mjs",
+      "snapshot": "source/tools_mobile_visual_capture.mjs",
+      "bytes": 6368,
+      "sha256": "057fc56c417f7e606403f6c74c1c2428f7d54271521cf7e53613c39ef33aa4fa"
+    },
+    {
+      "source": ".github/workflows/gates.yml",
+      "ref": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+      "snapshot": "source/HEAD-gates.yml",
+      "bytes": 5574,
+      "sha256": "9be553d6ac69afa078f6d2f94261bcd46242ba35581be284075b44e1354548e1"
+    }
+  ],
+  "independentRefutation": {
+    "agent": "/root/trench_perception_review/trench_refuter",
+    "review": "refuter-review.json",
+    "result": "No concrete defect survived within the authorized byte-transport scope. Empty input remains an explicitly disclosed limit, not a PNG/JSON validity or current-material claim."
+  }
+}
