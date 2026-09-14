@@ -1,0 +1,2888 @@
+{
+  "scope": "Read-only original-image/source-known CPU reconstruction. No rendered correction or reference comparison.",
+  "sourceCommit": "b0f1dfb9860dbc00018c0c587d8f0934fadb6604",
+  "runtimeSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+  "originalReportSha256": "c05495376603482ec67bd0fe3b6051288018abbd0f2529aabbad194c6fb8ac6e",
+  "images": [
+    {
+      "name": "south",
+      "bytes": 1164267,
+      "sha256": "c6bd8974964941c999c79644634e77a81c098c941a7ed465661fcbd596b18038"
+    },
+    {
+      "name": "cinder",
+      "bytes": 1193161,
+      "sha256": "31406d339d9c37769876f172f248f9595228c40ed49661b7ac58fa784da794e2"
+    },
+    {
+      "name": "arcade",
+      "bytes": 1211415,
+      "sha256": "840d648e9a4d25e4b71bdb767f839f4c80feb745d32f3017fbdbbab43555cf76"
+    },
+    {
+      "name": "marrow",
+      "bytes": 1205171,
+      "sha256": "5564b263fc32282528bc501e5b2752d554e853702224c2112061837f79908f27"
+    },
+    {
+      "name": "stacks",
+      "bytes": 1226002,
+      "sha256": "5f67a55d6214185225de18e7fb27e9388010811c2aacba00998b49a9f2ef7448"
+    },
+    {
+      "name": "plant",
+      "bytes": 1228758,
+      "sha256": "d30f4acc85f60ac18c4d2357ffe9d329f3a2eb03614e49c771de4eaca1cda927"
+    },
+    {
+      "name": "survey",
+      "bytes": 1166411,
+      "sha256": "b9586aabe33951f6ecb2c6b641140849886c16509605d3a930d245b5feb421d8"
+    },
+    {
+      "name": "ventfield",
+      "bytes": 1091084,
+      "sha256": "a51da5b2bbd6e5f82a66800c515b11e956dfb0ec2204a34b3a166dc541395cc9"
+    }
+  ],
+  "imageBytesUnchanged": true,
+  "views": [
+    {
+      "name": "south",
+      "player": {
+        "position": [
+          -60,
+          0,
+          52
+        ],
+        "yaw": 0,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          -62.54927928455404,
+          1.553602066075737,
+          52.42
+        ],
+        "quaternion": [
+          0.018509897659266823,
+          0.7068644733530208,
+          0.018509897659266826,
+          -0.7068644733530207
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.02500000037252903,
+          "mesh": "chunk_-2,1:asphalt"
+        }
+      },
+      "exactFootReplay": "not measured: this original view has no recorded bone transforms"
+    },
+    {
+      "name": "cinder",
+      "player": {
+        "position": [
+          25,
+          0,
+          -10
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          25.42,
+          1.671123305478851,
+          -6.408769419064633
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 57.99999999999998,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.029999999329447746,
+          "mesh": "chunk_0,-1:paint"
+        }
+      },
+      "exactFootReplay": "recorded current local bone/group/mesh transforms; actual current rig and Three getVertexPosition",
+      "feet": {
+        "L": {
+          "minWorldY": -0.022177315852480353,
+          "maxWorldY": 0.01393715376723729,
+          "minGapToRender": -0.0521773151819281,
+          "maxGapToRender": -0.01106284660529174,
+          "vertices": [
+            {
+              "index": 1042,
+              "world": [
+                24.953427611849165,
+                0.012892781092772289,
+                -10.159647780243766
+              ],
+              "screenPx": [
+                503.1426136255597,
+                532.5342770400853
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.029999999329447746,
+                  "mesh": "chunk_0,-1:paint"
+                }
+              },
+              "gapToRender": -0.017107218236675457,
+              "gapToCollision": 0.012892781092772289
+            },
+            {
+              "index": 1043,
+              "world": [
+                24.841433700303376,
+                0.01393715376723729,
+                -10.159126083163182
+              ],
+              "screenPx": [
+                486.240926346406,
+                532.4149144978167
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.01106284660529174,
+              "gapToCollision": 0.01393715376723729
+            },
+            {
+              "index": 1046,
+              "world": [
+                24.84226911503429,
+                -0.021132943178015354,
+                -9.909579709867058
+              ],
+              "screenPx": [
+                480.41798575505544,
+                555.1896866786723
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.046132943550544384,
+              "gapToCollision": -0.021132943178015354
+            },
+            {
+              "index": 1047,
+              "world": [
+                24.954263026580083,
+                -0.022177315852480353,
+                -9.910101406947643
+              ],
+              "screenPx": [
+                498.4743886141786,
+                555.3134553412993
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.029999999329447746,
+                  "mesh": "chunk_0,-1:paint"
+                }
+              },
+              "gapToRender": -0.0521773151819281,
+              "gapToCollision": -0.022177315852480353
+            },
+            {
+              "index": 1050,
+              "world": [
+                24.841433700303376,
+                0.01393715376723729,
+                -10.159126083163182
+              ],
+              "screenPx": [
+                486.240926346406,
+                532.4149144978167
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.01106284660529174,
+              "gapToCollision": 0.01393715376723729
+            },
+            {
+              "index": 1051,
+              "world": [
+                24.84226911503429,
+                -0.021132943178015354,
+                -9.909579709867058
+              ],
+              "screenPx": [
+                480.41798575505544,
+                555.1896866786723
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.046132943550544384,
+              "gapToCollision": -0.021132943178015354
+            },
+            {
+              "index": 1054,
+              "world": [
+                24.954263026580083,
+                -0.022177315852480353,
+                -9.910101406947643
+              ],
+              "screenPx": [
+                498.4743886141786,
+                555.3134553412993
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.029999999329447746,
+                  "mesh": "chunk_0,-1:paint"
+                }
+              },
+              "gapToRender": -0.0521773151819281,
+              "gapToCollision": -0.022177315852480353
+            },
+            {
+              "index": 1055,
+              "world": [
+                24.953427611849165,
+                0.012892781092772289,
+                -10.159647780243766
+              ],
+              "screenPx": [
+                503.1426136255597,
+                532.5342770400853
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.029999999329447746,
+                  "mesh": "chunk_0,-1:paint"
+                }
+              },
+              "gapToRender": -0.017107218236675457,
+              "gapToCollision": 0.012892781092772289
+            },
+            {
+              "index": 1062,
+              "world": [
+                24.954263026580083,
+                -0.022177315852480353,
+                -9.910101406947643
+              ],
+              "screenPx": [
+                498.4743886141786,
+                555.3134553412993
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.029999999329447746,
+                  "mesh": "chunk_0,-1:paint"
+                }
+              },
+              "gapToRender": -0.0521773151819281,
+              "gapToCollision": -0.022177315852480353
+            },
+            {
+              "index": 1063,
+              "world": [
+                24.84226911503429,
+                -0.021132943178015354,
+                -9.909579709867058
+              ],
+              "screenPx": [
+                480.41798575505544,
+                555.1896866786723
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.046132943550544384,
+              "gapToCollision": -0.021132943178015354
+            },
+            {
+              "index": 1064,
+              "world": [
+                24.841433700303376,
+                0.01393715376723729,
+                -10.159126083163182
+              ],
+              "screenPx": [
+                486.240926346406,
+                532.4149144978167
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.01106284660529174,
+              "gapToCollision": 0.01393715376723729
+            },
+            {
+              "index": 1065,
+              "world": [
+                24.953427611849165,
+                0.012892781092772289,
+                -10.159647780243766
+              ],
+              "screenPx": [
+                503.1426136255597,
+                532.5342770400853
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.029999999329447746,
+                  "mesh": "chunk_0,-1:paint"
+                }
+              },
+              "gapToRender": -0.017107218236675457,
+              "gapToCollision": 0.012892781092772289
+            }
+          ]
+        },
+        "R": {
+          "minWorldY": -0.018529479243743926,
+          "maxWorldY": 0.023248557885976844,
+          "minGapToRender": -0.04352947961627296,
+          "maxGapToRender": -0.0017514424865521863,
+          "vertices": [
+            {
+              "index": 1214,
+              "world": [
+                25.205337360939925,
+                0.023248557885976844,
+                -10.160821242076265
+              ],
+              "screenPx": [
+                541.1334307709278,
+                530.9395759903371
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.0017514424865521863,
+              "gapToCollision": 0.023248557885976844
+            },
+            {
+              "index": 1215,
+              "world": [
+                25.093543409965566,
+                0.01647800147060343,
+                -10.160300476464588
+              ],
+              "screenPx": [
+                524.2766737413068,
+                531.9662001023361
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.0085219989019256,
+              "gapToCollision": 0.01647800147060343
+            },
+            {
+              "index": 1218,
+              "world": [
+                25.096825961062933,
+                -0.018529479243743926,
+                -9.910765502572955
+              ],
+              "screenPx": [
+                521.4457465833141,
+                554.6934329353385
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.04352947961627296,
+              "gapToCollision": -0.018529479243743926
+            },
+            {
+              "index": 1219,
+              "world": [
+                25.208619912037292,
+                -0.011758922828370513,
+                -9.911286268184632
+              ],
+              "screenPx": [
+                539.4530546728037,
+                553.596442183925
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.036758923200899546,
+              "gapToCollision": -0.011758922828370513
+            },
+            {
+              "index": 1222,
+              "world": [
+                25.093543409965566,
+                0.01647800147060343,
+                -10.160300476464588
+              ],
+              "screenPx": [
+                524.2766737413068,
+                531.9662001023361
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.0085219989019256,
+              "gapToCollision": 0.01647800147060343
+            },
+            {
+              "index": 1223,
+              "world": [
+                25.096825961062933,
+                -0.018529479243743926,
+                -9.910765502572955
+              ],
+              "screenPx": [
+                521.4457465833141,
+                554.6934329353385
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.04352947961627296,
+              "gapToCollision": -0.018529479243743926
+            },
+            {
+              "index": 1226,
+              "world": [
+                25.208619912037292,
+                -0.011758922828370513,
+                -9.911286268184632
+              ],
+              "screenPx": [
+                539.4530546728037,
+                553.596442183925
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.036758923200899546,
+              "gapToCollision": -0.011758922828370513
+            },
+            {
+              "index": 1227,
+              "world": [
+                25.205337360939925,
+                0.023248557885976844,
+                -10.160821242076265
+              ],
+              "screenPx": [
+                541.1334307709278,
+                530.9395759903371
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.0017514424865521863,
+              "gapToCollision": 0.023248557885976844
+            },
+            {
+              "index": 1234,
+              "world": [
+                25.208619912037292,
+                -0.011758922828370513,
+                -9.911286268184632
+              ],
+              "screenPx": [
+                539.4530546728037,
+                553.596442183925
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.036758923200899546,
+              "gapToCollision": -0.011758922828370513
+            },
+            {
+              "index": 1235,
+              "world": [
+                25.096825961062933,
+                -0.018529479243743926,
+                -9.910765502572955
+              ],
+              "screenPx": [
+                521.4457465833141,
+                554.6934329353385
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.04352947961627296,
+              "gapToCollision": -0.018529479243743926
+            },
+            {
+              "index": 1236,
+              "world": [
+                25.093543409965566,
+                0.01647800147060343,
+                -10.160300476464588
+              ],
+              "screenPx": [
+                524.2766737413068,
+                531.9662001023361
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.0085219989019256,
+              "gapToCollision": 0.01647800147060343
+            },
+            {
+              "index": 1237,
+              "world": [
+                25.205337360939925,
+                0.023248557885976844,
+                -10.160821242076265
+              ],
+              "screenPx": [
+                541.1334307709278,
+                530.9395759903371
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0.02500000037252903,
+                  "mesh": "chunk_0,-1:asphalt"
+                }
+              },
+              "gapToRender": -0.0017514424865521863,
+              "gapToCollision": 0.023248557885976844
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": false
+      }
+    },
+    {
+      "name": "arcade",
+      "player": {
+        "position": [
+          -104.5,
+          0.14,
+          -6.5
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          -104.92,
+          1.8111233054788511,
+          -10.091230580935367
+        ],
+        "quaternion": [
+          -2.136977846428571e-18,
+          0.9993908270190958,
+          0.03489949670250097,
+          6.119503887030809e-17
+        ],
+        "fov": 57.99999999995778,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0.14,
+          "tag": "pavement"
+        },
+        "render": {
+          "y": 0.14000000059604645,
+          "mesh": "chunk_-2,-1:concrete"
+        }
+      },
+      "exactFootReplay": "recorded current local bone/group/mesh transforms; actual current rig and Three getVertexPosition",
+      "feet": {
+        "L": {
+          "minWorldY": 0.11516365979196456,
+          "maxWorldY": 0.15109751294507895,
+          "minGapToRender": -0.024836340804081883,
+          "maxGapToRender": 0.011097512349032501,
+          "vertices": [
+            {
+              "index": 1042,
+              "world": [
+                -104.54388760542365,
+                0.1502342397077081,
+                -6.659975032460586
+              ],
+              "screenPx": [
+                511.6764354052324,
+                555.5491641427193
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": 0.010234239111661658,
+              "gapToCollision": 0.010234239707708093
+            },
+            {
+              "index": 1043,
+              "world": [
+                -104.65588391281469,
+                0.15109751294507895,
+                -6.660259629617551
+              ],
+              "screenPx": [
+                530.0816329767705,
+                555.433494775083
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": 0.011097512349032501,
+              "gapToCollision": 0.011097512945078936
+            },
+            {
+              "index": 1046,
+              "world": [
+                -104.65678836757733,
+                0.1160269330293354,
+                -6.410713564874534
+              ],
+              "screenPx": [
+                533.1004805515278,
+                542.6810673574541
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": -0.023973067566711054,
+              "gapToCollision": -0.02397306697066462
+            },
+            {
+              "index": 1047,
+              "world": [
+                -104.54479206018628,
+                0.11516365979196456,
+                -6.41042896771757
+              ],
+              "screenPx": [
+                515.9157509935773,
+                542.7902226918566
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": -0.024836340804081883,
+              "gapToCollision": -0.02483634020803545
+            },
+            {
+              "index": 1050,
+              "world": [
+                -104.65588391281469,
+                0.15109751294507895,
+                -6.660259629617551
+              ],
+              "screenPx": [
+                530.0816329767705,
+                555.433494775083
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": 0.011097512349032501,
+              "gapToCollision": 0.011097512945078936
+            },
+            {
+              "index": 1051,
+              "world": [
+                -104.65678836757733,
+                0.1160269330293354,
+                -6.410713564874534
+              ],
+              "screenPx": [
+                533.1004805515278,
+                542.6810673574541
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": -0.023973067566711054,
+              "gapToCollision": -0.02397306697066462
+            },
+            {
+              "index": 1054,
+              "world": [
+                -104.54479206018628,
+                0.11516365979196456,
+                -6.41042896771757
+              ],
+              "screenPx": [
+                515.9157509935773,
+                542.7902226918566
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": -0.024836340804081883,
+              "gapToCollision": -0.02483634020803545
+            },
+            {
+              "index": 1055,
+              "world": [
+                -104.54388760542365,
+                0.1502342397077081,
+                -6.659975032460586
+              ],
+              "screenPx": [
+                511.6764354052324,
+                555.5491641427193
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": 0.010234239111661658,
+              "gapToCollision": 0.010234239707708093
+            },
+            {
+              "index": 1062,
+              "world": [
+                -104.54479206018628,
+                0.11516365979196456,
+                -6.41042896771757
+              ],
+              "screenPx": [
+                515.9157509935773,
+                542.7902226918566
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": -0.024836340804081883,
+              "gapToCollision": -0.02483634020803545
+            },
+            {
+              "index": 1063,
+              "world": [
+                -104.65678836757733,
+                0.1160269330293354,
+                -6.410713564874534
+              ],
+              "screenPx": [
+                533.1004805515278,
+                542.6810673574541
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": -0.023973067566711054,
+              "gapToCollision": -0.02397306697066462
+            },
+            {
+              "index": 1064,
+              "world": [
+                -104.65588391281469,
+                0.15109751294507895,
+                -6.660259629617551
+              ],
+              "screenPx": [
+                530.0816329767705,
+                555.433494775083
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": 0.011097512349032501,
+              "gapToCollision": 0.011097512945078936
+            },
+            {
+              "index": 1065,
+              "world": [
+                -104.54388760542365,
+                0.1502342397077081,
+                -6.659975032460586
+              ],
+              "screenPx": [
+                511.6764354052324,
+                555.5491641427193
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.14000000059604645,
+                  "mesh": "chunk_-2,-1:concrete"
+                }
+              },
+              "gapToRender": 0.010234239111661658,
+              "gapToCollision": 0.010234239707708093
+            }
+          ]
+        },
+        "R": {
+          "minWorldY": 0.11904202088249817,
+          "maxWorldY": 0.16099734983631042,
+          "minGapToRender": -0.020957979713548222,
+          "maxGapToRender": 0.02099734924026403,
+          "vertices": [
+            {
+              "index": 1214,
+              "world": [
+                -104.29199301129947,
+                0.16099734983631042,
+                -6.659334935594782
+              ],
+              "screenPx": [
+                470.2679265930311,
+                553.7839116366425
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": 0.02099734924026403,
+              "gapToCollision": 0.02099734983631041
+            },
+            {
+              "index": 1215,
+              "world": [
+                -104.40377672002087,
+                0.1540460275441115,
+                -6.659618992510927
+              ],
+              "screenPx": [
+                488.6478158407253,
+                554.9140494625474
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": 0.014046026948065116,
+              "gapToCollision": 0.014046027544111495
+            },
+            {
+              "index": 1218,
+              "world": [
+                -104.40223412421808,
+                0.11904202088249817,
+                -6.4100667094947354
+              ],
+              "screenPx": [
+                494.03887613378885,
+                542.1871809752205
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": -0.020957979713548222,
+              "gapToCollision": -0.020957979117501843
+            },
+            {
+              "index": 1219,
+              "world": [
+                -104.29045041549668,
+                0.12599334317469707,
+                -6.409782652578591
+              ],
+              "screenPx": [
+                476.8783802327987,
+                541.1313265108605
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": -0.014006657421349322,
+              "gapToCollision": -0.014006656825302943
+            },
+            {
+              "index": 1222,
+              "world": [
+                -104.40377672002087,
+                0.1540460275441115,
+                -6.659618992510927
+              ],
+              "screenPx": [
+                488.6478158407253,
+                554.9140494625474
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": 0.014046026948065116,
+              "gapToCollision": 0.014046027544111495
+            },
+            {
+              "index": 1223,
+              "world": [
+                -104.40223412421808,
+                0.11904202088249817,
+                -6.4100667094947354
+              ],
+              "screenPx": [
+                494.03887613378885,
+                542.1871809752205
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": -0.020957979713548222,
+              "gapToCollision": -0.020957979117501843
+            },
+            {
+              "index": 1226,
+              "world": [
+                -104.29045041549668,
+                0.12599334317469707,
+                -6.409782652578591
+              ],
+              "screenPx": [
+                476.8783802327987,
+                541.1313265108605
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": -0.014006657421349322,
+              "gapToCollision": -0.014006656825302943
+            },
+            {
+              "index": 1227,
+              "world": [
+                -104.29199301129947,
+                0.16099734983631042,
+                -6.659334935594782
+              ],
+              "screenPx": [
+                470.2679265930311,
+                553.7839116366425
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": 0.02099734924026403,
+              "gapToCollision": 0.02099734983631041
+            },
+            {
+              "index": 1234,
+              "world": [
+                -104.29045041549668,
+                0.12599334317469707,
+                -6.409782652578591
+              ],
+              "screenPx": [
+                476.8783802327987,
+                541.1313265108605
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": -0.014006657421349322,
+              "gapToCollision": -0.014006656825302943
+            },
+            {
+              "index": 1235,
+              "world": [
+                -104.40223412421808,
+                0.11904202088249817,
+                -6.4100667094947354
+              ],
+              "screenPx": [
+                494.03887613378885,
+                542.1871809752205
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": -0.020957979713548222,
+              "gapToCollision": -0.020957979117501843
+            },
+            {
+              "index": 1236,
+              "world": [
+                -104.40377672002087,
+                0.1540460275441115,
+                -6.659618992510927
+              ],
+              "screenPx": [
+                488.6478158407253,
+                554.9140494625474
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": 0.014046026948065116,
+              "gapToCollision": 0.014046027544111495
+            },
+            {
+              "index": 1237,
+              "world": [
+                -104.29199301129947,
+                0.16099734983631042,
+                -6.659334935594782
+              ],
+              "screenPx": [
+                470.2679265930311,
+                553.7839116366425
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0.14,
+                  "tag": "pavement"
+                },
+                "render": {
+                  "y": 0.1400000005960464,
+                  "mesh": "chunk_-2,0:concrete"
+                }
+              },
+              "gapToRender": 0.02099734924026403,
+              "gapToCollision": 0.02099734983631041
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": true
+      }
+    },
+    {
+      "name": "marrow",
+      "player": {
+        "position": [
+          -128,
+          0,
+          0
+        ],
+        "yaw": 0,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          -131.59506632511648,
+          1.6084094424745978,
+          0.4199999999999993
+        ],
+        "quaternion": [
+          0.018509897659266823,
+          0.7068644733530208,
+          0.018509897659266826,
+          -0.7068644733530207
+        ],
+        "fov": 57.99999976989291,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.029999999329447746,
+          "mesh": "chunk_-3,0:paint"
+        }
+      },
+      "exactFootReplay": "not measured: this original view has no recorded bone transforms"
+    },
+    {
+      "name": "stacks",
+      "player": {
+        "position": [
+          -112,
+          0,
+          -84
+        ],
+        "yaw": 0,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          -111.58,
+          1.671123305478851,
+          -80.40876941906463
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 57.99825567516342,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0,
+          "mesh": "chunk_-3,-2:ash"
+        }
+      },
+      "exactFootReplay": "recorded current local bone/group/mesh transforms; actual current rig and Three getVertexPosition",
+      "feet": {
+        "L": {
+          "minWorldY": -0.02621156035293994,
+          "maxWorldY": 0.00967478882167986,
+          "minGapToRender": -0.02621156035293994,
+          "maxGapToRender": 0.00967478882167986,
+          "vertices": [
+            {
+              "index": 1042,
+              "world": [
+                -111.95865666131448,
+                0.008859131322535017,
+                -83.83945939084417
+              ],
+              "screenPx": [
+                511.2477487502355,
+                555.8204305254999
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.008859131322535017,
+              "gapToCollision": 0.008859131322535017
+            },
+            {
+              "index": 1043,
+              "world": [
+                -111.84667379181965,
+                0.00967478882167986,
+                -83.83767873141488
+              ],
+              "screenPx": [
+                529.6353299681275,
+                555.8279472837087
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.00967478882167986,
+              "gapToCollision": 0.00967478882167986
+            },
+            {
+              "index": 1046,
+              "world": [
+                -111.84245081121593,
+                -0.0253959028537951,
+                -84.08719068516258
+              ],
+              "screenPx": [
+                533.1946314991574,
+                543.0452120450561
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.0253959028537951,
+              "gapToCollision": -0.0253959028537951
+            },
+            {
+              "index": 1047,
+              "world": [
+                -111.95443368071075,
+                -0.02621156035293994,
+                -84.08897134459187
+              ],
+              "screenPx": [
+                516.0248987522282,
+                543.0443774297047
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.02621156035293994,
+              "gapToCollision": -0.02621156035293994
+            },
+            {
+              "index": 1050,
+              "world": [
+                -111.84667379181965,
+                0.00967478882167986,
+                -83.83767873141488
+              ],
+              "screenPx": [
+                529.6353299681275,
+                555.8279472837087
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.00967478882167986,
+              "gapToCollision": 0.00967478882167986
+            },
+            {
+              "index": 1051,
+              "world": [
+                -111.84245081121593,
+                -0.0253959028537951,
+                -84.08719068516258
+              ],
+              "screenPx": [
+                533.1946314991574,
+                543.0452120450561
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.0253959028537951,
+              "gapToCollision": -0.0253959028537951
+            },
+            {
+              "index": 1054,
+              "world": [
+                -111.95443368071075,
+                -0.02621156035293994,
+                -84.08897134459187
+              ],
+              "screenPx": [
+                516.0248987522282,
+                543.0443774297047
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.02621156035293994,
+              "gapToCollision": -0.02621156035293994
+            },
+            {
+              "index": 1055,
+              "world": [
+                -111.95865666131448,
+                0.008859131322535017,
+                -83.83945939084417
+              ],
+              "screenPx": [
+                511.2477487502355,
+                555.8204305254999
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.008859131322535017,
+              "gapToCollision": 0.008859131322535017
+            },
+            {
+              "index": 1062,
+              "world": [
+                -111.95443368071075,
+                -0.02621156035293994,
+                -84.08897134459187
+              ],
+              "screenPx": [
+                516.0248987522282,
+                543.0443774297047
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.02621156035293994,
+              "gapToCollision": -0.02621156035293994
+            },
+            {
+              "index": 1063,
+              "world": [
+                -111.84245081121593,
+                -0.0253959028537951,
+                -84.08719068516258
+              ],
+              "screenPx": [
+                533.1946314991574,
+                543.0452120450561
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.0253959028537951,
+              "gapToCollision": -0.0253959028537951
+            },
+            {
+              "index": 1064,
+              "world": [
+                -111.84667379181965,
+                0.00967478882167986,
+                -83.83767873141488
+              ],
+              "screenPx": [
+                529.6353299681275,
+                555.8279472837087
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.00967478882167986,
+              "gapToCollision": 0.00967478882167986
+            },
+            {
+              "index": 1065,
+              "world": [
+                -111.95865666131448,
+                0.008859131322535017,
+                -83.83945939084417
+              ],
+              "screenPx": [
+                511.2477487502355,
+                555.8204305254999
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.008859131322535017,
+              "gapToCollision": 0.008859131322535017
+            }
+          ]
+        },
+        "R": {
+          "minWorldY": -0.022272590558956255,
+          "maxWorldY": 0.019729334432481357,
+          "minGapToRender": -0.022272590558956255,
+          "maxGapToRender": 0.019729334432481357,
+          "vertices": [
+            {
+              "index": 1214,
+              "world": [
+                -112.21051563105935,
+                0.019729334432481357,
+                -83.84346424490224
+              ],
+              "screenPx": [
+                469.9361454583068,
+                553.779804763831
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.019729334432481357,
+              "gapToCollision": 0.019729334432481357
+            },
+            {
+              "index": 1215,
+              "world": [
+                -112.0987486560035,
+                0.012730487495459492,
+                -83.84168701844862
+              ],
+              "screenPx": [
+                488.2632462423431,
+                555.0315410889649
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.012730487495459492,
+              "gapToCollision": 0.012730487495459492
+            },
+            {
+              "index": 1218,
+              "world": [
+                -112.09697239603697,
+                -0.022272590558956255,
+                -84.09123787793426
+              ],
+              "screenPx": [
+                494.1869543376733,
+                542.3016195589659
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.022272590558956255,
+              "gapToCollision": -0.022272590558956255
+            },
+            {
+              "index": 1219,
+              "world": [
+                -112.20873937109285,
+                -0.015273743621934389,
+                -84.09301510438787
+              ],
+              "screenPx": [
+                477.0725224809372,
+                541.1371569559218
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.015273743621934389,
+              "gapToCollision": -0.015273743621934389
+            },
+            {
+              "index": 1222,
+              "world": [
+                -112.0987486560035,
+                0.012730487495459492,
+                -83.84168701844862
+              ],
+              "screenPx": [
+                488.2632462423431,
+                555.0315410889649
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.012730487495459492,
+              "gapToCollision": 0.012730487495459492
+            },
+            {
+              "index": 1223,
+              "world": [
+                -112.09697239603697,
+                -0.022272590558956255,
+                -84.09123787793426
+              ],
+              "screenPx": [
+                494.1869543376733,
+                542.3016195589659
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.022272590558956255,
+              "gapToCollision": -0.022272590558956255
+            },
+            {
+              "index": 1226,
+              "world": [
+                -112.20873937109285,
+                -0.015273743621934389,
+                -84.09301510438787
+              ],
+              "screenPx": [
+                477.0725224809372,
+                541.1371569559218
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.015273743621934389,
+              "gapToCollision": -0.015273743621934389
+            },
+            {
+              "index": 1227,
+              "world": [
+                -112.21051563105935,
+                0.019729334432481357,
+                -83.84346424490224
+              ],
+              "screenPx": [
+                469.9361454583068,
+                553.779804763831
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.019729334432481357,
+              "gapToCollision": 0.019729334432481357
+            },
+            {
+              "index": 1234,
+              "world": [
+                -112.20873937109285,
+                -0.015273743621934389,
+                -84.09301510438787
+              ],
+              "screenPx": [
+                477.0725224809372,
+                541.1371569559218
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.015273743621934389,
+              "gapToCollision": -0.015273743621934389
+            },
+            {
+              "index": 1235,
+              "world": [
+                -112.09697239603697,
+                -0.022272590558956255,
+                -84.09123787793426
+              ],
+              "screenPx": [
+                494.1869543376733,
+                542.3016195589659
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": -0.022272590558956255,
+              "gapToCollision": -0.022272590558956255
+            },
+            {
+              "index": 1236,
+              "world": [
+                -112.0987486560035,
+                0.012730487495459492,
+                -83.84168701844862
+              ],
+              "screenPx": [
+                488.2632462423431,
+                555.0315410889649
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.012730487495459492,
+              "gapToCollision": 0.012730487495459492
+            },
+            {
+              "index": 1237,
+              "world": [
+                -112.21051563105935,
+                0.019729334432481357,
+                -83.84346424490224
+              ],
+              "screenPx": [
+                469.9361454583068,
+                553.779804763831
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_-3,-2:ash"
+                }
+              },
+              "gapToRender": 0.019729334432481357,
+              "gapToCollision": 0.019729334432481357
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": false
+      }
+    },
+    {
+      "name": "plant",
+      "player": {
+        "position": [
+          -46,
+          0,
+          -102
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          -45.58,
+          1.7336887305552187,
+          -98.41452140296704
+        ],
+        "quaternion": [
+          -0.043619387365336,
+          0,
+          0,
+          0.9990482215818578
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.02500000037252903,
+          "mesh": "chunk_-1,-2:asphalt"
+        }
+      },
+      "exactFootReplay": "not measured: this original view has no recorded bone transforms"
+    },
+    {
+      "name": "survey",
+      "player": {
+        "position": [
+          62,
+          0,
+          -34
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          62.42,
+          1.671123305478851,
+          -30.408769419064633
+        ],
+        "quaternion": [
+          -0.03489949670250097,
+          0,
+          0,
+          0.9993908270190958
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.02500000037252903,
+          "mesh": "chunk_1,-1:asphalt"
+        }
+      },
+      "exactFootReplay": "not measured: this original view has no recorded bone transforms"
+    },
+    {
+      "name": "ventfield",
+      "player": {
+        "position": [
+          82,
+          0,
+          -60
+        ],
+        "yaw": 3.141592653589793,
+        "hp": 120,
+        "dead": false,
+        "grounded": true,
+        "state": "idle",
+        "visible": true
+      },
+      "camera": {
+        "position": [
+          78.40493367488354,
+          1.6084095504840996,
+          -59.58
+        ],
+        "quaternion": [
+          0.018509897659266823,
+          0.7068644733530208,
+          0.018509897659266826,
+          -0.7068644733530207
+        ],
+        "fov": 58,
+        "aspect": 1.7786666666666666,
+        "near": 0.12,
+        "far": 520
+      },
+      "centerSupportGroundStreetsOnly": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0,
+          "mesh": "chunk_1,-2:ash"
+        }
+      },
+      "exactFootReplay": "recorded current local bone/group/mesh transforms; actual current rig and Three getVertexPosition",
+      "feet": {
+        "L": {
+          "minWorldY": -0.024840722806571833,
+          "maxWorldY": 0.011914262085152817,
+          "minGapToRender": -0.024840722806571833,
+          "maxGapToRender": 0.011914262085152817,
+          "vertices": [
+            {
+              "index": 1042,
+              "world": [
+                81.94597553051769,
+                0.010226918577421156,
+                -60.15895473975211
+              ],
+              "screenPx": [
+                480.46568661158227,
+                549.2328229132813
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.010226918577421156,
+              "gapToCollision": 0.010226918577421156
+            },
+            {
+              "index": 1043,
+              "world": [
+                81.83400490778125,
+                0.011914262085152817,
+                -60.15702299925301
+              ],
+              "screenPx": [
+                477.8181428091695,
+                557.1582231534544
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.011914262085152817,
+              "gapToCollision": 0.011914262085152817
+            },
+            {
+              "index": 1046,
+              "world": [
+                81.83778121837105,
+                -0.02315337929884017,
+                -59.907503456834256
+              ],
+              "screenPx": [
+                519.2800868794073,
+                562.5499481514067
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.02315337929884017,
+              "gapToCollision": -0.02315337929884017
+            },
+            {
+              "index": 1047,
+              "world": [
+                81.94975184110749,
+                -0.024840722806571833,
+                -59.90943519733336
+              ],
+              "screenPx": [
+                520.64374105702,
+                554.4703788519577
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.024840722806571833,
+              "gapToCollision": -0.024840722806571833
+            },
+            {
+              "index": 1050,
+              "world": [
+                81.83400490778125,
+                0.011914262085152817,
+                -60.15702299925301
+              ],
+              "screenPx": [
+                477.8181428091695,
+                557.1582231534544
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.011914262085152817,
+              "gapToCollision": 0.011914262085152817
+            },
+            {
+              "index": 1051,
+              "world": [
+                81.83778121837105,
+                -0.02315337929884017,
+                -59.907503456834256
+              ],
+              "screenPx": [
+                519.2800868794073,
+                562.5499481514067
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.02315337929884017,
+              "gapToCollision": -0.02315337929884017
+            },
+            {
+              "index": 1054,
+              "world": [
+                81.94975184110749,
+                -0.024840722806571833,
+                -59.90943519733336
+              ],
+              "screenPx": [
+                520.64374105702,
+                554.4703788519577
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.024840722806571833,
+              "gapToCollision": -0.024840722806571833
+            },
+            {
+              "index": 1055,
+              "world": [
+                81.94597553051769,
+                0.010226918577421156,
+                -60.15895473975211
+              ],
+              "screenPx": [
+                480.46568661158227,
+                549.2328229132813
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.010226918577421156,
+              "gapToCollision": 0.010226918577421156
+            },
+            {
+              "index": 1062,
+              "world": [
+                81.94975184110749,
+                -0.024840722806571833,
+                -59.90943519733336
+              ],
+              "screenPx": [
+                520.64374105702,
+                554.4703788519577
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.024840722806571833,
+              "gapToCollision": -0.024840722806571833
+            },
+            {
+              "index": 1063,
+              "world": [
+                81.83778121837105,
+                -0.02315337929884017,
+                -59.907503456834256
+              ],
+              "screenPx": [
+                519.2800868794073,
+                562.5499481514067
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.02315337929884017,
+              "gapToCollision": -0.02315337929884017
+            },
+            {
+              "index": 1064,
+              "world": [
+                81.83400490778125,
+                0.011914262085152817,
+                -60.15702299925301
+              ],
+              "screenPx": [
+                477.8181428091695,
+                557.1582231534544
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.011914262085152817,
+              "gapToCollision": 0.011914262085152817
+            },
+            {
+              "index": 1065,
+              "world": [
+                81.94597553051769,
+                0.010226918577421156,
+                -60.15895473975211
+              ],
+              "screenPx": [
+                480.46568661158227,
+                549.2328229132813
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.010226918577421156,
+              "gapToCollision": 0.010226918577421156
+            }
+          ]
+        },
+        "R": {
+          "minWorldY": -0.022011439584987837,
+          "maxWorldY": 0.019136241101275243,
+          "minGapToRender": -0.022011439584987837,
+          "maxGapToRender": 0.019136241101275243,
+          "vertices": [
+            {
+              "index": 1214,
+              "world": [
+                82.19790582641788,
+                0.019136241101275243,
+                -60.16330109367644
+              ],
+              "screenPx": [
+                485.8479460207465,
+                531.2051135286705
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.019136241101275243,
+              "gapToCollision": 0.019136241101275243
+            },
+            {
+              "index": 1215,
+              "world": [
+                82.086090272867,
+                0.013007636287305736,
+                -60.16137202846322
+              ],
+              "screenPx": [
+                483.55057618881636,
+                539.2386714573385
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.013007636287305736,
+              "gapToCollision": 0.013007636287305736
+            },
+            {
+              "index": 1218,
+              "world": [
+                82.09231370138417,
+                -0.022011439584987837,
+                -59.911894704232516
+              ],
+              "screenPx": [
+                522.2591957906233,
+                544.1256957503045
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.022011439584987837,
+              "gapToCollision": -0.022011439584987837
+            },
+            {
+              "index": 1219,
+              "world": [
+                82.20412925493505,
+                -0.01588283477101833,
+                -59.913823769445735
+              ],
+              "screenPx": [
+                523.4407189399561,
+                535.9685291843405
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.01588283477101833,
+              "gapToCollision": -0.01588283477101833
+            },
+            {
+              "index": 1222,
+              "world": [
+                82.086090272867,
+                0.013007636287305736,
+                -60.16137202846322
+              ],
+              "screenPx": [
+                483.55057618881636,
+                539.2386714573385
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.013007636287305736,
+              "gapToCollision": 0.013007636287305736
+            },
+            {
+              "index": 1223,
+              "world": [
+                82.09231370138417,
+                -0.022011439584987837,
+                -59.911894704232516
+              ],
+              "screenPx": [
+                522.2591957906233,
+                544.1256957503045
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.022011439584987837,
+              "gapToCollision": -0.022011439584987837
+            },
+            {
+              "index": 1226,
+              "world": [
+                82.20412925493505,
+                -0.01588283477101833,
+                -59.913823769445735
+              ],
+              "screenPx": [
+                523.4407189399561,
+                535.9685291843405
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.01588283477101833,
+              "gapToCollision": -0.01588283477101833
+            },
+            {
+              "index": 1227,
+              "world": [
+                82.19790582641788,
+                0.019136241101275243,
+                -60.16330109367644
+              ],
+              "screenPx": [
+                485.8479460207465,
+                531.2051135286705
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.019136241101275243,
+              "gapToCollision": 0.019136241101275243
+            },
+            {
+              "index": 1234,
+              "world": [
+                82.20412925493505,
+                -0.01588283477101833,
+                -59.913823769445735
+              ],
+              "screenPx": [
+                523.4407189399561,
+                535.9685291843405
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.01588283477101833,
+              "gapToCollision": -0.01588283477101833
+            },
+            {
+              "index": 1235,
+              "world": [
+                82.09231370138417,
+                -0.022011439584987837,
+                -59.911894704232516
+              ],
+              "screenPx": [
+                522.2591957906233,
+                544.1256957503045
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": -0.022011439584987837,
+              "gapToCollision": -0.022011439584987837
+            },
+            {
+              "index": 1236,
+              "world": [
+                82.086090272867,
+                0.013007636287305736,
+                -60.16137202846322
+              ],
+              "screenPx": [
+                483.55057618881636,
+                539.2386714573385
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.013007636287305736,
+              "gapToCollision": 0.013007636287305736
+            },
+            {
+              "index": 1237,
+              "world": [
+                82.19790582641788,
+                0.019136241101275243,
+                -60.16330109367644
+              ],
+              "screenPx": [
+                485.8479460207465,
+                531.2051135286705
+              ],
+              "supportGroundStreetsOnly": {
+                "collision": {
+                  "y": 0,
+                  "tag": "ground"
+                },
+                "render": {
+                  "y": 0,
+                  "mesh": "chunk_1,-2:ash"
+                }
+              },
+              "gapToRender": 0.019136241101275243,
+              "gapToCollision": 0.019136241101275243
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": false
+      }
+    }
+  ],
+  "cpuElapsedMs": 145.727189,
+  "limits": [
+    "Only ground/streets render surfaces and colliders reconstructed; props/buildings/stairs omitted.",
+    "Only four exterior views contain original bone transforms. South, marrow, survey and plant exact foot pose are unmeasured.",
+    "Seed 1 and 97 give identical sole vertices; actual original seed is not recorded. Colour is irrelevant to this geometry replay.",
+    "Three r180 local dependency identity is pinned separately. No GPU/browser/simulator was launched."
+  ],
+  "productionChanges": 0,
+  "comparisons": 0
+}

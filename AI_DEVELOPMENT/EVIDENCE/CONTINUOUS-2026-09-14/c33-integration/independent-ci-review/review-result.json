@@ -1,0 +1,96 @@
+{
+  "scope": "Read-only byte/diff/YAML review of six ci-candidate files. No helper, build, CI or CPU suite reexecuted.",
+  "blockingFindings": [],
+  "reviewedFiles": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/ci-candidate/tools/prepare-audio-product.mjs",
+      "bytes": 12645,
+      "sha256": "53b1e5ffd913d7489627589f3e1d7e9f282f15ba695f81f7ad21492387f1be93",
+      "gitBlob": "5bded35d28bb62d9ce7fe37e81b0932f1b17bbf6"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/ci-candidate/tools/export-webkit-material.mjs",
+      "bytes": 2582,
+      "sha256": "410410ffbf09560d77d8139e4d5b911d295b04d183cf91048648baf36b4611ce",
+      "gitBlob": "481c4ca4007ea4db8e42f157fa671b205ddfee81"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/ci-candidate/.github/workflows/gates.yml",
+      "bytes": 21037,
+      "sha256": "a37da031be6d95aa8ca403afdc11c66c6e76e0f26f5bad401f08225dd8e41749",
+      "gitBlob": "265864b5ca16a447d9b0625d717415cea127ef15"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/ci-candidate/tools/candidates/audio-resume-r2.js",
+      "bytes": 47743,
+      "sha256": "92ee1d3c35fc02d868811ff1c02bb3d1403b4faddef804feb8984c897a037c6e",
+      "gitBlob": "30937b807d5bc93618ab6e625268b15926e1eda5"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/ci-candidate/tools/mobile_character_ground_contact.mjs",
+      "bytes": 7292,
+      "sha256": "3089656aef02dfb1a80e7f5721b558e0789efa1a9957ed8179f0f6f53c030a8e",
+      "gitBlob": "53a4873fe5c409833632841ddb4948e56c607185"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/ci-candidate/tools/mobile_visual_capture.mjs",
+      "bytes": 7247,
+      "sha256": "2afa0734c9fd2c73a3ddc6e45ce548f28b13d472a65c1c4bbed804007d60f3f5",
+      "gitBlob": "0f916cffd0a621fb8760312526d8a40fc7ead089"
+    }
+  ],
+  "prepareOnlyFiveDeclaredReplacements": true,
+  "unchangedBuildInputPins": 47,
+  "originalBundlePin": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+  "unchangedExistingJobs": [
+    "f2-state-update",
+    "f3-core",
+    "f3-safari",
+    "f3-execution",
+    "f5-review-record",
+    "narrative-material",
+    "comparison-e16-q35",
+    "light-direction-trial",
+    "e9-reader-recovery",
+    "prepare-reviewed-light",
+    "prepare-e9-readable",
+    "comparison-e9-q35",
+    "grain-strength-trial",
+    "prepare-grain-product",
+    "recover-ios-audio-c29"
+  ],
+  "prepareJobOnlyMarkerAndOutputRename": true,
+  "workflowTopLevelUnchanged": true,
+  "newJobExplicitSinglePushDiagnostic": true,
+  "exportOnlyAddsTenExpectedContactNamesWhenEnabled": true,
+  "old2MiBCapOffsetsShaAndFailureExitUnchanged": true,
+  "twoContactToolsMatchPriorFrozenCandidate": true,
+  "combinedAudioMatchesAuthorsComposite": true,
+  "existingEvidenceRead": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/safari-audio-resume-ultra/verification.json",
+      "sha256": "cda279bf2cc095ced44bbdfeb3d9d6762b4041059795ec676970ab8649a2f3fb",
+      "checks": 35,
+      "rerunByThisReviewer": false
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c33/export-verification.json",
+      "sha256": "0e7a505c807a11be36c140378ef6e96f192e909e4304a590c03415dc89d786fe",
+      "roundtripFiles": 20,
+      "missingRejected": true,
+      "rerunByThisReviewer": false
+    }
+  ],
+  "limitations": [
+    "No actual new candidate build, Safari recovery or contact render is measured here.",
+    "Complete outgoing commit tree and raw 239 archive entries are outside this six-file review.",
+    "Artifact upload uses missing-files warn; the preceding always-run exporter still fails the job for absent expected files."
+  ],
+  "reviewCheckerCorrection": "Initial comparison assumed old marker [prepare-audio-product]; canonical baseline actually uses [prepare-audio-product-r1]. Corrected the read-only checker, not the candidate. That initial assertion supplied no passing review result.",
+  "candidateEdits": 0,
+  "newCI": 0,
+  "remoteWrites": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "comparisons": 0
+}

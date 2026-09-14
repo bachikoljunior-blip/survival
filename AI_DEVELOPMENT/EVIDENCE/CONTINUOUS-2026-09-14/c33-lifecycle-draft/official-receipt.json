@@ -1,0 +1,70 @@
+{
+  "recordedAt": "2026-09-14T15:20:41.018Z",
+  "reviewer": "/root/integration_decisions_ultra_v2/audio_candidate_review_ultra",
+  "role": "Finite lifecycle helper implementation; integration and independent review reserved to parent",
+  "repo": "bachikoljunior-blip/survival",
+  "head": "b0f1dfb9860dbc00018c0c587d8f0934fadb6604",
+  "instructions": [
+    {
+      "path": "AGENTS.md",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/AGENTS.md",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be"
+    },
+    {
+      "path": "CLAUDE.md",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/CLAUDE.md",
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f"
+    },
+    {
+      "path": "SESSION_STATE.yaml",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "gitBlob": "9b13960a09b86fe67315b9f9e47465ae8ee8bd1a"
+    }
+  ],
+  "productReads": [
+    {
+      "path": "ios_audio_capture.mjs",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/tools/ios_audio_capture.mjs",
+      "gitBlob": "48f3da9840e547514246ab344b02b35e91f9a542"
+    },
+    {
+      "path": "test-ios-safari.mjs",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/tools/test-ios-safari.mjs",
+      "gitBlob": "cef06ffbc780b4e688758b84d0782bd42e103702"
+    },
+    {
+      "path": "game.js",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/src/game/game.js",
+      "gitBlob": "8b7e97ab9abf7c08b9c84da100188f5f221caf80"
+    },
+    {
+      "path": "screens.js",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/src/ui/screens.js",
+      "gitBlob": "a01584311f7408a4c1b0c21feedd6e67b890ee8b"
+    },
+    {
+      "path": "mobile_audio_capture.mjs",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/b0f1dfb9860dbc00018c0c587d8f0934fadb6604/tools/mobile_audio_capture.mjs",
+      "gitBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa"
+    }
+  ],
+  "accepted": {
+    "instruction": "ULTRA-CHILDREN-20260914-v3",
+    "remoteWriter": "/root/integration_decisions_ultra_v2",
+    "newWriteScope": "/workspace/scratch/0b7ad82bafe7/ios-audio-lifecycle-check-ultra",
+    "remoteMutations": 0,
+    "automation": 0,
+    "CI": 0,
+    "newAgents": 0
+  },
+  "unchanged": {
+    "elements": 19,
+    "references": 10,
+    "criteria": 71,
+    "allElements": "not measured",
+    "validBlind": 0,
+    "workCompleted": 0,
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  }
+}

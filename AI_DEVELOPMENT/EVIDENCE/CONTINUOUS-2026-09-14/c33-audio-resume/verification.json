@@ -1,0 +1,394 @@
+{
+  "scope": "Exact Audio constructor, _installUnlock, _create and update against inert WebAudio nodes and a CPU event bus. Fixture isTrusted fields simulate branches; no browser gesture, audio output, simulator, recording or real resume is claimed.",
+  "checks": [
+    {
+      "name": "original later suspended context behavior reproduced",
+      "passed": true
+    },
+    {
+      "name": "original no second context created",
+      "passed": true
+    },
+    {
+      "name": "original real-handler resume call count",
+      "passed": true
+    },
+    {
+      "name": "candidate later suspended context behavior reproduced",
+      "passed": true
+    },
+    {
+      "name": "candidate no second context created",
+      "passed": true
+    },
+    {
+      "name": "candidate real-handler resume call count",
+      "passed": true
+    },
+    {
+      "name": "reviewed22 later suspended context behavior reproduced",
+      "passed": true
+    },
+    {
+      "name": "reviewed22 no second context created",
+      "passed": true
+    },
+    {
+      "name": "reviewed22 real-handler resume call count",
+      "passed": true
+    },
+    {
+      "name": "composite later suspended context behavior reproduced",
+      "passed": true
+    },
+    {
+      "name": "composite no second context created",
+      "passed": true
+    },
+    {
+      "name": "composite real-handler resume call count",
+      "passed": true
+    },
+    {
+      "name": "original rejected initial resume is not treated as a running context",
+      "passed": true
+    },
+    {
+      "name": "original later gesture handles initial rejection without recreation",
+      "passed": true
+    },
+    {
+      "name": "candidate rejected initial resume is not treated as a running context",
+      "passed": true
+    },
+    {
+      "name": "candidate later gesture handles initial rejection without recreation",
+      "passed": true
+    },
+    {
+      "name": "reviewed22 rejected initial resume is not treated as a running context",
+      "passed": true
+    },
+    {
+      "name": "reviewed22 later gesture handles initial rejection without recreation",
+      "passed": true
+    },
+    {
+      "name": "composite rejected initial resume is not treated as a running context",
+      "passed": true
+    },
+    {
+      "name": "composite later gesture handles initial rejection without recreation",
+      "passed": true
+    },
+    {
+      "name": "candidate untrusted initial events neither create nor resume",
+      "passed": true
+    },
+    {
+      "name": "candidate untrusted later events cannot resume existing context",
+      "passed": true
+    },
+    {
+      "name": "candidate every retained genuine-input handler resumes same context synchronously",
+      "passed": true
+    },
+    {
+      "name": "candidate running context ignores repeated gesture events",
+      "passed": true
+    },
+    {
+      "name": "candidate closed context is preserved without resume or replacement",
+      "passed": true
+    },
+    {
+      "name": "candidate update does not poll or resume a suspended context",
+      "passed": true
+    },
+    {
+      "name": "composite untrusted initial events neither create nor resume",
+      "passed": true
+    },
+    {
+      "name": "composite untrusted later events cannot resume existing context",
+      "passed": true
+    },
+    {
+      "name": "composite every retained genuine-input handler resumes same context synchronously",
+      "passed": true
+    },
+    {
+      "name": "composite running context ignores repeated gesture events",
+      "passed": true
+    },
+    {
+      "name": "composite closed context is preserved without resume or replacement",
+      "passed": true
+    },
+    {
+      "name": "composite update does not poll or resume a suspended context",
+      "passed": true
+    },
+    {
+      "name": "baseline every other Audio method byte-identical",
+      "passed": true
+    },
+    {
+      "name": "reviewed22 every other Audio method byte-identical",
+      "passed": true
+    },
+    {
+      "name": "same exact unlock repair in both candidate versions",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "name": "original",
+      "case": "later-suspension",
+      "state": "suspended",
+      "ready": true,
+      "unlocked": true,
+      "contexts": 1,
+      "resumeCalls": [],
+      "gestureListeners": [
+        {
+          "type": "pointerdown",
+          "count": 0
+        },
+        {
+          "type": "keydown",
+          "count": 0
+        },
+        {
+          "type": "touchstart",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "name": "candidate",
+      "case": "later-suspension",
+      "state": "running",
+      "ready": true,
+      "unlocked": true,
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        }
+      ],
+      "gestureListeners": [
+        {
+          "type": "pointerdown",
+          "count": 1
+        },
+        {
+          "type": "keydown",
+          "count": 1
+        },
+        {
+          "type": "touchstart",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "reviewed22",
+      "case": "later-suspension",
+      "state": "suspended",
+      "ready": true,
+      "unlocked": true,
+      "contexts": 1,
+      "resumeCalls": [],
+      "gestureListeners": [
+        {
+          "type": "pointerdown",
+          "count": 0
+        },
+        {
+          "type": "keydown",
+          "count": 0
+        },
+        {
+          "type": "touchstart",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "name": "composite",
+      "case": "later-suspension",
+      "state": "running",
+      "ready": true,
+      "unlocked": true,
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        }
+      ],
+      "gestureListeners": [
+        {
+          "type": "pointerdown",
+          "count": 1
+        },
+        {
+          "type": "keydown",
+          "count": 1
+        },
+        {
+          "type": "touchstart",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "original",
+      "case": "initial-resume-rejection",
+      "state": "suspended",
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "candidate",
+      "case": "initial-resume-rejection",
+      "state": "running",
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        },
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "touchstart",
+            "isTrusted": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "reviewed22",
+      "case": "initial-resume-rejection",
+      "state": "suspended",
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "composite",
+      "case": "initial-resume-rejection",
+      "state": "running",
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        },
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "touchstart",
+            "isTrusted": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "candidate",
+      "case": "event-trust-and-closed-state",
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        },
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "keydown",
+            "isTrusted": true
+          }
+        },
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "touchstart",
+            "isTrusted": true
+          }
+        }
+      ],
+      "stateAfterUpdates": "suspended"
+    },
+    {
+      "name": "composite",
+      "case": "event-trust-and-closed-state",
+      "contexts": 1,
+      "resumeCalls": [
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "pointerdown",
+            "isTrusted": true
+          }
+        },
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "keydown",
+            "isTrusted": true
+          }
+        },
+        {
+          "state": "suspended",
+          "activation": {
+            "type": "touchstart",
+            "isTrusted": true
+          }
+        }
+      ],
+      "stateAfterUpdates": "suspended"
+    }
+  ],
+  "pins": {
+    "source": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "candidate": "1a59d2b7389d4acc0fab146466525bd6e53b72b6dcb0e4048d50bea753b5dfc8",
+    "reviewed-source": "22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7",
+    "composite": "92ee1d3c35fc02d868811ff1c02bb3d1403b4faddef804feb8984c897a037c6e"
+  },
+  "status": "passed for bounded CPU defect/candidate controls; actual Safari effectiveness not measured"
+}

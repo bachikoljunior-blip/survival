@@ -467,7 +467,7 @@ jobs:
 
   prepare-audio-product:
     name: Prepare exact audio product source and root
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-audio-product-r2]')
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-audio-product-r1]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -491,48 +491,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: audio-product-build-r2-${{ github.sha }}
-          path: test-results/audio-product-build-r2
+          name: audio-product-build-r1-${{ github.sha }}
+          path: test-results/audio-product-build-r1
           if-no-files-found: error
-          retention-days: 14
-
-  character-ground-contact:
-    name: Frozen character ground contact diagnosis
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[character-contact-c33-r1]')
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    permissions:
-      contents: read
-    env:
-      CINDERLINE_VISUAL_ONLY: '1'
-      CINDERLINE_CHARACTER_CONTACT: '1'
-      CINDERLINE_WEBKIT_OUTPUT: test-results/character-contact-c33-r1
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-      - run: npm ci
-      - name: Check the bounded diagnostic helper syntax
-        run: |
-          node --check tools/mobile_character_ground_contact.mjs
-          node --check tools/mobile_visual_capture.mjs
-          node --check tools/test-iphone-webkit.mjs
-          node --check tools/export-webkit-material.mjs
-      - run: npx playwright install --with-deps webkit
-      - name: Render the fixed poses and isolated shadow-bias controls
-        run: npm run test:iphone-webkit
-      - name: Export the original diagnostic frames and control results
-        if: always()
-        run: node tools/export-webkit-material.mjs
-      - name: Preserve unmodified diagnostic frames and execution evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: character-contact-c33-r1-${{ github.sha }}
-          path: test-results/character-contact-c33-r1
-          if-no-files-found: warn
           retention-days: 14

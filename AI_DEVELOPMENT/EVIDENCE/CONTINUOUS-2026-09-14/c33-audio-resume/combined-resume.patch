@@ -1,0 +1,26 @@
+--- a/src/audio/audio.js
++++ b/src/audio/audio.js
+@@ -108,14 +108,16 @@
+   // ------------------------------------------------------------------ boot
+ 
+   _installUnlock() {
+-    const unlock = () => {
+-      if (this.unlocked) return;
++    const unlock = (event) => {
++      if (!event?.isTrusted) return;
+       try {
+-        this._create();
+-        this.unlocked = true;
+-        window.removeEventListener('pointerdown', unlock);
+-        window.removeEventListener('keydown', unlock);
+-        window.removeEventListener('touchstart', unlock);
++        if (!this.unlocked) {
++          this._create();
++          this.unlocked = true;
++        } else if (this.ctx?.state === 'suspended') {
++          // Keep the same context recoverable inside a later real gesture.
++          this.ctx.resume().catch(() => {});
++        }
+       } catch (e) {
+         console.warn('[audio] unlock failed', e);
+       }

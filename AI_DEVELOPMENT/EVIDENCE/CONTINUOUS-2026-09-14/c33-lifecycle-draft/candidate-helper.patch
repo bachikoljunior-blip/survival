@@ -1,0 +1,117 @@
+--- a/tools/ios_audio_capture.mjs
++++ b/tools/ios_audio_capture.mjs
+@@ -120,6 +120,68 @@
+     build: C.build,
+     limitations: 'API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations.',
+   };
++}
++
++/** Programmatic production-menu checks after recording; no new audio source,
++ * recording, mix change, manual clock step, or Audio.update call is made. */
++export async function inspectIosAudioLifecycle({ evaluate, waitFrames, check, evidence }) {
++  const lifecycle = evidence.lifecycle = {
++    status: 'started', samples: [],
++    scope: 'Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target.',
++  };
++  const interior = { wind: 0.08, burn: 0.18, hiss: 0.02, hum: 0.25, room: 0.9 };
++  const street = { wind: 0.7, burn: 0.5, hiss: 0.05, hum: 0.15, room: 0 };
++  const stages = [
++    ['arcade', null, 'play', false, false, 'interior', interior],
++    ['game-pause', 'pause', 'menu', false, true, 'interior', interior],
++    ['title', 'title', 'title', false, false, 'street', street],
++    ['title-settings', 'settings', 'title', true, true, 'street', street],
++    ['title-close', 'close', 'title', false, false, 'street', street],
++  ];
++  let reportedFailure = false;
++  try {
++    for (const [stage, action, mode, fromTitle, pauseOpen, ambience, targets] of stages) {
++      if (action) await evaluate(async action => {
++        const g = window.CINDERLINE.game;
++        if (action === 'pause') g.emit('ui:menu');
++        else if (action === 'title') await g.toTitle();
++        else if (action === 'settings') g.menus.openPause('settings', true);
++        else if (action === 'close') g.menus.closePause();
++        else throw new Error('Unknown audio lifecycle operation');
++      }, action);
++      await waitFrames(2);
++      const observed = await evaluate(() => {
++        const C = window.CINDERLINE, g = C.game, a = g.audio;
++        return {
++          wallMs: performance.now(), engineFrame: C.engine.frame, engineTime: C.engine.time,
++          audioTime: a.ctx?.currentTime ?? null, audioState: a.ctx?.state ?? null,
++          ready: a.ready, unlocked: a.unlocked, activeRecording: Boolean(C.__audioRecording),
++          mode: g.mode, fromTitle: Boolean(g.menus.fromTitle), pauseOpen: Boolean(g.menus.pauseOpen),
++          currentInterior: g.director.currentInterior, region: g.zone?.id ?? null,
++          position: g.player.pos.toArray(), ambience: a.ambienceState,
++          layerTargets: Object.fromEntries(['wind', 'burn', 'hiss', 'hum', 'room']
++            .map(k => [k, a.ambLayers?.[k]?.target ?? null])),
++          reverbGainValues: Object.fromEntries(Object.entries(a.reverbs || {})
++            .map(([k, value]) => [k, value.gain.gain.value])),
++        };
++      });
++      lifecycle.samples.push({ stage, action, ...observed });
++      const passed = observed.ready && observed.unlocked && observed.audioState === 'running'
++        && !observed.activeRecording && observed.currentInterior === 'arcade'
++        && observed.mode === mode && observed.fromTitle === fromTitle && observed.pauseOpen === pauseOpen
++        && observed.ambience === ambience && Object.entries(targets).every(([k, v]) =>
++          Number.isFinite(observed.layerTargets[k]) && Math.abs(observed.layerTargets[k] - v) < 1e-12);
++      if (!passed) reportedFailure = true;
++      check(passed, `iOS audio lifecycle ${stage}: production state and authored targets agree`,
++        JSON.stringify({ expected: { mode, fromTitle, pauseOpen, ambience, targets }, observed }));
++      if (!passed) throw new Error(`iOS audio lifecycle mismatch at ${stage}; later operations not attempted`);
++    }
++    lifecycle.status = 'checked';
++  } catch (error) {
++    lifecycle.status = 'failed'; lifecycle.error = error.message || String(error);
++    if (!reportedFailure) check(false, 'iOS audio lifecycle: programmatic boundary inspection completed', lifecycle.error);
++    throw error;
++  }
+ }
+ 
+ export async function captureIosAudio({ execute, tap, moveForCapture, releaseActions,
+@@ -176,10 +238,28 @@
+     },
+   };
+   const captureReport = { browser: 'iOS Simulator Mobile Safari' };
++  const failuresBeforeCapture = report.failures?.length || 0;
++  let captureCheckFailed = false;
++  const captureCheck = (condition, ...args) => {
++    if (!condition) captureCheckFailed = true;
++    return check(condition, ...args);
++  };
+   let failure;
+   try {
+-    await captureMobileAudio({ page, root, output, check, report: captureReport,
++    await captureMobileAudio({ page, root, output, check: captureCheck, report: captureReport,
+       waitFrames: (_page, count) => waitFrames(count) });
++    const clips = captureReport.audioCapture?.clips || [];
++    const completed = !captureCheckFailed && (report.failures?.length || 0) === failuresBeforeCapture
++      && captureReport.audioCapture?.status === 'captured' && clips.length === 3
++      && clips.every(clip => clip.timing?.captureClockGuardPassed === true && clip.timing?.telemetryComplete === true)
++      && clips.at(-1)?.placed?.interior === 'arcade';
++    check(completed, 'iOS audio lifecycle: original three recordings completed before boundary operations',
++      JSON.stringify({ status: captureReport.audioCapture?.status, clips: clips.length, captureCheckFailed,
++        timing: clips.map(clip => ({ captureClockGuardPassed: clip.timing?.captureClockGuardPassed,
++          telemetryComplete: clip.timing?.telemetryComplete })),
++        lastInterior: clips.at(-1)?.placed?.interior, newFailures: (report.failures?.length || 0) - failuresBeforeCapture }));
++    if (!completed) throw new Error('Original iOS audio capture did not complete successfully; lifecycle operations not attempted');
++    await inspectIosAudioLifecycle({ evaluate, waitFrames, check, evidence: captureReport.audioCapture });
+   } catch (error) { failure = error; }
+   finally {
+     const cleanupErrors = [];
+@@ -200,6 +280,7 @@
+     } catch (error) { cleanupErrors.push(error.message); }
+     report.audioCapture = captureReport.audioCapture || { clips: [] };
+     const evidence = report.audioCapture;
++    evidence.lifecycle ||= { status: 'not run', reason: 'Original acquisition did not complete successfully; no boundary operation was attempted.' };
+     evidence.provenance = provenance;
+     evidence.scope = 'Actual iOS Simulator Mobile Safari production compressor output and simultaneous native canvas video, using the unchanged shared recorder. Placement is programmatic; street movement is one trusted native stick gesture. Canvas video excludes DOM HUD. This is acquisition, not physical-device audio or a blind quality comparison.';
+     evidence.transport = { command: '/execute/sync', asyncWork: 'page-side promise + status polling',
+@@ -225,6 +306,7 @@
+ export function iosAudioLogSummary(report) {
+   return { status: report.status, checks: report.checks, failures: report.failures,
+     capabilities: report.safariAudioCapabilities, provenance: report.audioCapture?.provenance,
++    lifecycle: report.audioCapture?.lifecycle,
+     captureStatus: report.audioCapture?.status, comparison: report.audioCapture?.comparison,
+     clips: (report.audioCapture?.clips || []).map(clip => ({ name: clip.name, path: clip.path,
+       bytes: clip.bytes, sha256: clip.sha256, mime: clip.mime, timing: clip.timing,

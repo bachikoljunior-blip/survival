@@ -1,0 +1,60 @@
+{
+  "status": "local verification and independent six-file save review complete",
+  "baseCommit": "b0f1dfb9860dbc00018c0c587d8f0934fadb6604",
+  "soleWriter": "/root/integration_decisions_ultra_v2",
+  "parentRemoteWrites": 0,
+  "scope": "Prepare reviewed combined audio in disposable CI and acquire original fixed-pose contact controls; source/root81c and required Safari unchanged. No product adoption or element verdict.",
+  "actualBuildReady": {
+    "source": "22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7",
+    "root": "239007002bcd9e126ce8fcc87f94f19b4ae4c779af512c7ce4b1fb8eec253ddf",
+    "adopted": false,
+    "reason": "New exact PR failure reveals missing subsequent-gesture AudioContext resume path; compose repair before adoption"
+  },
+  "nextBuildSource": "92ee1d3c35fc02d868811ff1c02bb3d1403b4faddef804feb8984c897a037c6e",
+  "verification": {
+    "resumeAuthor": 35,
+    "resumeIndependentCopy": 35,
+    "lifecycleAuthor": 80,
+    "lifecycleIndependentCopy": 80,
+    "draft239IndependentReviewBlockingFindings": 0,
+    "prepared239PinsAndOldEvidenceRejection": true,
+    "contactAuthor": 11,
+    "contactIndependentCopy": 11,
+    "preparationInputsAndTransport": 7,
+    "webkitExportExpectedFiles": 20,
+    "missingContactPngRejected": true,
+    "unchangedExistingWorkflowJobs": 15,
+    "strictSessionAllValuesRoundtrip": true,
+    "workAndElementsUnchanged": true
+  },
+  "latestPR": {
+    "number": 16,
+    "SafariJob": 104030064163,
+    "F3Job": 104037770034,
+    "Safari": "failure: existing context suspended, original clips0",
+    "F3": "failure",
+    "main": "5456371249f5769c25d18f1686a44349e4292d6f"
+  },
+  "unmeasured": [
+    "combined audio build",
+    "combined actual Safari recovery",
+    "lifecycle actual Safari",
+    "contact GPU causal effect",
+    "listening",
+    "valid independent comparison"
+  ],
+  "files": {
+    "AI_DEVELOPMENT/SESSION_STATE.yaml": "ae149e94e092b60130af7443e3401f7f13ea57f45873a39bd6fb817eb4ca6429",
+    "tools/export-webkit-material.mjs": "410410ffbf09560d77d8139e4d5b911d295b04d183cf91048648baf36b4611ce",
+    "tools/prepare-audio-product.mjs": "53b1e5ffd913d7489627589f3e1d7e9f282f15ba695f81f7ad21492387f1be93",
+    "tools/mobile_visual_capture.mjs": "2afa0734c9fd2c73a3ddc6e45ce548f28b13d472a65c1c4bbed804007d60f3f5",
+    "tools/mobile_character_ground_contact.mjs": "3089656aef02dfb1a80e7f5721b558e0789efa1a9957ed8179f0f6f53c030a8e",
+    ".github/workflows/gates.yml": "a37da031be6d95aa8ca403afdc11c66c6e76e0f26f5bad401f08225dd8e41749",
+    "tools/candidates/audio-resume-r2.js": "92ee1d3c35fc02d868811ff1c02bb3d1403b4faddef804feb8984c897a037c6e"
+  },
+  "independentSaveReview": {
+    "blockingFindings": 0,
+    "resultSha256": "1153811789574e46260f4ca5163b05c46eeb642f8fd16d2a91f3759f7ec5edcb",
+    "reviewedFiles": 6
+  }
+}

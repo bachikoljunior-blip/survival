@@ -1,0 +1,210 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "name": "iPhone SE 3 landscape width",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":325}"
+    },
+    {
+      "name": "Mobile Safari landscape height",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":325}"
+    },
+    {
+      "name": "iPhone SE 3 DPR",
+      "passed": true,
+      "detail": "dpr=2"
+    },
+    {
+      "name": "landscape touch surface is active",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}"
+    },
+    {
+      "name": "actual Mobile Safari user agent is active",
+      "passed": true,
+      "detail": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "name": "production engine starts in Mobile Safari",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}"
+    },
+    {
+      "name": "render canvas fills the Safari content viewport",
+      "passed": true,
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":325}"
+    },
+    {
+      "name": "title has no horizontal overflow",
+      "passed": true,
+      "detail": "{\"documentWidth\":667,\"viewportWidth\":667,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]}"
+    },
+    {
+      "name": "title controls meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]"
+    },
+    {
+      "name": "trusted Mobile Safari tap starts a new game",
+      "passed": true,
+      "detail": "[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815872,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815872,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"click\",\"trusted\":true,\"pointerType\":\"mouse\",\"pointerId\":623815872,\"x\":560,\"y\":105,\"activeTouches\":0,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]"
+    },
+    {
+      "name": "all required touch controls are present",
+      "passed": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "every gameplay control is visible and touch-sized",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":257,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":268,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":201,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":203,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":245,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "two trusted touch contacts overlap in Safari",
+      "passed": true,
+      "detail": "[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815872,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815872,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"click\",\"trusted\":true,\"pointerType\":\"mouse\",\"pointerId\":623815872,\"x\":560,\"y\":105,\"activeTouches\":0,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815873,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815874,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815874,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815875,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815875,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":623815873,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]"
+    },
+    {
+      "name": "trusted two-thumb movement moves the player",
+      "passed": true,
+      "detail": "distance=0.7033"
+    },
+    {
+      "name": "trusted second thumb attacks during movement",
+      "passed": true,
+      "detail": "attacks=2"
+    },
+    {
+      "name": "trusted touch release clears movement and attack",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-84.70325096062993,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "trusted interaction leaves finite player state",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-84.70325096062993,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "trusted right-thumb drag moves the camera",
+      "passed": true,
+      "detail": "delta=0.19631"
+    },
+    {
+      "name": "pause actions are touch-sized in Safari",
+      "passed": true,
+      "detail": "[{\"index\":0,\"text\":\"SAVE\",\"x\":8,\"y\":269,\"width\":51.65625,\"height\":44},{\"index\":1,\"text\":\"TITLE\",\"x\":65.65625,\"y\":269,\"width\":53.015625,\"height\":44},{\"index\":2,\"text\":\"RESUME\",\"x\":590.578125,\"y\":269,\"width\":68.421875,\"height\":44}]"
+    },
+    {
+      "name": "turning to portrait blocks input and pauses play",
+      "passed": true,
+      "detail": "{\"prompt\":true,\"paused\":true,\"portrait\":true}"
+    },
+    {
+      "name": "returning to landscape restores play",
+      "passed": true,
+      "detail": "{\"paused\":false,\"landscape\":true}"
+    },
+    {
+      "name": "saved run exposes a touch-sized Continue action",
+      "passed": true,
+      "detail": "{\"x\":569,\"y\":81.5,\"width\":180,\"height\":44}"
+    },
+    {
+      "name": "Safari refresh and Continue restore the saved position",
+      "passed": true,
+      "detail": "distance=0.0000, bytes=1858"
+    },
+    {
+      "name": "Safari soak remains live with finite state and no captured game faults",
+      "passed": true,
+      "detail": "{\"frame\":2278,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"low\",\"p50\":17,\"p90\":23,\"p99\":38,\"fps50\":58.8235294117647,\"fps90\":43.47826086956522,\"draws\":58,\"tris\":103663,\"programs\":43,\"textures\":49,\"geometries\":88,\"res\":\"720x351\",\"css\":\"667x325\",\"dpr\":1.5},\"faults\":0,\"framesAdvanced\":221}"
+    },
+    {
+      "name": "Safari soak keeps producing frames",
+      "passed": true,
+      "detail": "advanced=221"
+    },
+    {
+      "name": "Safari renderer submits non-empty geometry",
+      "passed": true,
+      "detail": "{\"tier\":\"low\",\"p50\":17,\"p90\":23,\"p99\":38,\"fps50\":58.8235294117647,\"fps90\":43.47826086956522,\"draws\":58,\"tris\":103663,\"programs\":43,\"textures\":49,\"geometries\":88,\"res\":\"720x351\",\"css\":\"667x325\",\"dpr\":1.5}"
+    },
+    {
+      "name": "no captured Mobile Safari runtime errors",
+      "passed": true,
+      "detail": "{\"errorsBeforeReload\":[],\"errorsAfterReload\":[]}"
+    },
+    {
+      "name": "iOS audio: actual Safari exposes the required recording APIs after a trusted gesture",
+      "passed": false,
+      "detail": "{\"checkedWallMs\":95710.00000000001,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"secureContext\":true,\"audioContextConstructor\":true,\"webkitAudioContextConstructor\":false,\"productionContext\":true,\"ready\":true,\"unlocked\":true,\"state\":\"suspended\",\"sampleRate\":48000,\"outputChannels\":2,\"createMediaStreamDestination\":true,\"compressorConnect\":true,\"mediaStream\":true,\"mediaRecorder\":true,\"mediaRecorderIsTypeSupported\":true,\"canvasCaptureStream\":true,\"blobArrayBuffer\":true,\"mimeTypes\":[{\"mime\":\"video/mp4\",\"supported\":true},{\"mime\":\"video/webm;codecs=vp8,opus\",\"supported\":true},{\"mime\":\"video/webm\",\"supported\":true}],\"supportedMime\":\"video/mp4\",\"observedTrustedTouch\":true,\"build\":\"1.0.0\",\"limitations\":\"API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations.\"}"
+    }
+  ],
+  "failures": [
+    "iOS audio: actual Safari exposes the required recording APIs after a trusted gesture: {\"checkedWallMs\":95710.00000000001,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"secureContext\":true,\"audioContextConstructor\":true,\"webkitAudioContextConstructor\":false,\"productionContext\":true,\"ready\":true,\"unlocked\":true,\"state\":\"suspended\",\"sampleRate\":48000,\"outputChannels\":2,\"createMediaStreamDestination\":true,\"compressorConnect\":true,\"mediaStream\":true,\"mediaRecorder\":true,\"mediaRecorderIsTypeSupported\":true,\"canvasCaptureStream\":true,\"blobArrayBuffer\":true,\"mimeTypes\":[{\"mime\":\"video/mp4\",\"supported\":true},{\"mime\":\"video/webm;codecs=vp8,opus\",\"supported\":true},{\"mime\":\"video/webm\",\"supported\":true}],\"supportedMime\":\"video/mp4\",\"observedTrustedTouch\":true,\"build\":\"1.0.0\",\"limitations\":\"API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations.\"}",
+    "Error: Actual Mobile Safari lacks a required audio/video acquisition capability; no substitute clip created\n    at Object.tap (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:161:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async captureMobileAudio (file:///Users/runner/work/survival/survival/tools/mobile_audio_capture.mjs:28:5)\n    at async Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:181:5)\n    at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:474:5"
+  ],
+  "capabilities": {
+    "checkedWallMs": 95710.00000000001,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+    "secureContext": true,
+    "audioContextConstructor": true,
+    "webkitAudioContextConstructor": false,
+    "productionContext": true,
+    "ready": true,
+    "unlocked": true,
+    "state": "suspended",
+    "sampleRate": 48000,
+    "outputChannels": 2,
+    "createMediaStreamDestination": true,
+    "compressorConnect": true,
+    "mediaStream": true,
+    "mediaRecorder": true,
+    "mediaRecorderIsTypeSupported": true,
+    "canvasCaptureStream": true,
+    "blobArrayBuffer": true,
+    "mimeTypes": [
+      {
+        "mime": "video/mp4",
+        "supported": true
+      },
+      {
+        "mime": "video/webm;codecs=vp8,opus",
+        "supported": true
+      },
+      {
+        "mime": "video/webm",
+        "supported": true
+      }
+    ],
+    "supportedMime": "video/mp4",
+    "observedTrustedTouch": true,
+    "build": "1.0.0",
+    "limitations": "API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations."
+  },
+  "provenance": {
+    "preparedFromCommit": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+    "preparationReportSha256": "8c1f211d5179aa60c97a6e641718be589f816695d5f32245d48f9d6f7101f4ad",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "recorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+      "dist/cinderline.1.0.0.js": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3"
+    },
+    "actualRecorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "helperSha256": "56acb917913e27d3763ad99ae81d83788b503aebdd2210ae196c0e4f3cbfd4e4",
+    "harnessSha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+    "runCommit": "5201361da890fd933321554fd12943bfa1ffada3",
+    "runId": "34860196568",
+    "runAttempt": "1"
+  },
+  "captureStatus": "not measured",
+  "comparison": {
+    "status": "not measured",
+    "reason": "Requires decoding, three-clock inspection, successful stereo listening and a valid reference comparison."
+  },
+  "clips": []
+}

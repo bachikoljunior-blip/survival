@@ -56,14 +56,14 @@ export const INPUTS = Object.freeze({
   "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
 });
 export const SOURCE = 'src/audio/audio.js';
-export const CANDIDATE_FILE = 'tools/candidates/audio-resume-r2.js';
-export const CANDIDATE_SOURCE = '92ee1d3c35fc02d868811ff1c02bb3d1403b4faddef804feb8984c897a037c6e';
+export const CANDIDATE_FILE = 'tools/candidates/audio-interior-r1.js';
+export const CANDIDATE_SOURCE = '22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7';
 export const ORIGINAL_BUNDLE = '81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3';
 export const FILES = [SOURCE, 'cinderline.1.0.0.js', 'index.html', 'styles.css', 'manifest.webmanifest', 'icon.svg', '.nojekyll'];
 export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const gitBlob = bytes => createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 const MAX_BYTES = 4 * 1024 * 1024;
-const OUTPUT = 'test-results/audio-product-build-r2';
+const OUTPUT = 'test-results/audio-product-build-r1';
 export function changedSource(original, candidate) {
   if (hash(original) !== INPUTS[SOURCE]) throw Error('Unreviewed source baseline');
   if (hash(candidate) !== CANDIDATE_SOURCE) throw Error('Unreviewed candidate source');
@@ -103,10 +103,10 @@ export function exportPrepared(root, emit = line => console.log(line)) {
 export function prepare(root) {
   const output = join(root, OUTPUT); mkdirSync(output, { recursive: true });
   const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
-  const report = { schema_version: 1, sourceCommit: git(['rev-parse','HEAD']), sourceBaseline: 'b0f1dfb9860dbc00018c0c587d8f0934fadb6604',
+  const report = { schema_version: 1, sourceCommit: git(['rev-parse','HEAD']), sourceBaseline: '0abe4628947064fe811ed842face2018b87d5bf5',
     runId: process.env.GITHUB_RUN_ID || null, runAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
     node: process.version, platform: process.platform, arch: process.arch, status: 'started', files: [], commands: [],
-    change: 'Only reviewed audio.js: interior and title ambience boundaries, retained layer targets, and same-context recovery from a later trusted gesture.',
+    change: 'Only reviewed audio.js: interior ambience selection and retention of authored layer targets during modulation.',
     originalBundleSha256: ORIGINAL_BUNDLE, expectedSourceSha256: CANDIDATE_SOURCE,
     limits: 'Preparation only. No browser, adoption, publication, external evaluator, listening or element verdict. Original recording and quality limitations remain. Product source and root are unchanged outside this disposable CI checkout.' };
   const run = args => {
