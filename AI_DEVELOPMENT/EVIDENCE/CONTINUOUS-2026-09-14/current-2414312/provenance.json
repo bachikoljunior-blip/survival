@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-09-14T17:23:48.936640+09:00",
+  "commit": "241431207475ceae1aa2acde6bbbdbde167b1714",
+  "bundle_sha256": "318affb8800f9ea3719486db74a2787b9676dfe87096733a436c81117d40c9ee",
+  "runs": {
+    "floor": 34819815926,
+    "ios": 34819815929
+  },
+  "jobs": {
+    "webkit": 103898559695,
+    "ios": 103898559645,
+    "narrative": 103898559630
+  },
+  "checks": {
+    "webkit": {
+      "checks": 177,
+      "passed": 177,
+      "failed": 0,
+      "checked_at": "2026-09-14T07:53:43.522Z",
+      "target": "iPhone SE (3rd gen) landscape / Playwright webkit",
+      "report_sha256": "ac99ceaced9c91755dffaf01f432e95fd9859d4eed1e91c1c3d521b51e5c0a68"
+    },
+    "ios": {
+      "checks": 27,
+      "passed": 27,
+      "failed": 0,
+      "checked_at": "2026-09-14T07:53:26.302Z",
+      "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+      "report_sha256": "e634bc93f909eedf9b38ed21858e4f91efd6590dead0c69d5477937d4449c5c8"
+    }
+  },
+  "actual_text_changes": "actual-text-change.json: publish events116/119; deal111. All other event records in the two captured paths equal their419 originals. Event counts119/114 and one ending each; count1 grammar and exact changed reason observed in production dialogue output. These paths are not an exhaustive proof of every condition combination.",
+  "saved_scope": "Original WebKit report decoded with contiguous byte offsets and declared SHA256, original Mobile Safari report line and parsed JSON; full original narrative job log and two transcripts. This folder does not claim to contain full WebKit/iOS logs or current screenshots.",
+  "measurement": "Actual GitHub Actions Playwright WebKit and iOS Simulator Mobile Safari checks and Chromium-driven narrative capture. No physical smartphone measurement.",
+  "inference": "Measurements support functionality only within their reported environments, scenarios and durations; not physical-device performance or blind artistic preference.",
+  "element_decision": "All19 remain not measured. No valid blind comparison or completed work unit is added."
+}

@@ -1,0 +1,28 @@
+{
+  "scope": "Read-only current GGUF header and pinned runtime source boundary; no inference or tokenization execution, no repair or failure attribution.",
+  "model_path": "/workspace/scratch/0b7ad82bafe7/audio-evaluator/Qwen2.5-Omni-7B-Q8_0.gguf",
+  "metadata_bytes_read": 5933049,
+  "header_sha256": "e1c26b93045d311e2aabd11294b178e58ec37ab69f16773efdbadd6bb5a1f675",
+  "vocabulary": {
+    "<|vision_start|>": [],
+    "<|vision_end|>": [],
+    "<|vision_bos|>": [
+      {
+        "id": 151652,
+        "type": 3
+      }
+    ],
+    "<|vision_eos|>": [
+      {
+        "id": 151653,
+        "type": 3
+      }
+    ]
+  },
+  "model_chat_template": "{% set audio_count = namespace(value=0) %}{% set image_count = namespace(value=0) %}{% set video_count = namespace(value=0) %}{% for message in messages %}{% if loop.first and message['role'] != 'system' %}<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n{% endif %}<|im_start|>{{ message['role'] }}\n{% if message['content'] is string %}{{ message['content'] }}<|im_end|>\n{% else %}{% for content in message['content'] %}{% if content['type'] == 'image' or 'image' in content or 'image_url' in content %}{% set image_count.value = image_count.value + 1 %}{% if add_vision_id %}Picture {{ image_count.value }}: {% endif %}<|vision_bos|><|IMAGE|><|vision_eos|>{% elif content['type'] == 'audio' or 'audio' in content or 'audio_url' in content %}{% set audio_count.value = audio_count.value + 1 %}{% if add_audio_id %}Audio {{ audio_count.value }}: {% endif %}<|audio_bos|><|AUDIO|><|audio_eos|>{% elif content['type'] == 'video' or 'video' in content %}{% set video_count.value = video_count.value + 1 %}{% if add_vision_id %}Video {{ video_count.value }}: {% endif %}<|vision_bos|><|VIDEO|><|vision_eos|>{% elif 'text' in content %}{{ content['text'] }}{% endif %}{% endfor %}<|im_end|>\n{% endif %}{% endfor %}{% if add_generation_prompt %}<|im_start|>assistant\n{% endif %}",
+  "runtime_source": {
+    "clip.cpp": "PROJECTOR_TYPE_QWEN25O vision remaps to QWEN25VL at lines1285-1288.",
+    "mtmd.cpp": "QWEN25VL branch sets img_beg=<|vision_start|> and img_end=<|vision_end|> at lines699-702; add_text(img_beg,true) at1352-1353 and img_end at1547-1548."
+  },
+  "interpretation": "The source emits wrapper strings that differ from the recorded model template. Whether those strings have whole-vocabulary entries is shown exactly above. This does not itself prove a particular visual output is false, and the existing basic vision control did detect colors/shapes. Independent source refutation is needed before attributing output quality to this mismatch."
+}

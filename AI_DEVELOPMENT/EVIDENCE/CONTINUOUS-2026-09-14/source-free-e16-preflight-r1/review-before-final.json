@@ -1,0 +1,58 @@
+{
+  "reviewedAt": "2026-09-14T16:54:19.556686+09:00",
+  "round": "source-free-e16-preflight-r1",
+  "profile": "independent-source-and-material-preflight",
+  "tier": "prospective-original-images-local-vision",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored sentinel. PASS is limited to attempting the revised finite comparison contract below, not successful ingestion, evaluator competence, blindness, preference, any benchmark or E-16 satisfaction.",
+  "blindComparison": "No blind comparison was performed by this reviewer, who knows both sources. No prediction is made about what a stranger would choose. The current image material and revised runtime plan can be attempted once; actual source recognition, omissions, hallucinated reasons, insufficient scope, truncation or reference preference must remain in the result.",
+  "scope": "Original 4190137 eight fixed exterior candidate views and the existing eight original INSIDE reference images; current locked BM-VIS-01 through BM-VIS-04 only. No product, threshold, reference selection, image pixel or evaluator model edit. The original conceptual protocol is not mistaken for a finished command or measured run.",
+  "findings": [],
+  "originalPlanGapAndResolution": {
+    "observed": "protocol.json described neutral filenames and one whole-element preference but did not pin the executable prompt, image marker order, context/output budget or a response that permits all sixteen images to be checked. The only observed basic control used one image, context 4096 and output cap 180.",
+    "mechanismConfirmed": "The pinned CLI passes decoded bitmaps rather than filenames as text; absent explicit markers it prepends all images. Marker count and argv order matter. The pinned model has 32768 context capacity, and these originals are calculated to use 29784 image embedding slots with image-min-tokens 1024. Generation can stop at n_predict without a complete answer.",
+    "coordinatorRevision": "Coordinator explicitly committed during this preflight to A01 through B08 markers, context32768, image-min-tokens1024, short prompt, output1500, raw stdout/stderr and encoder sequence preservation, and invalidation for incomplete decode/read coverage. This addresses the concrete design gap; final files/actual execution are still to be checked.",
+    "notClaimed": "No all-sixteen execution failure has been observed, and the control settings were not assumed to be the intended comparison settings."
+  },
+  "minimumExecutionContract": [
+    "Freeze all sixteen original-file hashes and one random A/B mapping before the single attempt. Exactly the existing eight fixed city views and reference01-08; no ninth-frame substitution or favorable selection. Copy bytes to neutral names without cropping, recoloring, removal of visible characters or other changes to the judged element.",
+    "Use one fresh single-turn vision process. The prompt must bind each unique A01..A08/B01..B08 label immediately to one <__media__> marker, in exactly the same order as the sixteen --image arguments. Keep the private source mapping, this source-aware review, acquisition URLs/filenames, known-source notes and implementation source out of the evaluator input.",
+    "Use context32768, image-min-tokens1024, output cap1500 with concise text. Calculated image slots29784 leave2984 for prompt, image wrappers and output; after the chosen output cap,1484 remain. Preserve actual decode-token logs; context allocation or final M-RoPE position alone is not ingestion proof. Do not silently lower image resolution to make the budget fit.",
+    "Require source/role recognition first, sixteen distinct image IDs each with a concrete visible anchor and pertinent visual observation, four set-level axes (directional lighting/shadow hierarchy, palette, grounding/contact, texture scale coherence), and one whole-element A/B/tie preference. Missing/nonvisible details must be explicit. This is a concise single answer, not sixteen preference trials or a demand for exhaustive prose.",
+    "Audit raw output against the exact originals without rejudging or selecting the preferred answer: any recognized source/role anywhere, missing or misbound image, invented material claim, inadequate relevant coverage or unfinished answer invalidates it. A no-recognition self-report and exit0 do not prove validity. Preserve failed/invalid/reference-preferred results; do not rerun unchanged material for a favorable outcome.",
+    "Keep locked criterion coverage separate from the anonymous aesthetic question. All eight views are required for BM-VIS-01; each visible sky must satisfy the existing cool-color rule for BM-VIS-02. BM-VIS-03/04 zero-breakdown claims cannot cover unseen contacts/interiors or unresolved texture detail by inference from a global preference. BM-VIS-04 also retains the existing bench_measure evidence requirement. Do not supply project-specific implementation/source clues to the judge or weaken a criterion to make a preference count as full E-16 achievement."
+  ],
+  "largestRemainingRisk": "The evaluator may identify the distinctive original source, overlook or bind some of sixteen images incorrectly, or offer credible-sounding but nonvisible contact/texture reasons. The existing basic control establishes only a limited vision input path, with an imprecise triangle location. More generic controls would not prove artistic judgment or blindness. A finite honest attempt followed by image-grounding/source-recognition audit is the useful next step; invalid output leaves E-16 unmeasured.",
+  "rawRequiredFromActualAttempt": [
+    "Exact immutable prompt bytes/hash; neutral file hashes; private mapping committed before output; ordered argv, runtime/model hashes, cwd, relevant env, start/end and exit status.",
+    "Complete unedited stdout/stderr, including failed decode or truncated generation and all media batches/token counts.",
+    "Exact sixteen-ID coverage and visible-anchor audit, recognition admission anywhere in raw output, four-axis scope check, one unchanged overall preference; record invalid causes rather than manufacture a score."
+  ],
+  "independentRefutation": {
+    "status": "pending separate bounded source-contract refutation",
+    "question": "Can the CLI marker/budget analysis or the interpretation of the limited control be refuted using pinned source and raw records? Does the revised contract allow a successful-looking response to count despite omitted material, recognized source, scope gaps or truncation?",
+    "limits": "Do not run preference inference, repeat controls, edit product/criteria, or perform a fresh broad evaluator-capacity audit."
+  },
+  "evidence": {
+    "raw": "raw.json",
+    "raw_sha256": "2dba5226a110c82556a69aef4d9863df4b08a116afa4fbddfb1b223edaba6fd3",
+    "pins": "raw.json source_pins and manifest; all16 match original acquisition",
+    "source_aware_review_withheld_from_evaluator": true
+  },
+  "nextAction": "The coordinator reports that the frozen comparison-c02e process was started. Preserve and audit that one output for actual ingestion, source recognition, visible grounding and scope. This source-aware preflight does not inspect generated preference and does not authorize an element promotion.",
+  "frozenInputCheck": {
+    "path": "frozen-input-check.json",
+    "sha256": "633826c4dc0cc8ccf54a1017e949e92a2c1d14b5d1fddd99a9459e1f5058e4e8",
+    "result": "Exact sixteen marker labels match ordered --image argv; all sixteen copies match original file bytes/hash. Prompt is 1581 bytes and matches recorded hash; 32768/1500/min1024/verbosity4 match the concrete provenance. This is input inspection after coordinator reported a process start, not an observation of successful inference."
+  },
+  "runtimeWrapperObservation": {
+    "path": "wrapper-compatibility.json",
+    "sha256": "d659b261ecfec11567259c86ea84ea078af1d37f627aaa8caebd6b1b2ade9d70",
+    "sourceFact": "The retained runtime maps QWEN25O vision to QWEN25VL, whose image strings are <|vision_start|>/<|vision_end|>. Current model header has no whole-vocabulary entries for these strings, while its template uses existing control tokens <|vision_bos|>/<|vision_eos|>.",
+    "status": "Separate source refutation pending. This additional observation appeared after the frozen inputs and coordinator-reported process start. Original pre-refutation review/raw remain unchanged.",
+    "notEstablished": "No conclusion is drawn that this causes any specific wrong observation/preference, that all visual judgments are invalid, or that changing wrappers repairs the evaluator. The limited basic vision control did identify shapes/colors.",
+    "consequence": "Retain the current one-run output and this unresolved input-contract issue. Do not silently label the route as model-template-conformant or start a second comparison for a preferable outcome."
+  }
+}

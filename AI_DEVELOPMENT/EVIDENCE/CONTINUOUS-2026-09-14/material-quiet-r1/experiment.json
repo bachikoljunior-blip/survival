@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-09-14T17:28:03.792727+09:00",
+  "base_commit": "241431207475ceae1aa2acde6bbbdbde167b1714",
+  "previous_visual_evidence_commit": "4190137d65aa5f2973d89a3901b443d2d6167f9e",
+  "source_sha256": "254bc95201bf6f080a0ce219d3b111e57deca5eaca474ca67c951af817dbbb9b",
+  "pending_bundle_sha256": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+  "basis": "MVD-02 survives separate source-known visual refutation in major-visual-difference-r1/refutation.json. Only observed broad fine-detail contrast is established; no blind preference or material/UV root-cause verdict.",
+  "experiment": {
+    "concrete": "Reduce fine pore albedo opacity and height relief; retain form-board lines, tie holes, large spalls, rust, grime and roughness.",
+    "brick": "Compress brick-face color and shallow relief; preserve staggered courses, missing units and large stains. Reduce repeated tile-bottom dark band.",
+    "ash": "Reduce small grit albedo contrast and relief, retain broad drifts, grain positions, roughness and walk-wear."
+  },
+  "attribution": "Source read maps Stacks to brick, Survey walls/barrier to concrete, Ventfield base ground to ash. These are the material generators being perturbed, not a claim that their constants exclusively caused the prior appearance.",
+  "controls": "Lighting, cameras, geometry, RNG call count/order, all other material generators, game conditions and story content are unchanged. Full generated product bundle rebuilt and pages-root mirror validated.",
+  "verification": {
+    "validate": "exit0 existing content/integrity validator",
+    "build_pages_root": "exit0 production build and root mirror",
+    "validate_pages_root": "exit0 exact mirror",
+    "actual_new_images": "pending new commit CI, then original before/after review for MVD-02 and preservation of material/joint distinction.",
+    "mobile_current_product": "pending new commit CI;241 measured177 WebKit/27 nativeSafari apply to241 only.",
+    "quality_effect": "unmeasured; this is a bounded causal experiment, not a success statement."
+  },
+  "next": "Obtain new CI8 original locked views; independently inspect the3 target regions and remaining5 for spillover. Modify if unchanged or worsened; preserve each raw result. No numerical pixel proxy or benchmark weakening."
+}

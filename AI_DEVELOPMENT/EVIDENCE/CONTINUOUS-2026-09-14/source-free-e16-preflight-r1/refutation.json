@@ -1,0 +1,64 @@
+{
+  "round": "source-free-e16-preflight-r1-independent-refutation",
+  "profile": "separate-source-contract-refuter",
+  "tier": "read-only-fixed-cli-and-original-inputs",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored. PASS means no surviving contradiction in the primary review's narrowly qualified permission to attempt the frozen method once. It does not pass the runtime, evaluator capability, blindness, actual response, visual element or any benchmark.",
+  "blindComparison": "This refuter knows both sources and has made no blind preference judgment. Neither a stranger's preference nor the validity of the currently running response can be established from this source-only preflight.",
+  "findings": [],
+  "scope": "Independent refutation of the primary source/input claims, including its added frozen-input and wrapper observations. No model, tokenizer, comparison or new control executed. No product, criteria, source, original review or raw file modified. Actual response audit is separate.",
+  "reviewedPrimary": {
+    "review": "review.json",
+    "reviewSha256": "c9107a206e94f4d43464547b0e65b926448f7b2dbb8b6719d75c5daaccd1797c",
+    "rawSha256": "2dba5226a110c82556a69aef4d9863df4b08a116afa4fbddfb1b223edaba6fd3",
+    "frozenInputSha256": "633826c4dc0cc8ccf54a1017e949e92a2c1d14b5d1fddd99a9459e1f5058e4e8",
+    "wrapperObservationSha256": "d659b261ecfec11567259c86ea84ea078af1d37f627aaa8caebd6b1b2ade9d70"
+  },
+  "refutationResults": [
+    {
+      "claim": "The sixteen explicit markers bind A01 through B08 to the intended original bytes in argument order.",
+      "attempt": "Independently parsed the actual prompt and argv, compared each packet PNG byte-for-byte with its original and checked source-file loading and marker interleaving in the pinned CLI.",
+      "result": "Survives: 16 exact marker/argv matches and 16 original-byte matches. The prompt is 1581 bytes, SHA256 105e8f0015f017e756c7d35e4eeeeaece3453f8e332cb152f6810b6fd79df1bc. Filenames are not independently supplied as image prose by load_media; the prompt supplies neutral labels. Existence of possible benchmark/development roles is in the task framing, but the A/B role mapping is absent from model text. This verifies intended input binding, not semantic recognition of every image."
+    },
+    {
+      "claim": "The selected preprocessing predicts 29784 image embedding slots and 1484 slots after reserving output1500 in context32768.",
+      "attempt": "Read current model/projector metadata and independently implemented only the fixed positive-dimension smart-resize arithmetic from pinned source. Checked default merge2, patch14 and chosen minimum1024.",
+      "result": "Survives as a calculation: eight 1932x1092 images yield 2691 slots each and eight 1204x672 images yield 1032 each. 32768 - 29784 = 2984; 2984 - 1500 = 1484. This is neither measured encoder output nor actual prompt tokenization. The generation loop can exhaust n_predict and return0, so exit0 does not guarantee the requested answer completes. M-RoPE position is not an embedding-slot count."
+    },
+    {
+      "claim": "Runtime image boundary strings differ from the model's own vision control tokens/template.",
+      "attempt": "Read only the current GGUF metadata headers independently, without tensor payload or inference. Followed QWEN25O vision remapping to QWEN25VL, its img_beg/end assignment and add_text(...,true) calls.",
+      "result": "Survives as a source/header discrepancy: runtime emits <|vision_start|> and <|vision_end|>, with zero whole-vocabulary matches. The model template uses <|vision_bos|> and <|vision_eos|>, existing control-token IDs151652 and151653. Header SHA256 e1c26b93045d311e2aabd11294b178e58ec37ab69f16773efdbadd6bb5a1f675 over5933049 metadata bytes matches the primary observation. This does not prove zero image ingestion, a particular hallucination cause, invalidity of every visual observation or a successful repair. No additional or corrected comparison is authorized by this report."
+    },
+    {
+      "claim": "The basic shape control qualifies the path only narrowly, and unknown recognition plus fluent output must not count as an element pass.",
+      "attempt": "Read preserved control stdout and the explicit invalidation and locked-criterion clauses in the revised review and actual prompt.",
+      "result": "Survives: the control reports colors/shapes and the blank side, with imprecise triangle horizontal location. It does not measure sixteen-image correspondence or artistic judgment. The review explicitly retains source/role recognition, missing or misbound images, invented material claims, inadequate coverage and truncation as invalid causes. No E16/ability/benchmark pass follows from this prospective PASS."
+    }
+  ],
+  "nonblockingCorrections": [
+    {
+      "location": "raw.json preprocessor_budget source citation",
+      "correction": "The fixed function is clip_n_output_tokens at tools/mtmd/clip.cpp:4083, with local variable n_patches; it is not a function named clip_n_patches. The Qwen calculation at4154-4157 is unchanged."
+    },
+    {
+      "location": "locked criterion scope",
+      "correction": "The existing BM-VIS-02 row also names a view-sweep color-histogram evidence method (currently marked unimplemented), and BM-VIS-04 names bench_measure. Preserve those existing requirements; a valid whole-set preference alone would not measure them. This is no new criterion and does not block retaining a finite comparison attempt."
+    }
+  ],
+  "remainingUnmeasured": [
+    "Actual encoder sequence, successful decode of all16 images and completed output are outside this preflight; provenance was still running at inspection.",
+    "Model-template mismatch effects are unmeasured; the existing successful limited shape report is retained as counterevidence to a blanket no-vision claim.",
+    "Source recognition, actual image-level grounding, four-axis coverage and whole preference must be audited against originals after the single process reaches a terminal status.",
+    "No still-frame preference can establish animation, touch, sound, unseen interior/contact coverage or broad evaluator competence."
+  ],
+  "evidence": {
+    "script": "refutation-check.py",
+    "raw": "refutation-raw.json",
+    "rawSha256": "989481cea6b66394cec2830b4fda667e98b1457d7c7ee844c7f5636a08aa0141",
+    "sourcePins": "All19 primary source/input pins match the independently read bytes; exact paths, hashes, source lines, model/projector header digests and all16 PNG hashes are in refutation-raw.json.",
+    "separation": "The primary author is /root/acquisition_path_review; this separate refuter is /root/trench_perception_review. No recursive re-refutation or extra qualification control was added."
+  }
+}

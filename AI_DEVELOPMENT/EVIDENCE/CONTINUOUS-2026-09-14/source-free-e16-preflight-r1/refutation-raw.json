@@ -1,0 +1,699 @@
+{
+  "checked_at": "2026-09-14T08:04:14.214733+00:00",
+  "scope": "Independent read-only source/input refutation. No inference, no output interpretation, no product or source edits.",
+  "protected_primary_files": [
+    {
+      "path": "source-free-e16-preflight-r1/review-pre-refutation.json",
+      "bytes": 7234,
+      "sha256": "911d59e9a9aefba1b36b7a90f66f40ec80693a4db683579c2fb9c2cfa6ee4ac3"
+    },
+    {
+      "path": "source-free-e16-preflight-r1/review.json",
+      "bytes": 8890,
+      "sha256": "c9107a206e94f4d43464547b0e65b926448f7b2dbb8b6719d75c5daaccd1797c"
+    },
+    {
+      "path": "source-free-e16-preflight-r1/raw.json",
+      "bytes": 26439,
+      "sha256": "2dba5226a110c82556a69aef4d9863df4b08a116afa4fbddfb1b223edaba6fd3"
+    },
+    {
+      "path": "source-free-e16-preflight-r1/frozen-input-check.json",
+      "bytes": 14713,
+      "sha256": "633826c4dc0cc8ccf54a1017e949e92a2c1d14b5d1fddd99a9459e1f5058e4e8"
+    },
+    {
+      "path": "source-free-e16-preflight-r1/wrapper-compatibility.json",
+      "bytes": 2617,
+      "sha256": "d659b261ecfec11567259c86ea84ea078af1d37f627aaa8caebd6b1b2ade9d70"
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "visual-comparison-runtime-r1/protocol.json",
+      "bytes": 1723,
+      "sha256": "58497864add21ed084a402ebe0acbb7a50739df256ca1af736b67ec7e76785e2",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "visual-evaluator-control-r1/run.json",
+      "bytes": 1454,
+      "sha256": "88c2ae9a46de97991d7917c5d0ab9acd10faa90a662bef246d405fdd56fc17db",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "visual-evaluator-control-r1/run-cwd.json",
+      "bytes": 1709,
+      "sha256": "19dd0a88460405c58573507250d2944b86547773b0ec89383a66794aad22d109",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "visual-evaluator-control-r1/expected.json",
+      "bytes": 717,
+      "sha256": "fa1eec72054b8746a4aee8736487dd18d4183885d158b2e258019d70af92e0a5",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "visual-evaluator-control-r1/stdout-cwd.txt",
+      "bytes": 256,
+      "sha256": "3b8638046fbf4c3be0766ee7b56a7a2a8b2f15d6aa4042eb0192a13eb5fc1cae",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "visual-evaluator-control-r1/stderr-cwd.txt",
+      "bytes": 1333,
+      "sha256": "f063bb25c3d2d5115cf2a7d8b9ec450ddea276a7cbff26395af782df4e276c81",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "visual-evaluator-control-r1/control.png",
+      "bytes": 2338,
+      "sha256": "8df9cbefd5fa3ca296eed9dfa1170f074db932738d323d7c3a77e047a78a60b2",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-cli.cpp",
+      "bytes": 20906,
+      "sha256": "6f3a9bd6ec84d554d13ea0c81fd1ace89c4f84b1ea402788055fde258adfdb34",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-helper.cpp",
+      "bytes": 35123,
+      "sha256": "9b11ebee1d87111f72bb63159814dd7449e8816eafd28e6045f759689ee7de19",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-diagnostic-01.json",
+      "bytes": 267162,
+      "sha256": "6bdbee8a72e80d3b8ecb2b59f78a0ff14766b07361559f84d6f8190f841d50a6",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-diagnostic-02.json",
+      "bytes": 12561,
+      "sha256": "c705ed9c7ae44a1c2b4e693b32377cd42db8f08a5228abb2f4dd0c61a92e2d7b",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "webkit-4190137/acquisition.json",
+      "bytes": 3625,
+      "sha256": "6c1b53f2d57a504e934a41e87a172870aa60541b296b2017ede81d95e8bd4bd1",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "webkit-4190137/report.json",
+      "bytes": 372831,
+      "sha256": "4e1c9ab1d554701cdaec0e7ff69b1edecba8b75eade7c0d40659c02dbd39cf02",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "survival/docs/benchmarks.md",
+      "bytes": 52831,
+      "sha256": "e7c2c43ee0e0fc6c4cdbd3e2782cebc38bd604a1847c16bb74abc48e74b382df",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "survival/AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/inside-materials.json",
+      "bytes": 3187,
+      "sha256": "b99bd606524b41c05742bdfeb0e47e578df84067b88e89cc06e16abe19ac53b8",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd.cpp",
+      "bytes": 106954,
+      "sha256": "b5f5660650d5abd1b8e23b6e4246f33eedc73b79fc904c2ff521796060bd56bb",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip.cpp",
+      "bytes": 318663,
+      "sha256": "5b2b58d219b68fb1c71ee059536cc87f1b566091dd468b2529387eb1a7fef7fb",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip-model.h",
+      "bytes": 33475,
+      "sha256": "f4df467f21eb5ac4954010a3be30f26586ebe7fa77f6000e65a943215be011e2",
+      "matches_primary_pin": true
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd-image.cpp",
+      "bytes": 72884,
+      "sha256": "7dc760e4f85e38e11d11268ae412c3b6c0a32389c6c584ca34dd7b4a679f950b",
+      "matches_primary_pin": true
+    }
+  ],
+  "frozen_input": {
+    "prompt_bytes": 1581,
+    "prompt_sha256": "105e8f0015f017e756c7d35e4eeeeaece3453f8e332cb152f6810b6fd79df1bc",
+    "ordered_labels": [
+      "A01.png",
+      "A02.png",
+      "A03.png",
+      "A04.png",
+      "A05.png",
+      "A06.png",
+      "A07.png",
+      "A08.png",
+      "B01.png",
+      "B02.png",
+      "B03.png",
+      "B04.png",
+      "B05.png",
+      "B06.png",
+      "B07.png",
+      "B08.png"
+    ],
+    "markers_argv_exact": true,
+    "params": {
+      "-c": "32768",
+      "-n": "1500",
+      "--image-min-tokens": "1024",
+      "--verbosity": "4"
+    },
+    "files": [
+      {
+        "label": "A01.png",
+        "sha256": "f5448456ba69dbb8f3e7746a5612faa52a21f5bd0363348965594eada6573131",
+        "bytes": 2242580,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A02.png",
+        "sha256": "b6630e55d04c6db891ec8e2aa09923979f698f0514a54893b99682bbe8807e51",
+        "bytes": 2829923,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A03.png",
+        "sha256": "35a01057415396ffa17e8629ac465707de672d4aef57ccb24df55a244c748d14",
+        "bytes": 2387600,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A04.png",
+        "sha256": "0635c6e29ae93cdf0dfde62e75eded1d2d7975a59bbc85b3d0215cf283712642",
+        "bytes": 2576199,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A05.png",
+        "sha256": "ae09efeecb6b5e3ac7f30e4aca2f3127634ed01dc23d7864cee8a53ac4858a5f",
+        "bytes": 2723560,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A06.png",
+        "sha256": "5007958e4e4797e5da62ac95b0e0ba00671e9f503c48bc90ee9f8bc6cc6584c2",
+        "bytes": 2486689,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A07.png",
+        "sha256": "efec73fb352ac39a85d6c4bd3d890b4810f3421a1fb9323b6d15ea006a07d431",
+        "bytes": 2160914,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "A08.png",
+        "sha256": "ada7f6977d2557b561e58a5c561947b6d06312c160d23155c2a95ce097a57e1e",
+        "bytes": 2341339,
+        "size": [
+          1920,
+          1080
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        },
+        "source_predicted_min1024": {
+          "width": 1932,
+          "height": 1092,
+          "embedding_slots": 2691
+        }
+      },
+      {
+        "label": "B01.png",
+        "sha256": "32aecde73d5a4529894d155fa000019e950f215e3f1ee5fdea2b6a98c58646d0",
+        "bytes": 1432372,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B02.png",
+        "sha256": "690a5d16e217f20516c40d895ae833ec66834ded986df10fd211d21017c45be2",
+        "bytes": 1351551,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B03.png",
+        "sha256": "b10494ea835310bd3a734d7f17ad97b9a3e42aef548c112e3d9a5e4e8ffbbe3e",
+        "bytes": 1366771,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B04.png",
+        "sha256": "917994da9a8e7762b8265667668bcf9b4125a98b641716735ccc476989a3b5db",
+        "bytes": 1338908,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B05.png",
+        "sha256": "adc00cf4deb7cb58cc43c6da7f11e1a842b1921538e4c5663efe2d44f3a5f433",
+        "bytes": 1368752,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B06.png",
+        "sha256": "df4abcc1ed72c2639fd2367a32afb5ec8f982063f361993535798885371c419c",
+        "bytes": 1285139,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B07.png",
+        "sha256": "60479ed4542fe678f44936a7da924c815d661eeb88add2f8125eb244d0d77874",
+        "bytes": 1337437,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      },
+      {
+        "label": "B08.png",
+        "sha256": "f35c4715abddd5168e6eedd96d8ac2cfdc9d02e0e46ca64276d1b300d82c1270",
+        "bytes": 1393175,
+        "size": [
+          1147,
+          645
+        ],
+        "original_bytes_equal": true,
+        "matches_provenance": true,
+        "source_predicted_default": {
+          "width": 1148,
+          "height": 644,
+          "embedding_slots": 943
+        },
+        "source_predicted_min1024": {
+          "width": 1204,
+          "height": 672,
+          "embedding_slots": 1032
+        }
+      }
+    ],
+    "provenance_status_read_only": "running"
+  },
+  "budget": {
+    "predicted_image_embedding_slots": 29784,
+    "context": 32768,
+    "after_images": 2984,
+    "output_cap": 1500,
+    "text_wrapper_safety_remainder": 1484,
+    "actual_encoder_measurement": false,
+    "actual_prompt_tokenization": false,
+    "completion_guaranteed": false,
+    "note": "Independent arithmetic models fixed positive input dimensions and C++ smart resize. It is not an encoder or image-reading measurement."
+  },
+  "wrapper": {
+    "model_header": {
+      "path": "audio-evaluator/Qwen2.5-Omni-7B-Q8_0.gguf",
+      "gguf_version": 3,
+      "tensor_count": 339,
+      "metadata_count": 27,
+      "metadata_bytes_read": 5933049,
+      "header_sha256": "e1c26b93045d311e2aabd11294b178e58ec37ab69f16773efdbadd6bb5a1f675",
+      "tensor_payload_read": false
+    },
+    "projector_header": {
+      "path": "audio-evaluator/mmproj-Qwen2.5-Omni-7B-f16.gguf",
+      "gguf_version": 3,
+      "tensor_count": 1008,
+      "metadata_count": 32,
+      "metadata_bytes_read": 1499,
+      "header_sha256": "c483b3c3a1674671a473ed9c4ce3e34ffe309dc586eb73390a48dfecf5f07bb5",
+      "tensor_payload_read": false
+    },
+    "vocabulary": {
+      "<|vision_start|>": [],
+      "<|vision_end|>": [],
+      "<|vision_bos|>": [
+        {
+          "id": 151652,
+          "type": 3
+        }
+      ],
+      "<|vision_eos|>": [
+        {
+          "id": 151653,
+          "type": 3
+        }
+      ]
+    },
+    "model_template": "{% set audio_count = namespace(value=0) %}{% set image_count = namespace(value=0) %}{% set video_count = namespace(value=0) %}{% for message in messages %}{% if loop.first and message['role'] != 'system' %}<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n{% endif %}<|im_start|>{{ message['role'] }}\n{% if message['content'] is string %}{{ message['content'] }}<|im_end|>\n{% else %}{% for content in message['content'] %}{% if content['type'] == 'image' or 'image' in content or 'image_url' in content %}{% set image_count.value = image_count.value + 1 %}{% if add_vision_id %}Picture {{ image_count.value }}: {% endif %}<|vision_bos|><|IMAGE|><|vision_eos|>{% elif content['type'] == 'audio' or 'audio' in content or 'audio_url' in content %}{% set audio_count.value = audio_count.value + 1 %}{% if add_audio_id %}Audio {{ audio_count.value }}: {% endif %}<|audio_bos|><|AUDIO|><|audio_eos|>{% elif content['type'] == 'video' or 'video' in content %}{% set video_count.value = video_count.value + 1 %}{% if add_vision_id %}Video {{ video_count.value }}: {% endif %}<|vision_bos|><|VIDEO|><|vision_eos|>{% elif 'text' in content %}{{ content['text'] }}{% endif %}{% endfor %}<|im_end|>\n{% endif %}{% endfor %}{% if add_generation_prompt %}<|im_start|>assistant\n{% endif %}",
+    "model_context_fields": {
+      "general.architecture": "qwen2vl",
+      "qwen2vl.context_length": 32768
+    },
+    "projector_fields": {
+      "clip.vision.patch_size": 14,
+      "clip.projector_type": "qwen2.5o"
+    },
+    "source_string_mismatch_confirmed": true,
+    "inference_effect_measured": false,
+    "limitation": "Absent whole-vocabulary entries do not prove zero visual processing. No tokenizer or model was executed by this refuter."
+  },
+  "source_excerpts": [
+    {
+      "path": "audio-evaluator-diagnostic-source-mtmd-cli.cpp",
+      "sha256": "6f3a9bd6ec84d554d13ea0c81fd1ace89c4f84b1ea402788055fde258adfdb34",
+      "excerpts": [
+        {
+          "start": 194,
+          "end": 204,
+          "text": "194:     bool load_media(const std::string & fname) {\n195:         auto res = mtmd_helper_bitmap_init_from_file(ctx_vision.get(), fname.c_str(), false, init_opt);\n196:         if (!res.bitmap) {\n197:             return false;\n198:         }\n199:         bitmaps.entries.emplace_back(res.bitmap);\n200:         if (res.video_ctx) {\n201:             videos.emplace_back(res.video_ctx);\n202:         }\n203:         return true;\n204:     }"
+        },
+        {
+          "start": 207,
+          "end": 218,
+          "text": "207: static int generate_response(mtmd_cli_context & ctx, int n_predict) {\n208:     llama_tokens generated_tokens;\n209:     for (int i = 0; i < n_predict; i++) {\n210:         if (i > n_predict || !g_is_generating || g_is_interrupted) {\n211:             LOG(\"\\n\");\n212:             break;\n213:         }\n214: \n215:         llama_token token_id = common_sampler_sample(ctx.smpl, ctx.lctx, -1);\n216:         generated_tokens.push_back(token_id);\n217:         common_sampler_accept(ctx.smpl, token_id, true);\n218: "
+        },
+        {
+          "start": 233,
+          "end": 250,
+          "text": "233:         common_batch_clear(ctx.batch);\n234:         common_batch_add(ctx.batch, token_id, ctx.n_past++, {0}, true);\n235:         if (llama_decode(ctx.lctx, ctx.batch)) {\n236:             LOG_ERR(\"failed to decode token\\n\");\n237:             return 1;\n238:         }\n239:     }\n240: \n241:     std::string generated_text = common_detokenize(ctx.lctx, generated_tokens);\n242:     common_chat_msg msg;\n243:     msg.role    = \"assistant\";\n244:     msg.content = generated_text;\n245:     ctx.chat_history.push_back(std::move(msg));\n246: \n247:     return 0;\n248: }\n249: \n250: static std::string chat_add_and_format(mtmd_cli_context & ctx, common_chat_msg & new_msg) {"
+        },
+        {
+          "start": 260,
+          "end": 311,
+          "text": "260: static int eval_message(mtmd_cli_context & ctx, common_chat_msg & msg) {\n261:     inject_test_response_marker();\n262: \n263:     bool add_bos = ctx.chat_history.empty();\n264:     auto formatted_chat = chat_add_and_format(ctx, msg);\n265:     LOG_DBG(\"formatted_chat.prompt: %s\\n\", formatted_chat.c_str());\n266: \n267:     if (g_is_interrupted) return 0;\n268: \n269:     // note: we replace the marker here instead of letting mtmd_tokenize() to do that\n270:     //       because we want to demonstrate how to use mtmd_tokenize_from_parts()\n271: \n272:     // split the formatted chat on the media marker to get text segments\n273:     const std::string marker = mtmd_default_marker();\n274:     std::vector<std::string> segments;\n275:     size_t start = 0;\n276:     size_t pos;\n277:     while ((pos = formatted_chat.find(marker, start)) != std::string::npos) {\n278:         segments.push_back(formatted_chat.substr(start, pos - start));\n279:         start = pos + marker.size();\n280:     }\n281:     segments.push_back(formatted_chat.substr(start));\n282: \n283:     auto bitmaps_c_ptr = ctx.bitmaps.c_ptr();\n284:     if (segments.size() - 1 != bitmaps_c_ptr.size()) {\n285:         LOG_ERR(\"Number of media markers (%zu) does not match number of loaded media (%zu)\\n\",\n286:                 segments.size() - 1, bitmaps_c_ptr.size());\n287:         return 1;\n288:     }\n289: \n290:     // interleave text and media parts\n291:     std::vector<mtmd_input_text> texts(segments.size());\n292:     std::vector<mtmd_input_part> parts;\n293:     for (size_t i = 0; i < segments.size(); i++) {\n294:         texts[i] = {segments[i].data(), segments[i].size(), /* add_special */ false, /* parse_special */ true};\n295:         parts.push_back({&texts[i], nullptr});\n296:         if (i < bitmaps_c_ptr.size()) {\n297:             parts.push_back({nullptr, bitmaps_c_ptr[i]});\n298:         }\n299:     }\n300:     std::vector<const mtmd_input_part *> parts_ptr;\n301:     for (const auto & p : parts) {\n302:         parts_ptr.push_back(&p);\n303:     }\n304: \n305:     mtmd::input_chunks chunks(mtmd_input_chunks_init());\n306:     int32_t res = mtmd_tokenize_from_parts(ctx.ctx_vision.get(),\n307:                         chunks.ptr.get(), // output\n308:                         parts_ptr.data(),\n309:                         parts_ptr.size(),\n310:                         add_bos);\n311:     if (res != 0) {"
+        },
+        {
+          "start": 354,
+          "end": 395,
+          "text": "354:             if (!embd) {\n355:                 // create and encode a new batch with as many media chunks as possible\n356:                 ctx.mbatch.reset(mtmd_batch_init(ctx.ctx_vision.get()));\n357:                 res = mtmd_batch_add_chunk(ctx.mbatch.get(), chunk);\n358:                 GGML_ASSERT(res == 0); // first chunk must always succeed\n359: \n360:                 int n_added = 1;\n361:                 // add as many subsequent media chunks as possible\n362:                 for (size_t j = i + 1; j < n_chunks; j++) {\n363:                     auto next_chunk = mtmd_input_chunks_get(chunks.ptr.get(), j);\n364:                     auto next_type = mtmd_input_chunk_get_type(next_chunk);\n365:                     if (next_type == MTMD_INPUT_CHUNK_TYPE_TEXT) {\n366:                         break; // text chunk splits the batch\n367:                     }\n368:                     res = mtmd_batch_add_chunk(ctx.mbatch.get(), next_chunk);\n369:                     if (res != 0) {\n370:                         break; // batch full or incompatible\n371:                     }\n372:                     n_added++;\n373:                 }\n374: \n375:                 int64_t time_start = ggml_time_ms();\n376:                 LOG_INF(\"encoding mtmd batch, n_chunks = %d (done = %zu, total = %zu)\\n\", n_added, i, n_chunks);\n377:                 res = mtmd_batch_encode(ctx.mbatch.get());\n378:                 if (res != 0) {\n379:                     LOG_ERR(\"Failed to encode mtmd batch, res = %d\\n\", res);\n380:                     return 1;\n381:                 }\n382:                 LOG_INF(\"mtmd batch encoding done in %d ms\\n\", (int)(ggml_time_ms() - time_start));\n383: \n384:                 embd = mtmd_batch_get_output_embd(ctx.mbatch.get(), chunk);\n385:             }\n386: \n387:             GGML_ASSERT(embd != nullptr);\n388: \n389:             llama_pos new_n_past = ctx.n_past;\n390:             res = mtmd_helper_decode_image_chunk(ctx.ctx_vision.get(),\n391:                         ctx.lctx,\n392:                         chunk,\n393:                         embd,\n394:                         ctx.n_past,\n395:                         0, // seq_id"
+        }
+      ]
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip.cpp",
+      "sha256": "5b2b58d219b68fb1c71ee059536cc87f1b566091dd468b2529387eb1a7fef7fb",
+      "excerpts": [
+        {
+          "start": 1284,
+          "end": 1289,
+          "text": "1284:             // correct arch for multimodal models (legacy method)\n1285:             if (model.proj_type == PROJECTOR_TYPE_QWEN25O) {\n1286:                 model.proj_type = modality == CLIP_MODALITY_VISION\n1287:                                     ? PROJECTOR_TYPE_QWEN25VL\n1288:                                     : PROJECTOR_TYPE_QWEN2A;\n1289:             }"
+        },
+        {
+          "start": 1651,
+          "end": 1661,
+          "text": "1651:                 case PROJECTOR_TYPE_QWEN2VL:\n1652:                 case PROJECTOR_TYPE_QWEN25VL:\n1653:                 case PROJECTOR_TYPE_QWEN3VL:\n1654:                     {\n1655:                         hparams.n_merge = 2; // default value for Qwen 2 and 2.5\n1656:                         hparams.image_resize_algo = RESIZE_ALGO_BICUBIC;\n1657:                         get_u32(KEY_SPATIAL_MERGE_SIZE, hparams.n_merge, false);\n1658:                         get_u32(KEY_WIN_ATTN_PATTERN, hparams.n_wa_pattern, model.proj_type == PROJECTOR_TYPE_QWEN25VL); // only 2.5 requires it\n1659:                         // ref: https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct/blob/main/preprocessor_config.json\n1660:                         hparams.set_limit_image_tokens(8, 4096);\n1661:                         hparams.set_warmup_n_tokens(46*46); // avoid OOM on warmup"
+        },
+        {
+          "start": 4083,
+          "end": 4088,
+          "text": "4083: int clip_n_output_tokens(const clip_ctx * ctx, const clip_image_f32 * img) {\n4084:     const auto & params = ctx->model.hparams;\n4085: \n4086:     // for models with fixed size image, the input image is already pre-processed and resized to square\n4087:     int patch_size = params.patch_size;\n4088:     int n_patches = (img->nx() / patch_size) * (img->ny() / patch_size);"
+        },
+        {
+          "start": 4144,
+          "end": 4158,
+          "text": "4144:         case PROJECTOR_TYPE_QWEN2VL:\n4145:         case PROJECTOR_TYPE_QWEN25VL:\n4146:         case PROJECTOR_TYPE_QWEN3VL:\n4147:         case PROJECTOR_TYPE_EXAONE4_5:\n4148:         case PROJECTOR_TYPE_MIMOVL:\n4149:         case PROJECTOR_TYPE_MINIMAX_M3:\n4150:         case PROJECTOR_TYPE_GLM4V:\n4151:         case PROJECTOR_TYPE_YOUTUVL:\n4152:         case PROJECTOR_TYPE_MUSE_GLIMMER:\n4153:             {\n4154:                 // dynamic size (2 conv, so double patch size)\n4155:                 int x_patch = img->nx() / (params.patch_size * 2);\n4156:                 int y_patch = img->ny() / (params.patch_size * 2);\n4157:                 n_patches = x_patch * y_patch;\n4158:             } break;"
+        }
+      ]
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip-model.h",
+      "sha256": "f4df467f21eb5ac4954010a3be30f26586ebe7fa77f6000e65a943215be011e2",
+      "excerpts": [
+        {
+          "start": 186,
+          "end": 195,
+          "text": "186:     // custom value provided by user, can be undefined if not set\n187:     int32_t custom_image_min_tokens = -1;\n188:     int32_t custom_image_max_tokens = -1;\n189: \n190:     void set_limit_image_tokens(int n_tokens_min, int n_tokens_max) {\n191:         const int patch_area = patch_size * patch_size * n_merge * n_merge;\n192:         image_min_pixels = (custom_image_min_tokens > 0 ? custom_image_min_tokens : n_tokens_min) * patch_area;\n193:         image_max_pixels = (custom_image_max_tokens > 0 ? custom_image_max_tokens : n_tokens_max) * patch_area;\n194:         warmup_image_size = static_cast<int>(std::sqrt(image_max_pixels));\n195:     }"
+        }
+      ]
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd-image.cpp",
+      "sha256": "7dc760e4f85e38e11d11268ae412c3b6c0a32389c6c584ca34dd7b4a679f950b",
+      "excerpts": [
+        {
+          "start": 122,
+          "end": 156,
+          "text": "122:     static clip_image_size calc_size_preserved_ratio(const clip_image_size & inp_size, const calc_size_opt & opts) {\n123:         GGML_ASSERT(opts.align_size > 0);\n124:         const int width  = inp_size.width;\n125:         const int height = inp_size.height;\n126:         if (width <= 0 || height <= 0) {\n127:             return {0, 0};\n128:         }\n129: \n130:         auto round_by_factor = [f = opts.align_size](float x) { return static_cast<int>(std::round(x / static_cast<float>(f))) * f; };\n131:         auto ceil_by_factor  = [f = opts.align_size](float x) { return static_cast<int>(std::ceil(x / static_cast<float>(f))) * f; };\n132:         auto floor_by_factor = [f = opts.align_size](float x) { return static_cast<int>(std::floor(x / static_cast<float>(f))) * f; };\n133: \n134:         int w_bar, h_bar;\n135:         if (opts.longest_edge > 0) {\n136:             const float scale = std::min(static_cast<float>(opts.longest_edge) / width,\n137:                                           static_cast<float>(opts.longest_edge) / height);\n138:             w_bar = ceil_by_factor(width  * scale);\n139:             h_bar = ceil_by_factor(height * scale);\n140:         } else {\n141:             // always align up first\n142:             w_bar = std::max(opts.align_size, round_by_factor(width));\n143:             h_bar = std::max(opts.align_size, round_by_factor(height));\n144:         }\n145: \n146:         if (opts.max_pixels > 0 && h_bar * w_bar > opts.max_pixels) {\n147:             const auto beta = std::sqrt(static_cast<float>(height) * width / opts.max_pixels);\n148:             h_bar = std::max(opts.align_size, floor_by_factor(height / beta));\n149:             w_bar = std::max(opts.align_size, floor_by_factor(width  / beta));\n150:         } else if (opts.min_pixels > 0 && h_bar * w_bar < opts.min_pixels) {\n151:             const auto beta = std::sqrt(static_cast<float>(opts.min_pixels) / (static_cast<float>(height) * width));\n152:             h_bar = ceil_by_factor(height * beta);\n153:             w_bar = ceil_by_factor(width * beta);\n154:         }\n155: \n156:         return {w_bar, h_bar};"
+        },
+        {
+          "start": 766,
+          "end": 780,
+          "text": "766: mtmd_image_preproc_out mtmd_image_preprocessor_dyn_size::preprocess(const clip_image_u8 & img) const {\n767:     GGML_ASSERT(hparams.image_min_pixels > 0 && hparams.image_max_pixels > 0);\n768:     clip_image_u8 resized_image;\n769:     const clip_image_size original_size = img.get_size();\n770:     // the original pixtral model doesn't have n_merge\n771:     const int cur_merge = hparams.n_merge;\n772:     const clip_image_size target_size = img_tool::calc_size_preserved_ratio(\n773:         original_size,\n774:         {\n775:             /* align_size   */ hparams.patch_size * cur_merge,\n776:             /* min_pixels   */ hparams.image_min_pixels,\n777:             /* max_pixels   */ hparams.image_max_pixels,\n778:             /* longest_edge */ 0,\n779:         });\n780:     img_tool::resize(img, resized_image, target_size,"
+        }
+      ]
+    },
+    {
+      "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/mtmd.cpp",
+      "sha256": "b5f5660650d5abd1b8e23b6e4246f33eedc73b79fc904c2ff521796060bd56bb",
+      "excerpts": [
+        {
+          "start": 694,
+          "end": 703,
+          "text": "694:             case PROJECTOR_TYPE_QWEN2VL:\n695:             case PROJECTOR_TYPE_QWEN25VL:\n696:             case PROJECTOR_TYPE_QWEN3VL:\n697:             case PROJECTOR_TYPE_MIMOVL:\n698:                 {\n699:                     // <|vision_start|> ... (image embeddings) ... <|vision_end|>\n700:                     img_beg = \"<|vision_start|>\";\n701:                     img_end = \"<|vision_end|>\";\n702:                     image_preproc = std::make_unique<mtmd_image_preprocessor_dyn_size>(ctx_v);\n703:                 } break;"
+        },
+        {
+          "start": 1308,
+          "end": 1318,
+          "text": "1308:     void add_text(const std::string & txt, bool parse_special) {\n1309:         if (vocab == nullptr) {\n1310:             throw std::runtime_error(\"llama_vocab is not provided\");\n1311:         }\n1312:         LOG_DBG(\"%s: %s\\n\", __func__, txt.c_str());\n1313:         auto tokens = mtmd_tokenize_text_internal(vocab, txt, /* add_special */ false, parse_special);\n1314:         add_text(tokens);\n1315:     }\n1316: \n1317:     void add_text(const std::vector<llama_token> & tokens) {\n1318:         if (tokens.empty()) {"
+        },
+        {
+          "start": 1352,
+          "end": 1354,
+          "text": "1352:             if (!ctx->img_beg.empty()) {\n1353:                 add_text(ctx->img_beg, true); // add image begin token\n1354:             }"
+        },
+        {
+          "start": 1547,
+          "end": 1549,
+          "text": "1547:             if (!ctx->img_end.empty()) {\n1548:                 add_text(ctx->img_end, true); // add image end token\n1549:             }"
+        }
+      ]
+    }
+  ],
+  "citation_correction": {
+    "primary_name": "clip_n_patches",
+    "actual_name": "clip_n_output_tokens",
+    "path": "audio-evaluator-floor-r1/source-original/llama.cpp-5266f24da75dc449bd56cbed7addb9c8e4a6a73e/tools/mtmd/clip.cpp",
+    "line": 4083,
+    "changes_budget": false
+  },
+  "control": {
+    "stdout_path": "visual-evaluator-control-r1/stdout-cwd.txt",
+    "stdout": "\n**LEFT HALF:**\n- **Red Circle:** Located near the bottom left corner.\n- **Green Square:** Positioned slightly above and to the right of the red circle.\n- **Blue Triangle:** Located near the top center.\n\n**RIGHT HALF:**\n- No colored objects are visible.\n\n\n",
+    "interpretation": "Basic colors/shapes and blank right side were reported; triangle horizontal location is imprecise. This is not evidence of sixteen-image art direction capability."
+  },
+  "no_process_stdout_or_stderr_read_by_this_script": true
+}

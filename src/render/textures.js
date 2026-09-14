@@ -355,12 +355,12 @@ GEN.concrete = (size, seed) => {
     }
   }
 
-  // Air-void pitting.
+  // Fine air voids stay subordinate to the pour joints and larger spalls.
   for (let i = 0; i < size * 1.6; i++) {
     const x = rng.f() * size, y = rng.f() * size, rad = rng.range(0.7, 3.2);
-    ca.fillStyle = rgba(72, 68, 62, rng.range(0.2, 0.65));
+    ca.fillStyle = rgba(72, 68, 62, rng.range(0.08, 0.23));
     ca.beginPath(); ca.arc(x, y, rad, 0, 6.283); ca.fill();
-    ch.fillStyle = rgb(118, 118, 118);
+    ch.fillStyle = rgb(133, 133, 133);
     ch.beginPath(); ch.arc(x, y, rad, 0, 6.283); ch.fill();
   }
 
@@ -405,14 +405,14 @@ GEN.brick = (size, seed) => {
   const bh = size / rows;
   const bw = bh * 2.35;
 
-  ca.fillStyle = rgb(108, 102, 92); ca.fillRect(0, 0, size, size);   // mortar
-  ch.fillStyle = rgb(96, 96, 96); ch.fillRect(0, 0, size, size);
+  ca.fillStyle = rgb(82, 76, 68); ca.fillRect(0, 0, size, size);   // mortar
+  ch.fillStyle = rgb(124, 124, 124); ch.fillRect(0, 0, size, size);
 
-  // Fired clay, not terracotta paint. Muted, with enough spread between bricks
-  // that a wall reads as thousands of individual units at distance.
+  // Clay variation remains visible nearby; at distance the wall reads as a
+  // continuous surface before the individual courses and damaged units.
   const palette = [
-    [116, 78, 62], [104, 70, 56], [126, 88, 70], [94, 64, 52],
-    [110, 76, 64], [98, 68, 56], [130, 94, 74], [88, 60, 50],
+    [111, 77, 62], [107, 74, 60], [115, 80, 64], [103, 71, 58],
+    [110, 76, 63], [105, 73, 59], [117, 82, 66], [101, 69, 56],
   ];
 
   for (let row = 0; row < rows; row++) {
@@ -423,18 +423,18 @@ GEN.brick = (size, seed) => {
       const by = y + 1.2;
       const w = bw - 2.4, hh = bh - 2.4;
       const c = palette[rng.int(0, palette.length - 1)];
-      const j = rng.sym(9);
+      const j = rng.sym(4);
       wrapDraw(ca, size, (cc) => {
         cc.fillStyle = rgb(c[0] + j, c[1] + j * 0.8, c[2] + j * 0.7);
         cc.fillRect(bx, by, w, hh);
-        // Per-brick shading so courses read at distance.
+        // A shallow face variation; the normal map supplies the edge relief.
         const g = cc.createLinearGradient(bx, by, bx, by + hh);
-        g.addColorStop(0, 'rgba(255,255,255,0.07)');
-        g.addColorStop(1, 'rgba(0,0,0,0.16)');
+        g.addColorStop(0, 'rgba(255,255,255,0.035)');
+        g.addColorStop(1, 'rgba(0,0,0,0.055)');
         cc.fillStyle = g; cc.fillRect(bx, by, w, hh);
       });
       wrapDraw(ch, size, (cc) => {
-        const hv = 168 + rng.sym(10);
+        const hv = 148 + rng.sym(4);
         cc.fillStyle = rgb(hv, hv, hv);
         cc.fillRect(bx, by, w, hh);
       });
@@ -449,7 +449,7 @@ GEN.brick = (size, seed) => {
   // Soot: Hollis brick is never clean. Heavier toward the bottom of the tile.
   const g = ca.createLinearGradient(0, size * 0.35, 0, size);
   g.addColorStop(0, 'rgba(16,13,10,0)');
-  g.addColorStop(1, 'rgba(16,13,10,0.42)');
+  g.addColorStop(1, 'rgba(16,13,10,0.18)');
   ca.fillStyle = g; ca.fillRect(0, 0, size, size);
 
   streaks(ca, size, seed + 17, 16, 0.3, [22, 18, 14]);
@@ -725,17 +725,17 @@ GEN.ash = (size, seed) => {
   ca.putImageData(img, 0, 0);
   ch.putImageData(himg, 0, 0);
 
-  // Grit, gravel, small char fragments.
+  // Fine grit sits within the broad drift rather than dominating the ground.
   for (let i = 0; i < size * 3; i++) {
     const x = rng.f() * size, y = rng.f() * size, rad = rng.range(0.6, 2.6);
     const dark = rng.chance(0.55);
-    ca.fillStyle = dark ? rgba(38, 34, 30, rng.range(0.3, 0.8)) : rgba(162, 155, 142, rng.range(0.2, 0.5));
+    ca.fillStyle = dark ? rgba(38, 34, 30, rng.range(0.10, 0.26)) : rgba(162, 155, 142, rng.range(0.08, 0.20));
     ca.beginPath(); ca.arc(x, y, rad, 0, 6.283); ca.fill();
-    ch.fillStyle = rgb(128 + (dark ? -14 : 22), 128, 128);
+    ch.fillStyle = rgb(128 + (dark ? -5 : 8), 128, 128);
     ch.beginPath(); ch.arc(x, y, rad, 0, 6.283); ch.fill();
   }
 
-  speckle(ca, size, seed + 8, 0.07);
+  speckle(ca, size, seed + 8, 0.025);
   cr.fillStyle = rgb(246, 246, 246); cr.fillRect(0, 0, size, size);
   // Dry drift is the roughest thing in the city; where it has been walked
   // through or rained on it packs down and takes a dull sheen.
