@@ -234,3 +234,63 @@ jobs:
           path: test-results/e9-reader-recovery-r2/report.json
           if-no-files-found: warn
           retention-days: 14
+
+  prepare-reviewed-light:
+    name: Prepare reviewed light source and production root
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-light-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-reviewed-light.mjs
+      - name: Generate the reviewed source and matching root build
+        run: node tools/prepare-reviewed-light.mjs
+      - name: Export exact prepared files
+        run: node tools/prepare-reviewed-light.mjs --export
+      - name: Preserve prepared product and verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-light-build-r2-${{ github.sha }}
+          path: test-results/reviewed-light-build-r2
+          if-no-files-found: warn
+          retention-days: 14
+
+  prepare-e9-readable:
+    name: Restore candidate graph and prepare faithful E9 reading material
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-e9-readable-r3]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/prepare-e9-readable.mjs
+      - name: Recreate the pinned private reference input in this fresh runner
+        run: python3 tools/restore-e9-reader.py
+      - name: Restore the original candidate and preserve both authored graphs
+        run: node tools/prepare-e9-readable.mjs
+      - name: Preserve non-prose preparation and fidelity records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-readable-r3-${{ github.sha }}
+          path: |
+            test-results/e9-readable-r3/report.json
+            test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14

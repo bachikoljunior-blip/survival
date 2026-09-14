@@ -1,0 +1,112 @@
+{
+  "source": {
+    "bytes": 18243,
+    "commit": "5109bc6409c7bf80b228147f9a3672a2c0bc8f2f",
+    "job": 103944466141,
+    "run": 34834288962,
+    "sha256": "0874c36a78c28b1ed560ed931190cc80bb94d599784bd60717d60a018628ba10"
+  },
+  "report": {
+    "checks": [
+      {
+        "name": "reconstructed extractor matches pinned reviewed bytes",
+        "passed": true
+      },
+      {
+        "name": "workspace has one GiB free for bounded recovery",
+        "passed": true
+      },
+      {
+        "name": "source returned HTTP 200",
+        "passed": true
+      },
+      {
+        "name": "database bytes and SHA match original private source",
+        "passed": true
+      },
+      {
+        "name": "recovered extractor completed",
+        "passed": true
+      },
+      {
+        "name": "original reader.json is byte-identical",
+        "passed": true
+      },
+      {
+        "name": "original field-pins.json is byte-identical",
+        "passed": true
+      },
+      {
+        "name": "original private-source-audit.json is byte-identical",
+        "passed": true
+      },
+      {
+        "name": "all original manifest values retained",
+        "passed": true
+      },
+      {
+        "name": "fixed six subjects seven units 1337 nodes and 40 alternatives retained",
+        "passed": true
+      },
+      {
+        "name": "every internal link resolves inside its original unit",
+        "passed": true
+      }
+    ],
+    "claim": "Exact restoration of a previously checked authored graph only; not gameplay, comparison readiness, blind comparison, or an element judgment.",
+    "download": {
+      "bytes": 40517632,
+      "seconds": 1.4425778920000027,
+      "sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5"
+    },
+    "elapsed_seconds": 9.398800744999996,
+    "extraction_process": {
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1124,
+      "stdout_sha256": "ffa339f5d36720138491f5f963a700ce4ead368892f558d2062d82fbdf6f0179"
+    },
+    "extractor_sha256": "6fd09d2d7d1b3e006b48c224e9065b6cfe6e4e4462c73e518c8c357bdb2edcaa",
+    "next_action": "Recover or reconstruct the later readable formatter, verify every field/alternative/boundary, then prepare an adequate source-blind comparison. Do not call these hashes a quality judgment.",
+    "outputs": [
+      {
+        "bytes": 563486,
+        "expected_bytes": 563486,
+        "expected_sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+        "file": "reader.json",
+        "sha256": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e"
+      },
+      {
+        "bytes": 316159,
+        "expected_bytes": 316159,
+        "expected_sha256": "b74bfed4b94d198d9869f6fffd5a3708ddd963bdd90079e535010f2bd1bd1a81",
+        "file": "field-pins.json",
+        "sha256": "b74bfed4b94d198d9869f6fffd5a3708ddd963bdd90079e535010f2bd1bd1a81"
+      },
+      {
+        "bytes": 670263,
+        "expected_bytes": 670263,
+        "expected_sha256": "645bea55392946c918d52acc0c34100a91aaddf3bc1c0e55dbc9825f7f27ee3c",
+        "file": "private-source-audit.json",
+        "sha256": "645bea55392946c918d52acc0c34100a91aaddf3bc1c0e55dbc9825f7f27ee3c"
+      }
+    ],
+    "private_output_policy": "Database, original prose, raw source audit, and reader stay only under RUNNER_TEMP. Logs and uploaded report contain pins and structural checks only.",
+    "reference_source": {
+      "bytes": 40517632,
+      "qualification": "Third-party extraction with limited prior displayed-text corroboration; no new official edition authentication.",
+      "sha256": "ae364f994f1afbe6024a8c7e3f8402a73de329d2866a543a81eb42ebceeb4ae5",
+      "url": "https://raw.githubusercontent.com/msyavuz/disco-api/70adf5c3e2d254e364cd92bdc09d927bf1fa9553/disco.db"
+    },
+    "schema_version": 1,
+    "stage": "completed",
+    "status": "original raw reader and audit restored byte-for-byte",
+    "structural_counts": {
+      "alternates": 40,
+      "nodes": 1337,
+      "subjects": 6,
+      "units": 7
+    }
+  }
+}
