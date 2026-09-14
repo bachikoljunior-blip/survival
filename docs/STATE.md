@@ -1,14 +1,14 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.24 -->
+<!-- state_revision: 2026-09-14.25 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.24 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.25 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
-今回の続行: E9固定参照readerは実CI9.3988秒で既知3出力SHA・manifest全値一致を確認、原logと結果を保存。光r2は全8原pair独立評価で限定改善として採用を支持、sourceと生成rootを同時に作って現行スマートフォン検証へ進む。候補r1/r2も既知hashから復旧し、原文・分岐を保つ新r3表示を準備する。製品はa840/14ea69b0、全19未測定・有効比較0、期限内全達成の根拠はまだ不足。開始と期限は維持。
+今回の続行: 光r2の限定改善を採用。constructorとupdateの光源向き2行を変更し、実CIで生成したroot bundle6b887bc1と同時保存。content/root一致は検証済み、現行WebKit/Mobile Safari/narrative検証へ進む。E9候補r1/r2も元hashに完全一致し復旧、新r3表示を実生成。独立実field監査と有効比較は未完。全19未測定・有効比較0、開始/期限は維持。
 
 ### 2026-09-14 以前の継続記録（当時の状態）
 

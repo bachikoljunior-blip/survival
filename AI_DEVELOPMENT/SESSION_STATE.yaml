@@ -17,25 +17,25 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  continuation_check_observation: "2026-09-14T19:46:19.982+09:00 remote5109bc6とCI34834288962、進行中Q35 r3を照合。主実行はE9復旧実結果の監査、採用する光変更のsource/root生成準備、候補graphの再構成で活動中。重複起動なし。"
-  last_progress_at: "2026-09-14T19:46:19.982+09:00"
+  continuation_check_observation: "2026-09-14T19:54:30.503+09:00 remote44e0233とCI34835017168を照合。主実行は採用光buildの原bytes回収・元source2行差の検証・E9実復旧監査で活動中。製品sourceの次commitでWebKitとMobile Safariを実行し、競合起動しない。"
+  last_progress_at: "2026-09-14T19:54:30.503+09:00"
   verified_commit: "a8409cc0de04a503f50395487478fe0cfb2a98e7"
   verified_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
   evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
-  last_verified_action: "E9参照固定readerの実CI復旧が9.3988秒で完了。固定DB40,517,632BのSHA、reader563,486B、field-pins316,159B、private-source-audit670,263Bの既知SHAが完全一致、manifest全値も一致。11検査通過、6subjects/7units/1337nodes/40alternativesを復旧。光r2は全8原pairの独立評価完了、控えめな明暗改善として採用支持。"
+  last_verified_action: "光r2採用buildを実CI生成。atmosphere source4bc604f6、bundle6b887bc1。元sourceからconstructor/update各1行以外の変更なし、配布static5files不変、root一致/content検証通過。原8filesをjob103946755486からoffset/bytes/SHA検証して回収。E9候補r1のreader/pins/audit3hashと、2見出し修正後r2 hash884e6431が全て一致。new r3 A957/B373非null authored fieldsを出力し29検査通過、独立実field監査待ち。"
   current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
-  pending_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
-  modified_but_unverified: "製品はa840/14ea69b0のまま。採用する光r2[-43,85,38]はconstructorと毎frame updateの2行だけを変更する。固定source SHAを検査して生成rootと同時に作り、全static一致/content検証後に正規接続で原bytesを回収する補助を準備、実生成未実行。E9候補r1の3hash→既知2見出し変更→r2knownSHA照合と、元formatter不在を明記した新r3表示を準備。新r3表示の実生成・独立field監査は未実施。"
-  next_action: "光r2の採用sourceと生成rootを実CIで作成し、元sourceから2行以外変更がないこと・root原bytes・content検証を確認して同じブランチへ同時保存、現行WebKit/iOS検証へ進む。E9候補r1/r2の既知SHA復旧と新r3の原文/選択肢/alternatives/分岐保持を実確認する。進行中Q35 r3の固定16画像比較は完了後に完全rawを監査し、途中statusだけで有効比較や達成を認定しない。"
+  pending_build_sha256: "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b"
+  modified_but_unverified: "採用光r2[-43,85,38]のsource2行と実生成rootを同時保存。build6b887bc1のcontent/rootは実検証済みだが、現行WebKit/iOS・実narrative・視点画像は未検証。以前a840の177/27検査を新buildへ無条件適用しない。E9新r3は実生成済み、本文/variants/graph保持の独立実監査と入力長実測・有効比較が未完。"
+  next_action: "build6b887bc1を含むcommitの実WebKit/Mobile Safari/narrative結果を回収し、原画像・測定値・対象buildを対応付ける。光r2で残るMVD-01全体とMVD-03を達成扱いにしない。E9新r3の独立field監査を実CIに組み込み、元readerの全非null文字列・40alternatives・分岐・状態表示が実テキストに残ることを照合する。Q35 r3の固定16画像比較は完了後に完全rawを監査し、出所認識や未完回答は達成にしない。"
 
-  deadline_assessment: "2026-09-14T19:46:19.982+09:00 継続確認直後、残り145.17時間。全19未測定・有効比較0のため期限内完全達成の根拠は不足。ローカル復旧を待つ方法を変更し、既存CIで参照readerの完全同一復旧を9.40秒で実証、資料再生成の不確実性は減少。光の大角度案を見直したr2は8視点で限定改善、製品反映へ進む。次は新buildの実測と比較回答を優先する。19要素/71基準/参照/開始/期限を変更しない。"
+  deadline_assessment: "2026-09-14T19:54:30.503+09:00 継続確認直後、残り145.04時間。全19未測定・有効比較0、期限内完全達成は未だ根拠不足。方法変更により参照/候補r1/r2の完全同一復旧を実証し、旧formatter待ちを新r3表示生成へ切替。光r2は原8pairの限定改善を根拠に実source/rootへ反映する地点まで到達した。次は新buildスマートフォン結果と実比較の待ちを並行処理し、長い本文の入力容量を実測する。残る差を未測定のまま合格にせず、開始/期限/19要素/71基準を維持。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "全19要素に有効比較なし。過去の参照出所認識2試行は無効、c02eは回答0のタイムアウト。完了作業単位0。"
-    - "現行a840のWebKit177/iOS27と原画像は検証済み。MVD-01の光r1はMarrow改善とVentfield足元の代償が実測され、global採用を見送りr2へ。MVD-03・移動中の美術・全要素の参照同等性は未測定。source-known診断を盲検合格にしない。"
+    - "a840のWebKit177/iOS27は当時のbuildの証拠。新しい光r2採用build6b887bc1の現行スマートフォン・原画像検証はこれから。MVD-01全体・MVD-03・移動中の美術と全要素の参照同等性は未測定。source-known診断を盲検合格にしない。"
     - "c02eで16画像一括の1800秒予算が不足した。Omni wrapperの語彙修復は制御出力を変えず、処理時間/美術知覚を修復したとは未立証。localの新9Bモデルは取得未完。CIでは既存保存物利用で403停止を越え、model/projector取得成功。controlは最終回答途中の300秒timeout、本比較未実行。600秒/1024tokensへ修正後にcontrol処理完了、16画像比較stepへ到達。rawの内容監査はjob完了後に行う。完了前log404を同じ条件で再取得しない。"
     - "local ENOSPCにより通常sandboxが起動前に失敗。重複prefix除去後にpartialが再出現した原因は未確認。削除の通常実行は開始せず、昇格実行は承認設定拒否。回避せずGitHub接続と既存CIで別作業を継続。"
     - "Git通常push認証なし。接続アプリの正規read/writeを使用。local browser/serverの安全拒否と原artifact配送403は迂回しない。"
-    - "E9はDB全文画面照合という追加必須工程を置かず、固定抽出と限定画面一致の出所推論を明記する。Joyce文脈修復と原文一致は確認、全文reader最終監査と有効な非認識評価は必要。未play graphを実playにせず、scratch未転送作業を保存済みとしない。"
+    - "E9参照r2と候補r1/r2は実CIで元hash一致を確認し、失われたローカル資料を固定sourceから再現できる。旧formatter本文は未保持なので新r3を作成し実生成済み。独立実field監査と非認識評価は未完。third-party DBの限定出所推論は記録し、未play graphを実playにしない。全文sourceをゲーム/公開log/配布へ混入させない。"
   recovery: "手元a840までclean同期済み、その後ENOSPC。通常exec/view_image/apply_patchがsandbox開始前に失敗し、削除は実行されていない。安全設定の昇格拒否は迂回しない。許可GitHub接続と既存CIは実際に使用可。容量の再発原因は部分ファイルの再出現までは観測、作成者未確定。正規のローカル実行が回復した時は検証済み原データを保持して再取得可能cacheだけを整理し、scratch未転送作業のpinを照合して保存。新remoteとの差はresetで破壊せず照合する。開始/期限は維持。"
   continuation_mechanism: "Work Mode既存の survival 継続実行 を、主実行停止時の再発火役へ更新し、正確なprompt・有効状態・既存予定の保持を再読取確認した。停止原因の全件調査→修正可能な全原因の修正→再発防止の検証→保存された未完了地点の再開→実進捗確認を指示。稼働中は競合変更しない。変更不可能な安全/権限/環境上限は迂回せず記録。設定更新は未来の復旧成功の証拠ではない。証拠: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/resume-watchdog.json"

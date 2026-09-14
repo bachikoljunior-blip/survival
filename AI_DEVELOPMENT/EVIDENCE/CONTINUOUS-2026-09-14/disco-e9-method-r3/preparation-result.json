@@ -1,0 +1,200 @@
+{
+  "source": {
+    "bytes": 25857,
+    "commit": "44e023301172bd508e53f0e866c673ed9033ecc0",
+    "job": 103946755736,
+    "run": 34835017168,
+    "sha256": "aeca141167ccf2cae061735531287d978d12c48deddb2f849ddf57ce62790ad4"
+  },
+  "report": {
+    "candidate_process_stdout": {
+      "bytes": 1390,
+      "sha256": "22609539768907ad445885bfb6d0199b8bc5c35a92a406b11bbb5a51a248c8ee"
+    },
+    "checks": [
+      {
+        "name": "reference reader restored to original pinned r2",
+        "passed": true
+      },
+      {
+        "name": "story source is the independently checked original",
+        "passed": true
+      },
+      {
+        "name": "recovered candidate generator matches its recorded bytes",
+        "passed": true
+      },
+      {
+        "name": "original r1 candidate-reader.json is byte-identical",
+        "passed": true
+      },
+      {
+        "name": "original r1 candidate-field-pins.json is byte-identical",
+        "passed": true
+      },
+      {
+        "name": "original r1 candidate-private-source-audit.json is byte-identical",
+        "passed": true
+      },
+      {
+        "name": "the two previously observed headers are present",
+        "passed": true
+      },
+      {
+        "name": "exact known r2 reader recovered by the two observed header changes",
+        "passed": true
+      },
+      {
+        "name": "both sides carry the exact same authored-graph notice",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U1.1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U2.1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U3.1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U4.1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U4.2 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U5.1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL A U6.1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U1 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U2 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U3 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U4 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U5 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U6 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U7 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U8 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U9 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U10 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U11 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U12 has unique nodes and valid entry points",
+        "passed": true
+      },
+      {
+        "name": "MATERIAL B U13 has unique nodes and valid entry points",
+        "passed": true
+      }
+    ],
+    "not_claimed": [
+      "original missing formatter recovered",
+      "new r3 equals previous r2 readable bytes",
+      "source-blindness",
+      "played transcript",
+      "E9 satisfied"
+    ],
+    "outputs": [
+      {
+        "bytes": 159103,
+        "file": "candidate-reader.json",
+        "role": "restored original candidate r1",
+        "sha256": "2c8f38ec1786efe40f3b8436ec2b5f8a844b563c1ad62cce83cf0ba59c43455d"
+      },
+      {
+        "bytes": 79448,
+        "file": "candidate-field-pins.json",
+        "role": "restored original candidate r1",
+        "sha256": "97a477df4933d56f45d2ae5cb8d42923a0d1038ea6ff6780e14d44221711b84a"
+      },
+      {
+        "bytes": 105912,
+        "file": "candidate-private-source-audit.json",
+        "role": "restored original candidate r1",
+        "sha256": "00901acc0f91093708438fc2a0f0bc1641688039db97ba799477b9b593eea96d"
+      },
+      {
+        "bytes": 159109,
+        "file": "candidate-reader.json",
+        "role": "restored candidate r2",
+        "sha256": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b"
+      },
+      {
+        "authored_fields": 957,
+        "bytes": 200075,
+        "file": "A-readable.txt",
+        "nodes": 1337,
+        "role": "A readable authored graph",
+        "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+        "words": 30628
+      },
+      {
+        "bytes": 405984,
+        "file": "A-private-field-audit.json",
+        "role": "A field and structural pins",
+        "sha256": "6005041dbec2592e231ff99b6b0a5f32206f81492ffb8da6d5dbbb60731cf22b"
+      },
+      {
+        "authored_fields": 373,
+        "bytes": 62026,
+        "file": "B-readable.txt",
+        "nodes": 320,
+        "role": "B readable authored graph",
+        "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+        "words": 10692
+      },
+      {
+        "bytes": 121928,
+        "file": "B-private-field-audit.json",
+        "role": "B field and structural pins",
+        "sha256": "998981e436b86e9ea74520e6446a9eaf73160f32f54e26a352a43a66b5829ea4"
+      }
+    ],
+    "prose_policy": "Full reference/candidate reading material stays under RUNNER_TEMP. Public logs/artifacts contain only this report and reproducible scripts/pins.",
+    "schema_version": 1,
+    "scope": "Restored authored graphs and a newly reconstructed readable presentation. This does not recover the missing old formatter, prove gameplay, establish source blindness, or judge E9.",
+    "status": "original candidate r1/r2 restored and new readable r3 generated; independent formatting review pending"
+  }
+}
