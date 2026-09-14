@@ -1,0 +1,223 @@
+{
+  "sourceSha256": "9a04b54a670c7085118baf822a24e7c4e494cb6099db94ec45248352e165d43c",
+  "sourceBytes": 30339,
+  "scope": "Synthetic prior failure records plus actual helper.main refusal path and supplied metadata policy; no model, native tokenizer, child or network.",
+  "unexpectedCalls": [],
+  "results": [
+    {
+      "stage": "prepare",
+      "exit": 1,
+      "runRecordUnchanged": true,
+      "errorRecordUnchanged": true,
+      "beforeSha256": "669ed478ed7397613c9ca083ef00a5c3722a97ba877fe5f3310ed0533df819b7",
+      "afterSha256": "669ed478ed7397613c9ca083ef00a5c3722a97ba877fe5f3310ed0533df819b7",
+      "stdout": "",
+      "stderr": "{\"type\": \"AttemptError\", \"code\": \"preparation_already_attempted_no_retry\", \"at_utc\": \"2026-09-14T11:55:13Z\", \"quality_verdict\": \"not measured\", \"blind_validity\": \"not measured\"}\n"
+    },
+    {
+      "stage": "compare",
+      "exit": 1,
+      "runRecordUnchanged": true,
+      "errorRecordUnchanged": true,
+      "beforeSha256": "7509d8b711ea4e30a6f02aeaf6f3b02ac35fae9041a42f750a2f042d2fc0b9c4",
+      "afterSha256": "7509d8b711ea4e30a6f02aeaf6f3b02ac35fae9041a42f750a2f042d2fc0b9c4",
+      "stdout": "",
+      "stderr": "{\"type\": \"AttemptError\", \"code\": \"comparison_already_attempted_no_retry\", \"at_utc\": \"2026-09-14T11:55:13Z\", \"quality_verdict\": \"not measured\", \"blind_validity\": \"not measured\"}\n"
+    }
+  ],
+  "specialPolicyCases": [
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.add_eos_token": false
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen2",
+        "effective_add_bos": false,
+        "effective_add_eos": false,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.add_eos_token": true
+      },
+      "accepted": false,
+      "code": "native_tokenizer_completion_special_policy_mismatch"
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": false
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen2",
+        "effective_add_bos": true,
+        "effective_add_eos": false,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": true
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen2",
+        "effective_add_bos": true,
+        "effective_add_eos": true,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen2"
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen2",
+        "effective_add_bos": false,
+        "effective_add_eos": false,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35",
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.add_eos_token": false
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen35",
+        "effective_add_bos": false,
+        "effective_add_eos": false,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35",
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.add_eos_token": true
+      },
+      "accepted": false,
+      "code": "native_tokenizer_completion_special_policy_mismatch"
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35",
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": false
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen35",
+        "effective_add_bos": true,
+        "effective_add_eos": false,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35",
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": true
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen35",
+        "effective_add_bos": true,
+        "effective_add_eos": true,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35"
+      },
+      "accepted": true,
+      "policy": {
+        "model": "gpt2",
+        "pre": "qwen35",
+        "effective_add_bos": false,
+        "effective_add_eos": false,
+        "missing_flag_defaults": false,
+        "tokenizer_and_completion_special_policy_equal": true
+      }
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35",
+        "tokenizer.ggml.add_bos_token": 0
+      },
+      "accepted": false,
+      "code": "native_tokenizer_completion_special_policy_mismatch"
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "qwen35",
+        "tokenizer.ggml.add_eos_token": "false"
+      },
+      "accepted": false,
+      "code": "native_tokenizer_completion_special_policy_mismatch"
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "other"
+      },
+      "accepted": false,
+      "code": "unexpected_qwen_BPE_policy_requires_source_review"
+    },
+    {
+      "metadata": {
+        "tokenizer.ggml.model": "llama",
+        "tokenizer.ggml.pre": "qwen35"
+      },
+      "accepted": false,
+      "code": "unexpected_qwen_BPE_policy_requires_source_review"
+    }
+  ],
+  "functionsChangedSinceBdaab": [
+    "main",
+    "prepare",
+    "tokenizer_special_policy"
+  ],
+  "currentSourceUnchanged": true,
+  "limit": "Policy controls exercise Python guards. Token equivalence is a pinned C++ source deduction; actual downloaded GGUF/native full-input tokens remain unmeasured."
+}

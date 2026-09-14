@@ -1,0 +1,134 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "round": "E9-helper-r1-independent-final",
+  "profile": "source-and-bounded-CPU",
+  "tier": "diagnostic",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison or model answer was measured. A stranger preference cannot be inferred from source and synthetic orchestration controls.",
+  "scoreMeaning": "Unscored sentinel; FAIL means the model comparison remains unmeasured, not a demonstrated product or model failure.",
+  "reviewOutcome": "No surviving actionable finding in the reviewed helper source scope. One independently reproduced minor defect is resolved.",
+  "reviewedHelper": {
+    "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/tools/compare-e9-q35.py",
+    "bytes": 30339,
+    "sha256": "9a04b54a670c7085118baf822a24e7c4e494cb6099db94ec45248352e165d43c"
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "E9-ERROR-RETENTION",
+      "severity": "minor",
+      "shot": "Repeated prepare/compare refusal after a previous failed attempt",
+      "owner": "tools/compare-e9-q35.py",
+      "problem": "The old main exception handler overwrote the original stage-error JSON with the later refusal reason, although the run record and no-retry behavior remained intact.",
+      "why": "A routine rejected repeat lost the original failure code and time, weakening the retained diagnostic evidence.",
+      "hypothesis": "Confirmed: unconditional write_json replaced the existing stage-error path from main except.",
+      "fix": "Preserve an existing stage-error file and emit the new refusal on stderr; both refusal cases must exit 1 with prior run/error bytes unchanged.",
+      "before": "refuter-guard-01.json: 2/2 original error records changed; 2/2 run records unchanged; no child or network calls.",
+      "after": "refuter-guard-02.json: 2/2 error and run records byte-identical, refusal stderr retained, both exit 1; no child or network calls.",
+      "status": "resolved on the reviewed 9a04b54a pin"
+    }
+  ],
+  "closedConcerns": [
+    {
+      "id": "E9-SPECIAL-POLICY",
+      "result": "The conditional BOS/EOS mismatch is guarded before tokenization.",
+      "basis": "tokenize.cpp passes model add_bos as add_special; completion.cpp passes true. Qwen gpt2 BPE defaults both flags false, applies boolean metadata overrides, and add_special affects only flag-controlled BOS/EOS append. The helper rejects false/true, non-booleans and other model/pre families.",
+      "control": "refuter-guard-02.json contains 14 supplied-metadata cases: both allowed Qwen pre values, all four boolean pairs, omitted defaults, non-boolean flags and unsupported family/pre. Effective policy is recorded in template/token-count records.",
+      "limit": "No claim that the actual 9.5 GB GGUF metadata or native final token sequence has been measured."
+    },
+    {
+      "id": "E9-CRITERIA-CORRECTION",
+      "result": "The corrected question preserves separate major-character and supporting-character criteria and explicitly requests all 7 A / 13 B units with honest coverage limits.",
+      "basis": "Current QUESTION and attempt.criteria agree with evidence/criteria-source-excerpt.md for BM-CHR-01/BM-CHR-02. The old six-unit/same-six mistake remains in candidate-before-criteria-correction.py.",
+      "limit": "Owner-reported packet coverage is not a new semantic or ordinary-play measurement by this source review; the earlier CPU checks did not establish criterion correctness."
+    }
+  ],
+  "sourceControls": [
+    {
+      "claim": "Native completion uses no CLI HTTP path or prompt echo under supplied flags.",
+      "result": "Source-supported: direct completion model initialization, --no-conversation takes raw prompt branch, --no-display-prompt controls initial echo; verbosity 3 suppresses debug prompt/token logging. Actual saved help advertises the flags."
+    },
+    {
+      "claim": "The canonical file reaches both input paths without the completion -f newline loss.",
+      "result": "Source-supported: common -f removes one terminal LF; tokenizer reopens the file verbatim. Helper gives completion canonical plus exactly one LF and verifies byte identity. Actual target GGUF rendering/count remains unmeasured."
+    },
+    {
+      "claim": "Metadata and source identifiers are excluded from model-visible input.",
+      "result": "The constructed message contains the neutral question and full unchanged A/B readers; model URLs, paths, hashes and criteria source excerpts are public provenance only. Recognition from the original dialogue remains possible and must be audited."
+    },
+    {
+      "claim": "Single-attempt and public export scope.",
+      "result": "Same-workspace run guards precede child launch. Private output files use exclusive creation. Public export uses an explicit allowlist; the 192-byte exact-span safeguard is only a copying safeguard, not a general privacy, semantic or quality proof."
+    }
+  ],
+  "evidence": {
+    "refuter-helper-reviewed.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-helper-reviewed.py",
+      "bytes": 28513,
+      "sha256": "d153011a1565fe7a39f9c6e2c17bf7bc3d6d295e996753716a69bc1d0a070caa"
+    },
+    "refuter-helper-reviewed-v2.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-helper-reviewed-v2.py",
+      "bytes": 30339,
+      "sha256": "9a04b54a670c7085118baf822a24e7c4e494cb6099db94ec45248352e165d43c"
+    },
+    "refuter-guard-01.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-guard-01.py",
+      "bytes": 2608,
+      "sha256": "85eb06d028b9946863aecd5a3c61ed2413b2aa452054215dff0ec651527f0bb6"
+    },
+    "refuter-guard-01.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-guard-01.json",
+      "bytes": 1792,
+      "sha256": "7858fc9cc3e13ba30f35f3995040700b0adb3fe5cb4c97fc3ccc07189fa9a835"
+    },
+    "refuter-guard-01.log": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-guard-01.log",
+      "bytes": 1792,
+      "sha256": "7858fc9cc3e13ba30f35f3995040700b0adb3fe5cb4c97fc3ccc07189fa9a835"
+    },
+    "refuter-guard-02.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-guard-02.py",
+      "bytes": 5244,
+      "sha256": "a711fa1146d4d0e45d8f321fac49e9eaa34a6999c63082699a7ff66770bdf3b5"
+    },
+    "refuter-guard-02.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-guard-02.json",
+      "bytes": 6996,
+      "sha256": "65523812fb730fbcca038cd9bf08245defde45260dc3519188865ebc12f1e55c"
+    },
+    "refuter-guard-02.log": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-guard-02.log",
+      "bytes": 6996,
+      "sha256": "65523812fb730fbcca038cd9bf08245defde45260dc3519188865ebc12f1e55c"
+    },
+    "refuter-source-03.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-source-03.py",
+      "bytes": 9267,
+      "sha256": "92eeef6326d6313bf8af428e78e6f0d4f3ad8d2d387412b9be1baee496783d6d"
+    },
+    "refuter-source-03.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/refuter-source-03.json",
+      "bytes": 15312,
+      "sha256": "8d83aeabaa2365cf62e5eae91092e8cf558d099c9e68646b9840adac4a4ccfad"
+    },
+    "source-pins.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/source-pins.json",
+      "bytes": 1913,
+      "sha256": "550bcd212381ab8a814b82a6d4633ea2e7c4ef51021db95dd27139b98db7a472"
+    },
+    "cpu-results.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r1.ygbs4ih2/evidence/cpu-results.json",
+      "bytes": 7428,
+      "sha256": "4df97b0ee21ab4ea284b4ff26bfcaf08f5b28277b3445c8f81421571e6da6884"
+    }
+  },
+  "provenanceNote": "Materialized arg/tokenize/completion source copies have one additional terminal LF versus the pinned archive; code content is otherwise exact. llama-vocab bytes match the archive exactly. Both hashes are retained in refuter-source-03.json.",
+  "limitations": [
+    "No target model download, full-input native token count, target GGUF template execution, generated response, source recognition, blind validity, character preference, throughput or peak RAM was measured.",
+    "Parent CPU checks were inspected and not rerun. Their official-config rendering and small vocabulary fixture are orchestration controls, not actual full-model input or inference proof.",
+    "The independent new CPU controls cover refusal/error preservation and metadata guards only; no universal signal/host-termination or fresh-runner persistence guarantee is made.",
+    "No workflow integration, CI job execution, browser, server, native/product/element pass or general model capability judgment is included."
+  ]
+}

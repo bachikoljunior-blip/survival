@@ -1,0 +1,47 @@
+{
+  "sourceSha256": "d153011a1565fe7a39f9c6e2c17bf7bc3d6d295e996753716a69bc1d0a070caa",
+  "scope": "Synthetic prior failed records plus actual helper.main refusal path only; no model, tokenizer, child process or network.",
+  "unexpectedCalls": [],
+  "results": [
+    {
+      "stage": "prepare",
+      "exit": 1,
+      "runRecordUnchanged": true,
+      "errorRecordUnchanged": false,
+      "before": {
+        "type": "AttemptError",
+        "code": "runner_resources_below_declared_minimum",
+        "at_utc": "synthetic earlier time"
+      },
+      "after": {
+        "type": "AttemptError",
+        "code": "preparation_already_attempted_no_retry",
+        "at_utc": "2026-09-14T11:49:08Z",
+        "quality_verdict": "not measured",
+        "blind_validity": "not measured"
+      },
+      "stdout": "",
+      "stderr": "{\"type\": \"AttemptError\", \"code\": \"preparation_already_attempted_no_retry\", \"at_utc\": \"2026-09-14T11:49:08Z\", \"quality_verdict\": \"not measured\", \"blind_validity\": \"not measured\"}\n"
+    },
+    {
+      "stage": "compare",
+      "exit": 1,
+      "runRecordUnchanged": true,
+      "errorRecordUnchanged": false,
+      "before": {
+        "type": "AttemptError",
+        "code": "comparison_process_incomplete",
+        "at_utc": "synthetic earlier time"
+      },
+      "after": {
+        "type": "AttemptError",
+        "code": "comparison_already_attempted_no_retry",
+        "at_utc": "2026-09-14T11:49:08Z",
+        "quality_verdict": "not measured",
+        "blind_validity": "not measured"
+      },
+      "stdout": "",
+      "stderr": "{\"type\": \"AttemptError\", \"code\": \"comparison_already_attempted_no_retry\", \"at_utc\": \"2026-09-14T11:49:08Z\", \"quality_verdict\": \"not measured\", \"blind_validity\": \"not measured\"}\n"
+    }
+  ]
+}

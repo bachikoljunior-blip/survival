@@ -294,3 +294,50 @@ jobs:
             test-results/e9-reader-recovery-r2/report.json
           if-no-files-found: warn
           retention-days: 14
+
+  comparison-e9-q35:
+    name: Frozen full-text E9 Qwen 3.5 comparison attempt
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e9-q35-readable-r3-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install only the pinned native-chat template dependencies
+        run: python3 -m pip install --disable-pip-version-check --no-cache-dir 'Jinja2==3.1.6' 'MarkupSafe==3.0.3'
+      - name: Check the single-attempt helper and fidelity auditor
+        run: |
+          python3 -m py_compile tools/compare-e9-q35.py tools/restore-e9-reader.py
+          node --check tools/prepare-e9-readable.mjs
+          node --check tools/audit-e9-readable.mjs
+      - name: Restore the pinned private reference input
+        run: python3 tools/restore-e9-reader.py
+      - name: Prepare complete unchanged reading packets
+        run: node tools/prepare-e9-readable.mjs
+      - name: Independently audit every displayed field and graph edge
+        run: node tools/audit-e9-readable.mjs
+      - name: Acquire one fixed evaluator and count its exact final chat input
+        run: python3 tools/compare-e9-q35.py prepare
+      - name: Run the single complete-packet comparison without a server or truncation
+        run: python3 tools/compare-e9-q35.py compare
+      - name: Export the complete permissible response and non-prose provenance
+        if: always()
+        run: python3 tools/compare-e9-q35.py export
+      - name: Preserve comparison outputs and non-prose fidelity records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-q35-readable-r3-r1-${{ github.sha }}
+          path: |
+            test-results/e9-q35-readable-r3-r1
+            test-results/e9-readable-r3/report.json
+            test-results/e9-readable-r3/field-audit.json
+            test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14

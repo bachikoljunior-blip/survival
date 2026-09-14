@@ -46,6 +46,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The harness archives the fixed historical ground source for its regression.
+          fetch-depth: 0
 
       # 22, not 20: .kit/ uses node:fs.globSync and the built-in test runner. A job that pins
       # 20 installs the kit successfully and then cannot run it.
