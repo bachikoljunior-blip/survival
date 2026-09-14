@@ -901,6 +901,15 @@ body.reduced .bar.sta.empty { animation: none; border-color: var(--blood); }
 #rotate p { font-size: 12px; color: var(--bone-dim); letter-spacing: 0.12em; line-height: 1.7; margin: 0; white-space: pre-line; }
 
 /* ------------------------------------------------------- context loss ----- */
+#fault-notice {
+  position: fixed; z-index: 94; top: calc(12px + var(--sa-t));
+  left: calc(12px + var(--sa-l)); right: calc(12px + var(--sa-r));
+  max-width: 480px; margin-inline: auto; padding: 12px 16px;
+  background: #211711; color: #f4e9d5; border: 1px solid #c9885d;
+  font-size: calc(12px * var(--uiscale)); line-height: 1.5;
+  overflow-wrap: anywhere; pointer-events: none;
+}
+#fault-notice[hidden] { display: none; }
 /* WebGL context loss on iOS is frequently terminal — Safari often never fires
    webglcontextrestored. A frozen frame with no message and no save is not an
    acceptable end to a playthrough. */

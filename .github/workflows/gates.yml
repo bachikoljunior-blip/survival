@@ -75,6 +75,20 @@ jobs:
           path: test-results/iphone-webkit
           if-no-files-found: warn
           retention-days: 14
+      - name: Exercise post-boot recovery in mobile WebKit
+        if: ${{ !cancelled() }}
+        env:
+          CINDERLINE_FAULT_BROWSER: webkit
+          CINDERLINE_FAULT_OUTPUT: test-results/fault-recovery
+        run: npm run test:faults
+      - name: Preserve actual fault-recovery screens and checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-fault-recovery-${{ github.sha }}
+          path: test-results/fault-recovery
+          if-no-files-found: error
+          retention-days: 14
 
   f5-review-record:
     name: F5 review record

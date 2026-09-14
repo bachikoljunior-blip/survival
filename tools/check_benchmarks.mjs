@@ -296,4 +296,4 @@ if (errors.length) {
 
 console.log('');
 console.log('参考基準の検証 OK');
-console.log('（本検査は CINDERLINE 側の記述だけを検査する。参考作品を計測した事実は無い）');
+console.log('（本検査は CINDERLINE 側の記述だけを検査する。参考作品の計測や比較評価は実行しない）');

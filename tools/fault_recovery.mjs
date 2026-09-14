@@ -20,17 +20,24 @@
  *
  * Requires a build in dist/ (npm run test:faults builds first).
  */
-import { chromium } from 'playwright';
+import { chromium, webkit, devices } from 'playwright';
+import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, extname, join, normalize } from 'node:path';
+import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { UI_JA } from '../src/content/locale/ja/ui.js';
 import { SAVE_KEY, SAVE_VERSION } from '../src/game/state.js';
+import { currentBuildHash } from './work_state.mjs';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
-const EVIDENCE_DIR = join(ROOT, 'AI_DEVELOPMENT', 'EVIDENCE');
+const EVIDENCE_DIR = resolve(ROOT, process.env.CINDERLINE_FAULT_OUTPUT || 'AI_DEVELOPMENT/EVIDENCE');
+const BROWSER_NAME = process.env.CINDERLINE_FAULT_BROWSER || 'chromium';
+if (!['chromium','webkit'].includes(BROWSER_NAME)) throw new Error('Unsupported fault-test browser');
+const BUILD_HASH = currentBuildHash();
+const screenshots = [];
+mkdirSync(EVIDENCE_DIR, { recursive: true });
 const FORCE_FAILURE = process.argv.includes('--force-failure');
 const W = 667, H = 375;
 
@@ -55,10 +62,9 @@ const server = createServer((req, res) => {
 await new Promise((r) => server.listen(0, r));
 const URL_ = `http://127.0.0.1:${server.address().port}${BASE}/index.html`;
 
-const browser = await chromium.launch({
+const browser = await ({chromium,webkit}[BROWSER_NAME]).launch({
   headless: !process.argv.includes('--headed'),
-  args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--use-angle=swiftshader',
-    '--disable-gpu-sandbox', '--no-sandbox', '--enable-webgl', '--ignore-gpu-blocklist'],
+  ...(BROWSER_NAME==='chromium' ? {args:['--use-gl=swiftshader', '--use-angle=swiftshader']} : {}),
 });
 
 const checks = [];
@@ -75,23 +81,31 @@ let crashed = null;
 const finish = () => {
   if (crashed) checks.push({ name: 'the run completed', pass: false, detail: crashed });
   if (FORCE_FAILURE) checks.push({ name: 'forced failure', pass: false, detail: '--force-failure was passed' });
-  const failed = checks.filter((c) => !c.pass);
-  for (const c of checks) console.log(`  ${c.pass ? 'ok  ' : 'FAIL'} ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
+  const failed = checks.filter((c) => c.pass === false);
+  const unmeasured = checks.filter((c) => c.pass === null);
+  let evidenceError = null;
+  for (const c of checks) console.log(`  ${c.pass === null ? 'N/M ' : c.pass ? 'ok  ' : 'FAIL'} ${c.name}${c.detail ? ` — ${c.detail}` : ''}`);
   try {
     mkdirSync(EVIDENCE_DIR, { recursive: true });
     writeFileSync(join(EVIDENCE_DIR, 'GB-H2-FAULT-RECOVERY.json'), JSON.stringify({
       task: 'GB-H2',
+      checked_at: new Date().toISOString(),
+      commit: process.env.GITHUB_SHA || null,
+      build_sha256: BUILD_HASH,
+      browser: {name:BROWSER_NAME,version:browser.version()},
       scope: 'Post-boot uncaught errors and rejected promises, in a production build at 667x375. ' +
         'Not a claim about any specific real-world crash, and not a device measurement.',
       viewport: { width: W, height: H },
       crashed,
       checks,
+      screenshots,
+      not_measured: unmeasured.map(c=>c.name),
       passed: failed.length === 0,
     }, null, 2));
-  } catch (e) { console.error('could not write the evidence:', e.message); }
-  console.log(`\n${failed.length ? 'FAULT RECOVERY FAILED' : 'FAULT RECOVERY OK'} — ` +
-    `${checks.length - failed.length}/${checks.length} checks`);
-  process.exit(failed.length ? 1 : 0);
+  } catch (e) { evidenceError=e; console.error('could not write the evidence:', e.message); }
+  console.log(`\n${failed.length || evidenceError ? 'FAULT RECOVERY FAILED' : 'FAULT RECOVERY OK'} — ` +
+    `${checks.length - failed.length - unmeasured.length}/${checks.length} checks; ${unmeasured.length} not measured`);
+  process.exit(failed.length || evidenceError ? 1 : 0);
 };
 process.on('uncaughtException', (e) => { crashed = String(e && e.stack || e); finish(); });
 process.on('unhandledRejection', (e) => { crashed = String(e && e.stack || e); finish(); });
@@ -99,14 +113,18 @@ process.on('unhandledRejection', (e) => { crashed = String(e && e.stack || e); f
 const ok = (name, detail = '') => checks.push({ name, pass: true, detail });
 const bad = (name, detail) => checks.push({ name, pass: false, detail });
 const expect = (cond, name, detail = '') => (cond ? ok(name, detail) : bad(name, detail || 'expected true'));
+const capture = async (page, name) => {
+  const path=join(EVIDENCE_DIR,`${name}.png`);
+  const bytes=await page.screenshot({path});
+  screenshots.push({name,path:path.slice(ROOT.length+1),sha256:createHash('sha256').update(bytes).digest('hex')});
+};
 
 /** A booted page, plus the faults the browser itself saw. */
 async function open({ locale = null } = {}) {
   const ctx = await browser.newContext({
+    ...devices['iPhone SE (3rd gen)'],
     viewport: { width: W, height: H }, deviceScaleFactor: 2, isMobile: true, hasTouch: true,
     ...(locale ? { locale } : {}),
-    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 ' +
-      '(KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1',
   });
   const page = await ctx.newPage();
   const pageErrors = [];
@@ -120,12 +138,39 @@ async function open({ locale = null } = {}) {
 /** What the player can see right now. */
 const surface = (page) => page.evaluate(() => {
   const panel = document.getElementById('ctxlost');
+  const visibility = (node) => {
+    const b=node.getBoundingClientRect();
+    let visible=b.width>0 && b.height>0,clip={left:0,top:0,right:innerWidth,bottom:innerHeight};
+    for(let a=node;a;a=a.parentElement) {
+      const s=getComputedStyle(a),r=a.getBoundingClientRect();
+      if(s.display==='none'||s.visibility!=='visible'||Number(s.opacity)===0||a.hidden) visible=false;
+      if(a!==node) {
+        if(/hidden|clip|auto|scroll/.test(s.overflowX)){clip.left=Math.max(clip.left,r.left);clip.right=Math.min(clip.right,r.right);}
+        if(/hidden|clip|auto|scroll/.test(s.overflowY)){clip.top=Math.max(clip.top,r.top);clip.bottom=Math.min(clip.bottom,r.bottom);}
+      }
+    }
+    const range=document.createRange();range.selectNodeContents(node);
+    const textBoxes=[...range.getClientRects()];
+    const within=r=>r.left>=clip.left-1&&r.right<=clip.right+1&&r.top>=clip.top-1&&r.bottom<=clip.bottom+1;
+    visible=visible&&within(b)&&textBoxes.length>0&&textBoxes.every(within);
+    return {text:node.textContent||'',x:b.x,y:b.y,width:b.width,height:b.height,visible};
+  };
+  const noticeBoxes=[...document.querySelectorAll('.notice, #fault-notice')].map(visibility);
+  const panelBoxes=panel ? ['.k','.s','#ctxlost-reload'].map(selector=>{
+    const node=panel.querySelector(selector);
+    return node ? {selector,...visibility(node)} : {selector,visible:false};
+  }) : [];
+  const panelClass=!!panel && panel.classList.contains('on');
   return {
-    panelOn: !!panel && panel.classList.contains('on'),
+    mode:window.CINDERLINE.game.mode,
+    panelOn: panelClass && panelBoxes.length===3 && panelBoxes.every(b=>b.visible),
+    panelClass,
+    panelBoxes,
     panelTitle: panel ? (panel.querySelector('.k')?.textContent || '') : '',
     panelText: panel ? (panel.querySelector('.s')?.textContent || '') : '',
     reloadLabel: document.getElementById('ctxlost-reload')?.textContent || '',
-    notices: [...document.querySelectorAll('.notice')].map((n) => n.textContent),
+    notices: noticeBoxes.filter(n=>n.visible).map(n=>n.text),
+    noticeBoxes,
     faults: (window.CINDERLINE.faults || []).map((f) => ({ kind: f.kind, message: f.message })),
     frame: window.CINDERLINE.engine.frame,
     running: window.CINDERLINE.engine.running,
@@ -179,6 +224,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(s.faults.length === 0, 'clean boot: no faults recorded', JSON.stringify(s.faults));
   expect(pageErrors.length === 0, 'clean boot: the browser saw no uncaught errors', pageErrors.join(' | '));
   expect(s.running && s.frame > 0, 'clean boot: the loop is running', `frame ${s.frame}`);
+  await capture(page,'clean-boot');
   await ctx.close();
 }
 
@@ -194,7 +240,10 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(!!s1.faults[0] && s1.faults[0].message.includes('one-off sync error'),
     'sync error: the message is carried, not swallowed', JSON.stringify(s1.faults));
   expect(s1.notices.length >= 1, 'sync error: the player is told');
+  expect(s1.mode==='title'&&s1.notices.some(n=>n.includes('not been changed')),
+    'title fault: visible notice makes no claim that gameplay was saved',JSON.stringify(s1.noticeBoxes));
   expect(!s1.panelOn, 'sync error: a survivable fault does not put a wall in front of the player');
+  await capture(page,'single-error-notice');
 
   // The escalation timer is 1200ms; a live loop must still be playing after it.
   await settle(page, 2000);
@@ -216,6 +265,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(!!s.faults[0] && s.faults[0].message.includes('rejected promise'),
     'rejection: the reason is carried', JSON.stringify(s.faults));
   expect(s.notices.length >= 1, 'rejection: the player is told');
+  await capture(page,'rejected-promise-notice');
   await ctx.close();
 }
 
@@ -241,6 +291,36 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(!!saved && saved.v === SAVE_VERSION && saved.state.v === SAVE_VERSION,
     'in play: the save it wrote is at the current version',
     saved ? `envelope ${saved.v}, state ${saved.state.v}` : 'none');
+  const s=await surface(page);
+  expect(s.mode==='play'&&s.notices.some(n=>n.includes('recovery save was written')),
+    'in play: visible notice reports the successful recovery save',JSON.stringify(s.noticeBoxes));
+  await capture(page,'saved-play-error');
+  await ctx.close();
+}
+
+// Failed storage must not be announced as success or replace the prior save.
+{
+  const {ctx,page}=await open();
+  await page.evaluate(()=>window.CINDERLINE.startNewGame());
+  await settle(page,500);
+  const previous=await page.evaluate(k=>localStorage.getItem(k),SAVE_KEY);
+  expect(typeof previous==='string'&&previous.length>0,
+    'failed-save setup: a real previous save exists before blocking writes');
+  await page.evaluate(k=>{
+    const real=window.Storage.prototype.setItem;
+    window.Storage.prototype.setItem=function(key,value){
+      if(key===k) throw new DOMException('probe: storage full','QuotaExceededError');
+      return real.call(this,key,value);
+    };
+  },SAVE_KEY);
+  await throwLater(page,'probe: error with unavailable storage');
+  await waitForFaults(page,1);
+  const s=await surface(page);
+  expect(s.notices.some(n=>n.includes('could not be written'))&&!s.notices.some(n=>n.includes('save was written')),
+    'failed save: visible warning does not announce success',JSON.stringify(s.noticeBoxes));
+  expect(await page.evaluate(k=>localStorage.getItem(k),SAVE_KEY)===previous,
+    'failed save: prior saved bytes remain intact');
+  await capture(page,'unsaved-play-error');
   await ctx.close();
 }
 
@@ -260,6 +340,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
     'repeat: the panel says what actually happened, not context loss',
     `${s.panelTitle} / ${s.panelText.slice(0, 60)}`);
   expect(!!s.reloadLabel, 'repeat: the panel offers a way out', s.reloadLabel);
+  await capture(page,'repeating-error-recovery');
 
   // The way out has to work. A marker on the current document, not a
   // navigation event: the page under test is throwing, and waiting on the
@@ -275,6 +356,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
   const after = await surface(page);
   expect(!after.panelOn && after.faults.length === 0,
     'repeat: reloading actually recovers', JSON.stringify(after.faults));
+  await capture(page,'reloaded-after-error');
   }
   await ctx.close();
 }
@@ -296,12 +378,13 @@ const waitForFaults = async (page, n, ms = 6000) => {
     expect(!during.panelOn,
       'stall: the panel waits for the stall check rather than firing on sight', `${elapsed}ms`);
   } else {
-    ok('stall: (not measured — the fault took longer to arrive than the escalation timer)',
-      `${elapsed}ms`);
+    checks.push({name:'stall: waiting before escalation',pass:null,
+      detail:`not measured: the fault took ${elapsed}ms to arrive, beyond the observation window`});
   }
   await settle(page, 1800);
   const s = await surface(page);
   expect(s.panelOn, 'stall: a fault after which the picture stopped reaches the recovery panel');
+  await capture(page,'stopped-loop-recovery');
   await ctx.close();
 }
 
@@ -322,6 +405,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(s.frame === frozenAt, 'frozen loop: the frame counter really did stop',
     `${frozenAt} -> ${s.frame}`);
   expect(s.panelOn, 'frozen loop: the player is given the recovery panel instead of a still picture');
+  await capture(page,'updater-error-recovery');
   await ctx.close();
 }
 
@@ -349,9 +433,9 @@ const waitForFaults = async (page, n, ms = 6000) => {
   await page.evaluate(() => {
     // The engine is what emits `render`; this is the listener the renderer
     // itself hangs off, and a throw here is what stopped the picture.
-    window.CINDERLINE.engine.on('render', () => {
+    window.CINDERLINE.game.render = () => {
       throw new Error('probe: render listener fault');
-    });
+    };
   });
   await page.evaluate(() => { window.__draws = 0; });
   await waitForFaults(page, 1);
@@ -361,9 +445,11 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(s.faults.some((f) => f.kind === 'listener'),
     'swallowed: an error the event bus caught still reaches the fault path',
     JSON.stringify(s.faults.slice(-2)));
-  expect(s.panelOn || s.notices.length > 0,
-    'swallowed: and the player is told rather than left with a still picture',
+  expect(drawsAfter===0,'swallowed: the real game drawing path stopped',`${drawsAfter} draw calls`);
+  expect(s.panelOn,
+    'swallowed: stopped drawing reaches the recovery panel',
     `panel=${s.panelOn} notices=${s.notices.length} draws=${drawsAfter}`);
+  await capture(page,'render-error-recovery');
   await ctx.close();
   void drewBefore;
 }
@@ -371,7 +457,13 @@ const waitForFaults = async (page, n, ms = 6000) => {
 // ------------------------------------------------- 7. Japanese
 {
   const { ctx, page } = await open({ locale: 'ja-JP' });
-  for (let i = 0; i < 3; i++) {
+  await throwLater(page, 'probe: repeating fault');
+  await waitForFaults(page,1);
+  const first=await surface(page);
+  expect(first.notices.some(n=>/[ぁ-んァ-ヶ一-龠]/.test(n)),
+    'ja: the first visible fault notice is in Japanese',JSON.stringify(first.noticeBoxes));
+  await capture(page,'japanese-error-notice');
+  for (let i = 0; i < 2; i++) {
     await throwLater(page, 'probe: repeating fault');
     await settle(page, 150);
   }
@@ -382,8 +474,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(s.panelOn && s.panelTitle === UI_JA.fault.title,
     'ja: the panel is in Japanese',
     `panel ${s.panelOn ? 'on' : 'OFF'}: "${s.panelTitle}" vs "${UI_JA.fault.title}"`);
-  expect(/[ぁ-んァ-ヶ一-龠]/.test(s.notices.join('')), 'ja: the notice is in Japanese',
-    JSON.stringify(s.notices));
+  await capture(page,'japanese-error-recovery');
   await ctx.close();
 }
 
@@ -405,6 +496,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
   expect(note.text.includes('boot broke'),
     'pre-boot: a rejected promise reaches the loading plate', note.text);
   expect(note.cls.includes('err'), 'pre-boot: it reads as a failure', note.cls);
+  await capture(page,'boot-failure');
   await ctx.close();
 }
 

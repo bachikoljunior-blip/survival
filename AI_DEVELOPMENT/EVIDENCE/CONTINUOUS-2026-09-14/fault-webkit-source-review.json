@@ -1,0 +1,612 @@
+{
+  "blindComparison": "No blind comparison was performed. The source reviewer knows the product identity; these source and Node checks cannot decide which product a blinded evaluator would prefer.",
+  "findings": [],
+  "limits": [
+    "No browser, real WebKit, GPU, device, screenshot or new CI result was produced by this review.",
+    "DOM rectangles and styles were substitutes. The predicates do not prove contrast or occlusion by unrelated overlays.",
+    "Save-result tests substituted director return values; the new real-browser PLAY, quota rejection, old-byte preservation and reload cases still require execution.",
+    "Startup failures before finish is installed may yield only a nonzero process and CI logs rather than JSON. This is a reporting limitation, not demonstrated false success.",
+    "Late fault timing remains explicitly not measured; neither this review nor a green measured subset establishes all fault timings.",
+    "No blind comparison or change to any of the 19 element verdicts is authorized by this source review."
+  ],
+  "nativeResolution": "0x0",
+  "profile": "read-only critic / source and Node adversarial checks",
+  "resolvedFindings": [
+    {
+      "baselineEvidence": {
+        "currentSyncPlayerIsToldPredicate": true,
+        "hudHiddenClass": true,
+        "hudInlineVisibility": "hidden",
+        "hudVisible": false,
+        "modeFromActualBootSource": "title",
+        "noticeCount": 1,
+        "noticeParent": "hud",
+        "scope": "Actual HUD._buildNotices/setVisible/notice and unchanged fault surface callback, with a minimal DOM and deterministic timer substitutes; no browser/CSS rendering.",
+        "surface": {
+          "faults": [
+            {
+              "kind": "error",
+              "message": "probe: one-off sync error"
+            }
+          ],
+          "frame": 20,
+          "lost": false,
+          "notices": [
+            "Something went wrong. Your progress has been saved."
+          ],
+          "panelOn": false,
+          "panelText": "",
+          "panelTitle": "",
+          "paused": false,
+          "reloadLabel": "",
+          "running": true
+        }
+      },
+      "closure": "Closed in source/Node scope; actual browser pixels remain unmeasured.",
+      "correction": "The first product notice is outside the HUD. The instrument now rejects hidden, transparent, offscreen or clipped notice/text rectangles.",
+      "id": "F1",
+      "owner": "tools/fault_recovery.mjs",
+      "problem": "The initial instrument counted text inside an invisible TITLE HUD as a notice seen by the player.",
+      "verification": "The unchanged revised surface callback rejected 11 visibility negative controls and accepted both positive controls in a Node VM. The independent refuter also verified hidden HUD and external-notice controls."
+    },
+    {
+      "baselineEvidence": {
+        "attempts": 1,
+        "exitCode": 0,
+        "logs": [
+          "  ok   synthetic successful check",
+          "could not write the evidence: disk full when writing report",
+          "\nFAULT RECOVERY OK — 1/1 checks; 0 not measured"
+        ],
+        "oldEvidence": {
+          "build_sha256": "old-build",
+          "passed": true
+        },
+        "scope": "Unchanged finish function in a Node VM; writeFileSync fault injection and process.exit capture, no filesystem mutation or browser."
+      },
+      "closure": "Closed. A stale file may remain after an I/O failure, but that process no longer reports success. Fresh CI was never shown to reuse an old file.",
+      "correction": "Evidence I/O errors now produce FAULT RECOVERY FAILED and exit 1.",
+      "id": "F2",
+      "owner": "tools/fault_recovery.mjs",
+      "problem": "A failed evidence write logged its failure but returned exit 0 and printed FAULT RECOVERY OK.",
+      "verification": "Independent execution of the unchanged revised finish function returned 1 for ENOSPC, mkdir EACCES and an existing failed check, and 0 for a successful check and write."
+    },
+    {
+      "baselineEvidence": {
+        "acceptedWithoutRecoveryPanel": true,
+        "recordedCaughtErrors": 4,
+        "renderEvents": 4,
+        "scope": "Actual Emitter with the unchanged 6c injection and predicates; ordinary rendering is represented by a counter and no browser/GL runs.",
+        "successfulOriginalRenderListenerCalls": 4,
+        "why": "The injected callback is appended after the successful rendering listener. Both 6c assertions pass with a notice only, so this case neither creates a drawing freeze nor requires its escalation."
+      },
+      "baselineQualification": "The notice-only acceptance result is a constructed counterexample to the old predicates, not a claim that the integrated current main would fail to show its panel after repeated faults.",
+      "closure": "Closed in source/Node scope. Native GL draw counters and actual panel pixels still require fresh CI.",
+      "correction": "Case 6c replaces the actual game.render method reached by Game.start and requires zero measured draw calls plus a recovery panel.",
+      "id": "F3",
+      "owner": "tools/fault_recovery.mjs",
+      "problem": "The initial drawing-fault case appended a throwing listener after the real renderer, so it did not create the claimed drawing stop.",
+      "verification": "An independent Node fixture using actual Game.start and Emitter changed drawing-body calls from 1 before replacement to 0 afterward; four render events produced four caught listener errors. Source checks require drawsAfter===0 and the panel."
+    },
+    {
+      "baselineEvidence": {
+        "baseCommit": "ecccf348117767dd9f815d820dc3b6dcd2c78cd0",
+        "cases": [
+          {
+            "mode": "play",
+            "notice": "<b>Something went wrong.</b> Your progress has been saved.",
+            "panelOn": true,
+            "panelText": "The game hit an error it could not carry on from. Your progress has been saved. Reload to pick up where you left off.",
+            "saveCalls": 1,
+            "saveReturn": false,
+            "trigger": "error"
+          },
+          {
+            "mode": "play",
+            "notice": "<b>Something went wrong.</b> Your progress has been saved.",
+            "panelOn": true,
+            "panelText": "The game hit an error it could not carry on from. Your progress has been saved. Reload to pick up where you left off.",
+            "saveCalls": 1,
+            "saveReturn": "throw",
+            "trigger": "error"
+          },
+          {
+            "mode": "title",
+            "notice": "<b>Something went wrong.</b> Your progress has been saved.",
+            "panelOn": true,
+            "panelText": "The game hit an error it could not carry on from. Your progress has been saved. Reload to pick up where you left off.",
+            "saveCalls": 0,
+            "saveReturn": true,
+            "trigger": "error"
+          },
+          {
+            "mode": "play",
+            "notice": null,
+            "panelOn": true,
+            "panelText": "The device dropped the graphics context — usually memory pressure from another app. Your progress has been saved. Reload to carry on where you left off.",
+            "saveCalls": 1,
+            "saveReturn": false,
+            "trigger": "contextlost"
+          },
+          {
+            "mode": "title",
+            "notice": null,
+            "panelOn": true,
+            "panelText": "The device dropped the graphics context — usually memory pressure from another app. Your progress has been saved. Reload to carry on where you left off.",
+            "saveCalls": 0,
+            "saveReturn": true,
+            "trigger": "contextlost"
+          }
+        ],
+        "scope": "Unchanged baseline main.js save/fault/contextlost block, with original panel text read from baseline public/index.html, evaluated in Node VM; director return/throw and minimal DOM/event/timer substitutes. Reporting logic only, not browser visibility or persistence."
+      },
+      "closure": "Closed for result selection and wording. These VM checks do not themselves prove browser persistence or actual quota behavior.",
+      "correction": "saveOnExit preserves the true, false or null result. Notices and error/context-loss panels distinguish a written recovery save, a failed write, and unchanged saved data, in both languages.",
+      "id": "F4",
+      "independentRefutation": "A second reviewer inspected baseline main, public/index.html and JA translations and confirmed the discarded return value and unconditional saved assurance. The 20-case fixed-version runtime logic checks were performed by this reviewer, using actual current main and locale functions.",
+      "owner": "src/main.js",
+      "problem": "The original fault notice and panel asserted that progress had been saved even when director.save returned false, threw, or was skipped at TITLE.",
+      "verification": {
+        "allAssertionsPassed": true,
+        "caseCount": 20,
+        "languages": [
+          "en",
+          "ja"
+        ],
+        "noSaveCount": 8,
+        "savedCount": 4,
+        "scenarios": [
+          "PLAY save true",
+          "PLAY save false",
+          "PLAY save throws",
+          "TITLE skipped",
+          "MENU from TITLE skipped"
+        ],
+        "triggers": [
+          "error",
+          "contextlost"
+        ],
+        "unsavedCount": 8
+      }
+    }
+  ],
+  "reviewed": {
+    "head": "ecccf348117767dd9f815d820dc3b6dcd2c78cd0",
+    "initialFaultInstrumentSha256": "f7dbc36d29bd3846b246194b2965a080e7e925cd9017527e1ed4aab9125df7eb",
+    "sourceHashes": {
+      ".github/workflows/gates.yml": "eb31c21e83bbdb8e0a2d9dfa845c8a79f7c77fe0d879b7c53f0a273816ee376e",
+      "public/index.html": "bc7d9072b9cd766f16a6847cc8698ac9a3d61d837615edb099c0712084a089f3",
+      "public/styles.css": "a8385ac9a4ecfd0250f47dfb7d2e45e015634912d8b783ffc27f884df06d2d37",
+      "src/content/locale/ja/ui.js": "b50ab205bd9a91df3a44cda7e2385802c926a18c620c66ebf15c5ca870afe3b8",
+      "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+      "tools/fault_recovery.mjs": "faf1153be7ba60165ac9f8d4dc89858678f5c24435c980d7bf59f117d93a69c2"
+    },
+    "state": "pending uncommitted diff"
+  },
+  "round": "continuous-fault-webkit-source-2026-09-14",
+  "score": 100,
+  "tier": "instrument readiness only",
+  "verdict": "PASS",
+  "verdictScope": "No confirmed defect remains in the reviewed source/Node scope. Score is not a product-quality score, browser result, or element verdict. 0x0 means no browser image was captured during this review.",
+  "verification": {
+    "buildBinding": "test:faults rebuilds the production dist from source. The instrument computes currentBuildHash before browser work, uses fresh browser contexts and a no-store dist server, and records commit, browser/version, source+dist build hash and PNG hashes.",
+    "independentReport": "/workspace/scratch/0b7ad82bafe7/fault-source-refutation.json",
+    "launch": "Explicit flags disabling browser protections were removed. Chromium keeps only software GL selection arguments; WebKit is launched without those arguments.",
+    "panelVisibility": {
+      "scope": "Unmodified current surface executed in Node with DOM/style/Range substitutes; no browser or GPU run.",
+      "sourceSha256": "faf1153be7ba60165ac9f8d4dc89858678f5c24435c980d7bf59f117d93a69c2",
+      "caseCount": 12,
+      "allAssertionsPassed": true,
+      "cases": [
+        {
+          "scenario": "visible_panel",
+          "expected": true,
+          "actual": true
+        },
+        {
+          "scenario": "no_on_class",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "missing_panel",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "missing_title",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "missing_text",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "missing_reload",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "hidden_panel_ancestor",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "transparent_panel",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "reload_offscreen",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "text_clipped",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "title_zero_size",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "scenario": "reload_no_text_rects",
+          "expected": false,
+          "actual": false
+        }
+      ],
+      "conclusion": "The prior class-only panel success path is closed for the tested hidden, missing, clipped and offscreen conditions. All three labeled regions must pass the visibility predicate."
+    },
+    "reproduction": [
+      "Extract unchanged surface callback from tools/fault_recovery.mjs and execute it in Node VM using page.evaluate, DOM, computed-style, Range and rectangle substitutes; vary one visibility condition at a time.",
+      "Extract unchanged finish function and execute it in Node VM with successful writes, ENOSPC and mkdir EACCES; capture process.exit and reported passed.",
+      "Use actual Game.start and Emitter with a drawing counter, then execute the exact case-6c game.render replacement and emit four render events.",
+      "Extract the baseline or current main save/fault/context-loss handler block and run it with minimal DOM/event/timer fixtures and director.save return/throw controls; use actual current i18n functions for EN/JA; verify notice and panel selection.",
+      "Parse workflow/package/build sources to trace production rebuild, WebKit launch and current-build evidence binding; no browser is launched."
+    ],
+    "saveStatus": {
+      "allAssertionsPassed": true,
+      "caseCount": 20,
+      "cases": [
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "play",
+          "noticeHidden": false,
+          "outcome": "saved",
+          "saveCalls": 1,
+          "saveReturn": true,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "play",
+          "noticeHidden": false,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": false,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "play",
+          "noticeHidden": false,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": "throw",
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "title",
+          "noticeHidden": false,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": true,
+          "language": "en",
+          "mode": "menu",
+          "noticeHidden": false,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "play",
+          "noticeHidden": null,
+          "outcome": "saved",
+          "saveCalls": 1,
+          "saveReturn": true,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "play",
+          "noticeHidden": null,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": false,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "play",
+          "noticeHidden": null,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": "throw",
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "en",
+          "mode": "title",
+          "noticeHidden": null,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": true,
+          "language": "en",
+          "mode": "menu",
+          "noticeHidden": null,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "play",
+          "noticeHidden": false,
+          "outcome": "saved",
+          "saveCalls": 1,
+          "saveReturn": true,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "play",
+          "noticeHidden": false,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": false,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "play",
+          "noticeHidden": false,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": "throw",
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "title",
+          "noticeHidden": false,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": true,
+          "language": "ja",
+          "mode": "menu",
+          "noticeHidden": false,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "error"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "play",
+          "noticeHidden": null,
+          "outcome": "saved",
+          "saveCalls": 1,
+          "saveReturn": true,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "play",
+          "noticeHidden": null,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": false,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "play",
+          "noticeHidden": null,
+          "outcome": "unsaved",
+          "saveCalls": 1,
+          "saveReturn": "throw",
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": false,
+          "language": "ja",
+          "mode": "title",
+          "noticeHidden": null,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "contextlost"
+        },
+        {
+          "fromTitle": true,
+          "language": "ja",
+          "mode": "menu",
+          "noticeHidden": null,
+          "outcome": "noSave",
+          "saveCalls": 0,
+          "saveReturn": true,
+          "trigger": "contextlost"
+        }
+      ],
+      "scope": "Actual current main save/fault/contextlost block and actual EN/JA translations in Node VM; only director return/throw, DOM/event/timers are substitutes. No browser visibility or real localStorage persistence claim."
+    },
+    "syntax": "node --check tools/fault_recovery.mjs passed on the reviewed source.",
+    "timing": "Checks not measured are pass:null and listed separately; they are excluded from the success numerator. Report passed means no measured check failed, not that every listed timing was measured.",
+    "visibility": {
+      "allAssertionsPassed": true,
+      "cases": [
+        {
+          "name": "visible fault",
+          "observed": true,
+          "want": true
+        },
+        {
+          "name": "hidden attribute",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "display none",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "self visibility hidden",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "hidden HUD ancestor",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "transparent ancestor",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "outside viewport",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "partially outside viewport",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "ancestor horizontal clip",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "ancestor vertical clip",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "no text rects",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "text beyond viewport",
+          "observed": false,
+          "want": false
+        },
+        {
+          "name": "visible overflow parent",
+          "observed": true,
+          "want": true
+        }
+      ],
+      "scope": "Unchanged final surface callback in Node VM with DOM/Range/style/rect substitutes; no browser geometry measurement.",
+      "sourceSha256": "faf1153be7ba60165ac9f8d4dc89858678f5c24435c980d7bf59f117d93a69c2"
+    },
+    "workflow": "Parsed gates.yml with the repository YAML parser; existing F3 installs both Chromium and WebKit. The new step uses CINDERLINE_FAULT_BROWSER=webkit, a dedicated test-results output, npm run test:faults, and an always-upload artifact keyed by github.sha.",
+    "independentChecks": {
+      "io": [
+        {
+          "scenario": "success",
+          "exitCode": 0,
+          "reportedPassed": true,
+          "correct": true
+        },
+        {
+          "scenario": "mkdir_failure",
+          "exitCode": 1,
+          "reportedPassed": null,
+          "correct": true
+        },
+        {
+          "scenario": "write_failure",
+          "exitCode": 1,
+          "reportedPassed": null,
+          "correct": true
+        },
+        {
+          "scenario": "existing_failed_check",
+          "exitCode": 1,
+          "reportedPassed": false,
+          "correct": true
+        }
+      ],
+      "drawing": {
+        "correct": true,
+        "drawsAfter": 0,
+        "drawsBefore": 1,
+        "errorCount": 4,
+        "errors": [
+          {
+            "message": "probe: render listener fault",
+            "where": "event:render"
+          },
+          {
+            "message": "probe: render listener fault",
+            "where": "event:render"
+          },
+          {
+            "message": "probe: render listener fault",
+            "where": "event:render"
+          },
+          {
+            "message": "probe: render listener fault",
+            "where": "event:render"
+          }
+        ],
+        "implementation": "real Game.start and Emitter; memory counter as the game render body, unmodified instrument replacement",
+        "requireDrawsZero": true,
+        "requirePanel": true
+      },
+      "noticeControlCount": 8,
+      "panelControlCount": 12
+    }
+  },
+  "checkedAt": "2026-09-14T00:12:31.468Z"
+}
