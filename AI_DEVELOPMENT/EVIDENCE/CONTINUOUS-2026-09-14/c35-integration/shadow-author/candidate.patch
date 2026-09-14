@@ -1,0 +1,288 @@
+--- a/tools/export-webkit-material.mjs
++++ b/tools/export-webkit-material.mjs
+@@ -17,6 +17,13 @@
+   for (const scene of ['arcade', 'south']) {
+     for (const variant of ['original', 'depth-zero', 'normal-zero', 'both-zero', 'repeat']) {
+       files.push(`contact-${scene}-${variant}.png`);
++    }
++  }
++}
++if (process.env.CINDERLINE_SHADOW_RESOLUTION === '1') {
++  for (const scene of ['arcade', 'south']) {
++    for (const variant of ['original', 'double', 'restored']) {
++      files.push(`shadow-resolution-${scene}-${variant}.png`);
+     }
+   }
+ }
+--- /dev/null
++++ b/tools/mobile_shadow_resolution.mjs
+@@ -0,0 +1,249 @@
++/** One source-known 1024 -> 2048 -> 1024 control; no product or quality verdict. */
++import { createHash } from 'node:crypto';
++import { readFileSync, writeFileSync } from 'node:fs';
++import { join } from 'node:path';
++import { PNG } from 'pngjs';
++import { inspectFrozenCharacterContact } from './mobile_character_ground_contact.mjs';
++
++export const SHADOW_RESOLUTION_PIN = Object.freeze({
++  baselineCommit: '81de9354117a54397bf2c9e64e18a91c397dd06a',
++  bundleSha256: '514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55',
++});
++
++// Self-contained browser function. r180 keeps an existing shadow.map when only
++// mapSize changes. RenderTarget.setSize instead dispatches dispose, and the next
++// native shadow render creates GPU attachments for that same target object.
++export function inspectFrozenShadowResolution({ baseline }) {
++  const C = window.CINDERLINE, p = C.game.player, r = C.engine.renderer;
++  const s = C.atmos.sun.shadow, target = s.map, gl = r.getContext();
++  const require = (ok, message) => { if (!ok) throw new Error(message); };
++  const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
++  const pose = () => {
++    const transforms = [];
++    p.group.traverse(o => transforms.push([o.name, o.position.toArray(), o.quaternion.toArray(), o.scale.toArray()]));
++    return { frame: C.engine.frame, time: C.engine.time, running: C.engine.running,
++      position: p.pos.toArray(), velocity: p.vel.toArray(), grounded: p.grounded, state: p.state,
++      transforms, camera: { position: C.engine.camera.position.toArray(), quaternion: C.engine.camera.quaternion.toArray(),
++        fov: C.engine.camera.fov, projection: C.engine.camera.projectionMatrix.toArray() },
++      light: [C.atmos.sun.position.toArray(), C.atmos.sun.target.position.toArray()] };
++  };
++  const feet = () => Object.fromEntries(Object.entries(baseline.feet).map(([side, entries]) => [side, entries.map(f => {
++    const v = p.mesh.getVertexPosition(f.index, p.pos.clone()).applyMatrix4(p.mesh.matrixWorld);
++    const q = v.clone().project(C.engine.camera);
++    return { index: f.index, world: v.toArray(), screenPx: [(q.x + 1) * r.domElement.width / 2, (1 - q.y) * r.domElement.height / 2] };
++  })]));
++  const expectedFeet = Object.fromEntries(Object.entries(baseline.feet).map(([side, fs]) =>
++    [side, fs.map(({ index, world, screenPx }) => ({ index, world, screenPx }))]));
++  const fixed = () => ({ bias: s.bias, normalBias: s.normalBias, radius: s.radius, blurSamples: s.blurSamples,
++    extent: [s.camera.left, s.camera.right, s.camera.top, s.camera.bottom, s.camera.near, s.camera.far],
++    projection: s.camera.projectionMatrix.toArray(), shadowType: r.shadowMap.type,
++    sunCastShadow: C.atmos.sun.castShadow, shadowEnabled: r.shadowMap.enabled,
++    shadowAutoUpdate: s.autoUpdate, rendererShadowAutoUpdate: r.shadowMap.autoUpdate,
++    batching: C.game.shadowBatches.enabled, settings: { ...C.game.settings }, tier: C.engine.tier.name,
++    canvas: [r.domElement.width, r.domElement.height], frameExtents: s.getFrameExtents().toArray(),
++    target: { depth:target.depth, depthBuffer: target.depthBuffer, stencilBuffer: target.stencilBuffer, samples: target.samples, scissorTest:target.scissorTest,
++      minFilter: target.texture.minFilter, magFilter: target.texture.magFilter, format: target.texture.format,
++      type: target.texture.type, colorSpace: target.texture.colorSpace, generateMipmaps: target.texture.generateMipmaps } });
++  const glError = label => {
++    const error = gl.getError();
++    require(error === gl.NO_ERROR && !gl.isContextLost(), `${label}: GL error ${error} or context lost`);
++    return error;
++  };
++  const handles = () => ({ texture: r.properties.get(target.texture).__webglTexture,
++    framebuffer: r.properties.get(target).__webglFramebuffer,
++    depth: r.properties.get(target).__webglDepthbuffer });
++  const alive = h => ({ texture: !!h.texture && gl.isTexture(h.texture),
++    framebuffer: !!h.framebuffer && !Array.isArray(h.framebuffer) && gl.isFramebuffer(h.framebuffer),
++    depthRenderbuffer: !!h.depth && !Array.isArray(h.depth) && gl.isRenderbuffer(h.depth) });
++  const all = values => Object.values(values).every(Boolean);
++  require(!C.engine.running && baseline.validDiagnostic && !baseline.controlBias, 'requires the existing untouched frozen contact baseline');
++  require(equal(pose(), baseline.before) && equal(feet(), expectedFeet), 'baseline pose or feet changed before resolution control');
++  require(target && target.isWebGLRenderTarget && target.depthTexture === null && target.textures.length === 1
++    && target.samples === 0 && target.depth === 1 && target.depthBuffer && !target.stencilBuffer && !target.scissorTest
++    && equal(target.viewport.toArray(),[0,0,1024,1024]) && equal(target.scissor.toArray(),[0,0,1024,1024]) && s.mapPass === null,
++    'requires the original single 2D PCF shadow target with depth renderbuffer');
++  require(equal(s.mapSize.toArray(), [1024, 1024]) && target.width === 1024 && target.height === 1024
++    && s.bias === -.0009 && s.normalBias === .028 && r.shadowMap.type === 2
++    && equal([s.camera.left,s.camera.right,s.camera.top,s.camera.bottom,s.camera.near,s.camera.far], [-48,48,48,-48,1,150])
++    && equal(s.getFrameExtents().toArray(), [1,1]), 'unexpected original medium shadow configuration');
++  require(gl.READ_FRAMEBUFFER !== undefined && gl.getParameter(gl.MAX_TEXTURE_SIZE) >= 2048
++    && r.capabilities.maxTextureSize >= 2048, '2048 shadow target unsupported; no fallback');
++  glError('preflight');
++  const initialFixed = fixed(), initialPose = pose(), initialFeet = feet();
++  const initialHandles = handles(), initialMemory = r.info.memory.textures;
++  require(all(alive(initialHandles)), 'original GPU shadow attachments are not live');
++  const flags = { dirty: C.atmos.shadowDirty, light: s.needsUpdate, renderer: r.shadowMap.needsUpdate };
++  const renderBinding = { target: r.getRenderTarget(), cube: r.getActiveCubeFace(), mip: r.getActiveMipmapLevel(),
++    draw: gl.getParameter(gl.DRAW_FRAMEBUFFER_BINDING), read: gl.getParameter(gl.READ_FRAMEBUFFER_BINDING),
++    renderbuffer: gl.getParameter(gl.RENDERBUFFER_BINDING), viewport: Array.from(gl.getParameter(gl.VIEWPORT)) };
++  const frames = [], transitions = [], retired = [], disposeEvents = [], cleanupFailures = [];
++  let failure = null, phase = 'original', restored = false, currentHandles = initialHandles;
++  const onDispose = () => disposeEvents.push({ phase, targetWidth: target.width, targetHeight: target.height });
++  target.addEventListener('dispose', onDispose);
++  const restoreBindings = () => {
++    for (const restore of [() => r.setRenderTarget(renderBinding.target,renderBinding.cube,renderBinding.mip),
++      () => gl.bindFramebuffer(gl.READ_FRAMEBUFFER,renderBinding.read),
++      () => gl.bindRenderbuffer(gl.RENDERBUFFER,renderBinding.renderbuffer)]) {
++      try { restore(); } catch (error) { cleanupFailures.push(String(error.message || error)); }
++    }
++  };
++  const bindingsMatch = () => r.getRenderTarget() === renderBinding.target && r.getActiveCubeFace() === renderBinding.cube
++    && r.getActiveMipmapLevel() === renderBinding.mip && gl.getParameter(gl.DRAW_FRAMEBUFFER_BINDING) === renderBinding.draw
++    && gl.getParameter(gl.READ_FRAMEBUFFER_BINDING) === renderBinding.read
++    && gl.getParameter(gl.RENDERBUFFER_BINDING) === renderBinding.renderbuffer
++    && equal(Array.from(gl.getParameter(gl.VIEWPORT)),renderBinding.viewport);
++  const resources = size => {
++    const h = handles(), live = alive(h);
++    require(s.map === target && all(live), 'native shadow target changed or GPU attachments are not live');
++    const oldRead = gl.getParameter(gl.READ_FRAMEBUFFER_BINDING), oldBuffer = gl.getParameter(gl.RENDERBUFFER_BINDING);
++    let status, attachment, width, height;
++    try {
++      gl.bindFramebuffer(gl.READ_FRAMEBUFFER, h.framebuffer);
++      status = gl.checkFramebufferStatus(gl.READ_FRAMEBUFFER);
++      attachment = gl.getFramebufferAttachmentParameter(gl.READ_FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.FRAMEBUFFER_ATTACHMENT_OBJECT_NAME);
++      gl.bindRenderbuffer(gl.RENDERBUFFER, h.depth);
++      width = gl.getRenderbufferParameter(gl.RENDERBUFFER, gl.RENDERBUFFER_WIDTH);
++      height = gl.getRenderbufferParameter(gl.RENDERBUFFER, gl.RENDERBUFFER_HEIGHT);
++    } finally {
++      try { gl.bindFramebuffer(gl.READ_FRAMEBUFFER, oldRead); }
++      finally { gl.bindRenderbuffer(gl.RENDERBUFFER, oldBuffer); }
++    }
++    const bindingsRestored = gl.getParameter(gl.READ_FRAMEBUFFER_BINDING) === oldRead
++      && gl.getParameter(gl.RENDERBUFFER_BINDING) === oldBuffer;
++    const result = { mapSize: s.mapSize.toArray(), targetSize: [target.width,target.height],
++      textureImageSize: [target.texture.image.width,target.texture.image.height], gpuDepthSize: [width,height],
++      targetViewport:target.viewport.toArray(), targetScissor:target.scissor.toArray(),
++      framebufferStatus: status, colorAttachmentMatchesTexture: attachment === h.texture,
++      attachmentsLive: live, bindingsRestored, memoryTextures: r.info.memory.textures, glError: glError('resource inspection') };
++    require(equal(result.mapSize, [size,size]) && equal(result.targetSize, [size,size])
++      && equal(result.textureImageSize, [size,size]) && equal(result.gpuDepthSize, [size,size])
++      && equal(result.targetViewport,[0,0,size,size]) && equal(result.targetScissor,[0,0,size,size])
++      && status === gl.FRAMEBUFFER_COMPLETE && result.colorAttachmentMatchesTexture && bindingsRestored
++      && result.memoryTextures === initialMemory, 'requested dimensions or complete GPU/resource restoration not observed');
++    return { result, h };
++  };
++  const resize = (size, label) => {
++    phase = label;
++    if (target.width === size && target.height === size) { s.mapSize.set(size,size); return; }
++    const old = handles(), priorEvents = disposeEvents.length;
++    retired.push(old);
++    s.mapSize.set(size,size);
++    target.setSize(size,size);
++    const deleted = Object.fromEntries(Object.entries(alive(old)).map(([k,v]) => [k,!v]));
++    const item = { phase, requested: [size,size], disposeEvents: disposeEvents.length-priorEvents,
++      oldAttachmentsDeleted: deleted, memoryTexturesAfterDispose: r.info.memory.textures, glError: glError('resize disposal') };
++    transitions.push(item);
++    require(item.disposeEvents === 1 && all(deleted) && item.memoryTexturesAfterDispose === initialMemory-1,
++      'old shadow GPU attachments were not disposed exactly once');
++  };
++  const capture = (variant, size) => {
++    phase = variant;
++    C.atmos.shadowDirty = true; s.needsUpdate = true; r.shadowMap.needsUpdate = true;
++    const started = performance.now(); C.game.render(0); gl.finish();
++    const renderAndFinishMs = performance.now()-started;
++    const measured = resources(size), nowPose = pose(), nowFeet = feet();
++    require(equal(nowPose, initialPose) && equal(nowFeet, initialFeet) && equal(fixed(), initialFixed),
++      'pose, camera, time, feet or fixed shadow/material settings changed');
++    require(bindingsMatch(), 'render/GL bindings were not restored');
++    const oldDeleted = retired.every(h => Object.values(alive(h)).every(v => !v));
++    require(oldDeleted, 'a retired GPU shadow attachment is still live');
++    const png = r.domElement.toDataURL('image/png');
++    require(png.startsWith('data:image/png;base64,'), 'native canvas PNG was not returned');
++    frames.push({ variant, size, png, pose: nowPose, feet: nowFeet, fixed: fixed(), resources: measured.result,
++      retiredAttachmentsDeleted: oldDeleted, renderAndFinishMs,
++      renderTimingScope: 'Host wall time around real render and gl.finish; not an independent GPU timer or frame-rate benchmark.' });
++    currentHandles = measured.h;
++  };
++  try {
++    capture('original',1024);
++    require(currentHandles.texture === initialHandles.texture && currentHandles.framebuffer === initialHandles.framebuffer
++      && currentHandles.depth === initialHandles.depth, 'original render unexpectedly replaced shadow resources');
++    resize(2048,'double'); capture('double',2048);
++  } catch (error) { failure = String(error.message || error); }
++  finally {
++    restoreBindings();
++    try {
++      require(s.map === target, 'cannot restore: shadow target object changed');
++      resize(1024,'restored'); capture('restored',1024);
++      restored = equal(s.mapSize.toArray(),[1024,1024]) && target.width === 1024 && target.height === 1024
++        && equal(fixed(),initialFixed) && equal(pose(),initialPose) && equal(feet(),initialFeet);
++    } catch (error) { cleanupFailures.push(String(error.message || error)); }
++    finally {
++      restoreBindings();
++      for (const restore of [() => { s.mapSize.set(1024,1024); },
++        () => { C.atmos.shadowDirty = flags.dirty; }, () => { s.needsUpdate = flags.light; },
++        () => { r.shadowMap.needsUpdate = flags.renderer; }, () => target.removeEventListener('dispose',onDispose)]) {
++        try { restore(); } catch (error) { cleanupFailures.push(String(error.message || error)); }
++      }
++    }
++  }
++  const flagsRestored = C.atmos.shadowDirty === flags.dirty && s.needsUpdate === flags.light && r.shadowMap.needsUpdate === flags.renderer;
++  const listenerRemoved = !target.hasEventListener('dispose',onDispose);
++  const complete = frames.length === 3 && frames.map(f=>f.variant).join(',') === 'original,double,restored';
++  const originalMatchesRestored = complete && frames[0].png === frames[2].png;
++  let finalState;
++  try {
++    finalState = { mapSize:s.mapSize.toArray(), targetSize:[target.width,target.height],
++      sameTargetObject:s.map === target, attachmentsLive:alive(handles()), memoryTextures:r.info.memory.textures,
++      retiredAttachmentsDeleted:retired.every(h => Object.values(alive(h)).every(v => !v)),
++      contextLost:gl.isContextLost(), bindingsRestored:bindingsMatch() };
++  } catch (error) { finalState = { inspectionFailure:String(error.message || error) }; cleanupFailures.push(finalState.inspectionFailure); }
++  const resourcesRestored = !finalState.inspectionFailure && equal(finalState.mapSize,[1024,1024])
++    && equal(finalState.targetSize,[1024,1024]) && finalState.sameTargetObject && all(finalState.attachmentsLive)
++    && finalState.memoryTextures === initialMemory && finalState.retiredAttachmentsDeleted && !finalState.contextLost && finalState.bindingsRestored;
++  return { baseline, initialFixed, frames, transitions, disposeEvents, failure, cleanupFailures,
++    initialMemoryTextures:initialMemory, finalState, restored, resourcesRestored, flagsRestored, listenerRemoved, complete, originalMatchesRestored,
++    validDiagnostic: !failure && cleanupFailures.length === 0 && restored && flagsRestored && listenerRemoved
++      && resourcesRestored && complete && originalMatchesRestored && transitions.length === 2 && disposeEvents.length === 2,
++    comparison: 'not measured', scope: 'Map-size-only native frozen-pose control; product shadow settings remain unchanged.' };
++}
++
++export async function captureShadowResolution({ page, root, output, name, cachedFrame, check, report }) {
++  report.shadowResolution ??= { pin: SHADOW_RESOLUTION_PIN, scope: 'Source-known one-shot native 1024/2048/restored controls at arcade and south only; no quality verdict.', views: [] };
++  const digest = bytes => createHash('sha256').update(bytes).digest('hex');
++  let result;
++  try {
++    if (!['arcade','south'].includes(name)) throw new Error('unexpected shadow-resolution scene');
++    if (report.shadowResolution.views.some(view => view.name === name)) throw new Error('shadow-resolution scene already attempted in this report');
++    if (process.env.CINDERLINE_TEST_URL) throw new Error('external URL cannot be proved by the local runtime pin');
++    if (['CINDERLINE_CHARACTER_CONTACT','CINDERLINE_GRAIN_TRIAL','CINDERLINE_LIGHT_DIRECTION_TRIAL'].some(k => process.env[k] === '1'))
++      throw new Error('shadow resolution must run without other opt-in material/light/contact controls');
++    for (const path of ['cinderline.1.0.0.js','dist/cinderline.1.0.0.js'])
++      if (digest(readFileSync(join(root,path))) !== SHADOW_RESOLUTION_PIN.bundleSha256) throw new Error(`shadow-resolution runtime pin mismatch: ${path}`);
++    const baseline = await page.evaluate(inspectFrozenCharacterContact);
++    result = await page.evaluate(inspectFrozenShadowResolution, { baseline });
++    const cached = readFileSync(cachedFrame);
++    result.cachedFrame = { bytes: cached.length, sha256: digest(cached) };
++    const frameFailures = [];
++    for (const frame of result.frames) {
++      const native = frame.png; delete frame.png;
++      try {
++        if (!['original','double','restored'].includes(frame.variant) || !native?.startsWith('data:image/png;base64,')) throw new Error('unexpected native resolution frame');
++        const bytes = Buffer.from(native.slice('data:image/png;base64,'.length),'base64');
++        const path = join(output,`shadow-resolution-${name}-${frame.variant}.png`);
++        // Save received native bytes even when later validation rejects them.
++        // No oversized/invalid frame is made acceptable by changing its bytes.
++        writeFileSync(path,bytes);
++        Object.assign(frame,{ path: path.slice(root.length+1), bytes:bytes.length,sha256:digest(bytes) });
++        if (bytes.length > 2*1024*1024) throw new Error('native shadow-resolution PNG exceeds unchanged export cap');
++        const png = PNG.sync.read(bytes);
++        if (png.width !== frame.fixed.canvas[0] || png.height !== frame.fixed.canvas[1]) throw new Error('native shadow-resolution PNG dimensions changed');
++      } catch (error) { frame.acquisitionFailure = String(error.message || error); frameFailures.push(frame.acquisitionFailure); }
++    }
++    if (frameFailures.length) throw new Error(frameFailures.join('; '));
++    const by = Object.fromEntries(result.frames.map(f=>[f.variant,f]));
++    result.originalMatchesCached = by.original?.sha256 === result.cachedFrame.sha256;
++    result.originalMatchesRestored = !!by.original && by.original.sha256 === by.restored?.sha256;
++    if (!result.validDiagnostic || !result.originalMatchesCached || !result.originalMatchesRestored) throw new Error('invalid shadow-resolution measurement or original/restored PNG mismatch');
++  } catch (error) {
++    result ??= { frames: [], validDiagnostic:false };
++    result.acquisitionFailure = String(error.message || error);
++    result.validDiagnostic = false;
++  }
++  report.shadowResolution.views.push({ name,...result });
++  check(result.validDiagnostic,`shadow resolution ${name}: exact GPU resize, cleanup and original PNG restored`,
++    JSON.stringify({ restored:result.restored, flagsRestored:result.flagsRestored, listenerRemoved:result.listenerRemoved,
++      originalMatchesCached:result.originalMatchesCached, originalMatchesRestored:result.originalMatchesRestored,
++      failure:result.failure, cleanupFailures:result.cleanupFailures, acquisitionFailure:result.acquisitionFailure }));
++  if (!result.validDiagnostic) throw new Error(`invalid shadow resolution diagnostic: ${name}`);
++}
+--- a/tools/mobile_visual_capture.mjs
++++ b/tools/mobile_visual_capture.mjs
+@@ -5,6 +5,7 @@
+ import { PNG } from 'pngjs';
+ import { captureShadowContact } from './mobile_shadow_contact.mjs';
+ import { captureCharacterGroundContact } from './mobile_character_ground_contact.mjs';
++import { captureShadowResolution } from './mobile_shadow_resolution.mjs';
+ import { captureLightDirectionTrial } from './mobile_light_direction_trial.mjs';
+ import { captureGrainTrial } from './mobile_grain_trial.mjs';
+ 
+@@ -107,6 +108,9 @@
+           await captureCharacterGroundContact({page,root,output,name,cachedFrame:native,
+             controlBias:['arcade','south'].includes(name),check,report});
+         }
++        if(process.env.CINDERLINE_SHADOW_RESOLUTION==='1' && ['arcade','south'].includes(name)) {
++          await captureShadowResolution({page,root,output,name,cachedFrame:native,check,report});
++        }
+       } finally {
+         await page.evaluate(({wasRunning,uiDisplay}) => {
+           document.getElementById('ui').style.display=uiDisplay;

@@ -1,0 +1,941 @@
+{
+  "scope": "Source-known diagnosis of native unedited images, with original report geometry and read-only decoded-pixel differences as causal support; no quality score.",
+  "sourceCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+  "runtimeSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+  "run": 34864648858,
+  "job": 104045297002,
+  "reportSha256": "3a39deae1fa8f756f9facfefb9a5878b2a2d259fd237ec4d1dde59c653e3a3ed",
+  "recoveredManifestSha256": "a4171089ee73ea29e8db9523b491f6c2280adcf4b1b9094a056343c83f470d8c",
+  "all20OriginalHashesVerified": true,
+  "originalHashesStillMatchAfterRead": true,
+  "originalInputs": [
+    {
+      "path": "report.json",
+      "bytes": 1133163,
+      "sha256": "3a39deae1fa8f756f9facfefb9a5878b2a2d259fd237ec4d1dde59c653e3a3ed"
+    },
+    {
+      "path": "visual-stacks-frame.png",
+      "bytes": 1217355,
+      "sha256": "2add509d3fd7d392bb83120e07b6b9f7e9f6d59bef82401e29b5b40f7c3b5237"
+    },
+    {
+      "path": "visual-marrow-frame.png",
+      "bytes": 1201605,
+      "sha256": "d16d5a3b63cbf7d86959b8e135748b13b43f389070ea7f5ee49cee09e65ab09c"
+    },
+    {
+      "path": "visual-arcade-frame.png",
+      "bytes": 1209855,
+      "sha256": "0fa6b43749ed54200495779c9276bd383b910ff5328462210634e5049dec8c9b"
+    },
+    {
+      "path": "visual-cinder-frame.png",
+      "bytes": 1193621,
+      "sha256": "6bdcffb88ffcb5516b190119f0d2e2a190466cc9334c44596fb561128dfa84ed"
+    },
+    {
+      "path": "visual-survey-frame.png",
+      "bytes": 1161825,
+      "sha256": "260f76982888f380c31397fb5186502d4d0aeabc979925d98525b6a8ac262062"
+    },
+    {
+      "path": "visual-ventfield-frame.png",
+      "bytes": 1088480,
+      "sha256": "870b847f8957e680acb3506c7677734adf605cd855ead1a3f1278df0fe904c35"
+    },
+    {
+      "path": "visual-south-frame.png",
+      "bytes": 1164528,
+      "sha256": "5f210c71ce120ceb42943079f67109d7639424a531dd5519e4a2c0c0e2a5b879"
+    },
+    {
+      "path": "visual-plant-frame.png",
+      "bytes": 1226803,
+      "sha256": "e94777da5f2650eb5267fec96dae864c9448b716bbbba1feed96816832e8b538"
+    },
+    {
+      "path": "visual-marrow_roof-frame.png",
+      "bytes": 869735,
+      "sha256": "e12fb4cfc5dd1b15b45cdb8b9608da2611f1b3da6dff9a12dff2a5cb4c3d0f58"
+    },
+    {
+      "path": "contact-arcade-original.png",
+      "bytes": 1209855,
+      "sha256": "0fa6b43749ed54200495779c9276bd383b910ff5328462210634e5049dec8c9b"
+    },
+    {
+      "path": "contact-arcade-depth-zero.png",
+      "bytes": 1209884,
+      "sha256": "c093bd1e55928722f673a64b420910717db96624d9f2337c9577d34f7a8c5267"
+    },
+    {
+      "path": "contact-arcade-normal-zero.png",
+      "bytes": 1209648,
+      "sha256": "c282669dbf5ed15342fb73429cec9de5e91b9a715f7de7ddd423b8527a511bb6"
+    },
+    {
+      "path": "contact-arcade-both-zero.png",
+      "bytes": 1210000,
+      "sha256": "79cfd68ef10677d6a6316b1618004acd8038b229a8e8772de2e14f4d7b8ed056"
+    },
+    {
+      "path": "contact-arcade-repeat.png",
+      "bytes": 1209855,
+      "sha256": "0fa6b43749ed54200495779c9276bd383b910ff5328462210634e5049dec8c9b"
+    },
+    {
+      "path": "contact-south-original.png",
+      "bytes": 1164528,
+      "sha256": "5f210c71ce120ceb42943079f67109d7639424a531dd5519e4a2c0c0e2a5b879"
+    },
+    {
+      "path": "contact-south-depth-zero.png",
+      "bytes": 1164098,
+      "sha256": "7ca4d20b17a4bbc4f96ce9afb91fc868f5402a0b18989834a5db593d8eac669e"
+    },
+    {
+      "path": "contact-south-normal-zero.png",
+      "bytes": 1164226,
+      "sha256": "35f44c5e84b0e77b0025471438e078c7130c65ab423349354909b7e132fd5d98"
+    },
+    {
+      "path": "contact-south-both-zero.png",
+      "bytes": 1163849,
+      "sha256": "18f0108c6f749d227e669f5f7609f7607da0324570f6f08598b7257df65d9ee3"
+    },
+    {
+      "path": "contact-south-repeat.png",
+      "bytes": 1164528,
+      "sha256": "5f210c71ce120ceb42943079f67109d7639424a531dd5519e4a2c0c0e2a5b879"
+    }
+  ],
+  "actuallyViewedNativeImages": [
+    "contact-arcade-original.png",
+    "contact-arcade-depth-zero.png",
+    "contact-arcade-normal-zero.png",
+    "contact-arcade-both-zero.png",
+    "contact-arcade-repeat.png",
+    "contact-south-original.png",
+    "contact-south-depth-zero.png",
+    "contact-south-normal-zero.png",
+    "contact-south-both-zero.png",
+    "contact-south-repeat.png"
+  ],
+  "poseSummaries": [
+    {
+      "name": "stacks",
+      "position": [
+        -112,
+        0,
+        -84
+      ],
+      "grounded": true,
+      "frame": 20,
+      "time": 1.3333333333333335,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.01701210541205804,
+          "maxGapToPointCollisionM": 0.02498172963798362,
+          "worldMin": [
+            -111.9027059841854,
+            -0.01701210541205804,
+            -84.09210988915217
+          ],
+          "worldMax": [
+            -111.79023319022228,
+            0.02498172963798362,
+            -83.84126027330818
+          ],
+          "screenPxMin": [
+            520.5802779663272,
+            540.4083352385308
+          ],
+          "screenPxMax": [
+            541.1404633269257,
+            554.2176534233809
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.778770458989129,
+            2.0371577056710066
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.02094054048108808,
+          "maxGapToPointCollisionM": 0.014954065893989373,
+          "worldMin": [
+            -112.1572429544713,
+            -0.02094054048108808,
+            -84.08916690842847
+          ],
+          "worldMax": [
+            -112.04210795766052,
+            0.014954065893989373,
+            -83.83834311461091
+          ],
+          "screenPxMin": [
+            479.0789996571725,
+            542.2031865253712
+          ],
+          "screenPxMax": [
+            502.08344874948114,
+            554.9578889299863
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.7973285492987543,
+            1.9751810262122262
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "marrow",
+      "position": [
+        -128,
+        0,
+        0
+      ],
+      "grounded": true,
+      "frame": 33,
+      "time": 2.1333333333333306,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.017824673654541035,
+          "maxGapToPointCollisionM": 0.024209676189403916,
+          "worldMin": [
+            -127.9028697028204,
+            -0.017824673654541035,
+            -0.09332181648959896
+          ],
+          "worldMax": [
+            -127.78898076199116,
+            0.024209676189403916,
+            0.15816518575675192
+          ],
+          "screenPxMin": [
+            494.64430602050004,
+            529.6538588177705
+          ],
+          "screenPxMax": [
+            533.9939512817242,
+            543.1722257594142
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.7835514046726075,
+            2.0316014121691524
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.021805824723903112,
+          "maxGapToPointCollisionM": 0.014047459391222848,
+          "worldMin": [
+            -128.15738423459115,
+            -0.021805824723903112,
+            -0.08891041708649586
+          ],
+          "worldMax": [
+            -128.0408304509021,
+            0.014047459391222848,
+            0.16253792734128264
+          ],
+          "screenPxMin": [
+            489.6813331462341,
+            547.8239302755854
+          ],
+          "screenPxMax": [
+            531.964697644946,
+            561.8345236977221
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.802004875205398,
+            1.9695651969954042
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "arcade",
+      "position": [
+        -104.5,
+        0.14,
+        -6.5
+      ],
+      "grounded": true,
+      "frame": 46,
+      "time": 2.933333333333328,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.020356769020140608,
+          "maxGapToPointCollisionM": 0.021614806899801747,
+          "worldMin": [
+            -104.71114656397599,
+            0.1196432309798594,
+            -6.6577520471276355
+          ],
+          "worldMax": [
+            -104.59617838695115,
+            0.16161480689980176,
+            -6.4058000115709115
+          ],
+          "screenPxMin": [
+            520.828019272357,
+            540.7677553859914
+          ],
+          "screenPxMax": [
+            540.9865819856002,
+            554.6746529761828
+          ],
+          "pointSupportTags": [
+            "pavement"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.7872693491793825,
+            2.3613725266584424
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.024256261930481582,
+          "maxGapToPointCollisionM": 0.011661029293813824,
+          "worldMin": [
+            -104.45931157638593,
+            0.11574373806951843,
+            -6.663200023298614
+          ],
+          "worldMax": [
+            -104.34168321440008,
+            0.15166102929381384,
+            -6.411296248551377
+          ],
+          "screenPxMin": [
+            479.2807232983379,
+            542.7633121663976
+          ],
+          "screenPxMax": [
+            501.9114013400967,
+            555.5705869364909
+          ],
+          "pointSupportTags": [
+            "pavement"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.8055998315189754,
+            2.3933389514494365
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "cinder",
+      "position": [
+        25,
+        0,
+        -10
+      ],
+      "grounded": true,
+      "frame": 60,
+      "time": 3.7999999999999914,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.0228446778809627,
+          "maxGapToPointCollisionM": 0.018944788396688565,
+          "worldMin": [
+            24.790024931830164,
+            -0.0228446778809627,
+            -10.157541698178397
+          ],
+          "worldMax": [
+            24.905678159396036,
+            0.018944788396688565,
+            -9.90532105888228
+          ],
+          "screenPxMin": [
+            472.4987831597961,
+            531.9571495675349
+          ],
+          "screenPxMax": [
+            495.3138362236067,
+            555.5754769886416
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.789798535650675,
+            2.359603355678928
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.026507371295626816,
+          "maxGapToPointCollisionM": 0.009595461054201782,
+          "worldMin": [
+            25.041863159062846,
+            -0.026507371295626816,
+            -10.163617912101767
+          ],
+          "worldMax": [
+            25.16016355098725,
+            0.009595461054201782,
+            -9.911451413311072
+          ],
+          "screenPxMin": [
+            513.6341759030062,
+            532.7602081483498
+          ],
+          "screenPxMax": [
+            533.4054831371759,
+            555.8876913786231
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.807986539685146,
+            2.391427317940895
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "survey",
+      "position": [
+        62,
+        0,
+        -34
+      ],
+      "grounded": true,
+      "frame": 74,
+      "time": 4.666666666666655,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.023136582512619526,
+          "maxGapToPointCollisionM": 0.018359007207017993,
+          "worldMin": [
+            61.79253279524785,
+            -0.023136582512619526,
+            -34.15759938489436
+          ],
+          "worldMax": [
+            61.908306114297794,
+            0.018359007207017993,
+            -33.90537682426409
+          ],
+          "screenPxMin": [
+            472.9225832763777,
+            532.0397249799728
+          ],
+          "screenPxMax": [
+            495.69644338439076,
+            555.6165588755347
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.790593091911319,
+            2.3608734651879786
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.02641743895938626,
+          "maxGapToPointCollisionM": 0.009984350250548826,
+          "worldMin": [
+            62.04439770538326,
+            -0.02641743895938626,
+            -34.163684518534644
+          ],
+          "worldMax": [
+            62.162797421146045,
+            0.009984350250548826,
+            -33.91151668564818
+          ],
+          "screenPxMin": [
+            514.0597657964372,
+            532.6989190704919
+          ],
+          "screenPxMax": [
+            533.7871817494502,
+            555.8687087478353
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.808637675300872,
+            2.3925182505137172
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "ventfield",
+      "position": [
+        82,
+        0,
+        -60
+      ],
+      "grounded": true,
+      "frame": 87,
+      "time": 5.466666666666653,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.0203623850641319,
+          "maxGapToPointCollisionM": 0.020772457395466692,
+          "worldMin": [
+            81.79595108911123,
+            -0.0203623850641319,
+            -60.157873596963896
+          ],
+          "worldMax": [
+            81.91132757445365,
+            0.020772457395466692,
+            -59.90588610649742
+          ],
+          "screenPxMin": [
+            477.02685168929236,
+            551.2699673430642
+          ],
+          "screenPxMax": [
+            520.2517588140785,
+            564.0676078946933
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.7897569377130935,
+            2.3647042113483394
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.023175014436524522,
+          "maxGapToPointCollisionM": 0.013592988704390366,
+          "worldMin": [
+            82.04785903809376,
+            -0.023175014436524522,
+            -60.163415357756016
+          ],
+          "worldMax": [
+            82.16583656196391,
+            0.013592988704390366,
+            -59.911478275091746
+          ],
+          "screenPxMin": [
+            482.69455798397024,
+            534.4029040799054
+          ],
+          "screenPxMax": [
+            522.9285887189521,
+            546.8982736533173
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.8076721495991137,
+            2.3961577178828293
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "south",
+      "position": [
+        -60,
+        0,
+        52
+      ],
+      "grounded": true,
+      "frame": 99,
+      "time": 6.21666666666665,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.018673692740855674,
+          "maxGapToPointCollisionM": 0.022055722091558403,
+          "worldMin": [
+            -59.914598149626926,
+            -0.018673692740855674,
+            51.90670681083969
+          ],
+          "worldMax": [
+            -59.80000157159823,
+            0.022055722091558403,
+            52.15828318058326
+          ],
+          "screenPxMin": [
+            463.89813407027316,
+            607.7875717459001
+          ],
+          "screenPxMax": [
+            519.20421367669,
+            629.6031905008203
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.787683116817675,
+            2.0203449430490537
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.020960752440872966,
+          "maxGapToPointCollisionM": 0.01621781338162845,
+          "worldMin": [
+            -60.16912876499354,
+            -0.020960752440872966,
+            51.91134215547274
+          ],
+          "worldMax": [
+            -60.05195959558916,
+            0.01621781338162845,
+            52.16287621956439
+          ],
+          "screenPxMin": [
+            453.6670307531456,
+            640.3981402138777
+          ],
+          "screenPxMax": [
+            514.9437030779974,
+            664.5369514724774
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 9,
+          "outside1147x645UniqueVertices": 3,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.8054798177807925,
+            1.957829662044901
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    },
+    {
+      "name": "plant",
+      "position": [
+        -46,
+        0,
+        -102
+      ],
+      "grounded": true,
+      "frame": 111,
+      "time": 6.949999999999981,
+      "poseCameraTimeRestoredExactly": true,
+      "mapSize": [
+        1024,
+        1024
+      ],
+      "feet": {
+        "L": {
+          "minGapToPointCollisionM": -0.01831686761826556,
+          "maxGapToPointCollisionM": 0.021964763988942197,
+          "worldMin": [
+            -46.19538597836408,
+            -0.01831686761826556,
+            -102.15877541819269
+          ],
+          "worldMax": [
+            -46.081871300091386,
+            0.021964763988942197,
+            -101.90775254059007
+          ],
+          "screenPxMin": [
+            475.20227153749136,
+            529.4211346652402
+          ],
+          "screenPxMax": [
+            497.99985578209333,
+            553.1803983011083
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.7846066513509413,
+            2.3774602407428347
+          ]
+        },
+        "R": {
+          "minGapToPointCollisionM": -0.020024246438740994,
+          "maxGapToPointCollisionM": 0.017606538584013554,
+          "worldMin": [
+            -45.94337781043489,
+            -0.020024246438740994,
+            -102.16210022902787
+          ],
+          "worldMax": [
+            -45.827321971670656,
+            0.017606538584013554,
+            -101.91110839672186
+          ],
+          "screenPxMin": [
+            516.0189760874758,
+            529.7339481996588
+          ],
+          "screenPxMax": [
+            535.8326721919063,
+            553.2980488674586
+          ],
+          "pointSupportTags": [
+            "ground"
+          ],
+          "entryCount": 12,
+          "uniqueWorldVertices": 4,
+          "outside1147x645Entries": 0,
+          "outside1147x645UniqueVertices": 0,
+          "derivedShadowMapBoundingSpanTexels": [
+            2.802288123798462,
+            2.408513937811506
+          ]
+        }
+      },
+      "supportScope": "Actual collision query only. Rendered surface height, normal-map sampling and shadow texels are not directly measured here."
+    }
+  ],
+  "decodedPixelDiagnostics": [
+    {
+      "scene": "arcade",
+      "variant": "depth-zero",
+      "fullFrameChangedPixels": 27002,
+      "fullFrameMaxChannelDelta": 81,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        467,
+        528,
+        554,
+        569
+      ],
+      "soleRegionPixels": 3567,
+      "soleRegionChangedPixels": 2332,
+      "soleRegionMaxChannelDelta": 31
+    },
+    {
+      "scene": "arcade",
+      "variant": "normal-zero",
+      "fullFrameChangedPixels": 41409,
+      "fullFrameMaxChannelDelta": 19,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        467,
+        528,
+        554,
+        569
+      ],
+      "soleRegionPixels": 3567,
+      "soleRegionChangedPixels": 2010,
+      "soleRegionMaxChannelDelta": 8
+    },
+    {
+      "scene": "arcade",
+      "variant": "both-zero",
+      "fullFrameChangedPixels": 60495,
+      "fullFrameMaxChannelDelta": 82,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        467,
+        528,
+        554,
+        569
+      ],
+      "soleRegionPixels": 3567,
+      "soleRegionChangedPixels": 2689,
+      "soleRegionMaxChannelDelta": 31
+    },
+    {
+      "scene": "arcade",
+      "variant": "repeat",
+      "fullFrameChangedPixels": 0,
+      "fullFrameMaxChannelDelta": 0,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        467,
+        528,
+        554,
+        569
+      ],
+      "soleRegionPixels": 3567,
+      "soleRegionChangedPixels": 0,
+      "soleRegionMaxChannelDelta": 0
+    },
+    {
+      "scene": "south",
+      "variant": "depth-zero",
+      "fullFrameChangedPixels": 25562,
+      "fullFrameMaxChannelDelta": 41,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        441,
+        595,
+        533,
+        645
+      ],
+      "soleRegionPixels": 4600,
+      "soleRegionChangedPixels": 0,
+      "soleRegionMaxChannelDelta": 0
+    },
+    {
+      "scene": "south",
+      "variant": "normal-zero",
+      "fullFrameChangedPixels": 61634,
+      "fullFrameMaxChannelDelta": 17,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        441,
+        595,
+        533,
+        645
+      ],
+      "soleRegionPixels": 4600,
+      "soleRegionChangedPixels": 0,
+      "soleRegionMaxChannelDelta": 0
+    },
+    {
+      "scene": "south",
+      "variant": "both-zero",
+      "fullFrameChangedPixels": 76511,
+      "fullFrameMaxChannelDelta": 40,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        441,
+        595,
+        533,
+        645
+      ],
+      "soleRegionPixels": 4600,
+      "soleRegionChangedPixels": 0,
+      "soleRegionMaxChannelDelta": 0
+    },
+    {
+      "scene": "south",
+      "variant": "repeat",
+      "fullFrameChangedPixels": 0,
+      "fullFrameMaxChannelDelta": 0,
+      "soleProjectedBoundsWith12PxMarginXYXY": [
+        441,
+        595,
+        533,
+        645
+      ],
+      "soleRegionPixels": 4600,
+      "soleRegionChangedPixels": 0,
+      "soleRegionMaxChannelDelta": 0
+    }
+  ],
+  "limits": [
+    "Pixel changes locate response to a controlled setting; they do not score quality or identify caster ownership.",
+    "Shadow UV spans are computed from original reported world positions/matrix; no shadow depth texture or GPU sample kernel was directly read.",
+    "Collision support does not directly measure rendered surface height. Frozen idle frames do not cover walking or stairs."
+  ],
+  "newImagesWritten": 0,
+  "productEdits": 0,
+  "remoteWrites": 0,
+  "newCI": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "blindComparisons": 0
+}

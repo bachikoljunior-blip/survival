@@ -20,6 +20,13 @@ if (process.env.CINDERLINE_CHARACTER_CONTACT === '1') {
     }
   }
 }
+if (process.env.CINDERLINE_SHADOW_RESOLUTION === '1') {
+  for (const scene of ['arcade', 'south']) {
+    for (const variant of ['original', 'double', 'restored']) {
+      files.push(`shadow-resolution-${scene}-${variant}.png`);
+    }
+  }
+}
 const cap = 2 * 1024 * 1024;
 let failed = false;
 for (const file of files) {

@@ -1,0 +1,141 @@
+{
+  "scope": "Read-only C35 recovery four files plus final workflow integration; no helper/suite/CI or artifact download executed.",
+  "blockingFindings": [],
+  "reviewedFiles": [
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 26859,
+      "sha256": "74659c1ee3fcfde3c820d3615b9014992fc67ea20c91a73b9aa3f6e2e76c19ae",
+      "gitBlob": "e64a3c638c30fb2a098fe24f0b92fb320cc2cca2"
+    },
+    {
+      "path": "tools/candidates/c34-ios-pr-summary.json",
+      "bytes": 21787,
+      "sha256": "92efb2d97b5e6dd7b9a111107dcdc264228f7c7b513ef38a4822b187436d295d",
+      "gitBlob": "f147b51f8279ac94ad048f5b50f4c5436334ca60"
+    },
+    {
+      "path": "tools/candidates/c34-ios-source-summary.json",
+      "bytes": 24783,
+      "sha256": "43ca3a6ba708c6ae7284b9142b33ef633e78fbe08ed0f0fc1f566b84fcc7ac5f",
+      "gitBlob": "3d8802d5f45c81b8e612446754de0ae020405108"
+    },
+    {
+      "path": "tools/recover-ios-audio-c34-pr.mjs",
+      "bytes": 7274,
+      "sha256": "6fe0abead45f14da438d2c06fcac2687187e3cb558a938c687446ff8dccef857",
+      "gitBlob": "7de251d858a4717e9d0d86a98dc9db4e3998afb5"
+    },
+    {
+      "path": "tools/recover-ios-audio-c34.mjs",
+      "bytes": 7218,
+      "sha256": "7a910eeca46854659c410a35d778e3f407c3ab7098bbe453d3b4597b17d70d12",
+      "gitBlob": "4da31a78cb7e6f9d17d9c987275395c69d7bf1e4"
+    }
+  ],
+  "sourceHelperMatchesFrozenAuthorAndIndependentCopies": true,
+  "prOnlyDeclaredPinsOutputSummaryAndMetadataHeadDifference": true,
+  "logProjectionByteIdenticalToPinnedRecorderHelper": true,
+  "failureAndLifecyclePreservation": [
+    {
+      "side": "source",
+      "pin": {
+        "artifactId": 10357143198,
+        "runId": 34866156884,
+        "commit": "81de9354117a54397bf2c9e64e18a91c397dd06a",
+        "artifactName": "iphone-se3-mobile-safari-81de9354117a54397bf2c9e64e18a91c397dd06a",
+        "artifactBytes": 13304946,
+        "artifactDigest": "sha256:e5a88dfd8818a3d79092683043343e851d7d71c56e5ec61fb983ceb49e90fdb3",
+        "bundle": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+        "recorder": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helper": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819",
+        "summarySha256": "43ca3a6ba708c6ae7284b9142b33ef633e78fbe08ed0f0fc1f566b84fcc7ac5f",
+        "harness": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779"
+      },
+      "summarySha256": "43ca3a6ba708c6ae7284b9142b33ef633e78fbe08ed0f0fc1f566b84fcc7ac5f",
+      "summaryMatchesSoleOriginalLogProjection": true,
+      "logStorageSha256": "374f1f85e2a2af233b6187d7a4f10bcdd31af3f4c1557d6965537fd8f9c9d549",
+      "decodedLogSha256": "3ef4d5b6618268741f78ebfe0bc26fe617f45079b4a73c0b2d8cbebcad1d03d4",
+      "originalStatus": "failed",
+      "originalCaptureStatus": "acquisition failed",
+      "lifecycle": {
+        "reason": "Original acquisition did not complete successfully; no boundary operation was attempted.",
+        "status": "not run"
+      },
+      "streetEngineToAudioRatio": 0.9473270440251034,
+      "clockGuards": [
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "side": "pr",
+      "pin": {
+        "artifactId": 10356974645,
+        "runId": 34866168484,
+        "commit": "6eaddedf951047c41c735bad4b6dfcf8b9e8946f",
+        "headCommit": "81de9354117a54397bf2c9e64e18a91c397dd06a",
+        "artifactName": "iphone-se3-mobile-safari-6eaddedf951047c41c735bad4b6dfcf8b9e8946f",
+        "artifactBytes": 12127290,
+        "artifactDigest": "sha256:faec7d337eeb93b55d8e9c3c998625dcf1b1e9c39c1c02c78428567b0afe25c2",
+        "bundle": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+        "recorder": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helper": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819",
+        "summarySha256": "92efb2d97b5e6dd7b9a111107dcdc264228f7c7b513ef38a4822b187436d295d",
+        "harness": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779"
+      },
+      "summarySha256": "92efb2d97b5e6dd7b9a111107dcdc264228f7c7b513ef38a4822b187436d295d",
+      "summaryMatchesSoleOriginalLogProjection": true,
+      "logStorageSha256": "ada4980fee763a3f373f161409ecfde4705569ec5217de5881cfdd781966ffc6",
+      "decodedLogSha256": "170fb5a3b279cb32db8325eeb488ffc0938307a4054865a2c51fb4b19157f529",
+      "originalStatus": "failed",
+      "originalCaptureStatus": "acquisition failed",
+      "lifecycle": {
+        "status": "not run",
+        "reason": "Original acquisition did not complete successfully; no boundary operation was attempted."
+      },
+      "streetEngineToAudioRatio": 0.8144946808510178,
+      "clockGuards": [
+        false,
+        true,
+        true
+      ]
+    }
+  ],
+  "artifactIdentityReceiptSha256": "76b59f79f2da146cd12152694fbca5d1139979ff180edc7ac307ab6648d94fc3",
+  "sourceAndPrCrossAcceptancePreventedByDistinctArtifactRunExecutionCommitSummaryAndThreeMediaPins": true,
+  "crossRejectionAssessment": "Independently inspected exact guard code and distinct pins; existing owner dual-pin 10-control result read, not rerun.",
+  "rawReportExportUsesOriginalBytes": true,
+  "completeAllMediaValidationBeforeExport": true,
+  "original16MiB32MiBBoundsAnd3000ByteOffsetsUnchanged": true,
+  "existingControlEvidenceRead": [
+    {
+      "path": "c35-recovery-independent-check/verification.json",
+      "sha256": "499f6ce24ce74d65a0eb9a6d9a87fdef6b20753bdae389eb3664bfd813f3366e",
+      "checks": 19,
+      "rerunByThisReviewer": false,
+      "scope": "CPU projections, rejection paths and synthetic byte-transport fixtures only. Original C34 full report and MP4 recovery: 0. Browser, recording, decoding, playback and comparison: 0."
+    },
+    {
+      "path": "main-integration-c35/recovery-dual-pin-check.json",
+      "sha256": "37c1ac0b36385bd802d91a7755d0cd8810044cb12426b2f70253d7612d1382a4",
+      "checks": 10,
+      "rerunByThisReviewer": false,
+      "scope": "Exact fetched metadata and original failed log projections; full report and original media remain unrecovered."
+    }
+  ],
+  "workflowReview": "workflow-review.json",
+  "limits": [
+    "Original full report and media were not downloaded by this reviewer; prior raw full-report SHA is not available before recovery, so exact saved projection and fixed media hashes constrain acceptance.",
+    "Actual official recovery and native shadow-resolution diagnosis remain unexecuted by this reviewer.",
+    "Final outgoing tree outside these five files is not part of this recovery review."
+  ],
+  "candidateEdits": 0,
+  "suiteReruns": 0,
+  "remoteWrites": 0,
+  "newCI": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "comparisons": 0
+}

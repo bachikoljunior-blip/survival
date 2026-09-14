@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { PNG } from 'pngjs';
 import { captureShadowContact } from './mobile_shadow_contact.mjs';
 import { captureCharacterGroundContact } from './mobile_character_ground_contact.mjs';
+import { captureShadowResolution } from './mobile_shadow_resolution.mjs';
 import { captureLightDirectionTrial } from './mobile_light_direction_trial.mjs';
 import { captureGrainTrial } from './mobile_grain_trial.mjs';
 
@@ -106,6 +107,9 @@ export async function captureMobileViews({ page, root, output, check, report, wa
         if(process.env.CINDERLINE_CHARACTER_CONTACT==='1' && name!=='marrow_roof') {
           await captureCharacterGroundContact({page,root,output,name,cachedFrame:native,
             controlBias:['arcade','south'].includes(name),check,report});
+        }
+        if(process.env.CINDERLINE_SHADOW_RESOLUTION==='1' && ['arcade','south'].includes(name)) {
+          await captureShadowResolution({page,root,output,name,cachedFrame:native,check,report});
         }
       } finally {
         await page.evaluate(({wasRunning,uiDisplay}) => {

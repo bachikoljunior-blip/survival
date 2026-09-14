@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "scope": "CPU projections, rejection paths and synthetic byte-transport fixtures only. Original C34 full report and MP4 recovery: 0. Browser, recording, decoding, playback and comparison: 0.",
+  "checks": [
+    {
+      "name": "Saved summary bytes and sole original log projection agree",
+      "passed": true
+    },
+    {
+      "name": "Summary projection definition is byte-identical to pinned helper 1b3bc6fd",
+      "passed": true
+    },
+    {
+      "name": "Exact failed acquisition projection accepted without changing any field",
+      "passed": true
+    },
+    {
+      "name": "Reject acquisition promoted to success",
+      "passed": true
+    },
+    {
+      "name": "Reject failure removed",
+      "passed": true
+    },
+    {
+      "name": "Reject check rewritten",
+      "passed": true
+    },
+    {
+      "name": "Reject provenance changed",
+      "passed": true
+    },
+    {
+      "name": "Reject lifecycle promoted to checked",
+      "passed": true
+    },
+    {
+      "name": "Reject street guard relaxed",
+      "passed": true
+    },
+    {
+      "name": "Reject clip missing",
+      "passed": true
+    },
+    {
+      "name": "Reject extra clip",
+      "passed": true
+    },
+    {
+      "name": "Reject media hash rewritten",
+      "passed": true
+    },
+    {
+      "name": "Exact artifact metadata accepted; every identity field is required",
+      "passed": true
+    },
+    {
+      "name": "Metadata mismatch fails before reading missing report or emitting bytes",
+      "passed": true
+    },
+    {
+      "name": "Unchanged production candidate rejects synthetic media before export",
+      "passed": true
+    },
+    {
+      "name": "Five complete export groups reconstruct exact raw bytes with 3000-byte offsets",
+      "passed": true
+    },
+    {
+      "name": "Last media corruption prevents any new complete-set export",
+      "passed": true
+    },
+    {
+      "name": "Per-file 16 MiB limit rejects oversized report without emission; total 32 MiB guard unchanged",
+      "passed": true
+    },
+    {
+      "name": "Expected summary byte modification is rejected",
+      "passed": true
+    }
+  ]
+}

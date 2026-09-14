@@ -1,0 +1,58 @@
+--- source-recovery-helper
++++ pr-recovery-helper
+@@ -1,4 +1,4 @@
+-/** Validate and export the original C34 Safari report and production recordings.
++/** Validate and export the original C34 PR Safari report and production recordings.
+  * Used after the official download-artifact action in a read-only CI job. No
+  * browser, recording, token handling, remote write or quality judgment occurs. */
+ import { readFileSync,writeFileSync,mkdirSync } from 'node:fs';
+@@ -7,37 +7,37 @@
+ import { resolve,dirname,join } from 'node:path';
+ import { fileURLToPath } from 'node:url';
+ 
+-export const PIN=Object.freeze({artifactId:10357143198,runId:34866156884,
+-  commit:'81de9354117a54397bf2c9e64e18a91c397dd06a',
+-  artifactName:'iphone-se3-mobile-safari-81de9354117a54397bf2c9e64e18a91c397dd06a',
+-  artifactBytes:13304946,artifactDigest:'sha256:e5a88dfd8818a3d79092683043343e851d7d71c56e5ec61fb983ceb49e90fdb3',
++export const PIN=Object.freeze({artifactId:10356974645,runId:34866168484,
++  commit:'6eaddedf951047c41c735bad4b6dfcf8b9e8946f',headCommit:'81de9354117a54397bf2c9e64e18a91c397dd06a',
++  artifactName:'iphone-se3-mobile-safari-6eaddedf951047c41c735bad4b6dfcf8b9e8946f',
++  artifactBytes:12127290,artifactDigest:'sha256:faec7d337eeb93b55d8e9c3c998625dcf1b1e9c39c1c02c78428567b0afe25c2',
+   bundle:'514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55',
+   recorder:'785541d3beaed0e35e8bcf042973eabb7bdb5d6c',
+   helper:'1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819',
+-  summarySha256:'43ca3a6ba708c6ae7284b9142b33ef633e78fbe08ed0f0fc1f566b84fcc7ac5f',
++  summarySha256:'92efb2d97b5e6dd7b9a111107dcdc264228f7c7b513ef38a4822b187436d295d',
+   harness:'ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779'});
+ export const CLIPS=Object.freeze([
+-  {name:'street-walk',bytes:5358430,sha256:'0d8de149dcbda05affacbd61d71939ac3e916247c83651b23094ce7655834607',clockGuardPassed:false},
+-  {name:'cut-gas-air',bytes:2911713,sha256:'ddc4dbc677da7c51f5eedafa8b04133af0722d39e233a40b1fd52c1c0342ce67',clockGuardPassed:true},
+-  {name:'arcade-room',bytes:1328121,sha256:'92ba5564206d976a6f9d689a8b5656e18544ac7d681373fc34697798f4a5d586',clockGuardPassed:true},
++  {name:'street-walk',bytes:3664520,sha256:'0f696555fe4e979db08d0fd055dff308dc8a066fea794b899701e374344b34d6',clockGuardPassed:false},
++  {name:'cut-gas-air',bytes:2884714,sha256:'323bb959401882d8261136a9189f9093e08d39dee19171581e485219410cab44',clockGuardPassed:true},
++  {name:'arcade-room',bytes:2078802,sha256:'afb659e12c4ac56ce3c9e117dff84817d4c70b946a0d4a5fc7ecf37c96d72be8',clockGuardPassed:true},
+ ]);
+-const BASE='test-results/ios-c34-original-recovery-r1';
++const BASE='test-results/ios-c34-pr-original-recovery-r1';
+ const MAX_FILE=16*1024*1024,MAX_TOTAL=32*1024*1024;
+ export const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+ export function validateMetadata(meta){
+   if(meta.id!==PIN.artifactId || meta.name!==PIN.artifactName || meta.size_in_bytes!==PIN.artifactBytes
+     || meta.digest!==PIN.artifactDigest || meta.expired!==false || meta.workflow_run?.id!==PIN.runId
+-    || meta.workflow_run?.head_sha!==PIN.commit)throw Error('Original artifact metadata mismatch');
++    || meta.workflow_run?.head_sha!==PIN.headCommit)throw Error('Original artifact metadata mismatch');
+ }
+ export function validateReport(report){
+   const capture=report.audioCapture,p=capture?.provenance;
+-  const expectedBytes=readFileSync(new URL('./candidates/c34-ios-source-summary.json',import.meta.url));
++  const expectedBytes=readFileSync(new URL('./candidates/c34-ios-pr-summary.json',import.meta.url));
+   if(sha(expectedBytes)!==PIN.summarySha256)throw Error('Preserved C34 summary bytes changed');
+   // Match the exact original log projection, including every failure and the
+   // unrun lifecycle. JSON normalization mirrors the source log's omission of
+   // undefined fields; the original reportBytes are never serialized for export.
+   deepStrictEqual(JSON.parse(JSON.stringify(iosAudioLogSummary(report))),JSON.parse(expectedBytes),
+-    'Original C34 report differs from the preserved failed source summary');
++    'Original C34 report differs from the preserved failed PR summary');
+   if(p?.runCommit!==PIN.commit || String(p.runId)!==String(PIN.runId) || String(p.runAttempt)!=='1'
+     || p.actualRecorderBlob!==PIN.recorder || p.helperSha256!==PIN.helper || p.harnessSha256!==PIN.harness
+     || p.actualBundleHashes?.['cinderline.1.0.0.js']!==PIN.bundle
