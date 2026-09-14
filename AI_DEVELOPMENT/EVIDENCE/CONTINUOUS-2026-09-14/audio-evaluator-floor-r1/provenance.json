@@ -1,0 +1,427 @@
+{
+  "scope": "Confirmed source preprocessing floor mismatch and one completed corrected-runtime negative control. No product/reference blind comparison; all19 unchanged not measured.",
+  "result": "Complete corrected build still hallucinates music on unchanged4s zeroPCM, rejected as evaluator. Tone not rerun. Mono decoder cannot measure stereo direction.",
+  "archive": {
+    "path": "raw-diagnostic.tar.gz",
+    "bytes": 511850,
+    "sha256": "411e847bf649068ea5bb1523417a571bfb8801aa5cbea79449c27ed654a08a08",
+    "members": [
+      {
+        "path": "audio-evaluator-diagnostic-01.json",
+        "bytes": 267162,
+        "sha256": "6bdbee8a72e80d3b8ecb2b59f78a0ff14766b07361559f84d6f8190f841d50a6"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-01.log",
+        "bytes": 463,
+        "sha256": "bd119fbf52b5d224429b18df070b102d4892b903477a16dc509996d41015e7d1"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-01.py",
+        "bytes": 4989,
+        "sha256": "9a4b77574a86872b83208780e88dcd5f9a5cb070b6a0e0dbc5cfc0bf671e56b3"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-02.json",
+        "bytes": 12561,
+        "sha256": "c705ed9c7ae44a1c2b4e693b32377cd42db8f08a5228abb2f4dd0c61a92e2d7b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-02.log",
+        "bytes": 1900,
+        "sha256": "e0a4d0d2de3fb4fcd4167b965790198dc640438e58783b4e106f8256cd2ef697"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-02.py",
+        "bytes": 4315,
+        "sha256": "d5e43a58903c8e5a41d7ca0a8cbaeaea23d231e8e956722e03c23bd1d74d02a5"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-finalize.py",
+        "bytes": 2779,
+        "sha256": "bcbee17edb13e592dde2fd0ae397a9bfd259339c69cb4235d68d358f90916ccd"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-manifest.json",
+        "bytes": 8616,
+        "sha256": "ac9ea64df0fa8cc7d0510b72c976d535a69818e3b917800452854ee2ec03295a"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-original-integrity.json",
+        "bytes": 4685,
+        "sha256": "99d7f7840f78f471e794be88127ba068196283e88803aa88d27eca5b7fa5a685"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-calibration-floor1e10.f32",
+        "bytes": 1536000,
+        "sha256": "68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-calibration-input.f32",
+        "bytes": 384000,
+        "sha256": "7bf06cdbda55fc307cfcb5ecef1be170b2f626cd58c3269c0e1fcc025135fe11"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-calibration-original.f32",
+        "bytes": 1536000,
+        "sha256": "68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-floor1e10",
+        "bytes": 44864,
+        "sha256": "40614a36d61f9eada62ca9e53199748793f5bccfcbbd95d3a1015e223ebbdb93"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-floor1e10.cpp",
+        "bytes": 24505,
+        "sha256": "39b287642a8219170c9f63b97b110841e475c202d7c21158b5360fe6e311621b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-original",
+        "bytes": 44864,
+        "sha256": "4c27f572295c0f5108743f9a99bd98a862640525b19cbdf906f5ef28d88e9245"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-original.cpp",
+        "bytes": 24412,
+        "sha256": "f6e8c37f02d704fc9104d474b2da0b4e3e8767e36294c0cda93e13b6c5f005ee"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-shim.h",
+        "bytes": 2578,
+        "sha256": "c81be04e4c0e31c440b6b03312b66e93f6efdcd4a938b28e8cfe120e73430f0b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-silence-control-floor1e10.f32",
+        "bytes": 1536000,
+        "sha256": "eb32c159b336b922d5ccadb2004d1c366b998728ccd536bd0ff197641890774b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-silence-control-input.f32",
+        "bytes": 256000,
+        "sha256": "24a046dc04fefdb652e4077b41162490b344a4dd45f918505477f84c592f3070"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess-silence-control-original.f32",
+        "bytes": 1536000,
+        "sha256": "c26b317c4b6c80d4bc9a98aa03f8f08a26131700ab5135f7d8895995c36c6a8f"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess.json",
+        "bytes": 8445,
+        "sha256": "6e53d115535866c668dc74f86ae0d0b2415738781e56599527403dea6a5f41ae"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess.log",
+        "bytes": 4210,
+        "sha256": "0ed7dc6c6508331dc238c52fd5725057d09320ff5638e509d6a7ea83d45a124a"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-preprocess.py",
+        "bytes": 7580,
+        "sha256": "f6b2c444d66ba628a4a1cb99686b3d040c331100cbf5e0b5151edca4538de1ae"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-refuter-01.json",
+        "bytes": 25766,
+        "sha256": "f749978e375c4cb3e8f1c51b18f84056b9844756297229329f52641c777a8625"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-refuter-01.log",
+        "bytes": 283,
+        "sha256": "8ec0efa54a138250532d4e8405d75097cfcc06ecf25741b11e178a9c9580931b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-refuter-01.py",
+        "bytes": 12729,
+        "sha256": "9a3b27b5ccc7d2a3ef688728dc572cecd6847c038e33fc1f4821dff3c713cfd9"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-refuter-review.json",
+        "bytes": 16336,
+        "sha256": "d6a1b3964b0831a3337b8c5ae368a6bd4b4c5fc75523429dca4b39ca5005f6c0"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-refuter-validation.json",
+        "bytes": 53,
+        "sha256": "86fd39049fe0cc4432ba8c4179a3c25650875f7f9a91aafa9a6b13abfb01024b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-report.py",
+        "bytes": 11449,
+        "sha256": "27b84a8704bfddbaf885a50b4a588927c40da56c7c19c9c29ca00d23b30756e9"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-review-draft.json",
+        "bytes": 17946,
+        "sha256": "db923ac583f1f46a46adf89f83ff906cc29d8fdcc8aa13ce8c91bbd300d60f13"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-review.json",
+        "bytes": 19443,
+        "sha256": "9df44965812727901f2eb7e7013354be89ec15e5ca1db25ca0bf1152b59c7829"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-arg.cpp",
+        "bytes": 221623,
+        "sha256": "d663b4c2e67c88f24741f4e1be30a4e80bbaf42308bbffa8526fcc17e707d850"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-audio-utils-v4523.py",
+        "bytes": 54301,
+        "sha256": "e3095ff11adc879d9bbaee60aeceea9ec57a6757ef164f3842b90650c3592201"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-clip-model.h",
+        "bytes": 33476,
+        "sha256": "9efca2c5358bfbdc0bd71221e1f47b9b66cd8116700a101be7a2b0c83f915ebe"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-clip.cpp",
+        "bytes": 318664,
+        "sha256": "fbbb9d0a5284d44bbc98a0dc36db8bb1c353aa7fece10eccfa64f926d0a7d8bb"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-mtmd-audio.cpp",
+        "bytes": 59134,
+        "sha256": "1d3eed8a85ea98d5c8cd96223fdb561b699affccea23f5b668d602bd3b22521f"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-mtmd-audio.h",
+        "bytes": 7011,
+        "sha256": "483464d4957d97a1e21c8e64952533b8e22c58ee5fd39280f87702e7d1db0b87"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-mtmd-cli.cpp",
+        "bytes": 20906,
+        "sha256": "6f3a9bd6ec84d554d13ea0c81fd1ace89c4f84b1ea402788055fde258adfdb34"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-mtmd-helper.cpp",
+        "bytes": 35123,
+        "sha256": "9b11ebee1d87111f72bb63159814dd7449e8816eafd28e6045f759689ee7de19"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-mtmd.cpp",
+        "bytes": 106955,
+        "sha256": "75c4a02a9207ef995185a7e22cf2db787203c95ec231cd5095fa964a3471e4aa"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-processor-v4513-fetch.json",
+        "bytes": 668,
+        "sha256": "689f1b63ccf65856ac78811d89ceebd217cd96e43c875d265a6c4936f068ef59"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-qwen-processor-v4523.py",
+        "bytes": 17553,
+        "sha256": "b80d364677257cb4455211c4cf0e9215a3eacb4cd98829565a653f5817c578af"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-qwen25omni-fetch.json",
+        "bytes": 742,
+        "sha256": "a891cc69d8e9ce7e77c5ea2255cf0d25e7856939ac4ebd4592494e5526d97b76"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-whisper-feature-v4523.py",
+        "bytes": 15802,
+        "sha256": "bb81e5ef7af5dbd4d4e9fb3ff018487f62bff98516431cc370a0dfdd2f756f0e"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-source-whisper-feature.py",
+        "bytes": 15802,
+        "sha256": "f0bddd6ec7bc028def6009478c5caacf7f140764b3413318e70729f4f60aa90a"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-validation-draft.json",
+        "bytes": 190,
+        "sha256": "120e489aa4916544df0a761e0b022c0d121dcd86516c87773520b5f049c5748b"
+      },
+      {
+        "path": "audio-evaluator-diagnostic-validation.json",
+        "bytes": 184,
+        "sha256": "be38817da430c47ae3af31dfc1640874544771269ee5801445b07ca8525cad99"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/build-manifest.json",
+        "bytes": 7075,
+        "sha256": "fcf09dc6a77a373cde57ab4fe41ab449fa04567074b391872212fe02eb60c9d4"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/build-start.json",
+        "bytes": 633,
+        "sha256": "b78def539f7ce01adfe470be07d945fedd4444424372749e3cc562bc0d93a3f7"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/build.json",
+        "bytes": 735,
+        "sha256": "5933a74e433d11b430a0844700c3e93e009f87fa5de1b6ed38b61635a7a56c40"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/build.log",
+        "bytes": 46711,
+        "sha256": "19f3ee878935a1749580dfddd3ba794ac3f1555849ea51e1fb740ff97cf4d94c"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/checkpoint.json",
+        "bytes": 1362,
+        "sha256": "5f7368d9e3d00ed7e6eb0acded68f74302c7d72bc68852628e0e3b86bd8c584b"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/cmake-install.json",
+        "bytes": 465,
+        "sha256": "be70e9922180f91b43f15b298bc42ac78f8fc1653b98f05dd1305ab11d078d93"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/cmake-install.log",
+        "bytes": 810,
+        "sha256": "8925907240c2077f194c9fd8afba8e4b1b372e7876f1c04aacd20396f8da5984"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/configure.json",
+        "bytes": 1163,
+        "sha256": "0051718f99acf019aec8a5b4e6cb427368543678db49eaa44dd1dc7cc344c7b0"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/configure.log",
+        "bytes": 4775,
+        "sha256": "3a41af9e236c8ebcd9c3a6b74067bb7514d1471b16e3f47af50580329cd8699d"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/floor1e10.patch",
+        "bytes": 344,
+        "sha256": "85ab0d2d158c1c3e90cb372f66407638fd3384907d19e1a4bb7bbab0512b08b4"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/original-artifact-preservation.json",
+        "bytes": 5136,
+        "sha256": "abb9452fb0ab64141588da419be9f3bde7ff780e94c0d80dae64ec73ed0ea071"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/original-integrity.json",
+        "bytes": 9147,
+        "sha256": "8d5e56df40b3972905e615708a9be42098bc60e6bd442907a1e1986af1646fac"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/patch-setup.json",
+        "bytes": 430,
+        "sha256": "3eafa0fc4b630394e4afddf6e25bb8235e392836caac838ff1a93c0515516669"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/post-run-integrity.json",
+        "bytes": 13983,
+        "sha256": "fd9e1564fc047c29ff7c454fcd8d513b4baddc54638cb1d3b39d6ef210e32886"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-control-contract.json",
+        "bytes": 1383,
+        "sha256": "560689f42dc2466fcb5e5ec7af80a3383f3670edaf154015c5c4f1795a92ca7f"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-preflight-setup-failure.json",
+        "bytes": 478,
+        "sha256": "11ceab002a8028e0f75ff4c08ef1bb7b8a0378d14850cf7c1f04283819254d56"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-preflight.json",
+        "bytes": 4065,
+        "sha256": "df5103fa58a8d73fcfbe2eb40544b203745900e07c5d803c733d690d181712cb"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-preflight.py",
+        "bytes": 5152,
+        "sha256": "b40cfd6bb68f73faafce38f1734fc58c713cd8173ea1593d7b915e5001855e3b"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-result-audit.json",
+        "bytes": 7579,
+        "sha256": "49c224322c59475b7bf8f5e878f512105ebf7084792c059c11648c9e010c8ba0"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-result-audit.py",
+        "bytes": 7020,
+        "sha256": "c1f87cec0bc978968986e21bbabe0eec14845c5b1e731f775cce2b555cfc2efc"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-review-validation.json",
+        "bytes": 113,
+        "sha256": "41ccce5576f764eb501197587c3811d7968d70a8f4bd748a02a4a14efda7304f"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/refuter-review.json",
+        "bytes": 15194,
+        "sha256": "45115d7eb45f557de84c24e3bf9113bc57f30ed78a3dd048c46930d596131cd1"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/result.json",
+        "bytes": 1332,
+        "sha256": "85e2a05e46b795ca750e641b4786ae3680997dfef876f2b60bbf4df6284ba25a"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/review.json",
+        "bytes": 12128,
+        "sha256": "dcb7fb192ac83a9643501d5f7aa0755a9bc0ebc039a7692abcd21465c7085102"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/run-silence-once.py",
+        "bytes": 4977,
+        "sha256": "fc680cf4552a1b3c14be92a3b1e7eaa337141be870afa6307b2f3c446c4ab51f"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/silence-floor1e10-record.json",
+        "bytes": 4208,
+        "sha256": "2b279ce981e6ecdd0f2c9b37569a9ca7d96bd2f7fe4a47739d5ca34eb308ee4d"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/silence-floor1e10-stderr.txt",
+        "bytes": 1538,
+        "sha256": "d14f1f86e09d2d7900bb126ae042299af7c96d991e87e3b40d3e2c293bdba357"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/silence-floor1e10-stdout.txt",
+        "bytes": 178,
+        "sha256": "898e2a75304d422cc2190c10fe6488ba4864dcbe37b5d6a40b3a71152916769d"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/silence-run-plan.json",
+        "bytes": 2889,
+        "sha256": "138418118d51075cdccf427dba362a16a18867d71e65810dec5fc9f736782ae0"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/source-acquisition.json",
+        "bytes": 653,
+        "sha256": "8de56780b92da07853a0b72a83a5dfc0600309d7f094e6a03b1da17b331d7c9c"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/source-manifest.json",
+        "bytes": 417258,
+        "sha256": "d6f272a65f7dca778e604bfe3c33a7496a80f738051fc9ec6962cf3d289ece04"
+      },
+      {
+        "path": "audio-evaluator-floor-r1/source-retained-text-check.json",
+        "bytes": 525,
+        "sha256": "9dfea0790fd4b805285965c469eaa5d95c4cc93b1da64aeedfd0468488924c32"
+      },
+      {
+        "path": "control/calibration-prompt.txt",
+        "bytes": 227,
+        "sha256": "97cbeca4c3e019163b29c1d25ebbf78677920496c962fdf529a19ec62ef0d777"
+      },
+      {
+        "path": "control/silence-control.wav",
+        "bytes": 128044,
+        "sha256": "f751fd7094be088dc785125e4a1a0222a17c2bd20469aa31728ca5e515ed5809"
+      },
+      {
+        "path": "licenses/llama.cpp-LICENSE",
+        "bytes": 1078,
+        "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+      },
+      {
+        "path": "licenses/transformers-LICENSE",
+        "bytes": 11418,
+        "sha256": "77fd4710def9ec3c0f6225800e0235f15a425abd4a8b03559127fcd782612049"
+      }
+    ]
+  },
+  "large_reproducible_inputs": "Existing original10.74GB models and original37.3MB pinned public source archive retained in workspace, not duplicated into game or public git. Exact URLs/hashes/build env/args/source diff in raw records."
+}

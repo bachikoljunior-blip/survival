@@ -42,5 +42,63 @@
     "stderrBytes": 0
   },
   "evaluation": "Acquired and decoded; gameplay continuity/coverage inspection pending. No blind result and no claim audio was heard.",
-  "copyPolicy": "Original reference videos and full dialogue data are private comparison material outside game and public repository; metadata only is preserved here."
+  "copyPolicy": "Original reference videos and full dialogue data are private comparison material outside game and public repository; metadata only is preserved here.",
+  "native_frame_inspection": {
+    "method": "Native full-frame decode, no crop/resize/regrade; sparse acquisition inspection only, not motion evaluation",
+    "frames": [
+      {
+        "timeSeconds": 15,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-015.png",
+        "sha256": "739e9aa77836bf091c2f8491ee6a997cc36ea2e89cd1051bd66351ae8eacba74"
+      },
+      {
+        "timeSeconds": 45,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-045.png",
+        "sha256": "a6427c918a7b5033601000ffd0502e0538417ab002f8bae90650537750eedb08"
+      },
+      {
+        "timeSeconds": 75,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-075.png",
+        "sha256": "ac15e432db809b8632654492985522edcff3e57dfd610f81a8295b679d1cad67"
+      },
+      {
+        "timeSeconds": 105,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-105.png",
+        "sha256": "8c0afe026240b67c55d5a239180c8ff79fb6ad3da5200222035be931e1e06be0"
+      },
+      {
+        "timeSeconds": 135,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-135.png",
+        "sha256": "3058af4cb442df295a408c6978442e69cec19a6cda8760aa24eba696755771a4"
+      },
+      {
+        "timeSeconds": 165,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-165.png",
+        "sha256": "acb94d6a2ee7ec42ab63b5b02b76d675fc93f940a83dea5f4802f0759bc509e8"
+      },
+      {
+        "timeSeconds": 195,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-195.png",
+        "sha256": "338693b09efb64ba1a90dac3e41465f16a348a744d0dcd06395988220295347e"
+      },
+      {
+        "timeSeconds": 225,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-225.png",
+        "sha256": "20425e52782d29b632a62cc1014024dfe313a95a541ca97c445b85112ed2bfe5"
+      },
+      {
+        "timeSeconds": 255,
+        "file": "reference-materials/dishonored2/steam/play-your-way/frame-255.png",
+        "sha256": "2db826d72df753ef796994c64f27db3dad993c6917e4ecbda14d00784b112c11"
+      }
+    ],
+    "observed": {
+      "15": "Gameplay environment with in-world KARNACA sign",
+      "75": "Developer interview portrait, subtitle It is your experience",
+      "135": "Brief gameplay action frame",
+      "195": "Gameplay with developer name and LEVEL DESIGN DIRECTOR credit overlay",
+      "255": "Gameplay with interview subtitle comparing Batman and Superman"
+    },
+    "conclusion": "Developer interview and edited gameplay montage, not a continuous 283-second gameplay run. Cuts/voiceover/subtitles cannot establish uninterrupted exploration, pursuit, or ability progression. No valid blind comparison. Clean continuous segments would require separate inspection and adequate element coverage."
+  }
 }

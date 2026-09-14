@@ -163,9 +163,7 @@ const move = (x, y, duration = 0) => ({
 });
 const down = () => ({ type: 'pointerDown', button: 0 });
 const up = () => ({ type: 'pointerUp', button: 0 });
-// The pinned XCUITest driver removes zero pauses. Keep placeholder ticks so
-// the two fingers remain synchronized instead of silently shifting their input.
-const pause = (duration) => ({ type: 'pause', duration: Math.max(1, duration) });
+const pause = (duration) => ({ type: 'pause', duration });
 
 async function tap(x, y) {
   await performActions([finger(`tap-${Date.now()}`, [move(x, y), down(), pause(90), up()])]);
@@ -349,10 +347,13 @@ try {
   const attackY = attack.y + attack.height / 2;
   await performActions([
     finger('move-thumb', [
-      move(110, 250), down(), move(110, 190, 350), pause(0), pause(150), pause(550), up(), pause(0),
+      move(110, 250), down(), move(110, 190, 350), pause(550), up(),
     ]),
     finger('attack-thumb', [
-      pause(0), pause(0), pause(350), move(attackX, attackY), down(), pause(150), up(), pause(550),
+      // WDA requires an initial position and schedules each touch path by its
+      // cumulative duration. The first move creates this contact at 350 ms;
+      // the movement contact remains down until 900 ms.
+      move(attackX, attackY, 350), down(), pause(150), up(),
     ]),
   ]);
   await new Promise((done) => setTimeout(done, 350));
@@ -493,12 +494,14 @@ console.log(`[ios-safari] ${report.status.toUpperCase()}: ${report.failures.leng
 console.log(`[ios-safari-report] ${JSON.stringify(report)}`);
 for (const relative of Object.values(report.screenshots)) {
   const bytes = readFileSync(resolve(ROOT, relative));
-  if (bytes.length > 1500000) continue;
   const data = bytes.toString('base64'), sha256 = createHash('sha256').update(bytes).digest('hex');
-  console.log(`[ios-safari-image] ${JSON.stringify({path:relative,bytes:bytes.length,sha256})}`);
+  const included = bytes.length <= 8000000;
+  console.log(`[ios-safari-image] ${JSON.stringify({path:relative,bytes:bytes.length,sha256,included})}`);
+  if (!included) continue;
   for (let offset = 0; offset < data.length; offset += 4000) {
     console.log(`[ios-safari-image-data] ${offset} ${data.slice(offset, offset + 4000)}`);
   }
 }
 for (const failure of report.failures) console.error(`- ${failure}`);
-if (report.failures.length) process.exit(1);
+// Let the pipe drain so a failed run preserves the full report and PNG bytes.
+if (report.failures.length) process.exitCode = 1;

@@ -1,0 +1,653 @@
+{
+  "scope": "Real55fa iOS failure plus independent exact-helper/WDA/Node-stdout CPU controls and separate refutation. New native input/result not yet measured.",
+  "source_sha256": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d",
+  "source_snapshot": "ios55-followup-source/test-ios-safari-r2.mjs",
+  "archive": {
+    "path": "raw-review.tar.gz",
+    "bytes": 240209,
+    "sha256": "e11ff82815ce6f43a3b5c2774cdd8abfdaa26d2407467fb43b6675427f28c8b7",
+    "members": [
+      {
+        "path": "ios55-followup-actions.json",
+        "bytes": 13474,
+        "sha256": "0d2ec2ebf396388543bf5352e56ab2bf5d3e511ec33d7468ba13ff185a502f79"
+      },
+      {
+        "path": "ios55-followup-ci-report.json",
+        "bytes": 16425,
+        "sha256": "9ac8c2430d21080e5113bdcad7556165bb4a3a9d3a3535b8a2aa2fdf5e6f1f5f"
+      },
+      {
+        "path": "ios55-followup-driver-wrapper.json",
+        "bytes": 474,
+        "sha256": "f308c1cba975b7224213f39757044f10a6a264e998ce19f2e9f832013617e32f"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-1500001.mjs",
+        "bytes": 1259,
+        "sha256": "003cda57ec3b3362c864349923a525f238485a8f3abc9e725751eaa94dcb67bb"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-1500001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-1500001.stdout.log.gz",
+        "bytes": 2394,
+        "sha256": "d0cee8e06da03a63924598f0f1c17d5e823bff4cb0d9764ffe4cef07e6bbf04e"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-70.mjs",
+        "bytes": 1254,
+        "sha256": "d13085248a76eff40cb4365a1ca90eb9a941ced37d6602a78a63ef469d0f1e78"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-70.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-70.stdout.log.gz",
+        "bytes": 2563,
+        "sha256": "99412380378d4e33fac37b8581099d7d571710d33e929fcd084fe96fb23fac4f"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-8000000.mjs",
+        "bytes": 1259,
+        "sha256": "273f730dd3c87aff952d98d38f6a02d67b5a5941e592aba0cecbff26523d8066"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-8000000.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/before-8000000.stdout.log.gz",
+        "bytes": 2394,
+        "sha256": "bd3144d5c2642d49b14c44bd7f730263623fa8e2c65bccca5a7501b80caddc31"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-1500001.mjs",
+        "bytes": 1299,
+        "sha256": "0423f50fd15ea0ffb3a83fafd9a334be1a2b9f8366919f64a2db7f4ba5ff8656"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-1500001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-1500001.stdout.log.gz",
+        "bytes": 6141,
+        "sha256": "aeba8a149ab7dfade7e271c9259716bc87ab73a2b874fa750a3b4da85a777f1c"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-70.mjs",
+        "bytes": 1294,
+        "sha256": "a16ebc3c74becfe58781d12314400e0390310e507c023dcb53615613f6f05443"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-70.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-70.stdout.log.gz",
+        "bytes": 2571,
+        "sha256": "385f85f1c10b9f96bd4b94b6bb1d30ba25c0027345cd68e2f184172a0065e3f3"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-8000000.mjs",
+        "bytes": 1299,
+        "sha256": "c1b47d9a3c949067476e2127680b800d4f692d40cabdd80ab7bd45ac8ce2ad48"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-8000000.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/current-8000000.stdout.log.gz",
+        "bytes": 5797,
+        "sha256": "8f0fb63f5a41691db77e1bae0c5cf4e486722457a68b250bb8261e9365c99506"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-1500001.mjs",
+        "bytes": 1304,
+        "sha256": "39533420226b338272172e5ac2b78841ac478fc88780b069cccef1d5df1773da"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-1500001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-1500001.stdout.log.gz",
+        "bytes": 8013,
+        "sha256": "8c88ea1fb5a3eab7e4169aafa0efb53a13312b7d8278460b74a23b1e8cdc5903"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-70.mjs",
+        "bytes": 1299,
+        "sha256": "ce2d3b7ee2acbdd4852313fd35c3d2cb66cd33c1b506ef8244f64f6e34f94013"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-70.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-70.stdout.log.gz",
+        "bytes": 2571,
+        "sha256": "385f85f1c10b9f96bd4b94b6bb1d30ba25c0027345cd68e2f184172a0065e3f3"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-8000000.mjs",
+        "bytes": 1304,
+        "sha256": "65566697579869c927c208bd7d2367fb764f171ff251335a1b392f08e889ffe4"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-8000000.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/exitCode-candidate-8000000.stdout.log.gz",
+        "bytes": 28019,
+        "sha256": "cad26a2a1b107f88cd36f4db266320c8f748c0749e38143975b2e50fdf85614b"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/fixture-1500001.png",
+        "bytes": 1500001,
+        "sha256": "da4bbc01101b78efecff60a80f5fbf9808d371326384f7ae3b0383df75f2f8e5"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/fixture-70.png",
+        "bytes": 70,
+        "sha256": "8602d374eae0b2a94883db7e3c42cb9543f9382b09911d829308ffc18dbbca1f"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/fixture-8000000.png",
+        "bytes": 8000000,
+        "sha256": "82c62fbf0cfd0826493d00d2bff22392e19e95ac8fa682b6573ea330d9fb022f"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/report-1500001.json",
+        "bytes": 10234,
+        "sha256": "8aee84b22fdacb0db5b6f64dabb867d0c024b56f6ce97aa6136b8178ee0d6409"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/report-70.json",
+        "bytes": 10229,
+        "sha256": "f9250da63158b991b9ecb28c0c98331119a1d39fe0d1b604cf806cf5e792cea8"
+      },
+      {
+        "path": "ios55-followup-exit-fixtures/report-8000000.json",
+        "bytes": 10234,
+        "sha256": "22ea94c51d7898db85a18dd4aab8ecd76c606b9d1cdf067c5a50eb8aeb3d3fa8"
+      },
+      {
+        "path": "ios55-followup-exit-probe.json",
+        "bytes": 7531,
+        "sha256": "16ba454f097f72fe83883cae3f91a461f76a77b09e22f0b17a0e3992db1d0d6d"
+      },
+      {
+        "path": "ios55-followup-exit-probe.log",
+        "bytes": 7531,
+        "sha256": "16ba454f097f72fe83883cae3f91a461f76a77b09e22f0b17a0e3992db1d0d6d"
+      },
+      {
+        "path": "ios55-followup-exit-probe.mjs",
+        "bytes": 4030,
+        "sha256": "2e0124337fdabb3fbb03bbc79b95ce31e694b241f289f5173324cc7a30fe5cea"
+      },
+      {
+        "path": "ios55-followup-finalize.py",
+        "bytes": 2492,
+        "sha256": "109a63cc38ceb9d1d6b6dd7f1cc703db445a2831cb2452e211b930c5cfb9e913"
+      },
+      {
+        "path": "ios55-followup-image-boundaries-before.log.gz",
+        "bytes": 2661,
+        "sha256": "d98d87341ea4c14f39934ae132d6abcc78c09b7ec40d0252f67a33ba9e990519"
+      },
+      {
+        "path": "ios55-followup-image-boundaries.json",
+        "bytes": 1723,
+        "sha256": "f8a6bfe5f42e72cce2ee64680ac6911e2eb061719a2d70de82c21ad645ddf6ce"
+      },
+      {
+        "path": "ios55-followup-image-boundaries.log.gz",
+        "bytes": 58155,
+        "sha256": "4f699edec15101122681d674eebce1f7539c2f34bf664c5928590a84f33050b4"
+      },
+      {
+        "path": "ios55-followup-integrity.json",
+        "bytes": 262,
+        "sha256": "c5f33ada36bd8a80eae0f873f1d75a225145ffee46959607d9d81de52480d9e5"
+      },
+      {
+        "path": "ios55-followup-manifest.json",
+        "bytes": 22904,
+        "sha256": "221f42565d84aa9627a92cf4c795aa933850c9e6ac8819234be4dff4203ba8b5"
+      },
+      {
+        "path": "ios55-followup-pins.json",
+        "bytes": 1563,
+        "sha256": "3e9c96ffc2298a1ae0d5590f5c6d945fc7c34a98f71d593c3500d965981e3e11"
+      },
+      {
+        "path": "ios55-followup-probe.json",
+        "bytes": 12850,
+        "sha256": "3cd2fc0daa386e9eccbd8b813faa2a7954d1e3b65f874eeb7e9123c3dde887b2"
+      },
+      {
+        "path": "ios55-followup-probe.log",
+        "bytes": 193,
+        "sha256": "773393cee68eb99b99a9b922ff3a1c50196649e554abee5fa211a9140e0bc724"
+      },
+      {
+        "path": "ios55-followup-probe.mjs",
+        "bytes": 13221,
+        "sha256": "0fbc8ac5686622539ad56072ff0639310c1d72a7f13d5a5aaaed46d5a3df09ed"
+      },
+      {
+        "path": "ios55-followup-r2-exit-probe.json",
+        "bytes": 1235,
+        "sha256": "54e7f929440ee3b37f33a366bdbcb220b457863b7baeabc794b47d48051154db"
+      },
+      {
+        "path": "ios55-followup-r2-exit-probe.log",
+        "bytes": 1235,
+        "sha256": "54e7f929440ee3b37f33a366bdbcb220b457863b7baeabc794b47d48051154db"
+      },
+      {
+        "path": "ios55-followup-r2-exit-probe.mjs",
+        "bytes": 4275,
+        "sha256": "9a6ef2f3a87f9ee81e0fd00018d4818d8b2f3eb6cdec4e842c5da917ace66580"
+      },
+      {
+        "path": "ios55-followup-r2-fixtures/actual-r2-footer.mjs",
+        "bytes": 1358,
+        "sha256": "68d070c9e5ff9e0cf6c2982ac1ba575ddbe92a40ae67cdd818100bcae579a3f1"
+      },
+      {
+        "path": "ios55-followup-r2-fixtures/actual-r2.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-r2-fixtures/actual-r2.stdout.log.gz",
+        "bytes": 28212,
+        "sha256": "ee0a5bccd3016a62f3bc8b0057fc73d107bf69d115cee6bb975cd96e66340a4b"
+      },
+      {
+        "path": "ios55-followup-r2-fixtures/at-cap.png",
+        "bytes": 8000000,
+        "sha256": "82c62fbf0cfd0826493d00d2bff22392e19e95ac8fa682b6573ea330d9fb022f"
+      },
+      {
+        "path": "ios55-followup-r2-fixtures/over-cap.png",
+        "bytes": 8000001,
+        "sha256": "7f196423761bda803ce6b5349ade8791cbb792b545b9557bf2fe10295a6b390b"
+      },
+      {
+        "path": "ios55-followup-r2-fixtures/report.json",
+        "bytes": 10259,
+        "sha256": "19a870641644a1c598744b529497b186a472a38a8040a07ff80a30fba4d4056c"
+      },
+      {
+        "path": "ios55-followup-r2-pin.json",
+        "bytes": 313,
+        "sha256": "b602a2e27764dda86f6d47c7d6a412c6fdc827b7c3861ee7fbe98544b3eebb14"
+      },
+      {
+        "path": "ios55-followup-refuter-01.json",
+        "bytes": 13664,
+        "sha256": "399dc01abf1d245183301a34d8f09252dacb3b531f5cdd6e55e74cc0114fe321"
+      },
+      {
+        "path": "ios55-followup-refuter-01.log",
+        "bytes": 2013,
+        "sha256": "366669fa77778e4f64cc772626710963822808bafbe0470d9b6ad154e1a47e4d"
+      },
+      {
+        "path": "ios55-followup-refuter-01.py",
+        "bytes": 13502,
+        "sha256": "f6942ab8436e21ba9c5ec4aad583cb89896ba36cb604699e6212853c191fc1f1"
+      },
+      {
+        "path": "ios55-followup-refuter-02.json",
+        "bytes": 2504,
+        "sha256": "3264cbe14d6a10f96061c397b30beccde2580d56a8fb7d572fbc6a2044527727"
+      },
+      {
+        "path": "ios55-followup-refuter-02.log",
+        "bytes": 2504,
+        "sha256": "3264cbe14d6a10f96061c397b30beccde2580d56a8fb7d572fbc6a2044527727"
+      },
+      {
+        "path": "ios55-followup-refuter-02.py",
+        "bytes": 4048,
+        "sha256": "3d5faaa6fc293e967aefaa97f3f49d82580777a385bdff3d06d117c3ddf01f3e"
+      },
+      {
+        "path": "ios55-followup-refuter-actions-01.mjs",
+        "bytes": 1303,
+        "sha256": "eaf1e2bbf6daf8ce423705119cc5de81430777b6e54b5d883a73acb9be943b11"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actions.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actions.stdout.json",
+        "bytes": 4737,
+        "sha256": "95578593f824585cc65c12dc2a6b3c190e3eb547f712f15837a1cbc522ea080c"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actual-r2-1500001.mjs",
+        "bytes": 1395,
+        "sha256": "4a8494476544a6a4f05b46a8c5be489b676e8f9d8088f269242c071f7c77c433"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actual-r2-1500001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actual-r2-1500001.stdout.log.gz",
+        "bytes": 7506,
+        "sha256": "fc3a4b175d5839764e2be7c25c76b64d2e7a644654755f7b7ae9505fe153d3c0"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actual-r2-8000000.mjs",
+        "bytes": 1395,
+        "sha256": "c26a784dfa338409f2dcd9cdf2c049bffe6b381d528ace62566c89dd632703e5"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actual-r2-8000000.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/actual-r2-8000000.stdout.log.gz",
+        "bytes": 25945,
+        "sha256": "512a3426351d18fa2c2128cec06cf066c4e8d9615a76bb8d6891c6f34f6689b7"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/before-1500001.mjs",
+        "bytes": 1271,
+        "sha256": "ea8acf2ac41078b4c775045bbec9b909b6dc590c321df0ef1a49a1372bbdc0b4"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/before-1500001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/before-1500001.stdout.log.gz",
+        "bytes": 2392,
+        "sha256": "470e4cd0a41f365701e20c0e12f6910ce4078a635ae08093a6035a65d0344e60"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/before-8000000.mjs",
+        "bytes": 1271,
+        "sha256": "07f8945c583e4c8290a72ae45eeb406d046844d050121f4b5a87ae06e4ff0acf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/before-8000000.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/before-8000000.stdout.log.gz",
+        "bytes": 2390,
+        "sha256": "35fec4bac7095127cec5ab026638dc8e70b69890f25ce275707c3141283f721f"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-1500001.mjs",
+        "bytes": 1311,
+        "sha256": "f14e51de46a94b86fff3a87facc1faa838162d91ededa49e9cb151a31d8e1e2f"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-1500001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-1500001.stdout.log.gz",
+        "bytes": 7506,
+        "sha256": "fc3a4b175d5839764e2be7c25c76b64d2e7a644654755f7b7ae9505fe153d3c0"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-70.mjs",
+        "bytes": 1306,
+        "sha256": "85e5f7d918ce526a7e560ba7963cf2abd4a350490e9bd5bf9a8b1cead07890dc"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-70.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-70.stdout.log.gz",
+        "bytes": 2568,
+        "sha256": "2644a2a2580c14b07fb5c64c602f0251f5f3567694758ff4bc398e6fa5fc853c"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-8000000.mjs",
+        "bytes": 1311,
+        "sha256": "2498e44d52b2beab02644eb2734ad025ca4033954d621dc38a60452eee6f68f5"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-8000000.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-8000000.stdout.log.gz",
+        "bytes": 25945,
+        "sha256": "512a3426351d18fa2c2128cec06cf066c4e8d9615a76bb8d6891c6f34f6689b7"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-8000001.mjs",
+        "bytes": 1311,
+        "sha256": "c7f12418de8917095f1b85c95d1c1ab707cd2a690829a8be0d60e7e5d7db0da7"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-8000001.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/current-8000001.stdout.log.gz",
+        "bytes": 2484,
+        "sha256": "efec4694ba938cce245a74a2afec913dd1ec2d6cf61f6033e29d80930442e03c"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/fixture-1500001.png",
+        "bytes": 1500001,
+        "sha256": "da4bbc01101b78efecff60a80f5fbf9808d371326384f7ae3b0383df75f2f8e5"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/fixture-70.png",
+        "bytes": 70,
+        "sha256": "8602d374eae0b2a94883db7e3c42cb9543f9382b09911d829308ffc18dbbca1f"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/fixture-8000000.png",
+        "bytes": 8000000,
+        "sha256": "82c62fbf0cfd0826493d00d2bff22392e19e95ac8fa682b6573ea330d9fb022f"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/fixture-8000001.png",
+        "bytes": 8000001,
+        "sha256": "7f196423761bda803ce6b5349ade8791cbb792b545b9557bf2fe10295a6b390b"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/report-1500001.json",
+        "bytes": 10975,
+        "sha256": "fdd992901637dbb7e35b46c1c083f1d9a64363339db055646755357f842daee2"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/report-70.json",
+        "bytes": 10970,
+        "sha256": "f9bf16c027812ecab994abb066c0a4bd020c7d50be25626e1b283b7ea545852c"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/report-8000000.json",
+        "bytes": 10975,
+        "sha256": "ff19d2d3fbbb20288d863d5cea571f15d56398ca299b44a3ced9255545d32192"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-01/report-8000001.json",
+        "bytes": 10975,
+        "sha256": "75e09f1075edbc36acf2a0bdaf8729e6410dccf4200db9a8a9be9b0f8cf62023"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-02/actual-r2.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-02/actual-r2.stdout.log.gz",
+        "bytes": 25945,
+        "sha256": "c6b5ecf669df2f0ecb91a6cb8e5c3d4e5308a081906f1c770b0a41cb16461cc6"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-02/current.stderr.log",
+        "bytes": 662,
+        "sha256": "a87224b38eab7ce90722d335c7e64a275114cebb239b54e66001c7beccaca3cf"
+      },
+      {
+        "path": "ios55-followup-refuter-fixtures-02/current.stdout.log.gz",
+        "bytes": 2816,
+        "sha256": "518566a718b8af75235e912d08e0429b648e06836b8e3e8f150633cc7dee04de"
+      },
+      {
+        "path": "ios55-followup-refuter-review.json",
+        "bytes": 13679,
+        "sha256": "b2bb90f33f3d93e095ce140220a7b952af709e87ba5c6c23bbc0e64ed75d7f24"
+      },
+      {
+        "path": "ios55-followup-refuter-validation.json",
+        "bytes": 154,
+        "sha256": "6f0509c8a606d0cc80e1a67f85c572e05a3de8259222f883c8bb6c97a172f3c7"
+      },
+      {
+        "path": "ios55-followup-review-build.py",
+        "bytes": 9007,
+        "sha256": "6412ab3de1eb82a535565c6120152acb4536c28ecfb5d209efdb154693aa178d"
+      },
+      {
+        "path": "ios55-followup-review-draft.json",
+        "bytes": 10156,
+        "sha256": "92a703036017765d847e80fb49ebb33ec2614e530e39d196eda4f2b8464d5f1f"
+      },
+      {
+        "path": "ios55-followup-review.json",
+        "bytes": 12097,
+        "sha256": "55cadfb055ede64848ec1797f3da4f7f1e5d5a5817c5da80305e58250e29f04a"
+      },
+      {
+        "path": "ios55-followup-runtime.json",
+        "bytes": 1130,
+        "sha256": "218ad888c2fca5303b3a814b45a8958c7ceb47253a5fdfa48a50f6091ea8a931"
+      },
+      {
+        "path": "ios55-followup-source/appium-12.1.3-gesture.ts",
+        "bytes": 28132,
+        "sha256": "98971229c92fcd72964c2c49a3e24ec61981a7791ed316beaa495a88e577186d"
+      },
+      {
+        "path": "ios55-followup-source/ios-pointer-coordinates.mjs",
+        "bytes": 1379,
+        "sha256": "ddbdf1f0606fc40796efc87845ebf0b72776172ca3121bd41e64e4ead98732ca"
+      },
+      {
+        "path": "ios55-followup-source/ios55-job.log",
+        "bytes": 53342,
+        "sha256": "3cc5c1da4696fbf4c0e1af8202a267e416987321753b4fe8bfed50f571565702"
+      },
+      {
+        "path": "ios55-followup-source/test-ios-safari-before.mjs",
+        "bytes": 25169,
+        "sha256": "e9be30fb7e6c33c2086abca618e9cbe5ae899f830172660d21aa88740db24c11"
+      },
+      {
+        "path": "ios55-followup-source/test-ios-safari-r2.mjs",
+        "bytes": 25254,
+        "sha256": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d"
+      },
+      {
+        "path": "ios55-followup-source/test-ios-safari.mjs",
+        "bytes": 25170,
+        "sha256": "db769c26dcb7447a0183f9733981cd0ade6d8487373863da7f8ac41b9766c64b"
+      },
+      {
+        "path": "ios55-followup-source/test-ios-safari.patch",
+        "bytes": 2423,
+        "sha256": "d200f767c070a803f14fb073b199eb65a2df054e1c855ed094c0040225429c61"
+      },
+      {
+        "path": "ios55-followup-source/wda-v16-FBBaseActionsSynthesizer.m",
+        "bytes": 5343,
+        "sha256": "797ac498085ee91bbb3f3cfc7979bc856907c8e46b6858f73fce4b74225bbd96"
+      },
+      {
+        "path": "ios55-followup-source/wda-v16-upstream-exact.m",
+        "bytes": 33263,
+        "sha256": "5cf3ec579c8edeeac3e9e7db357bd007b62584696d7c9c3a191b4cecd21d5c6b"
+      },
+      {
+        "path": "ios55-followup-source/wda-v16-upstream.m",
+        "bytes": 33264,
+        "sha256": "dc07cdb836fc8628256f3e868691f1665d55b38508249ad2b3e20345e66e0aaf"
+      },
+      {
+        "path": "ios55-followup-source/wda16-FBW3CActionsSynthesizer.m",
+        "bytes": 33263,
+        "sha256": "5cf3ec579c8edeeac3e9e7db357bd007b62584696d7c9c3a191b4cecd21d5c6b"
+      },
+      {
+        "path": "ios55-followup-source/webdriver-request.mjs",
+        "bytes": 1987,
+        "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1"
+      },
+      {
+        "path": "ios55-followup-validation-draft.json",
+        "bytes": 154,
+        "sha256": "6f0509c8a606d0cc80e1a67f85c572e05a3de8259222f883c8bb6c97a172f3c7"
+      },
+      {
+        "path": "ios55-followup-validation.json",
+        "bytes": 154,
+        "sha256": "6f0509c8a606d0cc80e1a67f85c572e05a3de8259222f883c8bb6c97a172f3c7"
+      },
+      {
+        "path": "ios55-followup-wda-origin.json",
+        "bytes": 596,
+        "sha256": "a9dd1630a8cccffd321f9823f422602ddcf8dfb9fa4841dceb3639614082e340"
+      },
+      {
+        "path": "ios55-followup-wda-timeline.json",
+        "bytes": 6262,
+        "sha256": "5f51d78ea83b7c6fc82ff7c0ec7d94e5f941224fd9ca0fa5f0503798899e6437"
+      },
+      {
+        "path": "licenses/WDA-LICENSE",
+        "bytes": 1535,
+        "sha256": "d9910c6ba5e4c29ae415ee3ce875c9e18a60d8bc4d7fe2c2d104db2a718b1bb4"
+      },
+      {
+        "path": "licenses/xcuitest-driver-LICENSE",
+        "bytes": 10282,
+        "sha256": "ae9194687e7f3b7d85e8eeb5c973e22d52c4653b1e4332fa0e5c6e82b038ab29"
+      }
+    ]
+  },
+  "limitations": "Synthetic1x1 PNG payloads test lossless pipe transport only. They do not stand in for any game image. Fast-reader old-footer success and backpressure old-footer truncation both retained. WDA source predicts two distinct contacts; actual native trace must still verify."
+}

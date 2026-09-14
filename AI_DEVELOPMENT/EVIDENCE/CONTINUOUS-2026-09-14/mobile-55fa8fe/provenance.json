@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-09-14T14:59:10.714310+09:00",
+  "commit": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+  "build_sha256": "0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b",
+  "ios": {
+    "run": 34810332293,
+    "job": 103870222740,
+    "conclusion": "failure",
+    "passed_checks": 12,
+    "measured": "Actual iOS18.5 MobileSafari landscape667x325 DPR2. Calibrated native tap emits trusted touch down/up inside NEW GAME and mode PLAY. Nine gameplay controls visible and touch sized.",
+    "failure": "WDA rejects two-thumb action sequence whose attack stream begins with pause before any pointerMove. Failure state remains PLAY at frame146, no captured game errors.",
+    "unmeasured": "Two-thumb movement/attack, camera, save/continue, rotation and soak after this rejection. Native screenshot was generated according to report but original bytes not acquired/viewed; no image data in log.",
+    "inference": "With successful screenshot record and no logger exception, the old 1500000-byte cap is the likely reason for omission; actual image byte size has not been measured.",
+    "log_sha256": "3cc5c1da4696fbf4c0e1af8202a267e416987321753b4fe8bfed50f571565702"
+  },
+  "floor": {
+    "run": 34810332334,
+    "job": 103870222856,
+    "conclusion": "success",
+    "measured": "Floor build/state/save checks passed; WebKit surface passed0failures; postboot recovery42/42; Chromium audiovisual acquisition passed0failures, per actual job log.",
+    "unmeasured": "New original surface images/videos/trace have not been acquired or inspected. Capturing/decoding sound does not qualify an audio judge."
+  },
+  "blind_comparison": false,
+  "elements": "All19 not measured; no valid completed work unit."
+}

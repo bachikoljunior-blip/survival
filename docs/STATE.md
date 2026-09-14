@@ -1,16 +1,18 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.14 -->
+<!-- state_revision: 2026-09-14.15 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.14 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.15 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
 ### 2026-09-14 現行の継続地点
 
-最新: 10ddee9のFloor gates（WebKit・42復旧・Chromium収録）は実CI成功。原ログを `mobile-10ddee9/` に保存したが、新録画/画像の配送が403で取得できていない。SimulatorはSafari起動と9事前検査を通過し、最初のNEW GAME入力後に進まず失敗。公式座標校正と入力/失敗観測を加えて次の実検証へ進める。本編は英日trench記述の事実不整合と、自然ガス死後の古い会話残存を修正。独立CPUレビュー/別反証の原証拠は `trench-prose-r4/`、`dialogue-recovery-r3/`。新build `0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b` は静的検証済み、実スマートフォン検証待ち。全19未測定・有効比較0件の進め方では期限内完全達成を見込めず、連続実プレイ/実対話の取得と比較成立を優先する。定期継続確認直後の期限評価と必要作業の承認済み扱いを既存予約へ反映・再読取確認し `resume-deadline-update.json` に保存した。
+最新: 55fa8feのFloor gatesは実CI成功（WebKit0失敗、復旧42/42、Chromium収録0失敗）。原logを `mobile-55fa8fe/` へ保存。iOS18.5 Safariは校正したtrustedタッチでPLAYへ到達し12検査通過、二本指入力列の先頭pauseをWDAが拒否。後続操作は未測定。入力列を修正し、失敗時の原PNGログがprocess.exitで切れる問題もCPU再現して修正。製品bundleは `0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b` のまま。音声評価pipelineはfloor修正後も無音負制御に失敗し棄却。参照PlayYourWayはインタビュー/編集を含むため連続playとは扱わない。実Disco対話graphと候補の実UI会話・結末を用いる方法へ移り、比較成立を優先する。全19未測定・有効比較0で、現在の進め方のままでは期限内完全達成を見込めない。継続確認直後に「できない」だけでなく「分からない/根拠不足」の場合も方法を疑い変更する指示を既存予約へ反映・再読取した。二本指/ログ修正と会話取得の独立CPUレビュー・別反証を完了し、実CIへ進む。必要作業は承認済み。
+
+前回: 10ddee9のFloor gates（WebKit・42復旧・Chromium収録）は実CI成功。原ログを `mobile-10ddee9/` に保存したが、新録画/画像の配送が403で取得できていない。SimulatorはSafari起動と9事前検査を通過し、最初のNEW GAME入力後に進まず失敗。公式座標校正と入力/失敗観測を加えて次の実検証へ進める。本編は英日trench記述の事実不整合と、自然ガス死後の古い会話残存を修正。独立CPUレビュー/別反証の原証拠は `trench-prose-r4/`、`dialogue-recovery-r3/`。新build `0b882946d88ea55bfa49a761f9774679bf221defbc6f81f2906ebb6c3464015b` は静的検証済み、実スマートフォン検証待ち。全19未測定・有効比較0件の進め方では期限内完全達成を見込めず、連続実プレイ/実対話の取得と比較成立を優先する。定期継続確認直後の期限評価と必要作業の承認済み扱いを既存予約へ反映・再読取確認し `resume-deadline-update.json` に保存した。
 
 今回の保存準備: 3aa5e4f の Floor gates は成功、Simulatorはheadlessで旧障害を越えたがWDAが応答せずSafari検証0件。原記録と独立診断を `ios-safari-3aa5e4f/` に保存した。本編は通行許可後の攻撃停止・自動保存の解放・runtime瓦礫を実装。独立CPU反証で斜め経路の実登頂とquest進行を確認し、直進失敗からの「登れない」という一般化を撤回した。poll前再entry重複は追加修正後の独立反証でも解消を確認。現行build `72d4805cd0638a0826ea1814128369f223f727f9e6fe4d4ac6f2a2beb53a9cb0` はbuild/content/root mirror検証済み、スマートフォン実CI待ち。新しい音声評価器は完全無音の負制御で幻聴し棄却した。全19要素未測定、開始/期限を維持して実作業を続行する。
 

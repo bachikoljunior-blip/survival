@@ -119,3 +119,29 @@ jobs:
         env:
           F5_REVIEW_BODY: ${{ github.event.pull_request.body }}
         run: node tools/gates/f5_review_record.mjs
+
+  narrative-material:
+    name: Actual narrative material
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node build.mjs
+      - name: Record emitted dialogue and endings on contrasting story paths
+        run: |
+          node tools/playthrough.mjs --path publish --transcript
+          node tools/playthrough.mjs --path deal --transcript
+      - name: Preserve original narrative output and execution results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: narrative-material-${{ github.sha }}
+          path: shots
+          if-no-files-found: error
+          retention-days: 14

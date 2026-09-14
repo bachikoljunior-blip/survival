@@ -1,0 +1,198 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored schema placeholder. No product or sound-quality score assigned.",
+  "round": "audio-evaluator-floor-runtime-r1",
+  "profile": "Single controlled corrected-runtime silence diagnostic with independent result refutation",
+  "tier": "Completed local neural inference on known zeroPCM; no product/reference comparison",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison or product/reference audio evaluation occurred. This is a known-input negative control with an explicit silence oracle. Numeric PCM and feature hashes identify diagnostic inputs; they do not replace listening or establish sound quality, spatial audio or any satisfied concept element.",
+  "checkedAt": "2026-09-14T05:57:52.314Z",
+  "reviewer": "/root/acquisition_path_review",
+  "independentRefuter": "/root/acquisition_path_review/acquisition_refutation",
+  "verdictScope": "The original false-sound negative control is not repaired in the tested corrected complete runtime. A successful build and completed inference are technical execution results; the silence control itself fails. No newly localized source defect or sole causal attribution is claimed.",
+  "question": "Did the proved preprocessing correction repair the observed false-sound negative control?",
+  "answer": "No. The tested floor-corrected runtime still positively describes music absent from the exact four-second zeroPCM input.",
+  "findings": [],
+  "source": {
+    "repository": "ggml-org/llama.cpp",
+    "ref": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+    "url": "https://github.com/ggml-org/llama.cpp/tree/5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+    "archive": {
+      "startedAt": "2026-09-14T05:41:59.185828+00:00",
+      "url": "https://github.com/ggml-org/llama.cpp/archive/5266f24da75dc449bd56cbed7addb9c8e4a6a73e.tar.gz",
+      "method": "ordinary public source archive GET without credentials",
+      "maxBytes": 120000000,
+      "httpStatus": 200,
+      "finalUrl": "https://codeload.github.com/ggml-org/llama.cpp/tar.gz/5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+      "bytes": 37302025,
+      "sha256": "2de0d87eda4696e9f6bbd771d4c623267f4e95856cce6f99793f91522f993e43",
+      "path": "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/llama-5266f24-source.tar.gz",
+      "ok": true,
+      "finishedAt": "2026-09-14T05:42:31.647196+00:00"
+    },
+    "fileCount": 3527,
+    "onlyChangedPaths": [
+      "tools/mtmd/mtmd-audio.cpp"
+    ],
+    "patch": "floor1e10.patch",
+    "codeChange": "One params.mel_floor = 1e-10f assignment inside mtmd_audio_preprocessor_whisper::preprocess.",
+    "sourceHashes": {
+      "tools/mtmd/mtmd-audio.cpp": "969469fbfa9e01f75942797ef139ab85afa2399f81ab33aafd0eaffc1d9e66a8"
+    },
+    "retainedTextDifference": "The prior connector text had one additional trailing LF compared with the exact source archive. The calculation source is otherwise identical; the difference and initial failed strict hash check are retained."
+  },
+  "execution": {
+    "buildExitCode": 0,
+    "buildSeconds": 167.82899759599968,
+    "inferenceAttempts": 1,
+    "toneInferenceAttempts": 0,
+    "metadataOnlyInvocations": [
+      "--version",
+      "--list-devices"
+    ],
+    "inferenceExitCode": 0,
+    "inferenceSeconds": 38.035880099996575,
+    "mediaEncodingCompleted": true,
+    "sourceMetadataOnlyShimUsed": false,
+    "args": [
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin/llama-mtmd-cli",
+      "-m",
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator/Qwen2.5-Omni-7B-Q8_0.gguf",
+      "--mmproj",
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator/mmproj-Qwen2.5-Omni-7B-f16.gguf",
+      "--audio",
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator/silence-control.wav",
+      "-f",
+      "/workspace/scratch/0b7ad82bafe7/audio-evaluator/calibration-prompt.txt",
+      "-ngl",
+      "0",
+      "--no-mmproj-offload",
+      "-t",
+      "6",
+      "-c",
+      "4096",
+      "-n",
+      "180",
+      "--temp",
+      "0",
+      "--seed",
+      "417"
+    ],
+    "cwd": "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin",
+    "completeEnvironment": {
+      "PATH": "/usr/bin:/bin",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "LD_LIBRARY_PATH": "/workspace/scratch/0b7ad82bafe7/audio-evaluator-floor-r1/build-floor1e10/bin"
+    },
+    "stdoutVerbatim": "\nThe audio begins with silence, then a continuous sound of music starts at 2.02 seconds and lasts until 28.02 seconds. There is no speech or other sounds present in the audio.\n\n\n",
+    "stdoutSha256": "898e2a75304d422cc2190c10fe6488ba4864dcbe37b5d6a40b3a71152916769d",
+    "stderrSha256": "d14f1f86e09d2d7900bb126ae042299af7c96d991e87e3b40d3e2c293bdba357",
+    "runtimeVersion": "version: 0.4.0-dev (build 10809, commit 5266f24da-floor1e10)\nbuilt with GNU 13.3.0 for Linux x86_64",
+    "selectedArtifactHashes": {
+      "llama-mtmd-cli": "cdf3e19aafc1a989681e66e5ccdeff8d50161b59061190c6279192bf7442b6fb",
+      "libmtmd.so.0.4.0": "9aeec2f81179f5286933a7db665b848d8d21305c0203d24a9726de62e6069d84",
+      "libllama.so.0.4.0": "b6a439812610d58f5de4cda8154f8ec0d8bb6dc1befafc2a34104ca506549be7"
+    }
+  },
+  "negativeControl": {
+    "knownInput": {
+      "durationSeconds": 4,
+      "channels": 1,
+      "sampleRate": 16000,
+      "frames": 64000,
+      "nonzeroPcmSamples": 0,
+      "sha256": "f751fd7094be088dc785125e4a1a0222a17c2bd20469aa31728ca5e515ed5809"
+    },
+    "promptSha256": "97cbeca4c3e019163b29c1d25ebbf78677920496c962fdf529a19ec62ef0d777",
+    "decisionDeclaredBeforeInference": "Any asserted audible event on zeroPCM fails this individual control.",
+    "observedContradiction": "The generated answer asserts music from 2.02 to 28.02 seconds even though every source sample is zero and the source file lasts four seconds.",
+    "result": "failed",
+    "emptyOutputOrLoadFailure": false
+  },
+  "independentRefutation": {
+    "artifact": "refuter-result-audit.json",
+    "preflight": "refuter-preflight.json",
+    "checks": 5,
+    "allPassed": true,
+    "result": "The refuter independently confirms the failed negative control from source/build/input/launcher/output evidence. The conclusion that this tested corrected pipeline remains unusable for the intended evaluation survives; model-only blame and a sole-floor causal experiment do not."
+  },
+  "preserved": {
+    "originalModelFiles": 2,
+    "modelHashes": {
+      "Qwen2.5-Omni-7B-Q8_0.gguf": {
+        "sha256": "2cb12eb661bc8db5536463dd2dadd4a25c8bd42a2346bc1cefddd2e2245f641a",
+        "matchesBefore": true
+      },
+      "mmproj-Qwen2.5-Omni-7B-f16.gguf": {
+        "sha256": "7ed062b35f15f3c4cacdac72d5291db2f908f178ba4fb19e210b555f233e069d",
+        "matchesBefore": true
+      }
+    },
+    "originalRuntimeFiles": 60,
+    "priorSmallArtifacts": 25,
+    "allOriginalBytesStillMatch": true,
+    "originalSilenceAndToneCaptionFailuresRetained": true,
+    "toneFeaturesUnchanged": {
+      "audio-evaluator-diagnostic-preprocess-calibration-original.f32": "68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5",
+      "audio-evaluator-diagnostic-preprocess-calibration-floor1e10.f32": "68d1b7348e7134d252c6cb3329b4c1f85fd9fe6e6476c9a1aa54d51fc8ae1fa5"
+    }
+  },
+  "causalLimits": [
+    "The one-line source change and its previously isolated silence-feature conformance are established; no internal mel tensor from this full neural run was dumped.",
+    "The original release used GNU11.4.0 and the new local build uses GNU13.3.0. The full original launcher environment was not archived. Different output text therefore does not establish a one-variable caption-causality experiment.",
+    "CPU backend variants and dynamic backend loading follow the pinned release strategy, while unused tools/tests/server/UI targets and OpenSSL are disabled for this local offline build. These build choices and every configure argument are recorded.",
+    "During-run /proc maps were unavailable with FileNotFoundError. A later metadata-only ldd/readelf under the same complete environment resolves libmtmd, llama, common and ggml to the new build directory. That is not a measured during-run library map.",
+    "The original tone features are byte-identical across floors. No tone inference was rerun, and this floor correction cannot explain the prior known tone-order failure.",
+    "The source audio decoder mixes to mono. Even a silence-control pass could not qualify stereo localization or the whole spatial-audio comparison.",
+    "Neither model weights alone, padding/length handling, prompt attachment nor another runtime component is established as the remaining cause by this result."
+  ],
+  "nextAction": "Keep this tested audio evaluation route rejected. Use a materially different, calibrated route for the intended comparisons without weakening sound or stereo criteria; do not repeat unchanged controls to select a favorable caption.",
+  "evidenceHashes": {
+    "checkpoint.json": "5f7368d9e3d00ed7e6eb0acded68f74302c7d72bc68852628e0e3b86bd8c584b",
+    "source-acquisition.json": "8de56780b92da07853a0b72a83a5dfc0600309d7f094e6a03b1da17b331d7c9c",
+    "source-retained-text-check.json": "9dfea0790fd4b805285965c469eaa5d95c4cc93b1da64aeedfd0468488924c32",
+    "source-manifest.json": "d6f272a65f7dca778e604bfe3c33a7496a80f738051fc9ec6962cf3d289ece04",
+    "floor1e10.patch": "85ab0d2d158c1c3e90cb372f66407638fd3384907d19e1a4bb7bbab0512b08b4",
+    "patch-setup.json": "3eafa0fc4b630394e4afddf6e25bb8235e392836caac838ff1a93c0515516669",
+    "cmake-install.json": "be70e9922180f91b43f15b298bc42ac78f8fc1653b98f05dd1305ab11d078d93",
+    "cmake-install.log": "8925907240c2077f194c9fd8afba8e4b1b372e7876f1c04aacd20396f8da5984",
+    "configure.json": "0051718f99acf019aec8a5b4e6cb427368543678db49eaa44dd1dc7cc344c7b0",
+    "configure.log": "3a41af9e236c8ebcd9c3a6b74067bb7514d1471b16e3f47af50580329cd8699d",
+    "build-start.json": "b78def539f7ce01adfe470be07d945fedd4444424372749e3cc562bc0d93a3f7",
+    "build.json": "5933a74e433d11b430a0844700c3e93e009f87fa5de1b6ed38b61635a7a56c40",
+    "build.log": "19f3ee878935a1749580dfddd3ba794ac3f1555849ea51e1fb740ff97cf4d94c",
+    "build-manifest.json": "fcf09dc6a77a373cde57ab4fe41ab449fa04567074b391872212fe02eb60c9d4",
+    "original-integrity.json": "8d5e56df40b3972905e615708a9be42098bc60e6bd442907a1e1986af1646fac",
+    "silence-run-plan.json": "138418118d51075cdccf427dba362a16a18867d71e65810dec5fc9f736782ae0",
+    "run-silence-once.py": "fc680cf4552a1b3c14be92a3b1e7eaa337141be870afa6307b2f3c446c4ab51f",
+    "silence-floor1e10-record.json": "2b279ce981e6ecdd0f2c9b37569a9ca7d96bd2f7fe4a47739d5ca34eb308ee4d",
+    "silence-floor1e10-stdout.txt": "898e2a75304d422cc2190c10fe6488ba4864dcbe37b5d6a40b3a71152916769d",
+    "silence-floor1e10-stderr.txt": "d14f1f86e09d2d7900bb126ae042299af7c96d991e87e3b40d3e2c293bdba357",
+    "post-run-integrity.json": "fd9e1564fc047c29ff7c454fcd8d513b4baddc54638cb1d3b39d6ef210e32886",
+    "original-artifact-preservation.json": "abb9452fb0ab64141588da419be9f3bde7ff780e94c0d80dae64ec73ed0ea071",
+    "result.json": "85e2a05e46b795ca750e641b4786ae3680997dfef876f2b60bbf4df6284ba25a",
+    "refuter-preflight.py": "b40cfd6bb68f73faafce38f1734fc58c713cd8173ea1593d7b915e5001855e3b",
+    "refuter-preflight.json": "df5103fa58a8d73fcfbe2eb40544b203745900e07c5d803c733d690d181712cb",
+    "refuter-preflight-setup-failure.json": "11ceab002a8028e0f75ff4c08ef1bb7b8a0378d14850cf7c1f04283819254d56",
+    "refuter-control-contract.json": "560689f42dc2466fcb5e5ec7af80a3383f3670edaf154015c5c4f1795a92ca7f",
+    "refuter-result-audit.py": "c1f87cec0bc978968986e21bbabe0eec14845c5b1e731f775cce2b555cfc2efc",
+    "refuter-result-audit.json": "49c224322c59475b7bf8f5e878f512105ebf7084792c059c11648c9e010c8ba0"
+  },
+  "scopeCounts": {
+    "newFullInferenceRuns": 1,
+    "unchangedToneInferenceRuns": 0,
+    "newModelDownloads": 0,
+    "paidApis": 0,
+    "productEdits": 0,
+    "browserOrServerRuns": 0,
+    "productOrReferenceAudioEvaluations": 0,
+    "elementStatusChanges": 0
+  },
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}
