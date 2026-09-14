@@ -1,0 +1,353 @@
+{
+  "blindComparison": "No blind/reference comparison was performed. The reviewer received identified product screenshots and source; these fault controls cannot determine which product an anonymous evaluator would prefer.",
+  "checkedAt": "2026-09-14T00:32:34.796Z",
+  "distinction": {
+    "inference": "Mapping the recorded save and drawing outcomes to the implementation uses source inspection. Historical toast attribution follows the actual success-toast lifetime and test setup; no second local browser was run.",
+    "limits": [
+      "The reviewer did not start any browser or CI job and did not edit product files.",
+      "No physical-device behavior, heat, battery, throughput or frame-rate performance was measured here.",
+      "Storage exhaustion was simulated with a QuotaExceededError for SAVE_KEY; actual memory pressure, every storage key and every failure mode are not covered.",
+      "These screenshots are static observations. The runtime report and exact control code supply temporal evidence; screenshots alone do not prove a freeze or reload.",
+      "The suite did not inject a real graphics-context-loss event.",
+      "The whole concept and its 19 element verdicts remain outside this review; no anonymous reference comparison was performed.",
+      "Any later changes affecting these paths require an applicability check or new runtime evidence."
+    ],
+    "measured": "The supplied CI report records actual WebKit checks. This reviewer independently inspected the original PNGs, recomputed their hashes and recomputed the committed source/distribution build hash."
+  },
+  "findings": [],
+  "followupSourceChange": {
+    "independentRefutation": {
+      "reviewer": "/root/render_cost_review/refute_backdrop",
+      "scope": "Final follow-up source inspection only; no new browser measurement.",
+      "result": "The fade candidate is closed in source: hidden plus the explicit display:none rule removes the badge even during opacity transitions, and the instrument now requires computed display:none and zero width. Normal show clears hidden; the added storage-recovery case checks the real successful-save result and reappearance. This does not change the 2220b65 actual screenshot finding."
+    },
+    "applicability": "These edits follow commit 2220b65 and are not covered by its 40-check actual artifact.",
+    "baselineObservation": "unsaved-play-error.png at 2220b65 shows the prior SAVED badge concurrently with the current truthful failed-write warning.",
+    "finalCheck": {
+      "allAssertionsPassed": true,
+      "hiddenDisplayNoneRulePresent": true,
+      "hideClearedTimer": true,
+      "hideSetsHiddenAndRemovesOn": true,
+      "scope": "Unchanged final HUD methods in Node VM with class/timer substitutes; CSS hidden/display rule inspected, not browser rendered.",
+      "sourceSha256": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+      "subsequentShowClearsHiddenAndAddsOnAndTimer": true
+    },
+    "finalCorrection": "hideAutosave cancels the prior timer, sets hidden=true and removes .on; the explicit .autosave[hidden] rule sets display:none. showAutosave clears hidden before adding .on. Failed Director.save calls hideAutosave.",
+    "firstPatchCheck": {
+      "classOnlyAbsencePredicateWouldPassDuringPossibleFade": true,
+      "cssTransition": "opacity 0.4s ease",
+      "hideClearedTimer": true,
+      "hideRemovedOn": true,
+      "nextNormalShowAddsOnAndTimer": true,
+      "scope": "Unchanged HUD showAutosave/hideAutosave methods in Node VM with class/timer substitutes; no CSS or browser rendering.",
+      "sourceSha256": "49c85a393bcdf0139c27be785346eeaaee4363669f97c84e2a884e9c5f5d258b"
+    },
+    "firstPatchLimit": "Class removal alone allowed an opacity fade; its absence predicate could not establish immediate visual disappearance. Independent source refutation confirmed that limited issue.",
+    "futureBrowserAssertions": "The blocked-write case now requires computed display:none and zero layout width, then captures the failure state. It restores the original Storage.setItem, performs a real successful save, and requires that the badge can reappear. These assertions have not run in the actual artifact reviewed above.",
+    "sourceHashes": {
+      "public/styles.css": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3",
+      "src/game/director.js": "bfca9bfbe82fca7e20b31ed53bb604cfe7164339b35d4744e12600f7940d57f3",
+      "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+      "tools/fault_recovery.mjs": "b42fa51738a26ee487d98e8bb48dd4f25aa4ff12b412510e95b53f9d15382fda"
+    },
+    "status": "source/Node check completed; next browser CI pending"
+  },
+  "independentRefutation": {
+    "conclusions": [
+      {
+        "limit": "The report contains pass results rather than raw before/after save snapshots or all write call traces. The pre-control alone is not a universal exclusion of later competing saves. No contrary autosave race was established in this short fresh-game case; the periodic timer is reset to 90 simulation seconds.",
+        "subject": "successful fault save",
+        "supported": "After a 1.2-second empty-slot control, the run observed a version-2 save and the visible successful fault-save result. The current onFault path synchronously calls director.save(true); Storage.save returns true after setItem succeeds."
+      },
+      {
+        "limit": "This is one injected storage failure in the current session. It does not prove persistence across process/device failure, every storage failure mode, or absence of unrelated earlier success indicators.",
+        "subject": "failed write and prior bytes",
+        "supported": "A non-empty previous save is required, writes to SAVE_KEY are then made to throw, a visible failure warning is required, and the live page compares the post-fault stored string with that exact previous string."
+      },
+      {
+        "limit": "These are counts over different pre/post observation windows, not FPS or throughput measurements. The injected failure occurs before real drawing; it is not evidence for every possible mid-render/context-loss failure.",
+        "subject": "render listener failure",
+        "supported": "The report records 414 wrapped GL draw calls before replacing the real game.render body, then 0 after the replacement, a swallowed listener fault and a visibly checked recovery panel."
+      },
+      {
+        "limit": "This is new-document boot/recovery to TITLE. The case does not press Continue or test saved progress/world-state restoration after the fault.",
+        "subject": "reload recovery",
+        "supported": "The test clicks the reload control, requires a marker on the old document to disappear, waits for the new CINDERLINE ready state, and requires no visible recovery panel and no fault records. The successful source boot flow enters TITLE."
+      },
+      {
+        "limit": "Equal SHA256 values alone neither establish nor refute independent acquisition. Fresh capture source paths and the separate live fault/frame/draw predicates provide the relevant context; no definite stale-reuse defect was found.",
+        "subject": "identical stopped screenshots",
+        "supported": "The three reported matching images are captured with separate awaited page.screenshot calls in separate contexts and distinct output paths. Their common recovery panel has the same title, body and no-save result. The capture function hashes the returned current screenshot bytes, with no prior-PNG read or reuse path."
+      }
+    ],
+    "confirmedDefects": 0,
+    "path": "/workspace/scratch/0b7ad82bafe7/fault-webkit-actual-refutation.json",
+    "primaryReportSha256": "62d868d1787f6f319cb0f497749a091ed3b5936e007f4aae3ef406963098435d",
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "scope": "Independent source and primary-report control/provenance review. No new browser or remote execution and no product edits. Image visual/hash inspection is owned by restore_state_review.",
+    "status": "completed"
+  },
+  "nativeResolution": "1334x750",
+  "observationsNotFindings": [
+    {
+      "evidence": "stopped-loop-recovery.png, updater-error-recovery.png and render-error-recovery.png are byte-identical with SHA-256 98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866.",
+      "interpretation": "All three show the same recovery DOM over a stopped title scene. The source uses fresh contexts and performs a new screenshot for each case. Identical images alone neither demonstrate old-artifact reuse nor independently establish three distinct runtime causes; those causes are recorded by the separate controls.",
+      "subject": "Identical stopped-recovery image hashes"
+    },
+    {
+      "evidence": "The failed-save screenshot includes both the current failure warning and a small SAVED HUD toast.",
+      "interpretation": "HUD success feedback lasts 1600 ms plus a CSS fade and is not cleared by a subsequent silent/failed save. This case faults shortly after the previous real save. It is a historical-success/current-failure overlap, not evidence that the failed write produced a new success notification.",
+      "subject": "Prior successful-save toast"
+    }
+  ],
+  "observed": [
+    {
+      "id": "clean-control",
+      "runtime": "The recorded control has no product faults or browser page errors and reaches frame 10.",
+      "scope": "A clean control in this run, not a guarantee that all clean starts are error-free.",
+      "screenshots": [
+        "clean-boot.png"
+      ],
+      "visual": "The title menu is visible without a fault notice or recovery panel."
+    },
+    {
+      "id": "title-error-and-rejection",
+      "runtime": "Error and rejection records carry their injected messages. The survivable-error loop advances from frame 1 to 15; its measured notice is within x 93.5, y 12, width 480, height 44 CSS pixels.",
+      "scope": "No claim that a TITLE fault wrote gameplay progress.",
+      "screenshots": [
+        "single-error-notice.png",
+        "rejected-promise-notice.png"
+      ],
+      "visual": "Both top banners are visible and readable, stating that saved data has not changed. Neither screenshot has a recovery panel."
+    },
+    {
+      "id": "successful-play-save",
+      "runtime": "The runner removed SAVE_KEY, checked it remained absent after a 1200 ms control wait, injected the error, and observed a stored envelope and state at version 2. Main derives the displayed saved result from Director.save(true).",
+      "scope": "A runtime write/version result is established; this case did not reload and reapply all saved gameplay fields. The pre-control is not a universal proof against every later competing write; no contrary race was established in this fresh-game case, whose periodic autosave timer starts at 90 simulation seconds.",
+      "screenshots": [
+        "saved-play-error.png"
+      ],
+      "visual": "The PLAY view shows a readable banner reporting a written recovery save."
+    },
+    {
+      "additionalObservation": "A pre-existing SAVED HUD toast remains visible at the right side. It was produced by the previous successful save; the current warning remains truthful. The screenshot does not support saying that no success-related text was on screen.",
+      "id": "failed-play-save",
+      "runtime": "A real previous save existed before the runner intercepted SAVE_KEY setItem with QuotaExceededError. The failed-warning predicate passed and the runner compared the post-fault storage string directly with the previous string; equality passed.",
+      "scope": "The injected write-rejection path and reported byte preservation are established. The raw save strings are not exported, so their equality cannot be separately recomputed from this artifact.",
+      "screenshots": [
+        "unsaved-play-error.png"
+      ],
+      "visual": "The two-line banner is visible and readable, explicitly stating that the recovery save could not be written and that reloading may lose recent progress."
+    },
+    {
+      "id": "repeated-fault-and-reload",
+      "runtime": "After three injected faults, panel visibility passed. The runner set a marker on the old document, clicked the actual reload button, waited for a new ready document with the marker absent, and then recorded no panel and no faults.",
+      "scope": "Recovery means a fresh ready title document here. Continuing a pre-fault gameplay save was not exercised by this reload case.",
+      "screenshots": [
+        "repeating-error-recovery.png",
+        "reloaded-after-error.png"
+      ],
+      "visual": "The repeated-error screenshot displays a readable error explanation and RELOAD button. The following screenshot returns to the ordinary title menu without the panel."
+    },
+    {
+      "id": "stopped-loop-and-updater",
+      "runtime": "The early stopped-loop observation was taken at 55 ms before escalation and found no panel; after the later wait the panel was visible. The updater-fault case held the frame counter at 1 to 1 and displayed its panel.",
+      "scope": "This one timing observation was measured, not skipped. It does not establish all possible event timings.",
+      "screenshots": [
+        "stopped-loop-recovery.png",
+        "updater-error-recovery.png"
+      ],
+      "visual": "The error explanation and RELOAD button are visible over the darkened title background."
+    },
+    {
+      "id": "actual-drawing-stop",
+      "runtime": "Four actual WebGL draw entry points were instrumented. The control counted 414 calls. After replacing the actual game.render path and resetting the counter, the recorded count was 0 while listener-fault records reached the handler and panel visibility passed.",
+      "scope": "The measured browser drawing path stopped and produced recovery UI. No claim about native GPU performance or a physical device is made.",
+      "screenshots": [
+        "render-error-recovery.png"
+      ],
+      "visual": "The stopped-render image contains a visible error explanation and RELOAD button."
+    },
+    {
+      "id": "japanese-notice-and-panel",
+      "runtime": "The first visible notice passed the Japanese-text check; the panel title matched the actual JA locale string and its three regions passed visibility checks.",
+      "scope": "These are TITLE no-save cases. Japanese PLAY save-success/failure branches were checked previously in Node, not by this particular browser artifact.",
+      "screenshots": [
+        "japanese-error-notice.png",
+        "japanese-error-recovery.png"
+      ],
+      "visual": "The first Japanese banner states that saved data has not changed. The Japanese panel title, explanation and reload button are all readable and inside the screenshot."
+    },
+    {
+      "id": "pre-boot-rejection",
+      "runtime": "The bundle route was aborted deliberately; booted remained false and the loading-note failure class and text were recorded.",
+      "scope": "A separate pre-boot control with different context settings; it does not represent production-network reliability.",
+      "screenshots": [
+        "boot-failure.png"
+      ],
+      "visual": "The loading screen displays a failure message carrying the injected boot-broke reason."
+    }
+  ],
+  "profile": "independent critic / actual approved CI artifact review",
+  "provenance": {
+    "allPngHashesMatch": true,
+    "applicability": "The working tree already contains subsequent rendering edits. Its current hash differs, so this actual evidence is attached to the recorded 2220b65 build and cannot be automatically assigned to those edits.",
+    "artifactDirectory": "/workspace/scratch/0b7ad82bafe7/ci-faults-2220b65",
+    "committedBuild": {
+      "buildHash": "dfa8bd7d668e0b2bca94853313fe12dcf8d5ef5e37417180560e8930d30f67f5",
+      "distributionMirrorCount": 6,
+      "fileCount": 52,
+      "matches": true,
+      "method": "Independent hash over committed source/public/build/package bytes and committed Pages mirror normalized under dist/, using the published currentBuildHash table algorithm.",
+      "reportBuildHash": "dfa8bd7d668e0b2bca94853313fe12dcf8d5ef5e37417180560e8930d30f67f5",
+      "revision": "2220b65b805f54e8d51e0ecc96807dad3d61b594"
+    },
+    "png": [
+      {
+        "bytes": 1139885,
+        "height": 750,
+        "matches": true,
+        "name": "clean-boot",
+        "path": "clean-boot.png",
+        "sha256": "e850fed1974223cb4b54d1cad2243969ce600c7446aca8a82962e9c85983d425",
+        "width": 1334
+      },
+      {
+        "bytes": 1025544,
+        "height": 750,
+        "matches": true,
+        "name": "single-error-notice",
+        "path": "single-error-notice.png",
+        "sha256": "2477809eb4ed91b143179386d8c9ede58346797257dff8b93220fd3c022c126b",
+        "width": 1334
+      },
+      {
+        "bytes": 1032441,
+        "height": 750,
+        "matches": true,
+        "name": "rejected-promise-notice",
+        "path": "rejected-promise-notice.png",
+        "sha256": "43b73d5591809f6e3e030aa876908dca3f57179c2ab04a24fcc713014ba0e08e",
+        "width": 1334
+      },
+      {
+        "bytes": 1473708,
+        "height": 750,
+        "matches": true,
+        "name": "saved-play-error",
+        "path": "saved-play-error.png",
+        "sha256": "e84eb29f684a6a264fe8e7c5872a05a8e35534a702f95e30f6c381c61ef6bdfb",
+        "width": 1334
+      },
+      {
+        "bytes": 1407246,
+        "height": 750,
+        "matches": true,
+        "name": "unsaved-play-error",
+        "path": "unsaved-play-error.png",
+        "sha256": "c37f61412942f08f0c5ce956422cc2f9fc9b8907b60fa92e24b9bf4e88e596f4",
+        "width": 1334
+      },
+      {
+        "bytes": 244560,
+        "height": 750,
+        "matches": true,
+        "name": "repeating-error-recovery",
+        "path": "repeating-error-recovery.png",
+        "sha256": "a51ec4bb802cbe22e44d942d1bc09d6be9d84fb2e4fd38111aca3e44f81bab3c",
+        "width": 1334
+      },
+      {
+        "bytes": 1113753,
+        "height": 750,
+        "matches": true,
+        "name": "reloaded-after-error",
+        "path": "reloaded-after-error.png",
+        "sha256": "7d9db926fe0e81bf351a8d6abd6053cf7449514f8fdca21fd22535afefd30c7d",
+        "width": 1334
+      },
+      {
+        "bytes": 57835,
+        "height": 750,
+        "matches": true,
+        "name": "stopped-loop-recovery",
+        "path": "stopped-loop-recovery.png",
+        "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866",
+        "width": 1334
+      },
+      {
+        "bytes": 57835,
+        "height": 750,
+        "matches": true,
+        "name": "updater-error-recovery",
+        "path": "updater-error-recovery.png",
+        "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866",
+        "width": 1334
+      },
+      {
+        "bytes": 57835,
+        "height": 750,
+        "matches": true,
+        "name": "render-error-recovery",
+        "path": "render-error-recovery.png",
+        "sha256": "98f7b47fc64574342329f27cdd1dc83ec5635711e36a609b8506f560cc444866",
+        "width": 1334
+      },
+      {
+        "bytes": 1029997,
+        "height": 750,
+        "matches": true,
+        "name": "japanese-error-notice",
+        "path": "japanese-error-notice.png",
+        "sha256": "b97943ed7e07518ff45a32d525ebfc931d8f93ca315c3cffa2099525854d1f36",
+        "width": 1334
+      },
+      {
+        "bytes": 253669,
+        "height": 750,
+        "matches": true,
+        "name": "japanese-error-recovery",
+        "path": "japanese-error-recovery.png",
+        "sha256": "a876070207962b9882f38cece24d03b9af020dcc6ded02af4d4cd6412a9b384d",
+        "width": 1334
+      },
+      {
+        "bytes": 23278,
+        "height": 375,
+        "matches": true,
+        "name": "boot-failure",
+        "path": "boot-failure.png",
+        "sha256": "87d15b6c752161fb7dac7dccebc1bce7e1868087b4b8d248a035d9e8cd7d9722",
+        "width": 667
+      }
+    ],
+    "pngCount": 13,
+    "report": "GB-H2-FAULT-RECOVERY.json",
+    "reportSha256": "62d868d1787f6f319cb0f497749a091ed3b5936e007f4aae3ef406963098435d",
+    "reviewedInstrumentSha256": "faf1153be7ba60165ac9f8d4dc89858678f5c24435c980d7bf59f117d93a69c2",
+    "reviewedMainSha256": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760"
+  },
+  "round": "continuous-fault-webkit-actual-2220b65",
+  "score": 100,
+  "tested": {
+    "browser": {
+      "name": "webkit",
+      "version": "26.0"
+    },
+    "buildSha256": "dfa8bd7d668e0b2bca94853313fe12dcf8d5ef5e37417180560e8930d30f67f5",
+    "ciCheckedAt": "2026-09-14T00:22:46.940Z",
+    "commit": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+    "crashed": null,
+    "failedChecks": 0,
+    "measuredChecks": 40,
+    "notMeasuredChecks": 0,
+    "screenshotResolution": "The 12 post-boot screenshots are 1334x750 from 667x375 CSS mobile/touch contexts at DPR 2. The pre-boot failure screenshot is 667x375 from a separate touch-enabled context without the mobile/DPR settings.",
+    "viewportCss": {
+      "height": 375,
+      "width": 667
+    }
+  },
+  "tier": "fault recovery checks only",
+  "verdict": "PASS",
+  "verdictScope": "The supplied actual CI evidence supports the tested fault-recovery claims at commit 2220b65. This is not a whole-product quality score, blind comparison result, device-performance result, or verdict for any of the 19 concept elements."
+}

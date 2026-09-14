@@ -1,0 +1,3156 @@
+{
+  "scope": "Actual full City.build with material/Canvas2D appearance stubs, production geometry and CPU raycasts; no GPU pixels generated. FOV was not captured by original report, so source-consistent 55-58 degree range is swept.",
+  "buildMs": 1696.136034,
+  "meshes": 469,
+  "primitives": 26894,
+  "cityStats": {
+    "chunks": 43,
+    "tris": 242624,
+    "collision": {
+      "boxes": 1097,
+      "cells": 4691
+    },
+    "lights": 188,
+    "fx": 51,
+    "materials": 0
+  },
+  "camera": {
+    "position": [
+      -104.92,
+      1.8111233054788511,
+      -10.091230580935367
+    ],
+    "quaternion": [
+      -2.136977846428571e-18,
+      0.9993908270190958,
+      0.03489949670250097,
+      6.119503887030809e-17
+    ]
+  },
+  "rays": [
+    {
+      "fov": 55,
+      "pixel": [
+        606,
+        91
+      ],
+      "direction": [
+        -0.049858949735837446,
+        0.2828102765571994,
+        0.9578791325657322
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 3417,
+          "point": [
+            -106.37409598604788,
+            10.059056527773068,
+            17.8445404122851
+          ],
+          "distance": 29.164192060842748,
+          "triangle": [
+            [
+              -106.3080062866211,
+              10.050000190734863,
+              17.92946434020996
+            ],
+            [
+              -106.65338134765625,
+              10.09000015258789,
+              17.48566436767578
+            ],
+            [
+              -106.3080062866211,
+              10.09000015258789,
+              17.92946434020996
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 3416,
+              "end": 3428,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.5623569989111274,
+                  "h": 0.04,
+                  "d": 0.5571961649344302,
+                  "rot": 4.0510599791144175,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:911:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 3416,
+              "end": 3428,
+              "args": [
+                {
+                  "x": -106.70055648214128,
+                  "y": 10.05,
+                  "z": 17.878670197853975,
+                  "w": 0.5623569989111274,
+                  "h": 0.04,
+                  "d": 0.5571961649344302,
+                  "rot": 4.0510599791144175,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:911:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 3417,
+          "point": [
+            -106.37409598604788,
+            10.059056527773068,
+            17.8445404122851
+          ],
+          "distance": 29.164192060842748,
+          "triangle": [
+            [
+              -106.3080062866211,
+              10.050000190734863,
+              17.92946434020996
+            ],
+            [
+              -106.65338134765625,
+              10.09000015258789,
+              17.48566436767578
+            ],
+            [
+              -106.3080062866211,
+              10.09000015258789,
+              17.92946434020996
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 3416,
+              "end": 3428,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.5623569989111274,
+                  "h": 0.04,
+                  "d": 0.5571961649344302,
+                  "rot": 4.0510599791144175,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:911:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 3416,
+              "end": 3428,
+              "args": [
+                {
+                  "x": -106.70055648214128,
+                  "y": 10.05,
+                  "z": 17.878670197853975,
+                  "w": 0.5623569989111274,
+                  "h": 0.04,
+                  "d": 0.5571961649344302,
+                  "rot": 4.0510599791144175,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:911:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 55,
+      "pixel": [
+        551,
+        95
+      ],
+      "direction": [
+        0.03333211419742002,
+        0.27755561316849875,
+        0.9601311638322074
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 55,
+      "pixel": [
+        570,
+        95
+      ],
+      "direction": [
+        0.004547768351407076,
+        0.2777070562099833,
+        0.9606550414869051
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 55,
+      "pixel": [
+        595,
+        112
+      ],
+      "direction": [
+        -0.033619892492586095,
+        0.25404163247972855,
+        0.966608789426116
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 55,
+      "pixel": [
+        660,
+        195
+      ],
+      "direction": [
+        -0.1363154749954767,
+        0.13076550576363943,
+        0.981997186237892
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.60169077984871,
+            6.302203006269963,
+            23.635000228881836
+          ],
+          "distance": 34.344528968585976,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 51,
+          "point": [
+            -113.19027625776917,
+            9.74468226265587,
+            49.48665677784654
+          ],
+          "distance": 60.67012023428443,
+          "triangle": [
+            [
+              -113.02092742919922,
+              8.406198501586914,
+              49.31730651855469
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ],
+            [
+              -113.02092742919922,
+              11.073638916015625,
+              49.31730651855469
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.60169077984871,
+            6.302203006269963,
+            23.635000228881836
+          ],
+          "distance": 34.344528968585976,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 51,
+          "point": [
+            -113.19027625776917,
+            9.74468226265587,
+            49.48665677784654
+          ],
+          "distance": 60.67012023428443,
+          "triangle": [
+            [
+              -113.02092742919922,
+              8.406198501586914,
+              49.31730651855469
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ],
+            [
+              -113.02092742919922,
+              11.073638916015625,
+              49.31730651855469
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 56,
+      "pixel": [
+        606,
+        91
+      ],
+      "direction": [
+        -0.050789814703938785,
+        0.2894838546529713,
+        0.9558344483317166
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:metal",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1090,
+          "point": [
+            -106.36550731809326,
+            10.050000190734863,
+            17.11236718769336
+          ],
+          "distance": 28.460574753409475,
+          "triangle": [
+            [
+              -107.26260375976562,
+              10.050000190734863,
+              16.842145919799805
+            ],
+            [
+              -105.79329681396484,
+              10.050000190734863,
+              16.540246963500977
+            ],
+            [
+              -105.57190704345703,
+              10.050000190734863,
+              17.61773681640625
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": -106.4172545587644,
+                  "y": 10.05,
+                  "z": 17.229941367637366,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:metal",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1090,
+          "point": [
+            -106.36550731809326,
+            10.050000190734863,
+            17.11236718769336
+          ],
+          "distance": 28.460574753409475,
+          "triangle": [
+            [
+              -107.26260375976562,
+              10.050000190734863,
+              16.842145919799805
+            ],
+            [
+              -105.79329681396484,
+              10.050000190734863,
+              16.540246963500977
+            ],
+            [
+              -105.57190704345703,
+              10.050000190734863,
+              17.61773681640625
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": -106.4172545587644,
+                  "y": 10.05,
+                  "z": 17.229941367637366,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 56,
+      "pixel": [
+        551,
+        95
+      ],
+      "direction": [
+        0.03395800253166509,
+        0.2841649262614375,
+        0.9581738614400266
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 56,
+      "pixel": [
+        570,
+        95
+      ],
+      "direction": [
+        0.004633259188025297,
+        0.28432585803918425,
+        0.9587165062517586
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 56,
+      "pixel": [
+        595,
+        112
+      ],
+      "direction": [
+        -0.03426244816005737,
+        0.2603070564391104,
+        0.9649177794061445
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 56,
+      "pixel": [
+        660,
+        195
+      ],
+      "direction": [
+        -0.13905835515784667,
+        0.13484391063136295,
+        0.9810605963070962
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.70045311343746,
+            6.4466951247634405,
+            23.635000228881836
+          ],
+          "distance": 34.37731668845872,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 50,
+          "point": [
+            -113.39355493479717,
+            10.027870030698972,
+            49.68993717224843
+          ],
+          "distance": 60.935244956541716,
+          "triangle": [
+            [
+              -113.02092742919922,
+              8.406198501586914,
+              49.31730651855469
+            ],
+            [
+              -113.47245788574219,
+              8.406198501586914,
+              49.76884078979492
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.70045311343746,
+            6.4466951247634405,
+            23.635000228881836
+          ],
+          "distance": 34.37731668845872,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 50,
+          "point": [
+            -113.39355493479717,
+            10.027870030698972,
+            49.68993717224843
+          ],
+          "distance": 60.935244956541716,
+          "triangle": [
+            [
+              -113.02092742919922,
+              8.406198501586914,
+              49.31730651855469
+            ],
+            [
+              -113.47245788574219,
+              8.406198501586914,
+              49.76884078979492
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 57,
+      "pixel": [
+        606,
+        91
+      ],
+      "direction": [
+        -0.05172173886841046,
+        0.2961687487363076,
+        0.9537342051118843
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:wood",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 863,
+          "point": [
+            -106.35880487271666,
+            10.050000190734862,
+            16.439923467901778
+          ],
+          "distance": 27.81818446547665,
+          "triangle": [
+            [
+              -106.307373046875,
+              10.050000190734863,
+              16.199068069458008
+            ],
+            [
+              -106.47054290771484,
+              10.050000190734863,
+              17.098724365234375
+            ],
+            [
+              -106.47872924804688,
+              10.050000190734863,
+              16.20062828063965
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 852,
+              "end": 864,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.8981337248813361,
+                  "h": 0.06,
+                  "d": 0.1713575933594257,
+                  "rot": 1.5616863511678452,
+                  "uvScale": 2,
+                  "tint": [
+                    0.7,
+                    0.6,
+                    0.46
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:909:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 852,
+              "end": 864,
+              "args": [
+                {
+                  "x": -106.38895962371743,
+                  "y": 10.05,
+                  "z": 16.6488965355496,
+                  "w": 0.8981337248813361,
+                  "h": 0.06,
+                  "d": 0.1713575933594257,
+                  "rot": 1.5616863511678452,
+                  "uvScale": 2,
+                  "tint": [
+                    0.7,
+                    0.6,
+                    0.46
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:909:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-2,0:metal",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1082,
+          "point": [
+            -106.37067915639837,
+            10.117994651421862,
+            16.658881893434597
+          ],
+          "distance": 28.04776459834725,
+          "triangle": [
+            [
+              -105.79329681396484,
+              10.050000190734863,
+              16.540246963500977
+            ],
+            [
+              -107.26260375976562,
+              10.050000190734863,
+              16.842145919799805
+            ],
+            [
+              -107.26260375976562,
+              10.949999809265137,
+              16.842145919799805
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": -106.4172545587644,
+                  "y": 10.05,
+                  "z": 17.229941367637366,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:wood",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 863,
+          "point": [
+            -106.35880487271666,
+            10.050000190734862,
+            16.439923467901778
+          ],
+          "distance": 27.81818446547665,
+          "triangle": [
+            [
+              -106.307373046875,
+              10.050000190734863,
+              16.199068069458008
+            ],
+            [
+              -106.47054290771484,
+              10.050000190734863,
+              17.098724365234375
+            ],
+            [
+              -106.47872924804688,
+              10.050000190734863,
+              16.20062828063965
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 852,
+              "end": 864,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.8981337248813361,
+                  "h": 0.06,
+                  "d": 0.1713575933594257,
+                  "rot": 1.5616863511678452,
+                  "uvScale": 2,
+                  "tint": [
+                    0.7,
+                    0.6,
+                    0.46
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:909:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 852,
+              "end": 864,
+              "args": [
+                {
+                  "x": -106.38895962371743,
+                  "y": 10.05,
+                  "z": 16.6488965355496,
+                  "w": 0.8981337248813361,
+                  "h": 0.06,
+                  "d": 0.1713575933594257,
+                  "rot": 1.5616863511678452,
+                  "uvScale": 2,
+                  "tint": [
+                    0.7,
+                    0.6,
+                    0.46
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:909:20)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-2,0:metal",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1082,
+          "point": [
+            -106.37067915639837,
+            10.117994651421862,
+            16.658881893434597
+          ],
+          "distance": 28.04776459834725,
+          "triangle": [
+            [
+              -105.79329681396484,
+              10.050000190734863,
+              16.540246963500977
+            ],
+            [
+              -107.26260375976562,
+              10.050000190734863,
+              16.842145919799805
+            ],
+            [
+              -107.26260375976562,
+              10.949999809265137,
+              16.842145919799805
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": -106.4172545587644,
+                  "y": 10.05,
+                  "z": 17.229941367637366,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 57,
+      "pixel": [
+        551,
+        95
+      ],
+      "direction": [
+        0.034584803165138074,
+        0.2907874604747453,
+        0.9561624047308476
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 57,
+      "pixel": [
+        570,
+        95
+      ],
+      "direction": [
+        0.004718880004367305,
+        0.290958283772768,
+        0.9567241030075022
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 57,
+      "pixel": [
+        595,
+        112
+      ],
+      "direction": [
+        -0.03490658207136784,
+        0.26659102952352337,
+        0.9631774257662409
+      ],
+      "visibleHits": [],
+      "unfilteredFirst": []
+    },
+    {
+      "fov": 57,
+      "pixel": [
+        660,
+        195
+      ],
+      "direction": [
+        -0.1418162451901961,
+        0.1389464525609264,
+        0.9800928710693126
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.80007571430231,
+            6.592445838885702,
+            23.635000228881836
+          ],
+          "distance": 34.411260203352775,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 53,
+          "point": [
+            -113.58595782054498,
+            10.301716859076771,
+            49.79925283662056
+          ],
+          "distance": 61.106947295936855,
+          "triangle": [
+            [
+              -113.47245788574219,
+              8.406198501586914,
+              49.76884078979492
+            ],
+            [
+              -114.08926391601562,
+              11.073638916015625,
+              49.934112548828125
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.80007571430231,
+            6.592445838885702,
+            23.635000228881836
+          ],
+          "distance": 34.411260203352775,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 53,
+          "point": [
+            -113.58595782054498,
+            10.301716859076771,
+            49.79925283662056
+          ],
+          "distance": 61.106947295936855,
+          "triangle": [
+            [
+              -113.47245788574219,
+              8.406198501586914,
+              49.76884078979492
+            ],
+            [
+              -114.08926391601562,
+              11.073638916015625,
+              49.934112548828125
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 58,
+      "pixel": [
+        606,
+        91
+      ],
+      "direction": [
+        -0.052654715703666935,
+        0.30286495554707665,
+        0.9515777948311075
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:metal",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1082,
+          "point": [
+            -106.40053324259856,
+            10.327010794628306,
+            16.66501602183496
+          ],
+          "distance": 28.117771083045508,
+          "triangle": [
+            [
+              -105.79329681396484,
+              10.050000190734863,
+              16.540246963500977
+            ],
+            [
+              -107.26260375976562,
+              10.050000190734863,
+              16.842145919799805
+            ],
+            [
+              -107.26260375976562,
+              10.949999809265137,
+              16.842145919799805
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": -106.4172545587644,
+                  "y": 10.05,
+                  "z": 17.229941367637366,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:metal",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1082,
+          "point": [
+            -106.40053324259856,
+            10.327010794628306,
+            16.66501602183496
+          ],
+          "distance": 28.117771083045508,
+          "triangle": [
+            [
+              -105.79329681396484,
+              10.050000190734863,
+              16.540246963500977
+            ],
+            [
+              -107.26260375976562,
+              10.050000190734863,
+              16.842145919799805
+            ],
+            [
+              -107.26260375976562,
+              10.949999809265137,
+              16.842145919799805
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1080,
+              "end": 1092,
+              "args": [
+                {
+                  "x": -106.4172545587644,
+                  "y": 10.05,
+                  "z": 17.229941367637366,
+                  "w": 1.5,
+                  "h": 0.9,
+                  "d": 1.1,
+                  "rot": 6.080534945978623,
+                  "uvScale": 0.9,
+                  "tint": [
+                    0.55,
+                    0.56,
+                    0.55
+                  ],
+                  "ao": 0.4
+                }
+              ],
+              "stack": [
+                "    at Module.acUnit (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:542:17)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:805:29)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 58,
+      "pixel": [
+        551,
+        95
+      ],
+      "direction": [
+        0.03521251617960895,
+        0.2974232609661624,
+        0.954096160007237
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rubble",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1452,
+          "point": [
+            -103.94046045556763,
+            10.084824737786462,
+            16.449755957804626
+          ],
+          "distance": 27.81793665172982,
+          "triangle": [
+            [
+              -103.69434356689453,
+              10.050000190734863,
+              16.566253662109375
+            ],
+            [
+              -104.1182861328125,
+              10.050000190734863,
+              16.365583419799805
+            ],
+            [
+              -104.1182861328125,
+              10.175332069396973,
+              16.365583419799805
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1452,
+              "end": 1464,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.4690376006346196,
+                  "h": 0.12533163726096974,
+                  "d": 0.22863821094855666,
+                  "rot": 3.5836854950454446,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1452,
+              "end": 1464,
+              "args": [
+                {
+                  "x": -103.95522376305162,
+                  "y": 10.05,
+                  "z": 16.56924637729257,
+                  "w": 0.4690376006346196,
+                  "h": 0.12533163726096974,
+                  "d": 0.22863821094855666,
+                  "rot": 3.5836854950454446,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rubble",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1452,
+          "point": [
+            -103.94046045556763,
+            10.084824737786462,
+            16.449755957804626
+          ],
+          "distance": 27.81793665172982,
+          "triangle": [
+            [
+              -103.69434356689453,
+              10.050000190734863,
+              16.566253662109375
+            ],
+            [
+              -104.1182861328125,
+              10.050000190734863,
+              16.365583419799805
+            ],
+            [
+              -104.1182861328125,
+              10.175332069396973,
+              16.365583419799805
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1452,
+              "end": 1464,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.4690376006346196,
+                  "h": 0.12533163726096974,
+                  "d": 0.22863821094855666,
+                  "rot": 3.5836854950454446,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1452,
+              "end": 1464,
+              "args": [
+                {
+                  "x": -103.95522376305162,
+                  "y": 10.05,
+                  "z": 16.56924637729257,
+                  "w": 0.4690376006346196,
+                  "h": 0.12533163726096974,
+                  "d": 0.22863821094855666,
+                  "rot": 3.5836854950454446,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 58,
+      "pixel": [
+        570,
+        95
+      ],
+      "direction": [
+        0.004804630935001139,
+        0.29760438825305674,
+        0.9546771934083806
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rubble",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1451,
+          "point": [
+            -104.78698864561464,
+            10.050000190734863,
+            16.338043220515722
+          ],
+          "distance": 27.683989922387816,
+          "triangle": [
+            [
+              -104.87171173095703,
+              10.050000190734863,
+              16.458595275878906
+            ],
+            [
+              -104.73743438720703,
+              10.050000190734863,
+              16.259552001953125
+            ],
+            [
+              -104.68997192382812,
+              10.050000190734863,
+              16.39484405517578
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1440,
+              "end": 1452,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.14337567642331125,
+                  "h": 0.09977115754503757,
+                  "d": 0.1925942832836881,
+                  "rot": 4.375010494027956,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1440,
+              "end": 1452,
+              "args": [
+                {
+                  "x": -104.80457327573805,
+                  "y": 10.05,
+                  "z": 16.359073428050028,
+                  "w": 0.14337567642331125,
+                  "h": 0.09977115754503757,
+                  "d": 0.1925942832836881,
+                  "rot": 4.375010494027956,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rubble",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1451,
+          "point": [
+            -104.78698864561464,
+            10.050000190734863,
+            16.338043220515722
+          ],
+          "distance": 27.683989922387816,
+          "triangle": [
+            [
+              -104.87171173095703,
+              10.050000190734863,
+              16.458595275878906
+            ],
+            [
+              -104.73743438720703,
+              10.050000190734863,
+              16.259552001953125
+            ],
+            [
+              -104.68997192382812,
+              10.050000190734863,
+              16.39484405517578
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1440,
+              "end": 1452,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.14337567642331125,
+                  "h": 0.09977115754503757,
+                  "d": 0.1925942832836881,
+                  "rot": 4.375010494027956,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1440,
+              "end": 1452,
+              "args": [
+                {
+                  "x": -104.80457327573805,
+                  "y": 10.05,
+                  "z": 16.359073428050028,
+                  "w": 0.14337567642331125,
+                  "h": 0.09977115754503757,
+                  "d": 0.1925942832836881,
+                  "rot": 4.375010494027956,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 58,
+      "pixel": [
+        595,
+        112
+      ],
+      "direction": [
+        -0.035552310093336405,
+        0.2728937519365378,
+        0.9613870362143576
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rubble",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1476,
+          "point": [
+            -105.99407556641484,
+            10.055552722661607,
+            18.953360973168913
+          ],
+          "distance": 30.2111329360887,
+          "triangle": [
+            [
+              -105.9615249633789,
+              10.050000190734863,
+              18.918455123901367
+            ],
+            [
+              -106.27191925048828,
+              10.050000190734863,
+              19.25130844116211
+            ],
+            [
+              -106.27191925048828,
+              10.215725898742676,
+              19.25130844116211
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1476,
+              "end": 1488,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.45512319973204285,
+                  "h": 0.1657257101871073,
+                  "d": 0.31642639526631683,
+                  "rot": 2.321294297259223,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1476,
+              "end": 1488,
+              "args": [
+                {
+                  "x": -106.00101369568117,
+                  "y": 10.05,
+                  "z": 19.192783278192316,
+                  "w": 0.45512319973204285,
+                  "h": 0.1657257101871073,
+                  "d": 0.31642639526631683,
+                  "rot": 2.321294297259223,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rubble",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1476,
+          "point": [
+            -105.99407556641484,
+            10.055552722661607,
+            18.953360973168913
+          ],
+          "distance": 30.2111329360887,
+          "triangle": [
+            [
+              -105.9615249633789,
+              10.050000190734863,
+              18.918455123901367
+            ],
+            [
+              -106.27191925048828,
+              10.050000190734863,
+              19.25130844116211
+            ],
+            [
+              -106.27191925048828,
+              10.215725898742676,
+              19.25130844116211
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1476,
+              "end": 1488,
+              "args": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.45512319973204285,
+                  "h": 0.1657257101871073,
+                  "d": 0.31642639526631683,
+                  "rot": 2.321294297259223,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:135:10)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1476,
+              "end": 1488,
+              "args": [
+                {
+                  "x": -106.00101369568117,
+                  "y": 10.05,
+                  "z": 19.192783278192316,
+                  "w": 0.45512319973204285,
+                  "h": 0.1657257101871073,
+                  "d": 0.31642639526631683,
+                  "rot": 2.321294297259223,
+                  "uvScale": 2,
+                  "tint": [
+                    0.66,
+                    0.64,
+                    0.6
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.debris (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:907:22)",
+                "    at City._scatter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:809:18)",
+                "    at City._buildDressing (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:568:12)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:132:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fov": 58,
+      "pixel": [
+        660,
+        195
+      ],
+      "direction": [
+        -0.1445894735299573,
+        0.14307365737203653,
+        0.9790933626118191
+      ],
+      "visibleHits": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1191,
+          "point": [
+            -109.86067246772987,
+            6.699999809265137,
+            23.364729261058386
+          ],
+          "distance": 34.17034689393358,
+          "triangle": [
+            [
+              -110.75,
+              6.699999809265137,
+              22.645000457763672
+            ],
+            [
+              -109.25,
+              6.699999809265137,
+              23.795000076293945
+            ],
+            [
+              -110.75,
+              6.699999809265137,
+              23.795000076293945
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1180,
+              "end": 1192,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 6.699999999999999,
+                  "z": 23.22,
+                  "w": 1.5,
+                  "h": 0.07,
+                  "d": 1.15,
+                  "rot": 0,
+                  "uvScale": 1.4,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:181:7)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1180,
+              "end": 1192,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 6.699999999999999,
+                  "z": 23.22,
+                  "w": 1.5,
+                  "h": 0.07,
+                  "d": 1.15,
+                  "rot": 0,
+                  "uvScale": 1.4,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:181:7)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.90058524667444,
+            6.739494159165364,
+            23.635000228881836
+          ],
+          "distance": 34.44638897341666,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-3,0:corrugated",
+          "parent": "chunk_-3,0",
+          "visible": true,
+          "faceIndex": 53,
+          "point": [
+            -113.77179448599814,
+            10.570119244107707,
+            49.8490473442694
+          ],
+          "distance": 61.220186158048016,
+          "triangle": [
+            [
+              -113.47245788574219,
+              8.406198501586914,
+              49.76884078979492
+            ],
+            [
+              -114.08926391601562,
+              11.073638916015625,
+              49.934112548828125
+            ],
+            [
+              -113.47245788574219,
+              11.073638916015625,
+              49.76884078979492
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "cylinder",
+              "start": 48,
+              "end": 96,
+              "args": [
+                -114.08926287535579,
+                8.406198710240423,
+                48.70050270311535,
+                1.233608633466065,
+                2.6674405127763747,
+                12,
+                0.7,
+                [
+                  0.68,
+                  0.66,
+                  0.62
+                ],
+                true,
+                0.35
+              ],
+              "stack": [
+                "    at Module.waterTank (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:556:22)",
+                "    at roofClutter (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:556:7)",
+                "    at STYLES.row (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:285:3)",
+                "    at building (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/buildings.js:245:3)",
+                "    at City._buildBuildings (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:272:19)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:126:10)"
+              ]
+            }
+          ]
+        }
+      ],
+      "unfilteredFirst": [
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1191,
+          "point": [
+            -109.86067246772987,
+            6.699999809265137,
+            23.364729261058386
+          ],
+          "distance": 34.17034689393358,
+          "triangle": [
+            [
+              -110.75,
+              6.699999809265137,
+              22.645000457763672
+            ],
+            [
+              -109.25,
+              6.699999809265137,
+              23.795000076293945
+            ],
+            [
+              -110.75,
+              6.699999809265137,
+              23.795000076293945
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1180,
+              "end": 1192,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 6.699999999999999,
+                  "z": 23.22,
+                  "w": 1.5,
+                  "h": 0.07,
+                  "d": 1.15,
+                  "rot": 0,
+                  "uvScale": 1.4,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:181:7)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1180,
+              "end": 1192,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 6.699999999999999,
+                  "z": 23.22,
+                  "w": 1.5,
+                  "h": 0.07,
+                  "d": 1.15,
+                  "rot": 0,
+                  "uvScale": 1.4,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ],
+                  "ao": 0.3
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:181:7)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        },
+        {
+          "mesh": "chunk_-2,0:rust",
+          "parent": "chunk_-2,0",
+          "visible": true,
+          "faceIndex": 1171,
+          "point": [
+            -109.90058524667444,
+            6.739494159165364,
+            23.635000228881836
+          ],
+          "distance": 34.44638897341666,
+          "triangle": [
+            [
+              -108.19999694824219,
+              3.369999885559082,
+              23.635000228881836
+            ],
+            [
+              -111.80000305175781,
+              6.769999980926514,
+              23.635000228881836
+            ],
+            [
+              -108.19999694824219,
+              6.769999980926514,
+              23.635000228881836
+            ]
+          ],
+          "primitives": [
+            {
+              "method": "box",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at MeshBuilder.boxRot (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/geom.js:133:68)",
+                "    at MeshBuilder.<computed> (file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:10:232)",
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94"
+              ]
+            },
+            {
+              "method": "boxRot",
+              "start": 1168,
+              "end": 1180,
+              "args": [
+                {
+                  "x": -110,
+                  "y": 3.3699999999999997,
+                  "z": 23.66,
+                  "w": 3.6,
+                  "h": 3.4,
+                  "d": 0.05,
+                  "rot": 0,
+                  "uvScale": 1,
+                  "tint": [
+                    0.66,
+                    0.5,
+                    0.4
+                  ]
+                }
+              ],
+              "stack": [
+                "    at Module.fireEscape (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/props.js:227:9)",
+                "    at City._buildStructures (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:344:27)",
+                "    at City.build (file:///workspace/scratch/0b7ad82bafe7/survival/src/world/city.js:129:10)",
+                "    at file:///workspace/scratch/0b7ad82bafe7/survival/[eval1]:13:94",
+                "    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)",
+                "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

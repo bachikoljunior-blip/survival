@@ -1,0 +1,419 @@
+{
+  "checkedAt": "2026-09-14T00:44:57.897Z",
+  "reviewer": "/root/render_cost_review/refute_backdrop",
+  "baselineCommit": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+  "sourceHashes": {
+    "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+  },
+  "scope": "Independent source and Node memory refutation; no browser, GPU, image quality, or blind-comparison verdict.",
+  "definiteCurrentFindings": [],
+  "history": {
+    "baselineCollisionSha256": "891a57687468c723a8aeb4b209bd49381444328057ec8e95483a9dc4cb59524a",
+    "oldDownwardNormal": {
+      "name": "old fully supported",
+      "accepted": false,
+      "center": {
+        "y": 10,
+        "ny": -1
+      }
+    },
+    "status": "closed after correction",
+    "note": "This uses baseline real collision with the current support helper; baseline City itself did not have this helper."
+  },
+  "independentControls": [
+    {
+      "name": "none",
+      "accepted": false,
+      "center": null
+    },
+    {
+      "name": "full",
+      "accepted": true,
+      "center": {
+        "y": 10,
+        "ny": 1
+      }
+    },
+    {
+      "name": "half",
+      "accepted": false,
+      "center": {
+        "y": 10,
+        "ny": 1
+      }
+    },
+    {
+      "name": "two edge strips",
+      "accepted": true,
+      "center": null
+    },
+    {
+      "name": "0.14m gap",
+      "accepted": true,
+      "center": {
+        "y": 9.86,
+        "ny": 1
+      }
+    },
+    {
+      "name": "0.16m gap",
+      "accepted": false,
+      "center": null
+    }
+  ],
+  "independentActualRenderSupport": {
+    "scope": "Independent current full City CPU build with appearance-only stubs; own instrumentation captures accepted builders and output ranges. Destination names are matched against final mesh names. Every accepted projected vertex is raycast through all actual meshes, excluding every roof-scatter output face and requiring world upward geometric normal.",
+    "accepted": 11,
+    "points": 257,
+    "missing": 0,
+    "excludedHits": 188,
+    "excludedFaceRanges": {
+      "chunk_-2,-2:fabric": [
+        [
+          4156,
+          4192
+        ],
+        [
+          4192,
+          4204
+        ]
+      ],
+      "chunk_-2,-2:rubble": [
+        [
+          468,
+          492
+        ],
+        [
+          492,
+          516
+        ]
+      ],
+      "chunk_-2,-2:wood": [
+        [
+          8608,
+          8632
+        ],
+        [
+          8632,
+          8668
+        ],
+        [
+          8668,
+          8728
+        ]
+      ],
+      "chunk_-3,-2:rust": [
+        [
+          1728,
+          1768
+        ]
+      ],
+      "chunk_-3,-2:dark": [
+        [
+          532,
+          572
+        ],
+        [
+          572,
+          584
+        ]
+      ],
+      "chunk_-3,-2:wood": [
+        [
+          3108,
+          3168
+        ],
+        [
+          3168,
+          3240
+        ],
+        [
+          3240,
+          3300
+        ]
+      ],
+      "chunk_-2,-2:metal": [
+        [
+          1288,
+          1332
+        ],
+        [
+          1332,
+          1376
+        ],
+        [
+          1376,
+          1420
+        ]
+      ],
+      "chunk_-2,-2:dark": [
+        [
+          8268,
+          8280
+        ],
+        [
+          8280,
+          8292
+        ],
+        [
+          8292,
+          8304
+        ]
+      ],
+      "chunk_-2,-2:ash": [
+        [
+          1644,
+          1656
+        ],
+        [
+          1656,
+          1668
+        ],
+        [
+          1668,
+          1680
+        ]
+      ],
+      "chunk_-3,-2:metal": [
+        [
+          1292,
+          1336
+        ]
+      ],
+      "chunk_-3,-2:ash": [
+        [
+          768,
+          780
+        ]
+      ],
+      "chunk_-2,-2:rust": [
+        [
+          4908,
+          4944
+        ]
+      ],
+      "chunk_-2,-2:glass": [
+        [
+          4920,
+          4932
+        ]
+      ]
+    },
+    "items": [
+      {
+        "zone": "pellroof",
+        "points": 28,
+        "missing": 0,
+        "minGap": 0.015000152587891336,
+        "maxGap": 0.015000152587891336,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "pellroof",
+        "points": 21,
+        "missing": 0,
+        "minGap": 0.015000152587891336,
+        "maxGap": 0.015000152587891336,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "pellroof",
+        "points": 20,
+        "missing": 0,
+        "minGap": 0.015000152587891336,
+        "maxGap": 0.015000152587891336,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "pellroof",
+        "points": 21,
+        "missing": 0,
+        "minGap": 0.015000152587891336,
+        "maxGap": 0.015000152587891336,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "kettleroof",
+        "points": 21,
+        "missing": 0,
+        "minGap": 0.015000534057616477,
+        "maxGap": 0.015000534057616477,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "kettleroof",
+        "points": 24,
+        "missing": 0,
+        "minGap": 0.015000534057616477,
+        "maxGap": 0.015000534057616477,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "kettleroof",
+        "points": 20,
+        "missing": 0,
+        "minGap": 0.015000534057616477,
+        "maxGap": 0.015000534057616477,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "kettleroof",
+        "points": 21,
+        "missing": 0,
+        "minGap": 0.015000534057616477,
+        "maxGap": 0.015000534057616477,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "drayroof",
+        "points": 40,
+        "missing": 0,
+        "minGap": 0.014999771118162641,
+        "maxGap": 0.014999771118162641,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "drayroof",
+        "points": 21,
+        "missing": 0,
+        "minGap": 0.014999771118162641,
+        "maxGap": 0.014999771118162641,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      },
+      {
+        "zone": "drayroof",
+        "points": 20,
+        "missing": 0,
+        "minGap": 0.014999771118162641,
+        "maxGap": 0.014999771118162641,
+        "supportMeshes": [
+          "chunk_-2,-2:ash"
+        ]
+      }
+    ]
+  },
+  "parentEvidenceChecked": {
+    "path": "roof-scatter-cpu-measurements.json",
+    "sha256": "97be1acbd1d0c8b0542f577902afb04deb826ac973da47af388604c3a8945a71",
+    "scope": "Node full production City geometry with stubbed appearance; no render or image-quality conclusion. Zone/building hashes compare generated attributes before occlusion bake.",
+    "candidates": 27,
+    "retained": 11,
+    "nonRoofZones": 12,
+    "nonRoofGeometryAndCollidersMatch": true,
+    "buildingsMatch": true,
+    "roofZones": [
+      {
+        "id": "pellroof",
+        "triangles": 292,
+        "previousTriangles": 292,
+        "hashMatchesPrevious": true,
+        "colliders": 1
+      },
+      {
+        "id": "kettleroof",
+        "triangles": 268,
+        "previousTriangles": 268,
+        "hashMatchesPrevious": true,
+        "colliders": 2
+      },
+      {
+        "id": "drayroof",
+        "triangles": 248,
+        "previousTriangles": 248,
+        "hashMatchesPrevious": true,
+        "colliders": 1
+      },
+      {
+        "id": "marrowroof_n",
+        "triangles": 0,
+        "previousTriangles": 484,
+        "hashMatchesPrevious": false,
+        "colliders": 0
+      },
+      {
+        "id": "marrowroof_s",
+        "triangles": 0,
+        "previousTriangles": 720,
+        "hashMatchesPrevious": false,
+        "colliders": 0
+      }
+    ],
+    "targetMatches": [
+      {
+        "originalPixel": [
+          606,
+          91
+        ],
+        "matchingWorldTriangles": 0
+      },
+      {
+        "originalPixel": [
+          551,
+          95
+        ],
+        "matchingWorldTriangles": 0
+      },
+      {
+        "originalPixel": [
+          570,
+          95
+        ],
+        "matchingWorldTriangles": 0
+      },
+      {
+        "originalPixel": [
+          595,
+          112
+        ],
+        "matchingWorldTriangles": 0
+      }
+    ]
+  },
+  "nonBlockingLimits": [
+    {
+      "kind": "constructed control, not an actual-city defect",
+      "text": "Vertices-only support accepts two narrow edge strips with an empty center. It does not establish continuous support over the full projected footprint."
+    },
+    {
+      "kind": "constructed control and actual measurement",
+      "text": "The helper accepts a 0.14m vertical gap and rejects 0.16m. Current accepted vertices have approximately 0.015m geometric roof separation, unchanged retained dressing; this is near-support rather than exact contact and CPU does not certify visible contact."
+    },
+    {
+      "kind": "source scope, not reproduced divergence",
+      "text": "Building a rejected item consumes its internal original random draws. Removal of a rejected crate collider could still alter later overlap skipping and within-zone RNG draws under other inputs. Per-zone fork isolates random state, but collision occupancy is shared. Current fixed-world preservation is supported by measured zone hashes; no universal all-seed preservation claim."
+    },
+    {
+      "kind": "evidence scope",
+      "text": "Parent zone/building hashes are generated attributes before occlusion bake, not final screenshots or all final baked color attributes. Current render support rays also do not prove image quality, GPU performance, or blind comparison."
+    },
+    {
+      "kind": "concurrent dependency change",
+      "text": "Current geom.js also adds shadowFaces and shadowIndex metadata. Its SHA is recorded, but this bounded review does not assess that shadow pipeline, shadow index winding, or resulting shadow images."
+    }
+  ],
+  "conclusion": "No additional definite current-city blocker found in the bounded repair review. Historical normal rejection is independently reproduced with old code and closed with current code. Current retained dressing has measured render-mesh support at sampled projected vertices; visual verification remains required.",
+  "diagnosticCorrection": "An initial local independent range lookup used chunk map keys without the final mesh name prefix. It was corrected to cb.name plus material before issuing this review; wrong lookup output was discarded. The final run asserts every exclusion target exists in final meshes and records excludedHits."
+}

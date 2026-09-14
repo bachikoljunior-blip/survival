@@ -16,13 +16,14 @@ const VIEWS = [
   ['ventfield', 'ventfield', 270, -3],
   ['south', 'south_marrow', 270, -3],
   ['plant', 'plant_out', 0, -5],
+  ['marrow_roof', null, 90, -6, [-60,11.4,-16]],
 ];
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 
 export async function captureMobileViews({ page, root, output, check, report, waitFrames }) {
   const original = await page.evaluate(() => ({...window.CINDERLINE.game.settings}));
   report.visualViews = {
-    scope: 'Eight existing exterior spawn points in a fresh production game, with real simulation settling and the normal player camera. Medium quality is explicitly selected through the actual settings API. Only the DOM HUD is hidden for the world-image capture; no materials, lighting, geometry, postprocessing or pixel content are edited. These images do not establish traversal, animation quality, every interior, a blind comparison or a physical device result.',
+    scope: 'Eight existing exterior spawn points plus the repository\'s Marrow roof inspection coordinate, in a fresh production game with real simulation settling and the normal player camera. Medium quality is explicitly selected through the actual settings API. Only the DOM HUD is hidden for the world-image capture; no materials, lighting, geometry, postprocessing or pixel content are edited. These images do not establish traversal, animation quality, every interior, a blind comparison or a physical device result.',
     setup: 'Programmatic new game and teleport are test setup, not a claim of playing the route.',
     views: [],
   };
@@ -32,17 +33,17 @@ export async function captureMobileViews({ page, root, output, check, report, wa
       await C.startNewGame();
       C.game.applySettings({...C.game.settings, quality:'medium', uiScale:1, leftHanded:false, language:'ja'});
     });
-    for (const [name,spawn,yaw,pitch] of VIEWS) {
-      const placed = await page.evaluate(({spawn,yaw,pitch}) => {
+    for (const [name,spawn,yaw,pitch,position] of VIEWS) {
+      const placed = await page.evaluate(({spawn,yaw,pitch,position}) => {
         const C=window.CINDERLINE;
-        const ok=C.game.teleport(spawn);
+        const ok=position ? (C.game.player.placeAt(...position),true) : C.game.teleport(spawn);
         C.game.camera.yaw=yaw*Math.PI/180;
         C.game.camera.pitch=pitch*Math.PI/180;
         C.game.camera._init=false;
         C.game.camera._manualT=999;
         C.atmos.shadowDirty=true;
-        return {ok,spawn:C.city.spawns.get(spawn),frame:C.engine.frame};
-      }, {spawn,yaw,pitch});
+        return {ok,spawn:C.city.spawns.get(spawn),inspectionPosition:position,frame:C.engine.frame};
+      }, {spawn,yaw,pitch,position});
       if (!placed.ok) throw new Error(`missing authored visual spawn: ${spawn}`);
       await waitFrames(page,12);
       const captured=await page.evaluate(() => {
@@ -59,7 +60,8 @@ export async function captureMobileViews({ page, root, output, check, report, wa
             mode:C.game.mode,playMode:C.MODE.PLAY,paused:C.engine.isPaused,
             tier:C.engine.tier.name,settings:{...C.game.settings},perf:C.engine.perfSnapshot(),
             player:{position:p.pos.toArray(),yaw:p.yaw,hp:p.hp,dead:p.dead,grounded:p.grounded,state:p.state,visible:p.group.visible},
-            camera:{position:C.engine.camera.position.toArray(),quaternion:C.engine.camera.quaternion.toArray()},
+            camera:{position:C.engine.camera.position.toArray(),quaternion:C.engine.camera.quaternion.toArray(),
+              fov:C.engine.camera.fov,aspect:C.engine.camera.aspect,near:C.engine.camera.near,far:C.engine.camera.far},
             wasRunning,uiDisplay:ui.style.display};
           // Native canvas never contained the HUD. Hide it only for a matching
           // viewport screenshot; restore it before the separate HUD evidence.
@@ -89,7 +91,7 @@ export async function captureMobileViews({ page, root, output, check, report, wa
         report.visualViews.views.push({name,spawn,requested:{yaw,pitch},placed,...captured,
           native:{path:native.slice(root.length+1),width:png.width,height:png.height,pngSha256:digest(bytes),rgbaSha256:digest(png.data)},
           viewport:viewport.slice(root.length+1),hud:hud.slice(root.length+1)});
-        if(['stacks','arcade','cinder','ventfield'].includes(name)) {
+        if(['stacks','arcade','cinder','ventfield','marrow_roof'].includes(name)) {
           await captureShadowContact({page,root,output,name,cachedFrame:native,check,report});
         }
       } finally {

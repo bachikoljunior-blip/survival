@@ -1,0 +1,212 @@
+{
+  "kind": "separate_refutation_pass",
+  "finalFindings": false,
+  "reviewedRepository": "/workspace/scratch/0b7ad82bafe7/survival",
+  "scope": "Read-only source inspection and Node fixtures. No browser, server, real WebGL context, frame-time or visual comparison. Conclusions use product source, directive criteria and explicitly assigned probe artifacts; no README inspected.",
+  "instructions": {
+    "skill": ".claude/skills/critic/SKILL.md",
+    "criticOverlay": "absent",
+    "standingInstructions": [
+      "AGENTS.md",
+      "CLAUDE.md"
+    ],
+    "sessionMetadataOnly": "AI_DEVELOPMENT/SESSION_STATE.yaml work timing/status fields"
+  },
+  "reproduce": "node /workspace/scratch/0b7ad82bafe7/shadow-batch-refute.mjs",
+  "candidates": [
+    {
+      "id": "zero_count_colour_draws",
+      "survives": false,
+      "severity": "minor",
+      "problem": "Each populated proxy submits one zero-count colour draw and increments renderer.info.render.calls by one. Populated static and dynamic proxies therefore add two calls to the normal colour frame; they submit zero triangles.",
+      "mechanism": "Confirmed for installed Three.js 0.180.0: renderBufferDirect allows drawCount===0, delegates to WebGLIndexedBufferRenderer.render, and that method calls gl.drawElements and WebGLInfo.update unconditionally.",
+      "evidence": [
+        "src/render/shadow_batches.js:149-162: visible MeshBasicMaterial proxy is opaque; hook sets drawRange.count=0; comment incorrectly promises no colour draw.",
+        "src/render/shadow_batches.js:166-168: populated proxies remain visible, with frustum culling disabled at line 154.",
+        "node_modules/three/src/renderers/WebGLRenderer.js:1710-1827: projectObject queues visible mesh/material without a drawRange or colorWrite exclusion.",
+        "node_modules/three/src/renderers/WebGLRenderer.js:2003-2027: onBeforeRender precedes an unconditional renderBufferDirect call for the opaque proxy.",
+        "node_modules/three/src/renderers/WebGLRenderer.js:1147-1149,1257-1259: zero drawCount is accepted and passed to renderer.render.",
+        "node_modules/three/src/renderers/webgl/WebGLIndexedBufferRenderer.js:20-24: drawElements and info.update both execute at zero count.",
+        "node_modules/three/src/renderers/webgl/WebGLInfo.js:16-23: calls increments unconditionally; triangle increment is zero.",
+        "src/core/engine.js:419 and src/game/game.js:748-749: frame telemetry uses renderer.info.render.calls after reset and rendering.",
+        "src/render/postfx.js:362-383: exactly one main-scene colour render in each branch."
+      ],
+      "measurement": {
+        "method": "Execute unchanged renderBufferDirect extracted from installed Three.js, with shader/binding setup stubbed, its actual WebGLIndexedBufferRenderer and WebGLInfo, and a recording GL object.",
+        "populatedVisibleBatches": 2,
+        "glDrawElementsCounts": [
+          0,
+          0
+        ],
+        "rendererCalls": 2,
+        "rendererTriangles": 0,
+        "existingTests": "node --test tools/shadow_batches.test.mjs: 6/6 pass; test at lines 101-106 checks hook ranges and raycast, not draw calls."
+      },
+      "refutationsAttempted": [
+        "No zero-count early return exists on this non-instanced, indexed mesh path.",
+        "Neither colorWrite:false nor depthWrite:false excludes a proxy from the render list or skips submission.",
+        "No frame-stat reset between the scene render and perfSnapshot removes these calls."
+      ],
+      "practicalLimit": "Small fixed submission and telemetry overhead, not additional rasterized triangles. No evidence of a meaningful frame-time regression or a crossed performance threshold. The existing test title's zero-colour-geometry claim remains true; the source comment's zero-draw claim does not.",
+      "verificationTarget": "With both proxy batches populated, an actual or source-isolated colour submission probe reports zero proxy draw calls while the shadow path retains their triangle counts.",
+      "firstPassSurvived": true,
+      "behaviorSurvives": true,
+      "currentProductFindingSurvives": false,
+      "currentStatus": "addressed",
+      "resolution": "Current comment and test correctly promise zero colour triangles and acknowledge the counted zero-length calls. Two calls remain included in telemetry; small fixed overhead alone is not a blocker."
+    },
+    {
+      "id": "owned_cast_shadow_false",
+      "behaviorSurvives": true,
+      "currentProductFindingSurvives": false,
+      "classification": "latent API/lifecycle concern; do not promote to current product defect without an actual caller",
+      "problem": "An explicit castShadow=false assignment made after ownership does not remove the source from its batch. Disable, removal cleanup, and conversion to an unsupported material restore castShadow=true regardless of that assignment.",
+      "mechanism": "Confirmed: owned.has(object) bypasses the false eligibility check; ownership already writes false to the public property, so the later external false assignment cannot be distinguished. Every release path writes true.",
+      "evidence": [
+        "src/render/shadow_batches.js:39,45-48: owned meshes remain eligible despite castShadow=false.",
+        "src/render/shadow_batches.js:18-24,40-41,60-62: disable, unsupported fallback, and removal restore true.",
+        "Source-wide rg -n 'castShadow|shadowBatches' src -g '*.js' finds no current caller disabling an owned mesh and no product call to setEnabled(false).",
+        "src/game/ai.js:722-724 and src/world/city.js:1023 with src/world/geom.js:354 set false during construction, before ownership; light false assignments are excluded by isMesh."
+      ],
+      "measurement": {
+        "afterExplicitFalseAndUpdate": {
+          "castShadow": false,
+          "owned": true,
+          "staticSources": 1,
+          "staticIndices": 36
+        },
+        "afterDisable": {
+          "castShadow": true,
+          "owned": false
+        },
+        "afterRemoveAndUpdate": {
+          "castShadow": true,
+          "owned": false,
+          "staticSources": 0
+        },
+        "afterReaddAndUpdate": {
+          "castShadow": false,
+          "owned": true,
+          "staticSources": 1
+        },
+        "afterUnsupportedMaterial": {
+          "castShadow": true,
+          "owned": false,
+          "unsupportedSources": 1
+        }
+      },
+      "practicalLimit": "The fixture proves the public-property ownership limitation, but the current game uses initial caster decisions and visible-state changes. Ordinary removal correctly stops proxy casting. Without an already-owned caster-disable caller, reporting this as a present gameplay shadow regression would exceed the evidence."
+    },
+    {
+      "id": "dynamic_pack_allocations",
+      "survives": false,
+      "severity": "minor",
+      "problem": "Every shadow-enabled render recreates both typed arrays for every visible animated source even when geometry topology and array sizes are unchanged.",
+      "mechanism": "Confirmed. update marks skinned, morphing and actor-child meshes animated and calls packPositions unconditionally. packPositions allocates Float32Array and Uint32Array; old record.pack is replaced. Stable topology does not require replacing these buffers.",
+      "evidence": [
+        "docs/directive.md §12 explicitly says to avoid per-frame allocation and pool frequently created objects; §13 supports up to 8 on-screen skinned meshes.",
+        "src/render/shadow_batches.js:50-54,122-124 allocates fresh packs on each animated update. fillBatch buffer spare capacity only reuses destination buffers, not source packs.",
+        "src/game/game.js:743 runs batches.update on each shadow-enabled render; src/render/atmosphere.js:308 marks each such shadow frame dirty.",
+        "Actual Player and Enemy constructors, rigs and Animator are used in the independent allocation probe; the seven Enemy classes match tools/perf.mjs combat loadout."
+      ],
+      "reproduce": "node /workspace/scratch/0b7ad82bafe7/shadow-batch-allocation-refute.mjs",
+      "refutationsAttempted": [
+        "Counting pack sizes alone would not establish allocation; constructor interception establishes new allocations with equal totals.",
+        "The 7-prybar loadout is synthetic, but an actual Player plus the existing seven-enemy performance loadout reproduces comparable allocation below the 8-skinned-mesh ceiling.",
+        "Updating animated positions is necessary; allocating new position/index arrays and rebuilding unchanged topology is not."
+      ],
+      "practicalLimit": "This is an avoidable hot-loop allocation and explicit architecture requirement breach. It does not prove retained-memory growth, GC stalls, a failed JS-frame budget, or phone FPS loss. The assigned Node timing samples are source CPU diagnostics only.",
+      "verificationTarget": "After warmup with stable topology, the allocation probe records zero newly allocated source-pack typed-array bytes while fresh animated poses still upload correctly. Buffer reuse must also replace the current fillBatch pack-identity-only freshness shortcut with a valid dirty/update signal.",
+      "firstPassSurvived": true,
+      "currentStatus": "addressed_by_source_pack_reuse_and_revision_tracking",
+      "previousMeasurement": {
+        "method": "Warm the batch, intercept actual global Float32Array/Uint32Array constructors only during the next update, restore constructors in finally, and compare old/new pack identities and complete index arrays.",
+        "assignedFixture": {
+          "skinnedBodies": 8,
+          "dynamicSources": 36,
+          "typedArrayAllocations": 72,
+          "bytesPerUpdate": 213648,
+          "bytesPerSecondAt60Updates": 12818880
+        },
+        "actualPerformanceLoadout": {
+          "skinnedBodies": 8,
+          "dynamicSources": 30,
+          "typedArrayAllocations": 60,
+          "bytesPerUpdate": 210612,
+          "bytesPerSecondAt60Updates": 12636720
+        },
+        "bothFixtures": "All source pack position/index objects replaced; every array size and every index value remained unchanged."
+      },
+      "currentMeasurement": {
+        "method": "Actual Float32Array/Uint32Array constructors intercepted during a warm update; pre-update position/index snapshots and destination version compared afterward.",
+        "assignedFixture": {
+          "skinnedBodies": 8,
+          "dynamicSources": 36,
+          "typedArrayAllocations": 0,
+          "typedArrayAllocatedBytes": 0,
+          "reusedPackBytes": 213648
+        },
+        "actualPerformanceLoadout": {
+          "skinnedBodies": 8,
+          "dynamicSources": 30,
+          "typedArrayAllocations": 0,
+          "typedArrayAllocatedBytes": 0,
+          "reusedPackBytes": 210612
+        },
+        "bothFixtures": {
+          "allArraysReused": true,
+          "allTopologiesStable": true,
+          "animatedSourcePositionsChanged": true,
+          "animatedDestinationPositionsChanged": true,
+          "destinationUploadMarked": true
+        }
+      },
+      "resolution": "packPositions reuses same-sized source typed arrays and scratch transforms, increments pack.revision, and fillBatch compares separately retained revision values. The live destination geometry changes and marks its attribute for upload despite stable pack identity. The prior dominant typed-array churn and the naive-reuse stale-buffer risk are both disproved on current source.",
+      "currentLimit": "This probe does not promise zero total JavaScript allocation: ordinary traversal containers and small records remain. It establishes that the specific measured source typed-array allocation candidate is addressed. No browser, GPU or phone-frame timing was measured."
+    },
+    {
+      "id": "roof_triangle_budget_intermediate",
+      "survives": false,
+      "currentStatus": "addressed_by_planar_shadow_indices",
+      "priorProblem": "Before planar shadow simplification, the actual City alone exceeded the 300000 submitted-triangle ceiling at the authored roof view when shadows refreshed.",
+      "evidence": [
+        "Assigned preserved one-actor probe: 325026 triangles = 168746 static shadow + 1272 actor shadow + 155008 colour at authored y11.4.",
+        "Independent actual renderer method probe uses unchanged projectObject, renderObject, renderBufferDirect, WebGLShadowMap and buffer/info modules; shader/upload/GL state are stubs. Group arguments and material callbacks are preserved.",
+        "Independent City-only native totals: 322482 at y11.4 and 322698 at y10.1. Current planar batch totals: 272710 and 272926 respectively. Colour remains 153736 in both cases; current shadow totals are 118974 and 119190.",
+        "Both City-only render lists contain zero grouped material submissions and zero transparent DoubleSide submissions, refuting relevant omission concerns in the assigned original colour probe.",
+        "Actual ThirdPersonCamera and City collision queries determine camera placement. The collision ground is y10.16; y10.1 is a nearby sensitivity case, not a measured live player position."
+      ],
+      "reproduce": "node /workspace/scratch/0b7ad82bafe7/shadow-batch-budget-refute.mjs",
+      "scope": "The old over-budget result was real source submission evidence, not a phone-frame measurement. Existing geometry caused the per-refreshed-frame size; every-frame refresh made it recur. New planar metadata removes this old counterexample. No full product scene/GPU budget pass is implied.",
+      "correctedProbeDescription": "tools/perf.mjs runs PLAY and waits 1100 ms, so its actual live actor height can settle; the source probe is a frozen authored view, not an exact replay of that browser run."
+    }
+  ],
+  "reviewedSourceHashes": {
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/game/game.js": "8ceb37dba71927f2eb950b93fb60941d65b66c44c5dd995d393e99f2ed896354",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3"
+  },
+  "currentSurvivingCandidates": [],
+  "planarPathReview": {
+    "verdict": "no_current_shape_or_offset_defect_found",
+    "reproduce": "node /workspace/scratch/0b7ad82bafe7/shadow-batch-planar-refute.mjs",
+    "method": "Independent boundary topology pass: cancel reversed internal edges, require one closed unbranched boundary, compress collinear vertices, compare oriented corner rings, check all original vertices remain coplanar and triangle winding agrees, verify uncovered primitive gaps/tails and original colour indices.",
+    "city": {
+      "builders": 414,
+      "faceRecords": 74253,
+      "originalTrianglesAcrossBuilders": 252060,
+      "shadowTrianglesAcrossBuilders": 167480
+    },
+    "targetedFixtures": "All 63 nonempty box face masks, up/down planes, Y rotation plus X tilt, cylinders/prisms/face4 between planar faces, translated append, repeated append and nested append; 68 extra builders and 247 extra face records passed.",
+    "relevance": "Preserved masks keep deliberate openings; matching oriented boundaries checks winding and missing/extra regions independently of aggregate area, and mixed/nested append exercises both vertex and index offsets.",
+    "limits": "This verifies generated geometry and source submission behavior. It does not compare rasterized pixels or measure GPU timing. Runtime arbitrary geometry edits invalidating shadowIndex were not found in current product source."
+  },
+  "integrationReview": {
+    "fatalDefectFound": false,
+    "evidence": "Atmosphere updates the sun/target and marks shadows dirty before Game updates world matrices, packs current casters, requests the shadow pass, resets frame telemetry and renders. Engine and Atmosphere tier settings agree. Medium/high re-entry repacks before rendering; low disables the shadow renderer. Removed sources leave batches on the next shadow-enabled update.",
+    "limitations": "Read-only source assessment; full context-loss and browser lifecycle behavior not executed. Low retains existing ownership and zero-count proxies, but no fatal rendering failure follows from that path.",
+    "currentTests": "Current node --test tools/shadow_batches.test.mjs run passed; see current test output delivered with this revision."
+  },
+  "currentAssessment": "No current source defect finding survives these refutation passes. This does not establish visual, complete scene-budget or browser/GPU performance satisfaction."
+}

@@ -169,7 +169,6 @@ export class Atmosphere {
     this.sun.shadow.normalBias = 0.028;
     scene.add(this.sun);
     scene.add(this.sun.target);
-    this._shadowAnchor = new THREE.Vector3(1e9, 0, 0);
 
     // Warm fill from below — the burn. No shadows, cheap, and it is what makes
     // characters read against the dark street. Deliberately small: the local
@@ -300,15 +299,13 @@ export class Atmosphere {
     this.sky.updateMatrix();
     this.sky.matrixWorldNeedsUpdate = true;
 
-    // Sun/shadow follow: keep the shadow volume centred ahead of the player,
-    // and only re-render the map when it has moved far enough to matter.
+    // Body poses, held tools and visible chunks can change while the player
+    // stays within the same few metres. Refresh their current silhouettes;
+    // Game batches opaque depth geometry to keep this pass bounded.
     this.sun.target.position.set(playerPos.x, playerPos.y, playerPos.z);
     this.sun.position.set(playerPos.x - 30, playerPos.y + 92, playerPos.z + 34);
     this.sun.target.updateMatrixWorld();
-    if (this._shadowAnchor.distanceToSquared(playerPos) > 9) {
-      this._shadowAnchor.copy(playerPos);
-      this.shadowDirty = true;
-    }
+    if (this.tier.shadows) this.shadowDirty = true;
 
     this._updateLights(dt, playerPos);
     this.ash.update(dt, playerPos, M, this.motionScale);

@@ -596,9 +596,16 @@ export class HUD {
   }
 
   showAutosave() {
+    this.autosave.hidden = false;
     this.autosave.classList.add('on');
     clearTimeout(this._asT);
     this._asT = setTimeout(() => this.autosave.classList.remove('on'), 1600);
+  }
+
+  hideAutosave() {
+    clearTimeout(this._asT);
+    this.autosave.hidden = true;
+    this.autosave.classList.remove('on');
   }
 
   /** A spoken line with no dialogue box — barks, thoughts, radio. */

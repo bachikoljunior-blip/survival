@@ -733,7 +733,10 @@ export class City {
     for (let i = 0; i < n; i++) {
       const px = x + rng.sym(w / 2), pz = z + rng.sym(d / 2);
       if (!inside(px, pz)) continue;
-      const cb = this._chunk(px, pz);
+      // Roof scatter spans authored rectangles, including gaps between
+      // buildings. Build each decorative item before checking its footprint
+      // so rejection consumes the same random stream as the original item.
+      const cb = character === 'roof' ? new ChunkBuilder('roof-scatter') : this._chunk(px, pz);
       const roll = rng.f();
 
       switch (character) {
@@ -803,13 +806,31 @@ export class City {
 
         case 'roof':
           if (roll < 0.3) P.acUnit(cb, px, y, pz, rng.f() * TAU, rng, {});
-          else if (roll < 0.46) { P.crate(cb, px, y, pz, rng); this.solid(px, y, pz, 0.7, 0.62, 0.7, 0, LAYER.SOLID, 'prop'); }
+          else if (roll < 0.46) P.crate(cb, px, y, pz, rng);
           else if (roll < 0.6) P.drum(cb, px, y, pz, rng, { tipped: rng.chance(0.5) });
           else if (roll < 0.72) P.pallet(cb, px, y, pz, rng, {});
           else P.debris(cb, px, pz, 2, rng.int(4, 10), rng, y);
+          if (this._roofScatterSupported(cb, y)) {
+            const destination = this._chunk(px, pz);
+            for (const [key, geometry] of cb.groups) destination.m(key).append(geometry);
+            if (roll >= 0.3 && roll < 0.46) this.solid(px, y, pz, 0.7, 0.62, 0.7, 0, LAYER.SOLID, 'prop');
+          }
           break;
       }
     }
+  }
+
+  _roofScatterSupported(builder, baseY) {
+    let vertices = 0;
+    for (const geometry of builder.groups.values()) {
+      for (let i = 0; i < geometry.pos.length; i += 3) {
+        const x = geometry.pos[i], z = geometry.pos[i + 2];
+        const hit = this.collision.raycast(x, baseY + 0.15, z, 0, -1, 0, 0.3, LAYER.SOLID | LAYER.PLATFORM);
+        if (!hit || hit.ny < 0.9 || Math.abs(hit.y - baseY) > 0.15) return false;
+        vertices++;
+      }
+    }
+    return vertices > 0;
   }
 
   /**

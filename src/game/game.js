@@ -13,6 +13,7 @@ import { Input } from '../core/input.js';
 import { MaterialLibrary, updateWorldUniforms } from '../render/materials.js';
 import { PostFX } from '../render/postfx.js';
 import { Atmosphere, MOODS } from '../render/atmosphere.js';
+import { ShadowBatches } from '../render/shadow_batches.js';
 import { City } from '../world/city.js';
 import { buildHollisData } from '../content/world_data.js';
 import { Player, ThirdPersonCamera } from '../actors/player.js';
@@ -44,6 +45,7 @@ export class Game extends Emitter {
     this.post.setSize(this.engine.size.w, this.engine.size.h);
     this.scene = this.engine.scene;
     this.atmos = new Atmosphere(this.scene, this.engine.tier, this.engine.camera);
+    this.shadowBatches = new ShadowBatches(this.scene);
 
     this.mode = MODE.BOOT;
     this.actors = [];
@@ -738,6 +740,7 @@ export class Game extends Emitter {
                                this.engine.tier.drawDistance);
 
     updateWorldUniforms(this.engine.time);
+    if (this.engine.tier.shadows) this.shadowBatches.update(this.atmos.sun, this.engine.camera);
     if (this.atmos.shadowDirty) {
       this.engine.renderer.shadowMap.needsUpdate = true;
       this.atmos.shadowDirty = false;

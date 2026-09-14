@@ -1,0 +1,2270 @@
+{
+  "checkedAt": "2026-09-14T00:25:30.533Z",
+  "scope": "Independent CPU full City.build production geometry with material factories replaced by FrontSide MeshStandardMaterial and canvas drawing/measureText stubs only. No browser, render, product change, or blind judgment. Existing image-to-primitive assignment remains conditional on FOV58, but these support rays operate directly on reported world primitives and need no FOV.",
+  "head": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+  "sourceHashes": {
+    "src/world/city.js": "c9d402fd1450defe5dc758ac3645870e8854af9c3217d5c8568f69f8a0b1d91e",
+    "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd",
+    "src/world/props.js": "14d1f3aa6c1056d909e3a854eb5a45ea1b409cfffc19235e6ae2397c1cfbc7fb",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/geom.js": "c9a8dbc585c00ea44ac75a3d490c8a1a00fc9f0d6a3436763a27cb73ba533b4b"
+  },
+  "buildMs": 616.3653360000001,
+  "meshes": 469,
+  "targets": [
+    {
+      "pixel": [
+        606,
+        91
+      ],
+      "mesh": "chunk_-2,0:metal",
+      "faceIndex": 1082,
+      "triangle": [
+        [
+          -105.79329681396484,
+          10.050000190734863,
+          16.540246963500977
+        ],
+        [
+          -107.26260375976562,
+          10.050000190734863,
+          16.842145919799805
+        ],
+        [
+          -107.26260375976562,
+          10.949999809265137,
+          16.842145919799805
+        ]
+      ],
+      "start": 1080,
+      "end": 1092,
+      "args": {
+        "x": -106.4172545587644,
+        "y": 10.05,
+        "z": 17.229941367637366,
+        "w": 1.5,
+        "h": 0.9,
+        "d": 1.1,
+        "rot": 6.080534945978623,
+        "uvScale": 0.9,
+        "tint": [
+          0.55,
+          0.56,
+          0.55
+        ],
+        "ao": 0.4
+      },
+      "triangleExact": true,
+      "rows": [
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -107.26260339007722,
+          "z": 16.842145863024378,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "gapFromBase": 10.05
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.05
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -107.15190700184685,
+          "z": 17.38089098795151,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "gapFromBase": 10.05
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.05
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -107.04121061361649,
+          "z": 17.919636112878642,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "gapFromBase": 10.05
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.05
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -106.52795094699476,
+          "z": 16.691196242710234,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0,
+          "x": -106.4172545587644,
+          "z": 17.229941367637366,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -106.30655817053403,
+          "z": 17.7686864925645,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -105.79329850391231,
+          "z": 16.54024662239609,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -105.68260211568195,
+          "z": 17.078991747323222,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -105.57190572745158,
+          "z": 17.617736872250354,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -107.26260339007722,
+          "z": 16.842145863024378,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "gapFromBase": 10.05
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.05
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -107.15190700184685,
+          "z": 17.38089098795151,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "gapFromBase": 10.05
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.05
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -107.04121061361649,
+          "z": 17.919636112878642,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "gapFromBase": 10.05
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:ash",
+            "faceIndex": 50,
+            "y": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.05
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -106.52795094699476,
+          "z": 16.691196242710234,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0,
+          "x": -106.4172545587644,
+          "z": 17.229941367637366,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -106.30655817053403,
+          "z": 17.7686864925645,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -105.79329850391231,
+          "z": 16.54024662239609,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -105.68260211568195,
+          "z": 17.078991747323222,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:rubble",
+            "faceIndex": 1499,
+            "y": 10.050000190734863,
+            "gapFromBase": -1.9073486257070726e-7
+          },
+          "otherHitsNearBase": [
+            {
+              "mesh": "chunk_-2,0:rubble",
+              "faceIndex": 1499,
+              "y": 10.050000190734863,
+              "normal": [
+                0,
+                -1,
+                0
+              ],
+              "upwardFacing": false
+            }
+          ],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -105.57190572745158,
+          "z": 17.617736872250354,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 512,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        }
+      ]
+    },
+    {
+      "pixel": [
+        551,
+        95
+      ],
+      "mesh": "chunk_-2,0:rubble",
+      "faceIndex": 1452,
+      "triangle": [
+        [
+          -103.69434356689453,
+          10.050000190734863,
+          16.566253662109375
+        ],
+        [
+          -104.1182861328125,
+          10.050000190734863,
+          16.365583419799805
+        ],
+        [
+          -104.1182861328125,
+          10.175332069396973,
+          16.365583419799805
+        ]
+      ],
+      "start": 1452,
+      "end": 1464,
+      "args": {
+        "x": -103.95522376305162,
+        "y": 10.05,
+        "z": 16.56924637729257,
+        "w": 0.4690376006346196,
+        "h": 0.12533163726096974,
+        "d": 0.22863821094855666,
+        "rot": 3.5836854950454446,
+        "uvScale": 2,
+        "tint": [
+          0.66,
+          0.64,
+          0.6
+        ],
+        "ao": 0.3
+      },
+      "triangleExact": true,
+      "rows": [
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -103.79216138383178,
+          "z": 16.77290929994143,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -103.74325200856397,
+          "z": 16.6695810323311,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "gapFromBase": 10.020000000670553
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.020000000670553
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -103.69434263329616,
+          "z": 16.56625276472077,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "gapFromBase": 10.020000000670553
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.020000000670553
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -104.00413313831943,
+          "z": 16.672574644902898,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0,
+          "x": -103.95522376305162,
+          "z": 16.56924637729257,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -103.90631438778381,
+          "z": 16.46591810968224,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -104.21610489280708,
+          "z": 16.572239989864368,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -104.16719551753927,
+          "z": 16.468911722254038,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -104.11828614227146,
+          "z": 16.36558345464371,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -103.79216138383178,
+          "z": 16.77290929994143,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -103.74325200856397,
+          "z": 16.6695810323311,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "gapFromBase": 10.020000000670553
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.020000000670553
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -103.69434263329616,
+          "z": 16.56625276472077,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "gapFromBase": 10.020000000670553
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:paint",
+            "faceIndex": 29,
+            "y": 0.029999999329447746,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.020000000670553
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -104.00413313831943,
+          "z": 16.672574644902898,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0,
+          "x": -103.95522376305162,
+          "z": 16.56924637729257,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -103.90631438778381,
+          "z": 16.46591810968224,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -104.21610489280708,
+          "z": 16.572239989864368,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -104.16719551753927,
+          "z": 16.468911722254038,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -104.11828614227146,
+          "z": 16.36558345464371,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "gapFromBase": 10.024999999627472
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:asphalt",
+            "faceIndex": 257,
+            "y": 0.02500000037252903,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 10.024999999627472
+          }
+        }
+      ]
+    },
+    {
+      "pixel": [
+        570,
+        95
+      ],
+      "mesh": "chunk_-2,0:rubble",
+      "faceIndex": 1451,
+      "triangle": [
+        [
+          -104.87171173095703,
+          10.050000190734863,
+          16.458595275878906
+        ],
+        [
+          -104.73743438720703,
+          10.050000190734863,
+          16.259552001953125
+        ],
+        [
+          -104.68997192382812,
+          10.050000190734863,
+          16.39484405517578
+        ]
+      ],
+      "start": 1440,
+      "end": 1452,
+      "args": {
+        "x": -104.80457327573805,
+        "y": 10.05,
+        "z": 16.359073428050028,
+        "w": 0.14337567642331125,
+        "h": 0.09977115754503757,
+        "d": 0.1925942832836881,
+        "rot": 4.375010494027956,
+        "uvScale": 2,
+        "tint": [
+          0.66,
+          0.64,
+          0.6
+        ],
+        "ao": 0.3
+      },
+      "triangleExact": true,
+      "rows": [
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -104.871712015888,
+          "z": 16.45859566278643,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -104.78084356146958,
+          "z": 16.426719912128636,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -104.68997510705117,
+          "z": 16.394844161470843,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -104.89544173015646,
+          "z": 16.39094917870782,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0,
+          "x": -104.80457327573805,
+          "z": 16.359073428050028,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -104.71370482131964,
+          "z": 16.327197677392235,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -104.91917144442493,
+          "z": 16.323302694629213,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -104.82830299000652,
+          "z": 16.29142694397142,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -104.73743453558811,
+          "z": 16.259551193313627,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -104.871712015888,
+          "z": 16.45859566278643,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -104.78084356146958,
+          "z": 16.426719912128636,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -104.68997510705117,
+          "z": 16.394844161470843,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -104.89544173015646,
+          "z": 16.39094917870782,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 515,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0,
+          "x": -104.80457327573805,
+          "z": 16.359073428050028,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -104.71370482131964,
+          "z": 16.327197677392235,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -104.91917144442493,
+          "z": 16.323302694629213,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -104.82830299000652,
+          "z": 16.29142694397142,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -104.73743453558811,
+          "z": 16.259551193313627,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 514,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        }
+      ]
+    },
+    {
+      "pixel": [
+        595,
+        112
+      ],
+      "mesh": "chunk_-2,0:rubble",
+      "faceIndex": 1476,
+      "triangle": [
+        [
+          -105.9615249633789,
+          10.050000190734863,
+          18.918455123901367
+        ],
+        [
+          -106.27191925048828,
+          10.050000190734863,
+          19.25130844116211
+        ],
+        [
+          -106.27191925048828,
+          10.215725898742676,
+          19.25130844116211
+        ]
+      ],
+      "start": 1476,
+      "end": 1488,
+      "args": {
+        "x": -106.00101369568117,
+        "y": 10.05,
+        "z": 19.192783278192316,
+        "w": 0.45512319973204285,
+        "h": 0.1657257101871073,
+        "d": 0.31642639526631683,
+        "rot": 2.321294297259223,
+        "uvScale": 2,
+        "tint": [
+          0.66,
+          0.64,
+          0.6
+        ],
+        "ao": 0.3
+      },
+      "triangleExact": true,
+      "rows": [
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -105.73010687592081,
+          "z": 19.1342581327741,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -105.84581599393685,
+          "z": 19.0263562518208,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -105.9615251119529,
+          "z": 18.9184543708675,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -105.88530457766512,
+          "z": 19.300685159145615,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0,
+          "x": -106.00101369568117,
+          "z": 19.192783278192316,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -106.11672281369721,
+          "z": 19.084881397239016,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -106.04050227940944,
+          "z": 19.46711218551713,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -106.15621139742548,
+          "z": 19.35921030456383,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "FrontSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -106.27192051544152,
+          "z": 19.25130842361053,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": -0.5,
+          "x": -105.73010687592081,
+          "z": 19.1342581327741,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0,
+          "x": -105.84581599393685,
+          "z": 19.0263562518208,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": -0.5,
+          "v": 0.5,
+          "x": -105.9615251119529,
+          "z": 18.9184543708675,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": -0.5,
+          "x": -105.88530457766512,
+          "z": 19.300685159145615,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0,
+          "x": -106.00101369568117,
+          "z": 19.192783278192316,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0,
+          "v": 0.5,
+          "x": -106.11672281369721,
+          "z": 19.084881397239016,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 513,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": -0.5,
+          "x": -106.04050227940944,
+          "z": 19.46711218551713,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0,
+          "x": -106.15621139742548,
+          "z": 19.35921030456383,
+          "originY": 10.051,
+          "selfFacesRemoved": 1,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        },
+        {
+          "side": "DoubleSide",
+          "u": 0.5,
+          "v": 0.5,
+          "x": -106.27192051544152,
+          "z": 19.25130842361053,
+          "originY": 10.051,
+          "selfFacesRemoved": 0,
+          "firstOther": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "gapFromBase": 9.909999999403954
+          },
+          "otherHitsNearBase": [],
+          "firstUpwardFacing": {
+            "mesh": "chunk_-2,0:concrete",
+            "faceIndex": 510,
+            "y": 0.14000000059604645,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "gapFromBase": 9.909999999403954
+          }
+        }
+      ]
+    }
+  ],
+  "receiverNormalRefutation": {
+    "checkedAt": "2026-09-14T00:27:03.797Z",
+    "criterion": "World geometric face normal.y > 0.01 identifies top-facing receiver candidates; face orientation is retained under DoubleSide raycasting.",
+    "summary": [
+      {
+        "pixel": [
+          606,
+          91
+        ],
+        "upwardNearBase": 0,
+        "upwardSurfaces": [
+          0,
+          0.14000000059604645
+        ],
+        "nearBaseExceptions": [
+          {
+            "sample": [
+              0.5,
+              0
+            ],
+            "side": "DoubleSide",
+            "mesh": "chunk_-2,0:rubble",
+            "faceIndex": 1499,
+            "y": 10.050000190734863,
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "upwardFacing": false
+          }
+        ]
+      },
+      {
+        "pixel": [
+          551,
+          95
+        ],
+        "upwardNearBase": 0,
+        "upwardSurfaces": [
+          0.02500000037252903,
+          0.029999999329447746
+        ],
+        "nearBaseExceptions": []
+      },
+      {
+        "pixel": [
+          570,
+          95
+        ],
+        "upwardNearBase": 0,
+        "upwardSurfaces": [
+          0.14000000059604645
+        ],
+        "nearBaseExceptions": []
+      },
+      {
+        "pixel": [
+          595,
+          112
+        ],
+        "upwardNearBase": 0,
+        "upwardSurfaces": [
+          0.14000000059604645
+        ],
+        "nearBaseExceptions": []
+      }
+    ],
+    "conclusion": "No tested footprint point has an upward-facing surface at the prop base. One AC edge sample intersects the downward-facing bottom of a different debris primitive at the same base height under DoubleSide, which is not a supporting roof surface. This is a sampled geometric support finding, not an exhaustive contact-area calculation."
+  },
+  "independentDataLens": {
+    "region": {
+      "id": "marrowroof_s",
+      "x": -60,
+      "z": 16,
+      "w": 150,
+      "d": 10,
+      "character": "roof",
+      "density": 0.55,
+      "y": 10.05
+    },
+    "nearestSouthernBuildingMasses": [
+      {
+        "id": "ms1",
+        "x": -121.5,
+        "z": 16,
+        "w": 12.4,
+        "d": 13,
+        "rot": 0,
+        "axisAlignedBounds": [
+          -127.7,
+          9.5,
+          -115.3,
+          22.5
+        ]
+      },
+      {
+        "id": "ms5",
+        "x": -79.5,
+        "z": 16,
+        "w": 14.4,
+        "d": 13,
+        "rot": 0,
+        "axisAlignedBounds": [
+          -86.7,
+          9.5,
+          -72.3,
+          22.5
+        ]
+      }
+    ],
+    "allRecordedFootprintSamplesOutsideEveryBuildingMass": true,
+    "sourceObservation": "Terrace avoids a complete bay whenever its pre-gap span intersects a reserved interval; the realized southern mass gap around these props is wider than the nominal [-108,-92] interval. Roof scatter uses the zone y=10.05 and rejects collision overlaps, without measuring an underlying roof."
+  }
+}

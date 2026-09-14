@@ -1359,6 +1359,7 @@ she has been able to get to telling somebody.`],
       } : null,
     });
     if (ok && !silent) g.hud.showAutosave();
+    if (!ok) g.hud.hideAutosave();
     return ok;
   }
 

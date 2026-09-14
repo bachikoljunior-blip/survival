@@ -1,0 +1,382 @@
+{
+  "verdict": "FAIL",
+  "score": 50,
+  "round": "ecccf348-arcade-floating-geometry",
+  "profile": "Actual native image inspection plus independent full City CPU geometry reconstruction",
+  "tier": "medium",
+  "nativeResolution": "1147x645",
+  "blindComparison": "This is an identified-build defect diagnosis, not a blind reference comparison. No evaluator preference, element satisfaction, frame-rate result or whole-product success is inferred.",
+  "scope": "FAIL is limited to unsupported roof-scatter geometry visible in the Arcade image. No product or CI files were edited by this review. The diagnostic score is not a concept-element rating.",
+  "target": {
+    "testedCommit": "ecccf348117767dd9f815d820dc3b6dcd2c78cd0",
+    "geometryCheckoutCommit": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "image": "ci-ecccf34/visual-arcade-frame.png",
+    "imageSha256": "c8589baa993c4cebbcfdc8455f48248396dd7dd26da0b2a4bed61ed0d14c34dd",
+    "report": "ci-ecccf34/report.json",
+    "reportSha256": "77cadf7c0a6dcab7e4cdc72965a0a161b86c52352091f19ad4b06c3154e3f926",
+    "sourceHashes": {
+      "src/world/city.js": "c9d402fd1450defe5dc758ac3645870e8854af9c3217d5c8568f69f8a0b1d91e",
+      "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd",
+      "src/world/props.js": "14d1f3aa6c1056d909e3a854eb5a45ea1b409cfffc19235e6ae2397c1cfbc7fb",
+      "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+      "src/world/geom.js": "c9a8dbc585c00ea44ac75a3d490c8a1a00fc9f0d6a3436763a27cb73ba533b4b"
+    },
+    "geometryContinuity": "git diff between tested commit and checkout found no difference in src/world, src/content/world_data.js or src/core/rng.js."
+  },
+  "findings": [
+    {
+      "severity": "major",
+      "shot": "visual-arcade-frame.png, sky near (606,91) and adjacent (551,95), (570,95), (595,112)",
+      "problem": "An AC body and three small rubble pieces are generated at base y=10.05 over a building gap. Nine sampled footprint points per object have no upward-facing support near that base; the first support below is street or pavement at y=0 to 0.14. The native image shows disconnected cuboid and debris silhouettes in the corresponding sky region.",
+      "why": "These are visibly disconnected ordinary world props. A missing support requirement produces the geometry even when its detailed chunk is enabled, so changing chunk visibility would not repair placement.",
+      "owner": "src/world/city.js",
+      "hypothesis": "Confirmed for these generated objects: the roof branch of City._scatter places props at zone.y after only rejecting collision overlap above that height. marrowroof_s covers the terrace gap and uses fixed y=10.05. The objects originate from this branch, not building roofClutter. Exact pixel-to-face attribution remains a projection inference because FOV was not recorded.",
+      "fix": "Make roof-scatter placement use actual supporting roof surfaces and heights across the generated footprint, including offset debris. Target 0 unsupported roof placements in a full City.build geometry check using ../cpu-city-fixture.mjs. Then run node tools/test-iphone-webkit.mjs, record the actual camera projection matrix and inspect the unchanged Arcade view for removed floating silhouettes and retained supported roof dressing. Do not treat a changed mesh/face ID alone as success.",
+      "evidence": {
+        "primarySupportSamples": 36,
+        "independentRays": 72,
+        "independentUpwardReceiverHitsNearBase": 0,
+        "independentBaseOriginY": 10.051,
+        "selfPrimitiveFacesExcluded": true,
+        "hiddenMeshesIncluded": true,
+        "materialSidesTested": [
+          "FrontSide",
+          "DoubleSide"
+        ],
+        "exception": "One AC-edge DoubleSide ray hit a different rubble bottom at y=10.050000190734863, normal [0,-1,0]. This was retained in the evidence and is not an upward supporting roof surface.",
+        "separateRefutation": "Independent full City reconstruction matched all four world triangles exactly and refuted the missed-same-height-roof hypothesis. Building-footprint bounds independently place all target samples in a building gap.",
+        "raw": [
+          "arcade-geometry-measurements.json",
+          "arcade-support-measurements.json",
+          "arcade-support-refutation.json"
+        ]
+      }
+    }
+  ],
+  "identities": [
+    {
+      "id": "AC body",
+      "nativePixelAssumingFov58": [
+        606,
+        91
+      ],
+      "mesh": "chunk_-2,0:metal",
+      "triangleFaceIndex": 1082,
+      "primitiveTriangleRangeHalfOpen": [
+        1080,
+        1092
+      ],
+      "baseCenterWorld": [
+        -106.4172545587644,
+        10.05,
+        17.229941367637366
+      ],
+      "dimensions": [
+        1.5,
+        0.9,
+        1.1
+      ],
+      "rotationY": 6.080534945978623,
+      "worldTriangle": [
+        [
+          -105.79329681396484,
+          10.050000190734863,
+          16.540246963500977
+        ],
+        [
+          -107.26260375976562,
+          10.050000190734863,
+          16.842145919799805
+        ],
+        [
+          -107.26260375976562,
+          10.949999809265137,
+          16.842145919799805
+        ]
+      ],
+      "rayHitWorld": [
+        -106.40053324259856,
+        10.327010794628306,
+        16.66501602183496
+      ],
+      "source": "props.acUnit -> City._scatter roof branch",
+      "upwardSupportY": [
+        0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "id": "left debris",
+      "nativePixelAssumingFov58": [
+        551,
+        95
+      ],
+      "mesh": "chunk_-2,0:rubble",
+      "triangleFaceIndex": 1452,
+      "primitiveTriangleRangeHalfOpen": [
+        1452,
+        1464
+      ],
+      "baseCenterWorld": [
+        -103.95522376305162,
+        10.05,
+        16.56924637729257
+      ],
+      "dimensions": [
+        0.4690376006346196,
+        0.12533163726096974,
+        0.22863821094855666
+      ],
+      "rotationY": 3.5836854950454446,
+      "worldTriangle": [
+        [
+          -103.69434356689453,
+          10.050000190734863,
+          16.566253662109375
+        ],
+        [
+          -104.1182861328125,
+          10.050000190734863,
+          16.365583419799805
+        ],
+        [
+          -104.1182861328125,
+          10.175332069396973,
+          16.365583419799805
+        ]
+      ],
+      "rayHitWorld": [
+        -103.94046045556763,
+        10.084824737786462,
+        16.449755957804626
+      ],
+      "source": "props.debris -> City._scatter roof branch",
+      "upwardSupportY": [
+        0.02500000037252903,
+        0.029999999329447746
+      ]
+    },
+    {
+      "id": "middle debris",
+      "nativePixelAssumingFov58": [
+        570,
+        95
+      ],
+      "mesh": "chunk_-2,0:rubble",
+      "triangleFaceIndex": 1451,
+      "primitiveTriangleRangeHalfOpen": [
+        1440,
+        1452
+      ],
+      "baseCenterWorld": [
+        -104.80457327573805,
+        10.05,
+        16.359073428050028
+      ],
+      "dimensions": [
+        0.14337567642331125,
+        0.09977115754503757,
+        0.1925942832836881
+      ],
+      "rotationY": 4.375010494027956,
+      "worldTriangle": [
+        [
+          -104.87171173095703,
+          10.050000190734863,
+          16.458595275878906
+        ],
+        [
+          -104.73743438720703,
+          10.050000190734863,
+          16.259552001953125
+        ],
+        [
+          -104.68997192382812,
+          10.050000190734863,
+          16.39484405517578
+        ]
+      ],
+      "rayHitWorld": [
+        -104.78698864561464,
+        10.050000190734863,
+        16.338043220515722
+      ],
+      "source": "props.debris -> City._scatter roof branch",
+      "upwardSupportY": [
+        0.14000000059604645
+      ]
+    },
+    {
+      "id": "lower debris",
+      "nativePixelAssumingFov58": [
+        595,
+        112
+      ],
+      "mesh": "chunk_-2,0:rubble",
+      "triangleFaceIndex": 1476,
+      "primitiveTriangleRangeHalfOpen": [
+        1476,
+        1488
+      ],
+      "baseCenterWorld": [
+        -106.00101369568117,
+        10.05,
+        19.192783278192316
+      ],
+      "dimensions": [
+        0.45512319973204285,
+        0.1657257101871073,
+        0.31642639526631683
+      ],
+      "rotationY": 2.321294297259223,
+      "worldTriangle": [
+        [
+          -105.9615249633789,
+          10.050000190734863,
+          18.918455123901367
+        ],
+        [
+          -106.27191925048828,
+          10.050000190734863,
+          19.25130844116211
+        ],
+        [
+          -106.27191925048828,
+          10.215725898742676,
+          19.25130844116211
+        ]
+      ],
+      "rayHitWorld": [
+        -105.99407556641484,
+        10.055552722661607,
+        18.953360973168913
+      ],
+      "source": "props.debris -> City._scatter roof branch",
+      "upwardSupportY": [
+        0.14000000059604645
+      ]
+    }
+  ],
+  "visibility": {
+    "chunk": {
+      "name": "chunk_-2,0",
+      "center": [
+        -84,
+        28
+      ],
+      "visible": true,
+      "distance": 43.457890505292426,
+      "cutoff": 143.76
+    },
+    "interpretation": "The reconstructed target chunk is visible at the recorded camera position. Support rays also include hidden mesh parents; they did not recover a supporting roof. This refutes chunk-distance culling as the explanation for the missing support of these props, not every possible culling defect in the game."
+  },
+  "generation": {
+    "zone": {
+      "id": "marrowroof_s",
+      "centerXZ": [
+        -60,
+        16
+      ],
+      "sizeWD": [
+        150,
+        10
+      ],
+      "baseY": 10.05,
+      "density": 0.55
+    },
+    "source": [
+      "src/world/city.js: City._scatter collision-only inside check and roof case",
+      "src/content/world_data.js: terrace helper and marrowroof_s scatter"
+    ],
+    "nearbyBuildings": {
+      "ms1": {
+        "xBounds": [
+          -127.7,
+          -115.3
+        ],
+        "zBounds": [
+          9.5,
+          22.5
+        ],
+        "roofY": 9.51
+      },
+      "ms5": {
+        "xBounds": [
+          -86.7,
+          -72.3
+        ]
+      }
+    },
+    "gapExplanation": "terrace omits the whole bay when it intersects an avoid span. The actual gap is therefore wider than the nominal [-108,-92] interval. A broad roof-scatter rectangle does not inherit those omitted building footprints."
+  },
+  "measurementBoundary": {
+    "cpu": "Actual City.build, MeshBuilder geometry, collision world and visibility update ran in Node. Canvas2D drawing/text metrics and texture/material appearance were stubbed; no GPU rendering or actor fixture was performed.",
+    "cameraPosition": [
+      -104.92,
+      1.8111233054788511,
+      -10.091230580935367
+    ],
+    "cameraQuaternion": [
+      -2.136977846428571e-18,
+      0.9993908270190958,
+      0.03489949670250097,
+      6.119503887030809e-17
+    ],
+    "projection": "The recorded report omits fov/aspect/projectionMatrix. The CPU reconstruction uses aspect 667/375 from the CSS viewport and tests FOV 55 through 58. The actual source camera approaches 58 degrees during idle, but the tested frame FOV is not independently measured.",
+    "bodyProjection": [
+      {
+        "fov": 55,
+        "bodyBoundsPixels": [
+          588.418006359341,
+          60.29342076520845,
+          628.8169401153597,
+          92.22356633184395
+        ]
+      },
+      {
+        "fov": 57.5,
+        "bodyBoundsPixels": [
+          587.6552253767039,
+          73.70045300161561,
+          625.9884985045107,
+          103.9979603172417
+        ]
+      },
+      {
+        "fov": 58,
+        "bodyBoundsPixels": [
+          587.5099147763169,
+          76.25450711154657,
+          625.4496773251843,
+          106.24099507840893
+        ]
+      }
+    ],
+    "pixelCorrespondence": "At FOV 58 the AC body projects to [587.5099,76.2545,625.4497,106.2410], matching the inspected native cuboid region. The exact (606,91) ray hits other geometry for some alternative FOV values. World support measurements do not depend on this FOV assumption.",
+    "supportSampling": "Primary rays use interior footprint samples -0.45/0/0.45 and start below the base. Independent rays use footprint -0.5/0/0.5, start above the base and exclude self primitive faces. This is sampled support, not a proof of every infinitesimal contact point. Actual full building footprint bounds provide additional independent evidence.",
+    "unrelatedPanel": "The tall rusty shape near (660,195) reconstructs to the fireEscape structure at x=-110,z=22.5. Its wall attachment/support has not been established here, so it is not included in the confirmed roof-scatter finding.",
+    "nextBrowserEvidence": "Record camera fov, aspect and projectionMatrix in the existing native capture; record ray hits and visible parent IDs for the named pixels if exact native pixel ownership is required. Preserve pre/post images and compare actual support and placement after the fix."
+  },
+  "reusableFixture": {
+    "file": "cpu-city-fixture.mjs",
+    "sha256": "fb5117947d51cb4abb6fb36b380d479992e1cb5a24ce407530db589be4ae631f",
+    "export": "buildCpuCity({tier:\"medium\",cameraPosition:[-104.92,1.8111233054788511,-10.091230580935367]})",
+    "testedMeshes": 469,
+    "testedGeometryTriangles": 253374,
+    "geometryNamesPositionsIndicesSha256": "179091c1de358558e0fdaac9e9613e6438873dd4fe0d541d7483fb398026a7ac",
+    "boundary": "Whole City geometry count, including hidden/backdrop/sign meshes; not a draw submission count. Material rendering appearance is not faithful. The fixture imports the current checkout and must be remeasured after changes."
+  },
+  "independentRefuter": "/root/render_cost_review/refute_backdrop",
+  "completedAtUTC": "2026-09-14T00:30:29.916Z",
+  "evidenceHashes": {
+    "arcade-geometry-measurements.json": "1aab4b8cf7a4324f088bbfbd2b09e23b3e7c393550fdf819afcd6f777ab6239a",
+    "arcade-support-measurements.json": "cf788cc8db26d0f990cb4136f7aec8ab22cbee51060ecfd1e581c64948363211",
+    "arcade-support-refutation.json": "876d76608a4adcbd4dc92daffd4df0af21dc84350178ecd4e7b8d737b314006d"
+  },
+  "structuredValidation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

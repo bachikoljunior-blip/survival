@@ -1,0 +1,120 @@
+{
+  "recorded_at": "2026-09-14T09:53:36.082274+09:00",
+  "base_commit": "2220b65b805f54e8d51e0ecc96807dad3d61b594",
+  "pending_build_sha256": "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897",
+  "scope": "Independent source/CPU geometry and installed Three.js renderer-method probes, with separate refutation. No browser, real GL context, raster images, GPU or physical phone performance was measured. No reference-work blind comparison. All 19 elements remain not measured.",
+  "files": [
+    {
+      "path": "arcade-floating-geometry-review.json",
+      "bytes": 14224,
+      "sha256": "71fbbd0a5be87e3ba780467fadd7f0301f22f7ccaf28d179896f55e9c83e2fcf"
+    },
+    {
+      "path": "arcade-geometry-measurements.json",
+      "bytes": 108618,
+      "sha256": "1aab4b8cf7a4324f088bbfbd2b09e23b3e7c393550fdf819afcd6f777ab6239a"
+    },
+    {
+      "path": "arcade-support-measurements.json",
+      "bytes": 39332,
+      "sha256": "cf788cc8db26d0f990cb4136f7aec8ab22cbee51060ecfd1e581c64948363211"
+    },
+    {
+      "path": "arcade-support-refutation.json",
+      "bytes": 61147,
+      "sha256": "876d76608a4adcbd4dc92daffd4df0af21dc84350178ecd4e7b8d737b314006d"
+    },
+    {
+      "path": "roof-scatter-source-review.json",
+      "bytes": 12418,
+      "sha256": "f6e0dd52b5ecfeed0bc82854ad52cd7852d89b3956be5abb0c4f4894d5590f98"
+    },
+    {
+      "path": "roof-scatter-cpu-measurements.json",
+      "bytes": 61828,
+      "sha256": "97be1acbd1d0c8b0542f577902afb04deb826ac973da47af388604c3a8945a71"
+    },
+    {
+      "path": "roof-render-support-measurements.json",
+      "bytes": 75378,
+      "sha256": "4bf194847d2fa44078b3543c5eff7d9cf04dc8662dcbca80f2c5dc935b91a18f"
+    },
+    {
+      "path": "roof-scatter-normal-failure-history.json",
+      "bytes": 1439,
+      "sha256": "c89a12503341591c06ec32538f69ce20ea33a2318117227d0b5daf9d1c8d0844"
+    },
+    {
+      "path": "roof-scatter-refutation.json",
+      "bytes": 10906,
+      "sha256": "b6ca6a13124554ade813600eb4f8c372d3537885c3dd5de36a78a0b7543bad62"
+    },
+    {
+      "path": "roof-scatter-diagnosis.mjs",
+      "bytes": 8417,
+      "sha256": "d721aa498e122e00dd72dc80ab72b948dc2631f6f1340d84fc082f1409f42f42"
+    },
+    {
+      "path": "roof-render-support-probe.mjs",
+      "bytes": 4239,
+      "sha256": "d6048391183e2aa7e29b50b1937ac1bc5a18d61c96efdeac278dc9150817d7dc"
+    },
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "bytes": 2944,
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    },
+    {
+      "path": "shadow-batch-source-review.json",
+      "bytes": 12157,
+      "sha256": "dae447d5d1d03269abad6749574b46dd25dbdb571723b1a8e1a4d9e47d164745"
+    },
+    {
+      "path": "shadow-batch-refutation.json",
+      "bytes": 16593,
+      "sha256": "128a802c363eb39d4256e6d8e5841e6b625c322a233a027c76b1f8ac6a0844cc"
+    },
+    {
+      "path": "shadow-batch-source-probe-one-actor.json",
+      "bytes": 8805,
+      "sha256": "e433ca2f696ef16650a9507228a3bb8bf4fc519986f6d0b24f5994e01e0ac1b1"
+    },
+    {
+      "path": "shadow-batch-source-probe-planar-one-actor.json",
+      "bytes": 9683,
+      "sha256": "70cfeeaf8980b33f77b2c88581b0c499405b57a22aa4da4adb08d0ff4566f36c"
+    },
+    {
+      "path": "shadow-batch-source-probe-planar.json",
+      "bytes": 9793,
+      "sha256": "9f217c77c7ec257f7ce8a10bdfbd8c5dc193b1c5eb043a72ce8cef3f83cb89b3"
+    },
+    {
+      "path": "shadow-batch-source-probe.mjs",
+      "bytes": 16225,
+      "sha256": "0e2cdadbda584fb14547000523874a963825cb775854e08e38b1a12d4bef9b58"
+    },
+    {
+      "path": "shadow-batch-refute.mjs",
+      "bytes": 4016,
+      "sha256": "f59a44887825147dabfc9b3d3d6d601dc3d09f6ea3515f2a502a68daae0db925"
+    },
+    {
+      "path": "shadow-batch-allocation-refute.mjs",
+      "bytes": 4259,
+      "sha256": "b99c66c9edb18925a54aec461d0c3696435c073a7fadef646d73677f06a45dc6"
+    },
+    {
+      "path": "shadow-batch-budget-refute.mjs",
+      "bytes": 7503,
+      "sha256": "b6933c661b9d317d2fc239a3f40754b50683c475e1a94cdd535e1c2ea2946150"
+    },
+    {
+      "path": "shadow-batch-planar-refute.mjs",
+      "bytes": 6301,
+      "sha256": "fc56719c8a3f6cc46bf06df9526401c224bd0fd0579287ff8add0e696c7ee3d7"
+    }
+  ],
+  "reproduction_boundary": "Raw probe programs retain their original scratch paths and source dependencies for provenance. Their original repository HEAD was 2220b65. Source probes that use git show HEAD require that baseline or explicit replacement with that exact commit; do not rerun with a later HEAD and call it the same baseline. Portable regression coverage lives in tools/shadow_batches.test.mjs and tools/collision_normals.test.mjs. Source hashes in each report delimit the measured product.",
+  "next_actual_check": "Approved exact-branch CI: native medium gameplay, batched/original silhouettes at equal pose and bias, actual shadow callbacks and complete draw/triangle counters, plus Marrow roof and Arcade appearance."
+}

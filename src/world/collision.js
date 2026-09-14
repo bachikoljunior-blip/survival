@@ -300,7 +300,7 @@ export class CollisionWorld {
       if (Math.abs(ldx) < 1e-8) { if (Math.abs(lox) > b.hw) continue; }
       else {
         let ta = (-b.hw - lox) / ldx, tb = (b.hw - lox) / ldx;
-        let sgn = -Math.sign(ldx);
+        let sgn = -1; // ta starts on the negative face; swapping chooses the positive face.
         if (ta > tb) { const t = ta; ta = tb; tb = t; sgn = -sgn; }
         if (ta > t0) { t0 = ta; hitAxis = 0; hitSign = sgn; }
         if (tb < t1) t1 = tb;
@@ -310,7 +310,7 @@ export class CollisionWorld {
       if (Math.abs(dy) < 1e-8) { if (oy < b.y0 || oy > b.y1) continue; }
       else {
         let ta = (b.y0 - oy) / dy, tb = (b.y1 - oy) / dy;
-        let sgn = -Math.sign(dy);
+        let sgn = -1;
         if (ta > tb) { const t = ta; ta = tb; tb = t; sgn = -sgn; }
         if (ta > t0) { t0 = ta; hitAxis = 1; hitSign = sgn; }
         if (tb < t1) t1 = tb;
@@ -320,7 +320,7 @@ export class CollisionWorld {
       if (Math.abs(ldz) < 1e-8) { if (Math.abs(loz) > b.hd) continue; }
       else {
         let ta = (-b.hd - loz) / ldz, tb = (b.hd - loz) / ldz;
-        let sgn = -Math.sign(ldz);
+        let sgn = -1;
         if (ta > tb) { const t = ta; ta = tb; tb = t; sgn = -sgn; }
         if (ta > t0) { t0 = ta; hitAxis = 2; hitSign = sgn; }
         if (tb < t1) t1 = tb;

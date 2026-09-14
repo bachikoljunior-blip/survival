@@ -10,7 +10,7 @@ export async function captureShadowContact({page,root,output,name,cachedFrame,ch
   const captured=await page.evaluate(()=>{
     const C=window.CINDERLINE,r=C.engine.renderer,s=C.atmos.sun.shadow;
     if(C.engine.running) throw new Error('shadow diagnostic needs the already frozen visual capture');
-    const original={bias:s.bias,normalBias:s.normalBias};
+    const original={bias:s.bias,normalBias:s.normalBias,batching:C.game.shadowBatches.enabled};
     const pose=()=>{
       const transforms=[];
       C.game.player.group.traverse(o=>transforms.push([o.name,o.position.toArray(),o.quaternion.toArray(),o.scale.toArray()]));
@@ -19,27 +19,41 @@ export async function captureShadowContact({page,root,output,name,cachedFrame,ch
     };
     const before=pose();
     const frames=[];
+    const hooks=[];
+    let submissions=[];
+    C.scene.traverse(object=>{
+      if(!object.isMesh) return;
+      const previous=object.onBeforeShadow;
+      hooks.push([object,previous]);
+      object.onBeforeShadow=function(...args){
+        previous.apply(this,args);
+        const g=this.geometry;
+        submissions.push({name:this.name,indices:Math.min(g.drawRange.count,
+          Math.max(0,(g.index?.count??g.attributes.position.count)-g.drawRange.start))});
+      };
+    });
     try {
-      // The cached production image and a refreshed image at the same values
-      // distinguish a stale map from the numerical depth offset hypothesis.
-      for(const [variant,bias,normalBias] of [
-        ['refreshed',original.bias,original.normalBias],
-        ['depth',-0.00015,original.normalBias],
-        ['depth-normal',-0.00015,0.012],
-        ['repeat',original.bias,original.normalBias],
+      // Compare the current production path with the original caster meshes,
+      // at the same pose and bias. Restore production and require repeatability.
+      for(const [variant,batching] of [
+        ['refreshed',original.batching], ['unbatched',false], ['repeat',original.batching],
       ]) {
-        s.bias=bias;s.normalBias=normalBias;
+        C.game.shadowBatches.setEnabled(batching);
+        submissions=[];
         C.atmos.shadowDirty=true;
         C.game.render(0);
         const png=r.domElement.toDataURL('image/png');
         r.getContext().finish();
-        frames.push({variant,bias,normalBias,png,perf:C.engine.perfSnapshot()});
+        frames.push({variant,batching,bias:s.bias,normalBias:s.normalBias,png,
+          shadowSubmissions:submissions,batches:{...C.game.shadowBatches.stats},perf:C.engine.perfSnapshot()});
       }
       return {original,before,after:pose(),frames,tier:C.engine.tier.name,
         shadowMapSize:s.mapSize.toArray(),shadowCamera:{near:s.camera.near,far:s.camera.far},
         lightPosition:C.atmos.sun.position.toArray(),lightTarget:C.atmos.sun.target.position.toArray()};
     } finally {
-      Object.assign(s,original);C.atmos.shadowDirty=true;C.game.render(0);
+      for(const [object,previous] of hooks) object.onBeforeShadow=previous;
+      C.game.shadowBatches.setEnabled(original.batching);
+      C.atmos.shadowDirty=true;C.game.render(0);
     }
   });
   // Reuse the parent's synchronous production capture. A later toDataURL on a
@@ -59,7 +73,12 @@ export async function captureShadowContact({page,root,output,name,cachedFrame,ch
   check(JSON.stringify(captured.before)===JSON.stringify(captured.after),
     `shadow ${name}: pose, camera and simulation stay fixed`);
   check(rows.find(r=>r.variant==='refreshed').rgbaSha256===rows.find(r=>r.variant==='repeat').rgbaSha256,
-    `shadow ${name}: restoring original values reproduces identical pixels`);
-  report.shadowContact??={scope:'Diagnostic alternatives in the same frozen medium-quality production scene. The first image uses the cached production shadow map; all others rebuild it. Only shadow bias and normalBias vary. Alternate values are not shipped settings, a blind verdict, or physical-device performance evidence.',views:[]};
+    `shadow ${name}: restoring production batches reproduces identical pixels`);
+  check(rows[0].rgbaSha256===rows.find(r=>r.variant==='refreshed').rgbaSha256,
+    `shadow ${name}: the production map is already current for the captured pose`);
+  const fresh=rows.find(r=>r.variant==='refreshed');
+  check(fresh.shadowSubmissions.length<=2 && fresh.batches.unsupportedSources===0,
+    `shadow ${name}: at most two actual shadow submissions`,JSON.stringify(fresh.shadowSubmissions));
+  report.shadowContact??={scope:'Frozen production batches versus original unbatched caster meshes at identical pose, camera and unchanged bias. Native images and actual onBeforeShadow callbacks are recorded. The first production image must match a forced refresh; restored batches must reproduce the same pixels. Draw and triangle counters include shadow, colour and post submissions, including any zero-count proxy calls. This is a renderer diagnostic, not a source-blind reference comparison or physical-device speed measurement.',views:[]};
   report.shadowContact.views.push({name,...captured});
 }

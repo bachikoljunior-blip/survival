@@ -28,6 +28,7 @@ export class MeshBuilder {
     this.uv = [];
     this.col = [];
     this.idx = [];
+    this.shadowFaces = [];
     this.vertCount = 0;
   }
 
@@ -74,6 +75,7 @@ export class MeshBuilder {
     const maxSeg = o.maxSeg ?? 8;
 
     const face = (nx, ny, nz, corners, uw, uh) => {
+      const firstIndex = this.idx.length;
       const su = Math.max(1, Math.min(maxSeg, Math.round(uw / cell)));
       const sv = Math.max(1, Math.min(maxSeg, Math.round(uh / cell)));
       const [c0, c1, c2, c3] = corners;
@@ -101,6 +103,10 @@ export class MeshBuilder {
           this.quad(a, a + 1, a + row + 1, a + row);
         }
       }
+      // AO needs the colour mesh's grid; a planar opaque depth silhouette
+      // needs only its four existing corner vertices.
+      const a=base, b=base+su, c=base+sv*row+su, d=base+sv*row;
+      this.shadowFaces.push({start:firstIndex,count:this.idx.length-firstIndex,indices:[a,b,c,a,c,d]});
     };
 
     if (faces & FACE.PZ) face(0, 0, 1, [
@@ -157,6 +163,7 @@ export class MeshBuilder {
   /** Horizontal plane (floors, roads, ceilings when flipped), subdivided. */
   plane(x, y, z, w, d, uvScale = 0.5, tint = [1, 1, 1], up = true, cell = 3.2) {
     const base = this.vertCount;
+    const firstIndex = this.idx.length;
     const x0 = x - w / 2, z0 = z - d / 2;
     const ny = up ? 1 : -1;
     const [tr, tg, tb] = tint;
@@ -176,6 +183,9 @@ export class MeshBuilder {
         else this.quad(a, a + 1, a + row + 1, a + row);
       }
     }
+    const a=base, b=base+sx, c=base+sz*row+sx, q=base+sz*row;
+    this.shadowFaces.push({start:firstIndex,count:this.idx.length-firstIndex,
+      indices:up?[a,q,c,a,c,b]:[a,b,c,a,c,q]});
     return this;
   }
 
@@ -260,6 +270,7 @@ export class MeshBuilder {
   /** Append another builder's contents, optionally translated. */
   append(other, dx = 0, dy = 0, dz = 0) {
     const off = this.vertCount;
+    const firstIndex = this.idx.length;
     for (let i = 0; i < other.vertCount; i++) {
       this.pos.push(other.pos[i * 3] + dx, other.pos[i * 3 + 1] + dy, other.pos[i * 3 + 2] + dz);
       this.nrm.push(other.nrm[i * 3], other.nrm[i * 3 + 1], other.nrm[i * 3 + 2]);
@@ -267,6 +278,9 @@ export class MeshBuilder {
       this.col.push(other.col[i * 3], other.col[i * 3 + 1], other.col[i * 3 + 2]);
     }
     for (const i of other.idx) this.idx.push(i + off);
+    for (const face of other.shadowFaces) this.shadowFaces.push({
+      start:firstIndex+face.start,count:face.count,indices:face.indices.map(i=>i+off),
+    });
     this.vertCount += other.vertCount;
     return this;
   }
@@ -314,6 +328,17 @@ export class MeshBuilder {
     g.setIndex(this.vertCount > 65535
       ? new THREE.Uint32BufferAttribute(this.idx, 1)
       : new THREE.Uint16BufferAttribute(this.idx, 1));
+    if (this.shadowFaces.length) {
+      const simplified=[];
+      let offset=0;
+      for (const face of this.shadowFaces) {
+        for (;offset<face.start;offset++) simplified.push(this.idx[offset]);
+        simplified.push(...face.indices);
+        offset=face.start+face.count;
+      }
+      for (;offset<this.idx.length;offset++) simplified.push(this.idx[offset]);
+      g.userData.shadowIndex=new Uint32Array(simplified);
+    }
     if (computeBounds) { g.computeBoundingSphere(); g.computeBoundingBox(); }
     return g;
   }

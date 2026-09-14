@@ -1,0 +1,204 @@
+{
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "The schema requires a numeric score; 0 is an explicitly non-evaluative placeholder. No aggregate product-quality or blind-comparison score was measured. The scoped source verdict is separate.",
+  "round": "shadow-batch-source-2026-09-14",
+  "profile": "Node 24.19.0 / installed Three.js 0.180.0 / source-only recording renderer methods",
+  "tier": "medium",
+  "nativeResolution": "0x0",
+  "resolutionMeaning": "No framebuffer or raster image was produced. Source camera aspect is 667:375.",
+  "blindComparison": "Not performed. No anonymous reference comparison or pixel/rendered-frame comparison was available in this source-only review; it cannot determine which work a stranger would choose or establish element satisfaction.",
+  "repository": "/workspace/scratch/0b7ad82bafe7/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "sourceHashes": {
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "tools/shadow_batches.test.mjs": "e66485ce751086622f506f9bd66bbe0aec4235489e23f2e9e693c479162cc5c5",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/game/game.js": "8ceb37dba71927f2eb950b93fb60941d65b66c44c5dd995d393e99f2ed896354",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+  },
+  "qualityBar": {
+    "instructions": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      ".claude/skills/critic/SKILL.md"
+    ],
+    "criticOverlay": "absent",
+    "productRequirements": [
+      "docs/directive.md §9, §12, §13",
+      "docs/benchmarks.md BM-PRF-01, BM-PRF-02, BM-PRF-05, BM-PRF-06"
+    ],
+    "budgets": {
+      "normalDrawCalls": 150,
+      "worstDrawCalls": 250,
+      "submittedTriangles": 300000,
+      "shadowCasters": 2,
+      "skinnedMeshes": 8,
+      "fullJsFrameMs": 8
+    }
+  },
+  "independence": {
+    "implementationAuthorship": false,
+    "readmeRead": false,
+    "productEdits": false,
+    "separateRefuter": "/root/shadow_batch_review/refuter",
+    "refutationFile": "/workspace/scratch/0b7ad82bafe7/shadow-batch-refutation.json",
+    "currentRefutationAssessment": "No current source defect finding survives these refutation passes. This does not establish visual, complete scene-budget or browser/GPU performance satisfaction."
+  },
+  "findings": [],
+  "addressedCandidates": [
+    {
+      "id": "zero-count-colour-overclaim",
+      "originalObservation": "The installed r180 renderer submits and counts one zero-count colour draw for each populated batch. The initial source comment incorrectly claimed no colour draw.",
+      "currentDisposition": "Addressed as a contract/claim issue: comments now acknowledge counted overhead and the test claims zero colour triangles. Two populated proxies still add two zero-count colour draws; full submission budgets must include those calls.",
+      "evidence": "/workspace/scratch/0b7ad82bafe7/shadow-batch-refute.mjs"
+    },
+    {
+      "id": "roof-submitted-triangle-budget",
+      "originalObservation": "The intermediate unsimplified one-Ren roof source fixture submitted 325,026 colour+shadow triangles, above the 300,000 budget. A separate City-only source probe confirmed 322,482 at authored y=11.4 and 322,698 at near-roof y=10.1, so the excess did not depend on the extra actor fixture.",
+      "currentDisposition": "Addressed within the bounded source fixture by the planar shadow-index path. The same one-Ren fixture now submits 275,254 triangles, including 155,008 unchanged colour triangles. The independent City-only probe gives 272,710 / 272,926 at the two heights. These exclude atmosphere/post effects and do not establish full-game budget satisfaction.",
+      "intermediateEvidence": [
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-one-actor.json",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe.json"
+      ],
+      "currentEvidence": [
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-planar-one-actor.json",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-budget-refute.mjs"
+      ]
+    },
+    {
+      "id": "SHADOW-ALLOC-01",
+      "originalObservation": "One warm ShadowBatches.update allocates 60 new typed arrays totaling 210,612 bytes for the actual performance-fixture loadout. Every dynamic position/index array is replaced although all source topologies are unchanged. This is 12,636,720 bytes/second at 60 updates/second, an arithmetic rate rather than a measured game frame rate.",
+      "currentDisposition": "Addressed by retained pack storage, revision counters and destination batch-version checks. Separate constructor interception on both the actual Player + seven Enemy loadout and the eight-Actor fixture reports 0 typed-array allocations and 0 bytes in a warm update; pack arrays are reused, animated source and destination positions change, and destination BufferAttribute.version advances. The full source probe reports 0 newly allocated dynamic typed-array bytes/update across 120 warm updates.",
+      "currentEvidence": [
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-allocation-refute.mjs",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-planar.json",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-planar-one-actor.json"
+      ],
+      "refutation": "Confirmed by a separate agent; no current finding survives."
+    }
+  ],
+  "verifiedSourceObservations": [
+    {
+      "area": "planar-surface and colour-buffer preservation",
+      "result": {
+        "geometries": 414,
+        "faces": 74253,
+        "originalTriangles": 252060,
+        "simplifiedTriangles": 167480,
+        "maxPlaneError": 0.000016948271470695886,
+        "maxBoundaryError": 0.000016948271469213592,
+        "maxRelativeAreaError": 7.941910808652801e-7
+      },
+      "explanation": "For every actual City builder, each original tagged-grid triangle vertex is inside the coarse face union within 0.0001 world units; face orientation and area agree. Every colour position, normal, UV, colour and index buffer is byte-identical to HEAD MeshBuilder.build applied to the same current builder data. This isolates the metadata change from the independently changing roof-scatter code.",
+      "independentRefutation": "The separate refuter verified closed oriented boundaries, coplanarity, unchanged uncovered spans, all 63 nonempty box-face masks, both plane sides, tilt/rotation, mixed primitives, and translated/nested appends.",
+      "evidence": [
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-planar-one-actor.json",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-planar-refute.mjs"
+      ]
+    },
+    {
+      "area": "current poses, hidden/removal state and morphs",
+      "result": "Current pooled+planar code passes the eight-city-position and five-real-animation-clip probes (atk1, heavy, dodge, death, throw, three phases each). Selected sources remain present and shader-equivalent posed vertices match within 0.000014 world units. Hidden and removed actor checks, re-addition and morph refresh pass. The independent allocation probe separately confirms that destination batch vertices and upload versions change under pooling.",
+      "evidence": [
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-planar.json",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe-planar-one-actor.json",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-allocation-refute.mjs"
+      ]
+    },
+    {
+      "area": "renderer lifecycle, side rules and pass hooks",
+      "result": "Installed WebGLShadowMap executes onBeforeShadow before renderBufferDirect reads drawRange. Original depth side selection and negative-object-transform front-face behavior match the batch winding path for the current PCFSoftShadowMap configuration. Actual WebGLGeometries/WebGLObjects source with tracked allocations releases growth/disposal buffers; geometry memory and tracked attributes return to zero after disposal. Ray picking ignores proxies.",
+      "evidence": [
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-source-probe.mjs",
+        "/workspace/scratch/0b7ad82bafe7/shadow-batch-refute.mjs",
+        "node --test tools/shadow_batches.test.mjs: 7/7 pass"
+      ]
+    }
+  ],
+  "nonFindingObservations": [
+    {
+      "area": "caster ownership",
+      "observation": "A later external castShadow=false write on an owned source is ignored and release paths restore true. A separate refuter reproduced this API limitation, but no current product caller disables a mesh after it becomes owned; current callers use construction-time flags and visibility/removal. Not promoted to a present gameplay defect.",
+      "evidence": "/workspace/scratch/0b7ad82bafe7/shadow-batch-refutation.json"
+    }
+  ],
+  "scopeLimits": [
+    "No browser/server or real WebGL context was launched, and no pixels, shader compilation, GPU timing, screenshots or smartphone frame pacing were measured.",
+    "City source geometry and real rig/animation classes were used; opaque shadow-equivalent material substitutes and an inert sign canvas avoided a browser. Runtime material appearance is not judged.",
+    "Full-scene atmosphere, post-processing and other gameplay effects are absent from the source submission fixture. Normal/worst draw, triangle, JS-time and memory budgets require the authorized complete-scene CI run.",
+    "Review covers the current directional PCFSoftShadowMap path. Other shadow-map types, point-light/custom-distance paths, arbitrary caller mutations and unsupported material features are not approved.",
+    "No blind/reference comparison occurred. All element satisfaction and overall product quality remain unmeasured by this review."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  },
+  "verdictScope": "Only the explicit source checks and reproduced Node renderer-method probes. No current source defect survived the separate refutation. This is not a product, element, pixel, browser, performance or release approval.",
+  "currentSourceMeasurements": {
+    "oneActorRoof": {
+      "name": "marrow_roof",
+      "sourceShadowDraws": 137,
+      "proxyShadowDraws": 2,
+      "staticSources": 132,
+      "dynamicSources": 5,
+      "staticTriangles": 118974,
+      "dynamicTriangles": 1272,
+      "unsupportedSources": 0,
+      "prepareMs": 17.55323300000009,
+      "vertices": 270819,
+      "maxVertexError": 0.0000036811764603847873,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 118,
+        "triangles": 155008,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 275254,
+      "sourceSceneTotalDraws": 120
+    },
+    "eightActorRoof": {
+      "name": "marrow_roof",
+      "sourceShadowDraws": 168,
+      "proxyShadowDraws": 2,
+      "staticSources": 132,
+      "dynamicSources": 36,
+      "staticTriangles": 118974,
+      "dynamicTriangles": 8384,
+      "unsupportedSources": 0,
+      "prepareMs": 21.29969300000016,
+      "vertices": 278753,
+      "maxVertexError": 0.0000036811764603847873,
+      "missing": 0,
+      "indexErrors": 0,
+      "colourSubmissions": {
+        "frame": 0,
+        "calls": 123,
+        "triangles": 156228,
+        "points": 0,
+        "lines": 0
+      },
+      "sourceSceneTotalTriangles": 283586,
+      "sourceSceneTotalDraws": 125
+    },
+    "newTypedArrayBytesPerWarmUpdate": {
+      "oneActor": 0,
+      "eightActors": 0
+    },
+    "sourceOnlyTiming": {
+      "samples": 120,
+      "p50": 1.3007280000001629,
+      "p95": 1.4912249999999858,
+      "max": 3.8766160000000127,
+      "dynamicPackTypedArrayBytesPerUpdate": 0,
+      "frameBudgetMs": 8
+    },
+    "timingLimit": "Node preparation timings exclude shader/GPU work and the full game frame. They do not establish the 8 ms browser frame budget."
+  }
+}

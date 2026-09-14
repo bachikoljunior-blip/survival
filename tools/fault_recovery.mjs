@@ -308,6 +308,7 @@ const waitForFaults = async (page, n, ms = 6000) => {
     'failed-save setup: a real previous save exists before blocking writes');
   await page.evaluate(k=>{
     const real=window.Storage.prototype.setItem;
+    window.__restoreStorageWrites=()=>{window.Storage.prototype.setItem=real;};
     window.Storage.prototype.setItem=function(key,value){
       if(key===k) throw new DOMException('probe: storage full','QuotaExceededError');
       return real.call(this,key,value);
@@ -320,7 +321,18 @@ const waitForFaults = async (page, n, ms = 6000) => {
     'failed save: visible warning does not announce success',JSON.stringify(s.noticeBoxes));
   expect(await page.evaluate(k=>localStorage.getItem(k),SAVE_KEY)===previous,
     'failed save: prior saved bytes remain intact');
+  expect(await page.evaluate(()=>{
+    const el=document.querySelector('.autosave');
+    return el && getComputedStyle(el).display==='none' && el.getBoundingClientRect().width===0;
+  }), 'failed save: the previous successful-save indicator is immediately invisible');
   await capture(page,'unsaved-play-error');
+  const recoveredSave=await page.evaluate(()=>{
+    window.__restoreStorageWrites();
+    const saved=window.CINDERLINE.game.director.save(false),el=document.querySelector('.autosave');
+    return {saved,visible:!el.hidden&&el.classList.contains('on')&&el.getBoundingClientRect().width>0};
+  });
+  expect(recoveredSave.saved&&recoveredSave.visible,
+    'storage recovery: a later real successful save can show its indicator',JSON.stringify(recoveredSave));
   await ctx.close();
 }
 
