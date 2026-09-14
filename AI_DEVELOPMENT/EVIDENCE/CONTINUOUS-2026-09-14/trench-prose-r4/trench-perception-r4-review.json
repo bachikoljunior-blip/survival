@@ -1,0 +1,488 @@
+{
+  "round": "trench-perception-prose-cpu-04",
+  "profile": "Independent narrow critic of route-description consistency and localization/save routing",
+  "tier": "CPU source and UI-call text; no raster or physical audio",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No raster target; required absence sentinel.",
+  "verdict": "FAIL",
+  "verdictMeaning": "Conservative schema field only: this is not narrative-quality, blind, element or product approval. No concrete changed-prose or routing defect survives the separate narrow refutation.",
+  "score": 0,
+  "scoreMeaning": "Unscored schema sentinel, not a quality rating.",
+  "blindComparison": "Not performed. Source-labelled text-routing checks and CPU state cannot measure a blind reader preference, narrative quality, or an element/product pass.",
+  "baseline": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "sourceHashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "7d41d9193774839c037a1a2dede439344fa8bc43100a1d5ee7b12930d2370da1",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "b71791bf626a9584d5aad4416237da5826e955f86bd70f2aa584efcad5404674",
+    "src/content/story.js": "be15373dc9a80348be2b1d84c46ae62ae561c985e14d3359b6b909bde44f039b",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "a38da6cb89c186b11eeb9960917f8decc6bd6292d635efc65676634ab47e93d2",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "sourceSnapshot": "/workspace/scratch/0b7ad82bafe7/trench-perception-r4-source",
+  "changedFiles": [
+    "src/content/locale/ja/content.js",
+    "src/content/locale/ja/ui.js",
+    "src/content/story.js",
+    "src/game/director.js"
+  ],
+  "scope": "Immutable byte-identical production snapshot. Changed prose routing, UI-call text/localization and compatibility of an original-Director save carrying trench_slipped. Actual Game/Player/City/AI path reaches notices; actual Storage/applySave/DialogueRunner/Director.finish reaches ending presentation. Rendering, output devices and input acquisition are fixture stubs; no sensory or full narrative quality verdict.",
+  "findings": [],
+  "observedOutcome": "The same route flag now presents wording consistent with an alerted climb, including after restoration of a pre-edit-Director save. Exact comparisons establish that the change contains only the intended notice, two ending paragraphs, matching Japanese strings and comment. No surviving concrete defect remains within this scope.",
+  "controls": [
+    {
+      "id": "R4-DELTA",
+      "evidence": "trench-perception-r4-probe-01.json :: exact-text-only-delta-and-unchanged-content-routing",
+      "detail": "The Director becomes byte-identical to the baseline after reversing only the expected notice literal and two comment lines. Every exported story value becomes identical after masking exactly record beat8 and everybody beat1 text. Japanese tables become identical after masking exactly the corresponding two beats and one HUD notice.",
+      "beatConditions": {
+        "record": {
+          "flag": "trench_slipped"
+        },
+        "everybody": {
+          "flag": "trench_slipped"
+        }
+      },
+      "scope": "Exact content comparison establishes unchanged flags, conditions, identifiers and routing in this diff; no new route/quality criterion is introduced."
+    },
+    {
+      "id": "R4-NOTICES",
+      "evidence": "trench-perception-r4-probe-01.json :: original-director-save-and-current-notice-boundaries",
+      "runs": [
+        {
+          "label": "original-director-en",
+          "language": "en",
+          "time": 2.3833333333333298,
+          "position": [
+            90.01529122570088,
+            2.6,
+            16.415701443106556
+          ],
+          "flags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "enemyAlert": [
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat"
+            },
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat"
+            },
+            {
+              "kind": "scav",
+              "aggro": true,
+              "state": "flee"
+            }
+          ],
+          "notices": [
+            {
+              "time": 0,
+              "method": "notice",
+              "args": [
+                "<b>The Cinder Line</b>",
+                "",
+                4
+              ]
+            },
+            {
+              "time": 2.1499999999999972,
+              "method": "notice",
+              "args": [
+                "<b>Past them.</b><br>Nobody looked up.",
+                "good",
+                4
+              ]
+            }
+          ]
+        },
+        {
+          "label": "current-en",
+          "language": "en",
+          "time": 2.3833333333333298,
+          "position": [
+            90.01529122570088,
+            2.6,
+            16.415701443106556
+          ],
+          "flags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "enemyAlert": [
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat"
+            },
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat"
+            },
+            {
+              "kind": "scav",
+              "aggro": true,
+              "state": "flee"
+            }
+          ],
+          "notices": [
+            {
+              "time": 0,
+              "method": "notice",
+              "args": [
+                "<b>The Cinder Line</b>",
+                "",
+                4
+              ]
+            },
+            {
+              "time": 2.1499999999999972,
+              "method": "notice",
+              "args": [
+                "<b>Over the line.</b><br>You have the high ground.",
+                "good",
+                4
+              ]
+            }
+          ]
+        },
+        {
+          "label": "current-ja",
+          "language": "ja",
+          "time": 2.3833333333333298,
+          "position": [
+            90.01529122570088,
+            2.6,
+            16.415701443106556
+          ],
+          "flags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "enemyAlert": [
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat"
+            },
+            {
+              "kind": "warden",
+              "aggro": true,
+              "state": "combat"
+            },
+            {
+              "kind": "scav",
+              "aggro": true,
+              "state": "flee"
+            }
+          ],
+          "notices": [
+            {
+              "time": 0,
+              "method": "notice",
+              "args": [
+                "<b>シンダーライン</b>",
+                "",
+                4
+              ]
+            },
+            {
+              "time": 2.1499999999999972,
+              "method": "notice",
+              "args": [
+                "<b>列を越えた。</b><br>高所に出た。",
+                "good",
+                4
+              ]
+            }
+          ]
+        }
+      ],
+      "detail": "The original notice says nobody looked up while the real replay has alerted guards. Current English and Japanese notices describe the route/high ground, with the same flag/quest transition and actual aggro state. Notices are measured at the HUD call boundary, not rendered. Alert state is recorded at the final replay snapshot; it is not presented as a separate measurement at the precise earlier notice call."
+    },
+    {
+      "id": "R4-LEGACY-SAVE-ENDINGS",
+      "evidence": "trench-perception-r4-probe-01.json :: legacy-flag-restoration-and-actual-ending-localization",
+      "writerScope": "Original pre-edit Director; all other production modules come from the pinned current snapshot. Save, progression and physics sources are identical to the pre-edit revision. Story/locale differences are prose only and not saved into the route flag.",
+      "cases": [
+        {
+          "language": "en",
+          "endingId": "record",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "At the hearing, you marked your way over the line on a section drawing. On\nthe paper it was a few millimetres. You could still feel the height in your knees.",
+          "selectedBodyContainsBeat": true,
+          "completed": true,
+          "savedFlag": true
+        },
+        {
+          "language": "en",
+          "endingId": "record",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "At the hearing, you marked your way over the line on a section drawing. On\nthe paper it was a few millimetres. You could still feel the height in your knees.",
+          "selectedBodyContainsBeat": false,
+          "completed": true,
+          "savedFlag": false
+        },
+        {
+          "language": "en",
+          "endingId": "everybody",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "You had gone over the line above the cut. The people you brought to the\nlorries could not all have followed you. You stayed beside the steps while they\nclimbed aboard, with your hands out and nothing useful to say.",
+          "selectedBodyContainsBeat": true,
+          "completed": true,
+          "savedFlag": true
+        },
+        {
+          "language": "en",
+          "endingId": "everybody",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "You had gone over the line above the cut. The people you brought to the\nlorries could not all have followed you. You stayed beside the steps while they\nclimbed aboard, with your hands out and nothing useful to say.",
+          "selectedBodyContainsBeat": false,
+          "completed": true,
+          "savedFlag": false
+        },
+        {
+          "language": "ja",
+          "endingId": "record",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "審理で、列の上を越えた経路を断面図に書き込んだ。紙の上では数ミリだった。膝にはまだ、あの高さが残っていた。",
+          "selectedBodyContainsBeat": true,
+          "completed": true,
+          "savedFlag": true
+        },
+        {
+          "language": "ja",
+          "endingId": "record",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "審理で、列の上を越えた経路を断面図に書き込んだ。紙の上では数ミリだった。膝にはまだ、あの高さが残っていた。",
+          "selectedBodyContainsBeat": false,
+          "completed": true,
+          "savedFlag": false
+        },
+        {
+          "language": "ja",
+          "endingId": "everybody",
+          "flagPresent": true,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed",
+            "trench_slipped"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "カットでは列の上を越えた。トラックへ連れてきた人たちが、全員あそこをついて来られたわけではない。一人ずつ乗り込む間、踏み段の脇で手を差し出していた。役に立つ言葉は出てこなかった。",
+          "selectedBodyContainsBeat": true,
+          "completed": true,
+          "savedFlag": true
+        },
+        {
+          "language": "ja",
+          "endingId": "everybody",
+          "flagPresent": false,
+          "restoredFlags": [
+            "sol_debrief",
+            "trench_passed"
+          ],
+          "restoredQuest": {
+            "state": "active",
+            "step": 2,
+            "data": {}
+          },
+          "expectedBeat": "カットでは列の上を越えた。トラックへ連れてきた人たちが、全員あそこをついて来られたわけではない。一人ずつ乗り込む間、踏み段の脇で手を差し出していた。役に立つ言葉は出てこなかった。",
+          "selectedBodyContainsBeat": false,
+          "completed": true,
+          "savedFlag": false
+        }
+      ],
+      "detail": "Eight actual applySave -> DialogueRunner choice -> Director.finish -> menus.showEnding cases cover two locales, two endings, and flag present/absent. Existing flag-present payloads retain their original flag and select the new paragraph exactly once; flag-absent controls select neither paragraph. Both selected bodies omit the old slipped-paragraph claims.",
+      "missingChangedLocaleKeys": [],
+      "independentPairedControl": [
+        {
+          "language": "en",
+          "endingId": "record",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        },
+        {
+          "language": "en",
+          "endingId": "everybody",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        },
+        {
+          "language": "ja",
+          "endingId": "record",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        },
+        {
+          "language": "ja",
+          "endingId": "everybody",
+          "onlyExpectedParagraphChanges": true,
+          "epilogueIdentical": true
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "R4-SEMANTICS",
+      "status": "no concrete contradiction found in changed prose",
+      "detail": "The revised hearing paragraph describes marking a physical route; the evacuation paragraph describes helping people aboard lorries. Neither asserts that guards were unaware or unharmed. Guard perception/contact is not tested by the existing route flag, which remains unchanged. This is a consistency observation, not a prose-quality rating."
+    },
+    {
+      "id": "R4-SAVE-LIMIT",
+      "status": "scope limit",
+      "detail": "The legacy payload is created by the original pre-edit Director running unchanged storage/progression/physics code; it is not a claimed sample from a real user. Absence controls remove only trench_slipped to test the beat condition."
+    },
+    {
+      "id": "R4-DIALOGUE-LIMIT",
+      "status": "scope limit",
+      "detail": "Ending callbacks run without advancing simulation time during reading. Dialogue death/reset and prolonged reading survival are outside this text-routing review and are being investigated separately."
+    }
+  ],
+  "rawArtifacts": [
+    "trench-perception-r4-pin.mjs",
+    "trench-perception-r4-source-pins.json",
+    "trench-perception-r4-fixture.mjs",
+    "trench-perception-r4-input-fixture.mjs",
+    "trench-perception-r4-cpu-city-fixture.mjs",
+    "trench-perception-r4-probe-01.mjs",
+    "trench-perception-r4-probe-01.json",
+    "trench-perception-r4-probe-01.log",
+    "trench-perception-r4-refuter-probe-01.json",
+    "trench-perception-r4-refuter-probe-01.log",
+    "trench-perception-r4-refuter-probe-01.mjs",
+    "trench-perception-r4-refuter-review.json",
+    "trench-perception-r4-refuter-validate.mjs",
+    "trench-perception-r4-refuter-validation.json"
+  ],
+  "refutation": {
+    "agent": "/root/trench_perception_review/trench_refuter",
+    "independent": true,
+    "complete": true,
+    "report": "trench-perception-r4-refuter-review.json",
+    "validation": "trench-perception-r4-refuter-validation.json",
+    "survivingFindings": [],
+    "scope": "The separate refuter challenges consistency, source-only scope, save compatibility and actual localization routing. See its report for which controls were independently rerun versus inspected."
+  },
+  "retention": "Original parent before-probe and all earlier review evidence remain unchanged; fresh scripts/output and the exact production snapshot are retained.",
+  "createdAt": "2026-09-14T05:05:24.493Z",
+  "priorArtifactIntegrity": [
+    {
+      "manifest": "trench-perception-artifact-manifest.json",
+      "checkedFiles": 37,
+      "changedFiles": 0
+    },
+    {
+      "manifest": "trench-perception-r2-artifact-manifest.json",
+      "checkedFiles": 27,
+      "changedFiles": 0
+    },
+    {
+      "manifest": "trench-perception-r3-artifact-manifest.json",
+      "checkedFiles": 18,
+      "changedFiles": 0
+    }
+  ],
+  "contextReading": "The selected paragraph and both adjacent paragraphs were inspected in all four flag-present locale/ending bodies. The hearing paragraph remains within the hearing account; the evacuation paragraph is a retrospective route/loading account. No concrete contradiction was identified; reader preference and prose quality were not scored."
+}

@@ -250,7 +250,7 @@ export const UI_JA = {
     firstlight: '<b>夜明けと同時に始めていた。</b>',
     ashcrew: '<b>灰の組</b><br>庭にいる',
     stepsaside: '<b>彼は道を空ける。</b><br>どちらも、見ていたことにしないと決めている。',
-    pastthem: '<b>抜けた。</b><br>誰も顔を上げなかった。',
+    pastthem: '<b>列を越えた。</b><br>高所に出た。',
     courtyard: '<b>中庭が埋まりはじめている。</b><br>ペル館、1階。',
     fennstreet: '<b>フェン通りが落ちた。</b><br>まだ4人、下にいる。',
     nessanag: '<i>ネッサ</i><br>「そこは登ってついていけない。」',

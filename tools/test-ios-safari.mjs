@@ -11,10 +11,12 @@
  */
 
 import { createServer } from 'node:http';
+import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { requestWebDriver } from './webdriver-request.mjs';
+import { nativePointerActions } from './ios-pointer-coordinates.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -22,6 +24,7 @@ const OUTPUT = resolve(ROOT, process.env.CINDERLINE_IOS_OUTPUT || 'test-results/
 const REPORT = resolve(OUTPUT, 'report.json');
 const GAMEPLAY_SHOT = resolve(OUTPUT, 'ios-safari-gameplay.png');
 const PAUSE_SHOT = resolve(OUTPUT, 'ios-safari-pause.png');
+const FAILURE_SHOT = resolve(OUTPUT, 'ios-safari-failure.png');
 const APPIUM_URL = new URL(process.env.APPIUM_URL || 'http://127.0.0.1:4723/');
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const UDID = process.env.IOS_SIMULATOR_UDID || '';
@@ -40,6 +43,8 @@ const report = {
   device: null,
   layout: null,
   interaction: {},
+  inputCalibration: [],
+  inputActions: [],
   persistence: null,
   soak: null,
   screenshots: {},
@@ -115,6 +120,7 @@ function webdriver(pathname, options = {}) {
 }
 
 let sessionId = '';
+let pointerCalibration = null;
 const sessionPath = (suffix = '') => `session/${sessionId}${suffix}`;
 const execute = (script, args = []) => webdriver(sessionPath('/execute/sync'), { body: { script, args } });
 
@@ -133,8 +139,19 @@ async function waitForScript(script, timeout = 30000) {
 }
 
 async function performActions(actions) {
-  await webdriver(sessionPath('/actions'), { body: { actions } });
+  const viewport = await execute('return {innerWidth,innerHeight,outerWidth,outerHeight};');
+  const nativeActions = nativePointerActions(actions, pointerCalibration, viewport);
+  report.inputActions.push({ viewport, css: actions, native: nativeActions });
+  await webdriver(sessionPath('/actions'), { body: { actions: nativeActions } });
   await webdriver(sessionPath('/actions'), { method: 'DELETE' }).catch(() => {});
+}
+
+async function calibratePointerCoordinates() {
+  // The driver's public calibration command briefly visits its own tap target
+  // and reloads the original URL. Use only before a run/Continue, never in play.
+  pointerCalibration = await execute('mobile: calibrateWebToRealCoordinatesTranslation');
+  report.inputCalibration.push(pointerCalibration);
+  await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
 }
 
 function finger(id, actions) {
@@ -146,7 +163,9 @@ const move = (x, y, duration = 0) => ({
 });
 const down = () => ({ type: 'pointerDown', button: 0 });
 const up = () => ({ type: 'pointerUp', button: 0 });
-const pause = (duration) => ({ type: 'pause', duration });
+// The pinned XCUITest driver removes zero pauses. Keep placeholder ticks so
+// the two fingers remain synchronized instead of silently shifting their input.
+const pause = (duration) => ({ type: 'pause', duration: Math.max(1, duration) });
 
 async function tap(x, y) {
   await performActions([finger(`tap-${Date.now()}`, [move(x, y), down(), pause(90), up()])]);
@@ -160,6 +179,20 @@ async function screenshot(path) {
 async function injectErrorCapture() {
   await execute(`
     window.__cinderlineIosErrors = [];
+    window.__cinderlineIosInput = [];
+    window.__cinderlineIosTouches = new Set();
+    ['pointerdown','pointerup','pointercancel','click'].forEach(function (type) {
+      document.addEventListener(type, function (event) {
+        var active = window.__cinderlineIosTouches;
+        if (type === 'pointerdown' && event.isTrusted && event.pointerType === 'touch') active.add(event.pointerId);
+        var node = event.target;
+        window.__cinderlineIosInput.push({type:type,trusted:event.isTrusted,pointerType:event.pointerType,
+          pointerId:event.pointerId,x:event.clientX,y:event.clientY,activeTouches:active.size,
+          target:node && {tag:node.tagName,id:node.id,className:String(node.className),text:node.textContent.slice(0,100)}});
+        if (window.__cinderlineIosInput.length > 160) window.__cinderlineIosInput.shift();
+        if (type === 'pointerup' || type === 'pointercancel') active.delete(event.pointerId);
+      }, true);
+    });
     window.addEventListener('error', function (event) {
       window.__cinderlineIosErrors.push(String(event.message || 'error'));
     });
@@ -220,6 +253,7 @@ try {
   await execute('localStorage.clear(); return true;');
   await webdriver(sessionPath('/refresh'), { body: {} });
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  await calibratePointerCoordinates();
   await injectErrorCapture();
 
   const device = await execute(`
@@ -275,7 +309,12 @@ try {
   const newGame = title.buttons.find((item) => item.name === 'new');
   await tap(newGame.x + newGame.width / 2, newGame.y + newGame.height / 2);
   await waitForScript('return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;', 30000);
-  check(true, 'trusted Mobile Safari tap starts a new game', baseUrl);
+  const titleInput = await execute('return window.__cinderlineIosInput.slice();');
+  report.interaction.titleInput = titleInput;
+  check(titleInput.some((event) => event.type === 'pointerup' && event.trusted && event.pointerType === 'touch'
+    && event.x >= newGame.x && event.x <= newGame.x + newGame.width
+    && event.y >= newGame.y && event.y <= newGame.y + newGame.height),
+  'trusted Mobile Safari tap starts a new game', JSON.stringify(titleInput));
 
   await execute(`
     var C = window.CINDERLINE;
@@ -326,6 +365,10 @@ try {
   `);
   const moved = Math.hypot(after.x - before.x, after.y - before.y, after.z - before.z);
   report.interaction.simultaneousMoveAttack = { before, after, moved: +moved.toFixed(4) };
+  const twoThumbInput = await execute('return window.__cinderlineIosInput.slice();');
+  report.interaction.twoThumbInput = twoThumbInput;
+  check(twoThumbInput.some((event) => event.type === 'pointerdown' && event.trusted && event.activeTouches >= 2),
+    'two trusted touch contacts overlap in Safari', JSON.stringify(twoThumbInput));
   check(moved > 0.15, 'trusted two-thumb movement moves the player', `distance=${moved.toFixed(4)}`);
   check(after.attackStarts > 0, 'trusted second thumb attacks during movement', `attacks=${after.attackStarts}`);
   check(!after.stickActive && after.moveMagnitude === 0 && !after.attackRaw,
@@ -381,6 +424,7 @@ try {
   report.errors.push(...errorsBeforeReload);
   await webdriver(sessionPath('/refresh'), { body: {} });
   await waitForScript('return Boolean(window.CINDERLINE && window.CINDERLINE.ready === true);', BOOT_TIMEOUT);
+  await calibratePointerCoordinates();
   await injectErrorCapture();
   const continueButton = await execute(`
     var r=window.CINDERLINE.game.menus.titleButtons.continue.getBoundingClientRect();
@@ -419,6 +463,20 @@ try {
     'no captured Mobile Safari runtime errors', JSON.stringify({ errorsBeforeReload, errorsAfterReload }));
 } catch (error) {
   report.failures.push(error.stack || error.message || String(error));
+  if (sessionId) {
+    try {
+      report.failureState = await execute(`var C=window.CINDERLINE; return {
+        mode:C && C.game.mode,frame:C && C.engine.frame,ready:C && C.ready,
+        faults:C && C.faults,errors:window.__cinderlineIosErrors,
+        input:window.__cinderlineIosInput,viewport:{width:innerWidth,height:innerHeight},
+        visualViewport:window.visualViewport && {width:visualViewport.width,height:visualViewport.height,
+          offsetLeft:visualViewport.offsetLeft,offsetTop:visualViewport.offsetTop,scale:visualViewport.scale}};`);
+    } catch (probeError) { report.errors.push(`failure state: ${probeError.message}`); }
+    try {
+      await screenshot(FAILURE_SHOT);
+      report.screenshots.failure = FAILURE_SHOT.slice(ROOT.length + 1);
+    } catch (shotError) { report.errors.push(`failure screenshot: ${shotError.message}`); }
+  }
 } finally {
   if (sessionId) {
     await webdriver(sessionPath(), { method: 'DELETE' })
@@ -430,5 +488,17 @@ try {
 }
 
 console.log(`[ios-safari] ${report.status.toUpperCase()}: ${report.failures.length} failure(s)`);
+// Keep the exact report and bounded, lossless images readable through the
+// ordinary job log as well as the artifact; never substitute them for video.
+console.log(`[ios-safari-report] ${JSON.stringify(report)}`);
+for (const relative of Object.values(report.screenshots)) {
+  const bytes = readFileSync(resolve(ROOT, relative));
+  if (bytes.length > 1500000) continue;
+  const data = bytes.toString('base64'), sha256 = createHash('sha256').update(bytes).digest('hex');
+  console.log(`[ios-safari-image] ${JSON.stringify({path:relative,bytes:bytes.length,sha256})}`);
+  for (let offset = 0; offset < data.length; offset += 4000) {
+    console.log(`[ios-safari-image-data] ${offset} ${data.slice(offset, offset + 4000)}`);
+  }
+}
 for (const failure of report.failures) console.error(`- ${failure}`);
 if (report.failures.length) process.exit(1);

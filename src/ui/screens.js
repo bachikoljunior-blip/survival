@@ -108,6 +108,7 @@ export class DialogueUI {
   }
 
   _tap() {
+    if (!this.visible) return;
     if (this.typing) { this.shown = this.full.length; this._render(); this.typing = false; this._afterType(); return; }
     if (this.choiceList) return;         // must pick
     if (this.onAdvance) this.onAdvance();
@@ -267,6 +268,12 @@ export class DialogueUI {
 
   hide() {
     this.node.classList.remove('on');
+    this.typing = false;
+    this.full = '';
+    this.shown = 0;
+    this._pendingChoices = null;
+    this.onAdvance = null;
+    this.onChoose = null;
     this.choiceList = null;
     this.choicesNode.innerHTML = '';
     this.choiceWrap.classList.remove('more');

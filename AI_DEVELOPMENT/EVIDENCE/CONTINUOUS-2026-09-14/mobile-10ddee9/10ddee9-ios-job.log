@@ -1,0 +1,475 @@
+﻿2026-09-14T04:46:50.8297960Z Current runner version: '2.337.0'
+2026-09-14T04:46:50.8318810Z ##[group]Runner Image Provisioner
+2026-09-14T04:46:50.8319560Z Hosted Compute Agent
+2026-09-14T04:46:50.8319980Z Version: 20260828.587
+2026-09-14T04:46:50.8320420Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-14T04:46:50.8320910Z Build Date: 2026-08-28T16:44:25Z
+2026-09-14T04:46:50.8321450Z Worker ID: {f2ce45bb-0965-45e0-b327-b0e1841e0baf}
+2026-09-14T04:46:50.8322000Z Azure Region: westus
+2026-09-14T04:46:50.8369770Z ##[endgroup]
+2026-09-14T04:46:50.8371100Z ##[group]Operating System
+2026-09-14T04:46:50.8371510Z macOS
+2026-09-14T04:46:50.8371830Z 15.7.9
+2026-09-14T04:46:50.8372140Z 24G830
+2026-09-14T04:46:50.8372460Z ##[endgroup]
+2026-09-14T04:46:50.8372800Z ##[group]Runner Image
+2026-09-14T04:46:50.8373170Z Image: macos-15-arm64
+2026-09-14T04:46:50.8373530Z Version: 20260907.0337.1
+2026-09-14T04:46:50.8375330Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20260907.0337/images/macos/macos-15-arm64-Readme.md
+2026-09-14T04:46:50.8376360Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20260907.0337
+2026-09-14T04:46:50.8377000Z ##[endgroup]
+2026-09-14T04:46:50.8378550Z ##[group]GITHUB_TOKEN Permissions
+2026-09-14T04:46:50.8380440Z Contents: read
+2026-09-14T04:46:50.8380800Z Metadata: read
+2026-09-14T04:46:50.8381150Z ##[endgroup]
+2026-09-14T04:46:50.8384150Z Secret source: Actions
+2026-09-14T04:46:50.8384780Z Cache mode: write
+2026-09-14T04:46:50.8385260Z Prepare workflow directory
+2026-09-14T04:46:50.9146710Z Prepare all required actions
+2026-09-14T04:46:50.9292340Z Getting action download info
+2026-09-14T04:46:51.3673320Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-14T04:46:51.5812910Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-09-14T04:46:51.6769330Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-14T04:46:51.8957290Z Complete job name: ios-safari
+2026-09-14T04:46:51.9487530Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T04:46:51.9493860Z ##[group]Run actions/checkout@v4
+2026-09-14T04:46:51.9494310Z with:
+2026-09-14T04:46:51.9494600Z   fetch-depth: 0
+2026-09-14T04:46:51.9494940Z   repository: bachikoljunior-blip/survival
+2026-09-14T04:46:51.9497920Z   token: ***
+2026-09-14T04:46:51.9498230Z   ssh-strict: true
+2026-09-14T04:46:51.9498540Z   ssh-user: git
+2026-09-14T04:46:51.9498910Z   persist-credentials: true
+2026-09-14T04:46:51.9499310Z   clean: true
+2026-09-14T04:46:51.9499680Z   sparse-checkout-cone-mode: true
+2026-09-14T04:46:51.9500090Z   fetch-tags: false
+2026-09-14T04:46:51.9500480Z   show-progress: true
+2026-09-14T04:46:51.9500970Z   lfs: false
+2026-09-14T04:46:51.9501340Z   submodules: false
+2026-09-14T04:46:51.9501730Z   set-safe-directory: true
+2026-09-14T04:46:51.9502140Z   allow-unsafe-pr-checkout: false
+2026-09-14T04:46:51.9502750Z ##[endgroup]
+2026-09-14T04:46:52.2385760Z Syncing repository: bachikoljunior-blip/survival
+2026-09-14T04:46:52.2387470Z ##[group]Getting Git version info
+2026-09-14T04:46:52.2388190Z Working directory is '/Users/runner/work/survival/survival'
+2026-09-14T04:46:52.2399970Z [command]/opt/homebrew/bin/git version
+2026-09-14T04:46:52.3187570Z git version 2.55.0
+2026-09-14T04:46:52.3219490Z ##[endgroup]
+2026-09-14T04:46:52.3233730Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/ae5172c5-9635-4b29-8a0a-a397b76f71dd/.gitconfig'
+2026-09-14T04:46:52.3237410Z Temporarily overriding HOME='/Users/runner/work/_temp/ae5172c5-9635-4b29-8a0a-a397b76f71dd' before making global git config changes
+2026-09-14T04:46:52.3239020Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T04:46:52.3240720Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/survival/survival
+2026-09-14T04:46:52.3405050Z Deleting the contents of '/Users/runner/work/survival/survival'
+2026-09-14T04:46:52.3408560Z ##[group]Initializing the repository
+2026-09-14T04:46:52.3418590Z [command]/opt/homebrew/bin/git init /Users/runner/work/survival/survival
+2026-09-14T04:46:52.3791890Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-14T04:46:52.3794590Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-14T04:46:52.3797180Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-14T04:46:52.3799140Z hint: call:
+2026-09-14T04:46:52.3800440Z hint:
+2026-09-14T04:46:52.3802040Z hint: 	git config --global init.defaultBranch <name>
+2026-09-14T04:46:52.3803580Z hint:
+2026-09-14T04:46:52.3804960Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-14T04:46:52.3807640Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-14T04:46:52.3809480Z hint:
+2026-09-14T04:46:52.3810990Z hint: 	git branch -m <name>
+2026-09-14T04:46:52.3811650Z hint:
+2026-09-14T04:46:52.3812240Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-14T04:46:52.3813230Z Initialized empty Git repository in /Users/runner/work/survival/survival/.git/
+2026-09-14T04:46:52.3820460Z [command]/opt/homebrew/bin/git remote add origin https://github.com/bachikoljunior-blip/survival
+2026-09-14T04:46:52.3948800Z ##[endgroup]
+2026-09-14T04:46:52.3949670Z ##[group]Disabling automatic garbage collection
+2026-09-14T04:46:52.3950370Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-09-14T04:46:52.4040420Z ##[endgroup]
+2026-09-14T04:46:52.4041100Z ##[group]Setting up auth
+2026-09-14T04:46:52.4041790Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T04:46:52.4125140Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T04:46:52.5534750Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T04:46:52.5597820Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T04:46:52.6573450Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T04:46:52.6701870Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T04:46:52.8017390Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-14T04:46:52.8020330Z ##[endgroup]
+2026-09-14T04:46:52.8021700Z ##[group]Fetching the repository
+2026-09-14T04:46:52.8025080Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-09-14T04:47:05.6237120Z From https://github.com/bachikoljunior-blip/survival
+2026-09-14T04:47:05.6239460Z  * [new branch]      agent/iphone-se3-automation -> origin/agent/iphone-se3-automation
+2026-09-14T04:47:05.6241100Z  * [new branch]      agent/premerge-ios-gate -> origin/agent/premerge-ios-gate
+2026-09-14T04:47:05.6243090Z  * [new branch]      claude/autonomous-skill-evolution-x7i51a -> origin/claude/autonomous-skill-evolution-x7i51a
+2026-09-14T04:47:05.6245330Z  * [new branch]      claude/autopilot-spec-i0bwgn -> origin/claude/autopilot-spec-i0bwgn
+2026-09-14T04:47:05.6246260Z  * [new branch]      claude/continue-aahbtl  -> origin/claude/continue-aahbtl
+2026-09-14T04:47:05.6247120Z  * [new branch]      claude/game-reference-benchmark-lyvlj3 -> origin/claude/game-reference-benchmark-lyvlj3
+2026-09-14T04:47:05.6254120Z  * [new branch]      claude/iphone-se3-auto-testing-bu73vn -> origin/claude/iphone-se3-auto-testing-bu73vn
+2026-09-14T04:47:05.6256490Z  * [new branch]      claude/kit-first-reader-test-fr774j -> origin/claude/kit-first-reader-test-fr774j
+2026-09-14T04:47:05.6258440Z  * [new branch]      claude/kit-rollout-continuation-ozq7v9 -> origin/claude/kit-rollout-continuation-ozq7v9
+2026-09-14T04:47:05.6260340Z  * [new branch]      claude/kit-rollout-game2-survival-0vspel -> origin/claude/kit-rollout-game2-survival-0vspel
+2026-09-14T04:47:05.6262410Z  * [new branch]      claude/kit-rollout-integration-a4zihp -> origin/claude/kit-rollout-integration-a4zihp
+2026-09-14T04:47:05.6264460Z  * [new branch]      claude/kit-rollout-skill-validation-rsenmi -> origin/claude/kit-rollout-skill-validation-rsenmi
+2026-09-14T04:47:05.6266490Z  * [new branch]      claude/kit-template-creation-ndursc -> origin/claude/kit-template-creation-ndursc
+2026-09-14T04:47:05.6267980Z  * [new branch]      claude/legacy-canonical-migration-jcuour -> origin/claude/legacy-canonical-migration-jcuour
+2026-09-14T04:47:05.6268900Z  * [new branch]      claude/mobile-action-rpg-game-hi46oh -> origin/claude/mobile-action-rpg-game-hi46oh
+2026-09-14T04:47:05.6269670Z  * [new branch]      claude/monthly-20k-automation-mwr42o -> origin/claude/monthly-20k-automation-mwr42o
+2026-09-14T04:47:05.6270350Z  * [new branch]      claude/monthly-income-200k-strategy-w3gnoq -> origin/claude/monthly-income-200k-strategy-w3gnoq
+2026-09-14T04:47:05.6271220Z  * [new branch]      claude/one-round-execution-changes-psdid4 -> origin/claude/one-round-execution-changes-psdid4
+2026-09-14T04:47:05.6271940Z  * [new branch]      claude/past-work-skill-candidates-v6l3xm -> origin/claude/past-work-skill-candidates-v6l3xm
+2026-09-14T04:47:05.6272750Z  * [new branch]      claude/repo-instructions-constraints-r0070m -> origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T04:47:05.6276810Z  * [new branch]      claude/round-remaining-work-di4vbu -> origin/claude/round-remaining-work-di4vbu
+2026-09-14T04:47:05.6277590Z  * [new branch]      claude/section-21-gate-a-zbqmdk -> origin/claude/section-21-gate-a-zbqmdk
+2026-09-14T04:47:05.6278350Z  * [new branch]      claude/survival-narrative-evidence-facts-v8wb15 -> origin/claude/survival-narrative-evidence-facts-v8wb15
+2026-09-14T04:47:05.6279160Z  * [new branch]      codex/continue-survival -> origin/codex/continue-survival
+2026-09-14T04:47:05.6279650Z  * [new branch]      codex/pages-root-publication -> origin/codex/pages-root-publication
+2026-09-14T04:47:05.6280290Z  * [new branch]      codex/record-pages-publication -> origin/codex/record-pages-publication
+2026-09-14T04:47:05.6280800Z  * [new branch]      main                    -> origin/main
+2026-09-14T04:47:05.6282430Z [command]/opt/homebrew/bin/git branch --list --remote origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T04:47:05.6367300Z   origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T04:47:05.6383180Z [command]/opt/homebrew/bin/git rev-parse refs/remotes/origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T04:47:05.6454200Z 10ddee91fbf74512d3d577ba50d9dabbc987193f
+2026-09-14T04:47:05.6459490Z ##[endgroup]
+2026-09-14T04:47:05.6460420Z ##[group]Determining the checkout info
+2026-09-14T04:47:05.6462710Z ##[endgroup]
+2026-09-14T04:47:05.6471090Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-09-14T04:47:05.6595860Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-14T04:47:05.6680100Z ##[group]Checking out the ref
+2026-09-14T04:47:05.6689890Z [command]/opt/homebrew/bin/git checkout --progress --force -B claude/repo-instructions-constraints-r0070m refs/remotes/origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T04:47:06.0561500Z Switched to a new branch 'claude/repo-instructions-constraints-r0070m'
+2026-09-14T04:47:06.0572230Z branch 'claude/repo-instructions-constraints-r0070m' set up to track 'origin/claude/repo-instructions-constraints-r0070m'.
+2026-09-14T04:47:06.0613480Z ##[endgroup]
+2026-09-14T04:47:06.0868670Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-09-14T04:47:06.0992640Z 10ddee91fbf74512d3d577ba50d9dabbc987193f
+2026-09-14T04:47:06.1495720Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T04:47:06.1497150Z ##[group]Run actions/setup-node@v4
+2026-09-14T04:47:06.1497370Z with:
+2026-09-14T04:47:06.1497540Z   node-version: 22
+2026-09-14T04:47:06.1497720Z   cache: npm
+2026-09-14T04:47:06.1497860Z   always-auth: false
+2026-09-14T04:47:06.1498020Z   check-latest: false
+2026-09-14T04:47:06.1500620Z   token: ***
+2026-09-14T04:47:06.1500980Z ##[endgroup]
+2026-09-14T04:47:06.3926680Z Found in cache @ /Users/runner/hostedtoolcache/node/22.23.2/arm64
+2026-09-14T04:47:06.3935290Z (node:1831) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T04:47:06.3937450Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T04:47:06.3938840Z ##[group]Environment details
+2026-09-14T04:47:07.1634660Z node: v22.23.2
+2026-09-14T04:47:07.1684620Z npm: 10.9.8
+2026-09-14T04:47:07.1738100Z yarn: 1.22.22
+2026-09-14T04:47:07.1740720Z ##[endgroup]
+2026-09-14T04:47:07.1741230Z [command]/Users/runner/hostedtoolcache/node/22.23.2/arm64/bin/npm config get cache
+2026-09-14T04:47:07.4766740Z /Users/runner/.npm
+2026-09-14T04:47:07.8174340Z npm cache is not found
+2026-09-14T04:47:07.8324500Z ##[group]Run npm ci
+2026-09-14T04:47:07.8325490Z [36;1mnpm ci[0m
+2026-09-14T04:47:07.8325730Z [36;1mnpm run validate:ops[0m
+2026-09-14T04:47:07.8325930Z [36;1mnpm run validate[0m
+2026-09-14T04:47:07.8326100Z [36;1mnpm run build[0m
+2026-09-14T04:47:07.8326360Z [36;1mnpm run validate:pages-root[0m
+2026-09-14T04:47:07.8388180Z shell: /bin/bash -e {0}
+2026-09-14T04:47:07.8388400Z ##[endgroup]
+2026-09-14T04:47:10.0189970Z 
+2026-09-14T04:47:10.0200830Z added 8 packages, and audited 9 packages in 2s
+2026-09-14T04:47:10.0203610Z 
+2026-09-14T04:47:10.0207790Z found 0 vulnerabilities
+2026-09-14T04:47:11.6018320Z 
+2026-09-14T04:47:11.6020170Z > cinderline@1.0.0 validate:ops
+2026-09-14T04:47:11.6024470Z > node tools/check_operating_state.mjs
+2026-09-14T04:47:11.6024770Z 
+2026-09-14T04:47:11.7951180Z Operating-state validation OK
+2026-09-14T04:47:11.7953870Z   revision       2026-09-14.13
+2026-09-14T04:47:11.7955480Z   plan nodes      5
+2026-09-14T04:47:11.7956890Z   tasks           15
+2026-09-14T04:47:11.7962750Z   active task     GB-IMP02
+2026-09-14T04:47:11.7963580Z   session status  active
+2026-09-14T04:47:11.7964830Z   STATE.yaml      canonical, checked against the SESSION_STATE.json projection
+2026-09-14T04:47:11.9790090Z 
+2026-09-14T04:47:11.9800230Z > cinderline@1.0.0 validate
+2026-09-14T04:47:11.9801870Z > node tools/validate.mjs
+2026-09-14T04:47:11.9802920Z 
+2026-09-14T04:47:12.0448820Z CINDERLINE content validation
+2026-09-14T04:47:12.0473100Z ──────────────────────────────────────────────────────────
+2026-09-14T04:47:12.0474110Z   conversations      13
+2026-09-14T04:47:12.0475040Z   dialogueNodes      224
+2026-09-14T04:47:12.0479820Z   dialogueWords      6299
+2026-09-14T04:47:12.0481960Z   quests             9
+2026-09-14T04:47:12.0484780Z   questSteps         31
+2026-09-14T04:47:12.0489940Z   endings            5
+2026-09-14T04:47:12.0491330Z   epilogueBeats      8
+2026-09-14T04:47:12.0508820Z   items              11
+2026-09-14T04:47:12.0510120Z   capabilities       7
+2026-09-14T04:47:12.0510510Z   buildings          41
+2026-09-14T04:47:12.0510820Z   props              167
+2026-09-14T04:47:12.0511300Z   structures         42
+2026-09-14T04:47:12.0511880Z   interiors          6
+2026-09-14T04:47:12.0513050Z   interactions       32
+2026-09-14T04:47:12.0808520Z   spawns             27
+2026-09-14T04:47:12.0808840Z   flagsSet           66
+2026-09-14T04:47:12.0809290Z   flagsRead          55
+2026-09-14T04:47:12.0809920Z ──────────────────────────────────────────────────────────
+2026-09-14T04:47:12.0810190Z 
+2026-09-14T04:47:12.0810290Z VALIDATION OK
+2026-09-14T04:47:12.2427410Z 
+2026-09-14T04:47:12.2460460Z > cinderline@1.0.0 build
+2026-09-14T04:47:12.2462150Z > node build.mjs
+2026-09-14T04:47:12.2463000Z 
+2026-09-14T04:47:12.6801900Z 
+2026-09-14T04:47:12.6811670Z   dist/cinderline.1.0.0.js  1.4mb ⚠️
+2026-09-14T04:47:12.6812400Z 
+2026-09-14T04:47:12.6812830Z ⚡ Done in 192ms
+2026-09-14T04:47:12.7677330Z [cinderline] built production bundle -> dist/
+2026-09-14T04:47:13.1178220Z 
+2026-09-14T04:47:13.1182640Z > cinderline@1.0.0 validate:pages-root
+2026-09-14T04:47:13.1210370Z > node tools/export_pages_root.mjs --check
+2026-09-14T04:47:13.1211770Z 
+2026-09-14T04:47:13.2702610Z [cinderline] Pages root mirror matches dist/ (6 files)
+2026-09-14T04:47:13.3533470Z ##[group]Run mkdir -p test-results/ios-safari
+2026-09-14T04:47:13.3533880Z [36;1mmkdir -p test-results/ios-safari[0m
+2026-09-14T04:47:13.3534240Z [36;1mxcodebuild -version > test-results/ios-safari/xcode-version.txt[0m
+2026-09-14T04:47:13.3534650Z [36;1mxcrun simctl list --json > test-results/ios-safari/simulator-inventory.json[0m
+2026-09-14T04:47:13.3592260Z shell: /bin/bash -e {0}
+2026-09-14T04:47:13.3592500Z ##[endgroup]
+2026-09-14T04:48:47.3031120Z ##[group]Run npm install --global appium@3.6.0
+2026-09-14T04:48:47.3032630Z [36;1mnpm install --global appium@3.6.0[0m
+2026-09-14T04:48:47.3033750Z [36;1mappium driver install xcuitest@12.1.3[0m
+2026-09-14T04:48:47.3035030Z [36;1mappium driver list --installed[0m
+2026-09-14T04:48:47.5579780Z shell: /bin/bash -e {0}
+2026-09-14T04:48:47.5580090Z ##[endgroup]
+2026-09-14T04:48:59.7214010Z 
+2026-09-14T04:48:59.7316850Z added 297 packages in 12s
+2026-09-14T04:48:59.7436140Z 
+2026-09-14T04:48:59.7538370Z 69 packages are looking for funding
+2026-09-14T04:48:59.7647300Z   run `npm fund` for details
+2026-09-14T04:49:00.4822400Z - Checking if 'appium-xcuitest-driver' is compatible
+2026-09-14T04:49:01.2504590Z ✔ Checking if 'appium-xcuitest-driver' is compatible
+2026-09-14T04:49:01.2606330Z - Installing 'xcuitest@12.1.3'
+2026-09-14T04:49:06.8911700Z ✔ Installing 'xcuitest@12.1.3'
+2026-09-14T04:49:06.8928480Z - Validating 'xcuitest@12.1.3'
+2026-09-14T04:49:06.8930260Z ✔ Validating 'xcuitest@12.1.3'
+2026-09-14T04:49:06.8945820Z ℹ Driver xcuitest@12.1.3 successfully installed
+2026-09-14T04:49:06.8946350Z - automationName: XCUITest
+2026-09-14T04:49:06.8946910Z - platformNames: ["iOS","tvOS"]
+2026-09-14T04:49:07.4639430Z - Listing installed drivers (rerun with --verbose for more info)
+2026-09-14T04:49:07.4640520Z ✔ Listing installed drivers (rerun with --verbose for more info)
+2026-09-14T04:49:07.4641770Z - xcuitest@12.1.3 [installed (npm)]
+2026-09-14T04:49:07.4777900Z ##[group]Run mkdir -p test-results/ios-safari
+2026-09-14T04:49:07.4778280Z [36;1mmkdir -p test-results/ios-safari[0m
+2026-09-14T04:49:07.4778660Z [36;1mxcode-select -p > test-results/ios-safari/xcode-path.txt[0m
+2026-09-14T04:49:07.4779090Z [36;1mxcodebuild -version > test-results/ios-safari/xcode-version.txt[0m
+2026-09-14T04:49:07.4779480Z [36;1msdk_version="$(xcrun --sdk iphonesimulator --show-sdk-version)"[0m
+2026-09-14T04:49:07.4779930Z [36;1mprintf '%s\n' "$sdk_version" > test-results/ios-safari/simulator-sdk-version.txt[0m
+2026-09-14T04:49:07.4780400Z [36;1mxcrun simctl list --json > test-results/ios-safari/simulator-inventory.json[0m
+2026-09-14T04:49:07.4781210Z [36;1mselection="$(node tools/select-ios-simulator.mjs "$sdk_version" test-results/ios-safari/simulator-inventory.json test-results/ios-safari/simulator-selection.json)"[0m
+2026-09-14T04:49:07.4781860Z [36;1mIFS=$'\t' read -r udid platform_version <<< "$selection"[0m
+2026-09-14T04:49:07.4782300Z [36;1mtest -n "$udid" && test -n "$platform_version"[0m
+2026-09-14T04:49:07.4782630Z [36;1mecho "udid=$udid" >> "$GITHUB_OUTPUT"[0m
+2026-09-14T04:49:07.4784870Z [36;1mecho "platform_version=$platform_version" >> "$GITHUB_OUTPUT"[0m
+2026-09-14T04:49:07.4785200Z [36;1mxcrun simctl boot "$udid" 2>/dev/null || true[0m
+2026-09-14T04:49:07.4785500Z [36;1mxcrun simctl bootstatus "$udid" -b[0m
+2026-09-14T04:49:07.5201870Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T04:49:07.5202140Z ##[endgroup]
+2026-09-14T04:49:51.9627100Z Monitoring boot status for iPhone SE (3rd generation) (22A3039C-6A45-47F4-82D4-80C58CA94379).
+2026-09-14T04:49:51.9732260Z [2026-09-14 04:49:51 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
+2026-09-14T04:49:51.9841110Z 	Waiting on Data Migration
+2026-09-14T04:49:51.9950500Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:52.0088560Z 		Migration Elapsed:00:31 seconds
+2026-09-14T04:49:52.0191600Z 
+2026-09-14T04:49:52.9473110Z [2026-09-14 04:49:52 +0000] Status=2, isTerminal=NO, Elapsed=00:38.
+2026-09-14T04:49:52.9574030Z 	Waiting on Data Migration
+2026-09-14T04:49:52.9709790Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:52.9814780Z 		Migration Elapsed:00:32 seconds
+2026-09-14T04:49:52.9915540Z 
+2026-09-14T04:49:53.9620220Z [2026-09-14 04:49:53 +0000] Status=2, isTerminal=NO, Elapsed=00:39.
+2026-09-14T04:49:53.9621030Z 	Waiting on Data Migration
+2026-09-14T04:49:53.9621700Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:53.9647910Z 		Migration Elapsed:00:33 seconds
+2026-09-14T04:49:53.9648180Z 
+2026-09-14T04:49:54.9939500Z [2026-09-14 04:49:54 +0000] Status=2, isTerminal=NO, Elapsed=00:40.
+2026-09-14T04:49:55.0044920Z 	Waiting on Data Migration
+2026-09-14T04:49:55.0046860Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:55.0149130Z 		Migration Elapsed:00:34 seconds
+2026-09-14T04:49:55.0251110Z 
+2026-09-14T04:49:55.9765190Z [2026-09-14 04:49:55 +0000] Status=2, isTerminal=NO, Elapsed=00:41.
+2026-09-14T04:49:55.9821120Z 	Waiting on Data Migration
+2026-09-14T04:49:55.9854670Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:55.9886750Z 		Migration Elapsed:00:35 seconds
+2026-09-14T04:49:55.9976990Z 
+2026-09-14T04:49:56.9200900Z [2026-09-14 04:49:56 +0000] Status=2, isTerminal=NO, Elapsed=00:42.
+2026-09-14T04:49:56.9301310Z 	Waiting on Data Migration
+2026-09-14T04:49:56.9402850Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:56.9503610Z 		Migration Elapsed:00:36 seconds
+2026-09-14T04:49:56.9604550Z 
+2026-09-14T04:49:57.9511160Z [2026-09-14 04:49:57 +0000] Status=2, isTerminal=NO, Elapsed=00:43.
+2026-09-14T04:49:57.9619650Z 	Waiting on Data Migration
+2026-09-14T04:49:57.9721210Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:57.9822270Z 		Migration Elapsed:00:37 seconds
+2026-09-14T04:49:57.9925230Z 
+2026-09-14T04:49:58.9320090Z [2026-09-14 04:49:58 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
+2026-09-14T04:49:58.9322020Z 	Waiting on Data Migration
+2026-09-14T04:49:58.9322950Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:58.9323750Z 		Migration Elapsed:00:38 seconds
+2026-09-14T04:49:58.9324330Z 
+2026-09-14T04:49:59.9538630Z [2026-09-14 04:49:59 +0000] Status=2, isTerminal=NO, Elapsed=00:45.
+2026-09-14T04:49:59.9540300Z 	Waiting on Data Migration
+2026-09-14T04:49:59.9541350Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:49:59.9542070Z 		Migration Elapsed:00:39 seconds
+2026-09-14T04:49:59.9543310Z 
+2026-09-14T04:50:00.9546350Z [2026-09-14 04:50:00 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
+2026-09-14T04:50:00.9571570Z 	Waiting on Data Migration
+2026-09-14T04:50:00.9586610Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T04:50:00.9587470Z 		Migration Elapsed:00:40 seconds
+2026-09-14T04:50:00.9587760Z 
+2026-09-14T04:50:05.4442240Z [2026-09-14 04:50:05 +0000] Status=2, isTerminal=NO, Elapsed=00:50.
+2026-09-14T04:50:05.4451810Z 	Waiting on Data Migration
+2026-09-14T04:50:05.5273040Z 		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+2026-09-14T04:50:05.6063230Z 		Migration Elapsed:00:42 seconds
+2026-09-14T04:50:05.6890480Z 
+2026-09-14T04:50:07.1569390Z [2026-09-14 04:50:07 +0000] Status=2, isTerminal=NO, Elapsed=00:52.
+2026-09-14T04:50:07.3192930Z 	Waiting on Data Migration
+2026-09-14T04:50:07.4010700Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T04:50:07.4838650Z 		Migration Elapsed:00:45 seconds
+2026-09-14T04:50:07.5616580Z 
+2026-09-14T04:50:07.6431570Z [2026-09-14 04:50:07 +0000] Status=2, isTerminal=NO, Elapsed=00:52.
+2026-09-14T04:50:07.7256180Z 	Waiting on Data Migration
+2026-09-14T04:50:07.8889100Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T04:50:07.9696370Z 		Migration Elapsed:00:47 seconds
+2026-09-14T04:50:07.9700470Z 
+2026-09-14T04:50:08.3808320Z [2026-09-14 04:50:08 +0000] Status=2, isTerminal=NO, Elapsed=00:53.
+2026-09-14T04:50:08.3865810Z 	Waiting on Data Migration
+2026-09-14T04:50:08.3869160Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T04:50:08.3871360Z 		Migration Elapsed:00:47 seconds
+2026-09-14T04:50:08.3871740Z 
+2026-09-14T04:50:10.0115250Z [2026-09-14 04:50:09 +0000] Status=2, isTerminal=NO, Elapsed=00:55.
+2026-09-14T04:50:10.1741050Z 	Waiting on Data Migration
+2026-09-14T04:50:10.2585830Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T04:50:10.2586870Z 		Migration Elapsed:00:48 seconds
+2026-09-14T04:50:10.2587130Z 
+2026-09-14T04:50:11.3202360Z [2026-09-14 04:50:11 +0000] Status=2, isTerminal=NO, Elapsed=00:56.
+2026-09-14T04:50:11.4013180Z 	Waiting on Data Migration
+2026-09-14T04:50:11.5641440Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T04:50:11.6469770Z 		Migration Elapsed:00:49 seconds
+2026-09-14T04:50:11.8072870Z 
+2026-09-14T04:50:12.1348440Z [2026-09-14 04:50:12 +0000] Status=2, isTerminal=NO, Elapsed=00:57.
+2026-09-14T04:50:12.2164090Z 	Waiting on Data Migration
+2026-09-14T04:50:12.2975000Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T04:50:12.3794710Z 		Migration Elapsed:00:51 seconds
+2026-09-14T04:50:12.4608600Z 
+2026-09-14T04:50:13.4964520Z [2026-09-14 04:50:12 +0000] Status=2, isTerminal=NO, Elapsed=00:58.
+2026-09-14T04:50:13.4977090Z 	Waiting on Data Migration
+2026-09-14T04:50:13.6586160Z 		Reason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)
+2026-09-14T04:50:13.6595380Z 		Migration Elapsed:00:52 seconds
+2026-09-14T04:50:13.7431880Z 
+2026-09-14T04:50:13.9064130Z [2026-09-14 04:50:13 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
+2026-09-14T04:50:14.0695970Z 	Waiting on Data Migration
+2026-09-14T04:50:14.1536420Z 		Reason:Running plugin com.apple.languageasset.migrator (LanguageAssetMigrator.migrator)
+2026-09-14T04:50:14.2356980Z 		Migration Elapsed:00:52 seconds
+2026-09-14T04:50:14.4026730Z 
+2026-09-14T04:50:14.5666440Z [2026-09-14 04:50:14 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
+2026-09-14T04:50:14.8642110Z 	Waiting on Data Migration
+2026-09-14T04:50:14.9464190Z 		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
+2026-09-14T04:50:15.1103860Z 		Migration Elapsed:00:53 seconds
+2026-09-14T04:50:15.1935630Z 
+2026-09-14T04:50:16.7875370Z [2026-09-14 04:50:16 +0000] Status=4, isTerminal=NO, Elapsed=01:02.
+2026-09-14T04:50:16.8664800Z 	Waiting on System App
+2026-09-14T04:50:16.8665060Z 
+2026-09-14T04:50:17.8513020Z [2026-09-14 04:50:17 +0000] Status=4, isTerminal=NO, Elapsed=01:03.
+2026-09-14T04:50:17.8520480Z 	Waiting on System App
+2026-09-14T04:50:17.9314390Z 
+2026-09-14T04:50:20.5755120Z [2026-09-14 04:50:19 +0000] Status=4, isTerminal=NO, Elapsed=01:04.
+2026-09-14T04:50:20.6599560Z 	Waiting on System App
+2026-09-14T04:50:21.2531410Z 
+2026-09-14T04:50:23.6978890Z [2026-09-14 04:50:23 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:08.
+2026-09-14T04:50:23.8579040Z 	Finished
+2026-09-14T04:50:23.8593290Z 
+2026-09-14T04:50:26.3546590Z ##[group]Run mkdir -p test-results/ios-safari
+2026-09-14T04:50:26.3547160Z [36;1mmkdir -p test-results/ios-safari[0m
+2026-09-14T04:50:26.3547660Z [36;1mappium --base-path / --log test-results/ios-safari/appium.log > /dev/null 2>&1 &[0m
+2026-09-14T04:50:26.3548120Z [36;1mecho $! > test-results/ios-safari/appium.pid[0m
+2026-09-14T04:50:26.3548800Z [36;1mxcrun simctl io "22A3039C-6A45-47F4-82D4-80C58CA94379" recordVideo --codec=h264 --force test-results/ios-safari/ios-safari.mp4 > test-results/ios-safari/video.log 2>&1 &[0m
+2026-09-14T04:50:26.3549720Z [36;1mecho $! > test-results/ios-safari/video.pid[0m
+2026-09-14T04:50:26.3550690Z [36;1mfor attempt in {1..60}; do[0m
+2026-09-14T04:50:26.3551360Z [36;1m  if curl --fail --silent http://127.0.0.1:4723/status > /dev/null; then exit 0; fi[0m
+2026-09-14T04:50:26.3551790Z [36;1m  sleep 1[0m
+2026-09-14T04:50:26.3552400Z [36;1mdone[0m
+2026-09-14T04:50:26.3552550Z [36;1mexit 1[0m
+2026-09-14T04:50:26.7470000Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T04:50:26.7470530Z ##[endgroup]
+2026-09-14T04:52:03.3226100Z ##[group]Run npm run test:ios-safari
+2026-09-14T04:52:03.3228410Z [36;1mnpm run test:ios-safari[0m
+2026-09-14T04:52:03.9147160Z shell: /bin/bash -e {0}
+2026-09-14T04:52:03.9148900Z env:
+2026-09-14T04:52:03.9149370Z   IOS_SIMULATOR_UDID: 22A3039C-6A45-47F4-82D4-80C58CA94379
+2026-09-14T04:52:03.9149820Z   IOS_SIMULATOR_PLATFORM_VERSION: 18.5
+2026-09-14T04:52:03.9150410Z ##[endgroup]
+2026-09-14T04:52:04.9600960Z 
+2026-09-14T04:52:04.9704120Z > cinderline@1.0.0 test:ios-safari
+2026-09-14T04:52:04.9757260Z > node build.mjs && node tools/test-ios-safari.mjs
+2026-09-14T04:52:04.9790160Z 
+2026-09-14T04:52:05.5673370Z 
+2026-09-14T04:52:05.5755880Z   dist/cinderline.1.0.0.js  1.4mb ⚠️
+2026-09-14T04:52:05.5756330Z 
+2026-09-14T04:52:05.5756540Z ⚡ Done in 348ms
+2026-09-14T04:52:05.6193360Z [cinderline] built production bundle -> dist/
+2026-09-14T04:57:28.0604570Z - Error: Safari condition timed out: return window.CINDERLINE.game.mode === window.CINDERLINE.MODE.PLAY;
+2026-09-14T04:57:28.0608970Z [ios-safari] FAILED: 1 failure(s)
+2026-09-14T04:57:28.0962050Z     at waitForScript (file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:132:9)
+2026-09-14T04:57:28.1102660Z     at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:277:3
+2026-09-14T04:57:28.6437330Z ##[error]Process completed with exit code 1.
+2026-09-14T04:57:28.9216520Z ##[group]Run if test -f test-results/ios-safari/video.pid; then kill -INT "$(cat test-results/ios-safari/video.pid)" 2>/dev/null || true; fi
+2026-09-14T04:57:28.9218550Z [36;1mif test -f test-results/ios-safari/video.pid; then kill -INT "$(cat test-results/ios-safari/video.pid)" 2>/dev/null || true; fi[0m
+2026-09-14T04:57:28.9219600Z [36;1mif test -f test-results/ios-safari/appium.pid; then kill "$(cat test-results/ios-safari/appium.pid)" 2>/dev/null || true; fi[0m
+2026-09-14T04:57:28.9220370Z [36;1msleep 2[0m
+2026-09-14T04:57:29.2261360Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T04:57:29.2261790Z ##[endgroup]
+2026-09-14T04:57:31.9987910Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T04:57:32.0071580Z ##[group]Run actions/upload-artifact@v4
+2026-09-14T04:57:32.0071800Z with:
+2026-09-14T04:57:32.0072130Z   name: iphone-se3-mobile-safari-10ddee91fbf74512d3d577ba50d9dabbc987193f
+2026-09-14T04:57:32.0072450Z   path: test-results/ios-safari
+2026-09-14T04:57:32.0072640Z   if-no-files-found: warn
+2026-09-14T04:57:32.0072810Z   retention-days: 14
+2026-09-14T04:57:32.0072960Z   compression-level: 6
+2026-09-14T04:57:32.0073120Z   overwrite: false
+2026-09-14T04:57:32.0073280Z   include-hidden-files: false
+2026-09-14T04:57:32.0073450Z ##[endgroup]
+2026-09-14T04:57:35.4733860Z (node:19788) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T04:57:35.5059510Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T04:57:35.9578970Z With the provided path, there will be 11 files uploaded
+2026-09-14T04:57:35.9936470Z Artifact name is valid!
+2026-09-14T04:57:36.0049750Z Root directory input is valid!
+2026-09-14T04:57:36.5362570Z Beginning upload of artifact content to blob storage
+2026-09-14T04:57:37.5285530Z (node:19788) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-14T04:57:38.5460050Z Uploaded bytes 8388608
+2026-09-14T04:57:39.3095790Z Uploaded bytes 16777216
+2026-09-14T04:57:39.3877340Z Uploaded bytes 25165824
+2026-09-14T04:57:40.3243650Z Uploaded bytes 33554432
+2026-09-14T04:57:41.1033100Z Uploaded bytes 41943040
+2026-09-14T04:57:41.9536820Z Uploaded bytes 50331648
+2026-09-14T04:57:42.7379340Z Uploaded bytes 58720256
+2026-09-14T04:57:43.3790760Z Uploaded bytes 67108864
+2026-09-14T04:57:43.9758110Z Uploaded bytes 75497472
+2026-09-14T04:57:44.8422490Z Uploaded bytes 83886080
+2026-09-14T04:57:45.4956390Z Uploaded bytes 90713052
+2026-09-14T04:57:45.5905740Z Finished uploading artifact content to blob storage!
+2026-09-14T04:57:45.5908230Z SHA256 digest of uploaded artifact zip is 5bb898c37378c1822d0ca21c1a3891970a0ac72b860edb8ed04cf87efba3bd89
+2026-09-14T04:57:45.5911360Z Finalizing artifact upload
+2026-09-14T04:57:45.9958690Z Artifact iphone-se3-mobile-safari-10ddee91fbf74512d3d577ba50d9dabbc987193f.zip successfully finalized. Artifact ID 10334041283
+2026-09-14T04:57:45.9986860Z Artifact iphone-se3-mobile-safari-10ddee91fbf74512d3d577ba50d9dabbc987193f has been successfully uploaded! Final size is 90713052 bytes. Artifact ID is 10334041283
+2026-09-14T04:57:46.0285900Z Artifact download URL: https://github.com/bachikoljunior-blip/survival/actions/runs/34807282325/artifacts/10334041283
+2026-09-14T04:57:46.1656970Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T04:57:46.1658050Z Post job cleanup.
+2026-09-14T04:57:46.6127560Z [command]/opt/homebrew/bin/git version
+2026-09-14T04:57:46.6927230Z git version 2.55.0
+2026-09-14T04:57:46.6967990Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/20b88d97-ddf3-406a-873f-0a0141eec34b/.gitconfig'
+2026-09-14T04:57:46.6987790Z Temporarily overriding HOME='/Users/runner/work/_temp/20b88d97-ddf3-406a-873f-0a0141eec34b' before making global git config changes
+2026-09-14T04:57:46.6990080Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T04:57:46.6993020Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/survival/survival
+2026-09-14T04:57:46.7588760Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T04:57:46.7740980Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T04:57:47.2120350Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T04:57:47.2539050Z http.https://github.com/.extraheader
+2026-09-14T04:57:47.3042840Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-14T04:57:47.3055660Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T04:57:47.6769950Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T04:57:47.6899580Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T04:57:48.1919490Z Cleaning up orphan processes
+2026-09-14T04:57:51.0068200Z Terminate orphan process: pid (17698) (DTServiceHub)
+2026-09-14T04:57:52.0765370Z Terminate orphan process: pid (8864) (SWBBuildService)
+2026-09-14T04:57:52.2414200Z Terminate orphan process: pid (8387) (xcodebuild)
+2026-09-14T04:58:05.6791130Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

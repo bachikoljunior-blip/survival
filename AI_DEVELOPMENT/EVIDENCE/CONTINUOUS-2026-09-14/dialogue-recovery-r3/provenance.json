@@ -1,0 +1,472 @@
+{
+  "scope": "Pinned actual-source CPU probes and independent reviews, not blind comparison or browser measurement",
+  "baseCommit": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "archiveSha256": "ede48449a56710d5b227c2caa7acc305b544fd4d926c725db531944af5d52ace",
+  "files": {
+    "dialogue-lifecycle-r1-city-fixture.mjs": {
+      "bytes": 3024,
+      "sha256": "b1577a930599fe3710b2858feef593da805a4a56e646acb14001818b9f9ff5e5"
+    },
+    "dialogue-lifecycle-r1-dom-fixture.mjs": {
+      "bytes": 2990,
+      "sha256": "33aa6ae90d96bbfbd0d915b0fab769cf974e28d5628678f66dbd077952e2d607"
+    },
+    "dialogue-lifecycle-r1-game-fixture.mjs": {
+      "bytes": 6667,
+      "sha256": "30da76a2ab4dbcd45d154b42907f72b613f2d98f63e109f9b27a1cbf7cfda171"
+    },
+    "dialogue-lifecycle-r1-probe.json": {
+      "bytes": 32245,
+      "sha256": "9af7ae2d61c1dd87c70acc79b575753c08508f6bef19593ed7362cccdb7da4e5"
+    },
+    "dialogue-lifecycle-r1-probe.mjs": {
+      "bytes": 9357,
+      "sha256": "e2e53bab4cb8c63aebcf1e99ce18e14586b8dfd38f797ec2ec841d7b92f0d0ec"
+    },
+    "dialogue-lifecycle-r1-refutation-probe.json": {
+      "bytes": 7194,
+      "sha256": "d31689fe1603f2b39b79b31aea1de7f90615868b2a6167171d5659d1fef519a8"
+    },
+    "dialogue-lifecycle-r1-refutation-probe.mjs": {
+      "bytes": 16800,
+      "sha256": "96bdecb4c3ebb502c63c8ecf81096022fe4d66d2f420ec0fc26aafce043bcf92"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/actors/actor.js": {
+      "bytes": 35441,
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/content/world_data.js": {
+      "bytes": 45904,
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/core/util.js": {
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/game/director.js": {
+      "bytes": 75703,
+      "sha256": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/game/game.js": {
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/game/narrative.js": {
+      "bytes": 15872,
+      "sha256": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/game/state.js": {
+      "bytes": 33880,
+      "sha256": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/main.js": {
+      "bytes": 19931,
+      "sha256": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/ui/screens.js": {
+      "bytes": 48630,
+      "sha256": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/src/world/gas.js": {
+      "bytes": 15059,
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    "dialogue-lifecycle-r1-refutation-sources/styles.css": {
+      "bytes": 46883,
+      "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3"
+    },
+    "dialogue-lifecycle-r1-refutation.json": {
+      "bytes": 6253,
+      "sha256": "6bda99529a04768101d122f189efd894fc41b2b112b3970efcede33168992c7c"
+    },
+    "dialogue-lifecycle-r1-review.json": {
+      "bytes": 11778,
+      "sha256": "e9d5ab337fb0d7ebcaf96cda6cd31b94568977f000cce0aca7eb1b67a6c5f560"
+    },
+    "dialogue-lifecycle-r1-source/package.json": {
+      "bytes": 18,
+      "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae"
+    },
+    "dialogue-lifecycle-r1-source/public/styles.css": {
+      "bytes": 46883,
+      "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3"
+    },
+    "dialogue-lifecycle-r1-source/src/actors/actor.js": {
+      "bytes": 35441,
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    "dialogue-lifecycle-r1-source/src/actors/anim.js": {
+      "bytes": 45861,
+      "sha256": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002"
+    },
+    "dialogue-lifecycle-r1-source/src/actors/player.js": {
+      "bytes": 19131,
+      "sha256": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66"
+    },
+    "dialogue-lifecycle-r1-source/src/actors/rig.js": {
+      "bytes": 39237,
+      "sha256": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3"
+    },
+    "dialogue-lifecycle-r1-source/src/audio/audio.js": {
+      "bytes": 47016,
+      "sha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49"
+    },
+    "dialogue-lifecycle-r1-source/src/content/i18n.js": {
+      "bytes": 6948,
+      "sha256": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116"
+    },
+    "dialogue-lifecycle-r1-source/src/content/locale/ja/content.js": {
+      "bytes": 56081,
+      "sha256": "a45c2ce94362ee5489089a245087567f1ace550388f5c49366d4f7e6dc1ec772"
+    },
+    "dialogue-lifecycle-r1-source/src/content/locale/ja/engine.js": {
+      "bytes": 4206,
+      "sha256": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226"
+    },
+    "dialogue-lifecycle-r1-source/src/content/locale/ja/story.js": {
+      "bytes": 29995,
+      "sha256": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f"
+    },
+    "dialogue-lifecycle-r1-source/src/content/locale/ja/story2.js": {
+      "bytes": 30572,
+      "sha256": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651"
+    },
+    "dialogue-lifecycle-r1-source/src/content/locale/ja/ui.js": {
+      "bytes": 17509,
+      "sha256": "5d47dd0ceba8079a28568da0e66235d59ad31fd6a7935e4e1e05409d9cb611b7"
+    },
+    "dialogue-lifecycle-r1-source/src/content/locale/ja.js": {
+      "bytes": 2290,
+      "sha256": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8"
+    },
+    "dialogue-lifecycle-r1-source/src/content/story.js": {
+      "bytes": 110782,
+      "sha256": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda"
+    },
+    "dialogue-lifecycle-r1-source/src/content/world_data.js": {
+      "bytes": 45904,
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8"
+    },
+    "dialogue-lifecycle-r1-source/src/core/engine.js": {
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    "dialogue-lifecycle-r1-source/src/core/input.js": {
+      "bytes": 15682,
+      "sha256": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e"
+    },
+    "dialogue-lifecycle-r1-source/src/core/rng.js": {
+      "bytes": 5130,
+      "sha256": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0"
+    },
+    "dialogue-lifecycle-r1-source/src/core/util.js": {
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    },
+    "dialogue-lifecycle-r1-source/src/game/ai.js": {
+      "bytes": 32523,
+      "sha256": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597"
+    },
+    "dialogue-lifecycle-r1-source/src/game/combat.js": {
+      "bytes": 23286,
+      "sha256": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29"
+    },
+    "dialogue-lifecycle-r1-source/src/game/director.js": {
+      "bytes": 75703,
+      "sha256": "1dfd99d47e3023d0e257cd0a0dfab6255fa3a9bb61910b92b4d632237d09020d"
+    },
+    "dialogue-lifecycle-r1-source/src/game/game.js": {
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    "dialogue-lifecycle-r1-source/src/game/narrative.js": {
+      "bytes": 15872,
+      "sha256": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6"
+    },
+    "dialogue-lifecycle-r1-source/src/game/state.js": {
+      "bytes": 33880,
+      "sha256": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc"
+    },
+    "dialogue-lifecycle-r1-source/src/main.js": {
+      "bytes": 19931,
+      "sha256": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760"
+    },
+    "dialogue-lifecycle-r1-source/src/render/atmosphere.js": {
+      "bytes": 40378,
+      "sha256": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3"
+    },
+    "dialogue-lifecycle-r1-source/src/render/materials.js": {
+      "bytes": 19526,
+      "sha256": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b"
+    },
+    "dialogue-lifecycle-r1-source/src/render/postfx.js": {
+      "bytes": 17300,
+      "sha256": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3"
+    },
+    "dialogue-lifecycle-r1-source/src/render/shadow_batches.js": {
+      "bytes": 9617,
+      "sha256": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a"
+    },
+    "dialogue-lifecycle-r1-source/src/render/textures.js": {
+      "bytes": 49248,
+      "sha256": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933"
+    },
+    "dialogue-lifecycle-r1-source/src/ui/hud.js": {
+      "bytes": 26327,
+      "sha256": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b"
+    },
+    "dialogue-lifecycle-r1-source/src/ui/screens.js": {
+      "bytes": 48630,
+      "sha256": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba"
+    },
+    "dialogue-lifecycle-r1-source/src/world/buildings.js": {
+      "bytes": 25254,
+      "sha256": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7"
+    },
+    "dialogue-lifecycle-r1-source/src/world/city.js": {
+      "bytes": 52538,
+      "sha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b"
+    },
+    "dialogue-lifecycle-r1-source/src/world/collision.js": {
+      "bytes": 21291,
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+    },
+    "dialogue-lifecycle-r1-source/src/world/gas.js": {
+      "bytes": 15059,
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    "dialogue-lifecycle-r1-source/src/world/geom.js": {
+      "bytes": 20467,
+      "sha256": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1"
+    },
+    "dialogue-lifecycle-r1-source/src/world/nav.js": {
+      "bytes": 15759,
+      "sha256": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234"
+    },
+    "dialogue-lifecycle-r1-source/src/world/props.js": {
+      "bytes": 44641,
+      "sha256": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+    },
+    "dialogue-lifecycle-r1-source.json": {
+      "bytes": 4231,
+      "sha256": "bc516fd3f86cab4c1535671d83f14003b9394f3b647a92065a769eda272ea46b"
+    },
+    "dialogue-lifecycle-r2-sol-probe.json": {
+      "bytes": 3375,
+      "sha256": "c92cb8347808ce9a22346e56bfc5e5c18f08642b7b27e77eaa728c606d2bb1b4"
+    },
+    "dialogue-lifecycle-r2-sol-probe.mjs": {
+      "bytes": 8314,
+      "sha256": "8a03ec7e92095dac52582f63c758ab898c9d2be5e8ba46f92cac1b8d40988700"
+    },
+    "dialogue-lifecycle-r3-repair-city-fixture.mjs": {
+      "bytes": 3052,
+      "sha256": "87eba718f9d8b75edb6ad049d0ca5b869bd25b5704d6ad118b6c941d05f762ad"
+    },
+    "dialogue-lifecycle-r3-repair-contract-probe.json": {
+      "bytes": 3682,
+      "sha256": "5a4887a4f008324b46410ba8a20f46699378c9e681e807ce393030762b970215"
+    },
+    "dialogue-lifecycle-r3-repair-contract-probe.mjs": {
+      "bytes": 7100,
+      "sha256": "13809eb03e9b5bb59ec59f249473e8b0d7804ee5e7c74bb0b14ddfda509b6e2e"
+    },
+    "dialogue-lifecycle-r3-repair-game-fixture.mjs": {
+      "bytes": 6758,
+      "sha256": "950994efc196e9dd03ba6fadb2837550591cde62327372296d4174f8c91ab52e"
+    },
+    "dialogue-lifecycle-r3-repair-probe.json": {
+      "bytes": 35286,
+      "sha256": "3ea41108d8b86c56511acf610ea8bc04702342600e5f639daa2ade65729f9bfb"
+    },
+    "dialogue-lifecycle-r3-repair-probe.mjs": {
+      "bytes": 10152,
+      "sha256": "9ebc112cd381d92d17b7766e0f5dd2cc28147ff49d4af715eea4d47816ad0fad"
+    },
+    "dialogue-lifecycle-r3-repair-refutation-probe.json": {
+      "bytes": 6377,
+      "sha256": "be2c5b7ecf8007b5cb12aab24abc05e13e1e9b003ffdff8c53ff62a41665b119"
+    },
+    "dialogue-lifecycle-r3-repair-refutation-probe.mjs": {
+      "bytes": 13935,
+      "sha256": "e668597c85f91d4be10f4422045f2eb12f4bcc467f520c54dfcacc2b3b17cdc5"
+    },
+    "dialogue-lifecycle-r3-repair-refutation.json": {
+      "bytes": 3823,
+      "sha256": "454c401ee57756f2bc5be12baaf3edf13befc958f137b296de8fb537c3851972"
+    },
+    "dialogue-lifecycle-r3-repair-review.json": {
+      "bytes": 9365,
+      "sha256": "0a0ffcc3e154b9b1a053f1d3a1c06aa584e68d2c14e619b39e64b86da89de3a6"
+    },
+    "dialogue-lifecycle-r3-repair-source/package.json": {
+      "bytes": 18,
+      "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae"
+    },
+    "dialogue-lifecycle-r3-repair-source/public/styles.css": {
+      "bytes": 46883,
+      "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/actors/actor.js": {
+      "bytes": 35441,
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/actors/anim.js": {
+      "bytes": 45861,
+      "sha256": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/actors/player.js": {
+      "bytes": 19131,
+      "sha256": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/actors/rig.js": {
+      "bytes": 39237,
+      "sha256": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/audio/audio.js": {
+      "bytes": 47016,
+      "sha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/i18n.js": {
+      "bytes": 6948,
+      "sha256": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/locale/ja/content.js": {
+      "bytes": 55890,
+      "sha256": "7d41d9193774839c037a1a2dede439344fa8bc43100a1d5ee7b12930d2370da1"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/locale/ja/engine.js": {
+      "bytes": 4206,
+      "sha256": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/locale/ja/story.js": {
+      "bytes": 29995,
+      "sha256": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/locale/ja/story2.js": {
+      "bytes": 30572,
+      "sha256": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/locale/ja/ui.js": {
+      "bytes": 17500,
+      "sha256": "b71791bf626a9584d5aad4416237da5826e955f86bd70f2aa584efcad5404674"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/locale/ja.js": {
+      "bytes": 2290,
+      "sha256": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/story.js": {
+      "bytes": 110641,
+      "sha256": "be15373dc9a80348be2b1d84c46ae62ae561c985e14d3359b6b909bde44f039b"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/content/world_data.js": {
+      "bytes": 45904,
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/core/engine.js": {
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/core/input.js": {
+      "bytes": 15682,
+      "sha256": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/core/rng.js": {
+      "bytes": 5130,
+      "sha256": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/core/util.js": {
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/game/ai.js": {
+      "bytes": 32523,
+      "sha256": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/game/combat.js": {
+      "bytes": 23286,
+      "sha256": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/game/director.js": {
+      "bytes": 76267,
+      "sha256": "6ef77a062ec5334c0324816fc7ffd9a090aa391b760267c693857bfc3e5d021e"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/game/game.js": {
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/game/narrative.js": {
+      "bytes": 16084,
+      "sha256": "2535df961c19396606423dc8b98c2a3a1552cd2071080ac2be98b5860d6956b0"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/game/state.js": {
+      "bytes": 33880,
+      "sha256": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/main.js": {
+      "bytes": 19931,
+      "sha256": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/render/atmosphere.js": {
+      "bytes": 40378,
+      "sha256": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/render/materials.js": {
+      "bytes": 19526,
+      "sha256": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/render/postfx.js": {
+      "bytes": 17300,
+      "sha256": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/render/shadow_batches.js": {
+      "bytes": 9617,
+      "sha256": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/render/textures.js": {
+      "bytes": 49248,
+      "sha256": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/ui/hud.js": {
+      "bytes": 26327,
+      "sha256": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/ui/screens.js": {
+      "bytes": 48812,
+      "sha256": "558d65579cbf782788119da354f99da73ce4c0e55e630ec3a4758f4c3c714afd"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/buildings.js": {
+      "bytes": 25254,
+      "sha256": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/city.js": {
+      "bytes": 52538,
+      "sha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/collision.js": {
+      "bytes": 21291,
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/gas.js": {
+      "bytes": 15059,
+      "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/geom.js": {
+      "bytes": 20467,
+      "sha256": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/nav.js": {
+      "bytes": 15759,
+      "sha256": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234"
+    },
+    "dialogue-lifecycle-r3-repair-source/src/world/props.js": {
+      "bytes": 44641,
+      "sha256": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+    },
+    "dialogue-lifecycle-r3-repair-source.json": {
+      "bytes": 4230,
+      "sha256": "fa4a9782c1583e5c81e09125be3d3a154f1ffe863f042c4a36a7d04f1a8f927a"
+    }
+  },
+  "limitations": "Original failed probes retained. Absolute scratch imports need repointing after extraction; source snapshots and source hashes are preserved."
+}

@@ -1,0 +1,125 @@
+{
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored schema placeholder, not a product quality score.",
+  "round": "dialogue-lifecycle-r3-repair",
+  "profile": "Independent repair review of real death recovery and non-committing dialogue cancellation",
+  "tier": "Pinned actual source and CPU UI-state boundaries",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison was performed. Source identities are known. CPU state and source-bound callbacks were measured with synthetic input and a minimal DOM, without rendered pixels, browser hit testing or trusted smartphone input. These results do not change any concept-element judgment.",
+  "checkedAt": "2026-09-14T05:08:11.160Z",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "baseCommit": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "reviewer": "/root/acquisition_path_review",
+  "independentRefuter": "/root/acquisition_path_review/acquisition_refutation",
+  "verdictScope": "The recorded stale examine state is absent after the three previously reproduced death-recovery routes. Normal examine/conversation completion and cancellation without end effects pass the bounded actual-source CPU checks. This applies to the pinned uncommitted repair source, not to an unmeasured built or deployed game.",
+  "sourceState": "Live uncommitted repair was pinned before execution; all 40 actual source/style files in its manifest still match the live workspace at final review. The extra package.json only enables isolated ESM loading.",
+  "sources": {
+    "src/game/director.js": "6ef77a062ec5334c0324816fc7ffd9a090aa391b760267c693857bfc3e5d021e",
+    "src/game/narrative.js": "2535df961c19396606423dc8b98c2a3a1552cd2071080ac2be98b5860d6956b0",
+    "src/ui/screens.js": "558d65579cbf782788119da354f99da73ce4c0e55e630ec3a4758f4c3c714afd"
+  },
+  "sourceManifest": "dialogue-lifecycle-r3-repair-source.json",
+  "liveApplicability": {
+    "checkedAt": "2026-09-14T05:08:11.160Z",
+    "matchedActualSourceFiles": 40,
+    "allMatched": true,
+    "productEditedByReviewer": false,
+    "builtProductMeasured": false
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "previousReview": "dialogue-lifecycle-r1-review.json",
+      "previousSeverity": "minor",
+      "symptom": "An authored cellar examine text and its advance callback survived natural gas death and GET UP, TITLE → NEW GAME or TITLE → CONTINUE.",
+      "repair": "Death and resetWorld call non-committing Director.cancelDialogue; the runner clears active conversation state/listeners without finish; UI hide clears text, typing, choices and callbacks, and hidden box taps return immediately.",
+      "measuredResult": "All three actual recovery flows now hide and clear the prior reading already at death, return to PLAY/alive without the stale text, and ignore the old hidden box taps and typing update. The normal authored five-paragraph examine still completes in 10 taps.",
+      "mechanismScope": "Confirmed for the actual source state/callback lifecycle. No rendered overlay or native pointer behavior was measured."
+    }
+  ],
+  "checks": {
+    "userRecovery": {
+      "total": 3,
+      "passed": 3,
+      "routes": [
+        "GET UP",
+        "TITLE → NEW GAME",
+        "TITLE → CONTINUE"
+      ],
+      "evidence": "dialogue-lifecycle-r3-repair-probe.json"
+    },
+    "ordinaryExamine": {
+      "total": 1,
+      "passed": 1,
+      "paragraphs": 5,
+      "taps": 10,
+      "evidence": "dialogue-lifecycle-r3-repair-probe.json"
+    },
+    "cancellationAndCompletionContracts": {
+      "total": 6,
+      "passed": 6,
+      "names": [
+        "Authored vent decision still commits the chosen effect and ends through real UI callbacks",
+        "Cancellation before a choice does not select it; delayed release on its removed node is inert while hidden",
+        "Diagnostic onEnd effects and callback distinguish cancel from ordinary completion",
+        "Cancellation preserves an already committed authored choice without calling the end callback",
+        "Director cancellation stops actual talking NPC action and clears deferred trade",
+        "Actual resetWorld cancels the reading and runner without completing the diagnostic conversation"
+      ],
+      "evidence": "dialogue-lifecycle-r3-repair-contract-probe.json"
+    },
+    "independentRefutation": {
+      "total": 5,
+      "passed": 5,
+      "evidence": "dialogue-lifecycle-r3-repair-refutation.json",
+      "survivingFindings": 0
+    }
+  },
+  "measured": [
+    "The actual Game interaction target selects the unlocked cellar door and authored cellar_floor examine after real interior collision movement. Health and initial gas saturation were not edited.",
+    "Full Game/Actor/Lungs simulation produces natural gas death after 49.18333333333174 seconds of reading. The existing 1400 ms death callback is delivered by a deterministic timer fixture; this is not a wall-clock measurement.",
+    "The actual title/death/pause button callback bindings and source-extracted main start/continue closures perform the three recovery routes. The continue scenario uses the actual SAVE button before entry; later authored autosave may replace that snapshot.",
+    "Authored vent-choice completion still commits its chosen effect and actual gas consequence, then returns to PLAY through the normal UI callbacks. Already committed choice effects survive cancellation.",
+    "Diagnostic onEnd effects and callback counters distinguish cancel from finish: cancellation produces zero end effects/callbacks, ordinary completion produces exactly one, and repeated finish is inert.",
+    "Cancellation stops the actual talking NPC action and clears pending trade. Both resetWorld and death use the shared cleanup.",
+    "The separate refuter confirms normal completion still performs its NPC met, quest notification and save effects, while cancellation does not perform them."
+  ],
+  "observations": [
+    {
+      "area": "Artificial detached choice callback delivery after replacement conversation",
+      "result": "The independent minimal DOM can force an old detached choice listener to reach a replacement onChoose. Native capture, disconnected-node retargeting and trusted delivery are absent. The lost-capture control prevents the forced action.",
+      "disposition": "Browser reachability is not measured; no product finding is asserted from this fixture-only delivery. This review does not claim arbitrary retained callback references are guarded across all future conversations.",
+      "evidence": "dialogue-lifecycle-r3-repair-refutation.json"
+    }
+  ],
+  "limitations": [
+    "No browser, local server, socket, Appium, Simulator, rendered frame or trusted/physical smartphone action was executed.",
+    "The starting outdoor position is staged at the authored cellar exterior without changing health, gas, items or progression. The full outdoor walk from the initial spawn is outside this scope.",
+    "The minimal DOM has no CSS/layout, native pointer capture or hit testing. Menus panel contents, canvas drawing, input acquisition and wall-clock timers are fixtures.",
+    "Diagnostic conversations are test-only controls, not authored product story content or quality evidence.",
+    "The three recovery paths are measured end to end at CPU boundaries; additional no-save retry is supported by the shared death cleanup and direct lifecycle checks, not a new end-to-end r3 browser measurement.",
+    "The earlier r1 failing evidence and r2 failed Sol-approach setup remain intact. Neither is overwritten or represented as a repaired-build browser result.",
+    "Existing product quality/element judgments remain unchanged; current-build smartphone and blind comparisons are separate work."
+  ],
+  "evidenceFiles": {
+    "dialogue-lifecycle-r3-repair-source.json": "fa4a9782c1583e5c81e09125be3d3a154f1ffe863f042c4a36a7d04f1a8f927a",
+    "dialogue-lifecycle-r3-repair-probe.mjs": "9ebc112cd381d92d17b7766e0f5dd2cc28147ff49d4af715eea4d47816ad0fad",
+    "dialogue-lifecycle-r3-repair-probe.json": "3ea41108d8b86c56511acf610ea8bc04702342600e5f639daa2ade65729f9bfb",
+    "dialogue-lifecycle-r3-repair-contract-probe.mjs": "13809eb03e9b5bb59ec59f249473e8b0d7804ee5e7c74bb0b14ddfda509b6e2e",
+    "dialogue-lifecycle-r3-repair-contract-probe.json": "5a4887a4f008324b46410ba8a20f46699378c9e681e807ce393030762b970215",
+    "dialogue-lifecycle-r3-repair-refutation.json": "454c401ee57756f2bc5be12baaf3edf13befc958f137b296de8fb537c3851972",
+    "dialogue-lifecycle-r3-repair-refutation-probe.mjs": "e668597c85f91d4be10f4422045f2eb12f4bcc467f520c54dfcacc2b3b17cdc5",
+    "dialogue-lifecycle-r3-repair-refutation-probe.json": "be2c5b7ecf8007b5cb12aab24abc05e13e1e9b003ffdff8c53ff62a41665b119",
+    "dialogue-lifecycle-r1-review.json": "e9d5ab337fb0d7ebcaf96cda6cd31b94568977f000cce0aca7eb1b67a6c5f560",
+    "dialogue-lifecycle-r1-refutation.json": "6bda99529a04768101d122f189efd894fc41b2b112b3970efcede33168992c7c",
+    "dialogue-lifecycle-r1-dom-fixture.mjs": "33aa6ae90d96bbfbd0d915b0fab769cf974e28d5628678f66dbd077952e2d607",
+    "dialogue-lifecycle-r3-repair-game-fixture.mjs": "950994efc196e9dd03ba6fadb2837550591cde62327372296d4174f8c91ab52e",
+    "dialogue-lifecycle-r3-repair-city-fixture.mjs": "87eba718f9d8b75edb6ad049d0ca5b869bd25b5704d6ad118b6c941d05f762ad"
+  },
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

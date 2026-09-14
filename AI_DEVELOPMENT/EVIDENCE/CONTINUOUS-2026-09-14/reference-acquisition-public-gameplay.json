@@ -1,0 +1,93 @@
+{
+  "checkedAt": "2026-09-14T14:17:24.525248+09:00",
+  "attempts": [
+    {
+      "localFile": "../reference-materials/alien-isolation/gamersyde/original-stream-probe.json",
+      "recordSha256": "2997fc2e2d0399c356ce5a17f834b1760782642f7ecaeadec60a1ff37c01f2d3",
+      "record": {
+        "sourcePage": "https://www.gamersyde.com/video_alien_isolation_of_an_alien_and_men-33228_en.html",
+        "method": "ordinary GET of declared original1080p60 with bytes0-65535 Range",
+        "retrievedAt": "2026-09-14T05:12:07Z",
+        "use": "private comparison inspection only; publisher prohibits reupload",
+        "error": "HTTP Error 502: Bad Gateway",
+        "elapsedSeconds": 14.576
+      }
+    },
+    {
+      "localFile": "../reference-materials/alien-isolation/gamersyde/page-acquisition.json",
+      "recordSha256": "aee75e4bb1c04956ac5352d771f7a751199d331e54bc5fd156b61ca8343da710",
+      "record": {
+        "method": "ordinary public GET",
+        "retrievedAt": "2026-09-14T05:09:39Z",
+        "status": 200,
+        "bytes": 35188,
+        "sha256": "72ca25a29ef597bfab86dd5a5a1418c8cc343aea032cd50b43b642bcbcfc6e3b",
+        "elapsedSeconds": 14.928
+      }
+    },
+    {
+      "localFile": "../reference-materials/dishonored/gamersyde/page-acquisition.json",
+      "recordSha256": "32fcdc52f35364ab6787224ea8d27accd7d58d4a835c4816ae5f5a4242657ea4",
+      "record": {
+        "at": "2026-09-14T04:51:36.326333+00:00",
+        "method": "Ordinary public GET; no login, bypass or payment. Personal comparison only; publisher does not permit republication of its capture.",
+        "status": 200,
+        "bytes": 30822,
+        "sha256": "1f1aff6af0ccebb7ebcf5044c5d933c5036f1505690e336541e2698d4c1c35a9"
+      }
+    },
+    {
+      "localFile": "../reference-materials/dishonored2/gamersyde/media-acquisition.json",
+      "recordSha256": "ccdd0b51bc7c85e8335e9d0073420d220b3e80793346f6c30b2ba51d7b7dc5dc",
+      "record": {
+        "page": "https://www.gamersyde.com/video_dishonored_2_gameplay_2_ps4_pro_-38623_en.html",
+        "at": "2026-09-14T04:54:09.018409+00:00",
+        "source": "HTML native video source, default stream 540p60",
+        "scope": "Download for private comparison inspection only. Lower resolution stream is not the original 2160p capture; no public redistribution rights. No authentication, cookies, age input or player modification.",
+        "path": "gameplay-540p60.mp4",
+        "bytes": 0,
+        "completed": false,
+        "error": "HTTP Error 502: Bad Gateway",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "elapsedSeconds": 13.686579190005432
+      }
+    },
+    {
+      "localFile": "../reference-materials/dishonored2/gamersyde/original-stream-probe.json",
+      "recordSha256": "a105c0119d57717b976be8aa386a514442cbbd55c7e566f1138ac671a4e5ad9d",
+      "record": {
+        "at": "2026-09-14T05:02:47.557039+00:00",
+        "source": "Native HTML original-resolution stream alternative, 2160p60",
+        "method": "First 64KiB only, ordinary Range GET. The default-resolution stream previously returned502; no URL alteration/auth/header impersonation.",
+        "bytes": 0,
+        "error": "HTTP Error 502: Bad Gateway"
+      }
+    },
+    {
+      "localFile": "../reference-materials/dishonored2/gamersyde/page-acquisition.json",
+      "recordSha256": "3fe7730cd9212ae8c27afa9194e08b7952b7cef44a76c9a1fa13fb51df2e93e6",
+      "record": {
+        "at": "2026-09-14T04:52:38.276458+00:00",
+        "method": "Ordinary public GET with 35s total bound; no login, bypass or payment. Personal comparison only; no public republication rights established.",
+        "status": 200,
+        "bytes": 35347,
+        "sha256": "1ecd345faa89da025d4bda016d0c301ab548f5d34af1eb832007f0c58bcd943f"
+      }
+    },
+    {
+      "localFile": "../reference-materials/gamersyde-search/alien-search.json",
+      "recordSha256": "59608262d9fceb67d6c9f447e71a2c8252340bc08ecfff4bc264c4e38f72c98c",
+      "record": {
+        "at": "2026-09-14T04:55:30.102175+00:00",
+        "query": "Alien Isolation",
+        "method": "POST to public HTML-advertised search form with sole search field; no login/no messages",
+        "status": 200,
+        "bytes": 24807,
+        "sha256": "215a60c1b5bc57c0d7fcf9251c65c53f15e5f1b8531983f14cb420ece46244a2"
+      }
+    }
+  ],
+  "mediaAcquired": false,
+  "rights": "Gamersyde explicitly disallows reupload. No media copies entered the public repository or game. Metadata records exclude temporary signed stream URLs.",
+  "nextMethod": "Move away from failing old streaming pool; obtain actual gameplay from a separately authorized public source, not descriptive copy."
+}

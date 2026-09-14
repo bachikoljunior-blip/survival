@@ -2312,9 +2312,8 @@ own director's signature at the bottom and the foreman read the date, and by the
 time he looked up you were past him. He gave evidence too. He was not asked to
 and he came anyway.` },
       { condition: { flag: 'trench_slipped' },
-        text: `You did not touch any of them getting in. Two of the three gave evidence and
-neither could say how you had got past the line, and the transcript records both
-of them saying, separately, that they had not been looking.` },
+        text: `At the hearing, you marked your way over the line on a section drawing. On
+the paper it was a few millimetres. You could still feel the height in your knees.` },
       { condition: { flag: 'trench_fought' },
         text: `You put two Authority men and a scavenger on the ground getting in. That was
 in the record too. Your counsel wanted it framed as necessity and you would not
@@ -2480,10 +2479,9 @@ thing you have ever done that you cannot tell anybody about.`,
 by name, and the four hundred and six does not include the @n you left in a
 ground-floor room in a street that was already gone.` },
       { condition: { flag: 'trench_slipped' },
-        text: `Nobody ever established how you got past the line at the cut that morning,
-because you went over the spoil heap in daylight in front of forty people and
-not one of them mentioned it to anybody, ever, which is the single clearest
-thing anyone in Hollis has told you about whose side they were on.` },
+        text: `You had gone over the line above the cut. The people you brought to the
+lorries could not all have followed you. You stayed beside the steps while they
+climbed aboard, with your hands out and nothing useful to say.` },
       { condition: { flag: 'crisis_saved_all' },
         text: `Sol had watched you bring four people up a stairwell in a filling street once
 already. That is the only reason she said yes to this in under a minute. She

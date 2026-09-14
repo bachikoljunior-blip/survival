@@ -207,6 +207,7 @@ seconds and I already know which one I believe.`);
    */
   resetWorld() {
     const g = this.game;
+    this.cancelDialogue();
 
     // Geometry a run raised: the chapter-five compound, and any survivors or
     // followers still standing about from a crisis.
@@ -466,8 +467,10 @@ seconds and I already know which one I believe.`);
     if (p.pos.x > 76 && p.pos.x < 96 && p.pos.z > 6 && p.pos.z < 26 && p.pos.y > 2.4) {
       this.state.set('trench_passed');
       if (this._raidActive && this._raidActive.group.some((e) => !e.dead)) {
+        // This records the route, including a climb made under pursuit. It
+        // does not establish that no guard saw Ren or that nobody was hurt.
         this.state.set('trench_slipped');
-        g.hud.notice(t('ui.hud.pastthem', '<b>Past them.</b><br>Nobody looked up.'), 'good', 4);
+        g.hud.notice(t('ui.hud.pastthem', '<b>Over the line.</b><br>You have the high ground.'), 'good', 4);
       }
       this.quests.notify('custom', { id: 'trenchPassed' });
     }
@@ -1344,8 +1347,19 @@ she has been able to get to telling somebody.`],
 
   // ------------------------------------------------------------------ death
 
+  cancelDialogue() {
+    // Death and world replacement interrupt reading; they do not finish it.
+    // In particular, finish() could apply choices, rescue or ending effects.
+    this.dialogue.cancel();
+    this.game.dialogueUI.hide();
+    this._talkNpc?.animator.stopAction(0.1);
+    this._talkNpc = null;
+    this._pendingTrade = false;
+  }
+
   onPlayerDeath(p) {
     const g = this.game;
+    this.cancelDialogue();
     this.state.deaths++;
     g.setMode(MODE.DEAD);
     g.hud.setVisible(false);

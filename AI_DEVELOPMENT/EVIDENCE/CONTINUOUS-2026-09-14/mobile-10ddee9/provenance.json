@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-09-14T14:17:24.525248+09:00",
+  "commit": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "bundleSha256": "72d4805cd0638a0826ea1814128369f223f727f9e6fe4d4ac6f2a2beb53a9cb0",
+  "measured": {
+    "floorGates": {
+      "run": 34807282321,
+      "job": 103861515771,
+      "conclusion": "success",
+      "webkit": "PASSED, zero failures in original job log; full report/media not acquired",
+      "postBootFaults": "42 checks, zero failures, zero not measured in original job log",
+      "chromiumAudio": "PASSED, zero failures; new recording bytes not acquired"
+    },
+    "iosSafari": {
+      "run": 34807282325,
+      "job": 103861515966,
+      "conclusion": "failure",
+      "runtime": "SDK-matched iOS18.5 iPhone SE3",
+      "passedBeforeFailure": 9,
+      "failure": "First New Game native tap did not yield PLAY within 30s",
+      "failureCodeLine": "tools/test-ios-safari.mjs:277",
+      "scope": "Actual Mobile Safari engine/ready/layout checks reached. Subsequent touch, camera, saving, rotation, soak did not execute."
+    }
+  },
+  "hypotheses": {
+    "iosInput": "Pinned driver forwards W3C actions in native coordinates; old harness passed CSS rect coordinates unchanged. Missing calibration is a confirmed harness mismatch; causation of the particular failed tap still requires next actual run with event evidence."
+  },
+  "artifactDelivery": {
+    "status": "blocked",
+    "observed": "Both unexpired signed artifact delivery URLs returned403; ordinary response diagnostic body error code:1010. No alternate identity/proxy/auth used.",
+    "artifactIds": [
+      10334070741,
+      10333637069,
+      10333896851,
+      10334041283
+    ],
+    "newMediaRead": false,
+    "fallback": "Official connected GitHub job-log read succeeded; next own CI will retain report, input observations and bounded lossless own screenshots in ordinary job logs."
+  },
+  "files": {
+    "10ddee9-f3-job.log": {
+      "bytes": 160628,
+      "sha256": "3d8f9d4297fd13811d5f08c4541fc6da9a283f04ebd8bee672af0837076ea62a"
+    },
+    "artifact-delivery-403.json": {
+      "bytes": 211,
+      "sha256": "6089b846f1d6b0bee5b59a582f5ca08fe40a869f2b499fb91ea06d2913051d5a"
+    },
+    "10ddee9-ios-job.log": {
+      "bytes": 38708,
+      "sha256": "b12d1c857d0baeb5015c11e9b7ecc2664590b845f7dbd018e3725aa8872d635b"
+    }
+  },
+  "elementJudgments": "All19 remain not measured; build diagnostics are not blind comparisons."
+}

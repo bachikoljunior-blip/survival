@@ -1,0 +1,96 @@
+{
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored schema placeholder, not a product quality score.",
+  "round": "ios-pointer-acquisition-r1",
+  "profile": "Independent bounded Mobile Safari coordinate, action and failure-evidence repair review",
+  "tier": "Pinned source and CPU transport/event boundaries",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison or new iOS run was performed. Source identities are known. All device, WebDriver, event-trust and image values in the CPU probes are diagnostic boundary fixtures, not measured Safari, rendered-game, smartphone or product-quality results. No concept-element status changes.",
+  "checkedAt": "2026-09-14T05:31:43.183Z",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "baseCommit": "10ddee91fbf74512d3d577ba50d9dabbc987193f",
+  "reviewer": "/root/acquisition_path_review",
+  "independentRefuter": "/root/acquisition_path_review/acquisition_refutation",
+  "verdictScope": "No concrete additional defect survived the bounded source/CPU review. The calibration, native-action conversion and diagnostic/report paths are ready for the authorized existing CI to measure; their actual Safari success is not established by this review.",
+  "sources": {
+    "tools/test-ios-safari.mjs": "e9be30fb7e6c33c2086abca618e9cbe5ae899f830172660d21aa88740db24c11",
+    "tools/ios-pointer-coordinates.mjs": "ddbdf1f0606fc40796efc87845ebf0b72776172ca3121bd41e64e4ead98732ca",
+    "tools/webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    ".github/workflows/mobile-simulator.yml": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa"
+  },
+  "sourceManifest": "ios-pointer-acquisition-r1-source.json",
+  "liveApplicability": {
+    "allFourPinnedFilesMatchLive": true,
+    "productEditedByReviewer": false,
+    "sourceState": "Uncommitted acquisition repair over 10ddee91fbf74512d3d577ba50d9dabbc987193f at review."
+  },
+  "findings": [],
+  "priorActualFailure": {
+    "evidence": "10ddee9-ios-job.log",
+    "jobId": "103861515966",
+    "runId": "34807282325",
+    "observed": "The actual old run reported one failure at the first PLAY condition after the NEW GAME action; the log directly records the timeout and its original source location. No newer iOS execution is represented here.",
+    "hypothesis": "The old action coordinates were DOM viewport values sent to native /actions without calibrated translation. This is a source-supported possible cause, not a confirmed diagnosis from a repaired native tap.",
+    "sourceBasis": "The pinned v12.1.3 performActions implementation forwards coordinates to WDA without translating them and removes duration-zero pause actions. The public calibration method visits its own calibration page and restores the previous URL on success."
+  },
+  "checks": {
+    "parent": {
+      "total": 5,
+      "passed": 5,
+      "names": [
+        "Original first-tap timeout retains calibration/actions, diagnosis and exact report/PNG",
+        "Diagnostic state, screenshot and cleanup failure preserve original failure and report",
+        "Over-cap image stays on disk and is omitted from ordinary log without losing report",
+        "Pre-session failure still writes and prints original failure report",
+        "Static calibration positions and workflow helper trigger"
+      ]
+    },
+    "independentRefutation": {
+      "total": 6,
+      "passed": 6
+    }
+  },
+  "measured": [
+    "The exact acquisition script was run at stubbed HTTP/WebDriver/filesystem/clock boundaries through the original first-PLAY-timeout path. It retains nine passing prechecks supplied by the fixture, one original failure, calibration and both CSS/native actions.",
+    "Calibration executes before instrumentation and device/title measurements, and waits for the reloaded application ready state. Source reading locates only two calibration calls: before NEW GAME and after refresh before CONTINUE, outside active play.",
+    "The exact report JSON printed to the ordinary job-log boundary equals the saved report. A 68-byte PNG fixture round-trips with matching byte count and SHA256; payload chunks obey the 4000-character limit.",
+    "When failure-state, screenshot and session cleanup boundaries all throw, all three diagnostic errors are recorded while the original PLAY timeout remains the primary failure and the report is saved/printed.",
+    "An image exceeding 1500000 bytes remains at the file boundary and is skipped by log serialization without losing the report. A missing-UDID failure writes/prints its report without any HTTP/WebDriver/server call.",
+    "Independent numeric checks execute the pinned calibrated driver branch. The helper follows its OR scaling condition and applies endpoint integer rounding; invalid calibration/viewport/origin inputs fail before dispatch and frozen input actions remain unchanged.",
+    "Independent execution of the pinned driver preprocessing retains all eight positive-pause ticks. Both bounded timeline interpretations contain positive two-contact overlap. Actual WDA timing remains unmeasured.",
+    "The exact event recorder and trust predicates reject misplaced/wrong-type/untrusted title events and sequential, duplicate-ID, canceled, untrusted or mouse-only contact traces. All trust values in these tests are explicit fixture values, not native events."
+  ],
+  "limitations": [
+    "No local browser, local server, socket, Appium, Simulator, credentials or permission changes were used. The stubbed acquisition script is not an actual browser test.",
+    "The public calibration data rounds offsets; the internal driver retains floating values. The helper follows the public data and additionally rounds action endpoints. It is not asserted to be bit-identical to internal floating output.",
+    "Actual Safari chrome geometry, calibration reliability/reload timing, native touch placement and overlap, game movement/attack effects, orientation restoration and persistence still require the new real CI.",
+    "The CPU failure probe intentionally ends at the first PLAY timeout; it does not execute the complete game gate. The second calibration call is verified by source order only.",
+    "Filesystem availability and GitHub log delivery/truncation are not tested by the in-memory boundary. The report/PNG checks establish script serialization fidelity, not external retrieval success. Oversized images remain artifact-only and are not replaced by the smaller fixture.",
+    "The parent and refuter each encountered a CPU-wrapper setup syntax error, fixed only in their diagnostic harnesses. Separate setup records are retained; neither is a product or iOS finding.",
+    "Earlier dialogue and iOS evidence is preserved. This PASS does not promote the failed old run, satisfy a quality element or replace the required blind comparison."
+  ],
+  "continuity": {
+    "observed": "The existing refuter was listed as interrupted during this task and resumed by followup_task from the same pinned snapshot.",
+    "cause": "Not established; no interruption mechanism is inferred."
+  },
+  "evidenceFiles": {
+    "ios-pointer-acquisition-r1-source.json": "f1d35fdf50cdba998635c3277822ecc2be5c96012aff08d2ad5ecf30f6aba0a5",
+    "ios-pointer-acquisition-r1-probe.mjs": "1355a9f108d452700c14882f04465a82ac308ce7defdca0a940fc60ca7e1f6a3",
+    "ios-pointer-acquisition-r1-probe.json": "18a7a0a8063f857d47e4adac36094e984d0cee2762b03ae727ce77c5862cbe36",
+    "ios-pointer-acquisition-r1-refutation.json": "51e287cb5b3b2deac89c446b4bd978ada81663dfb961f0494b00dd8912f69098",
+    "ios-pointer-acquisition-r1-refutation-probe.mjs": "f4b6886a02548363919d6d5817179781d394eeb333d2d154f544c9b5486ed4ac",
+    "ios-pointer-acquisition-r1-refutation-probe.json": "b729925e07ee6d9e9c9f1cacceed794d6195f53f004c1b74965614e8a3c9896e",
+    "ios-pointer-acquisition-r1-probe-setup-failed.mjs": "d6ca5fa03948e2ff4b12a6e63a08ac91b8a48a8ee7d2333eaff7cd0b47a7d6b1",
+    "ios-pointer-acquisition-r1-probe-setup-failed.json": "9699960acbe52a28ead3323e8f1b10dd410d625401a44b4e3d4b36b8b21dee52",
+    "ios-pointer-acquisition-r1-refutation-setup-failure.json": "62c10b281422d6fa266e07a88859f10604d5b4aff602312a2242b77bebf5fa55",
+    "appium-12.1.3-gesture.ts": "98971229c92fcd72964c2c49a3e24ec61981a7791ed316beaa495a88e577186d",
+    "appium-12.1.3-web.ts": "e6a1f019a79585c4b71aa1411a03c2f8d8c8f58b8ddaf6fc36d59f19ef3edbc5",
+    "10ddee9-ios-job.log": "b12d1c857d0baeb5015c11e9b7ecc2664590b845f7dbd018e3725aa8872d635b"
+  },
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}
