@@ -344,7 +344,7 @@ jobs:
 
   grain-strength-trial:
     name: Frozen grain strength diagnosis
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c28-r2]')
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c29-r3]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -352,7 +352,7 @@ jobs:
     env:
       CINDERLINE_VISUAL_ONLY: '1'
       CINDERLINE_GRAIN_TRIAL: '1'
-      CINDERLINE_WEBKIT_OUTPUT: test-results/grain-c28-r2
+      CINDERLINE_WEBKIT_OUTPUT: test-results/grain-c29-r3
     steps:
       - uses: actions/checkout@v4
         with:
@@ -379,8 +379,84 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: grain-c28-r2-${{ github.sha }}
-          path: test-results/grain-c28-r2
+          name: grain-c29-r3-${{ github.sha }}
+          path: test-results/grain-c29-r3
           if-no-files-found: warn
           retention-days: 14
 
+
+  prepare-grain-product:
+    name: Prepare exact grain product source and root
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-grain-product-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-grain-product.mjs
+      - name: Reproduce the original build and prepare the exact candidate bytes
+        run: node tools/prepare-grain-product.mjs
+      - name: Export complete prepared files with hashes and offsets
+        run: node tools/prepare-grain-product.mjs --export
+      - name: Preserve original candidate or failure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grain-product-build-r1-${{ github.sha }}
+          path: test-results/grain-product-build-r1
+          if-no-files-found: error
+          retention-days: 14
+
+  recover-ios-audio-c29:
+    name: Recover original C29 Safari recordings
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-audio-c29-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/recover-ios-audio-c29.mjs
+      - name: Verify the original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-c29-original-recovery-r1
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10349183915 > test-results/ios-c29-original-recovery-r1/artifact-metadata.json
+          node tools/recover-ios-audio-c29.mjs --metadata-only
+      - name: Download the existing original artifact through the official action
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '10349183915'
+          merge-multiple: true
+          run-id: '34848677647'
+          repository: bachikoljunior-blip/survival
+          github-token: ${{ github.token }}
+          path: test-results/ios-c29-original-recovery-r1/input
+      - name: Verify original report and media and export complete bytes
+        run: node tools/recover-ios-audio-c29.mjs
+      - name: Preserve recovered originals and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-c29-original-recovery-r1-${{ github.sha }}
+          path: |
+            test-results/ios-c29-original-recovery-r1/recovery-report.json
+            test-results/ios-c29-original-recovery-r1/artifact-metadata.json
+            test-results/ios-c29-original-recovery-r1/report.json
+            test-results/ios-c29-original-recovery-r1/audio__*.mp4
+          if-no-files-found: error
+          retention-days: 14

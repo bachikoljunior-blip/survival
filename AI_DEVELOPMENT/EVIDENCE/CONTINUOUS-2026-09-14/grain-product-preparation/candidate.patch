@@ -1,0 +1,20 @@
+--- a/src/render/postfx.js
++++ b/src/render/postfx.js
+@@ -79,7 +79,7 @@
+       bloomThreshold: 0.78,
+       bloomKnee: 0.42,
+       vignette: 0.40,
+-      grain: 0.035,
++      grain: 0.012,
+       aberration: 0.0016,
+       // Pushed by gameplay: rises when the player is saturating with CO.
+       hypoxia: 0.0,
+@@ -239,7 +239,7 @@
+         uOffset: { value: new THREE.Color(0.004, 0.0028, 0.0018) },
+         uGain: { value: new THREE.Color(1.02, 1.0, 0.958) },
+         uVignette: { value: 0.45 },
+-        uGrain: { value: 0.035 },
++        uGrain: { value: 0.012 },
+         uAberration: { value: 0.0016 },
+         uHypoxia: { value: 0.0 },
+         uFlash: { value: 0.0 },

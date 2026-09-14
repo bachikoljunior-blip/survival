@@ -1,0 +1,53 @@
+{
+  "scope": "CPU metadata and complete transport controls; no original iOS media recovered and no production build executed",
+  "checks": [
+    {
+      "name": "preserved official metadata pins",
+      "passed": true
+    },
+    {
+      "name": "actual log summary fields under original full-report schema",
+      "passed": true
+    },
+    {
+      "name": "artifact head rejected",
+      "passed": true
+    },
+    {
+      "name": "expired rejected",
+      "passed": true
+    },
+    {
+      "name": "archive digest rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong recorder rejected",
+      "passed": true
+    },
+    {
+      "name": "missing clip rejected",
+      "passed": true
+    },
+    {
+      "name": "duplicate clip rejected",
+      "passed": true
+    },
+    {
+      "name": "failed clock rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong raw media fails before any successful export",
+      "passed": true
+    },
+    {
+      "name": "complete export offsets, 3000-byte boundaries, zero-byte blob and SHA roundtrip",
+      "passed": true
+    },
+    {
+      "name": "last prepared file corruption causes zero partial export",
+      "passed": true
+    }
+  ]
+}

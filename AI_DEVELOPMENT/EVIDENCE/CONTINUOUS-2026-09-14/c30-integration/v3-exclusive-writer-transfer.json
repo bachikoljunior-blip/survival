@@ -1,0 +1,21 @@
+{
+  "instruction_id": "ULTRA-CHILDREN-20260914-v3",
+  "instruction_commit": "4faf6f79c9cf29bbfa1e423bd8a8178d7d1dd56f",
+  "instruction_blob": "8b758231a6b77277092ccee5a322f593320b123f",
+  "root_confirmation_at": "2026-09-14T22:49:46.641+09:00",
+  "previous_writer": "/root",
+  "current_exclusive_writer": "/root/integration_decisions_ultra_v2",
+  "scope": [
+    "survival specified production branch",
+    "survival SESSION_STATE",
+    "survival normal protected main integration"
+  ],
+  "root_pending_remote_writes": 0,
+  "root_last_remote_write": "C29 f735a3ab6d230835ce06542281e2f53e3ad94737; readback completed 2026-09-14T22:20:49.180+09:00",
+  "root_relinquished": true,
+  "ultra_owner_acknowledged": true,
+  "acknowledgement": "Ultra integration owner confirmed formal write tools available, latest source4faf, v3 read, accepted sole writer after root no-pending and no-further-write statement.",
+  "excluded_scope": "Automation state changes remain exclusively assigned to game2 coordinator by v3.",
+  "parent_further_remote_writes": "none unless the sole Ultra owner identifies an operation genuinely limited to parent and gives an exact mechanical request"
+}
+

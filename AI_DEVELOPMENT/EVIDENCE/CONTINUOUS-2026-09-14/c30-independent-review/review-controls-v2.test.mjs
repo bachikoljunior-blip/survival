@@ -4,11 +4,11 @@ import {createHash} from 'node:crypto';
 import { readFileSync, mkdirSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import * as THREE from 'three';
-import { PNG } from 'pngjs';
-import { captureFrozenGrainFrames, captureGrainTrial } from './mobile_grain_trial.mjs';
+import * as THREE from 'file:///workspace/scratch/0b7ad82bafe7/main-integration-c30/candidate/node_modules/three/index.mjs';
+import { PNG } from 'file:///workspace/scratch/0b7ad82bafe7/main-integration-c30/candidate/node_modules/pngjs/lib/png.js';
+import { captureFrozenGrainFrames, captureGrainTrial } from 'file:///workspace/scratch/0b7ad82bafe7/main-integration-c30/candidate/tools/mobile_grain_trial.mjs';
 
-const productionBundle=readFileSync(new URL('../cinderline.1.0.0.js',import.meta.url));
+const productionBundle=readFileSync(new URL('file:///workspace/scratch/0b7ad82bafe7/main-integration-c30/candidate/cinderline.1.0.0.js'));
 assert.equal(createHash('sha256').update(productionBundle).digest('hex'),'6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b');
 const bundleText=productionBundle.toString('utf8');
 const renderStart=bundleText.indexOf('function Mm(I,B,$,j,V,gt){');
@@ -20,7 +20,7 @@ const actualRenderObject=renderer=>new Function('w','vi','Xe','oi',renderObjectS
 
 // Run the exact production update methods on real Three.js CPU objects. No
 // renderer, canvas, browser, screenshots or visual-quality measurements here.
-const atmosphereSource = readFileSync(new URL('../src/render/atmosphere.js', import.meta.url), 'utf8');
+const atmosphereSource = readFileSync(new URL('file:///workspace/scratch/0b7ad82bafe7/main-integration-c30/candidate/src/render/atmosphere.js'), 'utf8');
 const classSource = atmosphereSource.slice(atmosphereSource.indexOf('class PlumeField {'), atmosphereSource.indexOf('const BURST_KINDS ='));
 assert(classSource.includes('class BurstField {'));
 const { PlumeField, BurstField } = new Function('THREE', 'clamp', 'clamp01', `
@@ -192,7 +192,7 @@ for(const [label,mutation] of [
   assert.equal(result.rendererMethodRestored,true);
 });
 
-// Independent review regression controls: cleanup failures never validate a capture.
+// Reviewer-added CPU controls; candidate source is read-only.
 test('review: renderer restores after render throws', async()=>{
  const f=fixture(({frame})=>{if(frame===2)throw Error('CPU render failure');});
  const original=f.C.engine.renderer.renderBufferDirect; const previous=globalThis.window;

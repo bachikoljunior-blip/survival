@@ -1,0 +1,36 @@
+Compare only the visual art of the two anonymous works in this packet. Use all
+16 original screenshots in the CSV order A01..A08, then B01..B08. Numbering does
+not imply matching places. Judge each complete eight-view set.
+
+First disclose whether knowledge you already have, the images, or any context
+lets you recognize either source or identify which set is the reference and
+which is the work in development. Use recognition yes, no, or uncertain. Do not
+guess work titles, invent identities, conceal recognition, or pretend to be
+unfamiliar. If yes or uncertain, stop and return an invalid-recognition answer.
+If recognition arises later, report it and stop in the same way.
+
+If no, inspect every image in full. For EACH image, give short, concrete
+observations of lighting, palette, contact/depth, and material scale. Ground
+each observation in the image actually viewed. Then compare all four axes:
+
+lighting: How a dominant directional light and shadow hierarchy organize ALL
+eight views of each work. Identify any view where the organization breaks.
+palette: How controlled and coherent the palette and warm/cool relationships
+are across ALL eight views, including the foreground and every visible sky.
+grounding: Whether contact shadows and ambient occlusion ground EVERY visible
+solid, with no floating-looking breaks. Identify any visible exception.
+material_scale: Whether texture density and scale remain coherent throughout
+the entire set, with no breaks. Identify any visible exception.
+
+For EACH axis choose A, B, equal, or insufficient, cite specific image labels,
+explain the visible reason, and state limitations. Do not reward complexity,
+realism, minimalism, pixel count, fame, or camera genre by themselves.
+
+Finally choose A, B, equal, or insufficient for this visual-art element alone
+and cite the decisive image evidence. Insufficient evidence is not equality.
+Screenshots do not establish unseen motion, sound, performance, or other scenes.
+
+Return one complete JSON object using answer-format.json. All 16 observations
+and all four axes are required when recognition is no. Use complete=true and
+end_marker=COMPARISON_END only when the answer is finished. Aim for at most
+1800 words. Never use a winner as a placeholder or silently omit a target.

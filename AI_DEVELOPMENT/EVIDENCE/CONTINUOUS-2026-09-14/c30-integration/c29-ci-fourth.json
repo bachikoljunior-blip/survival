@@ -1,0 +1,502 @@
+{
+  "at": "2026-09-14T22:34:24.786+09:00",
+  "floor": {
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 103990790109,
+        "logs_url": null,
+        "name": "Actual narrative material",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npx playwright install --with-deps chromium",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run node build.mjs",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Record emitted dialogue and endings on contrasting story paths",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve original narrative output and execution results",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 103990790527,
+        "logs_url": null,
+        "name": "F2 state update",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Product files changed without a state update?",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 7,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "failure",
+        "id": 103990790579,
+        "logs_url": null,
+        "name": "Frozen grain strength diagnosis",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check the bounded diagnostic helper syntax",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npx playwright install --with-deps webkit",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "failure",
+            "name": "Render the fixed views and reversible single-variable trial",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Export the original diagnostic frames and control results",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve unmodified diagnostic frames and execution evidence",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "failure",
+        "id": 103990790594,
+        "logs_url": null,
+        "name": "F3 execution",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install the browsers the surface checks need",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build, validate and drive the real build",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Exercise the iPhone SE 3 WebKit surface",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve WebKit screenshots, video, trace and report",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Export original WebKit frames and report for inspection",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Exercise post-boot recovery in mobile WebKit",
+            "number": 10,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve actual fault-recovery screens and checks",
+            "number": 11,
+            "status": "completed"
+          },
+          {
+            "conclusion": "failure",
+            "name": "Capture production sound and video in Chromium",
+            "number": 12,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve original production audiovisual recordings",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 25,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 26,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 27,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990791419,
+        "logs_url": null,
+        "name": "Reproduce fixed E9 reader and private audit",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990791470,
+        "logs_url": null,
+        "name": "Frozen full-text E9 Qwen 3.5 comparison attempt",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990792341,
+        "logs_url": null,
+        "name": "Frozen E16 Qwen 3.5 comparison attempt",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990792708,
+        "logs_url": null,
+        "name": "Frozen light direction diagnosis",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990792785,
+        "logs_url": null,
+        "name": "Restore candidate graph and prepare faithful E9 reading material",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990827363,
+        "logs_url": null,
+        "name": "Prepare reviewed light source and production root",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 103990848454,
+        "logs_url": null,
+        "name": "F5 review record",
+        "run_id": 34848677559,
+        "status": "completed",
+        "steps": null
+      }
+    ]
+  },
+  "simulator": {
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 103990790664,
+        "logs_url": null,
+        "name": "ios-safari",
+        "run_id": 34848677647,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check out the exact requested branch revision",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Set up Node.js",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Restore exact dependencies and rebuild",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve actual simulator environment",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install pinned Appium and XCUITest driver",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Select and boot iPhone SE 3 simulator",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Start Appium and simulator video",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Exercise Mobile Safari through Appium",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Stop recording",
+            "number": 10,
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Emit startup diagnostics in ordinary CI log",
+            "number": 11,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve Safari screenshots, video, logs and report",
+            "number": 12,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Set up Node.js",
+            "number": 23,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Check out the exact requested branch revision",
+            "number": 24,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 25,
+            "status": "completed"
+          }
+        ]
+      }
+    ]
+  },
+  "ios_artifacts": {
+    "artifacts": [
+      {
+        "archive_download_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/artifacts/10349183915/zip",
+        "created_at": "2026-09-14T13:26:49Z",
+        "digest": "sha256:20b505c38fc2daf58c205ec3cc60d3f6c44924e51fa77ce52d244f5f1d6f225d",
+        "expired": false,
+        "expires_at": "2026-09-28T13:26:47Z",
+        "id": 10349183915,
+        "name": "iphone-se3-mobile-safari-f735a3ab6d230835ce06542281e2f53e3ad94737",
+        "size_in_bytes": 11456615,
+        "updated_at": "2026-09-14T13:26:49Z",
+        "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/artifacts/10349183915",
+        "workflow_run": {
+          "head_branch": "claude/repo-instructions-constraints-r0070m",
+          "head_repository_id": 1314923977,
+          "head_sha": "f735a3ab6d230835ce06542281e2f53e3ad94737",
+          "id": 34848677647,
+          "repository_id": 1314923977
+        }
+      }
+    ]
+  }
+}
+

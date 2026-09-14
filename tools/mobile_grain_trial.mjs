@@ -11,11 +11,11 @@ const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 
 export async function captureGrainTrial({ page, root, output, name, cachedFrame, check, report }) {
   report.grainTrial ||= {
-    scope: 'Eight existing medium-tier exterior views, with the engine stopped and dt=0. Only post.grade.grain changes from 0.035 to 0.012 and is then restored. Frame time, camera, lighting, non-grain grade and scene identity, transforms, visibility, material/light values and every geometry/instance buffer byte must agree; attribute upload-version differences are recorded separately; original pixels and the property descriptor must restore exactly. This is a source-known hypothesis diagnostic, not an adopted product change or a blind/quality verdict.',
+    scope: 'Eight existing medium-tier exterior views, with the engine stopped and dt=0. Only post.grade.grain changes from 0.035 to 0.012 and is then restored. Frame time, camera, lighting, non-grain grade and scene identity, transforms, visibility, material/light values and every geometry/instance buffer byte must agree; attribute upload-version differences are recorded separately; material version differences require observed renderer back/front pass pairs with exact version accounting; original pixels and the property descriptor must restore exactly. This is a source-known hypothesis diagnostic, not an adopted product change or a blind/quality verdict.',
     sourceBaselineCommit: '97ab074e7a35137b53ab72a400d4beeab5f0ca52',
     captureCommit: process.env.GITHUB_SHA || null,
     runtimeBundleSha256: digest(readFileSync(join(root, 'dist/cinderline.1.0.0.js'))),
-    sceneGuardSchemaVersion: 2, beforeGrain: BEFORE_GRAIN, trialGrain: TRIAL_GRAIN, verdict: 'not measured', views: [],
+    sceneGuardSchemaVersion: 3, beforeGrain: BEFORE_GRAIN, trialGrain: TRIAL_GRAIN, verdict: 'not measured', views: [],
   };
   if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') throw new Error('grain diagnosis requires its separate capture run');
   const result = await page.evaluate(captureFrozenGrainFrames, { beforeGrain: BEFORE_GRAIN, trialGrain: TRIAL_GRAIN });
@@ -23,7 +23,7 @@ export async function captureGrainTrial({ page, root, output, name, cachedFrame,
   const cachedBytes = readFileSync(cachedFrame), cached = PNG.sync.read(cachedBytes);
   const decoded = {}, capturedBytes = {};
   const row = { name, failure: result.failure, descriptorRestored: result.descriptorRestored,
-    gradeObjectRestored: result.gradeObjectRestored, stillStopped: result.stillStopped };
+    gradeObjectRestored: result.gradeObjectRestored, stillStopped: result.stillStopped, rendererMethodRestored: result.rendererMethodRestored };
   for (const label of ['before', 'trial', 'restored']) {
     const frame = result[label];
     if (!frame) continue;
@@ -57,7 +57,7 @@ export async function captureGrainTrial({ page, root, output, name, cachedFrame,
   row.renderCountsUnchanged = ['before','trial','restored'].every(label =>
     result[label]?.draws > 0 && result[label]?.triangles > 0 &&
     result[label]?.draws === result.before?.draws && result[label]?.triangles === result.before?.triangles);
-  row.validControlledCapture = !result.failure && row.descriptorRestored && row.gradeObjectRestored && row.stillStopped &&
+  row.validControlledCapture = !result.failure && row.rendererMethodRestored && row.descriptorRestored && row.gradeObjectRestored && row.stillStopped &&
     row.before?.sameCachedPixels && row.stateUnchanged && row.sceneDataUnchanged && row.pixelsRestored &&
     row.pngBytesRestored && row.trialChangesPixels && row.grainValuesVerified && row.renderCountsUnchanged;
   report.grainTrial.views.push(row);
@@ -209,9 +209,36 @@ export async function captureFrozenGrainFrames({ beforeGrain, trialGrain }) {
       await Promise.all(pending);
       return { record, counters, buffers };
     };
-    const compareScenes = (before, after) => {
+    const compareScenes = (before, after, renderPasses) => {
+      // A material invalidation count is accepted only when every increment is
+      // accounted for by observed back/front draws of the same double-sided
+      // transparent material. Every other material field still compares below.
+      const materialVersionAudit = [];
+      const rendererAccountsForVersion = (path, a, b) => {
+        const match = /^scene\.materials\.([^.]+)\.version$/.exec(path);
+        if (!match) return false;
+        const uuid=match[1], first=before.record.materials[uuid], last=after.record.materials[uuid];
+        const passes=renderPasses.filter(pass=>pass.material===uuid);
+        let accepted=Number.isSafeInteger(a) && Number.isSafeInteger(b) && b>a
+          && first?.side===2 && last?.side===2 && first?.transparent===true && last?.transparent===true
+          && first?.forceSinglePass===false && last?.forceSinglePass===false && passes.length>0 && passes.length%2===0;
+        let version=a;
+        for(let i=0;accepted && i<passes.length;i+=2){
+          const back=passes[i],front=passes[i+1];
+          accepted=back.side===1 && front.side===0 && back.object===front.object
+            && back.geometry===front.geometry && back.camera===front.camera && JSON.stringify(back.group)===JSON.stringify(front.group)
+            && back.transparent===true && front.transparent===true && back.forceSinglePass===false && front.forceSinglePass===false
+            && back.versionAtEntry===version+1 && back.versionAtExit===version+1
+            && front.versionAtEntry===version+2 && front.versionAtExit===version+2;
+          version+=2;
+        }
+        accepted=!!accepted && version===b;
+        materialVersionAudit.push({uuid,type:first?.type,side:first?.side,transparent:first?.transparent,
+          forceSinglePass:first?.forceSinglePass,before:a,after:b,acceptedAsObservedRenderCounter:accepted,passes});
+        return accepted;
+      };
       const differences = [], counterDifferences = [], bufferDifferences = [];
-      let differenceCount = 0, counterDifferenceCount = 0;
+      let differenceCount = 0, counterDifferenceCount = 0, classifiedMaterialCounterCount = 0;
       const show = value => value === undefined ? { missing: true } :
         typeof value === 'number' && !Number.isFinite(value) ? String(value) : Object.is(value, -0) ? '-0' : value;
       const note = (path, a, b, counter) => {
@@ -223,7 +250,11 @@ export async function captureFrozenGrainFrames({ beforeGrain, trialGrain }) {
         if (Object.is(a, b)) return;
         if (a && b && typeof a === 'object' && typeof b === 'object' && Array.isArray(a) === Array.isArray(b)) {
           for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) walk(a[key], b[key], path + '.' + key, counter);
-        } else note(path, a, b, counter);
+        } else {
+          const observedMaterialCounter=!counter && rendererAccountsForVersion(path,a,b);
+          if(observedMaterialCounter) classifiedMaterialCounterCount++;
+          note(path,a,b,counter || observedMaterialCounter);
+        }
       };
       walk(before.record, after.record, 'scene');
       walk(before.counters, after.counters, 'uploadVersions', true);
@@ -249,6 +280,7 @@ export async function captureFrozenGrainFrames({ beforeGrain, trialGrain }) {
       }
       return { unchanged: differenceCount === 0 && changedBufferCount === 0,
         differenceCount, differences, differencesTruncated: differenceCount > differences.length,
+        strictDifferenceCount: differenceCount + classifiedMaterialCounterCount, classifiedMaterialCounterCount, materialVersionAudit,
         changedBufferCount, bufferDifferences, bufferDifferencesTruncated: changedBufferCount > bufferDifferences.length,
         counterDifferenceCount, counterDifferences, counterDifferencesTruncated: counterDifferenceCount > counterDifferences.length };
     };
@@ -268,14 +300,35 @@ export async function captureFrozenGrainFrames({ beforeGrain, trialGrain }) {
       });
       return JSON.stringify(nodes);
     };
+    const originalRenderDescriptor=Object.getOwnPropertyDescriptor(r,'renderBufferDirect');
+    if(!originalRenderDescriptor || typeof originalRenderDescriptor.value!=='function' || !originalRenderDescriptor.writable) {
+      throw new Error('Cannot observe the original renderer draw method without altering its descriptor');
+    }
+    const originalRender=originalRenderDescriptor.value;
+    let activeRenderPasses=null;
+    Object.defineProperty(r,'renderBufferDirect',{...originalRenderDescriptor,value:function(...args){
+      const material=args[3], observe=activeRenderPasses && material?.transparent===true && material.forceSinglePass===false;
+      let entry;
+      if(observe){
+        if(activeRenderPasses.length>=4096) throw new Error('Renderer pass audit exceeds bounded capacity');
+        entry={material:material.uuid,type:material.type,side:material.side,transparent:material.transparent,
+          forceSinglePass:material.forceSinglePass,versionAtEntry:material.version,object:args[4]?.uuid??null,
+          geometry:args[2]?.uuid??null,camera:args[0]?.uuid??null,group:args[5]?{start:args[5].start,count:args[5].count,materialIndex:args[5].materialIndex}:null};
+        activeRenderPasses.push(entry);
+      }
+      const result=originalRender.apply(this,args);
+      if(entry)entry.versionAtExit=material.version;
+      return result;
+    }});
     const frame = async () => {
+      activeRenderPasses=[];
       C.game.render(0);
       r.getContext().finish();
-      return { png: r.domElement.toDataURL('image/png'), state: stableState(), sceneRecord: sceneRecord(), sceneSnapshot: await sceneSnapshot(),
+      return { renderPasses:activeRenderPasses, png: r.domElement.toDataURL('image/png'), state: stableState(), sceneRecord: sceneRecord(), sceneSnapshot: await sceneSnapshot(),
         gradeGrain: P.grade.grain, uniformGrain: P.matComposite.uniforms.uGrain.value,
         draws: r.info.render.calls, triangles: r.info.render.triangles };
     };
-    let before, trial, restored, failure = null;
+    let before, trial, restored, failure = null, rendererMethodRestored=false;
     try {
       before = await frame();
       if (before.uniformGrain !== beforeGrain) throw new Error('original grain is not reaching the shader');
@@ -284,16 +337,24 @@ export async function captureFrozenGrainFrames({ beforeGrain, trialGrain }) {
     } catch (error) {
       failure = error.stack || error.message || String(error);
     } finally {
-      Object.defineProperty(grade, 'grain', originalDescriptor);
-      try { restored = await frame(); }
-      catch (error) { failure = (failure || '') + '\nrestoration render: ' + (error.stack || error.message); }
+      try {
+        try { Object.defineProperty(grade, 'grain', originalDescriptor); }
+        catch (error) { failure = (failure || '') + '\nrestoration descriptor: ' + (error.stack || error.message); }
+        try { restored = await frame(); }
+        catch (error) { failure = (failure || '') + '\nrestoration render: ' + (error.stack || error.message); }
+      } finally {
+        activeRenderPasses=null;
+        Object.defineProperty(r,'renderBufferDirect',originalRenderDescriptor);
+        const current=Object.getOwnPropertyDescriptor(r,'renderBufferDirect');
+        rendererMethodRestored=['value','get','set','writable','enumerable','configurable'].every(key=>current?.[key]===originalRenderDescriptor[key]);
+      }
     }
     const restoredDescriptor = Object.getOwnPropertyDescriptor(grade, 'grain');
     const descriptorRestored = !!restoredDescriptor &&
       ['value','get','set','writable','enumerable','configurable'].every(key => restoredDescriptor[key] === originalDescriptor[key]);
     const sceneComparisons = before?.sceneSnapshot && trial?.sceneSnapshot && restored?.sceneSnapshot ? {
-      beforeTrial: compareScenes(before.sceneSnapshot, trial.sceneSnapshot),
-      beforeRestored: compareScenes(before.sceneSnapshot, restored.sceneSnapshot),
+      beforeTrial: compareScenes(before.sceneSnapshot, trial.sceneSnapshot, trial.renderPasses),
+      beforeRestored: compareScenes(before.sceneSnapshot, restored.sceneSnapshot, [...trial.renderPasses,...restored.renderPasses]),
     } : null;
     for (const captured of [before, trial, restored]) {
       if (!captured?.sceneSnapshot) continue;
@@ -301,6 +362,6 @@ export async function captureFrozenGrainFrames({ beforeGrain, trialGrain }) {
         typeof value === 'number' && !Number.isFinite(value) ? String(value) : Object.is(value, -0) ? '-0' : value);
       delete captured.sceneSnapshot;
     }
-    return { before, trial, restored, sceneComparisons, failure, descriptorRestored,
+    return { before, trial, restored, sceneComparisons, failure, descriptorRestored, rendererMethodRestored,
       gradeObjectRestored: P.grade === grade, stillStopped: !C.engine.running };
 }

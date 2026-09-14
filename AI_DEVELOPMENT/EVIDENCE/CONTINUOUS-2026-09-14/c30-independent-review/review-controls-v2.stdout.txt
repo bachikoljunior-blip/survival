@@ -1,0 +1,30 @@
+✔ production dt=0 plume/burst uploads change old records but preserve every data byte (25.27508ms)
+✔ real buffer mutation with normal upload increments is rejected and gives old/new values (9.084964ms)
+✔ geometry without version increment is rejected (7.092032ms)
+✔ index without version increment is rejected (9.082741ms)
+✔ instance matrix is rejected (6.521403ms)
+✔ instance colour is rejected (17.577722ms)
+✔ transform is rejected (8.364349ms)
+✔ visibility is rejected (14.170869ms)
+✔ material colour without version increment is rejected (9.11487ms)
+✔ material version remains strict is rejected (7.303131ms)
+✔ light intensity is rejected (4.480859ms)
+✔ instance count is rejected (6.904606ms)
+✔ draw range is rejected (8.853185ms)
+✔ end-to-end CPU report preserves old failed equality and uses byte guard; these are synthetic PNG fixtures (17.893853ms)
+✔ actual production double-pass material invalidations are accounted for, with exact renderer restoration (15.922383ms)
+✔ extra update outside renderer remains rejected (9.267619ms)
+✔ material colour change during counted passes remains rejected (8.759014ms)
+✔ forceSinglePass change remains rejected (6.24478ms)
+✔ non-double-side change remains rejected (7.373025ms)
+✔ texture upload version remains rejected (5.920308ms)
+✔ review: renderer restores after render throws (4.237759ms)
+✔ review: grain restore exception must still restore renderer (6.779511ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 343.890857
