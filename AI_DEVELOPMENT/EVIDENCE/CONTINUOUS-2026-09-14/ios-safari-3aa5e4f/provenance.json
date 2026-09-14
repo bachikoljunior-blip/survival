@@ -1,0 +1,64 @@
+{
+  "captured_at": "2026-09-14T13:17:49.616815+09:00",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "commit": "3aa5e4febbd52a44ddc87aca7aa6ecd7ab20e185",
+  "build_sha256": "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05",
+  "run": "https://github.com/bachikoljunior-blip/survival/actions/runs/34803864630",
+  "job_id": 103851745663,
+  "artifact_id": 10333051229,
+  "artifact_zip_sha256": "33beb3dc699b9fe46cc32181f4e5918d1ccb8fa0beb7c0182b2a40210b0a47ba",
+  "artifact_zip_bytes": 3074702,
+  "measured": "Headless capability is recognized, the previous visible-UI restart is absent, and the actual driver reaches WDA startup. WDA never becomes available; Safari checks remain empty. First readiness wait announcement to timeout spans 123.905 seconds despite the logged 60000ms setting. SIGTERM follows Appium shutdown, so it does not prove an autonomous compiler failure.",
+  "checks_count": 0,
+  "remaining_cause": "WDA readiness failure is observed. Compiler diagnostics were filtered; its root cause is not established.",
+  "next_experiment": "Save active SDK/path and inventory; choose a matching available SE3 runtime through the shared selector; show Xcode output; allow finite wdaLaunchTimeout=240000. Verify actual Safari progress in the next CI. No recovery guarantee.",
+  "inference_limit": "SDK18.5 is an assumption from the official Xcode16.4 table until actual SDK output is captured. Runtime26.2 versus SDK numbers alone do not establish a compiler incompatibility. The combined next configuration will not isolate which change was necessary.",
+  "blind_comparison": false,
+  "elements_unchanged": "all19 not measured",
+  "files": [
+    {
+      "path": "appium.log",
+      "bytes": 63713,
+      "sha256": "7eaea76261f560a05e95559a2d192169a8b29b2c0adb8a7a6e41c462b1ea472a"
+    },
+    {
+      "path": "appium.pid",
+      "bytes": 5,
+      "sha256": "2ab0ea478942f7b1e1a581c42d8c4744b80fedb4a20277e5478b88d3f8d75fd9"
+    },
+    {
+      "path": "ios-safari.mp4",
+      "bytes": 3065367,
+      "sha256": "c92e507abeaab789cd9aab174cf7db4a85e4c663998ce6c3dff80137756b4e6b"
+    },
+    {
+      "path": "report.json",
+      "bytes": 847,
+      "sha256": "d02a8e19ff6e9b66983014b8c294655a6221e47b0c81d80b311793adabe4135a"
+    },
+    {
+      "path": "simulator-inventory.json",
+      "bytes": 265506,
+      "sha256": "1d73dd6d107ed54d13278e47bd688b1c83f2e915dfb90cbe7a70cd570e59d20c"
+    },
+    {
+      "path": "video.log",
+      "bytes": 75,
+      "sha256": "fee056264f0f4a399d27fc82958070d101a13d90fdbd3799fd6b7ca965f4d711"
+    },
+    {
+      "path": "video.pid",
+      "bytes": 5,
+      "sha256": "0d9166f5c3d8ec2be012fe1dc1017c8a965319f7e92c93c8725b740e09fd8cc7"
+    },
+    {
+      "path": "xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12"
+    }
+  ],
+  "archive": {
+    "bytes": 3076401,
+    "sha256": "8f2cabadbf8edc28c3ed40d220e361002d0bdc02f134fe98f89e9379ae2e56e6"
+  }
+}

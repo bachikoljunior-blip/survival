@@ -1,0 +1,192 @@
+{
+  "saved_at": "2026-09-14T13:28:35.606240+09:00",
+  "source_hashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "a45c2ce94362ee5489089a245087567f1ace550388f5c49366d4f7e6dc1ec772",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "b50ab205bd9a91df3a44cda7e2385802c926a18c620c66ebf15c5ca870afe3b8",
+    "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "0ca1755de0ca76bbe18b48cba1753ff2ba107aaea3b4ff7c89a2bc9d139ebd22",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+  },
+  "scope": "Independent CPU product review and separate refutation. No browser/render/touch/audio quality or blind comparison. Subsequent Director reentry/item-gate changes are outside this snapshot.",
+  "measured": "Actual committed attack is canceled in the acceptance tick; zero hostile hits during eight simulation seconds reading; neutral guards stay nonhostile during later hostile calls; autosave resumes; old static rubble geometry/RNG unchanged; runtime props remove cleanly.",
+  "refutation": "Six straight heap approaches stopped. Three oblique routes actually reached grounded2.6m; one also advanced the actual quest to step2 with trench_slipped/trench_passed true and trench_talked false. The claim that the heap cannot be climbed was rejected.",
+  "remaining_finding": "minor: explicit repeated reenterActiveSteps before the next acceptance poll duplicates the neutral line; ordinary repeated applySave resets the world and does not accumulate enemies.",
+  "no_item_scope": "requiresItem was not read, but normal authored progression obtains the key order before chapter5. The negative fixture does not prove a reachable normal-play bypass.",
+  "files": [
+    {
+      "path": "trench-perception-r2-finalize.mjs",
+      "bytes": 6992,
+      "sha256": "88519af44358d36809589f417c0d26834d8d05c820d4449f9906d7f7dd1cf023"
+    },
+    {
+      "path": "trench-perception-r2-fixture-v1.mjs",
+      "bytes": 1526,
+      "sha256": "f3ced07ee1bef8c33ad05f8e2edd6195e27098b33f8ae6fae8bbbccea65d2abf"
+    },
+    {
+      "path": "trench-perception-r2-probe-01.json",
+      "bytes": 469705,
+      "sha256": "8fb93d6e569173199aa27430e4d65e80edfb2c6bce8815699b455cdb79bb6f07"
+    },
+    {
+      "path": "trench-perception-r2-probe-01.log",
+      "bytes": 198,
+      "sha256": "aba62f9ef1fe5c109a632ca8a3d855a6a0417f331adb125c7e2503ca228cb38a"
+    },
+    {
+      "path": "trench-perception-r2-probe-01.mjs",
+      "bytes": 5580,
+      "sha256": "8be10396d7afef263559518257b2eb1c0d15f03e2b031fa10ac7f5a19f7a1d75"
+    },
+    {
+      "path": "trench-perception-r2-probe-02.json",
+      "bytes": 278568,
+      "sha256": "3da2638257bc7e90badfed48726b932b3a78df8266a71775e721cb3f0b06de0b"
+    },
+    {
+      "path": "trench-perception-r2-probe-02.log",
+      "bytes": 370,
+      "sha256": "b1135fb4d7e18fe28f92bae43195c1965f3c2267f39e1017c444767a6492f043"
+    },
+    {
+      "path": "trench-perception-r2-probe-02.mjs",
+      "bytes": 10105,
+      "sha256": "2df642364e7a24e890bb2501587af00d845d2cd07e0071cda090dfdb36d808c6"
+    },
+    {
+      "path": "trench-perception-r2-probe-03.json",
+      "bytes": 350808,
+      "sha256": "7172ecf4d5ed361ae9d1a824764ed71e47117c3990a71667c3eb6523e9c09dba"
+    },
+    {
+      "path": "trench-perception-r2-probe-03.log",
+      "bytes": 126,
+      "sha256": "8692bbf165289c9969e1d70276658f6c1497cd121a21ec9a6ef6c6fd0391d036"
+    },
+    {
+      "path": "trench-perception-r2-probe-03.mjs",
+      "bytes": 4620,
+      "sha256": "8eb45e79ae68930929c1f7e56d3d1a11eec8734ce4755139118b869ac36d986d"
+    },
+    {
+      "path": "trench-perception-r2-refuter-probe-01.json",
+      "bytes": 702546,
+      "sha256": "759bf166980b69408f64ab1487a709f52522b4420eedb3997533603aadd70374"
+    },
+    {
+      "path": "trench-perception-r2-refuter-probe-01.log",
+      "bytes": 351,
+      "sha256": "c6fa9c2e0123cfe998e39fcd43bd17b37d667e8a390bb915599ccd2f36657da6"
+    },
+    {
+      "path": "trench-perception-r2-refuter-probe-01.mjs",
+      "bytes": 12777,
+      "sha256": "a19d88e31717ec6a562e52d9c9e965a55a666259423a2ad771c64a98fd341bdb"
+    },
+    {
+      "path": "trench-perception-r2-refuter-probe-02.json",
+      "bytes": 67668,
+      "sha256": "6750709bc2ab3c39e7dc042c9f91e44af35b5268c8d737b00c235aecbb6d8aa0"
+    },
+    {
+      "path": "trench-perception-r2-refuter-probe-02.log",
+      "bytes": 114,
+      "sha256": "e8737a33a79a31f30bd643759d1840de05c258be3e8785039dcb2adf00e5522b"
+    },
+    {
+      "path": "trench-perception-r2-refuter-probe-02.mjs",
+      "bytes": 12785,
+      "sha256": "e4de81e845b6d2566879d6eb84ce8408c8194fcc7a9453a9b583493ee7520fdb"
+    },
+    {
+      "path": "trench-perception-r2-refuter-review.json",
+      "bytes": 20873,
+      "sha256": "960f6e684648179c2de594d51ca4017e290103eb6e37b1900d8019da73e730c4"
+    },
+    {
+      "path": "trench-perception-r2-refuter-validate.mjs",
+      "bytes": 660,
+      "sha256": "e807ef3af3d75ca094fc038d6b33a5f61405cd486c85a60916bc8e3aa60bd291"
+    },
+    {
+      "path": "trench-perception-r2-refuter-validation.json",
+      "bytes": 53,
+      "sha256": "86fd39049fe0cc4432ba8c4179a3c25650875f7f9a91aafa9a6b13abfb01024b"
+    },
+    {
+      "path": "trench-perception-r2-review-draft.json",
+      "bytes": 14913,
+      "sha256": "f6748826d28a2d80c289796840e66c0192e331ed8665f7aa821653d3894ca37a"
+    },
+    {
+      "path": "trench-perception-r2-review-validation.json",
+      "bytes": 53,
+      "sha256": "86fd39049fe0cc4432ba8c4179a3c25650875f7f9a91aafa9a6b13abfb01024b"
+    },
+    {
+      "path": "trench-perception-r2-review.json",
+      "bytes": 18552,
+      "sha256": "7a27e646ab2dc58cd3fcdaf2ab3728dcddf09206394c89cf4c62fb86aa1c809d"
+    },
+    {
+      "path": "trench-perception-r2-reviewed-ai.js",
+      "bytes": 32523,
+      "sha256": "dd3a37e8681a1d728c574db86e875be91807f7c75589494162e1f63cbe056597"
+    },
+    {
+      "path": "trench-perception-r2-reviewed-city.js",
+      "bytes": 52538,
+      "sha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b"
+    },
+    {
+      "path": "trench-perception-r2-reviewed-director.js",
+      "bytes": 75190,
+      "sha256": "0ca1755de0ca76bbe18b48cba1753ff2ba107aaea3b4ff7c89a2bc9d139ebd22"
+    },
+    {
+      "path": "trench-perception-r2-reviewed-props.js",
+      "bytes": 44641,
+      "sha256": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+    }
+  ],
+  "archive": {
+    "bytes": 218099,
+    "sha256": "bcb664d945185f77385c1ae63d8099e84f74f807388ebdd270c1dfafdee9f4eb"
+  },
+  "blind_comparison": false,
+  "elements_unchanged": "all19 not measured"
+}

@@ -14,6 +14,7 @@ import { createServer } from 'node:http';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { requestWebDriver } from './webdriver-request.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -26,6 +27,7 @@ const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const UDID = process.env.IOS_SIMULATOR_UDID || '';
 const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
+const SESSION_REQUEST_TIMEOUT = 900000;
 
 mkdirSync(OUTPUT, { recursive: true });
 
@@ -33,6 +35,7 @@ const report = {
   schemaVersion: 1,
   checkedAt: new Date().toISOString(),
   target: 'iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape',
+  transport: { client: 'node:http/https', sessionRequestTimeoutMs: SESSION_REQUEST_TIMEOUT, commandRequestTimeoutMs: 90000 },
   checks: [],
   device: null,
   layout: null,
@@ -104,20 +107,11 @@ async function waitForHttp(url, timeout = 90000) {
   throw new Error(`endpoint did not become reachable: ${lastError?.message || 'timeout'}`);
 }
 
-async function webdriver(pathname, { method = 'POST', body } = {}) {
-  const response = await fetch(new URL(pathname.replace(/^\//, ''), APPIUM_URL), {
-    method,
-    headers: body === undefined ? undefined : { 'content-type': 'application/json' },
-    body: body === undefined ? undefined : JSON.stringify(body),
+function webdriver(pathname, options = {}) {
+  return requestWebDriver(new URL(pathname.replace(/^\//, ''), APPIUM_URL), {
+    ...options,
+    timeout: pathname === 'session' && (options.method ?? 'POST') === 'POST' ? SESSION_REQUEST_TIMEOUT : 90000,
   });
-  const text = await response.text();
-  let payload;
-  try { payload = text ? JSON.parse(text) : {}; }
-  catch { payload = { value: text }; }
-  if (!response.ok || payload?.value?.error) {
-    throw new Error(`WebDriver ${method} ${pathname}: ${payload?.value?.message || payload?.value || `HTTP ${response.status}`}`);
-  }
-  return payload.value;
 }
 
 let sessionId = '';
@@ -201,6 +195,10 @@ try {
           // desktop window makes Appium restart it before Safari can launch.
           // Native simulator screenshots/video remain available without it.
           'appium:isHeadless': true,
+          // Preserve cold WDA build diagnostics and allow a bounded startup.
+          // Readiness still has to succeed before any Safari checks can run.
+          'appium:showXcodeLog': true,
+          'appium:wdaLaunchTimeout': 240000,
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,

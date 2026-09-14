@@ -1,14 +1,16 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.12 -->
+<!-- state_revision: 2026-09-14.13 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.12 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.13 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
 ### 2026-09-14 現行の継続地点
+
+今回の保存準備: 3aa5e4f の Floor gates は成功、Simulatorはheadlessで旧障害を越えたがWDAが応答せずSafari検証0件。原記録と独立診断を `ios-safari-3aa5e4f/` に保存した。本編は通行許可後の攻撃停止・自動保存の解放・runtime瓦礫を実装。独立CPU反証で斜め経路の実登頂とquest進行を確認し、直進失敗からの「登れない」という一般化を撤回した。poll前再entry重複は追加修正後の独立反証でも解消を確認。現行build `72d4805cd0638a0826ea1814128369f223f727f9e6fe4d4ac6f2a2beb53a9cb0` はbuild/content/root mirror検証済み、スマートフォン実CI待ち。新しい音声評価器は完全無音の負制御で幻聴し棄却した。全19要素未測定、開始/期限を維持して実作業を続行する。
 
 追加確認: c65853f の Floor gates は成功。Mobile Safari は起動済みSimulatorをAppiumがUI表示用に再起動して120秒後に失敗し、ゲーム操作は0件。原証拠8件を `ios-safari-c65853f/raw-artifact.tar.gz` に保持。`isHeadless:true` だけを追加して独立レビュー/反証と送信capabilityのCPU境界検証を行い、実CI再検証へ進む。本編のtrench初期警戒修正は未コミットで別patchに保全し、通行許可後に攻撃される実欠陥も修正中。全体完了や要素達成ではない。
 

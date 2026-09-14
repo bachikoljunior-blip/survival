@@ -260,8 +260,9 @@ export class AISystem {
     // --- perception -------------------------------------------------------
     const dx = player.pos.x - e.pos.x, dz = player.pos.z - e.pos.z;
     const dist = Math.hypot(dx, dz);
-    const sees = !player.dead && e.canSee(player, game.world, gas);
-    const hears = !player.dead && e.hears(player, gas, game.world);
+    const hostile = e.faction !== 'neutral' && e.faction !== player.faction;
+    const sees = hostile && !player.dead && e.canSee(player, game.world, gas);
+    const hears = hostile && !player.dead && e.hears(player, gas, game.world);
 
     if (sees) {
       // Awareness fills faster the closer and the more lit the target is.
@@ -365,6 +366,7 @@ export class AISystem {
   _alertNearby(game, source, radius) {
     for (const a of game.actors) {
       if (!(a instanceof Enemy) || a === source || a.dead || a.aggro) continue;
+      if (a.faction === 'neutral' || a.faction === game.player.faction) continue;
       if (Math.hypot(a.pos.x - source.pos.x, a.pos.z - source.pos.z) > radius) continue;
       a.awareness = 1;
       a.aggro = true;

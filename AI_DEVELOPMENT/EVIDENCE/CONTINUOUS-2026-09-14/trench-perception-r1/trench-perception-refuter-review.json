@@ -1,0 +1,359 @@
+{
+  "round": "trench-perception-c65853f-separate-refutation-01",
+  "profile": "Separate hostile correctness, reproducibility and materiality refutation of TP-ORDER and TP-HEAP",
+  "tier": "medium geometry/CPU; appearance and physical audio unmeasured",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "Schema-compatible no-raster sentinel; no output resolution was measured.",
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Required schema sentinel; no product or element score was measured.",
+  "blindComparison": "Not performed. This independent, source-labelled CPU refutation cannot establish which product an unlabelled stranger would choose. It supplies no element or product pass.",
+  "scope": "Separate source-labelled CPU refutation only. Full City geometry/collision/gas, real Enemy perception and AI, Player/Combat, Game.fixedUpdate/input mapping/interaction, Director/QuestSystem/Storage and Audio._wire/setMusic. Canvas/material appearance, input acquisition, UI, camera output, post/particles and WebAudio device are stubs. No browser, GPU, listening, traversal completion or blind comparison.",
+  "baseline": "c65853f105bc192fae9d952d7e73eba62870dfcb",
+  "reviewedDirectorSha256": "eb347f5eed42b31ed5db61dd8d3e3a6d8ff9ea400fe874e356fe78cde6aaef61",
+  "sourceHashes": {
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/actors/anim.js": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+    "src/actors/player.js": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+    "src/actors/rig.js": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/content/i18n.js": "a07adc4113a9f561cbc40c4559082b89632aec1a5635dfbd53f6e64fd8e2b116",
+    "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
+    "src/content/locale/ja/content.js": "a45c2ce94362ee5489089a245087567f1ace550388f5c49366d4f7e6dc1ec772",
+    "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
+    "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+    "src/content/locale/ja/story2.js": "a848b0954ee402d11bc21a834c81f2aa39f9348ee247e6fb7471ac0dfa7f6651",
+    "src/content/locale/ja/ui.js": "b50ab205bd9a91df3a44cda7e2385802c926a18c620c66ebf15c5ca870afe3b8",
+    "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+    "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+    "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+    "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
+    "src/core/rng.js": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+    "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+    "src/game/ai.js": "349821330229e32653cdb362e5331bde535fbfd5340fb8faafa7562bff844e7b",
+    "src/game/combat.js": "e89435b72e37b5a4a78c6a021360d7fb5f974e8bea1b27f8455867704e8e6a29",
+    "src/game/director.js": "eb347f5eed42b31ed5db61dd8d3e3a6d8ff9ea400fe874e356fe78cde6aaef61",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+    "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+    "src/render/textures.js": "9efbefcabdc892d453a6cea13546aa0a08db4459d8071c7652b852901cb59933",
+    "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+    "src/ui/screens.js": "130d6db07b097cd52fb900d61eb588b738945f1f0f8a43df3bceec8c753d74ba",
+    "src/world/buildings.js": "82ac359fa1fdd5a367e707a33521513fe16ff29e57299219cf2c242fa1a031c7",
+    "src/world/city.js": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+    "src/world/geom.js": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+    "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+    "src/world/props.js": "14d1f3aa6c1056d909e3a854eb5a45ea1b409cfffc19235e6ae2397c1cfbc7fb"
+  },
+  "sourceUnchanged": true,
+  "baselineClassificationEvidence": {
+    "srcFilesDifferingFromBaseline": [
+      "src/game/director.js"
+    ],
+    "explanation": "git diff c65853f -- src identifies only Director. Its delta adds unalerted trench spawning and an actor:aggro music listener; accepted-passage handling, authored runtime rubble, City, perception, physics and combat match the baseline. Baseline Director is imported with unchanged semantics and only import URLs rewritten to the same local modules.",
+    "baselineDirectorHashes": {
+      "original": "5a9dd9aebd23227632b1609c6a26a508e26e3e0eba6adffb715d883463893f7c",
+      "importRewritten": "12056bd0a8c663b73f61abf37d67fe3477366504053d81aae3714eba0da5792a"
+    }
+  },
+  "findings": [
+    {
+      "id": "TP-ORDER",
+      "severity": "major",
+      "shot": "trench-perception-refuter-probe-02.json :: order-close-range-local-and-baseline/local",
+      "problem": "At (77,17.8), 3.006659 m from the 3.4 m interaction target and holding one trenchOrder, actual Game input mapping and target selection accepted the order. At the first 1/60 s tick, all three passage flags were true and the quest was step 2. During the following eight CPU seconds, a Warden inflicted 46 damage in four real damage calls while the game stayed in dialogue mode.",
+      "why": "This survives the wrong-mode, invalid-position and UI-only-damage objections. The real damage source is a Warden, every hit occurs after passage is accepted, and actual Game.fixedUpdate suppresses requested movement while leaving AI and combat active. The accepted noncombat route does not protect the player while its dialogue is read.",
+      "owner": "src/game/director.js",
+      "fix": "After accepted passage, prevent the trench group from reacquiring or damaging Ren during normal subsequent perception and dialogue. Target: zero real Warden damage calls after accepted-order flags, including a later perception interval. Copy the refuter order probe to fresh filenames and inspect its new local.hostileHits count; node /workspace/scratch/0b7ad82bafe7/trench-perception-check-findings.mjs order <fresh-probe.json> is a minimum damage-event check.",
+      "hypothesis": "Confirmed for this source: _checkTrenchPassed sets flags and advances the quest without changing the active Enemy group. Game.fixedUpdate runs actors, AISystem and CombatSystem in MODE.DIALOGUE; it suppresses player movement in that mode. Real perception then acquires Ren and real CombatSystem._applyHit calls Player.damage.",
+      "introducedByChange": false,
+      "refutationStatus": "survived",
+      "refutationAttempts": {
+        "correctness": "Refutation failed. Used Game._updateInteractTarget, one real Game._playerInput interact press, Game._tryInteract and Director.interact; no direct state flag, AI, perception or damage forcing. Input source and camera output are fixture devices. The item is independently asserted through countItem, valid ground has no capsule overlap, mode follows actual examine/final-conversation code, and every damage call records source, mode, flags and quest step.",
+        "reproducibility": "Refutation failed. Independent pin-stable probes 01 and 02 both produced local four hits/46 attack damage. They use process-global actor-ID RNG, so timing and baseline amount differ from v5. These are observed scenarios, not universal numerical constants.",
+        "materiality": "Refutation failed. Four combat hits while the accepted-passage dialogue suppresses movement is material even though the player is not killed. Total HP loss also includes a small independent gas component; only attack damage is counted in this finding.",
+        "baselineVersusIntroduced": "Preexisting classification survives. Same real-input case with baseline Director produces six hits/69 attack damage. The difference from v5 baseline 70 is not evidence of a regression or improvement; actor identities seed decisions."
+      },
+      "measurements": {
+        "local": {
+          "count": 4,
+          "damage": 46,
+          "times": [
+            2.166666666666664,
+            3.21666666666666,
+            4.416666666666656,
+            7.999999999999977
+          ]
+        },
+        "baseline": {
+          "count": 6,
+          "damage": 69,
+          "times": [
+            1.1333333333333342,
+            2.199999999999997,
+            3.433333333333326,
+            5.099999999999987,
+            6.1499999999999835,
+            7.0833333333333135
+          ]
+        },
+        "itemCountLocal": 1,
+        "itemCountBaseline": 1,
+        "acceptanceTime": 0.016666666666666666,
+        "distance": 3.006659275674582,
+        "range": 3.4,
+        "inputMappingCallsIncludingInteraction": 1,
+        "actualMove": {
+          "x": 0,
+          "z": 0,
+          "mag": 0
+        }
+      },
+      "recommendedDraftChange": "Keep. Clarify that trench_talked is set by the interaction and the other passage flags/step 2 by the next Director poll. Attribute 46 to attack damage, not all HP loss. Preserve v5 counts as that run only; do not imply exact attack timing/count is independent of actor-ID RNG.",
+      "evidence": [
+        "trench-perception-refuter-probe-02.mjs",
+        "trench-perception-refuter-probe-02.json",
+        "trench-perception-refuter-probe-02.log",
+        "trench-perception-refuter-probe-01.mjs",
+        "trench-perception-fixture-v3.mjs",
+        "src/game/game.js::_playerInput/_updateInteractTarget/_tryInteract/fixedUpdate",
+        "src/game/director.js::interact/_examine/_checkTrenchPassed",
+        "src/game/combat.js::_applyHit"
+      ]
+    },
+    {
+      "id": "TP-HEAP",
+      "severity": "major",
+      "shot": "trench-perception-refuter-probe-01.json :: runtime-spoil-heap-local-and-baseline",
+      "problem": "The exact _raisePlant runtime spec {kind:rubble,x:90,z:16,w:16,d:9,h:2.6} adds zero vertices and zero colliders at its actual _prop call. Its isolated runtime group has zero child meshes/groups and zero colliders. The actual center support at (90,16) is the preexisting pitwall at 0.9 m; no trenchplant collider is tagged rubble.",
+      "why": "The authored spoil heap supplies no geometry or support even though the passage code describes that heap as a real climb. This proves the intended heap is absent, and prevents claiming that this change establishes its advertised traversal route. Other objects or alternate paths were not ruled out.",
+      "owner": "src/world/city.js",
+      "fix": "Dispatch the exact runtime rubble spec into geometry and walkable support, with an explicit w/d versus static-r convention. Targets: positive vertex/child and collider counts, then a real Player movement/climb trace from supported ground to above the 2.4 m trigger and quest step 2 without assigning a high Y or forcing perception. A fresh heap probe read by node /workspace/scratch/0b7ad82bafe7/trench-perception-check-findings.mjs heap <fresh-probe.json> checks dispatch only; it is insufficient by itself to close the traversal target.",
+      "hypothesis": "Confirmed for this source: actual _raisePlant calls City.addRuntimeProps, which invokes _prop; _prop has no rubble case. The static _buildStructures rubble case is separate and expects r, whereas the authored runtime spec supplies w/d. A static-format positive control builds geometry and support, disproving a general fixture inability to build rubble.",
+      "introducedByChange": false,
+      "refutationStatus": "survived",
+      "refutationAttempts": {
+        "correctness": "Refutation failed. An observational wrapper calls original _prop and records unchanged builder stats and collider count specifically around the authored rubble call from actual _raisePlant. The isolated exact spec is empty. Other runtime plant props remain populated, and actual static dispatch using r:8,h:2.6 builds three child meshes, 764 vertices and a 2.7 m center platform.",
+        "reproducibility": "Refutation failed on the current Director SHA, independently of v4 source-change flag. Probe 01 starts and ends with identical hashes for all tracked src files, zero swallowed errors and zero probe errors.",
+        "materiality": "Keep the missing authored heap finding; reject a stronger claim that no possible noncombat alternate route exists. Positive geometry and collider counts alone would not prove a playable climb: a future fix must use a continuous actual Player traversal test.",
+        "baselineVersusIntroduced": "Preexisting classification survives. Baseline Director sends the same exact runtime spec and produces the same empty output and 0.9 m center support. City is byte-identical to the baseline."
+      },
+      "measurements": {
+        "local": {
+          "authoredDispatch": {
+            "spec": {
+              "kind": "rubble",
+              "x": 90,
+              "z": 16,
+              "w": 16,
+              "d": 9,
+              "h": 2.6
+            },
+            "builderBefore": {
+              "meshes": 9,
+              "tris": 1692,
+              "verts": 3166
+            },
+            "builderAfter": {
+              "meshes": 9,
+              "tris": 1692,
+              "verts": 3166
+            },
+            "boxesBefore": 10,
+            "boxesAfter": 10
+          },
+          "isolatedRubble": {
+            "children": 0,
+            "colliders": 0,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "center": {
+            "x": 90,
+            "z": 16,
+            "y": 0.9000000000000004,
+            "box": {
+              "tag": "pitwall",
+              "x": 96,
+              "z": 15.6,
+              "y0": -11,
+              "y1": 0.9000000000000004,
+              "hw": 32.2,
+              "hd": 0.6,
+              "rot": 0,
+              "layer": 1
+            }
+          },
+          "staticPositive": {
+            "children": 3,
+            "stats": {
+              "meshes": 3,
+              "tris": 388,
+              "verts": 764
+            },
+            "center": {
+              "y": 2.7,
+              "box": {
+                "tag": "rubble",
+                "x": 90,
+                "z": 16,
+                "y0": 2.5,
+                "y1": 2.7,
+                "hw": 3.6799999999999997,
+                "hd": 3.6799999999999997,
+                "rot": 0,
+                "layer": 2
+              }
+            }
+          }
+        },
+        "baseline": {
+          "authoredDispatch": {
+            "spec": {
+              "kind": "rubble",
+              "x": 90,
+              "z": 16,
+              "w": 16,
+              "d": 9,
+              "h": 2.6
+            },
+            "builderBefore": {
+              "meshes": 9,
+              "tris": 1692,
+              "verts": 3166
+            },
+            "builderAfter": {
+              "meshes": 9,
+              "tris": 1692,
+              "verts": 3166
+            },
+            "boxesBefore": 10,
+            "boxesAfter": 10
+          },
+          "isolatedRubble": {
+            "children": 0,
+            "colliders": 0,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "center": {
+            "x": 90,
+            "z": 16,
+            "y": 0.9000000000000004,
+            "box": {
+              "tag": "pitwall",
+              "x": 96,
+              "z": 15.6,
+              "y0": -11,
+              "y1": 0.9000000000000004,
+              "hw": 32.2,
+              "hd": 0.6,
+              "rot": 0,
+              "layer": 1
+            }
+          },
+          "staticPositive": {
+            "children": 3,
+            "stats": {
+              "meshes": 3,
+              "tris": 388,
+              "verts": 764
+            },
+            "center": {
+              "y": 2.7,
+              "box": {
+                "tag": "rubble",
+                "x": 90,
+                "z": 16,
+                "y0": 2.5,
+                "y1": 2.7,
+                "hw": 3.6799999999999997,
+                "hd": 3.6799999999999997,
+                "rot": 0,
+                "layer": 2
+              }
+            }
+          }
+        }
+      },
+      "recommendedDraftChange": "Keep with fresh current-pin evidence. Preserve its limited claim about the authored heap. Strengthen verification: the existing heap checker only requires nonempty geometry/colliders and does not measure the claimed traversable climb. Do not blindly copy the static switch: its radius input differs from the runtime w/d spec.",
+      "evidence": [
+        "trench-perception-refuter-probe-01.mjs",
+        "trench-perception-refuter-probe-01.json",
+        "trench-perception-refuter-probe-01.log",
+        "src/game/director.js::_raisePlant",
+        "src/world/city.js::addRuntimeProps/_prop/_buildStructures",
+        "src/world/collision.js::groundUnder"
+      ]
+    }
+  ],
+  "verifiedControlsRefutation": [
+    {
+      "claim": "Initial spawn and default courtyard behavior",
+      "result": "survives",
+      "evidence": "probe-01 :: initial-spawn-default-raid-and-living-idempotence",
+      "detail": "Local trench exactly two Wardens plus one scav, idle/0/false/null; baseline forced combat/1/true/player. Initial capsule overlaps absent. Wardens settle on actual ground/pit support without HP loss in the settle interval. Courtyard still forces combat, emits one Ash notice and preserves the living group on repeated hook calls."
+    },
+    {
+      "claim": "Real perception controls",
+      "result": "survives",
+      "evidence": "probe-01 :: real-perception-controls",
+      "detail": "Front/rear results differ with clear real LOS, rear standing is heard while rear crouched is not. Aimed LOS to (64,25) hits the actual van at (66,26). Sprint hearing is attenuated by real wall LOS at (62,27) but works at clear target (60,22). No canSee, hears, LOS, raycast or collision methods are replaced."
+    },
+    {
+      "claim": "Integrated sight/hearing progression and recovery",
+      "result": "survives-with-scope",
+      "evidence": "probe-01 :: integrated-sight-hearing-and-recovery",
+      "detail": "Actual input mapping keeps crouch state. Sight-only primary Warden reaches suspicious 0.117 s/combat 0.467 s; hearing-only primary Warden reaches suspicious 0.300 s/combat 1.183 s. Think timer is explicitly held at 4 for the initial controlled interval. After explicit contact-loss repositioning, real search and idle/nonaggro return occur. Target pointer remains stale and scav continues gas flee; neither is an additional continuing-combat finding."
+    },
+    {
+      "claim": "Step 1/2 save integration",
+      "result": "survives",
+      "evidence": "probe-01 :: save-reentry-step-one-and-two",
+      "detail": "Storage save/applySave and reenterActiveSteps rebuild exactly three unaware enemies for step 1, preserve living group identity on repeated reentry and avoid duplicating a partial living group. Step 2 is reached via actual order passage rather than unsupported high Y; restore opens the final dialogue without respawning the line."
+    }
+  ],
+  "resolvedMusicChallenge": {
+    "id": "TP-MUSIC",
+    "result": "resolution-survives-for-CPU-state-selection",
+    "evidence": "trench-perception-refuter-probe-01.json :: same-zone-music-queue-local-and-baseline",
+    "detail": "Independent same-zone local game stays authority at spawn. Real AI produces Enemy.emit(aggro); its event remains in the actor queue at 0.533333 s while music is still authority. The next actual Game.fixedUpdate drains actor:aggro at 0.55 s; the Director listener emits music:combat at the same time and real Audio._wire/setMusic selects combat. Baseline selects combat at spawn. This verifies the causal integration beyond a manually emitted game event.",
+    "recommendedDraftChange": "Keep resolved status for missing combat-selection wiring. v5 0.483 s and this 0.55 s are run-specific detection times, not latency guarantees. Do not extend the resolution to audible score quality, audio device unlock/resume, all zone-boundary priority cases or post-contact music recovery; those were not established."
+  },
+  "retainedProbeLimitations": [
+    {
+      "path": "trench-perception-refuter-probe-01.json",
+      "detail": "Ancillary itemCount in order results called state.count, which reads counters rather than inventory and therefore records 0. Actual give still ran, but this field is invalid item evidence. Retained unchanged; probe 02 corrects to countItem, asserts value 1 before interaction, reruns order only and reproduces the finding."
+    },
+    {
+      "path": "trench-perception-refuter-probe-02.json",
+      "detail": "Only the order scenario reruns; all other current-pin refutation evidence remains in probe 01."
+    },
+    {
+      "path": "trench-perception-probe-v1 through v6",
+      "detail": "All predecessor artifacts are retained unchanged. Independent probe 01 supplies fresh current-pin heap evidence, so v4 source-change output is no longer the sole support."
+    }
+  ],
+  "recommendations": [
+    "Keep TP-ORDER and TP-HEAP as preexisting major defects, not regressions introduced by unaware trench spawning.",
+    "Retain TP-MUSIC resolution only for tested CPU event-to-state wiring.",
+    "Use damage-source and accepted-flag assertions when closing TP-ORDER; a mode-wide simulation pause alone does not prove passage prevents subsequent reacquisition.",
+    "Require real supported Player traversal before closing TP-HEAP; positive mesh/collider counts are a dispatch smoke check."
+  ],
+  "productFilesEdited": [],
+  "rawArtifacts": [
+    "trench-perception-refuter-probe-01.mjs",
+    "trench-perception-refuter-probe-01.json",
+    "trench-perception-refuter-probe-01.log",
+    "trench-perception-refuter-probe-02.mjs",
+    "trench-perception-refuter-probe-02.json",
+    "trench-perception-refuter-probe-02.log"
+  ]
+}

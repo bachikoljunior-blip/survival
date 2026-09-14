@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-09-14T13:22:30.631859+09:00",
+  "goal": "Find actual sustained reference play or dialogue material; neither official descriptions nor aggregate review scores substitute for it.",
+  "attempts": [
+    {
+      "url": "https://www.youtube.com/watch?v=jLnOlmGNvAU",
+      "result": "Public walkthrough page retrieved, playability OK, 4149 seconds, App Unwrapper. No direct media format URLs/ciphers/HLS/DASH were returned. No video bytes acquired.",
+      "record": "reference-materials/alien/walkthrough-attempt/acquisition.json",
+      "method": "ordinary unauthenticated GET; no alternate client impersonation or age/login bypass"
+    },
+    {
+      "url": "https://www.gamereactor.eu/",
+      "result": "Search returned the root page instead of the specific Dishonored2 stealth video. Ordinary GET returned403. No video acquired; not retried through a browser."
+    },
+    {
+      "url": "https://fayde.co.uk/",
+      "result": "Search suggested an actual dialogue locator; web open returned403. No dialogue acquired."
+    },
+    {
+      "url": "https://disco-reader.gitlab.io/",
+      "result": "Web open returned a non-retryable safety error. No alternative access route attempted."
+    },
+    {
+      "url": "https://archive.org/advancedsearch.php",
+      "query": "title:(\"Dishonored 2\") AND mediatype:movies",
+      "result": "Web open returned a non-retryable safety error. No alternative access route attempted."
+    }
+  ],
+  "method_change": "Search results repeatedly pointed to unrelated or root pages. Reject those as source proof; inspect already acquired actual Disco screenshots and publisher-hosted media while the game and authorized CI continue.",
+  "blind_comparison": false,
+  "elements_unchanged": "all19 not measured",
+  "inspected_existing_material": {
+    "source": "Earlier publisher Steam screenshot acquisition for Disco Elysium; original acquisition.json retained",
+    "files": [
+      {
+        "path": "reference-materials/disco/screenshot-09.jpg",
+        "sha256": "4d2e4007b389361926bbaf6279a68147420b97b5555e04cbaf7c3235b10919c5"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-10.jpg",
+        "sha256": "0774b63424385bff19ee971d2678059006b74a069ac2993cd40be65e08e1ffd8"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-11.jpg",
+        "sha256": "1bf51e76f5405b8eb412644d326b6ce2e6b49e894dffb78f6e69ffb2cf3fdd03"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-12.jpg",
+        "sha256": "6252eca51f4c50982bf4130a8a1c22a665d986b2ce5a56770796b9494dd89abb"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-13.jpg",
+        "sha256": "7c9ba62317bc29b8e0743ab38932bb9bbc99b237bae0703513440d4bb093d465"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-14.jpg",
+        "sha256": "be6d19e446d5dbae247d91bb55efdfcbe63c5844d9659dd20b17faac074abb8e"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-15.jpg",
+        "sha256": "4924a22ac23719199abf21956b4f7a3bf4ee1055c9362d3396dca5dbe3af3cd8"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-16.jpg",
+        "sha256": "693208122b24e8e9fc75509f2867eadc45e806dab26764dd5917afc5d8053d72"
+      },
+      {
+        "path": "reference-materials/disco/screenshot-17.jpg",
+        "sha256": "9d342994c6cbb479da2519f26bfbb34e2ebfc4b9c962d9be8ffe266031e74066"
+      }
+    ],
+    "observation": "Screens09 and11–17 are disconnected locations/actions without a full dialogue sequence. Screen10 contains one cafeteria debt dispute and choices, showing local voice/conflict but no later outcome or character change.",
+    "coverage_limit": "These stills alone cannot cover E08 foreshadowing/conflict/choice/payoff or E09 motivation/change across play. No comparison was initiated with knowingly insufficient material.",
+    "next_material_need": "Sustained actual dialogue/play record that includes the relevant consequences; leave the selected reference and criteria unchanged."
+  }
+}

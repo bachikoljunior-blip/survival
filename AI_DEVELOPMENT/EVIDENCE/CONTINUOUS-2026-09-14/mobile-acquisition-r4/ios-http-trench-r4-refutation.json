@@ -1,0 +1,82 @@
+{
+  "verdict": "PASS",
+  "score": 100,
+  "verdictScope": "The corrected transport and trench boundary changes pass this limited source/CPU refutation. Original transport null-envelope failure is preserved as resolved in a separate hash. This is not a browser, Simulator or quality pass.",
+  "round": "ios-http-trench-r4-independent-refutation",
+  "profile": "Transport response/timer boundary and trench event accounting/cleanup",
+  "tier": "Source and CPU only",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison was performed. Source identities are known. No actual image, sound, reference preference or trusted browser input was measured, and no element is marked satisfied by this review.",
+  "checkedAt": "2026-09-14T04:35:10.813Z",
+  "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+  "scope": "Independent bounded r4 refutation. Exact source functions run with explicit non-network and non-browser boundaries. Real Actor/Game event and state APIs are used only for the queue tests.",
+  "sources": {
+    "tools/webdriver-request.mjs": {
+      "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+      "bytes": 1987
+    },
+    "tools/mobile_trench_consequences.mjs": {
+      "sha256": "49495954200bf2c6305ba92bc04132fb860ef24dbcd470b83ed8689e234fa3df",
+      "bytes": 6750
+    },
+    "src/actors/actor.js": {
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+      "bytes": 35441
+    },
+    "src/game/game.js": {
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+      "bytes": 30458
+    },
+    "src/game/state.js": {
+      "sha256": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+      "bytes": 33880
+    },
+    "src/core/util.js": {
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+      "bytes": 5255
+    }
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "severity": "minor",
+      "owner": "tools/webdriver-request.mjs",
+      "originalSha256": "67403231aa422f53241360f5a3476291ede54a07c19b100b10e3780cad7ea23b",
+      "correctedSha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+      "symptom": "An HTTP200 JSON null payload escaped the original response-end callback with TypeError while its returned promise stayed pending.",
+      "proof": "The same EventEmitter response sequence reproduced the original failure and then produced a clean promise rejection with the corrected response-envelope guard. A valid {value:null} remains successful.",
+      "applicability": "An invalid server/proxy response boundary, not an observed Appium response or CI crash."
+    }
+  ],
+  "verifiedBoundaries": [
+    "Partial-response stream errors reject the command promise.",
+    "The actual local AbortSignal timer expires while an incomplete body is pending; the explicit fake transport forwards the abort as request error. Chunks do not restart the signal timer.",
+    "Unsupported URL protocol throws before a request is issued; https URLs select the https transport.",
+    "Real Actor.damage payload identity survives real Game._drainEvents and separates a pre-acceptance queued hit from later hits even at the same simulation time.",
+    "Already drained later hits and still-pending later hits are each counted once; the endpoint snapshot preserves the actor queue.",
+    "Repeated GameState.set of an already true acceptance flag does not reset acceptance time.",
+    "Screenshot, frame-wait and acceptance-wait failures run the actual helper finally; both listeners and the keydown handler are removed and the log is deleted. KeyE is released after frame-wait failure."
+  ],
+  "limitations": [
+    "No actual CI run, Appium, Simulator, browser, socket, server, image, audio or trusted-input measurement.",
+    "The fake HTTP transport explicitly implements signal-to-error forwarding. Native source is inspected separately; successful real HTTP delivery and abort are not inferred as a measurement.",
+    "World/City build, full startNewGame, actual input acquisition and rendering are fixtures in the trench tests. Parent performs the distinct native-input integration test.",
+    "The fixture sends isTrusted:false. Its trusted-input helper check remains false; passing assertions here refer only to the bounded queue/cleanup expectations."
+  ],
+  "evidenceFiles": [
+    "ios-http-trench-r4-refutation-probe.mjs",
+    "ios-http-trench-r4-refutation-probe.json",
+    "ios-http-trench-r4-refutation-sources/webdriver-request.mjs",
+    "ios-http-trench-r4-refutation-sources/mobile_trench_consequences.mjs",
+    "ios-acquisition-timeout-r1-sources/webdriver-request.mjs"
+  ],
+  "checks": {
+    "total": 11,
+    "passed": 11
+  },
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

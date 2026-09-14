@@ -1,0 +1,157 @@
+{
+  "checkedAt": "2026-09-14T04:05:33.345185+00:00",
+  "scope": "Read-only extraction from prior CI logs/inventory and offline candidate selection. No command queried a Mac SDK or started Simulator/Appium/browser. The proposed production selector is not implemented or executed here.",
+  "run": {
+    "id": 34803864630,
+    "commitPrefix": "3aa5e4f"
+  },
+  "inventorySources": [
+    {
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+      "version": "18.5",
+      "runtimeAvailable": true,
+      "udid": "22A3039C-6A45-47F4-82D4-80C58CA94379",
+      "name": "iPhone SE (3rd generation)"
+    },
+    {
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-6",
+      "version": "18.6",
+      "runtimeAvailable": true,
+      "udid": "8938AAA2-76B5-4D49-A228-383499B04C02",
+      "name": "iPhone SE (3rd generation)"
+    },
+    {
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-0",
+      "version": "26.0.1",
+      "runtimeAvailable": true,
+      "udid": "F3967A6C-63E1-4323-9EA7-6C26D42F77A3",
+      "name": "iPhone SE (3rd generation)"
+    },
+    {
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-1",
+      "version": "26.1",
+      "runtimeAvailable": true,
+      "udid": "3EF44343-CDF7-4757-BAE2-47B813D8FF60",
+      "name": "iPhone SE (3rd generation)"
+    },
+    {
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-2",
+      "version": "26.2",
+      "runtimeAvailable": true,
+      "udid": "48B2DA2E-AF18-4E36-BB25-B25969A4EBCF",
+      "name": "iPhone SE (3rd generation)"
+    }
+  ],
+  "oldWorkflowStringSortChoice": {
+    "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-2",
+    "version": "26.2",
+    "runtimeAvailable": true,
+    "udid": "48B2DA2E-AF18-4E36-BB25-B25969A4EBCF",
+    "name": "iPhone SE (3rd generation)"
+  },
+  "proposedSelection": {
+    "sdkAssumption": "18.5",
+    "assumptionBasis": "Official Apple Xcode16.4 row; prior artifacts lack xcrun --sdk iphonesimulator --show-sdk-version output. Next actual CI must measure that output.",
+    "rule": "Require available SE3 device whose available runtime version has the same numeric major/minor as the active iphonesimulator SDK. If absent, fail with observed SDK and available runtimes; do not silently select latest.",
+    "candidates": [
+      {
+        "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "version": "18.5",
+        "runtimeAvailable": true,
+        "udid": "22A3039C-6A45-47F4-82D4-80C58CA94379",
+        "name": "iPhone SE (3rd generation)"
+      }
+    ],
+    "fullRuntimeVersionFromInventory": "18.5",
+    "schemaObservation": "Runtime identifiers can omit a patch version: iOS-26-0 reports version26.0.1; pass the reported runtime version to Appium rather than reconstructing a shortened version from the key."
+  },
+  "logObservations": {
+    "headlessAccepted": [
+      {
+        "line": 81,
+        "text": "2026-09-14 03:53:52:963 [f4013cf3][XCUITestDriver@9da3] Simulator with UDID '48B2DA2E-AF18-4E36-BB25-B25969A4EBCF' is already booted in headless mode."
+      }
+    ],
+    "simStarted": [
+      {
+        "line": 84,
+        "text": "2026-09-14 03:54:00:884 [f4013cf3][XCUITestDriver@9da3] Event 'simStarted' logged at 1789358040883 (03:54:00 GMT+0000 (Coordinated Universal Time))"
+      }
+    ],
+    "oldVisibleUiRestartMatches": [],
+    "wdaBuildCommands": [
+      {
+        "line": 107,
+        "text": "2026-09-14 03:54:05:802 [f4013cf3][XCUITestDriver@9da3] Beginning test with command 'xcodebuild build-for-testing test-without-building -project /Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination id=48B2DA2E-AF18-4E36-BB25-B25969A4EBCF IPHONEOS_DEPLOYMENT_TARGET=26.2 GCC_TREAT_WARNINGS_AS_ERRORS=0 COMPILER_INDEX_STORE_ENABLE=NO' in directory '/Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'"
+      },
+      {
+        "line": 499,
+        "text": "2026-09-14 03:56:23:308 [f4013cf3][XCUITestDriver@9da3] Beginning test with command 'xcodebuild build-for-testing test-without-building -project /Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination id=48B2DA2E-AF18-4E36-BB25-B25969A4EBCF IPHONEOS_DEPLOYMENT_TARGET=26.2 GCC_TREAT_WARNINGS_AS_ERRORS=0 COMPILER_INDEX_STORE_ENABLE=NO' in directory '/Users/runner/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'"
+      }
+    ],
+    "loggedWaitMillis": 60000,
+    "firstWait": {
+      "line": 109,
+      "text": "2026-09-14 03:54:08:721 [f4013cf3][XCUITestDriver@9da3] Waiting up to 60000ms for WebDriverAgent to start"
+    },
+    "firstReportedTimeout": {
+      "line": 478,
+      "text": "2026-09-14 03:56:12:626 [f4013cf3][XCUITestDriver@9da3] Unable to start WebDriverAgent: Error: We were not able to retrieve the /status response from the WebDriverAgent server after 60000ms timeout.Try to increase the value of 'appium:wdaLaunchTimeout' capability as a possible workaround."
+    },
+    "elapsedBetweenWaitAndReportedTimeoutSeconds": 123.905,
+    "firstXcodeShutdown": {
+      "line": 486,
+      "text": "2026-09-14 03:56:12:643 [f4013cf3][XCUITestDriver@9da3] Shutting down 'xcodebuild' process (pid '7364')"
+    },
+    "firstXcodeExit": {
+      "line": 487,
+      "text": "2026-09-14 03:56:12:836 [f4013cf3][Xcode] xcodebuild exited with code 'null' and signal 'SIGTERM'"
+    },
+    "explicitCompilerErrorOrExit65Matches": [],
+    "secondAttemptTransitions": [
+      {
+        "line": 489,
+        "text": "2026-09-14 03:56:23:158 [f4013cf3][XCUITestDriver@9da3] Retrying WDA startup (2 of 2)"
+      },
+      {
+        "line": 502,
+        "text": "2026-09-14 03:56:27:479 [f4013cf3][XCUITestDriver@9da3] Event 'wdaSessionAttempted' logged at 1789358187479 (03:56:27 GMT+0000 (Coordinated Universal Time))"
+      },
+      {
+        "line": 507,
+        "text": "2026-09-14 03:56:27:593 [f4013cf3][XCUITestDriver@9da3] Event 'wdaSessionFailed' logged at 1789358187593 (03:56:27 GMT+0000 (Coordinated Universal Time))"
+      },
+      {
+        "line": 539,
+        "text": "2026-09-14 03:56:27:697 [HTTP] <-- POST /session 500 163667 ms - 2108"
+      }
+    ]
+  },
+  "evidenceFiles": [
+    {
+      "path": "ci-ios-3aa5e4f/appium.log",
+      "bytes": 63713,
+      "sha256": "7eaea76261f560a05e95559a2d192169a8b29b2c0adb8a7a6e41c462b1ea472a"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/report.json",
+      "bytes": 847,
+      "sha256": "d02a8e19ff6e9b66983014b8c294655a6221e47b0c81d80b311793adabe4135a"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/simulator-inventory.json",
+      "bytes": 265506,
+      "sha256": "1d73dd6d107ed54d13278e47bd688b1c83f2e915dfb90cbe7a70cd570e59d20c"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12"
+    },
+    {
+      "path": "ci-ios-3aa5e4f/video.log",
+      "bytes": 75,
+      "sha256": "fee056264f0f4a399d27fc82958070d101a13d90fdbd3799fd6b7ca965f4d711"
+    }
+  ]
+}

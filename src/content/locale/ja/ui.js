@@ -260,6 +260,7 @@ export const UI_JA = {
     allfour: '<b>4人とも。</b>',
     someout: '<b>@a人が出た。@b人は出ていない。</b>',
     locked: '施錠。',
+    requireditem: '「@item」が必要だ。',
     boards: '板は枠まで釘で打ち抜いてある。これでは無理だ。',
     behindboards: '板の裏',
     ontheirfeet: '<b>@n</b>が立った。どこか上へ連れて行く。',

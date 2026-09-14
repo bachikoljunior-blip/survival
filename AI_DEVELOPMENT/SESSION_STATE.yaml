@@ -17,22 +17,23 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T12:46:39.121425+09:00"
+  last_progress_at: "2026-09-14T13:43:52.504647+09:00"
   verified_commit: "c8f63c6063c98306e4c95e85b6055c0263957593"
   verified_build_sha256: "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05"
   evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/provenance.json"
   last_verified_action: "c8f63c6 実WebKit通常168/168・例外復旧42/42成功。半閉鎖の庭14→429.2ppm、全閉鎖659.0ppm、live navと保存/欠落ID復元を確認。Chromium23/23で3本の実音声映像を取得し原ZIP SHA・MP4 SHA・全復号を確認。全19要素not measured。"
   current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/provenance.json"
-  pending_build_sha256: null
-  modified_but_unverified: "この保存の製品ビルドはc65853fと同一。tools/test-ios-safari.mjs のisHeadlessを独立レビュー/反証/CPU境界の要求内容で検証、実Simulator再検証待ち。trenchの視覚/聴覚からの敵対とactor:aggroによる音楽切替はローカルで編集中、まだ製品にはコミットせず trench-in-progress.patch に保存。通行許可後の敵対は実ダメージで再現し修正待ち。"
-  next_action: "指定ブランチへiOS起動修正を保存し、Appium不要再起動が消えSafari操作まで進むか実CIを確認。別途保存したtrench-in-progress.patchはローカル差分と照合し二重適用せず、独立レビューの確定指摘を修正。音声モデルは音を入力できたが既知の音列順序を誤り、品質判定に使用できるとは未確定。全19要素の有効な比較0件、基準を維持して比較方法と本編を改善する。"
+  pending_build_sha256: "72d4805cd0638a0826ea1814128369f223f727f9e6fe4d4ac6f2a2beb53a9cb0"
+  modified_but_unverified: "現行製品build72d4805cはbuild/content/root mirror検証済み。独立CPUと別反証でtrench自然感知、許可後の同tick攻撃取消/8秒無被害/呼集非敵対/90秒autosave、runtime瓦礫の斜め実登頂2.6m/quest step2、旧rubble同一/除去、poll前再entry重複修正・所持品宣言整合を確認。新buildのスマートフォン実CIは未実施。共有SDK選択・WDA診断/有限待機・HTTP総予算・WebKit通行後計測はCPU境界検証済み、最終独立反証も完了しtrench-perception-r3/とmobile-acquisition-r4/へ原試行/修正前失敗を含めて保存済み。実CIへ進む。"
+  next_action: "限定独立レビューと別反証で残存指摘0。同じ指定ブランチへ現在の製品build72d4805cと検証経路を保存、リモートSHA/tree一致を確認して実WebKit/Simulator結果を取得する。WDA到達前の失敗をSafari成功としない。新buildへ旧c8証拠を無条件適用しない。実成立した斜めheap経路はtrench-perception-r2/raw-review.tar.gz内のrefuter-probe-02に保持。比較資料は継続取得し、失敗した音声モデルを判定には使わない。登頂は敵が感知した状態でもtrench_slippedとなるため、未発見通過の証拠にしない。次に、この条件と物語表示の対応、new game時の会話状態残存疑いを実際の操作経路で調査する。"
 
-  deadline_assessment: "2026-09-14ユーザー追記: 適宜期限内達成を評価し、届かないなら進め方が誤っている可能性を検証する。現時点で19要素の有効な比較0件、今の進み方のまま期限内完全達成は厳しい。細部修正を増やす進め方を改め、現在の小修正を保存後、取得→匿名化→評価の実成立を優先する。基準/期限は変更しない。"
+  deadline_assessment: "2026-09-14の追記に従い再評価: 有効比較0/19で期限内完全達成を裏付ける進捗はない。未知の音声評価器をそのまま使う方法は既知音列/完全無音の負制御で棄却した。静止画の場面収集だけでは物語/人物の変化を覆わない。確認できた本編欠陥を解消しつつ、実ゲーム経路を連続収録できる環境と対応する参照区間の取得へ方法を絞る。不要と反証されたheap形状の再変更は行わない。期限/19要素/71基準は維持。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
-    - "初回映像比較で参照の出所認識が起きたため無効。全19要素に有効なブラインド比較がまだない。期限内完全達成を裏付ける進捗はまだないため、製品修正と比較成立を並行して進める"
-    - "c8f63c6の実WebKit168/168・fault42/42成功。Chromiumで実録音3件を取得/復号したが描画遅延による時間乖離を実測。native audio input非対応で音を聴いた評価も未実施。既存のiOS Simulator検証を指定ブランチへ適用し収録環境を改善する"
-    - "通常Gitの認証は利用できない。接続済みGitHubアプリの正規書込みで同ブランチへ保存・再読取が成功済み。旧自動承認拒否は履歴として保存し、保護の迂回はしない"
-    - "Factorio公開GUI demoの通常GETはHTTP403で取得不可。既存の実headless保存/移行結果は保持するが、GUIのブラインド比較を実施したとは扱わない"
+    - "全19要素に有効なブラインド比較がまだない。参照出所認識の2試行は無効、比較単位完了0。既存Disco追加9画像にも連続した人物変化/回収はなく、その不足を省略して比較しない。"
+    - "3aa5e4fの実Simulatorでは旧UI再起動障害は消えWDAへ進行したが、WDA応答がなくSafari/game checks0。根因未確定。実SDK整合+詳細Xcodeログ+有限待機/HTTP総予算で次の実CIを行う。証拠ios-safari-3aa5e4f/。"
+    - "native音声入力は非対応。取得したモデル/runtimeは既知音列順序を誤り完全無音へ音を報告したため品質評価器として棄却。音声素材の取得/復号は聴覚評価ではない。audio-evaluator-calibration/に原入力/原出力/失敗と回復を保存。"
+    - "通常Git認証は利用不可。接続済みGitHubアプリの正規書込み/再読取は成功済み。安全拒否や403は別の手段で迂回しない。ローカルbrowser/serverを起動せず許可された既存CIを使用。"
+    - "公開参照の直接取得で複数の拒否/必要URL欠落が残る。reference-acquisition-sep14-afternoon.jsonに失敗方法と実際に閲覧した画像範囲を保存。失敗済み方法を無変更で反復しない。"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"
   continuation_mechanism: "Work Mode既存の survival 継続実行 を、主実行停止時の再発火役へ更新し、正確なprompt・有効状態・既存予定の保持を再読取確認した。停止原因の全件調査→修正可能な全原因の修正→再発防止の検証→保存された未完了地点の再開→実進捗確認を指示。稼働中は競合変更しない。変更不可能な安全/権限/環境上限は迂回せず記録。設定更新は未来の復旧成功の証拠ではない。証拠: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/resume-watchdog.json"

@@ -1,0 +1,203 @@
+{
+  "saved_at": "2026-09-14T13:20:07.333225+09:00",
+  "baseline_commit": "3aa5e4febbd52a44ddc87aca7aa6ecd7ab20e185",
+  "reviewed_director_sha256": "eb347f5eed42b31ed5db61dd8d3e3a6d8ff9ea400fe874e356fe78cde6aaef61",
+  "scope": "Independent CPU review and refutation of the original quiet trench spawn/music draft. Not a browser, rendered appearance or blind comparison. Subsequent source fixes are not covered by this earlier snapshot.",
+  "results": "Quiet detection and combat music path measured. Two preexisting major defects sustained: the accepted order did not stop hostile hits; the authored runtime rubble produced no geometry/collision.",
+  "failed_probes_retained": "v1 invalid save fixture, v3 missing fixture helper, v4 source changed during execution. v2/v5/v6 and independent refuter results preserve their declared limits; failures are not product passes.",
+  "files": [
+    {
+      "path": "trench-perception-probe-v1.mjs",
+      "bytes": 4975,
+      "sha256": "5b5f1f0c7e5a5c0b0cc9eb1997d94beb1f46f7ac599eb15aa1ab026bebecd8ab"
+    },
+    {
+      "path": "trench-perception-probe-v1.json",
+      "bytes": 1042349,
+      "sha256": "1b4e5aa0e1d8a94410d31fe5188a9b87d07eb777daabb172d182f8758f09422d"
+    },
+    {
+      "path": "trench-perception-probe-v1.log",
+      "bytes": 730,
+      "sha256": "4906b1d11a7f479dd6506135149dc652f0aa536b9a174a958a39e9cc3a08e26c"
+    },
+    {
+      "path": "trench-perception-probe-v2.mjs",
+      "bytes": 7541,
+      "sha256": "f505b9e6d51aafb5d4ca35a2c348415ebd85da056455838ca64cb58ca140442d"
+    },
+    {
+      "path": "trench-perception-probe-v2.json",
+      "bytes": 890445,
+      "sha256": "26842e5044be4d6b9a374e0cee1c49e831ae2706e9d84b99ffe1ea7db774656a"
+    },
+    {
+      "path": "trench-perception-probe-v2.log",
+      "bytes": 1609,
+      "sha256": "4574a59105f6da95375922278eb62226264b08a1a2a9191df4498dc6856481fd"
+    },
+    {
+      "path": "trench-perception-probe-v3.mjs",
+      "bytes": 4448,
+      "sha256": "94f673aed5c1dcf36c1b723636d0a5f07100932f4cffc0ed364de2dbbb1cf7f1"
+    },
+    {
+      "path": "trench-perception-probe-v3.log",
+      "bytes": 857,
+      "sha256": "73634dbf9bad836882b8e95b82a49cd8c4cd6bcf79a110e8532f62b0fa09a41d"
+    },
+    {
+      "path": "trench-perception-probe-v4.mjs",
+      "bytes": 4649,
+      "sha256": "cfb9597a30a8f409e873836c6f6d0f6c91af5c3d17b31b73997212b1a03e3331"
+    },
+    {
+      "path": "trench-perception-probe-v4.json",
+      "bytes": 473075,
+      "sha256": "e658d4c664133e84de1069cc09ab5f01a8235101700a9e947af42b00d17f84b6"
+    },
+    {
+      "path": "trench-perception-probe-v4.log",
+      "bytes": 203,
+      "sha256": "3186ce7a87285a238ab1a3d673c0686d9a3002bb412cb7ffa2d95de10d34a851"
+    },
+    {
+      "path": "trench-perception-probe-v5.mjs",
+      "bytes": 7808,
+      "sha256": "b69b0756e19cbd1daa61dd94f3270f83dd2ae3f8a4b8cb0a4128c8c643d4ce7a"
+    },
+    {
+      "path": "trench-perception-probe-v5.json",
+      "bytes": 1338496,
+      "sha256": "17cb2154424ce0648b42d2af0fe84d542331f138c9715c49278eb7c4f3620b37"
+    },
+    {
+      "path": "trench-perception-probe-v5.log",
+      "bytes": 349,
+      "sha256": "897cd8ad0302ac9bc34a98fc713bb3d81ba4a6781c0df420cdda079a96ac8b4c"
+    },
+    {
+      "path": "trench-perception-probe-v6.mjs",
+      "bytes": 2502,
+      "sha256": "4f657ab99eba29342d474a687d5aefc41967d936c8b71f049de7e151e07f4afd"
+    },
+    {
+      "path": "trench-perception-probe-v6.json",
+      "bytes": 18076,
+      "sha256": "493f2eebbe886bfc97ed7bff16ac6a559dc47aa97f2adae1342ba6b8b7ac878c"
+    },
+    {
+      "path": "trench-perception-probe-v6.log",
+      "bytes": 153,
+      "sha256": "5ce2c12edd856324a2b7ee6097fa7cd04d516664c5512c5dbf7fdec7c1f37c16"
+    },
+    {
+      "path": "trench-perception-fixture-v1.mjs",
+      "bytes": 6098,
+      "sha256": "3d1345ce58b3c0b844d736efc0de89aa3212a914ad971499c040c3e5ecd6560e"
+    },
+    {
+      "path": "trench-perception-fixture-v2.mjs",
+      "bytes": 6277,
+      "sha256": "bd625e74ca055b81b98c58f3a2ff3a0fbc246f6ce496f4a72f2a33687583220c"
+    },
+    {
+      "path": "trench-perception-fixture-v3.mjs",
+      "bytes": 6412,
+      "sha256": "c6100e5ddeeab40e76668f107f591f080c5a2f59435a78f4dca8df383785bd53"
+    },
+    {
+      "path": "trench-perception-baseline-director.js",
+      "bytes": 73364,
+      "sha256": "5a9dd9aebd23227632b1609c6a26a508e26e3e0eba6adffb715d883463893f7c"
+    },
+    {
+      "path": "trench-perception-reviewed-director-current.js",
+      "bytes": 73972,
+      "sha256": "eb347f5eed42b31ed5db61dd8d3e3a6d8ff9ea400fe874e356fe78cde6aaef61"
+    },
+    {
+      "path": "trench-perception-reviewed-diff.patch",
+      "bytes": 2592,
+      "sha256": "6dd4bbd590ad5f8b259b8d97c1e9031732972a5e05a25eaf0b9c935e3857d421"
+    },
+    {
+      "path": "trench-perception-check-findings.mjs",
+      "bytes": 1185,
+      "sha256": "d21f827f92dbf8b16959c4fbf603862edbc31aa054c39ee75eeb37ec2087225a"
+    },
+    {
+      "path": "trench-perception-refuter-probe-01.mjs",
+      "bytes": 17280,
+      "sha256": "87be13d075ee60a02e0c3a546414f5603bed211c104dcd18c1309ed165c124c0"
+    },
+    {
+      "path": "trench-perception-refuter-probe-01.json",
+      "bytes": 1737374,
+      "sha256": "647b9669c8b5d9c95eed2512b02fe862ef4a07336b8ede28debc5a359ba60e31"
+    },
+    {
+      "path": "trench-perception-refuter-probe-01.log",
+      "bytes": 398,
+      "sha256": "22b3abab207442db97701fea7edd255ff39043058955a02210480690cfa2bca2"
+    },
+    {
+      "path": "trench-perception-refuter-probe-02.mjs",
+      "bytes": 17450,
+      "sha256": "b4fd972ee0b0126f82b4850419d02a62167ac0a297fcae735027235b6263300c"
+    },
+    {
+      "path": "trench-perception-refuter-probe-02.json",
+      "bytes": 469968,
+      "sha256": "a717824b80c16d98259876a759a163cb52eee3be66d4fa5c346e3fc768996b1e"
+    },
+    {
+      "path": "trench-perception-refuter-probe-02.log",
+      "bytes": 110,
+      "sha256": "f2f02b39461517e1e69b6820c6bf1f4b409ed2e9386ccc9a70efb8ae38fee7ab"
+    },
+    {
+      "path": "trench-perception-refuter-review.json",
+      "bytes": 22825,
+      "sha256": "a5bd8b0b1cde040ddb3474f4af2d245e739dc59593bb5cd0cd826f8b3c603035"
+    },
+    {
+      "path": "trench-perception-review.json",
+      "bytes": 24916,
+      "sha256": "534d35e791ca8e08db55fbc9799dc748d84e2fbe0f20c40d231e787182663963"
+    },
+    {
+      "path": "trench-perception-review-validation.json",
+      "bytes": 53,
+      "sha256": "86fd39049fe0cc4432ba8c4179a3c25650875f7f9a91aafa9a6b13abfb01024b"
+    },
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "bytes": 2944,
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    }
+  ],
+  "dependencies_not_bundled": [
+    {
+      "path": "survival/node_modules/three/build/three.module.js",
+      "bytes": 603113,
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a"
+    },
+    {
+      "path": "survival/node_modules/three/build/three.core.js",
+      "bytes": 1403455,
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20"
+    },
+    {
+      "path": "survival/node_modules/three/package.json",
+      "bytes": 4635,
+      "sha256": "aa42494664dba4cf76d89c6975ee38321a402f09a048672e190bad6f13beec93"
+    }
+  ],
+  "blind_comparison": false,
+  "elements_unchanged": "all19 not measured",
+  "archive": {
+    "bytes": 391247,
+    "sha256": "776f65cfaf2ae912f90738bf77528377800c1205ac1222bc0731bfb9c5240a60"
+  }
+}

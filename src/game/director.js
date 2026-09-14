@@ -120,6 +120,11 @@ seconds and I already know which one I believe.`);
       if (n >= 5 && !this.state.can('hardHands')) this.state.unlock('hardHands');
     });
     g.on('actor:death', (a) => { if (a === g.player) this.onPlayerDeath(a); });
+    g.on('actor:aggro', (a) => {
+      // Quiet encounters raise the score when their guards actually detect
+      // Ren. Actor events arrive through Game._drainEvents after the AI tick.
+      if (this._raidActive?.group.includes(a)) g.emit('music', 'combat');
+    });
 
     // Reaching places is the single most common quest trigger, so it is polled
     // rather than event-driven — cheap, and it cannot be missed.
@@ -137,9 +142,16 @@ seconds and I already know which one I believe.`);
         ['scav', -100, -74], ['scav', -96, -88], ['slinger', -92, -82],
       ]),
       spawnTrenchLine: () => {
+        if (this.state.has('trench_passed')) return;
+        // A save can fall between accepting the order and the next reach
+        // poll. Re-entering that still-active step must not spawn a new shift.
+        if (this.state.has('trench_talked')) {
+          this._standDownTrench();
+          return;
+        }
         this._spawnRaid('trench', [
           ['warden', 70, 14], ['warden', 78, 16], ['scav', 74, 24],
-        ]);
+        ], { alerted: false });
         // The line is a shift, not a crusade. There are three ways past it and
         // only one of them is the fight.
         this._addRuntimeInteraction({
@@ -373,7 +385,7 @@ seconds and I already know which one I believe.`);
     list.push({ ...it, _runtime: true });
   }
 
-  _spawnRaid(id, list) {
+  _spawnRaid(id, list, { alerted = true } = {}) {
     const g = this.game;
     // Idempotent: a load re-enters the active step, and a raid that is already
     // on the ground must not be doubled.
@@ -382,15 +394,22 @@ seconds and I already know which one I believe.`);
     const group = [];
     for (const [kind, x, z] of list) {
       const e = g.spawnEnemy(kind, x, z);
-      e.aggro = true;
-      e.awareness = 1;
-      e.target = g.player;
-      e.aiState = 'combat';
+      // The courtyard is an active raid. The trench is a staffed boundary:
+      // its guards must actually see or hear Ren before beginning combat.
+      // Preserve the Enemy constructor's unaware state for that encounter.
+      if (alerted) {
+        e.aggro = true;
+        e.awareness = 1;
+        e.target = g.player;
+        e.aiState = 'combat';
+      }
       group.push(e);
     }
     this._raidActive = { id, group };
-    g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
-    g.emit('music', 'combat');
+    if (alerted) {
+      g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
+      g.emit('music', 'combat');
+    }
     return group;
   }
 
@@ -400,12 +419,40 @@ seconds and I already know which one I believe.`);
    * inside — or by putting Krajcik's own unissued cut order in a foreman's
    * hand, which is the thing Ren is actually good at.
    */
+  _standDownTrench() {
+    const raid = this._raidActive;
+    if (!raid || raid.id !== 'trench') return;
+    const g = this.game;
+    for (const e of raid.group) {
+      if (e.dead) continue;
+      e.faction = 'neutral';
+      e.aggro = false;
+      e.awareness = 0;
+      e.target = null;
+      e.aiState = 'idle';
+      e.attack = null;
+      e.comboWindow = 0;
+      e.comboNext = null;
+      e.guarding = false;
+      e.path = null;
+      e.setMove(0, 0, 0);
+      e.animator.stopAction(0.12);
+      g.combat.releaseToken(e);
+    }
+    if (raid.group.includes(g.camera.lockTarget)) g.camera.lockTarget = null;
+    // The passage is resolved. Keeping a live raid here would also prevent
+    // the normal autosave, even after every guard has accepted the order.
+    this._raidActive = null;
+    g.emit('music', g.zone?.music || 'explore');
+  }
+
   _checkTrenchPassed() {
     if (this.state.has('trench_passed')) return;
     const g = this.game;
     const p = g.player;
     // Showing the foreman the order is a way through in its own right.
     if (this.state.has('trench_talked')) {
+      this._standDownTrench();
       this.state.set('trench_passed');
       this.state.set('trench_talked_through');
       g.hud.notice(t('ui.hud.stepsaside',
@@ -750,6 +797,12 @@ You do not get that back by wanting it. You get it back by doing it twice.`);
   interact(it) {
     const g = this.game;
     if (!it) return;
+    if (it.requiresItem && !this.state.hasItem(it.requiresItem)) {
+      const item = t(`item.${it.requiresItem}.name`, ITEMS[it.requiresItem]?.name || it.requiresItem);
+      g.hud.notice(t('ui.hud.requireditem', 'You need @item.').replace('@item', item), 'bad', 3);
+      g.emit('sfx', 'locked');
+      return;
+    }
 
     switch (it.kind) {
       case 'climb':
@@ -1044,6 +1097,9 @@ she has been able to get to telling somebody.`],
     if (topic.journal) this.state.addJournal(topic.journal[0], topic.journal[1], topic.journal[2]);
     else this.state.addJournal(`examine:${spec.topic}`, topic.title, topic.lines.join(' '));
     if (topic.flag) this.state.set(topic.flag);
+    // Cancel an already committed swing in the same interaction tick, before
+    // the next actor/combat update can hit Ren while she reads the order.
+    if (spec.topic === 'trench_line') this._standDownTrench();
     if (spec.startsQuest) this.quests.start(spec.startsQuest);
   }
 

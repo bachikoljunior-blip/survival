@@ -33,6 +33,7 @@ import { exerciseMobileLayout } from './mobile_layout.mjs';
 import { captureMobileViews } from './mobile_visual_capture.mjs';
 import { captureMobileAudio } from './mobile_audio_capture.mjs';
 import { exerciseGasConsequences } from './mobile_gas_consequences.mjs';
+import { exerciseTrenchConsequences } from './mobile_trench_consequences.mjs';
 import { exerciseGuardToggle } from './mobile_guard_toggle.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -610,6 +611,7 @@ try {
   await exerciseGuardToggle({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
   await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
   await exerciseGasConsequences({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await exerciseTrenchConsequences({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
   await captureMobileAudio({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
   }
 

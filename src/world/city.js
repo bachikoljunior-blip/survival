@@ -622,6 +622,21 @@ export class City {
     const y = p.y || 0;
     let r = null;
     switch (p.kind) {
+      case 'rubble': {
+        const w = p.w ?? (p.r ?? 3) * 2;
+        const d = p.d ?? w;
+        const h = p.h ?? 1.5;
+        P.rubblePile(cb, p.x, p.z, w / 2, h, rng, { depthScale: d / w, y });
+        for (let i = 0; i < 4; i++) {
+          const t = i / 4;
+          // Keep the walkable core inside even the smallest generated
+          // seven-sided contour; its top matches the visible layer exactly.
+          const core = (1 - t * 0.72) * 0.45;
+          this.solid(p.x, y + h * (t + 0.25) - 0.2, p.z,
+            w * core, 0.2, d * core, 0, LAYER.PLATFORM, 'rubble');
+        }
+        break;
+      }
       case 'drum': r = P.drum(cb, p.x, y, p.z, rng, p); break;
       case 'crate': P.crate(cb, p.x, y, p.z, rng, p); this.solid(p.x, y, p.z, 0.7, 0.62, 0.7, p.rot || 0, LAYER.SOLID, 'prop'); break;
       case 'pallet': P.pallet(cb, p.x, y, p.z, rng, p); break;

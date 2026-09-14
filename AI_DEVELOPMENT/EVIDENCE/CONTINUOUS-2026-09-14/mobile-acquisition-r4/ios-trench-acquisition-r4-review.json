@@ -1,0 +1,286 @@
+{
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored schema placeholder. This review does not assign a game quality score.",
+  "verdictScope": "Only the seven pinned acquisition/CI source files and their bounded CPU behavior. No unresolved concrete defect survived the final refutation within this scope. This is not successful Appium/WDA startup, a smartphone browser pass, a reference comparison or an element judgment.",
+  "round": "ios-trench-acquisition-r4-2026-09-14",
+  "profile": "Shared SDK selection, Mobile Safari bootstrap evidence, bounded WebDriver transport and trench acquisition accounting",
+  "tier": "Source and CPU boundaries",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison was conducted. Sources and implementation identities are known, no reference preference is measured, and the synthetic input is explicitly untrusted. This review cannot mark any concept element satisfied.",
+  "checkedAt": "2026-09-14T04:37:51.640Z",
+  "reviewer": "/root/acquisition_path_review",
+  "independentRefuter": "/root/acquisition_path_review/acquisition_refutation",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "baseCommit": "6efddea15a8e7b59ffc598180a94bc65033b2934",
+  "sourceState": "Working-tree hashes, with snapshots and separate earlier revisions retained. No product or review-target file was edited by this reviewer.",
+  "sourceHashes": {
+    "tools/select-ios-simulator.mjs": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74",
+    "tools/test-ios-safari.mjs": "9aad1a0dcec02b9a4e37eaf3a9af80a52fb23aa641a0694c659c0717b274b1fb",
+    "tools/webdriver-request.mjs": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+    ".github/workflows/mobile-simulator.yml": "e8ceaa87ed97d0f4935bf3db22b7ff900f09d2a76e8d9e1d980f38f52ee75c84",
+    ".github/workflows/pages.yml": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8",
+    "tools/mobile_trench_consequences.mjs": "49495954200bf2c6305ba92bc04132fb860ef24dbcd470b83ed8689e234fa3df",
+    "tools/test-iphone-webkit.mjs": "4cdcf9d6cdcf72e6ab49f93a8d04a63fdfaefc5b1f59267706a004d1af499717"
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "owner": "tools/mobile_trench_consequences.mjs",
+      "severity": "major",
+      "initialSha256": "52ca2085334a1a606bc5cff3773789d929b7d7830eeccc3139e493cd00663a56",
+      "problem": "The initial yaw0 placement points outside the actual Game interaction cone, so the target is null and normal input cannot start the dialogue.",
+      "evidence": "Actual target selection produced dot -0.0665190105237737 below 0.25; changing only the yaw selected trench_talk. The corrected final helper then passed the complete CPU Game input/Director path.",
+      "resolution": "The root implementation faces the actual interaction, with final helper hash pinned above.",
+      "refutation": "ios-trench-acquisition-r2-refutation.json"
+    },
+    {
+      "owner": "tools/mobile_trench_consequences.mjs",
+      "severity": "minor",
+      "initialSha256": "d846f88f0108c38b4412fcbbf9564f705a487b9dd57b41f9dbc548055718af58",
+      "problem": "An endpoint enemy hit could reduce HP but remain queued after the actor event drain, leaving the earlier actor:hurt-only zero-hit predicate true.",
+      "evidence": "The original real Actor.damage 10HP negative control left the predicate true until Game._drainEvents. The final helper records the endpoint pending hit and the zero-hit predicate becomes false.",
+      "resolution": "Acceptance time and queued payload identity distinguish the previous interval; final pending damage is included without draining or altering the product queue. Separate refutation verifies earlier/later classification, no duplicates and failure cleanup.",
+      "refutation": "ios-http-trench-r4-refutation.json"
+    },
+    {
+      "owner": "tools/webdriver-request.mjs",
+      "severity": "minor",
+      "initialSha256": "67403231aa422f53241360f5a3476291ede54a07c19b100b10e3780cad7ea23b",
+      "problem": "An HTTP200 JSON null envelope escaped the response-end callback as TypeError while the returned Promise stayed pending.",
+      "evidence": "Independent negative control preserved the old exception and pending Promise. With the final response envelope guard, the same response cleanly rejects; seven invalid envelopes reject and {value:null} succeeds.",
+      "resolution": "Root added a response envelope guard. The corrected transport hash is pinned above.",
+      "refutation": "ios-http-trench-r4-refutation.json"
+    }
+  ],
+  "verifiedBoundaries": [
+    {
+      "area": "Selector CLI and both actual workflow bodies",
+      "evidence": "ios-trench-acquisition-r2-platform-probe.json",
+      "result": "Six real CLI cases and two executions of the exact YAML shell block passed, with only Mac command boundaries replaced. Retained inventory SDK18.5 selects 22A3039C-6A45-47F4-82D4-80C58CA94379/18.5; SDK26.0 selects F3967A6C-63E1-4323-9EA7-6C26D42F77A3/26.0.1 despite an identifier without the patch suffix. No-match and malformed SDKs stop before boot or device outputs.",
+      "currentApplicability": "The selector and both boot shell blocks are unchanged; mobile workflow only adds the transport helper push path. The source comparison is separately recorded."
+    },
+    {
+      "area": "Actual gate request body and budget branch",
+      "evidence": "ios-trench-acquisition-r3-capability-probe.json",
+      "result": "The real current source sends headless=true, showXcodeLog=true, wdaLaunchTimeout=240000 and the supplied exact platformVersion18.5. The session boundary gets900000ms. The forced pre-session error still gives a failed report, exit1 and zero game checks."
+    },
+    {
+      "area": "New WebDriver transport",
+      "evidence": "ios-trench-acquisition-r4-http-probe.json",
+      "result": "Eight CPU boundary cases pass: split JSON/UTF8 framing, HTTPS500 message, malformedJSON, invalid-envelope matrix, valid value:null DELETE, finite25ms signal for no response, response stream error, and actual900000/90000ms gate branches. No request socket exists in the probe."
+    },
+    {
+      "area": "Complete trench helper through actual CPU product methods",
+      "evidence": "ios-trench-acquisition-r3-helper-probe.json",
+      "result": "The exact helper and source-extracted main.startNewGame run using actual Game._playerInput, fixedUpdate, Director, quest and collision. Both nominal and endpoint-hit scenarios pass seven mechanical conditions. Nominal no-hit is true; injected real10HP hit is exported as queued and makes no-hit false. Trusted browser input is deliberately false in both cases, because no browser event occurred."
+    },
+    {
+      "area": "Separate final refutation",
+      "evidence": "ios-http-trench-r4-refutation.json",
+      "result": "Eleven independent CPU expectations pass: corrected null response, transport/error/timer boundaries, pre-acceptance payload identity, once-only drained/pending accounting, passive queue preservation, stable acceptance time and screenshot/frame/wait failure cleanup."
+    }
+  ],
+  "observations": [
+    {
+      "area": "Outer HTTP budget",
+      "fact": "The previous fetch request had no explicit dispatcher or deadline. The local Node24.19/Undici7.29 source and current official Undici documentation use300000ms header defaults.",
+      "inference": "Two allowed240000ms WDA waits plus setup/interval can outlast such an outer header wait. Exact CI Node22 default and actual next-run timing were not measured.",
+      "resolution": "The current node:http/https helper has a finite total request budget, with no fetch header timer on WebDriver communication. This removes the identified configuration dependency without asserting the next WDA launch succeeds.",
+      "evidence": "ios-fetch-timeout-r1-refutation.json"
+    },
+    {
+      "area": "Prior fixture dialogue",
+      "fact": "Root now hides the preceding fixture display during trench staging. The CPU path invoked hide; no rendered image was produced.",
+      "limitation": "This does not claim that a general product startNewGame dialogue-visibility defect is fixed."
+    },
+    {
+      "area": "SDK alignment hypothesis",
+      "fact": "Apple documents Xcode16.4 SDK18.5. The actual failed run selected runtime26.2 and made no game checks.",
+      "inference": "Selecting a runtime in the active SDK major/minor reduces an uncontrolled environment difference. The evidence does not establish that runtime26.2 caused a compiler failure.",
+      "evidence": "ios-wda-review.json"
+    },
+    {
+      "area": "Refuter terminology",
+      "clarification": "The separate report phrase native-input integration refers here only to the actual Game._playerInput CPU path. Acquisition is synthetic and isTrusted=false; no browser-native input or trusted event was measured."
+    }
+  ],
+  "retainedActualFailure": {
+    "run": "34803864630",
+    "commit": "3aa5e4febbd52a44ddc87aca7aa6ecd7ab20e185",
+    "evidence": "ci-ios-3aa5e4f/appium.log",
+    "symptoms": "Headless mode was accepted and the old invisible-UI restart disappeared. WDA status never became ready, report.checks is empty and Appium terminated xcodebuild. The first nominal60000ms wait consumed123905ms; the second attempt failed almost immediately.",
+    "unknowns": "The excess first-attempt duration, immediate second-attempt failure and underlying WDA build/start mechanism remain unresolved. The current source fixes do not rewrite that failed result."
+  },
+  "primarySources": [
+    {
+      "url": "https://appium.github.io/appium-xcuitest-driver/latest/reference/capabilities/",
+      "supports": "Definitions of isHeadless, showXcodeLog, wdaLaunchTimeout and startup retries."
+    },
+    {
+      "url": "https://developer.apple.com/xcode/system-requirements/",
+      "supports": "Xcode16.4 SDK18.5. Its App Store deployment-target column is not proof that a particular Simulator build must fail."
+    },
+    {
+      "url": "https://undici.nodejs.org/api/Client",
+      "supports": "Current Client header/body timeout defaults. Not substituted for exact CI Node22 bundled-source evidence."
+    },
+    {
+      "url": "https://undici.nodejs.org/",
+      "supports": "Node global fetch depends on bundled Undici version."
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": "ios-trench-acquisition-r2-platform-probe.py",
+      "bytes": 6524,
+      "sha256": "4726e06716d3e2c2efc7968b6915c851029a24e7307cb97861eb21963a0e85e5"
+    },
+    {
+      "path": "ios-trench-acquisition-r2-platform-probe.json",
+      "bytes": 8229,
+      "sha256": "dd496ed2dfe6651ee4ee990d80772566bd598920f3e26a58af1b2506d5440c78"
+    },
+    {
+      "path": "ios-trench-acquisition-r2-facing.json",
+      "bytes": 7018,
+      "sha256": "5860af4db13b752a6ec783eb778ab2b77ad457be06ccbb9dd2c03b9a397bfd05"
+    },
+    {
+      "path": "ios-trench-acquisition-r2-capability-probe.mjs",
+      "bytes": 3968,
+      "sha256": "7742daeb2c413c810db41bb81b7d5edc116c819726fc5aae6e4113ff8d444433"
+    },
+    {
+      "path": "ios-trench-acquisition-r2-capability-probe.json",
+      "bytes": 5860,
+      "sha256": "e2fa67cb8d44ea02d7e7c97665d7d698c230ca5308e54ebfe32510e41062de95"
+    },
+    {
+      "path": "ios-trench-acquisition-r2-refutation.json",
+      "bytes": 12656,
+      "sha256": "de4f00c05e06637c40466670c2de93603ba5021e7c98eae9cdeacbbff978e5e7"
+    },
+    {
+      "path": "ios-trench-r2-refutation-probe.mjs",
+      "bytes": 8181,
+      "sha256": "a643abe95230944e2d680f8b2d1bc0bd7bf99ae994ee00f79c77c9d56a9e751c"
+    },
+    {
+      "path": "ios-trench-r2-refutation-probe.json",
+      "bytes": 5920,
+      "sha256": "6b3730ff2975db53329d95b88db37c4023320c60b6f840fbf8fdc2724ccf5d85"
+    },
+    {
+      "path": "ios-trench-acquisition-r3-capability-probe.mjs",
+      "bytes": 4399,
+      "sha256": "063076467932ed16012bab1cb4837c4e324c18edd301b48a3952dd7cb72c3e50"
+    },
+    {
+      "path": "ios-trench-acquisition-r3-capability-probe.json",
+      "bytes": 6106,
+      "sha256": "f74b120d933fca11f860d3c630ff112d197f44da3ff50b409a63f25d76abae3b"
+    },
+    {
+      "path": "ios-trench-acquisition-r3-helper-probe.mjs",
+      "bytes": 5953,
+      "sha256": "bad303ebbfde45463897310a20b60f7ac8926969f2a5da9ac141f6d9155933cc"
+    },
+    {
+      "path": "ios-trench-acquisition-r3-helper-probe.json",
+      "bytes": 21001,
+      "sha256": "46a0feea918d34fdeed3c32e9bfe85880abed17d663d5f5ee8ed0244242d7f67"
+    },
+    {
+      "path": "ios-trench-acquisition-r3-http-probe.mjs",
+      "bytes": 6687,
+      "sha256": "ac254cf204800892d3234c8da3d9d6fed9782db31aa788e3b4846f97dea379a1"
+    },
+    {
+      "path": "ios-trench-acquisition-r3-http-probe.json",
+      "bytes": 3663,
+      "sha256": "75670a94aa5419cf2f206dbc5048b2ed4f2330aad77f7165c1e1c17e5a316810"
+    },
+    {
+      "path": "ios-trench-acquisition-r4-http-probe.mjs",
+      "bytes": 7557,
+      "sha256": "fbd9941d40fa97413c8ef42a95002937d16af23a1ff3de632c9e02fc078ac677"
+    },
+    {
+      "path": "ios-trench-acquisition-r4-http-probe.json",
+      "bytes": 6091,
+      "sha256": "9999cd2a9e21c89710c3679567d74d03b1c6d07dc7ff739f614c1e4467260161"
+    },
+    {
+      "path": "ios-trench-acquisition-r4-source-integration.json",
+      "bytes": 1683,
+      "sha256": "dd07066e732a5fe5320136dd1cd76da0b6f37c83eef8875c61395a95a6e2d3da"
+    },
+    {
+      "path": "ios-fetch-timeout-r1-refutation.json",
+      "bytes": 4024,
+      "sha256": "a0088465e2fa43da67387eed518b0c784a824a754361e148210c5721166773e0"
+    },
+    {
+      "path": "ios-fetch-timeout-r1-refutation-probe.mjs",
+      "bytes": 8200,
+      "sha256": "aef2fa70df6cf385a748e49b6ca84e744370aea40c40f578ad3c12ea6b4c972e"
+    },
+    {
+      "path": "ios-fetch-timeout-r1-refutation-probe.json",
+      "bytes": 5884,
+      "sha256": "fdde5cafc6540d20c26b46bc5438851643b24895d4a41200c42da14b4f794a63"
+    },
+    {
+      "path": "ios-http-trench-r4-refutation.json",
+      "bytes": 4841,
+      "sha256": "6be317beb27d2fbccbbadd3e5de4b3ca78d4f28be3a2c61ca80c671bafbfa742"
+    },
+    {
+      "path": "ios-http-trench-r4-refutation-probe.mjs",
+      "bytes": 18885,
+      "sha256": "a7ddf4a5e7db28de1a24cd41bf855ad324d6092d758d6591bfded6513ea79c36"
+    },
+    {
+      "path": "ios-http-trench-r4-refutation-probe.json",
+      "bytes": 14776,
+      "sha256": "2503ac37e8286ae58620a3a69971edcc534ec97a16a4d7a5496eb7d907e8e686"
+    },
+    {
+      "path": "ios-wda-review.json",
+      "bytes": 12322,
+      "sha256": "f8de89b379c79093200027ec3e7e629426aeddf623ca38633cdbd71e14a98a22"
+    },
+    {
+      "path": "ios-wda-review-refutation.json",
+      "bytes": 15887,
+      "sha256": "1d05f55d704079f6d8a79c421ffdb87b4bf21fc7ec9f2b6a23fd5b6696407e91"
+    },
+    {
+      "path": "ios-wda-review-evidence.json",
+      "bytes": 7135,
+      "sha256": "d74eac88ac805278b476c99168f5bdfa2d06ab7357e970b3fbe105a27e5f27fd"
+    }
+  ],
+  "snapshots": [
+    "ios-trench-r2-source-initial/",
+    "ios-trench-r2-helper-facing-revision.mjs",
+    "ios-trench-acquisition-r3-http-source/",
+    "ios-trench-acquisition-r3-trench-source/",
+    "ios-trench-acquisition-r4-http-source/",
+    "ios-http-trench-r4-refutation-sources/"
+  ],
+  "limitations": [
+    "No browser, local server, socket, Appium process or Simulator was started by either reviewer.",
+    "CPU product integration uses appearance/UI, input acquisition and browser scheduling stubs; it is not a current bundled-build smartphone measurement.",
+    "The final fixture tests runtime plant structure, not a traversed climb. The four-layer heap was not changed by this review and no climb pass is inferred from height.",
+    "The retained actual failed CI run remains failed. A new existing-CI run must supply real startup, browser, image/audio and input evidence.",
+    "All concept/element judgments remain unchanged. This source review is not a blind comparison or a completed quality work unit."
+  ],
+  "nextExecution": "Run the current pinned source through the already-authorized existing CI, inspect recorded SDK/selection/capability/Xcode logs and current build smartphone artifacts, then perform the separately required reference comparisons. Do not infer browser success from these CPU boundaries.",
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

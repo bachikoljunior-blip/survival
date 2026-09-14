@@ -87,15 +87,15 @@ jobs:
         id: simulator
         shell: bash
         run: |
-          selection="$(xcrun simctl list devices available --json | jq -r '
-            [.devices | to_entries[] | .key as $runtime | .value[] |
-             select(.name == "iPhone SE (3rd generation)" and .isAvailable == true) |
-             {udid: .udid, runtime: $runtime}] |
-            sort_by(.runtime) | last | [.udid, .runtime] | @tsv')"
-          test -n "$selection" && test "$selection" != "null"
-          IFS=$'\t' read -r udid runtime <<< "$selection"
-          test -n "$udid" && test -n "$runtime"
-          platform_version="$(printf '%s' "$runtime" | sed -E 's/^.*\.iOS-//; s/-/./g')"
+          mkdir -p test-results/ios-safari
+          xcode-select -p > test-results/ios-safari/xcode-path.txt
+          xcodebuild -version > test-results/ios-safari/xcode-version.txt
+          sdk_version="$(xcrun --sdk iphonesimulator --show-sdk-version)"
+          printf '%s\n' "$sdk_version" > test-results/ios-safari/simulator-sdk-version.txt
+          xcrun simctl list --json > test-results/ios-safari/simulator-inventory.json
+          selection="$(node tools/select-ios-simulator.mjs "$sdk_version" test-results/ios-safari/simulator-inventory.json test-results/ios-safari/simulator-selection.json)"
+          IFS=$'\t' read -r udid platform_version <<< "$selection"
+          test -n "$udid" && test -n "$platform_version"
           echo "udid=$udid" >> "$GITHUB_OUTPUT"
           echo "platform_version=$platform_version" >> "$GITHUB_OUTPUT"
           xcrun simctl boot "$udid" 2>/dev/null || true
