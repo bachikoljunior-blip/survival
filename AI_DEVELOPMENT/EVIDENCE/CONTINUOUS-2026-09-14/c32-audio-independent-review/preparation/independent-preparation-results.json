@@ -1,0 +1,25 @@
+{
+  "scope": "Only source-equivalence, early failed preparation/report retention, and complete pre-emission export cap CPU checks. No product build or CI.",
+  "checks": [
+    {
+      "name": "all input-verification logic remains byte-identical to successful predecessor",
+      "passed": true
+    },
+    {
+      "name": "Git blob framing uses actual NUL",
+      "passed": true
+    },
+    {
+      "name": "wrong 47-file input set fails with preserved report before any source write",
+      "passed": true
+    },
+    {
+      "name": "last exact-hash file over 4 MiB cap refuses before first export",
+      "passed": true
+    }
+  ],
+  "fixtures": {
+    "failedPreparation": "/workspace/scratch/0b7ad82bafe7/audio-candidate-independent-review-ultra/preparation-review/failed-preparation-fixture-QlqEbt",
+    "capExport": "/workspace/scratch/0b7ad82bafe7/audio-candidate-independent-review-ultra/preparation-review/bounded-export-fixture-MNL6N6"
+  }
+}

@@ -1,0 +1,664 @@
+{
+  "scope": "Independent exact-method CPU fixtures with inert WebAudio nodes; not browser or audio rendering.",
+  "checks": [
+    {
+      "name": "street-walk recorded region matches exact City.regionAt",
+      "passed": true
+    },
+    {
+      "name": "vent-air recorded region matches exact City.regionAt",
+      "passed": true
+    },
+    {
+      "name": "arcade-room recorded region matches exact City.regionAt",
+      "passed": true
+    },
+    {
+      "name": "Audio original exact arcade route",
+      "passed": true
+    },
+    {
+      "name": "Audio candidate exact arcade route",
+      "passed": true
+    },
+    {
+      "name": "unlock null sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed null true",
+      "passed": true
+    },
+    {
+      "name": "unlock null sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed null false",
+      "passed": true
+    },
+    {
+      "name": "unlock arcade sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed arcade true",
+      "passed": true
+    },
+    {
+      "name": "unlock arcade sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed arcade false",
+      "passed": true
+    },
+    {
+      "name": "unlock survey sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed survey true",
+      "passed": true
+    },
+    {
+      "name": "unlock survey sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed survey false",
+      "passed": true
+    },
+    {
+      "name": "unlock hut sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed hut true",
+      "passed": true
+    },
+    {
+      "name": "unlock hut sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed hut false",
+      "passed": true
+    },
+    {
+      "name": "unlock bek sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed bek true",
+      "passed": true
+    },
+    {
+      "name": "unlock bek sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed bek false",
+      "passed": true
+    },
+    {
+      "name": "unlock cellar sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed cellar true",
+      "passed": true
+    },
+    {
+      "name": "unlock cellar sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed cellar false",
+      "passed": true
+    },
+    {
+      "name": "unlock pell sync-first=true",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed pell true",
+      "passed": true
+    },
+    {
+      "name": "unlock pell sync-first=false",
+      "passed": true
+    },
+    {
+      "name": "unlock compressor settings remain fixed pell false",
+      "passed": true
+    },
+    {
+      "name": "enter door_cellar is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter door_cellar audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter door_cellar stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave door_cellar returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "enter door_arcade is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter door_arcade audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter door_arcade stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave door_arcade returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "enter survey_door is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter survey_door audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter survey_door stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave survey_door returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "enter survey_backdoor is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter survey_backdoor audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter survey_backdoor stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave survey_backdoor returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "enter door_hut is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter door_hut audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter door_hut stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave door_hut returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "enter door_bek is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter door_bek audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter door_bek stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave door_bek returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "enter door_pell is loading with actual interior already assigned",
+      "passed": true
+    },
+    {
+      "name": "enter door_pell audio sync during fade",
+      "passed": true
+    },
+    {
+      "name": "enter door_pell stable sync schedules no extra wind/reverb transition",
+      "passed": true
+    },
+    {
+      "name": "leave door_pell returns outdoor preset",
+      "passed": true
+    },
+    {
+      "name": "same-null context needs and receives per-frame room sync",
+      "passed": true
+    },
+    {
+      "name": "same-null room exit returns street",
+      "passed": true
+    },
+    {
+      "name": "street ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "street ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "street ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "street ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "street ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "street ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "street intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "camp ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "camp ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "camp ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "camp ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "camp ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "camp ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "camp intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "slip ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "slip ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "slip ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "slip ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "slip ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "slip ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "slip intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "vents ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "vents ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "vents ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "vents ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "vents ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "vents ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "vents intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "cut ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "cut ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "cut ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "cut ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "cut ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "cut ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "cut intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "road ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "road ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "road ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "road ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "road ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "road ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "road intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "empty ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "empty ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "empty ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "empty ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "empty ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "empty ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "empty intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "interior ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "interior ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "interior ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "interior ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "interior ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "interior ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "interior intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "under ppm=-500 y=-20",
+      "passed": true
+    },
+    {
+      "name": "under ppm=40 y=0",
+      "passed": true
+    },
+    {
+      "name": "under ppm=200 y=20",
+      "passed": true
+    },
+    {
+      "name": "under ppm=2400 y=40",
+      "passed": true
+    },
+    {
+      "name": "under ppm=1000000 y=-100",
+      "passed": true
+    },
+    {
+      "name": "under ppm=1300 y=9",
+      "passed": true
+    },
+    {
+      "name": "under intentional zero not replaced by fallback",
+      "passed": true
+    },
+    {
+      "name": "negative control rejects removed frame sync",
+      "passed": true
+    },
+    {
+      "name": "negative retained-target probe accepts unchanged candidate",
+      "passed": true
+    },
+    {
+      "name": "negative control rejects missing retained target",
+      "passed": true
+    },
+    {
+      "name": "negative burn probe accepts unchanged candidate",
+      "passed": true
+    },
+    {
+      "name": "negative control rejects unscaled burn",
+      "passed": true
+    }
+  ],
+  "negativeControls": [
+    {
+      "mutation": "remove _syncAmbience from update",
+      "detected": true,
+      "observed": "street",
+      "expected": "interior"
+    },
+    {
+      "mutation": "remove retained preset target",
+      "detected": true,
+      "observed": 0
+    },
+    {
+      "mutation": "remove regional burn factor",
+      "detected": true,
+      "observed": 0.3899318181818182
+    }
+  ],
+  "observations": [
+    {
+      "clip": "street-walk",
+      "count": 82,
+      "ambience": "camp",
+      "interior": null,
+      "regions": [
+        "stacks"
+      ]
+    },
+    {
+      "clip": "vent-air",
+      "count": 61,
+      "ambience": "cut",
+      "interior": null,
+      "regions": [
+        "cut"
+      ]
+    },
+    {
+      "clip": "arcade-room",
+      "count": 61,
+      "ambience": "street",
+      "interior": "arcade",
+      "regions": [
+        null
+      ]
+    },
+    {
+      "case": "quit-room-to-title",
+      "version": "original",
+      "room": "arcade",
+      "mode": "title",
+      "currentInterior": "arcade",
+      "position": {
+        "x": -128,
+        "y": 0.2,
+        "z": 0
+      },
+      "region": null,
+      "ambience": "street",
+      "forcedMood": "interior",
+      "music": "title",
+      "reverb": {
+        "interior": 0,
+        "street": 0.2,
+        "tunnel": 0
+      }
+    },
+    {
+      "case": "quit-room-to-title",
+      "version": "original",
+      "room": "cellar",
+      "mode": "title",
+      "currentInterior": "cellar",
+      "position": {
+        "x": -128,
+        "y": 0.2,
+        "z": 0
+      },
+      "region": null,
+      "ambience": "street",
+      "forcedMood": "under",
+      "music": "title",
+      "reverb": {
+        "interior": 0,
+        "street": 0.2,
+        "tunnel": 0
+      }
+    },
+    {
+      "case": "quit-room-to-title",
+      "version": "candidate",
+      "room": "arcade",
+      "mode": "title",
+      "currentInterior": "arcade",
+      "position": {
+        "x": -128,
+        "y": 0.2,
+        "z": 0
+      },
+      "region": null,
+      "ambience": "interior",
+      "forcedMood": "interior",
+      "music": "title",
+      "reverb": {
+        "interior": 0.13,
+        "street": 0,
+        "tunnel": 0
+      }
+    },
+    {
+      "case": "quit-room-to-title",
+      "version": "candidate",
+      "room": "cellar",
+      "mode": "title",
+      "currentInterior": "cellar",
+      "position": {
+        "x": -128,
+        "y": 0.2,
+        "z": 0
+      },
+      "region": null,
+      "ambience": "under",
+      "forcedMood": "under",
+      "music": "title",
+      "reverb": {
+        "interior": 0,
+        "street": 0,
+        "tunnel": 0.3
+      }
+    }
+  ],
+  "audioSha256": "080696eb3ee7a831e4548cc1439a27afb628a36d72a68cd9f91e684ac790a2c4",
+  "originalReportSha256": "507a4f82645e6ccc8cff34154f39a58ec1786c3ab4e09f385e86a8f5cf4471ed",
+  "status": "passed for specified functional invariants; lifecycle observation requires integration-owner review",
+  "testScriptSha256": "20015fc2b0ca9936061d8e17175b6032c397aed47e532270e937a296e658497e"
+}

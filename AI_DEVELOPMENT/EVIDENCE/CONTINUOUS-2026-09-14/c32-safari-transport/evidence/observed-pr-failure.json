@@ -1,0 +1,56 @@
+{
+  "source": "main-integration-c31/evidence/pr-safari-failed-log.json",
+  "sourceBytes": 59149,
+  "sourceSha256": "4c549b00b7fb82e41ae3b1f03c820ab079887a743be111d9a3b280266148d98c",
+  "reportedRun": "34856486295",
+  "reportedJob": "104017277907",
+  "runProvenance": {
+    "preparedFromCommit": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+    "preparationReportSha256": "8c1f211d5179aa60c97a6e641718be589f816695d5f32245d48f9d6f7101f4ad",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "recorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+      "dist/cinderline.1.0.0.js": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3"
+    },
+    "actualRecorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "helperSha256": "0c8d88181a8f4a3a860160c186c064582853896f2151ce3934825d8cc715724e",
+    "harnessSha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+    "runCommit": "5f54d09076b05463ad3a13048eff072901ce3fab",
+    "runId": "34856486295",
+    "runAttempt": "1"
+  },
+  "observedFailure": [
+    "Error: Safari audio chunk transfer timed out\n    at Object.evaluate (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:78:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async captureMobileAudio (file:///Users/runner/work/survival/survival/tools/mobile_audio_capture.mjs:164:18)\n    at async Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:181:5)\n    at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:474:5"
+  ],
+  "captureStatus": "acquisition failed",
+  "clips": [],
+  "audioChecks": [
+    {
+      "name": "iOS audio: actual Safari exposes the required recording APIs after a trusted gesture",
+      "passed": true,
+      "detail": "{\"checkedWallMs\":85594.00000000001,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"secureContext\":true,\"audioContextConstructor\":true,\"webkitAudioContextConstructor\":false,\"productionContext\":true,\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":48000,\"outputChannels\":2,\"createMediaStreamDestination\":true,\"compressorConnect\":true,\"mediaStream\":true,\"mediaRecorder\":true,\"mediaRecorderIsTypeSupported\":true,\"canvasCaptureStream\":true,\"blobArrayBuffer\":true,\"mimeTypes\":[{\"mime\":\"video/mp4\",\"supported\":true},{\"mime\":\"video/webm;codecs=vp8,opus\",\"supported\":true},{\"mime\":\"video/webm\",\"supported\":true}],\"supportedMime\":\"video/mp4\",\"observedTrustedTouch\":true,\"build\":\"1.0.0\",\"limitations\":\"API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations.\"}"
+    },
+    {
+      "name": "audio: trusted gesture unlocks the actual running production context",
+      "passed": true,
+      "detail": "{\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":48000,\"channels\":2,\"recorder\":true,\"canvasCapture\":true,\"mime\":\"video/mp4\"}"
+    },
+    {
+      "name": "iOS audio street: actual trusted stick gesture is observed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "iOS audio street: native movement advances and releases",
+      "passed": true,
+      "detail": "{\"distance\":3.5915875046083072,\"stickActive\":false,\"moveMagnitude\":0}"
+    }
+  ],
+  "causeStatus": "Per-command latency and exact failed-response length are not present in this log summary. Fixed-round-trip overhead exhaustion is a hypothesis, not a measured cause.",
+  "sourcePushProof": "main-integration-c31/evidence/source-safari-proof.json",
+  "failureRetained": true,
+  "realCandidateSafariRuns": 0,
+  "comparison": "not measured"
+}

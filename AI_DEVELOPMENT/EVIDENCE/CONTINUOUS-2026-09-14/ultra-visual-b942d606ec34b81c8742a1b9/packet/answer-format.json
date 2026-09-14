@@ -1,0 +1,59 @@
+{
+  "axis_keys": [
+    "axis",
+    "choice",
+    "evidence",
+    "reason",
+    "limitations"
+  ],
+  "axis_order": [
+    "lighting",
+    "palette",
+    "grounding",
+    "material_scale"
+  ],
+  "choice_values": [
+    "A",
+    "B",
+    "equal",
+    "insufficient"
+  ],
+  "complete": "Boolean true only when the answer is complete under these rules.",
+  "end_marker": "COMPARISON_END",
+  "evidence": "Array of actually viewed image labels.",
+  "final_keys": [
+    "choice",
+    "evidence",
+    "reason",
+    "limitations"
+  ],
+  "format": "One JSON object, no code fences, no prefilling a winner.",
+  "invalid_recognition": "Keep observations/axes empty and final null if stopping for recognition.",
+  "observation_keys": [
+    "image",
+    "lighting",
+    "palette",
+    "contact_depth",
+    "material_scale"
+  ],
+  "observations": "One object per image; all four observations must be nonempty.",
+  "recognition": [
+    "yes",
+    "no",
+    "uncertain"
+  ],
+  "required_root_keys": [
+    "packet_id",
+    "manifest_sha256",
+    "recognition",
+    "recognition_basis",
+    "viewed_images",
+    "observations",
+    "axes",
+    "final",
+    "limitations",
+    "complete",
+    "end_marker"
+  ],
+  "viewed_images": "Neutral labels in viewing order; stop early if recognition occurs."
+}

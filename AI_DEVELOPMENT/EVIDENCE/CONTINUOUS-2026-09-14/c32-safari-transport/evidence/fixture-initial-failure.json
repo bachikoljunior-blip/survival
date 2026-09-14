@@ -1,0 +1,9 @@
+{
+  "scope": "Initial CPU test apparatus error, not a production transport failure",
+  "command": "node verification/transport-controls.mjs",
+  "exitCode": 1,
+  "error": "AssertionError: Values have same structure but are not reference-equal",
+  "cause": "node:assert/strict compared VM Array/Object prototypes to host prototypes after the original-media aggregate transfer",
+  "correction": "JSON-normalize the returned VM value to host prototypes before assertions; real production adapter source is unchanged",
+  "initialRunWasNotCountedAsPass": true
+}

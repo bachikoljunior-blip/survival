@@ -1,0 +1,55 @@
+{
+  "existingWorkflowUnchangedAgainstOfficial0abe": true,
+  "existingJobs": 15,
+  "newJobOnly": "prepare-audio-product",
+  "newJob": {
+    "name": "Prepare exact audio product source and root",
+    "if": "github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-audio-product-r1]')",
+    "runs-on": "ubuntu-latest",
+    "timeout-minutes": 15,
+    "permissions": {
+      "contents": "read"
+    },
+    "steps": [
+      {
+        "uses": "actions/checkout@v4",
+        "with": {
+          "fetch-depth": 0,
+          "persist-credentials": false
+        }
+      },
+      {
+        "uses": "actions/setup-node@v4",
+        "with": {
+          "node-version": "20",
+          "cache": "npm"
+        }
+      },
+      {
+        "run": "npm ci"
+      },
+      {
+        "run": "node --check tools/prepare-audio-product.mjs"
+      },
+      {
+        "name": "Reproduce the original build and prepare the exact candidate bytes",
+        "run": "node tools/prepare-audio-product.mjs"
+      },
+      {
+        "name": "Export complete prepared files with hashes and offsets",
+        "run": "node tools/prepare-audio-product.mjs --export"
+      },
+      {
+        "name": "Preserve original candidate or failure report",
+        "if": "always()",
+        "uses": "actions/upload-artifact@v4",
+        "with": {
+          "name": "audio-product-build-r1-${{ github.sha }}",
+          "path": "test-results/audio-product-build-r1",
+          "if-no-files-found": "error",
+          "retention-days": 14
+        }
+      }
+    ]
+  }
+}

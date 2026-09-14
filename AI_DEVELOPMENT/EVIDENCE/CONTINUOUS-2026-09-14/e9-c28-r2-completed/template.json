@@ -1,0 +1,35 @@
+{
+  "source": "downloaded GGUF tokenizer.chat_template",
+  "sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+  "bytes": 7816,
+  "metadata_header_bytes": 10943081,
+  "architecture": "qwen35",
+  "declared_context": 262144,
+  "renderer": {
+    "Jinja2": "3.1.6",
+    "MarkupSafe": "3.0.3"
+  },
+  "messages": [
+    "user"
+  ],
+  "add_generation_prompt": true,
+  "template_default_thinking": "unchanged",
+  "native_completion_template_application": false,
+  "native_special_token_policy": {
+    "model": "gpt2",
+    "pre": "qwen35",
+    "effective_add_bos": false,
+    "effective_add_eos": false,
+    "missing_flag_defaults": false,
+    "tokenizer_and_completion_special_policy_equal": true
+  },
+  "tokenizer_file": {
+    "bytes": 264378,
+    "sha256": "e6b71cb3bd22b02cafcf72263ab89f69a478a81d75f2031854e8e1d04a451e74"
+  },
+  "completion_file": {
+    "bytes": 264379,
+    "sha256": "13c9689a859d2338baebdcc1379aba9b79bd4a93a24979b26506f705e41418ec"
+  },
+  "after_native_file_handler_bytes_equal": true
+}

@@ -1,0 +1,181 @@
+{
+  "scope": "Focused closure of title/paused-title/game-pause routing, exact Audio constructor/unlock, Game.toTitle/_wireUI/setMode and Screens.openPause/closePause, inert WebAudio and DOM fixtures. One explicitly injected MENU/fromTitle combination. No browser/PCM/listening/quality claim.",
+  "checks": [
+    {
+      "name": "arcade gameplay remains indoors",
+      "passed": true
+    },
+    {
+      "name": "arcade real game pause retains indoors",
+      "passed": true
+    },
+    {
+      "name": "arcade real game pause close retains indoors",
+      "passed": true
+    },
+    {
+      "name": "arcade exact toTitle closes original regression",
+      "passed": true
+    },
+    {
+      "name": "arcade title selects outdoor reverb",
+      "passed": true
+    },
+    {
+      "name": "arcade title audio correction preserves director state",
+      "passed": true
+    },
+    {
+      "name": "arcade title stable cache does not reschedule wind",
+      "passed": true
+    },
+    {
+      "name": "arcade real title settings stays outdoors",
+      "passed": true
+    },
+    {
+      "name": "arcade fromTitle guard independent of mode in injected MENU fixture",
+      "passed": true
+    },
+    {
+      "name": "arcade actual title settings close returns title after clearing flag",
+      "passed": true
+    },
+    {
+      "name": "arcade resume same interior ID invalidates effective title cache",
+      "passed": true
+    },
+    {
+      "name": "arcade subsequent ordinary pause keeps room after title settings",
+      "passed": true
+    },
+    {
+      "name": "cellar gameplay remains indoors",
+      "passed": true
+    },
+    {
+      "name": "cellar real game pause retains indoors",
+      "passed": true
+    },
+    {
+      "name": "cellar real game pause close retains indoors",
+      "passed": true
+    },
+    {
+      "name": "cellar exact toTitle closes original regression",
+      "passed": true
+    },
+    {
+      "name": "cellar title selects outdoor reverb",
+      "passed": true
+    },
+    {
+      "name": "cellar title audio correction preserves director state",
+      "passed": true
+    },
+    {
+      "name": "cellar title stable cache does not reschedule wind",
+      "passed": true
+    },
+    {
+      "name": "cellar real title settings stays outdoors",
+      "passed": true
+    },
+    {
+      "name": "cellar fromTitle guard independent of mode in injected MENU fixture",
+      "passed": true
+    },
+    {
+      "name": "cellar actual title settings close returns title after clearing flag",
+      "passed": true
+    },
+    {
+      "name": "cellar resume same interior ID invalidates effective title cache",
+      "passed": true
+    },
+    {
+      "name": "cellar subsequent ordinary pause keeps room after title settings",
+      "passed": true
+    },
+    {
+      "name": "arcade real unlock after title transition settings=false",
+      "passed": true
+    },
+    {
+      "name": "arcade real unlock after title transition settings=true",
+      "passed": true
+    },
+    {
+      "name": "cellar real unlock after title transition settings=false",
+      "passed": true
+    },
+    {
+      "name": "cellar real unlock after title transition settings=true",
+      "passed": true
+    },
+    {
+      "name": "negative control original candidate still fails title arcade",
+      "passed": true
+    },
+    {
+      "name": "negative control original candidate still fails title cellar",
+      "passed": true
+    }
+  ],
+  "negativeControls": [
+    {
+      "candidateSha256": "080696eb3ee7a831e4548cc1439a27afb628a36d72a68cd9f91e684ac790a2c4",
+      "case": "original-title-arcade",
+      "detected": true,
+      "expected": "street",
+      "observed": "interior"
+    },
+    {
+      "candidateSha256": "080696eb3ee7a831e4548cc1439a27afb628a36d72a68cd9f91e684ac790a2c4",
+      "case": "original-title-cellar",
+      "detected": true,
+      "expected": "street",
+      "observed": "under"
+    }
+  ],
+  "observations": [
+    {
+      "case": "revised-quit-arcade-to-title",
+      "mode": "title",
+      "fromTitle": false,
+      "position": {
+        "x": -128,
+        "y": 0.2,
+        "z": 0
+      },
+      "currentInterior": "arcade",
+      "ambience": "street",
+      "reverb": {
+        "interior": 0,
+        "street": 0.2,
+        "tunnel": 0
+      }
+    },
+    {
+      "case": "revised-quit-cellar-to-title",
+      "mode": "title",
+      "fromTitle": false,
+      "position": {
+        "x": -128,
+        "y": 0.2,
+        "z": 0
+      },
+      "currentInterior": "cellar",
+      "ambience": "street",
+      "reverb": {
+        "interior": 0,
+        "street": 0.2,
+        "tunnel": 0
+      }
+    }
+  ],
+  "candidateSha256": "22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7",
+  "originalCandidateSha256": "080696eb3ee7a831e4548cc1439a27afb628a36d72a68cd9f91e684ac790a2c4",
+  "scriptSha256": "d6cea837efa95fbe4b20f050171407f76f7f250a4d21af47dfa5402aeab3e883",
+  "status": "passed; original P2 title-routing finding closed for revised SHA in exact-method CPU scope"
+}

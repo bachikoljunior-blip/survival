@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "scope": "Required original Safari acquisition only; existing core F3 is independently required",
+  "runCommit": "0abe4628947064fe811ed842face2018b87d5bf5",
+  "runId": "34856390098",
+  "runAttempt": "1",
+  "originalReport": {
+    "path": "test-results/ios-safari/report.json",
+    "bytes": 876559,
+    "sha256": "d44a08878ee2299b7cc24614bdb002bedc6b785abb5855e5c402d8c5e0333bb6"
+  },
+  "recorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+  "actualBundleHashes": {
+    "cinderline.1.0.0.js": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "dist/cinderline.1.0.0.js": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3"
+  },
+  "clips": [
+    {
+      "name": "street-walk",
+      "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+      "bytes": 6221333,
+      "sha256": "429383be4d985d94c16e9058474574ef80835865145e7035e50e8d2ba2ded218",
+      "timing": {
+        "wallSeconds": 8.754,
+        "audioSeconds": 8.757333333333332,
+        "engineSeconds": 8.56666666666686,
+        "engineFrames": 494,
+        "engineToAudioRatio": 0.9782277710109845,
+        "audioToWallRatio": 1.0003807783108674,
+        "engineMinusAudioSeconds": -0.19066666666647158,
+        "audioMinusWallSeconds": 0.003333333333332078,
+        "toleranceSeconds": 0.4378666666666666,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "vent-air",
+      "path": "test-results/ios-safari/audio/audio-vent-air.mp4",
+      "bytes": 2289263,
+      "sha256": "2e74dd4f3e728dd841cb8799383e3af712fff2665c1c4d71f7ff3921aeb1ad38",
+      "timing": {
+        "wallSeconds": 7.608,
+        "audioSeconds": 7.616,
+        "engineSeconds": 7.649999999999569,
+        "engineFrames": 447,
+        "engineToAudioRatio": 1.0044642857142292,
+        "audioToWallRatio": 1.0010515247108307,
+        "engineMinusAudioSeconds": 0.03399999999956904,
+        "audioMinusWallSeconds": 0.008000000000000007,
+        "toleranceSeconds": 0.3808,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "arcade-room",
+      "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+      "bytes": 1619062,
+      "sha256": "567e6c88596431e9ae93fb428f7598fb9022ef3c9e9ff8abf6b8f6c0e0e52a41",
+      "timing": {
+        "wallSeconds": 6.092000000000008,
+        "audioSeconds": 6.090666666666664,
+        "engineSeconds": 6.099999999999653,
+        "engineFrames": 366,
+        "engineToAudioRatio": 1.001532399299418,
+        "audioToWallRatio": 0.9997811337272909,
+        "engineMinusAudioSeconds": 0.009333333332989469,
+        "audioMinusWallSeconds": -0.0013333333333438446,
+        "toleranceSeconds": 0.3045333333333332,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    }
+  ],
+  "audioQuality": "not measured",
+  "comparison": "not measured"
+}
