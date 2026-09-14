@@ -1,0 +1,46 @@
+{
+  "scope": "CPU transport/control/guard checks only; no browser, simulator, media or quality measurement.",
+  "checkedAt": "2026-09-14T15:02:10.029Z",
+  "results": [
+    {
+      "name": "multi-command round trip preserves Unicode, escapes and original Base64 bytes",
+      "passed": true
+    },
+    {
+      "name": "page-side asynchronous rejection is surfaced",
+      "passed": true
+    },
+    {
+      "name": "missing chunk is refused",
+      "passed": true
+    },
+    {
+      "name": "changed chunk identity is refused",
+      "passed": true
+    },
+    {
+      "name": "bounded transfer capacity refuses oversized serialized result",
+      "passed": true
+    },
+    {
+      "name": "never-settling page operation times out and cannot be overwritten",
+      "passed": true
+    },
+    {
+      "name": "external URL cannot bypass served bundle pin",
+      "passed": true
+    },
+    {
+      "name": "shared recorder and three-clock guard source is byte-identical",
+      "passed": true
+    },
+    {
+      "name": "unchanged clock guard rejects the three supplied actual Chromium endpoint pairs",
+      "passed": true
+    },
+    {
+      "name": "ordinary acquisition log omits raw media and full telemetry",
+      "passed": true
+    }
+  ]
+}

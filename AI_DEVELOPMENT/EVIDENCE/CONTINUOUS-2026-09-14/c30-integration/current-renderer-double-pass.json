@@ -1,0 +1,8 @@
+{
+  "runtime_sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+  "runtime_git_blob": "136953098c42054cd91c4bb346d1f46c184e8e90",
+  "exact_snippets": [
+    ",jt)}}function Mm(I,B,$,j,V,gt){I.onBeforeRender(w,B,$,j,V,gt),I.modelViewMatrix.multiplyMatrices($.matrixWorldInverse,I.matrixWorld),I.normalMatrix.getNormalMatrix(I.modelViewMatrix),V.onBeforeRender(w,B,$,j,I,gt),V.transparent===!0&&V.side===vi&&V.forceSinglePass===!1?(V.side=Xe,V.needsUpdate=!0,w.renderBufferDirect($,B,j,V,I,gt),V.side=oi,V.needsUpdate=!0,w.renderBufferDirect($,B,j,V,I,gt),V.side=vi):w.renderBufferDirect($,B,j,V,I,gt),I.onAfterRender(w,B,$,j,V,gt)}function uc(I,B,$){B.isScene!==!0&&(B=Pt);let j=ut.get(I),V=x.state.lights,gt=x.state.shadowsArray,kt=V.state.version,Nt=Z.getParameters(I,V.state,gt,B,$),Lt=Z.getProgramCacheKey(Nt),jt=j.programs;j.environment=I.isMeshStandardMaterial?B.environment:null,j.fog=B.fog,j.envMap=(I.isMeshStandardMaterial?ie:se).get(I.envMap||j.environment),j.envMapRotation=j.environment!==null&&I.envMap===null?B.environmentRotation:I.envMapRotat"
+  ],
+  "meaning": "Exact current renderer sets material.needsUpdate true twice when transparent, DoubleSide and forceSinglePass false; restores side afterwards. The three actual r2 materials have not yet been individually classified."
+}

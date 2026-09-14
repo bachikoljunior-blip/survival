@@ -1,0 +1,29 @@
+{
+  "status": "failed",
+  "checks": [],
+  "failures": [
+    "Error: WebDriver POST /session: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+  ],
+  "provenance": {
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "dist/cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+    "runCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+    "runId": "34891306829",
+    "runAttempt": "1"
+  },
+  "frameWork": null,
+  "captureStatus": "not started",
+  "clips": []
+}

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "baseCommit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+  "canonicalInstructionReadOrder": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "instructionId": "ULTRA-LIVE-20260914-v1",
+  "startedAt": "2026-09-13T20:56:49+09:00",
+  "deadlineAt": "2026-09-20T20:56:49+09:00",
+  "verdict": "not measured",
+  "sourceFiles": {
+    "AGENTS.md": {
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc",
+      "gitBlobSha": "b33f5f258f3a1b0501cfefac74c149f9eac649be"
+    },
+    "AI_DEVELOPMENT/SESSION_STATE.yaml": {
+      "bytes": 10307,
+      "sha256": "a4d6231a147d4b9ce71e8262e52d1d5840dcecfc4fa8910664fdd111be5bfc46",
+      "gitBlobSha": "1acfb32a297a25ff3da12f65621a9ea8f45a957d"
+    },
+    "CLAUDE.md": {
+      "bytes": 14801,
+      "sha256": "86a8aa629c6ef8187b5f02db4bd48d0403c716270f55784b1018a4f8e191b926",
+      "gitBlobSha": "442fbf12e25df10bc71f83222a6001f01234daca"
+    },
+    "package-lock.json": {
+      "bytes": 16629,
+      "sha256": "36873e3c91cddeab1cae6ae512ae0d5cf332756bd81a0b235af3360aea30c167",
+      "gitBlobSha": "7f8fa920ce09dce5499830cac28e30c3573176b2"
+    },
+    "src/core/engine.js": {
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+      "gitBlobSha": "0735cfcb3f6df68bf5bd51fa84a27d60c712391e"
+    },
+    "src/game/game.js": {
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+      "gitBlobSha": "8b7e97ab9abf7c08b9c84da100188f5f221caf80"
+    },
+    "src/render/atmosphere.js": {
+      "bytes": 40378,
+      "sha256": "4bc604f65d390b7cdcf34c7c8c9939d26f0810202ea2d651895cf989a3ab51b5",
+      "gitBlobSha": "036acce63f9eff6b6c637cd31cd13419b2ebde9d"
+    },
+    "src/render/postfx.js": {
+      "bytes": 17300,
+      "sha256": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+      "gitBlobSha": "3cf55ad79095bdc06c795e55d165942b0372a733"
+    },
+    "src/render/shadow_batches.js": {
+      "bytes": 9617,
+      "sha256": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+      "gitBlobSha": "993dc5153cf719cb168d13594d7d5d3bbe3229c8"
+    },
+    "tools/mobile_grain_trial.mjs": {
+      "bytes": 10001,
+      "sha256": "e2d7dce3b481cd06c21f928242efe8f4946146e9a6d4e550bdd98328958bf3cb",
+      "gitBlobSha": "c1b7fad6e14bad2f251fee273cab247e69055479"
+    },
+    "tools/test-iphone-webkit.mjs": {
+      "bytes": 30280,
+      "sha256": "89547ae10e3ac22deeff288bed45655c5ee8763863dfb91d0b2b7d874dddef8f",
+      "gitBlobSha": "394c3f9732a7c1c85267d0f89645dc9cd36fc5f9"
+    }
+  },
+  "artifacts": {
+    "candidate/tools/mobile_grain_trial.mjs": {
+      "bytes": 20832,
+      "sha256": "c360859e0a3a2e003c70d3b6b3e71acd3db96dce4f2efe7f8d7fdebdb1698267"
+    },
+    "candidate/tools/mobile_grain_trial.test.mjs": {
+      "bytes": 9444,
+      "sha256": "6beeb030408bae9a6a225fc83979a4529de1c02748f7e241103e054a8e151db9"
+    },
+    "candidate.patch": {
+      "bytes": 32464,
+      "sha256": "51cfba00580627eec72c8b42002808f883ef1d67b47435859d9b9e0f7a638fcd"
+    },
+    "cpu-verification.log": {
+      "bytes": 1002,
+      "sha256": "672875ea60d1904bfa1acca0d2dcb75d9fe8e66c69cb28bbddee895d85dfd46b"
+    },
+    "cpu-evidence.json": {
+      "bytes": 13793,
+      "sha256": "512c7bfc29f64940e899e86eaaff10a91f04cc9676de77d2d3ad71c9372aaa76"
+    },
+    "fixture-deps/three.core.mjs": {
+      "bytes": 381124,
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+    }
+  },
+  "r1Preserved": {
+    "path": "/workspace/scratch/0b7ad82bafe7/grain-c28-result-r1/report.json",
+    "bytes": 378163,
+    "sha256": "b95adf450aa714c0a9a7af05f75a5a8e5085d2b606ce6e01e001015b4fd519f2",
+    "viewCount": 8,
+    "failedViewCount": 8
+  },
+  "threeCpuDependency": {
+    "source": "https://github.com/mrdoob/three.js/blob/r180/build/three.core.min.js",
+    "gitBlobSha": "70c40977daa0f6e1e312c6b58e9bfe49cb5a87a4",
+    "lockedRepositoryVersion": "0.180.0"
+  },
+  "verification": {
+    "command": "node --test tools/mobile_grain_trial.test.mjs",
+    "cpuTestsPassed": 14,
+    "realBrowserR2Run": false,
+    "firstCpuAttempt": "fixture source URL pointed one level too high; ENOENT before any test. Corrected ../src path, all 14 passed.",
+    "scope": "Exact production plume/burst update method bodies on Three.js r180 CPU objects, plus labelled synthetic 1x1 PNG fixtures for report plumbing. No source default, shader, texture, geometry, view or threshold change."
+  }
+}

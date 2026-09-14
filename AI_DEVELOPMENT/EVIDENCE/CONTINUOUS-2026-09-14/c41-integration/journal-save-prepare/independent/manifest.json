@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen independent review",
+  "publicAllowlist": [
+    "REPORT.md",
+    "receipt.json",
+    "authority-update.json",
+    "verify_scope.py",
+    "scope-verification.json",
+    "verify_added_scope.mjs",
+    "added-scope-verification.json",
+    "manifest.json"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 6679,
+      "sha256": "ce3a4f80e0fab503afb64a6c328ca2aa7d4c05665b9ccfa71f78bace69896157"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 4741,
+      "sha256": "e8eb1f4f92ce9b4e27ca6db9e079268cd6a04425431df744f2db7237b100ca7a"
+    },
+    {
+      "path": "authority-update.json",
+      "bytes": 2165,
+      "sha256": "3763e791e97aee0636c8ef317e64e02b95d45ad57d21c34e92cde5a1707c6a03"
+    },
+    {
+      "path": "verify_scope.py",
+      "bytes": 7900,
+      "sha256": "1cee89eef7a98e1b8a60880109d382e919e3989a3d0b6df67700e54527732e5d"
+    },
+    {
+      "path": "scope-verification.json",
+      "bytes": 4585,
+      "sha256": "280ac37d89f1bd475d55981738bf71e907a967876dfd51b3df991c2b86e92ea1"
+    },
+    {
+      "path": "verify_added_scope.mjs",
+      "bytes": 13266,
+      "sha256": "32e00240ec80996e8b4782e899c611bab31ca8879e185873398bf703a22e8746"
+    },
+    {
+      "path": "added-scope-verification.json",
+      "bytes": 4355,
+      "sha256": "d6d14815c89b72360903a22cd0a62ff3cfcdd2cf365fe26508272b104e999732"
+    }
+  ],
+  "candidateRepositoryAllowlist": [
+    "tools/prepare-narrative-product.mjs",
+    "tools/check-narrative-routes.mjs",
+    ".github/workflows/gates.yml",
+    "tools/candidates/journal-save-state-r1.js"
+  ],
+  "existingCandidateCopiesUnchanged": [
+    "tools/candidates/journal-story-r1.js",
+    "tools/candidates/journal-ja-content-r1.js"
+  ],
+  "excluded": [
+    "authority/",
+    "authority-update/",
+    "canonical/",
+    "fixture/"
+  ],
+  "noRecursiveCopy": true,
+  "blocking": []
+}

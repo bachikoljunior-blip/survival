@@ -1,0 +1,781 @@
+﻿2026-09-14T20:55:22.0297250Z Current runner version: '2.337.0'
+2026-09-14T20:55:22.0347310Z ##[group]Runner Image Provisioner
+2026-09-14T20:55:22.0348010Z Hosted Compute Agent
+2026-09-14T20:55:22.0348450Z Version: 20260828.587
+2026-09-14T20:55:22.0348960Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-14T20:55:22.0349500Z Build Date: 2026-08-28T16:44:25Z
+2026-09-14T20:55:22.0350020Z Worker ID: {20f1a382-1646-475d-8bd6-345f85235876}
+2026-09-14T20:55:22.0350720Z Azure Region: westus
+2026-09-14T20:55:22.0351250Z ##[endgroup]
+2026-09-14T20:55:22.0352220Z ##[group]Operating System
+2026-09-14T20:55:22.0352680Z macOS
+2026-09-14T20:55:22.0353070Z 15.7.9
+2026-09-14T20:55:22.0353460Z 24G830
+2026-09-14T20:55:22.0353800Z ##[endgroup]
+2026-09-14T20:55:22.0354240Z ##[group]Runner Image
+2026-09-14T20:55:22.0354800Z Image: macos-15-arm64
+2026-09-14T20:55:22.0355310Z Version: 20260907.0337.1
+2026-09-14T20:55:22.0356380Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20260907.0337/images/macos/macos-15-arm64-Readme.md
+2026-09-14T20:55:22.0357790Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20260907.0337
+2026-09-14T20:55:22.0358750Z ##[endgroup]
+2026-09-14T20:55:22.0359670Z ##[group]GITHUB_TOKEN Permissions
+2026-09-14T20:55:22.0361020Z Contents: read
+2026-09-14T20:55:22.0361430Z Metadata: read
+2026-09-14T20:55:22.0361800Z ##[endgroup]
+2026-09-14T20:55:22.0363470Z Secret source: Actions
+2026-09-14T20:55:22.0364350Z Cache mode: write
+2026-09-14T20:55:22.0364960Z Prepare workflow directory
+2026-09-14T20:55:22.0742550Z Prepare all required actions
+2026-09-14T20:55:22.0785660Z Getting action download info
+2026-09-14T20:55:22.3032600Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-14T20:55:22.5994320Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-09-14T20:55:22.7019500Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-14T20:55:22.8664620Z Uses: bachikoljunior-blip/survival/.github/workflows/mobile-simulator.yml@refs/pull/16/merge (051d718255ef21c4ba37947f8177d4121cd159d3)
+2026-09-14T20:55:22.8667590Z ##[group] Inputs
+2026-09-14T20:55:22.8668140Z   capture_audio: true
+2026-09-14T20:55:22.8668490Z ##[endgroup]
+2026-09-14T20:55:22.8668900Z Complete job name: F3 Mobile Safari audio / ios-safari
+2026-09-14T20:55:22.9064350Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T20:55:22.9069970Z ##[group]Run actions/checkout@v4
+2026-09-14T20:55:22.9070410Z with:
+2026-09-14T20:55:22.9070690Z   fetch-depth: 0
+2026-09-14T20:55:22.9071020Z   repository: bachikoljunior-blip/survival
+2026-09-14T20:55:22.9073520Z   token: ***
+2026-09-14T20:55:22.9073800Z   ssh-strict: true
+2026-09-14T20:55:22.9074110Z   ssh-user: git
+2026-09-14T20:55:22.9074410Z   persist-credentials: true
+2026-09-14T20:55:22.9074740Z   clean: true
+2026-09-14T20:55:22.9075040Z   sparse-checkout-cone-mode: true
+2026-09-14T20:55:22.9075390Z   fetch-tags: false
+2026-09-14T20:55:22.9075700Z   show-progress: true
+2026-09-14T20:55:22.9076000Z   lfs: false
+2026-09-14T20:55:22.9076330Z   submodules: false
+2026-09-14T20:55:22.9076640Z   set-safe-directory: true
+2026-09-14T20:55:22.9076980Z   allow-unsafe-pr-checkout: false
+2026-09-14T20:55:22.9077550Z env:
+2026-09-14T20:55:22.9077870Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:55:22.9078260Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:55:22.9078660Z ##[endgroup]
+2026-09-14T20:55:23.2274820Z Syncing repository: bachikoljunior-blip/survival
+2026-09-14T20:55:23.2276340Z ##[group]Getting Git version info
+2026-09-14T20:55:23.2276920Z Working directory is '/Users/runner/work/survival/survival'
+2026-09-14T20:55:23.2277650Z [command]/opt/homebrew/bin/git version
+2026-09-14T20:55:23.2785970Z git version 2.55.0
+2026-09-14T20:55:23.2795970Z ##[endgroup]
+2026-09-14T20:55:23.2801870Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/dfca876a-3bf6-4e09-8608-8358c771ed9d/.gitconfig'
+2026-09-14T20:55:23.2807970Z Temporarily overriding HOME='/Users/runner/work/_temp/dfca876a-3bf6-4e09-8608-8358c771ed9d' before making global git config changes
+2026-09-14T20:55:23.2808930Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T20:55:23.2811230Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/survival/survival
+2026-09-14T20:55:23.2945330Z Deleting the contents of '/Users/runner/work/survival/survival'
+2026-09-14T20:55:23.2946800Z ##[group]Initializing the repository
+2026-09-14T20:55:23.2947610Z [command]/opt/homebrew/bin/git init /Users/runner/work/survival/survival
+2026-09-14T20:55:23.3099340Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-14T20:55:23.3100240Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-14T20:55:23.3100940Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-14T20:55:23.3101990Z hint: call:
+2026-09-14T20:55:23.3102330Z hint:
+2026-09-14T20:55:23.3102730Z hint: 	git config --global init.defaultBranch <name>
+2026-09-14T20:55:23.3103170Z hint:
+2026-09-14T20:55:23.3103590Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-14T20:55:23.3104290Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-14T20:55:23.3104810Z hint:
+2026-09-14T20:55:23.3105110Z hint: 	git branch -m <name>
+2026-09-14T20:55:23.3105450Z hint:
+2026-09-14T20:55:23.3105900Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-14T20:55:23.3106630Z Initialized empty Git repository in /Users/runner/work/survival/survival/.git/
+2026-09-14T20:55:23.3108920Z [command]/opt/homebrew/bin/git remote add origin https://github.com/bachikoljunior-blip/survival
+2026-09-14T20:55:23.3189130Z ##[endgroup]
+2026-09-14T20:55:23.3191250Z ##[group]Disabling automatic garbage collection
+2026-09-14T20:55:23.3192540Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-09-14T20:55:23.3268680Z ##[endgroup]
+2026-09-14T20:55:23.3270390Z ##[group]Setting up auth
+2026-09-14T20:55:23.3274230Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T20:55:23.3349780Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T20:55:23.4124340Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T20:55:23.4171210Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T20:55:23.4769610Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T20:55:23.4814220Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T20:55:23.5832660Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-14T20:55:23.6061630Z ##[endgroup]
+2026-09-14T20:55:23.6063590Z ##[group]Fetching the repository
+2026-09-14T20:55:23.6065420Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +051d718255ef21c4ba37947f8177d4121cd159d3:refs/remotes/pull/16/merge
+2026-09-14T20:55:53.5790720Z From https://github.com/bachikoljunior-blip/survival
+2026-09-14T20:55:53.5791860Z  * [new branch]      agent/iphone-se3-automation              -> origin/agent/iphone-se3-automation
+2026-09-14T20:55:53.5793060Z  * [new branch]      agent/premerge-ios-gate                  -> origin/agent/premerge-ios-gate
+2026-09-14T20:55:53.5793960Z  * [new branch]      claude/autonomous-skill-evolution-x7i51a -> origin/claude/autonomous-skill-evolution-x7i51a
+2026-09-14T20:55:53.5794730Z  * [new branch]      claude/autopilot-spec-i0bwgn             -> origin/claude/autopilot-spec-i0bwgn
+2026-09-14T20:55:53.5795590Z  * [new branch]      claude/continue-aahbtl                   -> origin/claude/continue-aahbtl
+2026-09-14T20:55:53.5796330Z  * [new branch]      claude/game-reference-benchmark-lyvlj3   -> origin/claude/game-reference-benchmark-lyvlj3
+2026-09-14T20:55:53.5797170Z  * [new branch]      claude/iphone-se3-auto-testing-bu73vn    -> origin/claude/iphone-se3-auto-testing-bu73vn
+2026-09-14T20:55:53.5798140Z  * [new branch]      claude/kit-first-reader-test-fr774j      -> origin/claude/kit-first-reader-test-fr774j
+2026-09-14T20:55:53.5799020Z  * [new branch]      claude/kit-rollout-continuation-ozq7v9   -> origin/claude/kit-rollout-continuation-ozq7v9
+2026-09-14T20:55:53.5799840Z  * [new branch]      claude/kit-rollout-game2-survival-0vspel -> origin/claude/kit-rollout-game2-survival-0vspel
+2026-09-14T20:55:53.5800610Z  * [new branch]      claude/kit-rollout-integration-a4zihp    -> origin/claude/kit-rollout-integration-a4zihp
+2026-09-14T20:55:53.5801510Z  * [new branch]      claude/kit-rollout-skill-validation-rsenmi -> origin/claude/kit-rollout-skill-validation-rsenmi
+2026-09-14T20:55:53.5802370Z  * [new branch]      claude/kit-template-creation-ndursc      -> origin/claude/kit-template-creation-ndursc
+2026-09-14T20:55:53.5803470Z  * [new branch]      claude/legacy-canonical-migration-jcuour -> origin/claude/legacy-canonical-migration-jcuour
+2026-09-14T20:55:53.5804280Z  * [new branch]      claude/mobile-action-rpg-game-hi46oh     -> origin/claude/mobile-action-rpg-game-hi46oh
+2026-09-14T20:55:53.5805040Z  * [new branch]      claude/monthly-20k-automation-mwr42o     -> origin/claude/monthly-20k-automation-mwr42o
+2026-09-14T20:55:53.5805920Z  * [new branch]      claude/monthly-income-200k-strategy-w3gnoq -> origin/claude/monthly-income-200k-strategy-w3gnoq
+2026-09-14T20:55:53.5806770Z  * [new branch]      claude/one-round-execution-changes-psdid4 -> origin/claude/one-round-execution-changes-psdid4
+2026-09-14T20:55:53.5808110Z  * [new branch]      claude/past-work-skill-candidates-v6l3xm -> origin/claude/past-work-skill-candidates-v6l3xm
+2026-09-14T20:55:53.5809070Z  * [new branch]      claude/repo-instructions-constraints-r0070m -> origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T20:55:53.5809880Z  * [new branch]      claude/round-remaining-work-di4vbu       -> origin/claude/round-remaining-work-di4vbu
+2026-09-14T20:55:53.5810580Z  * [new branch]      claude/section-21-gate-a-zbqmdk          -> origin/claude/section-21-gate-a-zbqmdk
+2026-09-14T20:55:53.5811380Z  * [new branch]      claude/survival-narrative-evidence-facts-v8wb15 -> origin/claude/survival-narrative-evidence-facts-v8wb15
+2026-09-14T20:55:53.5812160Z  * [new branch]      codex/continue-survival                  -> origin/codex/continue-survival
+2026-09-14T20:55:53.5812770Z  * [new branch]      codex/pages-root-publication             -> origin/codex/pages-root-publication
+2026-09-14T20:55:53.5813520Z  * [new branch]      codex/record-pages-publication           -> origin/codex/record-pages-publication
+2026-09-14T20:55:53.5814120Z  * [new branch]      main                                     -> origin/main
+2026-09-14T20:55:53.5814650Z  * [new ref]         051d718255ef21c4ba37947f8177d4121cd159d3 -> pull/16/merge
+2026-09-14T20:55:53.5816380Z ##[endgroup]
+2026-09-14T20:55:53.5816890Z ##[group]Determining the checkout info
+2026-09-14T20:55:53.5817510Z ##[endgroup]
+2026-09-14T20:55:53.5817950Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-09-14T20:55:53.5894030Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-14T20:55:53.5949470Z ##[group]Checking out the ref
+2026-09-14T20:55:53.5952490Z [command]/opt/homebrew/bin/git checkout --progress --force refs/remotes/pull/16/merge
+2026-09-14T20:55:54.8078930Z Updating files:  71% (1416/1989)
+2026-09-14T20:55:54.8189440Z Updating files:  72% (1433/1989)
+2026-09-14T20:55:54.8344780Z Updating files:  73% (1452/1989)
+2026-09-14T20:55:54.8420320Z Updating files:  74% (1472/1989)
+2026-09-14T20:55:54.8825600Z Updating files:  75% (1492/1989)
+2026-09-14T20:55:54.8852130Z Updating files:  76% (1512/1989)
+2026-09-14T20:55:54.8881700Z Updating files:  77% (1532/1989)
+2026-09-14T20:55:54.8904520Z Updating files:  78% (1552/1989)
+2026-09-14T20:55:54.8962210Z Updating files:  79% (1572/1989)
+2026-09-14T20:55:54.9225540Z Updating files:  80% (1592/1989)
+2026-09-14T20:55:54.9472750Z Updating files:  81% (1612/1989)
+2026-09-14T20:55:54.9630440Z Updating files:  82% (1631/1989)
+2026-09-14T20:55:55.0089120Z Updating files:  83% (1651/1989)
+2026-09-14T20:55:55.0478760Z Updating files:  84% (1671/1989)
+2026-09-14T20:55:55.1023190Z Updating files:  85% (1691/1989)
+2026-09-14T20:55:55.2832190Z Updating files:  86% (1711/1989)
+2026-09-14T20:55:55.4982450Z Updating files:  87% (1731/1989)
+2026-09-14T20:55:55.5064910Z Updating files:  88% (1751/1989)
+2026-09-14T20:55:55.5091090Z Updating files:  89% (1771/1989)
+2026-09-14T20:55:55.5167940Z Updating files:  90% (1791/1989)
+2026-09-14T20:55:55.5202050Z Updating files:  91% (1810/1989)
+2026-09-14T20:55:55.5254830Z Updating files:  92% (1830/1989)
+2026-09-14T20:55:55.5384650Z Updating files:  93% (1850/1989)
+2026-09-14T20:55:55.5430950Z Updating files:  94% (1870/1989)
+2026-09-14T20:55:55.5749390Z Updating files:  95% (1890/1989)
+2026-09-14T20:55:55.5809580Z Updating files:  96% (1910/1989)
+2026-09-14T20:55:55.5871880Z Updating files:  97% (1930/1989)
+2026-09-14T20:55:55.5913460Z Updating files:  98% (1950/1989)
+2026-09-14T20:55:55.5930460Z Updating files:  99% (1970/1989)
+2026-09-14T20:55:55.5931320Z Updating files: 100% (1989/1989)
+2026-09-14T20:55:55.5936840Z Updating files: 100% (1989/1989), done.
+2026-09-14T20:55:55.5937670Z HEAD is now at 051d718 Merge 8058f8431b7885e9e929e6cb57bb415d26d9f5b1 into 5456371249f5769c25d18f1686a44349e4292d6f
+2026-09-14T20:55:55.6025930Z ##[endgroup]
+2026-09-14T20:55:55.6291110Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-09-14T20:55:55.6462040Z 051d718255ef21c4ba37947f8177d4121cd159d3
+2026-09-14T20:55:55.6815720Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T20:55:55.6817190Z ##[group]Run actions/setup-node@v4
+2026-09-14T20:55:55.6817390Z with:
+2026-09-14T20:55:55.6817680Z   node-version: 22
+2026-09-14T20:55:55.6817980Z   cache: npm
+2026-09-14T20:55:55.6818190Z   always-auth: false
+2026-09-14T20:55:55.6836150Z   check-latest: false
+2026-09-14T20:55:55.6838350Z   token: ***
+2026-09-14T20:55:55.6838580Z env:
+2026-09-14T20:55:55.6838870Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:55:55.6839140Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:55:55.6839400Z ##[endgroup]
+2026-09-14T20:55:55.9260670Z Found in cache @ /Users/runner/hostedtoolcache/node/22.23.2/arm64
+2026-09-14T20:55:55.9264110Z (node:10771) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T20:55:55.9264810Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T20:55:55.9265990Z ##[group]Environment details
+2026-09-14T20:55:56.6688230Z node: v22.23.2
+2026-09-14T20:55:56.6690350Z npm: 10.9.8
+2026-09-14T20:55:56.6691490Z yarn: 1.22.22
+2026-09-14T20:55:56.6694820Z ##[endgroup]
+2026-09-14T20:55:56.6734120Z [command]/Users/runner/hostedtoolcache/node/22.23.2/arm64/bin/npm config get cache
+2026-09-14T20:55:56.8584370Z /Users/runner/.npm
+2026-09-14T20:55:56.9811340Z Cache hit for: node-cache-macOS-arm64-npm-60b159850ef142131756b089e99a1d470e323c29b2dd07b30ac88893fe361019
+2026-09-14T20:55:56.9878580Z (node:10771) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-14T20:55:57.3258790Z Received 55834202 of 55834202 (100.0%), 175.2 MBs/sec
+2026-09-14T20:55:57.3261870Z Cache Size: ~53 MB (55834202 B)
+2026-09-14T20:55:57.3396540Z [command]/opt/homebrew/bin/gtar -xf /Users/runner/work/_temp/f618d5cb-d96f-4419-a9ed-695fae3f3c7c/cache.tzst -P -C /Users/runner/work/survival/survival --delay-directory-restore --use-compress-program unzstd
+2026-09-14T20:55:58.1237710Z Cache restored successfully
+2026-09-14T20:55:58.1262620Z Cache restored from key: node-cache-macOS-arm64-npm-60b159850ef142131756b089e99a1d470e323c29b2dd07b30ac88893fe361019
+2026-09-14T20:55:58.1591980Z ##[group]Run npm ci
+2026-09-14T20:55:58.1592460Z [36;1mnpm ci[0m
+2026-09-14T20:55:58.1592740Z [36;1mnpm run validate:ops[0m
+2026-09-14T20:55:58.1592980Z [36;1mnpm run validate[0m
+2026-09-14T20:55:58.1593210Z [36;1mnpm run build[0m
+2026-09-14T20:55:58.1593460Z [36;1mnpm run validate:pages-root[0m
+2026-09-14T20:55:58.1704910Z shell: /bin/bash -e {0}
+2026-09-14T20:55:58.1705270Z env:
+2026-09-14T20:55:58.1705510Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:55:58.1705760Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:55:58.1706050Z ##[endgroup]
+2026-09-14T20:55:59.6028290Z 
+2026-09-14T20:55:59.6036990Z added 8 packages, and audited 9 packages in 1s
+2026-09-14T20:55:59.6037360Z 
+2026-09-14T20:55:59.6037540Z found 0 vulnerabilities
+2026-09-14T20:55:59.7843430Z 
+2026-09-14T20:55:59.7844040Z > cinderline@1.0.0 validate:ops
+2026-09-14T20:55:59.7844450Z > node tools/check_operating_state.mjs
+2026-09-14T20:55:59.7844620Z 
+2026-09-14T20:55:59.8852900Z Operating-state validation OK
+2026-09-14T20:55:59.8853520Z   revision       2026-09-14.25
+2026-09-14T20:55:59.8854030Z   plan nodes      5
+2026-09-14T20:55:59.8854450Z   tasks           15
+2026-09-14T20:55:59.8854790Z   active task     GB-IMP02
+2026-09-14T20:55:59.8855140Z   session status  active
+2026-09-14T20:55:59.8855680Z   STATE.yaml      canonical, checked against the SESSION_STATE.json projection
+2026-09-14T20:55:59.9881700Z 
+2026-09-14T20:55:59.9882780Z > cinderline@1.0.0 validate
+2026-09-14T20:55:59.9883930Z > node tools/validate.mjs
+2026-09-14T20:55:59.9884280Z 
+2026-09-14T20:56:00.1100610Z CINDERLINE content validation
+2026-09-14T20:56:00.1105560Z ──────────────────────────────────────────────────────────
+2026-09-14T20:56:00.1109220Z   conversations      13
+2026-09-14T20:56:00.1109700Z   dialogueNodes      224
+2026-09-14T20:56:00.1111360Z   dialogueWords      6240
+2026-09-14T20:56:00.1112240Z   quests             9
+2026-09-14T20:56:00.1115700Z   questSteps         31
+2026-09-14T20:56:00.1116020Z   endings            5
+2026-09-14T20:56:00.1116400Z   epilogueBeats      8
+2026-09-14T20:56:00.1117180Z   items              11
+2026-09-14T20:56:00.1117400Z   capabilities       7
+2026-09-14T20:56:00.1117780Z   buildings          41
+2026-09-14T20:56:00.1118010Z   props              167
+2026-09-14T20:56:00.1118310Z   structures         42
+2026-09-14T20:56:00.1118620Z   interiors          6
+2026-09-14T20:56:00.1118990Z   interactions       32
+2026-09-14T20:56:00.1119180Z   spawns             27
+2026-09-14T20:56:00.1119450Z   flagsSet           66
+2026-09-14T20:56:00.1120040Z   flagsRead          55
+2026-09-14T20:56:00.1120790Z ──────────────────────────────────────────────────────────
+2026-09-14T20:56:00.1121060Z 
+2026-09-14T20:56:00.1121510Z VALIDATION OK
+2026-09-14T20:56:00.2520250Z 
+2026-09-14T20:56:00.2520780Z > cinderline@1.0.0 build
+2026-09-14T20:56:00.2543810Z > node build.mjs
+2026-09-14T20:56:00.2543970Z 
+2026-09-14T20:56:00.4282200Z 
+2026-09-14T20:56:00.4284010Z   dist/cinderline.1.0.0.js  1.4mb ⚠️
+2026-09-14T20:56:00.4284570Z 
+2026-09-14T20:56:00.4284930Z ⚡ Done in 90ms
+2026-09-14T20:56:00.4308470Z [cinderline] built production bundle -> dist/
+2026-09-14T20:56:00.5458880Z 
+2026-09-14T20:56:00.5459440Z > cinderline@1.0.0 validate:pages-root
+2026-09-14T20:56:00.5460010Z > node tools/export_pages_root.mjs --check
+2026-09-14T20:56:00.5460250Z 
+2026-09-14T20:56:00.5930510Z [cinderline] Pages root mirror matches dist/ (6 files)
+2026-09-14T20:56:00.6024590Z ##[group]Run mkdir -p test-results/ios-safari
+2026-09-14T20:56:00.6025020Z [36;1mmkdir -p test-results/ios-safari[0m
+2026-09-14T20:56:00.6025390Z [36;1mxcodebuild -version > test-results/ios-safari/xcode-version.txt[0m
+2026-09-14T20:56:00.6025860Z [36;1mxcrun simctl list --json > test-results/ios-safari/simulator-inventory.json[0m
+2026-09-14T20:56:00.6066580Z shell: /bin/bash -e {0}
+2026-09-14T20:56:00.6066790Z env:
+2026-09-14T20:56:00.6067000Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:56:00.6067250Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:56:00.6067530Z ##[endgroup]
+2026-09-14T20:56:50.5941940Z ##[group]Run npm install --global appium@3.6.0
+2026-09-14T20:56:50.5943530Z [36;1mnpm install --global appium@3.6.0[0m
+2026-09-14T20:56:50.5944300Z [36;1mappium driver install xcuitest@12.1.3[0m
+2026-09-14T20:56:50.5945270Z [36;1mappium driver list --installed[0m
+2026-09-14T20:56:50.8931710Z shell: /bin/bash -e {0}
+2026-09-14T20:56:50.8932430Z env:
+2026-09-14T20:56:50.8933070Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:56:50.8933800Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:56:50.8938490Z ##[endgroup]
+2026-09-14T20:57:00.4956740Z 
+2026-09-14T20:57:00.5066490Z added 297 packages in 9s
+2026-09-14T20:57:00.5166480Z 
+2026-09-14T20:57:00.5278460Z 69 packages are looking for funding
+2026-09-14T20:57:00.5474530Z   run `npm fund` for details
+2026-09-14T20:57:01.0659710Z - Checking if 'appium-xcuitest-driver' is compatible
+2026-09-14T20:57:01.9472250Z ✔ Checking if 'appium-xcuitest-driver' is compatible
+2026-09-14T20:57:01.9581840Z - Installing 'xcuitest@12.1.3'
+2026-09-14T20:57:08.7110750Z ✔ Installing 'xcuitest@12.1.3'
+2026-09-14T20:57:08.7215250Z - Validating 'xcuitest@12.1.3'
+2026-09-14T20:57:08.7247010Z ✔ Validating 'xcuitest@12.1.3'
+2026-09-14T20:57:08.7260070Z ℹ Driver xcuitest@12.1.3 successfully installed
+2026-09-14T20:57:08.7287930Z - automationName: XCUITest
+2026-09-14T20:57:08.7340340Z - platformNames: ["iOS","tvOS"]
+2026-09-14T20:57:09.3495120Z - Listing installed drivers (rerun with --verbose for more info)
+2026-09-14T20:57:09.3559630Z ✔ Listing installed drivers (rerun with --verbose for more info)
+2026-09-14T20:57:09.3592210Z - xcuitest@12.1.3 [installed (npm)]
+2026-09-14T20:57:09.3805610Z ##[group]Run mkdir -p test-results/ios-safari
+2026-09-14T20:57:09.3805960Z [36;1mmkdir -p test-results/ios-safari[0m
+2026-09-14T20:57:09.3806270Z [36;1mxcode-select -p > test-results/ios-safari/xcode-path.txt[0m
+2026-09-14T20:57:09.3807240Z [36;1mxcodebuild -version > test-results/ios-safari/xcode-version.txt[0m
+2026-09-14T20:57:09.3807800Z [36;1msdk_version="$(xcrun --sdk iphonesimulator --show-sdk-version)"[0m
+2026-09-14T20:57:09.3808420Z [36;1mprintf '%s\n' "$sdk_version" > test-results/ios-safari/simulator-sdk-version.txt[0m
+2026-09-14T20:57:09.3809430Z [36;1mxcrun simctl list --json > test-results/ios-safari/simulator-inventory.json[0m
+2026-09-14T20:57:09.3810280Z [36;1mselection="$(node tools/select-ios-simulator.mjs "$sdk_version" test-results/ios-safari/simulator-inventory.json test-results/ios-safari/simulator-selection.json)"[0m
+2026-09-14T20:57:09.3812430Z [36;1mIFS=$'\t' read -r udid platform_version <<< "$selection"[0m
+2026-09-14T20:57:09.3813020Z [36;1mtest -n "$udid" && test -n "$platform_version"[0m
+2026-09-14T20:57:09.3813470Z [36;1mecho "udid=$udid" >> "$GITHUB_OUTPUT"[0m
+2026-09-14T20:57:09.3813820Z [36;1mecho "platform_version=$platform_version" >> "$GITHUB_OUTPUT"[0m
+2026-09-14T20:57:09.3814360Z [36;1mxcrun simctl boot "$udid" 2>/dev/null || true[0m
+2026-09-14T20:57:09.3814810Z [36;1mxcrun simctl bootstatus "$udid" -b[0m
+2026-09-14T20:57:09.4461900Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T20:57:09.4466930Z env:
+2026-09-14T20:57:09.4467220Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:57:09.4467600Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:57:09.4467940Z ##[endgroup]
+2026-09-14T20:57:32.3693100Z Monitoring boot status for iPhone SE (3rd generation) (22A3039C-6A45-47F4-82D4-80C58CA94379).
+2026-09-14T20:57:32.4540300Z [2026-09-14 20:57:32 +0000] Status=2, isTerminal=NO, Elapsed=00:14.
+2026-09-14T20:57:32.5393660Z 	Waiting on Data Migration
+2026-09-14T20:57:32.6254090Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:32.7065250Z 		Migration Elapsed:00:00 seconds
+2026-09-14T20:57:32.7912870Z 
+2026-09-14T20:57:33.4600500Z [2026-09-14 20:57:33 +0000] Status=2, isTerminal=NO, Elapsed=00:15.
+2026-09-14T20:57:33.5470160Z 	Waiting on Data Migration
+2026-09-14T20:57:33.5471020Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:33.6290260Z 		Migration Elapsed:00:00 seconds
+2026-09-14T20:57:33.7103670Z 
+2026-09-14T20:57:33.8768730Z [2026-09-14 20:57:33 +0000] Status=2, isTerminal=NO, Elapsed=00:15.
+2026-09-14T20:57:33.9608690Z 	Waiting on Data Migration
+2026-09-14T20:57:34.0419630Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:34.1245490Z 		Migration Elapsed:00:01 seconds
+2026-09-14T20:57:34.2056260Z 
+2026-09-14T20:57:34.7847130Z [2026-09-14 20:57:34 +0000] Status=2, isTerminal=NO, Elapsed=00:16.
+2026-09-14T20:57:34.8671430Z 	Waiting on Data Migration
+2026-09-14T20:57:34.9563960Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:35.0414840Z 		Migration Elapsed:00:01 seconds
+2026-09-14T20:57:35.0415930Z 
+2026-09-14T20:57:36.8481970Z [2026-09-14 20:57:36 +0000] Status=2, isTerminal=NO, Elapsed=00:18.
+2026-09-14T20:57:36.9308730Z 	Waiting on Data Migration
+2026-09-14T20:57:37.0943950Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:37.0945130Z 		Migration Elapsed:00:02 seconds
+2026-09-14T20:57:37.1767670Z 
+2026-09-14T20:57:40.0959170Z [2026-09-14 20:57:39 +0000] Status=2, isTerminal=NO, Elapsed=00:21.
+2026-09-14T20:57:40.0960860Z 	Waiting on Data Migration
+2026-09-14T20:57:40.0962500Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:40.1740940Z 		Migration Elapsed:00:04 seconds
+2026-09-14T20:57:40.1741660Z 
+2026-09-14T20:57:40.5866010Z [2026-09-14 20:57:40 +0000] Status=2, isTerminal=NO, Elapsed=00:22.
+2026-09-14T20:57:40.6676930Z 	Waiting on Data Migration
+2026-09-14T20:57:40.7496640Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:40.9972800Z 		Migration Elapsed:00:07 seconds
+2026-09-14T20:57:41.0762520Z 
+2026-09-14T20:57:41.1618710Z [2026-09-14 20:57:40 +0000] Status=2, isTerminal=NO, Elapsed=00:23.
+2026-09-14T20:57:41.3250140Z 	Waiting on Data Migration
+2026-09-14T20:57:41.4883370Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:41.5737440Z 		Migration Elapsed:00:08 seconds
+2026-09-14T20:57:41.6563850Z 
+2026-09-14T20:57:41.9002210Z [2026-09-14 20:57:41 +0000] Status=2, isTerminal=NO, Elapsed=00:23.
+2026-09-14T20:57:41.9858480Z 	Waiting on Data Migration
+2026-09-14T20:57:42.0670310Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:42.0695720Z 		Migration Elapsed:00:09 seconds
+2026-09-14T20:57:42.1491020Z 
+2026-09-14T20:57:43.2159170Z [2026-09-14 20:57:43 +0000] Status=2, isTerminal=NO, Elapsed=00:25.
+2026-09-14T20:57:43.2966220Z 	Waiting on Data Migration
+2026-09-14T20:57:43.2969320Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:43.3806950Z 		Migration Elapsed:00:10 seconds
+2026-09-14T20:57:43.4602020Z 
+2026-09-14T20:57:44.1970350Z [2026-09-14 20:57:44 +0000] Status=2, isTerminal=NO, Elapsed=00:26.
+2026-09-14T20:57:44.2788020Z 	Waiting on Data Migration
+2026-09-14T20:57:44.4410220Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:44.5290650Z 		Migration Elapsed:00:11 seconds
+2026-09-14T20:57:44.6129520Z 
+2026-09-14T20:57:45.1002160Z [2026-09-14 20:57:45 +0000] Status=2, isTerminal=NO, Elapsed=00:27.
+2026-09-14T20:57:45.1808100Z 	Waiting on Data Migration
+2026-09-14T20:57:45.2626870Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:45.3457260Z 		Migration Elapsed:00:12 seconds
+2026-09-14T20:57:45.4245970Z 
+2026-09-14T20:57:45.8332100Z [2026-09-14 20:57:45 +0000] Status=2, isTerminal=NO, Elapsed=00:27.
+2026-09-14T20:57:45.9160040Z 	Waiting on Data Migration
+2026-09-14T20:57:45.9984570Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:46.0794960Z 		Migration Elapsed:00:13 seconds
+2026-09-14T20:57:46.0795370Z 
+2026-09-14T20:57:47.3038470Z [2026-09-14 20:57:47 +0000] Status=2, isTerminal=NO, Elapsed=00:29.
+2026-09-14T20:57:47.3850910Z 	Waiting on Data Migration
+2026-09-14T20:57:47.4655300Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:47.4676630Z 		Migration Elapsed:00:14 seconds
+2026-09-14T20:57:47.4676920Z 
+2026-09-14T20:57:47.7930410Z [2026-09-14 20:57:47 +0000] Status=2, isTerminal=NO, Elapsed=00:29.
+2026-09-14T20:57:47.8793680Z 	Waiting on Data Migration
+2026-09-14T20:57:47.9602930Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:48.0416480Z 		Migration Elapsed:00:15 seconds
+2026-09-14T20:57:48.0418970Z 
+2026-09-14T20:57:48.9907530Z [2026-09-14 20:57:48 +0000] Status=2, isTerminal=NO, Elapsed=00:30.
+2026-09-14T20:57:49.0709730Z 	Waiting on Data Migration
+2026-09-14T20:57:49.1525640Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:49.2374300Z 		Migration Elapsed:00:16 seconds
+2026-09-14T20:57:49.3205530Z 
+2026-09-14T20:57:49.8893320Z [2026-09-14 20:57:49 +0000] Status=2, isTerminal=NO, Elapsed=00:31.
+2026-09-14T20:57:50.1323700Z 	Waiting on Data Migration
+2026-09-14T20:57:50.3417130Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:50.3418980Z 		Migration Elapsed:00:17 seconds
+2026-09-14T20:57:50.5049050Z 
+2026-09-14T20:57:50.6709480Z [2026-09-14 20:57:50 +0000] Status=2, isTerminal=NO, Elapsed=00:32.
+2026-09-14T20:57:50.7060090Z 	Waiting on Data Migration
+2026-09-14T20:57:50.7192010Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:50.7297660Z 		Migration Elapsed:00:18 seconds
+2026-09-14T20:57:50.7454620Z 
+2026-09-14T20:57:51.6165470Z [2026-09-14 20:57:51 +0000] Status=2, isTerminal=NO, Elapsed=00:33.
+2026-09-14T20:57:51.7469000Z 	Waiting on Data Migration
+2026-09-14T20:57:51.7715730Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:51.9493180Z 		Migration Elapsed:00:19 seconds
+2026-09-14T20:57:52.1793930Z 
+2026-09-14T20:57:52.4933250Z [2026-09-14 20:57:52 +0000] Status=2, isTerminal=NO, Elapsed=00:34.
+2026-09-14T20:57:52.5134350Z 	Waiting on Data Migration
+2026-09-14T20:57:52.5245820Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:52.5412730Z 		Migration Elapsed:00:20 seconds
+2026-09-14T20:57:52.5593140Z 
+2026-09-14T20:57:53.4984580Z [2026-09-14 20:57:53 +0000] Status=2, isTerminal=NO, Elapsed=00:35.
+2026-09-14T20:57:53.4986070Z 	Waiting on Data Migration
+2026-09-14T20:57:53.5130520Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:53.5233660Z 		Migration Elapsed:00:21 seconds
+2026-09-14T20:57:53.5337300Z 
+2026-09-14T20:57:54.4537040Z [2026-09-14 20:57:54 +0000] Status=2, isTerminal=NO, Elapsed=00:36.
+2026-09-14T20:57:54.4641310Z 	Waiting on Data Migration
+2026-09-14T20:57:54.4762570Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:54.4917680Z 		Migration Elapsed:00:22 seconds
+2026-09-14T20:57:54.5229520Z 
+2026-09-14T20:57:55.4826080Z [2026-09-14 20:57:55 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
+2026-09-14T20:57:55.4960390Z 	Waiting on Data Migration
+2026-09-14T20:57:55.5068450Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:55.5170380Z 		Migration Elapsed:00:23 seconds
+2026-09-14T20:57:55.5272860Z 
+2026-09-14T20:57:56.4552790Z [2026-09-14 20:57:56 +0000] Status=2, isTerminal=NO, Elapsed=00:38.
+2026-09-14T20:57:56.4656870Z 	Waiting on Data Migration
+2026-09-14T20:57:56.4657780Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:56.4759690Z 		Migration Elapsed:00:24 seconds
+2026-09-14T20:57:56.4859180Z 
+2026-09-14T20:57:57.4646440Z [2026-09-14 20:57:57 +0000] Status=2, isTerminal=NO, Elapsed=00:39.
+2026-09-14T20:57:57.4647390Z 	Waiting on Data Migration
+2026-09-14T20:57:57.4648000Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:57.4648560Z 		Migration Elapsed:00:25 seconds
+2026-09-14T20:57:57.4648820Z 
+2026-09-14T20:57:58.4731500Z [2026-09-14 20:57:58 +0000] Status=2, isTerminal=NO, Elapsed=00:40.
+2026-09-14T20:57:58.4734320Z 	Waiting on Data Migration
+2026-09-14T20:57:58.4740700Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:58.4752980Z 		Migration Elapsed:00:26 seconds
+2026-09-14T20:57:58.4754000Z 
+2026-09-14T20:57:59.4802320Z [2026-09-14 20:57:59 +0000] Status=2, isTerminal=NO, Elapsed=00:41.
+2026-09-14T20:57:59.4934610Z 	Waiting on Data Migration
+2026-09-14T20:57:59.5156270Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:57:59.5210210Z 		Migration Elapsed:00:27 seconds
+2026-09-14T20:57:59.5210630Z 
+2026-09-14T20:58:00.4652260Z [2026-09-14 20:58:00 +0000] Status=2, isTerminal=NO, Elapsed=00:42.
+2026-09-14T20:58:00.4656430Z 	Waiting on Data Migration
+2026-09-14T20:58:00.4657230Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:00.4657930Z 		Migration Elapsed:00:28 seconds
+2026-09-14T20:58:00.4658250Z 
+2026-09-14T20:58:01.4504320Z [2026-09-14 20:58:01 +0000] Status=2, isTerminal=NO, Elapsed=00:43.
+2026-09-14T20:58:01.4605550Z 	Waiting on Data Migration
+2026-09-14T20:58:01.4707930Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:01.4809730Z 		Migration Elapsed:00:29 seconds
+2026-09-14T20:58:01.4910700Z 
+2026-09-14T20:58:02.4522680Z [2026-09-14 20:58:02 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
+2026-09-14T20:58:02.4554240Z 	Waiting on Data Migration
+2026-09-14T20:58:02.4555140Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:02.4559730Z 		Migration Elapsed:00:30 seconds
+2026-09-14T20:58:02.4560100Z 
+2026-09-14T20:58:03.4927620Z [2026-09-14 20:58:03 +0000] Status=2, isTerminal=NO, Elapsed=00:45.
+2026-09-14T20:58:03.5138040Z 	Waiting on Data Migration
+2026-09-14T20:58:03.5195050Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:03.5250380Z 		Migration Elapsed:00:31 seconds
+2026-09-14T20:58:03.5250950Z 
+2026-09-14T20:58:04.4627780Z [2026-09-14 20:58:04 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
+2026-09-14T20:58:04.4734040Z 	Waiting on Data Migration
+2026-09-14T20:58:04.4834750Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:04.4874860Z 		Migration Elapsed:00:32 seconds
+2026-09-14T20:58:04.4875960Z 
+2026-09-14T20:58:05.4555430Z [2026-09-14 20:58:05 +0000] Status=2, isTerminal=NO, Elapsed=00:47.
+2026-09-14T20:58:05.4556310Z 	Waiting on Data Migration
+2026-09-14T20:58:05.4565260Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:05.4566570Z 		Migration Elapsed:00:33 seconds
+2026-09-14T20:58:05.4570610Z 
+2026-09-14T20:58:06.4438060Z [2026-09-14 20:58:06 +0000] Status=2, isTerminal=NO, Elapsed=00:48.
+2026-09-14T20:58:06.4438690Z 	Waiting on Data Migration
+2026-09-14T20:58:06.4439490Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:06.4440240Z 		Migration Elapsed:00:34 seconds
+2026-09-14T20:58:06.4440510Z 
+2026-09-14T20:58:07.4532980Z [2026-09-14 20:58:07 +0000] Status=2, isTerminal=NO, Elapsed=00:49.
+2026-09-14T20:58:07.4548280Z 	Waiting on Data Migration
+2026-09-14T20:58:07.4552300Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:07.4554060Z 		Migration Elapsed:00:35 seconds
+2026-09-14T20:58:07.4554730Z 
+2026-09-14T20:58:08.4659110Z [2026-09-14 20:58:08 +0000] Status=2, isTerminal=NO, Elapsed=00:50.
+2026-09-14T20:58:08.4713690Z 	Waiting on Data Migration
+2026-09-14T20:58:08.4714550Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:08.4715450Z 		Migration Elapsed:00:36 seconds
+2026-09-14T20:58:08.4715830Z 
+2026-09-14T20:58:09.4647240Z [2026-09-14 20:58:09 +0000] Status=2, isTerminal=NO, Elapsed=00:51.
+2026-09-14T20:58:09.4888730Z 	Waiting on Data Migration
+2026-09-14T20:58:09.4905000Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:09.4907500Z 		Migration Elapsed:00:37 seconds
+2026-09-14T20:58:09.4908120Z 
+2026-09-14T20:58:10.4465500Z [2026-09-14 20:58:10 +0000] Status=2, isTerminal=NO, Elapsed=00:52.
+2026-09-14T20:58:10.4466530Z 	Waiting on Data Migration
+2026-09-14T20:58:10.4467320Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:10.4479260Z 		Migration Elapsed:00:38 seconds
+2026-09-14T20:58:10.4480340Z 
+2026-09-14T20:58:11.4442140Z [2026-09-14 20:58:11 +0000] Status=2, isTerminal=NO, Elapsed=00:53.
+2026-09-14T20:58:11.4449860Z 	Waiting on Data Migration
+2026-09-14T20:58:11.4450890Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:11.4451850Z 		Migration Elapsed:00:39 seconds
+2026-09-14T20:58:11.4452520Z 
+2026-09-14T20:58:12.4619140Z [2026-09-14 20:58:12 +0000] Status=2, isTerminal=NO, Elapsed=00:54.
+2026-09-14T20:58:12.4756230Z 	Waiting on Data Migration
+2026-09-14T20:58:12.4863190Z 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+2026-09-14T20:58:12.4981500Z 		Migration Elapsed:00:40 seconds
+2026-09-14T20:58:12.5082720Z 
+2026-09-14T20:58:16.1037300Z [2026-09-14 20:58:16 +0000] Status=2, isTerminal=NO, Elapsed=00:58.
+2026-09-14T20:58:16.1037880Z 	Waiting on Data Migration
+2026-09-14T20:58:16.1038770Z 		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+2026-09-14T20:58:16.1039460Z 		Migration Elapsed:00:41 seconds
+2026-09-14T20:58:16.1039610Z 
+2026-09-14T20:58:17.4170690Z [2026-09-14 20:58:17 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
+2026-09-14T20:58:17.4171570Z 	Waiting on Data Migration
+2026-09-14T20:58:17.5012150Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:17.5800110Z 		Migration Elapsed:00:43 seconds
+2026-09-14T20:58:17.6606720Z 
+2026-09-14T20:58:17.7418740Z [2026-09-14 20:58:17 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
+2026-09-14T20:58:17.8238690Z 	Waiting on Data Migration
+2026-09-14T20:58:17.9049680Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:17.9865680Z 		Migration Elapsed:00:45 seconds
+2026-09-14T20:58:18.1499710Z 
+2026-09-14T20:58:18.2337600Z [2026-09-14 20:58:18 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
+2026-09-14T20:58:18.3144570Z 	Waiting on Data Migration
+2026-09-14T20:58:18.3957940Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:18.4769100Z 		Migration Elapsed:00:45 seconds
+2026-09-14T20:58:18.5635900Z 
+2026-09-14T20:58:19.0510410Z [2026-09-14 20:58:18 +0000] Status=2, isTerminal=NO, Elapsed=01:01.
+2026-09-14T20:58:19.0512160Z 	Waiting on Data Migration
+2026-09-14T20:58:19.2147240Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:19.2148370Z 		Migration Elapsed:00:46 seconds
+2026-09-14T20:58:19.2956040Z 
+2026-09-14T20:58:20.5219200Z [2026-09-14 20:58:20 +0000] Status=2, isTerminal=NO, Elapsed=01:02.
+2026-09-14T20:58:20.6046890Z 	Waiting on Data Migration
+2026-09-14T20:58:20.6862350Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:20.7664680Z 		Migration Elapsed:00:47 seconds
+2026-09-14T20:58:20.8461520Z 
+2026-09-14T20:58:21.2559020Z [2026-09-14 20:58:21 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
+2026-09-14T20:58:21.3360760Z 	Waiting on Data Migration
+2026-09-14T20:58:21.4196210Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:21.5815970Z 		Migration Elapsed:00:48 seconds
+2026-09-14T20:58:21.6627450Z 
+2026-09-14T20:58:21.8242570Z [2026-09-14 20:58:21 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
+2026-09-14T20:58:21.9056350Z 	Waiting on Data Migration
+2026-09-14T20:58:22.0715990Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:22.3977380Z 		Migration Elapsed:00:49 seconds
+2026-09-14T20:58:22.4805530Z 
+2026-09-14T20:58:22.8065970Z [2026-09-14 20:58:22 +0000] Status=2, isTerminal=NO, Elapsed=01:04.
+2026-09-14T20:58:22.8885810Z 	Waiting on Data Migration
+2026-09-14T20:58:22.9684390Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:22.9705570Z 		Migration Elapsed:00:50 seconds
+2026-09-14T20:58:23.0501610Z 
+2026-09-14T20:58:23.6215750Z [2026-09-14 20:58:23 +0000] Status=2, isTerminal=NO, Elapsed=01:05.
+2026-09-14T20:58:23.6230500Z 	Waiting on Data Migration
+2026-09-14T20:58:23.7032780Z 		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+2026-09-14T20:58:23.7861370Z 		Migration Elapsed:00:51 seconds
+2026-09-14T20:58:23.8680220Z 
+2026-09-14T20:58:24.6042850Z [2026-09-14 20:58:24 +0000] Status=2, isTerminal=NO, Elapsed=01:06.
+2026-09-14T20:58:24.9301640Z 	Waiting on Data Migration
+2026-09-14T20:58:25.0927240Z 		Reason:Running plugin com.apple.WebBookmarks.migrator (WebBookmarks.migrator)
+2026-09-14T20:58:25.2537860Z 		Migration Elapsed:00:52 seconds
+2026-09-14T20:58:25.3380770Z 
+2026-09-14T20:58:25.5026220Z [2026-09-14 20:58:25 +0000] Status=2, isTerminal=NO, Elapsed=01:07.
+2026-09-14T20:58:25.5840540Z 	Waiting on Data Migration
+2026-09-14T20:58:25.6659880Z 		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
+2026-09-14T20:58:25.7517970Z 		Migration Elapsed:00:53 seconds
+2026-09-14T20:58:25.9018690Z 
+2026-09-14T20:58:26.9549080Z [2026-09-14 20:58:26 +0000] Status=2, isTerminal=NO, Elapsed=01:08.
+2026-09-14T20:58:27.1178700Z 	Waiting on Data Migration
+2026-09-14T20:58:27.2014640Z 		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
+2026-09-14T20:58:27.2826740Z 		Migration Elapsed:00:54 seconds
+2026-09-14T20:58:27.3639040Z 
+2026-09-14T20:58:28.5107830Z [2026-09-14 20:58:28 +0000] Status=4, isTerminal=NO, Elapsed=01:10.
+2026-09-14T20:58:28.6752200Z 	Waiting on System App
+2026-09-14T20:58:29.0040030Z 
+2026-09-14T20:58:29.6580620Z [2026-09-14 20:58:29 +0000] Status=4, isTerminal=NO, Elapsed=01:11.
+2026-09-14T20:58:29.8205150Z 	Waiting on System App
+2026-09-14T20:58:29.9045520Z 
+2026-09-14T20:58:35.0662850Z [2026-09-14 20:58:34 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:16.
+2026-09-14T20:58:35.2318200Z 	Finished
+2026-09-14T20:58:35.6083840Z 
+2026-09-14T20:58:37.9036850Z ##[group]Run mkdir -p test-results/ios-safari
+2026-09-14T20:58:37.9037490Z [36;1mmkdir -p test-results/ios-safari[0m
+2026-09-14T20:58:37.9037840Z [36;1mappium_log_args=()[0m
+2026-09-14T20:58:37.9038360Z [36;1mif test "$CINDERLINE_IOS_AUDIO_CAPTURE" = '1'; then appium_log_args=(--log-level info); fi[0m
+2026-09-14T20:58:37.9039020Z [36;1mappium --base-path / --log test-results/ios-safari/appium.log "${appium_log_args[@]}" > /dev/null 2>&1 &[0m
+2026-09-14T20:58:37.9040230Z [36;1mecho $! > test-results/ios-safari/appium.pid[0m
+2026-09-14T20:58:37.9876990Z [36;1m# In the opt-in attempt the shared recorder captures real canvas[0m
+2026-09-14T20:58:37.9877570Z [36;1m# video with production sound; avoid a duplicate silent video load.[0m
+2026-09-14T20:58:37.9877970Z [36;1mif test "$CINDERLINE_IOS_AUDIO_CAPTURE" != '1'; then[0m
+2026-09-14T20:58:37.9878820Z [36;1m  xcrun simctl io "22A3039C-6A45-47F4-82D4-80C58CA94379" recordVideo --codec=h264 --force test-results/ios-safari/ios-safari.mp4 > test-results/ios-safari/video.log 2>&1 &[0m
+2026-09-14T20:58:38.0653890Z [36;1m  echo $! > test-results/ios-safari/video.pid[0m
+2026-09-14T20:58:38.0654640Z [36;1mfi[0m
+2026-09-14T20:58:38.0655080Z [36;1mfor attempt in {1..60}; do[0m
+2026-09-14T20:58:38.0656050Z [36;1m  if curl --fail --silent http://127.0.0.1:4723/status > /dev/null; then exit 0; fi[0m
+2026-09-14T20:58:38.0657030Z [36;1m  sleep 1[0m
+2026-09-14T20:58:38.0657570Z [36;1mdone[0m
+2026-09-14T20:58:38.0658030Z [36;1mexit 1[0m
+2026-09-14T20:58:40.6032790Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T20:58:40.6034430Z env:
+2026-09-14T20:58:40.6035650Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:58:40.6037140Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:58:40.6041310Z ##[endgroup]
+2026-09-14T20:59:34.9057570Z ##[group]Run npm run test:ios-safari
+2026-09-14T20:59:34.9058140Z [36;1mnpm run test:ios-safari[0m
+2026-09-14T20:59:35.2061680Z shell: /bin/bash -e {0}
+2026-09-14T20:59:35.2062430Z env:
+2026-09-14T20:59:35.2062760Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T20:59:35.2063550Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T20:59:35.2064240Z   IOS_SIMULATOR_UDID: 22A3039C-6A45-47F4-82D4-80C58CA94379
+2026-09-14T20:59:35.2064730Z   IOS_SIMULATOR_PLATFORM_VERSION: 18.5
+2026-09-14T20:59:35.2065290Z ##[endgroup]
+2026-09-14T20:59:36.5317340Z 
+2026-09-14T20:59:36.5321290Z > cinderline@1.0.0 test:ios-safari
+2026-09-14T20:59:36.5323420Z > node build.mjs && node tools/test-ios-safari.mjs
+2026-09-14T20:59:36.5323790Z 
+2026-09-14T20:59:37.8379060Z 
+2026-09-14T20:59:37.8694820Z   dist/cinderline.1.0.0.js  1.4mb ⚠️
+2026-09-14T20:59:37.8695640Z 
+2026-09-14T20:59:37.8695940Z [cinderline] built production bundle -> dist/
+2026-09-14T20:59:37.8731110Z ⚡ Done in 835ms
+2026-09-14T21:06:33.1196200Z - audio street-walk: wall, audio and simulation clocks stay aligned for capture: {"wallSeconds":10.426000000000007,"audioSeconds":10.432,"engineSeconds":9.866666666666667,"engineFrames":560,"engineToAudioRatio":0.9458077709611452,"audioToWallRatio":1.0005754843660073,"engineMinusAudioSeconds":-0.5653333333333332,"audioMinusWallSeconds":0.005999999999993122,"toleranceSeconds":0.5216000000000001,"captureGuardScope":"Acquisition clock guard only; no quality or reference-comparison pass.","captureClockGuardPassed":false,"telemetryComplete":true,"finiteTimeline":true,"orderedTimeline":true,"finitePoses":true}
+2026-09-14T21:06:33.1218160Z - iOS audio lifecycle: original three recordings completed before boundary operations: {"status":"captured","clips":3,"captureCheckFailed":true,"timing":[{"captureClockGuardPassed":false,"telemetryComplete":true},{"captureClockGuardPassed":true,"telemetryComplete":true},{"captureClockGuardPassed":true,"telemetryComplete":true}],"lastInterior":"arcade","newFailures":1}
+2026-09-14T21:06:33.1219980Z - Error: Original iOS audio capture did not complete successfully; lifecycle operations not attempted
+2026-09-14T21:06:33.1221080Z     at Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:321:27)
+2026-09-14T21:06:33.1221790Z     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2026-09-14T21:06:33.1222570Z     at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:624:5
+2026-09-14T21:06:33.1223470Z [ios-safari] FAILED: 3 failure(s)
+2026-09-14T21:06:33.1226780Z [ios-safari-startup] {"method":"local-simctl-preopen","bootstrapUrl":"http://127.0.0.1:49439/__ios_safari_bootstrap__.html","verified":true,"openUrl":{"status":"passed","attempts":1,"elapsedMs":13285,"stdout":"","stderr":""},"actual":{"url":"http://127.0.0.1:49439/__ios_safari_bootstrap__.html","ready":true}}
+2026-09-14T21:06:33.1555820Z [ios-safari-report] {"status":"failed","checks":[{"name":"iPhone SE 3 landscape width","passed":true,"detail":"{\"width\":667,\"height\":325}"},{"name":"Mobile Safari landscape height","passed":true,"detail":"{\"width\":667,\"height\":325}"},{"name":"iPhone SE 3 DPR","passed":true,"detail":"dpr=2"},{"name":"landscape touch surface is active","passed":true,"detail":"{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}"},{"name":"actual Mobile Safari user agent is active","passed":true,"detail":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1"},{"name":"production engine starts in Mobile Safari","passed":true,"detail":"{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}"},{"name":"render canvas fills the Safari content viewport","passed":true,"detail":"{\"x\":0,\"y\":0,\"width\":667,\"height\":325}"},{"name":"title has no horizontal overflow","passed":true,"detail":"{\"documentWidth\":667,\"viewportWidth\":667,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]}"},{"name":"title controls meet the 44 CSS px floor","passed":true,"detail":"[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]"},{"name":"trusted Mobile Safari tap starts a new game","passed":true,"detail":"[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335702,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335702,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"click\",\"trusted\":true,\"pointerType\":\"mouse\",\"pointerId\":382335702,\"x\":560,\"y\":105,\"activeTouches\":0,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]"},{"name":"all required touch controls are present","passed":true,"detail":"attack,dodge,guard,use,heavy,menu,map,lamp,meter"},{"name":"every gameplay control is visible and touch-sized","passed":true,"detail":"[{\"name\":\"attack\",\"x\":601,\"y\":257,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":268,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":201,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":203,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":245,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"},{"name":"two trusted touch contacts overlap in Safari","passed":true,"detail":"[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335702,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335702,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"click\",\"trusted\":true,\"pointerType\":\"mouse\",\"pointerId\":382335702,\"x\":560,\"y\":105,\"activeTouches\":0,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335703,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335704,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335704,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335705,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335705,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335703,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]"},{"name":"trusted two-thumb movement moves the player","passed":true,"detail":"distance=0.7091"},{"name":"trusted second thumb attacks during movement","passed":true,"detail":"attacks=2"},{"name":"trusted touch release clears movement and attack","passed":true,"detail":"{\"x\":-112,\"y\":0,\"z\":-84.70913733710235,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"},{"name":"trusted interaction leaves finite player state","passed":true,"detail":"{\"x\":-112,\"y\":0,\"z\":-84.70913733710235,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"},{"name":"trusted right-thumb drag moves the camera","passed":true,"detail":"delta=0.19631"},{"name":"pause actions are touch-sized in Safari","passed":true,"detail":"[{\"index\":0,\"text\":\"SAVE\",\"x\":8,\"y\":269,\"width\":51.65625,\"height\":44},{\"index\":1,\"text\":\"TITLE\",\"x\":65.65625,\"y\":269,\"width\":53.015625,\"height\":44},{\"index\":2,\"text\":\"RESUME\",\"x\":590.578125,\"y\":269,\"width\":68.421875,\"height\":44}]"},{"name":"turning to portrait blocks input and pauses play","passed":true,"detail":"{\"prompt\":true,\"paused\":true,\"portrait\":true}"},{"name":"returning to landscape restores play","passed":true,"detail":"{\"paused\":false,\"landscape\":true}"},{"name":"saved run exposes a touch-sized Continue action","passed":true,"detail":"{\"x\":569,\"y\":81.5,\"width\":180,\"height\":44}"},{"name":"Safari refresh and Continue restore the saved position","passed":true,"detail":"distance=0.0000, bytes=1858"},{"name":"Safari soak remains live with finite state and no captured game faults","passed":true,"detail":"{\"frame\":270,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"medium\",\"p50\":17,\"p90\":18,\"p99\":40,\"fps50\":58.8235294117647,\"fps90\":55.55555555555556,\"draws\":66,\"tris\":195157,\"programs\":68,\"textures\":53,\"geometries\":87,\"res\":\"1147x559\",\"css\":\"667x325\",\"dpr\":2},\"faults\":0,\"framesAdvanced\":221}"},{"name":"Safari soak keeps producing frames","passed":true,"detail":"advanced=221"},{"name":"Safari renderer submits non-empty geometry","passed":true,"detail":"{\"tier\":\"medium\",\"p50\":17,\"p90\":18,\"p99\":40,\"fps50\":58.8235294117647,\"fps90\":55.55555555555556,\"draws\":66,\"tris\":195157,\"programs\":68,\"textures\":53,\"geometries\":87,\"res\":\"1147x559\",\"css\":\"667x325\",\"dpr\":2}"},{"name":"no captured Mobile Safari runtime errors","passed":true,"detail":"{\"errorsBeforeReload\":[],\"errorsAfterReload\":[]}"},{"name":"iOS audio: actual Safari exposes the required recording APIs after a trusted gesture","passed":true,"detail":"{\"checkedWallMs\":23056,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"secureContext\":true,\"audioContextConstructor\":true,\"webkitAudioContextConstructor\":false,\"productionContext\":true,\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":48000,\"outputChannels\":2,\"createMediaStreamDestination\":true,\"compressorConnect\":true,\"mediaStream\":true,\"mediaRecorder\":true,\"mediaRecorderIsTypeSupported\":true,\"canvasCaptureStream\":true,\"blobArrayBuffer\":true,\"mimeTypes\":[{\"mime\":\"video/mp4\",\"supported\":true},{\"mime\":\"video/webm;codecs=vp8,opus\",\"supported\":true},{\"mime\":\"video/webm\",\"supported\":true}],\"supportedMime\":\"video/mp4\",\"observedTrustedTouch\":true,\"build\":\"1.0.0\",\"limitations\":\"API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations.\"}"},{"name":"audio: trusted gesture unlocks the actual running production context","passed":true,"detail":"{\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":48000,\"channels\":2,\"recorder\":true,\"canvasCapture\":true,\"mime\":\"video/mp4\"}"},{"name":"iOS audio street: actual trusted stick gesture is observed","passed":true,"detail":""},{"name":"iOS audio street: native movement advances and releases","passed":true,"detail":"{\"distance\":3.8518056401906904,\"stickActive\":false,\"moveMagnitude\":0,\"release\":{\"status\":\"passed\",\"reason\":\"first frame after fixed-step progress\",\"after\":{\"wallMs\":31235,\"audioTime\":15.541333333333334,\"engineTime\":15.850000000000367,\"engineFrame\":873,\"inputTime\":15.850000000000367,\"position\":[-115.29790444061159,0,-85.99003341439263],\"stickActive\":false,\"stickId\":-1,\"stickX\":0,\"stickY\":0,\"moveMagnitude\":0,\"input\":[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335714,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":382335714,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]},\"elapsedMs\":8,\"timeoutMs\":2000,\"cleanupErrors\":null,\"observationStatus\":\"passed\",\"observationReason\":\"first frame after fixed-step progress\"}}"},{"name":"audio street-walk: wall, audio and simulation clocks stay aligned for capture","passed":false,"detail":"{\"wallSeconds\":10.426000000000007,\"audioSeconds\":10.432,\"engineSeconds\":9.866666666666667,\"engineFrames\":560,\"engineToAudioRatio\":0.9458077709611452,\"audioToWallRatio\":1.0005754843660073,\"engineMinusAudioSeconds\":-0.5653333333333332,\"audioMinusWallSeconds\":0.005999999999993122,\"toleranceSeconds\":0.5216000000000001,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"},{"name":"audio street-walk: passive clock and pose telemetry is complete","passed":true,"detail":"{\"dropped\":{\"clockFrames\":0,\"trajectory\":0,\"sfxEvents\":0},\"errors\":[]}"},{"name":"audio street-walk: audio and real game clocks advance during recording","passed":true,"detail":"{\"wallMs\":35974.00000000001,\"audioTime\":20.288,\"audioState\":\"running\",\"engineFrame\":1151,\"engineTime\":20.583333333333446,\"position\":[-115.29790444061159,0,-85.99003341439263],\"hp\":120,\"dead\":false,\"mode\":\"play\",\"tier\":\"low\",\"ambience\":\"camp\",\"music\":\"explore\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":2}"},{"name":"audio street-walk: simultaneous live native video and production audio tracks","passed":true,"detail":""},{"name":"audio street-walk: recording ends in finite live gameplay","passed":true,"detail":""},{"name":"audio cut-gas-air: wall, audio and simulation clocks stay aligned for capture","passed":true,"detail":"{\"wallSeconds\":8.868,\"audioSeconds\":8.863999999999997,\"engineSeconds\":8.699999999999509,\"engineFrames\":501,\"engineToAudioRatio\":0.9814981949457933,\"audioToWallRatio\":0.9995489400090208,\"engineMinusAudioSeconds\":-0.1640000000004882,\"audioMinusWallSeconds\":-0.004000000000003112,\"toleranceSeconds\":0.44319999999999987,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":true,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"},{"name":"audio cut-gas-air: passive clock and pose telemetry is complete","passed":true,"detail":"{\"dropped\":{\"clockFrames\":0,\"trajectory\":0,\"sfxEvents\":0},\"errors\":[]}"},{"name":"audio cut-gas-air: audio and real game clocks advance during recording","passed":true,"detail":"{\"wallMs\":55061,\"audioTime\":39.370666666666665,\"audioState\":\"running\",\"engineFrame\":2195,\"engineTime\":38.73333333333242,\"position\":[82,0,-60],\"hp\":119.54229356504074,\"dead\":false,\"mode\":\"play\",\"tier\":\"low\",\"ambience\":\"cut\",\"music\":\"authority\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":2}"},{"name":"audio cut-gas-air: simultaneous live native video and production audio tracks","passed":true,"detail":""},{"name":"audio cut-gas-air: recording ends in finite live gameplay","passed":true,"detail":""},{"name":"audio arcade-room: wall, audio and simulation clocks stay aligned for capture","passed":true,"detail":"{\"wallSeconds\":6.963,\"audioSeconds\":6.954666666666668,\"engineSeconds\":6.783333333332948,\"engineFrames\":399,\"engineToAudioRatio\":0.9753642638036253,\"audioToWallRatio\":0.9988031978553308,\"engineMinusAudioSeconds\":-0.17133333333372036,\"audioMinusWallSeconds\":-0.008333333333331971,\"toleranceSeconds\":0.34773333333333345,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":true,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"},{"name":"audio arcade-room: passive clock and pose telemetry is complete","passed":true,"detail":"{\"dropped\":{\"clockFrames\":0,\"trajectory\":0,\"sfxEvents\":0},\"errors\":[]}"},{"name":"audio arcade-room: audio and real game clocks advance during recording","passed":true,"detail":"{\"wallMs\":68825,\"audioTime\":53.13066666666667,\"audioState\":\"running\",\"engineFrame\":2915,\"engineTime\":51.09999999999838,\"position\":[588,0,4.2],\"hp\":112.95573878357759,\"dead\":false,\"mode\":\"play\",\"tier\":\"low\",\"ambience\":\"interior\",\"music\":\"authority\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":2}"},{"name":"audio arcade-room: simultaneous live native video and production audio tracks","passed":true,"detail":""},{"name":"audio arcade-room: recording ends in finite live gameplay","passed":true,"detail":""},{"name":"iOS audio lifecycle: original three recordings completed before boundary operations","passed":false,"detail":"{\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":1}"}],"failures":["audio street-walk: wall, audio and simulation clocks stay aligned for capture: {\"wallSeconds\":10.426000000000007,\"audioSeconds\":10.432,\"engineSeconds\":9.866666666666667,\"engineFrames\":560,\"engineToAudioRatio\":0.9458077709611452,\"audioToWallRatio\":1.0005754843660073,\"engineMinusAudioSeconds\":-0.5653333333333332,\"audioMinusWallSeconds\":0.005999999999993122,\"toleranceSeconds\":0.5216000000000001,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}","iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":1}","Error: Original iOS audio capture did not complete successfully; lifecycle operations not attempted\n    at Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:321:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:624:5"],"capabilities":{"checkedWallMs":23056,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1","secureContext":true,"audioContextConstructor":true,"webkitAudioContextConstructor":false,"productionContext":true,"ready":true,"unlocked":true,"state":"running","sampleRate":48000,"outputChannels":2,"createMediaStreamDestination":true,"compressorConnect":true,"mediaStream":true,"mediaRecorder":true,"mediaRecorderIsTypeSupported":true,"canvasCaptureStream":true,"blobArrayBuffer":true,"mimeTypes":[{"mime":"video/mp4","supported":true},{"mime":"video/webm;codecs=vp8,opus","supported":true},{"mime":"video/webm","supported":true}],"supportedMime":"video/mp4","observedTrustedTouch":true,"build":"1.0.0","limitations":"API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations."},"provenance":{"preparedFromCommit":"61e8f8c595bde13634fe709f979816011df165d0","preparationReportSha256":"000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44","bundle":"cinderline.1.0.0.js","bundleSha256":"8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0","recorderBlob":"785541d3beaed0e35e8bcf042973eabb7bdb5d6c","actualBundleHashes":{"cinderline.1.0.0.js":"8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0","dist/cinderline.1.0.0.js":"8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"},"actualRecorderBlob":"785541d3beaed0e35e8bcf042973eabb7bdb5d6c","helperSha256":"e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262","transferHelperSha256":"55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a","frameWorkProbeSha256":"eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8","harnessSha256":"a278b87f0fb2e15b843205b6fe211a8046f72463e2f29956bfbf867f5900adee","runCommit":"051d718255ef21c4ba37947f8177d4121cd159d3","runId":"34895779614","runAttempt":"1"},"frameWork":null,"lifecycle":{"status":"not run","reason":"Original acquisition did not complete successfully; no boundary operation was attempted."},"captureStatus":"acquisition failed","comparison":{"status":"not measured","reason":"Requires decoding, three-clock inspection, successful stereo listening and a valid reference comparison."},"clips":[{"name":"street-walk","path":"test-results/ios-safari/audio/audio-street-walk.mp4","bytes":5411378,"sha256":"51dd25bea48ad10ce01a251ce5fde2a2f369a34306391812427d28589aff1fca","mime":"video/mp4; codecs=avc1.42000a,mp4a.40.2","timing":{"wallSeconds":10.426000000000007,"audioSeconds":10.432,"engineSeconds":9.866666666666667,"engineFrames":560,"engineToAudioRatio":0.9458077709611452,"audioToWallRatio":1.0005754843660073,"engineMinusAudioSeconds":-0.5653333333333332,"audioMinusWallSeconds":0.005999999999993122,"toleranceSeconds":0.5216000000000001,"captureGuardScope":"Acquisition clock guard only; no quality or reference-comparison pass.","captureClockGuardPassed":false,"telemetryComplete":true,"finiteTimeline":true,"orderedTimeline":true,"finitePoses":true},"tracks":[{"kind":"video","state":"live","settings":{"height":351,"width":720}},{"kind":"audio","state":"live","settings":{}}]},{"name":"cut-gas-air","path":"test-results/ios-safari/audio/audio-cut-gas-air.mp4","bytes":2661438,"sha256":"ccffa610a7f1938fdb859244386a998947774ce7a598e8ba63adebb0e5e9e047","mime":"video/mp4; codecs=avc1.42000a,mp4a.40.2","timing":{"wallSeconds":8.868,"audioSeconds":8.863999999999997,"engineSeconds":8.699999999999509,"engineFrames":501,"engineToAudioRatio":0.9814981949457933,"audioToWallRatio":0.9995489400090208,"engineMinusAudioSeconds":-0.1640000000004882,"audioMinusWallSeconds":-0.004000000000003112,"toleranceSeconds":0.44319999999999987,"captureGuardScope":"Acquisition clock guard only; no quality or reference-comparison pass.","captureClockGuardPassed":true,"telemetryComplete":true,"finiteTimeline":true,"orderedTimeline":true,"finitePoses":true},"tracks":[{"kind":"video","state":"live","settings":{"height":351,"width":720}},{"kind":"audio","state":"live","settings":{}}]},{"name":"arcade-room","path":"test-results/ios-safari/audio/audio-arcade-room.mp4","bytes":1739698,"sha256":"cf045e0ad9fe50e7e2e75e65da8e565768dbc18672d4aa84b0f0632f22b7f639","mime":"video/mp4; codecs=avc1.42000a,mp4a.40.2","timing":{"wallSeconds":6.963,"audioSeconds":6.954666666666668,"engineSeconds":6.783333333332948,"engineFrames":399,"engineToAudioRatio":0.9753642638036253,"audioToWallRatio":0.9988031978553308,"engineMinusAudioSeconds":-0.17133333333372036,"audioMinusWallSeconds":-0.008333333333331971,"toleranceSeconds":0.34773333333333345,"captureGuardScope":"Acquisition clock guard only; no quality or reference-comparison pass.","captureClockGuardPassed":true,"telemetryComplete":true,"finiteTimeline":true,"orderedTimeline":true,"finitePoses":true},"tracks":[{"kind":"audio","state":"live","settings":{}},{"kind":"video","state":"live","settings":{"height":351,"width":720}}]}]}
+2026-09-14T21:06:33.5552940Z ##[error]Process completed with exit code 1.
+2026-09-14T21:06:33.7018580Z ##[group]Run node tools/gates/f3_safari_audio.mjs
+2026-09-14T21:06:33.7019300Z [36;1mnode tools/gates/f3_safari_audio.mjs[0m
+2026-09-14T21:06:33.8084900Z shell: /bin/bash -e {0}
+2026-09-14T21:06:33.8085250Z env:
+2026-09-14T21:06:33.8085470Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T21:06:33.8085930Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T21:06:33.8178060Z ##[endgroup]
+2026-09-14T21:06:34.8527050Z [f3-safari-audio] {"status":"failed","error":"Error: The complete Safari gate did not pass","audioQuality":"not measured","comparison":"not measured"}
+2026-09-14T21:06:34.8572320Z ##[error]Process completed with exit code 1.
+2026-09-14T21:06:35.0074360Z ##[group]Run if test -f test-results/ios-safari/video.pid; then kill -INT "$(cat test-results/ios-safari/video.pid)" 2>/dev/null || true; fi
+2026-09-14T21:06:35.0075220Z [36;1mif test -f test-results/ios-safari/video.pid; then kill -INT "$(cat test-results/ios-safari/video.pid)" 2>/dev/null || true; fi[0m
+2026-09-14T21:06:35.0076060Z [36;1mif test -f test-results/ios-safari/appium.pid; then kill "$(cat test-results/ios-safari/appium.pid)" 2>/dev/null || true; fi[0m
+2026-09-14T21:06:35.0076510Z [36;1msleep 2[0m
+2026-09-14T21:06:35.0223700Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T21:06:35.0224040Z env:
+2026-09-14T21:06:35.0224320Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T21:06:35.0224590Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T21:06:35.0224880Z ##[endgroup]
+2026-09-14T21:06:37.3371240Z ##[group]Run node --input-type=module <<'NODE'
+2026-09-14T21:06:37.3371650Z [36;1mnode --input-type=module <<'NODE'[0m
+2026-09-14T21:06:37.3372020Z [36;1m// CI-only observation after Stop recording. No browser/device/network calls.[0m
+2026-09-14T21:06:37.3372460Z [36;1mimport { readFileSync, statSync } from 'node:fs';[0m
+2026-09-14T21:06:37.3372830Z [36;1mimport { createHash } from 'node:crypto';[0m
+2026-09-14T21:06:37.3373060Z [36;1m[0m
+2026-09-14T21:06:37.3373360Z [36;1m// Successful runs retain complete logs in the following artifact upload;[0m
+2026-09-14T21:06:37.3373820Z [36;1m// avoid duplicating their bulky WebDriver output into the job log.[0m
+2026-09-14T21:06:37.3374190Z [36;1mlet completedReport;[0m
+2026-09-14T21:06:37.3374590Z [36;1mtry { completedReport = JSON.parse(readFileSync('test-results/ios-safari/report.json', 'utf8')); }[0m
+2026-09-14T21:06:37.3375210Z [36;1mcatch { /* Preserve the existing diagnostic path for missing/invalid reports. */ }[0m
+2026-09-14T21:06:37.3375750Z [36;1mif (completedReport?.status === 'passed' && Array.isArray(completedReport.checks)[0m
+2026-09-14T21:06:37.3376320Z [36;1m  && completedReport.checks.length > 0 && completedReport.checks.every(check => check?.passed === true)[0m
+2026-09-14T21:06:37.3376910Z [36;1m  && Array.isArray(completedReport.failures) && completedReport.failures.length === 0) {[0m
+2026-09-14T21:06:37.3377500Z [36;1m  console.log('[ios-startup-log-skip] Passed Safari checks; original logs remain in the artifact upload.');[0m
+2026-09-14T21:06:37.3377950Z [36;1m  process.exit(0);[0m
+2026-09-14T21:06:37.3378140Z [36;1m}[0m
+2026-09-14T21:06:37.3378290Z [36;1m[0m
+2026-09-14T21:06:37.3378560Z [36;1m// Audio jobs normally omit bulky command logs. A failed session creation has[0m
+2026-09-14T21:06:37.3379010Z [36;1m// no recording to expose and needs the same original WDA diagnostics.[0m
+2026-09-14T21:06:37.3379410Z [36;1mif (process.env.CINDERLINE_IOS_AUDIO_CAPTURE === '1') {[0m
+2026-09-14T21:06:37.3379700Z [36;1m  let failure;[0m
+2026-09-14T21:06:37.3380040Z [36;1m  try { failure = JSON.parse(readFileSync('test-results/ios-safari/report.json', 'utf8')); }[0m
+2026-09-14T21:06:37.3380440Z [36;1m  catch { process.exit(0); }[0m
+2026-09-14T21:06:37.3380820Z [36;1m  const preSessionFailure = failure.status === 'failed' && Array.isArray(failure.checks)[0m
+2026-09-14T21:06:37.3381290Z [36;1m    && failure.checks.length === 0 && Array.isArray(failure.failures)[0m
+2026-09-14T21:06:37.3381800Z [36;1m    && failure.failures.some(value => typeof value === 'string' && value.includes('WebDriver POST /session:'));[0m
+2026-09-14T21:06:37.3382280Z [36;1m  if (!preSessionFailure) process.exit(0);[0m
+2026-09-14T21:06:37.3382520Z [36;1m}[0m
+2026-09-14T21:06:37.3382680Z [36;1mconst files = [[0m
+2026-09-14T21:06:37.3382880Z [36;1m  ['appium.log', 4 * 1024 * 1024],[0m
+2026-09-14T21:06:37.3383280Z [36;1m  ['simulator-selection.json', 64 * 1024],[0m
+2026-09-14T21:06:37.3383550Z [36;1m  ['xcode-version.txt', 64 * 1024],[0m
+2026-09-14T21:06:37.3383790Z [36;1m  ['xcode-path.txt', 64 * 1024],[0m
+2026-09-14T21:06:37.3384120Z [36;1m  ['simulator-sdk-version.txt', 64 * 1024],[0m
+2026-09-14T21:06:37.3384390Z [36;1m];[0m
+2026-09-14T21:06:37.3384580Z [36;1mfor (const [file, cap] of files) {[0m
+2026-09-14T21:06:37.3384830Z [36;1m  try {[0m
+2026-09-14T21:06:37.3385040Z [36;1m    const path = `test-results/ios-safari/${file}`;[0m
+2026-09-14T21:06:37.3385330Z [36;1m    const before = statSync(path);[0m
+2026-09-14T21:06:37.3385620Z [36;1m    const data = readFileSync(path);[0m
+2026-09-14T21:06:37.3385870Z [36;1m    const after = statSync(path);[0m
+2026-09-14T21:06:37.3386130Z [36;1m    const complete = data.length <= cap;[0m
+2026-09-14T21:06:37.3386580Z [36;1m    const ranges = complete ? [[0, data.length]] : [[0, cap / 2], [data.length - cap / 2, data.length]];[0m
+2026-09-14T21:06:37.3387060Z [36;1m    const sha256 = createHash('sha256').update(data).digest('hex');[0m
+2026-09-14T21:06:37.3387920Z [36;1m    const stableDuringRead = before.size === after.size && before.mtimeMs === after.mtimeMs && after.size === data.length;[0m
+2026-09-14T21:06:37.3388890Z [36;1m    console.log('[ios-startup-log-meta] ' + JSON.stringify({ file, capturedAt: new Date().toISOString(), bytes: data.length, sha256, complete, stableDuringRead, cap, ranges }));[0m
+2026-09-14T21:06:37.3389600Z [36;1m    for (const [start, end] of ranges) {[0m
+2026-09-14T21:06:37.3389960Z [36;1m      for (let offset = start; offset < end; offset += 3000) {[0m
+2026-09-14T21:06:37.3390410Z [36;1m        const bytes = data.subarray(offset, Math.min(end, offset + 3000));[0m
+2026-09-14T21:06:37.3391050Z [36;1m        console.log('[ios-startup-log-chunk] ' + JSON.stringify({ file, offset, base64: bytes.toString('base64') }));[0m
+2026-09-14T21:06:37.3391500Z [36;1m      }[0m
+2026-09-14T21:06:37.3391710Z [36;1m    }[0m
+2026-09-14T21:06:37.3392090Z [36;1m    console.log('[ios-startup-log-end] ' + JSON.stringify({ file, bytes: data.length, sha256, complete }));[0m
+2026-09-14T21:06:37.3392510Z [36;1m  } catch (error) {[0m
+2026-09-14T21:06:37.3392950Z [36;1m    console.log('[ios-startup-log-error] ' + JSON.stringify({ file, code: error.code || null, message: error.message }));[0m
+2026-09-14T21:06:37.3393410Z [36;1m  }[0m
+2026-09-14T21:06:37.3393560Z [36;1m}[0m
+2026-09-14T21:06:37.3393840Z [36;1m// Let the normal process exit drain stdout. This step cannot change the failed[0m
+2026-09-14T21:06:37.3394330Z [36;1m// test step's outcome. Complete refers to the captured file snapshot only.[0m
+2026-09-14T21:06:37.3394650Z [36;1m[0m
+2026-09-14T21:06:37.3394890Z [36;1mNODE[0m
+2026-09-14T21:06:37.3536720Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T21:06:37.3537010Z env:
+2026-09-14T21:06:37.3537190Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T21:06:37.3537590Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T21:06:37.3538070Z ##[endgroup]
+2026-09-14T21:06:37.6225860Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T21:06:37.6227210Z ##[group]Run actions/upload-artifact@v4
+2026-09-14T21:06:37.6227420Z with:
+2026-09-14T21:06:37.6227970Z   name: iphone-se3-mobile-safari-051d718255ef21c4ba37947f8177d4121cd159d3
+2026-09-14T21:06:37.6228710Z   path: test-results/ios-safari
+2026-09-14T21:06:37.6228940Z   if-no-files-found: warn
+2026-09-14T21:06:37.6229270Z   retention-days: 14
+2026-09-14T21:06:37.6229470Z   compression-level: 6
+2026-09-14T21:06:37.6229640Z   overwrite: false
+2026-09-14T21:06:37.6229810Z   include-hidden-files: false
+2026-09-14T21:06:37.6230020Z env:
+2026-09-14T21:06:37.6230260Z   CINDERLINE_IOS_AUDIO_CAPTURE: 1
+2026-09-14T21:06:37.6230830Z   CINDERLINE_IOS_FRAME_WORK_CAPTURE: 0
+2026-09-14T21:06:37.6231120Z ##[endgroup]
+2026-09-14T21:06:39.4239070Z (node:30450) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-14T21:06:39.4247550Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-14T21:06:39.4390700Z With the provided path, there will be 15 files uploaded
+2026-09-14T21:06:39.4391530Z Artifact name is valid!
+2026-09-14T21:06:39.4391930Z Root directory input is valid!
+2026-09-14T21:06:39.8736680Z Beginning upload of artifact content to blob storage
+2026-09-14T21:06:40.4241980Z (node:30450) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-14T21:06:40.8352810Z Uploaded bytes 8388608
+2026-09-14T21:06:41.4049140Z Uploaded bytes 13459726
+2026-09-14T21:06:41.4209490Z Finished uploading artifact content to blob storage!
+2026-09-14T21:06:41.4219230Z SHA256 digest of uploaded artifact zip is 1a316ac9b028cb6b3d1f126401c36bef33e8b9eac869db367ecb50e1cddcd1a2
+2026-09-14T21:06:41.4219910Z Finalizing artifact upload
+2026-09-14T21:06:41.6064400Z Artifact iphone-se3-mobile-safari-051d718255ef21c4ba37947f8177d4121cd159d3.zip successfully finalized. Artifact ID 10369332540
+2026-09-14T21:06:41.6072990Z Artifact iphone-se3-mobile-safari-051d718255ef21c4ba37947f8177d4121cd159d3 has been successfully uploaded! Final size is 13459726 bytes. Artifact ID is 10369332540
+2026-09-14T21:06:41.6080420Z Artifact download URL: https://github.com/bachikoljunior-blip/survival/actions/runs/34895779614/artifacts/10369332540
+2026-09-14T21:06:41.6713140Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T21:06:41.6714260Z Post job cleanup.
+2026-09-14T21:06:41.9155070Z [command]/opt/homebrew/bin/git version
+2026-09-14T21:06:42.0078520Z git version 2.55.0
+2026-09-14T21:06:42.0532210Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/859327ab-4ec7-4b08-9150-9b49ec7e0b52/.gitconfig'
+2026-09-14T21:06:42.0639590Z Temporarily overriding HOME='/Users/runner/work/_temp/859327ab-4ec7-4b08-9150-9b49ec7e0b52' before making global git config changes
+2026-09-14T21:06:42.0737690Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T21:06:42.0739130Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/survival/survival
+2026-09-14T21:06:42.0740480Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T21:06:42.0743940Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T21:06:42.3215370Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T21:06:42.3315450Z http.https://github.com/.extraheader
+2026-09-14T21:06:42.3330170Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-14T21:06:42.3550790Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T21:06:42.5869840Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T21:06:42.5986280Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T21:06:43.0532980Z Cleaning up orphan processes
+2026-09-14T21:06:44.2218840Z Terminate orphan process: pid (26193) (DTServiceHub)
+2026-09-14T21:06:45.4671740Z Terminate orphan process: pid (17214) (SWBBuildService)
+2026-09-14T21:06:45.5412730Z Terminate orphan process: pid (16936) (xcodebuild)
+2026-09-14T21:07:02.1841780Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

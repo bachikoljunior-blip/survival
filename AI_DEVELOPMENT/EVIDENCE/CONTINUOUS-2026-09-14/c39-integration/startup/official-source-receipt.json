@@ -1,0 +1,64 @@
+{
+  "provider": "canonical GitHub App fetch_file",
+  "purpose": "fixed installed-version implementation review; local source cache, not product code",
+  "sources": [
+    {
+      "path": "xcuitest-v12.1.3/package.json",
+      "sha": "cb24f79cf135f759810c4ba4d560ef4de78b0670",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/package.json"
+    },
+    {
+      "path": "xcuitest-v12.1.3/lib/driver.ts",
+      "sha": "10c14cf4611d2f04be308b6ef51d2e91721564bd",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/lib/driver.ts"
+    },
+    {
+      "path": "xcuitest-v12.1.3/lib/commands/context.ts",
+      "sha": "57d1bba5677692f3d60102bcbee0b3015a491318",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/lib/commands/context.ts"
+    },
+    {
+      "path": "xcuitest-v12.1.3/lib/desired-caps.ts",
+      "sha": "17dfccac29543da89e7e4d8df2d2e2d5f21c3423",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/lib/desired-caps.ts"
+    },
+    {
+      "path": "xcuitest-v12.1.3/docs/reference/capabilities.md",
+      "sha": "fcdc153b5effeaaaa11f9d05211ed12f76b8932e",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/docs/reference/capabilities.md"
+    },
+    {
+      "path": "xcuitest-v12.1.3/lib/commands/wda/startup.ts",
+      "sha": "f3d5ae5b13c63a877e9308fc009013c20d8e5d69",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/lib/commands/wda/startup.ts"
+    },
+    {
+      "path": "xcuitest-v12.1.3/lib/commands/helpers/index.ts",
+      "sha": "87413c8cd7517bb909b472c16f3e2015500b21cd",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/lib/commands/helpers/index.ts"
+    },
+    {
+      "path": "xcuitest-v12.1.3/lib/commands/helpers/session.ts",
+      "sha": "0e7368601965badd248fa02bc0510fff8a5d4c72",
+      "url": "https://github.com/appium/appium-xcuitest-driver/blob/v12.1.3/lib/commands/helpers/session.ts"
+    },
+    {
+      "path": "remote-debugger-v16.0.3/lib/remote-debugger.ts",
+      "sha": "46a3a096e3c619ce475e001711c0f87991ca3c75",
+      "url": "https://github.com/appium/appium-remote-debugger/blob/v16.0.3/lib/remote-debugger.ts"
+    },
+    {
+      "path": "wda-v16.1.0/WebDriverAgentLib/Commands/FBSessionCommands.m",
+      "sha": "c567381ab86d4f81b936f156322bb234cb78616a",
+      "url": "https://github.com/appium/WebDriverAgent/blob/v16.1.0/WebDriverAgentLib/Commands/FBSessionCommands.m"
+    }
+  ],
+  "discovery": "Initial .js source paths at v12.1.3 returned NOT_FOUND 404; package.json confirmed TypeScript build and the distinct .ts paths succeeded. No access refusal workaround.",
+  "actualInstalledVersions": {
+    "appium": "3.6.0",
+    "xcuitest": "12.1.3",
+    "remoteDebugger": "16.0.3",
+    "webdriveragent": "16.1.0"
+  },
+  "actualSafariCandidateRun": false
+}

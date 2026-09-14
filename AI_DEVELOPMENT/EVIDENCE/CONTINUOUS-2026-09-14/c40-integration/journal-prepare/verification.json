@@ -1,0 +1,84 @@
+{
+  "scope": "Bounded local CPU/source/real-runner and transport fixtures only",
+  "controls": [
+    {
+      "name": "All 47 official C39 input bytes accepted; root is actual adopted 8c",
+      "passed": true
+    },
+    {
+      "name": "Both frozen journal candidate files accepted byte-exactly",
+      "passed": true
+    },
+    {
+      "name": "Old period strings rejected as candidate",
+      "passed": true
+    },
+    {
+      "name": "One-byte candidate drift rejected: src/content/story.js",
+      "passed": true
+    },
+    {
+      "name": "One-byte candidate drift rejected: src/content/locale/ja/content.js",
+      "passed": true
+    },
+    {
+      "name": "Missing, extra and reversed source sets rejected",
+      "passed": true
+    },
+    {
+      "name": "Already modified sources rejected as reproduction baseline",
+      "passed": true
+    },
+    {
+      "name": "Only the three already-adopted source pins change in baseline INPUTS; remaining 44 identical",
+      "passed": true
+    },
+    {
+      "name": "Baseline period cannot pass journal source admission",
+      "passed": true
+    },
+    {
+      "name": "Both full merged English/Japanese journal translation routes pass",
+      "passed": true
+    },
+    {
+      "name": "Real DialogueRunner.goto applies exactly one stored Iris journal entry in each locale",
+      "passed": true
+    },
+    {
+      "name": "Single non-target input mutation refuses localized-route admission",
+      "passed": true
+    },
+    {
+      "name": "Prepared export now round-trips exactly nine files, including empty file and contiguous chunks",
+      "passed": true
+    },
+    {
+      "name": "Prepared corruption rejects before first export byte",
+      "passed": true
+    },
+    {
+      "name": "Prepared file above unchanged 4 MiB cap rejects before first export byte",
+      "passed": true
+    },
+    {
+      "name": "Two-source-route CPU report exports; zero screenshots claimed",
+      "passed": true
+    },
+    {
+      "name": "Successful browser report with missing two screenshots rejected before export",
+      "passed": true
+    },
+    {
+      "name": "Wrong localized journal pin rejected before export",
+      "passed": true
+    }
+  ],
+  "passed": 18,
+  "actualBuild": false,
+  "browserExecuted": false,
+  "originalScreens": 0,
+  "candidateBundleSha256": null,
+  "remoteMutations": 0,
+  "newCI": 0
+}

@@ -1,0 +1,90 @@
+{
+  "status": "original startup failures isolated",
+  "runs": [
+    {
+      "group": "pr",
+      "runId": 34884733596,
+      "jobId": 104112449885,
+      "event": "pull_request",
+      "headSha": "61e8f8c595bde13634fe709f979816011df165d0",
+      "attempt": 1,
+      "conclusion": "failure",
+      "checkoutCommit": "e357adca8fd0007927d8ac9025f0ccc777ef9ea8",
+      "audioCaptureEnabled": true,
+      "frameWorkEnabled": false,
+      "firstFailure": "Error: WebDriver POST /session: The remote debugger did not return any connected web applications after 5351ms. Make sure your web application is debuggable and could be inspected in Safari Web Inspector. You may try to change the 'webviewConnectTimeout' capability value to customize the retrieval timeout.",
+      "checks": 0,
+      "gameNavigationReached": false,
+      "clockMeasured": false,
+      "transferStarted": false,
+      "releaseMeasured": false,
+      "lifecycleMeasured": false,
+      "wdaNativeSessionStarted": true
+    },
+    {
+      "group": "standalone",
+      "runId": 34884725698,
+      "jobId": 104112422235,
+      "event": "push",
+      "headSha": "61e8f8c595bde13634fe709f979816011df165d0",
+      "attempt": 1,
+      "conclusion": "failure",
+      "checkoutCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+      "audioCaptureEnabled": false,
+      "frameWorkEnabled": false,
+      "firstFailure": "Error: WebDriver POST /session: The remote debugger did not return any connected web applications after 6346ms. Make sure your web application is debuggable and could be inspected in Safari Web Inspector. You may try to change the 'webviewConnectTimeout' capability value to customize the retrieval timeout.",
+      "checks": 0,
+      "gameNavigationReached": false,
+      "clockMeasured": false,
+      "transferStarted": false,
+      "releaseMeasured": false,
+      "lifecycleMeasured": false,
+      "wdaNativeSessionStarted": true
+    }
+  ],
+  "prMeasuredPins": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "runCommit": "e357adca8fd0007927d8ac9025f0ccc777ef9ea8",
+    "runId": "34884733596",
+    "runAttempt": "1"
+  },
+  "standaloneProvenance": "Audio capture disabled; raw standalone report does not emit audio helper/probe hashes. Exact checkout SHA is in its original log and canonical run metadata.",
+  "f3Execution": {
+    "jobId": 104115712838,
+    "core": "success",
+    "safari": "failure",
+    "conclusion": "failure",
+    "stage": "dependent aggregate; original log confirms both result values"
+  },
+  "originalFailureBoundary": "WDA native Safari launch/session succeeds; remote debugger reports no connected applications; no game navigation or measurement begins. Earlier ECONNREFUSED during WDA startup is transient and not the terminal cause.",
+  "candidateCausality": "Known startup ordering leaves a cold/native Safari without an explicitly loaded document before WebInspector selection; initialDeeplinkUrl supplies that missing prerequisite. Empty list could still involve OS/host response timing; original logs do not prove a blank screen or sole internal cause.",
+  "artifactUploadLogsOnly": [
+    {
+      "group": "pr",
+      "id": 10364344273,
+      "bytes": 94384,
+      "zipSha256": "2ed7c5b8d3b999a8695c1b7265b429429615e7067d0e9469a03d35aa32e912c9"
+    },
+    {
+      "group": "standalone",
+      "id": 10364906045,
+      "bytes": 831028,
+      "zipSha256": "fbb66e4f7856fac4f36ccc6d085205d3f4e856283faa3aec1c8d682c0cf20b72"
+    }
+  ],
+  "artifactMetadataFetched": false,
+  "artifactZipRead": false
+}

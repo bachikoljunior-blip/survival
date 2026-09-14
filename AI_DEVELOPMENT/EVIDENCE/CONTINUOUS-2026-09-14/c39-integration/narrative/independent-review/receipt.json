@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "verdict": "adoptable simultaneous three-source/root/IOS_AUDIO_PIN three-field candidate",
+  "blocking": 0,
+  "sourceCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+  "tree": "67c414952eec36eb0472b6fa5dd54816d209ba87",
+  "runId": "34884725972",
+  "jobId": "104112424660",
+  "runAttempt": "1",
+  "dedicatedJobConclusion": "success",
+  "overallRunStatusAtIndependentRead": "in_progress",
+  "overallRunConclusionAtIndependentRead": null,
+  "rawLog": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/original-job.log",
+    "bytes": 7382705,
+    "sha256": "972068aa8cdd985b4fedce4627e22937cfdd5fbc59d0148e1455cea45154ba7d",
+    "gitBlob": "095007d313f8f0b4e1d5112b9945ed01e3fab885"
+  },
+  "transportRecords": 1834,
+  "originalPreparedFiles": 10,
+  "originalRouteFiles": 13,
+  "originalPngs": 12,
+  "canonicalInputs": 47,
+  "allSevenOriginalBuildStagesPassed": true,
+  "adoptionPins": {
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+  },
+  "preservedPins": {
+    "bundle": "cinderline.1.0.0.js",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+  },
+  "candidateFiles": [
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1445368,
+      "sha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "gitBlob": "8b4c0da8af71db55b60957c2e887060ca5ff5525"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    },
+    {
+      "path": "src/content/story.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+      "gitBlob": "c02c06122512036cdeb6b50e9e5dceb7f7b66083"
+    }
+  ],
+  "independentAdoptionControls": 16,
+  "parentVisualReceipt": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/visual-review.json",
+    "bytes": 9365,
+    "sha256": "802e84e360920acc9f0a2cb65a4a741fdfb158728b4b36eeac717f0fb4752241"
+  },
+  "parentOriginalImageViews": 12,
+  "independentOriginalImageViews": 0,
+  "actualIosBuildGuardExecutedOnLocalFixtures": true,
+  "actualBrowserExecutionsByReviewer": 0,
+  "rawLogFetchesByReviewer": 0,
+  "originalFileWrites": 0,
+  "productSourceAdoption": false,
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationMutations": 0,
+  "newAgentSpawns": 0,
+  "referenceMaterialReads": 0,
+  "comparisonMappingReads": 0,
+  "quality": {
+    "allElements": "19 not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/REPORT.md",
+      "bytes": 4868,
+      "sha256": "798127c83e8e9f2d882edbc19af7ebf3c4150c038fb34e7ea341329e757885b4"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/authority-receipt.json",
+      "bytes": 43058,
+      "sha256": "55fd36ad1254cbf864d0e2de1e309a748359a27730c660b87ca8fd77093f6a59"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/canonical-commit.json",
+      "bytes": 3622,
+      "sha256": "9e8fcf7dd52175c6bf8ba5c4fae973d63a8ab977980e3507f9083b9b103c8171"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/canonical-run.json",
+      "bytes": 30871,
+      "sha256": "d69e93d59200e828ee604d8f9d42590f89cf07d71a547f028df6d5d6b384c794"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/canonical-job.json",
+      "bytes": 2594,
+      "sha256": "3e62f43a765aa94cb779e8538f213a4bb72a87d33102c0a8ab0eb86661947608"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/independent-verification.json",
+      "bytes": 19117,
+      "sha256": "2fbc1d7843ea00ce6eca3d3a58ac0e41f68bb5ab082d8d60c0437cd25151cab1"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/adoption-and-guard-verification.json",
+      "bytes": 5886,
+      "sha256": "e04a1a24e8c09bb0d0852f60a807a0813427be5c3b58ff6545cf6ec2311fc80f"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/cross-receipt-verification.json",
+      "bytes": 676,
+      "sha256": "cbe070608bf4a6631d93544b642134d8877bedf0f92546c9401dc7e2035f97a1"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/verify-recovered.mjs",
+      "bytes": 17618,
+      "sha256": "a823560534f2bac92ab224c70981f89caa4d4519ccf6360a14fa3cff1ca8f6bf"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/verify-adoption-and-guards.mjs",
+      "bytes": 9181,
+      "sha256": "898293d52c6690542b01aa3644d3c194f985798b7131fb8b1cf4c29db99b053f"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/independent-review/input.json",
+      "bytes": 601,
+      "sha256": "839af656cdbd29a39590416e684a7704abfe6fe202fb7989bf03cd40217a5636"
+    }
+  ]
+}

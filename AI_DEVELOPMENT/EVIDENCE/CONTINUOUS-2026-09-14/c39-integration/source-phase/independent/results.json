@@ -1,0 +1,175 @@
+{
+  "status": "finite-summary-verification-complete",
+  "originalLog": {
+    "bytes": 79989,
+    "sha256": "7708ce8065f490e8438631f6885e3535e56af97f418cf2b262bdc02d6484d054",
+    "lines": 634,
+    "summaryMarkers": 1,
+    "summaryLine": 477,
+    "finalNewline": true,
+    "cleanupTailPresent": true
+  },
+  "originalSummary": {
+    "bytes": 28778,
+    "sha256": "5cbb7d15a67d349d20c17edba62eb7114d6052cc414ef744ca06b12258f6cc12",
+    "exactLogSubstring": true,
+    "fullReport": false
+  },
+  "job": {
+    "id": 104112425709,
+    "run_id": 34884725972,
+    "run_attempt": 1,
+    "head_sha": "61e8f8c595bde13634fe709f979816011df165d0",
+    "conclusion": "failure"
+  },
+  "checks": {
+    "total": 54,
+    "passed": 53,
+    "failed": 1
+  },
+  "failedCheck": {
+    "name": "iOS audio diagnostic: bounded frame work captured and timing wrappers restored",
+    "passed": false,
+    "detail": "{\"recordings\":3,\"rows\":4096,\"dropped\":844,\"restored\":true,\"errors\":[]}"
+  },
+  "provenance": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "runCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "runId": "34884725972",
+    "runAttempt": "1"
+  },
+  "fourToolHashesMatch": true,
+  "captureStatus": "captured",
+  "frameWorkSummary": {
+    "rows": 4096,
+    "limit": 4096,
+    "dropped": 844,
+    "recordings": 3,
+    "complete": false,
+    "restored": true,
+    "errors": []
+  },
+  "timings": [
+    {
+      "name": "street-walk",
+      "wallSeconds": 92.01,
+      "audioSeconds": 91.88266666666667,
+      "engineSeconds": 88.06666666667155,
+      "engineFrames": 4025,
+      "engineAudioRatio": 0.9584687717669443,
+      "audioMinusEngineSeconds": 3.815999999995114,
+      "toleranceSeconds": 4.594133333333334,
+      "remainingGuardMarginSeconds": 0.7781333333382197,
+      "numericClockGuardRecomputed": true,
+      "loggedTelemetryComplete": true,
+      "loggedMediaBytes": 19445753,
+      "loggedMediaSha256": "ed7adf9ff87478c8a62bd5ea35b6e9d05aeed58318daca2aa6347099acf060ba",
+      "mediaIndependentlyFetched": false
+    },
+    {
+      "name": "cut-gas-air",
+      "wallSeconds": 9.159,
+      "audioSeconds": 9.162666666666667,
+      "engineSeconds": 9.033333333340522,
+      "engineFrames": 466,
+      "engineAudioRatio": 0.9858847497097485,
+      "audioMinusEngineSeconds": 0.12933333332614438,
+      "toleranceSeconds": 0.45813333333333334,
+      "remainingGuardMarginSeconds": 0.32880000000718895,
+      "numericClockGuardRecomputed": true,
+      "loggedTelemetryComplete": true,
+      "loggedMediaBytes": 2318005,
+      "loggedMediaSha256": "3a727251b332b4124efbbcad05cf0bf495594e51dc9e328706c91e7b256d888a",
+      "mediaIndependentlyFetched": false
+    },
+    {
+      "name": "arcade-room",
+      "wallSeconds": 7.328000000000058,
+      "audioSeconds": 7.328000000000031,
+      "engineSeconds": 7.316666666660012,
+      "engineFrames": 428,
+      "engineAudioRatio": 0.9984534206686655,
+      "audioMinusEngineSeconds": 0.01133333334001918,
+      "toleranceSeconds": 0.3664000000000016,
+      "remainingGuardMarginSeconds": 0.35506666665998243,
+      "numericClockGuardRecomputed": true,
+      "loggedTelemetryComplete": true,
+      "loggedMediaBytes": 1843008,
+      "loggedMediaSha256": "a497d49e8e66ac4f4b62cea332932c73aa413a0c98faa204eaa37dd076f16bc8",
+      "mediaIndependentlyFetched": false
+    }
+  ],
+  "release": {
+    "status": "passed",
+    "immediateMoveMagnitude": 1,
+    "afterMoveMagnitude": 0,
+    "elapsedMs": 110
+  },
+  "lifecycle": {
+    "status": "checked",
+    "stages": [
+      "arcade",
+      "game-pause",
+      "title",
+      "title-settings",
+      "title-close"
+    ],
+    "scope": "Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target."
+  },
+  "capacityArithmetic": {
+    "streetLoggedEngineFrames": 4025,
+    "streetFramesAsPercentOfRowCap": 98.2666015625,
+    "threeClipLoggedFrameSum": 4919,
+    "storedPlusDroppedCallbackAttempts": 4940,
+    "differenceNotAttributed": 21
+  },
+  "export": {
+    "error": "Error: Original diagnostic report exceeds bounded export capacity",
+    "markers": {
+      "[ios-frame-work-meta]": 0,
+      "[ios-frame-work-chunk]": 0,
+      "[ios-frame-work-end]": 0
+    },
+    "guardRejects": "bytes<1 OR bytes>8388608",
+    "actualReportBytes": null,
+    "originalReportRecovered": false,
+    "oversizeInterpretation": "Consistent with summary size pressure, but exact file length was not logged; artifact archive length is not report length."
+  },
+  "f3AudioGate": {
+    "status": "failed",
+    "error": "Error: The complete Safari gate did not pass",
+    "audioQuality": "not measured",
+    "comparison": "not measured"
+  },
+  "artifactUploadLog": {
+    "id": 10364986195,
+    "zipBytes": 25105480,
+    "zipSha256": "661474f9320966960edf4794c0fdabe4d8f456ec6166efd1dbace592cef6d372",
+    "archiveAcquired": false,
+    "archiveIndependentlyHashed": false
+  },
+  "unavailable": [
+    "original clip endpoints and clock-frame telemetry",
+    "profile rows and per-recording row/drop distribution",
+    "world/composite/fixed phase durations",
+    "clamp/discard/accumulator budget",
+    "observerBookkeepingMs and inter-marker gaps",
+    "program counts and slow calls",
+    "same-origin upload receipts and exact uploaded payload JSON"
+  ],
+  "phaseArithmeticPerformed": false,
+  "causeConclusion": "92.01-second street/4025 frames is consistent with row-cap pressure; its duration cause, phase cause, CPU/GPU cause and prior C34/C36 repair remain unestablished."
+}

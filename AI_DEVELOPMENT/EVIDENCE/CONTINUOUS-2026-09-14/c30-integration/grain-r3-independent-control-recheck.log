@@ -1,0 +1,46 @@
+✔ production dt=0 plume/burst uploads change old records but preserve every data byte (23.153203ms)
+✔ real buffer mutation with normal upload increments is rejected and gives old/new values (10.777339ms)
+✔ geometry without version increment is rejected (10.706614ms)
+✔ index without version increment is rejected (10.005216ms)
+✔ instance matrix is rejected (7.576276ms)
+✔ instance colour is rejected (9.447266ms)
+✔ transform is rejected (5.226896ms)
+✔ visibility is rejected (7.306089ms)
+✔ material colour without version increment is rejected (6.214795ms)
+✔ material version remains strict is rejected (5.418194ms)
+✔ light intensity is rejected (4.653783ms)
+✔ instance count is rejected (6.039811ms)
+✔ draw range is rejected (5.918518ms)
+✔ end-to-end CPU report preserves old failed equality and uses byte guard; these are synthetic PNG fixtures (26.087454ms)
+✔ actual production double-pass material invalidations are accounted for, with exact renderer restoration (5.53088ms)
+✔ extra update outside renderer remains rejected (5.92007ms)
+✔ material colour change during counted passes remains rejected (4.218557ms)
+✔ forceSinglePass change remains rejected (5.477313ms)
+✔ non-double-side change remains rejected (5.181068ms)
+✔ texture upload version remains rejected (5.364423ms)
+✔ review: renderer restores after render throws (2.938869ms)
+✖ review: grain restore exception must still restore renderer (4.728175ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 300.436505
+
+✖ failing tests:
+
+test at e16-runtime-repair-ultra/c30-code-review/review-controls.test.mjs:206:1
+✖ review: grain restore exception must still restore renderer (4.728175ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/scratch/0b7ad82bafe7/e16-runtime-repair-ultra/c30-code-review/review-controls.test.mjs:210:7)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Cannot redefine property/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

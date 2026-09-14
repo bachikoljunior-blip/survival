@@ -1,0 +1,106 @@
+{
+  "conclusion": "success",
+  "id": 104080729331,
+  "logs_url": null,
+  "name": "Prepare exact reviewed narrative source and root",
+  "run_id": 34875252891,
+  "status": "completed",
+  "steps": [
+    {
+      "conclusion": "success",
+      "name": "Set up job",
+      "number": 1,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Run actions/checkout@v4",
+      "number": 2,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Run actions/setup-node@v4",
+      "number": 3,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Run npm ci",
+      "number": 4,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Run node --check tools/prepare-narrative-product.mjs",
+      "number": 5,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Reproduce the original build and prepare the exact candidate bytes",
+      "number": 6,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Export complete prepared files with hashes and offsets",
+      "number": 7,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Check the exact English and Japanese routes",
+      "number": 8,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Install Chromium for the bounded dialogue screen diagnostic",
+      "number": 9,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Stage the eight reviewed nodes in both languages from the prepared bundle",
+      "number": 10,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Export complete original route report and screenshot bytes",
+      "number": 11,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Preserve route reports and original dialogue screenshots",
+      "number": 12,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Preserve original candidate or failure report",
+      "number": 13,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Post Run actions/setup-node@v4",
+      "number": 25,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Post Run actions/checkout@v4",
+      "number": 26,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "Complete job",
+      "number": 27,
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "status": "ready for next verification unit: exact candidate real-HTTP fixture and independent 28+1 checks passed; actual Safari unverified; no remote adoption executed",
+  "createdAt": "2026-09-14T18:09:23.948792+00:00",
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "acceptedHead": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "originalRunId": 34875252891,
+  "originalJobId": 104080730225,
+  "originalRunAttempt": 1,
+  "originalReport": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-profile-result-ultra/original/report.json",
+    "bytes": 4472434,
+    "sha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8"
+  },
+  "candidateFiles": [
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/candidate/tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+      "gitBlob": "60fc3fdff6017483735ce8a6f7df83eba4d47d56"
+    },
+    {
+      "path": "tools/ios_audio_transfer.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/candidate/tools/ios_audio_transfer.mjs",
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+      "gitBlob": "f738aa1aff724aec6a2273d26a0a8962e1ef256b"
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/candidate/tools/test-ios-safari.mjs",
+      "bytes": 33878,
+      "sha256": "f10f3715630046333451ea4cce1f31b13b5ccef277b12e365aeed25d474763b7",
+      "gitBlob": "2f57da49e16caf13543cf5a00b5e4351fc0b2036"
+    }
+  ],
+  "baseFiles": [
+    {
+      "path": "source/tools/ios_audio_capture.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/ios_audio_capture.mjs",
+      "bytes": 22122,
+      "sha256": "7c7356237d487786234e737fe959075c942e39844f638d1e1ea3f925b0bd5194",
+      "gitBlob": "bbbfd02c57db8dde3b7262b63753a160bc59af07"
+    },
+    {
+      "path": "source/tools/mobile_audio_capture.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "gitBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+    },
+    {
+      "path": "source/tools/test-ios-safari.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/test-ios-safari.mjs",
+      "bytes": 33470,
+      "sha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+      "gitBlob": "f002bee4fd368991636e52071c580a4cd5d18aad"
+    },
+    {
+      "path": "source/tools/webdriver-request.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/webdriver-request.mjs",
+      "bytes": 1987,
+      "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+      "gitBlob": "43eed7e79b0dd74ad18f36c08585dec284c86f53"
+    }
+  ],
+  "helperBase": "main-integration-c37/candidate/tools/ios_audio_capture.mjs SHA256 0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+  "retainedPins": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+  },
+  "guards": {
+    "maxTransferChars": 50331648,
+    "legacyChunkChars": 131072,
+    "uploadChunkBytes": 131072,
+    "wireMaxBytes": "at most chars * 3 UTF8 bytes",
+    "operationTimeoutMs": 120000,
+    "deadline": "absolute, set before page operation; unchanged between chunks; server and WebDriver remaining budget enforced",
+    "singleWebDriverCommandMaxMs": 90000,
+    "recorderStopTimeoutMs": 15000,
+    "clockGuard": "unchanged five percent or 100 ms",
+    "fixedSubsteps": 4,
+    "concurrentOperation": "single receiver slot and per-evaluate refusal",
+    "binding": "existing loopback DIST server only; same-origin; session and operation nonce",
+    "validation": "ID, sequence, offset, exact lengths, SHA256, strict UTF8, JSON, acknowledgement",
+    "cleanup": "reject incomplete/late/invalid, preserve host first failure, close partial sockets"
+  },
+  "validation": {
+    "syntaxChecks": 3,
+    "realTransport": {
+      "path": "real-transport-result.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/real-transport-result.json",
+      "bytes": 2287,
+      "sha256": "6db2ede13b1a53998c390d04177619b3cacf0dd9d2eb4799962feff8842321ed",
+      "gitBlob": "7def58d7215637579c78ec1f4b01e08245ef6f47"
+    },
+    "baselineTimeoutMs": 1526.015853,
+    "candidateCompleteMs": 484.87147900000014,
+    "fixtureBudgetMs": 1500,
+    "driverLatencyMs": 60,
+    "fixtureOnly": true,
+    "actualSafari": false,
+    "independentReview": {
+      "verdict": "adoptable transfer repair candidate; actual Safari acquisition unmeasured",
+      "blocking": 0,
+      "checksPassed": 29,
+      "method": "28 local real HTTP/VM protocol checks plus 1 final exact-delta rejection-socket regression covering two partial-body cases",
+      "receipt": {
+        "path": "independent-review/receipt.json",
+        "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/receipt.json",
+        "bytes": 6779,
+        "sha256": "3f82310368732c8d9f88a7b7932f7cc4d5ca1a91713c23fe4935fea3658ca831",
+        "gitBlob": "b175a22ed9188166f7358f3ddd089bbd2dec523d"
+      },
+      "report": {
+        "path": "independent-review/REPORT.md",
+        "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/REPORT.md",
+        "bytes": 6014,
+        "sha256": "8df67a59f96d115d18d653392bc4c3f21f55e39223675d88ee3aaa65dd0a792a",
+        "gitBlob": "8cfbaba347d422becd31d56c3ce12ea60fb20625"
+      }
+    }
+  },
+  "integrationScope": "Next verification unit only; not adopted into C37 by this subagent. Apply three paths together after latest-head check, preserve newer unrelated harness changes using patches. Existing normal CI only; no unchanged rerun.",
+  "unmeasured": [
+    "actual Safari same-origin POST/Origin/Content-Length/WebCrypto compatibility",
+    "third-media recovery and actual Safari transfer time improvement",
+    "original third-media size/offset/command timing",
+    "street clock-loss fix",
+    "stereo listening and blind quality comparison",
+    "required CI for adoption, normal merge, Pages/F6"
+  ],
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "fixed19And71AndReferences": true
+  },
+  "scopeCounts": {
+    "remoteMutations": 0,
+    "ciStarts": 0,
+    "ciRetries": 0,
+    "automationMutations": 0,
+    "mediaEdits": 0,
+    "generatedOrRerecordedMedia": 0
+  },
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/REPORT.md",
+      "bytes": 8158,
+      "sha256": "6ab69b66e14975de641e23b6341fdc3b2aae5aa7061299e1372065082a624043",
+      "gitBlob": "003706d73b07747bd8c161bbd2289d635e64963a"
+    },
+    {
+      "path": "authority-receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/authority-receipt.json",
+      "bytes": 141719,
+      "sha256": "43c09f12bc51088410984bbdf1a5ee74b9ea4c415ae252a4446c8fff25c1644d",
+      "gitBlob": "55f5cf5e30d54e04d81adc73a02afb615615a239"
+    },
+    {
+      "path": "original-diagnosis.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/original-diagnosis.json",
+      "bytes": 3510,
+      "sha256": "565d9d595b4ba3f74acaa43c2bf4677046c10a7bd9ce46c90bd4a4d69e2e73f2",
+      "gitBlob": "c823a89af4e03f944cc3042d8de9fe5639ce64e0"
+    },
+    {
+      "path": "real-transport-result-initial.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/real-transport-result-initial.json",
+      "bytes": 1964,
+      "sha256": "8f5222e0b7e2cf6b12033d62dafbb9d42be45e227f6878b9cfd904b7f9208b11",
+      "gitBlob": "80c5a88c6f05f1b5b5932f82a90a0119d5288a81"
+    },
+    {
+      "path": "real-transport-result.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/real-transport-result.json",
+      "bytes": 2287,
+      "sha256": "6db2ede13b1a53998c390d04177619b3cacf0dd9d2eb4799962feff8842321ed",
+      "gitBlob": "7def58d7215637579c78ec1f4b01e08245ef6f47"
+    },
+    {
+      "path": "verify-real-transport.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/verify-real-transport.mjs",
+      "bytes": 6124,
+      "sha256": "5621f355f129be3195c899ded4b1d768f9460cfb6ebe3c0703671ebac2b68ac6",
+      "gitBlob": "120389fefda702474677242f2cb3df76a52cfd21"
+    },
+    {
+      "path": "technical-sources.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/technical-sources.json",
+      "bytes": 711,
+      "sha256": "70f76ab56f4074bc9ae236ea8bb40126edcfe8de49d22f3228a29bceac5d3ea3",
+      "gitBlob": "239614d7acb1309cc7d9ae534400f18d8a7ff1d9"
+    },
+    {
+      "path": "candidate.patch",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/candidate.patch",
+      "bytes": 22851,
+      "sha256": "549c1540da7a7fa0e49bb37131a8e4213fcdff06549798840ab957130ef338ed",
+      "gitBlob": "144853af2da570490cd20806acea75e9af8ff53a"
+    },
+    {
+      "path": "independent-review/REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/REPORT.md",
+      "bytes": 6014,
+      "sha256": "8df67a59f96d115d18d653392bc4c3f21f55e39223675d88ee3aaa65dd0a792a",
+      "gitBlob": "8cfbaba347d422becd31d56c3ce12ea60fb20625"
+    },
+    {
+      "path": "independent-review/authority-receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/authority-receipt.json",
+      "bytes": 39033,
+      "sha256": "974d1d99b4689fa2fbe4001d45675f5bf29096e8d426f01c2637099d94715610",
+      "gitBlob": "46d2d14dbd406d719a8bd1def4695d74087cbd07"
+    },
+    {
+      "path": "independent-review/source-and-failure-facts.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/source-and-failure-facts.json",
+      "bytes": 3015,
+      "sha256": "e2e99866b2309557ec5d2aaf0daec4dba4b560479e0e653856beaccfa6c1687d",
+      "gitBlob": "68cc889fa117ef9a2a660ca68b7bade46d3a1055"
+    },
+    {
+      "path": "independent-review/verification.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/verification.json",
+      "bytes": 3665,
+      "sha256": "9dcbb775b4d227365753fb289d786bcbaccd3233bca1fa2c5556fcb587fbd61d",
+      "gitBlob": "a6b47cc4b6ab1c68d9d7243d753fdf7b8b6c0424"
+    },
+    {
+      "path": "independent-review/rejected-socket-verification.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/rejected-socket-verification.json",
+      "bytes": 1705,
+      "sha256": "3c99c54828bdbb8f82b15b242e2800992274a8471d14944abc5b84a06b70b2c6",
+      "gitBlob": "95345ebb6a2531b10069f2e62931214a4e6387d8"
+    },
+    {
+      "path": "independent-review/verify-transfer.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/verify-transfer.mjs",
+      "bytes": 19569,
+      "sha256": "86ad81a66cd6809f84b4fab39d434022320f04f96125ec14aff1deddcea27fd0",
+      "gitBlob": "c585c4e5d33f745b4f476bcb55fde104ae0808fb"
+    },
+    {
+      "path": "independent-review/verify-rejected-socket.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/verify-rejected-socket.mjs",
+      "bytes": 5120,
+      "sha256": "6c03e418018c8236733426db0f2721c9f77b33a2890af52a1b42869aa397d8a4",
+      "gitBlob": "0dfa9f1c150c063785e8a3a39e9ba151d4a96230"
+    },
+    {
+      "path": "independent-review/receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/receipt.json",
+      "bytes": 6779,
+      "sha256": "3f82310368732c8d9f88a7b7932f7cc4d5ca1a91713c23fe4935fea3658ca831",
+      "gitBlob": "b175a22ed9188166f7358f3ddd089bbd2dec523d"
+    }
+  ]
+}

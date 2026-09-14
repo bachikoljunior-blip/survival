@@ -1,0 +1,87 @@
+{
+  "source_commit": "f13df49df4e8eea7870d6f2a18a408e82c1ba861",
+  "run": 34831102708,
+  "job": 103934400526,
+  "log": {
+    "bytes": 188651,
+    "sha256": "3cd2ef37d7620a27f1a8788958c9e588ab09e70b3bcb21a1bcb63842017202ed"
+  },
+  "files": [
+    {
+      "file": "attempt.json",
+      "bytes": 7036,
+      "sha256": "00325dc3752607ac8a96f5c4d5b32f54537d329963e6f22ec85c61ab462e2875"
+    },
+    {
+      "file": "compare-error.json",
+      "bytes": 206,
+      "sha256": "a134ae6a2a80536899e0a8b245eca629acc1f76941cb3e7a8b5b8bfdb391a4f6"
+    },
+    {
+      "file": "compare-run.json",
+      "bytes": 2767,
+      "sha256": "d927bbba96d32325456e7df37e31ccd1d27c7e7678868fb869920a96d960604b"
+    },
+    {
+      "file": "compare.stderr.txt",
+      "bytes": 51068,
+      "sha256": "d01b3c8be2dc0eda8ab5484b1d35370478a0f4cfe39af2ce2c413284882c4dc2"
+    },
+    {
+      "file": "compare.stdout.txt",
+      "bytes": 13355,
+      "sha256": "fdbb8b4bef3400895fbd1edd57eb9fde5829202ef86bdd383014011802c1b8bb"
+    },
+    {
+      "file": "control-run.json",
+      "bytes": 1565,
+      "sha256": "252725c2f63b28b401a4a46cf49ca84cd3f2362293fd107640d11256732bf90e"
+    },
+    {
+      "file": "control.stderr.txt",
+      "bytes": 2789,
+      "sha256": "07b7537490632624198666163459d796b5b5215812c5618e77340a258d084ff6"
+    },
+    {
+      "file": "control.stdout.txt",
+      "bytes": 1941,
+      "sha256": "b1d73023eca1d497af21d0442cee96f920377784e293e830e6dbadb2e526a60c"
+    },
+    {
+      "file": "inputs.json",
+      "bytes": 2115,
+      "sha256": "d11792881dcbeeeafba22a67efc298394df02616b02c07fbee49b84c243dc097"
+    },
+    {
+      "file": "prepared.json",
+      "bytes": 219,
+      "sha256": "ea84cbad0ebeb42460c3dafc8f62557c9136d4ad376c8c7b8d9caa5bcfc9af0e"
+    },
+    {
+      "file": "prompt.txt",
+      "bytes": 2062,
+      "sha256": "a93c938aa5397ad2d24fce18449d47f167ffea6bca74ce5e44753c658831ddb4"
+    },
+    {
+      "file": "reference-cache-verification.json",
+      "bytes": 3134,
+      "sha256": "8cc2094f3ff7d6cebd7dbfb37c951ec97f4262eb6aecc16962a0f108aee955b5"
+    },
+    {
+      "file": "resources.json",
+      "bytes": 160,
+      "sha256": "7481c7d24b4f0ca0c0005a1126ec83da890f4c538b40ae6fdcbeabb80cb88497"
+    },
+    {
+      "file": "runtime-help.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "runtime-help.stdout.txt",
+      "bytes": 29611,
+      "sha256": "89f5c394ecc01f968f801e069b4d1f1fac2ded1bed733728105eb7f32bfe9029"
+    }
+  ],
+  "note": "First materialization via apply_patch adds one terminal LF; byte-exact files are normalized immediately below. No content is rewritten. Source-known inspection only."
+}

@@ -1,0 +1,60 @@
+{
+  "inputs": [
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+      "source": "canonical C39 dff2; original dependencies"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/ios-pointer-coordinates.mjs",
+      "bytes": 1379,
+      "sha256": "ddbdf1f0606fc40796efc87845ebf0b72776172ca3121bd41e64e4ead98732ca",
+      "source": "canonical C39 dff2; original dependencies"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+      "source": "canonical C39 dff2; original dependencies"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "source": "canonical C39 dff2; original dependencies"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/ios_audio_transfer.mjs",
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+      "source": "canonical C39 dff2; original dependencies"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/test-ios-safari.mjs",
+      "bytes": 36771,
+      "sha256": "a278b87f0fb2e15b843205b6fe211a8046f72463e2f29956bfbf867f5900adee",
+      "source": "reviewed candidate"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/tools/webdriver-request.mjs",
+      "bytes": 1987,
+      "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+      "source": "canonical C39 dff2; original dependencies"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/cinderline.1.0.0.js",
+      "bytes": 1445368,
+      "sha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "source": "canonical C39 root/dist 8c5624; synthetic index.html never executes this product bundle"
+    },
+    {
+      "path": "c40-safari-preopen-independent-review-ultra/fixture/dist/cinderline.1.0.0.js",
+      "bytes": 1445368,
+      "sha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "source": "canonical C39 root/dist 8c5624; synthetic index.html never executes this product bundle"
+    }
+  ],
+  "fixtureExcludedFromPublication": true,
+  "reproduction": "Prepare fixture/tools from these exact canonical C39 modules, overlay the reviewed candidate, copy the pinned bundle to root/dist, and use a minimal synthetic dist/index.html. Then node verify_independent.mjs. No Safari or macOS is started."
+}

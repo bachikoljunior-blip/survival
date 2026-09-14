@@ -1,0 +1,238 @@
+{
+  "scope": "Bounded candidate helper CPU/API fixture and historical endpoint regression; no real browser/audio/CI success",
+  "sourceSha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26",
+  "passed": 7,
+  "results": [
+    {
+      "name": "normal-clock",
+      "scope": "CPU API-boundary fixture; no browser, codec, sound or engine-performance execution",
+      "error": null,
+      "qualityCalls": [
+        "low",
+        "medium"
+      ],
+      "cleanup": true,
+      "clockGuards": [
+        {
+          "wallSeconds": 6,
+          "audioSeconds": 5.999999999999995,
+          "engineSeconds": 5.999999999999995,
+          "engineFrames": 60,
+          "engineToAudioRatio": 1,
+          "audioToWallRatio": 0.9999999999999991,
+          "engineMinusAudioSeconds": 0,
+          "audioMinusWallSeconds": -5.329070518200751e-15,
+          "toleranceSeconds": 0.29999999999999977,
+          "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+          "captureClockGuardPassed": true,
+          "telemetryComplete": true,
+          "finiteTimeline": true,
+          "orderedTimeline": true,
+          "finitePoses": true
+        },
+        {
+          "wallSeconds": 6,
+          "audioSeconds": 5.999999999999979,
+          "engineSeconds": 5.999999999999979,
+          "engineFrames": 60,
+          "engineToAudioRatio": 1,
+          "audioToWallRatio": 0.9999999999999964,
+          "engineMinusAudioSeconds": 0,
+          "audioMinusWallSeconds": -2.1316282072803006e-14,
+          "toleranceSeconds": 0.29999999999999893,
+          "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+          "captureClockGuardPassed": true,
+          "telemetryComplete": true,
+          "finiteTimeline": true,
+          "orderedTimeline": true,
+          "finitePoses": true
+        },
+        {
+          "wallSeconds": 6,
+          "audioSeconds": 6.000000000000018,
+          "engineSeconds": 6.000000000000018,
+          "engineFrames": 60,
+          "engineToAudioRatio": 1,
+          "audioToWallRatio": 1.0000000000000029,
+          "engineMinusAudioSeconds": 0,
+          "audioMinusWallSeconds": 1.7763568394002505e-14,
+          "toleranceSeconds": 0.30000000000000093,
+          "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+          "captureClockGuardPassed": true,
+          "telemetryComplete": true,
+          "finiteTimeline": true,
+          "orderedTimeline": true,
+          "finitePoses": true
+        }
+      ],
+      "clipPoseSamples": [
+        61,
+        61,
+        61
+      ]
+    },
+    {
+      "name": "collapsed-clock",
+      "scope": "CPU API-boundary fixture; no browser, codec, sound or engine-performance execution",
+      "error": null,
+      "qualityCalls": [
+        "low",
+        "medium"
+      ],
+      "cleanup": true,
+      "clockGuards": [
+        {
+          "wallSeconds": 6,
+          "audioSeconds": 5.999999999999995,
+          "engineSeconds": 0.24380804953560312,
+          "engineFrames": 60,
+          "engineToAudioRatio": 0.040634674922600554,
+          "audioToWallRatio": 0.9999999999999991,
+          "engineMinusAudioSeconds": -5.756191950464392,
+          "audioMinusWallSeconds": -5.329070518200751e-15,
+          "toleranceSeconds": 0.29999999999999977,
+          "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+          "captureClockGuardPassed": false,
+          "telemetryComplete": true,
+          "finiteTimeline": true,
+          "orderedTimeline": true,
+          "finitePoses": true
+        },
+        {
+          "wallSeconds": 6,
+          "audioSeconds": 5.999999999999979,
+          "engineSeconds": 0.2438080495356032,
+          "engineFrames": 60,
+          "engineToAudioRatio": 0.04063467492260068,
+          "audioToWallRatio": 0.9999999999999964,
+          "engineMinusAudioSeconds": -5.756191950464375,
+          "audioMinusWallSeconds": -2.1316282072803006e-14,
+          "toleranceSeconds": 0.29999999999999893,
+          "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+          "captureClockGuardPassed": false,
+          "telemetryComplete": true,
+          "finiteTimeline": true,
+          "orderedTimeline": true,
+          "finitePoses": true
+        },
+        {
+          "wallSeconds": 6,
+          "audioSeconds": 6.000000000000018,
+          "engineSeconds": 0.2438080495356032,
+          "engineFrames": 60,
+          "engineToAudioRatio": 0.040634674922600415,
+          "audioToWallRatio": 1.0000000000000029,
+          "engineMinusAudioSeconds": -5.756191950464414,
+          "audioMinusWallSeconds": 1.7763568394002505e-14,
+          "toleranceSeconds": 0.30000000000000093,
+          "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+          "captureClockGuardPassed": false,
+          "telemetryComplete": true,
+          "finiteTimeline": true,
+          "orderedTimeline": true,
+          "finitePoses": true
+        }
+      ],
+      "clipPoseSamples": [
+        61,
+        61,
+        61
+      ]
+    },
+    {
+      "name": "failed-wait-cleanup",
+      "scope": "CPU API-boundary fixture; no browser, codec, sound or engine-performance execution",
+      "error": "injected boundary wait failure",
+      "qualityCalls": [
+        "low",
+        "medium"
+      ],
+      "cleanup": true,
+      "clockGuards": [],
+      "clipPoseSamples": []
+    },
+    {
+      "name": "historical-street-walk",
+      "scope": "Actual stored endpoints through new pure guard; supplied minimal telemetry is a fixture, not an old trajectory",
+      "result": {
+        "wallSeconds": 26.250800000000048,
+        "audioSeconds": 26.25015873015873,
+        "engineSeconds": 1.0666666666666633,
+        "engineFrames": 16,
+        "engineToAudioRatio": 0.04063467492260049,
+        "audioToWallRatio": 0.9999755714172018,
+        "engineMinusAudioSeconds": -25.183492063492068,
+        "audioMinusWallSeconds": -0.0006412698413171825,
+        "toleranceSeconds": 1.3125079365079366,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": false,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "historical-vent-air",
+      "scope": "Actual stored endpoints through new pure guard; supplied minimal telemetry is a fixture, not an old trajectory",
+      "result": {
+        "wallSeconds": 11.74470000000007,
+        "audioSeconds": 11.737687074829935,
+        "engineSeconds": 0.7999999999999972,
+        "engineFrames": 12,
+        "engineToAudioRatio": 0.06815652818991072,
+        "audioToWallRatio": 0.9994028859681274,
+        "engineMinusAudioSeconds": -10.937687074829938,
+        "audioMinusWallSeconds": -0.007012925170133855,
+        "toleranceSeconds": 0.5868843537414968,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": false,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "historical-arcade-room",
+      "scope": "Actual stored endpoints through new pure guard; supplied minimal telemetry is a fixture, not an old trajectory",
+      "result": {
+        "wallSeconds": 9.849899999999908,
+        "audioSeconds": 9.85106575963718,
+        "engineSeconds": 1.0000000000000497,
+        "engineFrames": 15,
+        "engineToAudioRatio": 0.10151185916323437,
+        "audioToWallRatio": 1.000118352433758,
+        "engineMinusAudioSeconds": -8.85106575963713,
+        "audioMinusWallSeconds": 0.001165759637272501,
+        "toleranceSeconds": 0.49255328798185904,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": false,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "reversed-timeline-rejected",
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 6,
+        "engineFrames": 360,
+        "engineToAudioRatio": 1,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": 0,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": false,
+        "finiteTimeline": true,
+        "orderedTimeline": false,
+        "finitePoses": true
+      }
+    }
+  ]
+}

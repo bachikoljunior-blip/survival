@@ -1,0 +1,253 @@
+{
+  "scope": "CPU transport/control verification only. Virtual elapsed times are explicit performance-model assumptions, not actual Safari measurements or acquisition/quality passes.",
+  "cpuElapsedMs": 1168.4076710000002,
+  "passed": 31,
+  "failed": 0,
+  "results": [
+    {
+      "name": "production diff is exactly one chunk-width constant; all pins, deadlines, capacity and guards unchanged",
+      "passed": true,
+      "cpuElapsedMs": 0.4526219999999981,
+      "detail": {
+        "sourceSha256": "0c8d88181a8f4a3a860160c186c064582853896f2151ce3934825d8cc715724e",
+        "candidateSha256": "56acb917913e27d3763ad99ae81d83788b503aebdd2210ae196c0e4f3cbfd4e4",
+        "oldChunkChars": 32768,
+        "newChunkChars": 131072
+      }
+    },
+    {
+      "name": "original three complete media/telemetry values survive a >8 MiB aggregate JSON CPU transfer",
+      "passed": true,
+      "cpuElapsedMs": 259.341255,
+      "detail": {
+        "jsonUtf8Bytes": 12491835,
+        "jsonChars": 12491835,
+        "jsonSha256": "91d994701ae2dd275760014ce95dee6e68d585a3b15dac9bb5994ae4ba70514f",
+        "requests": 99,
+        "chunkRequests": 96,
+        "returnedChars": 12491835,
+        "maxChunkChars": 131072,
+        "modeledElapsedMs": 0
+      }
+    },
+    {
+      "name": "each original clip response survives separately without modifying media or telemetry",
+      "passed": true,
+      "cpuElapsedMs": 247.17868500000003,
+      "detail": [
+        {
+          "jsonChars": 7624976,
+          "requests": 62,
+          "chunkRequests": 59,
+          "returnedChars": 7624976,
+          "maxChunkChars": 131072,
+          "modeledElapsedMs": 0
+        },
+        {
+          "jsonChars": 2610898,
+          "requests": 23,
+          "chunkRequests": 20,
+          "returnedChars": 2610898,
+          "maxChunkChars": 131072,
+          "modeledElapsedMs": 0
+        },
+        {
+          "jsonChars": 2255957,
+          "requests": 21,
+          "chunkRequests": 18,
+          "returnedChars": 2255957,
+          "maxChunkChars": 131072,
+          "modeledElapsedMs": 0
+        }
+      ]
+    },
+    {
+      "name": "exact serialized length 131071 preserves final chunk and offsets",
+      "passed": true,
+      "cpuElapsedMs": 2.2186659999999847
+    },
+    {
+      "name": "exact serialized length 131072 preserves final chunk and offsets",
+      "passed": true,
+      "cpuElapsedMs": 1.6545050000000856
+    },
+    {
+      "name": "exact serialized length 131073 preserves final chunk and offsets",
+      "passed": true,
+      "cpuElapsedMs": 1.7160179999999627
+    },
+    {
+      "name": "exact serialized length 262144 preserves final chunk and offsets",
+      "passed": true,
+      "cpuElapsedMs": 2.843307999999979
+    },
+    {
+      "name": "surrogate pair split at actual 128 Ki UTF-16 boundary reconstructs exactly",
+      "passed": true,
+      "cpuElapsedMs": 3.1593939999999066
+    },
+    {
+      "name": "escaped quote split at actual 128 Ki UTF-16 boundary reconstructs exactly",
+      "passed": true,
+      "cpuElapsedMs": 2.505999000000088
+    },
+    {
+      "name": "escaped backslash split at actual 128 Ki UTF-16 boundary reconstructs exactly",
+      "passed": true,
+      "cpuElapsedMs": 2.470796000000064
+    },
+    {
+      "name": "escaped newline split at actual 128 Ki UTF-16 boundary reconstructs exactly",
+      "passed": true,
+      "cpuElapsedMs": 2.5644770000000108
+    },
+    {
+      "name": "escaped lone surrogate split at actual 128 Ki UTF-16 boundary reconstructs exactly",
+      "passed": true,
+      "cpuElapsedMs": 2.54831200000001
+    },
+    {
+      "name": "same 120000 ms deadline: old 32 Ki chunks time out under declared 600 ms/command CPU model",
+      "passed": true,
+      "cpuElapsedMs": 108.3092640000001,
+      "detail": {
+        "model": "Fixed 600 ms per WebDriver response, including start/status/cleanup; no claim of measured Safari latency.",
+        "requests": 200,
+        "chunkRequests": 198,
+        "returnedChars": 6488064,
+        "maxChunkChars": 32768,
+        "modeledElapsedMs": 120000
+      }
+    },
+    {
+      "name": "same 120000 ms deadline: 128 Ki chunks complete identical >8 MiB input under same model",
+      "passed": true,
+      "cpuElapsedMs": 123.653775,
+      "detail": {
+        "jsonUtf8Bytes": 8388621,
+        "requests": 68,
+        "chunkRequests": 65,
+        "returnedChars": 8388621,
+        "maxChunkChars": 131072,
+        "modeledElapsedMs": 40800
+      }
+    },
+    {
+      "name": "new chunks still reject transfer timeout when modeled latency exceeds the unchanged budget",
+      "passed": true,
+      "cpuElapsedMs": 86.19644699999992,
+      "detail": {
+        "requests": 60,
+        "chunkRequests": 58,
+        "returnedChars": 7602176,
+        "maxChunkChars": 131072,
+        "modeledElapsedMs": 120000
+      }
+    },
+    {
+      "name": "wrong offset remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 1.4030250000000706
+    },
+    {
+      "name": "wrong id remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 1.2843369999999368
+    },
+    {
+      "name": "truncated text remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 1.1222919999999021
+    },
+    {
+      "name": "missing text remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 0.8740880000000288
+    },
+    {
+      "name": "changed status identity remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 0.9426220000000285
+    },
+    {
+      "name": "bad start identity remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 1.1049860000000535
+    },
+    {
+      "name": "declared invalid result length 0 remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 0.9309440000000677
+    },
+    {
+      "name": "declared invalid result length -1 remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 0.9075490000000173
+    },
+    {
+      "name": "declared invalid result length 1.5 remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 0.830122000000074
+    },
+    {
+      "name": "declared invalid result length 50331649 remains rejected",
+      "passed": true,
+      "cpuElapsedMs": 0.9020910000000413
+    },
+    {
+      "name": "actual 48 Mi-character default cap refuses oversized page JSON before any chunk transfer",
+      "passed": true,
+      "cpuElapsedMs": 274.96677999999986
+    },
+    {
+      "name": "exact custom cap boundary accepts capacity and rejects capacity plus one",
+      "passed": true,
+      "cpuElapsedMs": 0.9043340000000626
+    },
+    {
+      "name": "never-settling operation still times out and pending work cannot be overwritten",
+      "passed": true,
+      "cpuElapsedMs": 1.446091000000024
+    },
+    {
+      "name": "page-side error remains failed and cannot produce a clip",
+      "passed": true,
+      "cpuElapsedMs": 0.6283869999999752
+    },
+    {
+      "name": "invalid JSON of correct advertised length remains rejected by parse",
+      "passed": true,
+      "cpuElapsedMs": 0.5554770000001099
+    },
+    {
+      "name": "all original report/media files retain their starting byte hashes",
+      "passed": true,
+      "cpuElapsedMs": 9.629472000000078
+    }
+  ],
+  "sourceInputs": [
+    {
+      "path": "c30-ios-original-recovered/original/report.json",
+      "bytes": 828821,
+      "sha256": "507a4f82645e6ccc8cff34154f39a58ec1786c3ab4e09f385e86a8f5cf4471ed"
+    },
+    {
+      "path": "c30-ios-original-recovered/original/audio/audio-street-walk.mp4",
+      "bytes": 5616926,
+      "sha256": "df42d626bfee8aa96060d6c84f64cd0c0eac0ab861e574eea8db87539c0fd652"
+    },
+    {
+      "path": "c30-ios-original-recovered/original/audio/audio-vent-air.mp4",
+      "bytes": 1876895,
+      "sha256": "18e3c108d767fd0e41202d0a91a69d8963f9ca417fd9d9c77b924672f95036f6"
+    },
+    {
+      "path": "c30-ios-original-recovered/original/audio/audio-arcade-room.mp4",
+      "bytes": 1609289,
+      "sha256": "1bb5ceacc225fb9d57baf4f02b77f709790bc5bcf50bbd08c9b23e52107d99da"
+    }
+  ],
+  "unchangedDeadlineMeaning": "Existing deadline checks between commands only; an in-flight command can exceed the deadline by its bounded command timeout. This one-line candidate preserves that behavior.",
+  "actualSafariCandidateRuns": 0,
+  "comparisons": 0
+}

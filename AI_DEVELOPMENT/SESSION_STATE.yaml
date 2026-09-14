@@ -1,41 +1,311 @@
-# Single authority for this continuous execution. Other project state is not migrated.
-schema_version: 1
-work:
-  units_requested: continuous
-  units_completed: 0
-  unit: "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる"
-  completion: "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied"
-  started_at: "2026-09-13T20:56:49+09:00"
-  deadline_at: "2026-09-20T20:56:49+09:00"
-  timezone: Asia/Tokyo
-  deadline_missed: false
-  status: active
-  units: []
-repository:
-  name: bachikoljunior-blip/survival
-  branch: claude/repo-instructions-constraints-r0070m
-  initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
-checkpoint:
-  foreground_status: active
-  continuation_check_observation: "2026-09-14T20:46:35.435+09:00 同じ主実行のlocal実監査、E16 CIのin_progress step、指定remote97ab074eとPR15/main f40b6d9を照合し稼働継続を確認。PR15を実レビューC/passへ更新しready化。main由来roundのshallow checkoutが履歴80dd490を欠く実失敗を確認し、履歴取得修正を進める。"
-  last_progress_at: "2026-09-14T20:56:04.548+09:00"
-  verified_commit: "97ab074e7a35137b53ab72a400d4beeab5f0ca52"
-  verified_build_sha256: "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b"
-  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-light-r2/provenance.json"
-  last_verified_action: "C26のPR編集イベントFloor34839699948はF2/F3/F5とnarrative全成功、同headのmobile simulator34839154711成功を実APIで確認。runtime/source/root bytesはC25と同一、C25原WebKit177/fault42/iOS27証拠が適用できる。main由来追加roundの履歴不足を再現し、固定過去srcのarchive取得1187840bytes/exit0を実確認。E9 helperはnative実help・全文byte保持・容量境界・timeout・private export・special-token方針をCPU7/7で確認、実9Bモデル推論は未実施。"
-  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-light-r2/provenance.json"
-  modified_but_unverified: "C26必須F2/F3/F5/narrativeとmobile simulatorは成功。追加iphone roundだけ浅いcheckoutで固定過去srcをarchiveできず失敗し、fetch-depth:0修正後の実CIは未完。製品/71基準/baselineは変更しない。E9全文A7units6subjects/B13units13subjectsと主要6人/脇役6人を混同しない問いへ修正し、98304枠のnative直接completion単回を準備。実GGUF入力数/メモリ/回答は未測定。E16 r3は既存固定試行が進行中。"
-  next_action: "C27修正のiphone round全工程と必須F2/F3/F5の実成功を確認し、最新main/source再照合後PR15を通常merge、remote mainの同一実装と実公開状態を確認。E9全文の単回native直接比較の実進行と結果を確認。E16 r3完了後raw/control/認識/回答を監査。MVD02に関わるgrain .035→.012の固定場面診断を準備し、実画像で改善/損失を確かめてから採否判断。19要素未測定のため継続。"
-
-  deadline_assessment: "2026-09-14T20:46:35.435+09:00 継続確認直後、残り144.17時間。全19未測定/有効比較0で根拠付き「できる」には至らない。期限は保持し、履歴のないroundを同条件で再実行する方法を止め、他の成功ゲートと同じ完全履歴取得へ変更。localで失敗対象commitの実git archiveが1187840bytes/SHA3926ae0d91e2eb86effe8a7ff8e26d2362305627e16c7234acf574e52764571b/exit0で取得可能と検証した。全WebKit再実行は修正CIで確認する。E9全文83565tokensという実測差は削らずnative chat98304枠を検証する方法へ変更中。設定変更だけを比較成立/期限達成の根拠にしない。"
-  elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
-  blockers:
-    - "全19要素に有効比較なし。過去出所認識2試行は無効、c02e回答0timeout。完了作業単位0。スマートフォン検証やsource-known診断は盲検合格ではない。"
-    - "C25 WebKit177/iOS27/fault42は現行build6b887bc1の指定環境・場面の測定。全体映像の階層/MVD-03/移動中品質・実機性能・参照同等性の成立は未測定。旧a840 E16回答が出ても新光への無条件適用をしない。"
-    - "E16 Q35 r3は固定16画像を処理中。controlプロセス成功後の内容監査はまだ。完了前log404を同条件で繰り返さない。r1取得403/r2 control300s timeoutの記録保持。"
-    - "E9独立表示実監査はA957/B373原文・40alternates・全graph一致。全文83565tokensで従来65536枠は不足。正式native最終promptと98304枠の実メモリ・時間・非認識比較は未実測。third-party DBの限定出所推論をゲーム実playへ読み替えない。全文をゲーム/公開log/配布へ混入させない。"
-    - "環境整備イベント後に通常execが復旧し実監査に使用できた。旧local survival/.git不在を確認し、新規survival-remoteへ公的Git metadataを再取得。旧成果は温存。容量不足で止まったQ35再取得可能prefixだけを通常sandboxで除去し空き8.46GBを確認したが、次の確認で同じ3,665,821,696bytesが再出現し空き4.75GB。mtimeは旧値、ctimeのみ更新。writer/復元機構は未確認で、単純削除を反復しない。"
-    - "C26はsource C25とmain f40b6d9双方を親に保存、STATE唯一競合は両記録保持で解消・独立レビュー済み。PR15 ready/C-pass更新済み。追加roundの浅いcheckout欠陥を修正、現行CI完了と通常merge/readbackは未完。PR/F2/F3/F5保護を保持、外部Autopilot未起動。"
-    - "Factorio実GUIの公式forum画像file.php?id=116204も通常GETで403。画像を取得/閲覧したとは扱わず、同URLのheader/identity/host変更や同条件再試行をしない。他の比較可能な実資料の仕事を進める。"
-  recovery: "通常sandboxは環境整備後に実行可。旧survivalのsource/rootはa840のままでGit metadata不在、新規survival-remoteは指定remoteC25とmainの履歴/merge-tree取得済み。旧原参照/本文/完了モデル/検証済み成果を削除しない。通常Git書込認証は取得せず、接続GitHub appの正規blob/tree/commit/ref/PR機能を使う。大きな全checkoutの待ちは中断し必要tree比較へ変更、実競合1件確認済み。local大規模model取得は全bytes+headroomの事前空き確認なしで再開しない。通常削除後のprefix再出現を実測したため、容量再発の原因は未解消として保持。小ファイル監査は継続でき、モデル推論は空き/RAM事前確認付きCIを使う。安全/権限拒否は回避せず、検証済みC25/未完main統合/E9 native比較から続行。"
-  continuation_mechanism: "Work Mode既存の survival 継続実行 を、主実行停止時の再発火役へ更新し、正確なprompt・有効状態・既存予定の保持を再読取確認した。停止原因の全件調査→修正可能な全原因の修正→再発防止の検証→保存された未完了地点の再開→実進捗確認を指示。稼働中は競合変更しない。変更不可能な安全/権限/環境上限は迂回せず記録。設定更新は未来の復旧成功の証拠ではない。証拠: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/resume-watchdog.json"
+"schema_version": 1
+"work":
+  "units_requested": "continuous"
+  "units_completed": 0
+  "unit": "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる"
+  "completion": "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied"
+  "started_at": "2026-09-13T20:56:49+09:00"
+  "deadline_at": "2026-09-20T20:56:49+09:00"
+  "timezone": "Asia/Tokyo"
+  "deadline_missed": false
+  "status": "active"
+  "units": []
+"repository":
+  "name": "bachikoljunior-blip/survival"
+  "branch": "claude/repo-instructions-constraints-r0070m"
+  "initial_remote_commit": "d5369219a99c37191e4affd170a752142a6cdc63"
+"checkpoint":
+  "foreground_status": "active"
+  "continuation_check_observation": "2026-09-15T06:43:58.055+09:00 C40正規195paths blob/mode読戻し・旧1794blob不変/既存6変更と4run全attempt1completedを照合。外部指示更新dc565c0fはparent8058、1989blob中CLAUDEだけ変更、SESSION/47inputs/root/helpers不変を正規確認。最新AGENTS/CLAUDE/SESSIONを再受理し新基点へ統合、親remote0/pending0/実Ultra担当を保持して同じ未完制作を継続。"
+  "last_progress_at": "2026-09-15T06:43:58.055+09:00"
+  "verified_commit": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5"
+  "verified_build_sha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+  "evidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/REPORT.md"
+  "last_verified_action": "C40 8058f843/tree56dad9f8を正常保存、全195paths読戻し一致・無関係0。4run全completed、PR core/F2/F5/narrative/round成功・Safari/F3失敗、standalone27/27音声0成功。source/PR/standaloneは各preopen1回12.045/13.285/28.366秒と同一URL/ready/verifiedから実ゲームへ到達。source/PR各3clips・45/47、街ratio0.939168573607913/0.9458077709611452で元5%失敗、gas/arcade成功、release次実更新後5/8ms成功、音声lifecycle未実施。原5logs3458995Bの各単回取得とSHA一致。journal prepareは47pins/旧8c再現/7段階成功・新4912生成、画面guard failureで原10files/565chunksのみ、2PNG未出力。原10file/held4paths独立23照合、別guard修復独立28VM成功、原失敗保持/4912採用hold。 最新dc5の3runも全completed、PR core/F2/F5/narrative/round成功・Safari/F3失敗。原2logs150334Bを各単回取得・全SHA一致。source45/47街ratio0.9341931217失敗、PR43/47はrelease transport2000ms超過→街ratio0.9035120846→arcade終了hp0/deadtrue、両3clips/lifecycle未実施。late page11ms成功は全体timeoutを覆さない。"
+  "current_browser_evidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c36-safari-profile/report.json"
+  "modified_but_unverified": "C41の製品src/root8cは不変。レビュー済みtools-only候補でjournal2sourceと既知旧英語saveの完全一致1source修復を次の同7段階buildへまとめ、fresh/legacy-save×英日4原PNGと実Storage/Continue/日誌表示を検査する。program identityは初期/保存callback件数増分のみのbounded補助観測を追加、64entry/16events/128scan/65536B、元clock/4096rows/complete/restore/GL非介入を保持。固定C40PR原artifactからreport/Appium2filesを正規lossless回収して時計差/小replyを追跡。実新combinedroot/4画面/old-save bundled Continue/実program identity/observercost/性能修復/inline実命令省略は未測定。"
+  "next_action": "C41通常保存・全path/readback・source/PRheadを確認後、受理された同周期CIだけを回収。実15originalsと新root/47pins/3source/5staticを照合し4原画を閲覧、実修復と限界を独立確認して後のsrc3/newroot/IOS3pinを同時採用。固定C40PR原2filesの完全SHAと実コマンド/時計を分析し、新sourceのboundedphase/identityで遅い処理を分離、根拠に沿う製品性能修復へ進む。PR16必須F2/F3/F5が揃えば次pushでcancelせず通常mergeを先行し、既存Pages/F6で実main4assets/boot確認。全品質達成を段階merge条件にせず、全19NM/valid0/units0の未完制作と有効比較を継続。"
+  "deadline_assessment": "2026-09-15T06:43:58.055+09:00 継続確認後残134.21時間。実残差は全19not measured/有効blind0/units0で、期限内全達成を根拠付きで「できる」とはまだ言えない。方法・優先順位を再評価し、C40は同じ初期ページのsimctl先行起動で3経路とも実ゲーム到達を確認できた。一方街時計差0.638/0.565333秒は元条件失敗、録音時間や条件差を無視した修復済み扱いはしない。inline命令省略の実Appium確認は未了。日誌実buildの成功後に検査のpointer前提誤りが現れたので実hit/原PNGを失敗時も保全する候補へ修正し、旧save製品修復も同じ次buildへ統合する。原PR回収とboundedprogram identityを同CI周期で並行し、待ち中に製品候補を進める。匿名化の意味改変案は不採用、未認識評価者/忠実packet未確保を保持。実方法変更の効果を測り、計画/記録だけで終了しない。 最新dc5で起動はsource/PRとも成功したが、時計差に加えPR通信超過/終了死亡が実再現し、手段の安定性不足を再確認した。保存待ちを使って既存Ultra2名が会話mood表示とrelease/cleanup通信の次の最小製品・ツール候補を並行実装中。原2000ms/元clock条件を緩めず、現在のC41には混ぜない。専用周期をまとめる方法は実装済みだが未実行の反実時間短縮量は未測定。"
+  "elements": "AI_DEVELOPMENT/BENCHMARKS/elements.json"
+  "blockers":
+    - "全19not measured/固定71基準/10参照/validblind0/units0/continuous。"
+    - "C34/C36/C37原時計失敗を保持。C38原world847ms/program43→44・街3.816s算術は確認済み、CPU/GPU/compiler/host schedulingの原因未分離。元4096rows+844drop/部分欠測を保持。新boundedidentityは旧原programを遡及同定しない。"
+    - "C40source/PRの元5%街clock条件は各不合格。C40原Appium/fullreport/6mediaのローカル完全回収は未実施で、compact logのmediaSHAは原payload再構成ではない。固定PR2file回収を次CIで行う。音声聴取/性能修復/inline実命令省略は未測定。"
+    - "C36 WDA境界/C38 WebInspector一覧空/C39 URL起動後app.running falseと後続ECONNREFUSEDの原失敗を保持。C40の3preopen成功は今回の到達証拠で恒久成功保証ではない。"
+    - "制作src3/root8cは採用済みでmain545は旧6b。C40PR必須F3は街clock失敗のため通常main/PagesF6未反映。全品質達成は段階mergeの条件にしない。"
+    - "最新dc5も必須F3失敗。source街ratio0.9341931217、PR release収集2000ms超過/街ratio0.9035120846/arcade終了hp0。PR gas終了→arcade録画開始89.103sは端点算術で、特定コマンド/HP処理の因果は未測定。現行収集失敗をlate page成功で覆さない。"
+    - "C40journal root4912は実build済みだが原画0/原hit不明で採用hold。元guard前提誤りへの修復は限定VM成功、実4新画面/combinedroot/oldsave Continueは未測定。"
+    - "E9現8c全文はC39に正式結合。意味/呼称関係を損なう匿名化は不採用、忠実packet/未認識評価者未確保/新比較0。旧timeout/不受理/認識された無効回答を保持し未変更reroll0。private参照原文/詳細/対応/識別情報を公開repo/ゲームへ混入しない。"
+    - "E16shadow2048は局所改善のみで1024保持、固定浮遊仮説は反証済み、出所認識された比較は無効。E12実聴取/有効比較は未測定で数値を聴取としない。"
+    - "旧環境消失とC40保存前の処理開始前exec transport断は実観測、同じ許可旧workspace通常pwd/成果hash/正規headで復帰確認。基盤原因/恒久修復は未確認、上限/拒否/権限を迂回せず正式Ultra有限followupを使う。"
+    - "E19既存403/desktop能力不足を保持し、拒否URLの別経路取得をしない。"
+  "recovery": "唯一writerを/root/integration_recovery_ultraへ正式継承。旧/root/integration_decisions_ultra_v2の保存receipt pending0、C35 43pathと正規head一致、親の旧agent live不在/未完tool0/remote0、および受理済CI全completedを確認後に継承した。新通知cwdは作らず、実在し明示許可された/workspace/scratch/0b7ad82bafe7でworkdir指定/login:falseの通常操作。未保存候補/原回収/旧影閲覧記録を保存。内部停止原因は仮説と観測を分け、未完作業を再開。親は中継専任、各子は隔離scope/read-only remote。automation変更0、停止済survivalを再有効化しない。"
+  "continuation_mechanism": "この会話の正式Ultra主担当と受理済み有限子が、既存の正当な連続制作を継続する。旧resume-watchdog.jsonは当時の設定変更記録で、現在の稼働や未来の復旧成功を証明しない。最新CLAUDE第6–7項に従い停止済みautomationを再有効化せず、新watcher/重複producerを作らない。環境停止を全体完了とせず、許可された継続で正確な未完地点から再開する。"
+  "main_reflection":
+    "source_commit": "2fc0a319faeffb3733cd4a5f3091be3819ec770d"
+    "main_commit": "5456371249f5769c25d18f1686a44349e4292d6f"
+    "merged_at": "2026-09-14T21:30:27.099+09:00"
+    "tree_sha": "362c31a451e99cbd097b18f95849420faffa7f90"
+    "pr": 15
+    "required_ci": "Floor34842474105 F2/F3/F5 success; iphone round34842474094 success"
+    "status": "merged and public revision verified"
+    "game_implementation": "Current product source/root8c reached actual C40 Safari and three recordings on source and PR, but original street clock guards failed. main545 remains old6b; PR16 is pending required F3, not all-element quality completion. Merge normally once required checks pass, then verify existing Pages/F6. Latest dc5 also failed required F3: release transport deadline, street clock, and dead-at-end arcade on PR. No current gate pass was cancelled; all accepted dc5 runs completed before this next save."
+    "public_verification": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c29-integration/main-public-verification.json"
+    "public_job": 103979989613
+    "quality_complete": false
+  "delegation":
+    "instruction_id": "ULTRA-CHILDREN-20260914-v3"
+    "instruction_commit": "4faf6f79c9cf29bbfa1e423bd8a8178d7d1dd56f"
+    "root_accepted_at": "2026-09-14T22:09:25.073+09:00"
+    "integration_read_accepted_at": "2026-09-15T02:28:58.455+09:00"
+    "receipts": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c36-integration/recovery-and-delegation.json"
+    "prior_receipts": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c30-integration/ultra-v3-integration.json"
+    "intellectual_integration_owner": "/root/integration_recovery_ultra"
+    "active":
+      - "/root/integration_recovery_ultra"
+      - "/root/integration_recovery_ultra/e9_anonymity_preparation_ultra"
+      - "/root/integration_recovery_ultra/narrative_build_ultra"
+      - "/root/integration_recovery_ultra/safari_time_loss_ultra"
+    "completed_candidates":
+      - "/root/ios_audio_acquisition_ultra"
+      - "/root/e16_runtime_repair_ultra"
+      - "/root/grain_image_review_ultra"
+      - "/root/state_gate_alignment_ultra"
+      - "/root/grain_guard_repair_ultra"
+      - "/root/stability_material_ultra"
+      - "/root/integration_decisions_ultra_v2/c29_exact_review_ultra"
+      - "/root/e16_runtime_repair_ultra (C31 required Safari method)"
+      - "/root/integration_decisions_ultra_v2/grain_product_candidate_ultra (E12 source/PCM diagnosis and audio candidate)"
+      - "/root/integration_decisions_ultra_v2/audio_candidate_review_ultra (E12 original/title regression closure)"
+      - "/root/integration_decisions_ultra_v2/visual_review_b942d606ec34b81c8742a1b9 (recognized source; invalid comparison)"
+    "safe_switch_point": "環境通知後の旧writer live不在、最後の正式C35保存receipt pending0と43path/正規source/main一致、親remote/未完tool0、全受理済C35 jobs completedを確認して新Ultraへ排他移譲。正常な旧主実行を強制停止した事実0。"
+    "spawn_arguments":
+      "reasoning_effort": "ultra"
+      "fork_turns": "none"
+      "model": "omitted/inherit"
+    "parent_responsibility": "親rootは正式spawn/連絡/結果中継だけ、remote0。計画/継続/期限/原因調査/実装/検証/比較/レビュー/統合/main/報告はUltra統合担当と正式Ultra子が担う。"
+    "effective_reasoning": "実Ultra指定/fork none/model省略の受理と実仕事の証拠により、現在行う全実作業をUltra指定子へ委任したと確認。親の強度は不問で確認阻害にしない。非公開backend実効を断定しない。"
+    "not_yet_executed": "C41 actual combined journal/save build and four original screens; exact C40 PR report/Appium recovery; actual auxiliary program identity/cost; product performance repair; valid blind/audio listening; normalPR16/main/PagesF6."
+    "automation_scope": "最新CLAUDE第6–7項を受理。今回の直接指示を受けた外部単独writerだけがgame2停止→readback後Q有効化を一度担当する。旧game2専任/委任確認後復帰は取消済み、当survival継続実行に切替権限を付与しない。親子ともautomation read/write0、survivalの有効状態を変えず、旧記録や将来の委任確認でgame2再有効/Q停止/新watcher起動を行わない。外部切替の完了は当人の実readbackがない限り推測しない。"
+    "roles_pending_f3": "integration_recovery_ultra owns sole-writer save, exact readback, realCI, product adoption, valid comparison, deadline and normalmain/Pages. Existing formally accepted Ultra scopes are recorded in current_scope_owners; independent reviews preserve author separation. Parent remote0."
+    "latest_rules_commit": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5"
+  "comparison_record_preservation": "E9 freshの原4inputs/response/receipt/正式受理の7filesをprivate archive71501B（SHA43ae2d8f207ebec77fad71f3ed1fbfee0ea409feef75bb52e770f9baff0b6e6f）に保全。local ZIP再読取りCRC/全fileSHA一致、正規private保管createがsucceeded/71501B/version0を返しlocalidentity適用も成功。scratch別コピーだけではない。remote bytesの再読取り/SHAは未実施、会話権限はupload/置換のみなのでread/list0。原応答とprivate識別情報は会話内private記録に保持し公開repoには含めない。有効blind0。 C39匿名化準備のprivate17entriesは142517B/SHA98ddb1f4b9a1b595413b27fb361bf84facebd0565fd3d1aac36726526158f187、local再読取りCRC/SHA一致と正式新規保管succeeded/同bytes/version0を確認。remote bytes再読取り0、private識別子/原text/対応は公開対象外。公開は許可された989B summaryのみ。"
+  "c38_independent_review":
+    "paths": 7
+    "limitedChecksPassed": 51
+    "blocking": 0
+    "reviewReportSha256": "88ee1e30977c3d6fe82956a1cfc2ecff5562997809df795439dd210ca58958ef"
+    "manifestSha256": "b0350b88e43af39d16aa7f5db5fda2e2de4bcfaa07f7c3f698c702b717f67bed"
+    "actualSafari": false
+    "next": "final preservation/state boundary review, then normal save and actual CI"
+  "e9_candidate_preserved": "Current14 revised nodes per language remain formally adopted as src3/root8c. Journal period and exact legacy-save corrections are tools-only candidates; generated4912 remains held after its original UI diagnostic failure. No ungenerated source or root is adopted."
+  "c38_final_boundary_review":
+    "paths": 104
+    "blocking": 0
+    "manifestSha256": "bd9847e63d0dd1d2222361083b83d5823912c090d1eedae66f1bbb53e0c99f8f"
+    "reportSha256": "e7fd0a5230a77c957d8c64f892e34a66b9843d286dc28e9c386891730b53166e"
+    "receiptSha256": "1df5c8af915db7944c3f87844d650a53ca6d9fcc05b27d9d93c0bf8aa6e26c15"
+    "additionalPreparationSixPathsCovered": false
+  "c38_additional_build_preparation":
+    "paths": 6
+    "independentControls": 36
+    "blocking": 0
+    "sourceBaseline": "bf743056ce143f09e4c6544ef1c7df4b73b232fd"
+    "buildInputs": 47
+    "actualBuild": true
+    "actualGeneratedSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+    "writerGatesOutsidePrepareJobByteIdentical": true
+    "scope": "Actual C38 job104112424660: 23 originals, 12 original screens, 47 pins, 7 stages, independent16controls. Product adoption prepared as exact five paths for C39."
+  "c39_adoption":
+    "codePaths": 8
+    "statePaths": 1
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44"
+    "narrativeIndependentControls": 16
+    "bootstrapOwnChecks": 37
+    "bootstrapIndependentChecks": 22
+    "fixedRecoveryOwnChecks": 45
+    "fixedRecoveryIndependentChecks": 31
+    "actualNewProductSafari": false
+    "actualFixedArtifactRead": true
+    "priorDiagnosticStillFailed": true
+  "e9_changed_production_material":
+    "units": 13
+    "nodes": 320
+    "fields": 373
+    "continuations": 423
+    "changedBodies": 6
+    "otherReaderBytesPreserved": true
+    "sourceConditionsEffectsBranchesPreserved": true
+    "originalReaderReady": true
+    "formalAdoptionIdentityPending": false
+    "newEvaluationStarted": false
+    "publicEvidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c39-integration/production-material/public-summary.json"
+  "current_scope_owners":
+    "recordedAt": "2026-09-14T21:43:27.761+00:00"
+    "soleProductionRemoteWriter": "/root/integration_recovery_ultra"
+    "parentRole": "relay only; remote/pending/automation 0"
+    "observedRunning":
+      - "/root/integration_recovery_ultra"
+      - "/root/integration_recovery_ultra/e9_anonymity_preparation_ultra"
+      - "/root/integration_recovery_ultra/narrative_build_ultra"
+      - "/root/integration_recovery_ultra/safari_time_loss_ultra"
+    "independentCurrentScopes":
+      "e9_anonymity_preparation_ultra": "C41 full publication boundary only"
+      "narrative_build_ultra": "next dialogue display minimal product candidate"
+      "safari_time_loss_ultra": "next release transport minimal candidate; original failures preserved"
+    "completedScopes":
+      - "three-source build independent review"
+      - "bounded program identity candidate and independent review"
+      - "fixed C40 PR recovery and workflow independent review"
+      - "dc5 original Safari two-log recovery"
+    "noOtherProductionRemoteWriterObserved": true
+    "externalInstructionOnlyCommit": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5"
+    "automationActions": 0
+    "pendingRemoteWrites": 0
+    "unconfirmedEnvironmentCause": true
+    "originalStartAndDeadlineUnchanged": true
+  "c40_adoption":
+    "recordedAt": "2026-09-14T20:51:19.394Z"
+    "baseCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494"
+    "candidatePaths": 7
+    "blocking": 0
+    "productSourceOrRootChanged": false
+    "rootSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+    "actualSafari": false
+    "actualJournalBuild": false
+    "newJournalBundleSha256": null
+    "decider": "/root/integration_recovery_ultra"
+    "scope": "Adopt reviewed test harness/transfer changes and tools-only journal build preparation for actual normal CI; no quality verdict."
+    "inline":
+      "sha256": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262"
+      "ownControls": 29
+      "independentControls": 22
+      "reviewReportSha256": "a0b9399ea2eb3e2fac7bd3ba66604c3f62773d8c24db3f74c90cc49e0ca24a84"
+      "wireDefectResolved": true
+    "preopen":
+      "sha256": "a278b87f0fb2e15b843205b6fe211a8046f72463e2f29956bfbf867f5900adee"
+      "ownControls": 72
+      "independentControls": 30
+      "reviewReportSha256": "83a3c6c12d1feb084a1f26ff49f83340d131d0ab4172bbc230d1b728af19d9ae"
+      "reviewReceiptSha256": "7a2d6dda61415e57e4dfae48f2742a27c895faa1673cb830fbbeb93e7aea0363"
+      "maxBufferSetting": 65536
+      "observedOverflowDecodedBytes": 65538
+      "overflowRejected": true
+    "journalPrepare":
+      "paths": 5
+      "ownControls": 18
+      "independentControls": 15
+      "finalManifestSha256": "1477dd93c1c780fae5234a140ce0352ef7f30f0d465adf83a4297f45d3f7dcf1"
+      "reviewReceiptSha256": "a13ce4c3238f769747fe2a2b8b317f2df9fb9594fc3979a4563feafac6303f85"
+      "inputs": 47
+      "stages": 7
+      "marker": "[prepare-journal-product-r1]"
+      "originalOutputsExpected": 12
+      "oldEnglishSaveMigrated": false
+  "c40_results":
+    "source": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1"
+    "allRunsCompleted": true
+    "preopenSuccesses": 3
+    "sourceAndPrClockFailed": true
+    "standaloneChecks": 27
+    "audioClipsPerSourceAndPr": 3
+    "journalOriginals": 10
+    "journalOriginalPNGs": 0
+    "journalRoot": "4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed"
+    "journalRootAdopted": false
+  "c41_adoption":
+    "recordedAt": "2026-09-14T21:43:27.761+00:00"
+    "integrationBase": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5"
+    "integrationBaseTree": "86900e1a6119c234ff8d03298483bac2ed38f268"
+    "technicalBaseline": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1"
+    "blocking": 0
+    "productSourceOrRootChanged": false
+    "adoptedCode":
+      -
+        "path": "tools/frame_work_probe.mjs"
+        "bytes": 16893
+        "sha256": "33dfcc32bdc7a2b3de52c0295f822dd4f8eff112bb74fbf3d6e45926e23ac618"
+        "gitBlob": "49b57537da91675f00ea68344beb8f346c499946"
+      -
+        "path": "tools/prepare-narrative-product.mjs"
+        "bytes": 13917
+        "sha256": "af04678aa1a01df8c6cffbaf4d70f4dfce7893ece636a64443fe4452263a722c"
+        "gitBlob": "ed43d3ba3818cdb195c61e35480ad5dcf2a6c766"
+      -
+        "path": "tools/check-narrative-routes.mjs"
+        "bytes": 24793
+        "sha256": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a"
+        "gitBlob": "cafcc06f32612443755bfd4c09f464eb419272c7"
+      -
+        "path": "tools/candidates/journal-save-state-r1.js"
+        "bytes": 34503
+        "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530"
+        "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3"
+      -
+        "path": "tools/recover-ios-c40-pr.py"
+        "bytes": 14767
+        "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b"
+        "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+      -
+        "path": ".github/workflows/gates.yml"
+        "bytes": 34517
+        "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199"
+        "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2"
+    "independentScopes":
+      -
+        "scope": "program identity probe only"
+        "checks": 15
+        "evidence":
+          "path": "c41-program-identity-independent-review-ultra/receipt.json"
+          "bytes": 5460
+          "sha256": "82cec27c9f2f181d885ae12a9d573be5bbc3639a1ef4f436127b453c8fd82836"
+      -
+        "scope": "exact legacy-save source candidate only"
+        "checks": 15
+        "evidence":
+          "path": "c41-iris-journal-save-independent-review-ultra/receipt.json"
+          "bytes": 4522
+          "sha256": "a3a69ec814f5ca79360ff1b02d1cdb4f953ef4e377376cb45a848595e43c1138"
+      -
+        "scope": "three-source preparation and four-case route verification; result guard repaired"
+        "checks": 29
+        "additionalSourceVmChecks": 29
+        "evidence":
+          "path": "c41-journal-save-build-independent-review-ultra/receipt.json"
+          "bytes": 4741
+          "sha256": "e8eb1f4f92ce9b4e27ca6db9e079268cd6a04425431df744f2db7237b100ca7a"
+      -
+        "scope": "fixed C40 PR recovery plus combined workflow byte boundary only"
+        "checks": 14
+        "additionalCompositionChecks": 1
+        "evidence":
+          "path": "c41-c40-pr-recovery-independent-review-ultra/receipt.json"
+          "bytes": 5785
+          "sha256": "009ee17803c3375d71918e56420f0bc6acfae8baa35c6c3580af93baef6265b5"
+    "rootDecision": "Adopt six reviewed tools/workflow paths for the next existing CI cycle. Preserve current product source/root8c, recorder/clock/release/lifecycle conditions, required gates and latest CLAUDE. Generated4912 remains held. No candidate root is product adoption."
+    "wholeManifestIndependentReview": "Pending separate boundary-only receipt; scope reviews do not imply whole-manifest review."
+    "actualRemaining":
+      - "combined three-source build and four original screens"
+      - "actual old-save bundled Continue"
+      - "fixed original C40 PR report/Appium full recovery"
+      - "bounded current program identity and observer cost"
+      - "inline command omission and product performance repair"
+      - "required F3 and normal main/Pages F6"
+      - "valid quality comparison and listening"
+  "dc5_results":
+    "source": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5"
+    "allRunsCompleted": true
+    "productUnchanged": true
+    "originalSafariLogBytes": 150334
+    "sourceChecksPassed": 45
+    "prChecksPassed": 43
+    "checksPerRun": 47
+    "sourceAndPrClockFailed": true
+    "prReleaseTransportFailed": true
+    "prLatePageObservationPassed": true
+    "prArcadeEndedDead": true
+    "lifecycleExecuted": false
+    "originalFullReportAndAppiumRecovered": false
+    "prRequiredF3": "failure"
+    "mainUnchanged": "5456371249f5769c25d18f1686a44349e4292d6f"

@@ -1,0 +1,23 @@
+{
+  "policy": "Only these two new binding files and this allowlist control may be additionally published; original exact publication-allowlist.json remains unchanged. No recursive publication.",
+  "files": [
+    {
+      "path": "authority-update.json",
+      "bytes": 2085,
+      "sha256": "5925808fef8851563607e003dceb965c93bb0288bc6c940141a20c34d7079595",
+      "gitBlob": "dc949a781c575a964b1622d3855f693735af9a4a"
+    },
+    {
+      "path": "independent-review-binding.json",
+      "bytes": 3123,
+      "sha256": "1aabbaa514bdfc38fe554276e7c5d7869622fa70480f2533d02d0167826a6b18",
+      "gitBlob": "5a0cd900e850ab06388055a137f65ea9496063f2"
+    }
+  ],
+  "self": "final-binding-allowlist.json",
+  "excluded": [
+    "authority-update/",
+    "superseded-v1/",
+    "all files not explicitly listed in this or the original exact allowlist"
+  ]
+}

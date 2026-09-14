@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "completedAtUTC": "2026-09-14T21:17:54.242887+00:00",
+  "status": "pass for next-cycle diagnostic candidate; no current C40 capture or product adoption",
+  "blocking": 0,
+  "blockingFindings": [],
+  "sourceCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "sourceTree": "56dad9f8c5fea165b63de2241b1016fcf20cef93",
+  "candidate": {
+    "repositoryPath": "tools/frame_work_probe.mjs",
+    "path": "frame_work_probe.mjs",
+    "bytes": 16893,
+    "sha256": "33dfcc32bdc7a2b3de52c0295f822dd4f8eff112bb74fbf3d6e45926e23ac618",
+    "gitBlob": "49b57537da91675f00ea68344beb8f346c499946"
+  },
+  "baseline": {
+    "path": "frame_work_probe.mjs",
+    "bytes": 11229,
+    "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "gitBlob": "d16786a6dc1b259cac5cc77045400f924e1df2a4"
+  },
+  "producerManifest": {
+    "path": "manifest.json",
+    "bytes": 3907,
+    "sha256": "dc42ed701b2e3bbf75b3f42169b14fc6ebce5f2cd31a7f89145a6aeac2728ebb",
+    "gitBlob": "c8419f737fcb984fd3e64f5184805bafb0a8504c"
+  },
+  "independentControlsPassed": 15,
+  "producerAssertionsCountedAsIndependent": 0,
+  "producerAssertionsReceived": {
+    "canonicalEngineFixture": 62,
+    "additionalCPUVM": 50
+  },
+  "sourceBoundary": {
+    "onlyOneCandidatePath": true,
+    "inverseRestoresAllOriginalBytes": true,
+    "originalClockAndTimingFieldsPreserved": true,
+    "originalCompleteAndDetailCompletePreserved": true,
+    "originalRestoreCodePreserved": true,
+    "newPerformanceNowCalls": 0,
+    "glOrCompileCallsAdded": 0,
+    "engineFourStepsAndExportTransportCapsModified": false
+  },
+  "identityLimits": {
+    "entryCount": 64,
+    "eventCount": 16,
+    "scanPerEvent": 128,
+    "nameUTF16Units": 96,
+    "cacheKeyUTF16Units": 256,
+    "retainedRecordBytes": 60000,
+    "fullMetadataUtf8Bytes": 65536,
+    "rowLimitUnchanged": 4096,
+    "slowCallLimitUnchanged": 256,
+    "slowCallThresholdMsUnchanged": 8
+  },
+  "measuredInIndependentVM": {
+    "escapingHeavyInventory": {
+      "entries": 26,
+      "retainedRecordBytes": 59723,
+      "totalUtf8Bytes": 60648
+    },
+    "steadyFrames": {
+      "frames": 32,
+      "additionalDescriptorReads": 0,
+      "additionalEncodes": 0,
+      "glAccess": 0
+    },
+    "syntheticObserverCost": {
+      "programFields": 3,
+      "costPerDescriptorMs": 2,
+      "observedAdditionalMs": 6,
+      "actualSafariMeasured": false
+    }
+  },
+  "coverageLimits": [
+    "Initial inventory and count increases at saved callback boundaries only",
+    "Same-count replacement and temporary between-boundary programs are unobserved",
+    "First-seen object properties are not refreshed",
+    "Queued original callbacks and callbacks after the row cap are unobserved",
+    "Truncated keys do not prove full-key identity",
+    "Program field and array-index getters are not invoked; renderer.info/programs uses normal property access",
+    "boundedReadsComplete is separate from original timing complete/detailComplete",
+    "Initial reads are outside row timing; later reads add real but unmeasured observer cost",
+    "Bounded metadata may still exceed the unchanged whole-report export cap"
+  ],
+  "harnessCorrection": {
+    "initialAttempt": "undefined programs argument invoked fixture default instead of testing absent inventory",
+    "fix": "Set renderer.info.programs explicitly in fixture before installation",
+    "candidateDefect": false,
+    "candidateChanges": 0,
+    "finalAttempt": "15 controls passed"
+  },
+  "execution": {
+    "nodeVersion": "v24.19.0",
+    "actualEngineExecutionByIndependentReviewer": false,
+    "actualSafari": false,
+    "actualBrowser": false,
+    "actualProgramInventory": false,
+    "actualBuild": false,
+    "generatedRoot": null,
+    "actualObserverOverheadMeasured": false,
+    "actualCPUorGPUCauseMeasured": false,
+    "world847msCauseEstablished": false,
+    "newCI": 0,
+    "remoteWrites": 0,
+    "localGitCalls": 0,
+    "newSpawn": 0,
+    "libraryAccess": 0,
+    "automationChanges": 0
+  },
+  "programmeState": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "elements": "all 19 not measured",
+    "criteria": 71,
+    "fixedReferences": 10,
+    "validBlind": 0,
+    "units": 0,
+    "work": "continuous"
+  },
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "bytes": 4902,
+      "sha256": "49ae0a280cd68ea6f028dc385f1e4e5fa31eb2cfc8ca5eebba843a849515a1da",
+      "gitBlob": "2480cfbde2ae5eca1e5195e91a8e289a09a9f4c1"
+    },
+    {
+      "path": "independent-controls.json",
+      "bytes": 3292,
+      "sha256": "c9532227714df8bf551180dece658b169b9f7b071deed2b5fb4f4f008c46a6f6",
+      "gitBlob": "725832e4bd09a804dd72c761d7ace8f814742817"
+    },
+    {
+      "path": "independent-controls.mjs",
+      "bytes": 18962,
+      "sha256": "d3c1df1ef00a23130b329887f7945696dbaba5bc9415e6b667304dee67b288ef",
+      "gitBlob": "932ca691270763cfa6c95bc8237605756e708829"
+    },
+    {
+      "path": "input-pins.json",
+      "bytes": 1413,
+      "sha256": "60455af85a602075755a897c16831086f678f08e04929decb11caac4b9645bc9",
+      "gitBlob": "a7216b653094f027d366733d45cc022bb020de8c"
+    },
+    {
+      "path": "authority-acceptance.json",
+      "bytes": 965,
+      "sha256": "b05e8579ac5b356bcac309b2cc4c4c47bef1884f89bccaf1eeb742011357e8e2",
+      "gitBlob": "c5dd12281d18b1a9fccbda0fc78b36f00f351d6e"
+    }
+  ],
+  "publication": "Only exact file/hash entries in publication-allowlist.json; no recursive publication"
+}

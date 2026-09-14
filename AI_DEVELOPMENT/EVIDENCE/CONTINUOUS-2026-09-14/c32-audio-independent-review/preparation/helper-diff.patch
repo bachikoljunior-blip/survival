@@ -1,0 +1,85 @@
+--- prepare-grain-product.mjs
++++ prepare-audio-product.mjs
+@@ -1,4 +1,4 @@
+-/** Prepare exact grain source/root bytes in the existing read-only CI checkout.
++/** Prepare exact audio source/root bytes in the existing read-only CI checkout.
+  * Preparation is not adoption, publication, a browser measurement or a verdict. */
+ import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
+ import { createHash } from 'node:crypto';
+@@ -42,7 +42,7 @@
+   "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+   "src/render/atmosphere.js": "4bc604f65d390b7cdcf34c7c8c9939d26f0810202ea2d651895cf989a3ab51b5",
+   "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+-  "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
++  "src/render/postfx.js": "b9a4f9422242d27c329b77e6502f251281fddf80a6a62880202adc2040ce1a5a",
+   "src/render/shadow_batches.js": "c0592c17fe797f0871cc37af2ec58d84b2f993abb58be58114e48d4fe4ba643a",
+   "src/render/textures.js": "254bc95201bf6f080a0ce219d3b111e57deca5eaca474ca67c951af817dbbb9b",
+   "src/ui/hud.js": "87e960d131b4c04d60e75080fc629d433db1505faccf967c71893d99b6f0ab8b",
+@@ -55,23 +55,19 @@
+   "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+   "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
+ });
+-export const SOURCE = 'src/render/postfx.js';
+-export const CANDIDATE_SOURCE = 'b9a4f9422242d27c329b77e6502f251281fddf80a6a62880202adc2040ce1a5a';
+-export const ORIGINAL_BUNDLE = '6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b';
++export const SOURCE = 'src/audio/audio.js';
++export const CANDIDATE_FILE = 'tools/candidates/audio-interior-r1.js';
++export const CANDIDATE_SOURCE = '22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7';
++export const ORIGINAL_BUNDLE = '81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3';
+ export const FILES = [SOURCE, 'cinderline.1.0.0.js', 'index.html', 'styles.css', 'manifest.webmanifest', 'icon.svg', '.nojekyll'];
+ export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+ export const gitBlob = bytes => createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
+ const MAX_BYTES = 4 * 1024 * 1024;
+-const OUTPUT = 'test-results/grain-product-build-r1';
+-export function changedSource(original) {
++const OUTPUT = 'test-results/audio-product-build-r1';
++export function changedSource(original, candidate) {
+   if (hash(original) !== INPUTS[SOURCE]) throw Error('Unreviewed source baseline');
+-  let text = original.toString('utf8');
+-  for (const [before, after] of [['grain: 0.035,','grain: 0.012,'],['uGrain: { value: 0.035 },','uGrain: { value: 0.012 },']]) {
+-    if (text.split(before).length !== 2) throw Error('Non-unique source change');
+-    text = text.replace(before, after);
+-  }
+-  if (hash(text) !== CANDIDATE_SOURCE) throw Error('Unexpected changed source');
+-  return text;
++  if (hash(candidate) !== CANDIDATE_SOURCE) throw Error('Unreviewed candidate source');
++  return candidate;
+ }
+ export function verifyInputs(root) {
+   const actual = {};
+@@ -99,20 +95,20 @@
+   // also require every contiguous chunk and matching metadata/end records.
+   for (const { path, bytes } of all) {
+     const meta = { file: path, bytes: bytes.length, sha256: hash(bytes), gitBlob: gitBlob(bytes), commit: report.sourceCommit, complete: true };
+-    emit('[prepared-grain-meta] ' + JSON.stringify(meta));
+-    for (let offset = 0; offset < bytes.length; offset += 3000) emit('[prepared-grain-chunk] ' + JSON.stringify({ file: path, offset, base64: bytes.subarray(offset, offset + 3000).toString('base64') }));
+-    emit('[prepared-grain-end] ' + JSON.stringify(meta));
++    emit('[prepared-audio-meta] ' + JSON.stringify(meta));
++    for (let offset = 0; offset < bytes.length; offset += 3000) emit('[prepared-audio-chunk] ' + JSON.stringify({ file: path, offset, base64: bytes.subarray(offset, offset + 3000).toString('base64') }));
++    emit('[prepared-audio-end] ' + JSON.stringify(meta));
+   }
+ }
+ export function prepare(root) {
+   const output = join(root, OUTPUT); mkdirSync(output, { recursive: true });
+   const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
+-  const report = { schema_version: 1, sourceCommit: git(['rev-parse','HEAD']), sourceBaseline: 'f735a3ab6d230835ce06542281e2f53e3ad94737',
++  const report = { schema_version: 1, sourceCommit: git(['rev-parse','HEAD']), sourceBaseline: '0abe4628947064fe811ed842face2018b87d5bf5',
+     runId: process.env.GITHUB_RUN_ID || null, runAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
+     node: process.version, platform: process.platform, arch: process.arch, status: 'started', files: [], commands: [],
+-    change: 'Only default grade.grain and composite uGrain initialization from 0.035 to 0.012.',
++    change: 'Only reviewed audio.js: interior ambience selection and retention of authored layer targets during modulation.',
+     originalBundleSha256: ORIGINAL_BUNDLE, expectedSourceSha256: CANDIDATE_SOURCE,
+-    limits: 'Preparation only. No browser, adoption, publication, external evaluator or element verdict. Medium r2 guard failed; its resolution is a separate prerequisite for adoption. Low tier remains grain disabled; high appearance is unmeasured.' };
++    limits: 'Preparation only. No browser, adoption, publication, external evaluator, listening or element verdict. Original recording and quality limitations remain. Product source and root are unchanged outside this disposable CI checkout.' };
+   const run = args => {
+     const item = { args, exit: null }; report.commands.push(item);
+     try { execFileSync(process.execPath, args, { cwd: root, stdio: 'inherit', timeout: 180000, env: { ...process.env, CINDERLINE_BUILD_ID: '1.0.0' } }); item.exit = 0; }
+@@ -132,7 +128,7 @@
+     if (report.baselineDistSha256 !== ORIGINAL_BUNDLE) throw Error('Baseline production reproduction failed');
+     run(['tools/export_pages_root.mjs','--check']);
+     report.baselineReproduced = true;
+-    writeFileSync(join(root,SOURCE), changedSource(originals.get(SOURCE)));
++    writeFileSync(join(root,SOURCE), changedSource(originals.get(SOURCE), readFileSync(join(root,CANDIDATE_FILE))));
+     run(['--check',SOURCE]); run(['build.mjs']); run(['tools/export_pages_root.mjs']);
+     run(['tools/export_pages_root.mjs','--check']); run(['tools/validate.mjs']);
+     for (const [path, pin] of Object.entries(INPUTS)) if (hash(readFileSync(join(root,path))) !== (path===SOURCE ? CANDIDATE_SOURCE : pin)) throw Error('Unintended build input changed: '+path);

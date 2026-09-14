@@ -1,0 +1,55 @@
+{
+  "recordedAt": "2026-09-14T17:36:40.154685+00:00",
+  "agent": "/root/integration_recovery_ultra/safari_time_loss_ultra",
+  "head": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "instruction": "ULTRA-CHILDREN-20260914-v3",
+  "readOrder": [
+    "latest branch head",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "path": "Connected GitHub App canonical fixed-head reads",
+  "remoteWrites": 0,
+  "newCiRuns": 0,
+  "retries": 0,
+  "automationChanges": 0,
+  "soleWriter": "/root/integration_recovery_ultra",
+  "sources": {
+    "AGENTS.md": {
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be"
+    },
+    "AI_DEVELOPMENT/SESSION_STATE.yaml": {
+      "bytes": 12445,
+      "sha256": "9098877b5f03a144f3c3cbe24c68bbfc534d7590c999e1be4212667cd16bf715",
+      "gitBlob": "269b1f490c2308d8327f59897e5b7fd4a5afd752"
+    },
+    "CLAUDE.md": {
+      "bytes": 22170,
+      "sha256": "dc4bb33524a1542f11278f018988ff6cdfda573a4a4a1e0576b7e6a3627b998d",
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f"
+    },
+    "tools/export-ios-frame-work.mjs": {
+      "bytes": 2858,
+      "sha256": "5d17504681f038706d61828eba286d495f91b99f30f0c2cd20a27cefed717f43",
+      "gitBlob": "d9c084b6e2c54fca6a191efc1a49126ec3d1e2e0"
+    },
+    "tools/frame_work_probe.mjs": {
+      "bytes": 6563,
+      "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+      "gitBlob": "121b469ccf0a308a0b6052af0799277760185f94"
+    },
+    "tools/ios_audio_capture.mjs": {
+      "bytes": 22122,
+      "sha256": "7c7356237d487786234e737fe959075c942e39844f638d1e1ea3f925b0bd5194",
+      "gitBlob": "bbbfd02c57db8dde3b7262b63753a160bc59af07"
+    },
+    "tools/test-ios-safari.mjs": {
+      "bytes": 33470,
+      "sha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+      "gitBlob": "f002bee4fd368991636e52071c580a4cd5d18aad"
+    }
+  }
+}

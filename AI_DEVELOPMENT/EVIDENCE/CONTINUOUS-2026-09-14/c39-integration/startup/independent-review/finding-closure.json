@@ -1,0 +1,77 @@
+{
+  "id": "bootstrap-partial-body-cleanup",
+  "status": "closed",
+  "severity": "blocking-before-closure",
+  "originalCandidate": {
+    "bytes": 35647,
+    "sha256": "02d23561ac3ac1ea16b6dd76349dfae4461e843605d84e6bdf858cc14682db6f"
+  },
+  "observationType": "Recorded independent real-TCP observation before implementation peer changed candidate; not original CI output",
+  "observedAt": "2026-09-14T19:46:54Z",
+  "request": {
+    "path": "/__ios_safari_bootstrap__.html",
+    "contentLength": 10000,
+    "bodyBytesSent": 1,
+    "connection": "keep-alive"
+  },
+  "before": [
+    {
+      "case": "POST",
+      "status": 405,
+      "closedAfter250ms": false,
+      "socketDestroyed": false
+    },
+    {
+      "case": "wrong Host GET",
+      "status": 421,
+      "closedAfter250ms": false,
+      "socketDestroyed": false
+    }
+  ],
+  "repair": "Bootstrap-only Connection: close and response finish -> request.destroy; ordinary static and transfer routes unchanged",
+  "finalCandidate": {
+    "path": "c38-pr-safari-results-ultra/candidate/tools/test-ios-safari.mjs",
+    "bytes": 35835,
+    "sha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+    "gitBlob": "5064084376f0743d2f082ae3656406fe408b1b51"
+  },
+  "closureChecks": [
+    {
+      "name": "incomplete body socket cleanup: rejected-method",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 405 Method Not Allowed"
+      }
+    },
+    {
+      "name": "incomplete body socket cleanup: rejected-host",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 421 Misdirected Request"
+      }
+    },
+    {
+      "name": "incomplete body socket cleanup: allowed-get",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 200 OK"
+      }
+    },
+    {
+      "name": "incomplete body socket cleanup: allowed-head",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 200 OK"
+      }
+    }
+  ],
+  "actualSafariExecution": false
+}

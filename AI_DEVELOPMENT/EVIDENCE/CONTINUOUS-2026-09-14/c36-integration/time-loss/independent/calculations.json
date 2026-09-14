@@ -1,0 +1,1621 @@
+{
+  "schemaVersion": 1,
+  "scope": "Independent CPU arithmetic on recovered original report bytes; no physical device, Simulator, browser, media decoding, listening, or quality comparison executed here.",
+  "canonicalHead": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "fixed": {
+    "clockGuardRelative": 0.05,
+    "clockGuardMinimumSeconds": 0.1,
+    "fixedDtSeconds": 0.016666666666666666,
+    "maxSubsteps": 4,
+    "maxInputDtSeconds": 0.25
+  },
+  "originals": {
+    "source": {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-ios-source-recovered/original/report.json",
+      "bytes": 911052,
+      "sha256": "ff17eb9a3951c386f0fdd8b3afcff97c20d2ec937addf8c21c16f625aff4f685",
+      "recoveredManifestSha256": "e45bf2bd836777edcc54789930a7713338e02f90364e5f625887cf30fec1bcfc",
+      "bytesAndShaMatched": true,
+      "sourceJob": 104050403522,
+      "checkedAt": "2026-09-14T16:05:42.705Z",
+      "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+      "provenance": {
+        "preparedFromCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+        "preparationReportSha256": "3af69d8780c54ca4a5f2868e7b5958f6200578390a47977440fc65edf8189446",
+        "bundle": "cinderline.1.0.0.js",
+        "bundleSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+          "dist/cinderline.1.0.0.js": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55"
+        },
+        "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helperSha256": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819",
+        "harnessSha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+        "runCommit": "81de9354117a54397bf2c9e64e18a91c397dd06a",
+        "runId": "34866156884",
+        "runAttempt": "1"
+      },
+      "clips": [
+        {
+          "name": "street-walk",
+          "fullEndpoints": {
+            "wallSeconds": 8.475,
+            "audioSeconds": 8.48,
+            "engineSeconds": 8.033333333332877,
+            "engineFrames": 463,
+            "engineToAudioRatio": 0.9473270440251034,
+            "audioToWallRatio": 1.000589970501475,
+            "lossAudioSeconds": 0.44666666666712374,
+            "lossWallSeconds": 0.44166666666712295,
+            "toleranceSeconds": 0.42400000000000004,
+            "lossBeyondToleranceSeconds": 0.02266666666712369,
+            "captureClockGuardPassed": false
+          },
+          "firstToLastSample": {
+            "wallSeconds": 8.46,
+            "audioSeconds": 8.45866666666667,
+            "engineSeconds": 8.033333333332877,
+            "engineFrames": 463,
+            "engineToAudioRatio": 0.9497162673391638,
+            "audioToWallRatio": 0.9998423955870767,
+            "lossAudioSeconds": 0.42533333333379275,
+            "lossWallSeconds": 0.42666666666712416
+          },
+          "setupToFirstSample": {
+            "wallSeconds": 0.0,
+            "audioSeconds": 0.0,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": null,
+            "audioToWallRatio": null,
+            "lossAudioSeconds": 0.0,
+            "lossWallSeconds": 0.0
+          },
+          "lastSampleToAfter": {
+            "wallSeconds": 0.015,
+            "audioSeconds": 0.021333333333330984,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": 0.0,
+            "audioToWallRatio": 1.4222222222220657,
+            "lossAudioSeconds": 0.021333333333330984,
+            "lossWallSeconds": 0.015
+          },
+          "clockSamples": 464,
+          "renderIntervals": 463,
+          "frameDeltaHistogram": {
+            "1": 463
+          },
+          "fixedStepHistogram": {
+            "3": 1,
+            "0": 8,
+            "1": 439,
+            "4": 5,
+            "2": 10
+          },
+          "dropped": {
+            "clockFrames": 0,
+            "trajectory": 0,
+            "sfxEvents": 0
+          },
+          "errors": [],
+          "stateHistogram": [
+            {
+              "mode": "play",
+              "paused": false,
+              "audioState": "running",
+              "tier": "low",
+              "count": 464
+            }
+          ],
+          "largestLossIntervals": [
+            {
+              "fromIndex": 187,
+              "toIndex": 188,
+              "fromFrame": 1380,
+              "toFrame": 1381,
+              "fromWallMs": 33012,
+              "toWallMs": 33261,
+              "wallSeconds": 0.249,
+              "audioSeconds": 0.25333333333333385,
+              "engineSeconds": 0.01666666666666572,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.06578947368420665,
+              "audioToWallRatio": 1.0174029451137905,
+              "lossAudioSeconds": 0.23666666666666814,
+              "lossWallSeconds": 0.23233333333333428,
+              "fixedSteps": 1
+            },
+            {
+              "fromIndex": 13,
+              "toIndex": 14,
+              "fromFrame": 1206,
+              "toFrame": 1207,
+              "fromWallMs": 29882,
+              "toWallMs": 30046,
+              "wallSeconds": 0.164,
+              "audioSeconds": 0.16000000000000014,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.4166666666666426,
+              "audioToWallRatio": 0.9756097560975618,
+              "lossAudioSeconds": 0.09333333333333727,
+              "lossWallSeconds": 0.09733333333333713,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 189,
+              "toIndex": 190,
+              "fromFrame": 1382,
+              "toFrame": 1383,
+              "fromWallMs": 33360,
+              "toWallMs": 33503,
+              "wallSeconds": 0.143,
+              "audioSeconds": 0.1386666666666656,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.48076923076920713,
+              "audioToWallRatio": 0.9696969696969624,
+              "lossAudioSeconds": 0.07200000000000273,
+              "lossWallSeconds": 0.07633333333333711,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 188,
+              "toIndex": 189,
+              "fromFrame": 1381,
+              "toFrame": 1382,
+              "fromWallMs": 33261,
+              "toWallMs": 33360,
+              "wallSeconds": 0.099,
+              "audioSeconds": 0.09866666666666646,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.6756756756756387,
+              "audioToWallRatio": 0.9966329966329944,
+              "lossAudioSeconds": 0.03200000000000358,
+              "lossWallSeconds": 0.03233333333333713,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 179,
+              "toIndex": 180,
+              "fromFrame": 1372,
+              "toFrame": 1373,
+              "fromWallMs": 32874,
+              "toWallMs": 32889,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.021333333333334537,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.4222222222223024,
+              "lossAudioSeconds": 0.021333333333334537,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 184,
+              "toIndex": 185,
+              "fromFrame": 1377,
+              "toFrame": 1378,
+              "fromWallMs": 32958,
+              "toWallMs": 32973,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.021333333333334537,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.4222222222223024,
+              "lossAudioSeconds": 0.021333333333334537,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 19,
+              "toIndex": 20,
+              "fromFrame": 1212,
+              "toFrame": 1213,
+              "fromWallMs": 30125,
+              "toWallMs": 30207,
+              "wallSeconds": 0.082,
+              "audioSeconds": 0.07733333333333547,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.8620689655171685,
+              "audioToWallRatio": 0.9430894308943351,
+              "lossAudioSeconds": 0.010666666666672597,
+              "lossWallSeconds": 0.015333333333337126,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 63,
+              "toIndex": 64,
+              "fromFrame": 1256,
+              "toFrame": 1257,
+              "fromWallMs": 30925,
+              "toWallMs": 30940,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.010666666666669045,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 0.7111111111112697,
+              "lossAudioSeconds": 0.010666666666669045,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            }
+          ],
+          "largestTwoAudioLossSeconds": 0.3300000000000054,
+          "largestTwoShareOfFullAudioLoss": 0.7388059701485098,
+          "largestTwoShareOfSampleAudioLoss": 0.7758620689646919,
+          "movement": {
+            "before": {
+              "wallMs": 30662,
+              "audioTime": 17.194666666666667,
+              "engineTime": 21.23333333333341,
+              "engineFrame": 1240,
+              "position": [
+                -112,
+                0,
+                -84
+              ],
+              "inputCount": 5
+            },
+            "after": {
+              "wallMs": 34212,
+              "audioTime": 20.746666666666666,
+              "engineTime": 24.46666666666656,
+              "engineFrame": 1420,
+              "position": [
+                -115.43369011632291,
+                0,
+                -85.6840761284054
+              ],
+              "stickActive": false,
+              "moveMagnitude": 0,
+              "input": [
+                {
+                  "type": "pointerdown",
+                  "trusted": true,
+                  "pointerType": "touch",
+                  "pointerId": 1148598704,
+                  "x": 101,
+                  "y": 246,
+                  "activeTouches": 1,
+                  "target": {
+                    "tag": "CANVAS",
+                    "id": "gl",
+                    "className": "",
+                    "text": ""
+                  }
+                },
+                {
+                  "type": "pointerup",
+                  "trusted": true,
+                  "pointerType": "touch",
+                  "pointerId": 1148598704,
+                  "x": 101,
+                  "y": 186,
+                  "activeTouches": 1,
+                  "target": {
+                    "tag": "CANVAS",
+                    "id": "gl",
+                    "className": "",
+                    "text": ""
+                  }
+                }
+              ]
+            },
+            "distance": 3.824439857181509
+          },
+          "movementElapsed": {
+            "wallSeconds": 3.55,
+            "audioSeconds": 3.5519999999999996,
+            "engineSeconds": 3.2333333333331495,
+            "engineFrames": 180,
+            "engineToAudioRatio": 0.9102852852852337,
+            "audioToWallRatio": 1.00056338028169,
+            "lossAudioSeconds": 0.31866666666685006,
+            "lossWallSeconds": 0.3166666666668503
+          },
+          "sfxEvents": [
+            {
+              "wallMs": 31770,
+              "audioTime": 18.304,
+              "engineTime": 22.350000000000012,
+              "engineFrame": 1306,
+              "name": "step"
+            },
+            {
+              "wallMs": 32253,
+              "audioTime": 18.784,
+              "engineTime": 22.833333333333318,
+              "engineFrame": 1335,
+              "name": "step"
+            },
+            {
+              "wallMs": 32570,
+              "audioTime": 19.104,
+              "engineTime": 23.149999999999967,
+              "engineFrame": 1354,
+              "name": "step"
+            },
+            {
+              "wallMs": 32791.00000000001,
+              "audioTime": 19.317333333333334,
+              "engineTime": 23.36666666666662,
+              "engineFrame": 1367,
+              "name": "step"
+            },
+            {
+              "wallMs": 32995,
+              "audioTime": 19.530666666666665,
+              "engineTime": 23.56666666666661,
+              "engineFrame": 1378,
+              "name": "step"
+            },
+            {
+              "wallMs": 33554,
+              "audioTime": 20.085333333333335,
+              "engineTime": 23.766666666666598,
+              "engineFrame": 1383,
+              "name": "step"
+            }
+          ],
+          "allIntervalsCsv": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/source-street-intervals.csv"
+        },
+        {
+          "name": "cut-gas-air",
+          "fullEndpoints": {
+            "wallSeconds": 8.566,
+            "audioSeconds": 8.565333333333335,
+            "engineSeconds": 8.566666666666187,
+            "engineFrames": 512,
+            "engineToAudioRatio": 1.0001556662515005,
+            "audioToWallRatio": 0.9999221729317458,
+            "lossAudioSeconds": -0.0013333333328517938,
+            "lossWallSeconds": -0.0006666666661860887,
+            "toleranceSeconds": 0.4282666666666668,
+            "lossBeyondToleranceSeconds": -0.4295999999995186,
+            "captureClockGuardPassed": true
+          },
+          "firstToLastSample": {
+            "wallSeconds": 8.55,
+            "audioSeconds": 8.55466666666667,
+            "engineSeconds": 8.566666666666187,
+            "engineFrames": 512,
+            "engineToAudioRatio": 1.0014027431420882,
+            "audioToWallRatio": 1.000545808966862,
+            "lossAudioSeconds": -0.011999999999517286,
+            "lossWallSeconds": -0.016666666666186103
+          },
+          "setupToFirstSample": {
+            "wallSeconds": 0.0,
+            "audioSeconds": 0.0,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": null,
+            "audioToWallRatio": null,
+            "lossAudioSeconds": 0.0,
+            "lossWallSeconds": 0.0
+          },
+          "lastSampleToAfter": {
+            "wallSeconds": 0.016,
+            "audioSeconds": 0.010666666666665492,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": 0.0,
+            "audioToWallRatio": 0.6666666666665932,
+            "lossAudioSeconds": 0.010666666666665492,
+            "lossWallSeconds": 0.016
+          },
+          "clockSamples": 513,
+          "renderIntervals": 512,
+          "frameDeltaHistogram": {
+            "1": 512
+          },
+          "fixedStepHistogram": {
+            "2": 13,
+            "1": 485,
+            "0": 13,
+            "3": 1
+          },
+          "dropped": {
+            "clockFrames": 0,
+            "trajectory": 0,
+            "sfxEvents": 0
+          },
+          "errors": [],
+          "stateHistogram": [
+            {
+              "mode": "play",
+              "paused": false,
+              "audioState": "running",
+              "tier": "low",
+              "count": 513
+            }
+          ],
+          "largestLossIntervals": [
+            {
+              "fromIndex": 86,
+              "toIndex": 87,
+              "fromFrame": 3644,
+              "toFrame": 3645,
+              "fromWallMs": 71767,
+              "toWallMs": 71781,
+              "wallSeconds": 0.014,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.5238095238093559,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.014,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 121,
+              "toIndex": 122,
+              "fromFrame": 3679,
+              "toFrame": 3680,
+              "fromWallMs": 72353,
+              "toWallMs": 72366,
+              "wallSeconds": 0.013,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.6410256410254604,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.013,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 237,
+              "toIndex": 238,
+              "fromFrame": 3795,
+              "toFrame": 3796,
+              "fromWallMs": 74284,
+              "toWallMs": 74298,
+              "wallSeconds": 0.014,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.5238095238093559,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.014,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 72,
+              "toIndex": 73,
+              "fromFrame": 3630,
+              "toFrame": 3631,
+              "fromWallMs": 71532,
+              "toWallMs": 71554,
+              "wallSeconds": 0.022,
+              "audioSeconds": 0.029333333333333655,
+              "engineSeconds": 0.01666666666666572,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.5681818181817796,
+              "audioToWallRatio": 1.3333333333333481,
+              "lossAudioSeconds": 0.012666666666667936,
+              "lossWallSeconds": 0.0053333333333342794,
+              "fixedSteps": 1
+            },
+            {
+              "fromIndex": 11,
+              "toIndex": 12,
+              "fromFrame": 3569,
+              "toFrame": 3570,
+              "fromWallMs": 70483,
+              "toWallMs": 70498,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.010666666666665492,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 0.7111111111110329,
+              "lossAudioSeconds": 0.010666666666665492,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 44,
+              "toIndex": 45,
+              "fromFrame": 3602,
+              "toFrame": 3603,
+              "fromWallMs": 71033,
+              "toWallMs": 71048,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.010666666666665492,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 0.7111111111110329,
+              "lossAudioSeconds": 0.010666666666665492,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 50,
+              "toIndex": 51,
+              "fromFrame": 3608,
+              "toFrame": 3609,
+              "fromWallMs": 71154,
+              "toWallMs": 71164,
+              "wallSeconds": 0.01,
+              "audioSeconds": 0.010666666666665492,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.0666666666665492,
+              "lossAudioSeconds": 0.010666666666665492,
+              "lossWallSeconds": 0.01,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 55,
+              "toIndex": 56,
+              "fromFrame": 3613,
+              "toFrame": 3614,
+              "fromWallMs": 71250,
+              "toWallMs": 71264,
+              "wallSeconds": 0.014,
+              "audioSeconds": 0.010666666666665492,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 0.7619047619046779,
+              "lossAudioSeconds": 0.010666666666665492,
+              "lossWallSeconds": 0.014,
+              "fixedSteps": 0
+            }
+          ]
+        },
+        {
+          "name": "arcade-room",
+          "fullEndpoints": {
+            "wallSeconds": 6.253,
+            "audioSeconds": 6.25066666666666,
+            "engineSeconds": 6.249999999999645,
+            "engineFrames": 375,
+            "engineToAudioRatio": 0.9998933447098418,
+            "audioToWallRatio": 0.9996268457806909,
+            "lossAudioSeconds": 0.0006666666670156474,
+            "lossWallSeconds": 0.003000000000355385,
+            "toleranceSeconds": 0.31253333333333305,
+            "lossBeyondToleranceSeconds": -0.3118666666663174,
+            "captureClockGuardPassed": true
+          },
+          "firstToLastSample": {
+            "wallSeconds": 6.238,
+            "audioSeconds": 6.239999999999995,
+            "engineSeconds": 6.249999999999645,
+            "engineFrames": 375,
+            "engineToAudioRatio": 1.001602564102508,
+            "audioToWallRatio": 1.0003206155819164,
+            "lossAudioSeconds": -0.009999999999649845,
+            "lossWallSeconds": -0.011999999999644295
+          },
+          "setupToFirstSample": {
+            "wallSeconds": 0.0,
+            "audioSeconds": 0.0,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": null,
+            "audioToWallRatio": null,
+            "lossAudioSeconds": 0.0,
+            "lossWallSeconds": 0.0
+          },
+          "lastSampleToAfter": {
+            "wallSeconds": 0.015,
+            "audioSeconds": 0.010666666666665492,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": 0.0,
+            "audioToWallRatio": 0.7111111111110329,
+            "lossAudioSeconds": 0.010666666666665492,
+            "lossWallSeconds": 0.015
+          },
+          "clockSamples": 376,
+          "renderIntervals": 375,
+          "frameDeltaHistogram": {
+            "1": 375
+          },
+          "fixedStepHistogram": {
+            "2": 97,
+            "1": 181,
+            "0": 97
+          },
+          "dropped": {
+            "clockFrames": 0,
+            "trajectory": 0,
+            "sfxEvents": 0
+          },
+          "errors": [],
+          "stateHistogram": [
+            {
+              "mode": "play",
+              "paused": false,
+              "audioState": "running",
+              "tier": "low",
+              "count": 376
+            }
+          ],
+          "largestLossIntervals": [
+            {
+              "fromIndex": 128,
+              "toIndex": 129,
+              "fromFrame": 5180,
+              "toFrame": 5181,
+              "fromWallMs": 98548,
+              "toWallMs": 98565,
+              "wallSeconds": 0.017,
+              "audioSeconds": 0.021333333333345195,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.2549019607850114,
+              "lossAudioSeconds": 0.021333333333345195,
+              "lossWallSeconds": 0.017,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 160,
+              "toIndex": 161,
+              "fromFrame": 5212,
+              "toFrame": 5213,
+              "fromWallMs": 99081,
+              "toWallMs": 99098,
+              "wallSeconds": 0.017,
+              "audioSeconds": 0.021333333333345195,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.2549019607850114,
+              "lossAudioSeconds": 0.021333333333345195,
+              "lossWallSeconds": 0.017,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 245,
+              "toIndex": 246,
+              "fromFrame": 5297,
+              "toFrame": 5298,
+              "fromWallMs": 100498,
+              "toWallMs": 100515,
+              "wallSeconds": 0.017,
+              "audioSeconds": 0.021333333333345195,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.2549019607850114,
+              "lossAudioSeconds": 0.021333333333345195,
+              "lossWallSeconds": 0.017,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 299,
+              "toIndex": 300,
+              "fromFrame": 5351,
+              "toFrame": 5352,
+              "fromWallMs": 101399,
+              "toWallMs": 101414,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.021333333333345195,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.422222222223013,
+              "lossAudioSeconds": 0.021333333333345195,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 322,
+              "toIndex": 323,
+              "fromFrame": 5374,
+              "toFrame": 5375,
+              "fromWallMs": 101782,
+              "toWallMs": 101798,
+              "wallSeconds": 0.016,
+              "audioSeconds": 0.021333333333345195,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.3333333333340747,
+              "lossAudioSeconds": 0.021333333333345195,
+              "lossWallSeconds": 0.016,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 361,
+              "toIndex": 362,
+              "fromFrame": 5413,
+              "toFrame": 5414,
+              "fromWallMs": 102432,
+              "toWallMs": 102448.00000000001,
+              "wallSeconds": 0.01600000000001455,
+              "audioSeconds": 0.021333333333345195,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.333333333332862,
+              "lossAudioSeconds": 0.021333333333345195,
+              "lossWallSeconds": 0.01600000000001455,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 7,
+              "toIndex": 8,
+              "fromFrame": 5059,
+              "toFrame": 5060,
+              "fromWallMs": 96532,
+              "toWallMs": 96548,
+              "wallSeconds": 0.016,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.3333333333331865,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.016,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 14,
+              "toIndex": 15,
+              "fromFrame": 5066,
+              "toFrame": 5067,
+              "fromWallMs": 96649,
+              "toWallMs": 96664,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.4222222222220657,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            }
+          ]
+        }
+      ]
+    },
+    "pr": {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-ios-pr-recovered/original/report.json",
+      "bytes": 939375,
+      "sha256": "abf62e88aa00183e035453e63e9ab136597a1de79e230148177318f66533cf8e",
+      "recoveredManifestSha256": "f33393cc8dbe25e77c253754a1564ad5a03df800c0c5cf658bf55da1077cee7a",
+      "bytesAndShaMatched": true,
+      "sourceJob": 104050442233,
+      "checkedAt": "2026-09-14T16:08:47.904Z",
+      "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+      "provenance": {
+        "preparedFromCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+        "preparationReportSha256": "3af69d8780c54ca4a5f2868e7b5958f6200578390a47977440fc65edf8189446",
+        "bundle": "cinderline.1.0.0.js",
+        "bundleSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+          "dist/cinderline.1.0.0.js": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55"
+        },
+        "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helperSha256": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819",
+        "harnessSha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+        "runCommit": "6eaddedf951047c41c735bad4b6dfcf8b9e8946f",
+        "runId": "34866168484",
+        "runAttempt": "1"
+      },
+      "clips": [
+        {
+          "name": "street-walk",
+          "fullEndpoints": {
+            "wallSeconds": 10.102,
+            "audioSeconds": 10.026666666666667,
+            "engineSeconds": 8.166666666666206,
+            "engineFrames": 350,
+            "engineToAudioRatio": 0.8144946808510178,
+            "audioToWallRatio": 0.9925427308123804,
+            "lossAudioSeconds": 1.8600000000004613,
+            "lossWallSeconds": 1.9353333333337943,
+            "toleranceSeconds": 0.5013333333333334,
+            "lossBeyondToleranceSeconds": 1.3586666666671279,
+            "captureClockGuardPassed": false
+          },
+          "firstToLastSample": {
+            "wallSeconds": 10.093,
+            "audioSeconds": 10.016000000000002,
+            "engineSeconds": 8.166666666666206,
+            "engineFrames": 350,
+            "engineToAudioRatio": 0.8153620873268974,
+            "audioToWallRatio": 0.9923709501634799,
+            "lossAudioSeconds": 1.8493333333337958,
+            "lossWallSeconds": 1.926333333333794
+          },
+          "setupToFirstSample": {
+            "wallSeconds": 0.0,
+            "audioSeconds": 0.0,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": null,
+            "audioToWallRatio": null,
+            "lossAudioSeconds": 0.0,
+            "lossWallSeconds": 0.0
+          },
+          "lastSampleToAfter": {
+            "wallSeconds": 0.009,
+            "audioSeconds": 0.010666666666665492,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": 0.0,
+            "audioToWallRatio": 1.1851851851850548,
+            "lossAudioSeconds": 0.010666666666665492,
+            "lossWallSeconds": 0.009
+          },
+          "clockSamples": 351,
+          "renderIntervals": 350,
+          "frameDeltaHistogram": {
+            "1": 350
+          },
+          "fixedStepHistogram": {
+            "4": 14,
+            "2": 90,
+            "1": 218,
+            "0": 16,
+            "3": 12
+          },
+          "dropped": {
+            "clockFrames": 0,
+            "trajectory": 0,
+            "sfxEvents": 0
+          },
+          "errors": [],
+          "stateHistogram": [
+            {
+              "mode": "play",
+              "paused": false,
+              "audioState": "running",
+              "tier": "low",
+              "count": 351
+            }
+          ],
+          "largestLossIntervals": [
+            {
+              "fromIndex": 147,
+              "toIndex": 148,
+              "fromFrame": 1438,
+              "toFrame": 1439,
+              "fromWallMs": 42975,
+              "toWallMs": 43869,
+              "wallSeconds": 0.894,
+              "audioSeconds": 0.8960000000000008,
+              "engineSeconds": 0.03333333333333144,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.03720238095237881,
+              "audioToWallRatio": 1.0022371364653253,
+              "lossAudioSeconds": 0.8626666666666694,
+              "lossWallSeconds": 0.8606666666666686,
+              "fixedSteps": 2
+            },
+            {
+              "fromIndex": 148,
+              "toIndex": 149,
+              "fromFrame": 1439,
+              "toFrame": 1440,
+              "fromWallMs": 43869,
+              "toWallMs": 44450,
+              "wallSeconds": 0.581,
+              "audioSeconds": 0.5813333333333333,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.1146788990825623,
+              "audioToWallRatio": 1.0005737234652896,
+              "lossAudioSeconds": 0.5146666666666704,
+              "lossWallSeconds": 0.5143333333333371,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 33,
+              "toIndex": 34,
+              "fromFrame": 1324,
+              "toFrame": 1325,
+              "fromWallMs": 39658,
+              "toWallMs": 39826,
+              "wallSeconds": 0.168,
+              "audioSeconds": 0.17066666666666563,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.3906249999999802,
+              "audioToWallRatio": 1.0158730158730096,
+              "lossAudioSeconds": 0.10400000000000276,
+              "lossWallSeconds": 0.10133333333333713,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 32,
+              "toIndex": 33,
+              "fromFrame": 1323,
+              "toFrame": 1324,
+              "fromWallMs": 39508,
+              "toWallMs": 39658,
+              "wallSeconds": 0.15,
+              "audioSeconds": 0.14933333333333465,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.44642857142854214,
+              "audioToWallRatio": 0.9955555555555644,
+              "lossAudioSeconds": 0.08266666666667177,
+              "lossWallSeconds": 0.08333333333333712,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 4,
+              "toIndex": 5,
+              "fromFrame": 1295,
+              "toFrame": 1296,
+              "fromWallMs": 38638,
+              "toWallMs": 38787,
+              "wallSeconds": 0.149,
+              "audioSeconds": 0.1493333333333311,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.44642857142855275,
+              "audioToWallRatio": 1.0022371364653093,
+              "lossAudioSeconds": 0.08266666666666822,
+              "lossWallSeconds": 0.08233333333333712,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 133,
+              "toIndex": 134,
+              "fromFrame": 1424,
+              "toFrame": 1425,
+              "fromWallMs": 42444,
+              "toWallMs": 42545,
+              "wallSeconds": 0.101,
+              "audioSeconds": 0.09600000000000009,
+              "engineSeconds": 0.04999999999999716,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.5208333333333033,
+              "audioToWallRatio": 0.9504950495049512,
+              "lossAudioSeconds": 0.04600000000000293,
+              "lossWallSeconds": 0.05100000000000285,
+              "fixedSteps": 3
+            },
+            {
+              "fromIndex": 134,
+              "toIndex": 135,
+              "fromFrame": 1425,
+              "toFrame": 1426,
+              "fromWallMs": 42545,
+              "toWallMs": 42654,
+              "wallSeconds": 0.109,
+              "audioSeconds": 0.10666666666666558,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.6249999999999708,
+              "audioToWallRatio": 0.9785932721712438,
+              "lossAudioSeconds": 0.0400000000000027,
+              "lossWallSeconds": 0.04233333333333712,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 1,
+              "toIndex": 2,
+              "fromFrame": 1292,
+              "toFrame": 1293,
+              "fromWallMs": 38469,
+              "toWallMs": 38563,
+              "wallSeconds": 0.094,
+              "audioSeconds": 0.1039999999999992,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.6410256410256094,
+              "audioToWallRatio": 1.1063829787233959,
+              "lossAudioSeconds": 0.03733333333333633,
+              "lossWallSeconds": 0.027333333333337123,
+              "fixedSteps": 4
+            }
+          ],
+          "largestTwoAudioLossSeconds": 1.3773333333333397,
+          "largestTwoShareOfFullAudioLoss": 0.7405017921145152,
+          "largestTwoShareOfSampleAudioLoss": 0.7447728911317567,
+          "movement": {
+            "before": {
+              "wallMs": 40024,
+              "audioTime": 25.76,
+              "engineTime": 26.56666666666644,
+              "engineFrame": 1331,
+              "position": [
+                -112,
+                0,
+                -84
+              ],
+              "inputCount": 5
+            },
+            "after": {
+              "wallMs": 44351,
+              "audioTime": 30.08,
+              "engineTime": 29.433333333332943,
+              "engineFrame": 1439,
+              "position": [
+                -114.10785912412923,
+                0,
+                -86.10524804265766
+              ],
+              "stickActive": false,
+              "moveMagnitude": 1,
+              "input": [
+                {
+                  "type": "pointerdown",
+                  "trusted": true,
+                  "pointerType": "touch",
+                  "pointerId": 1676344586,
+                  "x": 101,
+                  "y": 246,
+                  "activeTouches": 1,
+                  "target": {
+                    "tag": "CANVAS",
+                    "id": "gl",
+                    "className": "",
+                    "text": ""
+                  }
+                },
+                {
+                  "type": "pointerup",
+                  "trusted": true,
+                  "pointerType": "touch",
+                  "pointerId": 1676344586,
+                  "x": 101,
+                  "y": 186,
+                  "activeTouches": 1,
+                  "target": {
+                    "tag": "CANVAS",
+                    "id": "gl",
+                    "className": "",
+                    "text": ""
+                  }
+                }
+              ]
+            },
+            "distance": 2.9791172196287925
+          },
+          "movementElapsed": {
+            "wallSeconds": 4.327,
+            "audioSeconds": 4.319999999999997,
+            "engineSeconds": 2.8666666666665037,
+            "engineFrames": 108,
+            "engineToAudioRatio": 0.663580246913543,
+            "audioToWallRatio": 0.998382250982204,
+            "lossAudioSeconds": 1.453333333333493,
+            "lossWallSeconds": 1.4603333333334962
+          },
+          "sfxEvents": [
+            {
+              "wallMs": 41752,
+              "audioTime": 27.488,
+              "engineTime": 28.283333333333008,
+              "engineFrame": 1397,
+              "name": "step"
+            },
+            {
+              "wallMs": 41963,
+              "audioTime": 27.690666666666665,
+              "engineTime": 28.483333333332997,
+              "engineFrame": 1403,
+              "name": "step"
+            },
+            {
+              "wallMs": 42428.00000000001,
+              "audioTime": 28.16,
+              "engineTime": 28.949999999999637,
+              "engineFrame": 1422,
+              "name": "step"
+            },
+            {
+              "wallMs": 42777,
+              "audioTime": 28.512,
+              "engineTime": 29.199999999999623,
+              "engineFrame": 1429,
+              "name": "step"
+            },
+            {
+              "wallMs": 42973,
+              "audioTime": 28.704,
+              "engineTime": 29.39999999999961,
+              "engineFrame": 1437,
+              "name": "step"
+            }
+          ],
+          "allIntervalsCsv": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/pr-street-intervals.csv"
+        },
+        {
+          "name": "cut-gas-air",
+          "fullEndpoints": {
+            "wallSeconds": 9.944,
+            "audioSeconds": 9.941333333333333,
+            "engineSeconds": 9.916666666666103,
+            "engineFrames": 458,
+            "engineToAudioRatio": 0.9975187768239777,
+            "audioToWallRatio": 0.9997318315902385,
+            "lossAudioSeconds": 0.02466666666722972,
+            "lossWallSeconds": 0.02733333333389787,
+            "toleranceSeconds": 0.49706666666666666,
+            "lossBeyondToleranceSeconds": -0.47239999999943694,
+            "captureClockGuardPassed": true
+          },
+          "firstToLastSample": {
+            "wallSeconds": 9.933,
+            "audioSeconds": 9.930666666666667,
+            "engineSeconds": 9.916666666666103,
+            "engineFrames": 458,
+            "engineToAudioRatio": 0.9985902255638529,
+            "audioToWallRatio": 0.9997650927883487,
+            "lossAudioSeconds": 0.014000000000564228,
+            "lossWallSeconds": 0.01633333333389686
+          },
+          "setupToFirstSample": {
+            "wallSeconds": 0.0,
+            "audioSeconds": 0.0,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": null,
+            "audioToWallRatio": null,
+            "lossAudioSeconds": 0.0,
+            "lossWallSeconds": 0.0
+          },
+          "lastSampleToAfter": {
+            "wallSeconds": 0.011,
+            "audioSeconds": 0.010666666666665492,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": 0.0,
+            "audioToWallRatio": 0.9696969696968629,
+            "lossAudioSeconds": 0.010666666666665492,
+            "lossWallSeconds": 0.011
+          },
+          "clockSamples": 459,
+          "renderIntervals": 458,
+          "frameDeltaHistogram": {
+            "1": 458
+          },
+          "fixedStepHistogram": {
+            "1": 311,
+            "2": 102,
+            "3": 20,
+            "0": 20,
+            "4": 5
+          },
+          "dropped": {
+            "clockFrames": 0,
+            "trajectory": 0,
+            "sfxEvents": 0
+          },
+          "errors": [],
+          "stateHistogram": [
+            {
+              "mode": "play",
+              "paused": false,
+              "audioState": "running",
+              "tier": "low",
+              "count": 459
+            }
+          ],
+          "largestLossIntervals": [
+            {
+              "fromIndex": 185,
+              "toIndex": 186,
+              "fromFrame": 2217,
+              "toFrame": 2218,
+              "fromWallMs": 60301,
+              "toWallMs": 60367.00000000001,
+              "wallSeconds": 0.06600000000000728,
+              "audioSeconds": 0.06400000000000006,
+              "engineSeconds": 0.01666666666666572,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.26041666666665164,
+              "audioToWallRatio": 0.9696969696968637,
+              "lossAudioSeconds": 0.04733333333333434,
+              "lossWallSeconds": 0.049333333333341556,
+              "fixedSteps": 1
+            },
+            {
+              "fromIndex": 57,
+              "toIndex": 58,
+              "fromFrame": 2089,
+              "toFrame": 2090,
+              "fromWallMs": 57120.00000000001,
+              "toWallMs": 57133,
+              "wallSeconds": 0.012999999999992724,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.6410256410263788,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.012999999999992724,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 164,
+              "toIndex": 165,
+              "fromFrame": 2196,
+              "toFrame": 2197,
+              "fromWallMs": 59946,
+              "toWallMs": 59959,
+              "wallSeconds": 0.013,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.6410256410254604,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.013,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 262,
+              "toIndex": 263,
+              "fromFrame": 2294,
+              "toFrame": 2295,
+              "fromWallMs": 61728,
+              "toWallMs": 61745.00000000001,
+              "wallSeconds": 0.017000000000007277,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.2549019607836385,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.017000000000007277,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 383,
+              "toIndex": 384,
+              "fromFrame": 2415,
+              "toFrame": 2416,
+              "fromWallMs": 64182,
+              "toWallMs": 64194,
+              "wallSeconds": 0.012,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.777777777777582,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.012,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 300,
+              "toIndex": 301,
+              "fromFrame": 2332,
+              "toFrame": 2333,
+              "fromWallMs": 62517,
+              "toWallMs": 62529,
+              "wallSeconds": 0.012,
+              "audioSeconds": 0.018666666666668164,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.5555555555556804,
+              "lossAudioSeconds": 0.018666666666668164,
+              "lossWallSeconds": 0.012,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 379,
+              "toIndex": 380,
+              "fromFrame": 2411,
+              "toFrame": 2412,
+              "fromWallMs": 64114.00000000001,
+              "toWallMs": 64129.99999999999,
+              "wallSeconds": 0.01599999999998545,
+              "audioSeconds": 0.015999999999998238,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.0000000000007994,
+              "lossAudioSeconds": 0.015999999999998238,
+              "lossWallSeconds": 0.01599999999998545,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 137,
+              "toIndex": 138,
+              "fromFrame": 2169,
+              "toFrame": 2170,
+              "fromWallMs": 59251.00000000001,
+              "toWallMs": 59278,
+              "wallSeconds": 0.026999999999992724,
+              "audioSeconds": 0.03200000000000358,
+              "engineSeconds": 0.01666666666666572,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.5208333333332454,
+              "audioToWallRatio": 1.1851851851856372,
+              "lossAudioSeconds": 0.015333333333337862,
+              "lossWallSeconds": 0.010333333333327005,
+              "fixedSteps": 1
+            }
+          ]
+        },
+        {
+          "name": "arcade-room",
+          "fullEndpoints": {
+            "wallSeconds": 8.982,
+            "audioSeconds": 8.981333333333332,
+            "engineSeconds": 8.899999999999494,
+            "engineFrames": 457,
+            "engineToAudioRatio": 0.9909441805225092,
+            "audioToWallRatio": 0.9999257774808876,
+            "lossAudioSeconds": 0.08133333333383774,
+            "lossWallSeconds": 0.08200000000050522,
+            "toleranceSeconds": 0.4490666666666666,
+            "lossBeyondToleranceSeconds": -0.36773333333282887,
+            "captureClockGuardPassed": true
+          },
+          "firstToLastSample": {
+            "wallSeconds": 8.965,
+            "audioSeconds": 8.965333333333334,
+            "engineSeconds": 8.899999999999494,
+            "engineFrames": 457,
+            "engineToAudioRatio": 0.9927126710290929,
+            "audioToWallRatio": 1.0000371816322737,
+            "lossAudioSeconds": 0.0653333333338395,
+            "lossWallSeconds": 0.06500000000050576
+          },
+          "setupToFirstSample": {
+            "wallSeconds": -0.001,
+            "audioSeconds": -0.005333333333332746,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": -0.0,
+            "audioToWallRatio": 5.333333333332746,
+            "lossAudioSeconds": -0.005333333333332746,
+            "lossWallSeconds": -0.001
+          },
+          "lastSampleToAfter": {
+            "wallSeconds": 0.018,
+            "audioSeconds": 0.021333333333330984,
+            "engineSeconds": 0.0,
+            "engineFrames": 0,
+            "engineToAudioRatio": 0.0,
+            "audioToWallRatio": 1.1851851851850548,
+            "lossAudioSeconds": 0.021333333333330984,
+            "lossWallSeconds": 0.018
+          },
+          "clockSamples": 458,
+          "renderIntervals": 457,
+          "frameDeltaHistogram": {
+            "1": 457
+          },
+          "fixedStepHistogram": {
+            "2": 75,
+            "1": 351,
+            "3": 7,
+            "0": 21,
+            "4": 3
+          },
+          "dropped": {
+            "clockFrames": 0,
+            "trajectory": 0,
+            "sfxEvents": 0
+          },
+          "errors": [],
+          "stateHistogram": [
+            {
+              "mode": "play",
+              "paused": false,
+              "audioState": "running",
+              "tier": "low",
+              "count": 458
+            }
+          ],
+          "largestLossIntervals": [
+            {
+              "fromIndex": 25,
+              "toIndex": 26,
+              "fromFrame": 2770,
+              "toFrame": 2771,
+              "fromWallMs": 73074,
+              "toWallMs": 73200,
+              "wallSeconds": 0.126,
+              "audioSeconds": 0.1280000000000001,
+              "engineSeconds": 0.06666666666666288,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.5208333333333033,
+              "audioToWallRatio": 1.0158730158730167,
+              "lossAudioSeconds": 0.06133333333333724,
+              "lossWallSeconds": 0.059333333333337124,
+              "fixedSteps": 4
+            },
+            {
+              "fromIndex": 8,
+              "toIndex": 9,
+              "fromFrame": 2753,
+              "toFrame": 2754,
+              "fromWallMs": 72606,
+              "toWallMs": 72620,
+              "wallSeconds": 0.014,
+              "audioSeconds": 0.02133333333333809,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.5238095238098635,
+              "lossAudioSeconds": 0.02133333333333809,
+              "lossWallSeconds": 0.014,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 252,
+              "toIndex": 253,
+              "fromFrame": 2997,
+              "toFrame": 2998,
+              "fromWallMs": 77617,
+              "toWallMs": 77634,
+              "wallSeconds": 0.017,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.2549019607841754,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.017,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 291,
+              "toIndex": 292,
+              "fromFrame": 3036,
+              "toFrame": 3037,
+              "fromWallMs": 78367,
+              "toWallMs": 78382,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.4222222222220657,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 350,
+              "toIndex": 351,
+              "fromFrame": 3095,
+              "toFrame": 3096,
+              "fromWallMs": 79434,
+              "toWallMs": 79449,
+              "wallSeconds": 0.015,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.4222222222220657,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.015,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 379,
+              "toIndex": 380,
+              "fromFrame": 3124,
+              "toFrame": 3125,
+              "fromWallMs": 79934,
+              "toWallMs": 79950,
+              "wallSeconds": 0.016,
+              "audioSeconds": 0.021333333333330984,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.3333333333331865,
+              "lossAudioSeconds": 0.021333333333330984,
+              "lossWallSeconds": 0.016,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 369,
+              "toIndex": 370,
+              "fromFrame": 3114,
+              "toFrame": 3115,
+              "fromWallMs": 79766,
+              "toWallMs": 79782,
+              "wallSeconds": 0.016,
+              "audioSeconds": 0.01866666666667527,
+              "engineSeconds": 0.0,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.0,
+              "audioToWallRatio": 1.1666666666672043,
+              "lossAudioSeconds": 0.01866666666667527,
+              "lossWallSeconds": 0.016,
+              "fixedSteps": 0
+            },
+            {
+              "fromIndex": 398,
+              "toIndex": 399,
+              "fromFrame": 3143,
+              "toFrame": 3144,
+              "fromWallMs": 80267,
+              "toWallMs": 80291,
+              "wallSeconds": 0.024,
+              "audioSeconds": 0.03200000000001069,
+              "engineSeconds": 0.01666666666666572,
+              "engineFrames": 1,
+              "engineToAudioRatio": 0.5208333333331298,
+              "audioToWallRatio": 1.3333333333337787,
+              "lossAudioSeconds": 0.015333333333344967,
+              "lossWallSeconds": 0.007333333333334281,
+              "fixedSteps": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sourceFiles": {
+    "src/core/engine.js": {
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+      "gitBlobSha1": "0735cfcb3f6df68bf5bd51fa84a27d60c712391e"
+    },
+    "src/core/util.js": {
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+      "gitBlobSha1": "4ac5a78a92f684c811139b5baee8893b774b1ca1"
+    },
+    "tools/mobile_audio_capture.mjs": {
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "gitBlobSha1": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+    },
+    "tools/ios_audio_capture.mjs": {
+      "bytes": 19602,
+      "sha256": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819",
+      "gitBlobSha1": "7e707c5265c97902b5ea37e0721addac21c636ff"
+    },
+    "tools/test-ios-safari.mjs": {
+      "bytes": 27951,
+      "sha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+      "gitBlobSha1": "cef06ffbc780b4e688758b84d0782bd42e103702"
+    }
+  },
+  "conditionalCounterexample": {
+    "assumptions": [
+      "timeScale=1",
+      "no clockLast reset",
+      "initial accumulator in [0,1/60)",
+      "supplied delta is rAF now minus clockLast, not render performance.now"
+    ],
+    "using894msAsRafDelta": {
+      "steps": 4,
+      "accumSeconds": 0
+    },
+    "observedFixedStepsFor894ms": 2,
+    "using581msAsRafDelta": {
+      "steps": 4,
+      "accumSeconds": 0
+    },
+    "observedFixedStepsFor581ms": 4,
+    "using249msAsRafDelta": {
+      "steps": 4,
+      "accumSeconds": 0
+    },
+    "observedFixedStepsFor249ms": 1,
+    "implication": "The 894 ms and 249 ms sample gaps cannot be substituted for engine rAF deltas under these assumptions.",
+    "prTwoStepRafDeltaBoundsMs": {
+      "lowerExclusive": 16.666666666666668,
+      "upperExclusive": 50.0
+    },
+    "prIncreaseInSampleMinusRafOffsetLowerBoundMs": 844.0,
+    "caveat": "The bound is conditional, not an observed CPU duration. timeScale, resets, entry/exit times and paused callbacks are absent from the report."
+  }
+}

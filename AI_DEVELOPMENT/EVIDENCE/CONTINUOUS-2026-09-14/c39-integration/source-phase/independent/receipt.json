@@ -1,0 +1,120 @@
+{
+  "status": "finite-original-summary-review-complete",
+  "scope": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/independent",
+  "author": "/root/integration_recovery_ultra/safari_time_loss_ultra/raw_clock_refuter_ultra",
+  "taskIssuer": "/root/integration_recovery_ultra/shadow_original_review_ultra",
+  "acceptedAtUtc": "2026-09-14T19:15:54.065519+00:00",
+  "authorityReadOrder": [
+    "head",
+    "agents",
+    "claude",
+    "session"
+  ],
+  "authority": {
+    "head": {
+      "sha": "61e8f8c595bde13634fe709f979816011df165d0",
+      "url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/ref/heads/claude/repo-instructions-constraints-r0070m"
+    },
+    "agents": {
+      "sha": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/61e8f8c595bde13634fe709f979816011df165d0/AGENTS.md"
+    },
+    "claude": {
+      "sha": "8b758231a6b77277092ccee5a322f593320b123f",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/61e8f8c595bde13634fe709f979816011df165d0/CLAUDE.md"
+    },
+    "session": {
+      "sha": "38208f4f77953690715e2648d5d78632ad56a3ee",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/61e8f8c595bde13634fe709f979816011df165d0/AI_DEVELOPMENT/SESSION_STATE.yaml"
+    }
+  },
+  "instruction": "ULTRA-CHILDREN-20260914-v3",
+  "sourceFiles": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+      "gitBlobSha1": "0735cfcb3f6df68bf5bd51fa84a27d60c712391e",
+      "expectedShaChecked": false
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/tools/export-ios-frame-work.mjs",
+      "bytes": 2945,
+      "sha256": "8f99e90d4a4321587120ca6e55bc750cef5060929bd1dcf840fcdaed1a308fe2",
+      "gitBlobSha1": "971eef3a26d3cd10341e4609d7f93cfb59b407f5",
+      "expectedShaChecked": false
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+      "gitBlobSha1": "d16786a6dc1b259cac5cc77045400f924e1df2a4",
+      "expectedShaChecked": true
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+      "gitBlobSha1": "60fc3fdff6017483735ce8a6f7df83eba4d47d56",
+      "expectedShaChecked": true
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/tools/ios_audio_transfer.mjs",
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+      "gitBlobSha1": "f738aa1aff724aec6a2273d26a0a8962e1ef256b",
+      "expectedShaChecked": true
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "gitBlobSha1": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+      "expectedShaChecked": false
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/source/tools/test-ios-safari.mjs",
+      "bytes": 33990,
+      "sha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+      "gitBlobSha1": "63697c804ef2cc6ab62a8d313cc44e22eb1d9b1e",
+      "expectedShaChecked": true
+    }
+  ],
+  "readMethod": "Canonical App authority fetch; issuer-provided source read-only and hashed locally",
+  "expectedRunId": "34884725972",
+  "expectedRunAttempt": "1",
+  "expectedSafariJobId": "104112425709",
+  "jobLogFetches": 0,
+  "fixtureReruns": 0,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "reruns": 0,
+  "automationChanges": 0,
+  "newSpawns": 0,
+  "originalReportReceived": false,
+  "finalizedAtUtc": "2026-09-14T19:29:32.647760+00:00",
+  "originalReportRecoveryFailed": true,
+  "originalSummaryAvailable": true,
+  "summaryArithmeticPerformed": true,
+  "phaseArithmeticPerformed": false,
+  "clockEndpointRecalculationPerformed": false,
+  "fullReportExportMarkers": 0,
+  "independentVerification": "verify_summary.py passed",
+  "inputFiles": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/transport/job-original.log",
+      "bytes": 79989,
+      "sha256": "7708ce8065f490e8438631f6885e3535e56af97f418cf2b262bdc02d6484d054"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/transport/job-completed.json",
+      "bytes": 5083,
+      "sha256": "e37a163f89e12d06babbeb2d84145d5b4045864ddaa0e69853373d7cdaf49026"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/original/log-summary.json",
+      "bytes": 28778,
+      "sha256": "5cbb7d15a67d349d20c17edba62eb7114d6052cc414ef744ca06b12258f6cc12"
+    }
+  ]
+}

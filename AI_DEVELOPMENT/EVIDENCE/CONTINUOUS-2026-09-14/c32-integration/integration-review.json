@@ -1,0 +1,25 @@
+{
+  "source": "0abe4628947064fe811ed842face2018b87d5bf5",
+  "reviewer": "/root/integration_decisions_ultra_v2",
+  "runtimeUnchanged": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+  "transportCandidateSha256": "56acb917913e27d3763ad99ae81d83788b503aebdd2210ae196c0e4f3cbfd4e4",
+  "change": "Only CHUNK_CHARS 32768 to 131072; exact one-line diff independently read. No deadline/cap/clock guard change.",
+  "independentCopiedTests": {
+    "transport": 31,
+    "existingBoundaries": 10,
+    "exitCodes": [
+      0,
+      0
+    ],
+    "modeledOldMs": 120000,
+    "modeledNewMs": 40800,
+    "assumedRoundTripMs": 600,
+    "actualSafariMeasured": false
+  },
+  "audioPreparationReview": "audio-candidate-independent-review-ultra/preparation-review/review.md",
+  "audioCandidate": "22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7",
+  "audioProductAdopted": false,
+  "newBuildMeasured": false,
+  "newRequiredCiMeasured": false,
+  "mainMerged": false
+}

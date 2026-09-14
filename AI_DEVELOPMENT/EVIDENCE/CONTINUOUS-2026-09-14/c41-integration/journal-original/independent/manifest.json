@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen independent review",
+  "candidateRepositoryAllowlist": [
+    "tools/check-narrative-routes.mjs"
+  ],
+  "candidate": {
+    "bytes": 19190,
+    "sha256": "c37ff0a9458fde111c7396f7492c053f554f4c2fee7313b03b04c28693520709",
+    "gitBlob": "911f183ce48327d3a9b5e16c1a5acc29c1b7c01f"
+  },
+  "publicAllowlist": [
+    "REPORT.md",
+    "receipt.json",
+    "verify_original.py",
+    "original-verification.json",
+    "verify_repair.mjs",
+    "repair-verification.json",
+    "manifest.json"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 5032,
+      "sha256": "3b0af4e4db8069d938a0488859c70b2e8f3efe68dc8ebfb6bcc7a5f9ed67c823"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 3167,
+      "sha256": "31036a902b03b066ffa01b9d70f58341c3def19f571ce1078434fdec527680df"
+    },
+    {
+      "path": "verify_original.py",
+      "bytes": 10756,
+      "sha256": "cff005786b55eb715bfd66782543bd7c0460dda978ad47d1babf59958cc3ecb8"
+    },
+    {
+      "path": "original-verification.json",
+      "bytes": 10671,
+      "sha256": "67976e8528c84e4ec6e7400359eab517857cf443f3e7f4dfc52e86d219c5ad09"
+    },
+    {
+      "path": "verify_repair.mjs",
+      "bytes": 9427,
+      "sha256": "af21d07a854b6d08b6d7db120624192b8baff2b4ecdab04a62896287d3f4c2fb"
+    },
+    {
+      "path": "repair-verification.json",
+      "bytes": 10096,
+      "sha256": "b64ca5559b0806b694d50a26acc0d14dbf8a535f3ef5136243de880ba49a195f"
+    }
+  ],
+  "excluded": [
+    "authority/ (local original App receipts)",
+    "baseline/ (local exact canonical helper)"
+  ],
+  "noRecursiveCopy": true,
+  "blocking": []
+}

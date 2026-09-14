@@ -1,0 +1,36 @@
+{
+  "scope": "Source-known read-only review; no GPU/browser/build/CI/remote/evaluation",
+  "findings": [
+    {
+      "severity": "P2",
+      "file": "main-integration-c30/candidate/tools/mobile_grain_trial.mjs",
+      "line": 340,
+      "summary": "Grain descriptor restoration exception bypasses renderer wrapper restoration",
+      "reproduction": "Trial render makes grain nonconfigurable and nonwritable; original descriptor restore throws Cannot redefine property. renderBufferDirect remains wrapper, not original function.",
+      "production_occurrence_proven": false,
+      "minimum_fix": "Always restore renderer descriptor in an outer finally around both grade restoration and restored frame; keep any restoration failure invalid."
+    }
+  ],
+  "cpu_controls": {
+    "existing": {
+      "passed": 20,
+      "failed": 0
+    },
+    "review_render_throw_cleanup": true,
+    "review_grade_restore_throw_cleanup": false,
+    "total": 22,
+    "passed": 21,
+    "failed": 1,
+    "duration_ms": 306.950351
+  },
+  "build_preparation": {
+    "verified_input_files": 47,
+    "source_candidate_sha256": "b9a4f9422242d27c329b77e6502f251281fddf80a6a62880202adc2040ce1a5a",
+    "executed_build": false,
+    "additional_blocking_finding": null
+  },
+  "r2_report_sha256": "05c50e4f55db964e1075a19cb7463e88000daabf2363f27d7a1f4d573092d580",
+  "r2_eight_views_still_failed": true,
+  "source_edits": 0,
+  "evaluation_count": 0
+}

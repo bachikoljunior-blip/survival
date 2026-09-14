@@ -1,0 +1,52 @@
+{
+  "status": "explicit-publication-allowlist",
+  "entries": [
+    {
+      "path": "candidate/src/game/state.js",
+      "bytes": 34503,
+      "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+      "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 1238,
+      "sha256": "f82c2e6a32f1805d38d97994535b9b1ac1cf64da96ff5f7db836f22cb1cb3946",
+      "gitBlob": "a7fb44a4174022e4c3225793ae2819a6ff226901"
+    },
+    {
+      "path": "verify-save-repair.mjs",
+      "bytes": 12900,
+      "sha256": "0ef2b2627753cc8671af54521917d1e12974eef8ff9d73371455b8ef61c69152",
+      "gitBlob": "f039d9cf1d108a6ea5030aff2ef410d5d00a6ca8"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 11589,
+      "sha256": "1a561d53b7024254dbb3b3bee5fc191f6054915b9cfd0f2e2780933a1072be1a",
+      "gitBlob": "b6d48972ff919241d6784f18f2855189f195d2e1"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 6644,
+      "sha256": "2fb0b7ecb4d4689a276d3f864536bf59f9382ad306622679bdb26836659f9c33",
+      "gitBlob": "8681971e869205af122b1eecb3164d0d37e20fca"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 5357,
+      "sha256": "18011ea9886ec8edc3ca03d449e77aa1b0d832c1cacee1d62415f92dd133cd18",
+      "gitBlob": "cd1b31b71b33e69d5fb1bb60684b8a578c38346d"
+    }
+  ],
+  "controlFiles": [
+    "publication-allowlist.json",
+    "manifest.json"
+  ],
+  "exclude": [
+    "authority/",
+    "baseline/",
+    "fixture/",
+    "source-fetch-receipts.json",
+    "freeze.py"
+  ]
+}

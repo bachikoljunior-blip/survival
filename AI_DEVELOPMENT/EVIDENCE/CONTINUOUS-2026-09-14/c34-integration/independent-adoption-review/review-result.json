@@ -1,0 +1,92 @@
+{
+  "scope": "Read-only final C34 five-file adoption reconciliation against canonical C33, actual recovered preparation bytes and prior frozen reviews. No build, suite, preflight, CI or browser executed.",
+  "baseCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+  "blockingFindings": [],
+  "reviewedFiles": [
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1445983,
+      "sha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+      "gitBlob": "05fa00313fd900697973839038659c7a16a1c306"
+    },
+    {
+      "path": "src/audio/audio.js",
+      "bytes": 47743,
+      "sha256": "92ee1d3c35fc02d868811ff1c02bb3d1403b4faddef804feb8984c897a037c6e",
+      "gitBlob": "30937b807d5bc93618ab6e625268b15926e1eda5"
+    },
+    {
+      "path": "tools/gates/f3_safari_audio.mjs",
+      "bytes": 5777,
+      "sha256": "5aa87a3376b44b037da5bc2b76ee665ef36f78bad59dfafb347a5c72b4ae09e6",
+      "gitBlob": "504d609ecf102f59c6dc1a340ebf3ce1d5bfa153"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 19602,
+      "sha256": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819",
+      "gitBlob": "7e707c5265c97902b5ea37e0721addac21c636ff"
+    },
+    {
+      "path": "tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "gitBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+    }
+  ],
+  "candidateManifest": {
+    "path": "main-integration-c34/draft-five-file-manifest.json",
+    "sha256": "747563bbe6cf74e383cdee2b4d83f9bf8a410aae4e9493bb65df0b39257da64f"
+  },
+  "priorReview": {
+    "path": "c33-audio-integration-review-ultra/review-result.json",
+    "sha256": "e0c04a753c3e8aca668668d920dd1a709098932fd0bca8d9355c8758cddb59c4",
+    "allOldCandidateHashesStillMatch": true
+  },
+  "agreements": {
+    "sourceAndRootExactlyEqualRecoveredOriginalBytes": true,
+    "sourceExactlyEqualsCanonicalC33Candidate92ee": true,
+    "helperOnlyThreeExactPinReplacements": true,
+    "recorderAndF3ExactlyEqualPriorReviewedDraft": true,
+    "recorderBlobMatchesPin": true,
+    "lifecycleTransportLimitsClocksAndFailureBehaviorUnchanged": true,
+    "sameCandidateHashesAtReadAndFinish": true
+  },
+  "pins": {
+    "preparedFromCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+    "preparationReportSha256": "3af69d8780c54ca4a5f2868e7b5958f6200578390a47977440fc65edf8189446",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+  },
+  "preparation": {
+    "reportSha256": "3af69d8780c54ca4a5f2868e7b5958f6200578390a47977440fc65edf8189446",
+    "sourceCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+    "runId": "34864648858",
+    "runAttempt": "1",
+    "recoveredJob": 104045296962,
+    "status": "prepared and content/root verified",
+    "inputHashesExactlyMatchCanonicalFixedPins": 47,
+    "baselineReproduced": true,
+    "originalBundleSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "candidateBundleSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "lockedDependencies": {
+      "esbuild": "0.25.0",
+      "three": "0.180.0"
+    },
+    "sevenRecordedCommandsExitedZero": true,
+    "recoveredManifestSha256": "2283c5197e9207d30de6e47b36307bb434a297d40ca8312541c2be196d9b0269"
+  },
+  "limits": [
+    "Actual Mobile Safari recovery, recordings and quality remain not measured.",
+    "Prior 80-control lifecycle and 35-control resume suites were not reexecuted; unchanged implementations and prior review identities were checked.",
+    "Static old-evidence rejection preflight and actual required CI are owned by integration owner, not executed by this reviewer.",
+    "Complete outgoing commit tree and other archived assets are outside this five-file review."
+  ],
+  "candidateEdits": 0,
+  "remoteWrites": 0,
+  "newCI": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "comparisons": 0
+}

@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "candidateSha256": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a",
+  "supersededSha256": "634d0337d04c032cd04d827c13e8ae8c6d110d60ea7f8a1d06062e45f75ffd7f",
+  "controls": [
+    {
+      "name": "exact 47 baseline inputs; three-source all-or-nothing admission",
+      "passed": true
+    },
+    {
+      "name": "actual frozen source/effects/localization yields exact four ordered rows",
+      "passed": true
+    },
+    {
+      "name": "actual empty-context precondition rejects a preexisting slot without writes",
+      "passed": true
+    },
+    {
+      "name": "actual selected callback with en/fresh and synthetic Continue boundary",
+      "passed": true
+    },
+    {
+      "name": "actual selected callback with en/legacy-save and synthetic Continue boundary",
+      "passed": true
+    },
+    {
+      "name": "actual selected callback with ja/fresh and synthetic Continue boundary",
+      "passed": true
+    },
+    {
+      "name": "actual selected callback with ja/legacy-save and synthetic Continue boundary",
+      "passed": true
+    },
+    {
+      "name": "observer restoration and refusal when title throws",
+      "passed": true
+    },
+    {
+      "name": "observer restoration and refusal when Continue throws",
+      "passed": true
+    },
+    {
+      "name": "observer restoration and refusal when post-deserialization throws",
+      "passed": true
+    },
+    {
+      "name": "observer restoration and refusal when Continue returns without deserializing",
+      "passed": true
+    },
+    {
+      "name": "observer restoration and refusal when Continue deserializes twice",
+      "passed": true
+    },
+    {
+      "name": "observer restoration and refusal when real-save boundary refuses fixture",
+      "passed": true
+    },
+    {
+      "name": "own-method descriptor restored exactly",
+      "passed": true
+    },
+    {
+      "name": "normal old-state reader cannot satisfy the repair evidence",
+      "passed": true
+    },
+    {
+      "name": "slot overwrite remains refused",
+      "passed": true
+    },
+    {
+      "name": "old accepted false result; final rejects before export",
+      "passed": true
+    },
+    {
+      "name": "old accepted missing result; final rejects before export",
+      "passed": true
+    },
+    {
+      "name": "reject contradictory progression",
+      "passed": true
+    },
+    {
+      "name": "reject contradictory journal timestamp",
+      "passed": true
+    },
+    {
+      "name": "reject contradictory input change",
+      "passed": true
+    },
+    {
+      "name": "reject contradictory observer not restored",
+      "passed": true
+    },
+    {
+      "name": "four-screen memory export has five exact files with explicit synthetic provenance",
+      "passed": true
+    },
+    {
+      "name": "export emits zero bytes for false result",
+      "passed": true
+    },
+    {
+      "name": "export emits zero bytes for missing result",
+      "passed": true
+    },
+    {
+      "name": "export emits zero bytes for missing fourth image",
+      "passed": true
+    },
+    {
+      "name": "export emits zero bytes for wrong scenario",
+      "passed": true
+    },
+    {
+      "name": "export emits zero bytes for wrong run",
+      "passed": true
+    },
+    {
+      "name": "failed partial route preserves failed status and available diagnostic bytes",
+      "passed": true
+    }
+  ],
+  "checkCount": 29,
+  "counterexample": [
+    {
+      "kind": "false",
+      "oldAccepted": true,
+      "finalAccepted": false
+    },
+    {
+      "kind": "missing",
+      "oldAccepted": true,
+      "finalAccepted": false
+    }
+  ],
+  "blocking": [],
+  "actualBuild": false,
+  "actualBrowser": false,
+  "actualBundledContinue": false,
+  "actualScreenshots": 0,
+  "syntheticScreenshotFilesWritten": 0,
+  "limits": [
+    "VM selected callback uses actual DialogueRunner, GameState and Storage with synthetic browser/Director-save/Continue boundaries; it is not actual browser or bundled Continue execution.",
+    "Export fixture supplies an in-memory 24-byte header solely for validator branches, not a valid rendered image; no PNG file exists.",
+    "State comparison is the before/after deserialise snapshot, not a measurement of all later world restoration actions.",
+    "Inherited pointer/visual controls are pinned and byte-compared; prior 28 controls are not recounted as new controls."
+  ]
+}

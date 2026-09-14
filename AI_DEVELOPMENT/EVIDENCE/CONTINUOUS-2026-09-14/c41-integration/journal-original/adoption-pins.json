@@ -1,0 +1,46 @@
+{
+  "status": "Held four-path candidate from actual build; original journal UI validation failed; no adoption performed",
+  "baselineCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "sourceFiles": 2,
+  "fileCount": 4,
+  "files": [
+    {
+      "path": "src/content/story.js",
+      "local": "adoption-candidate/src/content/story.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d"
+    },
+    {
+      "path": "src/content/locale/ja/content.js",
+      "local": "adoption-candidate/src/content/locale/ja/content.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387"
+    },
+    {
+      "path": "cinderline.1.0.0.js",
+      "local": "adoption-candidate/cinderline.1.0.0.js",
+      "bytes": 1445370,
+      "sha256": "4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed",
+      "gitBlob": "2b749709ff377cb8967481b97e39cb401f70ccfb"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "local": "adoption-candidate/tools/ios_audio_capture.mjs",
+      "bytes": 25571,
+      "sha256": "65ee0dfa24b073427e89518f8ddf6bae7b607523834e5b1fd24ea801c5980a94",
+      "gitBlob": "6d8977feb304a4bbd19b442186102f2ced8f1791"
+    }
+  ],
+  "iosPinChanges": {
+    "bundleSha256": "4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed",
+    "preparedFromCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+    "preparationReportSha256": "1ffc7875d1536a1bb088b2ae0e7867b7513c0e16700efc1b1dd22c1a494e8d02"
+  },
+  "preservedC40InlineHelperSha256": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262",
+  "originalScreens": 0,
+  "visualAdoptionEvidenceComplete": false,
+  "productAdopted": false,
+  "note": "The authorized enumeration two sources + root + IOS helper contains four paths, not five; no unrelated fifth path is introduced."
+}

@@ -1,0 +1,157 @@
+{
+  "status": "finite-two-member-review-frozen",
+  "candidateFiles": [
+    {
+      "path": "tools/recover-ios-phase-c38.py",
+      "bytes": 13167,
+      "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 32656,
+      "sha256": "737296093d9529e5aab8b2c4a8377cc082262eef0e6234caef54c5a0d3a8c660"
+    }
+  ],
+  "files": [
+    {
+      "path": "PREPARED.md",
+      "bytes": 2782,
+      "sha256": "4aea44e27e752ee048ce29275a45cbb3410e0ee57e569ec923bf10ca52b44e4b",
+      "syntheticFixture": false
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 3914,
+      "sha256": "4e87d3c5236082eeb2af0d70b95fa0711723004f6131d23573ce9568d2a8ae12",
+      "syntheticFixture": false
+    },
+    {
+      "path": "authority/agents-response.json",
+      "bytes": 717,
+      "sha256": "d03ce040ca25cd11456455bf1831c2695560de292a947af2339df4a4b2bbe12d",
+      "syntheticFixture": false
+    },
+    {
+      "path": "authority/claude-response.json",
+      "bytes": 22755,
+      "sha256": "3353b32effe072e5bece67529688604a7796a87aef4db32ea9eb329307f56df9",
+      "syntheticFixture": false
+    },
+    {
+      "path": "authority/head-response.json",
+      "bytes": 1843,
+      "sha256": "c57956a06c5b62a96a3ef5ee7e50bfa88a233185ec812362609168a759200724",
+      "syntheticFixture": false
+    },
+    {
+      "path": "authority/session-response.json",
+      "bytes": 16969,
+      "sha256": "d6ed63cd195086e936139aea8017aee719d915b4c47366d23721ad365221e8c9",
+      "syntheticFixture": false
+    },
+    {
+      "path": "base-gates.yml",
+      "bytes": 30778,
+      "sha256": "a2e1c0368c06c70f87278d78785a87f91b6e8c3d704f234d4c8fca1412535047",
+      "syntheticFixture": false
+    },
+    {
+      "path": "edge-results.json",
+      "bytes": 2409,
+      "sha256": "055fd4531534e3ba9de1fbfc00f84e5a90498b69bf23f8407157e5773b420685",
+      "syntheticFixture": false
+    },
+    {
+      "path": "fixture/artifact-metadata.json",
+      "bytes": 819,
+      "sha256": "f3714d8355851a0b6e4fddc49d640a1aa6a0578490cc744058c610b5ad6cbd26",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/event.json",
+      "bytes": 58,
+      "sha256": "8eea8dbfa00b73cc9254a8f0f78fd26dbf3dede456a85214d5b8fff511aa6205",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/fixture-pin.json",
+      "bytes": 364,
+      "sha256": "36abefe169f3efe93793ed1bfea19e9a7471b3b4cab554615cd72f8e4615d430",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/invalid-second/artifact-metadata.json",
+      "bytes": 819,
+      "sha256": "c1c252825efdf2113664023a941e201184d1d3af3838e39bcea205180d8c106e",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/invalid-second/original.zip",
+      "bytes": 38425,
+      "sha256": "bf28521df40d47ec51e0f1806e26ef0e2730fbcdee86a142bc1e60c36825af05",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/original/appium.log.gz",
+      "bytes": 44,
+      "sha256": "3aedccb6e3cc715d50ea23c87c6d20d2b1fd0e7f35eb8511b7d483b5c7e7c513",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/original/artifact-metadata.json",
+      "bytes": 819,
+      "sha256": "f3714d8355851a0b6e4fddc49d640a1aa6a0578490cc744058c610b5ad6cbd26",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/original/recovery-report.json",
+      "bytes": 2036,
+      "sha256": "ebef91ae2a241daebac4844b9adcbfa9f5b35a4b58c30115e70e1424867e1e28",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/original/report.json.gz",
+      "bytes": 5433,
+      "sha256": "1159773f8120940d9c3fd29cbf137824df3ed0be1b311f82c4c2dfee24c15b7d",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/original.zip",
+      "bytes": 38425,
+      "sha256": "cb3de8f9e3c4f1afd4bfa501496723750ae0d9a7eb30ac51b39120b8e10c414b",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/producer-input.zip",
+      "bytes": 38425,
+      "sha256": "cb3de8f9e3c4f1afd4bfa501496723750ae0d9a7eb30ac51b39120b8e10c414b",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/producer.py",
+      "bytes": 138,
+      "sha256": "d261fb769a548145d31bc44e9c3e59e97a6e6fb709836208fddc814188df737c",
+      "syntheticFixture": true
+    },
+    {
+      "path": "fixture/receiver-bootstrap.py",
+      "bytes": 354,
+      "sha256": "389f68edaac2f54fdbb40012364a4f3310a45ae27b36bbb1ae24e39d1238b97b",
+      "syntheticFixture": true
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 2549,
+      "sha256": "cbd38c457df072ad26ed60f6caa79b89a90e7a6d8f3d1ae0661810b0f720465b",
+      "syntheticFixture": false
+    },
+    {
+      "path": "verify_edges.py",
+      "bytes": 14422,
+      "sha256": "bf5bba95fd58567ceda3feca8d3eb0c579e2ed480f3cd0669a6d24ed987aa8dc",
+      "syntheticFixture": false
+    }
+  ],
+  "actualOriginalArchiveAcquired": false,
+  "finalizedAtUtc": "2026-09-14T19:49:14.464854+00:00"
+}

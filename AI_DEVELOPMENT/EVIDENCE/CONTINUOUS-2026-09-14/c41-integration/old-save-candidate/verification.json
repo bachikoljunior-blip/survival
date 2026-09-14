@@ -1,0 +1,162 @@
+{
+  "status": "passed",
+  "candidateSha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+  "finiteChecks": 56,
+  "checks": [
+    "C40 authored text inputs are exact frozen source candidates only; no root invented",
+    "candidate legacy exact id/title/text matches canonical story and only the period changes",
+    "old-v2: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "old-v2: format, inspection, input bytes and journal event behavior unchanged",
+    "old-v2: actual Storage save preserves all envelope/world/player fields",
+    "old-v2: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "already-corrected: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "already-corrected: format, inspection, input bytes and journal event behavior unchanged",
+    "already-corrected: actual Storage save preserves all envelope/world/player fields",
+    "already-corrected: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "different-id: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "different-id: format, inspection, input bytes and journal event behavior unchanged",
+    "different-id: actual Storage save preserves all envelope/world/player fields",
+    "different-id: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "different-title: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "different-title: format, inspection, input bytes and journal event behavior unchanged",
+    "different-title: actual Storage save preserves all envelope/world/player fields",
+    "different-title: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "different-body: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "different-body: format, inspection, input bytes and journal event behavior unchanged",
+    "different-body: actual Storage save preserves all envelope/world/player fields",
+    "different-body: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "different-newline: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "different-newline: format, inspection, input bytes and journal event behavior unchanged",
+    "different-newline: actual Storage save preserves all envelope/world/player fields",
+    "different-newline: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "custom-body: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "custom-body: format, inspection, input bytes and journal event behavior unchanged",
+    "custom-body: actual Storage save preserves all envelope/world/player fields",
+    "custom-body: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "Japanese-body: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "Japanese-body: format, inspection, input bytes and journal event behavior unchanged",
+    "Japanese-body: actual Storage save preserves all envelope/world/player fields",
+    "Japanese-body: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "empty: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "empty: format, inspection, input bytes and journal event behavior unchanged",
+    "empty: actual Storage save preserves all envelope/world/player fields",
+    "empty: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "duplicates: actual deserialise changes only selected text; all serialised progress and extra journal data retained",
+    "duplicates: format, inspection, input bytes and journal event behavior unchanged",
+    "duplicates: actual Storage save preserves all envelope/world/player fields",
+    "duplicates: second JSON/load/deserialise roundtrip is idempotent and old version2 reader accepts output",
+    "old-v1: existing envelope migration and rescue state retained; journal repairs after normal migration",
+    "old-v1: original v1 bytes rescued by unchanged normal save",
+    "older optional journal omission remains an empty journal",
+    "invalid state rejects before any change",
+    "baseline reproduces stale saved text despite new authored journal attempt",
+    "repaired entry keeps duplicate addJournal semantics; no newly emitted journal",
+    "en: actual new authored effects store English and retain every side effect",
+    "en: newly acquired current journal roundtrips unchanged",
+    "en: actual locale renderer fallback chooses corrected English or authored C40 Japanese",
+    "ja: actual new authored effects store English and retain every side effect",
+    "ja: newly acquired current journal roundtrips unchanged",
+    "ja: actual locale renderer fallback chooses corrected English or authored C40 Japanese",
+    "inverse of two bounded edits restores canonical whole-file bytes",
+    "all Storage functions and SAVE_VERSION/migration/validation code unchanged"
+  ],
+  "cases": [
+    {
+      "name": "old-v2",
+      "repairedEntries": 1,
+      "inputPayloadSha256": "89e9cc046b30cd32c29426e9e5c9b83e791c68f43e17705c740c7c55ccbb0fce",
+      "savedPayloadSha256": "4c8fd95bde676b610238f6c6a04fa05d65716faf2da35f612aeb67271e881bdf",
+      "stateBeforeSha256": "c084d3b5e3614dd3fb73f61bab2e1c18e69f91a843ca16edbdc04cb4c6430627",
+      "stateAfterSha256": "943f71d2244cd86b1f95e0539e3dc9493a9bc36ebe2ece939b1632ab142277ef"
+    },
+    {
+      "name": "already-corrected",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "4c8fd95bde676b610238f6c6a04fa05d65716faf2da35f612aeb67271e881bdf",
+      "savedPayloadSha256": "4c8fd95bde676b610238f6c6a04fa05d65716faf2da35f612aeb67271e881bdf",
+      "stateBeforeSha256": "943f71d2244cd86b1f95e0539e3dc9493a9bc36ebe2ece939b1632ab142277ef",
+      "stateAfterSha256": "943f71d2244cd86b1f95e0539e3dc9493a9bc36ebe2ece939b1632ab142277ef"
+    },
+    {
+      "name": "different-id",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "600e5fd49b55120f591a7c373ea3565f0a550f6956764aa8f4b902f2c9915aa0",
+      "savedPayloadSha256": "600e5fd49b55120f591a7c373ea3565f0a550f6956764aa8f4b902f2c9915aa0",
+      "stateBeforeSha256": "d5502e93c4c601b10e32c62ad1478d222f27624893d9426ddae0a7cc42f5ff54",
+      "stateAfterSha256": "d5502e93c4c601b10e32c62ad1478d222f27624893d9426ddae0a7cc42f5ff54"
+    },
+    {
+      "name": "different-title",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "1d796c0af8038abd6be6600ce6dd9103b634f241e1ea3fe180ac6a570514114c",
+      "savedPayloadSha256": "1d796c0af8038abd6be6600ce6dd9103b634f241e1ea3fe180ac6a570514114c",
+      "stateBeforeSha256": "cc60367e90c9006f9d44282f34fb0a4c5aff4cb609968db1f528845f2a9efc77",
+      "stateAfterSha256": "cc60367e90c9006f9d44282f34fb0a4c5aff4cb609968db1f528845f2a9efc77"
+    },
+    {
+      "name": "different-body",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "39a8ed15f4f9b1f00d34ccb6207f80dc3e7dc46ff8d19afb0565be77ff756c63",
+      "savedPayloadSha256": "39a8ed15f4f9b1f00d34ccb6207f80dc3e7dc46ff8d19afb0565be77ff756c63",
+      "stateBeforeSha256": "08cd08752aa845a3d06af378ca062ab47317c1ab62b12c08b9af8c146da2bb93",
+      "stateAfterSha256": "08cd08752aa845a3d06af378ca062ab47317c1ab62b12c08b9af8c146da2bb93"
+    },
+    {
+      "name": "different-newline",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "d95cdda68855dde6f009f526f7709a6ebc7e23da23b8d4f88921ea7a22958a3d",
+      "savedPayloadSha256": "d95cdda68855dde6f009f526f7709a6ebc7e23da23b8d4f88921ea7a22958a3d",
+      "stateBeforeSha256": "acca73aa3e8fdf7d850e2d5bab46f3e8c0ef9c064f35abedf21ea50ea152a08f",
+      "stateAfterSha256": "acca73aa3e8fdf7d850e2d5bab46f3e8c0ef9c064f35abedf21ea50ea152a08f"
+    },
+    {
+      "name": "custom-body",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "c8c5e965510d6b8817be94b4546a16f7a658b7f7768c3ec2ccbb6a890aec23a7",
+      "savedPayloadSha256": "c8c5e965510d6b8817be94b4546a16f7a658b7f7768c3ec2ccbb6a890aec23a7",
+      "stateBeforeSha256": "028932b04f711d5723ae8294fd70dbd3ffc6cec1ef53c1f9d673522aea7747a4",
+      "stateAfterSha256": "028932b04f711d5723ae8294fd70dbd3ffc6cec1ef53c1f9d673522aea7747a4"
+    },
+    {
+      "name": "Japanese-body",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "085e792fbb98da34c22e1c4c254d32ab2a5ae82402db6f8ab6fc3ef02cca49a1",
+      "savedPayloadSha256": "085e792fbb98da34c22e1c4c254d32ab2a5ae82402db6f8ab6fc3ef02cca49a1",
+      "stateBeforeSha256": "4ca4b94091860062464b75f014740ae8addf9c36cfaebb0495450cbc06714947",
+      "stateAfterSha256": "4ca4b94091860062464b75f014740ae8addf9c36cfaebb0495450cbc06714947"
+    },
+    {
+      "name": "empty",
+      "repairedEntries": 0,
+      "inputPayloadSha256": "8f98605d1488ffd4d0ac3003baa9e15128c229c8b696f0e5ff67e16d9081cfd0",
+      "savedPayloadSha256": "8f98605d1488ffd4d0ac3003baa9e15128c229c8b696f0e5ff67e16d9081cfd0",
+      "stateBeforeSha256": "d0fd2c2bb0df7d1db1e07d2b65a0d2048004a32e79d9d0e41788611607413b35",
+      "stateAfterSha256": "d0fd2c2bb0df7d1db1e07d2b65a0d2048004a32e79d9d0e41788611607413b35"
+    },
+    {
+      "name": "duplicates",
+      "repairedEntries": 2,
+      "inputPayloadSha256": "a3edd59d7a5c4a7a319a00682cd5b0e387b8a7b13bfe0cf2e5b8852c4b9581fe",
+      "savedPayloadSha256": "d8faf545e4487c6382fe42f4094be2532cb32412e0c732ca0f80702d89aa9656",
+      "stateBeforeSha256": "6afaaf15fa339e04f213f648081827e3bace6d42a9878e3ddfbca7f661b6f345",
+      "stateAfterSha256": "901b78891ea53dd7f2341a8189ecd9591385485870502f5f7e9a2dae909391e2"
+    }
+  ],
+  "displayResults": [
+    {
+      "locale": "en",
+      "storedText": "She kept a folder of the differences for two years and\nten months. She thought that if I couldn't say it, it couldn't be said. I have\nbeen an argument in someone else's head this whole time and I did not know it.",
+      "displayedText": "She kept a folder of the differences for two years and\nten months. She thought that if I couldn't say it, it couldn't be said. I have\nbeen an argument in someone else's head this whole time and I did not know it."
+    },
+    {
+      "locale": "ja",
+      "storedText": "She kept a folder of the differences for two years and\nten months. She thought that if I couldn't say it, it couldn't be said. I have\nbeen an argument in someone else's head this whole time and I did not know it.",
+      "displayedText": "彼女は差分のファイルを2年10か月つけていた。私が言えないのなら、それは言えないことなのだと思っていた。私はこの間ずっと、他人の頭の中の論拠だった。そしてそれを知らなかった。"
+    }
+  ],
+  "actualModuleImports": true,
+  "actualStorageJsonRoundtrip": true,
+  "storageBackend": "in-memory Web Storage API fixture; no user save was read",
+  "newContentInputs": "C40 frozen source candidates only, no generated root/build",
+  "limits": "No compilation, browser/DOM rendering, CI, original user save or device measurement. Whole GameState/Storage/narrative/i18n modules execute in Node against controlled JSON save fixtures."
+}

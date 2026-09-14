@@ -1,0 +1,54 @@
+--- a/.github/workflows/gates.yml
++++ b/.github/workflows/gates.yml
+@@ -671,3 +671,51 @@
+           path: test-results/character-shadow-resolution-c35-r1
+           if-no-files-found: warn
+           retention-days: 14
++
++  prepare-narrative-product:
++    name: Prepare exact reviewed narrative source and root
++    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-narrative-product-r1]')
++    runs-on: ubuntu-latest
++    timeout-minutes: 15
++    permissions:
++      contents: read
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          fetch-depth: 0
++          persist-credentials: false
++      - uses: actions/setup-node@v4
++        with:
++          node-version: '20'
++          cache: npm
++      - run: npm ci
++      - run: node --check tools/prepare-narrative-product.mjs
++      - name: Reproduce the original build and prepare the exact candidate bytes
++        run: node tools/prepare-narrative-product.mjs
++      - name: Export complete prepared files with hashes and offsets
++        run: node tools/prepare-narrative-product.mjs --export
++      - name: Check the exact English and Japanese routes
++        run: node tools/check-narrative-routes.mjs
++      - name: Install Chromium for the bounded dialogue screen diagnostic
++        run: npx playwright install --with-deps chromium
++      - name: Stage the eight reviewed nodes in both languages from the prepared bundle
++        run: node tools/check-narrative-routes.mjs --browser
++      - name: Export complete original route report and screenshot bytes
++        if: ${{ !cancelled() && hashFiles('test-results/narrative-route-r1/report.json') != '' }}
++        run: node tools/check-narrative-routes.mjs --export
++      - name: Preserve route reports and original dialogue screenshots
++        if: always()
++        uses: actions/upload-artifact@v4
++        with:
++          name: narrative-route-r1-${{ github.sha }}
++          path: test-results/narrative-route-r1
++          if-no-files-found: warn
++          retention-days: 14
++      - name: Preserve original candidate or failure report
++        if: always()
++        uses: actions/upload-artifact@v4
++        with:
++          name: narrative-product-build-r1-${{ github.sha }}
++          path: test-results/narrative-product-build-r1
++          if-no-files-found: error
++          retention-days: 14

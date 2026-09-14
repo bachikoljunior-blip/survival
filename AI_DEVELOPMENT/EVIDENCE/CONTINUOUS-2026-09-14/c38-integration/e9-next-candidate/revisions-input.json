@@ -1,0 +1,38 @@
+[
+  {
+    "conversation": "sol_first", "node": "vc_krajcik", "localeFile": "src/content/locale/ja/story.js",
+    "en": "His name won't keep the courtyard open tonight.\n\nThe water point and the generator are both there. If I shut the heads, which do I give up first? Where do I send the people on that shift?\n\nThose are questions I can do something with.",
+    "ja": "あいつの名前を出しても、今夜の中庭は守れない。\n\n水場も発電機もそこにある。頭を閉めたら、どっちから諦める。その当番の人間はどこへ回す。\n\nそういう話なら、私にも手が打てる。",
+    "reason": "Sol answers the comparison by asking for an immediate allocation of existing facilities and labour. Her prior admission, the player's freedom to change the heads, and her lamp/rota follow-through remain."
+  },
+  {
+    "conversation": "krajcik", "node": "k_choice", "localeFile": "src/content/locale/ja/story2.js",
+    "en": "Clause eleven requires a named officer to make the quarterly determination. At present, that is me.\n\nIf you want that decision taken out of my hands, name the office that will take it and the budget it can draw on. A recommendation for a scheme won't pay a household's rent.\n\nUntil then, the determination remains on my desk.",
+    "ja": "第11条では、指名された職員が四半期の判定を行うことになっています。現在の担当者は私です。\n\nその判断を私から取り上げるのであれば、どの部署が引き受け、どの予算を使うのかを示してください。制度を設けるべきだという勧告だけでは、世帯の家賃は払えません。\n\nそれが示されない限り、判定は私の机に戻ってきます",
+    "reason": "Krajcik defends authority through the already established named officer, absent scheme budget and rent commitments, instead of conceding moral authority and requesting a better flawed man. This remains his interested account, not proof that no alternative exists."
+  },
+  {
+    "conversation": "krajcik", "node": "k_refuse", "localeFile": "src/content/locale/ja/story2.js",
+    "en": "Then we have no agreement.\n\nThe trench crews start on the published line at first light. Putting the July sheet on the record won't countermand their orders; it's three contracts deep now. I'd stay out of the Cut.",
+    "ja": "では、合意は成立しません。\n\n掘削班は夜明けに、公表された線で着手します。7月の用紙を記録に載せても、作業命令を取り消したことにはなりません。もう三重の契約に組み込まれています。カットには近づかないことです",
+    "reason": "Refusal ends the proposed agreement and leaves the existing orders and warning in force. It no longer rewards refusal with the official's desired moral disappointment."
+  },
+  {
+    "conversation": "krajcik", "node": "ag_refused", "localeFile": "src/content/locale/ja/story2.js",
+    "en": "The crews still start at first light. Nothing in their orders has changed.\n\nA conversation does not amend those orders. They need a line and a name they can act on.",
+    "ja": "掘削班は変わらず、夜明けに着手します。作業命令は変わっていません。\n\n会話だけでは命令は変わりません。現場が従える線と、責任を負う名前が必要です",
+    "reason": "The repeat response retains the unchanged orders and demand for an actionable line and responsible name. The existing fallback also receives the lie route, so it does not assert that the player refused."
+  },
+  {
+    "conversation": "krajcik", "node": "k_accept", "localeFile": "src/content/locale/ja/story2.js",
+    "en": "Monday, then. There's a desk.\n\nYour line, my authority. I need the reductions quarter by quarter so I can move the households on the inside first. The arrangement has to keep producing those figures, not just your agreement today.",
+    "ja": "では、月曜に。机はあります。\n\n権限は私、線はあなたのものです。内側の世帯から動かせるよう、四半期ごとの整約が必要になります。今日ここで承諾をいただくだけでなく、その数字を出し続けてもらう取り決めです",
+    "reason": "Acceptance is taken as an ongoing professional commitment to the already offered quarterly reductions and relocation order, rather than an opportunity for the official to ask for refusal after agreement."
+  },
+  {
+    "conversation": "krajcik", "node": "k_end", "localeFile": "src/content/locale/ja/story2.js",
+    "en": "One more thing. The nine at Cellar Row. I keep their names on a card in my wallet.\n\nYou cannot check what I feel when I look at it. You can check the July sheet and the removals ledger. Use those.\n\nIf you give an account of what I've done, the households still waiting belong in it too.",
+    "ja": "もう一つ。セラー通りの9人の名前は、紙に書いて財布に入れています。\n\nそれを見て私が何を感じるかは、あなたには確かめられません。7月の用紙と転居台帳なら確かめられます。そちらを使ってください。\n\n私のしてきたことを説明されるなら、まだ転居を待っている世帯のことも入れてください",
+    "reason": "The wallet card remains, but the closing appeal redirects judgment toward checkable documents and the waiting households rather than asserting a shared burden of guilt. It does not certify his account or alter publication choices."
+  }
+]

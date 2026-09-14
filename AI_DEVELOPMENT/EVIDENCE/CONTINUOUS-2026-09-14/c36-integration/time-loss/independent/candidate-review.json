@@ -1,0 +1,257 @@
+{
+  "scope": "Additional read-only source review requested by parent; no candidate edit, no test rerun, no CI execution.",
+  "verdict": "No blocking defect found for a bounded elapsed-time diagnostic. This is not complete causal measurement or a Safari validation result.",
+  "files": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/frame_work_probe.mjs",
+      "bytes": 6251,
+      "sha256": "6bf946b3fe27401771fc0dba13e75e898957d2acc17ddf9fb396c252667d07f3"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/ios_audio_capture.mjs",
+      "bytes": 20833,
+      "sha256": "794888b65f8f538b9dac9c69c7c5d47a0accf197ae35d1a7f5bc4208c7039b34"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-frame-work.mjs",
+      "bytes": 7499,
+      "sha256": "790b78ac060b166337562cb04f4d5417ba2c773f5e2439316b348ebf742e5534"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/frame-work-result.json",
+      "bytes": 3362,
+      "sha256": "0be68b0c48fcddcd2cf8866f3d639c119f56a4adabc7c5adc520352c78bdd672"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-operation-error.mjs",
+      "bytes": 3304,
+      "sha256": "198341639e0ebca300d7649508e40544b0ef16a57d66c2de7d22e4a3d809637d"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/operation-error-result.json",
+      "bytes": 464,
+      "sha256": "952a78e99381b45e7274f0dbe869d439fdd5b7c2b830c694950e4f3df8f88f0e"
+    }
+  ],
+  "verifiedByInspection": [
+    "finally stops/restores directly without relying on possibly failed page promise transport",
+    "partial-install rollback reverses descriptor-preserving patches",
+    "already-queued wrapper becomes inert after restore; first original queued callback exclusion documented",
+    "4096 global row cap increments dropped and prevents complete=true",
+    "nested phase durations are explicitly inclusive, synchronous elapsed is explicitly not CPU utilization or GPU duration",
+    "operationError avoids WebDriver value.error collision; synthetic originals/results read but not independently rerun"
+  ],
+  "suggestions": [
+    {
+      "priority": "nonblocking clarification",
+      "field": "priorRafTimestampMs",
+      "reason": "Source is engine.clockLast, which focus, visibility and resume may reset using performance.now(). Rename priorClockLastMs or explicitly annotate origin."
+    },
+    {
+      "priority": "nonblocking clarification",
+      "field": "dtRaw",
+      "reason": "Paused/context-lost Engine._frame returns before setting dtRaw, leaving prior value. Record branch outcome and null accepted delta, or explicitly mark stale variable value."
+    }
+  ],
+  "remainingUnmeasured": [
+    "instrument overhead on real supported runner",
+    "frame dispatch delay vs elapsed time inside individual functions",
+    "actual Safari correctness and diagnostic trace",
+    "CPU on-core time and GPU execution",
+    "full pointer/audio-context/recorder event timing"
+  ],
+  "candidateEdits": 0,
+  "remoteWrites": 0,
+  "ciRuns": 0,
+  "automationChanges": 0,
+  "followupReviews": [
+    {
+      "atUtc": "2026-09-14T17:12:49.186653+00:00",
+      "scope": "Read-only followup of actual candidate files and stored CPU fixture evidence; this reviewer did not rerun tests.",
+      "files": [
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/frame_work_probe.mjs",
+          "bytes": 6563,
+          "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+          "changedSinceInitialReview": true
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/ios_audio_capture.mjs",
+          "bytes": 21198,
+          "sha256": "76c7a8d3dd9d7226e21b6a4afd999be96384f869efbb722e57df7e50413e0743",
+          "changedSinceInitialReview": true
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-frame-work.mjs",
+          "bytes": 7656,
+          "sha256": "7344db4e9ccbb06b2e29a598ea85a1153c1193749c4780d5d39dd3afec354659",
+          "changedSinceInitialReview": true
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/frame-work-result.json",
+          "bytes": 3582,
+          "sha256": "9a56b4a1f8a33e9ed5f5cb2c7e04e9f73665beb7376aeaf4f274c558e0b26cb2",
+          "changedSinceInitialReview": true
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-operation-error.mjs",
+          "bytes": 3304,
+          "sha256": "198341639e0ebca300d7649508e40544b0ef16a57d66c2de7d22e4a3d809637d",
+          "changedSinceInitialReview": false
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/operation-error-result.json",
+          "bytes": 464,
+          "sha256": "952a78e99381b45e7274f0dbe869d439fdd5b7c2b830c694950e4f3df8f88f0e",
+          "changedSinceInitialReview": false
+        }
+      ],
+      "verdict": "Both prior nonblocking suggestions are resolved in the inspected candidate. No new blocking defect found.",
+      "resolved": [
+        {
+          "originalField": "priorRafTimestampMs",
+          "actualChange": "Renamed priorClockLastMs; engineWallMs computed as rAF timestamp minus prior clockLast, without asserting prior clockLast originated from rAF."
+        },
+        {
+          "originalField": "dtRaw",
+          "actualChange": "dtRawStored retains the engine property; acceptedDtSeconds is null when entry state is stopped, paused or context-lost. The fixture includes an assertion that paused rows expose no accepted input."
+        }
+      ],
+      "otherObservedChanges": [
+        "recorderState added to each row; null in fake CPU fixtures is not evidence of a live recorder state",
+        "iosAudioLogSummary adds only bounded frame-work counts/completeness/errors, preserving raw rows in report artifact"
+      ],
+      "parentStoredFixture": {
+        "passed": 35,
+        "status": "pass",
+        "scope": "CPU fixture using canonical actual Engine._frame, fake rAF/performance and fake phase bodies. No real Safari, CPU utilization, GPU or physical-device performance measurement.",
+        "independentlyRerun": false
+      },
+      "remainingLimits": "Real supported Safari execution, instrumentation overhead, CPU/GPU cause, quality and physical-device observations remain unmeasured.",
+      "candidateEdits": 0,
+      "sourceEdits": 0,
+      "remoteWrites": 0,
+      "ciRuns": 0,
+      "automationChanges": 0
+    },
+    {
+      "atUtc": "2026-09-14T17:14:55.307720+00:00",
+      "scope": "Final read-only review of parent-reported bounded-transfer correction; no test rerun.",
+      "files": [
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/ios_audio_capture.mjs",
+          "bytes": 22064,
+          "sha256": "748f4816bd78f4f46c3d2083b96c1a135610d013a3f56f0ceaf25b658f0b403b"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/runtime/tools/ios_audio_capture.mjs",
+          "bytes": 22064,
+          "sha256": "748f4816bd78f4f46c3d2083b96c1a135610d013a3f56f0ceaf25b658f0b403b"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/frame_work_probe.mjs",
+          "bytes": 6563,
+          "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-operation-error.mjs",
+          "bytes": 4485,
+          "sha256": "52f073156aaa694c48fda9d4c82fdb6ee8d22a198a04513167e92ecd115984e5"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/operation-error-result.json",
+          "bytes": 661,
+          "sha256": "55e95c13bf151f413841be879d11f74be12d2b969c7bf35713d1fb15afd49116"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/frame-work-result.json",
+          "bytes": 3582,
+          "sha256": "9a56b4a1f8a33e9ed5f5cb2c7e04e9f73665beb7376aeaf4f274c558e0b26cb2"
+        }
+      ],
+      "verdict": "The direct full-result response has been replaced by small cleanup metadata plus isolated bounded chunk transport. No blocking defect found in this correction.",
+      "resolvedIssue": "Prior version returned all diagnostic rows directly from execute. Parent identified this omission after the earlier review; earlier no-blocking-defect wording did not establish that full-response size was safe.",
+      "verifiedByInspection": [
+        "Direct stop/restore responds with rows count, complete and restored only; the full snapshot remains page-side until serialized for transfer",
+        "createSafariEvaluate uses its selected transferKey for start, status, chunks and deletion, defaulting to the original audio key",
+        "Diagnostic path chooses __cinderlineIosFrameWorkTransfer; it does not overwrite pending/failed original __cinderlineIosAudioTransfer during snapshot transport",
+        "Original audio status/error is copied into safariAudioTransferFinal before diagnostic work; final cleanup deletes both transfer slots and the temporary snapshot",
+        "Diagnostic path inherits 131072-character chunks, 48*1024*1024-character maximum and 120000-ms operation deadline; no increased caps or raw all-row reply",
+        "Fixture runtime helper is byte-identical to the current candidate helper"
+      ],
+      "storedFixtureEvidence": {
+        "operationErrorAssertions": 17,
+        "frameProbeAssertions": 35,
+        "independentlyRerun": false,
+        "payloadChars": 300000,
+        "observedChunkLengths": [
+          45,
+          131072,
+          131072,
+          37867
+        ],
+        "chunkInterpretation": "45-character entry is the earlier ordinary-return payload; diagnostic JSON itself is transferred in chunks 131072,131072,37867.",
+        "pendingAudioObjectAndErrorRetained": true,
+        "boundedCapacityRefusal": "Fixture uses a deliberately reduced maxTransferChars=16 and checks rejection without overwriting original pending audio state."
+      },
+      "remainingLimits": "CPU/synthetic local HTTP evidence does not establish actual Safari execution, transfer latency, physical-device performance or a causal diagnosis. Timeout is checked between bounded commands, consistent with original transport.",
+      "candidateEdits": 0,
+      "sourceEdits": 0,
+      "remoteWrites": 0,
+      "ciRuns": 0,
+      "automationChanges": 0
+    },
+    {
+      "atUtc": "2026-09-14T17:18:55.699423+00:00",
+      "scope": "Final single-line provenance addition, independently read and hashed; no candidate edits or test rerun.",
+      "files": [
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/ios_audio_capture.mjs",
+          "bytes": 22122,
+          "sha256": "7c7356237d487786234e737fe959075c942e39844f638d1e1ea3f925b0bd5194"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/frame_work_probe.mjs",
+          "bytes": 6563,
+          "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/operation-error-result.json",
+          "bytes": 661,
+          "sha256": "55e95c13bf151f413841be879d11f74be12d2b969c7bf35713d1fb15afd49116"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/final-checks.json",
+          "bytes": 1002,
+          "sha256": "6dcdbdbc56a5c3e8ffd54b7a1b56f08c6802088ccfb996aa777ffaf0fc43a6e3"
+        },
+        {
+          "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-frozen.mjs",
+          "bytes": 2038,
+          "sha256": "d5fb1e13d7352736211e71988dad214fb6cbfa3c0d2304c3e546cc34e1091b1b"
+        }
+      ],
+      "verdict": "Accepted for the previously bounded diagnostic scope; no blocking defect found.",
+      "exactDelta": {
+        "priorHelperSha256": "748f4816bd78f4f46c3d2083b96c1a135610d013a3f56f0ceaf25b658f0b403b",
+        "addedLine": "report.safariFrameWork.provenance = provenance;",
+        "removingOnlyThatLineReproducesPriorHash": true
+      },
+      "verifiedByInspection": "After successful diagnostic chunk recovery, the existing acquisition provenance object is attached to the profile itself, carrying its probe/helper/harness hashes and run identifiers. Transfer behavior, guards, cleanup and probe logic are unchanged.",
+      "storedChecks": {
+        "operationError": 17,
+        "frozenSource": 9,
+        "independentlyRerun": false
+      },
+      "reviewerChecks": {
+        "candidateHelperEqualsRuntime": true,
+        "probeUnchangedSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+      },
+      "candidateEdits": 0,
+      "sourceEdits": 0,
+      "remoteWrites": 0,
+      "ciRuns": 0,
+      "automationChanges": 0
+    }
+  ]
+}

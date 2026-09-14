@@ -1,0 +1,97 @@
+{
+  "recordedAt": "2026-09-14T21:43:27.761+00:00",
+  "integrationBase": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "integrationBaseTree": "86900e1a6119c234ff8d03298483bac2ed38f268",
+  "technicalBaseline": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "blocking": 0,
+  "productSourceOrRootChanged": false,
+  "adoptedCode": [
+    {
+      "path": "tools/frame_work_probe.mjs",
+      "bytes": 16893,
+      "sha256": "33dfcc32bdc7a2b3de52c0295f822dd4f8eff112bb74fbf3d6e45926e23ac618",
+      "gitBlob": "49b57537da91675f00ea68344beb8f346c499946"
+    },
+    {
+      "path": "tools/prepare-narrative-product.mjs",
+      "bytes": 13917,
+      "sha256": "af04678aa1a01df8c6cffbaf4d70f4dfce7893ece636a64443fe4452263a722c",
+      "gitBlob": "ed43d3ba3818cdb195c61e35480ad5dcf2a6c766"
+    },
+    {
+      "path": "tools/check-narrative-routes.mjs",
+      "bytes": 24793,
+      "sha256": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a",
+      "gitBlob": "cafcc06f32612443755bfd4c09f464eb419272c7"
+    },
+    {
+      "path": "tools/candidates/journal-save-state-r1.js",
+      "bytes": 34503,
+      "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+      "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3"
+    },
+    {
+      "path": "tools/recover-ios-c40-pr.py",
+      "bytes": 14767,
+      "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b",
+      "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 34517,
+      "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199",
+      "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2"
+    }
+  ],
+  "independentScopes": [
+    {
+      "scope": "program identity probe only",
+      "checks": 15,
+      "evidence": {
+        "path": "c41-program-identity-independent-review-ultra/receipt.json",
+        "bytes": 5460,
+        "sha256": "82cec27c9f2f181d885ae12a9d573be5bbc3639a1ef4f436127b453c8fd82836"
+      }
+    },
+    {
+      "scope": "exact legacy-save source candidate only",
+      "checks": 15,
+      "evidence": {
+        "path": "c41-iris-journal-save-independent-review-ultra/receipt.json",
+        "bytes": 4522,
+        "sha256": "a3a69ec814f5ca79360ff1b02d1cdb4f953ef4e377376cb45a848595e43c1138"
+      }
+    },
+    {
+      "scope": "three-source preparation and four-case route verification; result guard repaired",
+      "checks": 29,
+      "additionalSourceVmChecks": 29,
+      "evidence": {
+        "path": "c41-journal-save-build-independent-review-ultra/receipt.json",
+        "bytes": 4741,
+        "sha256": "e8eb1f4f92ce9b4e27ca6db9e079268cd6a04425431df744f2db7237b100ca7a"
+      }
+    },
+    {
+      "scope": "fixed C40 PR recovery plus combined workflow byte boundary only",
+      "checks": 14,
+      "additionalCompositionChecks": 1,
+      "evidence": {
+        "path": "c41-c40-pr-recovery-independent-review-ultra/receipt.json",
+        "bytes": 5785,
+        "sha256": "009ee17803c3375d71918e56420f0bc6acfae8baa35c6c3580af93baef6265b5"
+      }
+    }
+  ],
+  "rootDecision": "Adopt six reviewed tools/workflow paths for the next existing CI cycle. Preserve current product source/root8c, recorder/clock/release/lifecycle conditions, required gates and latest CLAUDE. Generated4912 remains held. No candidate root is product adoption.",
+  "wholeManifestIndependentReview": "Pending separate boundary-only receipt; scope reviews do not imply whole-manifest review.",
+  "actualRemaining": [
+    "combined three-source build and four original screens",
+    "actual old-save bundled Continue",
+    "fixed original C40 PR report/Appium full recovery",
+    "bounded current program identity and observer cost",
+    "inline command omission and product performance repair",
+    "required F3 and normal main/Pages F6",
+    "valid quality comparison and listening"
+  ]
+}

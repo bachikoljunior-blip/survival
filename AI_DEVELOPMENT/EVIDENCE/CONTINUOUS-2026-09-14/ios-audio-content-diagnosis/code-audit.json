@@ -1,0 +1,843 @@
+{
+  "scope": "Exact source methods executed against parameter-capture fixtures; no AudioContext, sound rendering, browser, hearing, or perceptual quality test.",
+  "checks": [
+    {
+      "name": "camp leaves hiss target zero",
+      "passed": true
+    },
+    {
+      "name": "camp schedules default hiss after update",
+      "passed": true
+    },
+    {
+      "name": "camp schedules same depth-only burn after update",
+      "passed": true
+    },
+    {
+      "name": "cut leaves hiss target zero",
+      "passed": true
+    },
+    {
+      "name": "cut schedules default hiss after update",
+      "passed": true
+    },
+    {
+      "name": "cut schedules same depth-only burn after update",
+      "passed": true
+    },
+    {
+      "name": "vents leaves hiss target zero",
+      "passed": true
+    },
+    {
+      "name": "vents schedules default hiss after update",
+      "passed": true
+    },
+    {
+      "name": "vents schedules same depth-only burn after update",
+      "passed": true
+    },
+    {
+      "name": "interior leaves hiss target zero",
+      "passed": true
+    },
+    {
+      "name": "interior schedules default hiss after update",
+      "passed": true
+    },
+    {
+      "name": "interior schedules same depth-only burn after update",
+      "passed": true
+    },
+    {
+      "name": "under leaves hiss target zero",
+      "passed": true
+    },
+    {
+      "name": "under schedules default hiss after update",
+      "passed": true
+    },
+    {
+      "name": "under schedules same depth-only burn after update",
+      "passed": true
+    },
+    {
+      "name": "real vent spawn selects cut before ventfield",
+      "passed": true
+    },
+    {
+      "name": "interior visual mood coexists with street audio fallback",
+      "passed": true
+    },
+    {
+      "name": "null region retains previous music",
+      "passed": true
+    }
+  ],
+  "preset_overwrites": [
+    {
+      "state": "camp",
+      "fixture": {
+        "playerY": 0,
+        "ambientPpm": 40
+      },
+      "before": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.12,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.168,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.004,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.08800000000000001,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      },
+      "after": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.12,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.3913636363636363,
+            "time": 1,
+            "tau": 1.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.005000000000000001,
+            "time": 1,
+            "tau": 0.6
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.08800000000000001,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      }
+    },
+    {
+      "state": "cut",
+      "fixture": {
+        "playerY": 0,
+        "ambientPpm": 40
+      },
+      "before": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.15,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.252,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.03,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.11199999999999999,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      },
+      "after": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.15,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.3913636363636363,
+            "time": 1,
+            "tau": 1.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.005000000000000001,
+            "time": 1,
+            "tau": 0.6
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.11199999999999999,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      }
+    },
+    {
+      "state": "vents",
+      "fixture": {
+        "playerY": 0,
+        "ambientPpm": 40
+      },
+      "before": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.09,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.378,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.085,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.048,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      },
+      "after": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.09,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.3913636363636363,
+            "time": 1,
+            "tau": 1.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.005000000000000001,
+            "time": 1,
+            "tau": 0.6
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.048,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      }
+    },
+    {
+      "state": "interior",
+      "fixture": {
+        "playerY": 0,
+        "ambientPpm": 40
+      },
+      "before": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.024,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.0756,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.002,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.04,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.09000000000000001,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      },
+      "after": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.024,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.3913636363636363,
+            "time": 1,
+            "tau": 1.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.005000000000000001,
+            "time": 1,
+            "tau": 0.6
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.04,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.09000000000000001,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      }
+    },
+    {
+      "state": "under",
+      "fixture": {
+        "playerY": 0,
+        "ambientPpm": 40
+      },
+      "before": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.03,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.42,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.05,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.032,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.06999999999999999,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      },
+      "after": {
+        "wind": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.03,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "burn": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.3913636363636363,
+            "time": 1,
+            "tau": 1.2
+          }
+        },
+        "hiss": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.005000000000000001,
+            "time": 1,
+            "tau": 0.6
+          }
+        },
+        "hum": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.032,
+            "time": 1,
+            "tau": 2.2
+          }
+        },
+        "room": {
+          "storedTarget": 0,
+          "scheduled": {
+            "value": 0.06999999999999999,
+            "time": 1,
+            "tau": 2.2
+          }
+        }
+      }
+    }
+  ],
+  "vent_region": {
+    "point": [
+      82,
+      -60
+    ],
+    "ordered_matches": [
+      {
+        "id": "cut",
+        "name": "The Cut",
+        "x": 86,
+        "z": 0,
+        "w": 116,
+        "d": 130,
+        "music": "authority",
+        "ambience": "cut"
+      },
+      {
+        "id": "ventfield",
+        "name": "Vent Field 9",
+        "x": 104,
+        "z": -74,
+        "w": 60,
+        "d": 52,
+        "music": "dread",
+        "ambience": "vents"
+      }
+    ],
+    "actual_selected": {
+      "id": "cut",
+      "name": "The Cut",
+      "x": 86,
+      "z": 0,
+      "w": 116,
+      "d": 130,
+      "music": "authority",
+      "ambience": "cut"
+    },
+    "method": {
+      "sourceSha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+      "excerptSha256": "3a7480174ec9e3c7632be5512e426389b5243013b3ad6fb91c11687e90aaa9d9",
+      "excerpt": "  regionAt(x, z) {\n    for (const r of this.regions) {\n      if (x >= r.x - r.w / 2 && x <= r.x + r.w / 2 && z >= r.z - r.d / 2 && z <= r.z + r.d / 2) return r;\n    }\n    return null;\n  }"
+    }
+  },
+  "arcade_transition": {
+    "fixture": {
+      "currentInterior": "arcade",
+      "position": [
+        588,
+        0,
+        4.2
+      ],
+      "previousAmbience": "cut",
+      "previousMusic": "authority"
+    },
+    "result": {
+      "zone": null,
+      "mood": "interior",
+      "atmosphereMood": "interior",
+      "ambience": "street",
+      "music": "authority",
+      "reverbTargets": {
+        "street": 0.2,
+        "interior": 0,
+        "tunnel": 0
+      }
+    },
+    "method": {
+      "sourceSha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+      "excerptSha256": "2902f95dea456869a500038f9cb3f371e3931f61ed4f3f9a8303af45568ca97f",
+      "excerpt": "  _updateZone(dt) {\n    if (!this.player) return;\n    const p = this.player.pos;\n    const region = this.city.regionAt(p.x, p.z);\n    if (region !== this.zone) {\n      this.zone = region;\n      this.emit('zone', region);\n    }\n\n    // Mood is chosen from altitude relative to the local ground, which is the\n    // rule the whole game runs on. Interiors override it explicitly.\n    let mood = this.forcedMood;\n    if (!mood) {\n      const groundY = this.gas.groundAt(p.x, p.z);\n      const above = p.y - groundY;\n      if (p.y < -1.5) mood = 'low';\n      else if (above > 7.5) mood = 'high';\n      else if (region && region.id === 'cut') mood = 'authority';\n      else if (region && region.id === 'ventfield') mood = 'authority';\n      else mood = 'street';\n    }\n    if (mood !== this.moodName) {\n      this.moodName = mood;\n      this.atmos.setMood(mood);\n    }\n  }"
+    }
+  },
+  "recorded_event_spatial_parameters": [
+    {
+      "clip": "street-walk",
+      "name": "step",
+      "relativeAudioSeconds": 3.381333333333333,
+      "options": {
+        "x": -112,
+        "y": 0,
+        "z": -84.09268790918114,
+        "id": 1,
+        "surface": "grit",
+        "volume": 0.42352243241676674
+      },
+      "parameterPrediction": {
+        "gain": 0.8428127591238462,
+        "pan": -0.10653610600099042,
+        "dist": 3.9423254309304037,
+        "stereoPannerPan": -0.07457527420069329
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "street-walk",
+      "name": "step",
+      "relativeAudioSeconds": 3.754666666666666,
+      "options": {
+        "x": -112,
+        "y": 0,
+        "z": -84.39308673448525,
+        "id": 1,
+        "surface": "grit",
+        "volume": 0.5437995829453214
+      },
+      "parameterPrediction": {
+        "gain": 0.8401802613313178,
+        "pan": -0.10548991501867891,
+        "dist": 3.981423247195081,
+        "stereoPannerPan": -0.07384294051307523
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "street-walk",
+      "name": "step",
+      "relativeAudioSeconds": 4.1386666666666665,
+      "options": {
+        "x": -112.13365858396331,
+        "y": 0,
+        "z": -85.35107066276213,
+        "id": 1,
+        "surface": "grit",
+        "volume": 0.9996474080123737
+      },
+      "parameterPrediction": {
+        "gain": 0.8302958365778407,
+        "pan": -0.0937269612825802,
+        "dist": 4.127044915850133,
+        "stereoPannerPan": -0.06560887289780615
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "street-walk",
+      "name": "step",
+      "relativeAudioSeconds": 4.373333333333332,
+      "options": {
+        "x": -112.89622675589428,
+        "y": 0,
+        "z": -86.19323335222106,
+        "id": 1,
+        "surface": "grit",
+        "volume": 1
+      },
+      "parameterPrediction": {
+        "gain": 0.8192446344693778,
+        "pan": -0.08198662012198801,
+        "dist": 4.287934798957792,
+        "stereoPannerPan": -0.057390634085391606
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "street-walk",
+      "name": "step",
+      "relativeAudioSeconds": 4.576,
+      "options": {
+        "x": -114.04404107340778,
+        "y": 0,
+        "z": -86.45022412394422,
+        "id": 1,
+        "surface": "grit",
+        "volume": 1
+      },
+      "parameterPrediction": {
+        "gain": 0.8682243788345192,
+        "pan": -0.09695819941065656,
+        "dist": 3.5564026477629835,
+        "stereoPannerPan": -0.06787073958745958
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "street-walk",
+      "name": "step",
+      "relativeAudioSeconds": 5.058666666666666,
+      "options": {
+        "x": -115.1390807068055,
+        "y": 0,
+        "z": -86.0305466973442,
+        "id": 1,
+        "surface": "grit",
+        "volume": 1
+      },
+      "parameterPrediction": {
+        "gain": 0.8289362955940135,
+        "pan": -0.07665026725441582,
+        "dist": 4.146939841724231,
+        "stereoPannerPan": -0.05365518707809107
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "vent-air",
+      "name": "cough",
+      "relativeAudioSeconds": 3.8613333333333344,
+      "options": {
+        "x": 82,
+        "y": 1.5,
+        "z": -60,
+        "player": true,
+        "severity": 0.2943131008252522
+      },
+      "parameterPrediction": {
+        "gain": 0.8638746353746596,
+        "pan": -0.11590328541422275,
+        "dist": 3.6237109112047916,
+        "stereoPannerPan": -0.08113229978995593
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "vent-air",
+      "name": "cough",
+      "relativeAudioSeconds": 4.234666666666666,
+      "options": {
+        "x": 82,
+        "y": 1.5,
+        "z": -60,
+        "player": true,
+        "severity": 0.3138684011491448
+      },
+      "parameterPrediction": {
+        "gain": 0.8638746353746596,
+        "pan": -0.11590328541422275,
+        "dist": 3.6237109112047916,
+        "stereoPannerPan": -0.08113229978995593
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "vent-air",
+      "name": "cough",
+      "relativeAudioSeconds": 4.640000000000001,
+      "options": {
+        "x": 82,
+        "y": 1.5,
+        "z": -60,
+        "player": true,
+        "severity": 0.33775601738284516
+      },
+      "parameterPrediction": {
+        "gain": 0.8638746353746596,
+        "pan": -0.11590328541422275,
+        "dist": 3.6237109112047916,
+        "stereoPannerPan": -0.08113229978995593
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "arcade-room",
+      "name": "cough",
+      "relativeAudioSeconds": 2.229333333333333,
+      "options": {
+        "x": 588,
+        "y": 1.5,
+        "z": 4.2,
+        "player": true,
+        "severity": 0.44236328120473584
+      },
+      "parameterPrediction": {
+        "gain": 0.9177922814951254,
+        "pan": -0.15372900497868294,
+        "dist": 2.73208039080349,
+        "stereoPannerPan": -0.10761030348507805
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "arcade-room",
+      "name": "cough",
+      "relativeAudioSeconds": 2.5600000000000023,
+      "options": {
+        "x": 588,
+        "y": 1.5,
+        "z": 4.2,
+        "player": true,
+        "severity": 0.432839471680926
+      },
+      "parameterPrediction": {
+        "gain": 0.9177930045877504,
+        "pan": -0.15372974163604136,
+        "dist": 2.732067298950724,
+        "stereoPannerPan": -0.10761081914522895
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    },
+    {
+      "clip": "arcade-room",
+      "name": "cough",
+      "relativeAudioSeconds": 2.9813333333333354,
+      "options": {
+        "x": 588,
+        "y": 1.5,
+        "z": 4.2,
+        "player": true,
+        "severity": 0.42093470977616376
+      },
+      "parameterPrediction": {
+        "gain": 0.9177932481886601,
+        "pan": -0.15372998980886718,
+        "dist": 2.732062888458912,
+        "stereoPannerPan": -0.10761099286620703
+      },
+      "scope": "Source computation at emitted event pose; node creation, gain audibility, StereoPanner availability and exact PCM event identity are not proven."
+    }
+  ],
+  "status": "all source-behavior checks passed; existing defects reproduced, no production patch"
+}

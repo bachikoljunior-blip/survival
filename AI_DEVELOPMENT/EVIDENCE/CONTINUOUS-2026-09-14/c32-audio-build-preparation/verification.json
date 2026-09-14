@@ -1,0 +1,33 @@
+{
+  "scope": "CPU source and complete export boundaries only; actual candidate build and listening unmeasured",
+  "checks": [
+    {
+      "name": "original exact audio and candidate bytes accepted",
+      "passed": true
+    },
+    {
+      "name": "changed original audio rejected",
+      "passed": true
+    },
+    {
+      "name": "changed candidate rejected",
+      "passed": true
+    },
+    {
+      "name": "current root and postfx are exact adopted C31",
+      "passed": true
+    },
+    {
+      "name": "47 inputs change only adopted postfx baseline",
+      "passed": true
+    },
+    {
+      "name": "complete output with zero bytes and chunk boundaries roundtrips",
+      "passed": true
+    },
+    {
+      "name": "last file corruption rejected before first export",
+      "passed": true
+    }
+  ]
+}

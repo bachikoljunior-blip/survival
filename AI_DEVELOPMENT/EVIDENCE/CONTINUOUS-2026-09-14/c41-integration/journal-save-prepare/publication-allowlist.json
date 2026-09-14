@@ -1,0 +1,124 @@
+{
+  "policy": "Only listed exact files plus this allowlist control; no recursive publication",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 8659,
+      "sha256": "ad355f8d71cf801e352b36ad372a3387f9e35a83e3194372e29677f62a298d7e",
+      "gitBlob": "f9aac2607be8f6a9bc59970bb90335b2c60d9816"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 7229,
+      "sha256": "e9661ed9666e8f0e5b5898e87e8be541b49b257225b18b6dbebbe1299138b7ef",
+      "gitBlob": "48c9d359ca63735b95a8c4fa3d6e7a9a66619664"
+    },
+    {
+      "path": "candidate-pins.json",
+      "bytes": 2574,
+      "sha256": "67077f333e338bfd67ef996f0fe3627a7b5f42ea800c6097c3cac8b3482a5b46",
+      "gitBlob": "727eb53b24e0b00c20f4054704dc9d52240e60ef"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 62406,
+      "sha256": "e8f220764166778c31ea9d52857a45cc1cd24e11825d18893008302365cd36db",
+      "gitBlob": "b431007fc88347fea51bb9f1ed09c8be64f1cb84"
+    },
+    {
+      "path": "workflow-diff.patch",
+      "bytes": 2422,
+      "sha256": "697b82440714cfe670248e941e99476184d8b645fb23c24813ca70e09aad6668",
+      "gitBlob": "a58fc5ee74d87645de406eb1edb7952d9e452701"
+    },
+    {
+      "path": "inherited-repair.patch",
+      "bytes": 4475,
+      "sha256": "61c95ab43231a1c2d1701c7c4a81588e8121d6a5a4ed734781ee73e6bfc6dac6",
+      "gitBlob": "55eca7c89f46a37de7f12efa9b1796b66fe303da"
+    },
+    {
+      "path": "new-scope.patch",
+      "bytes": 17246,
+      "sha256": "4a11c9a180d59c24299771cafffeb5c0336aa3759a023541d0aec838d36e4873",
+      "gitBlob": "098d1bf27d216defe7dbb5c991eacf5b40244f1a"
+    },
+    {
+      "path": "verified-current-pins.json",
+      "bytes": 10005,
+      "sha256": "549da6e26fba8279bf7a0252e88137cea778c7487b64330585e9a32c7fd9cddf",
+      "gitBlob": "02f6ed87a15d33fc44434d746a96999441cd289f"
+    },
+    {
+      "path": "scenario-pins.json",
+      "bytes": 492,
+      "sha256": "1af2858bb93a071543411e6084588040be2bf1bb75b6f519cb2a26d7d03d270e",
+      "gitBlob": "e6b62853ca955285a9cd1a46666eca1c0d2ff517"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 2088,
+      "sha256": "1f5731f6d2b83047dc5e1e28460b6ba4f88973dd6b7b6d63bfcbe91651313850",
+      "gitBlob": "20a566c6911db5c6bf9db26816fc28fa84bef046"
+    },
+    {
+      "path": "verify-preparation.mjs",
+      "bytes": 8593,
+      "sha256": "04784ff253c8e83236a36eb87345eacab8ff3ba248c143785e2b0f870c68a403",
+      "gitBlob": "1ea039089b7e5c6424cfea51eeff1a11b3b41e70"
+    },
+    {
+      "path": "review-response.json",
+      "bytes": 718,
+      "sha256": "3952b0601b82c346f7323889d6adad95a8e66022469ce4595dabf67cfc99c2de",
+      "gitBlob": "2920686f19307fd39d00c56784874de1bbcd0394"
+    },
+    {
+      "path": "candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13917,
+      "sha256": "af04678aa1a01df8c6cffbaf4d70f4dfce7893ece636a64443fe4452263a722c",
+      "gitBlob": "ed43d3ba3818cdb195c61e35480ad5dcf2a6c766"
+    },
+    {
+      "path": "candidate/tools/check-narrative-routes.mjs",
+      "bytes": 24793,
+      "sha256": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a",
+      "gitBlob": "cafcc06f32612443755bfd4c09f464eb419272c7"
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "bytes": 32671,
+      "sha256": "0a896f3baba6f6e7c9b66a18e5ff12ece698d4787f18db24e422584dba3cd85b",
+      "gitBlob": "d664c847086e0bc27b1da43ea66c69835a5f64e6"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-save-state-r1.js",
+      "bytes": 34503,
+      "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+      "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-story-r1.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-ja-content-r1.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387"
+    }
+  ],
+  "self": "publication-allowlist.json",
+  "excluded": [
+    "authority/",
+    "canonical/",
+    "baseline/",
+    "repair-baseline/",
+    "fixture/",
+    "creation scripts",
+    "any private reference or comparison materials",
+    "superseded-v1/"
+  ]
+}

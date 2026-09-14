@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "verdict": "adoptable transfer repair candidate; actual Safari acquisition unmeasured",
+  "blocking": 0,
+  "independentChecks": 29,
+  "verificationMethod": "28 local real HTTP/VM protocol checks plus 1 final exact-delta rejection-socket regression covering two partial-body cases",
+  "candidatePins": {
+    "ios_audio_transfer.mjs": {
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+      "gitBlob": "f738aa1aff724aec6a2273d26a0a8962e1ef256b"
+    },
+    "ios_audio_capture.mjs": {
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+      "gitBlob": "60fc3fdff6017483735ce8a6f7df83eba4d47d56"
+    },
+    "test-ios-safari.mjs": {
+      "bytes": 33878,
+      "sha256": "f10f3715630046333451ea4cce1f31b13b5ccef277b12e365aeed25d474763b7",
+      "gitBlob": "2f57da49e16caf13543cf5a00b5e4351fc0b2036"
+    }
+  },
+  "sourceFacts": {
+    "original_report": {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-profile-result-ultra/original/report.json",
+      "bytes": 4472434,
+      "sha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8"
+    },
+    "source_inputs": [
+      {
+        "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/ios_audio_capture.mjs",
+        "bytes": 22122,
+        "sha256": "7c7356237d487786234e737fe959075c942e39844f638d1e1ea3f925b0bd5194",
+        "canonical_c36_blob": "bbbfd02c57db8dde3b7262b63753a160bc59af07"
+      },
+      {
+        "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/mobile_audio_capture.mjs",
+        "bytes": 16233,
+        "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+        "canonical_c36_blob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+      },
+      {
+        "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/webdriver-request.mjs",
+        "bytes": 1987,
+        "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+        "canonical_c36_blob": "43eed7e79b0dd74ad18f36c08585dec284c86f53"
+      },
+      {
+        "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/source/tools/test-ios-safari.mjs",
+        "bytes": 33470,
+        "sha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+        "canonical_c36_blob": "f002bee4fd368991636e52071c580a4cd5d18aad"
+      }
+    ],
+    "original_status": "failed",
+    "audio_status": "acquisition failed",
+    "audio_reason": "Safari audio chunk transfer timed out",
+    "audio_transfer_final": null,
+    "audio_transfer_contract": {
+      "command": "/execute/sync",
+      "asyncWork": "page-side promise + status polling",
+      "chunkChars": 131072,
+      "maxTransferChars": 50331648,
+      "operationTimeoutMs": 120000,
+      "singleCommandMaxMs": 90000,
+      "deadlineScope": "Checked between commands; an in-flight command may overrun the operation deadline by its bounded command timeout."
+    },
+    "saved_clips": [
+      {
+        "name": "street-walk",
+        "bytes": 5133404,
+        "sha256": "4331aca4abb8bc231c268f9532cae7d1348522d4975be9e334db582c16e9b158",
+        "captureClockGuardPassed": false
+      },
+      {
+        "name": "cut-gas-air",
+        "bytes": 3217145,
+        "sha256": "0a127e2bea0a630edb288dc8f031b76f21e358dec314d67634f395c1b5e4db86",
+        "captureClockGuardPassed": true
+      }
+    ],
+    "frame_work": {
+      "rows": 1853,
+      "recordingCount": 3,
+      "complete": true,
+      "restored": true,
+      "dropped": 0,
+      "errors": []
+    },
+    "directly_unavailable": [
+      "third serialized JSON character count",
+      "third media byte count",
+      "per-chunk latency",
+      "exact completed chunk offset at timeout"
+    ],
+    "inference": "The exact original error is thrown only inside the chunk-transfer loop after ready and valid-length checks. It does not identify the cause of elapsed time or establish the size/contents/timing/quality of an unavailable third saved clip."
+  },
+  "sourceHead": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationMutations": 0,
+  "actualSafariExecuted": false,
+  "actualRecordingsCreated": 0,
+  "imagesViewed": 0,
+  "rawLogRefetches": 0,
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "units": 0,
+    "mode": "continuous",
+    "criteriaCount": 19,
+    "level": 71,
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/REPORT.md",
+      "bytes": 6014,
+      "sha256": "8df67a59f96d115d18d653392bc4c3f21f55e39223675d88ee3aaa65dd0a792a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/authority-receipt.json",
+      "bytes": 39033,
+      "sha256": "974d1d99b4689fa2fbe4001d45675f5bf29096e8d426f01c2637099d94715610"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/source-and-failure-facts.json",
+      "bytes": 3015,
+      "sha256": "e2e99866b2309557ec5d2aaf0daec4dba4b560479e0e653856beaccfa6c1687d"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/verification.json",
+      "bytes": 3665,
+      "sha256": "9dcbb775b4d227365753fb289d786bcbaccd3233bca1fa2c5556fcb587fbd61d"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/rejected-socket-verification.json",
+      "bytes": 1705,
+      "sha256": "3c99c54828bdbb8f82b15b242e2800992274a8471d14944abc5b84a06b70b2c6"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/verify-transfer.mjs",
+      "bytes": 19569,
+      "sha256": "86ad81a66cd6809f84b4fab39d434022320f04f96125ec14aff1deddcea27fd0"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-transfer-repair-ultra/independent-review/verify-rejected-socket.mjs",
+      "bytes": 5120,
+      "sha256": "6c03e418018c8236733426db0f2721c9f77b33a2890af52a1b42869aa397d8a4"
+    }
+  ],
+  "developmentRecord": "fixture-development-failure.json preserves earlier fixture assertion/prototype corrections; superseded by successful verification.json, not a product acquisition result",
+  "unmeasured": [
+    "actual Safari transport compatibility",
+    "third native recording recovery",
+    "street clock-guard repair",
+    "actual listening",
+    "all quality comparisons"
+  ]
+}

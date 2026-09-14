@@ -1,0 +1,18 @@
+{
+  "state": "pending_integration_owner_exact_pin_selection",
+  "base_commit": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+  "current_bundle_sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+  "prepared_candidate_bundle_sha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+  "prepared_candidate_selected_by_this_agent": false,
+  "pending_file": "tools/ios_audio_capture.mjs",
+  "pending_object": "IOS_AUDIO_PIN",
+  "current_source_field": "sourceCommit",
+  "current_source_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+  "integrating_owner_proposed_fields": ["preparedFromCommit", "preparationReportSha256"],
+  "pending_owner_action": "Bind the adopted bundle and provenance to the exact successful C30 preparation report; retain the unchanged recorder pin and runtime guards. This candidate does not edit or select those pins.",
+  "new_verifier_behavior": "Every key present in the authoritative IOS_AUDIO_PIN plus actualRecorderBlob/helperSha256/harnessSha256 must match the capture provenance. Actual root/dist bytes and the current workflow commit/run/attempt are independently checked.",
+  "unchanged_recorder_blob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+  "clock_guard": "Original summarizeAudioCaptureTiming function; max(0.1, audioSeconds * 0.05), with complete passive telemetry.",
+  "new_capture_count": 0,
+  "evaluation_count": 0
+}

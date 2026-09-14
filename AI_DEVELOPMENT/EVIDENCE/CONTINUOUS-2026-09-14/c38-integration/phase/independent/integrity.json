@@ -1,0 +1,46 @@
+{
+  "checkedAtUtc": "2026-09-14T18:18:56.984139+00:00",
+  "candidate": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/candidate/tools/frame_work_probe.mjs",
+    "bytes": 11229,
+    "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8"
+  },
+  "patch": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/candidate.patch",
+    "bytes": 9624,
+    "sha256": "162b7593e79169c2af2130910313be7149be8df5eb2d298ccc88cfbba9556f09"
+  },
+  "source": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/source/tools/frame_work_probe.mjs",
+    "bytes": 6563,
+    "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+  },
+  "exactPatchReconstruction": true,
+  "onlyCandidatePath": "tools/frame_work_probe.mjs",
+  "implementerFixtureIndependentlyRerun": 62,
+  "independentEdgeAssertions": 25,
+  "rerunResultEqualsImplementerBytes": true,
+  "originalC36ReportAndManifestUnchanged": true,
+  "sourceFiles": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/source/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/source/src/core/util.js",
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    }
+  ],
+  "readOnlyCanonicalCode": [
+    {
+      "path": "src/game/game.js",
+      "gitBlobSha1": "8b7e97ab9abf7c08b9c84da100188f5f221caf80"
+    },
+    {
+      "path": "src/render/postfx.js",
+      "gitBlobSha1": "9e721387506e95dc593eed411b57504afcaafb9d"
+    }
+  ]
+}

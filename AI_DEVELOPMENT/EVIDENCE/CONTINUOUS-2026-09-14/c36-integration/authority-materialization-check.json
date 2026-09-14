@@ -1,0 +1,41 @@
+{
+  "correction": "Initial apply_patch added one terminal newline to exact fetched text; detected before use by byte equality and removed only when canonical Git blob of corrected bytes matched.",
+  "checks": [
+    {
+      "path": "AGENTS.md",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "bytes": 315,
+      "canonicalMatches": true
+    },
+    {
+      "path": "CLAUDE.md",
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f",
+      "bytes": 22170,
+      "canonicalMatches": true
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "gitBlob": "79b072c46b2a9749edbabee67fcb8f3be6820ee6",
+      "bytes": 11967,
+      "canonicalMatches": true
+    },
+    {
+      "path": "AI_DEVELOPMENT/STATE.yaml",
+      "gitBlob": "5ba5642f02cd5e7ad1ba421f75eb8f44a1ed5880",
+      "bytes": 24978,
+      "canonicalMatches": true
+    },
+    {
+      "path": "tools/webdriver-request.mjs",
+      "gitBlob": "43eed7e79b0dd74ad18f36c08585dec284c86f53",
+      "bytes": 1987,
+      "canonicalMatches": true
+    },
+    {
+      "path": ".github/workflows/mobile-simulator.yml",
+      "gitBlob": "4a4add1a81803f849745a4ffefdc7d81f9e2cd90",
+      "bytes": 8621,
+      "canonicalMatches": true
+    }
+  ]
+}

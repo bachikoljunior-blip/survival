@@ -1,0 +1,178 @@
+{
+  "status": "PASS",
+  "scope": "Syntax and synthetic CPU control contracts only. Page, renderer, PNG codec and browser state are simulated; no image quality, actual pixels or CI acquisition is measured.",
+  "checks": [
+    {
+      "name": "syntax:mobile_grain_trial.mjs",
+      "passed": true
+    },
+    {
+      "name": "syntax:mobile_visual_capture.mjs",
+      "passed": true
+    },
+    {
+      "name": "syntax:test-iphone-webkit.mjs",
+      "passed": true
+    },
+    {
+      "name": "syntax:export-webkit-material.mjs",
+      "passed": true
+    },
+    {
+      "name": "active_single_variable",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": true,
+      "pixelsRestored": true,
+      "trialChangesPixels": true,
+      "stateUnchanged": true,
+      "sceneRecordsUnchanged": true,
+      "renderCountsUnchanged": true
+    },
+    {
+      "name": "trial_render_throws",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": false,
+      "stateUnchanged": false,
+      "sceneRecordsUnchanged": false,
+      "renderCountsUnchanged": false
+    },
+    {
+      "name": "restoration_render_throws",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": false,
+      "trialChangesPixels": true,
+      "stateUnchanged": false,
+      "sceneRecordsUnchanged": false,
+      "renderCountsUnchanged": false
+    },
+    {
+      "name": "inactive_tier_aborts",
+      "passed": true,
+      "aborted": true,
+      "renders": 0,
+      "property_descriptor_restored": true,
+      "validControlledCapture": null,
+      "pixelsRestored": null,
+      "trialChangesPixels": null,
+      "stateUnchanged": null,
+      "sceneRecordsUnchanged": null,
+      "renderCountsUnchanged": null
+    },
+    {
+      "name": "running_engine_aborts",
+      "passed": true,
+      "aborted": true,
+      "renders": 0,
+      "property_descriptor_restored": true,
+      "validControlledCapture": null,
+      "pixelsRestored": null,
+      "trialChangesPixels": null,
+      "stateUnchanged": null,
+      "sceneRecordsUnchanged": null,
+      "renderCountsUnchanged": null
+    },
+    {
+      "name": "wrong_original_grain_aborts",
+      "passed": true,
+      "aborted": true,
+      "renders": 0,
+      "property_descriptor_restored": true,
+      "validControlledCapture": null,
+      "pixelsRestored": null,
+      "trialChangesPixels": null,
+      "stateUnchanged": null,
+      "sceneRecordsUnchanged": null,
+      "renderCountsUnchanged": null
+    },
+    {
+      "name": "inert_shader_rejected",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": false,
+      "stateUnchanged": true,
+      "sceneRecordsUnchanged": true,
+      "renderCountsUnchanged": true
+    },
+    {
+      "name": "camera_drift_rejected",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": true,
+      "stateUnchanged": false,
+      "sceneRecordsUnchanged": true,
+      "renderCountsUnchanged": true
+    },
+    {
+      "name": "grain_time_drift_rejected",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": true,
+      "stateUnchanged": false,
+      "sceneRecordsUnchanged": true,
+      "renderCountsUnchanged": true
+    },
+    {
+      "name": "scene_version_drift_rejected",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": true,
+      "stateUnchanged": true,
+      "sceneRecordsUnchanged": false,
+      "renderCountsUnchanged": true
+    },
+    {
+      "name": "draw_count_drift_rejected",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": true,
+      "stateUnchanged": true,
+      "sceneRecordsUnchanged": true,
+      "renderCountsUnchanged": false
+    },
+    {
+      "name": "cached_baseline_drift_rejected",
+      "passed": true,
+      "aborted": false,
+      "renders": 3,
+      "property_descriptor_restored": true,
+      "validControlledCapture": false,
+      "pixelsRestored": true,
+      "trialChangesPixels": true,
+      "stateUnchanged": true,
+      "sceneRecordsUnchanged": true,
+      "renderCountsUnchanged": true
+    }
+  ]
+}

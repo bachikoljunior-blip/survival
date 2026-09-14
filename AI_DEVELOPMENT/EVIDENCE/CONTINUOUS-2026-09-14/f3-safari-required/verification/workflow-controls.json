@@ -1,0 +1,935 @@
+{
+  "scope": "Offline workflow/schema/shell controls only; hosted GitHub scheduling and simulator runtime unmeasured",
+  "passed": 19,
+  "checks": [
+    {
+      "name": "every original non-audio F3 step is identical and ordered",
+      "passed": true
+    },
+    {
+      "name": "original F3 runner and timeout retained",
+      "passed": true
+    },
+    {
+      "name": "all non-F3 jobs unchanged",
+      "passed": true
+    },
+    {
+      "name": "workflow triggers and permissions unchanged",
+      "passed": true
+    },
+    {
+      "name": "exact required name and both dependencies retained",
+      "passed": true
+    },
+    {
+      "name": "aggregate always runs and has no result bypass",
+      "passed": true
+    },
+    {
+      "name": "both measurement jobs are unconditional",
+      "passed": true
+    },
+    {
+      "name": "same-revision reusable call requires true audio",
+      "passed": true
+    },
+    {
+      "name": "typed workflow_call and standalone false default",
+      "passed": true
+    },
+    {
+      "name": "caller has no colliding concurrency group",
+      "passed": true
+    },
+    {
+      "name": "exact evidence check remains active after a test failure",
+      "passed": true
+    },
+    {
+      "name": "all existing standalone simulator execution steps remain unchanged",
+      "passed": true
+    },
+    {
+      "name": "aggregate reads both actual needs results",
+      "passed": true
+    },
+    {
+      "name": "36 actual aggregate-shell controls accept only success/success",
+      "passed": true
+    },
+    {
+      "name": "36 input/event/attempt controls keep explicit true enabled",
+      "passed": true
+    },
+    {
+      "name": "every default-false/absent input case retains original behavior",
+      "passed": true
+    },
+    {
+      "name": "same-ref caller and standalone have distinct concurrency groups",
+      "passed": true
+    },
+    {
+      "name": "all eight canonical source blobs remain byte-exact",
+      "passed": true
+    },
+    {
+      "name": "source/core/recorder/harness/audio runtime are absent from change set",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.2782211200101301,
+  "aggregate_results": [
+    {
+      "core": "success",
+      "safari": "success",
+      "exit": 0,
+      "accepted": true
+    },
+    {
+      "core": "success",
+      "safari": "failure",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "success",
+      "safari": "cancelled",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "success",
+      "safari": "skipped",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "success",
+      "safari": "",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "success",
+      "safari": "unknown",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "failure",
+      "safari": "success",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "failure",
+      "safari": "failure",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "failure",
+      "safari": "cancelled",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "failure",
+      "safari": "skipped",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "failure",
+      "safari": "",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "failure",
+      "safari": "unknown",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "cancelled",
+      "safari": "success",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "cancelled",
+      "safari": "failure",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "cancelled",
+      "safari": "cancelled",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "cancelled",
+      "safari": "skipped",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "cancelled",
+      "safari": "",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "cancelled",
+      "safari": "unknown",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "skipped",
+      "safari": "success",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "skipped",
+      "safari": "failure",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "skipped",
+      "safari": "cancelled",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "skipped",
+      "safari": "skipped",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "skipped",
+      "safari": "",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "skipped",
+      "safari": "unknown",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "",
+      "safari": "success",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "",
+      "safari": "failure",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "",
+      "safari": "cancelled",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "",
+      "safari": "skipped",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "",
+      "safari": "",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "",
+      "safari": "unknown",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "unknown",
+      "safari": "success",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "unknown",
+      "safari": "failure",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "unknown",
+      "safari": "cancelled",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "unknown",
+      "safari": "skipped",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "unknown",
+      "safari": "",
+      "exit": 1,
+      "accepted": false
+    },
+    {
+      "core": "unknown",
+      "safari": "unknown",
+      "exit": 1,
+      "accepted": false
+    }
+  ],
+  "input_expression_results": [
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "1",
+      "default_must_match_original": true,
+      "actual": "1",
+      "original": "1"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "1",
+      "default_must_match_original": true,
+      "actual": "1",
+      "original": "1"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "1"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "push",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "pull_request",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "1"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 1,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "1"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {},
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": false
+      },
+      "expected": "0",
+      "default_must_match_original": true,
+      "actual": "0",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "ordinary source update"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    },
+    {
+      "github": {
+        "event_name": "workflow_dispatch",
+        "run_attempt": 2,
+        "event": {
+          "head_commit": {
+            "message": "[ios-audio-c28-r1]"
+          }
+        }
+      },
+      "inputs": {
+        "capture_audio": true
+      },
+      "expected": "1",
+      "default_must_match_original": false,
+      "actual": "1",
+      "original": "0"
+    }
+  ],
+  "concurrency_groups": {
+    "Floor gates": "mobile-simulator-Floor gates-refs/heads/production",
+    "Mobile Safari simulator": "mobile-simulator-Mobile Safari simulator-refs/heads/production"
+  },
+  "core_steps_preserved": 10,
+  "workflow_call_started": false,
+  "CI_started": false,
+  "evaluation_count": 0
+}

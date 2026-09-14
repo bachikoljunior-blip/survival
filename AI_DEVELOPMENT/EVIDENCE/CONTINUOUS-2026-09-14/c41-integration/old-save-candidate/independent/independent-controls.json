@@ -1,0 +1,80 @@
+{
+  "scope": "Independent bounded source and CPU save compatibility review",
+  "nodeVersion": "v24.19.0",
+  "passed": 15,
+  "controls": [
+    {
+      "name": "Exact source pins and inverse of the two hunks preserve every other byte",
+      "passed": true
+    },
+    {
+      "name": "Storage, validation, save version and migration bytes remain identical",
+      "passed": true
+    },
+    {
+      "name": "Legacy match comes from the canonical effect and repaired text equals frozen C40 content",
+      "passed": true
+    },
+    {
+      "name": "Frozen input is untouched; only matching entries are copied with timestamps and extra fields",
+      "passed": true
+    },
+    {
+      "name": "Nine close but nonmatching entries are retained without editing or replacement",
+      "passed": true
+    },
+    {
+      "name": "Duplicate exact entries retain ordering, count, timestamps and their different extra fields",
+      "passed": true
+    },
+    {
+      "name": "Every serialized progress field differs from the old reader only at the permitted text",
+      "passed": true
+    },
+    {
+      "name": "Deserialization emits no journal, choice, trust or other effect event",
+      "passed": true
+    },
+    {
+      "name": "Invalid inputs reject before state mutation and optional journal defaults are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Real v2 save/load/deserialise/save preserves player, world, envelope and all progress",
+      "passed": true
+    },
+    {
+      "name": "Inspect/load/hasSave repair no storage slot and leave loaded payload text unchanged",
+      "passed": true
+    },
+    {
+      "name": "Existing v1 to v2 migration retains input and rescues original bytes at the next real save",
+      "passed": true
+    },
+    {
+      "name": "Repeated repair is idempotent and the original v2 reader accepts the corrected save",
+      "passed": true
+    },
+    {
+      "name": "Real C40 DialogueRunner effects and full resulting progress match with both state readers in EN and JA",
+      "passed": true
+    },
+    {
+      "name": "Loaded legacy entry resolves to exact corrected EN fallback and frozen JA localization",
+      "passed": true
+    }
+  ],
+  "blocking": 0,
+  "producerControlsCountedAsIndependent": 0,
+  "storageFixture": "In-memory Web Storage API with synthetic saves; no user save read",
+  "fixtureClock": "Fixed Date.now only for exact serialization comparisons; no elapsed-time claims",
+  "actualBuild": false,
+  "actualBrowser": false,
+  "screens": 0,
+  "newBundleSha256": null,
+  "localGitCalls": 0,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "newSpawn": 0,
+  "libraryAccess": 0
+}

@@ -1,0 +1,58 @@
+--- a/tools/test-ios-safari.mjs
++++ b/tools/test-ios-safari.mjs
+@@ -11,6 +11,7 @@
+  */
+ 
+ import { createServer } from 'node:http';
++import { execFile } from 'node:child_process';
+ import { createHash } from 'node:crypto';
+ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+ import { dirname, extname, join, normalize, resolve } from 'node:path';
+@@ -335,9 +336,26 @@
+   const baseUrl = EXTERNAL_URL || (localServer = await startServer()).url;
+   report.baseUrl = baseUrl;
+   const bootstrapUrl = localServer ? new URL(SAFARI_BOOTSTRAP_PATH, baseUrl).href : null;
+-  report.safariStartup = { method: bootstrapUrl ? 'local-deeplink' : 'driver-default', bootstrapUrl, verified: false };
++  report.safariStartup = { method: bootstrapUrl ? 'local-simctl-preopen' : 'driver-default', bootstrapUrl, verified: false };
+   await waitForHttp(baseUrl);
+   await waitForHttp(new URL('status', APPIUM_URL));
++
++  if (bootstrapUrl) {
++    // The owned loopback document must exist before WebInspector selects a
++    // page. Keep URL opening separate from WDA's initial app-state check.
++    const startedAt = Date.now();
++    report.safariStartup.openUrl = { status: 'running', attempts: 1 };
++    await new Promise((done, reject) => {
++      execFile('xcrun', ['simctl', 'openurl', UDID, bootstrapUrl],
++        { timeout: 90000, maxBuffer: 65536, killSignal: 'SIGKILL' }, (error, stdout, stderr) => {
++          report.safariStartup.openUrl = { status: error ? 'failed' : 'passed', attempts: 1,
++            elapsedMs: Date.now() - startedAt, stdout, stderr,
++            ...(error ? { error: error.message, code: error.code, signal: error.signal } : {}) };
++          if (error) reject(new Error(`Safari bootstrap openurl failed: ${error.message}`, { cause: error }));
++          else done();
++        });
++    });
++  }
+ 
+   const created = await webdriver('session', {
+     body: {
+@@ -350,9 +368,8 @@
+           'appium:udid': UDID,
+           'appium:platformVersion': PLATFORM_VERSION,
+           'appium:noReset': true,
+-          // Load an inspectable local document before the driver selects a
+-          // webview. Force launch also applies this URL to an existing Safari.
+-          ...(bootstrapUrl ? { 'appium:initialDeeplinkUrl': bootstrapUrl, 'appium:forceAppLaunch': true } : {}),
++          // noReset keeps the preopened Safari page; WDA uses its ordinary
++          // application launch/activation path with no initial deep link.
+           // CI has already booted this simulator with simctl. Requiring a
+           // desktop window makes Appium restart it before Safari can launch.
+           // Native simulator screenshots/video remain available without it.
+@@ -665,6 +682,7 @@
+ }
+ 
+ console.log(`[ios-safari] ${report.status.toUpperCase()}: ${report.failures.length} failure(s)`);
++if (report.safariStartup) console.log(`[ios-safari-startup] ${JSON.stringify(report.safariStartup)}`);
+ // Keep the exact report and bounded, lossless images readable through the
+ // ordinary job log as well as the artifact; never substitute them for video.
+ console.log(`[ios-safari-report] ${JSON.stringify(CAPTURE_AUDIO && audioTools ? audioTools.iosAudioLogSummary(report) : report)}`);

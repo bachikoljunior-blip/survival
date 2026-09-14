@@ -1,0 +1,83 @@
+{
+  "sourceCommit": "b0f1dfb9860dbc00018c0c587d8f0934fadb6604",
+  "sourceInputAgreementWithActual81cPreparation": [
+    {
+      "path": "src/actors/rig.js",
+      "bytes": 39237,
+      "sha256": "e0b314c0de8c833f8588dfe13a2f68565829c702415b75c4844cb55be15c90f3",
+      "gitBlob": "4c83c7e9c08105dd5ff089b40d17dd69d1ef2ae6"
+    },
+    {
+      "path": "src/actors/anim.js",
+      "bytes": 45861,
+      "sha256": "2a96a4f4688c90c6467f8d2746ef38fe1e3dbe629cec0f60a6b9df0632022002",
+      "gitBlob": "b9e8cf3b02654ee92031d4b8b0a9fb72e37fe82d"
+    },
+    {
+      "path": "src/actors/actor.js",
+      "bytes": 35441,
+      "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+      "gitBlob": "4d47741d30b6a52a27fc2089dacdf6e5859cb59d"
+    },
+    {
+      "path": "src/actors/player.js",
+      "bytes": 19131,
+      "sha256": "c3dd1b7e33bf6e30e6ca0363e3cc18bd5c7080b8f21060b0e66130cefb80cd66",
+      "gitBlob": "f28d840a6fe96d27d5d1ed5fed760f3023452c79"
+    },
+    {
+      "path": "src/world/collision.js",
+      "bytes": 21291,
+      "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+      "gitBlob": "a3c0a966522a630ef5ff1b13f24c6aca12d1ba4c"
+    },
+    {
+      "path": "src/world/city.js",
+      "bytes": 52538,
+      "sha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+      "gitBlob": "98d2e151432836fb4497f6f0c0210f12b42294fd"
+    },
+    {
+      "path": "src/world/geom.js",
+      "bytes": 20467,
+      "sha256": "76d1afe270f2ee600857f71161353c67de9de5f4e54cec5d3b9609fb5f5ee1e1",
+      "gitBlob": "3d4226681dcc7680b951102acd7750a657068fb8"
+    },
+    {
+      "path": "src/render/atmosphere.js",
+      "bytes": 40378,
+      "sha256": "4bc604f65d390b7cdcf34c7c8c9939d26f0810202ea2d651895cf989a3ab51b5",
+      "gitBlob": "036acce63f9eff6b6c637cd31cd13419b2ebde9d"
+    },
+    {
+      "path": "src/content/world_data.js",
+      "bytes": 45904,
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+      "gitBlob": "de2617ab8de574958acc6d76a59f47947e5a4476"
+    }
+  ],
+  "preparationReport": {
+    "path": "../main-integration-c31/payload/AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/grain-product-build-r1-result/report.json",
+    "sha256": "8c1f211d5179aa60c97a6e641718be589f816695d5f32245d48f9d6f7101f4ad",
+    "candidateBundleSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "dependencies": {
+      "esbuild": "0.25.0",
+      "three": "0.180.0"
+    }
+  },
+  "actualBundle": {
+    "path": "main-integration-c31/candidate/cinderline.1.0.0.js",
+    "sha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "shaderSource": {
+      "depth": "loat shadowRadius, vec4 shadowCoord ) {\n\t\tfloat shadow = 1.0;\n\t\tshadowCoord.xyz /= shadowCoord.w;\n\t\tshadowCoord.z += shadowBias;\n\t\tbool inFrustum = shadowCoord.x >= 0.0 && shadowCoord.x <= 1.0 && shad",
+      "normal": " NUM_DIR_LIGHT_SHADOWS; i ++ ) {\n\t\t\tshadowWorldPosition = worldPosition + vec4( shadowWorldNormal * directionalLightShadows[ i ].shadowNormalBias, 0 );\n\t\t\tvDirectionalShadowCoord[ i ] = directionalShadowMatrix[ i ] * sha"
+    }
+  },
+  "cpuThree": {
+    "path": "main-integration-c30/candidate/node_modules/three/index.mjs",
+    "revision": "180",
+    "bytes": 381124,
+    "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "scope": "Existing workspace r180 core module for CPU geometry/math. No WebGL render used."
+  }
+}

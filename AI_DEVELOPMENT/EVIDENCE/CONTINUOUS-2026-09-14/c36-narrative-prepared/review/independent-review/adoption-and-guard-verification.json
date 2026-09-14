@@ -1,0 +1,151 @@
+{
+  "status": "passed",
+  "scope": "Independent five-file C37 adoption candidate and actual IOS_AUDIO_PIN guard CPU checks, plus malformed transport refusal tests. Original source/raw files are read-only; all fixture writes stay in independent-review. No iOS capture, browser, build, CI, source adoption or remote mutation.",
+  "checks": [
+    {
+      "name": "C37 candidate contains exactly the five authorized product/pin paths",
+      "passed": true
+    },
+    {
+      "name": "all C37 manifest file hashes/blob IDs/lengths match actual candidate bytes",
+      "passed": true
+    },
+    {
+      "name": "three sources and new root are byte-identical to independently decoded preparation outputs",
+      "passed": true
+    },
+    {
+      "name": "IOS helper differs from canonical C36 only in the three exact preparation pins",
+      "passed": true
+    },
+    {
+      "name": "actual unchanged pin guard accepts the exact recovered 1094 root and dist",
+      "passed": true
+    },
+    {
+      "name": "old 514f root and dist are rejected by the actual candidate guard",
+      "passed": true
+    },
+    {
+      "name": "old 514f root is rejected even with current 1094 dist",
+      "passed": true
+    },
+    {
+      "name": "old 514f dist is rejected even with current 1094 root",
+      "passed": true
+    },
+    {
+      "name": "unchanged recorder source pin rejects byte drift",
+      "passed": true
+    },
+    {
+      "name": "unchanged local DIST authority rejects an external URL without access",
+      "passed": true
+    },
+    {
+      "name": "current recovered bytes remain accepted after all refusal cases",
+      "passed": true
+    },
+    {
+      "name": "independent transport parser rejects a missing raw chunk",
+      "passed": true
+    },
+    {
+      "name": "independent transport parser rejects a duplicated raw chunk",
+      "passed": true
+    },
+    {
+      "name": "independent transport parser rejects differing end metadata",
+      "passed": true
+    },
+    {
+      "name": "independent transport parser rejects malformed base64",
+      "passed": true
+    },
+    {
+      "name": "independent transport parser rejects a missing final end record",
+      "passed": true
+    }
+  ],
+  "total": 16,
+  "files": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    },
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1446171,
+      "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 22122,
+      "sha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+      "gitBlob": "457f3e1efcd596b102969c508dfa7f64e81a7b92"
+    }
+  ],
+  "adoptionPins": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+  },
+  "preservedPins": {
+    "bundle": "cinderline.1.0.0.js",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+  },
+  "fixtureInputs": [
+    {
+      "path": "tools/mobile_audio_capture.mjs",
+      "canonicalGitBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62"
+    },
+    {
+      "path": "tools/frame_work_probe.mjs",
+      "canonicalGitBlob": "121b469ccf0a308a0b6052af0799277760185f94",
+      "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "canonicalGitBlob": "f002bee4fd368991636e52071c580a4cd5d18aad",
+      "sha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec"
+    }
+  ],
+  "actualAcceptedGuardReturn": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+    "frameWorkProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+    "harnessSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+    "runCommit": null,
+    "runId": null,
+    "runAttempt": null
+  },
+  "remoteMutations": 0,
+  "sourceAdopted": false,
+  "actualBrowserExecutions": 0,
+  "originalInputsModified": 0
+}

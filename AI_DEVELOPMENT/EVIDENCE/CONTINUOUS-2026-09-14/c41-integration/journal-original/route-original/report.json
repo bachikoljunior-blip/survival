@@ -1,0 +1,50 @@
+{
+  "status": "failed",
+  "sourceRoutes": [
+    {
+      "language": "en",
+      "conversation": "iris_first",
+      "node": "i_gives",
+      "journal": "iris",
+      "sourceSha256": "9d1d608455774a7c55502ae12ad0104517a15836f537336438505bf09621e5a3",
+      "textSha256": "9d1d608455774a7c55502ae12ad0104517a15836f537336438505bf09621e5a3",
+      "displaySha256": "ab6b99948c72d76188e498363ad4e8f3d8ce226752b395dd264e43bafac5a5cf",
+      "expectedTitle": "Iris Nadeau"
+    },
+    {
+      "language": "ja",
+      "conversation": "iris_first",
+      "node": "i_gives",
+      "journal": "iris",
+      "sourceSha256": "9d1d608455774a7c55502ae12ad0104517a15836f537336438505bf09621e5a3",
+      "textSha256": "0156cf93d0d49491939147b13457337ebbf26d1cf21f6f401525477356cf7a42",
+      "displaySha256": "0156cf93d0d49491939147b13457337ebbf26d1cf21f6f401525477356cf7a42",
+      "expectedTitle": "アイリス・ナドー"
+    }
+  ],
+  "screens": [],
+  "browserRequested": true,
+  "browserAttempted": true,
+  "browserExecuted": true,
+  "scope": "Source-known finite locale and staged journal UI diagnostic. Direct i_gives node selection executes the real authored journal effect; a fresh isolated context per language opens the existing menu and scrolls the entry into view. No ordinary-play path, readability/visual-quality verdict, Mobile Safari claim, blind comparison or element verdict.",
+  "bundleSha256": "4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed",
+  "sourceCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "runId": "34895775143",
+  "runAttempt": "1",
+  "browserVersion": "141.0.7390.37",
+  "browser": "Chromium mobile emulation, not Mobile Safari",
+  "viewport": {
+    "width": 667,
+    "height": 375
+  },
+  "contextOptions": {
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "deviceScaleFactor": 1,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Journal body is covered\n\nfalse !== true\n"
+}

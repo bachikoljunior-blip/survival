@@ -1,0 +1,55 @@
+{
+  "scope": "CPU diagnostic-control tests only. Rendering is explicitly stubbed with CPU tokens; no image or browser success is claimed.",
+  "passed": 11,
+  "failed": 0,
+  "results": [
+    {
+      "name": "recorded exact arcade feet match independent CPU reconstruction",
+      "passed": true
+    },
+    {
+      "name": "isolated bias controls keep normal/depth counterpart fixed and restore all original settings",
+      "passed": true
+    },
+    {
+      "name": "render failure is retained and bias settings are restored",
+      "passed": true
+    },
+    {
+      "name": "cleanup render failure stays invalid while original parameters still restore",
+      "passed": true
+    },
+    {
+      "name": "simulation/camera drift during control makes the diagnostic invalid",
+      "passed": true
+    },
+    {
+      "name": "bone drift during render is not hidden by a restored shadow setting",
+      "passed": true
+    },
+    {
+      "name": "live simulation is rejected before rendering or parameter changes",
+      "passed": true
+    },
+    {
+      "name": "unexpected sole topology is rejected before rendering",
+      "passed": true
+    },
+    {
+      "name": "step/edge point support and body-radius support remain separate measurements",
+      "passed": true
+    },
+    {
+      "name": "unsupported feet return null support without grounding or moving the player",
+      "passed": true
+    },
+    {
+      "name": "integration preserves default route and selects diagnostics explicitly; original shadow checks remain",
+      "passed": true
+    }
+  ],
+  "elapsedMs": 46.621432,
+  "browserRuns": 0,
+  "renderedDiagnosticPNGs": 0,
+  "comparisons": 0
+}

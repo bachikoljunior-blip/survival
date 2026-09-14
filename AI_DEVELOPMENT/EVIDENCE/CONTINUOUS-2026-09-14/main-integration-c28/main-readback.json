@@ -1,0 +1,65 @@
+{
+  "allExpected": true,
+  "at": "2026-09-14T21:30:27.099+09:00",
+  "current_game_bundle_sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+  "draft": false,
+  "exact_source_tree_matches": true,
+  "main": "f40b6d9a37be22871a3c422e86dec2b127b16b4c",
+  "mergeable": true,
+  "merged": true,
+  "parents": [
+    "f40b6d9a37be22871a3c422e86dec2b127b16b4c",
+    "2fc0a319faeffb3733cd4a5f3091be3819ec770d"
+  ],
+  "pr_head": "2fc0a319faeffb3733cd4a5f3091be3819ec770d",
+  "publication_status": "not verified; deployment workflow pending",
+  "quality_status": "all 19 not measured; no valid comparison",
+  "requiredJobs": [
+    {
+      "conclusion": "success",
+      "id": 103970391355,
+      "name": "F3 execution"
+    },
+    {
+      "conclusion": "success",
+      "id": 103970391545,
+      "name": "F5 review record"
+    },
+    {
+      "conclusion": "success",
+      "id": 103970391679,
+      "name": "F2 state update"
+    }
+  ],
+  "result_main_sha": "5456371249f5769c25d18f1686a44349e4292d6f",
+  "result_main_tree": "362c31a451e99cbd097b18f95849420faffa7f90",
+  "runs": [
+    {
+      "conclusion": "failure",
+      "id": 34843802030,
+      "name": ".github/workflows/revert-to-verified.yml",
+      "status": "completed"
+    },
+    {
+      "conclusion": null,
+      "id": 34843803302,
+      "name": "Deploy to GitHub Pages",
+      "status": "in_progress"
+    },
+    {
+      "conclusion": null,
+      "id": 34843803256,
+      "name": "iPhone SE 3 round",
+      "status": "in_progress"
+    },
+    {
+      "conclusion": null,
+      "id": 34843799715,
+      "name": "pages build and deployment",
+      "status": "in_progress"
+    }
+  ],
+  "source": "2fc0a319faeffb3733cd4a5f3091be3819ec770d",
+  "state": "clean",
+  "verified_at": "2026-09-14T21:30:48.811+09:00"
+}

@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen; original failures isolated; limited harness candidate adoptable after independent review",
+  "recordedAt": "2026-09-14T19:55:30.216361+00:00",
+  "sourceHead": "61e8f8c595bde13634fe709f979816011df165d0",
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "candidate": {
+    "path": "candidate/tools/test-ios-safari.mjs",
+    "bytes": 35835,
+    "sha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+    "gitBlob": "5064084376f0743d2f082ae3656406fe408b1b51"
+  },
+  "patch": {
+    "path": "candidate.patch",
+    "bytes": 3516,
+    "sha256": "fe943924acb37fa028e03e5abce15ec2a567226a077531f432033cb3a6b56ad9",
+    "gitBlob": "a879799b0a118fb07eb877d9c26d176f2237c34c"
+  },
+  "blocking": 0,
+  "verification": {
+    "ownHttpScenarios": 8,
+    "ownChecks": 37,
+    "independentChecks": 22,
+    "officialSourceBlobChecks": 10,
+    "closedIndependentFindings": 1,
+    "exactBaselineRestoration": true,
+    "actualCandidateSafari": false,
+    "actualCandidateWebDriverCapabilitiesAccepted": false,
+    "realGameExecuted": false
+  },
+  "originals": {
+    "decodedLogCount": 3,
+    "decodedLogBytes": 9358731,
+    "eachFetchedExactlyOnce": true,
+    "sourceLogsRefetched": 0,
+    "startupFileCount": 10,
+    "startupFilesFullShaVerified": true,
+    "startupFileBytes": 6759448,
+    "originalReportJsonBytesRecovered": false,
+    "artifactMetadataRead": false,
+    "artifactZipRead": false
+  },
+  "scope": {
+    "productRootSourceRecorderEdits": 0,
+    "workflowEdits": 0,
+    "harnessPaths": 1,
+    "remoteWrites": 0,
+    "newCiStarts": 0,
+    "reruns": 0,
+    "newAgents": 0,
+    "automationChanges": 0,
+    "pendingTools": 0,
+    "otherArtifactsEdited": 0
+  },
+  "fixed": {
+    "all19": "not measured",
+    "criteria": 71,
+    "validBlind": 0,
+    "units": 0,
+    "mode": "continuous",
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "limits": [
+    "Original PR/standalone failures occurred before game navigation; no clock/transfer/release/lifecycle measurement in those jobs.",
+    "Native WDA launch succeeded; root cause of the empty WebInspector list remains partly uncertain.",
+    "Bootstrap supplies a previously missing explicit document-before-inspection prerequisite; it is not proof of recovered real Safari startup.",
+    "C34/C36/C37 clock failures and source C38 profile/export issues are separate.",
+    "HTTP/VM fixtures are synthetic; Apple runtime capability acceptance and original gate success remain for normal CI.",
+    "Upload-log artifact IDs/digests are observations only; no ZIP or metadata fetch was performed."
+  ],
+  "publicationPolicy": "Only the exact entries below plus this control manifest pinned by the handoff hash; do not follow directories or links recursively.",
+  "controlFile": "manifest.json",
+  "publicCopyAllowlist": [
+    "REPORT.md",
+    "candidate/tools/test-ios-safari.mjs",
+    "candidate.patch",
+    "authority-and-transport-receipt.json",
+    "analysis.json",
+    "startup-recovery-receipt.json",
+    "official-source-receipt.json",
+    "official-capability-verification.json",
+    "verify-bootstrap.mjs",
+    "bootstrap-verification.json",
+    "transport/pr-safari.log",
+    "transport/standalone-safari.log",
+    "transport/pr-f3-execution.log",
+    "transport/pr-summary.json",
+    "transport/standalone-summary.json",
+    "transport/run-34884733596.json",
+    "transport/run-34884725698.json",
+    "transport/jobs-34884733596.json",
+    "transport/jobs-34884725698.json",
+    "transport/head-and-merge.json",
+    "original/pr/appium.log",
+    "original/pr/simulator-selection.json",
+    "original/pr/xcode-version.txt",
+    "original/pr/xcode-path.txt",
+    "original/pr/simulator-sdk-version.txt",
+    "original/standalone/appium.log",
+    "original/standalone/simulator-selection.json",
+    "original/standalone/xcode-version.txt",
+    "original/standalone/xcode-path.txt",
+    "original/standalone/simulator-sdk-version.txt",
+    "independent-review/REPORT.md",
+    "independent-review/independent-verification.json",
+    "independent-review/provenance-verification.json",
+    "independent-review/finding-closure.json",
+    "independent-review/verify-independent.mjs",
+    "independent-review/manifest.json",
+    "manifest.json"
+  ],
+  "excluded": [
+    "source/ canonical input copies",
+    "official-source/ fixed upstream source cache",
+    "fixture/ synthetic run outputs and copied product bytes",
+    "unlisted files and linked targets"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 6719,
+      "sha256": "7743baabca018f4843f9bbb7d5e5f502fec7e434c4213f9f99a7ad369776b812",
+      "gitBlob": "f0040f52672daf5a416544c25475cd3eb222e778"
+    },
+    {
+      "path": "candidate/tools/test-ios-safari.mjs",
+      "bytes": 35835,
+      "sha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+      "gitBlob": "5064084376f0743d2f082ae3656406fe408b1b51"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 3516,
+      "sha256": "fe943924acb37fa028e03e5abce15ec2a567226a077531f432033cb3a6b56ad9",
+      "gitBlob": "a879799b0a118fb07eb877d9c26d176f2237c34c"
+    },
+    {
+      "path": "authority-and-transport-receipt.json",
+      "bytes": 2946,
+      "sha256": "9d56be04b326d76ad46d2bf4445d6ad9a3028941258a11a7cbfdf2e3bfd5afd1",
+      "gitBlob": "2bdc4c1f41b9b3907c4945d755fdfa9a17cd50b1"
+    },
+    {
+      "path": "analysis.json",
+      "bytes": 4495,
+      "sha256": "ba2a4d47f6ba707f368c8b60d2eba808e93ae7cf83734f716197e711ee9b1721",
+      "gitBlob": "50cdcd64166f6022fb6393df47fb757a749e8097"
+    },
+    {
+      "path": "startup-recovery-receipt.json",
+      "bytes": 2928,
+      "sha256": "a74094612f54369c26a9ae3e143184f687e94066938f7fa625211be7598c4b8e",
+      "gitBlob": "9745fb290fdd70202913bb1174fc2b8e5398d6b8"
+    },
+    {
+      "path": "official-source-receipt.json",
+      "bytes": 2870,
+      "sha256": "25be18f607e277448b1f1c0fb3189ee432089c49cf00df1c0f1d4687566b875b",
+      "gitBlob": "32cf4f03d0e282d312a544bc404d960bbc1d8716"
+    },
+    {
+      "path": "official-capability-verification.json",
+      "bytes": 633,
+      "sha256": "b4f1b74307fabb59ac208fb9f4cdda83589110ace975931c8c70960a3c1e6fa4",
+      "gitBlob": "ac99d0e8be6f289b688218108ca9cf0ccc87f7f0"
+    },
+    {
+      "path": "verify-bootstrap.mjs",
+      "bytes": 12185,
+      "sha256": "b34f34ef19a657d7fee8b13f33b53d88ffc2ae5886b144904acfe96fdde0169a",
+      "gitBlob": "fbdbe4c54cf51a5a8e58cfafa221e85d74910012"
+    },
+    {
+      "path": "bootstrap-verification.json",
+      "bytes": 10402,
+      "sha256": "f6258eddd90557203269651ab687d67c523674ceec17315b59b0bac6f84aacd4",
+      "gitBlob": "d4b44206cf37267d20bccb82a4e9f7c9e87da32d"
+    },
+    {
+      "path": "transport/pr-safari.log",
+      "bytes": 4599237,
+      "sha256": "9fd876272c8686d5e6e9c199d6a82402ad36a1b851aca3cd8c47e79aeeb2f27b",
+      "gitBlob": "de010524b3653d4d14d0525fff0f6bcbaccaedbb"
+    },
+    {
+      "path": "transport/standalone-safari.log",
+      "bytes": 4756969,
+      "sha256": "09d4e0bf02b235a29bb5212ef0f8602524bf498a3bc176cf46543bb6d84f5475",
+      "gitBlob": "b2c8d89bc491345ef6b198689409b9f3a07d8083"
+    },
+    {
+      "path": "transport/pr-f3-execution.log",
+      "bytes": 2525,
+      "sha256": "c9d70daea98e2df983953642e29bafab9ccf4726fe3a850e8c9e5956bf7a353b",
+      "gitBlob": "90a656f1259e4d88beadcbbfd8a96fce81c96cf8"
+    },
+    {
+      "path": "transport/pr-summary.json",
+      "bytes": 1923,
+      "sha256": "82b0e9565c4d27062492af49f7ddd677fa0a9081ccecfd4fee0b02f9dbea14e4",
+      "gitBlob": "4ac2f9e358a1cc097b69ee9651142f198225127a"
+    },
+    {
+      "path": "transport/standalone-summary.json",
+      "bytes": 1190,
+      "sha256": "cee8c39eda2435384223d705b780434cd8c0942b4fe44424081f4bfeee4e9708",
+      "gitBlob": "60130997098b98feda2439b83160d097fd3ebdf9"
+    },
+    {
+      "path": "transport/run-34884733596.json",
+      "bytes": 14162,
+      "sha256": "97f075929410f3691237c53e53e55563a37832550b4c4094425855aa69267be8",
+      "gitBlob": "0e50807a344d6e2c0a2f55a7491aa3ecf24e3bd2"
+    },
+    {
+      "path": "transport/run-34884725698.json",
+      "bytes": 14061,
+      "sha256": "f2a2f92bac4fa2b6812a5ae13a59a964eb63b10a33bc2b52c0507dac37375297",
+      "gitBlob": "bf7df794a8aed4dad79cfbc94e25dff98a9e251e"
+    },
+    {
+      "path": "transport/jobs-34884733596.json",
+      "bytes": 14117,
+      "sha256": "c43c9845c51348ddcd4cc533042fc65d619dd6023effdd8cc041dd59281d1017",
+      "gitBlob": "4af664277347938253c0fa92079bfed0bd241382"
+    },
+    {
+      "path": "transport/jobs-34884725698.json",
+      "bytes": 3098,
+      "sha256": "7534bb8ab5e0d38c166591bfa1781cbbaf922f9c30d9d7da13c52f77d5a7abbd",
+      "gitBlob": "022299b97ab4db5e7417cdaf467ed15583e7048a"
+    },
+    {
+      "path": "transport/head-and-merge.json",
+      "bytes": 748,
+      "sha256": "655510b3c0092c63e8988a998917791476e86e9b87c90869b611d2c2527700e3",
+      "gitBlob": "3429de1d8f4373ddd7dea83c58c2636f38ad24ff"
+    },
+    {
+      "path": "original/pr/appium.log",
+      "bytes": 3320532,
+      "sha256": "95a6e8ddb33209f9f5bdb818bc02978dacaad550f5b0bbdb625973cf1e14bd30",
+      "gitBlob": "58c039032e470ff4bbaa6be9181a59d8e5d7d39d"
+    },
+    {
+      "path": "original/pr/simulator-selection.json",
+      "bytes": 314,
+      "sha256": "2ef373631c2f92ae2ff8b89efca9dd0a29e59c9e09c1eb604f4a9101faaaba25",
+      "gitBlob": "24176c4afffee1ddd4577c168c49a16751425136"
+    },
+    {
+      "path": "original/pr/xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12",
+      "gitBlob": "d923cd7494c91767c49393a75b1d4959c37fc8c6"
+    },
+    {
+      "path": "original/pr/xcode-path.txt",
+      "bytes": 48,
+      "sha256": "9014c394d2d86817f0259dec8d76bc78677354c8767ca9b36c01fbec01ea21dd",
+      "gitBlob": "df50a7a99cc2bdfec230bb31d10eb56c35a9939f"
+    },
+    {
+      "path": "original/pr/simulator-sdk-version.txt",
+      "bytes": 5,
+      "sha256": "a63403a2472f8c14d9ac8ac94ef7e77d9e13844217cddc161cbc573aeaec8836",
+      "gitBlob": "5a75b19a2e11c15cdb827c64ec63dfd571325d56"
+    },
+    {
+      "path": "original/standalone/appium.log",
+      "bytes": 3438122,
+      "sha256": "1b8229f788fb64b6947b63d011b3fda25959679a371bd88b536e1b2528f87a30",
+      "gitBlob": "d9a5fbd0c3cfd57a0fa46647cad9f696c2593abf"
+    },
+    {
+      "path": "original/standalone/simulator-selection.json",
+      "bytes": 314,
+      "sha256": "2ef373631c2f92ae2ff8b89efca9dd0a29e59c9e09c1eb604f4a9101faaaba25",
+      "gitBlob": "24176c4afffee1ddd4577c168c49a16751425136"
+    },
+    {
+      "path": "original/standalone/xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12",
+      "gitBlob": "d923cd7494c91767c49393a75b1d4959c37fc8c6"
+    },
+    {
+      "path": "original/standalone/xcode-path.txt",
+      "bytes": 48,
+      "sha256": "9014c394d2d86817f0259dec8d76bc78677354c8767ca9b36c01fbec01ea21dd",
+      "gitBlob": "df50a7a99cc2bdfec230bb31d10eb56c35a9939f"
+    },
+    {
+      "path": "original/standalone/simulator-sdk-version.txt",
+      "bytes": 5,
+      "sha256": "a63403a2472f8c14d9ac8ac94ef7e77d9e13844217cddc161cbc573aeaec8836",
+      "gitBlob": "5a75b19a2e11c15cdb827c64ec63dfd571325d56"
+    },
+    {
+      "path": "independent-review/REPORT.md",
+      "bytes": 8107,
+      "sha256": "f05811e0a4bd945333bde06838040817e7a9d22ac14c6d6833269d4e3866540a",
+      "gitBlob": "177d39671117173e9bcbca11ac23b295d02ba1f4"
+    },
+    {
+      "path": "independent-review/independent-verification.json",
+      "bytes": 6001,
+      "sha256": "57cd169ba02c798b7c0c99030dfe8f854c19427b7225ec9e0297db207deadf10",
+      "gitBlob": "bcdb0256a668d14f7caf5d738eb90a5ccb9c765e"
+    },
+    {
+      "path": "independent-review/provenance-verification.json",
+      "bytes": 4638,
+      "sha256": "2d503c281fd5c0bbc8982d6361a21c5d8e938d2e9c5593ac19711279b597103a",
+      "gitBlob": "9c418ff70f80f6a45d2fc0340f41b2e8830f61f9"
+    },
+    {
+      "path": "independent-review/finding-closure.json",
+      "bytes": 2266,
+      "sha256": "4f8bdabd95f60c01822e45002c61cacb3d51db1c948edc0faa47fca4a5137178",
+      "gitBlob": "76d41dc526ed628d72e7195fd4ea68dc02338910"
+    },
+    {
+      "path": "independent-review/verify-independent.mjs",
+      "bytes": 16144,
+      "sha256": "04be209012b698e4055cc8d439908a08d145e64c37ae3782a44b30ae3cfda04b",
+      "gitBlob": "ba522a99c89c89a5cd271bcac946d7f49824e308"
+    },
+    {
+      "path": "independent-review/manifest.json",
+      "bytes": 4414,
+      "sha256": "bf82689a1eb29a433b173f7264f309d82ec9eab1ba010fbd75458e52ccbb49a2",
+      "gitBlob": "fd995f246d2c17f3e76f9745e1d08a09be6d6827"
+    }
+  ],
+  "listedFileCount": 36,
+  "totalListedBytes": 16291577
+}

@@ -1,0 +1,77 @@
+{
+  "scope": "Static candidate-source and bounded transport CPU review; synthetic fixtures, no product build, CI, evaluation or measurement.",
+  "checks": [
+    {
+      "name": "all three exact frozen sources accepted without transformation",
+      "passed": true
+    },
+    {
+      "name": "reject baseline drift: src/content/story.js",
+      "passed": true
+    },
+    {
+      "name": "reject candidate drift: src/content/story.js",
+      "passed": true
+    },
+    {
+      "name": "reject baseline drift: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "reject candidate drift: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "reject baseline drift: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "reject candidate drift: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "reject missing and additional candidate paths",
+      "passed": true
+    },
+    {
+      "name": "Git blob uses the actual NUL framing",
+      "passed": true
+    },
+    {
+      "name": "complete ten-file transport round-trip including zero bytes and chunk boundaries",
+      "passed": true
+    },
+    {
+      "name": "last file byte corruption refuses before first export record",
+      "passed": true
+    },
+    {
+      "name": "output path traversal refuses before first export record",
+      "passed": true
+    },
+    {
+      "name": "reordered file set refuses before first export record",
+      "passed": true
+    },
+    {
+      "name": "failed status refuses before first export record",
+      "passed": true
+    },
+    {
+      "name": "accurately hashed final file above 4 MiB refuses before first export record",
+      "passed": true
+    },
+    {
+      "name": "report above 4 MiB refuses before first export record",
+      "passed": true
+    },
+    {
+      "name": "wrong input-set failure preserves report before any build command or source write",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "total": 17,
+  "productBuildCommandsExecuted": 0,
+  "remoteMutations": 0
+}

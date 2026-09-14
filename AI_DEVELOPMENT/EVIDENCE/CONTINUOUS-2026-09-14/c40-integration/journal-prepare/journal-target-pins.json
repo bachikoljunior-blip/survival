@@ -1,0 +1,15 @@
+{
+  "target": {
+    "conversation": "iris_first",
+    "node": "i_gives",
+    "journal": "iris",
+    "en": "9d1d608455774a7c55502ae12ad0104517a15836f537336438505bf09621e5a3",
+    "ja": "0156cf93d0d49491939147b13457337ebbf26d1cf21f6f401525477356cf7a42"
+  },
+  "sourceFields": [
+    "CONVERSATIONS.iris_first.nodes.i_gives.effects[3].journal[2]",
+    "CONTENT_JA.journal.iris.text"
+  ],
+  "displayRoute": "DialogueRunner.goto -> applyEffects -> State.addJournal -> ui:menu -> Menus.showPanel(journal) -> refreshJournal -> t(journal.iris.text)",
+  "actualBrowser": false
+}

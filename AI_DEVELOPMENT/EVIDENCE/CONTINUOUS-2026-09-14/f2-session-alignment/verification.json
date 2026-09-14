@@ -1,0 +1,241 @@
+{
+  "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+  "comparison_main": "5456371249f5769c25d18f1686a44349e4292d6f",
+  "source_git_blob_sha1": "b81a493ef9c20fe0c75bcc33fadb6ab05ae8d44b",
+  "source_sha256": "ba33bb00bc8109d87fde9a52c09c0e5810b676dbfe2ef671f32c6550df7d34f2",
+  "candidate_git_blob_sha1": "d8d589912a05af82acc10a8240808f4363dd6743",
+  "candidate_sha256": "31c1b3d2ec6057fe6a28932e8711e7d54ca008acf714f2f9345596fcb865fa05",
+  "patch_sha256": "c29f80bbbc505fcb425db11d3f009de0f9e1c2003f181d717f12030380007cf7",
+  "modified_repository_paths": [
+    "tools/gates/f2_state_update.mjs"
+  ],
+  "scope_exactly_four_target_comment_or_path_lines": true,
+  "unchanged": [
+    "PRODUCT regex array",
+    "git diff three-dot semantics",
+    "BASE selection",
+    "diff failure exit 1",
+    "missing canonical update exit 1",
+    "all CI workflow files and required-check configuration",
+    "concept/elements/references/71 criteria",
+    "work units and clocks",
+    "legacy STATE project data"
+  ],
+  "environment": {
+    "git": "git version 2.51.1",
+    "node": "v24.19.0"
+  },
+  "fixtures": [
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs",
+        "--base",
+        "fixture-base"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/fixtures/product_and_session",
+      "exit_code": 0,
+      "stdout": "F2 gate: ok — 1 product file(s) changed and AI_DEVELOPMENT/SESSION_STATE.yaml was updated.\n",
+      "stderr": "",
+      "name": "product_and_session",
+      "expected_exit": 0,
+      "expected_message": "F2 gate: ok",
+      "head": "96f8948fb0f0692cffe8b0817d9c708ed07ff7f7",
+      "changed_paths": [
+        "AI_DEVELOPMENT/SESSION_STATE.yaml",
+        "src/example.mjs"
+      ],
+      "matches_expectation": true
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs",
+        "--base",
+        "fixture-base"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/fixtures/product_and_legacy_state_only",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "F2 gate FAILED: 1 product file(s) changed but AI_DEVELOPMENT/SESSION_STATE.yaml was not updated.\n  - src/example.mjs\n\nThe floor requires the canonical session state to carry objective status, last\nverified checkpoint, modified-but-unverified artifacts, blockers, recovery,\nremote state and the exact next action. Update it and push again.\n",
+      "name": "product_and_legacy_state_only",
+      "expected_exit": 1,
+      "expected_message": "F2 gate FAILED",
+      "head": "60843b3a19b15d8845b1eace40907fa1190347df",
+      "changed_paths": [
+        "AI_DEVELOPMENT/STATE.yaml",
+        "src/example.mjs"
+      ],
+      "matches_expectation": true
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs",
+        "--base",
+        "fixture-base"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/fixtures/product_only",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "F2 gate FAILED: 1 product file(s) changed but AI_DEVELOPMENT/SESSION_STATE.yaml was not updated.\n  - src/example.mjs\n\nThe floor requires the canonical session state to carry objective status, last\nverified checkpoint, modified-but-unverified artifacts, blockers, recovery,\nremote state and the exact next action. Update it and push again.\n",
+      "name": "product_only",
+      "expected_exit": 1,
+      "expected_message": "F2 gate FAILED",
+      "head": "ea58a11ad915a9ab0fbc134263aa1dbed9dc71bd",
+      "changed_paths": [
+        "src/example.mjs"
+      ],
+      "matches_expectation": true
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs",
+        "--base",
+        "fixture-base"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/fixtures/no_product",
+      "exit_code": 0,
+      "stdout": "F2 gate: not applicable — no product files changed against fixture-base.\n",
+      "stderr": "",
+      "name": "no_product",
+      "expected_exit": 0,
+      "expected_message": "F2 gate: not applicable",
+      "head": "f7e82df8eb0458b11658f1deb2bbceb4502be67a",
+      "changed_paths": [
+        "AI_DEVELOPMENT/EVIDENCE/example.json",
+        "docs/notes.md"
+      ],
+      "matches_expectation": true
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs",
+        "--base",
+        "unavailable-base"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/fixtures/bad_base",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "fatal: ambiguous argument 'unavailable-base...HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\nF2 gate: cannot diff against unavailable-base — Command failed: git diff --name-only unavailable-base...HEAD\nfatal: ambiguous argument 'unavailable-base...HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n\nF2 gate: refusing to pass a check it could not perform.\n",
+      "name": "bad_base",
+      "expected_exit": 1,
+      "expected_message": "refusing to pass a check it could not perform",
+      "head": "e4d9e81f82811073ac13061239eff49d5acfb195",
+      "changed_paths": [
+        "AI_DEVELOPMENT/SESSION_STATE.yaml",
+        "src/example.mjs"
+      ],
+      "matches_expectation": true
+    }
+  ],
+  "actual_c28": {
+    "head": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "base": "5456371249f5769c25d18f1686a44349e4292d6f",
+    "changed_paths": [
+      ".github/workflows/gates.yml",
+      ".github/workflows/revert-to-verified.yml",
+      "AI_DEVELOPMENT/BENCHMARKS/elements.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/audio-capture-clock-r1/candidate-probe.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/audio-capture-clock-r1/candidate-refutation-probe.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/audio-capture-clock-r1/candidate-refutation-review.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/audio-capture-clock-r1/candidate-refutation-setup-failure.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/audio-capture-clock-r1/implementation-notes.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/audio-capture-clock-r1/source-integrity.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/attempt.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/audit.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/compare-error.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/compare-run.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/compare.stderr.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/compare.stdout.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/control-prompt-source.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/control-run.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/control.png",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/control.stderr.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/control.stdout.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/inputs.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/job103934400526-original.log.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/prepared.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/prompt.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/provenance.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/reference-cache-verification.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/resources.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/runtime-help.stderr.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e16-q35-a840-r3-result/runtime-help.stdout.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/attempt.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/completion-help.stderr.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/completion-help.stdout.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/log-provenance.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/prepare-error.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/prepare-run.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/question.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/resources.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/runtime.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/tokenizer-help.stderr.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r1-result/tokenizer-help.stdout.txt",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/actual-template-reproduction.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/final-r2-format-check.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/public-template-range.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/refuter-failed-attempts.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/refuter-question-review.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/refuter-review.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/e9-q35-fulltext-r2/source-pins.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/grain-c26-trial-r1/cpu-checks.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/grain-c26-trial-r1/review.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/grain-c26-trial-r1/source-pins.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/main-integration-c28/integration-validation.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/main-integration-c28/main-readback.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/main-integration-c28/ultra-delegation.json",
+      "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "tools/compare-e9-q35.py",
+      "tools/export-webkit-material.mjs",
+      "tools/mobile_audio_capture.mjs",
+      "tools/mobile_grain_trial.mjs",
+      "tools/mobile_visual_capture.mjs",
+      "tools/test-iphone-webkit.mjs"
+    ],
+    "matches_github_compare": true,
+    "original": {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/source/tools/gates/f2_state_update.mjs"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/actual-c28-git",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "F2 gate FAILED: 8 product file(s) changed but AI_DEVELOPMENT/STATE.yaml was not updated.\n  - .github/workflows/gates.yml\n  - .github/workflows/revert-to-verified.yml\n  - tools/compare-e9-q35.py\n  - tools/export-webkit-material.mjs\n  - tools/mobile_audio_capture.mjs\n  - tools/mobile_grain_trial.mjs\n  - tools/mobile_visual_capture.mjs\n  - tools/test-iphone-webkit.mjs\n\nThe floor requires the canonical state to carry objective status, last\nverified checkpoint, modified-but-unverified artifacts, blockers, recovery,\nremote state and the exact next action. Update it and push again.\n"
+    },
+    "candidate": {
+      "command": [
+        "node",
+        "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs"
+      ],
+      "cwd": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/actual-c28-git",
+      "exit_code": 0,
+      "stdout": "F2 gate: ok — 8 product file(s) changed and AI_DEVELOPMENT/SESSION_STATE.yaml was updated.\n",
+      "stderr": ""
+    },
+    "original_failure_reproduced": true,
+    "candidate_pass": true,
+    "content_checkout_performed": false,
+    "remote_configured": false,
+    "scope": "Real C28/main commit trees; executing exact source/candidate gate files outside checkout."
+  },
+  "fixture_expectations_all_met": true,
+  "remote_candidate_ci_run": "not performed; parent integration required",
+  "c27_main_c28_work_mapping_equal": true,
+  "work_mapping": {
+    "units_requested": "continuous",
+    "units_completed": 0,
+    "unit": "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる",
+    "completion": "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied",
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00",
+    "timezone": "Asia/Tokyo",
+    "deadline_missed": false,
+    "status": "active",
+    "units": []
+  }
+}

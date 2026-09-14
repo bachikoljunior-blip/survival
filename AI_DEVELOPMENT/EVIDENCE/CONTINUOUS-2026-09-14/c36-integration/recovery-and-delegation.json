@@ -1,0 +1,94 @@
+{
+  "at": "2026-09-14T17:06:39.269636+00:00",
+  "instructionId": "ULTRA-CHILDREN-20260914-v3",
+  "integrationOwner": "/root/integration_recovery_ultra",
+  "spawn": {
+    "reasoning_effort": "ultra",
+    "fork_turns": "none",
+    "model": "omitted",
+    "acceptedTaskName": "/root/integration_recovery_ultra",
+    "parentReceipt": "Parent message confirms accepted arguments and no other new task or mutation."
+  },
+  "observed": {
+    "notifiedCwd": "/workspace/scratch/3cea4ec0d645",
+    "notifiedCwdExists": false,
+    "workingCwd": "/workspace/scratch/0b7ad82bafe7",
+    "workingCwdReadable": true,
+    "oldWriterLive": false,
+    "oldWriterAbsenceEvidence": "Parent send_message returned live agent path not found; parent list_agents contained only root after environment notice. No old writer was stopped by parent.",
+    "oldLastReceipt": "main-integration-c35/c35-save-readback.json",
+    "oldPendingWrites": 0,
+    "parentRemoteMutations": 0,
+    "parentPendingToolsOrWrites": 0,
+    "sourceHead": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+    "main": "5456371249f5769c25d18f1686a44349e4292d6f",
+    "saved43PathsLocalAndRemoteMatch": true,
+    "acceptedC35RunsAllCompleted": true,
+    "newCiReruns": 0
+  },
+  "hypothesis": "An execution environment or thread-tree transition removed access to the prior live agents while retaining the prior workspace. The backend trigger and complete internal cause are not observed.",
+  "safeRecovery": "Use only the extant explicitly writable old workspace with workdir and login:false. Do not create the nonexistent notified cwd. Preserve frozen local outputs; verify official GitHub source/head and old accepted jobs before sole-writer handoff. No credential retrieval, safety or authority bypass, old refusal URL retry, automation mutation, or duplicate CI dispatch.",
+  "candidateManifests": [
+    {
+      "directory": "ios-input-release-check-ultra",
+      "manifest": "/workspace/scratch/0b7ad82bafe7/ios-input-release-check-ultra/MANIFEST.json",
+      "bytes": 3736,
+      "sha256": "eab0e112f061d6b99f01e6518b2dc1807cc5d172c90e268e4b2fc08b662c07ba"
+    },
+    {
+      "directory": "e9-character-revision-ultra",
+      "manifest": "/workspace/scratch/0b7ad82bafe7/e9-character-revision-ultra/manifest.json",
+      "bytes": 2042,
+      "sha256": "1dd83bb166eeb93a484415498874e7f479ae40f480aca66ff4b97899548028e5"
+    },
+    {
+      "directory": "c35-ios-source-recovered",
+      "manifest": "/workspace/scratch/0b7ad82bafe7/c35-ios-source-recovered/recovered-manifest.json",
+      "bytes": 1032,
+      "sha256": "e45bf2bd836777edcc54789930a7713338e02f90364e5f625887cf30fec1bcfc"
+    },
+    {
+      "directory": "c35-ios-pr-recovered",
+      "manifest": "/workspace/scratch/0b7ad82bafe7/c35-ios-pr-recovered/recovered-manifest.json",
+      "bytes": 1032,
+      "sha256": "f33393cc8dbe25e77c253754a1564ad5a03df800c0c5cf658bf55da1077cee7a"
+    },
+    {
+      "directory": "c35-shadow-resolution-result",
+      "manifest": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/recovered-manifest.json",
+      "bytes": 2844,
+      "sha256": "b92c7365e9fda7db6316781b3b99f82135a55148bc3e7db1a55d67a43f741cf0"
+    }
+  ],
+  "continuation": {
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00",
+    "remainingHours": 138.83603621222224,
+    "elementsNotMeasured": 19,
+    "validBlindComparisons": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "deadlineAssessment": "Cannot substantiate that all 19 elements can be satisfied by the fixed deadline. Zero valid comparative completions remain the observed rate; all 19 are residual work. The method changes from waiting or repeating unchanged Safari success to preserving originals, separating input-read timing from long frame losses, measuring per-phase work once, and applying actual eight-node writing changes through a locked CI build. Effects so far: 43 stored paths revalidated, 23+12 release controls pass, 17 writing checks and 224-node content validation pass; real changed-build behavior and quality remain unmeasured.",
+    "notACompletion": true
+  },
+  "delegated": [
+    {
+      "task": "/root/integration_recovery_ultra/safari_time_loss_ultra",
+      "scope": "original time-loss diagnosis, bounded measurement and operation-error preservation candidate"
+    },
+    {
+      "task": "/root/integration_recovery_ultra/narrative_build_ultra",
+      "scope": "frozen writing candidate verification and actual locked build preparation"
+    },
+    {
+      "task": "/root/integration_recovery_ultra/shadow_original_review_ultra",
+      "scope": "six original PNG visual diagnosis and adoption recommendation"
+    }
+  ],
+  "allNewDelegatedSpawnArgs": {
+    "reasoning_effort": "ultra",
+    "fork_turns": "none",
+    "model": "omitted"
+  },
+  "soleWriterAssumption": "No legitimate live prior principal execution was observed; source head and zero-pending receipt match. Parent explicitly remains relay only. All newly delegated tasks are isolated and remote-read-only."
+}

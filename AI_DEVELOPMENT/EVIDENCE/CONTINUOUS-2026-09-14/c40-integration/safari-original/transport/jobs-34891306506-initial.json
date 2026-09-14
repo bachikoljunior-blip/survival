@@ -1,0 +1,110 @@
+{
+  "jobs": [
+    {
+      "conclusion": null,
+      "id": 104134401072,
+      "logs_url": null,
+      "name": "ios-safari",
+      "run_id": 34891306506,
+      "status": "in_progress",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check out the exact requested branch revision",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Node.js",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Restore exact dependencies and rebuild",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Preserve actual simulator environment",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install pinned Appium and XCUITest driver",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Select and boot iPhone SE 3 simulator",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Start Appium and simulator video",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": null,
+          "name": "Exercise Mobile Safari through Appium",
+          "number": 9,
+          "status": "in_progress"
+        },
+        {
+          "conclusion": null,
+          "name": "Verify required original audio, provenance and unchanged clock guards",
+          "number": 10,
+          "status": "pending"
+        },
+        {
+          "conclusion": null,
+          "name": "Export the selected source run original frame-work report",
+          "number": 11,
+          "status": "pending"
+        },
+        {
+          "conclusion": null,
+          "name": "Stop recording",
+          "number": 12,
+          "status": "pending"
+        },
+        {
+          "conclusion": null,
+          "name": "Emit startup diagnostics in ordinary CI log",
+          "number": 13,
+          "status": "pending"
+        },
+        {
+          "conclusion": null,
+          "name": "Preserve Safari screenshots, video, logs and report",
+          "number": 14,
+          "status": "pending"
+        },
+        {
+          "conclusion": null,
+          "name": "Post Set up Node.js",
+          "number": 27,
+          "status": "pending"
+        },
+        {
+          "conclusion": null,
+          "name": "Post Check out the exact requested branch revision",
+          "number": 28,
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

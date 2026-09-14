@@ -8,6 +8,9 @@ on:
     paths:
       - 'src/**'
       - 'tools/test-ios-safari.mjs'
+      - 'tools/ios_audio_capture.mjs'
+      - 'tools/mobile_audio_capture.mjs'
+      - 'tools/gates/f3_safari_audio.mjs'
       - 'tools/select-ios-simulator.mjs'
       - 'tools/webdriver-request.mjs'
       - 'tools/ios-pointer-coordinates.mjs'
@@ -15,19 +18,38 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'build.mjs'
+  workflow_call:
+    inputs:
+      capture_audio:
+        description: 'Require the original three-scene production audio acquisition on every requested attempt'
+        type: boolean
+        default: false
   workflow_dispatch:
+    inputs:
+      capture_audio:
+        description: 'Measure pinned production audio/canvas recording capabilities and capture three actual scenes once'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: mobile-simulator-${{ github.ref }}
+  # A reusable call inherits its caller workflow name. Keep Floor gates and
+  # standalone simulator runs in different cancellation groups.
+  group: mobile-simulator-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   ios-safari:
     runs-on: macos-15
     timeout-minutes: 45
+    env:
+      # An explicit true input also applies to reusable calls on push/PR and
+      # reruns. Default false and the existing single-attempt push marker stay.
+      # Acquisition does not award an audio-quality or comparison verdict.
+      CINDERLINE_IOS_AUDIO_CAPTURE: ${{ (inputs.capture_audio || (github.run_attempt == 1 && github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]'))) && '1' || '0' }}
+      CINDERLINE_IOS_FRAME_WORK_CAPTURE: ${{ (inputs.capture_audio && github.run_attempt == 1 && github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && contains(github.event.head_commit.message, '[ios-frame-work-c38-r1]')) && '1' || '0' }}
     steps:
       - name: Check out the exact requested branch revision
         uses: actions/checkout@v4
@@ -76,10 +98,16 @@ jobs:
         shell: bash
         run: |
           mkdir -p test-results/ios-safari
-          appium --base-path / --log test-results/ios-safari/appium.log > /dev/null 2>&1 &
+          appium_log_args=()
+          if test "$CINDERLINE_IOS_AUDIO_CAPTURE" = '1'; then appium_log_args=(--log-level info); fi
+          appium --base-path / --log test-results/ios-safari/appium.log "${appium_log_args[@]}" > /dev/null 2>&1 &
           echo $! > test-results/ios-safari/appium.pid
-          xcrun simctl io "${{ steps.simulator.outputs.udid }}" recordVideo --codec=h264 --force test-results/ios-safari/ios-safari.mp4 > test-results/ios-safari/video.log 2>&1 &
-          echo $! > test-results/ios-safari/video.pid
+          # In the opt-in attempt the shared recorder captures real canvas
+          # video with production sound; avoid a duplicate silent video load.
+          if test "$CINDERLINE_IOS_AUDIO_CAPTURE" != '1'; then
+            xcrun simctl io "${{ steps.simulator.outputs.udid }}" recordVideo --codec=h264 --force test-results/ios-safari/ios-safari.mp4 > test-results/ios-safari/video.log 2>&1 &
+            echo $! > test-results/ios-safari/video.pid
+          fi
           for attempt in {1..60}; do
             if curl --fail --silent http://127.0.0.1:4723/status > /dev/null; then exit 0; fi
             sleep 1
@@ -90,6 +118,12 @@ jobs:
           IOS_SIMULATOR_UDID: ${{ steps.simulator.outputs.udid }}
           IOS_SIMULATOR_PLATFORM_VERSION: ${{ steps.simulator.outputs.platform_version }}
         run: npm run test:ios-safari
+      - name: Verify required original audio, provenance and unchanged clock guards
+        if: ${{ !cancelled() && env.CINDERLINE_IOS_AUDIO_CAPTURE == '1' }}
+        run: node tools/gates/f3_safari_audio.mjs
+      - name: Export the selected source run original frame-work report
+        if: ${{ always() && env.CINDERLINE_IOS_FRAME_WORK_CAPTURE == '1' }}
+        run: node tools/export-ios-frame-work.mjs
       - name: Stop recording
         if: always()
         shell: bash
@@ -102,11 +136,33 @@ jobs:
         shell: bash
         run: |
           node --input-type=module <<'NODE'
-          // Proposed CI-only observation step; not installed in the repository.
-          // Run after the existing Stop recording step. No browser/device/network calls.
+          // CI-only observation after Stop recording. No browser/device/network calls.
           import { readFileSync, statSync } from 'node:fs';
           import { createHash } from 'node:crypto';
 
+          // Successful runs retain complete logs in the following artifact upload;
+          // avoid duplicating their bulky WebDriver output into the job log.
+          let completedReport;
+          try { completedReport = JSON.parse(readFileSync('test-results/ios-safari/report.json', 'utf8')); }
+          catch { /* Preserve the existing diagnostic path for missing/invalid reports. */ }
+          if (completedReport?.status === 'passed' && Array.isArray(completedReport.checks)
+            && completedReport.checks.length > 0 && completedReport.checks.every(check => check?.passed === true)
+            && Array.isArray(completedReport.failures) && completedReport.failures.length === 0) {
+            console.log('[ios-startup-log-skip] Passed Safari checks; original logs remain in the artifact upload.');
+            process.exit(0);
+          }
+
+          // Audio jobs normally omit bulky command logs. A failed session creation has
+          // no recording to expose and needs the same original WDA diagnostics.
+          if (process.env.CINDERLINE_IOS_AUDIO_CAPTURE === '1') {
+            let failure;
+            try { failure = JSON.parse(readFileSync('test-results/ios-safari/report.json', 'utf8')); }
+            catch { process.exit(0); }
+            const preSessionFailure = failure.status === 'failed' && Array.isArray(failure.checks)
+              && failure.checks.length === 0 && Array.isArray(failure.failures)
+              && failure.failures.some(value => typeof value === 'string' && value.includes('WebDriver POST /session:'));
+            if (!preSessionFailure) process.exit(0);
+          }
           const files = [
             ['appium.log', 4 * 1024 * 1024],
             ['simulator-selection.json', 64 * 1024],

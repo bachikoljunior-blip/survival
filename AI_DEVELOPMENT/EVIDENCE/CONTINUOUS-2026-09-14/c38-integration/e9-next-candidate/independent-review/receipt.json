@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "verdict": "adoptable source-known production candidate",
+  "blocking": 0,
+  "sourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "candidatePins": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    }
+  ],
+  "fileCount": 3,
+  "changedNodes": 6,
+  "changedTextLeaves": 12,
+  "canonicalInputs": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    }
+  ],
+  "exactOutsideTextBytesUnchanged": true,
+  "allConditionsEffectsChoicesBranchesUnchanged": true,
+  "priorGameBodiesVerified": 8,
+  "priorGameTextsVerified": 16,
+  "semanticReview": "English/Japanese meaning and conversational role reviewed in preceding/following game source; refused/lied shared node and four-way common ending verified",
+  "unresolvedExistingIssue": "iris_first:i_gives journal and Japanese journal.iris say 2 years 1 month for the differences folder; i_long/i_folder2 say 2 years 10 months. Journal/effect text deliberately unchanged. Identity of 11-month unsigned reductions versus quarterly differences binder remains unspecified.",
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationMutations": 0,
+  "comparisons": 0,
+  "referenceMaterialsRead": false,
+  "comparisonAnswersRead": false,
+  "anonymousMappingRead": false,
+  "buildExecuted": false,
+  "runtimeScreensViewed": 0,
+  "candidateSourceAdopted": false,
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "units": 0,
+    "mode": "continuous",
+    "criteriaCount": 19,
+    "level": 71,
+    "referencesUnchanged": true,
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/REPORT.md",
+      "bytes": 4564,
+      "sha256": "eb4538360f120a00c80c6a8a85b9641809e8ddc47b93d383fd0254960c600a5d"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/authority-receipt.json",
+      "bytes": 39574,
+      "sha256": "630e3c90190b566f40575cd842c2affe4ed87b7685492676dc224c5ea71ccc1c"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/iris-diagnosis.md",
+      "bytes": 2472,
+      "sha256": "dea13e1d0fc60f32722eb6305111c5e57b0312618300bf71fd7a4bb2ea8a9760"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/iris-related-source-receipt.json",
+      "bytes": 3219,
+      "sha256": "fea24889800f00496cf487f64e189d731cc3f4d00635391c76a724bcc12d8e33"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/candidate-verification.json",
+      "bytes": 6025,
+      "sha256": "4a1e9d8c60a143218086522ef8786c1b680fc536ac4d9d6a7ec034b2137be307"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/prior-bodies-verification.json",
+      "bytes": 3544,
+      "sha256": "0fceebe5aced6f8fbee3eb2d1a6135730daff281ed96cd03df29f4238d768591"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/verify-candidate.mjs",
+      "bytes": 5814,
+      "sha256": "5594601602d58420f102f5bb00cd30962ebe11e167524defd93b8082dcbd7964"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c38-e9-reasoning-revision-ultra/independent-review/verify-prior-bodies.mjs",
+      "bytes": 2076,
+      "sha256": "5507ed12f0ed6bc535744151357fe14dff3ca7429e2bb67afb30249278e0f127"
+    }
+  ]
+}

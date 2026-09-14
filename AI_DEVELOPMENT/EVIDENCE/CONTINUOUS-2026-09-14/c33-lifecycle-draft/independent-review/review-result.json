@@ -1,0 +1,81 @@
+{
+  "scope": "Independent read-only five-file C33 integration review; no tests, preflight, build, browser, CI or retry executed by this reviewer.",
+  "blockingFindings": [],
+  "reviewedFiles": [
+    {
+      "path": "main-integration-c33/candidate/src/audio/audio.js",
+      "bytes": 47687,
+      "sha256": "22add12afa50de4632d43afb00d52789c7f473a0657affd70f3a855a5951d2b7",
+      "gitBlob": "22115f0d4dfff209370004c946a9fb058b845684"
+    },
+    {
+      "path": "main-integration-c33/candidate/cinderline.1.0.0.js",
+      "bytes": 1446000,
+      "sha256": "239007002bcd9e126ce8fcc87f94f19b4ae4c779af512c7ce4b1fb8eec253ddf",
+      "gitBlob": "11717338a3d1e365e354f249e564dc5dee6fa38b"
+    },
+    {
+      "path": "main-integration-c33/candidate/tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "gitBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+    },
+    {
+      "path": "main-integration-c33/candidate/tools/gates/f3_safari_audio.mjs",
+      "bytes": 5777,
+      "sha256": "5aa87a3376b44b037da5bc2b76ee665ef36f78bad59dfafb347a5c72b4ae09e6",
+      "gitBlob": "504d609ecf102f59c6dc1a340ebf3ce1d5bfa153"
+    },
+    {
+      "path": "main-integration-c33/candidate/tools/ios_audio_capture.mjs",
+      "bytes": 19602,
+      "sha256": "21f6a7f3de3cc9ef94057888c5c1312cae2c8610642f55c0f6fb7e1847931cd9",
+      "gitBlob": "c146b024a6fa17e38b55b3d2135c33ee54d6e671"
+    }
+  ],
+  "sameHashesAtReadAndFinish": true,
+  "preparationReport": {
+    "path": "c32-audio-product-prepared/original/report.json",
+    "sha256": "b7d9ec73952bff902671be16a03b7e507e35d343928a5a5b4229d237e027f738",
+    "sourceCommit": "b0f1dfb9860dbc00018c0c587d8f0934fadb6604",
+    "runId": "34860188513",
+    "runAttempt": "1",
+    "status": "prepared and content/root verified",
+    "baselineReproduced": true,
+    "baselineDistSha256": "81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3",
+    "candidateBundleSha256": "239007002bcd9e126ce8fcc87f94f19b4ae4c779af512c7ce4b1fb8eec253ddf"
+  },
+  "agreements": {
+    "sourceAndRootByteIdenticalToRecoveredPreparation": true,
+    "recorderOnlyOneSceneLiteralChanged": true,
+    "sceneNamesAgreeWithF3": true,
+    "transportFunctionByteIdenticalToC32": true,
+    "lifecycleBehaviorIdenticalToReviewed80ControlVersionAfterPinAndCommentsNormalization": true
+  },
+  "existingCPURecord": {
+    "path": "c33-lifecycle-independent-check/verification.json",
+    "sha256": "7c20c2a4d32bbd3009c83f862ea734a44099ddc2728d4884f60e55af9b6e1b8c",
+    "checks": 80,
+    "status": "passed",
+    "candidateSha256": "b6671760db08381a7d40f51a138a40f173bcf950adbee6dc1cbddc806ea5a0be",
+    "rerunByThisReviewer": false
+  },
+  "ciFailureChain": [
+    "stage mismatch or execute/frame-wait exception records check false and throws",
+    "captureIosAudio stores acquisition failed and rethrows after cleanup",
+    "canonical Safari harness appends failure, writes status failed and sets process.exitCode=1",
+    "existing reusable Safari step has no continue-on-error",
+    "F3 verifier also rejects failed report/check/capture; always aggregate requires core and Safari success"
+  ],
+  "limits": [
+    "Standalone F3 evidence verifier relies on full report status/check results plus exact helper provenance for lifecycle execution; it does not separately enumerate lifecycle stage names. Current helper always executes all five stages after successful acquisition and propagates any failure.",
+    "Updated-pin preflight is owned by integration owner and was not rerun here.",
+    "Existing C32 suspended-context failure is a separate unresolved defect; this 239 product/pin/lifecycle integration does not repair it.",
+    "Programmatic state/targets after actual frame waits are not listening, new recordings or native menu-input evidence."
+  ],
+  "candidateEdits": 0,
+  "remoteWrites": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "comparisons": 0
+}

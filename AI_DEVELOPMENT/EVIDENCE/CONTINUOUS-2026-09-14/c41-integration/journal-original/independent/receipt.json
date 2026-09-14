@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "status": "finite independent review complete; blocker 0; product adoption hold",
+  "recordedAt": "2026-09-14T21:16:19.201100+00:00",
+  "role": "separate source-known independent reviewer; not author or blind evaluator",
+  "canonicalHead": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "acceptedOrder": [
+    "canonical head",
+    "AGENTS",
+    "CLAUDE v3",
+    "SESSION"
+  ],
+  "authority": {
+    "head": {
+      "bytes": 487,
+      "sha256": "ec4a63c0c69ab0cbecef1b979455070434d2527500a7b4688588c877ce83f6d7",
+      "gitBlob": null
+    },
+    "AGENTS": {
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be"
+    },
+    "CLAUDE": {
+      "bytes": 22170,
+      "sha256": "dc4bb33524a1542f11278f018988ff6cdfda573a4a4a1e0576b7e6a3627b998d",
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f"
+    },
+    "SESSION": {
+      "bytes": 19718,
+      "sha256": "e8ce2a8d71438f008ffa7c7810e5ff3d237e19309f7e3aaa28231214b9b268d6",
+      "gitBlob": "e0d2cc4f5c1d06014fd79d1ab505060566b7edb5"
+    },
+    "helper": {
+      "bytes": 18661,
+      "sha256": "3c631b2286ef7e6ff24d8be0b6d317689a22852a55e7da82efe5961fc0bc90b3",
+      "gitBlob": "ea60c36a448f4338c98e5dc42b97f7a0610e10c3"
+    }
+  },
+  "runId": "34895775143",
+  "runAttempt": "1",
+  "jobId": 104149240177,
+  "jobConclusion": "failure",
+  "candidateRepositoryAllowlist": [
+    "tools/check-narrative-routes.mjs"
+  ],
+  "candidate": {
+    "bytes": 19190,
+    "sha256": "c37ff0a9458fde111c7396f7492c053f554f4c2fee7313b03b04c28693520709",
+    "gitBlob": "911f183ce48327d3a9b5e16c1a5acc29c1b7c01f"
+  },
+  "authorManifest": {
+    "bytes": 9301,
+    "sha256": "269141c4d6e8b6bce49dee034942cc2c24ff27594e883f2a71f0f7b552666b3b"
+  },
+  "authorPublicationAllowlist": {
+    "bytes": 6499,
+    "sha256": "becb716231370135d17bf49d2d86b06c612bfcb15ea95a007e99e73b2c449e94"
+  },
+  "originalChecks": 23,
+  "vmControls": 28,
+  "syntax": "passed",
+  "blocking": [],
+  "originalScreens": 0,
+  "actualHitElementKnown": false,
+  "actualLocalBrowser": false,
+  "productAdopted": false,
+  "candidateEdits": 0,
+  "remoteWrites": 0,
+  "newCI": 0,
+  "reruns": 0,
+  "jobLogCalls": 0,
+  "automation": 0,
+  "newAgents": 0,
+  "libraryOperations": 0,
+  "quality": {
+    "elements": "19 not measured",
+    "criteria": 71,
+    "references": 10,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "work": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "scope": "c40-journal-result-independent-review-ultra only",
+  "originalDirectoryUnchanged": true,
+  "limits": [
+    "VM controls use synthetic DOM and screenshot-return stubs, not a browser/CSS engine or image evidence.",
+    "Pointer-hit acceptance alone cannot establish absence of a visual overlay with pointer-events:none. Original visual cause and typography remain unmeasured.",
+    "Actual browser has two routes; the local host fragment uses one row solely to exercise failure propagation. The byte-identical exporter still rejects a one-screen successful browser diagnostic."
+  ]
+}

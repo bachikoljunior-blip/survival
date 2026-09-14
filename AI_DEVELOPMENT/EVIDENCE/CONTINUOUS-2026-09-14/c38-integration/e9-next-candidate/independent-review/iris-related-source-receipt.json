@@ -1,0 +1,68 @@
+{
+  "ref": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "scope": "Only game-authored source; no comparison references",
+  "sources": [
+    {
+      "path": "src/content/world_data.js",
+      "gitBlob": "de2617ab8de574958acc6d76a59f47947e5a4476",
+      "excerpts": [
+        {
+          "line": 580,
+          "text": "        { id: 'iris_folder', kind: 'examine', x: -4, z: 0.5, y: 1.2, label: \"Nadeau's folder\","
+        },
+        {
+          "line": 581,
+          "text": "          prompt: 'Open the folder', topic: 'iris_folder' },"
+        }
+      ]
+    },
+    {
+      "path": "src/content/locale/ja/content.js",
+      "gitBlob": "c7ca444a08af2d3b19fd520551f11a389185939f",
+      "excerpts": [
+        {
+          "line": 335,
+          "text": "    iris_folder: {"
+        },
+        {
+          "line": 342,
+          "text": "        4: 'ファイルにはそれ以外何もない。通達も、下書きの手紙も、誰かに送った控えもない。彼女は一度も報告したことのない事実の記録を、11四半期にわたって、誰でも開けられる自分の机の上でつけ続けてきた。',"
+        },
+        {
+          "line": 423,
+          "text": "      text: '彼女は差分のファイルを2年1か月つけていた。私が言えないのなら、それは言えないことなのだと思っていた。私はこの間ずっと、他人の頭の中の論拠だった。そしてそれを知らなかった。',"
+        },
+        {
+          "line": 491,
+          "text": "      text: `11四半期分の自分の計算に、それぞれ公表された線を留め、差をメートルで余白に、決して言葉では書かずに。"
+        },
+        {
+          "line": 559,
+          "text": "        3: '私は彼女の執務室で、文章のひとつもない11四半期分の測定値は隠れ場所だと言った。彼女は反論しなかった。丁重に出て行ってくれと言い、そのあと第1四半期の余白に「彼は知っていた 私も知っていた」と一文書いて、ファイルはずっと置いてあった場所にそのまま置いた。',"
+        },
+        {
+          "line": 560,
+          "text": "        4: 'アイリスは計算に署名した。引き出しのファイルには署名していないものが11か月分あって、彼女はこれをその上に載せた。',"
+        }
+      ]
+    },
+    {
+      "path": "src/game/director.js",
+      "gitBlob": "06c0a59d2d491e14e4aa63f8ad17af9025034928",
+      "excerpts": [
+        {
+          "line": 1029,
+          "text": "      iris_folder: {"
+        },
+        {
+          "line": 1033,
+          "text": "          \"Eleven sheets. One per quarter. Each is a reduction she did herself, clipped to the line that was published against it, with the discrepancy written in the margin in metres.\","
+        },
+        {
+          "line": 1036,
+          "text": "          \"There is nothing else in the folder. No memo, no draft letter, no copy of anything sent to anybody. She has been keeping a record of a thing she has never once reported, for eleven quarters, on her own desk, where anyone could open it.\","
+        }
+      ]
+    }
+  ]
+}

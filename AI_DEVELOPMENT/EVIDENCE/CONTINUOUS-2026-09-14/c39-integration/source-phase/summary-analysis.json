@@ -1,0 +1,483 @@
+{
+  "status": "full original report not recovered; exact original log summary preserved",
+  "sourceHead": "61e8f8c595bde13634fe709f979816011df165d0",
+  "runId": 34884725972,
+  "attempt": 1,
+  "jobId": 104112425709,
+  "jobStatus": "completed",
+  "jobConclusion": "failure",
+  "sourceRunStatus": "completed",
+  "sourceRunConclusion": "failure",
+  "logSha256": "7708ce8065f490e8438631f6885e3535e56af97f418cf2b262bdc02d6484d054",
+  "summary": {
+    "path": "original/log-summary.json",
+    "sourceLine": 477,
+    "bytes": 28778,
+    "sha256": "5cbb7d15a67d349d20c17edba62eb7114d6052cc414ef744ca06b12258f6cc12",
+    "exactJsonSubstringOfOriginalLog": true,
+    "fullReport": false
+  },
+  "provenanceVerified": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "runCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "runId": "34884725972",
+    "runAttempt": "1"
+  },
+  "checks": {
+    "total": 54,
+    "passed": 53,
+    "failed": [
+      {
+        "name": "iOS audio diagnostic: bounded frame work captured and timing wrappers restored",
+        "passed": false,
+        "detail": "{\"recordings\":3,\"rows\":4096,\"dropped\":844,\"restored\":true,\"errors\":[]}"
+      }
+    ]
+  },
+  "failures": [
+    "iOS audio diagnostic: bounded frame work captured and timing wrappers restored: {\"recordings\":3,\"rows\":4096,\"dropped\":844,\"restored\":true,\"errors\":[]}"
+  ],
+  "captureStatus": "captured",
+  "clips": [
+    {
+      "name": "street-walk",
+      "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+      "bytes": 19445753,
+      "sha256": "ed7adf9ff87478c8a62bd5ea35b6e9d05aeed58318daca2aa6347099acf060ba",
+      "mime": "video/mp4; codecs=avc1.42000a,mp4a.40.2",
+      "timing": {
+        "wallSeconds": 92.01,
+        "audioSeconds": 91.88266666666667,
+        "engineSeconds": 88.06666666667155,
+        "engineFrames": 4025,
+        "engineToAudioRatio": 0.9584687717669443,
+        "audioToWallRatio": 0.9986160924537187,
+        "engineMinusAudioSeconds": -3.815999999995114,
+        "audioMinusWallSeconds": -0.12733333333333974,
+        "toleranceSeconds": 4.594133333333334,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "tracks": [
+        {
+          "kind": "video",
+          "state": "live",
+          "settings": {
+            "height": 351,
+            "width": 720
+          }
+        },
+        {
+          "kind": "audio",
+          "state": "live",
+          "settings": {}
+        }
+      ],
+      "declaredDurationArithmeticPass": true,
+      "endpointsAndFullTelemetryIndependentlyRead": false
+    },
+    {
+      "name": "cut-gas-air",
+      "path": "test-results/ios-safari/audio/audio-cut-gas-air.mp4",
+      "bytes": 2318005,
+      "sha256": "3a727251b332b4124efbbcad05cf0bf495594e51dc9e328706c91e7b256d888a",
+      "mime": "video/mp4; codecs=avc1.42000a,mp4a.40.2",
+      "timing": {
+        "wallSeconds": 9.159,
+        "audioSeconds": 9.162666666666667,
+        "engineSeconds": 9.033333333340522,
+        "engineFrames": 466,
+        "engineToAudioRatio": 0.9858847497097485,
+        "audioToWallRatio": 1.0004003348254904,
+        "engineMinusAudioSeconds": -0.12933333332614438,
+        "audioMinusWallSeconds": 0.0036666666666658188,
+        "toleranceSeconds": 0.45813333333333334,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "tracks": [
+        {
+          "kind": "audio",
+          "state": "live",
+          "settings": {}
+        },
+        {
+          "kind": "video",
+          "state": "live",
+          "settings": {
+            "height": 351,
+            "width": 720
+          }
+        }
+      ],
+      "declaredDurationArithmeticPass": true,
+      "endpointsAndFullTelemetryIndependentlyRead": false
+    },
+    {
+      "name": "arcade-room",
+      "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+      "bytes": 1843008,
+      "sha256": "a497d49e8e66ac4f4b62cea332932c73aa413a0c98faa204eaa37dd076f16bc8",
+      "mime": "video/mp4; codecs=avc1.42000a,mp4a.40.2",
+      "timing": {
+        "wallSeconds": 7.328000000000058,
+        "audioSeconds": 7.328000000000031,
+        "engineSeconds": 7.316666666660012,
+        "engineFrames": 428,
+        "engineToAudioRatio": 0.9984534206686655,
+        "audioToWallRatio": 0.9999999999999963,
+        "engineMinusAudioSeconds": -0.01133333334001918,
+        "audioMinusWallSeconds": -2.6645352591003757e-14,
+        "toleranceSeconds": 0.3664000000000016,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "tracks": [
+        {
+          "kind": "audio",
+          "state": "live",
+          "settings": {}
+        },
+        {
+          "kind": "video",
+          "state": "live",
+          "settings": {
+            "height": 351,
+            "width": 720
+          }
+        }
+      ],
+      "declaredDurationArithmeticPass": true,
+      "endpointsAndFullTelemetryIndependentlyRead": false
+    }
+  ],
+  "release": {
+    "checkPassed": true,
+    "distance": 3.437019776397435,
+    "stickActive": false,
+    "moveMagnitude": 1,
+    "release": {
+      "status": "passed",
+      "reason": "first frame after fixed-step progress",
+      "after": {
+        "wallMs": 150404,
+        "audioTime": 133.14133333333334,
+        "engineTime": 132.71666666666442,
+        "engineFrame": 6373,
+        "inputTime": 132.71666666666442,
+        "position": [
+          -114.76959284306338,
+          0,
+          -86.252655321118
+        ],
+        "stickActive": false,
+        "stickId": -1,
+        "stickX": 0,
+        "stickY": 0,
+        "moveMagnitude": 0,
+        "input": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "pointerType": "touch",
+            "pointerId": 40277148,
+            "x": 101,
+            "y": 246,
+            "activeTouches": 1,
+            "target": {
+              "tag": "CANVAS",
+              "id": "gl",
+              "className": "",
+              "text": ""
+            }
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "pointerType": "touch",
+            "pointerId": 40277148,
+            "x": 101,
+            "y": 186,
+            "activeTouches": 1,
+            "target": {
+              "tag": "CANVAS",
+              "id": "gl",
+              "className": "",
+              "text": ""
+            }
+          }
+        ]
+      },
+      "elapsedMs": 110,
+      "timeoutMs": 2000,
+      "cleanupErrors": null,
+      "observationStatus": "passed",
+      "observationReason": "first frame after fixed-step progress"
+    },
+    "fullMovementBeforeAfterNotPresentInSummary": true
+  },
+  "lifecycle": {
+    "status": "checked",
+    "samples": [
+      {
+        "stage": "arcade",
+        "action": null,
+        "wallMs": 332593,
+        "engineFrame": 14770,
+        "engineTime": 303.05000000005305,
+        "audioTime": 314.688,
+        "audioState": "running",
+        "ready": true,
+        "unlocked": true,
+        "activeRecording": false,
+        "mode": "play",
+        "fromTitle": false,
+        "pauseOpen": false,
+        "currentInterior": "arcade",
+        "region": null,
+        "position": [
+          588,
+          0,
+          4.2
+        ],
+        "ambience": "interior",
+        "layerTargets": {
+          "wind": 0.08,
+          "burn": 0.18,
+          "hiss": 0.02,
+          "hum": 0.25,
+          "room": 0.9
+        },
+        "reverbGainValues": {
+          "interior": 0.1298748254776001,
+          "street": 0,
+          "tunnel": 0
+        }
+      },
+      {
+        "stage": "game-pause",
+        "action": "pause",
+        "wallMs": 333547,
+        "engineFrame": 14794,
+        "engineTime": 303.60000000005255,
+        "audioTime": 315.63733333333334,
+        "audioState": "running",
+        "ready": true,
+        "unlocked": true,
+        "activeRecording": false,
+        "mode": "menu",
+        "fromTitle": false,
+        "pauseOpen": true,
+        "currentInterior": "arcade",
+        "region": null,
+        "position": [
+          588,
+          0,
+          4.2
+        ],
+        "ambience": "interior",
+        "layerTargets": {
+          "wind": 0.08,
+          "burn": 0.18,
+          "hiss": 0.02,
+          "hum": 0.25,
+          "room": 0.9
+        },
+        "reverbGainValues": {
+          "interior": 0.12999999523162842,
+          "street": 0,
+          "tunnel": 0
+        }
+      },
+      {
+        "stage": "title",
+        "action": "title",
+        "wallMs": 335656,
+        "engineFrame": 14839,
+        "engineTime": 304.6500000000516,
+        "audioTime": 317.7493333333333,
+        "audioState": "running",
+        "ready": true,
+        "unlocked": true,
+        "activeRecording": false,
+        "mode": "title",
+        "fromTitle": false,
+        "pauseOpen": false,
+        "currentInterior": "arcade",
+        "region": null,
+        "position": [
+          -128,
+          0,
+          0
+        ],
+        "ambience": "street",
+        "layerTargets": {
+          "wind": 0.7,
+          "burn": 0.5,
+          "hiss": 0.05,
+          "hum": 0.15,
+          "room": 0
+        },
+        "reverbGainValues": {
+          "interior": 0.04755257070064545,
+          "street": 0.12684212625026703,
+          "tunnel": 0
+        }
+      },
+      {
+        "stage": "title-settings",
+        "action": "settings",
+        "wallMs": 336361,
+        "engineFrame": 14869,
+        "engineTime": 305.28333333338435,
+        "audioTime": 318.4533333333333,
+        "audioState": "running",
+        "ready": true,
+        "unlocked": true,
+        "activeRecording": false,
+        "mode": "title",
+        "fromTitle": true,
+        "pauseOpen": true,
+        "currentInterior": "arcade",
+        "region": null,
+        "position": [
+          -128,
+          0,
+          0
+        ],
+        "ambience": "street",
+        "layerTargets": {
+          "wind": 0.7,
+          "burn": 0.5,
+          "hiss": 0.05,
+          "hum": 0.15,
+          "room": 0
+        },
+        "reverbGainValues": {
+          "interior": 0.028759794309735298,
+          "street": 0.15575408935546875,
+          "tunnel": 0
+        }
+      },
+      {
+        "stage": "title-close",
+        "action": "close",
+        "wallMs": 336852.00000000006,
+        "engineFrame": 14899,
+        "engineTime": 305.7833333333839,
+        "audioTime": 318.944,
+        "audioState": "running",
+        "ready": true,
+        "unlocked": true,
+        "activeRecording": false,
+        "mode": "title",
+        "fromTitle": false,
+        "pauseOpen": false,
+        "currentInterior": "arcade",
+        "region": null,
+        "position": [
+          -128,
+          0,
+          0
+        ],
+        "ambience": "street",
+        "layerTargets": {
+          "wind": 0.7,
+          "burn": 0.5,
+          "hiss": 0.05,
+          "hum": 0.15,
+          "room": 0
+        },
+        "reverbGainValues": {
+          "interior": 0.02025703527033329,
+          "street": 0.16883538663387299,
+          "tunnel": 0
+        }
+      }
+    ],
+    "scope": "Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target."
+  },
+  "frameWorkSummary": {
+    "rows": 4096,
+    "limit": 4096,
+    "dropped": 844,
+    "recordings": 3,
+    "complete": false,
+    "restored": true,
+    "errors": []
+  },
+  "export": {
+    "markers": {
+      "meta": 0,
+      "chunk": 0,
+      "end": 0
+    },
+    "failure": [
+      {
+        "line": 499,
+        "text": "2026-09-14T19:21:10.0356470Z Error: Original diagnostic report exceeds bounded export capacity"
+      }
+    ],
+    "fullOriginalReportBytes": null,
+    "fullOriginalReportSha256": null,
+    "configuredRawLimitBytes": 8388608,
+    "exactGuard": "bytes.length < 1 || bytes.length > 8*1024*1024",
+    "interpretation": "Observed capacity rejection. Nonempty report serialization and the saturated profile strongly support over-capacity, but actual raw byte count was not emitted; ZIP size is not raw report size."
+  },
+  "capacityRelationship": {
+    "streetEngineFrames": 4025,
+    "streetFramesAsPercentOfCap": 98.2666015625,
+    "sumClipFrames": 4919,
+    "profileSavedPlusDropped": 4940,
+    "unattributedDifference": 21,
+    "reason": "Long 92.01-second street capture is consistent with exhausting the global row budget. No allocation of dropped rows or attribution of the extra callback difference without original rows."
+  },
+  "artifact": {
+    "id": 10364986195,
+    "bytes": 25105480,
+    "sha256": "661474f9320966960edf4794c0fdabe4d8f456ec6166efd1dbace592cef6d372",
+    "metadataMatchesUploadLog": true,
+    "zipDownloaded": false,
+    "zipHashIndependentlyComputed": false
+  },
+  "unavailable": [
+    "full report bytes/SHA",
+    "per-row phase durations",
+    "world/composite/fixed maxima",
+    "program count changes",
+    "observer bookkeeping",
+    "inter-marker gaps",
+    "slow-call events",
+    "original clip endpoints/passive telemetry",
+    "same-origin upload receipts/elapsed/SHA",
+    "capture cleanup errors outside summary",
+    "media bytes"
+  ],
+  "candidateProductPerformanceEdits": 0,
+  "causeConclusion": "The measured failure is bounded diagnostic coverage and export availability. Internal product CPU/GPU/host scheduling causes are not measured from this summary. Current aggregate clock passes do not repair earlier original failures."
+}

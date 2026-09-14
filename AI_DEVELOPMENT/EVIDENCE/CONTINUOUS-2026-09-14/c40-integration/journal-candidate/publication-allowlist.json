@@ -1,0 +1,74 @@
+{
+  "policy": "Only exact listed bytes and this externally hash-pinned allowlist control may be published. All other paths denied. Do not recursively copy directories or follow links.",
+  "excluded": [
+    "authority receipts",
+    "canonical/baseline snapshots",
+    "create-and-verify.mjs (contains private comparison file path/hash)",
+    "all unrelated/private workspace material"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/REPORT.md",
+      "bytes": 4614,
+      "sha256": "04deb327913bd8084591c31b1d1774e0307191229fc44655bbc70cbdf14a4bff",
+      "gitBlob": "8be286c0c591e921cfe9e5ce3e0d29c319f6dd20"
+    },
+    {
+      "path": "before-after.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/before-after.md",
+      "bytes": 1762,
+      "sha256": "0c34a3f6d40245a387580c1818f19e63f79b936587c3349eb3f3b1c2c3ecd7e9",
+      "gitBlob": "d5c6216ed1c88ca46e30931566fa028b9085e8a9"
+    },
+    {
+      "path": "candidate.patch",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/candidate.patch",
+      "bytes": 1337,
+      "sha256": "cacea4005ac48e9480ebfa16340f0a599ccb247c95a40bbd929d55db42a72fe6",
+      "gitBlob": "2f002a36b4c5318578b8926536868d2063ea6a9b"
+    },
+    {
+      "path": "candidate-pins.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/candidate-pins.json",
+      "bytes": 1160,
+      "sha256": "dc44e11cc338f88adeb252260a8fda7677e9af66c6105b95ace1a47290363dee",
+      "gitBlob": "0c58b2a3a345b2775a5b4c55262380ca6dbe249e"
+    },
+    {
+      "path": "verification.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/verification.json",
+      "bytes": 9265,
+      "sha256": "95a27166808f3a0ede7d4be6ae37115377f5de34b74bbefa22cf06f2ab8220ee",
+      "gitBlob": "624fc7665ccc0281393b9b135d72cd21be167c23"
+    },
+    {
+      "path": "candidate/src/content/story.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/candidate/src/content/story.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d"
+    },
+    {
+      "path": "candidate/src/content/locale/ja/content.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/candidate/src/content/locale/ja/content.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387"
+    },
+    {
+      "path": "c39-baseline-binding.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/c39-baseline-binding.json",
+      "bytes": 1163,
+      "sha256": "02ceccfd62e042ceffe52ab3a0999e1d573b9e229ef269d2493eef5aa969831d",
+      "gitBlob": "a5d79b4b98ce1037d613ca9e13c6b7496872e3f5"
+    },
+    {
+      "path": "manifest.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/manifest.json",
+      "bytes": 4970,
+      "sha256": "76da3056a4b48b788de4755a9b03e367f5ce5bce199725164e3487769a1ae64e",
+      "gitBlob": "0a5684ae763abb145f91bdc12a03fd14ab89217a"
+    }
+  ]
+}

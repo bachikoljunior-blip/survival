@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "scope": "Combined CPU fixture for exact release observer and exact frame-work wrapper; original Input/Engine fixed updater chain, fake DOM/clock/render bodies. No Safari or performance measurement.",
+  "releaseSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+  "probeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+  "results": [
+    {
+      "case": "healthy first-step remains pass with timing wrapper",
+      "passed": true,
+      "releaseStatus": "passed",
+      "timingRows": 4,
+      "recordings": 3,
+      "wrappersRestored": true
+    },
+    {
+      "case": "nonzero first-step remains failure with timing wrapper",
+      "passed": true,
+      "releaseStatus": "failed",
+      "timingRows": 4,
+      "recordings": 3,
+      "wrappersRestored": true
+    }
+  ]
+}

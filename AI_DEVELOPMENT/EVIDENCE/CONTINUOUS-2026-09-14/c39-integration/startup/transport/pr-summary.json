@@ -1,0 +1,29 @@
+{
+  "status": "failed",
+  "checks": [],
+  "failures": [
+    "Error: WebDriver POST /session: The remote debugger did not return any connected web applications after 5351ms. Make sure your web application is debuggable and could be inspected in Safari Web Inspector. You may try to change the 'webviewConnectTimeout' capability value to customize the retrieval timeout.\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+  ],
+  "provenance": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "runCommit": "e357adca8fd0007927d8ac9025f0ccc777ef9ea8",
+    "runId": "34884733596",
+    "runAttempt": "1"
+  },
+  "frameWork": null,
+  "captureStatus": "not started",
+  "clips": []
+}

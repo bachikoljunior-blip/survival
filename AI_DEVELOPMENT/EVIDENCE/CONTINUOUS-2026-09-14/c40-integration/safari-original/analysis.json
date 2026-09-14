@@ -1,0 +1,235 @@
+{
+  "status": "complete",
+  "head": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "pins": {
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+    "harnessSha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8"
+  },
+  "results": [
+    {
+      "role": "source",
+      "runId": 34891306829,
+      "safariJobId": 104134403922,
+      "runSourceHead": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+      "attempt": 1,
+      "event": "push",
+      "jobStatus": "completed",
+      "safariConclusion": "failure",
+      "summaryStatus": "failed",
+      "checks": 0,
+      "failedChecks": [],
+      "failures": [
+        "Error: WebDriver POST /session: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+      ],
+      "captureEnabled": true,
+      "captureStatus": "not started",
+      "provenance": {
+        "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+        "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+        "bundle": "cinderline.1.0.0.js",
+        "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+          "dist/cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+        },
+        "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helperSha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+        "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+        "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+        "harnessSha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+        "runCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+        "runId": "34891306829",
+        "runAttempt": "1"
+      },
+      "checkoutCommitsFromLog": [
+        "dff2d683d0a9821c79d84848bf93cb45b8920494"
+      ],
+      "startupDirectSummary": null,
+      "startupGuardPassedDerivedFromPinnedHarnessAndReachedChecks": false,
+      "clips": [],
+      "movementRelease": null,
+      "lifecycle": null,
+      "frameWork": null,
+      "f3Audio": {
+        "status": "failed",
+        "error": "Error: The complete Safari gate did not pass",
+        "audioQuality": "not measured",
+        "comparison": "not measured"
+      },
+      "artifactUploadLogOnly": {
+        "sizesAndIds": [
+          [
+            "95809",
+            "10367231616"
+          ]
+        ],
+        "zipSha256": [
+          "f6cabe054a69b592e12a0e0fde048d7d3fa89e9862ef05f323772b6350fd55fa"
+        ],
+        "metadataFetched": false,
+        "zipRecovered": false
+      },
+      "reportOriginalBytesLocallyRecovered": false,
+      "log": {
+        "bytes": 4601113,
+        "sha256": "31f5dbe20ca34fedb5aa047f31402bfadf376934f326c48efe879fba11cafe77",
+        "summaryCount": 1,
+        "trailingCleanupPresent": true,
+        "fullDecodedResponseSaved": true
+      }
+    },
+    {
+      "role": "pr",
+      "runId": 34891314048,
+      "safariJobId": 104134426851,
+      "runSourceHead": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+      "attempt": 1,
+      "event": "pull_request",
+      "jobStatus": "completed",
+      "safariConclusion": "failure",
+      "summaryStatus": "failed",
+      "checks": 0,
+      "failedChecks": [],
+      "failures": [
+        "Error: WebDriver POST /session: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+      ],
+      "captureEnabled": true,
+      "captureStatus": "not started",
+      "provenance": {
+        "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+        "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+        "bundle": "cinderline.1.0.0.js",
+        "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+          "dist/cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+        },
+        "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helperSha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+        "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+        "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+        "harnessSha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+        "runCommit": "6942ccc72c0a7abc8161b5b8ac303fa6377466a9",
+        "runId": "34891314048",
+        "runAttempt": "1"
+      },
+      "checkoutCommitsFromLog": [
+        "6942ccc72c0a7abc8161b5b8ac303fa6377466a9"
+      ],
+      "startupDirectSummary": null,
+      "startupGuardPassedDerivedFromPinnedHarnessAndReachedChecks": false,
+      "clips": [],
+      "movementRelease": null,
+      "lifecycle": null,
+      "frameWork": null,
+      "f3Audio": {
+        "status": "failed",
+        "error": "Error: The complete Safari gate did not pass",
+        "audioQuality": "not measured",
+        "comparison": "not measured"
+      },
+      "artifactUploadLogOnly": {
+        "sizesAndIds": [
+          [
+            "100364",
+            "10367591183"
+          ]
+        ],
+        "zipSha256": [
+          "4978fffc7be4cf187347489e25532fbd41ecfbffa7ace388e19a652e913cdb5b"
+        ],
+        "metadataFetched": false,
+        "zipRecovered": false
+      },
+      "reportOriginalBytesLocallyRecovered": false,
+      "log": {
+        "bytes": 4603170,
+        "sha256": "5ae091a86bf8744f552ad16aa99761f39ee723e5940307d6811eafcaab4f043c",
+        "summaryCount": 1,
+        "trailingCleanupPresent": true,
+        "fullDecodedResponseSaved": true
+      }
+    },
+    {
+      "role": "standalone",
+      "runId": 34891306506,
+      "safariJobId": 104134401072,
+      "runSourceHead": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+      "attempt": 1,
+      "event": "push",
+      "jobStatus": "completed",
+      "safariConclusion": "failure",
+      "summaryStatus": "failed",
+      "checks": 0,
+      "failedChecks": [],
+      "failures": [
+        "Error: WebDriver POST /session: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+      ],
+      "captureEnabled": false,
+      "captureStatus": null,
+      "provenance": null,
+      "checkoutCommitsFromLog": [
+        "dff2d683d0a9821c79d84848bf93cb45b8920494"
+      ],
+      "startupDirectSummary": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:49579/__ios_safari_bootstrap__.html",
+        "verified": false
+      },
+      "startupGuardPassedDerivedFromPinnedHarnessAndReachedChecks": false,
+      "clips": [],
+      "movementRelease": null,
+      "lifecycle": null,
+      "frameWork": null,
+      "f3Audio": null,
+      "artifactUploadLogOnly": {
+        "sizesAndIds": [
+          [
+            "592022",
+            "10367965274"
+          ]
+        ],
+        "zipSha256": [
+          "77a94ded7824738785de898f7a700f876810466542a14bc66b53bcba4b4d0bc2"
+        ],
+        "metadataFetched": false,
+        "zipRecovered": false
+      },
+      "reportOriginalBytesLocallyRecovered": false,
+      "log": {
+        "bytes": 4719716,
+        "sha256": "84235327b812894b69a10919fa85d3932176f75c89894cd4b2f083e371cda837",
+        "summaryCount": 1,
+        "trailingCleanupPresent": true,
+        "fullDecodedResponseSaved": true
+      }
+    }
+  ],
+  "limits": [
+    "Summary endpoint arithmetic is checked. Original report and MP4 bytes have not been recovered locally.",
+    "Startup guard derivation from pinned harness is distinct from an explicit bootstrap URL/marker record.",
+    "No CPU/GPU root-cause or old clock/WDA complete repair claim."
+  ],
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "completedUnits": 0,
+    "mode": "continuous"
+  },
+  "work": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationChanges": 0
+}

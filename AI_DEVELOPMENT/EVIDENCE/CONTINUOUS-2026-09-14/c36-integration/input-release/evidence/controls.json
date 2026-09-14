@@ -1,0 +1,140 @@
+{
+  "scope": "CPU only: unmodified canonical Input, util/Emitter, Engine._frame and Game.fixedUpdate; DOM, scheduling, native actions, world/render and transport are fixtures, not Safari or physical movement.",
+  "sourceCommit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "candidateSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+  "passed": 26,
+  "failed": 0,
+  "durationMs": 39.156164,
+  "results": [
+    {
+      "name": "original Input._onUp leaves last-step mag=1; native Engine + Game + Input next step clears to 0",
+      "passed": true,
+      "durationMs": 3.8454320000000024
+    },
+    {
+      "name": "original complete audio movement callback rejects step-before read",
+      "passed": true,
+      "durationMs": 2.3219769999999897
+    },
+    {
+      "name": "candidate complete callback preserves immediate read and uses first actual step; original checks still run",
+      "passed": true,
+      "durationMs": 3.1719480000000004
+    },
+    {
+      "name": "real render-only frame cannot stand in for an input fixed step",
+      "passed": true,
+      "durationMs": 1.473589000000004
+    },
+    {
+      "name": "already zero still requires new fixed step and frame",
+      "passed": true,
+      "durationMs": 1.0860060000000118
+    },
+    {
+      "name": "no engine tick times out, preserving immediate raw read",
+      "passed": true,
+      "durationMs": 1.1460260000000062
+    },
+    {
+      "name": "first input step remaining nonzero fails even when a later step becomes zero",
+      "passed": true,
+      "durationMs": 2.1167780000000107
+    },
+    {
+      "name": "engine/frame progress without actual Input.step is rejected",
+      "passed": true,
+      "durationMs": 1.6445569999999918
+    },
+    {
+      "name": "frame advance with no fixed time cannot pass and eventually times out",
+      "passed": true,
+      "durationMs": 1.0613189999999975
+    },
+    {
+      "name": "transient pointerdown then pointerup between frames remains failure",
+      "passed": true,
+      "durationMs": 1.0446939999999927
+    },
+    {
+      "name": "raw stick not synchronously released is immediate failure, not waited away",
+      "passed": true,
+      "durationMs": 0.9885989999999936
+    },
+    {
+      "name": "pause cannot pass",
+      "passed": true,
+      "durationMs": 0.9841029999999904
+    },
+    {
+      "name": "stopped cannot pass",
+      "passed": true,
+      "durationMs": 0.9658139999999946
+    },
+    {
+      "name": "context loss cannot pass",
+      "passed": true,
+      "durationMs": 0.995839999999987
+    },
+    {
+      "name": "mode change cannot pass",
+      "passed": true,
+      "durationMs": 0.9560199999999952
+    },
+    {
+      "name": "engine replacement cannot pass",
+      "passed": true,
+      "durationMs": 1.0393860000000075
+    },
+    {
+      "name": "input replacement cannot pass",
+      "passed": true,
+      "durationMs": 0.9831410000000034
+    },
+    {
+      "name": "late first fixed step fails the original 2000 ms observation deadline",
+      "passed": true,
+      "durationMs": 0.9866559999999964
+    },
+    {
+      "name": "nonfinite clock is rejected",
+      "passed": true,
+      "durationMs": 0.9677779999999956
+    },
+    {
+      "name": "observer cleanup error cannot retain pass and remaining cleanup is attempted",
+      "passed": true,
+      "durationMs": 1.152514999999994
+    },
+    {
+      "name": "overlapping observation refuses overwrite of first evidence",
+      "passed": true,
+      "durationMs": 1.624216000000004
+    },
+    {
+      "name": "transport exception preserves immediate report and cleans observer",
+      "passed": true,
+      "durationMs": 2.9434929999999895
+    },
+    {
+      "name": "late terminal transport response cannot become pass after Node deadline",
+      "passed": true,
+      "durationMs": 1.2750800000000027
+    },
+    {
+      "name": "pointerdown failure keeps its original reason when listener cleanup also fails",
+      "passed": true,
+      "durationMs": 1.4584169999999972
+    },
+    {
+      "name": "collection and cleanup failures retain primary error and terminal release record",
+      "passed": true,
+      "durationMs": 1.1624110000000059
+    },
+    {
+      "name": "a successful first update cannot pass failed terminal cleanup, and observation remains recorded",
+      "passed": true,
+      "durationMs": 1.3508549999999957
+    }
+  ]
+}

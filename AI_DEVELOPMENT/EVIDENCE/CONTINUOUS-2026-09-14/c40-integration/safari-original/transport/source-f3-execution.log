@@ -1,0 +1,41 @@
+﻿2026-09-14T20:21:15.6028116Z Current runner version: '2.337.0'
+2026-09-14T20:21:15.6054039Z ##[group]Runner Image Provisioner
+2026-09-14T20:21:15.6054920Z Hosted Compute Agent
+2026-09-14T20:21:15.6055596Z Version: 20260828.587
+2026-09-14T20:21:15.6056526Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-14T20:21:15.6057263Z Build Date: 2026-08-28T16:44:25Z
+2026-09-14T20:21:15.6058038Z Worker ID: {5c620b93-ab5d-41fa-a188-32059d426c59}
+2026-09-14T20:21:15.6058766Z Azure Region: westus2
+2026-09-14T20:21:15.6059374Z ##[endgroup]
+2026-09-14T20:21:15.6061104Z ##[group]Operating System
+2026-09-14T20:21:15.6061747Z Ubuntu
+2026-09-14T20:21:15.6062378Z 24.04.5
+2026-09-14T20:21:15.6062892Z LTS
+2026-09-14T20:21:15.6063434Z ##[endgroup]
+2026-09-14T20:21:15.6064040Z ##[group]Runner Image
+2026-09-14T20:21:15.6064637Z Image: ubuntu-24.04
+2026-09-14T20:21:15.6065253Z Version: 20260907.300.1
+2026-09-14T20:21:15.6066735Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-14T20:21:15.6068446Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-14T20:21:15.6069430Z ##[endgroup]
+2026-09-14T20:21:15.6070614Z ##[group]GITHUB_TOKEN Permissions
+2026-09-14T20:21:15.6072740Z Contents: read
+2026-09-14T20:21:15.6073511Z Metadata: read
+2026-09-14T20:21:15.6074121Z ##[endgroup]
+2026-09-14T20:21:15.6076950Z Secret source: Actions
+2026-09-14T20:21:15.6077900Z Cache mode: write
+2026-09-14T20:21:15.6078682Z Prepare workflow directory
+2026-09-14T20:21:15.6424377Z Prepare all required actions
+2026-09-14T20:21:15.6537447Z Complete job name: F3 execution
+2026-09-14T20:21:15.7348429Z ##[group]Run printf 'F3 core=%s Safari=%s\n' "$F3_CORE_RESULT" "$F3_SAFARI_RESULT"
+2026-09-14T20:21:15.7349688Z [36;1mprintf 'F3 core=%s Safari=%s\n' "$F3_CORE_RESULT" "$F3_SAFARI_RESULT"[0m
+2026-09-14T20:21:15.7350715Z [36;1mtest "$F3_CORE_RESULT" = success[0m
+2026-09-14T20:21:15.7351434Z [36;1mtest "$F3_SAFARI_RESULT" = success[0m
+2026-09-14T20:21:15.7865936Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-14T20:21:15.7867390Z env:
+2026-09-14T20:21:15.7868078Z   F3_CORE_RESULT: success
+2026-09-14T20:21:15.7868812Z   F3_SAFARI_RESULT: failure
+2026-09-14T20:21:15.7869586Z ##[endgroup]
+2026-09-14T20:21:15.8077326Z F3 core=success Safari=failure
+2026-09-14T20:21:15.8104175Z ##[error]Process completed with exit code 1.
+2026-09-14T20:21:15.8342716Z Cleaning up orphan processes

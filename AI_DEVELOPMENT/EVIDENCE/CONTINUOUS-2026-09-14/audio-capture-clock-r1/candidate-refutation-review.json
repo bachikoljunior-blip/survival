@@ -1,0 +1,171 @@
+{
+  "verdict": "PASS",
+  "verdictMeaning": "No unresolved implementation blocker was established within this bounded source/CPU acquisition review. This is not a browser, recording, performance, smartphone, listening, quality or blind-comparison pass.",
+  "score": 0,
+  "scoreMeaning": "Required unscored schema placeholder; no quality or preference score.",
+  "round": "audio-capture-clock-r1-independent-refutation",
+  "profile": "Pinned source and bounded pure CPU refutation",
+  "tier": "No browser/audio/codec execution",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison or listening judgment was performed. Source identity is known to the reviewer. Pure source and CPU checks cannot establish audible event identity, positional quality, reference parity or element satisfaction.",
+  "checkedAtJst": "2026-09-14T21:23:57.018+09:00",
+  "baseCommit": "324378b16f3c92c30efe5edf18139e6eeaf27b1d",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "candidateSha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26",
+  "scope": [
+    "Candidate mobile_audio_capture.mjs only: clock guard, passive listener/event/pose metadata, audio/engine boundary preservation, cleanup and evidence meaning.",
+    "Caller review is limited to the pinned C26 check-to-failures-to-exit path. The optional caller recordVideo patch is not independently approved by this report."
+  ],
+  "findings": [],
+  "claimRefutations": [
+    {
+      "claim": "The clock guard rejects collapsed or invalid acquisition endpoints.",
+      "result": "Not refuted in the stated screening scope.",
+      "basis": "Direct calls to the actual exported function pass nominal endpoints and reject more than five-percent engine drift and a nonfinite engine endpoint. Internal backward engine time, insufficient poses, counted sample drops and read errors fail telemetry completeness separately. Inputs remain unchanged.",
+      "limit": "The guard compares total endpoint deltas using max(100 ms, five percent of audio duration). Monotonic samples do not prove every internal interval stayed within five percent or establish a perceptual quality threshold."
+    },
+    {
+      "claim": "Recorded listener pose follows the camera actually used by the audio spatial computation.",
+      "result": "Not refuted.",
+      "basis": "An exact source-extracted candidate listener and exact pinned Audio._spatial are executed with a translated, rotated camera and deliberately different player pose. Listener position/right/forward use that camera; _spatial returns distance 4 and pan 1 for the prescribed source. No camera update or source mutation is added.",
+      "limit": "This verifies read/math source correspondence only. It does not exercise actual rendered camera scheduling, WebAudio panning, audible output or headset localization."
+    },
+    {
+      "claim": "Telemetry is passive and the candidate preserves production audio and simulation implementation.",
+      "result": "Not refuted in the pinned diff.",
+      "basis": "Only the candidate helper changes. Pinned original helper, audio, engine and game hashes match the recorded local originals. The candidate selects the existing low tier and reapplies the saved original settings; the audio implementation, mix values and fixed-step cap remain unchanged. It observes render and sfx emissions without calling Audio.play or rewriting actor/camera state.",
+      "limit": "sfx records are emission metadata; play may still reject an event through readiness, suspended context, budget or throttling. Actor entries include faction/dead/aggro state, and an empty threat list provides no moving-threat comparison coverage. Actual low-tier performance remains unmeasured."
+    },
+    {
+      "claim": "Successful and exceptional exits attempt acquisition cleanup without disabling the original production output.",
+      "result": "Not refuted in source and the supplied bounded fixture results.",
+      "basis": "Cleanup independently attempts all telemetry unsubscriptions, recorder stop, disconnection of only the added compressor-to-capture branch and track stops. Setup failure, stop failure and outer finally retain cleanup attempts; original game settings are restored in the outer finally. The parent actual-helper boundary fixture records normal and injected-wait-failure cleanup results.",
+      "limit": "This independent probe does not rerun the whole helper. Source cleanup attempts plus selected boundary fixtures do not prove every real browser failure permits cleanup, or that a throwing unsubscribe actually removed its listener."
+    },
+    {
+      "claim": "Captured bytes are not mislabeled as a quality or CI success after a failed guard.",
+      "result": "Not refuted for the pinned caller.",
+      "basis": "The helper retains comparison status not measured and preserves captured bytes/metadata before guard checks. The C26 caller accumulates failed checks and produces a failed report with nonzero exit. The helper status captured identifies a produced recording, including one failing timing checks; it does not override caller failures.",
+      "limit": "No new real capture was made. Parent fixture MP4 files are placeholder bytes, not recordings. The implementation notes explicitly keep real capture, listening and preference comparison outstanding."
+    }
+  ],
+  "independentChecks": {
+    "passed": 8,
+    "path": "audio-capture-clock-r1/candidate-refutation-probe.json",
+    "method": "Seven immutable-input pure timing-summary cases and one exact source-extracted listener/spatial read-math case."
+  },
+  "parentEvidence": {
+    "path": "audio-capture-clock-r1/candidate-probe.json",
+    "reportedGroupsPassed": 7,
+    "method": "Previously executed by parent: full candidate helper in fake page/MediaRecorder boundaries and old saved endpoint arithmetic. Independently read; not re-executed here.",
+    "realBrowser": false,
+    "realMedia": false
+  },
+  "reviewerFixtureCorrection": {
+    "path": "audio-capture-clock-r1/candidate-refutation-setup-failure.json",
+    "reason": "The first reviewer expectation used positive zero where the candidate correctly negates zero matrix entries. node:assert/strict distinguishes signed zero. Only the reviewer expectation was corrected; the candidate hash stayed fixed.",
+    "productFinding": false
+  },
+  "outstanding": [
+    "Actual current-build browser capture and measured low-tier clock alignment.",
+    "A certified listening observation for a suitable reference interval and corresponding candidate scene with actual source trajectories.",
+    "Decoded-media and audio-semantic validation; valid blind comparison remains separate."
+  ],
+  "sourcePins": [
+    {
+      "path": "audio-capture-clock-r1/candidate/tools/mobile_audio_capture.mjs",
+      "bytes": 16230,
+      "sha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26"
+    },
+    {
+      "path": "audio-capture-clock-r1/base/tools/mobile_audio_capture.mjs",
+      "bytes": 9757,
+      "sha256": "047926fa22b722e4accb50aa1fb7bd37642f7338c0ef7bcd197d0e857a529bda"
+    },
+    {
+      "path": "audio-capture-clock-r1/base/src/audio/audio.js",
+      "bytes": 47016,
+      "sha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49"
+    },
+    {
+      "path": "audio-capture-clock-r1/base/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "audio-capture-clock-r1/base/src/game/game.js",
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "audio-capture-clock-r1/base/tools/test-iphone-webkit.mjs",
+      "bytes": 30013,
+      "sha256": "7f35ad15734a42f221554a8c90b58849c01caf6df346d080ba037e296beb9213"
+    },
+    {
+      "path": "audio-capture-clock-r1/source-integrity.json",
+      "bytes": 1798,
+      "sha256": "81539dbb14e792a22095b7d8e5d957e203b3df36172f9f0e8d12bc24097a3d3d"
+    },
+    {
+      "path": "audio-capture-clock-r1/remote-snapshot.json",
+      "bytes": 1976,
+      "sha256": "540dfd8956ab744e6a1afdda297c90ee0f7a718aaa43a010269a30c9dcc9eb48"
+    },
+    {
+      "path": "audio-capture-clock-r1/implementation-notes.json",
+      "bytes": 3984,
+      "sha256": "937529846f3d89a3505203a55cbc43c9772f15fff2e377ba65d22676aaddfd30"
+    },
+    {
+      "path": "audio-capture-clock-r1/candidate-probe.json",
+      "bytes": 8893,
+      "sha256": "4c05a706931ced730958672878698f8a9e3885c22ac2e9979c983f20ef76f0ff"
+    },
+    {
+      "path": "audio-capture-clock-r1/probe-refutation.mjs",
+      "bytes": 4570,
+      "sha256": "892a47287a1a505626fb9e5fa8b996c5ce0ca4c6efc9537504c1bf0e1c179f81"
+    },
+    {
+      "path": "audio-capture-clock-r1/candidate-refutation-probe.json",
+      "bytes": 7078,
+      "sha256": "4e57d105b01cfca79fae3912e1a9224a74ccf0eac8e3eafb80812aba1c0f17fa"
+    },
+    {
+      "path": "audio-capture-clock-r1/candidate-refutation-setup-failure.json",
+      "bytes": 1101,
+      "sha256": "3bfa8509804f5f50a4f6a6211c97ae670ee1d15f9cf62afa7f94bc11bdf0328b"
+    }
+  ],
+  "sourceLocations": {
+    "candidate": [
+      "tools/mobile_audio_capture.mjs:14",
+      "tools/mobile_audio_capture.mjs:82",
+      "tools/mobile_audio_capture.mjs:101",
+      "tools/mobile_audio_capture.mjs:106",
+      "tools/mobile_audio_capture.mjs:114",
+      "tools/mobile_audio_capture.mjs:120",
+      "tools/mobile_audio_capture.mjs:145",
+      "tools/mobile_audio_capture.mjs:193",
+      "tools/mobile_audio_capture.mjs:212",
+      "tools/mobile_audio_capture.mjs:232"
+    ],
+    "audio": [
+      "src/audio/audio.js:203",
+      "src/audio/audio.js:306",
+      "src/audio/audio.js:419"
+    ]
+  },
+  "preservation": {
+    "productEdits": 0,
+    "candidateEdits": 0,
+    "oldEvidenceOverwrites": 0,
+    "newBrowserRuns": 0,
+    "newModelRuns": 0,
+    "newCodecRuns": 0,
+    "newNetworkCalls": 0,
+    "elementStatusChanges": 0
+  },
+  "canonicalElementNote": "Locked sound benchmark remains E-12 BM-AUD-01..04; the earlier directory label E15 does not rename an element or weaken criteria."
+}

@@ -1,0 +1,15 @@
+{
+  "scope": "Lossless gzip container for the exact officially returned decoded job-log UTF-8 bytes; not a new log fetch",
+  "jobLogCalls": 1,
+  "raw": {
+    "path": "original-job.log",
+    "bytes": 2367267,
+    "sha256": "32d922886f6a7bbea44646031b1d2b12e41a3663500a775c91f0fb1b974071e2"
+  },
+  "gzip": {
+    "path": "original-job.log.gz",
+    "bytes": 737415,
+    "sha256": "cecc8938b60a1ee772dfb64dfc93e01add92dd962bd221450c72e3e39c3122fa"
+  },
+  "roundTripExact": true
+}

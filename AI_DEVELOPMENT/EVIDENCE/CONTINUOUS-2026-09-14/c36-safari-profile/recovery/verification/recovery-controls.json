@@ -1,0 +1,67 @@
+{
+  "status": "pass",
+  "passed": 12,
+  "checks": [
+    {
+      "name": "canonical exporter roundtrip preserves failed original bytes",
+      "passed": true,
+      "preservedOriginalFailure": true
+    },
+    {
+      "name": "missing end",
+      "passed": true,
+      "rejection": "missing complete meta/chunk/end frame-work export"
+    },
+    {
+      "name": "missing chunk",
+      "passed": true,
+      "rejection": "missing or extra export chunks"
+    },
+    {
+      "name": "duplicate meta",
+      "passed": true,
+      "rejection": "duplicate or interleaved export boundaries"
+    },
+    {
+      "name": "wrong offset",
+      "passed": true,
+      "rejection": "chunk order/offset/index/total mismatch"
+    },
+    {
+      "name": "wrong index",
+      "passed": true,
+      "rejection": "chunk order/offset/index/total mismatch"
+    },
+    {
+      "name": "truncated chunk",
+      "passed": true,
+      "rejection": "truncated or oversized chunk"
+    },
+    {
+      "name": "invalid base64",
+      "passed": true,
+      "rejection": "Only base64 data is allowed"
+    },
+    {
+      "name": "wrong whole-report SHA",
+      "passed": true,
+      "rejection": "original report bytes/SHA256 mismatch"
+    },
+    {
+      "name": "rerun identity rejected",
+      "passed": true,
+      "rejection": "export source/run mismatch: runAttempt"
+    },
+    {
+      "name": "wrong probe hash rejected",
+      "passed": true,
+      "rejection": "export source/run mismatch: frameWorkProbeSha256"
+    },
+    {
+      "name": "capacity widening rejected",
+      "passed": true,
+      "rejection": "original report byte count outside frozen export bound"
+    }
+  ],
+  "scope": "CPU synthetic transport controls using exact canonical C36 exporter. Does not represent recovered Safari or measured runtime performance."
+}

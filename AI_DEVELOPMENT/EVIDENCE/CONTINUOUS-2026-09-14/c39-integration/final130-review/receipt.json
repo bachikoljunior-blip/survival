@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted frozen 130-path boundary; remote save not performed by reviewer",
+  "blocking": 0,
+  "checkedAt": "2026-09-14T20:06:23.532Z",
+  "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra/prepare_helper_review_ultra",
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "inputManifest": {
+    "path": "main-integration-c39/final-manifest.json",
+    "bytes": 64952,
+    "sha256": "d9c0ebd8ab44f3a40154bbd6bae002dffeaa939d9f96465b8c77f8e95c5f5e82",
+    "gitBlob": "98ea97b7d1d64f4bb479cc5db37a1dc726421b18"
+  },
+  "baseCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+  "baseTree": "67c414952eec36eb0472b6fa5dd54816d209ba87",
+  "paths": 130,
+  "candidatePaths": 9,
+  "evidencePaths": 121,
+  "totalBytes": 12830509,
+  "all130ByteShaGitBlobMatch": true,
+  "uniqueNormalizedPaths": true,
+  "regularFilesOnly": true,
+  "copyAndAllowlistGroups": {
+    "narrative": 44,
+    "source-phase": 16,
+    "production-material": 2,
+    "fixed-recovery": 12,
+    "c38-save": 2,
+    "startup": 37,
+    "REPORT.md": 1,
+    "prepare-state.py": 1,
+    "final-state-additions.json": 1,
+    "deadline-receipt.json": 1,
+    "session-reader-check.json": 1,
+    "c38-completed-runs.json": 1,
+    "recovery-adoption-boundary.json": 1,
+    "blob-final-receipts.json": 1
+  },
+  "sourceCopiesChecked": 114,
+  "writerCreatedControls": [
+    "startup/lossless-log-storage.json"
+  ],
+  "losslessLogs": [
+    {
+      "path": "narrative/original-job.log.gz",
+      "compressed": {
+        "bytes": 4431888,
+        "sha256": "fb1c0b366d5772babf95753c6e8ec50479a4e6234a8fc7ea322438eeefd5c407",
+        "gitBlob": "3bd00856227fb6dcb1710c61bbab1f74059706d1"
+      },
+      "original": {
+        "bytes": 7382705,
+        "sha256": "972068aa8cdd985b4fedce4627e22937cfdd5fbc59d0148e1455cea45154ba7d",
+        "gitBlob": "095007d313f8f0b4e1d5112b9945ed01e3fab885"
+      },
+      "originalByteIdentical": true
+    },
+    {
+      "path": "startup/transport/pr-safari.log.gz",
+      "compressed": {
+        "bytes": 278966,
+        "sha256": "c1039a9ee63e7a984b8481d6508b714c16f1bd213fc3e7a5be327f42553fd011",
+        "gitBlob": "e722d59d4c6cee7955d8521ab1004beb0d627791"
+      },
+      "original": {
+        "bytes": 4599237,
+        "sha256": "9fd876272c8686d5e6e9c199d6a82402ad36a1b851aca3cd8c47e79aeeb2f27b",
+        "gitBlob": "de010524b3653d4d14d0525fff0f6bcbaccaedbb"
+      },
+      "originalByteIdentical": true
+    },
+    {
+      "path": "startup/transport/standalone-safari.log.gz",
+      "compressed": {
+        "bytes": 294062,
+        "sha256": "e8f7b608c2967bed8e6d67c858ad3e812b25e93bedc67af748310e1640e6846f",
+        "gitBlob": "607febb489560b0380a4ded801a6e77f05b930f2"
+      },
+      "original": {
+        "bytes": 4756969,
+        "sha256": "09d4e0bf02b235a29bb5212ef0f8602524bf498a3bc176cf46543bb6d84f5475",
+        "gitBlob": "b2c8d89bc491345ef6b198689409b9f3a07d8083"
+      },
+      "originalByteIdentical": true
+    },
+    {
+      "path": "startup/original/pr/appium.log.gz",
+      "compressed": {
+        "bytes": 75996,
+        "sha256": "1b8425c738eff30dbd71b8c8a4bb425fe87bc5e820e911322f779144ece7df20",
+        "gitBlob": "e6b8a263a7769c29ffaae776b39016dc0219d948"
+      },
+      "original": {
+        "bytes": 3320532,
+        "sha256": "95a6e8ddb33209f9f5bdb818bc02978dacaad550f5b0bbdb625973cf1e14bd30",
+        "gitBlob": "58c039032e470ff4bbaa6be9181a59d8e5d7d39d"
+      },
+      "originalByteIdentical": true
+    },
+    {
+      "path": "startup/original/standalone/appium.log.gz",
+      "compressed": {
+        "bytes": 83795,
+        "sha256": "acf12cd19548e34278c5a6acace30781de32668a9a17c8020b816dfbf48231a5",
+        "gitBlob": "f5c845704d0916cee4778f42df2e63a8713ba607"
+      },
+      "original": {
+        "bytes": 3438122,
+        "sha256": "1b8229f788fb64b6947b63d011b3fda25959679a371bd88b536e1b2528f87a30",
+        "gitBlob": "d9a5fbd0c3cfd57a0fa46647cad9f696c2593abf"
+      },
+      "originalByteIdentical": true
+    }
+  ],
+  "originalNarrativeFiles": 23,
+  "originalPngFiles": 12,
+  "originalPngBytesUnchanged": true,
+  "pngSize": {
+    "width": 667,
+    "height": 375
+  },
+  "candidatePins": [
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1445368,
+      "sha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "gitBlob": "8b4c0da8af71db55b60957c2e887060ca5ff5525"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    },
+    {
+      "path": "src/content/story.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+      "gitBlob": "c02c06122512036cdeb6b50e9e5dceb7f7b66083"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 32656,
+      "sha256": "737296093d9529e5aab8b2c4a8377cc082262eef0e6234caef54c5a0d3a8c660",
+      "gitBlob": "685ce818fd514fc302f37822574d91eb3b018567"
+    },
+    {
+      "path": "tools/recover-ios-phase-c38.py",
+      "bytes": 13167,
+      "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f",
+      "gitBlob": "cd635feda9587d9ae43a597b3e4e294f41dea76a"
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "bytes": 35835,
+      "sha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+      "gitBlob": "5064084376f0743d2f082ae3656406fe408b1b51"
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "bytes": 16272,
+      "sha256": "406b20b5e0990153e461beb0206a48e4b2f357154b8dcf3b8a2cecdc0ac552a9",
+      "gitBlob": "c897a9d42e6434af1970859fbdeaa67d92be428a"
+    }
+  ],
+  "iosAudioPins": {
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+  },
+  "workflow": {
+    "entireExistingPrefixByteIdentical": true,
+    "base": {
+      "bytes": 30778,
+      "sha256": "a2e1c0368c06c70f87278d78785a87f91b6e8c3d704f234d4c8fca1412535047",
+      "gitBlob": "7576645032ae06f4c01cf914e6bbd246f94ff4e3"
+    },
+    "baseUnicodeCharacters": 30776,
+    "candidateBytes": 32656,
+    "originalReportRetained": true,
+    "writerCorrectionChecked": true
+  },
+  "session": {
+    "strictCanonicalReaderGitBlob": "176dbeec7b81bb1a4e4cb59b8569c0f5a80917d0",
+    "parsedEqualsExpected": true,
+    "workExactlyUnchanged": true,
+    "stateAndCandidateBytesEqual": true,
+    "unitsRequested": "continuous",
+    "unitsCompleted": 0,
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00",
+    "status": "active",
+    "v3": true,
+    "all19": "not measured",
+    "criteria": 71,
+    "validBlind": 0,
+    "soleWriterActive": true,
+    "observedRunningAtThisReview": [
+      "/root/integration_recovery_ultra",
+      "/root/integration_recovery_ultra/narrative_build_ultra/prepare_helper_review_ultra"
+    ],
+    "ownerObservationNote": "SESSION records its 19:59:27 UTC pre-freeze owner snapshot; this reviewer was assigned afterwards. Writer remains the sole operational owner; completed producer scopes were observed completed."
+  },
+  "publicPrivateBoundary": {
+    "productionMaterialPathsExactly": [
+      "public-summary.json",
+      "public-allowlist.json"
+    ],
+    "privateMaterialRead": false,
+    "referenceTextRead": false,
+    "unknownPacketIdsOrNameMappingsCopied": false,
+    "sourceAllowlistExactCopies": true,
+    "unlistedFixtureAndSourceCacheCopies": false
+  },
+  "originalFailuresPreserved": true,
+  "allFourC38RunsCompleted": true,
+  "actualNewProductSafari": false,
+  "actualFixedArchiveFitVerified": false,
+  "qualityComparisonStarted": false,
+  "earlierCodeControlSuitesRepeated": 0,
+  "newImages": 0,
+  "remoteReads": 0,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "limitations": [
+    "This is a local frozen-boundary review, not remote ref/readback or CI verification.",
+    "Actual Safari startup repair and fixed original archive recovery remain unverified.",
+    "New product normal play, listening, valid blind comparison, required-current-head gates/main/Pages remain pending."
+  ],
+  "publicCopyAllowlist": [
+    "REPORT.md",
+    "receipt.json"
+  ],
+  "report": {
+    "path": "REPORT.md",
+    "bytes": 2927,
+    "sha256": "e248a6e7c874a019c0d02b318ccdf150d878d1ea68e4712bab991c50987ac081"
+  }
+}

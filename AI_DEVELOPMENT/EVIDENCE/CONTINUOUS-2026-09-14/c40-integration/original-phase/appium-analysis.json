@@ -1,0 +1,575 @@
+{
+  "scope": "Actual original C38 Appium HTTP log. Logged request/response timestamps and Appium elapsed are both preserved; they differ and are not browser CPU/GPU time. Long bodies in this original log are truncated by Appium.",
+  "appium": {
+    "bytes": 3654815,
+    "sha256": "bf39c21cbc8fef21b99ffe2130bd41575730cd193bd53c03c5eb6bac4ae11261",
+    "pairedCommands": 248,
+    "unpairedCommands": 0
+  },
+  "street": {
+    "recordingWallMs": 92010,
+    "recordingFrames": 4025,
+    "beforeMovementSnapshotMs": 78349,
+    "beforeMovementSnapshotFrames": 3401,
+    "preMovementFractionOfClip": 0.8515270079339202,
+    "startStopHttpEnvelopeMs": {
+      "minimum": 91161,
+      "maximum": 93222
+    },
+    "selectedCommands": {
+      "recorderStart": {
+        "requestLine": 7987,
+        "start": "2026-09-14 19:16:30:450",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": false,
+        "args": null,
+        "responseLine": 7988,
+        "end": "2026-09-14 19:16:31:555",
+        "status": 200,
+        "appiumElapsedMs": 1104,
+        "loggedResponseBytes": 37,
+        "logEndpointMs": 1105
+      },
+      "startStatus": {
+        "requestLine": 7989,
+        "start": "2026-09-14 19:16:34:708",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [],
+        "responseLine": 7990,
+        "end": "2026-09-14 19:16:37:849",
+        "status": 200,
+        "appiumElapsedMs": 3131,
+        "loggedResponseBytes": 69,
+        "logEndpointMs": 3141
+      },
+      "startSmallReply": {
+        "requestLine": 7991,
+        "start": "2026-09-14 19:16:45:166",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [
+          7,
+          0
+        ],
+        "responseLine": 7992,
+        "end": "2026-09-14 19:17:45:543",
+        "status": 200,
+        "appiumElapsedMs": 59329,
+        "loggedResponseBytes": 618,
+        "logEndpointMs": 60377
+      },
+      "startTransferCleanup": {
+        "requestLine": 7993,
+        "start": "2026-09-14 19:17:46:683",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [
+          7
+        ],
+        "responseLine": 7994,
+        "end": "2026-09-14 19:17:47:195",
+        "status": 200,
+        "appiumElapsedMs": 315,
+        "loggedResponseBytes": 14,
+        "logEndpointMs": 512
+      },
+      "preMovementSnapshot": {
+        "requestLine": 7995,
+        "start": "2026-09-14 19:17:49:816",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [],
+        "responseLine": 7996,
+        "end": "2026-09-14 19:17:50:354",
+        "status": 200,
+        "appiumElapsedMs": 537,
+        "loggedResponseBytes": 148,
+        "logEndpointMs": 538
+      },
+      "viewport": {
+        "requestLine": 7997,
+        "start": "2026-09-14 19:17:50:837",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [],
+        "responseLine": 7998,
+        "end": "2026-09-14 19:17:51:652",
+        "status": 200,
+        "appiumElapsedMs": 810,
+        "loggedResponseBytes": 81,
+        "logEndpointMs": 815
+      },
+      "trustedStreetGesture": {
+        "requestLine": 7999,
+        "start": "2026-09-14 19:17:51:875",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/actions",
+        "completeJsonBody": true,
+        "args": null,
+        "responseLine": 8008,
+        "end": "2026-09-14 19:17:55:973",
+        "status": 200,
+        "appiumElapsedMs": 4097,
+        "loggedResponseBytes": 14,
+        "logEndpointMs": 4098
+      },
+      "releaseNativeActions": {
+        "requestLine": 8011,
+        "start": "2026-09-14 19:17:55:986",
+        "method": "DELETE",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/actions",
+        "completeJsonBody": false,
+        "args": null,
+        "responseLine": 8013,
+        "end": "2026-09-14 19:17:55:987",
+        "status": 200,
+        "appiumElapsedMs": 1,
+        "loggedResponseBytes": 14,
+        "logEndpointMs": 1
+      },
+      "observeRelease": {
+        "requestLine": 8014,
+        "start": "2026-09-14 19:17:56:035",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": false,
+        "args": null,
+        "responseLine": 8015,
+        "end": "2026-09-14 19:17:56:366",
+        "status": 200,
+        "appiumElapsedMs": 327,
+        "loggedResponseBytes": 625,
+        "logEndpointMs": 331
+      },
+      "readRelease": {
+        "requestLine": 8016,
+        "start": "2026-09-14 19:17:57:453",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [],
+        "responseLine": 8017,
+        "end": "2026-09-14 19:17:58:140",
+        "status": 200,
+        "appiumElapsedMs": 746,
+        "loggedResponseBytes": 845,
+        "logEndpointMs": 687
+      },
+      "cleanupRelease": {
+        "requestLine": 8018,
+        "start": "2026-09-14 19:17:58:157",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [],
+        "responseLine": 8019,
+        "end": "2026-09-14 19:17:58:612",
+        "status": 200,
+        "appiumElapsedMs": 454,
+        "loggedResponseBytes": 14,
+        "logEndpointMs": 455
+      },
+      "stopRecorder": {
+        "requestLine": 8020,
+        "start": "2026-09-14 19:18:02:716",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": false,
+        "args": null,
+        "responseLine": 8021,
+        "end": "2026-09-14 19:18:03:672",
+        "status": 200,
+        "appiumElapsedMs": 955,
+        "loggedResponseBytes": 37,
+        "logEndpointMs": 956
+      },
+      "stopStatus": {
+        "requestLine": 8022,
+        "start": "2026-09-14 19:18:03:698",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": true,
+        "args": [],
+        "responseLine": 8023,
+        "end": "2026-09-14 19:18:05:532",
+        "status": 200,
+        "appiumElapsedMs": 1834,
+        "loggedResponseBytes": 74,
+        "logEndpointMs": 1834
+      },
+      "startStreetMediaUpload": {
+        "requestLine": 8024,
+        "start": "2026-09-14 19:18:09:043",
+        "method": "POST",
+        "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+        "completeJsonBody": false,
+        "args": null,
+        "responseLine": 8025,
+        "end": "2026-09-14 19:18:10:355",
+        "status": 200,
+        "appiumElapsedMs": 1300,
+        "loggedResponseBytes": 37,
+        "logEndpointMs": 1312
+      }
+    },
+    "movement": {
+      "before": {
+        "wallMs": 143796,
+        "audioTime": 126.53866666666667,
+        "engineTime": 127.44999999999405,
+        "engineFrame": 6097,
+        "position": [
+          -112,
+          0,
+          -84
+        ],
+        "inputCount": 5
+      },
+      "after": {
+        "wallMs": 150294,
+        "audioTime": 133.03466666666668,
+        "engineTime": 132.6499999999977,
+        "engineFrame": 6372,
+        "inputTime": 132.6499999999977,
+        "position": [
+          -114.51858886153539,
+          0,
+          -86.33876358144575
+        ],
+        "stickActive": false,
+        "stickId": -1,
+        "stickX": 0,
+        "stickY": 0,
+        "moveMagnitude": 1,
+        "input": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "pointerType": "touch",
+            "pointerId": 40277148,
+            "x": 101,
+            "y": 246,
+            "activeTouches": 1,
+            "target": {
+              "tag": "CANVAS",
+              "id": "gl",
+              "className": "",
+              "text": ""
+            }
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "pointerType": "touch",
+            "pointerId": 40277148,
+            "x": 101,
+            "y": 186,
+            "activeTouches": 1,
+            "target": {
+              "tag": "CANVAS",
+              "id": "gl",
+              "className": "",
+              "text": ""
+            }
+          }
+        ]
+      },
+      "release": {
+        "status": "passed",
+        "reason": "first frame after fixed-step progress",
+        "after": {
+          "wallMs": 150404,
+          "audioTime": 133.14133333333334,
+          "engineTime": 132.71666666666442,
+          "engineFrame": 6373,
+          "inputTime": 132.71666666666442,
+          "position": [
+            -114.76959284306338,
+            0,
+            -86.252655321118
+          ],
+          "stickActive": false,
+          "stickId": -1,
+          "stickX": 0,
+          "stickY": 0,
+          "moveMagnitude": 0,
+          "input": [
+            {
+              "type": "pointerdown",
+              "trusted": true,
+              "pointerType": "touch",
+              "pointerId": 40277148,
+              "x": 101,
+              "y": 246,
+              "activeTouches": 1,
+              "target": {
+                "tag": "CANVAS",
+                "id": "gl",
+                "className": "",
+                "text": ""
+              }
+            },
+            {
+              "type": "pointerup",
+              "trusted": true,
+              "pointerType": "touch",
+              "pointerId": 40277148,
+              "x": 101,
+              "y": 186,
+              "activeTouches": 1,
+              "target": {
+                "tag": "CANVAS",
+                "id": "gl",
+                "className": "",
+                "text": ""
+              }
+            }
+          ]
+        },
+        "elapsedMs": 110,
+        "timeoutMs": 2000,
+        "cleanupErrors": null,
+        "observationStatus": "passed",
+        "observationReason": "first frame after fixed-step progress"
+      },
+      "distance": 3.437019776397435
+    },
+    "interpretation": "The recorder is already running while its start result is read. The 618-byte HTTP reply stalls for Appium elapsed 59,329 ms (log endpoints 60,377 ms) before movement starts. 78,349 browser ms and 3,401 rendered frames precede even the movement baseline snapshot. The 92.01-second recording is therefore prolonged by the awaited automation path; the root cause of the HTTP stall remains unassigned. Street media upload starts after the stop operation, so its 36,883 ms receipt cannot cause this recording duration."
+  },
+  "longestCommands": [
+    {
+      "requestLine": 16,
+      "start": "2026-09-14 19:09:40:898",
+      "method": "POST",
+      "route": "/session",
+      "completeJsonBody": true,
+      "args": null,
+      "responseLine": 7148,
+      "end": "2026-09-14 19:13:43:663",
+      "status": 200,
+      "appiumElapsedMs": 242641,
+      "loggedResponseBytes": 602,
+      "logEndpointMs": 242765
+    },
+    {
+      "requestLine": 8936,
+      "start": "2026-09-14 19:19:27:391",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 9046,
+      "end": "2026-09-14 19:20:39:687",
+      "status": 200,
+      "appiumElapsedMs": 71293,
+      "loggedResponseBytes": 78,
+      "logEndpointMs": 72296
+    },
+    {
+      "requestLine": 7991,
+      "start": "2026-09-14 19:16:45:166",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [
+        7,
+        0
+      ],
+      "responseLine": 7992,
+      "end": "2026-09-14 19:17:45:543",
+      "status": 200,
+      "appiumElapsedMs": 59329,
+      "loggedResponseBytes": 618,
+      "logEndpointMs": 60377
+    },
+    {
+      "requestLine": 8244,
+      "start": "2026-09-14 19:18:29:445",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 8893,
+      "end": "2026-09-14 19:19:10:739",
+      "status": 200,
+      "appiumElapsedMs": 41271,
+      "loggedResponseBytes": 80,
+      "logEndpointMs": 41294
+    },
+    {
+      "requestLine": 7163,
+      "start": "2026-09-14 19:13:53:427",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 7408,
+      "end": "2026-09-14 19:14:22:518",
+      "status": 200,
+      "appiumElapsedMs": 29037,
+      "loggedResponseBytes": 14,
+      "logEndpointMs": 29091
+    },
+    {
+      "requestLine": 8026,
+      "start": "2026-09-14 19:18:11:353",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 8243,
+      "end": "2026-09-14 19:18:29:138",
+      "status": 200,
+      "appiumElapsedMs": 17785,
+      "loggedResponseBytes": 77,
+      "logEndpointMs": 17785
+    },
+    {
+      "requestLine": 7439,
+      "start": "2026-09-14 19:14:26:270",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 7468,
+      "end": "2026-09-14 19:14:37:701",
+      "status": 200,
+      "appiumElapsedMs": 11399,
+      "loggedResponseBytes": 15,
+      "logEndpointMs": 11431
+    },
+    {
+      "requestLine": 7735,
+      "start": "2026-09-14 19:15:11:159",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 7762,
+      "end": "2026-09-14 19:15:21:181",
+      "status": 200,
+      "appiumElapsedMs": 10014,
+      "loggedResponseBytes": 15,
+      "logEndpointMs": 10022
+    },
+    {
+      "requestLine": 7161,
+      "start": "2026-09-14 19:13:45:066",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/url",
+      "completeJsonBody": true,
+      "args": null,
+      "responseLine": 7162,
+      "end": "2026-09-14 19:13:53:331",
+      "status": 200,
+      "appiumElapsedMs": 8137,
+      "loggedResponseBytes": 14,
+      "logEndpointMs": 8265
+    },
+    {
+      "requestLine": 7801,
+      "start": "2026-09-14 19:15:27:606",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 7829,
+      "end": "2026-09-14 19:15:35:052",
+      "status": 200,
+      "appiumElapsedMs": 7398,
+      "loggedResponseBytes": 15,
+      "logEndpointMs": 7446
+    },
+    {
+      "requestLine": 7533,
+      "start": "2026-09-14 19:14:43:141",
+      "method": "POST",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+      "completeJsonBody": true,
+      "args": [],
+      "responseLine": 7553,
+      "end": "2026-09-14 19:14:49:191",
+      "status": 200,
+      "appiumElapsedMs": 6074,
+      "loggedResponseBytes": 15,
+      "logEndpointMs": 6050
+    },
+    {
+      "requestLine": 7886,
+      "start": "2026-09-14 19:15:58:197",
+      "method": "GET",
+      "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/screenshot",
+      "completeJsonBody": false,
+      "args": null,
+      "responseLine": 7888,
+      "end": "2026-09-14 19:16:04:219",
+      "status": 200,
+      "appiumElapsedMs": 4735,
+      "loggedResponseBytes": 2614040,
+      "logEndpointMs": 6022
+    }
+  ],
+  "uploads": [
+    {
+      "id": 8,
+      "chars": 27046965,
+      "chunkBytes": 131072,
+      "maxTransferChars": 50331648,
+      "deadline": 1789413602212,
+      "receivedBytes": 27046965,
+      "chunks": 207,
+      "status": "received",
+      "sha256": "3a06f5f46878c8aa04a7d04734c1541ea6ee8f7b2b9a9b6ac4a15c0750102b4c",
+      "elapsedMs": 36883
+    },
+    {
+      "id": 12,
+      "chars": 3230229,
+      "chunkBytes": 131072,
+      "maxTransferChars": 50331648,
+      "deadline": 1789413683135,
+      "receivedBytes": 3230229,
+      "chunks": 25,
+      "status": "received",
+      "sha256": "0dcee0a1bae839c571706d2d5dda2be94216009ea8b9792f6ab3f150db4df0e3",
+      "elapsedMs": 3817
+    },
+    {
+      "id": 16,
+      "chars": 2583255,
+      "chunkBytes": 131072,
+      "maxTransferChars": 50331648,
+      "deadline": 1789413776653,
+      "receivedBytes": 2583255,
+      "chunks": 20,
+      "status": "received",
+      "sha256": "32649e53a79ba25aa1083ba934cf6673a28ec9ee54c13ffe59e8f652881dfe28",
+      "elapsedMs": 815
+    },
+    {
+      "id": 1,
+      "chars": 8030267,
+      "chunkBytes": 131072,
+      "maxTransferChars": 50331648,
+      "deadline": 1789413783016,
+      "receivedBytes": 8030267,
+      "chunks": 62,
+      "status": "received",
+      "sha256": "44b170955d63a590d7fac1f4752cfd0458be50208b7fe4b53e103bd6d6bbc99b",
+      "elapsedMs": 1923
+    }
+  ],
+  "uploadScope": "All four receipts are received within the unchanged 120 s/48 MiB chars/128 KiB wire route. Receipt elapsed is host receiving time, not total WebDriver operation duration. Profile JSON identity can be reconstructed; media original bytes were not recovered.",
+  "candidateDecision": {
+    "productCandidateCount": 0,
+    "adoptedChanges": 0,
+    "reason": "The observed world stall and one new program lack program identity, compile timings, GPU timers and host scheduling separation. The separate fixed updater maximum is nested actor work. Current material warming, light visibility and gas-cost scheduling source reads do not identify a specific responsible operation with a proven equivalent faster replacement. Lowering visual quality, increasing catch-up limits or changing recorder/clock guards is unsupported."
+  }
+}

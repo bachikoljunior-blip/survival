@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-14T17:05:07.085721+00:00",
+  "status": "passed",
+  "reviewer": "/root/integration_recovery_ultra/shadow_original_review_ultra",
+  "commit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "runtimeSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+  "sourceRun": 34869816263,
+  "sourceJob": 104062638759,
+  "checks": [
+    {
+      "name": "both manifests identify expected commit/run/job",
+      "passed": true
+    },
+    {
+      "name": "runtime pin is original 514f",
+      "passed": true
+    },
+    {
+      "name": "source diagnostic reports passed with no failures",
+      "passed": true
+    },
+    {
+      "name": "report.json: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "report.json: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-original.png: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-original.png: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-original.png: PNG signature and IHDR",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-original.png: native image is 1147x645",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-double.png: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-double.png: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-double.png: PNG signature and IHDR",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-double.png: native image is 1147x645",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-restored.png: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-restored.png: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-restored.png: PNG signature and IHDR",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-arcade-restored.png: native image is 1147x645",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-original.png: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-original.png: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-original.png: PNG signature and IHDR",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-original.png: native image is 1147x645",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-double.png: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-double.png: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-double.png: PNG signature and IHDR",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-double.png: native image is 1147x645",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-restored.png: bytes/SHA match recovered and transport meta/end",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-restored.png: complete stable committed transport",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-restored.png: PNG signature and IHDR",
+      "passed": true
+    },
+    {
+      "name": "shadow-resolution-south-restored.png: native image is 1147x645",
+      "passed": true
+    },
+    {
+      "name": "arcade: expected scene",
+      "passed": true
+    },
+    {
+      "name": "arcade: variants and requested sizes",
+      "passed": true
+    },
+    {
+      "name": "arcade: all pose/time/camera/light fields equal",
+      "passed": true
+    },
+    {
+      "name": "arcade: all foot coordinates equal",
+      "passed": true
+    },
+    {
+      "name": "arcade: fixed bias/extent/settings/target fields equal",
+      "passed": true
+    },
+    {
+      "name": "arcade/original: frame matches local original byte manifest",
+      "passed": true
+    },
+    {
+      "name": "arcade/original: all recorded native target dimensions agree",
+      "passed": true
+    },
+    {
+      "name": "arcade/original: recorded target live, complete and error-free",
+      "passed": true
+    },
+    {
+      "name": "arcade/double: frame matches local original byte manifest",
+      "passed": true
+    },
+    {
+      "name": "arcade/double: all recorded native target dimensions agree",
+      "passed": true
+    },
+    {
+      "name": "arcade/double: recorded target live, complete and error-free",
+      "passed": true
+    },
+    {
+      "name": "arcade/restored: frame matches local original byte manifest",
+      "passed": true
+    },
+    {
+      "name": "arcade/restored: all recorded native target dimensions agree",
+      "passed": true
+    },
+    {
+      "name": "arcade/restored: recorded target live, complete and error-free",
+      "passed": true
+    },
+    {
+      "name": "arcade: original/restored/cached actual bytes identical",
+      "passed": true
+    },
+    {
+      "name": "arcade: doubled original bytes differ",
+      "passed": true
+    },
+    {
+      "name": "arcade: both transitions report disposal of all old attachments",
+      "passed": true
+    },
+    {
+      "name": "arcade: flags/resources restored and no diagnostic failure",
+      "passed": true
+    },
+    {
+      "name": "arcade: final target 1024, no texture-count leak or context loss",
+      "passed": true
+    },
+    {
+      "name": "south: expected scene",
+      "passed": true
+    },
+    {
+      "name": "south: variants and requested sizes",
+      "passed": true
+    },
+    {
+      "name": "south: all pose/time/camera/light fields equal",
+      "passed": true
+    },
+    {
+      "name": "south: all foot coordinates equal",
+      "passed": true
+    },
+    {
+      "name": "south: fixed bias/extent/settings/target fields equal",
+      "passed": true
+    },
+    {
+      "name": "south/original: frame matches local original byte manifest",
+      "passed": true
+    },
+    {
+      "name": "south/original: all recorded native target dimensions agree",
+      "passed": true
+    },
+    {
+      "name": "south/original: recorded target live, complete and error-free",
+      "passed": true
+    },
+    {
+      "name": "south/double: frame matches local original byte manifest",
+      "passed": true
+    },
+    {
+      "name": "south/double: all recorded native target dimensions agree",
+      "passed": true
+    },
+    {
+      "name": "south/double: recorded target live, complete and error-free",
+      "passed": true
+    },
+    {
+      "name": "south/restored: frame matches local original byte manifest",
+      "passed": true
+    },
+    {
+      "name": "south/restored: all recorded native target dimensions agree",
+      "passed": true
+    },
+    {
+      "name": "south/restored: recorded target live, complete and error-free",
+      "passed": true
+    },
+    {
+      "name": "south: original/restored/cached actual bytes identical",
+      "passed": true
+    },
+    {
+      "name": "south: doubled original bytes differ",
+      "passed": true
+    },
+    {
+      "name": "south: both transitions report disposal of all old attachments",
+      "passed": true
+    },
+    {
+      "name": "south: flags/resources restored and no diagnostic failure",
+      "passed": true
+    },
+    {
+      "name": "south: final target 1024, no texture-count leak or context loss",
+      "passed": true
+    },
+    {
+      "name": "prior source-known review archived byte-for-byte",
+      "passed": true
+    }
+  ],
+  "files": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/report.json",
+      "bytes": 581220,
+      "sha256": "45028f56cc8d5b25fb56ff74e0f375e6f09cdd5169854a6e6ca8ae056afe3228"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-arcade-original.png",
+      "bytes": 1208826,
+      "sha256": "06dd4a5c87405e0f1ded35c40c7f53d3f1d1af66e48f4f17b9eef117a822d862",
+      "imageDimensions": [
+        1147,
+        645
+      ]
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-arcade-double.png",
+      "bytes": 1211561,
+      "sha256": "c2e0d6de8f35129a88be14a5305d284c6eb92d81810f50256ea06f0d310ee607",
+      "imageDimensions": [
+        1147,
+        645
+      ]
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-arcade-restored.png",
+      "bytes": 1208826,
+      "sha256": "06dd4a5c87405e0f1ded35c40c7f53d3f1d1af66e48f4f17b9eef117a822d862",
+      "imageDimensions": [
+        1147,
+        645
+      ]
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-south-original.png",
+      "bytes": 1166726,
+      "sha256": "332d9f69f4b3f7791ad222e84d69563defaa7d851dcd6e3071d25b4ee3cfc5a2",
+      "imageDimensions": [
+        1147,
+        645
+      ]
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-south-double.png",
+      "bytes": 1167127,
+      "sha256": "694824d5b7f046a0ffcbc6e590fd4cbb4e933ac58390204e55096e6ba9ae6775",
+      "imageDimensions": [
+        1147,
+        645
+      ]
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-south-restored.png",
+      "bytes": 1166726,
+      "sha256": "332d9f69f4b3f7791ad222e84d69563defaa7d851dcd6e3071d25b4ee3cfc5a2",
+      "imageDimensions": [
+        1147,
+        645
+      ]
+    }
+  ],
+  "sourceManifests": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/recovered-manifest.json",
+      "bytes": 2844,
+      "sha256": "b92c7365e9fda7db6316781b3b99f82135a55148bc3e7db1a55d67a43f741cf0"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/transport-manifest.json",
+      "bytes": 6884,
+      "sha256": "8377af488455fa9224ed8de8113ea5e9259625cbd2d959da4ff3c06b41d02005"
+    }
+  ],
+  "priorReview": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/image-review.json",
+    "bytes": 2248,
+    "sha256": "0bb49243a0019bb0f351b3525d135a4f22a50d6fa861badb33b0b72b24f15353"
+  },
+  "priorReviewArchive": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c36-shadow-original-review-ultra/prior-image-review.original.json",
+    "bytes": 2248,
+    "sha256": "0bb49243a0019bb0f351b3525d135a4f22a50d6fa861badb33b0b72b24f15353"
+  },
+  "scenes": [
+    {
+      "scene": "arcade",
+      "gpuDepthSizes": [
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      "originalRestoredAndCachedBytesIdentical": true,
+      "poseAndFixedFieldsUnchanged": true,
+      "recordedResourcesRestored": true,
+      "renderAndFinishMs": [
+        250,
+        198,
+        186.99999999999272
+      ],
+      "timingScope": "Host wall time around real render and gl.finish; not an independent GPU timer or frame-rate benchmark."
+    },
+    {
+      "scene": "south",
+      "gpuDepthSizes": [
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      "originalRestoredAndCachedBytesIdentical": true,
+      "poseAndFixedFieldsUnchanged": true,
+      "recordedResourcesRestored": true,
+      "renderAndFinishMs": [
+        218,
+        203.00000000000728,
+        200
+      ],
+      "timingScope": "Host wall time around real render and gl.finish; not an independent GPU timer or frame-rate benchmark."
+    }
+  ],
+  "measurementScope": "Local bytes independently rehashed. GPU dimensions, disposal and frozen state cross-checked within the original report; no GPU run repeated. These numeric checks are not perception evidence.",
+  "imageTransforms": 0,
+  "remoteMutations": 0,
+  "productChanges": 0,
+  "ciRunsStarted": 0,
+  "automationChanges": 0
+}

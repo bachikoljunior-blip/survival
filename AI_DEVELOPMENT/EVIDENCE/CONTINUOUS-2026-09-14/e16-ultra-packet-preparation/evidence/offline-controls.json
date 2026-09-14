@@ -1,0 +1,126 @@
+{
+  "checks": [
+    {
+      "name": "pending real selection rejects before packet",
+      "passed": true
+    },
+    {
+      "name": "real 19/71 C28 conformance passes with synthetic image pins",
+      "passed": true
+    },
+    {
+      "name": "canonical criteria byte change rejects",
+      "passed": true
+    },
+    {
+      "name": "element reference change rejects",
+      "passed": true
+    },
+    {
+      "name": "missing view rejects",
+      "passed": true
+    },
+    {
+      "name": "view order change rejects",
+      "passed": true
+    },
+    {
+      "name": "original byte hash mismatch rejects",
+      "passed": true
+    },
+    {
+      "name": "old original candidate list rejects",
+      "passed": true
+    },
+    {
+      "name": "history omission rejects",
+      "passed": true
+    },
+    {
+      "name": "capture commit mismatch rejects",
+      "passed": true
+    },
+    {
+      "name": "outside workspace source rejects",
+      "passed": true
+    },
+    {
+      "name": "tEXt source metadata rejects unchanged",
+      "passed": true
+    },
+    {
+      "name": "iTXt source metadata rejects unchanged",
+      "passed": true
+    },
+    {
+      "name": "eXIf source metadata rejects unchanged",
+      "passed": true
+    },
+    {
+      "name": "public allowlist and source text separated",
+      "passed": true
+    },
+    {
+      "name": "16 raw PNG bytes and CSV order exact",
+      "passed": true
+    },
+    {
+      "name": "same build refuses second reservation",
+      "passed": true
+    },
+    {
+      "name": "same images under different build refuse reservation",
+      "passed": true
+    },
+    {
+      "name": "complete JSON remains awaiting independent audit",
+      "passed": true
+    },
+    {
+      "name": "recognition yes invalidates",
+      "passed": true
+    },
+    {
+      "name": "recognition uncertain invalidates",
+      "passed": true
+    },
+    {
+      "name": "missing image observation incomplete",
+      "passed": true
+    },
+    {
+      "name": "missing axis incomplete",
+      "passed": true
+    },
+    {
+      "name": "duplicate JSON key incomplete",
+      "passed": true
+    },
+    {
+      "name": "tampered packet and absent trace preserve raw and invalidate",
+      "passed": true
+    },
+    {
+      "name": "existing result cannot be overwritten",
+      "passed": true
+    },
+    {
+      "name": "frozen helper historical raw and real pending selection unchanged",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.06156772599206306,
+  "evaluation_count": 0,
+  "fixture_reference_pins_replaced_in_memory": true,
+  "generator_sha256": "97521b3bd011a1c281e252ca880693ec06de74a2440c2b84dd67534d44558f5f",
+  "helper_sha256_before_after": "8becdc0644fc43339a0a6a23b4f82e80d2dab3800f32916b61ee7ec2cdce1d72",
+  "historical_raw_file_count_unchanged": 20,
+  "network_process_execution_denied_in_test": true,
+  "passed": 27,
+  "purpose": "CPU controls only, no evaluation or actual post-grain selection",
+  "real_conformance": "All 19 goal identities/references and 71 criteria checked against frozen helper, actual C28 elements and exact canonical docs",
+  "real_packet_count": 0,
+  "schema_version": 1,
+  "synthetic_packet_count": 1,
+  "test_script_sha256": "5f52c794a8205dc0d6d772f6f9b84e4943f1c356eaa64e530fb3df4365214559"
+}

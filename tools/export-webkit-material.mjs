@@ -10,6 +10,23 @@ const output = process.env.CINDERLINE_WEBKIT_OUTPUT || 'test-results/iphone-webk
 if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') {
   files.push(...readdirSync(output).filter(file => /^light-direction-(stacks|marrow|arcade|cinder|survey|ventfield|south|plant)-(before|trial|restored)\.png$/.test(file)).sort());
 }
+if (process.env.CINDERLINE_GRAIN_TRIAL === '1') {
+  files.push(...readdirSync(output).filter(file => /^grain-(stacks|marrow|arcade|cinder|survey|ventfield|south|plant)-(before|trial|restored)\.png$/.test(file)).sort());
+}
+if (process.env.CINDERLINE_CHARACTER_CONTACT === '1') {
+  for (const scene of ['arcade', 'south']) {
+    for (const variant of ['original', 'depth-zero', 'normal-zero', 'both-zero', 'repeat']) {
+      files.push(`contact-${scene}-${variant}.png`);
+    }
+  }
+}
+if (process.env.CINDERLINE_SHADOW_RESOLUTION === '1') {
+  for (const scene of ['arcade', 'south']) {
+    for (const variant of ['original', 'double', 'restored']) {
+      files.push(`shadow-resolution-${scene}-${variant}.png`);
+    }
+  }
+}
 const cap = 2 * 1024 * 1024;
 let failed = false;
 for (const file of files) {

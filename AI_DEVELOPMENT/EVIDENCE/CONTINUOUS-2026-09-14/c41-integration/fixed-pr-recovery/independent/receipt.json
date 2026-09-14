@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "completedAtUTC": "2026-09-14T21:34:37.799008+00:00",
+  "status": "pass for fixed recovery preparation and the explicitly requested composed-workflow byte boundary",
+  "blocking": 0,
+  "blockingFindings": [],
+  "latestRulesHead": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "technicalBaseHead": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "technicalBaseTree": "56dad9f8c5fea165b63de2241b1016fcf20cef93",
+  "candidate": {
+    "repositoryPath": "tools/recover-ios-c40-pr.py",
+    "path": "recover-ios-c40-pr.py",
+    "bytes": 14767,
+    "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b",
+    "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+  },
+  "recoveryJobBlock": {
+    "path": "recovery-job-block.yml",
+    "bytes": 1845,
+    "sha256": "b275a57dd7df915d0666ac13d2ee4d2398663c2e8139042b982bfbe188d63082",
+    "gitBlob": "9792deff0b871262cab581935d4ad3874ff26bc0"
+  },
+  "combinedWorkflow": {
+    "path": "gates.yml",
+    "bytes": 34517,
+    "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199",
+    "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2"
+  },
+  "independentVerification": {
+    "zipCliControlsPassed": 14,
+    "additionalCompositionBoundaryChecks": 1,
+    "totalBoundedChecksPassed": 15,
+    "producerControlsCountedAsIndependent": 0,
+    "eightOriginalFunctionBodiesByteIdentical": true,
+    "sourceHeadAndActualMergeCheckedSeparately": true,
+    "failureStatusAndClocksPreserved": true,
+    "allHardCapsUnchanged": true,
+    "syntheticStreams": {
+      "files": 2,
+      "chunks": 7,
+      "metaEqualsEnd": true,
+      "originalFailureRetained": true
+    },
+    "compositionByteExact": true,
+    "existingRequiredGatesUnchanged": true,
+    "duplicateJobIds": false,
+    "siblingPreparationHelperInternalsReviewed": false,
+    "allSiblingSixPathsReviewed": false
+  },
+  "fixedOriginal": {
+    "artifactId": 10369332540,
+    "runId": 34895779614,
+    "runAttempt": 1,
+    "sourceHead": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+    "actualCheckoutMerge": "051d718255ef21c4ba37947f8177d4121cd159d3",
+    "zipBytes": 13459726,
+    "zipSha256": "1a316ac9b028cb6b3d1f126401c36bef33e8b9eac869db367ecb50e1cddcd1a2",
+    "checks": 47,
+    "passed": 45,
+    "streetClockPassed": false,
+    "clips": 3,
+    "profilePresent": false,
+    "lifecycle": "not run",
+    "originalStatus": "failed"
+  },
+  "limits": {
+    "reportRaw": 33554432,
+    "appiumRaw": 8388608,
+    "totalRaw": 41943040,
+    "gzipTotal": 8388608,
+    "zip": 33554432,
+    "declaredExpansion": 100663296,
+    "members": 64,
+    "compressedChunk": 3000
+  },
+  "execution": {
+    "pythonVersion": "3.12.14",
+    "actualOriginalZipRead": false,
+    "actualOriginalReportBytesRead": false,
+    "actualOriginalAppiumBytesRead": false,
+    "actualBuild": false,
+    "generatedRoot": null,
+    "actualCI": false,
+    "remoteWrites": 0,
+    "newCI": 0,
+    "reruns": 0,
+    "newSpawn": 0,
+    "libraryAccess": 0,
+    "automationChanges": 0,
+    "rejectedRouteRetries": 0,
+    "candidateEdits": 0,
+    "refUpdates": 0
+  },
+  "artifactMetadataFetch": {
+    "attempts": 1,
+    "outcome": "HTTP 400 INVALID_ARGUMENT: endpoint is not an allowed public GitHub repository or search endpoint",
+    "routeRetry": 0,
+    "zipReadAttempt": 0,
+    "existingWorkspaceMetadataUsed": true
+  },
+  "limitations": [
+    "Real ZIP layout/CRC/digest and complete original report validation remain unexecuted",
+    "Original report/Appium byte sizes and SHA remain unknown until recovery",
+    "Independent CLI inputs are labelled synthetic fixtures, not the unread original report",
+    "Recovery success never changes the original failed street clock or unexecuted lifecycle",
+    "Combined workflow review is limited to exact composition and existing gate preservation; sibling helper review is separately owned"
+  ],
+  "programmeState": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "elements": "all19 not measured",
+    "criteria": 71,
+    "fixedReferences": 10,
+    "validBlind": 0,
+    "units": 0,
+    "work": "continuous"
+  },
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "bytes": 4657,
+      "sha256": "644395e935e86c27f373452c588367c1b03b66ab3f55c7037623dd7635959925",
+      "gitBlob": "465c976e7394e5a51dc7dc4353362cc06ad2669e"
+    },
+    {
+      "path": "independent-controls.json",
+      "bytes": 3696,
+      "sha256": "1ca093f36447927ad1a9ad19f7e5ea3cd1914caa7d2ce66024b31dd5643caedb",
+      "gitBlob": "cc8c24ab53de63913ff17b1a1bd89996a0a5a9c9"
+    },
+    {
+      "path": "independent_controls.py",
+      "bytes": 20376,
+      "sha256": "b4e984239b48454e07fad2c05c49264878092dca4bedd36d5f514b5405af1697",
+      "gitBlob": "964786c84d9697013e0a3c2906180d40cdf2b116"
+    },
+    {
+      "path": "combined-workflow-verification.json",
+      "bytes": 1066,
+      "sha256": "141516bc804355e4b9456c9877fe7125cd759e687ccfab59f5e0af33416c4e86",
+      "gitBlob": "25dda9b304a0faa4c4cbff2d4344d92d1366ef73"
+    },
+    {
+      "path": "verify_composition.py",
+      "bytes": 2808,
+      "sha256": "b538de10261f12f752d601a99502d63f7ae7a8f082dd4d6864f3aa543755c565",
+      "gitBlob": "0cb2e7902c4f70314accdd68f0221f82accc464d"
+    },
+    {
+      "path": "input-pins.json",
+      "bytes": 2412,
+      "sha256": "99fef3b543558e1257b041ca92629339a9644fd0af57b06032697f07c06b3a1e",
+      "gitBlob": "ae79f9a0aa34a0ab8be9ad369c415e7208396664"
+    },
+    {
+      "path": "authority-acceptance.json",
+      "bytes": 1636,
+      "sha256": "b352649d6b27f5becaf086ca489fa9d23dc3bb2292c6679dbc2d275b18c62561",
+      "gitBlob": "f9a1ec83c663baa9c0c2178522f388f30b0d01fe"
+    }
+  ],
+  "publication": "Only exact files/hash entries in publication-allowlist.json; no recursive directory publication"
+}

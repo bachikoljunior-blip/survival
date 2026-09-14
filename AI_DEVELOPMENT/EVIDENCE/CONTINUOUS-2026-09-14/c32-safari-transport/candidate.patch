@@ -1,0 +1,11 @@
+--- a/tools/ios_audio_capture.mjs
++++ b/tools/ios_audio_capture.mjs
+@@ -15,7 +15,7 @@
+   recorderBlob: '86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa',
+ });
+ const TRANSFER_KEY = '__cinderlineIosAudioTransfer';
+-const CHUNK_CHARS = 32768;
++const CHUNK_CHARS = 131072;
+ const MAX_TRANSFER_CHARS = 48 * 1024 * 1024;
+ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');

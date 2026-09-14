@@ -1,0 +1,97 @@
+{
+  "scope": "Finite CPU controls. Real r180 WebGLShadowMap, real Three r180 RenderTarget.setSize and exact WebGLTextures disposal code execute against instrumented CPU GL handles. Draw/GL allocation are simulated; PNG values are explicit non-image tokens. No browser/GPU/image effectiveness is claimed.",
+  "checks": [
+    {
+      "name": "exact r180 WebGLShadowMap leaves existing target at 1024 when only mapSize becomes 2048",
+      "passed": true
+    },
+    {
+      "name": "real RenderTarget.setSize and exact r180 WebGLTextures disposal delete old attachments before native reallocation",
+      "passed": true
+    },
+    {
+      "name": "single native-source 1024/2048/1024 route preserves pose, feet, fixed settings and restores resources/PNG token",
+      "passed": true
+    },
+    {
+      "name": "a resize with no disposal is rejected",
+      "passed": true
+    },
+    {
+      "name": "old GPU texture leakage is rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong actual GPU storage dimensions are rejected",
+      "passed": true
+    },
+    {
+      "name": "incomplete framebuffer is rejected",
+      "passed": true
+    },
+    {
+      "name": "GL error during resize is retained",
+      "passed": true
+    },
+    {
+      "name": "context loss is retained",
+      "passed": true
+    },
+    {
+      "name": "native shadow-pass exception is retained and public GL bindings restore",
+      "passed": true
+    },
+    {
+      "name": "pose/camera/time drift cannot become a valid resize",
+      "passed": true
+    },
+    {
+      "name": "bias drift is rejected",
+      "passed": true
+    },
+    {
+      "name": "extent drift is rejected",
+      "passed": true
+    },
+    {
+      "name": "PCF type drift is rejected",
+      "passed": true
+    },
+    {
+      "name": "cleanup setSize failure is retained with actual target still 2048, no false restored flag",
+      "passed": true
+    },
+    {
+      "name": "dispose listener cleanup failure stays invalid",
+      "passed": true
+    },
+    {
+      "name": "restored PNG mismatch stays invalid even if resources and settings restore",
+      "passed": true
+    },
+    {
+      "name": "unsupported 2048 capability refuses before any diagnostic rendering or resize",
+      "passed": true
+    },
+    {
+      "name": "live simulation refuses before any diagnostic rendering or resize",
+      "passed": true
+    },
+    {
+      "name": "existing route/default and exporter remain byte-identical after removing the explicit new opt-in blocks",
+      "passed": true
+    }
+  ],
+  "passed": 20,
+  "failed": 0,
+  "elapsedMs": 91.268622,
+  "sourceHashes": {
+    "WebGLShadowMap": "7c157a05d05d1f3f4d1090dbb923a6f14f0f03e799d64680d278d2a55f915041",
+    "WebGLTextures": "b163f0d958d36ed9985ebecfa8b69e6496642bb26e56a5af1b499a92b350ff79",
+    "helper": "4739ed7fbcad3737167f8b73125c68239b493c929bf6567f6824bcb34a14aa5c",
+    "actualThreeModule": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "actualGPUExecutions": 0,
+  "actualDiagnosticPNGs": 0,
+  "comparisons": 0
+}

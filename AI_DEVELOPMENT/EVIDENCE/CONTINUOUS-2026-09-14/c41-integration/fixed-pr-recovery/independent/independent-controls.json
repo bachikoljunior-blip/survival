@@ -1,0 +1,112 @@
+{
+  "scope": "Independent source and synthetic ZIP/CLI controls; original archive unread",
+  "pythonVersion": "3.12.14",
+  "passed": 14,
+  "controls": [
+    {
+      "name": "Canonical base and candidate pins, eight unchanged function bodies, and original hard capacities",
+      "passed": true
+    },
+    {
+      "name": "Source head and actual checkout merge are separate; original compact failure fields match every frozen pin",
+      "passed": true
+    },
+    {
+      "name": "All fixed artifact/run/repository fields and expiration reject mismatches",
+      "passed": true
+    },
+    {
+      "name": "Fixed failed status, checks, three clocks, no profile and unexecuted lifecycle fail closed on mutation",
+      "passed": true
+    },
+    {
+      "name": "Duplicate JSON keys, nonfinite literals, invalid UTF-8 and concatenated metadata reject",
+      "passed": true
+    },
+    {
+      "name": "Complete ZIP size/digest admission and exact two-member gzip/CRC round trip",
+      "passed": true
+    },
+    {
+      "name": "Traversal, absolute/drive/backslash/NUL paths, normalized duplicates, symlinks and missing root members reject",
+      "passed": true
+    },
+    {
+      "name": "Selected length/CRC/UTF-8, entry count, declared expansion, raw size, encryption and codec bounds reject",
+      "passed": true
+    },
+    {
+      "name": "Only two selected members are inflated and the aggregate gzip rejection branch remains active",
+      "passed": true
+    },
+    {
+      "name": "Repository/source push/attempt/workflow/event marker and fixed CLI argument gates reject before output files",
+      "passed": true
+    },
+    {
+      "name": "Archive receiver writes only complete exact-size exact-digest bytes, with no early recovered output",
+      "passed": true
+    },
+    {
+      "name": "CLI emits two complete meta/chunk/end streams that reconstruct exact raw bytes and preserve the failed diagnostic",
+      "passed": true
+    },
+    {
+      "name": "A structurally valid archive with altered original failure creates no recovered files or success stream",
+      "passed": true
+    },
+    {
+      "name": "Append-only standalone job preserves existing jobs, read-only permissions, marker and metadata-first official stream",
+      "passed": true
+    }
+  ],
+  "facts": {
+    "unchangedFunctionBodies": [
+      "require",
+      "sha",
+      "strict_json",
+      "verify_metadata",
+      "bounded_read",
+      "recover",
+      "environment",
+      "emit"
+    ],
+    "syntheticOriginals": {
+      "report.json": {
+        "bytes": 21789,
+        "sha256": "af0331bb98582201dbbce23591d71aee50448f1b9da1fe2675dbe6fdbb7894e7"
+      },
+      "appium.log": {
+        "bytes": 18027,
+        "sha256": "a2c534bcd79408f54e33f75e7322e4ec49bacad3863778c38dee4610e688a79c"
+      }
+    },
+    "syntheticCLIStreams": {
+      "files": 2,
+      "chunks": 7,
+      "metaEqualsEnd": true,
+      "originalFailureRetained": true
+    },
+    "workflow": {
+      "existingJobsUnchanged": 23,
+      "addedJobs": 1,
+      "fullCombinedWorkflowCandidateProduced": false
+    }
+  },
+  "blocking": 0,
+  "producerControlsCountedAsIndependent": 0,
+  "fixturePinOverride": "Only in-memory PIN size/digest and isolated OUT for synthetic CLI; candidate source file unchanged",
+  "gzipBranchFixture": "Reduced in-memory limit only for rejection branch; production 8 MiB constant independently verified unchanged",
+  "actualOriginalZipRead": false,
+  "actualOriginalReportBytesRead": false,
+  "actualOriginalAppiumBytesRead": false,
+  "build": false,
+  "generatedRoot": null,
+  "remoteWrites": 0,
+  "newCI": 0,
+  "reruns": 0,
+  "newSpawn": 0,
+  "libraryAccess": 0,
+  "automationChanges": 0,
+  "rejectedRouteRetries": 0
+}

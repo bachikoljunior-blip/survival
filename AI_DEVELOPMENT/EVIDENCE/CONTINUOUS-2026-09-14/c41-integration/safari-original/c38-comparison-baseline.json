@@ -1,0 +1,60 @@
+{
+  "source": "Already canonically recovered C38 original; no remote/refetch",
+  "path": "c39-c38-original-phase-result-ultra/original/report.json",
+  "bytes": 16237592,
+  "sha256": "9fe62379c2c35a01cb4b83af265b8ab67024d58b828a2da49bb586a68f6d092e",
+  "status": "failed",
+  "provenance": {
+    "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "runCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "runId": "34884725972",
+    "runAttempt": "1"
+  },
+  "frameWork": {
+    "limit": 4096,
+    "dropped": 844,
+    "complete": false
+  },
+  "frameRows": 4096,
+  "street": {
+    "recordingWallMs": 92010,
+    "recordingFrames": 4025,
+    "beforeMovementSnapshotMs": 78349,
+    "beforeMovementSnapshotFrames": 3401
+  },
+  "oldSmallReply": {
+    "requestLine": 7991,
+    "start": "2026-09-14 19:16:45:166",
+    "method": "POST",
+    "route": "/session/eec3f57c-0de6-400d-b611-254dc63222ca/execute/sync",
+    "completeJsonBody": true,
+    "args": [
+      7,
+      0
+    ],
+    "responseLine": 7992,
+    "end": "2026-09-14 19:17:45:543",
+    "status": 200,
+    "appiumElapsedMs": 59329,
+    "loggedResponseBytes": 618,
+    "logEndpointMs": 60377
+  },
+  "comparisonLimits": [
+    "C38 profile enabled, root1094; C40 root8c and startup/inline acquisition changes. C40 actual profile state must be read from its original result.",
+    "Different jobs/host conditions and product/check code identity prevent attributing elapsed differences to inline alone.",
+    "Proof of a removed small reply is a command-sequence observation, not proof of why the old HTTP command stalled or why engine time was lost."
+  ]
+}

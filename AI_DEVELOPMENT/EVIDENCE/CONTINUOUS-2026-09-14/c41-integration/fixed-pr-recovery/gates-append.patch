@@ -1,0 +1,44 @@
+--- a/.github/workflows/gates.yml
++++ b/.github/workflows/gates.yml
+@@ -792,3 +792,41 @@
+           path: test-results/ios-phase-c38-original-recovery-r1/original
+           if-no-files-found: error
+           retention-days: 14
++
++  recover-ios-c40-pr:
++    name: Recover the fixed failed C40 PR report and Appium log
++    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-c40-pr-r1]')
++    runs-on: ubuntu-latest
++    timeout-minutes: 10
++    permissions:
++      contents: read
++      actions: read
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          ref: ${{ github.sha }}
++          persist-credentials: false
++      - name: Verify the fixed original repository artifact identity
++        env:
++          GH_TOKEN: ${{ github.token }}
++        run: |
++          mkdir -p test-results/ios-c40-pr-original-recovery-r1
++          gh api 'repos/bachikoljunior-blip/survival/actions/runs/34895779614/artifacts?per_page=100' --jq '.artifacts[] | select(.id == 10369332540)' > test-results/ios-c40-pr-original-recovery-r1/artifact-metadata.json
++          python3 tools/recover-ios-c40-pr.py --metadata-only
++      - name: Receive only the exact fixed archive bytes through the official GitHub API
++        env:
++          GH_TOKEN: ${{ github.token }}
++        shell: bash
++        run: |
++          set -o pipefail
++          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10369332540/zip | python3 tools/recover-ios-c40-pr.py --receive-archive
++      - name: Verify original ZIP and preserve report and Appium log as bounded lossless gzip
++        run: python3 tools/recover-ios-c40-pr.py
++      - name: Preserve the original failed diagnostic recovery
++        if: always()
++        uses: actions/upload-artifact@v4
++        with:
++          name: ios-c40-pr-original-recovery-r1-${{ github.sha }}
++          path: test-results/ios-c40-pr-original-recovery-r1/original
++          if-no-files-found: error
++          retention-days: 14

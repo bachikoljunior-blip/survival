@@ -1,0 +1,104 @@
+{
+  "policy": "Only the exact listed files plus this allowlist control may be published. No recursive directory copy.",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 8326,
+      "sha256": "87fdd0484be0b0231b738e3d2a005d21438aad1fee5c18f057321b88ceda3bd4",
+      "gitBlob": "73c2395c7e3e798b949f33d768b3a1d5b081fd34"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 6611,
+      "sha256": "1477dd93c1c780fae5234a140ce0352ef7f30f0d465adf83a4297f45d3f7dcf1",
+      "gitBlob": "169390fd66d2be20a89ad2dc62216abba80d0130"
+    },
+    {
+      "path": "candidate-pins.json",
+      "bytes": 1947,
+      "sha256": "09e14e130795ee4fd86ad0f90848448d396b88055ca92904c0f5fa5e575b40c8",
+      "gitBlob": "4b637c135ea8cd1b24a2d7a2dfca68290f979e6b"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 198747,
+      "sha256": "6c1ffda33b210f68595ae6dfe32b60b587c52c496c8c28bcd832589059d552c0",
+      "gitBlob": "00d74b795e4bd0752afb2b39f31f7452a3746f16"
+    },
+    {
+      "path": "workflow-diff.patch",
+      "bytes": 2754,
+      "sha256": "64d104db9cd664cafe61b559e45af5203b1059d432ba0746c4b2e68009c40f7e",
+      "gitBlob": "c5677c5750ad29e7de9f997de9281b60a9917a7b"
+    },
+    {
+      "path": "workflow-scope.json",
+      "bytes": 269,
+      "sha256": "7b2bb075d3509d5084421c4940d149441e5d71aea51919731b367c49c4bb51ff",
+      "gitBlob": "5da032f41676f1c76ae7cc1b263f87d646830e8d"
+    },
+    {
+      "path": "verified-current-pins.json",
+      "bytes": 9835,
+      "sha256": "fb432ebbb35ae0c0a213b61338afe342b6a7946782462d874f6d2a1d4a04e346",
+      "gitBlob": "fcf9ccecf253d523943bd94a94f96e5b69da8caf"
+    },
+    {
+      "path": "journal-target-pins.json",
+      "bytes": 569,
+      "sha256": "efc65a72e73616640a46f5839ff8565fbfed4d13f9d3c51193a49585cb24b072",
+      "gitBlob": "660a701bd79f82d499d53319dc2d6297dcd5fff5"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 2359,
+      "sha256": "540cea59f0d8deb81a7fd129ba2b30ca68b9008adcee7ffed5ff2181842fe276",
+      "gitBlob": "0ab1df3176c727962deeaf7e8a1035d76de3764c"
+    },
+    {
+      "path": "verify-preparation.mjs",
+      "bytes": 9445,
+      "sha256": "9a9c8040e49e07fd56185d35c29d6a2d92f2614e7f1fc35a4359bf7f645d1f8a",
+      "gitBlob": "cb9a2eb6282a467a5e3a21f3cc0041f8e8ed814f"
+    },
+    {
+      "path": "candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13694,
+      "sha256": "90ef97454e1b570d025e0bf30391ce886f3250b5fb700a0d11518674d6060296",
+      "gitBlob": "a0febba28d7d6bc7acd6a4e51ce74f014bbf06ba"
+    },
+    {
+      "path": "candidate/tools/check-narrative-routes.mjs",
+      "bytes": 18661,
+      "sha256": "3c631b2286ef7e6ff24d8be0b6d317689a22852a55e7da82efe5961fc0bc90b3",
+      "gitBlob": "ea60c36a448f4338c98e5dc42b97f7a0610e10c3"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-story-r1.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-ja-content-r1.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387"
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "bytes": 32640,
+      "sha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+      "gitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f"
+    }
+  ],
+  "excluded": [
+    "authority/",
+    "canonical/",
+    "baseline/",
+    "fixture/",
+    "creation scripts",
+    "any private comparison material or identifiers"
+  ],
+  "self": "publication-allowlist.json"
+}

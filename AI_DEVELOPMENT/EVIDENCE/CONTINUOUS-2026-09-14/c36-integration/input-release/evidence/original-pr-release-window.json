@@ -1,0 +1,90 @@
+{
+  "source": "/workspace/scratch/0b7ad82bafe7/c35-ios-pr-recovered/original/report.json",
+  "bytes": 939375,
+  "sha256": "abf62e88aa00183e035453e63e9ab136597a1de79e230148177318f66533cf8e",
+  "paths": [
+    "audioCapture.movements[0]",
+    "audioCapture.clips[0].telemetry.clockFrames"
+  ],
+  "movement": {
+    "before": {
+      "wallMs": 40024,
+      "audioTime": 25.76,
+      "engineTime": 26.56666666666644,
+      "engineFrame": 1331,
+      "position": [
+        -112,
+        0,
+        -84
+      ],
+      "inputCount": 5
+    },
+    "after": {
+      "wallMs": 44351,
+      "audioTime": 30.08,
+      "engineTime": 29.433333333332943,
+      "engineFrame": 1439,
+      "position": [
+        -114.10785912412923,
+        0,
+        -86.10524804265766
+      ],
+      "stickActive": false,
+      "moveMagnitude": 1,
+      "input": [
+        {
+          "type": "pointerdown",
+          "trusted": true,
+          "pointerType": "touch",
+          "pointerId": 1676344586,
+          "x": 101,
+          "y": 246,
+          "activeTouches": 1,
+          "target": {
+            "tag": "CANVAS",
+            "id": "gl",
+            "className": "",
+            "text": ""
+          }
+        },
+        {
+          "type": "pointerup",
+          "trusted": true,
+          "pointerType": "touch",
+          "pointerId": 1676344586,
+          "x": 101,
+          "y": 186,
+          "activeTouches": 1,
+          "target": {
+            "tag": "CANVAS",
+            "id": "gl",
+            "className": "",
+            "text": ""
+          }
+        }
+      ]
+    },
+    "distance": 2.9791172196287925
+  },
+  "previousClockFrame": {
+    "wallMs": 43869,
+    "audioTime": 29.6,
+    "audioState": "running",
+    "engineTime": 29.433333333332943,
+    "engineFrame": 1439,
+    "mode": "play",
+    "paused": false,
+    "tier": "low"
+  },
+  "nextClockFrame": {
+    "wallMs": 44450,
+    "audioTime": 30.181333333333335,
+    "audioState": "running",
+    "engineTime": 29.499999999999606,
+    "engineFrame": 1440,
+    "mode": "play",
+    "paused": false,
+    "tier": "low"
+  },
+  "scope": "Original recovered PR telemetry, read-only. Consistent with a read before the next native fixed update; pointerup has no timestamp, and there is no exact original Input.step trace. No claim that this timing explains the separate street audio clock failure."
+}

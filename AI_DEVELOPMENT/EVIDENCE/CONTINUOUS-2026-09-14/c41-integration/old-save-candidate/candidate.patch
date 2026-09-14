@@ -1,0 +1,28 @@
+--- a/src/game/state.js
++++ b/src/game/state.js
+@@ -356,6 +356,12 @@
+   krajcik: { name: 'Aurel Krajcik', role: 'H.R.A. Site Director' },
+ };
+ 
++// Saves retain the authored English even when played in Japanese. Repair only
++// this exact superseded journal body; custom or future text must survive.
++const LEGACY_IRIS_JOURNAL_TEXT = `She kept a folder of the differences for two years and
++one month. She thought that if I couldn't say it, it couldn't be said. I have
++been an argument in someone else's head this whole time and I did not know it.`;
++
+ export class GameState extends Emitter {
+   constructor() {
+     super();
+@@ -527,7 +533,11 @@
+     this.trust = new Map(d.trust || []);
+     this.quests = new Map((d.quests || []).map(([k, q]) => [k, { ...q }]));
+     this.choices = new Map(d.choices || []);
+-    this.journal = d.journal || [];
++    this.journal = (d.journal || []).map(entry =>
++      entry.id === 'iris' && entry.title === 'Iris Nadeau'
++        && entry.text === LEGACY_IRIS_JOURNAL_TEXT
++        ? { ...entry, text: entry.text.replace('one month.', 'ten months.') }
++        : entry);
+     this.discovered = new Set(d.discovered || []);
+     this.chapter = d.chapter || 0;
+     this.playTime = d.playTime || 0;

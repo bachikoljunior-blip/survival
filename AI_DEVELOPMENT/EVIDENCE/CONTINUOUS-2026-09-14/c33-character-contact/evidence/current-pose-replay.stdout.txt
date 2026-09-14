@@ -1,0 +1,257 @@
+{
+  "cpuElapsedMs": 145.727189,
+  "views": [
+    {
+      "name": "south",
+      "exact": false,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.02500000037252903,
+          "mesh": "chunk_-2,1:asphalt"
+        }
+      }
+    },
+    {
+      "name": "cinder",
+      "exact": true,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.029999999329447746,
+          "mesh": "chunk_0,-1:paint"
+        }
+      },
+      "feet": {
+        "L": {
+          "minGapToRender": -0.0521773151819281,
+          "maxGapToRender": -0.01106284660529174
+        },
+        "R": {
+          "minGapToRender": -0.04352947961627296,
+          "maxGapToRender": -0.0017514424865521863
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": false
+      }
+    },
+    {
+      "name": "arcade",
+      "exact": true,
+      "support": {
+        "collision": {
+          "y": 0.14,
+          "tag": "pavement"
+        },
+        "render": {
+          "y": 0.14000000059604645,
+          "mesh": "chunk_-2,-1:concrete"
+        }
+      },
+      "feet": {
+        "L": {
+          "minGapToRender": -0.024836340804081883,
+          "maxGapToRender": 0.011097512349032501
+        },
+        "R": {
+          "minGapToRender": -0.020957979713548222,
+          "maxGapToRender": 0.02099734924026403
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": true
+      }
+    },
+    {
+      "name": "marrow",
+      "exact": false,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.029999999329447746,
+          "mesh": "chunk_-3,0:paint"
+        }
+      }
+    },
+    {
+      "name": "stacks",
+      "exact": true,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0,
+          "mesh": "chunk_-3,-2:ash"
+        }
+      },
+      "feet": {
+        "L": {
+          "minGapToRender": -0.02621156035293994,
+          "maxGapToRender": 0.00967478882167986
+        },
+        "R": {
+          "minGapToRender": -0.022272590558956255,
+          "maxGapToRender": 0.019729334432481357
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": false
+      }
+    },
+    {
+      "name": "plant",
+      "exact": false,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.02500000037252903,
+          "mesh": "chunk_-1,-2:asphalt"
+        }
+      }
+    },
+    {
+      "name": "survey",
+      "exact": false,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0.02500000037252903,
+          "mesh": "chunk_1,-1:asphalt"
+        }
+      }
+    },
+    {
+      "name": "ventfield",
+      "exact": true,
+      "support": {
+        "collision": {
+          "y": 0,
+          "tag": "ground"
+        },
+        "render": {
+          "y": 0,
+          "mesh": "chunk_1,-2:ash"
+        }
+      },
+      "feet": {
+        "L": {
+          "minGapToRender": -0.024840722806571833,
+          "maxGapToRender": 0.011914262085152817
+        },
+        "R": {
+          "minGapToRender": -0.022011439584987837,
+          "maxGapToRender": 0.019136241101275243
+        }
+      },
+      "shadow": {
+        "original": {
+          "bias": -0.0009,
+          "normalBias": 0.028,
+          "batching": true
+        },
+        "lightDirection": [
+          -0.41927780428131267,
+          0.828804961951432,
+          0.3705245712253461
+        ],
+        "nearFar": {
+          "near": 1,
+          "far": 150
+        },
+        "mapSize": [
+          1024,
+          1024
+        ],
+        "depthExemptionAlongLightRay": 0.1341,
+        "idealHorizontalReceiverHeightThreshold": 0.13914274539768703,
+        "analyticOnly": "Ideal unfiltered same-UV comparison; not GPU sampling or attribution of the image symptom",
+        "cachedEqualsRefreshedEqualsRepeat": true,
+        "unbatchedEqualsCached": false
+      }
+    }
+  ]
+}

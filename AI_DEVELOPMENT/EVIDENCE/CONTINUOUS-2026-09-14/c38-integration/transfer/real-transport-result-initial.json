@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "fixtureOnly": true,
+  "actualSafari": false,
+  "scope": "Real Node HTTP sockets, wall-clock delays, browser-function VM, WebCrypto and fetch; synthetic text only. The 1500 ms test budget is shorter than the unchanged production 120000 ms. This reproduces a possible serial round-trip deadline mechanism, not the unrecorded C36 per-command timings.",
+  "originalReportSha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8",
+  "fixtureJsonChars": 5000121,
+  "fixtureJsonBytes": 5000133,
+  "fixtureJsonSha256": "54a947322224ce6c130730021c308ea98d71f86558820ec4baad88662cf1f9d4",
+  "results": [
+    {
+      "label": "original helper, real delayed HTTP WebDriver, synthetic 5M-character payload",
+      "timeoutMs": 1500,
+      "driverLatencyMs": 60,
+      "elapsedMs": 1531.5462909999999,
+      "success": false,
+      "error": "Safari audio chunk transfer timed out",
+      "driverCommands": 24,
+      "driverReplyBytes": 2884656,
+      "posts": 0,
+      "maxPostBytes": 0,
+      "returnedJsonSha256": null,
+      "uploadReceipts": []
+    },
+    {
+      "label": "candidate helper, same payload/delay/budget, real same-origin HTTP upload",
+      "timeoutMs": 1500,
+      "driverLatencyMs": 60,
+      "elapsedMs": 478.589614,
+      "success": true,
+      "error": null,
+      "driverCommands": 7,
+      "driverReplyBytes": 371,
+      "posts": 39,
+      "maxPostBytes": 131072,
+      "returnedJsonSha256": "54a947322224ce6c130730021c308ea98d71f86558820ec4baad88662cf1f9d4",
+      "uploadReceipts": [
+        {
+          "id": 1,
+          "chars": 5000121,
+          "chunkBytes": 131072,
+          "maxTransferChars": 50331648,
+          "deadline": 1789408893802,
+          "receivedBytes": 5000133,
+          "chunks": 39,
+          "status": "received",
+          "sha256": "54a947322224ce6c130730021c308ea98d71f86558820ec4baad88662cf1f9d4",
+          "elapsedMs": 201
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "scope": "Finite independent C37 original Safari log/pin/summary arithmetic verification",
+  "finalizedAtUtc": "2026-09-14T18:36:18.904218+00:00",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 4649,
+      "sha256": "5923c06183c582a765dbc25d1c86a9d2d1586a870cbbf3d72f5e6038b7ec0295"
+    },
+    {
+      "path": "acceptance.json",
+      "bytes": 1402,
+      "sha256": "c23c2a1d25b8fbe861a31d9d0a2253500d1eb55191a3ee7b64acf75c92b1a979"
+    },
+    {
+      "path": "authority/agents-response.json",
+      "bytes": 717,
+      "sha256": "72af7b2b734cda27683ac2cf9673fa92be4e73588746bf1a709fd5778529f1af"
+    },
+    {
+      "path": "authority/claude-response.json",
+      "bytes": 22755,
+      "sha256": "a0da4211d76f086ddc8c63f8ad92796e20e71928142d40511352a03637b8cb10"
+    },
+    {
+      "path": "authority/head-response.json",
+      "bytes": 1843,
+      "sha256": "2db7ca1fdd6009a17c172f3d6c3348e5944f7f5431068b8265e06a954fce8376"
+    },
+    {
+      "path": "authority/session-response.json",
+      "bytes": 13469,
+      "sha256": "188d7eb5a7618e109c743f04e88dd3a839ffd203e606b2325b7e6038dc42e4ad"
+    },
+    {
+      "path": "original-input-ledger.json",
+      "bytes": 2199,
+      "sha256": "3b62da635cf76ad321a845897c08b6f5c8a09b312404c3b7ed83fa0c6502bb9c"
+    },
+    {
+      "path": "results.json",
+      "bytes": 9834,
+      "sha256": "947b65f2a84d46a88d48434444b52e6afa67cf50afd5088fa6fdcbbd1b4a424d"
+    },
+    {
+      "path": "source/tools/frame_work_probe.mjs",
+      "bytes": 6563,
+      "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+    },
+    {
+      "path": "source/tools/ios_audio_capture.mjs",
+      "bytes": 22122,
+      "sha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513"
+    },
+    {
+      "path": "source/tools/test-ios-safari.mjs",
+      "bytes": 33470,
+      "sha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec"
+    },
+    {
+      "path": "source-pins-fetch.json",
+      "bytes": 822,
+      "sha256": "2a33515fb2346ecff585e42caabcc04d7cecb9313e0132efb6c87938d1583731"
+    },
+    {
+      "path": "source-pins.json",
+      "bytes": 1442,
+      "sha256": "0767f9cfecc296306214f4d9534529cb0b8f0f8a0e5e2b3b83cac61673afbf80"
+    },
+    {
+      "path": "verify_results.py",
+      "bytes": 11557,
+      "sha256": "0cd67dfc5027cace891e3b1cdbccd22204e3c65aacea27fcdbd6858a05cb0e12"
+    }
+  ],
+  "originalLogs": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/source-safari.log",
+      "bytes": 82694,
+      "sha256": "58818e062ea9f636826f986e5de327b4e14122ef9b9ab7f2f70a897ba307d875",
+      "lineCount": 637,
+      "finalNewline": true,
+      "summaryMarkerCount": 1,
+      "tailLastLine": "2026-09-14T18:21:55.9584990Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "cleanupTailPresent": true
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/pr-safari.log",
+      "bytes": 74135,
+      "sha256": "880b2d104f4f34d3efb308581df934203aaf928b934fa9d99c663b23e54a7271",
+      "lineCount": 611,
+      "finalNewline": true,
+      "summaryMarkerCount": 1,
+      "tailLastLine": "2026-09-14T18:24:30.4722790Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "cleanupTailPresent": true
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/source-f3-execution.log",
+      "bytes": 2443,
+      "sha256": "b6925cea947778b38f2b8321d8963d02d918e68469ac561c2a0abc041f99e929",
+      "lineCount": 40,
+      "finalNewline": true,
+      "summaryMarkerCount": 0,
+      "tailLastLine": "2026-09-14T18:22:13.3968310Z Cleaning up orphan processes",
+      "cleanupTailPresent": true
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/pr-f3-execution.log",
+      "bytes": 2517,
+      "sha256": "9f79685bc977342aef32bd9bdbcad4da69b3e2fed3c2b3f4470e495ad83efd00",
+      "lineCount": 41,
+      "finalNewline": true,
+      "summaryMarkerCount": 0,
+      "tailLastLine": "2026-09-14T18:24:36.8554222Z Cleaning up orphan processes",
+      "cleanupTailPresent": true
+    }
+  ]
+}

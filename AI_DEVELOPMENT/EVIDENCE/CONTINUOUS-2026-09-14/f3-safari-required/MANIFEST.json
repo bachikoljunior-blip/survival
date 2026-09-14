@@ -1,0 +1,143 @@
+{
+  "state": "frozen_candidate_pending_independent_integration_review",
+  "base_commit": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+  "instruction": "ULTRA-CHILDREN-20260914-v3",
+  "canonical_read": {
+    "AGENTS.md": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+    "CLAUDE.md": "8b758231a6b77277092ccee5a322f593320b123f",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml": "46f4fd0baae677ae171326003d4e477b540f0684"
+  },
+  "actor": "/root/e16_runtime_repair_ultra",
+  "remote_writer": "/root/integration_decisions_ultra_v2",
+  "started_at": "2026-09-13T20:56:49+09:00",
+  "deadline_at": "2026-09-20T20:56:49+09:00",
+  "frozen_at_utc": "2026-09-14T14:23:50.777328+00:00",
+  "new_capture_count": 0,
+  "evaluation_count": 0,
+  "CI_started": false,
+  "remote_writes": 0,
+  "automation_changes": 0,
+  "new_children": 0,
+  "files": [
+    {
+      "file": "candidate/.github/workflows/gates.yml",
+      "bytes": 18247,
+      "sha256": "21b5b1ab1057285b8483c5158195720ccd8e78aa5c9a64464694c1c6b665606f",
+      "git_blob": "e1127bb7dbaa3201f91f48b1ea2fccfe07d9cfad"
+    },
+    {
+      "file": "candidate/.github/workflows/mobile-simulator.yml",
+      "bytes": 8621,
+      "sha256": "dc48746f75a6524e725cc767a051be64caf9f0602683516c8494119f4a78f047",
+      "git_blob": "4a4add1a81803f849745a4ffefdc7d81f9e2cd90"
+    },
+    {
+      "file": "candidate/tools/gates/f3_safari_audio.mjs",
+      "bytes": 5850,
+      "sha256": "72cfe3b0b31571cc84e2708124e72529659e788420d84f3cf9f098cae8606224",
+      "git_blob": "54e35fa5e785303dffadaf87b404b42f6f4e9e1d"
+    },
+    {
+      "file": "source-original/.github/workflows/gates.yml",
+      "bytes": 18345,
+      "sha256": "be748faaa530038b494df8eba983ec8328a4e4fdcd16535bb2f5a594aa6b3945",
+      "git_blob": "6f58e1ab3e1e48078dff1d10ab7ffe5f2537bea7"
+    },
+    {
+      "file": "source-original/.github/workflows/mobile-simulator.yml",
+      "bytes": 7969,
+      "sha256": "6cc5f242e3666c568aac6688ef98ca8e54a7b5537f9d13ff2f39cac7b9909074",
+      "git_blob": "0d09a0d45eef1608f460d8509f642e76e4f1902b"
+    },
+    {
+      "file": "source-original/acquisition.json",
+      "bytes": 2158,
+      "sha256": "49f5e243701b330170a32079135556fed95ba2b17d265b3e1bf2320a4774b2db",
+      "git_blob": "348ed4c211318529a87b5b7b63b69eeadd2fac7a"
+    },
+    {
+      "file": "source-original/package.json",
+      "bytes": 3146,
+      "sha256": "97d6729a6eeb9ec7b343e6fc34e8bc8ea0a5e983c385bd9264dbd90a0881c3e1",
+      "git_blob": "1d880ee8e0dab430be362c3fa6bcbe6a06ae24aa"
+    },
+    {
+      "file": "source-original/src/audio/audio.js",
+      "bytes": 47016,
+      "sha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+      "git_blob": "d9462e07a7533393a16c05dee313af5dd207759f"
+    },
+    {
+      "file": "source-original/tools/gates/f3_execution.mjs",
+      "bytes": 2730,
+      "sha256": "78e3019de4b77b407fccf5a649faae56b6f72a255105be142d9d1c7b27c7bfb6",
+      "git_blob": "bd2d89387625b593aa1de0d44e653028702a2890"
+    },
+    {
+      "file": "source-original/tools/ios_audio_capture.mjs",
+      "bytes": 13917,
+      "sha256": "3ed2398a23f94c6426bc30eed6ef9123b24d79b99978ec3de01866d186c73e40",
+      "git_blob": "65711a769f3a82cb3a9a471c5a10f633614514e1"
+    },
+    {
+      "file": "source-original/tools/mobile_audio_capture.mjs",
+      "bytes": 16230,
+      "sha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26",
+      "git_blob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa"
+    },
+    {
+      "file": "source-original/tools/test-ios-safari.mjs",
+      "bytes": 27951,
+      "sha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+      "git_blob": "cef06ffbc780b4e688758b84d0782bd42e103702"
+    },
+    {
+      "file": "candidate.patch",
+      "bytes": 10776,
+      "sha256": "a472047853784a2a734079f7f2923e9f4f0dcc07bba4bb44bb23c0877ef2d4f8",
+      "git_blob": "a0546a2486108871571e6e3644acf5e6c004f107"
+    },
+    {
+      "file": "REPORT.md",
+      "bytes": 4123,
+      "sha256": "46c0aaa253bd2dc8edfbc939730c74f67ab6ff1c1f0d04728579c2a1de9951e0",
+      "git_blob": "52db9d662c9ba71b2b983c1743985f885a848d3d"
+    },
+    {
+      "file": "pin-update-pending.json",
+      "bytes": 1407,
+      "sha256": "6bc3732e10344937d9fca564a31132dcaa37a44f29fbc75a7324fae17f1099ff",
+      "git_blob": "d800bb65b93c6872636d66b652d8489b2754f472"
+    },
+    {
+      "file": "verification/audio-proof-controls.mjs",
+      "bytes": 8986,
+      "sha256": "35e9aee428fb0055b59df67e6c5e167e0ee279c99d1f8a6abf224648c001c527",
+      "git_blob": "7d0772ab12c5b1c82a6e219bad47495d5432d16c"
+    },
+    {
+      "file": "verification/audio-proof-controls.json",
+      "bytes": 6214,
+      "sha256": "67fbfeafdf25fcbe7539aaf9e97459bd4c7a2105bdccb6dcef93e16716755479",
+      "git_blob": "b4b9936b63a191d390f2f2dbf48e6425ebb69abe"
+    },
+    {
+      "file": "verification/audio-proof-controls.stdout.txt",
+      "bytes": 155,
+      "sha256": "99e3917d6950823bd190d22964e46d7ca9e631ba0382a9363a9ca8293e310ee6",
+      "git_blob": "c0541fce5b2b7a6038e53241188923b323e40239"
+    },
+    {
+      "file": "verification/check_workflows.py",
+      "bytes": 8323,
+      "sha256": "36b325c44dcd967d53abef568f6ef2287224e668f59030e8e3a4d3d7c84a9a0a",
+      "git_blob": "364adb463974961b0a90a9a4a0030f17ee8fefab"
+    },
+    {
+      "file": "verification/workflow-controls.json",
+      "bytes": 19646,
+      "sha256": "b2e06d4f05035bffe52215e793b8794c9b3d4ecbc3e2a684b534c593eb994f2a",
+      "git_blob": "e23cb9a7006e2f40ffc65c47a12c97a79d22bf4c"
+    }
+  ]
+}

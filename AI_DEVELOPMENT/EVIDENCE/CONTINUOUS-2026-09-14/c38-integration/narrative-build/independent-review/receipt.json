@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "verdict": "adoptable unchanged r2 helper candidate co-located with C38 integration",
+  "blocking": 0,
+  "sourceBaseline": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "runtimeSourceCommit": "actual git rev-parse HEAD at CI execution; not predicted",
+  "integrationCommit": null,
+  "integrationCommitStatus": "not created/read by this review",
+  "candidatePins": [
+    {
+      "path": "tools/prepare-narrative-product.mjs",
+      "bytes": 13839,
+      "sha256": "eff52911a8fae910b3cdc7c65104e66ec8466c7c91b00c03f20e29ac6d6f8bcf",
+      "gitBlob": "a54bcf9b46af0deaaac8355e024911c1b05b3444"
+    },
+    {
+      "path": "tools/check-narrative-routes.mjs",
+      "bytes": 16620,
+      "sha256": "5c90b5c2bfe4977d8a4c4d5f71338fcf981d41ea080bad8b0544080fb7013915",
+      "gitBlob": "a8c779dc577b7066cc01da688678de42f9ef907e"
+    },
+    {
+      "path": "tools/candidates/e9-story-r2.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "tools/candidates/e9-ja-story-r2.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "tools/candidates/e9-ja-story2-r2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 30778,
+      "sha256": "a2e1c0368c06c70f87278d78785a87f91b6e8c3d704f234d4c8fca1412535047",
+      "gitBlob": "7576645032ae06f4c01cf914e6bbd246f94ff4e3"
+    }
+  ],
+  "workflowIntegration": "Apply only reviewed workflow-diff.patch to existing job; do not overwrite integrated full gates.yml with candidate full-file context",
+  "workflowPatch": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/workflow-diff.patch",
+    "bytes": 2333,
+    "sha256": "2986dd78fe47749b6a49ce5d6c8516514878c2aa3f4698f42d0335406cf8d3e5"
+  },
+  "baselineInputs": 47,
+  "baselineRootSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+  "candidateSourcePins": {
+    "tools/candidates/e9-story-r2.js": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+    "tools/candidates/e9-ja-story-r2.js": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+    "tools/candidates/e9-ja-story2-r2.js": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202"
+  },
+  "buildStagesPreserved": 7,
+  "preparationAndExportControls": 17,
+  "routeExportControls": 19,
+  "actualCpuRoutes": 12,
+  "expectedPreparedFileCount": 10,
+  "expectedSuccessfulRouteFileCount": 13,
+  "postVerificationCandidateBytesChanged": false,
+  "controlsRepeatedAfterClosure": 0,
+  "productBuildCommandsExecuted": 0,
+  "browserExecutions": 0,
+  "screensAcquired": 0,
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationMutations": 0,
+  "productAdoption": false,
+  "comparisons": 0,
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "units": 0,
+    "mode": "continuous",
+    "criteriaCount": 19,
+    "level": 71,
+    "referencesUnchanged": true,
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/REPORT.md",
+      "bytes": 4560,
+      "sha256": "cce6026974f8d8a7c256037a4ab4ac9000d4503a13f9b272a37e9006b00ec515"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/authority-receipt.json",
+      "bytes": 39532,
+      "sha256": "5e77e8348275f0c4d280dae0dd62d24ef0d5071a757a4ef4cec3d856f95508f2"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/pins-and-diff-verification.json",
+      "bytes": 11713,
+      "sha256": "eea708a1e1a8d4ddce9ba8f26d3c3f22844d17fc29e117e4a3ee71356b8edaf6"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/cpu-review-results.json",
+      "bytes": 2092,
+      "sha256": "a65e88c4bfbe1c59c41d4856b65c224e803a465f1bfd0c2c6e1e67d60f35e96a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/route-export-results.json",
+      "bytes": 2577,
+      "sha256": "2b550d5289e29217b1f2d0b3638080da0007a236c25731e280308d546b43667f"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/independent-route-results.json",
+      "bytes": 8206,
+      "sha256": "542906ebc962518b1f79397ae885e8b44cf180fd1d45d8ed681dd1fc752dbd9f"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/prepare-export-checks.mjs",
+      "bytes": 7452,
+      "sha256": "d81801acc0433e620e8a7b5803974e2773cc1fa853f05462bd9133a8b498e3a8"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/route-export-checks.mjs",
+      "bytes": 9720,
+      "sha256": "c7ff585590fc275541f50d174c6149e26a7e7831e7b7882bed0924806b719368"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/verify-pins-and-diff.mjs",
+      "bytes": 7312,
+      "sha256": "4e5c11797a800dd3c56e32b62f0477e36ce6fd5784b45c95854fe9075d5f9c99"
+    }
+  ]
+}

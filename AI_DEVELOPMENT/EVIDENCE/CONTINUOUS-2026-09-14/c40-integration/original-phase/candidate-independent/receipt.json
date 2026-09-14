@@ -1,0 +1,58 @@
+{
+  "status": "frozen",
+  "verdict": "no_remaining_blocker",
+  "candidate": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c39-c38-original-phase-result-ultra/candidate/tools/ios_audio_capture.mjs",
+    "bytes": 25571,
+    "sha256": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262"
+  },
+  "base": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c39-c38-original-phase-result-ultra/current-source/tools/ios_audio_capture.mjs",
+    "bytes": 24880,
+    "sha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6"
+  },
+  "head": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "authorityOrder": [
+    "head",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "independentChecks": 22,
+  "originalWireCounterexampleBytes": 200061,
+  "finalCounterexampleWireBytes": 45,
+  "maxUnicodeFixtureWireBytes": 12350,
+  "realSafariMeasured": false,
+  "externalHttpMeasured": false,
+  "latencyImprovementMeasured": false,
+  "productClockRepairClaimed": false,
+  "originalFailurePreserved": {
+    "checksPassed": 53,
+    "checksTotal": 54,
+    "profileRows": 4096,
+    "profileDropped": 844
+  },
+  "reproduce": "node c39-c38-original-phase-result-ultra/candidate-independent/verify_inline.mjs",
+  "editedScope": "/workspace/scratch/0b7ad82bafe7/c39-c38-original-phase-result-ultra/candidate-independent",
+  "candidateEdits": 0,
+  "frozenOriginalEdits": 0,
+  "remoteWrites": 0,
+  "ciStartsOrReruns": 0,
+  "automationChanges": 0,
+  "newAgents": 0,
+  "tests": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c39-c38-original-phase-result-ultra/candidate-independent/edge-results.json",
+    "bytes": 2747,
+    "sha256": "4922f081b6544960ee2d1c22215f7dc42da5bb44a10502c82b8894f8dd822998"
+  },
+  "identity": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c39-c38-original-phase-result-ultra/candidate-independent/identity-result.json",
+    "bytes": 1173,
+    "sha256": "d07b37ddd979ba659072fe90ba81dcac7ac17332e026f69d67bafee43bc4d574"
+  },
+  "report": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c39-c38-original-phase-result-ultra/candidate-independent/REPORT.md",
+    "bytes": 4802,
+    "sha256": "a0b9399ea2eb3e2fac7bd3ba66604c3f62773d8c24db3f74c90cc49e0ca24a84"
+  }
+}

@@ -1,0 +1,38 @@
+--- a/tools/ios_audio_capture.mjs
++++ b/tools/ios_audio_capture.mjs
+@@ -19,6 +19,8 @@
+ const TRANSFER_KEY = '__cinderlineIosAudioTransfer';
+ const FRAME_WORK_TRANSFER_KEY = '__cinderlineIosFrameWorkTransfer';
+ const CHUNK_CHARS = 131072;
++// Keep even escaped/non-ASCII status replies below the existing 128 KiB wire bound.
++const INLINE_JSON_CHARS = 4096;
+ const MAX_TRANSFER_CHARS = 48 * 1024 * 1024;
+ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+@@ -73,7 +75,9 @@
+     let status;
+     do {
+       status = await command(`var j=window[${JSON.stringify(transferKey)}];
+-        return j && {id:j.id,status:j.status,chars:j.chars,operationError:j.error};`);
++        return j && {id:j.id,status:j.status,chars:j.chars,operationError:j.error,
++          inlineJson:j.status==='ready' && typeof j.json==='string'
++            && j.json.length===j.chars && j.chars<=${INLINE_JSON_CHARS} ? j.json : undefined};`);
+       if (status?.id !== id) throw new Error('iOS audio operation identity changed');
+       if (status.status === 'failed') throw new Error(`Safari audio operation failed: ${status.operationError}`);
+       if (status.status === 'ready') break;
+@@ -84,7 +88,14 @@
+       throw new Error('iOS audio transfer length is invalid');
+     }
+     let json = '';
+-    if (transfer && status.chars > CHUNK_CHARS) {
++    if (status.chars <= INLINE_JSON_CHARS) {
++      if (typeof status.inlineJson !== 'string' || status.inlineJson.length !== status.chars) {
++        throw new Error('iOS audio inline transfer is missing or truncated');
++      }
++      // The ready poll already carries this small result; avoid a second
++      // WebDriver round trip while a just-started recorder is running.
++      json = status.inlineJson;
++    } else if (transfer && status.chars > CHUNK_CHARS) {
+       const upload = transfer.begin({ id, chars: status.chars, deadline });
+       let received = false, receivedJson, receiveError;
+       upload.result.then(value => { received = true; receivedJson = value; },

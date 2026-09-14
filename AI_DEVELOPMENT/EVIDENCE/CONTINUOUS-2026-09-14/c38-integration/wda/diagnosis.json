@@ -1,0 +1,161 @@
+{
+  "status": "original failure bounded diagnosis complete",
+  "originalAppium": {
+    "bytes": 3351607,
+    "sha256": "fca54a514a8113eb243300a32eb92c221e33e34e74374ff845c604fa8067c57f",
+    "lines": 7449
+  },
+  "timeline": [
+    {
+      "label": "session_request",
+      "line": 16,
+      "timestampUTC": "2026-09-14T17:34:45.398Z",
+      "originalText": "2026-09-14 17:34:45:398 [HTTP] --> POST /session {\"capabilities\":{\"alwaysMatch\":{\"platformName\":\"iOS\",\"browserName\":\"Safari\",\"appium:automationName\":\"XCUITest\",\"appium:deviceName\":\"iPhone SE (3rd generation)\",\"appium:udid\":\"22A3039C-6A45-47F4-82D4-80C58CA94379\",\"appium:platformVersion\":\"18.5\",\"appium:noReset\":true,\"appium:isHeadless\":true,\"appium:showXcodeLog\":true,\"appium:wdaLaunchTimeout\":240000,\"appium:newCommandTimeout\":300,\"appium:safariAllowPopups\":true,\"appium:includeSafariInWebviews\":true},\"firstMatch\":[{}]}}"
+    },
+    {
+      "label": "driver_selected",
+      "line": 20,
+      "timestampUTC": "2026-09-14T17:34:45.448Z",
+      "originalText": "2026-09-14 17:34:45:448 [AppiumDriver@a4e5] Appium v3.6.0 creating new XCUITestDriver (v12.1.3) session"
+    },
+    {
+      "label": "real_device_discovery_fallback",
+      "line": 25,
+      "timestampUTC": "2026-09-14T17:34:47.627Z",
+      "originalText": "2026-09-14 17:34:47:627 [c016ce0e][XCUITest] RemoteXPC devices listing unavailable: Tunnel registry port not found. Please run the tunnel creation script first See https://appium.github.io/appium-xcuitest-driver/latest/guides/remotexpc-tunnels-real-devices/ Falling back to appium-ios-device."
+    },
+    {
+      "label": "explicit_simulator",
+      "line": 27,
+      "timestampUTC": "2026-09-14T17:34:57.569Z",
+      "originalText": "2026-09-14 17:34:57:569 [c016ce0e][XCUITestDriver@08fb] Determining device to run tests on: udid: '22A3039C-6A45-47F4-82D4-80C58CA94379', real device: false"
+    },
+    {
+      "label": "same_simulator_booted_headless",
+      "line": 37,
+      "timestampUTC": "2026-09-14T17:35:16.823Z",
+      "originalText": "2026-09-14 17:35:16:823 [c016ce0e][XCUITestDriver@08fb] Simulator with UDID '22A3039C-6A45-47F4-82D4-80C58CA94379' is already booted in headless mode."
+    },
+    {
+      "label": "initial_cache_probe_connection_refused",
+      "line": 40,
+      "timestampUTC": "2026-09-14T17:35:32.311Z",
+      "originalText": "2026-09-14 17:35:32:311 [c016ce0e][WD Proxy] connect ECONNREFUSED 127.0.0.1:8100"
+    },
+    {
+      "label": "xcode_build_and_test_command",
+      "line": 44,
+      "timestampUTC": "2026-09-14T17:35:39.047Z",
+      "originalText": "2026-09-14 17:35:39:047 [c016ce0e][Xcode] Command line invocation:"
+    },
+    {
+      "label": "test_build_succeeded",
+      "line": 7098,
+      "timestampUTC": "2026-09-14T17:38:19.131Z",
+      "originalText": "2026-09-14 17:38:19:131 [c016ce0e][Xcode] ** TEST BUILD SUCCEEDED **"
+    },
+    {
+      "label": "test_without_building_destination_selection",
+      "line": 7101,
+      "timestampUTC": "2026-09-14T17:38:19.417Z",
+      "originalText": "2026-09-14 17:38:19:417 [c016ce0e][Xcode] --- xcodebuild: WARNING: Using the first of multiple matching destinations:"
+    },
+    {
+      "label": "first_recorded_startup_timeout",
+      "line": 7425,
+      "timestampUTC": "2026-09-14T17:43:48.085Z",
+      "originalText": "2026-09-14 17:43:48:085 [c016ce0e][XCUITestDriver@08fb] Unable to start WebDriverAgent: Error: We were not able to retrieve the /status response from the WebDriverAgent server after 240000ms timeout.Try to increase the value of 'appium:wdaLaunchTimeout' capability as a possible workaround."
+    },
+    {
+      "label": "driver_stops_xcode_after_timeout",
+      "line": 7428,
+      "timestampUTC": "2026-09-14T17:43:48.093Z",
+      "originalText": "2026-09-14 17:43:48:093 [c016ce0e][XCUITestDriver@08fb] Shutting down 'xcodebuild' process (pid '6215')"
+    },
+    {
+      "label": "build_interrupted_after_timeout",
+      "line": 7429,
+      "timestampUTC": "2026-09-14T17:43:49.225Z",
+      "originalText": "2026-09-14 17:43:49:225 [c016ce0e][Xcode] ** BUILD INTERRUPTED **"
+    },
+    {
+      "label": "xcode_sigterm_after_timeout",
+      "line": 7430,
+      "timestampUTC": "2026-09-14T17:43:49.554Z",
+      "originalText": "2026-09-14 17:43:49:554 [c016ce0e][Xcode] xcodebuild exited with code 'null' and signal 'SIGTERM'"
+    },
+    {
+      "label": "internal_second_attempt",
+      "line": 7431,
+      "timestampUTC": "2026-09-14T17:43:59.617Z",
+      "originalText": "2026-09-14 17:43:59:617 [c016ce0e][XCUITestDriver@08fb] Retrying WDA startup (2 of 2)"
+    },
+    {
+      "label": "second_xcode_invocation",
+      "line": 7435,
+      "timestampUTC": "2026-09-14T17:44:15.675Z",
+      "originalText": "2026-09-14 17:44:15:675 [c016ce0e][Xcode] Command line invocation:"
+    },
+    {
+      "label": "webdriver_final_failure",
+      "line": 7448,
+      "timestampUTC": "2026-09-14T17:44:16.177Z",
+      "originalText": "2026-09-14 17:44:16:177 [HTTP] <-- POST /session 500 570694 ms - 2108"
+    },
+    {
+      "label": "workflow_stops_appium_after_failure",
+      "line": 7449,
+      "timestampUTC": "2026-09-14T17:44:19.630Z",
+      "originalText": "2026-09-14 17:44:19:630 [Appium] Received SIGTERM - shutting down"
+    }
+  ],
+  "timingObservations": {
+    "xcodeCommandToBuildSuccessSeconds": 160.084,
+    "buildSuccessToFirstTimeoutSeconds": 328.954,
+    "sessionRequestToFirstTimeoutSeconds": 542.687,
+    "configuredWdaLaunchTimeoutMs": 240000,
+    "configuredClientSessionTimeoutMs": 900000,
+    "warning": "Configured status timeout is not the elapsed duration of the whole xcodebuild/session sequence; do not assign discrepancy to CPU/GPU or host load."
+  },
+  "absenceChecks": {
+    "markerCounts": {
+      "Test Suite": 0,
+      "ServerURLHere": 0,
+      "WebDriverAgent version:": 0,
+      "wdaSessionStarted": 0,
+      "Test Case ": 0
+    },
+    "compilerFatalDiagnosticMatches": [],
+    "connectionRefusals": 482
+  },
+  "observedBoundary": "WDA build succeeds; subsequent XCTest/WDA execution and HTTP readiness are not established by retained log. First explicit terminal startup condition is /status timeout; SIGTERM/build interruption are following cleanup, final ECONNREFUSED follows internal retry.",
+  "notRootCausesEstablished": [
+    "Xcode/SDK or simulator UDID mismatch",
+    "headless simulator not booted",
+    "compiler error",
+    "code-signing rejection",
+    "port conflict",
+    "app under test idle timeout",
+    "RemoteXPC tunnel requirement for this simulator",
+    "specific host CPU/GPU load or scheduling cause"
+  ],
+  "hypothesesStillOpen": [
+    "Xcode test runner dispatch or simulator test-service startup stalled after successful build",
+    "WDA process failed or remained unavailable before HTTP listen without retained process/system diagnostics",
+    "host scheduling/resource delays or internal driver waiting behavior contributed; no resource/system trace captured"
+  ],
+  "nextEvidence": [
+    "Exact installed appium-webdriveragent/transitive package versions; driver12.1.3 alone specifies a version range",
+    "Xcode test result/session diagnostics and simulator process/system logs for the failed launch phase",
+    "A separately prepared, installed and verified same-source WDA with documented usePreinstalledWDA may test a different launch path, but its setup and real success are not established here"
+  ],
+  "candidateDecision": {
+    "codeChanges": 0,
+    "reason": "No root cause supports changing current capabilities, port, headless mode, launch timeout or app idle settings. Do not convert log recommendation to a proven repair.",
+    "unimplementedAlternative": "Build/install same-source WDA and use documented simulator preinstalled launch route. Needs isolated implementation and actual CI; not added as an unvalidated capability."
+  },
+  "sourceMeaning": "Appium driver12.1.3 source at1cb63dc24813a6cef0a81f70f51970e112f7a472 supports simulator preinstalled startup and separates WDA proxy creation; exact transitive WDA runtime version is absent from this retained log.",
+  "newSafariLaunches": 0,
+  "newCI": 0,
+  "newComparisons": 0
+}

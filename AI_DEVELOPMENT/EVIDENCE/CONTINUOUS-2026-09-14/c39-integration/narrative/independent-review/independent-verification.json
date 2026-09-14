@@ -1,0 +1,683 @@
+{
+  "status": "passed",
+  "scope": "Independent original byte/provenance/pin validation; no screenshot viewing or quality comparison by this reviewer.",
+  "run": {
+    "id": "34884725972",
+    "jobId": "104112424660",
+    "attempt": "1",
+    "head": "61e8f8c595bde13634fe709f979816011df165d0",
+    "event": "push",
+    "headBranch": "claude/repo-instructions-constraints-r0070m",
+    "status": "in_progress",
+    "conclusion": null
+  },
+  "rawLog": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c38-narrative-r2-result-ultra/original-job.log",
+    "bytes": 7382705,
+    "sha256": "972068aa8cdd985b4fedce4627e22937cfdd5fbc59d0148e1455cea45154ba7d",
+    "gitBlob": "095007d313f8f0b4e1d5112b9945ed01e3fab885"
+  },
+  "transport": {
+    "records": 1834,
+    "files": [
+      {
+        "family": "prepared-narrative",
+        "file": "src/content/story.js",
+        "firstLine": 233,
+        "lastLine": 272,
+        "chunks": 38,
+        "bytes": 111858
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "src/content/locale/ja/story.js",
+        "firstLine": 273,
+        "lastLine": 284,
+        "chunks": 10,
+        "bytes": 29879
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "src/content/locale/ja/story2.js",
+        "firstLine": 285,
+        "lastLine": 297,
+        "chunks": 11,
+        "bytes": 30471
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "cinderline.1.0.0.js",
+        "firstLine": 298,
+        "lastLine": 781,
+        "chunks": 482,
+        "bytes": 1445368
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "index.html",
+        "firstLine": 782,
+        "lastLine": 785,
+        "chunks": 2,
+        "bytes": 5023
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "styles.css",
+        "firstLine": 786,
+        "lastLine": 803,
+        "chunks": 16,
+        "bytes": 46883
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "manifest.webmanifest",
+        "firstLine": 804,
+        "lastLine": 806,
+        "chunks": 1,
+        "bytes": 419
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "icon.svg",
+        "firstLine": 807,
+        "lastLine": 809,
+        "chunks": 1,
+        "bytes": 777
+      },
+      {
+        "family": "prepared-narrative",
+        "file": ".nojekyll",
+        "firstLine": 810,
+        "lastLine": 811,
+        "chunks": 0,
+        "bytes": 0
+      },
+      {
+        "family": "prepared-narrative",
+        "file": "report.json",
+        "firstLine": 812,
+        "lastLine": 818,
+        "chunks": 5,
+        "bytes": 14697
+      },
+      {
+        "family": "narrative-route",
+        "file": "en-sol_first-vc_krajcik.png",
+        "firstLine": 1056,
+        "lastLine": 1159,
+        "chunks": 102,
+        "bytes": 304432
+      },
+      {
+        "family": "narrative-route",
+        "file": "en-krajcik-k_choice.png",
+        "firstLine": 1160,
+        "lastLine": 1263,
+        "chunks": 102,
+        "bytes": 303691
+      },
+      {
+        "family": "narrative-route",
+        "file": "en-krajcik-k_refuse.png",
+        "firstLine": 1264,
+        "lastLine": 1366,
+        "chunks": 101,
+        "bytes": 302739
+      },
+      {
+        "family": "narrative-route",
+        "file": "en-krajcik-ag_refused.png",
+        "firstLine": 1367,
+        "lastLine": 1471,
+        "chunks": 103,
+        "bytes": 306934
+      },
+      {
+        "family": "narrative-route",
+        "file": "en-krajcik-k_accept.png",
+        "firstLine": 1472,
+        "lastLine": 1575,
+        "chunks": 102,
+        "bytes": 305440
+      },
+      {
+        "family": "narrative-route",
+        "file": "en-krajcik-k_end.png",
+        "firstLine": 1576,
+        "lastLine": 1678,
+        "chunks": 101,
+        "bytes": 301200
+      },
+      {
+        "family": "narrative-route",
+        "file": "ja-sol_first-vc_krajcik.png",
+        "firstLine": 1679,
+        "lastLine": 1781,
+        "chunks": 101,
+        "bytes": 301326
+      },
+      {
+        "family": "narrative-route",
+        "file": "ja-krajcik-k_choice.png",
+        "firstLine": 1782,
+        "lastLine": 1885,
+        "chunks": 102,
+        "bytes": 303833
+      },
+      {
+        "family": "narrative-route",
+        "file": "ja-krajcik-k_refuse.png",
+        "firstLine": 1886,
+        "lastLine": 1987,
+        "chunks": 100,
+        "bytes": 298253
+      },
+      {
+        "family": "narrative-route",
+        "file": "ja-krajcik-ag_refused.png",
+        "firstLine": 1988,
+        "lastLine": 2090,
+        "chunks": 101,
+        "bytes": 300726
+      },
+      {
+        "family": "narrative-route",
+        "file": "ja-krajcik-k_accept.png",
+        "firstLine": 2091,
+        "lastLine": 2194,
+        "chunks": 102,
+        "bytes": 305012
+      },
+      {
+        "family": "narrative-route",
+        "file": "ja-krajcik-k_end.png",
+        "firstLine": 2195,
+        "lastLine": 2296,
+        "chunks": 100,
+        "bytes": 298311
+      },
+      {
+        "family": "narrative-route",
+        "file": "report.json",
+        "firstLine": 2297,
+        "lastLine": 2303,
+        "chunks": 5,
+        "bytes": 12650
+      }
+    ],
+    "preparedCount": 10,
+    "routeCount": 13,
+    "routeBytes": 3644547
+  },
+  "canonicalInputCount": 47,
+  "baselineBundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+  "preparedFiles": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    },
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1445368,
+      "sha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "gitBlob": "8b4c0da8af71db55b60957c2e887060ca5ff5525"
+    },
+    {
+      "path": "index.html",
+      "bytes": 5023,
+      "sha256": "c0b374c2d1746764a9555c0405992cda46f1c4f196db44c856c59a9c0b6fcc20",
+      "gitBlob": "e9f78c89c8861b62717e7054cf6a4a0a9bb9158f"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 46883,
+      "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3",
+      "gitBlob": "05a4c8599e0fed62fd235beefa33b69fc78b62f8"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 419,
+      "sha256": "04581fc9c19cf89456169c3f850c4421c72acafd4409d3f2a78292d17e971049",
+      "gitBlob": "0d791ceb945062919e23bd723feea623633b6787"
+    },
+    {
+      "path": "icon.svg",
+      "bytes": 777,
+      "sha256": "40168ac465534358bdd17c222e221a6d504805e40f1cb224ec4bdd279fa93132",
+      "gitBlob": "b37d4a061c83e844c0b025ddf748c884e5bde5b4"
+    },
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "report.json",
+      "bytes": 14697,
+      "sha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+      "gitBlob": "ae2fd31f450219e2d131bf25f3ff009408e8e17c"
+    }
+  ],
+  "screens": [
+    {
+      "path": "en-sol_first-vc_krajcik.png",
+      "bytes": 304432,
+      "sha256": "7f814ae63f93fdbd2bf99c4579c1e5e81768ab012b025c650923934ce3eb3d23",
+      "gitBlob": "2ffbc158c4a757376acba91852ecfd0ccae0426d",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 78,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "04c2dcc0e5b70ac3a5bd04b3b691880791f94d4f904de2d3339115cd561cd697",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "en-krajcik-k_choice.png",
+      "bytes": 303691,
+      "sha256": "aba94af690988d688276698719dc7fb31460d6239edfef02fc0b9037ead4b20d",
+      "gitBlob": "fd718f6ca0ac65c79f54987f8c46d4d6f3673f3d",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 77,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "41c282b82c2d1f2c88d078b66e6448b9c11f5a8e25e83a3cdcc99f7245c1daed",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "en-krajcik-k_refuse.png",
+      "bytes": 302739,
+      "sha256": "c7cca16d2f9f9a54d58b10554152e8669c2bb0ee662cda300bb2b902b01397b2",
+      "gitBlob": "234e0ba0d586739093c6102f50ab02bdd081d93e",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 77,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "0efbc6f79695c2f65554d27d0a79e9fe7bceecf044963998dc4d467998625111",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "en-krajcik-ag_refused.png",
+      "bytes": 306934,
+      "sha256": "c03793d5c05462431bfd7c1f01e76e73b3e311a2a24a1c99cefcb6856725b81c",
+      "gitBlob": "7a2444ae8920a412c86e00e85882ac2459f6a472",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 78,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "cc7adeb0a7d24a9600230def00cc9431542ae32802260f934dc7f9d1e6abcee0",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "en-krajcik-k_accept.png",
+      "bytes": 305440,
+      "sha256": "7992b776d5d84a7e995249796ffa7fb6ca887a1850387e810e5e9aa3504f9c3d",
+      "gitBlob": "8cada150f80848bf1bbe0febd36419e44feebb9c",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 78,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "43b247776e71047f94f273cd13004b957ce7e7c8ff7e8d77b7a1b509fc6718a8",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "en-krajcik-k_end.png",
+      "bytes": 301200,
+      "sha256": "bcc53324e99bbb52129b0ad508bab2e4e7f099581dae0fba857527c4695d2b74",
+      "gitBlob": "565380de0db08359182a4c69c1d0b6a915641add",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 77,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "1aa201a95d2964736e99b7a3486d5b080c63331396c84daa9ecc833d08245fb8",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "ja-sol_first-vc_krajcik.png",
+      "bytes": 301326,
+      "sha256": "604a8e7ade7d20bebbb2d8345bb3be75bfa9030bfb27494ed1da4f9a61b61b23",
+      "gitBlob": "6d7df4dccb6b9e18e3e6cb86b78d6f82d80b083f",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 77,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "86107ebbce8776a1611ad6c881e29aebf1cf1234bdbc94a4114c90b55eb843ed",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "ja-krajcik-k_choice.png",
+      "bytes": 303833,
+      "sha256": "07145e3ec16b73fb11ac455d409cd2448bcfe4b8527aea4a2e9bf8b5cb937703",
+      "gitBlob": "713c59cf7bcf83fabadea7378f134c4d82209c09",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 77,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "1c63d091038bfaec0dea68db1298a00374dc25c805bef1b93f9eed6004450e8f",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "ja-krajcik-k_refuse.png",
+      "bytes": 298253,
+      "sha256": "9a2434a03d294f65ddd12d5b9a0eb54722f3b4df33fe708718e1b08d393af8ff",
+      "gitBlob": "a7430098f72097dc61a204abce7e124df8ead0fb",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 76,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "15ccda2a2bee806ca3ae1eef6053478cbf32ba6510130b4070fe95e77cca9b4c",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "ja-krajcik-ag_refused.png",
+      "bytes": 300726,
+      "sha256": "e6a82c19366eeec603e2ff4623685aef9f8846f8b7f2faa518f33f76c846e979",
+      "gitBlob": "a8f50950a8556252d1aef7fb54fe09849e9515a8",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 77,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "3d7d3ed77ea0974d2d9e9ed976338ccce9267b9f960229905c0f3f73f2e91166",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "ja-krajcik-k_accept.png",
+      "bytes": 305012,
+      "sha256": "f4c0caa1616f0f4be0b2d9f06704b80aefaac73a8f0fbe789e8a7e4ae6a53143",
+      "gitBlob": "ca1fa60839547dd1bdcffa4f956a5653d3ea207b",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 78,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "b643a27d7b76c0b3466166bb40d08546871932b3d60bd516c033eeddaf947174",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "ja-krajcik-k_end.png",
+      "bytes": 298311,
+      "sha256": "d0626d6b20d0b9960c78f8a35b01f1fe2c243775b49fd11516c0fc83803d5116",
+      "gitBlob": "7218a3fdf2491ab0c712f65b3c3fe59872587896",
+      "width": 667,
+      "height": 375,
+      "bitDepth": 8,
+      "colorType": 2,
+      "compression": 0,
+      "filter": 0,
+      "interlace": 0,
+      "pngChunks": 76,
+      "crcVerified": true,
+      "decompressedBytes": 750750,
+      "renderedSha256": "e4a40897309296f976d5bbfee9d555be70bfda6f37d765f9f790587c1afb850d",
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    }
+  ],
+  "preparation": {
+    "status": "prepared and content/root verified",
+    "baselineReproduced": true,
+    "commands": [
+      {
+        "args": [
+          "build.mjs"
+        ],
+        "exit": 0
+      },
+      {
+        "args": [
+          "tools/export_pages_root.mjs",
+          "--check"
+        ],
+        "exit": 0
+      },
+      {
+        "args": [
+          "--input-type=module",
+          "--eval",
+          "import { execFileSync } from \"node:child_process\"; for (const path of process.argv.slice(1)) execFileSync(process.execPath, [\"--check\", path], { stdio: \"inherit\" });",
+          "src/content/story.js",
+          "src/content/locale/ja/story.js",
+          "src/content/locale/ja/story2.js"
+        ],
+        "exit": 0
+      },
+      {
+        "args": [
+          "build.mjs"
+        ],
+        "exit": 0
+      },
+      {
+        "args": [
+          "tools/export_pages_root.mjs"
+        ],
+        "exit": 0
+      },
+      {
+        "args": [
+          "tools/export_pages_root.mjs",
+          "--check"
+        ],
+        "exit": 0
+      },
+      {
+        "args": [
+          "tools/validate.mjs"
+        ],
+        "exit": 0
+      }
+    ],
+    "dependencies": {
+      "esbuild": "0.25.0",
+      "three": "0.180.0"
+    },
+    "node": "v20.20.2"
+  },
+  "adoptionPins": {
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+  },
+  "preservePins": {
+    "bundle": "cinderline.1.0.0.js",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+  },
+  "engineeringAdoption": "Byte/provenance acceptable for simultaneous three-source plus root adoption and the three exact IOS_AUDIO_PIN updates; parent-owned original screen viewing, latest required gates, normal merge and Pages verification remain separate.",
+  "quality": {
+    "allElements": "19 not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "actualBrowserExecutionsByReviewer": 0,
+  "rawSourceWrites": 0,
+  "remoteMutations": 0
+}

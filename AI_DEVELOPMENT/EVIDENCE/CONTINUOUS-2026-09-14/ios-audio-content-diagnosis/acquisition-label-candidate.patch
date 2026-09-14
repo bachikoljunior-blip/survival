@@ -1,0 +1,11 @@
+--- a/tools/mobile_audio_capture.mjs
++++ b/tools/mobile_audio_capture.mjs
+@@ -44,7 +44,7 @@
+       return;
+     }
+     for(const [name,spawn,move] of [
+-      ['street-walk','start',true],['vent-air','ventfield',false],
++      ['street-walk','start',true],['cut-gas-air','ventfield',false],
+       ['arcade-room','arcade_in',false],
+     ]) {
+       const placed=await page.evaluate(async spawn=>{

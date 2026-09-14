@@ -1,0 +1,48 @@
+{
+  "args": [
+    "/home/runner/work/_temp/e9-q35-readable-r3-r2/runtime/llama-b10809/llama-tokenize",
+    "-m",
+    "/home/runner/work/_temp/e9-q35-readable-r3-r2/Qwen3.5-9B-Q8_0.gguf",
+    "--offline",
+    "--no-escape",
+    "--ids",
+    "--show-count",
+    "--log-verbosity",
+    "3",
+    "--log-colors",
+    "off",
+    "-f",
+    "/home/runner/work/_temp/e9-q35-readable-r3-r2/chat-canonical.txt"
+  ],
+  "run": {
+    "status": "process_finished",
+    "exit_code": 0,
+    "seconds": 0.7660092950000035,
+    "stdout": {
+      "bytes": 456440,
+      "sha256": "92bb3e774ae723f89262c8f599cd2dd08b02ce43ea18cc5c6582ba0b0f04ef49"
+    },
+    "stderr": {
+      "bytes": 102,
+      "sha256": "5a7e147a23cda533550b0c72a319f8bb9f2a9141929e68cb0d81fc1785fb477b"
+    }
+  },
+  "vocabulary_only": true,
+  "special_token_policy": {
+    "model": "gpt2",
+    "pre": "qwen35",
+    "effective_add_bos": false,
+    "effective_add_eos": false,
+    "missing_flag_defaults": false,
+    "tokenizer_and_completion_special_policy_equal": true
+  },
+  "parse_special": true,
+  "reversible_ids_public": false,
+  "quality_verdict": "not measured",
+  "actual_final_chat_tokens": 84039,
+  "context": 98304,
+  "reserved_output_tokens": 8192,
+  "reserved_boundary_tokens": 4,
+  "remaining_tokens": 6069,
+  "no_truncation": true
+}

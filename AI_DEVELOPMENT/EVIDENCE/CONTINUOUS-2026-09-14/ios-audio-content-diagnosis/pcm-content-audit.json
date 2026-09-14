@@ -1,0 +1,2822 @@
+{
+  "schema_version": 1,
+  "scope": "Original decoded PCM numerical analysis and recorded event/state telemetry. No resampling, audio modification, listening result, quality score or blind comparison. Analysis windows/spectrum are descriptors only.",
+  "report_sha256": "507a4f82645e6ccc8cff34154f39a58ec1786c3ab4e09f385e86a8f5cf4471ed",
+  "source_capture_run": {
+    "sourceCommit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+    "recorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+      "dist/cinderline.1.0.0.js": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b"
+    },
+    "actualRecorderBlob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "helperSha256": "3ed2398a23f94c6426bc30eed6ef9123b24d79b99978ec3de01866d186c73e40",
+    "harnessSha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+    "runCommit": "f735a3ab6d230835ce06542281e2f53e3ad94737",
+    "runId": "34848677647",
+    "runAttempt": "1"
+  },
+  "records": [
+    {
+      "name": "street-walk",
+      "mp4_path": "/workspace/scratch/0b7ad82bafe7/c30-ios-original-recovered/original/audio/audio-street-walk.mp4",
+      "mp4_sha256": "df42d626bfee8aa96060d6c84f64cd0c0eac0ab861e574eea8db87539c0fd652",
+      "wav_path": "/workspace/scratch/0b7ad82bafe7/c30-ios-original-recovered/decoded/audio-street-walk.wav",
+      "wav_sha256": "f317d08460c068053d59bfdc190845cb00db396752153f81c3322922b585887b",
+      "sample_rate": 48000,
+      "channels": 2,
+      "decoded_frames": 431104,
+      "duration_seconds": 8.981333333333334,
+      "capture_timing": {
+        "wallSeconds": 8.957,
+        "audioSeconds": 8.928,
+        "engineSeconds": 8.633333333333727,
+        "engineFrames": 458,
+        "engineToAudioRatio": 0.9669952210275231,
+        "audioToWallRatio": 0.9967623088087529,
+        "engineMinusAudioSeconds": -0.2946666666662736,
+        "audioMinusWallSeconds": -0.028999999999999915,
+        "toleranceSeconds": 0.4464000000000001,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "recording_before": {
+        "wallMs": 16673,
+        "audioTime": 5.312,
+        "audioState": "running",
+        "engineFrame": 421,
+        "engineTime": 7.349999999999979,
+        "position": [
+          -112,
+          0,
+          -84
+        ],
+        "hp": 120,
+        "dead": false,
+        "mode": "play",
+        "tier": "low",
+        "ambience": "camp",
+        "music": "explore",
+        "master": 0.8500000238418579,
+        "musicVolume": 0.699999988079071,
+        "sfxVolume": 1,
+        "activeVoices": 3
+      },
+      "recording_after": {
+        "wallMs": 25630,
+        "audioTime": 14.24,
+        "audioState": "running",
+        "engineFrame": 879,
+        "engineTime": 15.983333333333707,
+        "position": [
+          -115.46068503602123,
+          0,
+          -85.43574657671033
+        ],
+        "hp": 120,
+        "dead": false,
+        "mode": "play",
+        "tier": "low",
+        "ambience": "camp",
+        "music": "explore",
+        "master": 0.8500000238418579,
+        "musicVolume": 0.699999988079071,
+        "sfxVolume": 1,
+        "activeVoices": 1
+      },
+      "placement": {
+        "ok": true,
+        "viaDoor": null,
+        "interior": null,
+        "position": [
+          -112,
+          0.1,
+          -84
+        ]
+      },
+      "regions": {
+        "stacks": 82
+      },
+      "gas_ppm_minmax": [
+        14,
+        14
+      ],
+      "trajectory_count": 82,
+      "threat_samples": 0,
+      "sfx_event_counts": {
+        "step": 6
+      },
+      "rms_per_channel": [
+        0.03550759976842795,
+        0.03549780998303758
+      ],
+      "peak_per_channel": [
+        0.147552490234375,
+        0.147552490234375
+      ],
+      "full_scale_sample_fraction": 0.0,
+      "left_right_correlation": 0.999879699718037,
+      "side_to_mid_rms_db": -42.20823495478633,
+      "whole_clip_left_minus_right_db": 0.0023951131700386025,
+      "active_100ms_left_minus_right_db_minmax": [
+        -0.1518219598993599,
+        0.1363223061306877
+      ],
+      "mono_mid_welch_power_band_fractions": {
+        "0-200Hz": 0.889940052023399,
+        "200-1000Hz": 0.10405259508102596,
+        "1000-4000Hz": 0.004303601955543672,
+        "4000-24000Hz": 0.00170375093485301
+      },
+      "windows_100ms": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.1,
+          "rms_per_channel": [
+            0.023740547014463893,
+            0.023715479085132607
+          ],
+          "left_minus_right_db": 0.009176380989899667,
+          "side_to_mid_db": -38.24622904209998
+        },
+        {
+          "start_seconds": 0.1,
+          "end_seconds": 0.2,
+          "rms_per_channel": [
+            0.026453776071701005,
+            0.026453969353720727
+          ],
+          "left_minus_right_db": -6.346240153813683e-05,
+          "side_to_mid_db": -39.90278710210785
+        },
+        {
+          "start_seconds": 0.2,
+          "end_seconds": 0.3,
+          "rms_per_channel": [
+            0.029380996909469766,
+            0.02939296765580743
+          ],
+          "left_minus_right_db": -0.0035381851056353903,
+          "side_to_mid_db": -39.408743896523475
+        },
+        {
+          "start_seconds": 0.3,
+          "end_seconds": 0.4,
+          "rms_per_channel": [
+            0.030014171693779568,
+            0.030014888778522947
+          ],
+          "left_minus_right_db": -0.0002075167891495388,
+          "side_to_mid_db": -42.74735676236673
+        },
+        {
+          "start_seconds": 0.4,
+          "end_seconds": 0.5,
+          "rms_per_channel": [
+            0.03497645396296427,
+            0.03497868926680776
+          ],
+          "left_minus_right_db": -0.0005550872059518781,
+          "side_to_mid_db": -47.076635667398996
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 0.6,
+          "rms_per_channel": [
+            0.03395247502312578,
+            0.03395480424286693
+          ],
+          "left_minus_right_db": -0.0005958520453497823,
+          "side_to_mid_db": -46.56739838421957
+        },
+        {
+          "start_seconds": 0.6,
+          "end_seconds": 0.7,
+          "rms_per_channel": [
+            0.034006106736295165,
+            0.03400241038507207
+          ],
+          "left_minus_right_db": 0.0009441787640112233,
+          "side_to_mid_db": -51.13226147267234
+        },
+        {
+          "start_seconds": 0.7,
+          "end_seconds": 0.8,
+          "rms_per_channel": [
+            0.03897898507976024,
+            0.03897855853368228
+          ],
+          "left_minus_right_db": 9.504999739676987e-05,
+          "side_to_mid_db": -58.2653987193948
+        },
+        {
+          "start_seconds": 0.8,
+          "end_seconds": 0.9,
+          "rms_per_channel": [
+            0.03235885261349111,
+            0.03235885261349111
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.9,
+          "end_seconds": 1.0,
+          "rms_per_channel": [
+            0.03927813538645187,
+            0.03927813538645187
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 1.1,
+          "rms_per_channel": [
+            0.03435524167249572,
+            0.03435524167249572
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 1.1,
+          "end_seconds": 1.2,
+          "rms_per_channel": [
+            0.03146354522041787,
+            0.03146348955377083
+          ],
+          "left_minus_right_db": 1.5367460246839945e-05,
+          "side_to_mid_db": -78.24094209414848
+        },
+        {
+          "start_seconds": 1.2,
+          "end_seconds": 1.3,
+          "rms_per_channel": [
+            0.034553759006909775,
+            0.034553215456130576
+          ],
+          "left_minus_right_db": 0.000136635183860658,
+          "side_to_mid_db": -60.2504178006918
+        },
+        {
+          "start_seconds": 1.3,
+          "end_seconds": 1.4,
+          "rms_per_channel": [
+            0.0342830340523697,
+            0.03428128011641984
+          ],
+          "left_minus_right_db": 0.00044438551688984803,
+          "side_to_mid_db": -56.872815954856996
+        },
+        {
+          "start_seconds": 1.4,
+          "end_seconds": 1.5,
+          "rms_per_channel": [
+            0.025927788423223252,
+            0.025927788423223252
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 1.6,
+          "rms_per_channel": [
+            0.041359740702778806,
+            0.04148558956464414
+          ],
+          "left_minus_right_db": -0.02638917999444388,
+          "side_to_mid_db": -43.40885628517594
+        },
+        {
+          "start_seconds": 1.6,
+          "end_seconds": 1.7,
+          "rms_per_channel": [
+            0.03626022199475732,
+            0.036899591358694084
+          ],
+          "left_minus_right_db": -0.1518219598993599,
+          "side_to_mid_db": -34.67189338829211
+        },
+        {
+          "start_seconds": 1.7,
+          "end_seconds": 1.8,
+          "rms_per_channel": [
+            0.041952999622589325,
+            0.04171790876264802
+          ],
+          "left_minus_right_db": 0.04880976380508047,
+          "side_to_mid_db": -38.407869183211275
+        },
+        {
+          "start_seconds": 1.8,
+          "end_seconds": 1.9,
+          "rms_per_channel": [
+            0.03438430530590639,
+            0.0341064189220391
+          ],
+          "left_minus_right_db": 0.07048264517282478,
+          "side_to_mid_db": -36.76091829217811
+        },
+        {
+          "start_seconds": 1.9,
+          "end_seconds": 2.0,
+          "rms_per_channel": [
+            0.03345076672881233,
+            0.03349152789679891
+          ],
+          "left_minus_right_db": -0.010577678951269962,
+          "side_to_mid_db": -38.28706521579357
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 2.1,
+          "rms_per_channel": [
+            0.024480223396428483,
+            0.024506688892158717
+          ],
+          "left_minus_right_db": -0.009385216857126826,
+          "side_to_mid_db": -35.43871498365844
+        },
+        {
+          "start_seconds": 2.1,
+          "end_seconds": 2.2,
+          "rms_per_channel": [
+            0.03291952727456257,
+            0.03285749981657189
+          ],
+          "left_minus_right_db": 0.0163815191461087,
+          "side_to_mid_db": -39.716823583778066
+        },
+        {
+          "start_seconds": 2.2,
+          "end_seconds": 2.3,
+          "rms_per_channel": [
+            0.03595496687813695,
+            0.03588612637715709
+          ],
+          "left_minus_right_db": 0.016646215976344882,
+          "side_to_mid_db": -43.99576901306859
+        },
+        {
+          "start_seconds": 2.3,
+          "end_seconds": 2.4,
+          "rms_per_channel": [
+            0.04222794242579062,
+            0.04217897431527692
+          ],
+          "left_minus_right_db": 0.0100781231644524,
+          "side_to_mid_db": -47.379287485056565
+        },
+        {
+          "start_seconds": 2.4,
+          "end_seconds": 2.5,
+          "rms_per_channel": [
+            0.02585131165912914,
+            0.025811743061609983
+          ],
+          "left_minus_right_db": 0.013305002588198623,
+          "side_to_mid_db": -45.309640174276296
+        },
+        {
+          "start_seconds": 2.5,
+          "end_seconds": 2.6,
+          "rms_per_channel": [
+            0.03950136668412806,
+            0.039497650049247726
+          ],
+          "left_minus_right_db": 0.0008172830942526259,
+          "side_to_mid_db": -55.390637511019705
+        },
+        {
+          "start_seconds": 2.6,
+          "end_seconds": 2.7,
+          "rms_per_channel": [
+            0.037432794453202335,
+            0.03743259591400829
+          ],
+          "left_minus_right_db": 4.606907196661925e-05,
+          "side_to_mid_db": -58.89984711370648
+        },
+        {
+          "start_seconds": 2.7,
+          "end_seconds": 2.8,
+          "rms_per_channel": [
+            0.04464483877955664,
+            0.04464397009462931
+          ],
+          "left_minus_right_db": 0.00016900889382289442,
+          "side_to_mid_db": -60.72192995302669
+        },
+        {
+          "start_seconds": 2.8,
+          "end_seconds": 2.9,
+          "rms_per_channel": [
+            0.03471307110813299,
+            0.03471341040593128
+          ],
+          "left_minus_right_db": -8.48985334180515e-05,
+          "side_to_mid_db": -63.30733227428591
+        },
+        {
+          "start_seconds": 2.9,
+          "end_seconds": 3.0,
+          "rms_per_channel": [
+            0.029606482197048326,
+            0.02960670290765578
+          ],
+          "left_minus_right_db": -6.475138856038914e-05,
+          "side_to_mid_db": -67.22824796123464
+        },
+        {
+          "start_seconds": 3.0,
+          "end_seconds": 3.1,
+          "rms_per_channel": [
+            0.03676323455527879,
+            0.03676323455527879
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 3.1,
+          "end_seconds": 3.2,
+          "rms_per_channel": [
+            0.025588254806208643,
+            0.025588254806208643
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 3.2,
+          "end_seconds": 3.3,
+          "rms_per_channel": [
+            0.02848959739186263,
+            0.028490791103873113
+          ],
+          "left_minus_right_db": -0.0003639305051406937,
+          "side_to_mid_db": -61.615740211764354
+        },
+        {
+          "start_seconds": 3.3,
+          "end_seconds": 3.4,
+          "rms_per_channel": [
+            0.025769190013826767,
+            0.025767255693543007
+          ],
+          "left_minus_right_db": 0.0006520159582863205,
+          "side_to_mid_db": -58.02760883251839
+        },
+        {
+          "start_seconds": 3.4,
+          "end_seconds": 3.5,
+          "rms_per_channel": [
+            0.059112809175224254,
+            0.05908825952335282
+          ],
+          "left_minus_right_db": 0.0036080142459310655,
+          "side_to_mid_db": -47.67331601036859
+        },
+        {
+          "start_seconds": 3.5,
+          "end_seconds": 3.6,
+          "rms_per_channel": [
+            0.027893588324156823,
+            0.027893588324156823
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 3.6,
+          "end_seconds": 3.7,
+          "rms_per_channel": [
+            0.03207020964636981,
+            0.03207020964636981
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 3.7,
+          "end_seconds": 3.8,
+          "rms_per_channel": [
+            0.030656065728294477,
+            0.03065519336233342
+          ],
+          "left_minus_right_db": 0.0002471739962484921,
+          "side_to_mid_db": -59.81439972688968
+        },
+        {
+          "start_seconds": 3.8,
+          "end_seconds": 3.9,
+          "rms_per_channel": [
+            0.03489779332495349,
+            0.034875764585341126
+          ],
+          "left_minus_right_db": 0.005484576485036044,
+          "side_to_mid_db": -45.7748919983722
+        },
+        {
+          "start_seconds": 3.9,
+          "end_seconds": 4.0,
+          "rms_per_channel": [
+            0.03196544045940972,
+            0.03196563724345015
+          ],
+          "left_minus_right_db": -5.3471473313551916e-05,
+          "side_to_mid_db": -65.63444254386795
+        },
+        {
+          "start_seconds": 4.0,
+          "end_seconds": 4.1,
+          "rms_per_channel": [
+            0.04210842685829659,
+            0.04210842685829659
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.1,
+          "end_seconds": 4.2,
+          "rms_per_channel": [
+            0.042122623094237255,
+            0.04200152255737243
+          ],
+          "left_minus_right_db": 0.02500748427844202,
+          "side_to_mid_db": -39.80265800255906
+        },
+        {
+          "start_seconds": 4.2,
+          "end_seconds": 4.3,
+          "rms_per_channel": [
+            0.031685171284386804,
+            0.03166319681025203
+          ],
+          "left_minus_right_db": 0.006025975746039529,
+          "side_to_mid_db": -45.726601431744356
+        },
+        {
+          "start_seconds": 4.3,
+          "end_seconds": 4.4,
+          "rms_per_channel": [
+            0.03531647827847092,
+            0.03531652455638747
+          ],
+          "left_minus_right_db": -1.1381786409547139e-05,
+          "side_to_mid_db": -64.61303390743055
+        },
+        {
+          "start_seconds": 4.4,
+          "end_seconds": 4.5,
+          "rms_per_channel": [
+            0.03156745675659272,
+            0.03153995397338274
+          ],
+          "left_minus_right_db": 0.007570779788368709,
+          "side_to_mid_db": -46.6218123898615
+        },
+        {
+          "start_seconds": 4.5,
+          "end_seconds": 4.6,
+          "rms_per_channel": [
+            0.0379693776375475,
+            0.0379693776375475
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.6,
+          "end_seconds": 4.7,
+          "rms_per_channel": [
+            0.03803659105845526,
+            0.037909484318929605
+          ],
+          "left_minus_right_db": 0.029074211856829686,
+          "side_to_mid_db": -38.92920971002034
+        },
+        {
+          "start_seconds": 4.7,
+          "end_seconds": 4.8,
+          "rms_per_channel": [
+            0.025454907621777653,
+            0.02545473742235088
+          ],
+          "left_minus_right_db": 5.807675288620689e-05,
+          "side_to_mid_db": -71.67655367315575
+        },
+        {
+          "start_seconds": 4.8,
+          "end_seconds": 4.9,
+          "rms_per_channel": [
+            0.0357428036889176,
+            0.03574202138016614
+          ],
+          "left_minus_right_db": 0.0001901116068144039,
+          "side_to_mid_db": -59.09032503009953
+        },
+        {
+          "start_seconds": 4.9,
+          "end_seconds": 5.0,
+          "rms_per_channel": [
+            0.02961935140786496,
+            0.02961986564456245
+          ],
+          "left_minus_right_db": -0.00015079886009992724,
+          "side_to_mid_db": -73.60282705058489
+        },
+        {
+          "start_seconds": 5.0,
+          "end_seconds": 5.1,
+          "rms_per_channel": [
+            0.042043754891851796,
+            0.04204446828591541
+          ],
+          "left_minus_right_db": -0.000147380022338567,
+          "side_to_mid_db": -63.68653743081041
+        },
+        {
+          "start_seconds": 5.1,
+          "end_seconds": 5.2,
+          "rms_per_channel": [
+            0.02780974677276116,
+            0.027741528771987566
+          ],
+          "left_minus_right_db": 0.021332879149636864,
+          "side_to_mid_db": -41.29197673516677
+        },
+        {
+          "start_seconds": 5.2,
+          "end_seconds": 5.3,
+          "rms_per_channel": [
+            0.029590019347123058,
+            0.029590245042598773
+          ],
+          "left_minus_right_db": -6.625066697763833e-05,
+          "side_to_mid_db": -76.9539351700141
+        },
+        {
+          "start_seconds": 5.3,
+          "end_seconds": 5.4,
+          "rms_per_channel": [
+            0.028316044746209797,
+            0.028315973703120882
+          ],
+          "left_minus_right_db": 2.179235163270237e-05,
+          "side_to_mid_db": -87.41143933394575
+        },
+        {
+          "start_seconds": 5.4,
+          "end_seconds": 5.5,
+          "rms_per_channel": [
+            0.03152496828577276,
+            0.03152684411874301
+          ],
+          "left_minus_right_db": -0.0005168218816390723,
+          "side_to_mid_db": -57.0842352674189
+        },
+        {
+          "start_seconds": 5.5,
+          "end_seconds": 5.6,
+          "rms_per_channel": [
+            0.032575136843880824,
+            0.03257477179839393
+          ],
+          "left_minus_right_db": 9.73368920437595e-05,
+          "side_to_mid_db": -59.85111040495479
+        },
+        {
+          "start_seconds": 5.6,
+          "end_seconds": 5.7,
+          "rms_per_channel": [
+            0.03287059592195668,
+            0.032870035635069746
+          ],
+          "left_minus_right_db": 0.00014805425352455202,
+          "side_to_mid_db": -61.462202599994725
+        },
+        {
+          "start_seconds": 5.7,
+          "end_seconds": 5.8,
+          "rms_per_channel": [
+            0.038656771911426385,
+            0.03865662742133342
+          ],
+          "left_minus_right_db": 3.246591178604149e-05,
+          "side_to_mid_db": -75.32002053027084
+        },
+        {
+          "start_seconds": 5.8,
+          "end_seconds": 5.9,
+          "rms_per_channel": [
+            0.03270411545601125,
+            0.03270411545601125
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.9,
+          "end_seconds": 6.0,
+          "rms_per_channel": [
+            0.04222806198021407,
+            0.0422280259232421
+          ],
+          "left_minus_right_db": 7.416561360946735e-06,
+          "side_to_mid_db": -84.75497915540137
+        },
+        {
+          "start_seconds": 6.0,
+          "end_seconds": 6.1,
+          "rms_per_channel": [
+            0.04331865920562288,
+            0.043318345479849606
+          ],
+          "left_minus_right_db": 6.290585537140598e-05,
+          "side_to_mid_db": -63.96656074039853
+        },
+        {
+          "start_seconds": 6.1,
+          "end_seconds": 6.2,
+          "rms_per_channel": [
+            0.040522310854560366,
+            0.040522310854560366
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.2,
+          "end_seconds": 6.3,
+          "rms_per_channel": [
+            0.03890134834343998,
+            0.03890134834343998
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.3,
+          "end_seconds": 6.4,
+          "rms_per_channel": [
+            0.03683003059197673,
+            0.03683003059197673
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.4,
+          "end_seconds": 6.5,
+          "rms_per_channel": [
+            0.02767179687740674,
+            0.02767179687740674
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.5,
+          "end_seconds": 6.6,
+          "rms_per_channel": [
+            0.03748961284788759,
+            0.037488690825338726
+          ],
+          "left_minus_right_db": 0.0002136240942068564,
+          "side_to_mid_db": -59.42814089092741
+        },
+        {
+          "start_seconds": 6.6,
+          "end_seconds": 6.7,
+          "rms_per_channel": [
+            0.025954523524382427,
+            0.025954523524382427
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.7,
+          "end_seconds": 6.8,
+          "rms_per_channel": [
+            0.033635620465016065,
+            0.033635620465016065
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.8,
+          "end_seconds": 6.9,
+          "rms_per_channel": [
+            0.028736034170214277,
+            0.028732677949512776
+          ],
+          "left_minus_right_db": 0.0010145263943494912,
+          "side_to_mid_db": -55.63979737253726
+        },
+        {
+          "start_seconds": 6.9,
+          "end_seconds": 7.0,
+          "rms_per_channel": [
+            0.035524189681387174,
+            0.0355238755699312
+          ],
+          "left_minus_right_db": 7.680258233622286e-05,
+          "side_to_mid_db": -66.67600706438783
+        },
+        {
+          "start_seconds": 7.0,
+          "end_seconds": 7.1,
+          "rms_per_channel": [
+            0.02591269066625167,
+            0.025912845222419413
+          ],
+          "left_minus_right_db": -5.180680885904555e-05,
+          "side_to_mid_db": -60.98062643576661
+        },
+        {
+          "start_seconds": 7.1,
+          "end_seconds": 7.2,
+          "rms_per_channel": [
+            0.026549308904775706,
+            0.026549308904775706
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 7.2,
+          "end_seconds": 7.3,
+          "rms_per_channel": [
+            0.033536564664757726,
+            0.03353647608296825
+          ],
+          "left_minus_right_db": 2.2942500854132733e-05,
+          "side_to_mid_db": -83.16019073471318
+        },
+        {
+          "start_seconds": 7.3,
+          "end_seconds": 7.4,
+          "rms_per_channel": [
+            0.04056506161178506,
+            0.04056498132308963
+          ],
+          "left_minus_right_db": 1.719162772281536e-05,
+          "side_to_mid_db": -63.078398484312146
+        },
+        {
+          "start_seconds": 7.4,
+          "end_seconds": 7.5,
+          "rms_per_channel": [
+            0.023097160217279502,
+            0.023097160217279502
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 7.5,
+          "end_seconds": 7.6,
+          "rms_per_channel": [
+            0.035113860269120306,
+            0.03511283528645352
+          ],
+          "left_minus_right_db": 0.00025354706653315135,
+          "side_to_mid_db": -57.18562095003197
+        },
+        {
+          "start_seconds": 7.6,
+          "end_seconds": 7.7,
+          "rms_per_channel": [
+            0.03740356881029476,
+            0.037406341345429896
+          ],
+          "left_minus_right_db": -0.0006438166858469903,
+          "side_to_mid_db": -61.755155613593395
+        },
+        {
+          "start_seconds": 7.7,
+          "end_seconds": 7.8,
+          "rms_per_channel": [
+            0.048213281472533405,
+            0.04821175390003522
+          ],
+          "left_minus_right_db": 0.00027520500424345687,
+          "side_to_mid_db": -61.68864294602344
+        },
+        {
+          "start_seconds": 7.8,
+          "end_seconds": 7.9,
+          "rms_per_channel": [
+            0.04320374840224247,
+            0.04320358015101125
+          ],
+          "left_minus_right_db": 3.382610364815188e-05,
+          "side_to_mid_db": -63.639582765550166
+        },
+        {
+          "start_seconds": 7.9,
+          "end_seconds": 8.0,
+          "rms_per_channel": [
+            0.04894893212761596,
+            0.04911146309095363
+          ],
+          "left_minus_right_db": -0.028793016791815385,
+          "side_to_mid_db": -41.20790577383734
+        },
+        {
+          "start_seconds": 8.0,
+          "end_seconds": 8.1,
+          "rms_per_channel": [
+            0.05418890070682344,
+            0.054625101401009214
+          ],
+          "left_minus_right_db": -0.06963830593937122,
+          "side_to_mid_db": -35.168124009816786
+        },
+        {
+          "start_seconds": 8.1,
+          "end_seconds": 8.2,
+          "rms_per_channel": [
+            0.04530835081720589,
+            0.04460280166943074
+          ],
+          "left_minus_right_db": 0.1363223061306877,
+          "side_to_mid_db": -35.298606565509346
+        },
+        {
+          "start_seconds": 8.2,
+          "end_seconds": 8.3,
+          "rms_per_channel": [
+            0.039708079118078964,
+            0.03937753413222947
+          ],
+          "left_minus_right_db": 0.07260723835581903,
+          "side_to_mid_db": -34.24361718606394
+        },
+        {
+          "start_seconds": 8.3,
+          "end_seconds": 8.4,
+          "rms_per_channel": [
+            0.023912192555948647,
+            0.023869516529232172
+          ],
+          "left_minus_right_db": 0.015515533617870874,
+          "side_to_mid_db": -30.380715302301347
+        },
+        {
+          "start_seconds": 8.4,
+          "end_seconds": 8.5,
+          "rms_per_channel": [
+            0.05732165638856333,
+            0.05746074520088523
+          ],
+          "left_minus_right_db": -0.021050451084904692,
+          "side_to_mid_db": -38.67214837229524
+        },
+        {
+          "start_seconds": 8.5,
+          "end_seconds": 8.6,
+          "rms_per_channel": [
+            0.03110691339697117,
+            0.030963760594362878
+          ],
+          "left_minus_right_db": 0.040064383691553886,
+          "side_to_mid_db": -34.71723572975259
+        },
+        {
+          "start_seconds": 8.6,
+          "end_seconds": 8.7,
+          "rms_per_channel": [
+            0.03348520799923299,
+            0.033431527198010104
+          ],
+          "left_minus_right_db": 0.0139356952711195,
+          "side_to_mid_db": -35.80904790896407
+        },
+        {
+          "start_seconds": 8.7,
+          "end_seconds": 8.8,
+          "rms_per_channel": [
+            0.03309203415543581,
+            0.032997482944739503
+          ],
+          "left_minus_right_db": 0.02485301686560847,
+          "side_to_mid_db": -37.59636467375812
+        },
+        {
+          "start_seconds": 8.8,
+          "end_seconds": 8.9,
+          "rms_per_channel": [
+            0.03226096007820248,
+            0.032194489672010246
+          ],
+          "left_minus_right_db": 0.01791484876120777,
+          "side_to_mid_db": -38.770332412130756
+        },
+        {
+          "start_seconds": 8.9,
+          "end_seconds": 8.981333333333334,
+          "rms_per_channel": [
+            0.028379016324393422,
+            0.02833459710204616
+          ],
+          "left_minus_right_db": 0.013605923470531966,
+          "side_to_mid_db": -39.72357700225721
+        }
+      ],
+      "events": [
+        {
+          "name": "step",
+          "relative_audio_context_seconds": 3.381333333333333,
+          "window_seconds": [
+            3.281333333333333,
+            3.931333333333333
+          ],
+          "options": {
+            "x": -112,
+            "y": 0,
+            "z": -84.09268790918114,
+            "id": 1,
+            "surface": "grit",
+            "volume": 0.42352243241676674
+          },
+          "rms_per_channel": [
+            0.03570766932389086,
+            0.03569794935255421
+          ],
+          "left_minus_right_db": 0.0023647046381422214,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "step",
+          "relative_audio_context_seconds": 3.754666666666666,
+          "window_seconds": [
+            3.654666666666666,
+            4.304666666666666
+          ],
+          "options": {
+            "x": -112,
+            "y": 0,
+            "z": -84.39308673448525,
+            "id": 1,
+            "surface": "grit",
+            "volume": 0.5437995829453214
+          },
+          "rms_per_channel": [
+            0.03560882965632541,
+            0.035580395242862876
+          ],
+          "left_minus_right_db": 0.006938639681565274,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "step",
+          "relative_audio_context_seconds": 4.1386666666666665,
+          "window_seconds": [
+            4.038666666666667,
+            4.688666666666666
+          ],
+          "options": {
+            "x": -112.13365858396331,
+            "y": 0,
+            "z": -85.35107066276213,
+            "id": 1,
+            "surface": "grit",
+            "volume": 0.9996474080123737
+          },
+          "rms_per_channel": [
+            0.03746235399491758,
+            0.03741515702949871
+          ],
+          "left_minus_right_db": 0.010949821423360484,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "step",
+          "relative_audio_context_seconds": 4.373333333333332,
+          "window_seconds": [
+            4.2733333333333325,
+            4.923333333333332
+          ],
+          "options": {
+            "x": -112.89622675589428,
+            "y": 0,
+            "z": -86.19323335222106,
+            "id": 1,
+            "surface": "grit",
+            "volume": 1
+          },
+          "rms_per_channel": [
+            0.03367041624652616,
+            0.0336443167052643
+          ],
+          "left_minus_right_db": 0.0067354570514857595,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "step",
+          "relative_audio_context_seconds": 4.576,
+          "window_seconds": [
+            4.476,
+            5.1259999999999994
+          ],
+          "options": {
+            "x": -114.04404107340778,
+            "y": 0,
+            "z": -86.45022412394422,
+            "id": 1,
+            "surface": "grit",
+            "volume": 1
+          },
+          "rms_per_channel": [
+            0.03534842691302276,
+            0.03531984940571018
+          ],
+          "left_minus_right_db": 0.007024965121806754,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "step",
+          "relative_audio_context_seconds": 5.058666666666666,
+          "window_seconds": [
+            4.958666666666667,
+            5.608666666666666
+          ],
+          "options": {
+            "x": -115.1390807068055,
+            "y": 0,
+            "z": -86.0305466973442,
+            "id": 1,
+            "surface": "grit",
+            "volume": 1
+          },
+          "rms_per_channel": [
+            0.03320584057770585,
+            0.03319744019682629
+          ],
+          "left_minus_right_db": 0.002197625803294781,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        }
+      ]
+    },
+    {
+      "name": "vent-air",
+      "mp4_path": "/workspace/scratch/0b7ad82bafe7/c30-ios-original-recovered/original/audio/audio-vent-air.mp4",
+      "mp4_sha256": "18e3c108d767fd0e41202d0a91a69d8963f9ca417fd9d9c77b924672f95036f6",
+      "wav_path": "/workspace/scratch/0b7ad82bafe7/c30-ios-original-recovered/decoded/audio-vent-air.wav",
+      "wav_sha256": "db192af0fa7385e68c8072de89992cd6556c11d0a2dd7a7c4c2a0db70ba5793d",
+      "sample_rate": 48000,
+      "channels": 2,
+      "decoded_frames": 306176,
+      "duration_seconds": 6.378666666666667,
+      "capture_timing": {
+        "wallSeconds": 6.325,
+        "audioSeconds": 6.325333333333333,
+        "engineSeconds": 6.299999999999642,
+        "engineFrames": 376,
+        "engineToAudioRatio": 0.995994940978021,
+        "audioToWallRatio": 1.0000527009222662,
+        "engineMinusAudioSeconds": -0.025333333333691144,
+        "audioMinusWallSeconds": 0.00033333333333285253,
+        "toleranceSeconds": 0.3162666666666667,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "recording_before": {
+        "wallMs": 30163,
+        "audioTime": 18.773333333333333,
+        "audioState": "running",
+        "engineFrame": 1135,
+        "engineTime": 20.30000000000013,
+        "position": [
+          82,
+          0,
+          -60
+        ],
+        "hp": 120,
+        "dead": false,
+        "mode": "play",
+        "tier": "low",
+        "ambience": "cut",
+        "music": "authority",
+        "master": 0.8500000238418579,
+        "musicVolume": 0.699999988079071,
+        "sfxVolume": 1,
+        "activeVoices": 1
+      },
+      "recording_after": {
+        "wallMs": 36488,
+        "audioTime": 25.098666666666666,
+        "audioState": "running",
+        "engineFrame": 1511,
+        "engineTime": 26.59999999999977,
+        "position": [
+          82,
+          0,
+          -60
+        ],
+        "hp": 119.99750103611004,
+        "dead": false,
+        "mode": "play",
+        "tier": "low",
+        "ambience": "cut",
+        "music": "authority",
+        "master": 0.8500000238418579,
+        "musicVolume": 0.699999988079071,
+        "sfxVolume": 1,
+        "activeVoices": 2
+      },
+      "placement": {
+        "ok": true,
+        "viaDoor": null,
+        "interior": null,
+        "position": [
+          82,
+          0.1,
+          -60
+        ]
+      },
+      "regions": {
+        "cut": 61
+      },
+      "gas_ppm_minmax": [
+        1177.957250040939,
+        1251.0603100349347
+      ],
+      "trajectory_count": 61,
+      "threat_samples": 0,
+      "sfx_event_counts": {
+        "cough": 3
+      },
+      "rms_per_channel": [
+        0.039293118314993894,
+        0.03924889081801498
+      ],
+      "peak_per_channel": [
+        0.17913818359375,
+        0.170196533203125
+      ],
+      "full_scale_sample_fraction": 0.0,
+      "left_right_correlation": 0.9997540981310972,
+      "side_to_mid_rms_db": -39.09960340084859,
+      "whole_clip_left_minus_right_db": 0.00978215868351234,
+      "active_100ms_left_minus_right_db_minmax": [
+        -0.060732447442476196,
+        0.23703977755975045
+      ],
+      "mono_mid_welch_power_band_fractions": {
+        "0-200Hz": 0.7881790596342149,
+        "200-1000Hz": 0.12066291581824774,
+        "1000-4000Hz": 0.014515442729418735,
+        "4000-24000Hz": 0.07664258181347283
+      },
+      "windows_100ms": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.1,
+          "rms_per_channel": [
+            0.01907064695459265,
+            0.019026824279990497
+          ],
+          "left_minus_right_db": 0.0199823804984283,
+          "side_to_mid_db": -46.655047438197386
+        },
+        {
+          "start_seconds": 0.1,
+          "end_seconds": 0.2,
+          "rms_per_channel": [
+            0.03767169798109445,
+            0.03767169798109445
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.2,
+          "end_seconds": 0.3,
+          "rms_per_channel": [
+            0.03526634182893898,
+            0.03526634182893898
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.3,
+          "end_seconds": 0.4,
+          "rms_per_channel": [
+            0.037378734625739665,
+            0.037378734625739665
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.4,
+          "end_seconds": 0.5,
+          "rms_per_channel": [
+            0.03925784876194666,
+            0.03925784876194666
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 0.6,
+          "rms_per_channel": [
+            0.03863148031543006,
+            0.03863148031543006
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.6,
+          "end_seconds": 0.7,
+          "rms_per_channel": [
+            0.04748100793710977,
+            0.04748100793710977
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.7,
+          "end_seconds": 0.8,
+          "rms_per_channel": [
+            0.03155912180010644,
+            0.03155912180010644
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.8,
+          "end_seconds": 0.9,
+          "rms_per_channel": [
+            0.03694289413841207,
+            0.03695175007420635
+          ],
+          "left_minus_right_db": -0.0020819284574352752,
+          "side_to_mid_db": -66.97779946229582
+        },
+        {
+          "start_seconds": 0.9,
+          "end_seconds": 1.0,
+          "rms_per_channel": [
+            0.0463198571568193,
+            0.04638727670676978
+          ],
+          "left_minus_right_db": -0.01263330768943741,
+          "side_to_mid_db": -35.676719341787575
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 1.1,
+          "rms_per_channel": [
+            0.042126884355190755,
+            0.042174706839110544
+          ],
+          "left_minus_right_db": -0.009854638713645524,
+          "side_to_mid_db": -34.20540390397179
+        },
+        {
+          "start_seconds": 1.1,
+          "end_seconds": 1.2,
+          "rms_per_channel": [
+            0.04066893391474113,
+            0.04095429086836619
+          ],
+          "left_minus_right_db": -0.060732447442476196,
+          "side_to_mid_db": -31.252729126095893
+        },
+        {
+          "start_seconds": 1.2,
+          "end_seconds": 1.3,
+          "rms_per_channel": [
+            0.030862078867003654,
+            0.030817216142787845
+          ],
+          "left_minus_right_db": 0.012635447277979347,
+          "side_to_mid_db": -32.28567868106401
+        },
+        {
+          "start_seconds": 1.3,
+          "end_seconds": 1.4,
+          "rms_per_channel": [
+            0.038504820153364885,
+            0.03854783287213706
+          ],
+          "left_minus_right_db": -0.009697362840225137,
+          "side_to_mid_db": -42.04777404705438
+        },
+        {
+          "start_seconds": 1.4,
+          "end_seconds": 1.5,
+          "rms_per_channel": [
+            0.03943870535374016,
+            0.03939979760242571
+          ],
+          "left_minus_right_db": 0.008573183121113674,
+          "side_to_mid_db": -43.53327483361654
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 1.6,
+          "rms_per_channel": [
+            0.04822771085472494,
+            0.04828796075517426
+          ],
+          "left_minus_right_db": -0.010844333262273086,
+          "side_to_mid_db": -39.28815934413716
+        },
+        {
+          "start_seconds": 1.6,
+          "end_seconds": 1.7,
+          "rms_per_channel": [
+            0.04270846683632281,
+            0.042724793027301436
+          ],
+          "left_minus_right_db": -0.0033197257134495377,
+          "side_to_mid_db": -37.44846638512275
+        },
+        {
+          "start_seconds": 1.7,
+          "end_seconds": 1.8,
+          "rms_per_channel": [
+            0.03058404336204535,
+            0.03070642363618067
+          ],
+          "left_minus_right_db": -0.03468673089803937,
+          "side_to_mid_db": -32.97689680919882
+        },
+        {
+          "start_seconds": 1.8,
+          "end_seconds": 1.9,
+          "rms_per_channel": [
+            0.034513755206908275,
+            0.03451348332417863
+          ],
+          "left_minus_right_db": 6.842352191412798e-05,
+          "side_to_mid_db": -36.30865627597628
+        },
+        {
+          "start_seconds": 1.9,
+          "end_seconds": 2.0,
+          "rms_per_channel": [
+            0.037340801296776666,
+            0.03732927604374214
+          ],
+          "left_minus_right_db": 0.002681317075568343,
+          "side_to_mid_db": -45.07439529692424
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 2.1,
+          "rms_per_channel": [
+            0.03669692450936242,
+            0.03668526398585003
+          ],
+          "left_minus_right_db": 0.0027603979461514635,
+          "side_to_mid_db": -47.86320707920929
+        },
+        {
+          "start_seconds": 2.1,
+          "end_seconds": 2.2,
+          "rms_per_channel": [
+            0.04316939285114869,
+            0.043167748337016316
+          ],
+          "left_minus_right_db": 0.00033089046190655345,
+          "side_to_mid_db": -56.45540665833824
+        },
+        {
+          "start_seconds": 2.2,
+          "end_seconds": 2.3,
+          "rms_per_channel": [
+            0.047594361068475595,
+            0.04761236958591724
+          ],
+          "left_minus_right_db": -0.0032859020750668493,
+          "side_to_mid_db": -47.61235416949244
+        },
+        {
+          "start_seconds": 2.3,
+          "end_seconds": 2.4,
+          "rms_per_channel": [
+            0.03728324600729228,
+            0.03729191171448617
+          ],
+          "left_minus_right_db": -0.002018617967702423,
+          "side_to_mid_db": -52.192983229697106
+        },
+        {
+          "start_seconds": 2.4,
+          "end_seconds": 2.5,
+          "rms_per_channel": [
+            0.043946263159518086,
+            0.04394549982375381
+          ],
+          "left_minus_right_db": 0.00015087307343515947,
+          "side_to_mid_db": -68.11444836140181
+        },
+        {
+          "start_seconds": 2.5,
+          "end_seconds": 2.6,
+          "rms_per_channel": [
+            0.043731232612124374,
+            0.043731232612124374
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 2.6,
+          "end_seconds": 2.7,
+          "rms_per_channel": [
+            0.0419123408405813,
+            0.0419123408405813
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 2.7,
+          "end_seconds": 2.8,
+          "rms_per_channel": [
+            0.03374212091133826,
+            0.03376653884738504
+          ],
+          "left_minus_right_db": -0.006283386685466059,
+          "side_to_mid_db": -46.99455508526938
+        },
+        {
+          "start_seconds": 2.8,
+          "end_seconds": 2.9,
+          "rms_per_channel": [
+            0.043087927347011265,
+            0.043095409961175564
+          ],
+          "left_minus_right_db": -0.0015082535215876526,
+          "side_to_mid_db": -44.10608777221906
+        },
+        {
+          "start_seconds": 2.9,
+          "end_seconds": 3.0,
+          "rms_per_channel": [
+            0.029868762323571024,
+            0.029938879367433953
+          ],
+          "left_minus_right_db": -0.020366266468665697,
+          "side_to_mid_db": -39.806641649095155
+        },
+        {
+          "start_seconds": 3.0,
+          "end_seconds": 3.1,
+          "rms_per_channel": [
+            0.0400184656922968,
+            0.04008068336416231
+          ],
+          "left_minus_right_db": -0.013493674936983661,
+          "side_to_mid_db": -41.594779435676486
+        },
+        {
+          "start_seconds": 3.1,
+          "end_seconds": 3.2,
+          "rms_per_channel": [
+            0.0313596504238107,
+            0.0313282908221107
+          ],
+          "left_minus_right_db": 0.008690221971488995,
+          "side_to_mid_db": -46.14433840459968
+        },
+        {
+          "start_seconds": 3.2,
+          "end_seconds": 3.3,
+          "rms_per_channel": [
+            0.037136570059099885,
+            0.03713743507061736
+          ],
+          "left_minus_right_db": -0.00020231558978574433,
+          "side_to_mid_db": -59.48976588620656
+        },
+        {
+          "start_seconds": 3.3,
+          "end_seconds": 3.4,
+          "rms_per_channel": [
+            0.03633323398187833,
+            0.036317324563042055
+          ],
+          "left_minus_right_db": 0.0038041678190566764,
+          "side_to_mid_db": -50.282127672949045
+        },
+        {
+          "start_seconds": 3.4,
+          "end_seconds": 3.5,
+          "rms_per_channel": [
+            0.03494029453216921,
+            0.035015905395856084
+          ],
+          "left_minus_right_db": -0.018775973361493645,
+          "side_to_mid_db": -38.99505198976114
+        },
+        {
+          "start_seconds": 3.5,
+          "end_seconds": 3.6,
+          "rms_per_channel": [
+            0.03295985559501183,
+            0.033034332552579926
+          ],
+          "left_minus_right_db": -0.019604723591673784,
+          "side_to_mid_db": -35.526069960180344
+        },
+        {
+          "start_seconds": 3.6,
+          "end_seconds": 3.7,
+          "rms_per_channel": [
+            0.03077235331963482,
+            0.03076513151634292
+          ],
+          "left_minus_right_db": 0.002038685423573897,
+          "side_to_mid_db": -33.1627896049205
+        },
+        {
+          "start_seconds": 3.7,
+          "end_seconds": 3.8,
+          "rms_per_channel": [
+            0.04043402977952455,
+            0.04040546474574765
+          ],
+          "left_minus_right_db": 0.006138404072840733,
+          "side_to_mid_db": -39.373311894892666
+        },
+        {
+          "start_seconds": 3.8,
+          "end_seconds": 3.9,
+          "rms_per_channel": [
+            0.04729000503932364,
+            0.04727321283190809
+          ],
+          "left_minus_right_db": 0.003084820191348146,
+          "side_to_mid_db": -46.528105595786435
+        },
+        {
+          "start_seconds": 3.9,
+          "end_seconds": 4.0,
+          "rms_per_channel": [
+            0.04703508186166145,
+            0.04602614326105841
+          ],
+          "left_minus_right_db": 0.18834638613685944,
+          "side_to_mid_db": -30.961226938109206
+        },
+        {
+          "start_seconds": 4.0,
+          "end_seconds": 4.1,
+          "rms_per_channel": [
+            0.04480238465087864,
+            0.044637293937347694
+          ],
+          "left_minus_right_db": 0.0320654405110804,
+          "side_to_mid_db": -37.91105292841965
+        },
+        {
+          "start_seconds": 4.1,
+          "end_seconds": 4.2,
+          "rms_per_channel": [
+            0.04466833589668365,
+            0.0446518630827963
+          ],
+          "left_minus_right_db": 0.0032037780190997895,
+          "side_to_mid_db": -44.497715765293584
+        },
+        {
+          "start_seconds": 4.2,
+          "end_seconds": 4.3,
+          "rms_per_channel": [
+            0.04219839183952719,
+            0.04175795058869771
+          ],
+          "left_minus_right_db": 0.09113448923742551,
+          "side_to_mid_db": -34.72810109333302
+        },
+        {
+          "start_seconds": 4.3,
+          "end_seconds": 4.4,
+          "rms_per_channel": [
+            0.044263263384187256,
+            0.043984513258296776
+          ],
+          "left_minus_right_db": 0.05487279056192877,
+          "side_to_mid_db": -36.0873120402725
+        },
+        {
+          "start_seconds": 4.4,
+          "end_seconds": 4.5,
+          "rms_per_channel": [
+            0.03197579699860238,
+            0.031820613855164326
+          ],
+          "left_minus_right_db": 0.04225649368190712,
+          "side_to_mid_db": -37.168037460757624
+        },
+        {
+          "start_seconds": 4.5,
+          "end_seconds": 4.6,
+          "rms_per_channel": [
+            0.025625736372095965,
+            0.02561651323696803
+          ],
+          "left_minus_right_db": 0.0031267610346730292,
+          "side_to_mid_db": -48.89698519247876
+        },
+        {
+          "start_seconds": 4.6,
+          "end_seconds": 4.7,
+          "rms_per_channel": [
+            0.037911064568968464,
+            0.03790485800008859
+          ],
+          "left_minus_right_db": 0.001422117429039152,
+          "side_to_mid_db": -50.18506171990736
+        },
+        {
+          "start_seconds": 4.7,
+          "end_seconds": 4.8,
+          "rms_per_channel": [
+            0.03970660400504773,
+            0.03863765459752719
+          ],
+          "left_minus_right_db": 0.23703977755975045,
+          "side_to_mid_db": -29.812680950867776
+        },
+        {
+          "start_seconds": 4.8,
+          "end_seconds": 4.9,
+          "rms_per_channel": [
+            0.030676836496713357,
+            0.030485721468991603
+          ],
+          "left_minus_right_db": 0.05428188410865704,
+          "side_to_mid_db": -35.89624819640117
+        },
+        {
+          "start_seconds": 4.9,
+          "end_seconds": 5.0,
+          "rms_per_channel": [
+            0.052935738138153166,
+            0.05291041185099729
+          ],
+          "left_minus_right_db": 0.004156624296652589,
+          "side_to_mid_db": -50.67671814545416
+        },
+        {
+          "start_seconds": 5.0,
+          "end_seconds": 5.1,
+          "rms_per_channel": [
+            0.0416601815577016,
+            0.04165958322755244
+          ],
+          "left_minus_right_db": 0.00012474902338379616,
+          "side_to_mid_db": -58.69087439956882
+        },
+        {
+          "start_seconds": 5.1,
+          "end_seconds": 5.2,
+          "rms_per_channel": [
+            0.03572533320622991,
+            0.03572533320622991
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.2,
+          "end_seconds": 5.3,
+          "rms_per_channel": [
+            0.034385364458504576,
+            0.034385364458504576
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.3,
+          "end_seconds": 5.4,
+          "rms_per_channel": [
+            0.030189004722977655,
+            0.030189004722977655
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.4,
+          "end_seconds": 5.5,
+          "rms_per_channel": [
+            0.03729988178441709,
+            0.03729988178441709
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.5,
+          "end_seconds": 5.6,
+          "rms_per_channel": [
+            0.042106727424418094,
+            0.042106727424418094
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.6,
+          "end_seconds": 5.7,
+          "rms_per_channel": [
+            0.050461541785730146,
+            0.050461541785730146
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.7,
+          "end_seconds": 5.8,
+          "rms_per_channel": [
+            0.039584073785858064,
+            0.039584073785858064
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.8,
+          "end_seconds": 5.9,
+          "rms_per_channel": [
+            0.04849465838601886,
+            0.04851855286889067
+          ],
+          "left_minus_right_db": -0.004278692410968468,
+          "side_to_mid_db": -47.24896034843706
+        },
+        {
+          "start_seconds": 5.9,
+          "end_seconds": 6.0,
+          "rms_per_channel": [
+            0.04776011240687122,
+            0.04789010092572416
+          ],
+          "left_minus_right_db": -0.023608240582363375,
+          "side_to_mid_db": -40.3826703370462
+        },
+        {
+          "start_seconds": 6.0,
+          "end_seconds": 6.1,
+          "rms_per_channel": [
+            0.043329634041298436,
+            0.0432671135780555
+          ],
+          "left_minus_right_db": 0.012541947662723053,
+          "side_to_mid_db": -41.86163634877759
+        },
+        {
+          "start_seconds": 6.1,
+          "end_seconds": 6.2,
+          "rms_per_channel": [
+            0.04077682550312662,
+            0.040697149404322064
+          ],
+          "left_minus_right_db": 0.016988443792301643,
+          "side_to_mid_db": -41.86146005142781
+        },
+        {
+          "start_seconds": 6.2,
+          "end_seconds": 6.3,
+          "rms_per_channel": [
+            0.029421083536174744,
+            0.02940007725583604
+          ],
+          "left_minus_right_db": 0.006203829983227933,
+          "side_to_mid_db": -40.18118011531325
+        },
+        {
+          "start_seconds": 6.3,
+          "end_seconds": 6.378666666666667,
+          "rms_per_channel": [
+            0.027618370128462105,
+            0.0275743225024223
+          ],
+          "left_minus_right_db": 0.013863896888874724,
+          "side_to_mid_db": -40.60955849175845
+        }
+      ],
+      "events": [
+        {
+          "name": "cough",
+          "relative_audio_context_seconds": 3.8613333333333344,
+          "window_seconds": [
+            3.7613333333333343,
+            4.411333333333334
+          ],
+          "options": {
+            "x": 82,
+            "y": 1.5,
+            "z": -60,
+            "player": true,
+            "severity": 0.2943131008252522
+          },
+          "rms_per_channel": [
+            0.04545257894868581,
+            0.04515556460752721
+          ],
+          "left_minus_right_db": 0.056945058742691235,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "cough",
+          "relative_audio_context_seconds": 4.234666666666666,
+          "window_seconds": [
+            4.134666666666666,
+            4.7846666666666655
+          ],
+          "options": {
+            "x": 82,
+            "y": 1.5,
+            "z": -60,
+            "player": true,
+            "severity": 0.3138684011491448
+          },
+          "rms_per_channel": [
+            0.039016621024156935,
+            0.038707007489476995
+          ],
+          "left_minus_right_db": 0.0692011752169603,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "cough",
+          "relative_audio_context_seconds": 4.640000000000001,
+          "window_seconds": [
+            4.540000000000001,
+            5.19
+          ],
+          "options": {
+            "x": 82,
+            "y": 1.5,
+            "z": -60,
+            "player": true,
+            "severity": 0.33775601738284516
+          },
+          "rms_per_channel": [
+            0.03914120763335665,
+            0.03894699746842817
+          ],
+          "left_minus_right_db": 0.04320477170761151,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        }
+      ]
+    },
+    {
+      "name": "arcade-room",
+      "mp4_path": "/workspace/scratch/0b7ad82bafe7/c30-ios-original-recovered/original/audio/audio-arcade-room.mp4",
+      "mp4_sha256": "1bb5ceacc225fb9d57baf4f02b77f709790bc5bcf50bbd08c9b23e52107d99da",
+      "wav_path": "/workspace/scratch/0b7ad82bafe7/c30-ios-original-recovered/decoded/audio-arcade-room.wav",
+      "wav_sha256": "93420b7f821a21d7a055a4440b8613ff75dc97ec09c8e6483087ba7f23fdea18",
+      "sample_rate": 48000,
+      "channels": 2,
+      "decoded_frames": 304128,
+      "duration_seconds": 6.336,
+      "capture_timing": {
+        "wallSeconds": 6.281,
+        "audioSeconds": 6.2826666666666675,
+        "engineSeconds": 6.28333333333298,
+        "engineFrames": 376,
+        "engineToAudioRatio": 1.000106112054273,
+        "audioToWallRatio": 1.0002653505280477,
+        "engineMinusAudioSeconds": 0.0006666666663122101,
+        "audioMinusWallSeconds": 0.0016666666666678154,
+        "toleranceSeconds": 0.3141333333333334,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "recording_before": {
+        "wallMs": 39692,
+        "audioTime": 28.298666666666666,
+        "audioState": "running",
+        "engineFrame": 1652,
+        "engineTime": 28.999999999999634,
+        "position": [
+          588,
+          0,
+          4.2
+        ],
+        "hp": 119.90336015118709,
+        "dead": false,
+        "mode": "play",
+        "tier": "low",
+        "ambience": "street",
+        "music": "authority",
+        "master": 0.8500000238418579,
+        "musicVolume": 0.699999988079071,
+        "sfxVolume": 1,
+        "activeVoices": 1
+      },
+      "recording_after": {
+        "wallMs": 45973,
+        "audioTime": 34.58133333333333,
+        "audioState": "running",
+        "engineFrame": 2028,
+        "engineTime": 35.283333333332614,
+        "position": [
+          588,
+          0,
+          4.2
+        ],
+        "hp": 119.82933583349667,
+        "dead": false,
+        "mode": "play",
+        "tier": "low",
+        "ambience": "street",
+        "music": "authority",
+        "master": 0.8500000238418579,
+        "musicVolume": 0.699999988079071,
+        "sfxVolume": 1,
+        "activeVoices": 2
+      },
+      "placement": {
+        "ok": true,
+        "viaDoor": "door_arcade",
+        "interior": "arcade",
+        "position": [
+          588,
+          0,
+          4.2
+        ]
+      },
+      "regions": {
+        "None": 61
+      },
+      "gas_ppm_minmax": [
+        40,
+        40
+      ],
+      "trajectory_count": 61,
+      "threat_samples": 0,
+      "sfx_event_counts": {
+        "cough": 3
+      },
+      "rms_per_channel": [
+        0.03863062630597878,
+        0.03854983367572288
+      ],
+      "peak_per_channel": [
+        0.187896728515625,
+        0.170684814453125
+      ],
+      "full_scale_sample_fraction": 0.0,
+      "left_right_correlation": 0.999684264795146,
+      "side_to_mid_rms_db": -38.007276571596215,
+      "whole_clip_left_minus_right_db": 0.018184813266592246,
+      "active_100ms_left_minus_right_db_minmax": [
+        -0.037789964533244534,
+        0.36698924393588384
+      ],
+      "mono_mid_welch_power_band_fractions": {
+        "0-200Hz": 0.8426688084856166,
+        "200-1000Hz": 0.14652633146237143,
+        "1000-4000Hz": 0.008854079970221392,
+        "4000-24000Hz": 0.001950780076673171
+      },
+      "windows_100ms": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.1,
+          "rms_per_channel": [
+            0.021898446354949013,
+            0.021804060948705545
+          ],
+          "left_minus_right_db": 0.037518327772067414,
+          "side_to_mid_db": -34.84564108197865
+        },
+        {
+          "start_seconds": 0.1,
+          "end_seconds": 0.2,
+          "rms_per_channel": [
+            0.04212693662111203,
+            0.042129321242370794
+          ],
+          "left_minus_right_db": -0.0004916562309546365,
+          "side_to_mid_db": -40.61048055975033
+        },
+        {
+          "start_seconds": 0.2,
+          "end_seconds": 0.3,
+          "rms_per_channel": [
+            0.03798387671194579,
+            0.03798387671194579
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.3,
+          "end_seconds": 0.4,
+          "rms_per_channel": [
+            0.0297960861566064,
+            0.0297960861566064
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.4,
+          "end_seconds": 0.5,
+          "rms_per_channel": [
+            0.057773055388028134,
+            0.057773055388028134
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 0.6,
+          "rms_per_channel": [
+            0.02894372176262727,
+            0.02894372176262727
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.6,
+          "end_seconds": 0.7,
+          "rms_per_channel": [
+            0.03596695323292621,
+            0.03596695323292621
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.7,
+          "end_seconds": 0.8,
+          "rms_per_channel": [
+            0.02816748767076707,
+            0.02816748767076707
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.8,
+          "end_seconds": 0.9,
+          "rms_per_channel": [
+            0.03743161230959519,
+            0.03743161230959519
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 0.9,
+          "end_seconds": 1.0,
+          "rms_per_channel": [
+            0.03822018478568629,
+            0.03822018478568629
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 1.1,
+          "rms_per_channel": [
+            0.03637346030381091,
+            0.03637346030381091
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 1.1,
+          "end_seconds": 1.2,
+          "rms_per_channel": [
+            0.039248359703666705,
+            0.039248359703666705
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 1.2,
+          "end_seconds": 1.3,
+          "rms_per_channel": [
+            0.035503003252338204,
+            0.03549654893849835
+          ],
+          "left_minus_right_db": 0.0015792059562902668,
+          "side_to_mid_db": -54.16400047520189
+        },
+        {
+          "start_seconds": 1.3,
+          "end_seconds": 1.4,
+          "rms_per_channel": [
+            0.04741966138591325,
+            0.047619897342851984
+          ],
+          "left_minus_right_db": -0.03660012778323754,
+          "side_to_mid_db": -37.05797773868412
+        },
+        {
+          "start_seconds": 1.4,
+          "end_seconds": 1.5,
+          "rms_per_channel": [
+            0.041008808751287346,
+            0.040695979586638745
+          ],
+          "left_minus_right_db": 0.06651294086190399,
+          "side_to_mid_db": -34.86031029308949
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 1.6,
+          "rms_per_channel": [
+            0.03968757927497837,
+            0.03944674357062988
+          ],
+          "left_minus_right_db": 0.05286906444901048,
+          "side_to_mid_db": -31.62312920423608
+        },
+        {
+          "start_seconds": 1.6,
+          "end_seconds": 1.7,
+          "rms_per_channel": [
+            0.0399500327507174,
+            0.04004686689008532
+          ],
+          "left_minus_right_db": -0.021028091396676666,
+          "side_to_mid_db": -35.46383113210495
+        },
+        {
+          "start_seconds": 1.7,
+          "end_seconds": 1.8,
+          "rms_per_channel": [
+            0.03586815112210301,
+            0.03588992191265622
+          ],
+          "left_minus_right_db": -0.005270450609480167,
+          "side_to_mid_db": -41.21897990909707
+        },
+        {
+          "start_seconds": 1.8,
+          "end_seconds": 1.9,
+          "rms_per_channel": [
+            0.04378681178167088,
+            0.04381389830220266
+          ],
+          "left_minus_right_db": -0.005371429872904374,
+          "side_to_mid_db": -48.77759690266613
+        },
+        {
+          "start_seconds": 1.9,
+          "end_seconds": 2.0,
+          "rms_per_channel": [
+            0.03928770289311356,
+            0.03932686423184108
+          ],
+          "left_minus_right_db": -0.008653640332618,
+          "side_to_mid_db": -44.0336731702818
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 2.1,
+          "rms_per_channel": [
+            0.05244348333638978,
+            0.0525189174251907
+          ],
+          "left_minus_right_db": -0.01248470458609529,
+          "side_to_mid_db": -46.65406221888275
+        },
+        {
+          "start_seconds": 2.1,
+          "end_seconds": 2.2,
+          "rms_per_channel": [
+            0.03265112971669256,
+            0.03270356437843044
+          ],
+          "left_minus_right_db": -0.013937538507155312,
+          "side_to_mid_db": -42.80028899318016
+        },
+        {
+          "start_seconds": 2.2,
+          "end_seconds": 2.3,
+          "rms_per_channel": [
+            0.03707913665509358,
+            0.03607422687768027
+          ],
+          "left_minus_right_db": 0.23865162463005865,
+          "side_to_mid_db": -29.18262442673539
+        },
+        {
+          "start_seconds": 2.3,
+          "end_seconds": 2.4,
+          "rms_per_channel": [
+            0.03425672710431264,
+            0.03346433460971242
+          ],
+          "left_minus_right_db": 0.20327347825788394,
+          "side_to_mid_db": -30.407315123686246
+        },
+        {
+          "start_seconds": 2.4,
+          "end_seconds": 2.5,
+          "rms_per_channel": [
+            0.035755022532264986,
+            0.03548571267327739
+          ],
+          "left_minus_right_db": 0.06567048612628737,
+          "side_to_mid_db": -35.41472583049597
+        },
+        {
+          "start_seconds": 2.5,
+          "end_seconds": 2.6,
+          "rms_per_channel": [
+            0.038637875919449415,
+            0.03865089672082076
+          ],
+          "left_minus_right_db": -0.002926615106363467,
+          "side_to_mid_db": -42.91276652294101
+        },
+        {
+          "start_seconds": 2.6,
+          "end_seconds": 2.7,
+          "rms_per_channel": [
+            0.0483509755622967,
+            0.04708869012542318
+          ],
+          "left_minus_right_db": 0.22977262733044213,
+          "side_to_mid_db": -28.744934179728915
+        },
+        {
+          "start_seconds": 2.7,
+          "end_seconds": 2.8,
+          "rms_per_channel": [
+            0.04526898057575989,
+            0.04519733515175431
+          ],
+          "left_minus_right_db": 0.013757703540432459,
+          "side_to_mid_db": -34.763218774456305
+        },
+        {
+          "start_seconds": 2.8,
+          "end_seconds": 2.9,
+          "rms_per_channel": [
+            0.03393781840202738,
+            0.03388149226494428
+          ],
+          "left_minus_right_db": 0.014427829422666589,
+          "side_to_mid_db": -36.558852517943286
+        },
+        {
+          "start_seconds": 2.9,
+          "end_seconds": 3.0,
+          "rms_per_channel": [
+            0.04556394652943169,
+            0.04561312448996406
+          ],
+          "left_minus_right_db": -0.009369776292565484,
+          "side_to_mid_db": -44.74104313898149
+        },
+        {
+          "start_seconds": 3.0,
+          "end_seconds": 3.1,
+          "rms_per_channel": [
+            0.037125739569658096,
+            0.03558980853883471
+          ],
+          "left_minus_right_db": 0.36698924393588384,
+          "side_to_mid_db": -27.42132539805224
+        },
+        {
+          "start_seconds": 3.1,
+          "end_seconds": 3.2,
+          "rms_per_channel": [
+            0.040207398830860906,
+            0.04014623404505398
+          ],
+          "left_minus_right_db": 0.013223314562131314,
+          "side_to_mid_db": -39.39969137427332
+        },
+        {
+          "start_seconds": 3.2,
+          "end_seconds": 3.3,
+          "rms_per_channel": [
+            0.037206954676465044,
+            0.03711237153128981
+          ],
+          "left_minus_right_db": 0.02210835985931805,
+          "side_to_mid_db": -35.534996314132236
+        },
+        {
+          "start_seconds": 3.3,
+          "end_seconds": 3.4,
+          "rms_per_channel": [
+            0.038960557614145595,
+            0.03904450878934839
+          ],
+          "left_minus_right_db": -0.01869598881071894,
+          "side_to_mid_db": -39.55058319261167
+        },
+        {
+          "start_seconds": 3.4,
+          "end_seconds": 3.5,
+          "rms_per_channel": [
+            0.031780266452503265,
+            0.03188984407179859
+          ],
+          "left_minus_right_db": -0.02989723246469232,
+          "side_to_mid_db": -37.13075639233641
+        },
+        {
+          "start_seconds": 3.5,
+          "end_seconds": 3.6,
+          "rms_per_channel": [
+            0.03936949154266694,
+            0.03943280823207669
+          ],
+          "left_minus_right_db": -0.013958016362042778,
+          "side_to_mid_db": -43.43236740736064
+        },
+        {
+          "start_seconds": 3.6,
+          "end_seconds": 3.7,
+          "rms_per_channel": [
+            0.035464224962048985,
+            0.035465052157171446
+          ],
+          "left_minus_right_db": -0.00020259407215106006,
+          "side_to_mid_db": -65.48984423096465
+        },
+        {
+          "start_seconds": 3.7,
+          "end_seconds": 3.8,
+          "rms_per_channel": [
+            0.038908938065348404,
+            0.03890740248122658
+          ],
+          "left_minus_right_db": 0.00034280497181293486,
+          "side_to_mid_db": -53.767543973922514
+        },
+        {
+          "start_seconds": 3.8,
+          "end_seconds": 3.9,
+          "rms_per_channel": [
+            0.03491628487110663,
+            0.03492229110350221
+          ],
+          "left_minus_right_db": -0.0014940015923618655,
+          "side_to_mid_db": -43.6112139239863
+        },
+        {
+          "start_seconds": 3.9,
+          "end_seconds": 4.0,
+          "rms_per_channel": [
+            0.0375098008919184,
+            0.03751031801493103
+          ],
+          "left_minus_right_db": -0.00011974583571748348,
+          "side_to_mid_db": -52.93119777771643
+        },
+        {
+          "start_seconds": 4.0,
+          "end_seconds": 4.1,
+          "rms_per_channel": [
+            0.029243344970911495,
+            0.02924362202813514
+          ],
+          "left_minus_right_db": -8.22914434280158e-05,
+          "side_to_mid_db": -59.11162101020742
+        },
+        {
+          "start_seconds": 4.1,
+          "end_seconds": 4.2,
+          "rms_per_channel": [
+            0.03451361280646652,
+            0.03451342162843114
+          ],
+          "left_minus_right_db": 4.811307135233863e-05,
+          "side_to_mid_db": -66.56180155843704
+        },
+        {
+          "start_seconds": 4.2,
+          "end_seconds": 4.3,
+          "rms_per_channel": [
+            0.03736533460547459,
+            0.03736533460547459
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.3,
+          "end_seconds": 4.4,
+          "rms_per_channel": [
+            0.04743729036280248,
+            0.04743729036280248
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.4,
+          "end_seconds": 4.5,
+          "rms_per_channel": [
+            0.03622290957567647,
+            0.03622290957567647
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.5,
+          "end_seconds": 4.6,
+          "rms_per_channel": [
+            0.04106657118745886,
+            0.04106657118745886
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.6,
+          "end_seconds": 4.7,
+          "rms_per_channel": [
+            0.03865989329259662,
+            0.03865989329259662
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.7,
+          "end_seconds": 4.8,
+          "rms_per_channel": [
+            0.04225351001821461,
+            0.04225351001821461
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.8,
+          "end_seconds": 4.9,
+          "rms_per_channel": [
+            0.03835334587427888,
+            0.03835334587427888
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 4.9,
+          "end_seconds": 5.0,
+          "rms_per_channel": [
+            0.03074862171710928,
+            0.03074862171710928
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.0,
+          "end_seconds": 5.1,
+          "rms_per_channel": [
+            0.033571995967899095,
+            0.033611893649125896
+          ],
+          "left_minus_right_db": -0.010316368958829796,
+          "side_to_mid_db": -39.08307380704841
+        },
+        {
+          "start_seconds": 5.1,
+          "end_seconds": 5.2,
+          "rms_per_channel": [
+            0.03813371729386704,
+            0.03812668427921481
+          ],
+          "left_minus_right_db": 0.0016020893676190495,
+          "side_to_mid_db": -39.56032183677152
+        },
+        {
+          "start_seconds": 5.2,
+          "end_seconds": 5.3,
+          "rms_per_channel": [
+            0.03524288094962489,
+            0.03524267649289308
+          ],
+          "left_minus_right_db": 5.039014154712278e-05,
+          "side_to_mid_db": -34.641761676920986
+        },
+        {
+          "start_seconds": 5.3,
+          "end_seconds": 5.4,
+          "rms_per_channel": [
+            0.026402583389967333,
+            0.02615199357711892
+          ],
+          "left_minus_right_db": 0.08283244124629052,
+          "side_to_mid_db": -34.30214811768386
+        },
+        {
+          "start_seconds": 5.4,
+          "end_seconds": 5.5,
+          "rms_per_channel": [
+            0.06082510709909291,
+            0.06075598337206111
+          ],
+          "left_minus_right_db": 0.00987655443348995,
+          "side_to_mid_db": -47.50126346277111
+        },
+        {
+          "start_seconds": 5.5,
+          "end_seconds": 5.6,
+          "rms_per_channel": [
+            0.03619436939650409,
+            0.036158039092259155
+          ],
+          "left_minus_right_db": 0.00872288970889159,
+          "side_to_mid_db": -48.582090632849095
+        },
+        {
+          "start_seconds": 5.6,
+          "end_seconds": 5.7,
+          "rms_per_channel": [
+            0.03758840064331433,
+            0.03758840628521161
+          ],
+          "left_minus_right_db": -1.3037238235870555e-06,
+          "side_to_mid_db": -75.31835080810318
+        },
+        {
+          "start_seconds": 5.7,
+          "end_seconds": 5.8,
+          "rms_per_channel": [
+            0.02805122035916884,
+            0.028046933554169394
+          ],
+          "left_minus_right_db": 0.0013274845106334401,
+          "side_to_mid_db": -50.947838110162394
+        },
+        {
+          "start_seconds": 5.8,
+          "end_seconds": 5.9,
+          "rms_per_channel": [
+            0.03370180624276653,
+            0.03370180624276653
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 5.9,
+          "end_seconds": 6.0,
+          "rms_per_channel": [
+            0.03552368647251774,
+            0.03552368647251774
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.0,
+          "end_seconds": 6.1,
+          "rms_per_channel": [
+            0.041797153112304725,
+            0.041797153112304725
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.1,
+          "end_seconds": 6.2,
+          "rms_per_channel": [
+            0.04690910612495777,
+            0.04690910612495777
+          ],
+          "left_minus_right_db": 0.0,
+          "side_to_mid_db": -300.0
+        },
+        {
+          "start_seconds": 6.2,
+          "end_seconds": 6.3,
+          "rms_per_channel": [
+            0.03787739894292028,
+            0.03793319054823672
+          ],
+          "left_minus_right_db": -0.012784488743537614,
+          "side_to_mid_db": -43.25549948910442
+        },
+        {
+          "start_seconds": 6.3,
+          "end_seconds": 6.336,
+          "rms_per_channel": [
+            0.031982040610277436,
+            0.03212148897937853
+          ],
+          "left_minus_right_db": -0.037789964533244534,
+          "side_to_mid_db": -39.15314160708937
+        }
+      ],
+      "events": [
+        {
+          "name": "cough",
+          "relative_audio_context_seconds": 2.229333333333333,
+          "window_seconds": [
+            2.129333333333333,
+            2.7793333333333328
+          ],
+          "options": {
+            "x": 588,
+            "y": 1.5,
+            "z": 4.2,
+            "player": true,
+            "severity": 0.44236328120473584
+          },
+          "rms_per_channel": [
+            0.03927539899518635,
+            0.03877000171846752
+          ],
+          "left_minus_right_db": 0.112495708703472,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "cough",
+          "relative_audio_context_seconds": 2.5600000000000023,
+          "window_seconds": [
+            2.460000000000002,
+            3.110000000000002
+          ],
+          "options": {
+            "x": 588,
+            "y": 1.5,
+            "z": 4.2,
+            "player": true,
+            "severity": 0.432839471680926
+          },
+          "rms_per_channel": [
+            0.04194663599728275,
+            0.041484180108155105
+          ],
+          "left_minus_right_db": 0.09629252457174473,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        },
+        {
+          "name": "cough",
+          "relative_audio_context_seconds": 2.9813333333333354,
+          "window_seconds": [
+            2.8813333333333353,
+            3.531333333333335
+          ],
+          "options": {
+            "x": 588,
+            "y": 1.5,
+            "z": 4.2,
+            "player": true,
+            "severity": 0.42093470977616376
+          },
+          "rms_per_channel": [
+            0.038244266168458135,
+            0.038032438647898924
+          ],
+          "left_minus_right_db": 0.048243174643733705,
+          "identity_limit": "Emitted game event and nearby recorded signal; mixed music/ambience overlap, not isolated proof that the named synthesized voice sounded. Recorder start/codec alignment was not sample-calibrated."
+        }
+      ]
+    }
+  ],
+  "listening_status": "not measured; no confirmed formal audio-perception tool; no audio forwarding used as evidence"
+}

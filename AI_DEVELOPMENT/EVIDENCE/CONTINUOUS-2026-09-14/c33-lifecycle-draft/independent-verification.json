@@ -1,0 +1,856 @@
+{
+  "scope": "Exact-method CPU fixtures with inert WebAudio/DOM nodes. Adapter integration uses a explicitly stubbed recorder import; no product build, browser, recording or listening.",
+  "checks": [
+    {
+      "name": "revised expected lifecycle status",
+      "passed": true
+    },
+    {
+      "name": "revised later actions stopped or full sequence observed",
+      "passed": true
+    },
+    {
+      "name": "revised report failures exactly follow result",
+      "passed": true
+    },
+    {
+      "name": "revised probe does not modify settings",
+      "passed": true
+    },
+    {
+      "name": "success checks all five target snapshots",
+      "passed": true
+    },
+    {
+      "name": "unsettled reverb gains are observations, not target assertions",
+      "passed": true
+    },
+    {
+      "name": "normal pause and title-settings flags measured",
+      "passed": true
+    },
+    {
+      "name": "original-street expected lifecycle status",
+      "passed": true
+    },
+    {
+      "name": "original-street later actions stopped or full sequence observed",
+      "passed": true
+    },
+    {
+      "name": "original-street report failures exactly follow result",
+      "passed": true
+    },
+    {
+      "name": "original-street probe does not modify settings",
+      "passed": true
+    },
+    {
+      "name": "original-street failure sample has actual failing stage",
+      "passed": true
+    },
+    {
+      "name": "original-title-regression expected lifecycle status",
+      "passed": true
+    },
+    {
+      "name": "original-title-regression later actions stopped or full sequence observed",
+      "passed": true
+    },
+    {
+      "name": "original-title-regression report failures exactly follow result",
+      "passed": true
+    },
+    {
+      "name": "original-title-regression probe does not modify settings",
+      "passed": true
+    },
+    {
+      "name": "original-title-regression failure sample has actual failing stage",
+      "passed": true
+    },
+    {
+      "name": "wrong retained preset value rejected even with correct ambienceState",
+      "passed": true
+    },
+    {
+      "name": "execute error enters existing report and stops close action",
+      "passed": true
+    },
+    {
+      "name": "frame-wait failure enters report before any state action",
+      "passed": true
+    },
+    {
+      "name": "wrapper-success success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-success exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-success native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-success original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-success lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-thrown-capture success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-thrown-capture exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-thrown-capture native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-thrown-capture original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-thrown-capture lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-thrown-capture failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-failed-capture-check success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-failed-capture-check exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-failed-capture-check native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-failed-capture-check original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-failed-capture-check lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-failed-capture-check failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-clip success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-clip exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-clip native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-clip original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-clip lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-clip failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-wrong-final-room success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-wrong-final-room exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-wrong-final-room native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-wrong-final-room original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-wrong-final-room lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-wrong-final-room failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-native-reported-failure success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-native-reported-failure exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-native-reported-failure native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-native-reported-failure original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-native-reported-failure lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-native-reported-failure failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-timing-fields success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-timing-fields exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-timing-fields native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-timing-fields original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-timing-fields lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-missing-timing-fields failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "wrapper-title-failure success/failure return preserved",
+      "passed": true
+    },
+    {
+      "name": "wrapper-title-failure exact following operation budget",
+      "passed": true
+    },
+    {
+      "name": "wrapper-title-failure native actions always released",
+      "passed": true
+    },
+    {
+      "name": "wrapper-title-failure original settings restored",
+      "passed": true
+    },
+    {
+      "name": "wrapper-title-failure lifecycle status accurately retained",
+      "passed": true
+    },
+    {
+      "name": "wrapper-title-failure failure cleanup reapplies original settings",
+      "passed": true
+    },
+    {
+      "name": "verifyIosAudioBuild unchanged",
+      "passed": true
+    },
+    {
+      "name": "createSafariEvaluate unchanged",
+      "passed": true
+    },
+    {
+      "name": "safariAudioCapabilities unchanged",
+      "passed": true
+    },
+    {
+      "name": "baseline81c pin unchanged",
+      "passed": true
+    },
+    {
+      "name": "recorder and all three-clock functions byte-identical",
+      "passed": true
+    },
+    {
+      "name": "lifecycle function contains no sound or clock mutation",
+      "passed": true
+    },
+    {
+      "name": "transport cap/chunk/deadline unchanged",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "name": "revised",
+      "error": null,
+      "lifecycle": {
+        "status": "checked",
+        "samples": [
+          {
+            "stage": "arcade",
+            "action": null,
+            "wallMs": 80.087169,
+            "engineFrame": 12,
+            "engineTime": 1.0333333333333332,
+            "audioTime": 0.05,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "play",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0.1,
+              4.2
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "game-pause",
+            "action": "pause",
+            "wallMs": 80.398558,
+            "engineFrame": 14,
+            "engineTime": 1.0666666666666664,
+            "audioTime": 0.08333333333333333,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "menu",
+            "fromTitle": false,
+            "pauseOpen": true,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0.1,
+              4.2
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title",
+            "action": "title",
+            "wallMs": 80.716707,
+            "engineFrame": 16,
+            "engineTime": 1.0999999999999996,
+            "audioTime": 0.11666666666666665,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0.2,
+              0
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0.7,
+              "burn": 0.5,
+              "hiss": 0.05,
+              "hum": 0.15,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title-settings",
+            "action": "settings",
+            "wallMs": 80.7983,
+            "engineFrame": 18,
+            "engineTime": 1.1333333333333329,
+            "audioTime": 0.15,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": true,
+            "pauseOpen": true,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0.2,
+              0
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0.7,
+              "burn": 0.5,
+              "hiss": 0.05,
+              "hum": 0.15,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title-close",
+            "action": "close",
+            "wallMs": 80.862807,
+            "engineFrame": 20,
+            "engineTime": 1.166666666666666,
+            "audioTime": 0.18333333333333332,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0.2,
+              0
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0.7,
+              "burn": 0.5,
+              "hiss": 0.05,
+              "hum": 0.15,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          }
+        ],
+        "scope": "Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target."
+      },
+      "operations": [
+        "pause",
+        "title",
+        "settings",
+        "close"
+      ]
+    },
+    {
+      "name": "original-street",
+      "error": "iOS audio lifecycle mismatch at arcade; later operations not attempted",
+      "lifecycle": {
+        "status": "failed",
+        "samples": [
+          {
+            "stage": "arcade",
+            "action": null,
+            "wallMs": 92.939468,
+            "engineFrame": 12,
+            "engineTime": 1.0333333333333332,
+            "audioTime": 0.05,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "play",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0.1,
+              4.2
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0,
+              "burn": 0,
+              "hiss": 0,
+              "hum": 0,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          }
+        ],
+        "scope": "Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target.",
+        "error": "iOS audio lifecycle mismatch at arcade; later operations not attempted"
+      },
+      "operations": []
+    },
+    {
+      "name": "original-title-regression",
+      "error": "iOS audio lifecycle mismatch at title; later operations not attempted",
+      "lifecycle": {
+        "status": "failed",
+        "samples": [
+          {
+            "stage": "arcade",
+            "action": null,
+            "wallMs": 104.546302,
+            "engineFrame": 12,
+            "engineTime": 1.0333333333333332,
+            "audioTime": 0.05,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "play",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0.1,
+              4.2
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "game-pause",
+            "action": "pause",
+            "wallMs": 104.622857,
+            "engineFrame": 14,
+            "engineTime": 1.0666666666666664,
+            "audioTime": 0.08333333333333333,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "menu",
+            "fromTitle": false,
+            "pauseOpen": true,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0.1,
+              4.2
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title",
+            "action": "title",
+            "wallMs": 104.727014,
+            "engineFrame": 16,
+            "engineTime": 1.0999999999999996,
+            "audioTime": 0.11666666666666665,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0.2,
+              0
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0,
+              "street": 0.2,
+              "tunnel": 0
+            }
+          }
+        ],
+        "scope": "Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target.",
+        "error": "iOS audio lifecycle mismatch at title; later operations not attempted"
+      },
+      "operations": [
+        "pause",
+        "title"
+      ]
+    },
+    {
+      "name": "wrapper-success",
+      "error": null,
+      "operations": [
+        "pause",
+        "title",
+        "settings",
+        "close"
+      ],
+      "lifecycleStatus": "checked",
+      "reportFailures": [],
+      "cleanup": {
+        "fallbackSettingsApplied": false,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-thrown-capture",
+      "error": "injected capture failure",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-failed-capture-check",
+      "error": "Original iOS audio capture did not complete successfully; lifecycle operations not attempted",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [
+        "injected original recording guard failure: fixture",
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":1}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-missing-clip",
+      "error": "Original iOS audio capture did not complete successfully; lifecycle operations not attempted",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":2,\"captureCheckFailed\":false,\"timing\":[{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":null,\"newFailures\":0}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-wrong-final-room",
+      "error": "Original iOS audio capture did not complete successfully; lifecycle operations not attempted",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":false,\"timing\":[{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":null,\"newFailures\":0}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-native-reported-failure",
+      "error": "Original iOS audio capture did not complete successfully; lifecycle operations not attempted",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [
+        "injected native movement failure: fixture",
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":false,\"timing\":[{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":1}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-false-clock-field-without-callback",
+      "error": "Original iOS audio capture did not complete successfully; lifecycle operations not attempted",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":false,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":0}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-missing-timing-fields",
+      "error": "Original iOS audio capture did not complete successfully; lifecycle operations not attempted",
+      "operations": [],
+      "lifecycleStatus": "not run",
+      "reportFailures": [
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":false,\"timing\":[{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":0}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    },
+    {
+      "name": "wrapper-title-failure",
+      "error": "iOS audio lifecycle mismatch at title; later operations not attempted",
+      "operations": [
+        "pause",
+        "title"
+      ],
+      "lifecycleStatus": "failed",
+      "reportFailures": [
+        "iOS audio lifecycle title: production state and authored targets agree: {\"expected\":{\"mode\":\"title\",\"fromTitle\":false,\"pauseOpen\":false,\"ambience\":\"street\",\"targets\":{\"wind\":0.7,\"burn\":0.5,\"hiss\":0.05,\"hum\":0.15,\"room\":0}},\"observed\":{\"wallMs\":233.933121,\"engineFrame\":16,\"engineTime\":1.0999999999999996,\"audioTime\":0.11666666666666665,\"audioState\":\"running\",\"ready\":true,\"unlocked\":true,\"activeRecording\":false,\"mode\":\"title\",\"fromTitle\":false,\"pauseOpen\":false,\"currentInterior\":\"arcade\",\"region\":null,\"position\":[-128,0.2,0],\"ambience\":\"interior\",\"layerTargets\":{\"wind\":0.08,\"burn\":0.18,\"hiss\":0.02,\"hum\":0.25,\"room\":0.9},\"reverbGainValues\":{\"interior\":0,\"street\":0.2,\"tunnel\":0}}}"
+      ],
+      "cleanup": {
+        "fallbackSettingsApplied": true,
+        "settings": {
+          "quality": "high",
+          "masterVolume": 0.85,
+          "musicVolume": 0.7,
+          "sfxVolume": 1
+        }
+      }
+    }
+  ],
+  "status": "passed",
+  "candidateSha256": "b6671760db08381a7d40f51a138a40f173bcf950adbee6dc1cbddc806ea5a0be",
+  "baselineSha256": "56acb917913e27d3763ad99ae81d83788b503aebdd2210ae196c0e4f3cbfd4e4"
+}

@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "checkCount": 1,
+  "cases": [
+    {
+      "kind": "unknown operation nonce",
+      "passed": true,
+      "result": {
+        "status": 404,
+        "body": "{\"operationError\":\"unknown transfer operation\"}"
+      },
+      "elapsedMs": 9.692959999999992,
+      "bodyBytesSent": 1,
+      "declaredBytes": 2,
+      "clientEndCalled": false,
+      "serverSocketClosed": true,
+      "forcedCloseUsed": false
+    },
+    {
+      "kind": "known nonce with malformed origin",
+      "passed": true,
+      "result": {
+        "status": 400,
+        "body": "{\"operationError\":\"Safari audio upload method, origin or content type mismatch\"}"
+      },
+      "elapsedMs": 1.6879519999999957,
+      "bodyBytesSent": 1,
+      "declaredBytes": 2,
+      "clientEndCalled": false,
+      "serverSocketClosed": true,
+      "forcedCloseUsed": false
+    }
+  ],
+  "candidatePins": {
+    "ios_audio_transfer.mjs": {
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+      "gitBlob": "f738aa1aff724aec6a2273d26a0a8962e1ef256b"
+    },
+    "ios_audio_capture.mjs": {
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+      "gitBlob": "60fc3fdff6017483735ce8a6f7df83eba4d47d56"
+    },
+    "test-ios-safari.mjs": {
+      "bytes": 33878,
+      "sha256": "f10f3715630046333451ea4cce1f31b13b5ccef277b12e365aeed25d474763b7",
+      "gitBlob": "2f57da49e16caf13543cf5a00b5e4351fc0b2036"
+    }
+  },
+  "exactDeltaFrom28CheckVersionVerified": true,
+  "scope": "One finite rejection-cleanup regression with two actual incomplete HTTP request cases; no Safari, CI, recording or quality measurement."
+}

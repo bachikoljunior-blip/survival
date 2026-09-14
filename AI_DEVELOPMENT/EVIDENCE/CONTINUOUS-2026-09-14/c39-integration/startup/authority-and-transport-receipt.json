@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "repo": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "head": "61e8f8c595bde13634fe709f979816011df165d0",
+  "instructionOrder": [
+    "latest head",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "authorities": [
+    {
+      "path": "AGENTS.md",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be"
+    },
+    {
+      "path": "CLAUDE.md",
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f"
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "gitBlob": "38208f4f77953690715e2648d5d78632ad56a3ee"
+    }
+  ],
+  "logs": [
+    {
+      "bytes": 4599237,
+      "characters": 4598977,
+      "endsWithNewline": true,
+      "fetches": 1,
+      "id": 104112449885,
+      "method": "SHA256 computed from the entire tool-returned decoded string encoded as UTF-8, including BOM and final newline",
+      "name": "pr-safari.log",
+      "sha256": "9fd876272c8686d5e6e9c199d6a82402ad36a1b851aca3cd8c47e79aeeb2f27b",
+      "toolError": false
+    },
+    {
+      "bytes": 4756969,
+      "characters": 4756709,
+      "endsWithNewline": true,
+      "fetches": 1,
+      "id": 104112422235,
+      "method": "SHA256 computed from the entire tool-returned decoded string encoded as UTF-8, including BOM and final newline",
+      "name": "standalone-safari.log",
+      "sha256": "09d4e0bf02b235a29bb5212ef0f8602524bf498a3bc176cf46543bb6d84f5475",
+      "toolError": false
+    },
+    {
+      "bytes": 2525,
+      "characters": 2523,
+      "endsWithNewline": true,
+      "fetches": 1,
+      "id": 104115712838,
+      "method": "SHA256 computed from the entire tool-returned decoded string encoded as UTF-8, including BOM and final newline",
+      "name": "pr-f3-execution.log",
+      "sha256": "c9d70daea98e2df983953642e29bafab9ccf4726fe3a850e8c9e5956bf7a353b",
+      "toolError": false
+    }
+  ],
+  "scope": {
+    "exactCanonicalRestoration": true,
+    "fixedTimeoutRetryGuardCodeChanged": false,
+    "harnessOnly": true,
+    "productionCodeChanged": false,
+    "workflowChanged": false
+  },
+  "officialSourceReceipt": "official-source-receipt.json",
+  "apiCalls": {
+    "newJobLogs": 3,
+    "duplicateJobLogs": 0,
+    "sourceJobLogs": 0,
+    "runJobs": 2,
+    "runMetadata": 2,
+    "artifactMetadata": 0,
+    "artifactBytes": 0,
+    "remoteMutations": 0,
+    "ciStarts": 0,
+    "reruns": 0,
+    "newChildren": 0,
+    "automationChanges": 0
+  },
+  "fixed": {
+    "all19": "not measured",
+    "criteria": 71,
+    "validBlind": 0,
+    "units": 0,
+    "mode": "continuous",
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "transportCompleteness": "All tool-returned decoded bytes, including BOM and final newline, independently hashed before comparing local files; terminal cleanup present. Appium reconstruction also verifies complete/stable/meta/end/contiguous chunks/total bytes/SHA."
+}

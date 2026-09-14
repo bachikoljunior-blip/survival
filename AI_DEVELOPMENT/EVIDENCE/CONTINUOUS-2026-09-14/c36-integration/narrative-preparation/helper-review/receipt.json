@@ -1,0 +1,386 @@
+{
+  "schema_version": 3,
+  "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra/prepare_helper_review_ultra",
+  "reviewed_at": "2026-09-14T17:20:30.073125+00:00",
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "base_commit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "instructions": {
+    "id": "ULTRA-CHILDREN-20260914-v3",
+    "route": "canonical github_fetch_file, fixed C35 commit",
+    "read_order": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "AI_DEVELOPMENT/SESSION_STATE.yaml"
+    ],
+    "blobs": [
+      "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "8b758231a6b77277092ccee5a322f593320b123f",
+      "79b072c46b2a9749edbabee67fcb8f3be6820ee6"
+    ],
+    "latest_head_independently_fetched": false,
+    "denied_route_retries": 0
+  },
+  "disposition": "ready as final fixed-C35 preparation, source-known finite route-diagnostic and original-byte export candidate; zero unresolved blocking findings",
+  "product_adopted": false,
+  "source_changes_required": false,
+  "helper_changes_required": false,
+  "blocking_findings": [],
+  "verification": {
+    "helper_syntax": "passed",
+    "cpu_checks_passed": 17,
+    "cpu_checks_total": 17,
+    "initial_review_script_error": "incorrect relative import path; failed before checks, corrected only review script; subsequent full success",
+    "source_individual_47_canonical_hash_check": "parent owned canonical materialization; final route verifier independently rechecks all 47 expected candidate inputs",
+    "helper_diff_exact": true,
+    "workflow_diff_exact": true,
+    "existing_jobs_preserved": 20,
+    "workflow_existing_prefix_canonical_blob": "e64a3c638c30fb2a098fe24f0b92fb320cc2cca2",
+    "seven_product_build_stages": "statically reviewed, not executed by this reviewer",
+    "frozen_source_sha256": [
+      "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f"
+    ],
+    "original_bundle_sha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "export_files_including_report": 10,
+    "shell_injection_found": false,
+    "final_route_review": {
+      "final_helper_sha256": "79a161d8b984dea9058f737f4092684e95f0ecd6ca101954add96277a192d653",
+      "final_routes_sha256": "c67a516cb109a02a43b693abe54127098e948ce53969c294642b036a2822c290",
+      "final_workflow_sha256": "6255f8123d1a47aff56a295e53530d8fa5bfb4b5ebb36837c7e299622029216a",
+      "helper_and_three_candidates_unchanged": true,
+      "canonical_c35_workflow_prefix_unchanged": true,
+      "existing_job_count": 20,
+      "new_job_count": 1,
+      "closed_findings": [
+        "natural typewriter completion avoids canonical tap cursor residue",
+        "nested viewport options and actual dimension/DPR/touch readback",
+        "requested/attempted/executed browser fields reflect actual launch stage",
+        "lifecycle implications and all present source route pins enforced for CPU-only and browser exports",
+        "acquired screenshot row retained before browser-error rejection"
+      ],
+      "actual_browser_executions": 0,
+      "syntax": "passed",
+      "source_only_route_validation": "16/16 passed",
+      "explicit_source_branch_if": true,
+      "source_route_function_unchanged_from_independently_tested_revision": true,
+      "source_route_function_sha256": "b7929ea9afe6a4b3f7437fedb5a10f2a7eaef8732069a485e3874071e240b79f",
+      "route_export_checks": {
+        "passed": 19,
+        "total": 19,
+        "fixtures": "explicit synthetic PNGs and isolated local Git commit; no real screenshot"
+      },
+      "log_prefixes": [
+        "[narrative-route-meta]",
+        "[narrative-route-chunk]",
+        "[narrative-route-end]"
+      ],
+      "successful_browser_export_files": 17,
+      "failed_export": "exact acquired prefix plus report, diagnosticStatus failed preserved",
+      "complete_means": "complete bytes of each file, not diagnostic success",
+      "screens_recorded_before_browser_error_assertion": true,
+      "export_before_any_emission": "status/lifecycle, route pins, exact screenshot prefix, paths, size/hash, PNG signature and dimensions, actual run/attempt/Git HEAD/environment commit for screens, per-file and total caps",
+      "single_file_cap_bytes": 4194304,
+      "total_cap_bytes": 33554432
+    },
+    "independent_source_routes_passed": 16,
+    "independent_source_routes_total": 16,
+    "caret_regression_cpu_checks": 3,
+    "actual_browser_executions": 0,
+    "route_export_checks_passed": 19,
+    "route_export_checks_total": 19,
+    "route_export_fixtures": "explicitly synthetic PNG images, synthetic run IDs, existing isolated local Git fixture, no actual screenshot or browser",
+    "explicit_source_branch_condition": true
+  },
+  "required_receiving_checks": [
+    "actual run commit and exact reviewed checkout/helper/workflow bytes",
+    "all contiguous chunks and matching metadata/end records for all 10 files including empty .nojekyll",
+    "each length/SHA256/Git blob and report consistency",
+    "frozen 3 candidate hashes, 514f baseline reproduction, exact 47 inputs, dependency versions, all 7 exits zero, exact 4 changed paths, dist/root equality",
+    "canonical root index.html bytes; reject old template copy",
+    "route output: exact expected screenshot prefix and report, matching metadata/end and all contiguous offsets, unchanged SHA256/size",
+    "route output: real run/attempt/commit plus prepared bundle match independently, diagnosticStatus and screenCount retained",
+    "only passed browserRequested/Attempted/Executed true with all 16 screenshots supports completed staged browser diagnostic; complete alone is file byte integrity"
+  ],
+  "trust_boundary": "exportPrepared verifies completed report self-described transport bytes; receiver must independently bind run identity and frozen pins. sourceBaseline is recorded, not an ancestry assertion.",
+  "scope_counts": {
+    "remote_mutations": 0,
+    "ci_runs_started": 0,
+    "automation_mutations": 0,
+    "product_build_commands": 0,
+    "frozen_input_writes": 0,
+    "new_children_accepted": 0,
+    "new_child_spawn_attempts": 1,
+    "local_synthetic_fixture_commits": 1
+  },
+  "spawn_attempt": {
+    "task_name": "workflow_review_ultra",
+    "reasoning_effort": "ultra",
+    "fork_turns": "none",
+    "model": "omitted",
+    "result": "agent thread limit reached"
+  },
+  "write_scope": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review",
+  "sole_remote_writer": "/root/integration_recovery_ultra",
+  "quality": {
+    "all_elements": "19 not measured",
+    "valid_blind_comparisons": 0,
+    "units_completed": 0,
+    "units_requested": "continuous",
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00",
+    "comparison_counted": false
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/REPORT.md",
+      "bytes": 13337,
+      "sha256": "d70ca24026039d698af0723bac6b7be66ab950565753f5967f37d730946b5243"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/review-checks.mjs",
+      "bytes": 7568,
+      "sha256": "9d7f1ad8202085914b077592f99e835d2b7eaae944f765a8730c42bfc3da0a62"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/cpu-review-results.json",
+      "bytes": 2092,
+      "sha256": "a65e88c4bfbe1c59c41d4856b65c224e803a465f1bfd0c2c6e1e67d60f35e96a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/workflow-review.json",
+      "bytes": 2597,
+      "sha256": "ba169ab9da0848a7db9271c80d772e529e27f4bdafcd47e7ea433d6026874d6e"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/reviewed-inputs.json",
+      "bytes": 1918,
+      "sha256": "33fa29098f9dbe6b0c9580c02caedef62ba20bb8bd58bb4176fd303dc06efc92"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/initial-REPORT.md",
+      "bytes": 6781,
+      "sha256": "e1919b1363f4b18407d0a3eef5a56307902b4c458c2040e53122d42d3269fb83"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/initial-receipt.json",
+      "bytes": 6727,
+      "sha256": "d32c92c1f4b4753577407c9abdf09348f35e039db29508a554f3910fbb41425e"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-REPORT.md",
+      "bytes": 10822,
+      "sha256": "ed1a1d1acbb8aaac7709f4a0314d7d8bed338e14297524a2fba6051921cb99dd"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-receipt.json",
+      "bytes": 13616,
+      "sha256": "12f44ad97bb6c93b23e16020f21cb0ce607b45155d2ac1b6b814bf01180674fb"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-final-check-narrative-routes.mjs",
+      "bytes": 11729,
+      "sha256": "234deabf8cf7ddca00b2e37e7858c61fb3fc38afaa8307ca120b04cedbfdd1c5"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-final-candidate-gates.yml",
+      "bytes": 28767,
+      "sha256": "56d6f9e1edbddc1205be72faf88950d35cec38e66e03d9777efc334aee8cdf90"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/final-check-narrative-routes.mjs",
+      "bytes": 17059,
+      "sha256": "c67a516cb109a02a43b693abe54127098e948ce53969c294642b036a2822c290"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/final-candidate-gates.yml",
+      "bytes": 29072,
+      "sha256": "6255f8123d1a47aff56a295e53530d8fa5bfb4b5ebb36837c7e299622029216a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/route-review-summary.json",
+      "bytes": 2012,
+      "sha256": "9b02898e6f1e4f93fd193b9400c493f8a61606069ba3acac3a0b1faff8ecae98"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/independent-route-results.json",
+      "bytes": 6096,
+      "sha256": "b1e74a280528d4fb557bd2a89aafab5779355823f9b8f806acb57da19403c9cf"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/caret-regression-reproduction.mjs",
+      "bytes": 2357,
+      "sha256": "16ce0ae6d86a3d2bbef6f2ffc56c7baab67c50f46b256b024060f0e4bcbfeacd"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/caret-regression-results.json",
+      "bytes": 993,
+      "sha256": "3f22c299d87f0069f0fa4532eafab22302febd905d83e9966a6dc10429e61e87"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/route-export-checks.mjs",
+      "bytes": 9723,
+      "sha256": "a515b2f3a481fcd8e96c8e7c313de7b92458b711904e4c0f7e9c490ab06b5a27"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/route-export-results.json",
+      "bytes": 2577,
+      "sha256": "48031f3055aa2a70f42955681d88de5b6ee07b5ce5bde994c6f55e7f7eb6fa2a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/canonical-serve.mjs",
+      "bytes": 4886,
+      "sha256": "9112b870673a8f4788cd2fccfe078e5e81e322e680f2037ebbf3058fbc63d90f"
+    }
+  ],
+  "reviewed_inputs_initial": [
+    {
+      "path": "e9-narrative-build-preparation-ultra/candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13807,
+      "sha256": "79a161d8b984dea9058f737f4092684e95f0ecd6ca101954add96277a192d653",
+      "gitBlob": "63bb5a7ad3c934b7e45d50e1639e72204795cdb3"
+    },
+    {
+      "path": "e9-narrative-build-preparation-ultra/helper-diff.patch",
+      "bytes": 9012,
+      "sha256": "d1fae2401e87d4d5680ebeeb82365dfd567cb65516893022757d86c8cfeeeb8d",
+      "gitBlob": "21cff43a122a44a38716cc2d75087a69daf67fec"
+    },
+    {
+      "path": "e9-narrative-build-preparation-ultra/workflow-diff.patch",
+      "bytes": 1458,
+      "sha256": "bd80bae4625821eab8f8a4e285a0b5a0dbee64d11f963c3eab74f2337e8cdc1f",
+      "gitBlob": "a9d2c7abb07abe8ddec627ba9fccdbad697e41f6"
+    },
+    {
+      "path": "e9-narrative-build-preparation-ultra/candidate/.github/workflows/gates.yml",
+      "bytes": 28067,
+      "sha256": "9995c85929095f957eb16f08ddec670e6d1266aca22c2e00919bda5e8337723e",
+      "gitBlob": "ae40448f69d052cbcc52095af2df987e1ca20be1"
+    },
+    {
+      "path": "audio-candidate-independent-review-ultra/preparation-review/review.md",
+      "bytes": 4059,
+      "sha256": "3b0501df4e57f5203a35b9a19803f2dc03f45ee22f28841b276c2e219a91ac4f",
+      "gitBlob": "02c2c68797b26f4ee57571c3082ce5fc7816d9a5"
+    },
+    {
+      "path": "c36-narrative-build-ultra/baseline/tools/export_pages_root.mjs",
+      "bytes": 2369,
+      "sha256": "de4912ac5977888351a5a8bc007be4c43e90a90708a6496d567980c1368de5f8",
+      "gitBlob": "c25a859af884b1871945e75adbf4b43261cde38d"
+    },
+    {
+      "path": "c36-narrative-build-ultra/baseline/tools/validate.mjs",
+      "bytes": 26754,
+      "sha256": "60b254ccf731605f34ef0c5049e4f4232b080b2771ced2f657da23970708b85b",
+      "gitBlob": "5d41ac14f2e30701a81f2302285fd24a3be5df95"
+    }
+  ],
+  "reviewed_inputs": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13807,
+      "sha256": "79a161d8b984dea9058f737f4092684e95f0ecd6ca101954add96277a192d653"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/check-narrative-routes.mjs",
+      "bytes": 17059,
+      "sha256": "c67a516cb109a02a43b693abe54127098e948ce53969c294642b036a2822c290"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/.github/workflows/gates.yml",
+      "bytes": 29072,
+      "sha256": "6255f8123d1a47aff56a295e53530d8fa5bfb4b5ebb36837c7e299622029216a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/candidates/e9-story-r1.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/candidates/e9-ja-story-r1.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/candidates/e9-ja-story2-r1.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f"
+    }
+  ],
+  "findings_closed": [
+    {
+      "id": "NR1",
+      "problem": "Immediate _tap left canonical caret markup in textContent so expected body equality would fail",
+      "correction": "Wait for natural typewriter completion through actual update/render, no tap or live-DOM alteration",
+      "validation": "canonical source inspection, exact method-body CPU fixture, final code re-review; actual browser unmeasured"
+    },
+    {
+      "id": "NR2",
+      "problem": "newContext width/height incorrectly passed outside viewport option, so reported 667x375 not configured",
+      "correction": "nested contextOptions.viewport and per-screen actual viewport/inner size/DPR/touch readback assertions",
+      "validation": "official Playwright API documentation and final code re-review; actual viewport unmeasured"
+    },
+    {
+      "id": "NR3",
+      "problem": "browserExecuted set before preparation preflight/import could fail",
+      "correction": "browserRequested at request, browserAttempted immediately before launch, browserExecuted after successful launch",
+      "validation": "final control-flow ordering reviewed"
+    },
+    {
+      "id": "NR4",
+      "problem": "Raw screenshot taken before browser errors were checked must remain recoverable on failure",
+      "correction": "final code appends screenshot bytes/hash/errors row before browser error assertion",
+      "validation": "final source order independently checked; failed-prefix transport test passed"
+    },
+    {
+      "id": "NR5",
+      "problem": "CPU-only successful and zero-screen failure transport needed lifecycle and source-route integrity guards",
+      "correction": "executed implies attempted implies requested, sourceRoutes only 0 or 16, passed/executed requires 16, every present route pin checked",
+      "validation": "independent negative CPU export tests and final code review"
+    }
+  ],
+  "external_primary_sources": [
+    {
+      "url": "https://playwright.dev/docs/api/class-browser#browser-new-context-option-viewport",
+      "supports": "newContext requires width and height nested in viewport"
+    }
+  ],
+  "additional_canonical_source": {
+    "path": ".kit/lib/browser/serve.mjs",
+    "ref": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+    "gitBlob": "8351fd1d3b50c9f1f6cc21eb9d8093d5bdcae627",
+    "route": "canonical github_fetch_file"
+  },
+  "route_limitations": [
+    "browser branch not executed by reviewer",
+    "direct node selection and per-node fresh context; not ordinary gameplay or route reachability",
+    "no readability or visual-quality verdict",
+    "Chromium mobile emulation; no Mobile Safari claim",
+    "no valid blind comparison or element verdict",
+    "launch success is not full diagnostic success; require passed status and all 16 screen rows from actual run"
+  ],
+  "route_export": {
+    "prefixes": [
+      "[narrative-route-meta]",
+      "[narrative-route-chunk]",
+      "[narrative-route-end]"
+    ],
+    "chunk_bytes": 3000,
+    "successful_browser_file_count": 17,
+    "failed_browser_file_count": "acquired screenshot prefix plus report",
+    "complete_semantics": "per-file byte transport completeness, not diagnostic pass",
+    "per_file_cap_bytes": 4194304,
+    "total_cap_bytes": 33554432,
+    "all_validation_before_first_emit": true,
+    "viewport_png_dimensions": [
+      667,
+      375
+    ],
+    "actual_run_and_commit_checked_when_screens_exist": true,
+    "report_only_cpu_or_preflight_supported": true,
+    "raw_acquired_failure_png_retained": true
+  }
+}

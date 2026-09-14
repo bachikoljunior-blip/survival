@@ -1,0 +1,33 @@
+{
+  "r1_helper_sha256": "9a04b54a670c7085118baf822a24e7c4e494cb6099db94ec45248352e165d43c",
+  "template_sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+  "original_body_bytes": 264759,
+  "original_body_occurrences": 0,
+  "body_without_final_owned_LF_occurrences": 1,
+  "starts_user": true,
+  "starts_system": false,
+  "original_vs_proposed_actual_serialization_identical": true,
+  "serialized_bytes": 264827,
+  "serialized_sha256": "7d7b5c8f54814ec13ddfd29af8a18d1805de9aa8dfa435c8f71f2cdc03ab26e9",
+  "reader_spans": [
+    {
+      "label": "A",
+      "occurrences": 1,
+      "offset": 2652,
+      "bytes": 200075,
+      "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9"
+    },
+    {
+      "label": "B",
+      "occurrences": 1,
+      "offset": 202743,
+      "bytes": 62026,
+      "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048"
+    }
+  ],
+  "actual_r1_guard_error": {
+    "type": "AttemptError",
+    "code": "unexpected_single_user_template_result"
+  },
+  "private_raw_directory": "/workspace/scratch/0b7ad82bafe7/e9-r2-private-m43m7ax9"
+}

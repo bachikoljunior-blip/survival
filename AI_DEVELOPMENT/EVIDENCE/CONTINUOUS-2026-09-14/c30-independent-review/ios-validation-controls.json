@@ -1,0 +1,110 @@
+{
+  "scope": "CPU metadata/field controls only; original media/report recovery not executed",
+  "checks": [
+    {
+      "name": "actual official artifact metadata accepted",
+      "passed": true
+    },
+    {
+      "name": "actual logged acquisition fields accepted",
+      "passed": true
+    },
+    {
+      "name": "changed artifact id rejects",
+      "passed": true
+    },
+    {
+      "name": "changed artifact name rejects",
+      "passed": true
+    },
+    {
+      "name": "changed artifact size_in_bytes rejects",
+      "passed": true
+    },
+    {
+      "name": "changed artifact digest rejects",
+      "passed": true
+    },
+    {
+      "name": "changed artifact expired rejects",
+      "passed": true
+    },
+    {
+      "name": "changed source run id rejects",
+      "passed": true
+    },
+    {
+      "name": "changed source run head_sha rejects",
+      "passed": true
+    },
+    {
+      "name": "changed acquisition runCommit rejects",
+      "passed": true
+    },
+    {
+      "name": "changed acquisition runId rejects",
+      "passed": true
+    },
+    {
+      "name": "changed acquisition runAttempt rejects",
+      "passed": true
+    },
+    {
+      "name": "changed acquisition actualRecorderBlob rejects",
+      "passed": true
+    },
+    {
+      "name": "changed acquisition helperSha256 rejects",
+      "passed": true
+    },
+    {
+      "name": "changed acquisition harnessSha256 rejects",
+      "passed": true
+    },
+    {
+      "name": "changed clip bytes rejects",
+      "passed": true
+    },
+    {
+      "name": "changed clip sha256 rejects",
+      "passed": true
+    },
+    {
+      "name": "changed clip path rejects",
+      "passed": true
+    },
+    {
+      "name": "failed captureClockGuardPassed rejects",
+      "passed": true
+    },
+    {
+      "name": "failed telemetryComplete rejects",
+      "passed": true
+    },
+    {
+      "name": "missing clip rejects",
+      "passed": true
+    },
+    {
+      "name": "duplicate clip rejects",
+      "passed": true
+    }
+  ],
+  "passed": 22,
+  "elapsed_ms": 2.371321000000002,
+  "artifact": {
+    "artifactId": 10349183915,
+    "runId": 34848677647,
+    "commit": "f735a3ab6d230835ce06542281e2f53e3ad94737",
+    "artifactName": "iphone-se3-mobile-safari-f735a3ab6d230835ce06542281e2f53e3ad94737",
+    "artifactBytes": 11456615,
+    "artifactDigest": "sha256:20b505c38fc2daf58c205ec3cc60d3f6c44924e51fa77ce52d244f5f1d6f225d",
+    "bundle": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+    "recorder": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "helper": "3ed2398a23f94c6426bc30eed6ef9123b24d79b99978ec3de01866d186c73e40",
+    "harness": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779"
+  },
+  "mediaBytes": 9103110,
+  "evaluation_count": 0,
+  "source_sha256": "700936397a51d0bb970c703bf36516362fe91ff30c5c205b91b81ff56e6452c4"
+}

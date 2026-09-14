@@ -1,0 +1,425 @@
+{
+  "status": "PASS",
+  "candidateSha256": "c37ff0a9458fde111c7396f7492c053f554f4c2fee7313b03b04c28693520709",
+  "checkCount": 28,
+  "controls": [
+    {
+      "name": "exact owning panel with body none and panel auto",
+      "status": "passed",
+      "exitCode": 0,
+      "screens": 1,
+      "error": null,
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "canonical helper rejects the CSS parent case",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 0,
+      "error": "AssertionError [ERR_ASSERTION]: Journal body is covered\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "write"
+      ]
+    },
+    {
+      "name": "existing body acceptance",
+      "status": "passed",
+      "exitCode": 0,
+      "screens": 1,
+      "error": null,
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "existing descendant acceptance",
+      "status": "passed",
+      "exitCode": 0,
+      "screens": 1,
+      "error": null,
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "foreign pointer-receiving overlay",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal pointer hit is outside its text or owning scroller\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "missing hit",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal pointer hit is outside its text or owning scroller\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "owning panel but body auto",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal pointer hit is outside its text or owning scroller\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "owning panel but panel none",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal pointer hit is outside its text or owning scroller\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "owning panel but unsupported body style",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal pointer hit is outside its text or owning scroller\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "hidden body",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal is not visible\n\nfalse !== true\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "dialogue overlay",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Dialogue still overlays the journal\n\ntrue !== false\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "wrong title",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Bundled journal title differs\n+ actual - expected\n\n+ 'Wrong'\n- 'Fixture title'\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "wrong text",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Rendered journal text differs\n+ actual - expected\n\n+ 'Wrong'\n- 'Fixture text'\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "zero layout",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal has no layout",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "left outside owning panel",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal title/body is clipped by panel or viewport",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "right outside owning panel",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal title/body is clipped by panel or viewport",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "top outside owning panel",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal title/body is clipped by panel or viewport",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "bottom outside owning panel",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal title/body is clipped by panel or viewport",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "horizontal overflow",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Journal panel overflows horizontally",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "viewport mismatch",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Browser viewport differs\n+ actual - expected\n\n  {\n    height: 375,\n+   width: 668\n-   width: 667\n  }\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "inner viewport mismatch",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n668 !== 667\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "DPR mismatch",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "touch absent",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Touch emulation is absent",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "browser error",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 1,
+      "error": "AssertionError [ERR_ASSERTION]: Browser errors\n+ actual - expected\n\n+ [\n+   'fixture browser error'\n+ ]\n- []\n",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "menu closed",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 0,
+      "error": "Error: Journal menu is not open",
+      "events": [
+        "write"
+      ]
+    },
+    {
+      "name": "duplicate title",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 0,
+      "error": "Error: Journal entry title is missing or duplicated",
+      "events": [
+        "write"
+      ]
+    },
+    {
+      "name": "screenshot throws",
+      "status": "failed",
+      "exitCode": 1,
+      "screens": 0,
+      "error": "Error: Fixture screenshot failure",
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    },
+    {
+      "name": "preexisting pointer-only limit for a visual cover",
+      "status": "passed",
+      "exitCode": 0,
+      "screens": 1,
+      "error": null,
+      "events": [
+        "scroll",
+        "raf",
+        "raf",
+        "hit",
+        "screenshot",
+        "write"
+      ]
+    }
+  ],
+  "actualBrowserRuns": 0,
+  "actualScreenshots": 0,
+  "syntheticScreenshotFilesWritten": 0,
+  "blocking": [],
+  "limits": [
+    "VM controls use synthetic DOM and screenshot-return stubs, not a browser/CSS engine or image evidence.",
+    "Pointer-hit acceptance alone cannot establish absence of a visual overlay with pointer-events:none. Original visual cause and typography remain unmeasured.",
+    "Actual browser has two routes; the local host fragment uses one row solely to exercise failure propagation. The byte-identical exporter still rejects a one-screen successful browser diagnostic."
+  ]
+}

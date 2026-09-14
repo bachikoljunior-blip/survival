@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "f3SingleChange": "Add frameWorkProbeSha256 to original strict provenance key loop; all other bytes equal",
+  "f3Sha256": "9a9f53e4fe12d342dba9cff05cf2fa1f19e598f49433e71b15cd96f533d18d0e",
+  "mobileOriginalStructurePreserved": true,
+  "newEnv": [
+    "${{ (inputs.capture_audio && github.run_attempt == 1 && github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && contains(github.event.head_commit.message, '[ios-frame-work-c36-r1]')) && '1' || '0' }}"
+  ],
+  "newExportStep": [
+    {
+      "name": "Export the selected source run original frame-work report",
+      "if": "${{ always() && env.CINDERLINE_IOS_FRAME_WORK_CAPTURE == '1' }}",
+      "run": "node tools/export-ios-frame-work.mjs"
+    }
+  ],
+  "measurementScope": "Read-only byte comparison and parsed YAML structure comparison; no GitHub Actions execution"
+}

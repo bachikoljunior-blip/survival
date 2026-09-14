@@ -1,0 +1,228 @@
+{
+  "scope": "Independent pure candidate timing-summary calls plus exact source-extracted listener/_spatial read/math functions. No full helper/browser/codec/audio execution, no historical controls rerun, and no product edit.",
+  "sourcePins": [
+    {
+      "path": "candidate/tools/mobile_audio_capture.mjs",
+      "sha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26"
+    },
+    {
+      "path": "base/src/audio/audio.js",
+      "sha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49"
+    },
+    {
+      "path": "base/src/core/engine.js",
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "base/src/game/game.js",
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "base/tools/test-iphone-webkit.mjs",
+      "sha256": "7f35ad15734a42f221554a8c90b58849c01caf6df346d080ba037e296beb9213"
+    },
+    {
+      "path": "candidate-probe.json",
+      "sha256": "4c05a706931ced730958672878698f8a9e3885c22ac2e9979c983f20ef76f0ff"
+    },
+    {
+      "path": "source-integrity.json",
+      "sha256": "81539dbb14e792a22095b7d8e5d957e203b3df36172f9f0e8d12bc24097a3d3d"
+    }
+  ],
+  "passed": 8,
+  "results": [
+    {
+      "name": "nominal endpoint guard; empty threat set does not claim moving threat coverage",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 6,
+        "engineFrames": 360,
+        "engineToAudioRatio": 1,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": 0,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "material engine drift outside five percent rejected",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 5.690000000000001,
+        "engineFrames": 360,
+        "engineToAudioRatio": 0.9483333333333336,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": -0.3099999999999987,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": false,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "nonfinite endpoint rejected",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": null,
+        "engineFrames": 360,
+        "engineToAudioRatio": null,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": null,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": false,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "backwards internal sample rejects telemetry even with good endpoints",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 6,
+        "engineFrames": 360,
+        "engineToAudioRatio": 1,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": 0,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": false,
+        "finiteTimeline": true,
+        "orderedTimeline": false,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "insufficient pose samples reject telemetry",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 6,
+        "engineFrames": 360,
+        "engineToAudioRatio": 1,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": 0,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": false,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "dropped event sample rejects telemetry",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 6,
+        "engineFrames": 360,
+        "engineToAudioRatio": 1,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": 0,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": false,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "passive read error rejects telemetry",
+      "passed": true,
+      "result": {
+        "wallSeconds": 6,
+        "audioSeconds": 6,
+        "engineSeconds": 6,
+        "engineFrames": 360,
+        "engineToAudioRatio": 1,
+        "audioToWallRatio": 1,
+        "engineMinusAudioSeconds": 0,
+        "audioMinusWallSeconds": 0,
+        "toleranceSeconds": 0.30000000000000004,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": false,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "exact candidate listener read matches rotated and translated camera consumed by exact pinned Audio._spatial",
+      "passed": true,
+      "listener": {
+        "position": [
+          3,
+          2,
+          8
+        ],
+        "right": [
+          0,
+          0,
+          -1
+        ],
+        "forward": [
+          -1,
+          0,
+          0
+        ],
+        "matrixWorld": [
+          0,
+          0,
+          -1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          3,
+          2,
+          8,
+          1
+        ]
+      },
+      "actualSpatial": {
+        "gain": 0.8389261744966443,
+        "pan": 1,
+        "dist": 4
+      },
+      "limit": "Pure read/math functions only. No WebAudio, actual sound, rendering or source-event scheduling executed."
+    }
+  ]
+}

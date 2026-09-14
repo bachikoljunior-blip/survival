@@ -1,0 +1,89 @@
+{
+  "canonicalSourceFiles": [
+    {
+      "path": "AGENTS.md",
+      "blob": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/AGENTS.md",
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc"
+    },
+    {
+      "path": "CLAUDE.md",
+      "blob": "8b758231a6b77277092ccee5a322f593320b123f",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/CLAUDE.md",
+      "bytes": 22170,
+      "sha256": "dc4bb33524a1542f11278f018988ff6cdfda573a4a4a1e0576b7e6a3627b998d"
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "blob": "79b072c46b2a9749edbabee67fcb8f3be6820ee6",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "bytes": 11967,
+      "sha256": "8f46075d51940bd6f5043c1a565ae6730d94365568e5c30ef64a9019a7e57c34"
+    },
+    {
+      "path": "src/core/input.js",
+      "blob": "59a1ef1b992a5ed22f547cec4b9bc9c1936222b8",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/src/core/input.js",
+      "bytes": 15682,
+      "sha256": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e"
+    },
+    {
+      "path": "src/core/engine.js",
+      "blob": "0735cfcb3f6df68bf5bd51fa84a27d60c712391e",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "src/core/util.js",
+      "blob": "4ac5a78a92f684c811139b5baee8893b774b1ca1",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/src/core/util.js",
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    },
+    {
+      "path": "src/game/game.js",
+      "blob": "8b7e97ab9abf7c08b9c84da100188f5f221caf80",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/src/game/game.js",
+      "bytes": 30458,
+      "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015"
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "blob": "cef06ffbc780b4e688758b84d0782bd42e103702",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/tools/test-ios-safari.mjs",
+      "bytes": 27951,
+      "sha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "blob": "7e707c5265c97902b5ea37e0721addac21c636ff",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/d2c463b54d4ea12abc0a9444627db810440a59a7/tools/ios_audio_capture.mjs",
+      "bytes": 19602,
+      "sha256": "1b3bc6fd170473c5f4ee9276699c51d12852f1ae1bd132c80ec6b00824cdf819"
+    }
+  ],
+  "candidateSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+  "patchSha256": "c8cb5219d01cf827a7a601082ef51815e0b593696bb70ed98a4d0fec44dfe7f7",
+  "checks": {
+    "allCanonicalGitBlobsExact": true,
+    "onlyHelperAdditionAndAudioMovementCallbackChanged": true,
+    "originalBeforeSnapshotAndNativeGestureBytesExact": true,
+    "trustedEventConditionBytesExact": true,
+    "sameDistanceAndZeroMagnitudeReleaseConditions": true,
+    "noManualStepResetOrInputEnable": true,
+    "nonAudioCoreChecksAndOrderExact": true,
+    "originalAudioHelperClockPinsCapAndRecorderUnchanged": true,
+    "originalRecorderWaits2500And3500Untouched": true,
+    "gitApplyCheck": true,
+    "originalPrFullReportHashExact": true,
+    "originalPrAfterBetweenAdjacentFramesWithoutEngineTimeProgress": true
+  },
+  "limits": [
+    "No new Safari/CI/recording/GPU/native gesture execution. CPU fixtures do not prove real Safari scheduling.",
+    "Browser observation fails at 2000 ms; Node collection also rejects late responses after its 2000 ms poll budget. Each existing WebDriver request retains its original 90000 ms transport timeout, including cleanup; this is not a new 2-second transport-abort guarantee.",
+    "First native render after input/engine time progress may contain 1–4 original fixed substeps. We do not wait through a failed rendered release result for a later good result.",
+    "Recorder source windows, 5 percent three-clock checks, caps and gestures are unchanged. Waiting for actual release observation can add measured wall time to gesture completion; it does not rewrite or normalize original recording timestamps."
+  ]
+}
