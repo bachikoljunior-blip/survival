@@ -1,0 +1,203 @@
+{
+  "round": 1,
+  "profile": "menus-controls-dialogue-accessibility",
+  "tier": "still-image-only",
+  "nativeResolution": "0x0",
+  "imageResolutions": {
+    "A-01.png": "1600x900",
+    "A-02.jpg": "1600x900",
+    "B-01.png": "1334x750",
+    "B-02.png": "1334x750"
+  },
+  "recognition": {
+    "recordedBeforeGrading": true,
+    "A": {
+      "recognized": true,
+      "identity": "Very likely The Last of Us Part II",
+      "confidence": "high; visual-memory identification, not externally verified",
+      "evidence": [
+        "A-02 shows a character I recognize as Ellie and the faction-specific speaker label 'WLF Soldier'.",
+        "A-01's custom-control menu styling is familiar and supports that recognition.",
+        "A-02 also says 'CAPTURED FROM PS4 PRO'; this establishes a visible platform label, not the title by itself."
+      ]
+    },
+    "B": {
+      "recognized": false,
+      "identity": null,
+      "evidence": [
+        "I do not recognize the game from its blocky scene, character design, 'REN' speaker label, or settings."
+      ]
+    },
+    "referenceOrDevelopmentOrigin": {
+      "determined": false,
+      "statement": "Recognizing A as a published game makes me suspect it could be the reference, but the packet does not establish either source's assigned role. B's art style alone cannot establish that it is under development."
+    },
+    "blindResultValid": false
+  },
+  "blindComparison": "not measurable: recognition of A invalidates a blind comparison. The observations and preferences below are explicitly nonblind and limited to the supplied static frames.",
+  "verdict": "FAIL",
+  "verdictMeaning": "Evidence is inadequate for a valid blind result and for each of the four requested wider criteria. This is not a finding that either game's implementation fails those criteria.",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "scopedPreference": {
+    "overall": {
+      "choice": "not measurable",
+      "reason": "There is no valid blind aggregate winner. The settings frames show different menu functions, and four stills cannot establish overall accessibility."
+    },
+    "menuPresentation": {
+      "choice": "A",
+      "blind": false,
+      "criterion": "Completeness and organization of the content visibly presented in the two menu frames",
+      "reason": "A-01 presents a selected remap row with its explanation and textual unbinding consequences together. B-01 presents clear section/tab hierarchy, but two rectangular outlines immediately below Quality are only partly visible above the persistent footer.",
+      "limit": "This is a subjective static presentation preference. The frames are not matched functions, and the partial shapes in B cannot be conclusively identified as controls from the still."
+    },
+    "visibleHeldActionOptionLabels": {
+      "choice": "B",
+      "blind": false,
+      "criterion": "Explicit held-action alternatives shown in this packet",
+      "reason": "B-01 visibly names 'Sprint at full stick' with 'No sprint button needed' and 'Tap to toggle guard' with release instructions. A-01 shows remapping rather than explicit hold/toggle choices.",
+      "limit": "This preference concerns the labels displayed here, not which game actually supports more options or whether any displayed option works."
+    },
+    "visibleDialogueReadabilityAndSpeakerLabel": {
+      "choice": "tie",
+      "blind": false,
+      "criterion": "Readable displayed dialogue and explicit speaker text in the single example from each source",
+      "reason": "A-02 shows 'WLF Soldier:' and a complete subtitle on dark backing. B-02 shows 'REN' and a complete dialogue line on a dark panel. Both are readable to this observer at the supplied native resolution.",
+      "limit": "Different panel sizes and dialogue forms prevent a timing or obstruction comparison. This does not establish readability for every user or identification of any unshown speaker."
+    },
+    "globalSettingsDiscoverability": {
+      "choice": "not measurable",
+      "reason": "B-01 shows a selected Settings tab and A-01 is already inside Customize Controls. Neither frame shows the route from ordinary play to these pages or what input is required."
+    }
+  },
+  "observations": [
+    {
+      "id": "O1",
+      "shot": "A-01.png",
+      "observation": "The page is titled 'CUSTOMIZE CONTROLS | CUSTOM SCHEME 1'. The bright 'Jump / Climb' row corresponds to a right-hand explanation headed 'Jump / Climb'. The explanation, controller diagram, and red text saying 'Unbound from Weapon Swap / Listen' and 'Unbound from Swing' are visible.",
+      "implication": "The displayed remapping context and textual consequences can be inspected together.",
+      "limit": "The still does not demonstrate remapping execution, saving, focus movement, or the meaning of the current-versus-proposed button display."
+    },
+    {
+      "id": "O2",
+      "shot": "A-01.png",
+      "observation": "Unselected-looking action text is muted gray while Jump / Climb is white. The bottom edge shows labeled prompts including Reset to Defaults and Back.",
+      "implication": "The frame uses visible hierarchy and names two exit/reset-related affordances.",
+      "limit": "Muted appearance does not establish that a control is disabled; button prompts do not establish successful operation."
+    },
+    {
+      "id": "O3",
+      "shot": "B-01.png",
+      "observation": "The Settings tab has an orange fill. Three visible settings are Left-handed layout, Sprint at full stick, and Tap to toggle guard, each accompanied by explanatory text and a square state indicator. The first inner square is outlined; the next two are filled.",
+      "implication": "The displayed options and their different visual indicator states are apparent in this frame.",
+      "limit": "Indicator appearance does not prove actual settings state, persistence, input modality, or gameplay behavior."
+    },
+    {
+      "id": "O4",
+      "shot": "B-01.png",
+      "observation": "Immediately below the Quality row, two small bordered rectangular shapes at the lower right are visible only at their tops, roughly between y=592 and y=620. The bottom footer occupies the area below them. No contents of those shapes can be read in this still.",
+      "implication": "The lower settings area visibly contains incomplete shapes whose purpose cannot be determined.",
+      "limit": "They may be partly covered controls, scroll-region remnants, or another kind of element; the still does not establish their role or whether they can be reached by scrolling."
+    },
+    {
+      "id": "O5",
+      "shot": "A-02.jpg",
+      "observation": "A single-line subtitle near the bottom reads 'WLF Soldier: This is dumb, we should be pushing in.' The speaker label is yellow, the utterance is white, and both have dark backing; an additional icon appears at the left.",
+      "implication": "This particular displayed line has an explicit role-based speaker label and text that I can read at native resolution.",
+      "limit": "The icon's behavior or exact meaning, subtitle duration, offscreen behavior, overlap handling, and coverage of other lines are not shown."
+    },
+    {
+      "id": "O6",
+      "shot": "B-02.png",
+      "observation": "A large dark dialogue panel shows the orange name 'REN', the white line 'One head. The middle one.', and a 'TAP TO CONTINUE' prompt. An orange silhouette appears in a separate small panel to its left.",
+      "implication": "This displayed dialogue example has an explicit named speaker and readable text at native resolution.",
+      "limit": "The prompt does not demonstrate how continuation works, input-device support, whether speech is audible, or whether all other dialogue and barks receive labels."
+    }
+  ],
+  "coverage": [
+    {
+      "criterion": "All-screen primary-input operation",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "availableEvidence": "A-01 has controller-shaped prompts; B-01 has tabs, square indicators, and footer buttons; B-02 has a continuation prompt.",
+      "missingEvidence": "There is no specified primary input or continuous operation through all screens, focus changes, selection, scrolling, dialogs, return paths, and recovery.",
+      "evidenceNeeded": "Define the supported primary input and provide a complete screen inventory plus continuous recordings operating every relevant screen and dialog with it."
+    },
+    {
+      "criterion": "Text-size layout over 0.8–1.5",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "availableEvidence": "Each screen is shown at one unstated text scale. A and B use different native pixel sizes.",
+      "missingEvidence": "No controlled text-scale states, scale transitions, longest-content cases, or supported viewport matrix are supplied.",
+      "evidenceNeeded": "Supply the same screens and representative long content at the 0.8 and 1.5 endpoints and any intermediate values where layout changes, across the supported viewport sizes; verify no truncation, overlap, lost controls, or unreadable reflow."
+    },
+    {
+      "criterion": "Hold/toggle choices for major held actions",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "availableEvidence": "B-01 explicitly displays sprint-with-full-stick and toggle-guard labels. A-01 displays action remapping.",
+      "missingEvidence": "No inventory of major held actions, complete corresponding options, or behavior with each choice enabled and disabled is shown.",
+      "evidenceNeeded": "Provide the held-action inventory and continuous demonstrations of each applicable choice, including release/cancellation and state after opening or closing menus. A checkbox alone is insufficient."
+    },
+    {
+      "criterion": "All dialogue/bark speaker identification",
+      "result": "not measurable",
+      "evidenceAdequate": false,
+      "availableEvidence": "A-02 labels one line 'WLF Soldier'; B-02 labels one dialogue line 'REN'.",
+      "missingEvidence": "There is no coverage inventory or continuous evidence for all dialogue forms, ambient barks, offscreen speakers, unnamed speakers, or overlapping speech.",
+      "evidenceNeeded": "Provide an utterance/dialogue-system coverage inventory and examples across those contexts, establishing that every required spoken line receives intelligible speaker identification."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "blocking",
+      "shot": "A-01.png; A-02.jpg",
+      "problem": "The assessor recognizes A's likely title, so this result cannot be reported as blind.",
+      "why": "The brief explicitly states that identity knowledge invalidates a blind result.",
+      "owner": "unassigned",
+      "fix": {
+        "verifiableTarget": "Preserve this result as nonblind. A future blind assessment must use an independent assessor who honestly reports no recognition before grading; do not relabel this review as blind."
+      },
+      "hypothesis": "The recognizable character and WLF faction label were sufficient to trigger title recognition. The packet's reference/development assignments remain unknown."
+    },
+    {
+      "id": "F2",
+      "severity": "blocking",
+      "shot": "A-01.png; A-02.jpg; B-01.png; B-02.png",
+      "problem": "The four stills are insufficient evidence for each of the four requested wider criteria.",
+      "why": "The criteria quantify behavior across all screens, a range of text scales, major actions, or all spoken lines; none of those scopes is covered by these four static states.",
+      "owner": "unassigned",
+      "fix": {
+        "verifiableTarget": "Supply the specific inventories, controlled scale captures, and continuous input/dialogue demonstrations described in coverage, then reassess. No product implementation conclusion follows from the present evidence gap."
+      },
+      "hypothesis": "The packet may have been intended only as a visual sample; whether the unshown implementation meets the criteria is unknown."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "shot": "B-01.png",
+      "problem": "Two incomplete rectangular outlines are visible below Quality and immediately above the footer, without readable contents.",
+      "why": "Their partial presentation leaves unclear whether the user is seeing available settings controls, a scroll boundary, or unrelated decoration.",
+      "owner": "unassigned",
+      "fix": {
+        "verifiableTarget": "At 1334x750, present intended settings controls completely with readable labels above the footer, or clip offscreen rows cleanly so orphaned control outlines are not left visible. A fresh full-frame capture must show the resulting boundary."
+      },
+      "hypothesis": "A fixed footer or scroll-container boundary may be covering the lower part of a settings row. This is a hypothesis about the cause, not an observed implementation fact."
+    }
+  ],
+  "protocol": {
+    "materialsRead": [
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/brief.json",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/A-01.png",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/A-02.jpg",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/B-01.png",
+      "/workspace/scratch/0b7ad82bafe7/menu-comparison-7c91/B-02.png"
+    ],
+    "imagesViewed": "All four original full frames opened with view_image at original detail; no image alterations.",
+    "outsideSourceLookup": false,
+    "productEdits": false,
+    "completionClaims": false,
+    "independentRefutation": "Requested after preserving this review in its original file; separate output will not overwrite this result."
+  }
+}

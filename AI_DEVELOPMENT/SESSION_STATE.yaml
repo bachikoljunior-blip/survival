@@ -17,21 +17,21 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T11:29:45.379298+09:00"
-  verified_commit: "ae50ac9b8a072ee0e91617a703a0116ee68534f7"
-  verified_build_sha256: "58b10c7f913676be143dc90d4b4a87e671c473dfd0119de1b5f3e5c93bad4920"
-  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/faults-ae50ac9/provenance.json"
-  last_verified_action: "ae50ac9 実WebKit通常161/161・例外復旧42/42成功。全閉鎖で庭14→669.1ppm、live nav反映、実saveと欠落ID復元を確認。WebKitにMediaRecorderがなく録音0件。最終gas/nav独立CPUレビューの原証拠を保持。全19要素not measured。"
-  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-ae50ac9/provenance.json"
-  pending_build_sha256: "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05"
-  modified_but_unverified: "半閉鎖専用yard sourceを実装し、独立CPU24帰結＋44保存/再開始検査成功。3択の庭は14/483.94/711.31ppmで実Actor/Lungs・canSeeへの差を測定。現行回帰は63/63成功。半閉鎖の実WebKit choice/save復元、既存CI Chromiumの実音声映像採取は次CI未検証。取得経路の独立CPU検査は分岐7ケース/実City結合18件成功との中間報告、別担当反証は未確定。屋上可読性は未解消。"
-  next_action: "半閉鎖・CI音声取得経路と原証拠を指定ブランチへ保存しリモート照合、実WebKit＋fault＋Chromium録音結果を取得。録音ファイルをデコードし実内容確認。細かな描画修正より有効な比較を一つ通すことを優先。E-12の実参照音声を取得したがnative audio input非対応を確認したため、音声評価機能を探しつつ、画像と操作記録で評価可能なE-14の参照メニューも取得する。各比較の範囲/出所認識を確認し未測定を偽の達成にしない。"
+  last_progress_at: "2026-09-14T12:17:15.674666+09:00"
+  verified_commit: "c8f63c6063c98306e4c95e85b6055c0263957593"
+  verified_build_sha256: "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05"
+  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/provenance.json"
+  last_verified_action: "c8f63c6 実WebKit通常168/168・例外復旧42/42成功。半閉鎖の庭14→429.2ppm、全閉鎖659.0ppm、live navと保存/欠落ID復元を確認。Chromium23/23で3本の実音声映像を取得し原ZIP SHA・MP4 SHA・全復号を確認。全19要素not measured。"
+  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/provenance.json"
+  pending_build_sha256: null
+  modified_but_unverified: "ゲームの現行修正はc8f63c6で検証済み。新規mobile-simulator.ymlは既存pagesのiOS Simulator検証を同じ指定ブランチのソース変更時に実施する経路で、実行前。メニュー比較7c91は評価者と独立反証者が出所を認識し無効。静止画の範囲不足を記録し全19要素not measuredを維持。"
+  next_action: "Mobile Safari検証経路を確認し指定ブランチへ保存、実iOS Simulator結果を回収。Linux録音の遅い描画でwall/audio時間とゲーム時間が乖離したため、現クリップを通常速度のプレイ比較に使わず、別環境の実時間進行を測る。7c91は出所認識と範囲不足で無効。同じ未変更資料の評価者を変えて合格を拾わず、実操作記録を揃える。下端の見切れはスクロール境界であり、原画像だけから実装欠陥は確定しない。全19要素の有効な比較を最優先し未測定を達成にしない。"
 
   deadline_assessment: "2026-09-14ユーザー追記: 適宜期限内達成を評価し、届かないなら進め方が誤っている可能性を検証する。現時点で19要素の有効な比較0件、今の進み方のまま期限内完全達成は厳しい。細部修正を増やす進め方を改め、現在の小修正を保存後、取得→匿名化→評価の実成立を優先する。基準/期限は変更しない。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "初回映像比較で参照の出所認識が起きたため無効。全19要素に有効なブラインド比較がまだない。期限内完全達成を裏付ける進捗はまだないため、製品修正と比較成立を並行して進める"
-    - "ae50ac9実WebKit通常161/161・fault42/42成功。WebKit MediaRecorder欠落を実測。既存CIのChromiumで音声映像採取へ方法を変更し、旧環境のbrowser保護を迂回しない"
+    - "c8f63c6の実WebKit168/168・fault42/42成功。Chromiumで実録音3件を取得/復号したが描画遅延による時間乖離を実測。native audio input非対応で音を聴いた評価も未実施。既存のiOS Simulator検証を指定ブランチへ適用し収録環境を改善する"
     - "通常Gitの認証は利用できない。接続済みGitHubアプリの正規書込みで同ブランチへ保存・再読取が成功済み。旧自動承認拒否は履歴として保存し、保護の迂回はしない"
     - "Factorio公開GUI demoの通常GETはHTTP403で取得不可。既存の実headless保存/移行結果は保持するが、GUIのブラインド比較を実施したとは扱わない"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"

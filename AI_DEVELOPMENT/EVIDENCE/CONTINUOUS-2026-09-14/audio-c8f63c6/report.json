@@ -1,0 +1,475 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-14T02:38:46.417Z",
+  "target": "iPhone SE (3rd gen) landscape / Playwright chromium",
+  "scope": "Production audiovisual acquisition only; not the complete mobile surface gate.",
+  "browser": "chromium",
+  "checks": [
+    {
+      "name": "entry responds successfully",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "iPhone SE 3 landscape viewport",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "iPhone SE 3 DPR",
+      "passed": true,
+      "detail": "dpr=2"
+    },
+    {
+      "name": "touch emulation and coarse pointer are active",
+      "passed": true,
+      "detail": "{\"profile\":\"iPhone SE (3rd gen) landscape\",\"hasTouch\":true,\"isMobile\":true,\"maxTouchPoints\":1,\"coarse\":true}"
+    },
+    {
+      "name": "landscape orientation is active",
+      "passed": true,
+      "detail": "landscape=true"
+    },
+    {
+      "name": "production engine reaches a running title",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":375},\"dpr\":2,\"maxTouchPoints\":1,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"tier\":\"medium\",\"audio\":{\"unlocked\":false,\"contextCreated\":false},\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":375}}"
+    },
+    {
+      "name": "render canvas fills the viewport",
+      "passed": true,
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":375}"
+    },
+    {
+      "name": "audio: no context or playback is started before a user gesture",
+      "passed": true,
+      "detail": "{\"unlocked\":false,\"contextCreated\":false}"
+    },
+    {
+      "name": "audio: trusted gesture unlocks the actual running production context",
+      "passed": true,
+      "detail": "{\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":44100,\"channels\":2,\"recorder\":true,\"canvasCapture\":true,\"mime\":\"video/mp4\"}"
+    },
+    {
+      "name": "audio street-walk: audio and real game clocks advance during recording",
+      "passed": true,
+      "detail": "{\"wallMs\":101912.80000000005,\"audioTime\":69.73242630385488,\"audioState\":\"running\",\"engineFrame\":64,\"engineTime\":4.19999999999999,\"position\":[-112.94519880356246,0,-84.10190056441034],\"hp\":120,\"dead\":false,\"mode\":\"play\",\"tier\":\"medium\",\"ambience\":\"camp\",\"music\":\"explore\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":1}"
+    },
+    {
+      "name": "audio street-walk: simultaneous live native video and production audio tracks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio street-walk: recording ends in finite live gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio vent-air: audio and real game clocks advance during recording",
+      "passed": true,
+      "detail": "{\"wallMs\":153444.90000000002,\"audioTime\":121.26040816326531,\"audioState\":\"running\",\"engineFrame\":108,\"engineTime\":7.133333333333313,\"position\":[82,0,-60],\"hp\":120,\"dead\":false,\"mode\":\"play\",\"tier\":\"medium\",\"ambience\":\"cut\",\"music\":\"authority\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":1}"
+    },
+    {
+      "name": "audio vent-air: simultaneous live native video and production audio tracks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio vent-air: recording ends in finite live gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio arcade-room: audio and real game clocks advance during recording",
+      "passed": true,
+      "detail": "{\"wallMs\":191726.19999999995,\"audioTime\":159.5414058956916,\"audioState\":\"running\",\"engineFrame\":159,\"engineTime\":10.533333333333436,\"position\":[588,0,4.2],\"hp\":120,\"dead\":false,\"mode\":\"play\",\"tier\":\"medium\",\"ambience\":\"street\",\"music\":\"authority\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":1}"
+    },
+    {
+      "name": "audio arcade-room: simultaneous live native video and production audio tracks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio arcade-room: recording ends in finite live gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio acquisition produces all three actual audiovisual clips",
+      "passed": true,
+      "detail": "{\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":44100,\"channels\":2,\"recorder\":true,\"canvasCapture\":true,\"mime\":\"video/mp4\"}"
+    },
+    {
+      "name": "no page errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no console errors",
+      "passed": true,
+      "detail": "0 error(s)"
+    },
+    {
+      "name": "no failed requests",
+      "passed": true,
+      "detail": "0 failure(s)"
+    },
+    {
+      "name": "no HTTP error responses",
+      "passed": true,
+      "detail": "0 error response(s)"
+    }
+  ],
+  "timings": {
+    "bootMs": 10082
+  },
+  "device": {
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "dpr": 2,
+    "maxTouchPoints": 1,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/26.0 Mobile/19E241 Safari/602.1",
+    "coarse": true,
+    "landscape": true,
+    "ready": true,
+    "running": true,
+    "build": "1.0.0",
+    "tier": "medium",
+    "audio": {
+      "unlocked": false,
+      "contextCreated": false
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 667,
+      "height": 375
+    }
+  },
+  "layout": null,
+  "interaction": {},
+  "persistence": null,
+  "soak": null,
+  "screenshots": {},
+  "visualRegression": null,
+  "errors": {
+    "page": [],
+    "console": [],
+    "request": [],
+    "http": []
+  },
+  "failures": [],
+  "status": "passed",
+  "baseUrl": "http://127.0.0.1:38069/cinderline-test/",
+  "emulation": {
+    "profile": "iPhone SE (3rd gen) landscape",
+    "hasTouch": true,
+    "isMobile": true
+  },
+  "audioCapture": {
+    "browser": "chromium",
+    "scope": "Actual chromium production AudioContext and canvas recorded together by MediaRecorder. The unchanged final compressor feeds both the normal destination and a recording destination. Scene placement is programmatic setup; movement uses browser keyboard input through the production input path. Native world video excludes the DOM HUD. This records runner behavior, not physical speakers, touch, latency, phone frame rate or a reference-work blind comparison.",
+    "clips": [
+      {
+        "name": "street-walk",
+        "spawn": "start",
+        "input": "W down for 2.5 seconds, then release",
+        "placed": {
+          "ok": true,
+          "viaDoor": null,
+          "interior": null,
+          "position": [
+            -112,
+            0.1,
+            -84
+          ]
+        },
+        "before": {
+          "state": {
+            "wallMs": 75662,
+            "audioTime": 43.48226757369615,
+            "audioState": "running",
+            "engineFrame": 48,
+            "engineTime": 3.133333333333327,
+            "position": [
+              -112,
+              0,
+              -84
+            ],
+            "hp": 120,
+            "dead": false,
+            "mode": "play",
+            "tier": "medium",
+            "ambience": "camp",
+            "music": "explore",
+            "master": 0.8500000238418579,
+            "musicVolume": 0.699999988079071,
+            "sfxVolume": 1,
+            "activeVoices": 0
+          },
+          "mime": "video/mp4",
+          "tracks": [
+            {
+              "kind": "audio",
+              "state": "live",
+              "settings": {
+                "channelCount": 2,
+                "deviceId": "WebAudio-24b1b9a6-7fcf-4ad3-a902-741d4998995c",
+                "latency": 0.01,
+                "sampleRate": 44100,
+                "sampleSize": 16
+              }
+            },
+            {
+              "kind": "video",
+              "state": "live",
+              "settings": {
+                "aspectRatio": 1.7782945736434108,
+                "deviceId": "haXqC2vCL7hgfoIKrrpLGkdVgOD/gikbYoVw93rKGTlnR1iObMT1yzg7YZtNmo3J4pWGQmix/25mIc0bbEki9A==",
+                "frameRate": 60,
+                "height": 645,
+                "resizeMode": "none",
+                "width": 1147
+              }
+            }
+          ],
+          "canvas": {
+            "width": 1147,
+            "height": 645
+          }
+        },
+        "after": {
+          "wallMs": 101912.80000000005,
+          "audioTime": 69.73242630385488,
+          "audioState": "running",
+          "engineFrame": 64,
+          "engineTime": 4.19999999999999,
+          "position": [
+            -112.94519880356246,
+            0,
+            -84.10190056441034
+          ],
+          "hp": 120,
+          "dead": false,
+          "mode": "play",
+          "tier": "medium",
+          "ambience": "camp",
+          "music": "explore",
+          "master": 0.8500000238418579,
+          "musicVolume": 0.699999988079071,
+          "sfxVolume": 1,
+          "activeVoices": 1
+        },
+        "mime": "video/mp4;codecs=vp9,opus",
+        "bytes": 517694,
+        "path": "test-results/mobile-audio/audio-street-walk.mp4",
+        "sha256": "daf93a77c04bbe29cc627de32b20624da295e9580a532f6a929a6d03bdff926c"
+      },
+      {
+        "name": "vent-air",
+        "spawn": "ventfield",
+        "input": "No movement input",
+        "placed": {
+          "ok": true,
+          "viaDoor": null,
+          "interior": null,
+          "position": [
+            82,
+            0.1,
+            -60
+          ]
+        },
+        "before": {
+          "state": {
+            "wallMs": 141700.19999999995,
+            "audioTime": 109.52272108843538,
+            "audioState": "running",
+            "engineFrame": 96,
+            "engineTime": 6.333333333333316,
+            "position": [
+              82,
+              0,
+              -60
+            ],
+            "hp": 120,
+            "dead": false,
+            "mode": "play",
+            "tier": "medium",
+            "ambience": "cut",
+            "music": "authority",
+            "master": 0.8500000238418579,
+            "musicVolume": 0.699999988079071,
+            "sfxVolume": 1,
+            "activeVoices": 1
+          },
+          "mime": "video/mp4",
+          "tracks": [
+            {
+              "kind": "audio",
+              "state": "live",
+              "settings": {
+                "channelCount": 2,
+                "deviceId": "WebAudio-81a72dcf-77e4-4489-87ae-7cf9bffa14d3",
+                "latency": 0.01,
+                "sampleRate": 44100,
+                "sampleSize": 16
+              }
+            },
+            {
+              "kind": "video",
+              "state": "live",
+              "settings": {
+                "aspectRatio": 1.7782945736434108,
+                "deviceId": "CrfygrCtLUoZwtw3LeL0DtAfxkD6+8LPd1phsZLyZnz5TStQE14wvnPAjUTcDfB7+ijMQauB8vGB3o9GzU7kbA==",
+                "frameRate": 60,
+                "height": 645,
+                "resizeMode": "none",
+                "width": 1147
+              }
+            }
+          ],
+          "canvas": {
+            "width": 1147,
+            "height": 645
+          }
+        },
+        "after": {
+          "wallMs": 153444.90000000002,
+          "audioTime": 121.26040816326531,
+          "audioState": "running",
+          "engineFrame": 108,
+          "engineTime": 7.133333333333313,
+          "position": [
+            82,
+            0,
+            -60
+          ],
+          "hp": 120,
+          "dead": false,
+          "mode": "play",
+          "tier": "medium",
+          "ambience": "cut",
+          "music": "authority",
+          "master": 0.8500000238418579,
+          "musicVolume": 0.699999988079071,
+          "sfxVolume": 1,
+          "activeVoices": 1
+        },
+        "mime": "video/mp4;codecs=vp9,opus",
+        "bytes": 213432,
+        "path": "test-results/mobile-audio/audio-vent-air.mp4",
+        "sha256": "a1c3bb89b404aa93f9b2b3f6ec0ea0a47c6542bb031f028561ce5935dd3e4c92"
+      },
+      {
+        "name": "arcade-room",
+        "spawn": "arcade_in",
+        "input": "No movement input",
+        "placed": {
+          "ok": true,
+          "viaDoor": "door_arcade",
+          "interior": "arcade",
+          "position": [
+            588,
+            0,
+            4.2
+          ]
+        },
+        "before": {
+          "state": {
+            "wallMs": 181876.30000000005,
+            "audioTime": 149.69034013605443,
+            "audioState": "running",
+            "engineFrame": 144,
+            "engineTime": 9.533333333333387,
+            "position": [
+              588,
+              0,
+              4.2
+            ],
+            "hp": 120,
+            "dead": false,
+            "mode": "play",
+            "tier": "medium",
+            "ambience": "street",
+            "music": "authority",
+            "master": 0.8500000238418579,
+            "musicVolume": 0.699999988079071,
+            "sfxVolume": 1,
+            "activeVoices": 1
+          },
+          "mime": "video/mp4",
+          "tracks": [
+            {
+              "kind": "audio",
+              "state": "live",
+              "settings": {
+                "channelCount": 2,
+                "deviceId": "WebAudio-0068f59d-8903-42b3-b524-d2a7f520abed",
+                "latency": 0.01,
+                "sampleRate": 44100,
+                "sampleSize": 16
+              }
+            },
+            {
+              "kind": "video",
+              "state": "live",
+              "settings": {
+                "aspectRatio": 1.7782945736434108,
+                "deviceId": "wkZhPrkJtQjw2r1KIy4CyOaZtljBiAB6VXSsFq0XxkzJLaUR4cXhG2b4I6oNpOeAGX3eEn0hoj2x0iZHQjMWWA==",
+                "frameRate": 60,
+                "height": 645,
+                "resizeMode": "none",
+                "width": 1147
+              }
+            }
+          ],
+          "canvas": {
+            "width": 1147,
+            "height": 645
+          }
+        },
+        "after": {
+          "wallMs": 191726.19999999995,
+          "audioTime": 159.5414058956916,
+          "audioState": "running",
+          "engineFrame": 159,
+          "engineTime": 10.533333333333436,
+          "position": [
+            588,
+            0,
+            4.2
+          ],
+          "hp": 120,
+          "dead": false,
+          "mode": "play",
+          "tier": "medium",
+          "ambience": "street",
+          "music": "authority",
+          "master": 0.8500000238418579,
+          "musicVolume": 0.699999988079071,
+          "sfxVolume": 1,
+          "activeVoices": 1
+        },
+        "mime": "video/mp4;codecs=vp9,opus",
+        "bytes": 264090,
+        "path": "test-results/mobile-audio/audio-arcade-room.mp4",
+        "sha256": "986c7a546c25167c1df88d9a65fe6ce052dd836fd0496e983d507f0d32415981"
+      }
+    ],
+    "capabilities": {
+      "ready": true,
+      "unlocked": true,
+      "state": "running",
+      "sampleRate": 44100,
+      "channels": 2,
+      "recorder": true,
+      "canvasCapture": true,
+      "mime": "video/mp4"
+    },
+    "status": "captured",
+    "nextValidation": "Decode the saved media; verify non-silent stereo audio and nonempty moving video, then listen to the actual mix. A present track or nonzero byte count is not an audio-quality verdict."
+  }
+}

@@ -1,18 +1,20 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.10 -->
+<!-- state_revision: 2026-09-14.11 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.10 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.11 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
 ### 2026-09-14 現行の継続地点
 
-指定ブランチの ae50ac9 を実WebKitで通常161件・障害復旧42件検証し成功。全閉鎖の実choice、庭の14→669.1ppmへの変化、live nav更新、実saveと欠落ID復元を確認。原証拠は `AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-ae50ac9/` と `faults-ae50ac9/`。WebKitにはMediaRecorderがなく録音は0件、未測定と記録した。
+指定ブランチの c8f63c6 を実WebKitで通常168件・障害復旧42件検証し成功。半閉鎖の庭は14→429.2ppm、別試行の全閉鎖は659.0ppm。live nav、実saveと欠落ID復元を確認。原証拠は `AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/` と `faults-c8f63c6/`。独立した取得経路CPUレビューと別担当反証も完了し、原証拠12件を保持した。
 
-半閉鎖のyard帰結を修正し、独立CPU24帰結＋44保存/再開始検査が成功。ブラウザの半閉鎖検証と、既存CI Chromiumでの実音声・映像取得を追加し、実行結果は未確認。細かな描画修正より、最初の有効な比較を成立させることを優先する。期限内に届かない見通しなら方法の誤りを検証して変更するという最新ユーザー指示をcheckpointへ記録。全19要素は `not measured` のまま。開始/期限と正確な再開手順は唯一の `SESSION_STATE.yaml` を読む。
+Chromiumでは23件の収録検査に成功し、実際の音声映像3本を取得・復号した。ただし描画が遅くwall/audio時間に対しゲーム時間が大幅に遅れるため、通常速度のプレイ比較には使用できない。音声入力に非対応の評価環境で音を聴いたとも扱わない。既存のiOS Simulator上のMobile Safari検証を、同じ指定ブランチのソース変更時に起動する経路を追加し、この方法を実際に検証する。公開やデプロイは行わない。
+
+実際の参照メニュー/字幕と現行ビルドを、画像内容を変更せずに匿名化した7c91の初回評価と独立反証が完了。双方が参照の出所を認識し、ブラインド比較として無効。静止画の範囲不足も確認した。下端の見切れは観測として残すが、実装欠陥とする判断は反証後に撤回した。出所認識や静止画で見えない操作を有効な比較へ読み替えない。細かな描画修正より、最初の有効な比較を成立させることを優先する。全19要素は `not measured` のまま。開始/期限と正確な再開手順は唯一の `SESSION_STATE.yaml` を読む。
 
 ---
 

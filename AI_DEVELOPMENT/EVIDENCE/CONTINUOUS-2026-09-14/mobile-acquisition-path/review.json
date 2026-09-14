@@ -1,0 +1,147 @@
+{
+  "round": "continuous-2026-09-14-mobile-acquisition-path",
+  "profile": "Independent bounded review of three acquisition and gas-regression changes",
+  "tier": "CPU/source only; no browser/GPU tier measured",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Required schema field, unscored placeholder. This is no numerical quality or element-achievement score.",
+  "blindComparison": "No blind comparison was conducted. Source identity was known and no actual browser or reference-work audio/video was evaluated. Which game a stranger would prefer and every element-level judgment remain not measured.",
+  "checkedAt": "2026-09-14T02:31:11.214Z",
+  "reviewer": "/root/acquisition_path_review",
+  "target": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "baselineCommit": "ae50ac9b8a072ee0e91617a703a0116ee68534f7",
+    "sourceHashes": {
+      "tools/test-iphone-webkit.mjs": {
+        "sha256": "b3e30b949a5098992319645d4b42473e29e78ece2b6d6a85b0f263250e8b1d8f",
+        "bytes": 29328
+      },
+      ".github/workflows/gates.yml": {
+        "sha256": "cfed42a2ee3b4d137d516e530124ea86df2f63cc2426eaccf1a87cc9b6383348",
+        "bytes": 4709
+      },
+      "tools/mobile_gas_consequences.mjs": {
+        "sha256": "dc1f861803e77526b37acd8dedb3bb663c105b2d8409c0390c19642f1d6d42db",
+        "bytes": 8421
+      }
+    }
+  },
+  "scope": "Review of AUDIO_ONLY routing and failure accounting, existing CI Chromium audio-acquisition placement, and the full-then-fresh-half choice/save regression helper only. Related production sources were read and used for bounded CPU integration. None of the target or product files was edited.",
+  "findings": [],
+  "measurements": [
+    {
+      "kind": "CPU control-flow execution",
+      "passed": 7,
+      "total": 7,
+      "evidence": "mobile-acquisition-path-probe.json",
+      "result": "The actual gate source body, with browser/capture/IO imports replaced only at boundaries, rejects incomplete clips, unavailable capture, helper exceptions, failed internal checks and page errors. Success alone records passed; all negative fixtures exit 1 and preserve the report. Default mode enters the original full WebKit branch. Cleanup runs in every case."
+    },
+    {
+      "kind": "Source/YAML validation",
+      "passed": 6,
+      "total": 6,
+      "evidence": "mobile-acquisition-workflow-probe.json",
+      "result": "The submitted workflow already installs Chromium and WebKit. AUDIO_ONLY is isolated to the later Chromium step and output directory. Full WebKit and fault steps retain their prior environments. The audio artifact is uploaded even on failure; capture does not continue after cancellation. No continue-on-error masks failure."
+    },
+    {
+      "kind": "CPU integration of unmodified helper",
+      "passed": 18,
+      "total": 18,
+      "evidence": "mobile-gas-acquisition-integration-probe.json",
+      "result": "The real helper callbacks run against a complete actual City, a source-extracted production startNewGame closure, actual Director.startConversation, DialogueRunner.choose, Game.fixedUpdate, Storage.save and Director.applySave. Eighteen checks pass; old full-choice flags are cleared before half choice, source states and saved bytes/progression are checked, and missing-row fixtures are expressly identified as synthetic."
+    },
+    {
+      "kind": "Independent separate refutation",
+      "passed": 6,
+      "total": 6,
+      "evidence": "mobile-acquisition-path-refutation.json",
+      "result": "Six independent source/CPU controls found no surviving defect. Deliberate missing-reset and stale vents_shut controls fail the same source-state predicates, showing that the proposed helper does not silently accept full-choice contamination."
+    }
+  ],
+  "observedCPUValues": {
+    "fullYardPpm": 712.3296061248732,
+    "halfYardPpm": 468.0048626615521,
+    "fullYardNavCost": 5.963690280914307,
+    "halfYardNavCost": 4.193803787231445,
+    "scope": "CPU fixture only. Each requested frame advanced one 1/60-second fixed tick; these values are not WebKit measurements and are not compared as matched-time aesthetic/quality evidence."
+  },
+  "limitations": [
+    "No browser process, local server or network request was started. This review neither changes nor bypasses browser/security restrictions.",
+    "The routing probe stubs Playwright, the audio helper, filesystem writes and external boundaries. It does not prove MediaRecorder support, actual recorded tracks, codec support, byte completeness or non-silent content.",
+    "The gas integration stubs Canvas/text appearance, UI, frame scheduling and screenshot calls. It creates zero screenshots. Its report contains requested screenshot paths as callback evidence only, never actual images.",
+    "The gas integration uses native storage serialization with a Map-backed localStorage API. Browser quota, persistence failure behavior and actual page transitions remain for the authorized CI.",
+    "The separate refutation used a small artificial gas layout only for state contamination controls; it adds no actual City exposure, visibility, survival or performance measurement.",
+    "The full WebKit route was verified to remain reachable, not re-executed to completion. The authorized CI must measure the current build, half-choice browser state, and all three real audiovisual recordings.",
+    "Captured media still requires decoding and content inspection. A present track, byte count or a passed acquisition gate is not audio quality, physical-phone evidence or a valid blind comparison.",
+    "No element is promoted to satisfied by this bounded PASS."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "mobile-acquisition-path-probe.mjs",
+      "bytes": 6079,
+      "sha256": "b95b0ee2d88c83b91f30802b07cbb11c4aaa3e058c8eda9509bc2c91fe305729"
+    },
+    {
+      "path": "mobile-acquisition-path-probe.json",
+      "bytes": 31855,
+      "sha256": "4d2f1d4b66989c3aea83f83c185c57ff5bc65f30aa05f38438e6bc61f7ec76e5"
+    },
+    {
+      "path": "mobile-acquisition-workflow-probe.json",
+      "bytes": 1058,
+      "sha256": "383fce22441079a650c70b122462ae0e942cce1f8c428d5dedd27a96a4cfce6e"
+    },
+    {
+      "path": "mobile-gas-acquisition-integration-probe.mjs",
+      "bytes": 4937,
+      "sha256": "541b6114fdcaaa7e499ba11c65d96e3acf611de638b21bc65c8176b1109c2ea8"
+    },
+    {
+      "path": "mobile-gas-acquisition-integration-probe.json",
+      "bytes": 26333,
+      "sha256": "b4a0ceb89da2a301dec210f2e059da372db3fa6b77fcaffae1417ea871c2f341"
+    },
+    {
+      "path": "mobile-acquisition-path-refutation.json",
+      "bytes": 7347,
+      "sha256": "44a5f0d9e886f317cf2c413d84386f6ab7c32c099ec8685fcc27a147e99d9b89"
+    },
+    {
+      "path": "mobile-acquisition-refutation-probe.mjs",
+      "bytes": 7265,
+      "sha256": "0a82dabbec4fef728e24c7c4cbd2bb8724051ac7031827c98fbb45e4d8d6cd86"
+    },
+    {
+      "path": "mobile-acquisition-refutation-probe.json",
+      "bytes": 5902,
+      "sha256": "ef9a7393a04e65c9df065f6a941ed3218d64e76c279fbf7e5ba4db8ee7dc11fa"
+    },
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "bytes": 2944,
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    },
+    {
+      "path": "mobile-acquisition-source/tools/test-iphone-webkit.mjs",
+      "bytes": 29328,
+      "sha256": "b3e30b949a5098992319645d4b42473e29e78ece2b6d6a85b0f263250e8b1d8f"
+    },
+    {
+      "path": "mobile-acquisition-source/.github/workflows/gates.yml",
+      "bytes": 4709,
+      "sha256": "cfed42a2ee3b4d137d516e530124ea86df2f63cc2426eaccf1a87cc9b6383348"
+    },
+    {
+      "path": "mobile-acquisition-source/tools/mobile_gas_consequences.mjs",
+      "bytes": 8421,
+      "sha256": "dc1f861803e77526b37acd8dedb3bb663c105b2d8409c0390c19642f1d6d42db"
+    }
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}
