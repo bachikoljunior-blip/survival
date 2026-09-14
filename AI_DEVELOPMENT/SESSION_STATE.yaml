@@ -17,18 +17,18 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  continuation_check_observation: "2026-09-14T19:18:37.244+09:00 実remote f13df49とCI34831102708を照合。主実行は原PNG回収・独立画像評価・次の光試験実装で活動中。比較job103934400526ではcontrol処理が完了し16画像比較stepが進行中。競合実行を起動しない。"
-  last_progress_at: "2026-09-14T19:18:37.244+09:00"
+  continuation_check_observation: "2026-09-14T19:37:34.062+09:00 remote1f72aefとCI34833274585の実進行を照合。主実行は光r2原files回収、復旧extractorの修正・レビュー、E9再生成処理の実装で活動中。別の主実行を起動せず同じ続行地点で進む。"
+  last_progress_at: "2026-09-14T19:37:34.062+09:00"
   verified_commit: "a8409cc0de04a503f50395487478fe0cfb2a98e7"
   verified_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
   evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
-  last_verified_action: "光方向r1の実WebKit診断は68検査0失敗。全8viewで状態不変・offset一致・prototype method所有状態復元・元PNG bytes/RGBA復元を確認。18原files22,778,968Bを原job logからoffset/size/SHA照合し回収。Marrowの明暗分離改善とVentfield足元のコントラスト低下を独立原画像評価で確認。PlantのMVD-03は未改善で、悪化とは断定しない。比較r3はcontrol実行完了・16画像比較開始。完了前job logはBlobNotFound404のためraw回答の内容監査は未実施。"
+  last_verified_action: "光r2[-43,85,38]は実WebKit68検査0失敗。8viewすべて状態不変・offset一致・update復元・元PNG/RGBA復元。18原files22,789,878Bをjob103941293795からoffset/size/SHA照合し回収。Marrow/Ventfield原pairでは穏やかな通路分離と、前案型の足元悪化が再現しないことを確認、全8view独立評価完了、8視点に限定して小さい改善として採用を支持。f13のF2/F3/実narrativeは実CI成功。"
   current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
   pending_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
-  modified_but_unverified: "製品bundleはa840/14ea69b0のまま。光r1の[-56,74,43]は効果と代償が混合し、global採用は見送る。次のr2は同じ8view・状態復元方法で[-43,85,38]へ変更、影の伸びを抑えてMarrowの改善とVentfieldの足元を両立できるか実描画待ち。比較r3のcontrol内容・盲検成立・選好は未監査。local ENOSPCとscratch未転送reader/監査pinはcurrent-a8409cc/continuation-recovery.json参照。"
-  next_action: "光r1の全原PNG/記録/限定評価を保存し、r2を同じブランチから実CIで描画する。8view内のbefore/trial/restoreでMVD-01の改善と悪化を確認。採用可能な実変更だけをsourceと再生成rootへ同時反映し、現行ビルドのスマートフォン検証を実施。進行中の16画像比較は完了後に完全rawを回収し、制御試験内容・全画像知覚・出所認識・4軸・最終選好を監査する。未完/無効を達成・作業単位にしない。E9は既存抽出script/manifestの保持内容と既知SHA照合から正確な未完了地点を復旧する。"
+  modified_but_unverified: "製品はa840/14ea69b0のまま。光r2は静止原画像の独立評価完了、product source/rootへの反映と新build検証は未実施。E9復旧helperは保持extractor全文を固定DBで再実行しreader/pins/auditの3hashとmanifestを照合する実装を準備。取得300秒の壁時計上限と失敗時の原文非出力を静的レビューで修正、実CI未実行。候補r1抽出器も回収、r2見出し修正の観測差分と区別して保存。formatter原文は未回収。"
+  next_action: "同じブランチでE9固定reader復旧を実CI実行し、保存済み3出力SHAとmanifestとの一致を実測する。光r2全8原pairの独立評価を確定し、改善と悪化が許容できる実変更だけをsourceと生成rootへ同時反映、現行スマートフォン検証へ進む。進行中のQ35 r3固定16画像比較を重複実行せず、完了後に制御試験内容・全画像知覚・認識・4軸・最終選好を完全rawで監査。未測定を達成にしない。E9候補の復旧生成と表示整形の未完了地点を続行。"
 
-  deadline_assessment: "2026-09-14T19:18:37.244+09:00 継続確認直後、残り145.64時間。19未測定・有効比較0、期限内完全達成はまだ分からず根拠不足。control予算修正で本比較へ実際に到達したが品質回答は未監査。光r1はMarrowの改善とVentfieldの代償を実画像で特定し、単純なglobal採用という方法を見直した。次の中間角度を同じ復元検査付きで測り、不明な効果を小さくする。要素/参照/71基準/開始/期限は維持し、取得・文書だけで残り時間を使わない。"
+  deadline_assessment: "2026-09-14T19:37:34.062+09:00 継続確認直後、残り145.32時間。全19未測定・有効比較0で、期限内完全達成は根拠不足。光r1の大きな角度は足元の代償を生み、方法を修正してr2を実描画した。Marrow/Ventfieldで代償を減らせる兆候はあるが全要素の差は未確定。local復旧待ちを止め、保持sourceと固定hashによる既存CI再生成へ切り替え、E9の失われた資料を再現可能にする。比較の実回答と原画像評価を優先し、不確実性が実際に減ったか次の実結果で確認。開始/期限/19要素/71基準は維持。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "全19要素に有効比較なし。過去の参照出所認識2試行は無効、c02eは回答0のタイムアウト。完了作業単位0。"

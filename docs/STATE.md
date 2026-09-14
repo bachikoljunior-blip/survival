@@ -1,14 +1,14 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.22 -->
+<!-- state_revision: 2026-09-14.23 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.22 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.23 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
-今回の続行: 光方向r1は実WebKit68検査0失敗、全8viewの状態不変と元PNG復元を確認。18原filesを `light-direction-a840-r1/` に保存。独立原画像評価ではMarrow改善とVentfield足元のコントラスト低下が混在しglobal採用を見送り、影の伸びを抑えたr2へ進む。比較r3はcontrol処理を完了して固定16画像比較を開始、raw監査は完了後。製品はa840/14ea69b0のまま。全19未測定・有効比較0・期限内完全達成は根拠不足。
+今回の続行: 光r2は実WebKit68検査0失敗、全8viewの状態不変・元PNG復元を確認し原18filesを保存。Marrow/Ventfieldでは穏やかな通路分離と前案型の足元悪化が再現しないことを確認、全8view独立評価中。f13のF2/F3/実narrativeは実CI成功。E9参照・候補の保持抽出器を復旧し、固定DBと元3出力SHAの再生成照合へ進む。製品a840/14ea69b0、全19未測定、有効比較0、開始・期限を維持。
 
 ### 2026-09-14 以前の継続記録（当時の状態）
 
