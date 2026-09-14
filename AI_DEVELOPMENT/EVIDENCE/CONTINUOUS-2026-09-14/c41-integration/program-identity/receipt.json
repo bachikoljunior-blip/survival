@@ -1,0 +1,104 @@
+{
+  "status": "candidate_frozen_pending_independent_review_and_adoption",
+  "recommendation": "bounded diagnostic only for a later authorized cycle",
+  "sourceCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "candidate": {
+    "path": "candidate/tools/frame_work_probe.mjs",
+    "bytes": 16893,
+    "sha256": "33dfcc32bdc7a2b3de52c0295f822dd4f8eff112bb74fbf3d6e45926e23ac618",
+    "gitBlob": "49b57537da91675f00ea68344beb8f346c499946"
+  },
+  "patch": {
+    "path": "candidate.patch",
+    "bytes": 8771,
+    "sha256": "d145e5955f6fb0b339f09b61449b6dddb257a44827556479d87f07bd817dd4fd",
+    "gitBlob": "691ff0d58342436380f3793685bd753dd13de7e9"
+  },
+  "authorityAcceptedInOrder": [
+    {
+      "path": "authority/head-response.json",
+      "bytes": 1843,
+      "sha256": "ec81328c36b2fb60b9f8b4681335e528ab362754b76f3191a0ce07e8b9f3a7b2",
+      "gitBlob": null
+    },
+    {
+      "path": "authority/agents-response.json",
+      "bytes": 717,
+      "sha256": "5d561692c668eec6155b0a315070a59e8279705464fa96797791330afad10148",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be"
+    },
+    {
+      "path": "authority/claude-response.json",
+      "bytes": 22755,
+      "sha256": "501ffbf693a4c3f51bd4dc59eaa2fb2661fe690af49b86a5abe21ae2bc058341",
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f"
+    },
+    {
+      "path": "authority/session-response.json",
+      "bytes": 20938,
+      "sha256": "f296877a6afe1dc9ccbba1d36bf5b8f82c8e8deb903aab8a3cd2c7128cb0290d",
+      "gitBlob": "e0d2cc4f5c1d06014fd79d1ab505060566b7edb5"
+    }
+  ],
+  "validation": {
+    "syntaxPassed": true,
+    "canonicalEngineAssertions": 62,
+    "programIdentityAssertions": 50,
+    "conservativeInventoryBytes": 61049,
+    "largestEscapedFixtureBytes": 59945,
+    "realSafariMeasured": false,
+    "realProgramInventoryMeasured": false,
+    "compileMeasured": false,
+    "gpuMeasured": false,
+    "observerCostMeasured": false,
+    "productPerformanceRepaired": false
+  },
+  "limits": {
+    "entries": 64,
+    "events": 16,
+    "scannedEntriesPerEvent": 128,
+    "nameUtf16Units": 96,
+    "cacheKeyUtf16Units": 256,
+    "serializedRecordBytes": 60000,
+    "inventoryUtf8Bytes": 65536,
+    "rowLimitUnchanged": 4096
+  },
+  "coverage": "Installation and count increases at saved callback boundaries only; boundedReadsComplete does not mean full history; original timing complete/detailComplete remain separate.",
+  "publicAllowlist": {
+    "path": "public-allowlist.json",
+    "bytes": 948,
+    "sha256": "2e49a5cad567a233c9f29e6030cea3ea4889e7a8a546f0bf84926087ee965704"
+  },
+  "report": {
+    "path": "REPORT.md",
+    "bytes": 7612,
+    "sha256": "3e3c672b5273a59b4354a5dcccb70a8eb4d5b99bd2a032553bea44f780ce38e7"
+  },
+  "sourcePins": {
+    "path": "source-pins.json",
+    "bytes": 2339,
+    "sha256": "27b6a9767ad9f84707f39abe470da4476056a41d4e6608b1fc658ae78ae20fb8"
+  },
+  "scope": {
+    "editedRoot": "/workspace/scratch/0b7ad82bafe7/c41-program-identity-probe-ultra",
+    "candidateFiles": 1,
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "reruns": 0,
+    "realSafariActions": 0,
+    "newAgents": 0,
+    "libraryActions": 0,
+    "automationActions": 0,
+    "priorFrozenEvidenceEdits": 0
+  },
+  "quality": {
+    "elementsNotMeasured": 19,
+    "criteria": 71,
+    "references": 10,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  }
+}

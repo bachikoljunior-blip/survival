@@ -1,0 +1,433 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "name": "iPhone SE 3 landscape width",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":325}"
+    },
+    {
+      "name": "Mobile Safari landscape height",
+      "passed": true,
+      "detail": "{\"width\":667,\"height\":325}"
+    },
+    {
+      "name": "iPhone SE 3 DPR",
+      "passed": true,
+      "detail": "dpr=2"
+    },
+    {
+      "name": "landscape touch surface is active",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}"
+    },
+    {
+      "name": "actual Mobile Safari user agent is active",
+      "passed": true,
+      "detail": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "name": "production engine starts in Mobile Safari",
+      "passed": true,
+      "detail": "{\"viewport\":{\"width\":667,\"height\":325},\"visualViewport\":{\"width\":667,\"height\":325},\"dpr\":2,\"maxTouchPoints\":5,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"platform\":\"iPhone\",\"coarse\":true,\"landscape\":true,\"ready\":true,\"running\":true,\"build\":\"1.0.0\",\"canvas\":{\"x\":0,\"y\":0,\"width\":667,\"height\":325}}"
+    },
+    {
+      "name": "render canvas fills the Safari content viewport",
+      "passed": true,
+      "detail": "{\"x\":0,\"y\":0,\"width\":667,\"height\":325}"
+    },
+    {
+      "name": "title has no horizontal overflow",
+      "passed": true,
+      "detail": "{\"documentWidth\":667,\"viewportWidth\":667,\"buttons\":[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]}"
+    },
+    {
+      "name": "title controls meet the 44 CSS px floor",
+      "passed": true,
+      "detail": "[{\"name\":\"new\",\"x\":479,\"y\":86.5,\"width\":180,\"height\":44},{\"name\":\"settings\",\"x\":479,\"y\":140.5,\"width\":180,\"height\":44},{\"name\":\"credits\",\"x\":479,\"y\":194.5,\"width\":180,\"height\":44}]"
+    },
+    {
+      "name": "trusted Mobile Safari tap starts a new game",
+      "passed": true,
+      "detail": "[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167069,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167069,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"click\",\"trusted\":true,\"pointerType\":\"mouse\",\"pointerId\":-291167069,\"x\":560,\"y\":105,\"activeTouches\":0,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]"
+    },
+    {
+      "name": "all required touch controls are present",
+      "passed": true,
+      "detail": "attack,dodge,guard,use,heavy,menu,map,lamp,meter"
+    },
+    {
+      "name": "every gameplay control is visible and touch-sized",
+      "passed": true,
+      "detail": "[{\"name\":\"attack\",\"x\":601,\"y\":257,\"width\":54,\"height\":54,\"visible\":true},{\"name\":\"dodge\",\"x\":547,\"y\":268,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"guard\",\"x\":608,\"y\":201,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"use\",\"x\":553,\"y\":203,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"heavy\",\"x\":495,\"y\":245,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"menu\",\"x\":459,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"map\",\"x\":511,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"lamp\",\"x\":563,\"y\":8,\"width\":44,\"height\":44,\"visible\":true},{\"name\":\"meter\",\"x\":615,\"y\":8,\"width\":44,\"height\":44,\"visible\":true}]"
+    },
+    {
+      "name": "two trusted touch contacts overlap in Safari",
+      "passed": true,
+      "detail": "[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167069,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit\",\"text\":\"NEW GAME\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167069,\"x\":560,\"y\":105,\"activeTouches\":1,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"btn hit on\",\"text\":\"NEW GAME\"}},{\"type\":\"click\",\"trusted\":true,\"pointerType\":\"mouse\",\"pointerId\":-291167069,\"x\":560,\"y\":105,\"activeTouches\":0,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167068,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167067,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167067,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167066,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167066,\"x\":619,\"y\":280,\"activeTouches\":2,\"target\":{\"tag\":\"DIV\",\"id\":\"\",\"className\":\"abtn hit big attack down\",\"text\":\"HIT\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167068,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]"
+    },
+    {
+      "name": "trusted two-thumb movement moves the player",
+      "passed": true,
+      "detail": "distance=0.6917"
+    },
+    {
+      "name": "trusted second thumb attacks during movement",
+      "passed": true,
+      "detail": "attacks=2"
+    },
+    {
+      "name": "trusted touch release clears movement and attack",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-84.69171011516356,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "trusted interaction leaves finite player state",
+      "passed": true,
+      "detail": "{\"x\":-112,\"y\":0,\"z\":-84.69171011516356,\"attackStarts\":2,\"stickActive\":false,\"moveMagnitude\":0,\"attackRaw\":false,\"finite\":true}"
+    },
+    {
+      "name": "trusted right-thumb drag moves the camera",
+      "passed": true,
+      "detail": "delta=0.19631"
+    },
+    {
+      "name": "pause actions are touch-sized in Safari",
+      "passed": true,
+      "detail": "[{\"index\":0,\"text\":\"SAVE\",\"x\":8,\"y\":269,\"width\":51.65625,\"height\":44},{\"index\":1,\"text\":\"TITLE\",\"x\":65.65625,\"y\":269,\"width\":53.015625,\"height\":44},{\"index\":2,\"text\":\"RESUME\",\"x\":590.578125,\"y\":269,\"width\":68.421875,\"height\":44}]"
+    },
+    {
+      "name": "turning to portrait blocks input and pauses play",
+      "passed": true,
+      "detail": "{\"prompt\":true,\"paused\":true,\"portrait\":true}"
+    },
+    {
+      "name": "returning to landscape restores play",
+      "passed": true,
+      "detail": "{\"paused\":false,\"landscape\":true}"
+    },
+    {
+      "name": "saved run exposes a touch-sized Continue action",
+      "passed": true,
+      "detail": "{\"x\":569,\"y\":81.5,\"width\":180,\"height\":44}"
+    },
+    {
+      "name": "Safari refresh and Continue restore the saved position",
+      "passed": true,
+      "detail": "distance=0.0000, bytes=1859"
+    },
+    {
+      "name": "Safari soak remains live with finite state and no captured game faults",
+      "passed": true,
+      "detail": "{\"frame\":346,\"running\":true,\"finite\":true,\"perf\":{\"tier\":\"medium\",\"p50\":17,\"p90\":21,\"p99\":29,\"fps50\":58.8235294117647,\"fps90\":47.61904761904762,\"draws\":66,\"tris\":195149,\"programs\":68,\"textures\":53,\"geometries\":87,\"res\":\"1147x559\",\"css\":\"667x325\",\"dpr\":2},\"faults\":0,\"framesAdvanced\":236}"
+    },
+    {
+      "name": "Safari soak keeps producing frames",
+      "passed": true,
+      "detail": "advanced=236"
+    },
+    {
+      "name": "Safari renderer submits non-empty geometry",
+      "passed": true,
+      "detail": "{\"tier\":\"medium\",\"p50\":17,\"p90\":21,\"p99\":29,\"fps50\":58.8235294117647,\"fps90\":47.61904761904762,\"draws\":66,\"tris\":195149,\"programs\":68,\"textures\":53,\"geometries\":87,\"res\":\"1147x559\",\"css\":\"667x325\",\"dpr\":2}"
+    },
+    {
+      "name": "no captured Mobile Safari runtime errors",
+      "passed": true,
+      "detail": "{\"errorsBeforeReload\":[],\"errorsAfterReload\":[]}"
+    },
+    {
+      "name": "iOS audio: actual Safari exposes the required recording APIs after a trusted gesture",
+      "passed": true,
+      "detail": "{\"checkedWallMs\":24036,\"userAgent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1\",\"secureContext\":true,\"audioContextConstructor\":true,\"webkitAudioContextConstructor\":false,\"productionContext\":true,\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":48000,\"outputChannels\":2,\"createMediaStreamDestination\":true,\"compressorConnect\":true,\"mediaStream\":true,\"mediaRecorder\":true,\"mediaRecorderIsTypeSupported\":true,\"canvasCaptureStream\":true,\"blobArrayBuffer\":true,\"mimeTypes\":[{\"mime\":\"video/mp4\",\"supported\":true},{\"mime\":\"video/webm;codecs=vp8,opus\",\"supported\":true},{\"mime\":\"video/webm\",\"supported\":true}],\"supportedMime\":\"video/mp4\",\"observedTrustedTouch\":true,\"build\":\"1.0.0\",\"limitations\":\"API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations.\"}"
+    },
+    {
+      "name": "audio: trusted gesture unlocks the actual running production context",
+      "passed": true,
+      "detail": "{\"ready\":true,\"unlocked\":true,\"state\":\"running\",\"sampleRate\":48000,\"channels\":2,\"recorder\":true,\"canvasCapture\":true,\"mime\":\"video/mp4\"}"
+    },
+    {
+      "name": "iOS audio street: actual trusted stick gesture is observed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "iOS audio street: native movement advances and releases",
+      "passed": false,
+      "detail": "{\"distance\":3.5635463562309733,\"stickActive\":false,\"moveMagnitude\":0,\"release\":{\"status\":\"failed\",\"reason\":\"release observation transport deadline exceeded\",\"after\":{\"wallMs\":37177,\"audioTime\":25.066666666666666,\"engineTime\":26.6833333333331,\"engineFrame\":1314,\"inputTime\":26.6833333333331,\"position\":[-114.80599119581943,0,-86.19665109700901],\"stickActive\":false,\"stickId\":-1,\"stickX\":0,\"stickY\":0,\"moveMagnitude\":0,\"input\":[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]},\"lateResult\":{\"status\":\"passed\",\"reason\":\"first frame after fixed-step progress\",\"after\":{\"wallMs\":37188,\"audioTime\":25.077333333333332,\"engineTime\":26.699999999999765,\"engineFrame\":1315,\"inputTime\":26.699999999999765,\"position\":[-114.80599119581943,0,-86.19665109700901],\"stickActive\":false,\"stickId\":-1,\"stickX\":0,\"stickY\":0,\"moveMagnitude\":0,\"input\":[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]},\"elapsedMs\":11,\"timeoutMs\":2000,\"cleanupErrors\":null,\"observationStatus\":\"passed\",\"observationReason\":\"first frame after fixed-step progress\"}}}"
+    },
+    {
+      "name": "audio street-walk: wall, audio and simulation clocks stay aligned for capture",
+      "passed": false,
+      "detail": "{\"wallSeconds\":17.655,\"audioSeconds\":17.653333333333336,\"engineSeconds\":15.949999999999097,\"engineFrames\":797,\"engineToAudioRatio\":0.9035120845920938,\"audioToWallRatio\":0.9999055980364392,\"engineMinusAudioSeconds\":-1.703333333334239,\"audioMinusWallSeconds\":-0.0016666666666651508,\"toleranceSeconds\":0.8826666666666668,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"
+    },
+    {
+      "name": "audio street-walk: passive clock and pose telemetry is complete",
+      "passed": true,
+      "detail": "{\"dropped\":{\"clockFrames\":0,\"trajectory\":0,\"sfxEvents\":0},\"errors\":[]}"
+    },
+    {
+      "name": "audio street-walk: audio and real game clocks advance during recording",
+      "passed": true,
+      "detail": "{\"wallMs\":45769,\"audioTime\":33.653333333333336,\"audioState\":\"running\",\"engineFrame\":1752,\"engineTime\":34.616666666665985,\"position\":[-114.80599119581943,0,-86.19665109700901],\"hp\":120,\"dead\":false,\"mode\":\"play\",\"tier\":\"low\",\"ambience\":\"camp\",\"music\":\"explore\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":1}"
+    },
+    {
+      "name": "audio street-walk: simultaneous live native video and production audio tracks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio street-walk: recording ends in finite live gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio cut-gas-air: wall, audio and simulation clocks stay aligned for capture",
+      "passed": true,
+      "detail": "{\"wallSeconds\":13.689,\"audioSeconds\":13.685333333333332,\"engineSeconds\":13.366666666665914,\"engineFrames\":641,\"engineToAudioRatio\":0.9767147310989318,\"audioToWallRatio\":0.9997321450312903,\"engineMinusAudioSeconds\":-0.3186666666674185,\"audioMinusWallSeconds\":-0.003666666666667595,\"toleranceSeconds\":0.6842666666666667,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":true,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"
+    },
+    {
+      "name": "audio cut-gas-air: passive clock and pose telemetry is complete",
+      "passed": true,
+      "detail": "{\"dropped\":{\"clockFrames\":0,\"trajectory\":0,\"sfxEvents\":0},\"errors\":[]}"
+    },
+    {
+      "name": "audio cut-gas-air: audio and real game clocks advance during recording",
+      "passed": true,
+      "detail": "{\"wallMs\":83482,\"audioTime\":71.37066666666666,\"audioState\":\"running\",\"engineFrame\":3751,\"engineTime\":71.59999999999722,\"position\":[82,0,-60],\"hp\":116.52961842182741,\"dead\":false,\"mode\":\"play\",\"tier\":\"low\",\"ambience\":\"cut\",\"music\":\"authority\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":2}"
+    },
+    {
+      "name": "audio cut-gas-air: simultaneous live native video and production audio tracks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio cut-gas-air: recording ends in finite live gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio arcade-room: wall, audio and simulation clocks stay aligned for capture",
+      "passed": true,
+      "detail": "{\"wallSeconds\":6.26,\"audioSeconds\":6.26133333333334,\"engineSeconds\":6.283333333338334,\"engineFrames\":375,\"engineToAudioRatio\":1.0035136286208997,\"audioToWallRatio\":1.000212992545262,\"engineMinusAudioSeconds\":0.02200000000499358,\"audioMinusWallSeconds\":0.001333333333340292,\"toleranceSeconds\":0.31306666666666705,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":true,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"
+    },
+    {
+      "name": "audio arcade-room: passive clock and pose telemetry is complete",
+      "passed": true,
+      "detail": "{\"dropped\":{\"clockFrames\":0,\"trajectory\":0,\"sfxEvents\":0},\"errors\":[]}"
+    },
+    {
+      "name": "audio arcade-room: audio and real game clocks advance during recording",
+      "passed": true,
+      "detail": "{\"wallMs\":178845,\"audioTime\":166.53866666666667,\"audioState\":\"running\",\"engineFrame\":8126,\"engineTime\":159.1500000000188,\"position\":[588,0,4.2],\"hp\":0,\"dead\":true,\"mode\":\"play\",\"tier\":\"low\",\"ambience\":\"interior\",\"music\":\"authority\",\"master\":0.8500000238418579,\"musicVolume\":0.699999988079071,\"sfxVolume\":1,\"activeVoices\":1}"
+    },
+    {
+      "name": "audio arcade-room: simultaneous live native video and production audio tracks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "audio arcade-room: recording ends in finite live gameplay",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "iOS audio lifecycle: original three recordings completed before boundary operations",
+      "passed": false,
+      "detail": "{\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":3}"
+    }
+  ],
+  "failures": [
+    "iOS audio street: native movement advances and releases: {\"distance\":3.5635463562309733,\"stickActive\":false,\"moveMagnitude\":0,\"release\":{\"status\":\"failed\",\"reason\":\"release observation transport deadline exceeded\",\"after\":{\"wallMs\":37177,\"audioTime\":25.066666666666666,\"engineTime\":26.6833333333331,\"engineFrame\":1314,\"inputTime\":26.6833333333331,\"position\":[-114.80599119581943,0,-86.19665109700901],\"stickActive\":false,\"stickId\":-1,\"stickX\":0,\"stickY\":0,\"moveMagnitude\":0,\"input\":[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]},\"lateResult\":{\"status\":\"passed\",\"reason\":\"first frame after fixed-step progress\",\"after\":{\"wallMs\":37188,\"audioTime\":25.077333333333332,\"engineTime\":26.699999999999765,\"engineFrame\":1315,\"inputTime\":26.699999999999765,\"position\":[-114.80599119581943,0,-86.19665109700901],\"stickActive\":false,\"stickId\":-1,\"stickX\":0,\"stickY\":0,\"moveMagnitude\":0,\"input\":[{\"type\":\"pointerdown\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":246,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}},{\"type\":\"pointerup\",\"trusted\":true,\"pointerType\":\"touch\",\"pointerId\":-291167057,\"x\":101,\"y\":186,\"activeTouches\":1,\"target\":{\"tag\":\"CANVAS\",\"id\":\"gl\",\"className\":\"\",\"text\":\"\"}}]},\"elapsedMs\":11,\"timeoutMs\":2000,\"cleanupErrors\":null,\"observationStatus\":\"passed\",\"observationReason\":\"first frame after fixed-step progress\"}}}",
+    "audio street-walk: wall, audio and simulation clocks stay aligned for capture: {\"wallSeconds\":17.655,\"audioSeconds\":17.653333333333336,\"engineSeconds\":15.949999999999097,\"engineFrames\":797,\"engineToAudioRatio\":0.9035120845920938,\"audioToWallRatio\":0.9999055980364392,\"engineMinusAudioSeconds\":-1.703333333334239,\"audioMinusWallSeconds\":-0.0016666666666651508,\"toleranceSeconds\":0.8826666666666668,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}",
+    "audio arcade-room: recording ends in finite live gameplay: ",
+    "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":3}",
+    "Error: Original iOS audio capture did not complete successfully; lifecycle operations not attempted\n    at Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:321:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:624:5"
+  ],
+  "capabilities": {
+    "checkedWallMs": 24036,
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+    "secureContext": true,
+    "audioContextConstructor": true,
+    "webkitAudioContextConstructor": false,
+    "productionContext": true,
+    "ready": true,
+    "unlocked": true,
+    "state": "running",
+    "sampleRate": 48000,
+    "outputChannels": 2,
+    "createMediaStreamDestination": true,
+    "compressorConnect": true,
+    "mediaStream": true,
+    "mediaRecorder": true,
+    "mediaRecorderIsTypeSupported": true,
+    "canvasCaptureStream": true,
+    "blobArrayBuffer": true,
+    "mimeTypes": [
+      {
+        "mime": "video/mp4",
+        "supported": true
+      },
+      {
+        "mime": "video/webm;codecs=vp8,opus",
+        "supported": true
+      },
+      {
+        "mime": "video/webm",
+        "supported": true
+      }
+    ],
+    "supportedMime": "video/mp4",
+    "observedTrustedTouch": true,
+    "build": "1.0.0",
+    "limitations": "API availability and MIME advertisements only. Actual track/recorder creation and recording are separate observations."
+  },
+  "provenance": {
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+      "dist/cinderline.1.0.0.js": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262",
+    "transferHelperSha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+    "frameWorkProbeSha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "harnessSha256": "a278b87f0fb2e15b843205b6fe211a8046f72463e2f29956bfbf867f5900adee",
+    "runCommit": "c5526c35929af07c5e0bddd9c9bfdafd1fea7853",
+    "runId": "34898351772",
+    "runAttempt": "1"
+  },
+  "frameWork": null,
+  "lifecycle": {
+    "status": "not run",
+    "reason": "Original acquisition did not complete successfully; no boundary operation was attempted."
+  },
+  "captureStatus": "acquisition failed",
+  "comparison": {
+    "status": "not measured",
+    "reason": "Requires decoding, three-clock inspection, successful stereo listening and a valid reference comparison."
+  },
+  "clips": [
+    {
+      "name": "street-walk",
+      "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+      "bytes": 5621385,
+      "sha256": "cb71e8a5e764991ac79d7481df75d9347cd4fce477ab658439ff14828dd6b54b",
+      "mime": "video/mp4; codecs=avc1.42000a,mp4a.40.2",
+      "timing": {
+        "wallSeconds": 17.655,
+        "audioSeconds": 17.653333333333336,
+        "engineSeconds": 15.949999999999097,
+        "engineFrames": 797,
+        "engineToAudioRatio": 0.9035120845920938,
+        "audioToWallRatio": 0.9999055980364392,
+        "engineMinusAudioSeconds": -1.703333333334239,
+        "audioMinusWallSeconds": -0.0016666666666651508,
+        "toleranceSeconds": 0.8826666666666668,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": false,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "tracks": [
+        {
+          "kind": "video",
+          "state": "live",
+          "settings": {
+            "height": 351,
+            "width": 720
+          }
+        },
+        {
+          "kind": "audio",
+          "state": "live",
+          "settings": {}
+        }
+      ]
+    },
+    {
+      "name": "cut-gas-air",
+      "path": "test-results/ios-safari/audio/audio-cut-gas-air.mp4",
+      "bytes": 4209754,
+      "sha256": "2044403d6b5bec034c0bdb393311903c8fb2e2bb1be5ed7965305af18ff84416",
+      "mime": "video/mp4; codecs=avc1.42000a,mp4a.40.2",
+      "timing": {
+        "wallSeconds": 13.689,
+        "audioSeconds": 13.685333333333332,
+        "engineSeconds": 13.366666666665914,
+        "engineFrames": 641,
+        "engineToAudioRatio": 0.9767147310989318,
+        "audioToWallRatio": 0.9997321450312903,
+        "engineMinusAudioSeconds": -0.3186666666674185,
+        "audioMinusWallSeconds": -0.003666666666667595,
+        "toleranceSeconds": 0.6842666666666667,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "tracks": [
+        {
+          "kind": "video",
+          "state": "live",
+          "settings": {
+            "height": 351,
+            "width": 720
+          }
+        },
+        {
+          "kind": "audio",
+          "state": "live",
+          "settings": {}
+        }
+      ]
+    },
+    {
+      "name": "arcade-room",
+      "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+      "bytes": 1417443,
+      "sha256": "ca654ecf569cee815822c5300ca84081dae35b4e62d89ed7cd53de9eb35d50a0",
+      "mime": "video/mp4; codecs=avc1.42000a,mp4a.40.2",
+      "timing": {
+        "wallSeconds": 6.26,
+        "audioSeconds": 6.26133333333334,
+        "engineSeconds": 6.283333333338334,
+        "engineFrames": 375,
+        "engineToAudioRatio": 1.0035136286208997,
+        "audioToWallRatio": 1.000212992545262,
+        "engineMinusAudioSeconds": 0.02200000000499358,
+        "audioMinusWallSeconds": 0.001333333333340292,
+        "toleranceSeconds": 0.31306666666666705,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      },
+      "tracks": [
+        {
+          "kind": "audio",
+          "state": "live",
+          "settings": {}
+        },
+        {
+          "kind": "video",
+          "state": "live",
+          "settings": {
+            "height": 351,
+            "width": 720
+          }
+        }
+      ]
+    }
+  ]
+}

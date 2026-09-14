@@ -1,0 +1,16 @@
+--- a/tools/ios_audio_capture.mjs
++++ b/tools/ios_audio_capture.mjs
+@@ -10,10 +10,10 @@
+ import { IOS_TRANSFER_CHUNK_BYTES, startIosAudioUpload } from './ios_audio_transfer.mjs';
+ 
+ export const IOS_AUDIO_PIN = Object.freeze({
+-  preparedFromCommit: '61e8f8c595bde13634fe709f979816011df165d0',
+-  preparationReportSha256: '000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44',
++  preparedFromCommit: '8058f8431b7885e9e929e6cb57bb415d26d9f5b1',
++  preparationReportSha256: '1ffc7875d1536a1bb088b2ae0e7867b7513c0e16700efc1b1dd22c1a494e8d02',
+   bundle: 'cinderline.1.0.0.js',
+-  bundleSha256: '8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0',
++  bundleSha256: '4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed',
+   recorderBlob: '785541d3beaed0e35e8bcf042973eabb7bdb5d6c',
+ });
+ const TRANSFER_KEY = '__cinderlineIosAudioTransfer';

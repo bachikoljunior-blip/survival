@@ -1,0 +1,153 @@
+{
+  "status": "pass",
+  "blocking": [],
+  "scope": "Whole staged save/publication boundary only; no repeated implementation tests",
+  "partial": {
+    "paths": 203,
+    "payloadBytes": 9135552,
+    "manifest": {
+      "bytes": 105163,
+      "sha256": "05fcc47b8791585b931d8dce0888da1ca65f21bbca086f12c8d5e2b0ee216459",
+      "gitBlob": "53b56c6601337074a9dd5e4d4c11821740b39744"
+    }
+  },
+  "final": {
+    "paths": 209,
+    "payloadBytes": 9204182,
+    "manifest": {
+      "bytes": 107943,
+      "sha256": "372ed3505262e7a1d0469e4c718cd87d243ed5c8b5e1d6bafc54a8b3b8b790cc",
+      "gitBlob": "5c7700b738abe11b8e7f8d17e7a5eb0e64d300be"
+    }
+  },
+  "prior203RowsAndBytesUnchanged": true,
+  "additionalPaths": [
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/REPORT.md",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/adoption-receipt.json",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/dc5-completed-ci.json",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/deadline-receipt.json",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/scope-owners.json",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "runtimeCodePaths": [
+    ".github/workflows/gates.yml",
+    "tools/candidates/journal-save-state-r1.js",
+    "tools/check-narrative-routes.mjs",
+    "tools/frame_work_probe.mjs",
+    "tools/prepare-narrative-product.mjs",
+    "tools/recover-ios-c40-pr.py"
+  ],
+  "exactOriginBindings": 209,
+  "publicAllowlistControls": 14,
+  "allowlistPins": {
+    "c40-journal-build-result-ultra/publication-allowlist.json": {
+      "bytes": 6499,
+      "sha256": "becb716231370135d17bf49d2d86b06c612bfcb15ea95a007e99e73b2c449e94",
+      "gitBlob": "8a6bf495d08f178bae4faef0b0a26c326f59f310"
+    },
+    "c41-iris-journal-save-repair-ultra/publication-allowlist.json": {
+      "bytes": 1552,
+      "sha256": "1c9fd52e713565f2c0711ab2a9533a7289f1647d5a4736eb866edf7d01638c2d",
+      "gitBlob": "dd5deef78ac214ccd771930796b06ca51898461f"
+    },
+    "c41-iris-journal-save-independent-review-ultra/publication-allowlist.json": {
+      "bytes": 1423,
+      "sha256": "d4a0a1569ef77ac9513f1299ebe4e7256d4350801f116b4e6f259adb2bfb292c",
+      "gitBlob": "f257e0c31688c9b0efef1e0008cd8044f9ebf38e"
+    },
+    "c41-program-identity-independent-review-ultra/publication-allowlist.json": {
+      "bytes": 1427,
+      "sha256": "3223ce613ecb283f1879f7ed6e96a15c43ee735ded65c280f5777660e94355db",
+      "gitBlob": "e3b1fae8b23781e1565edeefc9b5a89aada6e7c8"
+    },
+    "c41-journal-save-build-preparation-ultra/publication-allowlist.json": {
+      "bytes": 4388,
+      "sha256": "a576bf33b86d7031b2223abe10a629f69eb311bdf810efd431402231a19a4674",
+      "gitBlob": "6926758b0e54d64ed684a40cdae3190a91103a1c"
+    },
+    "c41-c40-pr-recovery-preparation-ultra/publication-allowlist.json": {
+      "bytes": 2858,
+      "sha256": "126aebd48ab2dc39c30ae0dbbb4d39c64af927dc9ace9db63c40cde7aa6cd898",
+      "gitBlob": "c1d71269a0d47ca08a52fe15d14443aaabc912fe"
+    },
+    "c41-c40-pr-recovery-independent-review-ultra/publication-allowlist.json": {
+      "bytes": 1879,
+      "sha256": "10d7b9b82592978ad9fa6be76b03a1c307e4dec655ee370cfdae666be3789c23",
+      "gitBlob": "e85bb9f5c5a1dd92727bea9eed522ca12df07041"
+    },
+    "dc5-safari-original-results-ultra/publication-allowlist.json": {
+      "bytes": 4106,
+      "sha256": "1bd3bdeacafd2978f67cf157e8741bd4f05c3b4df258ba2187b368307ad5d27a",
+      "gitBlob": "94e6fd2f1eb44c738c99441ed27b97d482f0a397"
+    },
+    "c40-safari-original-results-ultra/publication-allowlist.json": {
+      "bytes": 5771,
+      "sha256": "5a069c913c1ed1b04f3ae61ecd356a7e1ff711836c2aa49d0d7f0057c20bac8a",
+      "gitBlob": "ccec5107a869ffdd089c279aa6d475a992e88905"
+    },
+    "c40-journal-result-independent-review-ultra/manifest.json": {
+      "bytes": 1627,
+      "sha256": "9684c06cd3c56f583bdde98b5ff55764da2eb6875a5456b67d724983a0e0da80",
+      "gitBlob": "8e89034c4da0e245fd7016e7184214b950765d3d"
+    },
+    "c41-journal-save-build-independent-review-ultra/manifest.json": {
+      "bytes": 1881,
+      "sha256": "0bc19e02cbb25793f16ad3771920dee9f9f789653fc4129ab88298ecaf515e77",
+      "gitBlob": "c5f1a1206a5d1e29251592b10fec03423c8d05b3"
+    },
+    "c41-program-identity-probe-ultra/public-allowlist.json": {
+      "bytes": 948,
+      "sha256": "2e49a5cad567a233c9f29e6030cea3ea4889e7a8a546f0bf84926087ee965704",
+      "gitBlob": "e0bcfbca6fdc612b00f69e614e1558fc19ac2cc2"
+    },
+    "c40-journal-build-result-ultra/review-binding-allowlist.json": {
+      "bytes": 387,
+      "sha256": "33a47cc51adaf71d3b55ebe6f85d3b9150efd375025637e2e80889992d2ec15c",
+      "gitBlob": "72bc4b7f383e5eacc0b4c93c679b9260e5295446"
+    },
+    "c41-journal-save-build-preparation-ultra/final-binding-allowlist.json": {
+      "bytes": 845,
+      "sha256": "66c57af821d0afd01826fe5f2aabb6245913948dbf58c9d261927e13c2c6f196",
+      "gitBlob": "d3143d382ef8b70030b1c8c7df3641d34f18e0d4"
+    }
+  },
+  "retainedGzipMappings": 3,
+  "currentProtectedPaths": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/STATE.yaml",
+    "cinderline.1.0.0.js",
+    "index.html",
+    "styles.css",
+    "manifest.webmanifest",
+    "icon.svg",
+    ".nojekyll"
+  ],
+  "lockedProductInputsUnchanged": 47,
+  "benchmarkFilesUnchanged": 3,
+  "currentRootSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+  "heldGeneratedRootSha256": "4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed",
+  "heldRootPaths": [
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/journal-original/prepared-original/cinderline.1.0.0.js",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/journal-original/adoption-candidate/cinderline.1.0.0.js"
+  ],
+  "productSourceOrRootAdopted": false,
+  "originalJournalScreens": 0,
+  "fullWorkStateUnchanged": true,
+  "latestRulesHead": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "canonicalTree": "86900e1a6119c234ff8d03298483bac2ed38f268",
+  "noPrivateOriginBound": true,
+  "privatePathOrUriSignatureHits": 0,
+  "privateReferenceInputsRead": 0,
+  "limits": [
+    "Explicit origin/allowlist and path/URI checks are publication-boundary checks, not a new quality comparison",
+    "Original failures and held generated products remain as separately reviewed evidence",
+    "No new runtime build, original artifact acquisition or browser result is asserted by this review"
+  ],
+  "implementationTestsRerun": 0,
+  "remoteWrites": 0,
+  "ciActions": 0,
+  "newSpawn": 0,
+  "libraryAccess": 0,
+  "automationActions": 0
+}

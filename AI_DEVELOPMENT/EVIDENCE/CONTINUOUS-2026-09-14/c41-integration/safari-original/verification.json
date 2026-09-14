@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "originalLogs": [
+    {
+      "path": "transport/pr-safari.log",
+      "bytes": 86930,
+      "sha256": "a35b606ee2d488eff51ca9b3597ea71a362318ef37bdea0960164e563c3a1df6",
+      "run": 34895779614,
+      "job": 104149254034,
+      "fetches": 1
+    },
+    {
+      "path": "transport/pr-f3-execution.log",
+      "bytes": 2525,
+      "sha256": "0c7fc4ad214e7d92a66522fe51588a96b8ef02d2920b759f9eadacc5e823cfc6",
+      "run": 34895779614,
+      "job": 104153276802,
+      "fetches": 1
+    },
+    {
+      "path": "transport/source-f3-execution.log",
+      "bytes": 2517,
+      "sha256": "e7d12dd6d1876a2edd5451d1e635b08f483de12bc666cbdab262d46e3fd7b94e",
+      "run": 34895775143,
+      "job": 104154195234,
+      "fetches": 1
+    },
+    {
+      "path": "transport/source-safari.log",
+      "bytes": 77158,
+      "sha256": "14935f3b2f0358e4046883e23a4b4440e5a824a69055853b7d07cc34f25ffc79",
+      "run": 34895775143,
+      "job": 104149240903,
+      "fetches": 1
+    },
+    {
+      "path": "transport/standalone-safari.log",
+      "bytes": 3289865,
+      "sha256": "70f4f1158bf7872426bc5f27a65fd165e192337ea515817c8182e0fe42a9731c",
+      "run": 34895774407,
+      "job": 104149237314,
+      "fetches": 1
+    }
+  ],
+  "originalLogCount": 5,
+  "originalLogBytes": 3458995,
+  "scope": "Saved completed responses and compact report endpoint arithmetic; no original artifact report/Appium/media bytes",
+  "startupVerifiedRoles": [
+    "source",
+    "pr",
+    "standalone"
+  ],
+  "audioClockFailureRoles": [
+    "source",
+    "pr"
+  ],
+  "standaloneAudioCapture": false,
+  "inlineCommandOmissionDirectlyVerified": false,
+  "canonicalArtifactMetadataAndUploadMatched": [
+    "source",
+    "pr"
+  ],
+  "artifactZipRead": 0,
+  "remoteWrites": 0,
+  "newCiRuns": 0,
+  "duplicateJobLogFetches": 0
+}

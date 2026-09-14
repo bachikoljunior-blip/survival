@@ -1,0 +1,49 @@
+{
+  "recordedAt": "2026-09-14T21:28:42.763091+00:00",
+  "acceptedOrder": [
+    "head",
+    "AGENTS",
+    "CLAUDE",
+    "SESSION"
+  ],
+  "latestHead": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "technicalBaseline": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "receipts": [
+    {
+      "name": "head",
+      "bytes": 487,
+      "sha256": "26f8de500f4d754393b523ccf297cbb6fe147103142cabcfb65d733156c2f64a",
+      "gitBlob": null,
+      "sourceURL": "https://api.github.com/repos/bachikoljunior-blip/survival/git/ref/heads/claude/repo-instructions-constraints-r0070m"
+    },
+    {
+      "name": "agents",
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc",
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "sourceURL": "https://github.com/bachikoljunior-blip/survival/blob/dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5/AGENTS.md"
+    },
+    {
+      "name": "claude",
+      "bytes": 22750,
+      "sha256": "d72a8f7f6604e72be23658619e74b293dd1460d1020e7e5c9d900bb654bc26b0",
+      "gitBlob": "beda00e70ff22a2e7eaa1a60d331cbef8af4d4d7",
+      "sourceURL": "https://github.com/bachikoljunior-blip/survival/blob/dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5/CLAUDE.md"
+    },
+    {
+      "name": "session",
+      "bytes": 19718,
+      "sha256": "e8ce2a8d71438f008ffa7c7810e5ff3d237e19309f7e3aaa28231214b9b268d6",
+      "gitBlob": "e0d2cc4f5c1d06014fd79d1ab505060566b7edb5",
+      "sourceURL": "https://github.com/bachikoljunior-blip/survival/blob/dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5/AI_DEVELOPMENT/SESSION_STATE.yaml"
+    }
+  ],
+  "acceptedChanges": "Updated v3 introduction and sections 6\u20137: a separate one-time writer owns game2 stop then Q enable; no standing authority to reverse that switch. This reviewer performs no automation operation.",
+  "sections1to5Exact": true,
+  "contentAfterV3Exact": true,
+  "sessionExact": true,
+  "writerReportedTreeDelta": "Only CLAUDE changed in 1,989 blobs; tree86900e1a and unchanged technical inputs are writer observations, not a new full-tree comparison by this reviewer.",
+  "candidateRecreated": false,
+  "automationOperations": 0,
+  "ciOperations": 0
+}

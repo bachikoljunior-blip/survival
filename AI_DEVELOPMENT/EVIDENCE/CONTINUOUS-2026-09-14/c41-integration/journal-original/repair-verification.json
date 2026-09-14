@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "scope": "Eight synthetic pointer-contract/source-order controls using the exact candidate expression and canonical CSS/renderer. No CSS engine, browser, source render or screenshot is claimed.",
+  "controls": [
+    {
+      "name": "Original canonical CSS and renderer assign pointer ownership to journal scroller, not plain text",
+      "passed": true
+    },
+    {
+      "name": "Original predicate necessarily rejects the expected owning scroller",
+      "passed": true
+    },
+    {
+      "name": "Repair accepts the exact owning scroller under original pointer styles",
+      "passed": true
+    },
+    {
+      "name": "Unrelated overlay, sibling control, outer ancestor and absent hit remain rejected",
+      "passed": true
+    },
+    {
+      "name": "Parent hit cannot bypass unexpected pointer-enabled body or disabled scroller styles",
+      "passed": true
+    },
+    {
+      "name": "Existing exact body or descendant hit acceptance remains",
+      "passed": true
+    },
+    {
+      "name": "Actual screenshot and complete journal-layout row are preserved before visual assertions",
+      "passed": true
+    },
+    {
+      "name": "Source-route checks and full export/provenance/capacity/failure contract remain byte-identical",
+      "passed": true
+    }
+  ],
+  "passed": 8,
+  "node": "v24.19.0",
+  "repairSha256": "c37ff0a9458fde111c7396f7492c053f554f4c2fee7313b03b04c28693520709",
+  "actualBrowserExecuted": false,
+  "originalScreens": 0,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "localBrowserCapability": "Runtime playwright module exists, its declared Chromium executable is absent. No install, alternate executable search or launch was attempted."
+}

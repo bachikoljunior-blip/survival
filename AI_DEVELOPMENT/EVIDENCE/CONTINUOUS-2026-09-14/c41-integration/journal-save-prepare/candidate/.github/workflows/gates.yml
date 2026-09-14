@@ -1,0 +1,794 @@
+# Existing state, build and product checks are retained.
+# Retired protocol text is historical; CLAUDE.md and the current user instruction
+# govern completion. Optional marker-selected jobs measure named experiments.
+name: Floor gates
+
+on:
+  push:
+    branches: [claude/repo-instructions-constraints-r0070m]
+  pull_request:
+    branches: [main]
+    # `edited` matters: the F5 check reads the pull-request body, and without it
+    # a corrected review trailer would never re-run the check that reads it,
+    # leaving a red gate that no longer reflects reality.
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  f2-state-update:
+    name: F2 state update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Product files changed without a state update?
+        env:
+          F2_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'origin/main' }}
+        run: node tools/gates/f2_state_update.mjs --base "$F2_BASE"
+
+  f3-core:
+    name: F3 core, WebKit and fault recovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # Full history: the save gate asks git what the revision its fixture was
+      # captured from actually shipped, rather than trusting the fixture's own
+      # note about itself. A shallow clone cannot answer, and the gate fails
+      # rather than skipping — so give it the history.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Install the browsers the surface checks need
+        run: npx playwright install --with-deps chromium webkit
+      - name: Build, validate and drive the real build
+        run: node tools/gates/f3_execution.mjs
+      - name: Exercise the iPhone SE 3 WebKit surface
+        env:
+          CINDERLINE_REQUIRE_BASELINE: "1"
+        run: npm run test:iphone-webkit
+      - name: Preserve WebKit screenshots, video, trace and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iphone-se3-webkit-${{ github.sha }}
+          path: test-results/iphone-webkit
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Export original WebKit frames and report for inspection
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Exercise post-boot recovery in mobile WebKit
+        if: ${{ !cancelled() }}
+        env:
+          CINDERLINE_FAULT_BROWSER: webkit
+          CINDERLINE_FAULT_OUTPUT: test-results/fault-recovery
+        run: npm run test:faults
+      - name: Preserve actual fault-recovery screens and checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-fault-recovery-${{ github.sha }}
+          path: test-results/fault-recovery
+          if-no-files-found: error
+          retention-days: 14
+
+  f3-safari:
+    name: F3 Mobile Safari audio
+    uses: ./.github/workflows/mobile-simulator.yml
+    with:
+      capture_audio: true
+
+  f3-execution:
+    name: F3 execution
+    needs: [f3-core, f3-safari]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require both the complete core gate and actual Safari audio acquisition
+        env:
+          F3_CORE_RESULT: ${{ needs.f3-core.result }}
+          F3_SAFARI_RESULT: ${{ needs.f3-safari.result }}
+        shell: bash
+        run: |
+          printf 'F3 core=%s Safari=%s\n' "$F3_CORE_RESULT" "$F3_SAFARI_RESULT"
+          test "$F3_CORE_RESULT" = success
+          test "$F3_SAFARI_RESULT" = success
+
+  f5-review-record:
+    name: F5 review record
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Review trailer present and consistent with STATE.yaml?
+        env:
+          F5_REVIEW_BODY: ${{ github.event.pull_request.body }}
+        run: node tools/gates/f5_review_record.mjs
+
+  narrative-material:
+    name: Actual narrative material
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node build.mjs
+      - name: Record emitted dialogue and endings on contrasting story paths
+        run: |
+          capture_status=0
+          node tools/playthrough.mjs --path publish --transcript || capture_status=$?
+          node tools/playthrough.mjs --path deal --transcript || capture_status=$?
+          exit "$capture_status"
+      - name: Preserve original narrative output and execution results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: narrative-material-${{ github.sha }}
+          path: shots
+          if-no-files-found: error
+          retention-days: 14
+
+  comparison-e16-q35:
+    name: Frozen E16 Qwen 3.5 comparison attempt
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e16-q35-a840-r3]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check comparison helper syntax
+        run: python3 -m py_compile tools/compare-e16-q35.py
+      - name: Verify original inputs and acquire one pinned evaluator
+        run: python3 tools/compare-e16-q35.py prepare
+      - name: Record the new evaluator's visual input control
+        run: python3 tools/compare-e16-q35.py control
+      - name: Run the single frozen sixteen-image comparison
+        run: python3 tools/compare-e16-q35.py compare
+      - name: Export complete comparison records for independent audit
+        if: always()
+        run: python3 tools/compare-e16-q35.py export
+      - name: Preserve raw comparison outputs and exact input provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-e16-q35-a840-r3-${{ github.sha }}
+          path: test-results/e16-q35-a8409cc-r3
+          if-no-files-found: warn
+          retention-days: 14
+
+  light-direction-trial:
+    name: Frozen light direction diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[light-direction-a840-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_LIGHT_DIRECTION_TRIAL: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/light-direction-a840-r2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_light_direction_trial.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed views and reversible single-variable trial
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: light-direction-a840-r2-${{ github.sha }}
+          path: test-results/light-direction-a840-r2
+          if-no-files-found: warn
+          retention-days: 14
+
+  e9-reader-recovery:
+    name: Reproduce fixed E9 reader and private audit
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[restore-e9-reader-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check restored reader runner syntax
+        run: python3 -m py_compile tools/restore-e9-reader.py
+      - name: Reproduce the original private reader and compare all pinned outputs
+        run: python3 tools/restore-e9-reader.py
+      - name: Preserve only the non-prose recovery report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-reader-recovery-r2-${{ github.sha }}
+          path: test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  prepare-reviewed-light:
+    name: Prepare reviewed light source and production root
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-light-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-reviewed-light.mjs
+      - name: Generate the reviewed source and matching root build
+        run: node tools/prepare-reviewed-light.mjs
+      - name: Export exact prepared files
+        run: node tools/prepare-reviewed-light.mjs --export
+      - name: Preserve prepared product and verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-light-build-r2-${{ github.sha }}
+          path: test-results/reviewed-light-build-r2
+          if-no-files-found: warn
+          retention-days: 14
+
+  prepare-e9-readable:
+    name: Restore candidate graph and prepare faithful E9 reading material
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-e9-readable-r3]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/prepare-e9-readable.mjs
+      - name: Recreate the pinned private reference input in this fresh runner
+        run: python3 tools/restore-e9-reader.py
+      - name: Restore the original candidate and preserve both authored graphs
+        run: node tools/prepare-e9-readable.mjs
+      - name: Preserve non-prose preparation and fidelity records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-readable-r3-${{ github.sha }}
+          path: |
+            test-results/e9-readable-r3/report.json
+            test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  comparison-e9-q35:
+    name: Frozen full-text E9 Qwen 3.5 comparison attempt
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e9-q35-readable-r3-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install only the pinned native-chat template dependencies
+        run: python3 -m pip install --disable-pip-version-check --no-cache-dir 'Jinja2==3.1.6' 'MarkupSafe==3.0.3'
+      - name: Check the single-attempt helper and fidelity auditor
+        run: |
+          python3 -m py_compile tools/compare-e9-q35.py tools/restore-e9-reader.py
+          node --check tools/prepare-e9-readable.mjs
+          node --check tools/audit-e9-readable.mjs
+      - name: Restore the pinned private reference input
+        run: python3 tools/restore-e9-reader.py
+      - name: Prepare complete unchanged reading packets
+        run: node tools/prepare-e9-readable.mjs
+      - name: Independently audit every displayed field and graph edge
+        run: node tools/audit-e9-readable.mjs
+      - name: Acquire one fixed evaluator and count its exact final chat input
+        run: python3 tools/compare-e9-q35.py prepare
+      - name: Run the single complete-packet comparison without a server or truncation
+        run: python3 tools/compare-e9-q35.py compare
+      - name: Export the complete permissible response and non-prose provenance
+        if: always()
+        run: python3 tools/compare-e9-q35.py export
+      - name: Preserve comparison outputs and non-prose fidelity records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e9-q35-readable-r3-r2-${{ github.sha }}
+          path: |
+            test-results/e9-q35-readable-r3-r2
+            test-results/e9-readable-r3/report.json
+            test-results/e9-readable-r3/field-audit.json
+            test-results/e9-reader-recovery-r2/report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  grain-strength-trial:
+    name: Frozen grain strength diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c29-r3]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_GRAIN_TRIAL: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/grain-c29-r3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_grain_trial.mjs
+          node --test tools/mobile_grain_trial.test.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed views and reversible single-variable trial
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grain-c29-r3-${{ github.sha }}
+          path: test-results/grain-c29-r3
+          if-no-files-found: warn
+          retention-days: 14
+
+
+  prepare-grain-product:
+    name: Prepare exact grain product source and root
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-grain-product-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-grain-product.mjs
+      - name: Reproduce the original build and prepare the exact candidate bytes
+        run: node tools/prepare-grain-product.mjs
+      - name: Export complete prepared files with hashes and offsets
+        run: node tools/prepare-grain-product.mjs --export
+      - name: Preserve original candidate or failure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grain-product-build-r1-${{ github.sha }}
+          path: test-results/grain-product-build-r1
+          if-no-files-found: error
+          retention-days: 14
+
+  recover-ios-audio-c29:
+    name: Recover original C29 Safari recordings
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-audio-c29-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/recover-ios-audio-c29.mjs
+      - name: Verify the original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-c29-original-recovery-r1
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10349183915 > test-results/ios-c29-original-recovery-r1/artifact-metadata.json
+          node tools/recover-ios-audio-c29.mjs --metadata-only
+      - name: Download the existing original artifact through the official action
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '10349183915'
+          merge-multiple: true
+          run-id: '34848677647'
+          repository: bachikoljunior-blip/survival
+          github-token: ${{ github.token }}
+          path: test-results/ios-c29-original-recovery-r1/input
+      - name: Verify original report and media and export complete bytes
+        run: node tools/recover-ios-audio-c29.mjs
+      - name: Preserve recovered originals and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-c29-original-recovery-r1-${{ github.sha }}
+          path: |
+            test-results/ios-c29-original-recovery-r1/recovery-report.json
+            test-results/ios-c29-original-recovery-r1/artifact-metadata.json
+            test-results/ios-c29-original-recovery-r1/report.json
+            test-results/ios-c29-original-recovery-r1/audio__*.mp4
+          if-no-files-found: error
+          retention-days: 14
+
+  prepare-audio-product:
+    name: Prepare exact audio product source and root
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-audio-product-r2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-audio-product.mjs
+      - name: Reproduce the original build and prepare the exact candidate bytes
+        run: node tools/prepare-audio-product.mjs
+      - name: Export complete prepared files with hashes and offsets
+        run: node tools/prepare-audio-product.mjs --export
+      - name: Preserve original candidate or failure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-product-build-r2-${{ github.sha }}
+          path: test-results/audio-product-build-r2
+          if-no-files-found: error
+          retention-days: 14
+
+  character-ground-contact:
+    name: Frozen character ground contact diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[character-contact-c33-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_CHARACTER_CONTACT: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/character-contact-c33-r1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_character_ground_contact.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed poses and isolated shadow-bias controls
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: character-contact-c33-r1-${{ github.sha }}
+          path: test-results/character-contact-c33-r1
+          if-no-files-found: warn
+          retention-days: 14
+
+  recover-ios-audio-c34:
+    name: Recover original failed C34 Safari recordings
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-audio-c34-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/recover-ios-audio-c34.mjs
+      - name: Verify the original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-c34-original-recovery-r1
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10357143198 > test-results/ios-c34-original-recovery-r1/artifact-metadata.json
+          node tools/recover-ios-audio-c34.mjs --metadata-only
+      - name: Download the existing original artifact through the official action
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '10357143198'
+          merge-multiple: true
+          run-id: '34866156884'
+          repository: bachikoljunior-blip/survival
+          github-token: ${{ github.token }}
+          path: test-results/ios-c34-original-recovery-r1/input
+      - name: Verify original report and media and export complete bytes
+        run: node tools/recover-ios-audio-c34.mjs
+      - name: Preserve recovered originals and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-c34-original-recovery-r1-${{ github.sha }}
+          path: |
+            test-results/ios-c34-original-recovery-r1/recovery-report.json
+            test-results/ios-c34-original-recovery-r1/artifact-metadata.json
+            test-results/ios-c34-original-recovery-r1/report.json
+            test-results/ios-c34-original-recovery-r1/audio__*.mp4
+          if-no-files-found: error
+          retention-days: 14
+
+  recover-ios-audio-c34-pr:
+    name: Recover original failed C34 PR Safari recordings
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-audio-c34-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check tools/recover-ios-audio-c34-pr.mjs
+      - name: Verify the original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-c34-pr-original-recovery-r1
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10356974645 > test-results/ios-c34-pr-original-recovery-r1/artifact-metadata.json
+          node tools/recover-ios-audio-c34-pr.mjs --metadata-only
+      - name: Download the existing original artifact through the official action
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '10356974645'
+          merge-multiple: true
+          run-id: '34866168484'
+          repository: bachikoljunior-blip/survival
+          github-token: ${{ github.token }}
+          path: test-results/ios-c34-pr-original-recovery-r1/input
+      - name: Verify original report and media and export complete bytes
+        run: node tools/recover-ios-audio-c34-pr.mjs
+      - name: Preserve recovered originals and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-c34-pr-original-recovery-r1-${{ github.sha }}
+          path: |
+            test-results/ios-c34-pr-original-recovery-r1/recovery-report.json
+            test-results/ios-c34-pr-original-recovery-r1/artifact-metadata.json
+            test-results/ios-c34-pr-original-recovery-r1/report.json
+            test-results/ios-c34-pr-original-recovery-r1/audio__*.mp4
+          if-no-files-found: error
+          retention-days: 14
+
+  character-shadow-resolution:
+    name: Frozen character shadow resolution diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[character-shadow-resolution-c35-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_SHADOW_RESOLUTION: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/character-shadow-resolution-c35-r1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_shadow_resolution.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed poses with only shadow map resolution doubled and restored
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: character-shadow-resolution-c35-r1-${{ github.sha }}
+          path: test-results/character-shadow-resolution-c35-r1
+          if-no-files-found: warn
+          retention-days: 14
+
+  prepare-narrative-product:
+    name: Prepare exact reviewed journal and save source and root
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-journal-save-product-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: node --check tools/prepare-narrative-product.mjs
+      - name: Reproduce the original build and prepare the exact candidate bytes
+        run: node tools/prepare-narrative-product.mjs
+      - name: Export complete prepared files with hashes and offsets
+        run: node tools/prepare-narrative-product.mjs --export
+      - name: Check the exact English and Japanese routes
+        run: node tools/check-narrative-routes.mjs
+      - name: Install Chromium for the bounded journal screen diagnostic
+        run: npx playwright install --with-deps chromium
+      - name: Stage fresh and loaded legacy journal entries in both languages
+        run: node tools/check-narrative-routes.mjs --browser
+      - name: Export complete original route report and screenshot bytes
+        if: ${{ !cancelled() && hashFiles('test-results/journal-save-route-r1/report.json') != '' }}
+        run: node tools/check-narrative-routes.mjs --export
+      - name: Preserve route reports and original journal screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: journal-save-route-r1-${{ github.sha }}
+          path: test-results/journal-save-route-r1
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Preserve original candidate or failure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: journal-save-product-build-r1-${{ github.sha }}
+          path: test-results/journal-save-product-build-r1
+          if-no-files-found: error
+          retention-days: 14
+
+  recover-ios-startup-c36:
+    name: Recover the original failed C36 PR WDA startup
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-startup-c36-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify the fixed original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-startup-c36-original-recovery-r1
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10360954160 > test-results/ios-startup-c36-original-recovery-r1/artifact-metadata.json
+          python3 tools/recover-ios-startup-c36.py --metadata-only
+      - name: Download the fixed original archive through the official GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api repos/bachikoljunior-blip/survival/actions/artifacts/10360954160/zip > test-results/ios-startup-c36-original-recovery-r1/original.zip
+      - name: Check original archive digest and export the startup files
+        run: python3 tools/recover-ios-startup-c36.py
+      - name: Preserve recovered original WDA failure and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-startup-c36-original-recovery-r1-${{ github.sha }}
+          path: test-results/ios-startup-c36-original-recovery-r1/original
+          if-no-files-found: error
+          retention-days: 14
+
+
+  recover-ios-phase-c38:
+    name: Recover the fixed failed C38 source report and Appium log
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-phase-c38-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify the fixed original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-phase-c38-original-recovery-r1
+          gh api 'repos/bachikoljunior-blip/survival/actions/runs/34884725972/artifacts?per_page=100' --jq '.artifacts[] | select(.id == 10364986195)' > test-results/ios-phase-c38-original-recovery-r1/artifact-metadata.json
+          python3 tools/recover-ios-phase-c38.py --metadata-only
+      - name: Receive only the exact fixed archive bytes through the official GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -o pipefail
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10364986195/zip | python3 tools/recover-ios-phase-c38.py --receive-archive
+      - name: Verify original ZIP and preserve report and Appium log as bounded lossless gzip
+        run: python3 tools/recover-ios-phase-c38.py
+      - name: Preserve the original failed diagnostic recovery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-phase-c38-original-recovery-r1-${{ github.sha }}
+          path: test-results/ios-phase-c38-original-recovery-r1/original
+          if-no-files-found: error
+          retention-days: 14

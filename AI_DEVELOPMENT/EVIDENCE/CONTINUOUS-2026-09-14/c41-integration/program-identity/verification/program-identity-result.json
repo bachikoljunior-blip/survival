@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "assertions": 50,
+  "sizes": [
+    {
+      "case": "entry cap",
+      "bytes": 12135
+    },
+    {
+      "case": "max escaping byte cap",
+      "bytes": 59945,
+      "entries": 26
+    },
+    {
+      "case": "Unicode",
+      "bytes": 4261
+    }
+  ],
+  "envelopeBytes": 985,
+  "conservativeInventoryBound": 61049,
+  "scope": "Limited CPU/VM fixtures with actual canonical Engine._frame and synthetic renderer programs. No actual Safari/program inventory/compile/GPU performance or real observer-cost measurement. Existing timing62 fixture is separately retained."
+}

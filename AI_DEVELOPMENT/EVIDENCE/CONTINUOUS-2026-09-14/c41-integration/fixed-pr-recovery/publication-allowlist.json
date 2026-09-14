@@ -1,0 +1,86 @@
+{
+  "mode": "exact paths only; no recursive copy",
+  "entries": [
+    {
+      "path": "candidate/tools/recover-ios-c40-pr.py",
+      "bytes": 14767,
+      "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b",
+      "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+    },
+    {
+      "path": "recovery-job-block.yml",
+      "bytes": 1845,
+      "sha256": "b275a57dd7df915d0666ac13d2ee4d2398663c2e8139042b982bfbe188d63082",
+      "gitBlob": "9792deff0b871262cab581935d4ad3874ff26bc0"
+    },
+    {
+      "path": "gates-append.patch",
+      "bytes": 2113,
+      "sha256": "eff33f71c6c9def7e91d64f827a756155b2c180b23b0657ea5de443292cb08d9",
+      "gitBlob": "d73f8914152e5a60ed2c5ccfce2ec26fbcbddacf"
+    },
+    {
+      "path": "helper-from-c38.patch",
+      "bytes": 10482,
+      "sha256": "1e32cb84ce53a7f69170b49345104ed270364e2d547bb6962f2a43d6bb76bfe8",
+      "gitBlob": "e103e9eb4c34f554aa51fd47fb868a50ce0b754e"
+    },
+    {
+      "path": "prepare_candidate.py",
+      "bytes": 6550,
+      "sha256": "4ce688dea376f90b51a9e585eaba7136d4e69b4b83dbb87be5a725151231239f",
+      "gitBlob": "aed0998b786d156ec6676be8bf0bb3554f1b0882"
+    },
+    {
+      "path": "verify_recovery.py",
+      "bytes": 10591,
+      "sha256": "504180af943d1fefebcbce994099d79f366ea79069cd3895812c586715c69b64",
+      "gitBlob": "b582e8e9e665028b16123251652c906376e44db0"
+    },
+    {
+      "path": "verify_boundaries.py",
+      "bytes": 2626,
+      "sha256": "0ffa2aa17be1375b7a44eca1ba56fd6d9c3c93e75931ba3c95fb1d90af13b335",
+      "gitBlob": "2b0621797aadafc26f3b75474a4b519803d0b30c"
+    },
+    {
+      "path": "fixture-result.json",
+      "bytes": 5391,
+      "sha256": "ee018e537c1f99b473704963355fca180e80dc3b3e8bf0b3230e223d6e94d60b",
+      "gitBlob": "da0fc3028106153a7f2b9394eeb0171be98edd20"
+    },
+    {
+      "path": "boundary-results.json",
+      "bytes": 918,
+      "sha256": "da825be8c5acc06f0e6e3e1fd4a64494cd238ab97ac4b3286dfaf7084b00886a",
+      "gitBlob": "7bcd128921337a176409ad2eb2e71487e2d509eb"
+    },
+    {
+      "path": "source/artifact-metadata.json",
+      "bytes": 824,
+      "sha256": "4205c332a722ca1084aa6678790414d06566d5b69cfb11099d86d05c9b456467",
+      "gitBlob": "cf0e368f79d92898c4454951b86b238f5b6d272c"
+    },
+    {
+      "path": "source/original-pr-summary.json",
+      "bytes": 26003,
+      "sha256": "3b22ebb58e4d520475afb92af1547caad864a770233cee8e86dbd973340d452d",
+      "gitBlob": "828736bc1c56304af78b952e5c8a8e3be5fad01b"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 4807,
+      "sha256": "913c3117245167c75fc81c962e5b317086a611add1929548ebf83cf1fab0e38a",
+      "gitBlob": "4304b172eb6a10c323564c46f800794e4bc91b9d"
+    }
+  ],
+  "additionalControls": [
+    "publication-allowlist.json",
+    "manifest.json"
+  ],
+  "excluded": [
+    "authority/**",
+    "fixture/**",
+    "**/__pycache__/**"
+  ]
+}

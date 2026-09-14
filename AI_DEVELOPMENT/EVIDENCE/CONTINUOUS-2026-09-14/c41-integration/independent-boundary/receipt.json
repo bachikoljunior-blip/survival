@@ -1,0 +1,171 @@
+{
+  "status": "pass",
+  "blocking": [],
+  "scope": "Independent whole staged save/publication boundary; not a repeated six-file implementation review",
+  "canonicalBase": {
+    "commit": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+    "tree": "86900e1a6119c234ff8d03298483bac2ed38f268",
+    "authorityReadOrder": [
+      "head",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "AI_DEVELOPMENT/SESSION_STATE.yaml"
+    ]
+  },
+  "reviewedManifest": {
+    "path": "main-integration-c41/final-manifest.json",
+    "bytes": 107943,
+    "sha256": "372ed3505262e7a1d0469e4c718cd87d243ed5c8b5e1d6bafc54a8b3b8b790cc",
+    "gitBlob": "5c7700b738abe11b8e7f8d17e7a5eb0e64d300be",
+    "payloadPaths": 209,
+    "payloadBytes": 9204182
+  },
+  "prior203Unchanged": true,
+  "additionalSix": [
+    {
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/REPORT.md",
+      "bytes": 5666,
+      "sha256": "25d5ba504a46481232b8ce26ce3a6d6d7fa467238f29169daf1b7bfc3146c1eb",
+      "gitBlob": "58b5e94bf4951d02944f5e99dbda13420ec740d1"
+    },
+    {
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/adoption-receipt.json",
+      "bytes": 3887,
+      "sha256": "e47cf73607c0098ab4679ff61ce8f162c37900414736eafa23bba9e01d4f9b35",
+      "gitBlob": "942985932ffe32411faca6b295d3778932d4ad12"
+    },
+    {
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/scope-owners.json",
+      "bytes": 1245,
+      "sha256": "066753e06a3b08cb217417da6f56436b31e0876a3e1eba657d0c4fd343269dbd",
+      "gitBlob": "bc6e053dbe850f3135298994a18d11acf7bd1175"
+    },
+    {
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/dc5-completed-ci.json",
+      "bytes": 32124,
+      "sha256": "afb96b190d27f66ad709ef79501817d58a87fe048886ac9e3ae71d2e3be866e1",
+      "gitBlob": "2bb32cb9ad65cdb590c1467e6a3924d4f24bdb81"
+    },
+    {
+      "path": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c41-integration/deadline-receipt.json",
+      "bytes": 192,
+      "sha256": "4da71280c9e0a6d9068166d1f815e07fd8e71f570ea265256ed3f172f2e77184",
+      "gitBlob": "9ee07f679694f1cffb21aa69d131e163984c27ef"
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "bytes": 25516,
+      "sha256": "9d5036cc02af1c190c15c1b12576d86baaba99aa2ded1fc86b7d9b960027569e",
+      "gitBlob": "0af678a806715281947fff42a52f6ca974aa7b48"
+    }
+  ],
+  "sixCodePins": [
+    {
+      "path": "tools/frame_work_probe.mjs",
+      "bytes": 16893,
+      "sha256": "33dfcc32bdc7a2b3de52c0295f822dd4f8eff112bb74fbf3d6e45926e23ac618",
+      "gitBlob": "49b57537da91675f00ea68344beb8f346c499946"
+    },
+    {
+      "path": "tools/prepare-narrative-product.mjs",
+      "bytes": 13917,
+      "sha256": "af04678aa1a01df8c6cffbaf4d70f4dfce7893ece636a64443fe4452263a722c",
+      "gitBlob": "ed43d3ba3818cdb195c61e35480ad5dcf2a6c766"
+    },
+    {
+      "path": "tools/check-narrative-routes.mjs",
+      "bytes": 24793,
+      "sha256": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a",
+      "gitBlob": "cafcc06f32612443755bfd4c09f464eb419272c7"
+    },
+    {
+      "path": "tools/candidates/journal-save-state-r1.js",
+      "bytes": 34503,
+      "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+      "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3"
+    },
+    {
+      "path": "tools/recover-ios-c40-pr.py",
+      "bytes": 14767,
+      "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b",
+      "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 34517,
+      "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199",
+      "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2"
+    }
+  ],
+  "checks": {
+    "all209PayloadBytesSha256GitBlob": "pass",
+    "exactPublicOriginsAnd14AllowlistControls": "pass",
+    "threeLosslessGzipRepresentations": "pass",
+    "prior203AndSixExplicitAdditions": "pass",
+    "sixCodeCandidateAndComposedWorkflowPins": "pass",
+    "protectedRulesStateBenchmarks47InputsAndProductRoot": "pass",
+    "heldRootAndOriginalFailureSeparation": "pass",
+    "sessionDuplicateKeyRejectionAndWholeWorkPreservation": "pass",
+    "knownPrivateOriginPathUriBoundary": "pass"
+  },
+  "currentRootSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+  "heldGeneratedRootSha256": "4912f328eddfe99293bc90387a304854b7f3c1e2a1f9d36bf7fa5677caeebbed",
+  "productRootOrSourceAdopted": false,
+  "preservedStatus": {
+    "elements": "19 not measured",
+    "criteria": 71,
+    "fixedReferences": 10,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "main": "5456371249f5769c25d18f1686a44349e4292d6f",
+    "mainF3": "blocked"
+  },
+  "limits": [
+    "No new build, browser, artifact retrieval, original full-report/Appium verification, quality comparison or causal proof",
+    "Known public-origin/path/URI checks do not claim exhaustive secret detection; private reference input reads were zero",
+    "Root-owned technical receipts added after the reviewed 209-path manifest, and actual tree/commit/ref save readback, are outside this receipt"
+  ],
+  "operations": {
+    "implementationTestsRerun": 0,
+    "remoteWrites": 0,
+    "ciActions": 0,
+    "builds": 0,
+    "browserRuns": 0,
+    "automationActions": 0,
+    "libraryAccess": 0,
+    "newSpawn": 0,
+    "privateReferenceInputReads": 0
+  },
+  "artifacts": {
+    "boundary-verification.json": {
+      "bytes": 6566,
+      "sha256": "120340cfd98df312b168e5e78bc6f8da73d9a2d1f8da9c7a406141d6c9f2ced1",
+      "gitBlob": "a7f0e31017708059234de9dcbfa662a9f81b40a9"
+    },
+    "REPORT.md": {
+      "bytes": 2109,
+      "sha256": "cbc8e27b56577eeddebdf17a19aa146c5a45cf75c618f0d9f2b3a42bd262b171",
+      "gitBlob": "56710257dfdfad3cb503960ccf088fcab4e6fcf6"
+    }
+  },
+  "localOnlyAuditPins": {
+    "verify_boundary.py": {
+      "bytes": 16283,
+      "sha256": "ab7d88195efd80e140d54a720a1d41a6bd8b4af0cb77cc136e6627ad34bd1987",
+      "gitBlob": "dfe39a230fa828adb5bb8d0bdb04562a716ba5c2"
+    },
+    "canonical-protected-tree.json": {
+      "bytes": 19804,
+      "sha256": "6aba4e5a63947dd9e6a776426c272cd478dd930965273512682eece4d7a2147a",
+      "gitBlob": "0005919555b9b6e7a2f7213e03a82b0a1c3b10ea"
+    },
+    "origin-bindings.json": {
+      "bytes": 62623,
+      "sha256": "b6f0f086f3d2b5c6cdd8e1570aa4a0b10741f9107b6984c5060fc2e725d6cbd6",
+      "gitBlob": "c74657567d3dd78bfafc1a4b172ff53b86da5334"
+    }
+  }
+}

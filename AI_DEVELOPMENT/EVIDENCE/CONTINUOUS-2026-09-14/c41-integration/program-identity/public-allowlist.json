@@ -1,0 +1,28 @@
+{
+  "candidateRepoPaths": [
+    "tools/frame_work_probe.mjs"
+  ],
+  "supportingArtifactsRelativeToTaskRoot": [
+    "REPORT.md",
+    "receipt.json",
+    "manifest.json",
+    "source-pins.json",
+    "candidate.patch",
+    "public-allowlist.json",
+    "verification/verify-frame-work.mjs",
+    "verification/verify-program-identity.mjs",
+    "verification/frame-work-result.json",
+    "verification/program-identity-result.json",
+    "source/tools/frame_work_probe.mjs",
+    "source/src/core/engine.js",
+    "source/src/core/util.js"
+  ],
+  "excluded": [
+    "authority raw responses",
+    "unrelated original report/log/media",
+    "any credentials or private reference/comparison material",
+    "actual program inventory (none collected here)"
+  ],
+  "remotePublicationPerformed": false,
+  "scope": "Writer may choose these own-code/test/report artifacts for review and a later normal repository save; no publication was performed by this agent."
+}

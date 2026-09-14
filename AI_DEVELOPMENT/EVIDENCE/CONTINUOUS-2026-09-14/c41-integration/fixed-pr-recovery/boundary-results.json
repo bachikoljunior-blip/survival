@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "sourceCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "canonicalBaseHelperBlob": "cd635feda9587d9ae43a597b3e4e294f41dea76a",
+  "canonicalBaseGatesBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f",
+  "candidate": {
+    "bytes": 14767,
+    "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b",
+    "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+  },
+  "unchangedFunctionBodies": [
+    "require",
+    "sha",
+    "strict_json",
+    "verify_metadata",
+    "bounded_read",
+    "recover",
+    "environment",
+    "emit"
+  ],
+  "changedFunctionBodies": [
+    "verify_original",
+    "main"
+  ],
+  "workflowAddedJobs": [
+    "recover-ios-c40-pr"
+  ],
+  "priorJobsByteSourcePreserved": true,
+  "readOnlyPermissions": true,
+  "sourceBranchPushAttempt1MarkerOnly": true,
+  "officialApiPipeUnchangedPattern": true,
+  "originalZipRead": false,
+  "actualCiRun": false
+}

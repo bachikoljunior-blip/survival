@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "status": "finite independent review complete; blocker 0 after producer result guard repair",
+  "recordedAt": "2026-09-14T21:30:10.313796+00:00",
+  "technicalBaseline": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "latestCanonicalHead": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "latestInstructionAcceptance": {
+    "bytes": 2165,
+    "sha256": "3763e791e97aee0636c8ef317e64e02b95d45ad57d21c34e92cde5a1707c6a03"
+  },
+  "candidateFiles": [
+    {
+      "path": "candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13917,
+      "sha256": "af04678aa1a01df8c6cffbaf4d70f4dfce7893ece636a64443fe4452263a722c",
+      "gitBlob": "ed43d3ba3818cdb195c61e35480ad5dcf2a6c766",
+      "repositoryPath": "tools/prepare-narrative-product.mjs",
+      "changed": true,
+      "baselineGitBlob": "a0febba28d7d6bc7acd6a4e51ce74f014bbf06ba"
+    },
+    {
+      "path": "candidate/tools/check-narrative-routes.mjs",
+      "bytes": 24793,
+      "sha256": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a",
+      "gitBlob": "cafcc06f32612443755bfd4c09f464eb419272c7",
+      "repositoryPath": "tools/check-narrative-routes.mjs",
+      "changed": true,
+      "baselineGitBlob": "ea60c36a448f4338c98e5dc42b97f7a0610e10c3"
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "bytes": 32671,
+      "sha256": "0a896f3baba6f6e7c9b66a18e5ff12ece698d4787f18db24e422584dba3cd85b",
+      "gitBlob": "d664c847086e0bc27b1da43ea66c69835a5f64e6",
+      "repositoryPath": ".github/workflows/gates.yml",
+      "changed": true,
+      "baselineGitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-save-state-r1.js",
+      "bytes": 34503,
+      "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+      "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3",
+      "repositoryPath": "tools/candidates/journal-save-state-r1.js",
+      "changed": true,
+      "baselineGitBlob": null
+    },
+    {
+      "path": "candidate/tools/candidates/journal-story-r1.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d",
+      "repositoryPath": "tools/candidates/journal-story-r1.js",
+      "changed": false,
+      "baselineGitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-ja-content-r1.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387",
+      "repositoryPath": "tools/candidates/journal-ja-content-r1.js",
+      "changed": false,
+      "baselineGitBlob": "513f755658a29b847befee4981b89fd1686a4387"
+    }
+  ],
+  "producerManifest": {
+    "bytes": 7229,
+    "sha256": "e9661ed9666e8f0e5b5898e87e8be541b49b257225b18b6dbebbe1299138b7ef"
+  },
+  "producerPublicationAllowlist": {
+    "bytes": 4388,
+    "sha256": "a576bf33b86d7031b2223abe10a629f69eb311bdf810efd431402231a19a4674"
+  },
+  "scopeChecks": 29,
+  "addedSourceVmControls": 29,
+  "syntaxModulesPassed": 3,
+  "inheritedPointerControlsReexecuted": 0,
+  "priorStateReviewControlsReexecuted": 0,
+  "counterexample": [
+    {
+      "kind": "false",
+      "oldAccepted": true,
+      "finalAccepted": false
+    },
+    {
+      "kind": "missing",
+      "oldAccepted": true,
+      "finalAccepted": false
+    }
+  ],
+  "blocking": [],
+  "productAdopted": false,
+  "candidateRootSha256": null,
+  "originalC40Root4912": "hold; failed journal diagnostic; original PNG0",
+  "actualBuild": false,
+  "actualBrowser": false,
+  "actualBundledContinue": false,
+  "actualScreenshots": 0,
+  "candidateEditsByReviewer": 0,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "reruns": 0,
+  "automation": 0,
+  "newAgents": 0,
+  "libraryOperations": 0,
+  "quality": {
+    "elements": "19 not measured",
+    "criteria": 71,
+    "references": 10,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "work": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "limits": [
+    "VM selected callback uses actual DialogueRunner, GameState and Storage with synthetic browser/Director-save/Continue boundaries; it is not actual browser or bundled Continue execution.",
+    "Export fixture supplies an in-memory 24-byte header solely for validator branches, not a valid rendered image; no PNG file exists.",
+    "State comparison is the before/after deserialise snapshot, not a measurement of all later world restoration actions.",
+    "Inherited pointer/visual controls are pinned and byte-compared; prior 28 controls are not recounted as new controls."
+  ]
+}

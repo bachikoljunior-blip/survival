@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "controls": [
+    {
+      "name": "Exact current 47 inputs/root8c and three candidate sources accepted",
+      "passed": true
+    },
+    {
+      "name": "Both prior journal sources and new state source remain exact reviewed bytes",
+      "passed": true
+    },
+    {
+      "name": "Old two-source set and stale/mutated state candidate rejected",
+      "passed": true
+    },
+    {
+      "name": "All 47 baseline pins unchanged from actual C40 journal preparation",
+      "passed": true
+    },
+    {
+      "name": "Real candidate localization provides four exact scenario/language rows",
+      "passed": true
+    },
+    {
+      "name": "Actual Storage.load/deserialise repairs the exact synthetic old body and preserves the slot and progression",
+      "passed": true
+    },
+    {
+      "name": "Unrepaired text, unrelated progression drift and journal timestamp drift rejected",
+      "passed": true
+    },
+    {
+      "name": "False or missing deserializer result is rejected even when all other evidence is valid",
+      "passed": true
+    },
+    {
+      "name": "Wrong historical text and overwritten slot or unrestored observer flags rejected",
+      "passed": true
+    },
+    {
+      "name": "Four-row CPU report exports exact bytes with zero screenshot claims",
+      "passed": true
+    },
+    {
+      "name": "Old two-row set or wrong scenario fails before export",
+      "passed": true
+    },
+    {
+      "name": "Successful browser report cannot omit any of the four original screens",
+      "passed": true
+    },
+    {
+      "name": "C40 pointer repair and pre-assertion original screenshot retention remain in the new scope",
+      "passed": true
+    }
+  ],
+  "passed": 13,
+  "node": "v24.19.0",
+  "scope": "Local exact-input/source/Storage plus synthetic evidence/export contract controls only. Actual bundled Continue, browser CSS/layout, PNGs and build are not executed.",
+  "actualBuild": false,
+  "actualBrowser": false,
+  "realBundledContinueInvoked": false,
+  "originalScreens": 0,
+  "newRootSha256": null,
+  "remoteWrites": 0,
+  "ciStarts": 0
+}

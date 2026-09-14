@@ -1,0 +1,56 @@
+{
+  "sourceCommit": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "treeShaReportedByWriter": "56dad9f8c5fea165b63de2241b1016fcf20cef93",
+  "canonicalProbeAppReadback": true,
+  "engineUtilLockSource": "Previously App-pinned C40 journal baseline, copied read-only with writer acceptance; their unchanged state is a handoff fact, not a successful repeat App fetch. The attempted engine App fetch returned RemoteProtocolError and was not retried.",
+  "source": [
+    {
+      "path": "source/package-lock.json",
+      "bytes": 16629,
+      "sha256": "36873e3c91cddeab1cae6ae512ae0d5cf332756bd81a0b235af3360aea30c167",
+      "gitBlob": "7f8fa920ce09dce5499830cac28e30c3573176b2"
+    },
+    {
+      "path": "source/package.json",
+      "bytes": 3146,
+      "sha256": "97d6729a6eeb9ec7b343e6fc34e8bc8ea0a5e983c385bd9264dbd90a0881c3e1",
+      "gitBlob": "1d880ee8e0dab430be362c3fa6bcbe6a06ae24aa"
+    },
+    {
+      "path": "source/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
+      "gitBlob": "0735cfcb3f6df68bf5bd51fa84a27d60c712391e"
+    },
+    {
+      "path": "source/src/core/util.js",
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+      "gitBlob": "4ac5a78a92f684c811139b5baee8893b774b1ca1"
+    },
+    {
+      "path": "source/tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+      "gitBlob": "d16786a6dc1b259cac5cc77045400f924e1df2a4"
+    }
+  ],
+  "candidate": {
+    "path": "candidate/tools/frame_work_probe.mjs",
+    "bytes": 16893,
+    "sha256": "33dfcc32bdc7a2b3de52c0295f822dd4f8eff112bb74fbf3d6e45926e23ac618",
+    "gitBlob": "49b57537da91675f00ea68344beb8f346c499946"
+  },
+  "patch": {
+    "path": "candidate.patch",
+    "bytes": 8771,
+    "sha256": "d145e5955f6fb0b339f09b61449b6dddb257a44827556479d87f07bd817dd4fd",
+    "gitBlob": "691ff0d58342436380f3793685bd753dd13de7e9"
+  },
+  "unchangedToolPinsReportedByWriter": {
+    "tools/ios_audio_capture.mjs": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262",
+    "tools/test-ios-safari.mjs": "a278b87f0fb2e15b843205b6fe211a8046f72463e2f29956bfbf867f5900adee"
+  },
+  "threeLockedVersion": "0.180.0",
+  "realProgramPropertiesVerified": false
+}

@@ -1,0 +1,68 @@
+{
+  "baseHead": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "baseTree": "56dad9f8c5fea165b63de2241b1016fcf20cef93",
+  "baseHelper": {
+    "path": "recover-ios-phase-c38.py",
+    "bytes": 13167,
+    "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f",
+    "gitBlob": "cd635feda9587d9ae43a597b3e4e294f41dea76a"
+  },
+  "baseWorkflow": {
+    "path": "gates.yml",
+    "bytes": 32640,
+    "sha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+    "gitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f"
+  },
+  "newHelper": {
+    "path": "recover-ios-c40-pr.py",
+    "bytes": 14767,
+    "sha256": "fb5617825afad11c03e4d1783fbe4bb71589905a7558b054448ee0c5e656551b",
+    "gitBlob": "6340891ba6d4e732cf0d49c4e30eee0166f6afce"
+  },
+  "newJobBlock": {
+    "path": "recovery-job-block.yml",
+    "bytes": 1845,
+    "sha256": "b275a57dd7df915d0666ac13d2ee4d2398663c2e8139042b982bfbe188d63082",
+    "gitBlob": "9792deff0b871262cab581935d4ad3874ff26bc0"
+  },
+  "gatesAppendPatch": {
+    "path": "gates-append.patch",
+    "bytes": 2113,
+    "sha256": "eff33f71c6c9def7e91d64f827a756155b2c180b23b0657ea5de443292cb08d9",
+    "gitBlob": "d73f8914152e5a60ed2c5ccfce2ec26fbcbddacf"
+  },
+  "producerManifest": {
+    "path": "manifest.json",
+    "bytes": 3688,
+    "sha256": "c1b2f4f643a3306cfabe2144f614be95586c77dfefe9667f55aad07b46220235",
+    "gitBlob": "9f65c4e327145091288d27fe45168540ec05383e"
+  },
+  "combinedWorkflow": {
+    "path": "gates.yml",
+    "bytes": 34517,
+    "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199",
+    "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2"
+  },
+  "candidateAndBlockUnchangedAtReceipt": true,
+  "producerControls": {
+    "count": 49,
+    "countedAsIndependent": 0
+  },
+  "sourceLog": {
+    "bytes": 86930,
+    "sha256": "a35b606ee2d488eff51ca9b3597ea71a362318ef37bdea0960164e563c3a1df6",
+    "gitBlob": "6bd4903308c8e43d59fb7fc206d72a63a4bb1add"
+  },
+  "compactSummary": {
+    "path": "producer-original-pr-summary.json",
+    "bytes": 26003,
+    "sha256": "3b22ebb58e4d520475afb92af1547caad864a770233cee8e86dbd973340d452d",
+    "gitBlob": "828736bc1c56304af78b952e5c8a8e3be5fad01b"
+  },
+  "metadata": {
+    "path": "producer-artifact-metadata.json",
+    "bytes": 824,
+    "sha256": "4205c332a722ca1084aa6678790414d06566d5b69cfb11099d86d05c9b456467",
+    "gitBlob": "cf0e368f79d92898c4454951b86b238f5b6d272c"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "recordedAt": "2026-09-14T21:32:36.861914+00:00",
+  "status": "Preparation scope frozen after independent review; blocking 0. Product adoption remains pending actual build and original browser evidence.",
+  "technicalBaseline": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "latestAcceptedHead": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "reviewedProducerManifest": {
+    "path": "manifest.json",
+    "bytes": 7229,
+    "sha256": "e9661ed9666e8f0e5b5898e87e8be541b49b257225b18b6dbebbe1299138b7ef",
+    "gitBlob": "48c9d359ca63735b95a8c4fa3d6e7a9a66619664"
+  },
+  "reviewedProducerAllowlist": {
+    "path": "publication-allowlist.json",
+    "bytes": 4388,
+    "sha256": "a576bf33b86d7031b2223abe10a629f69eb311bdf810efd431402231a19a4674",
+    "gitBlob": "6926758b0e54d64ed684a40cdae3190a91103a1c"
+  },
+  "candidatePins": {
+    "path": "candidate-pins.json",
+    "bytes": 2574,
+    "sha256": "67077f333e338bfd67ef996f0fe3627a7b5f42ea800c6097c3cac8b3482a5b46",
+    "gitBlob": "727eb53b24e0b00c20f4054704dc9d52240e60ef"
+  },
+  "candidateFilesUnchanged": 6,
+  "repositoryChanges": 4,
+  "authorityAcceptance": {
+    "path": "authority-update.json",
+    "bytes": 2085,
+    "sha256": "5925808fef8851563607e003dceb965c93bb0288bc6c940141a20c34d7079595",
+    "gitBlob": "dc949a781c575a964b1622d3855f693735af9a4a"
+  },
+  "independentReview": {
+    "directory": "c41-journal-save-build-independent-review-ultra",
+    "receipt": {
+      "bytes": 4741,
+      "sha256": "e8eb1f4f92ce9b4e27ca6db9e079268cd6a04425431df744f2db7237b100ca7a",
+      "gitBlob": "309a9fa85ba3b45b951ace27cb43311d96e9da62"
+    },
+    "report": {
+      "bytes": 6679,
+      "sha256": "ce3a4f80e0fab503afb64a6c328ca2aa7d4c05665b9ccfa71f78bace69896157",
+      "gitBlob": "3fae1464b047b5c56d1310151a69161fba730a01"
+    },
+    "scopeChecks": 29,
+    "addedSourceVmControls": 29,
+    "syntaxModules": 3,
+    "blocking": []
+  },
+  "resolvedCounterexample": {
+    "previousRoute": "634d0337d04c032cd04d827c13e8ae8c6d110d60ea7f8a1d06062e45f75ffd7f",
+    "finalRoute": "98d6085d50952d8d1881c7fe82a16f08de4df3cc499f5cc98c7b888384fab29a",
+    "falseOrMissingResultRejected": true,
+    "successfulReportExportBeforeFailureBytes": 0
+  },
+  "supersedesOnlyMetadataStatus": "The pending-review phrases in the preserved manifest, candidate pins and report are historical; this binding records completed review without rewriting those reviewed bytes.",
+  "actualBuild": false,
+  "actualBrowser": false,
+  "actualBundledContinue": false,
+  "actualScreenshots": 0,
+  "newRootSha256": null,
+  "c40Root4912": "hold; original failed journal diagnostic with 0 PNG",
+  "nextScope": "Sole writer tools-only integration; next authorized locked CI reproduces current 8c, generates the combined three-source root and captures four original fresh/legacy EN/JA screens. No new CI started by this agent.",
+  "allElements": "19 not measured",
+  "validBlind": 0,
+  "unitsCompleted": 0,
+  "continuous": true,
+  "startedAt": "2026-09-13T20:56:49+09:00",
+  "deadlineAt": "2026-09-20T20:56:49+09:00",
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "automationOperations": 0,
+  "libraryOperations": 0
+}

@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "checks": 1,
+  "blocking": 0,
+  "scope": "Exact composed workflow byte boundary only; sibling preparation helper internals belong to its separate reviewer",
+  "repositoryPath": ".github/workflows/gates.yml",
+  "bytes": 34517,
+  "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199",
+  "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2",
+  "prepareOnlySha256": "0a896f3baba6f6e7c9b66a18e5ff12ece698d4787f18db24e422584dba3cd85b",
+  "blockSha256": "b275a57dd7df915d0666ac13d2ee4d2398663c2e8139042b982bfbe188d63082",
+  "baseSha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+  "composition": "exact prepare-only prefix + one LF + exact reviewed recovery block",
+  "allBytesOutsideExistingPreparationJobAndNewRecoveryJobUnchanged": true,
+  "existingRequiredGatesUnchanged": true,
+  "duplicateJobIds": false,
+  "existingJobs": 23,
+  "newJobs": [
+    "recover-ios-c40-pr"
+  ],
+  "fullSiblingSixPathReview": false,
+  "workflowModifiedByReviewer": false,
+  "actualCI": false,
+  "refUpdate": false
+}

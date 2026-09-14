@@ -673,8 +673,8 @@ jobs:
           retention-days: 14
 
   prepare-narrative-product:
-    name: Prepare exact reviewed journal source and root
-    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-journal-product-r1]')
+    name: Prepare exact reviewed journal and save source and root
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-journal-save-product-r1]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -698,25 +698,25 @@ jobs:
         run: node tools/check-narrative-routes.mjs
       - name: Install Chromium for the bounded journal screen diagnostic
         run: npx playwright install --with-deps chromium
-      - name: Stage the Iris journal entry in both languages from the prepared bundle
+      - name: Stage fresh and loaded legacy journal entries in both languages
         run: node tools/check-narrative-routes.mjs --browser
       - name: Export complete original route report and screenshot bytes
-        if: ${{ !cancelled() && hashFiles('test-results/journal-route-r1/report.json') != '' }}
+        if: ${{ !cancelled() && hashFiles('test-results/journal-save-route-r1/report.json') != '' }}
         run: node tools/check-narrative-routes.mjs --export
       - name: Preserve route reports and original journal screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: journal-route-r1-${{ github.sha }}
-          path: test-results/journal-route-r1
+          name: journal-save-route-r1-${{ github.sha }}
+          path: test-results/journal-save-route-r1
           if-no-files-found: warn
           retention-days: 14
       - name: Preserve original candidate or failure report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: journal-product-build-r1-${{ github.sha }}
-          path: test-results/journal-product-build-r1
+          name: journal-save-product-build-r1-${{ github.sha }}
+          path: test-results/journal-save-product-build-r1
           if-no-files-found: error
           retention-days: 14
 
@@ -790,5 +790,43 @@ jobs:
         with:
           name: ios-phase-c38-original-recovery-r1-${{ github.sha }}
           path: test-results/ios-phase-c38-original-recovery-r1/original
+          if-no-files-found: error
+          retention-days: 14
+
+  recover-ios-c40-pr:
+    name: Recover the fixed failed C40 PR report and Appium log
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-c40-pr-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify the fixed original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-c40-pr-original-recovery-r1
+          gh api 'repos/bachikoljunior-blip/survival/actions/runs/34895779614/artifacts?per_page=100' --jq '.artifacts[] | select(.id == 10369332540)' > test-results/ios-c40-pr-original-recovery-r1/artifact-metadata.json
+          python3 tools/recover-ios-c40-pr.py --metadata-only
+      - name: Receive only the exact fixed archive bytes through the official GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -o pipefail
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10369332540/zip | python3 tools/recover-ios-c40-pr.py --receive-archive
+      - name: Verify original ZIP and preserve report and Appium log as bounded lossless gzip
+        run: python3 tools/recover-ios-c40-pr.py
+      - name: Preserve the original failed diagnostic recovery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-c40-pr-original-recovery-r1-${{ github.sha }}
+          path: test-results/ios-c40-pr-original-recovery-r1/original
           if-no-files-found: error
           retention-days: 14

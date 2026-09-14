@@ -1,0 +1,57 @@
+--- a/tools/check-narrative-routes.mjs
++++ b/tools/check-narrative-routes.mjs
+@@ -140,14 +140,30 @@
+             panelClient: { width: panel.clientWidth, height: panel.clientHeight },
+             panelScroll: { left: panel.scrollLeft, top: panel.scrollTop, width: panel.scrollWidth, height: panel.scrollHeight },
+             visible: getComputedStyle(panel).display !== 'none' && getComputedStyle(body).visibility === 'visible',
+-            centerHit: hit === body || body.contains(hit),
++            centerHit: hit === body || body.contains(hit)
++              || (hit === panel && getComputedStyle(body).pointerEvents === 'none'
++                && getComputedStyle(panel).pointerEvents === 'auto'),
++            hitElement: hit ? { tag: hit.tagName, id: hit.id, className: hit.className } : null,
++            hitIsPanel: hit === panel,
++            pointerEvents: { body: getComputedStyle(body).pointerEvents, panel: getComputedStyle(panel).pointerEvents },
+             whiteSpace: getComputedStyle(body).whiteSpace, fontStyle: getComputedStyle(body).fontStyle,
+             dialogueVisible: G.dialogueUI.node.classList.contains('on') };
+         }, row);
++        // Preserve actual layout and original PNG even if a visual assertion fails.
++        const actualViewport = { viewport: page.viewportSize(), ...await page.evaluate(() => ({
++          innerWidth, innerHeight, devicePixelRatio, maxTouchPoints: navigator.maxTouchPoints,
++        })) };
++        const file = `${row.language}-${row.conversation}-${row.node}.png`;
++        const png = await page.screenshot({ path: join(output, file), fullPage: false });
++        report.screens.push({ language: row.language, conversation: row.conversation, node: row.node,
++          file, bytes: png.length, sha256: hash(png), renderedSha256: hash(rendered.domText),
++          journal: row.journal, storedSha256: hash(selected.stored.text),
++          journalCountBefore: selected.journalCountBefore, journalCountAfter: selected.journalCountAfter,
++          journalLayout: rendered, viewport: actualViewport, browserErrors: errors });
+         assert.equal(rendered.title, row.expectedTitle, 'Bundled journal title differs');
+         assert.equal(rendered.domText, row.expectedDisplay, 'Rendered journal text differs');
+         assert.equal(rendered.visible, true, 'Journal is not visible');
+-        assert.equal(rendered.centerHit, true, 'Journal body is covered');
++        assert.equal(rendered.centerHit, true, 'Journal pointer hit is outside its text or owning scroller');
+         assert.equal(rendered.dialogueVisible, false, 'Dialogue still overlays the journal');
+         const block = rendered.blockRect, panel = rendered.panelRect;
+         assert(block.width > 0 && block.height > 0, 'Journal has no layout');
+@@ -155,21 +171,11 @@
+           && block.top >= Math.max(0, panel.top) - 1 && block.bottom <= Math.min(375, panel.bottom) + 1,
+           'Journal title/body is clipped by panel or viewport');
+         assert(rendered.panelScroll.width <= rendered.panelClient.width + 1, 'Journal panel overflows horizontally');
+-        const actualViewport = { viewport: page.viewportSize(), ...await page.evaluate(() => ({
+-          innerWidth, innerHeight, devicePixelRatio, maxTouchPoints: navigator.maxTouchPoints,
+-        })) };
+         assert.deepEqual(actualViewport.viewport, report.viewport, 'Browser viewport differs');
+         assert.equal(actualViewport.innerWidth, report.viewport.width);
+         assert.equal(actualViewport.innerHeight, report.viewport.height);
+         assert.equal(actualViewport.devicePixelRatio, report.contextOptions.deviceScaleFactor);
+         assert(actualViewport.maxTouchPoints > 0, 'Touch emulation is absent');
+-        const file = `${row.language}-${row.conversation}-${row.node}.png`;
+-        const png = await page.screenshot({ path: join(output, file), fullPage: false });
+-        report.screens.push({ language: row.language, conversation: row.conversation, node: row.node,
+-          file, bytes: png.length, sha256: hash(png), renderedSha256: hash(rendered.domText),
+-          journal: row.journal, storedSha256: hash(selected.stored.text),
+-          journalCountBefore: selected.journalCountBefore, journalCountAfter: selected.journalCountAfter,
+-          journalLayout: rendered, viewport: actualViewport, browserErrors: errors });
+         assert.deepEqual(errors, [], 'Browser errors');
+       } finally { await context.close(); }
+     }

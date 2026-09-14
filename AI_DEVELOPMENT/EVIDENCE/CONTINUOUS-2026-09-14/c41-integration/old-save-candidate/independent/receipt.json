@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "completedAtUTC": "2026-09-14T20:56:00.446586+00:00",
+  "status": "pass for separate unbuilt source candidate",
+  "blocking": 0,
+  "blockingFindings": [],
+  "sourceCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "sourceTree": "18bf6fb6597c2ef5d8cf96800b1761cdeea3827d",
+  "baseStateBlob": "138970ef227079cb437c4f30c28448f5566b8913",
+  "candidate": {
+    "repositoryPath": "src/game/state.js",
+    "bytes": 34503,
+    "sha256": "356d2bb3d3ae1b019e38bd73c05778ff67b048cffa9775d5bad052fc9d118530",
+    "gitBlob": "1c34d740841f5d56038e579519822412e12fa9f3"
+  },
+  "producerManifest": {
+    "path": "manifest.json",
+    "bytes": 2382,
+    "sha256": "30097a8c326c9a2a410320cbaf7b9a905a7139b8ee11f17068314c36893740ae",
+    "gitBlob": "48877030f318be5cc1717669ecd2aa629ca88e3b"
+  },
+  "producerCandidateUnchangedAtReceipt": true,
+  "reviewScope": {
+    "candidatePaths": 1,
+    "diffHunks": 2,
+    "inverseRestoresAllCanonicalBytes": true,
+    "storageValidationVersionMigrationBytesUnchanged": true,
+    "saveVersion": 2,
+    "completeCanonicalStateFreshRead": true,
+    "verifiedBaselineContextPaths": 13,
+    "contentFixturePinsOnly": true,
+    "c40PreparationInputsChanged": false
+  },
+  "independentVerification": {
+    "controlsPassed": 15,
+    "producerControlsCountedAsIndependent": 0,
+    "nodeVersion": "v24.19.0",
+    "saveRoundtrip": "Actual source GameState/Storage and in-memory Web Storage API using synthetic saves",
+    "frozenPayloadUnchanged": true,
+    "allSerializedProgressDifferential": "Only expected journal body differs from original v2 reader",
+    "journalTimestampAndAdditionalFieldsPreserved": true,
+    "newEffectsEmittedDuringDeserialise": 0,
+    "v1ToV2AndOriginalByteRescue": true,
+    "originalV2ReaderCompatibility": true,
+    "idempotent": true,
+    "nonmatchingCases": 9,
+    "realDialogueRunnerENJAEffectsPreserved": true,
+    "oldSaveENJALocalizedStringsMatchFrozenC40": true
+  },
+  "harnessCorrection": {
+    "initialAttempt": "Test passed envelope to the state-only deserialise helper",
+    "candidateDefect": false,
+    "fix": "Pass frozen.state instead of frozen in the independent harness",
+    "candidateChanges": 0,
+    "finalAttempt": "All 15 independent controls passed"
+  },
+  "execution": {
+    "actualBuild": false,
+    "actualBrowser": false,
+    "screens": 0,
+    "generatedRoot": null,
+    "newBundleSha256": null,
+    "localGitCalls": 0,
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "newSpawn": 0,
+    "libraryAccess": 0
+  },
+  "limitations": [
+    "Exact known legacy body only; custom or other historical text is preserved",
+    "Storage slots are updated by the next ordinary save, not by load/inspect/hasSave",
+    "C39 old new-entry source is unchanged here; pair with the separately reviewed C40 content correction",
+    "Keep this source separate from the fixed C40 preparation inputs; future locked build must include it explicitly",
+    "Actual browser startup, save/locale rendering and generated product remain unverified"
+  ],
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "bytes": 3616,
+      "sha256": "2b814c305dcb1b322ac63d04eb86882cc8f2195302b657d33b7cfd460afe1725",
+      "gitBlob": "da153078ab1bb1285d2cf1d49834a17a5d13a62b"
+    },
+    {
+      "path": "independent-controls.json",
+      "bytes": 2629,
+      "sha256": "d5e0aab3c18ca72896bd7058a8b3b069912d71ec524eb5b1693b21f83e1601fe",
+      "gitBlob": "3e95a4d8cc652e2d044aa2eb4be52c540bb9abd6"
+    },
+    {
+      "path": "independent-controls.mjs",
+      "bytes": 13978,
+      "sha256": "d8823c11807be1a5d519a9d28a3b2c1a8cc38c7412a21a92ac22958f5bc83d62",
+      "gitBlob": "5ae6583d3ce350721e52485b419e9dd1bcb0ebff"
+    },
+    {
+      "path": "input-pins.json",
+      "bytes": 3649,
+      "sha256": "10d44780da29ac2ffe988921f4ab402fa00038a0719ccb903679fe4c428a3523",
+      "gitBlob": "cf86d8dd3dc03f59463710bedff725b4d8bac5bf"
+    },
+    {
+      "path": "authority-acceptance.json",
+      "bytes": 962,
+      "sha256": "8126b4ca1f5127e3a602a80d7bc7de9468733d77c76a7097a9e72184375f375c",
+      "gitBlob": "c88382b2bc70bb5907613a8849cdd41b30df99d8"
+    }
+  ],
+  "programmeState": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "elements": "all 19 not measured",
+    "criteria": 71,
+    "fixedReferences": 10,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous"
+  },
+  "publication": "Only exact file/hash entries of publication-allowlist.json; no recursive directory publication"
+}

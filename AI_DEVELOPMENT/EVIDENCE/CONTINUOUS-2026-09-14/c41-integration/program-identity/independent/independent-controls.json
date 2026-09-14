@@ -1,0 +1,102 @@
+{
+  "scope": "Independent bounded VM/source review; synthetic renderer/program objects and clocks",
+  "nodeVersion": "v24.19.0",
+  "passed": 15,
+  "controls": [
+    {
+      "name": "Frozen candidate reverses to fresh canonical source with only the declared additions",
+      "passed": true
+    },
+    {
+      "name": "Serialized page functions retain initial and callback entry/exit identities with original array/object identity",
+      "passed": true
+    },
+    {
+      "name": "Same-count replacement and temporary objects are unobserved; decrease then growth rescans without refreshing seen objects",
+      "passed": true
+    },
+    {
+      "name": "Program field and array-index getters are not invoked; inherited values are explicitly missing",
+      "passed": true
+    },
+    {
+      "name": "Unsupported field types and throwing descriptors are reported without coercion",
+      "passed": true
+    },
+    {
+      "name": "Absent/non-array/inaccessible inventory stops auxiliary observation while original timing completeness stays independent",
+      "passed": true
+    },
+    {
+      "name": "Long surrogate/control-character strings preserve bounded UTF-16 slices and round-trip JSON",
+      "passed": true
+    },
+    {
+      "name": "Entry and scan caps stop boundedly and expose incomplete identity",
+      "passed": true
+    },
+    {
+      "name": "Event limit and escaping-heavy retained record byte limit cannot expand the fixed payload envelope",
+      "passed": true
+    },
+    {
+      "name": "Steady saved frames cause no further descriptor scans, encodes or GL access",
+      "passed": true
+    },
+    {
+      "name": "All original timing rows, lifecycle fields, clock reads and complete/detailComplete match the original VM probe",
+      "passed": true
+    },
+    {
+      "name": "Synthetic descriptor cost is inside existing observer intervals without extra clock reads or phase normalization",
+      "passed": true
+    },
+    {
+      "name": "Source exception propagates by identity and stop restores all own and inherited descriptors",
+      "passed": true
+    },
+    {
+      "name": "Inactive and post-stop callbacks preserve original return and perform no identity collection",
+      "passed": true
+    },
+    {
+      "name": "4096-row overflow retains original timing failure and explicitly leaves later identities unobserved",
+      "passed": true
+    }
+  ],
+  "facts": {
+    "escapingHeavyInventory": {
+      "entries": 26,
+      "retainedRecordBytes": 59723,
+      "totalUtf8Bytes": 60648
+    },
+    "steadyFrames": {
+      "frames": 32,
+      "additionalDescriptorReads": 0,
+      "additionalEncodes": 0,
+      "glAccess": 0
+    },
+    "syntheticObserverCost": {
+      "programFields": 3,
+      "costPerDescriptorMs": 2,
+      "observedAdditionalMs": 6,
+      "actualSafariMeasured": false
+    }
+  },
+  "blocking": 0,
+  "producerAssertionsCountedAsIndependent": 0,
+  "actualSafari": false,
+  "actualEngineExecutionByIndependentReviewer": false,
+  "actualProgramInventory": false,
+  "actualCPUorGPUCauseMeasured": false,
+  "actualObserverOverheadMeasured": false,
+  "actualBuild": false,
+  "actualBrowser": false,
+  "generatedRoot": null,
+  "newCI": 0,
+  "remoteWrites": 0,
+  "localGitCalls": 0,
+  "newSpawn": 0,
+  "libraryAccess": 0,
+  "automationChanges": 0
+}

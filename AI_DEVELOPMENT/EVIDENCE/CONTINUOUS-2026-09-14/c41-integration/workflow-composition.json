@@ -1,0 +1,35 @@
+{
+  "integrationBase": "dc565c0f0fda14b946d0c5e5c7b4eac43e3bdfd5",
+  "technicalBaseline": "8058f8431b7885e9e929e6cb57bb415d26d9f5b1",
+  "canonicalWorkflowUnchangedBetweenHeads": true,
+  "base": {
+    "bytes": 32640,
+    "sha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+    "gitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f"
+  },
+  "prepareOnly": {
+    "bytes": 32671,
+    "sha256": "0a896f3baba6f6e7c9b66a18e5ff12ece698d4787f18db24e422584dba3cd85b",
+    "gitBlob": "d664c847086e0bc27b1da43ea66c69835a5f64e6"
+  },
+  "appendOnlyBlock": {
+    "bytes": 1845,
+    "sha256": "b275a57dd7df915d0666ac13d2ee4d2398663c2e8139042b982bfbe188d63082",
+    "gitBlob": "9792deff0b871262cab581935d4ad3874ff26bc0"
+  },
+  "combined": {
+    "bytes": 34517,
+    "sha256": "7ba29b14953d974ce873130dab882c1a5354cea458db6bdaccf6248aad0d2199",
+    "gitBlob": "5911ecf38822098d29f55401710273aa7426dab2"
+  },
+  "changedExistingJobs": [
+    "prepare-narrative-product"
+  ],
+  "addedJobs": [
+    "recover-ios-c40-pr"
+  ],
+  "allOtherOriginalBytesPreserved": true,
+  "duplicateJobIds": false,
+  "sourceAndPrF3ConditionsUnchanged": true,
+  "actualCI": false
+}
