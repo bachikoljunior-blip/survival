@@ -1,14 +1,16 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.11 -->
+<!-- state_revision: 2026-09-14.12 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.11 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.12 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
 ### 2026-09-14 現行の継続地点
+
+追加確認: c65853f の Floor gates は成功。Mobile Safari は起動済みSimulatorをAppiumがUI表示用に再起動して120秒後に失敗し、ゲーム操作は0件。原証拠8件を `ios-safari-c65853f/raw-artifact.tar.gz` に保持。`isHeadless:true` だけを追加して独立レビュー/反証と送信capabilityのCPU境界検証を行い、実CI再検証へ進む。本編のtrench初期警戒修正は未コミットで別patchに保全し、通行許可後に攻撃される実欠陥も修正中。全体完了や要素達成ではない。
 
 指定ブランチの c8f63c6 を実WebKitで通常168件・障害復旧42件検証し成功。半閉鎖の庭は14→429.2ppm、別試行の全閉鎖は659.0ppm。live nav、実saveと欠落ID復元を確認。原証拠は `AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/` と `faults-c8f63c6/`。独立した取得経路CPUレビューと別担当反証も完了し、原証拠12件を保持した。
 

@@ -1,0 +1,190 @@
+{
+  "verdict": "PASS",
+  "score": 100,
+  "round": "ios-bootstrap-headless-refutation-2026-09-14",
+  "profile": "Independent second-pass refutation of one Appium isHeadless capability addition using the failed c65853f run and official documentation",
+  "tier": "Source and recorded-log analysis; no simulator was launched by this reviewer",
+  "nativeResolution": "750x1334",
+  "blindComparison": "No blind comparison was conducted. No game or reference quality preference was judged. The nativeResolution is the prior failed run's video metadata only; all simulator game behavior after the changed capability remains not measured.",
+  "checkedAt": "2026-09-14T03:43:32.429Z",
+  "reviewer": "/root/acquisition_path_review/acquisition_refutation",
+  "scope": "Only the uncommitted tools/test-ios-safari.mjs addition appium:isHeadless=true and its comment. Related existing workflow/logs were read to test assumptions. No source file, raw log, browser or running service was modified or launched.",
+  "targetSource": {
+    "path": "survival/tools/test-ios-safari.mjs",
+    "bytes": 20591,
+    "sha256": "079019b0632d7c0e1b293f699cf837b4628b257c1a573c369eb7198215fd71b7"
+  },
+  "priorRun": {
+    "commitPrefix": "c65853f",
+    "runId": 34802288089,
+    "url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34802288089",
+    "appium": "3.6.0",
+    "xcuitest": "12.1.3",
+    "xcode": "16.4",
+    "simulatorRuntime": "26.2",
+    "reportStatus": "failed",
+    "browserChecksExecuted": 0
+  },
+  "evidenceFiles": [
+    {
+      "path": "ci-ios-c65853f/appium.log",
+      "bytes": 13187,
+      "sha256": "b9e11050f0fe3596c3004c27e1bab4ede32d370ba51f35e8e3b945d95f001e70"
+    },
+    {
+      "path": "ci-ios-c65853f/report.json",
+      "bytes": 803,
+      "sha256": "8054afbd85695e3ca1fb60bb7a100ac227f0350f7fd8830278358337963391e8"
+    },
+    {
+      "path": "ci-ios-c65853f/xcode-version.txt",
+      "bytes": 30,
+      "sha256": "a8be4f9af0a29137fe7e59b9928056d4a0df297bb46ba40f80eaa6b0ae982f12"
+    },
+    {
+      "path": "ci-ios-c65853f/simulator-inventory.json",
+      "bytes": 265506,
+      "sha256": "1d73dd6d107ed54d13278e47bd688b1c83f2e915dfb90cbe7a70cd570e59d20c"
+    },
+    {
+      "path": "ci-ios-c65853f/video.log",
+      "bytes": 169,
+      "sha256": "9a7035e5b6b3c14b00bde38070cc032d904e6031b1f64bfb1d715a8b437048cb"
+    },
+    {
+      "path": "ci-ios-c65853f/ios-safari.mp4",
+      "bytes": 1072381,
+      "sha256": "5ed7820167ef09658afa9da757f0b5bb84c174e7cf538d696c2f15b4600b8cf9"
+    },
+    {
+      "path": "survival/.github/workflows/mobile-simulator.yml",
+      "bytes": 4166,
+      "sha256": "c13b82cdfa28d4a9d16fef96c38f86ad8991db46c7a71e1d6b5a012dae93dede"
+    }
+  ],
+  "observations": [
+    {
+      "fact": "The prior actual session request had no isHeadless key and already set noReset=true.",
+      "evidence": {
+        "line": 23,
+        "text": "2026-09-14 03:26:22:949 [HTTP] --> POST /session {\"capabilities\":{\"alwaysMatch\":{\"platformName\":\"iOS\",\"browserName\":\"Safari\",\"appium:automationName\":\"XCUITest\",\"appium:deviceName\":\"iPhone SE (3rd generation)\",\"appium:udid\":\"48B2DA2E-AF18-4E36-BB25-B25969A4EBCF\",\"appium:platformVersion\":\"26.2\",\"appium:noReset\":true,\"appium:newCommandTimeout\":300,\"appium:safariAllowPopups\":true,\"appium:includeSafariInWebviews\":true},\"firstMatch\":[{}]}}"
+      }
+    },
+    {
+      "fact": "Appium identified a simulator, not a real device, using Xcode 16.4.",
+      "evidence": {
+        "line": 57,
+        "text": "2026-09-14 03:26:25:698 [b1b96973][XCUITestDriver@cf66] Determining device to run tests on: udid: '48B2DA2E-AF18-4E36-BB25-B25969A4EBCF', real device: false"
+      }
+    },
+    {
+      "fact": "noReset did not prevent the subsequent UI-mode restart.",
+      "evidence": {
+        "line": 70,
+        "text": "2026-09-14 03:26:25:716 [b1b96973][XCUITestDriver@cf66] Reset: noReset is on. Leaving simulator as is"
+      }
+    },
+    {
+      "fact": "Appium observed an already-booted device with no visible UI and chose a restart with a visible window.",
+      "evidence": {
+        "line": 80,
+        "text": "2026-09-14 03:26:29:205 [b1b96973][XCUITestDriver@cf66] Simulator '48B2DA2E-AF18-4E36-BB25-B25969A4EBCF' is booted while its UI is not visible. Trying to restart it with the Simulator window visible"
+      }
+    },
+    {
+      "fact": "The driver then opened the Xcode Simulator desktop client.",
+      "evidence": {
+        "line": 81,
+        "text": "2026-09-14 03:26:34:859 [b1b96973][XCUITestDriver@cf66] Starting UI client: open -Fn /Applications/Xcode_16.4.app/Contents/Developer/Applications/Simulator.app"
+      }
+    },
+    {
+      "fact": "Session creation subsequently failed in the simulator boot monitor after 120 seconds, before any browser checks.",
+      "evidence": {
+        "line": 88,
+        "text": "2026-09-14 03:28:40:088 [b1b96973][AppiumDriver@5811] Encountered internal error running command: Error: The simulator 48B2DA2E-AF18-4E36-BB25-B25969A4EBCF has failed to finish booting after 120s. Original status: "
+      }
+    },
+    {
+      "fact": "The preserved earlier video is a decodable native H264 stream, 750x1334, 3.14 seconds, 1072381 bytes. This is not evidence that the game or Safari gate succeeded.",
+      "method": "ffprobe -v error -show_entries stream=index,codec_name,codec_type,width,height,duration:format=duration,size -of json ci-ios-c65853f/ios-safari.mp4"
+    }
+  ],
+  "officialSources": [
+    {
+      "url": "https://appium.github.io/appium-xcuitest-driver/latest/reference/capabilities/",
+      "retrievedAt": "2026-09-14T03:43:32.431Z",
+      "supportedParaphrase": "isHeadless defaults to false and applies to simulators on Xcode 9 or newer. True runs without a visible device window and terminates Simulator UI processes. simulatorStartupTimeout defaults to 120000 ms.",
+      "scope": "Public capability semantics. This page is latest documentation, not a recording of this changed source executing."
+    },
+    {
+      "url": "https://developer.apple.com/xcode/system-requirements",
+      "retrievedAt": "2026-09-14T03:43:32.431Z",
+      "supportedParaphrase": "The Xcode 16.4 row lists the included iOS SDK as 18.5 and the Simulator range as iOS 15 or later. The SDK number alone does not establish that the available iOS 26.2 runtime caused this failure.",
+      "scope": "Used only to challenge an unsupported version-mismatch diagnosis, not to certify this Appium/runtime combination."
+    }
+  ],
+  "refutationAttempts": [
+    {
+      "claim": "The capability has no effect on the observed target.",
+      "result": "Refuted by official Simulator/Xcode applicability and the actual real-device=false/Xcode16.4 log. The target falls within the documented capability scope."
+    },
+    {
+      "claim": "noReset=true already avoids the visible-UI restart, so isHeadless is redundant.",
+      "result": "Refuted by the same real run: noReset=true was accepted, but the driver still restarted an already-booted invisible simulator to show its UI."
+    },
+    {
+      "claim": "The observed error necessarily requires a larger simulatorStartupTimeout instead.",
+      "result": "Not established. The log documents a UI-driven restart that was unnecessary for this CI host. Raising a timeout does not address the reason for that restart. No evidence currently makes a timeout increase mandatory before testing this narrow change."
+    },
+    {
+      "claim": "The change is sufficient proof that Simulator startup and all Safari tests will now pass.",
+      "result": "Refuted. The changed capability has not run in a simulator in this review. The failed log stops before WDA/Safari operation, so later failures remain possible."
+    },
+    {
+      "claim": "Xcode16.4 plus runtime26.2 proves a separate mandatory version correction.",
+      "result": "Not established. The runtime inventory marks the selected simulator available, the workflow ran bootstatus before Appium, Appium itself logged the device as booted, and Apple's Simulator support column does not set an upper bound at 18.5. This is an unmeasured compatibility risk, not a confirmed mechanism for this timeout."
+    }
+  ],
+  "inference": {
+    "hypothesis": "isHeadless=true should remove the demand for a visible desktop Simulator window and therefore avoid the specific booted-but-no-UI restart observed in the prior run.",
+    "status": "Supported; independent refutation found no contradiction within recorded logs and documented capability semantics.",
+    "assumptions": [
+      "The next run uses the recorded compatible XCUITest capability implementation and dedicated CI host.",
+      "The device is still booted before Appium receives the capability, as the unchanged workflow intends."
+    ],
+    "uncertainty": "Neither elimination of the restart nor successful WDA/Safari/game startup has yet been observed for this source hash. The old boot timeout could coexist with a later independent failure.",
+    "followUp": "Read the next actual /session request and driver log. Confirm isHeadless=true was accepted, the booted-no-visible-UI restart is absent, and session creation progresses. Then assess actual Safari checks and native media; do not infer success from accepting the capability."
+  },
+  "additionalMandatoryChanges": {
+    "established": false,
+    "reason": "The narrow evidence supports testing this single capability change. No second source or workflow change is proven necessary to address the specific observed UI restart."
+  },
+  "checks": [
+    {
+      "name": "node --check tools/test-ios-safari.mjs",
+      "passed": true,
+      "scope": "JavaScript syntax only"
+    },
+    {
+      "name": "Exact source SHA matches the assigned review snapshot",
+      "passed": true
+    },
+    {
+      "name": "Failed run contains no executed browser checks",
+      "passed": true
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "No local browser, Appium server, Simulator or GUI was launched.",
+    "No WDA build, Mobile Safari session, touch input, game screenshot, current-build recording or physical-device result is passed here.",
+    "A bounded review PASS is neither a satisfied element nor a valid blind comparison.",
+    "The actual recovery outcome must be established by the authorized CI run, with its own exact build and logs."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  }
+}

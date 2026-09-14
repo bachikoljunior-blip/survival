@@ -1,0 +1,135 @@
+{
+  "checkedAt": "2026-09-14T03:42:01.751Z",
+  "scope": "Actual baseline/current gate body at mocked external boundaries. Source import declarations removed only for dependency injection. Both runs deliberately reject new-session creation before any device action. This does not test the Appium implementation or simulator behavior.",
+  "baseline": "c65853f105bc192fae9d952d7e73eba62870dfcb",
+  "target": "tools/test-ios-safari.mjs",
+  "checks": {
+    "onlyCapabilityDifferenceIsBooleanTrueHeadless": true,
+    "bodySentAtActualSessionEndpoint": true,
+    "sessionFailureStillExitsNonzero": true,
+    "noGameChecksExecuted": true
+  },
+  "runs": [
+    {
+      "name": "baseline",
+      "sourceSha256": "3d193338a3bdc8e19451eaeca18bd59ba04b4962dc6a0352faae74744261d410",
+      "requests": [
+        {
+          "url": "http://cpu-only.invalid/never-requested",
+          "redirect": "manual"
+        },
+        {
+          "url": "http://cpu-only-appium.invalid/status",
+          "redirect": "manual"
+        },
+        {
+          "url": "http://cpu-only-appium.invalid/session",
+          "method": "POST",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"capabilities\":{\"alwaysMatch\":{\"platformName\":\"iOS\",\"browserName\":\"Safari\",\"appium:automationName\":\"XCUITest\",\"appium:deviceName\":\"iPhone SE (3rd generation)\",\"appium:udid\":\"CPU-ONLY-UDID\",\"appium:platformVersion\":\"26.2\",\"appium:noReset\":true,\"appium:newCommandTimeout\":300,\"appium:safariAllowPopups\":true,\"appium:includeSafariInWebviews\":true},\"firstMatch\":[{}]}}"
+        }
+      ],
+      "body": {
+        "capabilities": {
+          "alwaysMatch": {
+            "platformName": "iOS",
+            "browserName": "Safari",
+            "appium:automationName": "XCUITest",
+            "appium:deviceName": "iPhone SE (3rd generation)",
+            "appium:udid": "CPU-ONLY-UDID",
+            "appium:platformVersion": "26.2",
+            "appium:noReset": true,
+            "appium:newCommandTimeout": 300,
+            "appium:safariAllowPopups": true,
+            "appium:includeSafariInWebviews": true
+          },
+          "firstMatch": [
+            {}
+          ]
+        }
+      },
+      "exitCode": 1,
+      "report": {
+        "schemaVersion": 1,
+        "checkedAt": "2026-09-14T03:42:01.748Z",
+        "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+        "checks": [],
+        "device": null,
+        "layout": null,
+        "interaction": {},
+        "persistence": null,
+        "soak": null,
+        "screenshots": {},
+        "errors": [],
+        "failures": [
+          "Error: WebDriver POST session: CPU_STOP_BEFORE_BROWSER_SESSION\n    at webdriver (tools/test-ios-safari.mjs:113:11)\n    at async tools/test-ios-safari.mjs:184:19\n    at async file:///workspace/scratch/0b7ad82bafe7/ios-bootstrap-capability-probe.mjs:32:3"
+        ],
+        "status": "failed",
+        "baseUrl": "http://cpu-only.invalid/never-requested"
+      }
+    },
+    {
+      "name": "current",
+      "sourceSha256": "079019b0632d7c0e1b293f699cf837b4628b257c1a573c369eb7198215fd71b7",
+      "requests": [
+        {
+          "url": "http://cpu-only.invalid/never-requested",
+          "redirect": "manual"
+        },
+        {
+          "url": "http://cpu-only-appium.invalid/status",
+          "redirect": "manual"
+        },
+        {
+          "url": "http://cpu-only-appium.invalid/session",
+          "method": "POST",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"capabilities\":{\"alwaysMatch\":{\"platformName\":\"iOS\",\"browserName\":\"Safari\",\"appium:automationName\":\"XCUITest\",\"appium:deviceName\":\"iPhone SE (3rd generation)\",\"appium:udid\":\"CPU-ONLY-UDID\",\"appium:platformVersion\":\"26.2\",\"appium:noReset\":true,\"appium:isHeadless\":true,\"appium:newCommandTimeout\":300,\"appium:safariAllowPopups\":true,\"appium:includeSafariInWebviews\":true},\"firstMatch\":[{}]}}"
+        }
+      ],
+      "body": {
+        "capabilities": {
+          "alwaysMatch": {
+            "platformName": "iOS",
+            "browserName": "Safari",
+            "appium:automationName": "XCUITest",
+            "appium:deviceName": "iPhone SE (3rd generation)",
+            "appium:udid": "CPU-ONLY-UDID",
+            "appium:platformVersion": "26.2",
+            "appium:noReset": true,
+            "appium:isHeadless": true,
+            "appium:newCommandTimeout": 300,
+            "appium:safariAllowPopups": true,
+            "appium:includeSafariInWebviews": true
+          },
+          "firstMatch": [
+            {}
+          ]
+        }
+      },
+      "exitCode": 1,
+      "report": {
+        "schemaVersion": 1,
+        "checkedAt": "2026-09-14T03:42:01.750Z",
+        "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+        "checks": [],
+        "device": null,
+        "layout": null,
+        "interaction": {},
+        "persistence": null,
+        "soak": null,
+        "screenshots": {},
+        "errors": [],
+        "failures": [
+          "Error: WebDriver POST session: CPU_STOP_BEFORE_BROWSER_SESSION\n    at webdriver (tools/test-ios-safari.mjs:113:11)\n    at async tools/test-ios-safari.mjs:184:19\n    at async file:///workspace/scratch/0b7ad82bafe7/ios-bootstrap-capability-probe.mjs:32:3"
+        ],
+        "status": "failed",
+        "baseUrl": "http://cpu-only.invalid/never-requested"
+      }
+    }
+  ]
+}

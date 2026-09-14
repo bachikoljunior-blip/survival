@@ -197,6 +197,10 @@ try {
           'appium:udid': UDID,
           'appium:platformVersion': PLATFORM_VERSION,
           'appium:noReset': true,
+          // CI has already booted this simulator with simctl. Requiring a
+          // desktop window makes Appium restart it before Safari can launch.
+          // Native simulator screenshots/video remain available without it.
+          'appium:isHeadless': true,
           'appium:newCommandTimeout': 300,
           'appium:safariAllowPopups': true,
           'appium:includeSafariInWebviews': true,

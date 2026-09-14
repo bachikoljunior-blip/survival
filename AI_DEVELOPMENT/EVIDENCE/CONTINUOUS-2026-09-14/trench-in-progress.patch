@@ -1,0 +1,63 @@
+diff --git a/src/game/director.js b/src/game/director.js
+index 693e49b..dc34af0 100644
+--- a/src/game/director.js
++++ b/src/game/director.js
+@@ -120,6 +120,11 @@ seconds and I already know which one I believe.`);
+       if (n >= 5 && !this.state.can('hardHands')) this.state.unlock('hardHands');
+     });
+     g.on('actor:death', (a) => { if (a === g.player) this.onPlayerDeath(a); });
++    g.on('actor:aggro', (a) => {
++      // Quiet encounters raise the score when their guards actually detect
++      // Ren. Actor events arrive through Game._drainEvents after the AI tick.
++      if (this._raidActive?.group.includes(a)) g.emit('music', 'combat');
++    });
+ 
+     // Reaching places is the single most common quest trigger, so it is polled
+     // rather than event-driven — cheap, and it cannot be missed.
+@@ -139,7 +144,7 @@ seconds and I already know which one I believe.`);
+       spawnTrenchLine: () => {
+         this._spawnRaid('trench', [
+           ['warden', 70, 14], ['warden', 78, 16], ['scav', 74, 24],
+-        ]);
++        ], { alerted: false });
+         // The line is a shift, not a crusade. There are three ways past it and
+         // only one of them is the fight.
+         this._addRuntimeInteraction({
+@@ -373,7 +378,7 @@ seconds and I already know which one I believe.`);
+     list.push({ ...it, _runtime: true });
+   }
+ 
+-  _spawnRaid(id, list) {
++  _spawnRaid(id, list, { alerted = true } = {}) {
+     const g = this.game;
+     // Idempotent: a load re-enters the active step, and a raid that is already
+     // on the ground must not be doubled.
+@@ -382,15 +387,22 @@ seconds and I already know which one I believe.`);
+     const group = [];
+     for (const [kind, x, z] of list) {
+       const e = g.spawnEnemy(kind, x, z);
+-      e.aggro = true;
+-      e.awareness = 1;
+-      e.target = g.player;
+-      e.aiState = 'combat';
++      // The courtyard is an active raid. The trench is a staffed boundary:
++      // its guards must actually see or hear Ren before beginning combat.
++      // Preserve the Enemy constructor's unaware state for that encounter.
++      if (alerted) {
++        e.aggro = true;
++        e.awareness = 1;
++        e.target = g.player;
++        e.aiState = 'combat';
++      }
+       group.push(e);
+     }
+     this._raidActive = { id, group };
+-    g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
+-    g.emit('music', 'combat');
++    if (alerted) {
++      g.hud.notice(t('ui.hud.ashcrew', '<b>Ash crew</b><br>in the yard'), 'bad', 4);
++      g.emit('music', 'combat');
++    }
+     return group;
+   }
+ 

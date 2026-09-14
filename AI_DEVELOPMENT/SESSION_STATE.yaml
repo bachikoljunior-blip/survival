@@ -17,15 +17,15 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T12:17:15.674666+09:00"
+  last_progress_at: "2026-09-14T12:46:39.121425+09:00"
   verified_commit: "c8f63c6063c98306e4c95e85b6055c0263957593"
   verified_build_sha256: "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05"
   evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/provenance.json"
   last_verified_action: "c8f63c6 実WebKit通常168/168・例外復旧42/42成功。半閉鎖の庭14→429.2ppm、全閉鎖659.0ppm、live navと保存/欠落ID復元を確認。Chromium23/23で3本の実音声映像を取得し原ZIP SHA・MP4 SHA・全復号を確認。全19要素not measured。"
   current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-c8f63c6/provenance.json"
   pending_build_sha256: null
-  modified_but_unverified: "ゲームの現行修正はc8f63c6で検証済み。新規mobile-simulator.ymlは既存pagesのiOS Simulator検証を同じ指定ブランチのソース変更時に実施する経路で、実行前。メニュー比較7c91は評価者と独立反証者が出所を認識し無効。静止画の範囲不足を記録し全19要素not measuredを維持。"
-  next_action: "Mobile Safari検証経路を確認し指定ブランチへ保存、実iOS Simulator結果を回収。Linux録音の遅い描画でwall/audio時間とゲーム時間が乖離したため、現クリップを通常速度のプレイ比較に使わず、別環境の実時間進行を測る。7c91は出所認識と範囲不足で無効。同じ未変更資料の評価者を変えて合格を拾わず、実操作記録を揃える。下端の見切れはスクロール境界であり、原画像だけから実装欠陥は確定しない。全19要素の有効な比較を最優先し未測定を達成にしない。"
+  modified_but_unverified: "この保存の製品ビルドはc65853fと同一。tools/test-ios-safari.mjs のisHeadlessを独立レビュー/反証/CPU境界の要求内容で検証、実Simulator再検証待ち。trenchの視覚/聴覚からの敵対とactor:aggroによる音楽切替はローカルで編集中、まだ製品にはコミットせず trench-in-progress.patch に保存。通行許可後の敵対は実ダメージで再現し修正待ち。"
+  next_action: "指定ブランチへiOS起動修正を保存し、Appium不要再起動が消えSafari操作まで進むか実CIを確認。別途保存したtrench-in-progress.patchはローカル差分と照合し二重適用せず、独立レビューの確定指摘を修正。音声モデルは音を入力できたが既知の音列順序を誤り、品質判定に使用できるとは未確定。全19要素の有効な比較0件、基準を維持して比較方法と本編を改善する。"
 
   deadline_assessment: "2026-09-14ユーザー追記: 適宜期限内達成を評価し、届かないなら進め方が誤っている可能性を検証する。現時点で19要素の有効な比較0件、今の進み方のまま期限内完全達成は厳しい。細部修正を増やす進め方を改め、現在の小修正を保存後、取得→匿名化→評価の実成立を優先する。基準/期限は変更しない。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
