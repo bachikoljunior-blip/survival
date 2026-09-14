@@ -15,9 +15,8 @@ import sys
 import tarfile
 import time
 import urllib.request
-import zipfile
 
-ATTEMPT = "e16-q35-a8409cc-r1"
+ATTEMPT = "e16-q35-a8409cc-r2"
 PRODUCT_COMMIT = "a8409cc0de04a503f50395487478fe0cfb2a98e7"
 PRODUCT_BUNDLE = "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,9 +37,99 @@ WEIGHTS = [
      "sha256": "f70dc3509053962b0d0d3ee8a7eacebf5d60aa560cad78254ae8698516ae029f"},
 ]
 REFERENCE = {
-    "url": "https://playdead.com/press/INSIDE/INSIDE_screenshots.zip",
-    "file": "reference.zip", "bytes": 22376901,
-    "sha256": "ae2a37d2e5ce6712184eae7b923ca71e222220818de7939c4dd1b2947912e411",
+    "source": "https://playdead.com/press/INSIDE/INSIDE_screenshots.zip",
+    "acquired_reference_provenance": "comparison-7d42/provenance.json",
+    "directory": "comparison-7d42",
+    "files": [
+        {
+            "file": "A-01.png",
+            "bytes": 2242543,
+            "sha256": "3958d9459155cd901b1597f1439ab3398e52312bafc65e0af2563968f4d5e5aa",
+            "original_sha256": "f5448456ba69dbb8f3e7746a5612faa52a21f5bd0363348965594eada6573131",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-02.png",
+            "bytes": 2829886,
+            "sha256": "f718ed2f7fcda1c8324462d9343ad84d68f55e08b7445c5bd32d185adf845096",
+            "original_sha256": "b6630e55d04c6db891ec8e2aa09923979f698f0514a54893b99682bbe8807e51",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-03.png",
+            "bytes": 2387563,
+            "sha256": "50bc7ff4cfce2e89ca3ccb9a16e7bbde00c835a4f2e71269b0d245dd68f4fe2a",
+            "original_sha256": "35a01057415396ffa17e8629ac465707de672d4aef57ccb24df55a244c748d14",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-04.png",
+            "bytes": 2576162,
+            "sha256": "ff6df314eed071020fc977798f8ed3d95e4f8bccb736357e5286377ef2b6ff00",
+            "original_sha256": "0635c6e29ae93cdf0dfde62e75eded1d2d7975a59bbc85b3d0215cf283712642",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-05.png",
+            "bytes": 2723523,
+            "sha256": "d294401c9ff83525faa2213ff225d7e15431e3dafd1311998a37e275cb8e92a8",
+            "original_sha256": "ae09efeecb6b5e3ac7f30e4aca2f3127634ed01dc23d7864cee8a53ac4858a5f",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-06.png",
+            "bytes": 2486652,
+            "sha256": "059b5c5b52eb28ce8568122e65e01ae10a2a3fbb74ad4df365102702f27d7dc9",
+            "original_sha256": "5007958e4e4797e5da62ac95b0e0ba00671e9f503c48bc90ee9f8bc6cc6584c2",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-07.png",
+            "bytes": 2160877,
+            "sha256": "49b93a3b4939870fc60b163d7d9eb87223ca6652a624b3d2671d5dc5e77b7670",
+            "original_sha256": "efec73fb352ac39a85d6c4bd3d890b4810f3421a1fb9323b6d15ea006a07d431",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        },
+        {
+            "file": "A-08.png",
+            "bytes": 2341302,
+            "sha256": "677936ebb80891885b7b63501ea6cbf89059cec36bd094bacbc4cf5fe16a2039",
+            "original_sha256": "ada7f6977d2557b561e58a5c561947b6d06312c160d23155c2a95ce097a57e1e",
+            "width": 1920,
+            "height": 1080,
+            "removed_metadata_chunks": [
+                "tEXt"
+            ]
+        }
+    ]
 }
 CANDIDATE = [
     {
@@ -160,7 +249,13 @@ def fetch(spec):
         raise RuntimeError("Existing partial acquisition; inspect instead of retrying unchanged")
     start = time.monotonic()
     seen = 0
-    with urllib.request.urlopen(spec["url"], timeout=60) as response, partial.open("xb") as f:
+    try:
+        response = urllib.request.urlopen(spec["url"], timeout=60)
+    except Exception as error:
+        write_json("acquisition-error.json", {"resource": spec["file"], "url": spec["url"],
+                   "type": type(error).__name__, "error": str(error), "bytes_written": 0})
+        raise
+    with response, partial.open("xb") as f:
         if getattr(response, "status", None) != 200:
             raise RuntimeError("Unexpected public-download status")
         while True:
@@ -197,7 +292,7 @@ def prepare():
         "ci_commit": os.environ.get("GITHUB_SHA"), "runtime": RUNTIME, "weights": WEIGHTS,
         "reference": REFERENCE, "reference_image_hashes": REFERENCE_HASHES,
         "candidate": CANDIDATE, "candidate_side": CANDIDATE_SIDE,
-        "input_policy": "All 16 original PNG bytes; no crop, resize, modified pixels or synthetic proxy.",
+        "input_policy": "Eight original candidate PNGs plus eight already-preserved full reference frames. Only Software tEXt metadata was removed before the historical packet; recorded pixels and color chunks were retained. No new image processing or content selection.",
         "context": CONTEXT, "output_tokens": OUTPUT_TOKENS, "inference_seconds": INFERENCE_SECONDS,
         "preparation_seconds": PREPARE_SECONDS, "control_seconds": CONTROL_SECONDS,
         "sampling": {"temperature": 1.0, "top_p": 0.95, "top_k": 20, "min_p": 0,
@@ -213,7 +308,7 @@ def prepare():
     })
     disk = shutil.disk_usage(WORK)
     memory = os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
-    required = sum(x["bytes"] for x in WEIGHTS) + RUNTIME["bytes"] + REFERENCE["bytes"] + HEADROOM_BYTES
+    required = sum(x["bytes"] for x in WEIGHTS) + RUNTIME["bytes"] + HEADROOM_BYTES
     write_json("resources.json", {"free_bytes": disk.free, "required_free_bytes": required,
                                  "physical_memory_bytes": memory, "cpu_count": os.cpu_count(),
                                  "headroom_bytes": HEADROOM_BYTES})
@@ -245,20 +340,25 @@ def prepare():
             raise RuntimeError("Pinned runtime does not advertise " + flag)
     if help_result.returncode:
         raise RuntimeError("Runtime --help failed before model acquisition")
-    reference_zip = fetch(REFERENCE)
-    reference_images = {}
-    with zipfile.ZipFile(reference_zip) as archive:
-        for name in archive.namelist():
-            if not name.lower().endswith(".png") or "__MACOSX/" in name:
-                continue
-            data = archive.read(name)
-            sha = hashlib.sha256(data).hexdigest()
-            if sha in REFERENCE_HASHES:
-                if sha in reference_images:
-                    raise RuntimeError("Duplicate pinned reference image")
-                reference_images[sha] = data
-    if set(reference_images) != set(REFERENCE_HASHES):
-        raise RuntimeError("Reference archive missing original pinned images")
+    reference_images = []
+    for item in REFERENCE["files"]:
+        path = EVIDENCE / REFERENCE["directory"] / item["file"]
+        verify(path, item)
+        data = path.read_bytes()
+        if data[:8] != b"\x89PNG\r\n\x1a\n" or int.from_bytes(data[16:20], "big") != item["width"] or int.from_bytes(data[20:24], "big") != item["height"]:
+            raise RuntimeError("Preserved reference PNG signature/dimensions mismatch")
+        reference_images.append(data)
+    if len(reference_images) != 8:
+        raise RuntimeError("Exactly eight fixed reference frames are required")
+    write_json("reference-cache-verification.json", {
+        "source_provenance": REFERENCE["acquired_reference_provenance"],
+        "files": REFERENCE["files"],
+        "all_preserved_file_hashes_verified": True,
+        "new_processing": "none; use the previously preserved files verbatim",
+        "historical_processing": "Only Software tEXt metadata removed; original pixel/color preservation is recorded in source provenance.",
+        "network_reference_request": False,
+        "blind_validity": "not measured",
+    })
     neutral = WORK / "neutral"
     neutral.mkdir()
     inputs = []
@@ -266,7 +366,7 @@ def prepare():
         for i in range(8):
             label = side + str(i + 1).zfill(2)
             data = ((EVIDENCE / "webkit-a8409cc" / CANDIDATE[i]["file"]).read_bytes()
-                    if side == CANDIDATE_SIDE else reference_images[REFERENCE_HASHES[i]])
+                    if side == CANDIDATE_SIDE else reference_images[i])
             if data[:8] != b"\x89PNG\r\n\x1a\n":
                 raise RuntimeError("Non-PNG comparison input")
             (neutral / (label + ".png")).write_bytes(data)

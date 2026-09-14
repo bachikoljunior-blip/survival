@@ -17,23 +17,23 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  continuation_check_observation: "2026-09-14T18:18:59.217+09:00 実リモートa8409cc、同一主実行の原画像デコード/全byte照合、独立8視点レビュー、GitHub書込みの実進捗を確認。主実行の停止/再起動なし。local ENOSPCにより子処理と通常sandbox起動は停止しているが、接続アプリで独立作業を続行。"
-  last_progress_at: "2026-09-14T18:25:26.144+09:00"
+  continuation_check_observation: "2026-09-14T18:36:30.450+09:00 実remote846fcbabと実CI 34828054337/job103924648749を照合。主実行はGitHub read/write・原因特定・修正で活動中。比較jobの失敗を主実行停止と扱わない。"
+  last_progress_at: "2026-09-14T18:36:30.450+09:00"
   verified_commit: "a8409cc0de04a503f50395487478fe0cfb2a98e7"
   verified_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
   evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
-  last_verified_action: "a840実WebKit177/177、iOS MobileSafari27/27。原9+2PNG・WebKit report・2実会話JSONの全byte SHA256を照合。publish119/deal114件各結末1、241と全eventの値は完全一致。独立した8視点の旧新原画像診断でMVD-02対象3材質の細部が静まり素材の違いと継ぎ目が残ることを確認。Plant右下路面差の原因は未確定。これは出所既知の改善診断でE16比較合格ではない。"
+  last_verified_action: "a840 bundleのWebKit177/iOS27・原画像/会話照合・MVD-02独立診断はcurrent-a8409cc/に保存済み。新846fcbabではF2と比較helper構文が成功。比較jobはfree92,084,707,328B、総RAM16,765,374,464B、4CPUを記録し、固定runtime 16,734,586BのSHA/--helpを通過。その次の参照ZIP取得がHTTP403で失敗、control/比較0。元error/原job log5資料を完全回収しSHA照合。"
   current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
   pending_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
-  modified_but_unverified: "製品bundleの現行スマートフォン検証は成功。全19の有効比較、移動を含む美術の残差は未測定。新9B評価モデルは手元で容量不足取得失敗・推論未実行。既存CIに1回だけ起動する固定16原画像比較helperを用意し独立静的レビューと別反証を完了し、時間予算/同一run再実行の2経路を修正。実動未検証。E9修復済みreader/全文rendererとOmni wrapper-control詳細の一部はscratchに残り、ENOSPCで未転送。正確なpinと復旧点をcontinuation-recovery.jsonに保存。"
-  next_action: "独立レビュー済み1回マーカー比較helperと原証拠を同じブランチへ保存し、実remote headとジョブ進行を照合し、7200秒予算・完全16原画像・正規public pinned modelで1試行する。raw回答の全画像処理/知覚/出所認識/4軸/結論を監査し、無効/未完を作業単位や合格にしない。独立作業は並行して進める。E9はJoyce既存議論の修復・両側全文readerの未完地点から進む。local ENOSPCを解消済みとしない。"
+  modified_but_unverified: "製品bundleはa840と同じ。比較helper r2は、以前保存した同じ参照8画像のpacket hash/寸法を照合してそのbytesを利用する方式へ変更し、限定独立レビューと別反証を完了。元資料はSoftware tEXtだけ除去したことを既存provenanceが記録し、画像・色の改変を追加しない。問い・候補・8参照画像の内容・モデル/予算は不変。実cached-file検証とGGUF/control/比較はまだ未実行。local ENOSPCとscratch未転送reader/監査のpinはcurrent-a8409cc/continuation-recovery.jsonを参照。"
+  next_action: "r2の限定独立レビューを反映し、失敗原記録と共に同じブランチへ保存して実remote/jobを照合。既存参照PNGのhash検証が実際に通過し、model/control/16画像比較へ到達するかを実CIで確認する。403の参照URLへ再要求しない。raw回答の完結・全画像知覚・認識・4軸・全体選好を監査し、無効/未完を合格/作業単位にしない。既存8視点のMVD-01は原因候補を実装で照合し、E9の全文readerも保存された未完了地点から続行する。"
 
-  deadline_assessment: "2026-09-14T18:18:59.217+09:00 継続確認直後、残り146.63時間。全19未測定・有効比較0で期限内達成は分からず根拠不足。旧1800秒16画像処理は7参照完了/8枚目途中/候補0/回答0、全E9最小readerも45931tokenで旧32768contextを超えた。小モデル入力を削って合格しやすくせず、full-input/context/予算/場所を変更する。新9Bモデルを試したがENOSPCで失敗し通常shellも起動不可、昇格削除は環境設定拒否。既存CIへ移す具体helperを実装して新方法の効果を実測する。作品側のMVD-02差とブラウザ挙動の不確実性は実画像/実CIで減ったが、比較成立と残品質差は未確定。期限/19要素/71基準は変更しない。"
+  deadline_assessment: "2026-09-14T18:36:30.450+09:00 継続確認直後、残り146.34時間。19未測定・有効比較0なので期限内完全達成は分からず根拠不足。新CIは容量・CPU/RAM・runtime起動の未知を実測で減らしたが、参照ZIP403で比較に到達しなかった。元の取得依存を疑い、既に保存済みの同じ8原画資料を使う方法へ変更し、余分な再取得を除く。原作品/入力の意味/問い/19要素/71基準は保持する。r2の実到達と残品質差を測るまで見通しを肯定しない。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "全19要素に有効比較なし。過去の参照出所認識2試行は無効、c02eは回答0のタイムアウト。完了作業単位0。"
     - "現行a840のWebKit177/iOS27と原画像は検証済み。移動中の美術、MVD-01/MVD-03、全要素の参照同等性は未測定。source-known診断を盲検合格にしない。"
-    - "c02eで16画像一括の1800秒予算が不足した。Omni wrapperの語彙修復は制御出力を変えず、処理時間/美術知覚を修復したとは未立証。新9Bモデルはlocal取得未完。"
+    - "c02eで16画像一括の1800秒予算が不足した。Omni wrapperの語彙修復は制御出力を変えず、処理時間/美術知覚を修復したとは未立証。新9Bモデルはlocal取得未完。CIの参照ZIP取得403でモデル/control/比較へ未到達、同一原画の既存保存物を利用する方式へ修正。"
     - "local ENOSPCにより通常sandboxが起動前に失敗。重複prefix除去後にpartialが再出現した原因は未確認。削除の通常実行は開始せず、昇格実行は承認設定拒否。回避せずGitHub接続と既存CIで別作業を継続。"
     - "Git通常push認証なし。接続アプリの正規read/writeを使用。local browser/serverの安全拒否と原artifact配送403は迂回しない。"
     - "E9はDB全文画面照合という追加必須工程を置かず、固定抽出と限定画面一致の出所推論を明記する。Joyce文脈修復と原文一致は確認、全文reader最終監査と有効な非認識評価は必要。未play graphを実playにせず、scratch未転送作業を保存済みとしない。"

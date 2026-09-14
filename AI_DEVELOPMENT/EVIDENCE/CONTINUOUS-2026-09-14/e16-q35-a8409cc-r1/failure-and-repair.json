@@ -1,0 +1,27 @@
+{
+  "commit": "846fcbab8d4eb1fb88939a85782938938e626584",
+  "run": 34828054337,
+  "job": 103924648749,
+  "observed": "Preparation failed before either model control or comparison began. Python syntax, disk and physical memory preflight, pinned runtime acquisition and --help completed. HTTP 403 occurred at the next public reference ZIP fetch.",
+  "evidence": [
+    "original-job.log",
+    "resources.json",
+    "prepare-error.json",
+    "runtime-help.stdout.txt",
+    "runtime-help.stderr.txt",
+    "attempt.json"
+  ],
+  "sourceOrderInference": "The helper's next network call after completed runtime --help is the reference ZIP; no model acquisition occurs before that call. The original error lacks a resource field; the next helper records it explicitly.",
+  "comparison": {
+    "performed": false,
+    "answers": 0,
+    "validity": "not measured",
+    "quality": "not measured",
+    "unitCountIncrement": 0
+  },
+  "preservedOutcome": true,
+  "concreteRepair": "Use the same eight reference frames already preserved in comparison-7d42, verify their existing hashes and dimensions before use, and pass their bytes verbatim. No repeated HTTP request, no alternate network route, no reference-work replacement, no cropping or rendering change.",
+  "historicalMetadata": "Existing provenance records only Software tEXt removal, with original pixel and color chunks preserved. These are not the full original-file hashes; both original and preserved-file pins are retained.",
+  "nextAttempt": "e16-q35-a8409cc-r2",
+  "futureExecutionVerified": false
+}

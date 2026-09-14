@@ -1,0 +1,107 @@
+{
+  "attempt": "e16-q35-a8409cc-r1",
+  "product_commit": "a8409cc0de04a503f50395487478fe0cfb2a98e7",
+  "bundle_sha256": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+  "ci_commit": "846fcbab8d4eb1fb88939a85782938938e626584",
+  "runtime": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10809/llama-b10809-bin-ubuntu-x64.tar.gz",
+    "bytes": 16734586,
+    "sha256": "5e34434ddc6d03cd1584f403201aff0d4bd1a5793a72ff7e286532dfd1e4b941",
+    "file": "runtime.tar.gz"
+  },
+  "weights": [
+    {
+      "file": "Qwen3.5-9B-Q8_0.gguf",
+      "bytes": 9527502048,
+      "sha256": "809626574d0cb43d4becfa56169980da2bb448f2299270f7be443cb89d0a6ae4"
+    },
+    {
+      "file": "mmproj-F16.gguf",
+      "bytes": 918166080,
+      "sha256": "f70dc3509053962b0d0d3ee8a7eacebf5d60aa560cad78254ae8698516ae029f"
+    }
+  ],
+  "reference": {
+    "url": "https://playdead.com/press/INSIDE/INSIDE_screenshots.zip",
+    "file": "reference.zip",
+    "bytes": 22376901,
+    "sha256": "ae2a37d2e5ce6712184eae7b923ca71e222220818de7939c4dd1b2947912e411"
+  },
+  "reference_image_hashes": [
+    "f5448456ba69dbb8f3e7746a5612faa52a21f5bd0363348965594eada6573131",
+    "b6630e55d04c6db891ec8e2aa09923979f698f0514a54893b99682bbe8807e51",
+    "35a01057415396ffa17e8629ac465707de672d4aef57ccb24df55a244c748d14",
+    "0635c6e29ae93cdf0dfde62e75eded1d2d7975a59bbc85b3d0215cf283712642",
+    "ae09efeecb6b5e3ac7f30e4aca2f3127634ed01dc23d7864cee8a53ac4858a5f",
+    "5007958e4e4797e5da62ac95b0e0ba00671e9f503c48bc90ee9f8bc6cc6584c2",
+    "efec73fb352ac39a85d6c4bd3d890b4810f3421a1fb9323b6d15ea006a07d431",
+    "ada7f6977d2557b561e58a5c561947b6d06312c160d23155c2a95ce097a57e1e"
+  ],
+  "candidate": [
+    {
+      "file": "visual-south-frame.png",
+      "bytes": 1329117,
+      "sha256": "537f7fcf23d17581458a0ff05d427b1eb085f75f9d36a39c1abbfb6454c55bce"
+    },
+    {
+      "file": "visual-cinder-frame.png",
+      "bytes": 1337651,
+      "sha256": "5dd9c498f77bc713d24b967bf8abb818e39eee2c35480878e8a1aa59fea9507b"
+    },
+    {
+      "file": "visual-arcade-frame.png",
+      "bytes": 1344498,
+      "sha256": "5484424a4fcfc8614e9a3746fc20a2bccedaa86839223ca6e465c6759341bd3c"
+    },
+    {
+      "file": "visual-marrow-frame.png",
+      "bytes": 1346435,
+      "sha256": "26406617dcf8e3f3cbffa91eecb7e4879efe6a53d36400a9b61187cca37a3624"
+    },
+    {
+      "file": "visual-stacks-frame.png",
+      "bytes": 1379664,
+      "sha256": "ee04fb4a3e946136aed8ce46ac9b37de4deb62631fa276275b1004259fb8a947"
+    },
+    {
+      "file": "visual-plant-frame.png",
+      "bytes": 1389518,
+      "sha256": "c8fd39a56926bac0082aacabc5638c48e832732ba98a101c8d8630896958922f"
+    },
+    {
+      "file": "visual-survey-frame.png",
+      "bytes": 1319434,
+      "sha256": "cdcb0e06db16d690850c71ab5f86d2dd5717fcf53ed43e5a2d1684f6852b485d"
+    },
+    {
+      "file": "visual-ventfield-frame.png",
+      "bytes": 1251154,
+      "sha256": "59de6218f2f393c9c191359549f368debc1ef79f774633f961327ebe6608639b"
+    }
+  ],
+  "candidate_side": "B",
+  "input_policy": "All 16 original PNG bytes; no crop, resize, modified pixels or synthetic proxy.",
+  "context": 65536,
+  "output_tokens": 8192,
+  "inference_seconds": 7200,
+  "preparation_seconds": 1800,
+  "control_seconds": 300,
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0,
+    "presence_penalty": 1.5,
+    "repeat_penalty": 1.0,
+    "seed": 917
+  },
+  "source_visibility": "Only neutral labels, question and pixels; the model has no tool access.",
+  "blind_validity": "not measured",
+  "quality_verdict": "not measured",
+  "limitations": [
+    "Recognition must be audited from raw answer; source recognition invalidates blindness.",
+    "Synthetic input control does not establish artistic judgement or benchmark success.",
+    "Source-known agent diagnosis is separate from this attempted comparison.",
+    "No successful throughput prediction for this new model/runner has been measured."
+  ]
+}

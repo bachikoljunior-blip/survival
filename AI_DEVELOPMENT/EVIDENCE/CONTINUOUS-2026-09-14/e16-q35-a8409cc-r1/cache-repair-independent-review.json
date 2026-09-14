@@ -1,0 +1,28 @@
+{
+  "blindComparison": "Static source review only. No inference or visual comparison was performed; score zero is unscored.",
+  "findings": [],
+  "helperBlob": "17e80aeea22e2832ba2031d2a0ff2ed2e0b49497",
+  "limits": [
+    "参照packetは歴史的にSoftware tEXtを除去しており、原PNGとのbyte同一性は主張していない。",
+    "今回はPNG実bytesの再hash・decode・画素比較なし。新Pythonの実行、入力検証完遂、推論成功は次CIで未測定。",
+    "現workflowはまだr1。r2案の適用は未確認。"
+  ],
+  "nativeResolution": "0x0",
+  "operations": "GitHub/Functionsのみ。ローカル操作・保存・branch変更・推論なし。",
+  "profile": "independent-read-only",
+  "provenanceBlob": "38c7985e4d1747ce6681ff5d5264589ceda7f60f",
+  "provenanceCommit": "846fcbab8d4eb1fb88939a85782938938e626584",
+  "refutation": "別担当trench_refuterも独立確認し、残存findingsなし。",
+  "round": "e16-q35-cache-r2",
+  "score": 0,
+  "tier": "source-only",
+  "verdict": "PASS",
+  "verified": [
+    "公式ZIPへの取得呼出しを削除。URLは来歴情報としてのみ残る。",
+    "参照8枚の順序・原hash・packet hash・1920×1080・除去metadataがprovenanceと一致。存在とサイズもcommit固定metadataで確認。",
+    "保存済みPNGをbyte/hash・署名・寸法で検査してから、そのまま中立名へコピーする実装。",
+    "実r1ソースと比較し、prompt・候補a840・モデル・予算・run_model・exportは同一。",
+    "urlopen例外のresource/URL記録を追加。未監査結果はnot measuredを維持。",
+    "末尾r2 job案を既存jobへ置換すれば、指定ブランチのr2 marker付き初回pushで到達可能。"
+  ]
+}

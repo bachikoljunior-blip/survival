@@ -1,14 +1,14 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.19 -->
+<!-- state_revision: 2026-09-14.20 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.19 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.20 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
-今回の続行: 実a8409ccのWebKit177/177・Mobile Safari27/27・publish119/deal114件各結末1を確認。原9+2画像と実会話JSONを全byte SHA256で照合し `current-a8409cc/` に証拠を対応付けた。独立8視点診断でMVD-02対象3材質の細部は静まり、継ぎ目と素材差は残存。出所既知の診断であり全19要素は未測定。旧16画像比較は1800秒で未完、local新モデル取得はENOSPCで失敗し通常sandboxの開始も不可。未解消原因とscratch未転送pinをcheckpointに記録し、既存CI上で固定16原画像を処理する1回比較へ方法を変更する。期限内完全達成は根拠不足であり、期限・条件を変えず実測で不確実性を減らす。
+今回の続行: a840の実WebKit177/iOS27とMVD-02改善診断は `current-a8409cc/` に保存済み。846fcbabの比較jobは構文/容量/固定runtime起動を通過し、参照ZIP403で停止、control/比較は未実行。原job logと5出力を回収し `e16-q35-a8409cc-r1/` に保存。取得済みで同じ画素・色情報を保持した既存参照8画像をpin照合して使うr2へ変更し、参照URL再要求を除く。全19未測定・有効比較0・期限内完全達成は根拠不足。作品や基準を動かさず、比較への実到達を測定する。
 
 ### 2026-09-14 現行の継続地点
 
