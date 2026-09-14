@@ -1,12 +1,14 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.15 -->
+<!-- state_revision: 2026-09-14.16 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.15 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.16 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+
+今回の続行: `ac9cd44` の実F3は成功、会話取得jobはpublish原118eventsを得たが結末未到着で失敗し、Floor全体の合格ではない。iOSはセッション作成で失敗しchecks0。原資料は `mobile-ac9cd44/` と `narrative-ac9cd44/`。実UI会話の独立読解/別反証は `narrative-reading-r1/`、家族の帰結を英日で修正して120条件と独立反証を検証し `garage-consequence-r1/` に保存する。新製品bundle `3aa1d190dd286d73538f7f9266a45edfb3e440ad102c62faaef04c963adbb592` はCPU/build/mirrorのみ確認、実スマートフォン未検証。結末到着待ち・両経路継続・起動原ログ・原画像配送を直し次の実CIへ進む。全19未測定・有効比較0のため期限内達成の見通しは立たず、不明を理由に方法変更を先延ばしにしない。開始/期限は既存記録のまま。
 
 ### 2026-09-14 現行の継続地点
 

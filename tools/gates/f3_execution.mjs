@@ -27,6 +27,7 @@ const STEPS = [
   ['continuation, save/choice and input regressions', ['node', '--test', 'tools/work_state.test.mjs', 'tools/trust_feedback.test.mjs', 'tools/save_recovery.test.mjs', 'tools/guard_toggle.test.mjs']],
   ['shadow surfaces and ray normals', ['node', '--test', 'tools/shadow_batches.test.mjs', 'tools/collision_normals.test.mjs']],
   ['gas choices, save restoration and navigation', ['node', '--test', 'tools/gas_navigation.test.mjs']],
+  ['family consequences and ending restoration', ['node', '--test', 'tools/garage_consequence.test.mjs']],
   ['production build', ['node', 'build.mjs']],
   ['pages root mirror', ['node', 'tools/export_pages_root.mjs', '--check']],
   ['dev build', ['node', 'build.mjs', '--dev']],

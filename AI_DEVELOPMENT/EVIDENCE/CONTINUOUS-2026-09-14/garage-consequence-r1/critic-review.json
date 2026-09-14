@@ -1,0 +1,229 @@
+{
+  "reviewedAt": "2026-09-14T16:02:12.752100+09:00",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored schema sentinel. PASS is the completed bounded independent repair review plus separate refutation for the pinned source; it is not product completion, rendered/mobile success or literary-quality approval.",
+  "round": "garage-consequence-r1",
+  "profile": "independent-consequence-repair-critic",
+  "tier": "cpu-source-save-localization",
+  "nativeResolution": "0x0",
+  "blindComparison": "No blind comparison took place. This reviewer inspected implementation source and authored state cases; no rendered visual, smartphone, full-route, gas-derived physical or literary preference claim can be made from these CPU results.",
+  "findings": [],
+  "scope": "Repair of contradictory garage family epilogues, half/no-filter missing family result, and bereaved shop visit mismatch only, including Director variant selection, persisted state and Japanese localization. No other story audit, product change, browser, server, CI, network, external write or reference-material reinspection.",
+  "source": {
+    "repairFilesMatchingPinnedSnapshotAndLiveAtStart": 7,
+    "cpuClosureFiles": 43,
+    "pinsPath": "critic-source-pins.json",
+    "pinsSha256": "72ad4107f4034d3510742ac7f5cf527cb3f5968cbca034ed2df5eb85910afa1e",
+    "repairPins": [
+      {
+        "path": "src/content/story.js",
+        "bytes": 111902,
+        "sha256": "cbdd9292f01ccce424ea3a26deeeac8a6bd8553279e241aa4355e3b9453c9487"
+      },
+      {
+        "path": "src/game/director.js",
+        "bytes": 76387,
+        "sha256": "884e3773f41a2d9b4d98c8d165c7f3cc3a33b81db0bb912ea450da8836ce806b"
+      },
+      {
+        "path": "src/content/locale/ja/content.js",
+        "bytes": 56856,
+        "sha256": "66d08acf58e0dd470de3f18834a8c65622fb7c544f59c0fa3bdb4d1069beba70"
+      },
+      {
+        "path": "tools/validate.mjs",
+        "bytes": 26754,
+        "sha256": "60b254ccf731605f34ef0c5049e4f4232b080b2771ced2f657da23970708b85b"
+      },
+      {
+        "path": "tools/i18n_report.mjs",
+        "bytes": 16768,
+        "sha256": "c68fb029b1b68b28061393d8ce8784dea727075e69a22f96676f8ba96479c50d"
+      },
+      {
+        "path": "tools/garage_consequence.test.mjs",
+        "bytes": 4387,
+        "sha256": "2cb598474b21d4a6309a85af1c79cbc3ad857827f36080db20d8c247bd765e38"
+      },
+      {
+        "path": "tools/gates/f3_execution.mjs",
+        "bytes": 2730,
+        "sha256": "78e3019de4b77b407fccf5a649faae56b6f72a255105be142d9d1c7b27c7bfb6"
+      }
+    ]
+  },
+  "beforeConfirmed": [
+    {
+      "case": "filter given; leave vents",
+      "measurement": "Actual source choice consumes one filter, sets gave_garage_filter and met_garage; old EPILOGUE_BEATS selects both garage_lived and garage_died.",
+      "originalEvidence": "before-reproduction.json",
+      "independentReproduction": "critic-raw.json before[0]"
+    },
+    {
+      "case": "no filter; half vents",
+      "measurement": "Actual source choice sets vents_half; old EPILOGUE_BEATS selects zero garage family paragraphs.",
+      "independentReproduction": "critic-raw.json before[1]"
+    },
+    {
+      "case": "no filter; leave vents; shop told",
+      "measurement": "Old resolver selects garage_died together with nessa_shop text that promises ongoing weekly visits involving the wife.",
+      "independentReproduction": "critic-raw.json before[2]"
+    }
+  ],
+  "verifiedRepair": [
+    {
+      "case": "filter given with any of the three vent choices",
+      "familyId": "garage_lived",
+      "familyMeaning": "All four escape. No wife-death paragraph is selected."
+    },
+    {
+      "case": "no filter; fully shut",
+      "familyId": "garage_lived",
+      "familyMeaning": "All four escape."
+    },
+    {
+      "case": "no filter; half shut",
+      "familyId": "garage_lived_half",
+      "familyMeaning": "All four are listed for relocation; the workshop closes and paid repair livelihood is lost. Both English and Japanese include the four-person and occupational cost meanings."
+    },
+    {
+      "case": "no filter; leave",
+      "familyId": "garage_died",
+      "familyMeaning": "Husband and two children escape; wife does not. If shop was told, only nessa_shop_bereaved appears, with three names, a forwarding address and no continuing living-wife visits."
+    }
+  ],
+  "execution": {
+    "independentCases": 120,
+    "dimensions": "2 output languages × 2 filter choices × 3 vent choices × 5 final intentions × 2 storage paths",
+    "actualModules": [
+      "GameState",
+      "DialogueRunner",
+      "testCondition",
+      "Director.finish",
+      "Storage.save",
+      "Storage.load",
+      "GameState.deserialise",
+      "i18n t/localiseNode"
+    ],
+    "additionalRestoreCoverage": "All 60 restored cases construct choices in the other offered locale, save through actual Storage to JSON-backed in-memory localStorage, load/deserialize, and display the ending in the target locale. Flags, choices and inventory remain equal; ending/completed persist.",
+    "boundaries": "World vent hooks are recording stubs. Renderer/fades/showEnding are recording boundaries. nt_shop node entry and final intention are explicit fixtures, not a played world route.",
+    "counts": {
+      "originalBeats": 8,
+      "fixedBeats": 8,
+      "originalEndings": 5,
+      "fixedEndings": 5
+    },
+    "locale": "All selected changed Japanese keys exist and no ep.* missing fallback was recorded."
+  },
+  "readingPaths": {
+    "positiveValidator": "Actual pinned tools/validate.mjs completes with VALIDATION OK.",
+    "negativeValidator": "In a disposable Node process only, a variant condition is replaced with critic_garage_control_never_set; actual validator exits 1 and reports the never-set flag.",
+    "positiveLocaleReport": "Actual pinned locale report reads the new variants with their available Japanese keys.",
+    "negativeLocaleReport": "In a disposable Node process only, JA.ep.garage_lived_half is deleted; actual report prints the missing key. Its designed exit status remains 0, so this is a report check rather than a gate success inferred from exit code.",
+    "sourceMutation": "None; negative-control mutations affect process-local imported objects only.",
+    "f3Integration": "Pinned tools/gates/f3_execution.mjs includes the family consequences and ending restoration Node test; the CI itself was not run by this reviewer."
+  },
+  "authorshipBoundary": "The half-measure occupational loss and eventual family relocation are newly authored future consequences. They are not a measurement of real gas, an inference from simulated ppm, or a previously validated historical result. This review finds the tested state and prose internally consistent, without approving prose quality by self-judgment.",
+  "limits": [
+    "No rendered UI or layout verification.",
+    "No real or simulated smartphone run in this review.",
+    "No complete route from new game to all tested scene/final combinations.",
+    "No medical/gas behavior claim.",
+    "No blind comparison or element satisfaction update.",
+    "Mid-dialogue interruption and full world/save restoration are outside this specific completed-choice matrix.",
+    "No acceptance claim for arbitrary contradictory save flags or all historical save versions.",
+    "Source-level sequence prerequisites were explicit fixtures; the separate 24 queries also do not establish complete physical world routes."
+  ],
+  "evidence": [
+    {
+      "path": "critic-raw.json",
+      "sha256": "5d601c2488cd415693d2949b0e114e65383570e70f73ecf05be254b13e40193a"
+    },
+    {
+      "path": "critic-reader-checks.json",
+      "sha256": "e925acd4d79268d7eeb68f4e06fac04b91d95c24d907e8b151a6548b003a17ff"
+    },
+    {
+      "path": "critic-source-pins.json",
+      "sha256": "72ad4107f4034d3510742ac7f5cf527cb3f5968cbca034ed2df5eb85910afa1e"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "158d6d52252bb5794a17db0852bd567eca6587cab861ac6623bc4b8c78fe92af"
+    },
+    {
+      "path": "before-reproduction.json",
+      "sha256": "28adb24fc29f14ca27109f8666ddbed47e1af0c4c037914ebaafe8c5e767fcee"
+    },
+    {
+      "path": "ending-resolver-cases.json",
+      "sha256": "c009fb6129df639283550410a4236692a8f821ad0853f762ecb17106849b94fd"
+    },
+    {
+      "path": "critic-probe.mjs",
+      "sha256": "f0048ba8b3f6a9e0c7ec06d40026abc85b9275b4963037e730fa36addfc58c19"
+    },
+    {
+      "path": "critic-pre-refutation.json",
+      "sha256": "764041e81c0105117096113cec76ea0b83f00395d725c789aeae54f5d4a01607"
+    },
+    {
+      "path": "refutation.json",
+      "sha256": "17b5b56ea90e565d9ceb8a0731d9d5c568b3e620676536f4876d33eeaf7e818a"
+    },
+    {
+      "path": "raw-source-probes.json",
+      "sha256": "740f8ba760748ff261abae3f94635505c2e86abfda1a86f192589114ec6f5d02"
+    },
+    {
+      "path": "refuter-source-probes.mjs",
+      "sha256": "5ecb2e7a165b1f212b3d193e568b872edb983d70cff0cd6bcf88b296d659b76e"
+    },
+    {
+      "path": "final-pin-check.json",
+      "sha256": "f08270fb2c1935747b2ffdb4591bc35fa7440947ff73928079387243bea1b13a"
+    }
+  ],
+  "nextReviewAction": "Publish the unchanged repair through the already authorized parent workflow and measure the real current build in existing CI. This source/CPU gate is complete; actual CI, rendering, smartphone substitution and blind comparison are separate remaining work, not passed here.",
+  "verifiedRepairScope": "The main 120 cases complete the garage conversation (met_garage) and the shop notification. Separate targeted probes cover unmet and unnotified gates. Do not generalize the family result table to arbitrary inconsistent flags or all mid-dialogue interruptions.",
+  "independentRefutation": {
+    "reviewer": "/root/menu_comparison_7c91",
+    "reviewPath": "refutation.json",
+    "reviewSha256": "17b5b56ea90e565d9ceb8a0731d9d5c568b3e620676536f4876d33eeaf7e818a",
+    "rawPath": "raw-source-probes.json",
+    "rawSha256": "740f8ba760748ff261abae3f94635505c2e86abfda1a86f192589114ec6f5d02",
+    "groupsPassed": 6,
+    "groupsFailed": 0,
+    "targetedEndingQueries": 24,
+    "sourceConversationSequences": 6,
+    "result": "The original bounded review survives. No residual defect was demonstrated in the tested legitimate source-level sequences.",
+    "additionalCoverage": [
+      "Before meeting, each of the three vent choices emits no family or shop passage. After meeting but before notification, a family passage and no shop passage appear.",
+      "Actual shop-notification choice is offered after the repeat garage branch supplies shop knowledge; unnotified branch emits no shop passage.",
+      "Six offered-choice sequences include vents before garage, then current v2 and constructed v1-shaped storage and both output languages; all 24 ending queries have the expected single family result.",
+      "Actual Director._ventInteract rejects another vent choice after the first; reconstructed relevant old contradiction state resolves only to garage_lived.",
+      "New English/Japanese family and shop variants agree with their selected state in a bounded semantic reading.",
+      "The other variant also reaches real readers: a never-set condition on nessa_shop_bereaved is rejected by validator, and deleting its Japanese key is reported by locale report."
+    ],
+    "qualifications": [
+      "Constructed legacy envelopes are CPU migration fixtures, not recovered historical user-save files.",
+      "A synthetic schema-valid state with nessa_shop_told and no met_garage emits a shop paragraph; reachability through the tested ordinary source conversations was not established. Arbitrary inconsistent saves are excluded from the acceptance scope.",
+      "The original 120-case matrix covers met-and-notified completed-choice fixtures, not no-meeting gates or complete world traversal. The separate probes add targeted boundaries without converting them to full-route evidence.",
+      "Reader negative controls prove condition/key traversal and reporting only, not mutual exclusion, prose quality or complete reachability. Locale-report exit zero is not a missing-translation gate pass."
+    ]
+  },
+  "preservation": {
+    "primaryReviewUnmodified": true,
+    "separateRefutationUnmodified": true,
+    "beforeFailureEvidenceRetained": true,
+    "original120CaseEvidenceRetained": true,
+    "separateRawSourceProbesRetained": true,
+    "sevenRepairFilesMatchSnapshotAndCurrentRepository": true,
+    "frozenImportClosure43FilesUnchanged": true,
+    "finalPinCheck": "final-pin-check.json",
+    "finalPinCheckSha256": "f08270fb2c1935747b2ffdb4591bc35fa7440947ff73928079387243bea1b13a",
+    "extraFullMatrixRerunsForFinalization": 0
+  },
+  "completionScope": "Bounded independent garage consequence repair review and separate refutation complete with no surviving findings. The larger product goal remains unfinished and no element status is promoted."
+}

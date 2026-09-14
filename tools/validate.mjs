@@ -319,6 +319,10 @@ for (const e of ENDINGS) {
 for (const b of EPILOGUE_BEATS) {
   walkCondition(b.condition, `epilogue beat "${b.id}"`);
   if (!b.text) fail(`epilogue beat "${b.id}": no text`);
+  for (const v of b.variants || []) {
+    walkCondition(v.condition, `epilogue beat "${b.id}" variant "${v.id}"`);
+    if (!v.id || !v.text) fail(`epilogue beat "${b.id}": variant needs id and text`);
+  }
 }
 // The last ending must be unconditional, or a run can end with no ending at all.
 const last = ENDINGS[ENDINGS.length - 1];
@@ -434,7 +438,10 @@ for (const c of ENGINE_BUMPS) {
     }
   };
   for (const e of ENDINGS) { walkThresholds(e.condition); for (const b of e.beats || []) walkThresholds(b.condition); }
-  for (const b of EPILOGUE_BEATS) walkThresholds(b.condition);
+  for (const b of EPILOGUE_BEATS) {
+    walkThresholds(b.condition);
+    for (const v of b.variants || []) walkThresholds(v.condition);
+  }
   for (const cid in CONVERSATIONS) {
     for (const nid in CONVERSATIONS[cid].nodes) {
       const n = CONVERSATIONS[cid].nodes[nid];

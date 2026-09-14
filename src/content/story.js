@@ -2561,20 +2561,41 @@ export const EPILOGUE_BEATS = [
   {
     id: 'nessa_shop',
     condition: { flag: 'nessa_shop_told' },
-    text: `Nessa went down Fenn Street. Ostrowski's wife made her sit down in her own
-father's workshop and would not let her leave until she had eaten something, and
-she has been back every week since, and the ironwork over the door has been
-cleaned.`,
+    text: `Nessa went down Fenn Street while the workshop was still open. Ostrowski's
+wife made her sit down in her own father's workshop and would not let her leave
+until she had eaten something. The next time she came, she brought a wire brush.
+The ironwork still said Bek & Daughter when the shutter came down.`,
+    variants: [{
+      id: 'nessa_shop_bereaved',
+      condition: { all: [{ flag: 'met_garage' }, { flag: 'vents_left' },
+        { not: { any: [{ flag: 'vents_shut' }, { flag: 'vents_half' }, { flag: 'gave_garage_filter' }] } }] },
+      text: `Nessa went down Fenn Street after the Ostrowskis had left. There were three
+names on the forwarding address taped inside the window. She copied the address,
+then stayed to clean the ironwork over the door. It still said Bek & Daughter.
+She had brought food and nowhere to put it.`,
+    }],
   },
   {
     id: 'garage_lived',
-    condition: { all: [{ flag: 'met_garage' }, { any: [{ flag: 'vents_shut' }, { flag: 'gave_garage_filter' }] }] },
+    condition: { all: [{ flag: 'met_garage' }, { any: [{ flag: 'vents_shut' },
+      { flag: 'vents_half' }, { flag: 'gave_garage_filter' }] }] },
     text: `The Ostrowskis got out. All four. He wrote down your name on the back of a
 docket at the relocation office and spelled it wrong and would not be corrected.`,
+    variants: [{
+      id: 'garage_lived_half',
+      condition: { all: [{ flag: 'vents_half' }, { notFlag: 'vents_shut' },
+        { notFlag: 'gave_garage_filter' }] },
+      text: `One shut head did not make the workshop safe. Ostrowski locked it and took
+the tools upstairs. By the time the relocation office found them a room, there
+was nothing left that he could repair for money. All four names went onto the
+form. Under occupation he wrote mechanic, pressed hard enough to tear the paper,
+and wrote it again.`,
+    }],
   },
   {
     id: 'garage_died',
-    condition: { all: [{ flag: 'met_garage' }, { flag: 'vents_left' }] },
+    condition: { all: [{ flag: 'met_garage' }, { flag: 'vents_left' },
+      { not: { any: [{ flag: 'vents_shut' }, { flag: 'vents_half' }, { flag: 'gave_garage_filter' }] } }] },
     text: `The Ostrowskis did not all get out. He did, and the children did. She had not
 come down from the first floor in some time, and on the night the draw turned
 there was nobody downstairs to hear anything, and there was nothing to hear.`,

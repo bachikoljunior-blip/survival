@@ -97,7 +97,8 @@ if (LANG) {
   console.log(`      language: ${got}`);
 }
 
-// The in-page driver: it exercises the real systems, never fakes state.
+// The in-page driver uses real story systems with the simulation shortcuts
+// disclosed in each transcript; its ending flag precedes the final UI fade.
 const DRIVER = readFileSync(join(ROOT, 'tools', 'driver.js'), 'utf8');
 await page.evaluate(DRIVER);
 
@@ -108,8 +109,16 @@ for (const path of PATHS) {
   if (TRANSCRIPT) await page.evaluate(() => { window.__CLTranscript.length = 0; });
   const r = await page.evaluate((p) => window.__CLDriver.run(p), path);
   if (TRANSCRIPT) {
-    const events = await page.evaluate(() => window.__CLTranscript);
     const captureErrors = [];
+    if (r.reachedEnding) {
+      try {
+        await page.waitForFunction(() => window.__CLTranscript.some(event => event.kind === 'ending'),
+          null, { timeout: 30000 });
+      } catch {
+        captureErrors.push('Ending UI did not arrive after the recorded ending state');
+      }
+    }
+    const events = await page.evaluate(() => window.__CLTranscript);
     if (!events.some(event => event.kind === 'dialogue' && event.text.trim())) captureErrors.push('No dialogue text captured');
     const endings = events.filter(event => event.kind === 'ending');
     if (endings.length !== 1 || !endings[0].title.trim()

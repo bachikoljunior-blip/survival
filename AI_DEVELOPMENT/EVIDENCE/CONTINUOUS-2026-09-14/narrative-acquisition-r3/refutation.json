@@ -1,0 +1,90 @@
+{
+  "round": 3,
+  "profile": "independent-ending-race-and-two-path-refutation",
+  "tier": "focused-source-cpu-only",
+  "originalReview": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/review-raw.json",
+  "result": "sustained-with-scope-limits",
+  "summary": "Both targeted mechanisms survive attempted refutation. Two independent focused groups now pass. The ending wait addresses a reproducible state-before-UI race, preserves partial material on a serializable timeout, and the shell block attempts both paths while retaining failure. Historical CI timing is not uniquely established.",
+  "findings": [],
+  "claimChecks": [
+    {
+      "id": "O1",
+      "status": "sustained",
+      "attemptedRefutation": "The historical payload might contain an ending or differ from the reported bytes; raw reachedEnding could be misread as acquisition success.",
+      "evidence": "Independent read/hash of original-ci/transcript-en-publish.json verified 26166 bytes and SHA-256 7323c6999a2a956807a74043afe337cd8850f10a178d245dc42e0aabbab9d6be, with 95 dialogue events, 23 choices, zero endings, reachedEnding=true, ending=record, no recorded browser errors, and captureSucceeded=false. acquisition.json matches; job.log reports PLAYTHROUGH FAILED.",
+      "correction": "These are preserved artifact facts. They do not identify the historical internal timing cause."
+    },
+    {
+      "id": "O2",
+      "status": "qualified",
+      "attemptedRefutation": "The wait might occur after serialization, or the CPU fixture might merely invent the claimed production ordering.",
+      "evidence": "Frozen Director.finish assigns S.ending before await menus.fadeOut(true), and frozen fadeOut uses 1800ms for true. showEnding follows the await. The inspected original CPU harness extracts those actual methods and controls their timers. Independent execution of the exact old/new collector blocks confirmed old snapshot at 118 events and new wait→ending event→snapshot at 119 events.",
+      "correction": "The independent run used a controlled event signal, while the existing CPU reproduction used actual finish/fade/showEnding methods. The new barrier establishes receipt of an ending event, not completion of fadeIn, saving, rendering, or all of Director.finish. Historical source equality to ac9cd44 was not independently authenticated against Git in this bounded pass."
+    },
+    {
+      "id": "O3",
+      "status": "sustained",
+      "attemptedRefutation": "Timeout handling might discard captured dialogue, mutate the raw driver outcome, hide failure, or wait unnecessarily after a non-ending result.",
+      "evidence": "Independent exact-collector execution retained all 118 original events byte-equivalently after JSON serialization, preserved the raw execution object and empty browserErrors, recorded both wait and missing-ending errors, and evaluated final failure=true. The no-ending case made zero wait calls and failed. The source passes timeout:30000.",
+      "correction": "Retention depends on the page still allowing event serialization. No real 30-second wait, destroyed-context recovery, browser run, or CI was performed."
+    },
+    {
+      "id": "O4",
+      "status": "sustained",
+      "attemptedRefutation": "Shell errexit might still skip deal, or deal success might reset a prior publish failure.",
+      "evidence": "Independent execution of the exact frozen Bash blocks with node replaced by a status stub: old 7/0 called publish only and exited 7; repaired 0/0, 7/0, 0/9, 7/9 called publish then deal and exited 0, 7, 9, 9 respectively.",
+      "correction": "The claim holds for ordinary command returns under the tested shell. It does not establish continuation after job cancellation, runner loss, or timeout, nor successful artifact delivery."
+    },
+    {
+      "id": "H1",
+      "claim": "The reproduced ending race uniquely caused the original CI failure.",
+      "status": "not-verifiable",
+      "attemptedRefutation": "A failure between ending-state assignment and showEnding, or another event-acquisition problem, could produce the same incomplete payload.",
+      "evidence": "The original CI material has no internal finish/fade timeline. The review already explicitly declines an exclusive-cause conclusion.",
+      "correction": "Retain this as a concrete reproduced mechanism consistent with the historical symptom, not the uniquely proven historical cause."
+    },
+    {
+      "id": "V1",
+      "claim": "Narrow CPU PASS with score zero meaning Unscored.",
+      "status": "sustained",
+      "attemptedRefutation": "PASS or the added wait could be mistaken for successful repaired CI acquisition or game-quality completion.",
+      "evidence": "The raw review expressly withholds real CI acquisition and product-quality conclusions. The two targeted mechanisms passed the independent focused checks.",
+      "correction": "Keep those scope limits and Unscored meaning. Eventual E8/E9 judges must not receive implementation source, these CPU fixtures, or this review as quality evidence."
+    }
+  ],
+  "independentEvidence": {
+    "script": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/independent-check.mjs",
+    "results": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/independent-results.json",
+    "passed": 2,
+    "failed": 0,
+    "preservedInitialFailureScript": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/independent-check-initial-failure.mjs",
+    "preservedInitialFailureResults": "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/independent-results-initial-failure.json",
+    "initialFailureExplanation": "The independent shell extractor used a hardcoded marker length one character too long, truncating the first command and failing before the workflow behavior was tested. Both initial files were preserved. The extractor now uses marker.length; the same two focused groups were rerun without product or original-record changes."
+  },
+  "reviewedEvidence": [
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source/tools/playthrough.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source-before/tools/playthrough.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source/.github/workflows/gates.yml",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source-before/.github/workflows/gates.yml",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source/src/game/director.js",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/source/src/ui/screens.js",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/original-ci/transcript-en-publish.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/original-ci/acquisition.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/original-ci/job.log",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-targeted.mjs",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-results.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-state-ui-race.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-two-path-shell.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/cpu-results-initial-failure.json",
+    "/workspace/scratch/0b7ad82bafe7/narrative-acquisition-r3/harness-failure-note.txt"
+  ],
+  "restrictions": {
+    "originalRecordsPreserved": true,
+    "productOrFrozenSourceEdits": false,
+    "browserServerOrCIStarted": false,
+    "mutableRootRead": false,
+    "storySourceRead": false,
+    "broadR2Rerun": false,
+    "qualityJudgeMaterial": false
+  }
+}

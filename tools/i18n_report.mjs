@@ -76,7 +76,10 @@ for (const e of ENDINGS) {
     want('endings', `e.${e.id}.epilogue.untold`);
   }
 }
-for (const b of EPILOGUE_BEATS) want('endings', `ep.${b.id}`);
+for (const b of EPILOGUE_BEATS) {
+  want('endings', `ep.${b.id}`);
+  for (const v of b.variants || []) want('endings', `ep.${v.id}`);
+}
 
 // People, items, capabilities.
 for (const id in CAST) {

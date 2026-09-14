@@ -1,0 +1,97 @@
+{
+  "round": "garage-consequence-r1-refutation",
+  "profile": "independent-garage-consequence-refuter",
+  "tier": "fixed-source-cpu",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored schema sentinel. PASS concerns this bounded source/CPU refutation only; combined finalization belongs to the original reviewer.",
+  "blindComparison": "No blind preference comparison occurred. Fixed implementation source and CPU state fixtures were inspected solely for internal consequence consistency. Neither this review nor its fixtures establish literary quality, rendered behavior, E8/E9 success or measured real-world outcomes.",
+  "result": "Original narrow review survives with explicit scope qualifications; no demonstrated defect from the tested valid source-level sequences.",
+  "findings": [],
+  "originalReview": "/workspace/scratch/0b7ad82bafe7/garage-consequence-r1/critic-pre-refutation.json",
+  "originalReviewSha256": "764041e81c0105117096113cec76ea0b83f00395d725c789aeae54f5d4a01607",
+  "originalRawReview": "/workspace/scratch/0b7ad82bafe7/garage-consequence-r1/critic-raw.json",
+  "independentEvidence": {
+    "script": "/workspace/scratch/0b7ad82bafe7/garage-consequence-r1/refuter-source-probes.mjs",
+    "rawResults": "/workspace/scratch/0b7ad82bafe7/garage-consequence-r1/raw-source-probes.json",
+    "groupsPassed": 6,
+    "groupsFailed": 0,
+    "targetedEndingQueries": 24,
+    "additionalAgents": 0
+  },
+  "claimChecks": [
+    {
+      "id": "R1",
+      "claim": "The frozen inputs and original records support the review being refuted.",
+      "status": "sustained",
+      "attemptedRefutation": "The pre-review or snapshot could have drifted while root source changed.",
+      "evidence": "The supplied pre-refutation SHA matches exactly. All 43 pinned CPU-closure source files were hashed before and after the independent checks; all match critic-source-pins.json. Original review remained unchanged.",
+      "limit": "No mutable product source was used and no claim is made about a later build."
+    },
+    {
+      "id": "R2",
+      "claim": "No garage family passage leaks before meeting; no shop passage leaks when the shop has not been notified.",
+      "status": "qualified",
+      "attemptedRefutation": "Vent choices or an early filter effect could activate a variant without its parent gate; a shop paragraph could appear before the actual notification choice.",
+      "evidence": "Actual ending resolution after each of leave/half/shut with no meeting produced no family or shop passage. After the actual garage conversation but before notification, exactly one family passage and no shop passage appeared. A filter-given/before-met checkpoint restored through constructed v1 migration still emitted no family passage. Actual nessa_truth dialogue offered nt_shop only after the repeat garage branch set ostrowski_bek; the unnotified branch emitted no shop passage.",
+      "qualification": "A hand-constructed schema-valid state containing nessa_shop_told but no met_garage does emit the base shop passage. This follows its notification gate and is not established as reachable through the tested source conversations. Therefore do not extend the review to arbitrary inconsistent save flags."
+    },
+    {
+      "id": "R3",
+      "claim": "Valid source-level choice order and restored state do not produce both family outcomes.",
+      "status": "sustained-with-limits",
+      "attemptedRefutation": "Choosing vents before the garage, restoring older state, or repeating the vent interaction might retain incompatible flags and select two family paragraphs.",
+      "evidence": "Six targeted offered-choice sequences, current-v2 and constructed-v1 storage, and both output languages produced 24 ending queries with exactly the expected single family passage. Actual Director._ventInteract refused a second vent decision after the first. The relevant state reconstructed from before-reproduction.json restored to garage_lived only. A synthetic mixed-vent-flag boundary also selected only garage_lived.",
+      "sourceReason": "garage_lived requires met_garage and a live-cause disjunction; garage_died requires met_garage, vents_left and the negation of that same disjunction. The selected variant replaces its parent passage in Director.finish.",
+      "limit": "Upstream interaction/scene prerequisites were explicit fixtures. These are source-level sequences, not a claim of complete world-route reachability. Constructed v1 envelopes are not recovered historical user-save artifacts."
+    },
+    {
+      "id": "R4",
+      "claim": "The changed English and Japanese passages agree with their selected state.",
+      "status": "sustained-with-limits",
+      "attemptedRefutation": "A wrong variant key or translation could still promise a living wife or four survivors in the bereaved state, or erase the half-measure cost.",
+      "evidence": "Actual localized ending outputs select garage_lived for live causes, garage_lived_half only for half/no-filter/no-shut, and garage_died for left/no-live-cause. The checked English and Japanese bodies agree on four surviving family members in the live passages, four names plus lost workshop livelihood in the half variant, husband and children without the wife in the death passage, and three names/forwarding address in the bereaved shop variant. The default shop passage places its visits before closure rather than promising continuing weekly living-wife visits. New Japanese keys exist; alternate missing-key control is detected.",
+      "limit": "This is a bounded semantic consistency reading of the changed passages, not approval of prose quality or a complete translation audit."
+    },
+    {
+      "id": "R5",
+      "claim": "The independent 120-case result has the stated coverage.",
+      "status": "qualified",
+      "attemptedRefutation": "Repeated rows or implicit fixture assumptions could inflate the claimed coverage.",
+      "evidence": "There are 120 unique combinations of language, filter choice, three vent choices, five final intentions and restored/not-restored state. Exactly 60 restore across output locales. Every row has met_garage and nessa_shop_told. The probe uses actual Storage load/save and ending resolution but enters nt_shop and records final intention explicitly.",
+      "qualification": "The original matrix itself does not cover unmet/unnotified gates, alternate conversation order, historical v1 bytes, all interruptions or complete routes. Those narrower boundaries are already disclosed by the original review; the new probes add targeted boundaries only."
+    },
+    {
+      "id": "R6",
+      "claim": "Reader positive and negative controls demonstrate the new variant reading paths.",
+      "status": "sustained-with-limits",
+      "attemptedRefutation": "Saved logs might not match, or a control on one variant might conceal missing traversal of the other variant.",
+      "evidence": "All eight original reader log hashes and byte sizes match their records. In independent disposable Node processes, a never-set flag on nessa_shop_bereaved makes the actual validator exit 1; deletion of JA.ep.nessa_shop_bereaved makes the actual locale report print that missing key while retaining its designed exit 0. Raw outputs are preserved as refuter-validator-other-variant-* and refuter-locale-other-variant-* logs.",
+      "qualification": "These controls establish condition/key reading and reporting. They do not prove mutual exclusion, outcome completeness, translation meaning or reachability. Locale-report exit 0 is not a missing-translation gate pass."
+    },
+    {
+      "id": "R7",
+      "claim": "New fictional consequences are not presented as measured facts.",
+      "status": "sustained",
+      "attemptedRefutation": "The half-measure relocation and occupational loss might be treated as validated gas effects or preexisting history merely because state tests pass.",
+      "evidence": "The original review and this pass explicitly label them newly authored future consequences. The tests evaluate selection, persistence and internal prose/state consistency only.",
+      "limit": "No gas/medical measurement, historical verification, full-play outcome observation, or blind quality judgment occurred."
+    }
+  ],
+  "scopeLimits": [
+    "Fixed critic-source only; no mutable product source or product edits.",
+    "No browser, server, CI, smartphone, full route, rendering or reference-material review.",
+    "In-memory localStorage and constructed legacy envelopes do not establish browser persistence or all historical save compatibility.",
+    "Full end-condition space and unrelated story systems were not re-audited.",
+    "No element satisfaction or literary preference conclusion."
+  ],
+  "preservation": {
+    "originalReviewUnchanged": true,
+    "fixedSourcePinsUnchanged": true,
+    "originalFailureEvidenceRetained": true,
+    "independentUnexpectedFailures": 0,
+    "expectedNegativeReaderExit1Preserved": true
+  },
+  "handoff": "Send this refutation and raw-source-probes to acquisition_path_review. Keep the original review and this record separately; original reviewer may combine them into the final review without erasing qualifications."
+}

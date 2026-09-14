@@ -1587,7 +1587,10 @@ she has been able to get to telling somebody.`],
       paras.push(t(`e.${ending.id}.epilogue.${which}`, ending.epilogue[which]));
     }
     for (const b of EPILOGUE_BEATS) {
-      if (testCondition(b.condition, S)) paras.push(fill(t(`ep.${b.id}`, b.text)));
+      if (testCondition(b.condition, S)) {
+        const passage = (b.variants || []).find(v => testCondition(v.condition, S)) || b;
+        paras.push(fill(t(`ep.${passage.id}`, passage.text)));
+      }
     }
     // The run's own record, in Ren's voice and in her units, rather than a
     // scoreboard. Every ending in the game used to finish on "Time in Hollis:

@@ -1,0 +1,60 @@
+{
+  "scope": "One synthetic visual-input fidelity control; not a reference comparison or a calibrated quality judge.",
+  "files": [
+    {
+      "file": "control.png",
+      "bytes": 2338,
+      "sha256": "8df9cbefd5fa3ca296eed9dfa1170f074db932738d323d7c3a77e047a78a60b2"
+    },
+    {
+      "file": "expected.json",
+      "bytes": 717,
+      "sha256": "fa1eec72054b8746a4aee8736487dd18d4183885d158b2e258019d70af92e0a5"
+    },
+    {
+      "file": "prompt.txt",
+      "bytes": 274,
+      "sha256": "d9db21582dee35aececdc9a4a2395ffd8f29acb6d777379184cd860c18c1e6e4"
+    },
+    {
+      "file": "run-cwd.json",
+      "bytes": 1709,
+      "sha256": "19dd0a88460405c58573507250d2944b86547773b0ec89383a66794aad22d109"
+    },
+    {
+      "file": "run.json",
+      "bytes": 1454,
+      "sha256": "88c2ae9a46de97991d7917c5d0ab9acd10faa90a662bef246d405fdd56fc17db"
+    },
+    {
+      "file": "stderr-cwd.txt",
+      "bytes": 1333,
+      "sha256": "f063bb25c3d2d5115cf2a7d8b9ec450ddea276a7cbff26395af782df4e276c81"
+    },
+    {
+      "file": "stderr.txt",
+      "bytes": 815,
+      "sha256": "caac7a553292fc428412876fd7fd4fea4834cce7178b41c78c5a98a83e427664"
+    },
+    {
+      "file": "stdout-cwd.txt",
+      "bytes": 256,
+      "sha256": "3b8638046fbf4c3be0766ee7b56a7a2a8b2f15d6aa4042eb0192a13eb5fc1cae"
+    },
+    {
+      "file": "stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "observed": "After correcting only the runtime cwd, the same model/input/prompt completed. It reported three objects with correct colors/shapes in the left region and none in the right. Triangle position was top center rather than within-left-region upper right; coordinate frame was ambiguous.",
+  "failed_attempt_retained": "Initial backend loading failure at a cwd different from the verified runtime; no inference occurred.",
+  "not_established": [
+    "Reliability on lighting, materials, depth or visual composition",
+    "Source anonymity on any target pair",
+    "Competence for preference judgments",
+    "Audio pipeline repair"
+  ],
+  "elements_changed": [],
+  "blind_comparisons": 0
+}

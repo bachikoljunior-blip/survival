@@ -1,0 +1,329 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Unscored schema sentinel. No native, touch, audiovisual, element or product quality score.",
+  "verdictMeaning": "The actual acquisition job failed during session startup and its cause remains unresolved. CPU parsing and proposed diagnostic transport checks do not repair or pass native startup.",
+  "blindComparison": "No blind comparison or reference-media evaluation was performed. A stranger preference cannot be inferred from CI startup logs or CPU source checks.",
+  "round": "ios-ac9-startup-r1",
+  "profile": "actual-CI-session-startup-diagnostic",
+  "tier": "CPU-source-review",
+  "nativeResolution": "0x0",
+  "refutationStatus": "COMPLETE_SEPARATE_REFUTER",
+  "findings": [
+    {
+      "id": "IOS-AC9-STARTUP-TRACE",
+      "severity": "major",
+      "shot": "ac9cd44 iOS job103877862413 POST/session failure; original log lines361-400",
+      "problem": "The failed job records zero checks and the remote-debugger error, but its ordinary job log contains no Appium startup trace. The active workflow sends Appium stdout/stderr to /dev/null and preserves appium.log only through its artifact. The available evidence therefore cannot distinguish Safari launch/inspection failure from the earlier startup stages.",
+      "why": "Changing startup behavior without the actual launch, WDA and remote-debugger chronology would act on an unverified cause and could hide the failed acquisition.",
+      "owner": ".github/workflows/mobile-simulator.yml",
+      "fix": "For one next existing GitHub CI run, insert the single always() diagnostic step in proposed-mobile-simulator.yml after Stop recording and before the existing artifact step. It exports appium.log up to 4194304 bytes plus four selected environment files up to 65536 bytes each, with full captured-snapshot SHA256, byte ranges, explicit incomplete/missing metadata and natural stdout draining. Keep session capabilities and all timeouts unchanged. Read python -m json.tool /workspace/scratch/0b7ad82bafe7/ios-ac9-startup-review/raw/proposal-verification-r3.json and raw/startup-analysis.json: session snippet SHA must remain 97a1a2ac54daa757a4c80cdb4c086a8a4128d7304e6e495e0dfbec12b8bf51ef, included range bytes must reconstruct exactly, and 4194305-byte input must say complete:false.",
+      "hypothesis": "Confirmed source mechanism for the diagnostic gap only: mobile-simulator.yml line79 redirects console output while lines100-107 upload the file. The actual session startup root cause is unconfirmed. The artifact upload succeeded; the source log itself is not claimed lost, corrupt, or nonexistent.",
+      "introducedOrPreexisting": "Preexisting observation gap, byte-identical in55fa andac9. Not an introduced game or two-thumb defect.",
+      "evidence": [
+        "source/current-.github_workflows_mobile-simulator.yml:79",
+        "source/current-.github_workflows_mobile-simulator.yml:100",
+        "raw/mobile-ac9cd44_ios-job.log:361",
+        "raw/mobile-ac9cd44_ios-job.log:388",
+        "raw/startup-analysis.json",
+        "raw/proposal-verification-r3.json",
+        "raw/proposal-yaml-validation.json"
+      ],
+      "refutation": {
+        "status": "SURVIVED",
+        "evidence": "refuter-review.json",
+        "limits": "Diagnosis remains unknown; the proposal obtains evidence and is not a measured startup repair."
+      }
+    }
+  ],
+  "actualObservation": {
+    "commit": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+    "runId": "34812994101",
+    "jobId": "103877862413",
+    "log": "raw/mobile-ac9cd44_ios-job.log",
+    "bytes": 36204,
+    "sha256": "616d99ff037194953cda9f1e9aa2d5d7e4a52a011969e99f3158dd0cc43c7538",
+    "failure": "Error: WebDriver POST /session: The remote debugger did not return any connected web applications after 43484ms. Make sure your web application is debuggable and could be inspected in Safari Web Inspector. You may try to change the 'webviewConnectTimeout' capability value to customize the retrieval timeout.\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)",
+    "recordedChecks": 0,
+    "recordedInputActions": 0,
+    "checkedAt": "2026-09-14T06:23:51.350Z",
+    "exactPostSessionDurationKnown": false,
+    "remoteDebuggerReportedIntervalMs": 43484,
+    "clientTotalBudgetMs": 900000,
+    "sessionCreationReturnedErrorEnvelope": true,
+    "clientTotalBudgetExpired": false,
+    "explicitGameUrlNavigationReached": false,
+    "touchFixReached": false,
+    "bootstatusFinished": true,
+    "artifact": {
+      "uploadSucceeded": true,
+      "filesReported": 11,
+      "uploadedZipBytes": 554414,
+      "sha256": "f87427398c90c2c013905cb116d6dbde60566808ca5e1db2360e2d5b1b3e2d3d",
+      "contentsRetrievedForThisReview": false
+    },
+    "firstLoggedErrorAt": "2026-09-14T06:33:35.1974850Z",
+    "reportInitializationToLoggedErrorMs": 583847
+  },
+  "comparativeControl": {
+    "priorCommit": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+    "originalLog": "raw/ios55-job.log",
+    "report": "raw/55fa-original-report.json",
+    "recordedPassedChecks": 12,
+    "recordedFailureStateMode": "play",
+    "wholeJobStatus": "failed",
+    "sessionSourceByteIdentical": true,
+    "sessionSourceBytes": 1098,
+    "sessionSourceSha256": "97a1a2ac54daa757a4c80cdb4c086a8a4128d7304e6e495e0dfbec12b8bf51ef",
+    "unchanged": [
+      {
+        "snapshotName": ".github_workflows_mobile-simulator.yml",
+        "sha256": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa",
+        "bytes": 4418,
+        "identicalAcrossThreeSnapshots": true
+      },
+      {
+        "snapshotName": ".github_workflows_pages.yml",
+        "sha256": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8",
+        "bytes": 6749,
+        "identicalAcrossThreeSnapshots": true
+      },
+      {
+        "snapshotName": "tools_webdriver-request.mjs",
+        "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1",
+        "bytes": 1987,
+        "identicalAcrossThreeSnapshots": true
+      },
+      {
+        "snapshotName": "tools_select-ios-simulator.mjs",
+        "sha256": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74",
+        "bytes": 2176,
+        "identicalAcrossThreeSnapshots": true
+      }
+    ],
+    "sameLoggedEnvironment": {
+      "runnerImage": "macos-15-arm64",
+      "imageVersion": "20260907.0337.1",
+      "macOS": "15.7.9",
+      "build": "24G830",
+      "platformVersion": "18.5",
+      "selectedDevice": "iPhone SE (3rd generation)",
+      "appiumInstallPin": "3.6.0",
+      "xcuitestInstallPin": "12.1.3",
+      "node": "v22.23.2",
+      "npm": "10.9.8"
+    },
+    "interpretation": "This counters a deterministic claim that the unchanged startup configuration can never work. It does not prove an intermittent infrastructure cause or identical full runtime state/dependencies.",
+    "environmentEvidence": "raw/environment-comparison.json"
+  },
+  "hypothesesNotActionableYet": [
+    {
+      "hypothesis": "Safari launch, default page readiness or WebKit inspection handshake did not yield a discoverable web application.",
+      "missingEvidence": "Actual Safari launch/bundle/PID/default-page and connected-application messages from this failed Appium session.",
+      "status": "Unconfirmed; generic error text is not a root-cause diagnosis."
+    },
+    {
+      "hypothesis": "Slow earlier setup, WDA build/launch or retries account for much of the approximately584-second interval.",
+      "missingEvidence": "Actual POST arrival time and per-stage Xcode/WDA timestamps, retries and responses.",
+      "status": "Unconfirmed;43484ms must not be subtracted from583847ms and labeled measured WDA duration."
+    },
+    {
+      "hypothesis": "A resolved runtime dependency or selected Xcode detail differs despite matching top-level version pins and runner image label.",
+      "missingEvidence": "Actual Xcode version/path file contents and resolved runtime package versions if the Appium trace implicates a dependency.",
+      "status": "Unconfirmed; do not upgrade/downgrade runtime components based on this possibility."
+    }
+  ],
+  "unsupportedOrCounteredClaims": [
+    "The recent two-thumb action change caused this error: its source executes only after session creation and title/game checks, which were not reached.",
+    "The production game lacks Web Inspector support: explicit navigation to its URL was not reached, so this log cannot establish that claim.",
+    "The900000ms client session budget expired: error originated from parsed Appium response at webdriver-request.mjs line33, after less than that initialization-to-error interval.",
+    "Simulator bootstatus was still pending: this actual log records isTerminal=YES and Finished before Appium starts. That alone does not establish Safari/WDA readiness.",
+    "Raising all timeouts, resetting state or manually prelaunching Safari is a demonstrated repair: no present evidence validates such a mechanism."
+  ],
+  "proposedNextActualVerification": [
+    "Author applies only the proposed observation step to the existing active mobile-simulator workflow, preserving the original failed job and its hashes. No product, helper, capability, timeout or startup-command change is proposed.",
+    "Run one normal existing GitHub CI push/dispatch at its explicit resulting commit, with the same selected simulator policy and session payload. No local simulator/server/browser, external automation, authentication change or denied-artifact-route retry is needed.",
+    "Recover the emitted allowlisted text snapshots through the ordinary job log. Verify each complete file against bytes/SHA256 and contiguous chunks; preserve incomplete ranges, missing files and unstableDuringRead state as limitations. Existing artifact output remains available through its normal authorized use; no prior rejected route is retried.",
+    "Use the Appium trace to locate POST receipt, WDA build/launch/status, Safari launch and remote-debugger app discovery or failure. Preserve any server error stack and stage timing. Do not infer those from the43484ms summary alone.",
+    "If the same startup succeeds, record only that observed run and continue the existing touch/game checks. It does not establish a startup repair. If it fails, select a bounded correction only when the newly captured trace supports its mechanism, and retain both runs."
+  ],
+  "proposedArtifacts": {
+    "exporter": "proposed-startup-log-export.mjs",
+    "exporterSha256": "d9efe58574a4899d748afdb0123f1e53886a2ddf55021b552fcd7ec0cde374ee",
+    "workflow": "proposed-mobile-simulator.yml",
+    "workflowSha256": "316f1e2f873abab0f4e85151ca764303d4b733756882e4c0c5c3cabf869edf8b",
+    "diff": "raw/proposed-workflow.diff",
+    "appliedToRepository": false,
+    "insertedSteps": 1,
+    "applicablePatch": "proposed-mobile-simulator.patch",
+    "patchCheck": {
+      "command": "git -C survival apply --check ../ios-ac9-startup-review/proposed-mobile-simulator.patch",
+      "exitCode": 0,
+      "raw": [
+        "raw/patch-check.stdout.txt",
+        "raw/patch-check.stderr.txt"
+      ],
+      "applied": false
+    }
+  },
+  "cpuControls": {
+    "startupSourceAndLogParsing": "raw/startup-analysis.json",
+    "proposalTransport": "raw/proposal-verification-r3.json",
+    "yaml": "raw/proposal-yaml-validation.json",
+    "sourceCaptureMeaning": "Only the exact session-payload construction snippet ran with a recorder function; no HTTP request or simulated Appium result was measured.",
+    "logFixtures": "Synthetic byte patterns validate transport, not iOS or real Appium evidence.4194304 bytes round-trip exactly with a150ms delayed OS-pipe reader;4194305 bytes exports two exact ranges totaling4194304 and declares incomplete.",
+    "firstProbeFailure": "verify-proposal.mjs attached the child close listener after a delay and missed completion, exit13. Its script and stderr remain.",
+    "secondProbeFailure": "verify-proposal-r2.mjs registered close early but attached stdout data late; the small child had already exited and the collector retained zero bytes, exit1. Script and raw output remain. This is a probe error, not evidence of exporter loss.",
+    "correctedProbe": "verify-proposal-r3.mjs attaches close/data listeners before pause. First data for large controls arrived after150/151ms; the small child auto-drained at56ms, so the small case is not claimed delayed for the full150ms."
+  },
+  "limits": [
+    "This reviewer performed no new iOS, browser, server, simulator or CDP execution and no network/artifact retrieval.",
+    "The ac9 Appium file, simulator environment file contents and native video were not retrieved; successful upload metadata is not the files themselves.",
+    "The proposed exporter captures a file snapshot after existing cleanup. stableDuringRead checks size/mtime during reading and does not prove all server writes finished permanently.",
+    "The4MiB content cap limits emitted Appium bytes, not in-memory readFileSync usage. A larger log is read to hash the captured snapshot and only its head/tail are exported.",
+    "Only the active mobile workflow is proposed for the next experiment. The unchanged pages workflow has the same logging pattern; extending the observation step there is relevant if that workflow is the next actual run.",
+    "Existing local official Appium web/gesture source was considered, but it does not establish this failed session startup cause. No WDA gesture semantics were re-reviewed as a startup explanation.",
+    "No native PNG, blind comparison, reference-media, sound criteria, benchmark, element pass or additional mandatory review gate is claimed."
+  ],
+  "sourcePins": [
+    {
+      "original": "tools/test-ios-safari.mjs",
+      "ref": "current",
+      "snapshot": "source/current-tools_test-ios-safari.mjs",
+      "bytes": 25254,
+      "sha256": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d"
+    },
+    {
+      "original": "tools/test-ios-safari.mjs",
+      "ref": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+      "snapshot": "source/ac9cd44-tools_test-ios-safari.mjs",
+      "bytes": 25254,
+      "sha256": "b85b83ec116fe0187af82eca847c7d6ecb14db3e18498dcb96c228e43d285a2d"
+    },
+    {
+      "original": "tools/test-ios-safari.mjs",
+      "ref": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+      "snapshot": "source/55fa8fe-tools_test-ios-safari.mjs",
+      "bytes": 25169,
+      "sha256": "e9be30fb7e6c33c2086abca618e9cbe5ae899f830172660d21aa88740db24c11"
+    },
+    {
+      "original": "tools/webdriver-request.mjs",
+      "ref": "current",
+      "snapshot": "source/current-tools_webdriver-request.mjs",
+      "bytes": 1987,
+      "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1"
+    },
+    {
+      "original": "tools/webdriver-request.mjs",
+      "ref": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+      "snapshot": "source/ac9cd44-tools_webdriver-request.mjs",
+      "bytes": 1987,
+      "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1"
+    },
+    {
+      "original": "tools/webdriver-request.mjs",
+      "ref": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+      "snapshot": "source/55fa8fe-tools_webdriver-request.mjs",
+      "bytes": 1987,
+      "sha256": "38901ca0b27ec6a5acfd9e398c873f4c85536b4af73e44d8b5fb65f242ad9fd1"
+    },
+    {
+      "original": ".github/workflows/mobile-simulator.yml",
+      "ref": "current",
+      "snapshot": "source/current-.github_workflows_mobile-simulator.yml",
+      "bytes": 4418,
+      "sha256": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa"
+    },
+    {
+      "original": ".github/workflows/mobile-simulator.yml",
+      "ref": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+      "snapshot": "source/ac9cd44-.github_workflows_mobile-simulator.yml",
+      "bytes": 4418,
+      "sha256": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa"
+    },
+    {
+      "original": ".github/workflows/mobile-simulator.yml",
+      "ref": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+      "snapshot": "source/55fa8fe-.github_workflows_mobile-simulator.yml",
+      "bytes": 4418,
+      "sha256": "0dee86dc42358b8989d5bac742cb479f104f346f38b9f7118a3419512c4198aa"
+    },
+    {
+      "original": ".github/workflows/pages.yml",
+      "ref": "current",
+      "snapshot": "source/current-.github_workflows_pages.yml",
+      "bytes": 6749,
+      "sha256": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8"
+    },
+    {
+      "original": ".github/workflows/pages.yml",
+      "ref": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+      "snapshot": "source/ac9cd44-.github_workflows_pages.yml",
+      "bytes": 6749,
+      "sha256": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8"
+    },
+    {
+      "original": ".github/workflows/pages.yml",
+      "ref": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+      "snapshot": "source/55fa8fe-.github_workflows_pages.yml",
+      "bytes": 6749,
+      "sha256": "ff80025f474d03a0f001f5a35bb106ef575a75c1d5a11c48f39f740a7ccd25f8"
+    },
+    {
+      "original": "tools/select-ios-simulator.mjs",
+      "ref": "current",
+      "snapshot": "source/current-tools_select-ios-simulator.mjs",
+      "bytes": 2176,
+      "sha256": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74"
+    },
+    {
+      "original": "tools/select-ios-simulator.mjs",
+      "ref": "ac9cd44e5880b19fddce08b38197895e7ec94389",
+      "snapshot": "source/ac9cd44-tools_select-ios-simulator.mjs",
+      "bytes": 2176,
+      "sha256": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74"
+    },
+    {
+      "original": "tools/select-ios-simulator.mjs",
+      "ref": "55fa8fe10db89946d6ead8ae5e396f65adcdfe01",
+      "snapshot": "source/55fa8fe-tools_select-ios-simulator.mjs",
+      "bytes": 2176,
+      "sha256": "4d1b8890f2a1e34b35fa258dfefd146f29a2c8561046f4cf252ffb68f501df74"
+    },
+    {
+      "original": "mobile-ac9cd44/ios-job.log",
+      "snapshot": "raw/mobile-ac9cd44_ios-job.log",
+      "bytes": 36204,
+      "sha256": "616d99ff037194953cda9f1e9aa2d5d7e4a52a011969e99f3158dd0cc43c7538"
+    },
+    {
+      "original": "ios55-job.log",
+      "snapshot": "raw/ios55-job.log",
+      "bytes": 53342,
+      "sha256": "3cc5c1da4696fbf4c0e1af8202a267e416987321753b4fe8bfed50f571565702"
+    },
+    {
+      "original": "appium-12.1.3-web.ts",
+      "snapshot": "source/appium-12.1.3-web.ts",
+      "bytes": 42744,
+      "sha256": "e6a1f019a79585c4b71aa1411a03c2f8d8c8f58b8ddaf6fc36d59f19ef3edbc5"
+    },
+    {
+      "original": "appium-12.1.3-gesture.ts",
+      "snapshot": "source/appium-12.1.3-gesture.ts",
+      "bytes": 28132,
+      "sha256": "98971229c92fcd72964c2c49a3e24ec61981a7791ed316beaa495a88e577186d"
+    }
+  ],
+  "independentRefutation": {
+    "agent": "/root/trench_perception_review/trench_refuter",
+    "review": "refuter-review.json",
+    "script": "refuter-01.py",
+    "raw": [
+      "refuter-01.json",
+      "refuter-01.log"
+    ],
+    "result": "Startup classification, unchanged checked source and the diagnostic-gap finding survived. The separate refuter found no concrete defect in the proposed single CI observation step, while retaining unknown root cause and file-snapshot limits."
+  }
+}

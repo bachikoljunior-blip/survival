@@ -75,6 +75,9 @@ jobs:
           path: test-results/iphone-webkit
           if-no-files-found: warn
           retention-days: 14
+      - name: Export original WebKit frames and report for inspection
+        if: always()
+        run: node tools/export-webkit-material.mjs
       - name: Exercise post-boot recovery in mobile WebKit
         if: ${{ !cancelled() }}
         env:
@@ -135,8 +138,10 @@ jobs:
       - run: node build.mjs
       - name: Record emitted dialogue and endings on contrasting story paths
         run: |
-          node tools/playthrough.mjs --path publish --transcript
-          node tools/playthrough.mjs --path deal --transcript
+          capture_status=0
+          node tools/playthrough.mjs --path publish --transcript || capture_status=$?
+          node tools/playthrough.mjs --path deal --transcript || capture_status=$?
+          exit "$capture_status"
       - name: Preserve original narrative output and execution results
         if: always()
         uses: actions/upload-artifact@v4

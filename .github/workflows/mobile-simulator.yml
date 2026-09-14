@@ -97,6 +97,49 @@ jobs:
           if test -f test-results/ios-safari/video.pid; then kill -INT "$(cat test-results/ios-safari/video.pid)" 2>/dev/null || true; fi
           if test -f test-results/ios-safari/appium.pid; then kill "$(cat test-results/ios-safari/appium.pid)" 2>/dev/null || true; fi
           sleep 2
+      - name: Emit startup diagnostics in ordinary CI log
+        if: always()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          // Proposed CI-only observation step; not installed in the repository.
+          // Run after the existing Stop recording step. No browser/device/network calls.
+          import { readFileSync, statSync } from 'node:fs';
+          import { createHash } from 'node:crypto';
+
+          const files = [
+            ['appium.log', 4 * 1024 * 1024],
+            ['simulator-selection.json', 64 * 1024],
+            ['xcode-version.txt', 64 * 1024],
+            ['xcode-path.txt', 64 * 1024],
+            ['simulator-sdk-version.txt', 64 * 1024],
+          ];
+          for (const [file, cap] of files) {
+            try {
+              const path = `test-results/ios-safari/${file}`;
+              const before = statSync(path);
+              const data = readFileSync(path);
+              const after = statSync(path);
+              const complete = data.length <= cap;
+              const ranges = complete ? [[0, data.length]] : [[0, cap / 2], [data.length - cap / 2, data.length]];
+              const sha256 = createHash('sha256').update(data).digest('hex');
+              const stableDuringRead = before.size === after.size && before.mtimeMs === after.mtimeMs && after.size === data.length;
+              console.log('[ios-startup-log-meta] ' + JSON.stringify({ file, capturedAt: new Date().toISOString(), bytes: data.length, sha256, complete, stableDuringRead, cap, ranges }));
+              for (const [start, end] of ranges) {
+                for (let offset = start; offset < end; offset += 3000) {
+                  const bytes = data.subarray(offset, Math.min(end, offset + 3000));
+                  console.log('[ios-startup-log-chunk] ' + JSON.stringify({ file, offset, base64: bytes.toString('base64') }));
+                }
+              }
+              console.log('[ios-startup-log-end] ' + JSON.stringify({ file, bytes: data.length, sha256, complete }));
+            } catch (error) {
+              console.log('[ios-startup-log-error] ' + JSON.stringify({ file, code: error.code || null, message: error.message }));
+            }
+          }
+          // Let the normal process exit drain stdout. This step cannot change the failed
+          // test step's outcome. Complete refers to the captured file snapshot only.
+
+          NODE
       - name: Preserve Safari screenshots, video, logs and report
         if: always()
         uses: actions/upload-artifact@v4

@@ -1,0 +1,667 @@
+{
+  "round": "narrative-reading-r1-refutation",
+  "profile": "independent-refutation-of-four-character-and-dialogue-findings",
+  "tier": "diagnostic-unscored",
+  "nativeResolution": "0x0",
+  "nativeResolutionStatus": "Not measured. Dialogue-only review; 0x0 is a schema sentinel.",
+  "verdict": "FAIL",
+  "verdictScope": "この取得会話列に限定した説明上の診断1件が残ることを示すschema上の状態。作品全体、通常プレイ、主要人物6人の合否は判定していない。",
+  "score": 0,
+  "scoreStatus": "unscored",
+  "blindComparison": "No blind comparison or reference comparison was performed. No reference work was read, and no stranger preference, comparative score, or character-achievement result is inferred from the captured dialogue.",
+  "reviewStage": "separate refutation completed",
+  "independence": "反証担当はraw指摘と実装の執筆者ではない。検討対象の4件だけを扱い、新しい指摘は追加していない。",
+  "source": {
+    "path": "/workspace/scratch/0b7ad82bafe7/narrative-review-input-r1/dialogue.json",
+    "sha256": "cc7cb31dff452c23baa2e5ca6481206638704c8ca46a373cecac00eddd95db54",
+    "eventCount": 118,
+    "eventNumbering": "E001=/events/0。dialogueとchoiceの双方を数える。選ばれていない選択肢は表示文面であり実際の発話として扱わない。",
+    "scope": "One actual English story route. Actual UI method outputs; deterministic driver shortened travel, typing and action. Ending was not captured. This is partial material for diagnostic review only, not a blind comparison or whole-story assessment."
+  },
+  "rawReview": {
+    "path": "/workspace/scratch/0b7ad82bafe7/narrative-reading-r1/raw-review.json"
+  },
+  "method": {
+    "skill": "/workspace/scratch/0b7ad82bafe7/survival/.claude/skills/critic/SKILL.md",
+    "schema": "/workspace/scratch/0b7ad82bafe7/survival/.kit/lib/plan/findings.mjs",
+    "allowedReadsUsed": [
+      "/workspace/scratch/0b7ad82bafe7/narrative-review-input-r1/dialogue.json",
+      "/workspace/scratch/0b7ad82bafe7/narrative-reading-r1/raw-review.json",
+      "/workspace/scratch/0b7ad82bafe7/survival/.claude/skills/critic/SKILL.md",
+      "/workspace/scratch/0b7ad82bafe7/survival/.kit/lib/plan/findings.mjs"
+    ],
+    "overlay": "読んでいない。明示された資料制限が他のリポジトリ資料の閲覧を禁じているため。",
+    "prohibitedSourcesUsed": false,
+    "networkOrBrowserUsed": false,
+    "implementationReadOrChanged": false,
+    "lenses": [
+      "引用と推論の正確性",
+      "短縮取得の限界と再現性",
+      "人物・会話の質への実際の影響"
+    ],
+    "interpretationPolicy": "自然な人物表現という反証は同じログの具体的発話に結びつける。作者の意図を断定せず、未記録の設定・会話・行動で補わない。資料にないことだけから不在を証明しない。"
+  },
+  "coverage": {
+    "requiredCharacters": [
+      "Ren",
+      "Teo",
+      "Sol",
+      "Nessa",
+      "Iris",
+      "Krajcik"
+    ],
+    "standard": "主要6人、必要基準6/6を維持する。収録の少ない人物を母数から除かない。達成判定は行っていない。",
+    "wholeWorkAssessment": "not performed",
+    "ending": "not captured",
+    "referenceComparison": "not performed"
+  },
+  "refutations": [
+    {
+      "id": "NR1-01",
+      "owner": "src/content/story.js",
+      "status": "survives",
+      "originalSeverity": "major",
+      "retainedSeverity": "minor",
+      "lenses": {
+        "correctness": {
+          "strongestCounterargument": "E099–E101は救助の帰結と午前4時の中庭に言及するが、水位上昇の時刻は言わない。E116の「since the water came up」が同じ出来事を指すという同定は推論である。「stood in front of her」は物理的な対面ではなく、責任を引き受けて共同避難を申し出る比喩とも読める。E013には別の話し合いを保留する発言がある。",
+          "result": "厳密に立証された洪水後の対面否認という強さでは残せない。他方、E098の着席の勧め、E099の救助結果、E101の被害を本人に述べる発話は、対面して結果に触れた読みを直接支える。E116は協力を頼んでいない・合意していないと区別せず対面自体を否定するため、この取得文面で既済の対面と不足する働きかけが読み分けにくいという最小の指摘は残る。別の水害や未記録の合意条件を事実として補っては解消しない。",
+          "events": [
+            13,
+            98,
+            99,
+            101,
+            102,
+            116
+          ]
+        },
+        "shortenedCaptureAndReproducibility": {
+          "strongestCounterargument": "短縮した一経路であり、会話の表示が通常到達時の進行状態と一致したかは読めない。非会話の水位上昇がいつ起きたかもこの資料には記録されていない。",
+          "result": "確認済みなのはこの取得物の会話順序と表示理由だけ。通常プレイの進行不具合、内部条件の誤り、選択肢を解除すべきこと、E101とE116の災害の厳密な同一性は未立証として除外する。通常到達で同じ時点関係と表示が得られるかを確認するまでは、作品全体の不具合として採用せず、実装修正にも進めない。",
+          "events": [
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            116
+          ]
+        },
+        "materialEffectOnCharacterAndDialogue": {
+          "strongestCounterargument": "E116はSolの発話ではなく未選択の選択肢につくUI説明であり、対面しただけでSolが避難計画に同意したことにはならない。人物造形そのものの破綻と呼ぶのは過大である。",
+          "result": "人物の論理矛盾という拡張とmajorの重さは崩れる。ただし、既に会って被害の話を聞いた相手との関係について、次に何が足りないかを選択説明から読み分けにくい影響は局所的に残る。会話履歴を使った選択の説明だけに限定し、Solの人物の厚みや主要6人の達成の根拠にはしない。",
+          "events": [
+            98,
+            99,
+            101,
+            116
+          ]
+        }
+      },
+      "intentionalCharacterExpression": {
+        "candidateReading": "「前に立つ」は責任を引き受けて共同避難を申し出ることを指し、Solがまだ許したり協力したりしていないことを表す。",
+        "support": "E013の話し合いの保留、E054の「簡単だったと言うな」、E101の被害を事実として告げる態度は、単なる接触と関係の解決が別であることを支える。",
+        "limit": "E116の前半から協力が必要とは読めても、後半の未実施事項は対面としか書かれていない。引用は協力成立を証明せず、対面未実施という文面を明確な協力未成立の表現に変える根拠にもならない。作者の意図は確定しない。",
+        "events": [
+          13,
+          54,
+          101,
+          116
+        ]
+      },
+      "reason": "反証によって、確定した災害時系列の矛盾・通常プレイの不具合・協力条件の誤判定という主張は落ちる。既収録の対面とロック理由の対面を文面から区別しにくいという、この取得経路の局所的な説明上の問題だけは解消しない。",
+      "minimumSurvivingClaim": "この取得会話列では、SolがRen本人に救助の帰結と中庭の被害を告げる対面（E098–E102）の後に、E116のロック理由が「水が来てからSolの前に立っていない」と表示される。解除に必要な対面・働きかけが既収録の対面とどう異なるか、この表示文面から区別できない。同一の水位上昇後であることを確定した矛盾、協力合意の成立、ロック状態の誤りまでは主張しない。",
+      "removedClaims": [
+        "E099–E101がE116と同じ水位上昇の後だと明示されている。",
+        "通常手動プレイでも同じロックが再現する。",
+        "協力合意は成立済みで選択肢は解除されるべきである。",
+        "Sol自身が対面を忘れたり矛盾した判断をしたりしている。"
+      ],
+      "evidence": [
+        {
+          "event": 13,
+          "eventId": "E013",
+          "jsonPointer": "/events/12/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "No. Don't. I heard you.\n Here's what I'll do with that: nothing. Not today. Today you're a pair of hands and I am short of hands. We'll have the other conversation when there's time, and there is never time."
+        },
+        {
+          "event": 54,
+          "eventId": "E054",
+          "jsonPointer": "/events/53/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "You'll do what you'll do. You've got a bar and you know which way the wedges came out. I'm not going to stand in front of them.\n Just don't tell me it was easy afterwards."
+        },
+        {
+          "event": 98,
+          "eventId": "E098",
+          "jsonPointer": "/events/97/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "Sit down. You're grey."
+        },
+        {
+          "event": 99,
+          "eventId": "E099",
+          "jsonPointer": "/events/98/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "You got some of them. That's the job. The job is not everybody, it has never been everybody, and anyone who tells you it is has not done it.\n You'll want to give me the names of the ones you didn't. Don't. I already have them. I write them down before I need to."
+        },
+        {
+          "event": 101,
+          "eventId": "E101",
+          "jsonPointer": "/events/100/text",
+          "kind": "dialogue",
+          "speaker": "SOL — flat",
+          "quote": "It was my yard, Vasko. My yard, at four in the morning, because of three borehole heads that a month ago were doing their job.\n I am telling you that as a fact, not as a knife. I have to be able to say the true shape of a thing out loud or I stop being able to do this."
+        },
+        {
+          "event": 102,
+          "eventId": "E102",
+          "jsonPointer": "/events/101/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "Get some water in you."
+        },
+        {
+          "event": 116,
+          "eventId": "E116",
+          "jsonPointer": "/events/115/choices/3/why",
+          "kind": "dialogue",
+          "speaker": "REN",
+          "choiceIndex": 3,
+          "selectedAsSpokenLine": false,
+          "quote": "Sol would have to run it with you, and you have not stood in front of her since the water came up."
+        }
+      ]
+    },
+    {
+      "id": "NR1-02",
+      "owner": "src/content/story.js",
+      "status": "refuted",
+      "originalSeverity": "minor",
+      "retainedSeverity": null,
+      "lenses": {
+        "correctness": {
+          "strongestCounterargument": "E075はField 9へ徒歩で入ったRenへの反応、E076はそれをRenらしいと評する発言であり、E077–E079は通行証を貸す逡巡から、自分の契約を差し出さず情報で助ける一続きの発言として読める。「約半秒早い」は予兆の長さであり、無例外性の保証ではない。",
+          "result": "警告を今伝える理由が台詞に全くないという主張は、危険な場所へ出向くRenを気にかけ、貸せるものを選び直している直前の発話によって崩れる。頻度の明示は「Every time」と「I have never seen one not do it」で、半秒という別種の情報を含めて無例外性を三度保証と数える根拠もない。",
+          "events": [
+            75,
+            76,
+            77,
+            78,
+            79
+          ]
+        },
+        "shortenedCaptureAndReproducibility": {
+          "strongestCounterargument": "E079の文章は確認できるが、前後の戦闘・移動の間隔や演出は短縮されている。実プレイで警告が遅すぎる、唐突すぎる、必要と無関係というタイミング評価は確定できない。",
+          "result": "攻略情報を伝える事実は残るが、現在の危険から切れているという評価は再現されていない。未収録の敵との遭遇をあったともなかったとも補わない。会話だけでもE075–E079に動機の接続があり、非会話の欠落を欠陥認定に使えない。",
+          "events": [
+            75,
+            76,
+            77,
+            78,
+            79
+          ]
+        },
+        "materialEffectOnCharacterAndDialogue": {
+          "strongestCounterargument": "通行証を貸さない決断の後も、自分が見て知っていることは渡すという行動は、家族と雇用を守りたいこととRenを助けたいことの両立の仕方を示す。実用情報であることだけではIris自身の判断が消えた証拠にならない。",
+          "result": "人物の取引から攻略説明へ劣化したという因果は成立しない。窓から二年間見たという根拠づけは、Irisの観察と言い切りの慎重さにもつながる。無例外性を一回以下にする、接続を一箇所足すという原案の数値は、この自然な読みを崩す証拠ではない。",
+          "events": [
+            70,
+            75,
+            77,
+            78,
+            79
+          ]
+        }
+      },
+      "intentionalCharacterExpression": {
+        "candidateReading": "名義を貸して損失を引き受けることは拒むが、見知ったRenに観察で得た助言を渡す。言いそびれていた心配が「One more thing」として出る。",
+        "support": "E075–E076のRenの行動への反応、E077からE078への撤回、否認しながら裏口を教えるE078の言い方、E079の追伸と二年間の観察という根拠がある。",
+        "limit": "恋愛関係、隠れた使命、直後に必ず再戦する予定などは推測しない。作者の意図の事実として確定せず、引用から成立する人物解釈として扱う。",
+        "events": [
+          75,
+          76,
+          77,
+          78,
+          79
+        ]
+      },
+      "reason": "台詞上の理由がないという中核は、Renへの気遣いとリスクを限定した援助の連続として反証される。頻度と予兆時間の混同もあり、指摘を残すだけの独立した人物・会話上の悪影響は立証されない。",
+      "minimumSurvivingClaim": null,
+      "evidence": [
+        {
+          "event": 70,
+          "eventId": "E070",
+          "jsonPointer": "/events/69/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "I do the field work and the reduction and I put the line where the reduction puts it, and then the reduction goes upstairs and the line that comes back down is not always the line I sent up.\n I have a folder. Of the differences. I don't know why I keep it. It isn't evidence of anything except that I noticed."
+        },
+        {
+          "event": 75,
+          "eventId": "E075",
+          "jsonPointer": "/events/74/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "You went into Field 9. On foot. With a cartridge."
+        },
+        {
+          "event": 76,
+          "eventId": "E076",
+          "jsonPointer": "/events/75/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "God, that's the most Ren thing I've ever heard."
+        },
+        {
+          "event": 77,
+          "eventId": "E077",
+          "jsonPointer": "/events/76/text",
+          "kind": "dialogue",
+          "speaker": "IRIS — quiet",
+          "quote": "I could give you my pass."
+        },
+        {
+          "event": 78,
+          "eventId": "E078",
+          "jsonPointer": "/events/77/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "...I could. I'm not going to.\n I have eleven months on this contract and a mother in a place that costs four hundred a month and I am not — I can't be the one who —\n There's a service door on the north elevation. The hasp is rusted through. I'm not telling you that. I'm saying it out loud in a yard."
+        },
+        {
+          "event": 79,
+          "eventId": "E079",
+          "jsonPointer": "/events/78/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "He'll be in there. He's always in there. He'll be very nice to you.\n ...One more thing. The ash crews out at the field — the big ones with the hammers. They plant the back foot before they swing. Every time, about half a second early. I have watched them from that window for two years and I have never seen one not do it."
+        }
+      ]
+    },
+    {
+      "id": "NR1-03",
+      "owner": "src/content/story.js",
+      "status": "refuted",
+      "originalSeverity": "minor",
+      "retainedSeverity": null,
+      "lenses": {
+        "correctness": {
+          "strongestCounterargument": "二箇所とも、選択した発話にはまず直接の応答がある。IrisはE068で名前を呼ばれたことに反応し、KrajcikはE087で制度がないことを肯定して理由を述べる。その後の「Yes.」「The margin.」は未発話の質問にしかつながらない文ではない。",
+          "result": "IrisはE064–E066から言い直しと自己訂正を重ねており、名前と書式の話から言いにくい後任の職務を自ら認める読みがE069の「Nobody says that」に支えられる。KrajcikはE084で自ら台帳へ誘導している。台帳には転居の費用が記され、E087で公費の枠が空だと説明したため、E088の「The margin」は未解決の費用の出所を補う省略としてつながる。不可視の質問を必須とする主張は成立しない。",
+          "events": [
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            84,
+            85,
+            86,
+            87,
+            88
+          ]
+        },
+        "shortenedCaptureAndReproducibility": {
+          "strongestCounterargument": "一経路の選択と後続発話は確認できるが、他の選択肢の返答本文はない。表示された別の選択肢と後続文が対応して見えるだけでは、誤って別分岐を再生したことも、合流の実装も確認できない。",
+          "result": "選択済みのE067・E086と、表示だけのE066 choice 1・E085 choice 1を区別した。後続会話自体に自然な自発的説明が成立するため、未選択の答えが漏れたという実装仮説を補って維持しない。短縮された間や表情に特定の意味を追加しない。",
+          "events": [
+            66,
+            67,
+            68,
+            69,
+            85,
+            86,
+            87,
+            88
+          ]
+        },
+        "materialEffectOnCharacterAndDialogue": {
+          "strongestCounterargument": "選択への反応が消えているなら応答の感触は損なわれるが、この経路ではE068とE087が反応を担う。質問を待たずに自分の職務や資金源を語ることは、会話する人物の主体性とも読める。",
+          "result": "Irisの動揺と後任としての居心地の悪さ、Krajcikの説明の主導というそれぞれの文脈に沿う。短い文頭に省略があることだけで選択の応答感が弱いと一般化できず、残すべき最小の欠陥はない。",
+          "events": [
+            66,
+            68,
+            69,
+            81,
+            84,
+            87,
+            88
+          ]
+        }
+      },
+      "intentionalCharacterExpression": {
+        "candidateReading": "Irisは気まずい話題を質問される前に持ち出し、Krajcikは自分が見せた台帳の仕組みを相手の理解に合わせて先回りして明かす。",
+        "support": "E066の自己訂正、E068の名前と書類への言及、E069の技術的には後任で誰もそう言わないという自己限定、E081の前置きを省く提案、E084の引き出しへの誘導がある。E085–E088には、支出の台帳から制度の欠如を経て契約の利益に至る内容のつながりもある。",
+        "limit": "無言の質問、特定の視線、未記録の台詞を想定する必要はなく、あったとも主張しない。意図の確定ではなく、観測済みの文章で成立する読みである。",
+        "events": [
+          66,
+          68,
+          69,
+          81,
+          84,
+          85,
+          86,
+          87,
+          88
+        ]
+      },
+      "reason": "両例で実際に選んだ発話への直接の応答があり、その後の話題も既存の内容と話者の話し方から自発的に続けられる。未選択の質問を前提にしないと接続しないという前提が反証される。",
+      "minimumSurvivingClaim": null,
+      "evidence": [
+        {
+          "event": 66,
+          "eventId": "E066",
+          "jsonPointer": "/events/65/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "Sorry. Sorry, that was — hello. Hello.\n You look well. That's a stupid thing to say. Nobody looks well here, the particulate does something to everyone's skin."
+        },
+        {
+          "event": 66,
+          "eventId": "E066",
+          "jsonPointer": "/events/65/choices/1/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "choiceIndex": 1,
+          "selectedAsSpokenLine": false,
+          "quote": "You're signing the lines now."
+        },
+        {
+          "event": 67,
+          "eventId": "E067",
+          "jsonPointer": "/events/66/text",
+          "kind": "choice",
+          "speaker": "selected player choice",
+          "quote": "Hello, Iris."
+        },
+        {
+          "event": 68,
+          "eventId": "E068",
+          "jsonPointer": "/events/67/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "You're the first person to say my name in eleven weeks who wasn't reading it off a form."
+        },
+        {
+          "event": 69,
+          "eventId": "E069",
+          "jsonPointer": "/events/68/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "Yes. Survey Engineer Two. I got your job, technically. Nobody says that but it's technically true."
+        },
+        {
+          "event": 70,
+          "eventId": "E070",
+          "jsonPointer": "/events/69/text",
+          "kind": "dialogue",
+          "speaker": "IRIS",
+          "quote": "I do the field work and the reduction and I put the line where the reduction puts it, and then the reduction goes upstairs and the line that comes back down is not always the line I sent up.\n I have a folder. Of the differences. I don't know why I keep it. It isn't evidence of anything except that I noticed."
+        },
+        {
+          "event": 81,
+          "eventId": "E081",
+          "jsonPointer": "/events/80/text",
+          "kind": "dialogue",
+          "speaker": "KRAJCIK",
+          "quote": "You have the July log. You have the cut order. I'd rather we skipped the part where I pretend otherwise, because it's undignified and we're both tired."
+        },
+        {
+          "event": 84,
+          "eventId": "E084",
+          "jsonPointer": "/events/83/text",
+          "kind": "dialogue",
+          "speaker": "KRAJCIK",
+          "quote": "Second drawer. It is not locked. It has never needed to be."
+        },
+        {
+          "event": 85,
+          "eventId": "E085",
+          "jsonPointer": "/events/84/text",
+          "kind": "dialogue",
+          "speaker": "REN",
+          "quote": "A removals ledger. Handwritten, one line per household, ruled by somebody who rules lines for a living.\n Three hundred and forty entries. Deposit, removal, twelve months' rent, and a column headed SCHEME that is empty the whole way down."
+        },
+        {
+          "event": 85,
+          "eventId": "E085",
+          "jsonPointer": "/events/84/choices/1/text",
+          "kind": "dialogue",
+          "speaker": "REN",
+          "choiceIndex": 1,
+          "selectedAsSpokenLine": false,
+          "quote": "Where does the money come from?"
+        },
+        {
+          "event": 86,
+          "eventId": "E086",
+          "jsonPointer": "/events/85/text",
+          "kind": "choice",
+          "speaker": "selected player choice",
+          "quote": "There's no scheme."
+        },
+        {
+          "event": 87,
+          "eventId": "E087",
+          "jsonPointer": "/events/86/text",
+          "kind": "dialogue",
+          "speaker": "KRAJCIK",
+          "quote": "No. There is a Directorate paper from four years ago that recommends one, and a line in the estimates where it would go, and nothing in the line.\n I write to them every April. I have the replies. They are extremely courteous."
+        },
+        {
+          "event": 88,
+          "eventId": "E088",
+          "jsonPointer": "/events/87/text",
+          "kind": "dialogue",
+          "speaker": "KRAJCIK",
+          "quote": "The margin. On a contract to manage a fire that cannot be managed.\n That is the whole trick and you have just found it in about nine seconds."
+        }
+      ]
+    },
+    {
+      "id": "NR1-04",
+      "owner": "src/content/story.js",
+      "status": "refuted",
+      "originalSeverity": "minor",
+      "retainedSeverity": null,
+      "lenses": {
+        "correctness": {
+          "strongestCounterargument": "E105の「Before you do」は閲覧要求を受けたうえで告白を先にする発話であり、E107で父の死へのRen自身の加担が加わる。その後NessaはE111で「That's the only thing that's any use to me now」と自分に必要なことを明言する。",
+          "result": "閲覧を実際に終えたと書かれていないという観察は正しい。しかし、閲覧要求が無視されて人物の目的が消えたとは導けない。新情報を受け、今は慰めも立ち話も要らず行動を求めるという本人の優先順位の変更が明示される。E110の「it's yours」を物理的な手渡しの記録に置き換えることもしない。",
+          "events": [
+            104,
+            105,
+            107,
+            109,
+            110,
+            111,
+            112
+          ]
+        },
+        "shortenedCaptureAndReproducibility": {
+          "strongestCounterargument": "資料は会話と選択の一経路であり、手渡し・読む動作を含む非会話の全記録ではない。結末もない。E113でRenが資料を持っていることは、その前に一時的に読ませたかどうかを決めない。",
+          "result": "Nessaは読ませてもらえなかったという不在証明は成立しない。逆に読んだ、手渡した、後で読むと合意したなどの出来事も補わない。非会話演出の未知を残したまま、台詞に閲覧完了がないことを作品の欠陥へ引き上げない。",
+          "events": [
+            104,
+            105,
+            110,
+            111,
+            112,
+            113
+          ]
+        },
+        "materialEffectOnCharacterAndDialogue": {
+          "strongestCounterargument": "NessaはE109で告白の目的を問い、慰め役になることを拒否し、E111で自分のために有用な行動を要求する。E112の翌日の工事は行動を急がせる具体的な事情でもある。主人公を送り出す発言があることと、送り出すためだけの人物であることは同じではない。",
+          "result": "Renの道徳的決意に従属したという批評は、Nessaが対話の条件と自分の必要を決める発言によって反証される。同じ場面に閲覧要求の再提示を必須とする根拠はない。作品全体で目的の厚みを確認したことにはならず、主要6人の基準も変更しない。",
+          "events": [
+            107,
+            109,
+            111,
+            112
+          ]
+        }
+      },
+      "intentionalCharacterExpression": {
+        "candidateReading": "閲覧を求めて来たNessaが、父の死に関する告白を受け、今自分に必要なのはRenの自責を受け止めることではなく行動だと会話を打ち切る。",
+        "support": "E108の沈黙、E109の「Why now」と慰めの拒否、E111の「only thing」「to me now」「Don't stand there」、E112の明日の工事が、彼女自身の判断としての切り替えを直接支える。",
+        "limit": "閲覧欲求を永久に取り下げたとは読まない。手渡しや将来の行動、父の死を超える経歴を作って厚みを補わない。作者の意図は確定しない。",
+        "events": [
+          104,
+          107,
+          108,
+          109,
+          111,
+          112
+        ]
+      },
+      "reason": "閲覧完了の記載がないことは、閲覧拒否や人物の目的喪失の証拠ではない。告白に対してNessaが自分の必要と会話の終え方を明示するため、人物が慰め・送り出し役へ収束したという質の評価は維持できない。",
+      "minimumSurvivingClaim": null,
+      "evidence": [
+        {
+          "event": 104,
+          "eventId": "E104",
+          "jsonPointer": "/events/103/text",
+          "kind": "dialogue",
+          "speaker": "NESSA",
+          "quote": "She says it proves they knew. Which — good. Fine. That's what everyone's always said and now there's paper.\n I want to read it."
+        },
+        {
+          "event": 105,
+          "eventId": "E105",
+          "jsonPointer": "/events/104/text",
+          "kind": "choice",
+          "speaker": "selected player choice",
+          "quote": "Before you do — the July sheet has my initials on it."
+        },
+        {
+          "event": 107,
+          "eventId": "E107",
+          "jsonPointer": "/events/106/text",
+          "kind": "dialogue",
+          "speaker": "REN",
+          "quote": "I checked the July sheet. I saw four hundred and six degrees at 9-3 and I saw the line they were about to print, and I knew those two things could not both be true.\n I raised it with nobody. I had eleven months left on a contract and I told myself somebody senior would catch it.\n Four months later your father died in his kitchen."
+        },
+        {
+          "event": 108,
+          "eventId": "E108",
+          "jsonPointer": "/events/107/text",
+          "kind": "dialogue",
+          "speaker": "NESSA — quiet",
+          "quote": "..."
+        },
+        {
+          "event": 109,
+          "eventId": "E109",
+          "jsonPointer": "/events/108/text",
+          "kind": "dialogue",
+          "speaker": "NESSA",
+          "quote": "Why are you telling me?\n No — genuinely. Why now. Is it so I say something that makes it easier? Because I'm not going to. I don't have that."
+        },
+        {
+          "event": 110,
+          "eventId": "E110",
+          "jsonPointer": "/events/109/text",
+          "kind": "choice",
+          "speaker": "selected player choice",
+          "quote": "I'm not telling you so you'll say anything. I'm telling you because it's yours."
+        },
+        {
+          "event": 111,
+          "eventId": "E111",
+          "jsonPointer": "/events/110/text",
+          "kind": "dialogue",
+          "speaker": "NESSA",
+          "quote": "...Yeah.\n Yeah, all right.\n Go and do something with it. That's the only thing that's any use to me now. Don't stand there."
+        },
+        {
+          "event": 112,
+          "eventId": "E112",
+          "jsonPointer": "/events/111/text",
+          "kind": "dialogue",
+          "speaker": "NESSA",
+          "quote": "They're cutting the trench tomorrow. Did you know that? Everyone's talking about it like it's weather."
+        },
+        {
+          "event": 113,
+          "eventId": "E113",
+          "jsonPointer": "/events/112/text",
+          "kind": "dialogue",
+          "speaker": "REN",
+          "quote": "The excavators are idling on the published line. Krajcik is standing on the spoil heap with a clipboard he is not reading. Forty people are watching from the far side, because it is the largest thing that has happened in Hollis in a year.\n I am carrying the log, the order, and the July sheet with my initials in the check box."
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "NR1-01",
+      "severity": "minor",
+      "shot": "E098–E102 / E116 choices[3].why",
+      "problem": "この取得会話列では、SolがRen本人に救助の帰結と中庭の被害を告げる対面（E098–E102）の後に、E116のロック理由が「水が来てからSolの前に立っていない」と表示される。解除に必要な対面・働きかけが既収録の対面とどう異なるか、この表示文面から区別できない。同一の水位上昇後であることを確定した矛盾、協力合意の成立、ロック状態の誤りまでは主張しない。",
+      "why": "救助後のSolとの対面を読んだプレイヤーが、共同避難へ進むため不足する働きかけをロック説明から区別しにくい。影響はこの取得物の会話履歴と選択説明の接続に限られ、Sol本人の判断の矛盾や人物全体の質を証明しない。",
+      "owner": "src/content/story.js",
+      "fix": "まず通常到達で同じ会話順序とE116相当の表示を再取得し、E099–E101相当の対面がロック理由の水位上昇後かを確認する。同じ時点関係で再現した場合に限り、既済の対面を否定する説明を0件にし、別の依頼・合意が必要なら不足する行為を区別して記述する。別の時点や短縮取得に固有の不整合なら作品の指摘から破棄する。ロック解除は要求しない。現資料の読取コマンド: python -c 'import json,sys; e=json.load(open(sys.argv[1]))[\"events\"]; [print(i,json.dumps(e[i-1],ensure_ascii=False)) for i in [98,99,100,101,102,116]]' /workspace/scratch/0b7ad82bafe7/narrative-review-input-r1/dialogue.json",
+      "hypothesis": "未検証。対面と協力合意を区別する条件に対して説明が広すぎる可能性、短縮取得が通常の会話状態と一致しない可能性、未収録の非会話時系列で別の水位上昇を指す可能性を区別できない。いずれも原因の事実として扱わず、推測から実装修正しない。",
+      "evidence": [
+        {
+          "event": 98,
+          "eventId": "E098",
+          "jsonPointer": "/events/97/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "Sit down. You're grey."
+        },
+        {
+          "event": 99,
+          "eventId": "E099",
+          "jsonPointer": "/events/98/text",
+          "kind": "dialogue",
+          "speaker": "SOL",
+          "quote": "You got some of them. That's the job. The job is not everybody, it has never been everybody, and anyone who tells you it is has not done it.\n You'll want to give me the names of the ones you didn't. Don't. I already have them. I write them down before I need to."
+        },
+        {
+          "event": 101,
+          "eventId": "E101",
+          "jsonPointer": "/events/100/text",
+          "kind": "dialogue",
+          "speaker": "SOL — flat",
+          "quote": "It was my yard, Vasko. My yard, at four in the morning, because of three borehole heads that a month ago were doing their job.\n I am telling you that as a fact, not as a knife. I have to be able to say the true shape of a thing out loud or I stop being able to do this."
+        },
+        {
+          "event": 116,
+          "eventId": "E116",
+          "jsonPointer": "/events/115/choices/3/why",
+          "kind": "dialogue",
+          "speaker": "REN",
+          "choiceIndex": 3,
+          "selectedAsSpokenLine": false,
+          "quote": "Sol would have to run it with you, and you have not stood in front of her since the water came up."
+        }
+      ],
+      "scopeLimit": "この会話取得経路だけの説明上の診断。実測した通常プレイの不具合ではない。災害の同一性は推論であり、手動再現と非会話時系列は未検証。",
+      "refutationStatus": "survives",
+      "priority": 1
+    }
+  ],
+  "result": {
+    "survives": [
+      "NR1-01"
+    ],
+    "refuted": [
+      "NR1-02",
+      "NR1-03",
+      "NR1-04"
+    ],
+    "newFindings": [],
+    "interpretation": "NR1-01は確定した災害時系列矛盾・進行不具合という強さを落とし、この取得文面で対面条件を区別しにくい点だけを残した。残る3件は人物の動機・自発的説明・優先順位の変更によって反証された。"
+  }
+}
