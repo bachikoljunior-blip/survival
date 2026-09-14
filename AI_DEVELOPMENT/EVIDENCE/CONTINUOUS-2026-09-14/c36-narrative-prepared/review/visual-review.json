@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra",
+  "at": "2026-09-14T17:43:44.584139+00:00",
+  "head": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "runId": "34875252891",
+  "jobId": 104080729331,
+  "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+  "sourceKnown": true,
+  "stagedDialogueDiagnostic": true,
+  "originalImagesViewed": 16,
+  "viewImageCalls": 17,
+  "reinspection": "ja-final-k_asked2 was viewed individually again after a tentative tail-reading uncertainty in a four-image view; the original source and original image both include the complete ending 残してください. No file or image was changed.",
+  "observations": "All 16 target bodies visibly render within their dialogue boxes at the captured 667x375 viewport. No visible truncation, residual caret, missing Japanese glyphs, English fallback in target bodies or overlap was observed. Real DOM/body hashes and viewport data independently corroborate this bounded observation.",
+  "existingLimitations": [
+    "Authored paragraph blank lines are collapsed by the unchanged normal-whitespace dialogue UI, so captured text uses ordinary wrapping rather than blank paragraph rows.",
+    "The non-text mood quiet remains English on ja-iris_first-i_decide and ja-final-k_asked. Those unchanged mood fields were outside the 16 revised body fields.",
+    "Chromium mobile emulation with direct node selection and fresh contexts is not ordinary gameplay, Mobile Safari, physical-device testing, or a blind comparison.",
+    "Readability across other sizes, visual quality, narrative comparison, audio listening and all 19 element verdicts remain not measured."
+  ],
+  "blockingFindings": [],
+  "files": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-sol_first-ah2.png",
+      "file": "en-sol_first-ah2.png",
+      "bytes": 301888,
+      "sha256": "e70a35c72b5ec85bd9df4d58cb8824f3913706ad6414a122ee0d818cca0fa190",
+      "language": "en",
+      "conversation": "sol_first",
+      "node": "ah2",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-sol_first-vc_end.png",
+      "file": "en-sol_first-vc_end.png",
+      "bytes": 300726,
+      "sha256": "8713dd91d3064dbf0fa10f264674986195131a3c64d02b7c75b9d4875c94f13d",
+      "language": "en",
+      "conversation": "sol_first",
+      "node": "vc_end",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-iris_first-i_decide.png",
+      "file": "en-iris_first-i_decide.png",
+      "bytes": 302370,
+      "sha256": "07143c2e645043e34e9fb878fa1675b8607f84a5b5a3f811568bfc5f81b53bf3",
+      "language": "en",
+      "conversation": "iris_first",
+      "node": "i_decide",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 1,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-iris_first-i_refuses.png",
+      "file": "en-iris_first-i_refuses.png",
+      "bytes": 299196,
+      "sha256": "20c3c3131b99888140184f7c840324806ef192550e40a221e14d6b7b2e201378",
+      "language": "en",
+      "conversation": "iris_first",
+      "node": "i_refuses",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 4,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-iris_after-i_sign.png",
+      "file": "en-iris_after-i_sign.png",
+      "bytes": 300246,
+      "sha256": "4cb9b4c22ce4d838448b089e4c2fa4e7d73c259a7cabaa53ea2200e66a9671ef",
+      "language": "en",
+      "conversation": "iris_after",
+      "node": "i_sign",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-krajcik-k_deal_cut.png",
+      "file": "en-krajcik-k_deal_cut.png",
+      "bytes": 302343,
+      "sha256": "282c5c318a3ec4f7bd7d94b18730a92ecbd8e7fd439adb75a0fa74e8ce4a9abc",
+      "language": "en",
+      "conversation": "krajcik",
+      "node": "k_deal_cut",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 4,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-final-k_asked.png",
+      "file": "en-final-k_asked.png",
+      "bytes": 302903,
+      "sha256": "5e042a577a81de5f81795dc2b825f076d5ac40891d8a86e5a51018a011bc0934",
+      "language": "en",
+      "conversation": "final",
+      "node": "k_asked",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/en-final-k_asked2.png",
+      "file": "en-final-k_asked2.png",
+      "bytes": 303904,
+      "sha256": "3421a8dfea65e2a033a308f55daa25a5ca45be42ab6d7dd81bbb14862e028e3c",
+      "language": "en",
+      "conversation": "final",
+      "node": "k_asked2",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-sol_first-ah2.png",
+      "file": "ja-sol_first-ah2.png",
+      "bytes": 299195,
+      "sha256": "0b502de5ccafca360f137568d6a2fa7c0583a8142402c893c0690f35045c0fee",
+      "language": "ja",
+      "conversation": "sol_first",
+      "node": "ah2",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-sol_first-vc_end.png",
+      "file": "ja-sol_first-vc_end.png",
+      "bytes": 299096,
+      "sha256": "048189358ec3bbc9df69ff11fe5e0bd7742757f1b34923293f172520558b8bb3",
+      "language": "ja",
+      "conversation": "sol_first",
+      "node": "vc_end",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-iris_first-i_decide.png",
+      "file": "ja-iris_first-i_decide.png",
+      "bytes": 302316,
+      "sha256": "3723803a2af05be22e8e5ce64143cd884e5c16e20779bd2e227796bb9a8835c1",
+      "language": "ja",
+      "conversation": "iris_first",
+      "node": "i_decide",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 2,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-iris_first-i_refuses.png",
+      "file": "ja-iris_first-i_refuses.png",
+      "bytes": 301635,
+      "sha256": "30425d9375c2917b34d349bdab897419bbef8d1eb29da3e68e0946d1d501d1f7",
+      "language": "ja",
+      "conversation": "iris_first",
+      "node": "i_refuses",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 4,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-iris_after-i_sign.png",
+      "file": "ja-iris_after-i_sign.png",
+      "bytes": 304826,
+      "sha256": "0e4a892415a1db5a0d058b47e83b78c0a457eec25b26d8c13b15583d63fbbb53",
+      "language": "ja",
+      "conversation": "iris_after",
+      "node": "i_sign",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-krajcik-k_deal_cut.png",
+      "file": "ja-krajcik-k_deal_cut.png",
+      "bytes": 305871,
+      "sha256": "d522ef5425f9092df8f2464105d00cdd78bd9eb89488ccab4fb2ff07f7273ded",
+      "language": "ja",
+      "conversation": "krajcik",
+      "node": "k_deal_cut",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 4,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-final-k_asked.png",
+      "file": "ja-final-k_asked.png",
+      "bytes": 303833,
+      "sha256": "d1a017406e88e7eacc103a5b5e3a31ac2376816aeba81571504b6f096704795c",
+      "language": "ja",
+      "conversation": "final",
+      "node": "k_asked",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/route-original/ja-final-k_asked2.png",
+      "file": "ja-final-k_asked2.png",
+      "bytes": 303660,
+      "sha256": "9ca74bcb33876dd7d5a4184ecbbed70986023950aeab90c8c02da33c63877aba",
+      "language": "ja",
+      "conversation": "final",
+      "node": "k_asked2",
+      "viewed": true,
+      "viewMethod": "view_image original",
+      "observations": {
+        "targetBodyPresent": true,
+        "observedMissingTail": false,
+        "caretVisible": false,
+        "tofuOrMojibakeObserved": false,
+        "textOverlapsOrLeavesBoxObserved": false,
+        "visibleBodyLines": 3,
+        "speakerAndContinuePromptPresent": true
+      },
+      "viewport": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "innerWidth": 667,
+        "innerHeight": 375,
+        "devicePixelRatio": 1,
+        "maxTouchPoints": 1
+      }
+    }
+  ],
+  "quality": {
+    "allElements": "19 not measured",
+    "validBlindComparisons": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  }
+}

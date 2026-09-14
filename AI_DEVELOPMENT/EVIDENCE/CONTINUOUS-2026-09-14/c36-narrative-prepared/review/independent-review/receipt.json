@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra/prepare_helper_review_ultra",
+  "completed_at": "2026-09-14T17:48:06.102195+00:00",
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "base_commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "instruction_id": "ULTRA-CHILDREN-20260914-v3",
+  "read_path": "canonical GitHub App allowed git/ref endpoint then AGENTS.md -> CLAUDE.md -> AI_DEVELOPMENT/SESSION_STATE.yaml",
+  "instruction_blobs": [
+    "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+    "8b758231a6b77277092ccee5a322f593320b123f",
+    "269b1f490c2308d8327f59897e5b7fd4a5afd752"
+  ],
+  "disposition": "ready for simultaneous C37 local five-path source/root/pin adoption; zero blocking findings; remote adoption and required CI/merge/publication not executed by this reviewer",
+  "blocking_findings": [],
+  "job": {
+    "id": 104080729331,
+    "run_id": 34875252891,
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "successful_steps": 16,
+    "canonical_run_head": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "head_join": "canonical jobs.run_id -> independently fetched run.id/head_sha/run_attempt -> both original export reports and every metadata/end record",
+    "full_run_state_at_read": {
+      "status": "in_progress",
+      "conclusion": null
+    }
+  },
+  "raw_log": {
+    "bytes": 9041979,
+    "sha256": "20b6f25fc8f0fe15da03fd45cc663ffb9c05951ca616ca296e68969be88cc91b",
+    "lines": 2784,
+    "bomCharacters": 5,
+    "acquisitionReceiptMatched": true
+  },
+  "canonical_helpers": {
+    "tools/prepare-narrative-product.mjs": {
+      "sha256": "79a161d8b984dea9058f737f4092684e95f0ecd6ca101954add96277a192d653",
+      "gitBlob": "63bb5a7ad3c934b7e45d50e1639e72204795cdb3"
+    },
+    "tools/check-narrative-routes.mjs": {
+      "sha256": "c67a516cb109a02a43b693abe54127098e948ce53969c294642b036a2822c290",
+      "gitBlob": "5c261bbf5d51e6fa8684266149fdc1f591461da0"
+    },
+    ".github/workflows/gates.yml": {
+      "sha256": "6255f8123d1a47aff56a295e53530d8fa5bfb4b5ebb36837c7e299622029216a",
+      "gitBlob": "ccfb7f38fab0b8311d6cb7d65f6504be98ba339d",
+      "target_job_block_matches": true,
+      "entire_file_also_matches": true
+    }
+  },
+  "verification": {
+    "transport_records": 2245,
+    "prepared_files": 10,
+    "route_files": 17,
+    "screens": 16,
+    "complete_chunks_meta_end_hash_blob": true,
+    "all_27_parent_materialized_files_exactly_match_independent_reconstruction": true,
+    "canonical_original_input_set_and_hashes": 47,
+    "baseline_bundle_sha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "baseline_reproduced": true,
+    "all_seven_build_commands_passed": true,
+    "three_frozen_source_pins_match": true,
+    "static_five_root_files_unchanged": true,
+    "new_root_reported_dist_hash_identical": true,
+    "real_job_runtime_body_hash_assertions_and_dom_hashes_verified": true,
+    "png_signature_dimensions_crc_and_deflate_checked": 16,
+    "canonical_browser_viewport": {
+      "width": 667,
+      "height": 375,
+      "deviceScaleFactor": 1,
+      "maxTouchPoints": 1
+    },
+    "initial_parser_failure": "BOM before an Actions timestamp was outside initial parser framing grammar; fixed only parser prefix recognition, raw bytes unmodified; all complete chunks then verified",
+    "c37_manifest_and_five_paths": true,
+    "ios_helper_only_three_pin_values_changed": true,
+    "cpu_adoption_guard_and_transport_negative_checks": {
+      "passed": 16,
+      "total": 16
+    }
+  },
+  "IOS_AUDIO_PIN": {
+    "update_exactly": {
+      "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+      "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+      "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+    },
+    "preserve": {
+      "bundle": "cinderline.1.0.0.js",
+      "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+    }
+  },
+  "c37_candidate_files": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    },
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1446171,
+      "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 22122,
+      "sha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+      "gitBlob": "457f3e1efcd596b102969c508dfa7f64e81a7b92"
+    }
+  ],
+  "parent_visual_review": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/visual-review.json",
+    "sha256": "79909027da43f4d02c2590c7d8a25fa32db95af43f8eebd976962b812e407fd5",
+    "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra",
+    "originalImagesViewed": 16,
+    "blockingFindings": [],
+    "all16ExactPngHashesMatched": true,
+    "independentReviewerViewedImages": false,
+    "remainingLimitations": [
+      "Authored paragraph blank lines are collapsed by the unchanged normal-whitespace dialogue UI, so captured text uses ordinary wrapping rather than blank paragraph rows.",
+      "The non-text mood quiet remains English on ja-iris_first-i_decide and ja-final-k_asked. Those unchanged mood fields were outside the 16 revised body fields.",
+      "Chromium mobile emulation with direct node selection and fresh contexts is not ordinary gameplay, Mobile Safari, physical-device testing, or a blind comparison.",
+      "Readability across other sizes, visual quality, narrative comparison, audio listening and all 19 element verdicts remain not measured."
+    ]
+  },
+  "remaining_unmeasured": [
+    "ordinary gameplay reachability of these nodes",
+    "Mobile Safari on the new bundle",
+    "new bundle audio acquisition and listening",
+    "readability across other viewport sizes",
+    "narrative/visual quality and valid independent blind comparison",
+    "new-head required F2/F3/F5, normal PR merge and Pages/F6 verification"
+  ],
+  "quality": {
+    "allElements": "19 not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "scope_counts": {
+    "remote_mutations": 0,
+    "ci_starts_or_retries": 0,
+    "automation_mutations": 0,
+    "original_source_raw_or_candidate_writes": 0,
+    "actual_browser_executions_by_reviewer": 0,
+    "images_viewed_by_reviewer": 0,
+    "raw_job_log_fetches_by_reviewer": 0,
+    "source_adopted_by_reviewer": false,
+    "new_agents": 0
+  },
+  "write_scope": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review",
+  "sole_remote_writer": "/root/integration_recovery_ultra",
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/REPORT.md",
+      "bytes": 6963,
+      "sha256": "60af6e045fb1d7d809c46a68db860c8303b07efedeea2a4dae39ac5d12ed2ca7"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/authority-receipt.json",
+      "bytes": 38980,
+      "sha256": "cbe3d0a4d16a12f179f8781ff315dcc9053742ad3b4a412e291c8ee8955801f6"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/canonical-c36-tree.json",
+      "bytes": 594039,
+      "sha256": "8f6530f6ca27e575571beaad0663694d915fcb9cfa755d71ed6743caba51848c"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/canonical-prepare-narrative-product.mjs",
+      "bytes": 13807,
+      "sha256": "79a161d8b984dea9058f737f4092684e95f0ecd6ca101954add96277a192d653"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/canonical-check-narrative-routes.mjs",
+      "bytes": 17059,
+      "sha256": "c67a516cb109a02a43b693abe54127098e948ce53969c294642b036a2822c290"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/canonical-gates.yml",
+      "bytes": 29072,
+      "sha256": "6255f8123d1a47aff56a295e53530d8fa5bfb4b5ebb36837c7e299622029216a"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/canonical-run.json",
+      "bytes": 15823,
+      "sha256": "fb72cbb924a7b8eea101ba41f8f01810214dc87f09d56b5a3cf3342eae9f5eff"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/canonical-job.json",
+      "bytes": 2596,
+      "sha256": "27acc9be4b077d27d2b2673303e8c7bde590ae0c7365e79b2d7661e55d14c955"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/input.json",
+      "bytes": 631,
+      "sha256": "5617c2e61cfaa4d44374c01387c50d34d48be0c6e606bff6b302210e94a44b6f"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/verify-recovered.mjs",
+      "bytes": 17522,
+      "sha256": "97a3fd9479eab0a675620f3f2b49f7757d96946997dfcadbeeca3ae548dff5b2"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/independent-verification.json",
+      "bytes": 22991,
+      "sha256": "ec22b84d366e7e6459d8e8674fcd3458b5184aa35f323c6779922fff268c38eb"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/verify-adoption-and-guards.mjs",
+      "bytes": 9077,
+      "sha256": "d5e98714cdac947eda54c78d4db79bccf7003c4eed08c76cc7e8e91cd6ec70fc"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/adoption-and-guard-verification.json",
+      "bytes": 5563,
+      "sha256": "ac09ccbe028fb9af9ab8957c583c707ced0e95cb7a6807bbbce520c5833a67a0"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/independent-review/cross-receipt-verification.json",
+      "bytes": 1931,
+      "sha256": "cbb7df666e99b21ee66dafb1387692ac2cad82fe3f7207ed96b8bed4ffd1f2d6"
+    }
+  ],
+  "reviewed_parent_artifacts": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/log-acquisition-receipt.json",
+      "bytes": 299,
+      "sha256": "57217d0885885f5cbb24e2737181163d32627e3e04d9e5d4c4e0959f414328b5"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/recovered-manifest.json",
+      "bytes": 20296,
+      "sha256": "9d99deefcffcbe50a5cc750d6bbcd5542c6fc72691740a23aa3ad561a81d8a42"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/visual-review.json",
+      "bytes": 17423,
+      "sha256": "79909027da43f4d02c2590c7d8a25fa32db95af43f8eebd976962b812e407fd5"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/run.json",
+      "bytes": 15823,
+      "sha256": "fb72cbb924a7b8eea101ba41f8f01810214dc87f09d56b5a3cf3342eae9f5eff"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/job.json",
+      "bytes": 2596,
+      "sha256": "27acc9be4b077d27d2b2673303e8c7bde590ae0c7365e79b2d7661e55d14c955"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/completed-steps.json",
+      "bytes": 2748,
+      "sha256": "aee6cbdcc8d8f023bbf78e5978f53c67ccb2a0eccee1ba33ccaa82ed5d2ff6a6"
+    }
+  ]
+}

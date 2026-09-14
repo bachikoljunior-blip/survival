@@ -719,3 +719,37 @@ jobs:
           path: test-results/narrative-product-build-r1
           if-no-files-found: error
           retention-days: 14
+
+  recover-ios-startup-c36:
+    name: Recover the original failed C36 PR WDA startup
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[recover-ios-startup-c36-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify the fixed original repository artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-results/ios-startup-c36-original-recovery-r1
+          gh api repos/bachikoljunior-blip/survival/actions/artifacts/10360954160 > test-results/ios-startup-c36-original-recovery-r1/artifact-metadata.json
+          python3 tools/recover-ios-startup-c36.py --metadata-only
+      - name: Download the fixed original archive through the official GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api repos/bachikoljunior-blip/survival/actions/artifacts/10360954160/zip > test-results/ios-startup-c36-original-recovery-r1/original.zip
+      - name: Check original archive digest and export the startup files
+        run: python3 tools/recover-ios-startup-c36.py
+      - name: Preserve recovered original WDA failure and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-startup-c36-original-recovery-r1-${{ github.sha }}
+          path: test-results/ios-startup-c36-original-recovery-r1/original
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,40 @@
+{
+  "verified_at": "2026-09-14T17:45:56.456770+00:00",
+  "rawLog": {
+    "bytes": 9041979,
+    "sha256": "20b6f25fc8f0fe15da03fd45cc663ffb9c05951ca616ca296e68969be88cc91b",
+    "lines": 2784,
+    "bomCharacters": 5,
+    "acquisitionReceiptMatched": true
+  },
+  "transportRecords": 2245,
+  "preparedFiles": 10,
+  "routeFiles": 17,
+  "screens": 16,
+  "canonicalJobMatchesParentReceipt": true,
+  "allJobStepsSuccessful": 16,
+  "jobHasDirectHeadSha": false,
+  "provenanceJoin": "canonical jobs.run_id -> independently fetched run.id/head_sha/run_attempt -> both original export reports and every metadata/end record",
+  "canonicalRunStateAtIndependentRead": {
+    "status": "in_progress",
+    "conclusion": null
+  },
+  "parentVisualReview": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c36-narrative-prepared-result-ultra/visual-review.json",
+    "sha256": "79909027da43f4d02c2590c7d8a25fa32db95af43f8eebd976962b812e407fd5",
+    "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra",
+    "originalImagesViewed": 16,
+    "blockingFindings": [],
+    "all16ExactPngHashesMatched": true,
+    "independentReviewerViewedImages": false,
+    "remainingLimitations": [
+      "Authored paragraph blank lines are collapsed by the unchanged normal-whitespace dialogue UI, so captured text uses ordinary wrapping rather than blank paragraph rows.",
+      "The non-text mood quiet remains English on ja-iris_first-i_decide and ja-final-k_asked. Those unchanged mood fields were outside the 16 revised body fields.",
+      "Chromium mobile emulation with direct node selection and fresh contexts is not ordinary gameplay, Mobile Safari, physical-device testing, or a blind comparison.",
+      "Readability across other sizes, visual quality, narrative comparison, audio listening and all 19 element verdicts remain not measured."
+    ]
+  },
+  "originalSourceAndRawModified": false,
+  "sourceAdopted": false,
+  "remoteMutations": 0
+}

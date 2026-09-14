@@ -1,0 +1,54 @@
+{
+  "status": "original metadata and original CI-log identities agree with candidate PIN",
+  "metadataObjectIsArchiveContent": false,
+  "sourceMetadataReceipt": {
+    "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/c36-pr-startup-artifact-metadata-receipt.json",
+    "sha256": "bfe4577c29072e0b467e620aa7a41f123810cd7dedc4195ed9068ad3d7b3ccd1",
+    "source": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34875256619/artifacts",
+    "origin": "Parent-preserved parsed object from previously successful canonical GitHub App run-artifacts GET; independently parsed here."
+  },
+  "originalLog": {
+    "path": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/c36-pr-safari-original.log",
+    "sha256": "d602a67d0062e892f8b4ad4938ef0bbf1947396e37e3f6764bf16966b269412a",
+    "reportLine": 498,
+    "reportSummary": {
+      "status": "failed",
+      "checks": [],
+      "failures": [
+        "Error: WebDriver POST /session: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+      ],
+      "frameWork": null,
+      "clips": []
+    },
+    "uploadedEntriesReported": 9,
+    "artifactBytes": 97944,
+    "artifactDigest": "sha256:b40c9691451187b79db2d9263f19f52756abacb2e23f88e5d285b691d50b7113"
+  },
+  "directArtifactEndpoint": "One GitHub App direct GET returned 400 endpoint not allowed. Saved verbatim; no retry, alternative local URL download or credentials retrieval performed.",
+  "originalZipDownloaded": false,
+  "requiredSevenOriginalFilenamesSeenInsideZip": false,
+  "candidatePins": [
+    {
+      "path": "tools/recover-ios-startup-c36.py",
+      "bytes": 6774,
+      "sha256": "ca2b650031d6a5583cf124e1df9ec4af936f8677557ae02174fa37fc121527ee"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 30780,
+      "sha256": "0ca44de7a8b28d208c933370b9348608955e1d21adb3794b5ab6b91e2288dd01"
+    },
+    {
+      "path": ".github/workflows/mobile-simulator.yml",
+      "bytes": 9827,
+      "sha256": "c55ddbebdf1a4f70122048cf2a03ad0602506341426ac6340fcb1f5603ff9b1f"
+    }
+  ],
+  "blockingFindings": [],
+  "unverifiedAssumptions": [
+    "The fixed original ZIP uses seven exact root entry names expected by FILES; original upload log reports 9 total files but does not list names.",
+    "The full report.json has the exact checks/failure/audioCapture shape enforced by recover, and the F3 file is failed. Existing harness and original summary support this but ZIP bytes are not yet read.",
+    "Actual GitHub CLI ZIP response follows the download redirect and retains the exact 97944 bytes/digest. The CI validation must establish this."
+  ],
+  "recommendation": "Adopt the three scoped observation/recovery paths; do not label the original recovered until real CI archive/CRC/export verification succeeds; do not infer source Safari shares this PR failure."
+}

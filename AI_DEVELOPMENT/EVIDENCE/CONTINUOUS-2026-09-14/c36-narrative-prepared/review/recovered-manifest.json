@@ -1,0 +1,559 @@
+{
+  "status": "verified original outputs",
+  "head": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "runId": "34875252891",
+  "runAttempt": "1",
+  "jobId": 104080729331,
+  "jobConclusion": "success",
+  "originalLog": {
+    "bytes": 9041979,
+    "sha256": "20b6f25fc8f0fe15da03fd45cc663ffb9c05951ca616ca296e68969be88cc91b"
+  },
+  "preparedFiles": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75",
+      "metadata": {
+        "file": "src/content/story.js",
+        "bytes": 111989,
+        "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+        "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 233,
+      "chunkCount": 38,
+      "endLine": 272
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca",
+      "metadata": {
+        "file": "src/content/locale/ja/story.js",
+        "bytes": 29927,
+        "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+        "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 273,
+      "chunkCount": 10,
+      "endLine": 284
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c",
+      "metadata": {
+        "file": "src/content/locale/ja/story2.js",
+        "bytes": 30756,
+        "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+        "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 285,
+      "chunkCount": 11,
+      "endLine": 297
+    },
+    {
+      "path": "cinderline.1.0.0.js",
+      "bytes": 1446171,
+      "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e",
+      "metadata": {
+        "file": "cinderline.1.0.0.js",
+        "bytes": 1446171,
+        "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 298,
+      "chunkCount": 483,
+      "endLine": 782
+    },
+    {
+      "path": "index.html",
+      "bytes": 5023,
+      "sha256": "c0b374c2d1746764a9555c0405992cda46f1c4f196db44c856c59a9c0b6fcc20",
+      "gitBlob": "e9f78c89c8861b62717e7054cf6a4a0a9bb9158f",
+      "metadata": {
+        "file": "index.html",
+        "bytes": 5023,
+        "sha256": "c0b374c2d1746764a9555c0405992cda46f1c4f196db44c856c59a9c0b6fcc20",
+        "gitBlob": "e9f78c89c8861b62717e7054cf6a4a0a9bb9158f",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 783,
+      "chunkCount": 2,
+      "endLine": 786
+    },
+    {
+      "path": "styles.css",
+      "bytes": 46883,
+      "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3",
+      "gitBlob": "05a4c8599e0fed62fd235beefa33b69fc78b62f8",
+      "metadata": {
+        "file": "styles.css",
+        "bytes": 46883,
+        "sha256": "1b9fa9dd76fd937facbcf43dda68f6ac62dd64b02315a7a8de25121c4d33f4b3",
+        "gitBlob": "05a4c8599e0fed62fd235beefa33b69fc78b62f8",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 787,
+      "chunkCount": 16,
+      "endLine": 804
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 419,
+      "sha256": "04581fc9c19cf89456169c3f850c4421c72acafd4409d3f2a78292d17e971049",
+      "gitBlob": "0d791ceb945062919e23bd723feea623633b6787",
+      "metadata": {
+        "file": "manifest.webmanifest",
+        "bytes": 419,
+        "sha256": "04581fc9c19cf89456169c3f850c4421c72acafd4409d3f2a78292d17e971049",
+        "gitBlob": "0d791ceb945062919e23bd723feea623633b6787",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 805,
+      "chunkCount": 1,
+      "endLine": 807
+    },
+    {
+      "path": "icon.svg",
+      "bytes": 777,
+      "sha256": "40168ac465534358bdd17c222e221a6d504805e40f1cb224ec4bdd279fa93132",
+      "gitBlob": "b37d4a061c83e844c0b025ddf748c884e5bde5b4",
+      "metadata": {
+        "file": "icon.svg",
+        "bytes": 777,
+        "sha256": "40168ac465534358bdd17c222e221a6d504805e40f1cb224ec4bdd279fa93132",
+        "gitBlob": "b37d4a061c83e844c0b025ddf748c884e5bde5b4",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 808,
+      "chunkCount": 1,
+      "endLine": 810
+    },
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "metadata": {
+        "file": ".nojekyll",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 811,
+      "chunkCount": 0,
+      "endLine": 812
+    },
+    {
+      "path": "report.json",
+      "bytes": 14665,
+      "sha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+      "gitBlob": "26a82bd73eba1e56b8baa31055037c73f4eea009",
+      "metadata": {
+        "file": "report.json",
+        "bytes": 14665,
+        "sha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+        "gitBlob": "26a82bd73eba1e56b8baa31055037c73f4eea009",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "complete": true
+      },
+      "metaLine": 813,
+      "chunkCount": 5,
+      "endLine": 819
+    }
+  ],
+  "routeFiles": [
+    {
+      "path": "en-sol_first-ah2.png",
+      "bytes": 301888,
+      "sha256": "e70a35c72b5ec85bd9df4d58cb8824f3913706ad6414a122ee0d818cca0fa190",
+      "gitBlob": "07919fa1bfbda300e9b979f5dd95ca34e7b057f0",
+      "metadata": {
+        "file": "en-sol_first-ah2.png",
+        "bytes": 301888,
+        "sha256": "e70a35c72b5ec85bd9df4d58cb8824f3913706ad6414a122ee0d818cca0fa190",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1057,
+      "chunkCount": 101,
+      "endLine": 1159
+    },
+    {
+      "path": "en-sol_first-vc_end.png",
+      "bytes": 300726,
+      "sha256": "8713dd91d3064dbf0fa10f264674986195131a3c64d02b7c75b9d4875c94f13d",
+      "gitBlob": "94c8c92c717b0c46043bb5de1eab3d487fbe8e89",
+      "metadata": {
+        "file": "en-sol_first-vc_end.png",
+        "bytes": 300726,
+        "sha256": "8713dd91d3064dbf0fa10f264674986195131a3c64d02b7c75b9d4875c94f13d",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1160,
+      "chunkCount": 101,
+      "endLine": 1262
+    },
+    {
+      "path": "en-iris_first-i_decide.png",
+      "bytes": 302370,
+      "sha256": "07143c2e645043e34e9fb878fa1675b8607f84a5b5a3f811568bfc5f81b53bf3",
+      "gitBlob": "f5bc6c5ecfa89aed4939b2b895d1410211f5af95",
+      "metadata": {
+        "file": "en-iris_first-i_decide.png",
+        "bytes": 302370,
+        "sha256": "07143c2e645043e34e9fb878fa1675b8607f84a5b5a3f811568bfc5f81b53bf3",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1263,
+      "chunkCount": 101,
+      "endLine": 1365
+    },
+    {
+      "path": "en-iris_first-i_refuses.png",
+      "bytes": 299196,
+      "sha256": "20c3c3131b99888140184f7c840324806ef192550e40a221e14d6b7b2e201378",
+      "gitBlob": "f12bcce516a08f5309664e5e2a445b34723d89db",
+      "metadata": {
+        "file": "en-iris_first-i_refuses.png",
+        "bytes": 299196,
+        "sha256": "20c3c3131b99888140184f7c840324806ef192550e40a221e14d6b7b2e201378",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1366,
+      "chunkCount": 100,
+      "endLine": 1467
+    },
+    {
+      "path": "en-iris_after-i_sign.png",
+      "bytes": 300246,
+      "sha256": "4cb9b4c22ce4d838448b089e4c2fa4e7d73c259a7cabaa53ea2200e66a9671ef",
+      "gitBlob": "460eee20fb56a273ff7fde59117c1e8ba3b8295f",
+      "metadata": {
+        "file": "en-iris_after-i_sign.png",
+        "bytes": 300246,
+        "sha256": "4cb9b4c22ce4d838448b089e4c2fa4e7d73c259a7cabaa53ea2200e66a9671ef",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1468,
+      "chunkCount": 101,
+      "endLine": 1570
+    },
+    {
+      "path": "en-krajcik-k_deal_cut.png",
+      "bytes": 302343,
+      "sha256": "282c5c318a3ec4f7bd7d94b18730a92ecbd8e7fd439adb75a0fa74e8ce4a9abc",
+      "gitBlob": "8cdc6fa938000b074ba4e51c83dc7607c04925ff",
+      "metadata": {
+        "file": "en-krajcik-k_deal_cut.png",
+        "bytes": 302343,
+        "sha256": "282c5c318a3ec4f7bd7d94b18730a92ecbd8e7fd439adb75a0fa74e8ce4a9abc",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1571,
+      "chunkCount": 101,
+      "endLine": 1673
+    },
+    {
+      "path": "en-final-k_asked.png",
+      "bytes": 302903,
+      "sha256": "5e042a577a81de5f81795dc2b825f076d5ac40891d8a86e5a51018a011bc0934",
+      "gitBlob": "c0940be02d4278a2fd6910d5a9533e1d977650d6",
+      "metadata": {
+        "file": "en-final-k_asked.png",
+        "bytes": 302903,
+        "sha256": "5e042a577a81de5f81795dc2b825f076d5ac40891d8a86e5a51018a011bc0934",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1674,
+      "chunkCount": 101,
+      "endLine": 1776
+    },
+    {
+      "path": "en-final-k_asked2.png",
+      "bytes": 303904,
+      "sha256": "3421a8dfea65e2a033a308f55daa25a5ca45be42ab6d7dd81bbb14862e028e3c",
+      "gitBlob": "26836dbc6e629528a200c8e2e648b0a820af02f7",
+      "metadata": {
+        "file": "en-final-k_asked2.png",
+        "bytes": 303904,
+        "sha256": "3421a8dfea65e2a033a308f55daa25a5ca45be42ab6d7dd81bbb14862e028e3c",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1777,
+      "chunkCount": 102,
+      "endLine": 1880
+    },
+    {
+      "path": "ja-sol_first-ah2.png",
+      "bytes": 299195,
+      "sha256": "0b502de5ccafca360f137568d6a2fa7c0583a8142402c893c0690f35045c0fee",
+      "gitBlob": "be06c24789ec05bbb90d63cfa1f3663dfe0d3e91",
+      "metadata": {
+        "file": "ja-sol_first-ah2.png",
+        "bytes": 299195,
+        "sha256": "0b502de5ccafca360f137568d6a2fa7c0583a8142402c893c0690f35045c0fee",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1881,
+      "chunkCount": 100,
+      "endLine": 1982
+    },
+    {
+      "path": "ja-sol_first-vc_end.png",
+      "bytes": 299096,
+      "sha256": "048189358ec3bbc9df69ff11fe5e0bd7742757f1b34923293f172520558b8bb3",
+      "gitBlob": "0d9ccdbfe1d6089532b8869e4fb7e09d4bfffccd",
+      "metadata": {
+        "file": "ja-sol_first-vc_end.png",
+        "bytes": 299096,
+        "sha256": "048189358ec3bbc9df69ff11fe5e0bd7742757f1b34923293f172520558b8bb3",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 1983,
+      "chunkCount": 100,
+      "endLine": 2084
+    },
+    {
+      "path": "ja-iris_first-i_decide.png",
+      "bytes": 302316,
+      "sha256": "3723803a2af05be22e8e5ce64143cd884e5c16e20779bd2e227796bb9a8835c1",
+      "gitBlob": "12c004ab6ac7040cbcc53a647d8d4fbf75462a28",
+      "metadata": {
+        "file": "ja-iris_first-i_decide.png",
+        "bytes": 302316,
+        "sha256": "3723803a2af05be22e8e5ce64143cd884e5c16e20779bd2e227796bb9a8835c1",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2085,
+      "chunkCount": 101,
+      "endLine": 2187
+    },
+    {
+      "path": "ja-iris_first-i_refuses.png",
+      "bytes": 301635,
+      "sha256": "30425d9375c2917b34d349bdab897419bbef8d1eb29da3e68e0946d1d501d1f7",
+      "gitBlob": "30f8b92bfafa333b682c3eb2122b79532151aef0",
+      "metadata": {
+        "file": "ja-iris_first-i_refuses.png",
+        "bytes": 301635,
+        "sha256": "30425d9375c2917b34d349bdab897419bbef8d1eb29da3e68e0946d1d501d1f7",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2188,
+      "chunkCount": 101,
+      "endLine": 2290
+    },
+    {
+      "path": "ja-iris_after-i_sign.png",
+      "bytes": 304826,
+      "sha256": "0e4a892415a1db5a0d058b47e83b78c0a457eec25b26d8c13b15583d63fbbb53",
+      "gitBlob": "a63ac60f97e624d74c11b4696056924e9d476f95",
+      "metadata": {
+        "file": "ja-iris_after-i_sign.png",
+        "bytes": 304826,
+        "sha256": "0e4a892415a1db5a0d058b47e83b78c0a457eec25b26d8c13b15583d63fbbb53",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2291,
+      "chunkCount": 102,
+      "endLine": 2394
+    },
+    {
+      "path": "ja-krajcik-k_deal_cut.png",
+      "bytes": 305871,
+      "sha256": "d522ef5425f9092df8f2464105d00cdd78bd9eb89488ccab4fb2ff07f7273ded",
+      "gitBlob": "3d20c1cf1f204dd6441478b9c60ce8cb8de8f1d2",
+      "metadata": {
+        "file": "ja-krajcik-k_deal_cut.png",
+        "bytes": 305871,
+        "sha256": "d522ef5425f9092df8f2464105d00cdd78bd9eb89488ccab4fb2ff07f7273ded",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2395,
+      "chunkCount": 102,
+      "endLine": 2498
+    },
+    {
+      "path": "ja-final-k_asked.png",
+      "bytes": 303833,
+      "sha256": "d1a017406e88e7eacc103a5b5e3a31ac2376816aeba81571504b6f096704795c",
+      "gitBlob": "7d5c5dee3788941623cf9b46512b366514ee6588",
+      "metadata": {
+        "file": "ja-final-k_asked.png",
+        "bytes": 303833,
+        "sha256": "d1a017406e88e7eacc103a5b5e3a31ac2376816aeba81571504b6f096704795c",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2499,
+      "chunkCount": 102,
+      "endLine": 2602
+    },
+    {
+      "path": "ja-final-k_asked2.png",
+      "bytes": 303660,
+      "sha256": "9ca74bcb33876dd7d5a4184ecbbed70986023950aeab90c8c02da33c63877aba",
+      "gitBlob": "a0df9d2058fe0125949a033c2306cc8c317d2240",
+      "metadata": {
+        "file": "ja-final-k_asked2.png",
+        "bytes": 303660,
+        "sha256": "9ca74bcb33876dd7d5a4184ecbbed70986023950aeab90c8c02da33c63877aba",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2603,
+      "chunkCount": 102,
+      "endLine": 2706
+    },
+    {
+      "path": "report.json",
+      "bytes": 16528,
+      "sha256": "8ae2c78546dd32bd81a67201a416c451790eaf3bd972587a82d824e89f0bf9c5",
+      "gitBlob": "a17856bad233d3f019fd12cbfc5037dcd4780344",
+      "metadata": {
+        "file": "report.json",
+        "bytes": 16528,
+        "sha256": "8ae2c78546dd32bd81a67201a416c451790eaf3bd972587a82d824e89f0bf9c5",
+        "commit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "runId": "34875252891",
+        "runAttempt": "1",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "diagnosticStatus": "passed",
+        "screenCount": 16,
+        "complete": true
+      },
+      "metaLine": 2707,
+      "chunkCount": 6,
+      "endLine": 2714
+    }
+  ],
+  "candidateBundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+  "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+  "routeStatus": "passed",
+  "screensRecovered": 16,
+  "baselineReproduced": true,
+  "frozenSourceFiles": 3,
+  "canonicalInputs": 47,
+  "allSevenBuildStagesPassed": true,
+  "sourceKnownStagedDiagnostic": true,
+  "visualReview": "pending",
+  "validBlindComparisons": 0,
+  "allElements": "19 not measured",
+  "unitsCompleted": 0,
+  "remoteMutations": 0,
+  "ciStarts": 0
+}

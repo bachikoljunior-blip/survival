@@ -9,10 +9,10 @@ import { captureMobileAudio } from './mobile_audio_capture.mjs';
 import { installFrameWorkProbe, stopFrameWorkProbe } from './frame_work_probe.mjs';
 
 export const IOS_AUDIO_PIN = Object.freeze({
-  preparedFromCommit: 'eb81be9053204fa25a0e7556f78941dd862d4032',
-  preparationReportSha256: '3af69d8780c54ca4a5f2868e7b5958f6200578390a47977440fc65edf8189446',
+  preparedFromCommit: '789f2199bd3791a6dc6566eecaf3c1478c99afa6',
+  preparationReportSha256: '2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69',
   bundle: 'cinderline.1.0.0.js',
-  bundleSha256: '514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55',
+  bundleSha256: '1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7',
   recorderBlob: '785541d3beaed0e35e8bcf042973eabb7bdb5d6c',
 });
 const TRANSFER_KEY = '__cinderlineIosAudioTransfer';

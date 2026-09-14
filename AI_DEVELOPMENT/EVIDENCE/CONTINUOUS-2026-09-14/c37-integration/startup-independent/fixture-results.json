@@ -1,0 +1,277 @@
+{
+  "status": "passed",
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "name": "synthetic seven originals return byte-exact",
+      "passed": true
+    },
+    {
+      "name": "unknown safe entry is ignored",
+      "passed": true
+    },
+    {
+      "name": "reject wrong metadata id",
+      "passed": true
+    },
+    {
+      "name": "reject wrong metadata name",
+      "passed": true
+    },
+    {
+      "name": "reject wrong metadata size_in_bytes",
+      "passed": true
+    },
+    {
+      "name": "reject wrong metadata digest",
+      "passed": true
+    },
+    {
+      "name": "reject wrong original workflow id",
+      "passed": true
+    },
+    {
+      "name": "reject wrong original workflow head_sha",
+      "passed": true
+    },
+    {
+      "name": "reject wrong original workflow head_branch",
+      "passed": true
+    },
+    {
+      "name": "reject wrong original workflow repository_id",
+      "passed": true
+    },
+    {
+      "name": "reject wrong original workflow head_repository_id",
+      "passed": true
+    },
+    {
+      "name": "reject expired artifact",
+      "passed": true
+    },
+    {
+      "name": "reject archive size change",
+      "passed": true
+    },
+    {
+      "name": "reject same-size archive digest change",
+      "passed": true
+    },
+    {
+      "name": "reject missing required original",
+      "passed": true
+    },
+    {
+      "name": "reject traversal ../escape.txt",
+      "passed": true
+    },
+    {
+      "name": "reject traversal /absolute.txt",
+      "passed": true
+    },
+    {
+      "name": "reject traversal path\\escape.txt",
+      "passed": true
+    },
+    {
+      "name": "reject symlink",
+      "passed": true
+    },
+    {
+      "name": "reject duplicate entry",
+      "passed": true
+    },
+    {
+      "name": "reject more than 32 entries",
+      "passed": true
+    },
+    {
+      "name": "reject invalid UTF-8 before export",
+      "passed": true
+    },
+    {
+      "name": "reject selected file expansion over cap",
+      "passed": true
+    },
+    {
+      "name": "reject total archive expansion including unselected files",
+      "passed": true
+    },
+    {
+      "name": "reject corrupted selected CRC after synthetic digest update",
+      "passed": true
+    },
+    {
+      "name": "reject passed status",
+      "passed": true
+    },
+    {
+      "name": "reject nonempty checks",
+      "passed": true
+    },
+    {
+      "name": "reject other failure",
+      "passed": true
+    },
+    {
+      "name": "reject extra failure",
+      "passed": true
+    },
+    {
+      "name": "reject unexpected captured clip",
+      "passed": true
+    },
+    {
+      "name": "reject passed F3",
+      "passed": true
+    },
+    {
+      "name": "UTF-8 and 3000-byte original chunk transfer roundtrip",
+      "passed": true
+    },
+    {
+      "name": "all original Floor jobs and top-level conditions unchanged",
+      "passed": true
+    },
+    {
+      "name": "only source push attempt1 with fixed marker can run recovery job",
+      "passed": true
+    },
+    {
+      "name": "recovery token permissions read-only",
+      "passed": true
+    },
+    {
+      "name": "fixed official GET metadata then ZIP; no credential extraction",
+      "passed": true
+    },
+    {
+      "name": "mobile env acquisition frame-work guards and other steps unchanged",
+      "passed": true
+    },
+    {
+      "name": "ordinary non-audio unchanged",
+      "passed": true
+    },
+    {
+      "name": "audio missing report",
+      "passed": true
+    },
+    {
+      "name": "audio malformed report",
+      "passed": true
+    },
+    {
+      "name": "audio successful report",
+      "passed": true
+    },
+    {
+      "name": "audio real-shaped pre-session failure",
+      "passed": true
+    },
+    {
+      "name": "audio recorded later failure",
+      "passed": true
+    },
+    {
+      "name": "audio execute-sync failure before checks",
+      "passed": true
+    },
+    {
+      "name": "audio no-session-id fallback",
+      "passed": true
+    },
+    {
+      "name": "audio empty failures",
+      "passed": true
+    },
+    {
+      "name": "audio wrong check shape",
+      "passed": true
+    },
+    {
+      "name": "audio wrong failure shape",
+      "passed": true
+    },
+    {
+      "name": "production PIN remained fixed",
+      "passed": true
+    }
+  ],
+  "namedCheckCount": 49,
+  "conditionFixtures": [
+    {
+      "name": "ordinary non-audio unchanged",
+      "audio": "0",
+      "emittedFileCount": 5,
+      "exitCode": 0
+    },
+    {
+      "name": "audio missing report",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio malformed report",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio successful report",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio real-shaped pre-session failure",
+      "audio": "1",
+      "emittedFileCount": 5,
+      "exitCode": 0
+    },
+    {
+      "name": "audio recorded later failure",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio execute-sync failure before checks",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio no-session-id fallback",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio empty failures",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio wrong check shape",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    },
+    {
+      "name": "audio wrong failure shape",
+      "audio": "1",
+      "emittedFileCount": 0,
+      "exitCode": 0
+    }
+  ],
+  "realArtifactDownloaded": false,
+  "realRecoveryProven": false,
+  "simulatorStarted": false,
+  "remoteWrites": 0,
+  "ciLaunches": 0,
+  "productChanges": 0
+}

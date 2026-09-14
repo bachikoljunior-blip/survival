@@ -1,0 +1,130 @@
+{
+  "status": "passed",
+  "scope": "Final serialization and combination only; no original fixtures, arithmetic analysis, screenshots, CI or comparisons rerun",
+  "finalManifestSha256": "d0b9f57ce4c1ad9e9500eafe3c69f926ee0df28b05049a5be53350dbec7b4fc0",
+  "baseCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "baseTree": "71f650e9f8f4458fd248954281da9f38af2084fe",
+  "payloadPaths": 91,
+  "candidatePaths": [
+    {
+      "path": ".github/workflows/gates.yml",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/.github/workflows/gates.yml",
+      "kind": "candidate",
+      "bytes": 30780,
+      "sha256": "0ca44de7a8b28d208c933370b9348608955e1d21adb3794b5ab6b91e2288dd01",
+      "gitBlob": "774a32462462fad15fea199fb76c502f3d75a378"
+    },
+    {
+      "path": ".github/workflows/mobile-simulator.yml",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/.github/workflows/mobile-simulator.yml",
+      "kind": "candidate",
+      "bytes": 9827,
+      "sha256": "c55ddbebdf1a4f70122048cf2a03ad0602506341426ac6340fcb1f5603ff9b1f",
+      "gitBlob": "2970f1f09b2ae48184ef0f66147a53ea3ca58bd3"
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "kind": "candidate",
+      "bytes": 12677,
+      "sha256": "27b665e625d1bce8fc93eba0c155648e97b2c21b8074227c9be1a18324828582",
+      "gitBlob": "c57df4df920e73036d713bd306e7e84d28319503"
+    },
+    {
+      "path": "cinderline.1.0.0.js",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/cinderline.1.0.0.js",
+      "kind": "candidate",
+      "bytes": 1446171,
+      "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/src/content/locale/ja/story.js",
+      "kind": "candidate",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/src/content/locale/ja/story2.js",
+      "kind": "candidate",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    },
+    {
+      "path": "src/content/story.js",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/src/content/story.js",
+      "kind": "candidate",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/tools/ios_audio_capture.mjs",
+      "kind": "candidate",
+      "bytes": 22122,
+      "sha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+      "gitBlob": "457f3e1efcd596b102969c508dfa7f64e81a7b92"
+    },
+    {
+      "path": "tools/recover-ios-startup-c36.py",
+      "localPath": "/workspace/scratch/0b7ad82bafe7/main-integration-c37/payload/tools/recover-ios-startup-c36.py",
+      "kind": "candidate",
+      "bytes": 6774,
+      "sha256": "ca2b650031d6a5583cf124e1df9ec4af936f8677557ae02174fa37fc121527ee",
+      "gitBlob": "2dd45639e4032c759542fd2b104307835ae3a5c9"
+    }
+  ],
+  "reviewedEightUnchanged": true,
+  "originalPaths": 28,
+  "originalBytesAllMatched": true,
+  "prior83PreservedBeforeEightEvidenceAddition": true,
+  "clarificationOnlyChanges": [
+    "AI_DEVELOPMENT/SESSION_STATE.yaml",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c37-integration/REPORT.md",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c37-integration/prepare-state.py",
+    "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c37-integration/deadline-receipt.json"
+  ],
+  "strictSessionParser": {
+    "gitBlob": "176dbeec7b81bb1a4e4cb59b8569c0f5a80917d0",
+    "sha256": "479ccd8a248764a77dbac709b0c633a528837c1e90080d1b3c33ad01855181fb",
+    "expectedObjectRoundtrip": true,
+    "workObjectUnchanged": true,
+    "repositoryObjectUnchanged": true
+  },
+  "protectedStateConceptBenchmarksUnchanged": true,
+  "publicPacketAllowlistOnly": [
+    "public-summary.json",
+    "public-allowlist.json"
+  ],
+  "referenceProseOrPrivatePacketFound": false,
+  "authoritativeElements": {
+    "count": 19,
+    "status": "not measured"
+  },
+  "validBlind": 0,
+  "unitsCompleted": 0,
+  "firstStart": "2026-09-13T20:56:49+09:00",
+  "deadline": "2026-09-20T20:56:49+09:00",
+  "completedRuns": 4,
+  "main": "5456371249f5769c25d18f1686a44349e4292d6f",
+  "sourceReport": {
+    "bytes": 4472434,
+    "sha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8",
+    "releaseMs": 18,
+    "streetRatio": 0.8966843166918298,
+    "thirdTransfer": "failed; original 120-second deadline",
+    "completedClips": 2
+  },
+  "profileLimits": "447ms callback includes renderer aggregate446ms/2calls; updater182ms/4calls belongs to another callback. Street audio.update max1ms, all three recordings max2ms. Synchronous elapsed is not CPU/GPU time; causal attribution still limited.",
+  "archiveLimits": "source and PR ZIP metadata/upload identity observed; neither ZIP downloaded by this reviewer; source report is independently recovered original bytes",
+  "blockingFindings": [],
+  "candidateEdits": 0,
+  "remoteWrites": 0,
+  "ciLaunches": 0,
+  "newComparisons": 0
+}

@@ -132,7 +132,7 @@ jobs:
           if test -f test-results/ios-safari/appium.pid; then kill "$(cat test-results/ios-safari/appium.pid)" 2>/dev/null || true; fi
           sleep 2
       - name: Emit startup diagnostics in ordinary CI log
-        if: ${{ always() && env.CINDERLINE_IOS_AUDIO_CAPTURE != '1' }}
+        if: always()
         shell: bash
         run: |
           node --input-type=module <<'NODE'
@@ -141,6 +141,17 @@ jobs:
           import { readFileSync, statSync } from 'node:fs';
           import { createHash } from 'node:crypto';
 
+          // Audio jobs normally omit bulky command logs. A failed session creation has
+          // no recording to expose and needs the same original WDA diagnostics.
+          if (process.env.CINDERLINE_IOS_AUDIO_CAPTURE === '1') {
+            let failure;
+            try { failure = JSON.parse(readFileSync('test-results/ios-safari/report.json', 'utf8')); }
+            catch { process.exit(0); }
+            const preSessionFailure = failure.status === 'failed' && Array.isArray(failure.checks)
+              && failure.checks.length === 0 && Array.isArray(failure.failures)
+              && failure.failures.some(value => typeof value === 'string' && value.includes('WebDriver POST /session:'));
+            if (!preSessionFailure) process.exit(0);
+          }
           const files = [
             ['appium.log', 4 * 1024 * 1024],
             ['simulator-selection.json', 64 * 1024],

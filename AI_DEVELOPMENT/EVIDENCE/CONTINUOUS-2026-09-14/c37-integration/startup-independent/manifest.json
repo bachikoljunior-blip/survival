@@ -1,0 +1,138 @@
+{
+  "status": "review passed; blocking 0; scoped recovery/diagnostic adoption recommended",
+  "authorityHead": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "candidatePins": [
+    {
+      "path": "tools/recover-ios-startup-c36.py",
+      "bytes": 6774,
+      "sha256": "ca2b650031d6a5583cf124e1df9ec4af936f8677557ae02174fa37fc121527ee"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 30780,
+      "sha256": "0ca44de7a8b28d208c933370b9348608955e1d21adb3794b5ab6b91e2288dd01"
+    },
+    {
+      "path": ".github/workflows/mobile-simulator.yml",
+      "bytes": 9827,
+      "sha256": "c55ddbebdf1a4f70122048cf2a03ad0602506341426ac6340fcb1f5603ff9b1f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "REPORT.md",
+      "bytes": 5948,
+      "sha256": "ae8d2a15afaaee1078bae9fc0c37cf1531acab5bf5fa50f2c3342624baf762ef",
+      "synthetic": false
+    },
+    {
+      "path": "authority-receipt.json",
+      "bytes": 39437,
+      "sha256": "64b7efbd84570800d48bf5cdd521db865aab637e94e221a28ca20ecf6f5ba18a",
+      "synthetic": false
+    },
+    {
+      "path": "candidate-pins.json",
+      "bytes": 476,
+      "sha256": "6e760ba6f25386e1d8efcdc423fa06993dd7d68adf4f0ca767c038fc620ea311",
+      "synthetic": false
+    },
+    {
+      "path": "candidate-snapshot/.github/workflows/gates.yml",
+      "bytes": 30780,
+      "sha256": "0ca44de7a8b28d208c933370b9348608955e1d21adb3794b5ab6b91e2288dd01",
+      "synthetic": false
+    },
+    {
+      "path": "candidate-snapshot/.github/workflows/mobile-simulator.yml",
+      "bytes": 9827,
+      "sha256": "c55ddbebdf1a4f70122048cf2a03ad0602506341426ac6340fcb1f5603ff9b1f",
+      "synthetic": false
+    },
+    {
+      "path": "candidate-snapshot/tools/recover-ios-startup-c36.py",
+      "bytes": 6774,
+      "sha256": "ca2b650031d6a5583cf124e1df9ec4af936f8677557ae02174fa37fc121527ee",
+      "synthetic": false
+    },
+    {
+      "path": "fixture-results.json",
+      "bytes": 5869,
+      "sha256": "4c164ad1fca8a1152e14f5dab7c8852fb358524998df2b9d2d9530215b1a045d",
+      "synthetic": false
+    },
+    {
+      "path": "fixtures/condition/test-results/ios-safari/appium.log",
+      "bytes": 21,
+      "sha256": "a5730a55e4fc854be878072bc4661e900ee6a115c2cc0e4015d0bab72cf11fa4",
+      "synthetic": true
+    },
+    {
+      "path": "fixtures/condition/test-results/ios-safari/report.json",
+      "bytes": 58,
+      "sha256": "f928e27ab1e170cee67f305d47682eb61f67d9d7fba7f79ffe6bf6172ab44520",
+      "synthetic": true
+    },
+    {
+      "path": "fixtures/condition/test-results/ios-safari/simulator-sdk-version.txt",
+      "bytes": 36,
+      "sha256": "6ad8f3fde2600ee5208ebde3a15b0fac9390d89dbffc4b9f3a7788916155f2ce",
+      "synthetic": true
+    },
+    {
+      "path": "fixtures/condition/test-results/ios-safari/simulator-selection.json",
+      "bytes": 35,
+      "sha256": "99e11d884d111da3d3004eb6f8b8a6aa5477a96a52b1d3bb1269f2a498f2f7c9",
+      "synthetic": true
+    },
+    {
+      "path": "fixtures/condition/test-results/ios-safari/xcode-path.txt",
+      "bytes": 25,
+      "sha256": "46447b0557bdd9df9d13527d6e8481311bdc1e1890fb987d2093d90f1b5991dc",
+      "synthetic": true
+    },
+    {
+      "path": "fixtures/condition/test-results/ios-safari/xcode-version.txt",
+      "bytes": 28,
+      "sha256": "47fdad80211c82d6a3870036181954d267a53d8af91ab5d0647d80d5b374ddbf",
+      "synthetic": true
+    },
+    {
+      "path": "original-artifact-metadata-receipt.json",
+      "bytes": 1209,
+      "sha256": "bfe4577c29072e0b467e620aa7a41f123810cd7dedc4195ed9068ad3d7b3ccd1",
+      "synthetic": false
+    },
+    {
+      "path": "original-observation.json",
+      "bytes": 3240,
+      "sha256": "22db6c92dc72fae240672e1a6cfee89d63d782011d553421620fcb72367054cf",
+      "synthetic": false
+    },
+    {
+      "path": "review-fixtures.py",
+      "bytes": 11090,
+      "sha256": "b034c1020aa12fdb0354daf775b3e50ae2573dc045f9506e0f52d0e67c7166f8",
+      "synthetic": false
+    }
+  ],
+  "verification": {
+    "syntheticNamedChecks": 49,
+    "conditionFixtures": 11,
+    "actualOriginalMetadataChecked": true,
+    "actualOriginalCILogChecked": true,
+    "actualZipDownloaded": false,
+    "actualRecoveryComplete": false,
+    "actualSimulatorStarted": false
+  },
+  "limits": [
+    "Exact seven ZIP root names and complete report shapes await actual fixed archive.",
+    "No source Safari cause inferred from this PR run.",
+    "No blind comparison or quality verdict."
+  ],
+  "remoteWrites": 0,
+  "ciLaunches": 0,
+  "automationChanges": 0,
+  "candidateEdits": 0,
+  "productChanges": 0
+}
