@@ -1,0 +1,64 @@
+--- a/src/audio/audio.js
++++ b/src/audio/audio.js
+@@ -205,8 +205,7 @@
+     g.on('sfx', (name, opts) => this.play(name, opts));
+     g.on('music', (state) => this.setMusic(state));
+     g.on('zone', (region) => {
+-      if (region && region.ambience) this.setAmbience(region.ambience);
+-      else this.setAmbience('street');
++      this._syncAmbience(region);
+       if (region && region.music) this.setMusic(region.music);
+     });
+     g.on('mode', (m) => {
+@@ -738,6 +737,18 @@
+     }
+   }
+ 
++  /** Interior audio follows the same authored space as the visual mood. */
++  _syncAmbience(region = this.game.zone) {
++    const interiorId = this.game.director?.currentInterior || null;
++    if (region === this._ambienceRegion && interiorId === this._ambienceInterior) return;
++    this._ambienceRegion = region;
++    this._ambienceInterior = interiorId;
++    const interior = interiorId ? this.game.city?.interiors?.get(interiorId) : null;
++    this.setAmbience(interiorId
++      ? (interior?.mood === 'under' ? 'under' : 'interior')
++      : (region?.ambience || 'street'));
++  }
++
+   /** Ambience presets by region. */
+   setAmbience(state, force = false) {
+     if (state === this.ambienceState && !force) return;
+@@ -758,7 +769,8 @@
+     const t = this.ctx.currentTime;
+     for (const k in this.ambLayers) {
+       const L = this.ambLayers[k];
+-      L.gain.gain.setTargetAtTime(L.base * (P[k] ?? 0), t, 2.2);
++      L.target = P[k] ?? 0;
++      L.gain.gain.setTargetAtTime(L.base * L.target, t, 2.2);
+     }
+ 
+     // Crossfade the room. `interior` had a preset here and no matching reverb
+@@ -772,6 +784,7 @@
+ 
+   /** Per-frame ambience modulation from the actual air the player is in. */
+   update(dt) {
++    this._syncAmbience();
+     if (!this.ready) return;
+     const p = this.game.player;
+     if (!p) return;
+@@ -781,12 +794,12 @@
+     const ppm = p.ambientPpm || 0;
+     const hissAmt = clamp01((ppm - 200) / 2200);
+     const L = this.ambLayers.hiss;
+-    if (L) L.gain.gain.setTargetAtTime(L.base * lerp(L.target || 0.05, 0.9, hissAmt), t, 0.6);
++    if (L) L.gain.gain.setTargetAtTime(L.base * lerp(L.target ?? 0.05, 0.9, hissAmt), t, 0.6);
+     // The burn gets louder as you descend.
+     const B = this.ambLayers.burn;
+     if (B) {
+       const depth = clamp01(1 - (p.pos.y + 2) / 22);
+-      B.gain.gain.setTargetAtTime(B.base * lerp(0.25, 1.0, depth), t, 1.2);
++      B.gain.gain.setTargetAtTime(B.base * (B.target ?? 0.5) * lerp(0.25, 1.0, depth), t, 1.2);
+     }
+     this._musicTick();
+   }

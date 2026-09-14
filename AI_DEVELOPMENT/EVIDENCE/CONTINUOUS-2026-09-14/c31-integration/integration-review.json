@@ -1,0 +1,24 @@
+{
+  "owner": "/root/integration_decisions_ultra_v2",
+  "source": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+  "outcome": "pass for exact C31 source save and real required CI",
+  "independence": "C: distinct explicitly Ultra implementation and integration reviewer; source-known code review, not blind quality comparison",
+  "reviewed_f3_candidate_manifest_sha256": "0ab2b031555d55deb5850f6187405671ef1ff23e34979395efea2f10cd5fc060",
+  "checks": {
+    "original_non_audio_F3_steps_identical_and_ordered": 10,
+    "all_non_F3_jobs_unchanged": true,
+    "same_F3_execution_required_name": true,
+    "only_success_success_aggregate": true,
+    "actual_aggregate_shell_cases": 36,
+    "independent_actual_original_audio_controls_passed": 30,
+    "independent_workflow_checks_passed": 19,
+    "new_exact_root_dist_81c_pin_and_preparation_lineage": true,
+    "old_6b_report_rejected_for_new_build": true,
+    "original_recorder_compressor_cap_clock_function_unchanged": true,
+    "product_source_root_exact_prepared_pair": true
+  },
+  "official_workflow_reference": "https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations",
+  "official_context_check": "Same-repository reuse is supported; caller GitHub/workflow context is inherited; caller has no colliding concurrency group and the callee distinguishes Floor gates from standalone.",
+  "limits": "Actual workflow_call, new smartphone runtime/capture, required PR checks and main/public deployment are not yet measured. Old failures remain. Source-known grain diagnosis and CPU/transport success award no element verdict.",
+  "evidence_preservation": "Independent reruns wrote duration fields in two implementer result JSON files; new results were saved separately here and the two original files were restored byte-exact against their already frozen SHA256 pins using preserved original duration receipts. The three code files were unchanged."
+}

@@ -1,0 +1,67 @@
+{
+  "scope": "Decoded sample measurements only; not listening, spatial quality, speech/music identity or a blind comparison.",
+  "files": [
+    {
+      "file": "audio-arcade-room.wav",
+      "decoded_wav_sha256": "93420b7f821a21d7a055a4440b8613ff75dc97ec09c8e6483087ba7f23fdea18",
+      "sample_rate": 48000,
+      "channels": 2,
+      "samples": 304128,
+      "duration_seconds": 6.336,
+      "peak_per_channel": [
+        0.187896728515625,
+        0.170684814453125
+      ],
+      "rms_per_channel": [
+        0.03863062630597878,
+        0.03854983367572288
+      ],
+      "full_scale_sample_fraction": 0.0,
+      "left_right_difference_rms": 0.0009707545096518433,
+      "left_right_correlation": 0.999684264795146,
+      "nonzero_frames": 301065
+    },
+    {
+      "file": "audio-street-walk.wav",
+      "decoded_wav_sha256": "f317d08460c068053d59bfdc190845cb00db396752153f81c3322922b585887b",
+      "sample_rate": 48000,
+      "channels": 2,
+      "samples": 431104,
+      "duration_seconds": 8.981333333333334,
+      "peak_per_channel": [
+        0.147552490234375,
+        0.147552490234375
+      ],
+      "rms_per_channel": [
+        0.03550759976842795,
+        0.03549780998303758
+      ],
+      "full_scale_sample_fraction": 0.0,
+      "left_right_difference_rms": 0.0005506385781350495,
+      "left_right_correlation": 0.999879699718037,
+      "nonzero_frames": 427998
+    },
+    {
+      "file": "audio-vent-air.wav",
+      "decoded_wav_sha256": "db192af0fa7385e68c8072de89992cd6556c11d0a2dd7a7c4c2a0db70ba5793d",
+      "sample_rate": 48000,
+      "channels": 2,
+      "samples": 306176,
+      "duration_seconds": 6.378666666666667,
+      "peak_per_channel": [
+        0.17913818359375,
+        0.170196533203125
+      ],
+      "rms_per_channel": [
+        0.039293118314993894,
+        0.03924889081801498
+      ],
+      "full_scale_sample_fraction": 0.0,
+      "left_right_difference_rms": 0.0008711545104655061,
+      "left_right_correlation": 0.9997540981310972,
+      "nonzero_frames": 303108
+    }
+  ],
+  "listening_status": "not measured",
+  "forwarding_attempt": "Initial WAV forwarding exceeded exec output length and is not complete-listening evidence; subsequent lossless FLAC forwarding length was verified, but no independent listening capability/result was established."
+}

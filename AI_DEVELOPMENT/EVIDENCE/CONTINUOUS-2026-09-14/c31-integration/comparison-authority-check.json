@@ -1,0 +1,56 @@
+{
+  "source_commit": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+  "all_four_authority_hashes_exact": true,
+  "criteria_count": 71,
+  "element_projection": {
+    "file": "AI_DEVELOPMENT/BENCHMARKS/elements.json",
+    "original_commit": "2fc0a319faeffb3733cd4a5f3091be3819ec770d",
+    "original_sha256": "3c31371a85fa1665e6574a0baf4499b2bb3027fab3ee60bbebb1491d3cdf2124",
+    "original_git_blob_sha": "25ae40a6371588e4d047961a7824cfeb9b6fcdac",
+    "current_sha256": "58b861234d22350b101587897d2850b2f2480b0761f95c1e32045bd7555dcd11",
+    "current_bytes": 10888,
+    "current_git_blob_sha": "4651ab2e4b2199703decbbf7aa4d4be0b08a06a2",
+    "current_checkout_commit": null,
+    "fixed_goal_sha256": "71e9f80b2f688d0732b2feec13194347258a432d1694c37a93eafc58ab3b0dc5",
+    "element_count": 19,
+    "fixed_root_fields": [
+      "schema_version",
+      "concept_revision",
+      "inherited_from_commit",
+      "criteria_lock",
+      "concept_authorities",
+      "coverage"
+    ],
+    "fixed_element_fields": [
+      "id",
+      "name",
+      "reference_id",
+      "reference_work"
+    ],
+    "changed_record_fields": [
+      {
+        "field": "elements.acquisition_evidence",
+        "original_sha256": null,
+        "current_sha256": "9808d6a3ed743468bbbee078b6c82da9e4df4f13809f35c0bb3ad982b818ca36"
+      },
+      {
+        "field": "elements.attempts",
+        "original_sha256": "47ae4a4f7e19a19c40865e8361e9b5ff508bee7ba545be499f566016c9db88b4",
+        "current_sha256": "9b16a07ff75322a40089ec6f7e1603c409edb23d57ebd77d16f4c67fcd9ca576"
+      },
+      {
+        "field": "elements.blocker",
+        "original_sha256": "a0335e1e101e2091189618ac15f991cb9cfc465bf663cde81195b2c09c97275d",
+        "current_sha256": "5ae549841f952eaa8c3fed6f41dfaad80acf03a35a2327ca6a8b8868b2029f9b"
+      },
+      {
+        "field": "elements.preparation_evidence",
+        "original_sha256": null,
+        "current_sha256": "ebf0403c1b6575ff96d8e8e86e8b569e382bfbf421e1a6a7c3d4f292c3e936db"
+      }
+    ],
+    "record_change_meaning": "Field hashes include every element ID/value. Progress/method/evidence changes are identified, not certified as valid quality verdicts. Frozen criteria and goals are checked separately."
+  },
+  "packet_created": false,
+  "evaluation_count": 0
+}

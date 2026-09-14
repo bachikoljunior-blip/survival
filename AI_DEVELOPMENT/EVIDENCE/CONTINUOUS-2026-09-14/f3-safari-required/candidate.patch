@@ -1,0 +1,207 @@
+--- a/.github/workflows/gates.yml
++++ b/.github/workflows/gates.yml
+@@ -30,8 +30,8 @@
+           F2_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'origin/main' }}
+         run: node tools/gates/f2_state_update.mjs --base "$F2_BASE"
+ 
+-  f3-execution:
+-    name: F3 execution
++  f3-core:
++    name: F3 core, WebKit and fault recovery
+     runs-on: ubuntu-latest
+     timeout-minutes: 30
+     steps:
+@@ -81,24 +81,28 @@
+           if-no-files-found: error
+           retention-days: 14
+ 
+-      # This WebKit build exposes no MediaRecorder. Use the already installed
+-      # Chromium only to acquire actual sound and simultaneous world video;
+-      # it does not replace any WebKit surface or fault-recovery measurements.
+-      - name: Capture production sound and video in Chromium
+-        if: ${{ !cancelled() }}
+-        env:
+-          CINDERLINE_BROWSER: chromium
+-          CINDERLINE_AUDIO_ONLY: "1"
+-          CINDERLINE_WEBKIT_OUTPUT: test-results/mobile-audio
+-        run: npm run test:iphone-webkit
+-      - name: Preserve original production audiovisual recordings
+-        if: always()
+-        uses: actions/upload-artifact@v4
+-        with:
+-          name: mobile-audio-${{ github.sha }}
+-          path: test-results/mobile-audio
+-          if-no-files-found: error
+-          retention-days: 14
++  f3-safari:
++    name: F3 Mobile Safari audio
++    uses: ./.github/workflows/mobile-simulator.yml
++    with:
++      capture_audio: true
++
++  f3-execution:
++    name: F3 execution
++    needs: [f3-core, f3-safari]
++    if: always()
++    runs-on: ubuntu-latest
++    timeout-minutes: 5
++    steps:
++      - name: Require both the complete core gate and actual Safari audio acquisition
++        env:
++          F3_CORE_RESULT: ${{ needs.f3-core.result }}
++          F3_SAFARI_RESULT: ${{ needs.f3-safari.result }}
++        shell: bash
++        run: |
++          printf 'F3 core=%s Safari=%s\n' "$F3_CORE_RESULT" "$F3_SAFARI_RESULT"
++          test "$F3_CORE_RESULT" = success
++          test "$F3_SAFARI_RESULT" = success
+ 
+   f5-review-record:
+     name: F5 review record
+--- a/.github/workflows/mobile-simulator.yml
++++ b/.github/workflows/mobile-simulator.yml
+@@ -10,6 +10,7 @@
+       - 'tools/test-ios-safari.mjs'
+       - 'tools/ios_audio_capture.mjs'
+       - 'tools/mobile_audio_capture.mjs'
++      - 'tools/gates/f3_safari_audio.mjs'
+       - 'tools/select-ios-simulator.mjs'
+       - 'tools/webdriver-request.mjs'
+       - 'tools/ios-pointer-coordinates.mjs'
+@@ -17,6 +18,12 @@
+       - 'package.json'
+       - 'package-lock.json'
+       - 'build.mjs'
++  workflow_call:
++    inputs:
++      capture_audio:
++        description: 'Require the original three-scene production audio acquisition on every requested attempt'
++        type: boolean
++        default: false
+   workflow_dispatch:
+     inputs:
+       capture_audio:
+@@ -28,7 +35,9 @@
+   contents: read
+ 
+ concurrency:
+-  group: mobile-simulator-${{ github.ref }}
++  # A reusable call inherits its caller workflow name. Keep Floor gates and
++  # standalone simulator runs in different cancellation groups.
++  group: mobile-simulator-${{ github.workflow }}-${{ github.ref }}
+   cancel-in-progress: true
+ 
+ jobs:
+@@ -36,9 +45,10 @@
+     runs-on: macos-15
+     timeout-minutes: 45
+     env:
+-      # Explicit single-attempt acquisition; ordinary mobile and Pages gates
+-      # retain their existing behavior. No comparison status is awarded here.
+-      CINDERLINE_IOS_AUDIO_CAPTURE: ${{ github.run_attempt == 1 && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]')) || (github.event_name == 'workflow_dispatch' && inputs.capture_audio)) && '1' || '0' }}
++      # An explicit true input also applies to reusable calls on push/PR and
++      # reruns. Default false and the existing single-attempt push marker stay.
++      # Acquisition does not award an audio-quality or comparison verdict.
++      CINDERLINE_IOS_AUDIO_CAPTURE: ${{ (inputs.capture_audio || (github.run_attempt == 1 && github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]'))) && '1' || '0' }}
+     steps:
+       - name: Check out the exact requested branch revision
+         uses: actions/checkout@v4
+@@ -107,6 +117,9 @@
+           IOS_SIMULATOR_UDID: ${{ steps.simulator.outputs.udid }}
+           IOS_SIMULATOR_PLATFORM_VERSION: ${{ steps.simulator.outputs.platform_version }}
+         run: npm run test:ios-safari
++      - name: Verify required original audio, provenance and unchanged clock guards
++        if: ${{ !cancelled() && env.CINDERLINE_IOS_AUDIO_CAPTURE == '1' }}
++        run: node tools/gates/f3_safari_audio.mjs
+       - name: Stop recording
+         if: always()
+         shell: bash
+--- /dev/null
++++ b/tools/gates/f3_safari_audio.mjs
+@@ -0,0 +1,86 @@
++#!/usr/bin/env node
++/** Required acquisition evidence, not an audio-quality or comparison verdict.
++ * Reads original Safari output only. Does not launch a browser, synthesize,
++ * resample or replay media, change the mix, or replace any core F3 check. */
++import {createHash} from 'node:crypto';
++import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
++import {dirname,resolve,join} from 'node:path';
++import {fileURLToPath} from 'node:url';
++import {isDeepStrictEqual} from 'node:util';
++import {IOS_AUDIO_PIN,verifyIosAudioBuild} from '../ios_audio_capture.mjs';
++import {summarizeAudioCaptureTiming} from '../mobile_audio_capture.mjs';
++
++const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
++const REPORT='test-results/ios-safari/report.json';
++const OUTPUT='test-results/ios-safari/f3-audio-verification.json';
++const SCENES=['street-walk','vent-air','arcade-room'];
++const REQUIRED_CHECKS=[
++  'wall, audio and simulation clocks stay aligned for capture',
++  'passive clock and pose telemetry is complete',
++  'audio and real game clocks advance during recording',
++  'simultaneous live native video and production audio tracks',
++  'recording ends in finite live gameplay',
++];
++const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
++const requireThat=(condition,message)=>{if(!condition)throw Error(message);};
++
++export function verifyRequiredSafariAudio(root=ROOT,environment=process.env){
++  requireThat(environment.CINDERLINE_IOS_AUDIO_CAPTURE==='1','Required Safari audio capture was not enabled');
++  requireThat(/^[a-f0-9]{40}$/.test(environment.GITHUB_SHA||'')
++    && /^[1-9][0-9]*$/.test(environment.GITHUB_RUN_ID||'')
++    && /^[1-9][0-9]*$/.test(environment.GITHUB_RUN_ATTEMPT||''),'Actual workflow revision/run/attempt are required');
++  // Keep the existing root/dist/recorder preflight. Its bundle/source pin is
++  // intentionally unchanged here; the integrating owner must select a new pin.
++  const expected=verifyIosAudioBuild(root);
++  const reportBytes=readFileSync(join(root,REPORT)), report=JSON.parse(reportBytes);
++  requireThat(report.status==='passed' && Array.isArray(report.failures) && report.failures.length===0
++    && Array.isArray(report.checks) && report.checks.length>0 && report.checks.every(c=>c.passed===true),
++    'The complete Safari gate did not pass');
++  const capture=report.audioCapture, provenance=capture?.provenance;
++  requireThat(capture?.status==='captured' && Array.isArray(capture.clips)
++    && isDeepStrictEqual(capture.clips.map(c=>c.name),SCENES),'All three original Safari scenes are required');
++  requireThat(Array.isArray(capture.cleanupErrors) && capture.cleanupErrors.length===0,
++    'Safari audio cleanup did not complete');
++  for(const key of [...Object.keys(IOS_AUDIO_PIN),'actualRecorderBlob','helperSha256','harnessSha256'])
++    requireThat(provenance?.[key]===expected[key],'Safari source/build provenance mismatch: '+key);
++  requireThat(isDeepStrictEqual(provenance.actualBundleHashes,expected.actualBundleHashes),
++    'Safari root/dist provenance differs from the actual checked build');
++  for(const [key,variable] of [['runCommit','GITHUB_SHA'],['runId','GITHUB_RUN_ID'],['runAttempt','GITHUB_RUN_ATTEMPT']])
++    requireThat(String(provenance[key])===String(environment[variable]),'Safari evidence belongs to another workflow '+key);
++  const clips=[];
++  for(const clip of capture.clips){
++    for(const suffix of REQUIRED_CHECKS){
++      const matches=report.checks.filter(c=>c.name===`audio ${clip.name}: ${suffix}`);
++      requireThat(matches.length===1 && matches[0].passed===true,'Required audio check missing or failed: '+clip.name+' / '+suffix);
++    }
++    // Re-run the exact unchanged recorder function over the original endpoints
++    // and full passive telemetry. No new clock tolerance or resampling rule.
++    const timing=summarizeAudioCaptureTiming(clip.before.state,clip.after,clip.telemetry);
++    requireThat(isDeepStrictEqual(timing,clip.timing),'Recorded timing summary differs from original telemetry: '+clip.name);
++    requireThat(timing.captureClockGuardPassed===true && timing.telemetryComplete===true,
++      'Original acquisition clock/telemetry guard failed: '+clip.name);
++    requireThat(typeof clip.mime==='string' && (clip.mime.includes('mp4')||clip.mime.includes('webm')),
++      'Original native recording container is missing: '+clip.name);
++    const extension=clip.mime.includes('mp4')?'mp4':'webm';
++    const path=`test-results/ios-safari/audio/audio-${clip.name}.${extension}`;
++    requireThat(clip.path===path,'Unexpected original recording path: '+clip.name);
++    const bytes=readFileSync(join(root,path));
++    requireThat(Number.isSafeInteger(clip.bytes) && clip.bytes>0 && bytes.length===clip.bytes && sha(bytes)===clip.sha256,
++      'Original recording bytes are missing or changed: '+clip.name);
++    clips.push({name:clip.name,path,bytes:bytes.length,sha256:clip.sha256,timing});
++  }
++  return {status:'passed',scope:'Required original Safari acquisition only; existing core F3 is independently required',
++    runCommit:environment.GITHUB_SHA,runId:environment.GITHUB_RUN_ID,runAttempt:environment.GITHUB_RUN_ATTEMPT,
++    originalReport:{path:REPORT,bytes:reportBytes.length,sha256:sha(reportBytes)},
++    recorderBlob:expected.actualRecorderBlob,actualBundleHashes:expected.actualBundleHashes,clips,
++    audioQuality:'not measured',comparison:'not measured'};
++}
++
++if(process.argv[1] && resolve(process.argv[1])===fileURLToPath(import.meta.url)){
++  let result;
++  try {result=verifyRequiredSafariAudio();}
++  catch(error){result={status:'failed',error:String(error),audioQuality:'not measured',comparison:'not measured'};process.exitCode=1;}
++  const target=join(ROOT,OUTPUT);mkdirSync(dirname(target),{recursive:true});
++  writeFileSync(target,JSON.stringify(result,null,2)+'\n');
++  console.log('[f3-safari-audio] '+JSON.stringify(result));
++}

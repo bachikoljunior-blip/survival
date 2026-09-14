@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-14T14:27:23.899525+00:00",
+  "base_commit": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+  "instruction_accepted": "ULTRA-CHILDREN-20260914-v3",
+  "status": "Original diagnosis frozen; isolated product/acquisition candidates ready for independent integration review",
+  "products": [
+    {
+      "path": "src/audio/audio.js",
+      "baseline": {
+        "bytes": 47016,
+        "sha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+        "git_blob_sha": "d9462e07a7533393a16c05dee313af5dd207759f"
+      },
+      "candidate": {
+        "bytes": 47586,
+        "sha256": "080696eb3ee7a831e4548cc1439a27afb628a36d72a68cd9f91e684ac790a2c4",
+        "git_blob_sha": "f9a7a3edaf42af48fc3598611db767a3dd9340e8"
+      },
+      "changed": true
+    },
+    {
+      "path": "src/game/game.js",
+      "baseline": {
+        "bytes": 30458,
+        "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+        "git_blob_sha": "8b7e97ab9abf7c08b9c84da100188f5f221caf80"
+      },
+      "candidate": {
+        "bytes": 30458,
+        "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+        "git_blob_sha": "8b7e97ab9abf7c08b9c84da100188f5f221caf80"
+      },
+      "changed": false
+    },
+    {
+      "path": "src/game/director.js",
+      "baseline": {
+        "bytes": 76387,
+        "sha256": "884e3773f41a2d9b4d98c8d165c7f3cc3a33b81db0bb912ea450da8836ce806b",
+        "git_blob_sha": "06c0a59d2d491e14e4aa63f8ad17af9025034928"
+      },
+      "candidate": {
+        "bytes": 76387,
+        "sha256": "884e3773f41a2d9b4d98c8d165c7f3cc3a33b81db0bb912ea450da8836ce806b",
+        "git_blob_sha": "06c0a59d2d491e14e4aa63f8ad17af9025034928"
+      },
+      "changed": false
+    },
+    {
+      "path": "src/world/city.js",
+      "baseline": {
+        "bytes": 52538,
+        "sha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+        "git_blob_sha": "98d2e151432836fb4497f6f0c0210f12b42294fd"
+      },
+      "candidate": {
+        "bytes": 52538,
+        "sha256": "81acdf64d65c087b9db556091896e4de0fb0fa4d60ed1d2d20e47d491c7efa4b",
+        "git_blob_sha": "98d2e151432836fb4497f6f0c0210f12b42294fd"
+      },
+      "changed": false
+    },
+    {
+      "path": "src/content/world_data.js",
+      "baseline": {
+        "bytes": 45904,
+        "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+        "git_blob_sha": "de2617ab8de574958acc6d76a59f47947e5a4476"
+      },
+      "candidate": {
+        "bytes": 45904,
+        "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+        "git_blob_sha": "de2617ab8de574958acc6d76a59f47947e5a4476"
+      },
+      "changed": false
+    },
+    {
+      "path": "src/core/util.js",
+      "baseline": {
+        "bytes": 5255,
+        "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+        "git_blob_sha": "4ac5a78a92f684c811139b5baee8893b774b1ca1"
+      },
+      "candidate": {
+        "bytes": 5255,
+        "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+        "git_blob_sha": "4ac5a78a92f684c811139b5baee8893b774b1ca1"
+      },
+      "changed": false
+    },
+    {
+      "path": "src/core/rng.js",
+      "baseline": {
+        "bytes": 5130,
+        "sha256": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+        "git_blob_sha": "5042730d9a7d6d45f36867805361347b657bbc25"
+      },
+      "candidate": {
+        "bytes": 5130,
+        "sha256": "a2bbed63e0d436ce742a595b87ad7b24ab1966b132c13ee6a1e11c0d967d0ea0",
+        "git_blob_sha": "5042730d9a7d6d45f36867805361347b657bbc25"
+      },
+      "changed": false
+    }
+  ],
+  "acquisition": {
+    "baseline": {
+      "bytes": 16230,
+      "sha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26",
+      "git_blob_sha": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa"
+    },
+    "candidate": {
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62",
+      "git_blob_sha": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c"
+    },
+    "change": "One future clip label: vent-air to cut-gas-air; spawn, clocks, media, simulation and guard unchanged",
+    "requires_owner_reviewed_ios_recorder_pin_update": true
+  },
+  "artifacts": [
+    {
+      "path": "original-diagnosis-freeze.json",
+      "bytes": 877,
+      "sha256": "6517032c89a7965403ce1e5de15a649fa851adb62a88c58a1bc3d38faef8374d",
+      "git_blob_sha": "ae444e1ba273a474d861f66e7c882598471b75a5"
+    },
+    {
+      "path": "original-diagnosis.md",
+      "bytes": 5849,
+      "sha256": "335a13e5d55cf5d1804bbecef7697d9c07569b3f820a9362caa44f885af60244",
+      "git_blob_sha": "f643ca2f28829dca4e47fe8b2a9577dae73d622d"
+    },
+    {
+      "path": "code-audit.json",
+      "bytes": 21756,
+      "sha256": "4182bc6e13fcda6393eb44ae60c926da459ebdbf283f0208ef952a065d470aed",
+      "git_blob_sha": "c6a5b6396cd1f186f5f4b0d7ca8b1d4d53a82069"
+    },
+    {
+      "path": "pcm-content-audit.json",
+      "bytes": 84401,
+      "sha256": "8658052b147e4cc113229eacebc13b649952cb45fccbe643217c77693adb38b2",
+      "git_blob_sha": "2e6c89dcd259523d94314c53bc7883db7e3e85a3"
+    },
+    {
+      "path": "candidate-notes.md",
+      "bytes": 4651,
+      "sha256": "e7eea8cfcbbec0d2d77848048fedd37a09ea34ae8ffcdf45fd10b5f79de1106b",
+      "git_blob_sha": "5b6eccc99cd28e4ca7fa8a18596fa0e6dd8e2f2f"
+    },
+    {
+      "path": "candidate-verification.json",
+      "bytes": 31051,
+      "sha256": "c8bb5e609cbe6ff7fbce5a5c384737914a328b0f5f49533361b14fdf8823a735",
+      "git_blob_sha": "b8bff98bef687e4cf5e8fb19ac611f24a1a1a2aa"
+    },
+    {
+      "path": "verify_candidate.mjs",
+      "bytes": 7414,
+      "sha256": "214faf6004185689046d72e83b3566570cba940ffacb065637816a11d144a583",
+      "git_blob_sha": "9767862a82a34421bdf39fc333109c7a23e2d52f"
+    },
+    {
+      "path": "product-candidate.patch",
+      "bytes": 2518,
+      "sha256": "d13444e5fc73d81e6e9792f0a5a3e733cdd645cb080538117e6a1b8f1d6eb08d",
+      "git_blob_sha": "1e862fa26b9051f550529725da909f887da81871"
+    },
+    {
+      "path": "acquisition-label-candidate.patch",
+      "bytes": 398,
+      "sha256": "ae3ccf0eb2ce93408573032ea5cf681285b82b07a951da8c71441416a476cf87",
+      "git_blob_sha": "513903522508c22f84074b9f7ddb523a7c9f5d43"
+    },
+    {
+      "path": "official-source-pins.json",
+      "bytes": 3387,
+      "sha256": "05614e4f83db50485f56ab4f938ffaf2eda0822e99e1d363dc4598de5247ebf4",
+      "git_blob_sha": "0f7ae38e80a338b946eeda4380d784c0e3e8169a"
+    }
+  ],
+  "syntax_checks": [
+    {
+      "path": "candidate/src/audio/audio.js",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "acquisition-candidate/tools/mobile_audio_capture.mjs",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "cpu": {
+    "original_source_checks": 18,
+    "candidate_checks": 86,
+    "unchanged_Audio_methods": 65,
+    "real_AudioContext": false,
+    "substitution_scope": "CPU parameter scheduling only"
+  },
+  "actual_build": "not run; no new runtime pin",
+  "actual_candidate_recording": "not measured",
+  "listening": "not measured; no confirmed formal audio-perception capability",
+  "quality_or_blind_comparison": "not measured",
+  "remote_mutations": 0,
+  "automation_operations": 0,
+  "new_agents": 0,
+  "fixed_state": {
+    "elements": 19,
+    "references": 10,
+    "criteria": 71,
+    "all_element_status": "not measured",
+    "valid_blind_comparisons": 0,
+    "completed_units": 0,
+    "units_requested": "continuous",
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00"
+  }
+}

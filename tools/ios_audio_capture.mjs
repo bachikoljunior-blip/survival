@@ -8,9 +8,10 @@ import { join } from 'node:path';
 import { captureMobileAudio } from './mobile_audio_capture.mjs';
 
 export const IOS_AUDIO_PIN = Object.freeze({
-  sourceCommit: '67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c',
+  preparedFromCommit: '68cf2d4d303684e6f6a62f0aec4120169e0945bc',
+  preparationReportSha256: '8c1f211d5179aa60c97a6e641718be589f816695d5f32245d48f9d6f7101f4ad',
   bundle: 'cinderline.1.0.0.js',
-  bundleSha256: '6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b',
+  bundleSha256: '81c93f3bf6c45b14c25f0e742a78d19b8dc70dca665ebba897bb6e39bbc937b3',
   recorderBlob: '86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa',
 });
 const TRANSFER_KEY = '__cinderlineIosAudioTransfer';

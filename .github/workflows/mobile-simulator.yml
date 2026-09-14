@@ -10,6 +10,7 @@ on:
       - 'tools/test-ios-safari.mjs'
       - 'tools/ios_audio_capture.mjs'
       - 'tools/mobile_audio_capture.mjs'
+      - 'tools/gates/f3_safari_audio.mjs'
       - 'tools/select-ios-simulator.mjs'
       - 'tools/webdriver-request.mjs'
       - 'tools/ios-pointer-coordinates.mjs'
@@ -17,6 +18,12 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'build.mjs'
+  workflow_call:
+    inputs:
+      capture_audio:
+        description: 'Require the original three-scene production audio acquisition on every requested attempt'
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       capture_audio:
@@ -28,7 +35,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: mobile-simulator-${{ github.ref }}
+  # A reusable call inherits its caller workflow name. Keep Floor gates and
+  # standalone simulator runs in different cancellation groups.
+  group: mobile-simulator-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -36,9 +45,10 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 45
     env:
-      # Explicit single-attempt acquisition; ordinary mobile and Pages gates
-      # retain their existing behavior. No comparison status is awarded here.
-      CINDERLINE_IOS_AUDIO_CAPTURE: ${{ github.run_attempt == 1 && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]')) || (github.event_name == 'workflow_dispatch' && inputs.capture_audio)) && '1' || '0' }}
+      # An explicit true input also applies to reusable calls on push/PR and
+      # reruns. Default false and the existing single-attempt push marker stay.
+      # Acquisition does not award an audio-quality or comparison verdict.
+      CINDERLINE_IOS_AUDIO_CAPTURE: ${{ (inputs.capture_audio || (github.run_attempt == 1 && github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]'))) && '1' || '0' }}
     steps:
       - name: Check out the exact requested branch revision
         uses: actions/checkout@v4
@@ -107,6 +117,9 @@ jobs:
           IOS_SIMULATOR_UDID: ${{ steps.simulator.outputs.udid }}
           IOS_SIMULATOR_PLATFORM_VERSION: ${{ steps.simulator.outputs.platform_version }}
         run: npm run test:ios-safari
+      - name: Verify required original audio, provenance and unchanged clock guards
+        if: ${{ !cancelled() && env.CINDERLINE_IOS_AUDIO_CAPTURE == '1' }}
+        run: node tools/gates/f3_safari_audio.mjs
       - name: Stop recording
         if: always()
         shell: bash

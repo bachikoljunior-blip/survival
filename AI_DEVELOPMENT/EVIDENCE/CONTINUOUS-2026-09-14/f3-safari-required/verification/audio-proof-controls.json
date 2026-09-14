@@ -1,0 +1,205 @@
+{
+  "scope": "Offline read-only verification of already acquired real originals plus negative controls on isolated copies",
+  "passed": 30,
+  "checks": [
+    {
+      "name": "actual successful C29 report and three original MP4s pass unchanged",
+      "passed": true
+    },
+    {
+      "name": "disabled capture cannot pass from an old successful report",
+      "passed": true
+    },
+    {
+      "name": "missing actual workflow GITHUB_SHA rejects",
+      "passed": true
+    },
+    {
+      "name": "missing actual workflow GITHUB_RUN_ID rejects",
+      "passed": true
+    },
+    {
+      "name": "missing actual workflow GITHUB_RUN_ATTEMPT rejects",
+      "passed": true
+    },
+    {
+      "name": "previous run evidence rejects",
+      "passed": true
+    },
+    {
+      "name": "previous attempt evidence rejects",
+      "passed": true
+    },
+    {
+      "name": "failed Safari report rejects",
+      "passed": true
+    },
+    {
+      "name": "a failed existing check rejects",
+      "passed": true
+    },
+    {
+      "name": "omitted required recorder check rejects",
+      "passed": true
+    },
+    {
+      "name": "no acquisition rejects",
+      "passed": true
+    },
+    {
+      "name": "missing clip rejects",
+      "passed": true
+    },
+    {
+      "name": "duplicate clip rejects",
+      "passed": true
+    },
+    {
+      "name": "failed cleanup rejects",
+      "passed": true
+    },
+    {
+      "name": "changed captured bundle rejects",
+      "passed": true
+    },
+    {
+      "name": "changed source helper provenance rejects",
+      "passed": true
+    },
+    {
+      "name": "falsely asserted successful timing rejects",
+      "passed": true
+    },
+    {
+      "name": "actual collapsed clock remains rejected by unchanged original function",
+      "passed": true
+    },
+    {
+      "name": "incomplete passive telemetry remains rejected",
+      "passed": true
+    },
+    {
+      "name": "changed recording path rejects",
+      "passed": true
+    },
+    {
+      "name": "changed recording hash rejects",
+      "passed": true
+    },
+    {
+      "name": "changed recording size rejects",
+      "passed": true
+    },
+    {
+      "name": "different root bundle still fails existing 6b preflight",
+      "passed": true
+    },
+    {
+      "name": "different dist bundle still fails existing 6b preflight",
+      "passed": true
+    },
+    {
+      "name": "changed original recorder or 5% guard rejects",
+      "passed": true
+    },
+    {
+      "name": "changed original MP4 bytes reject",
+      "passed": true
+    },
+    {
+      "name": "added preparedFromCommit pin is required without a verifier allowlist edit",
+      "passed": true
+    },
+    {
+      "name": "added preparationReportSha256 pin is required without a verifier allowlist edit",
+      "passed": true
+    },
+    {
+      "name": "all expanded pin fields exactly matched allow continued original guard verification",
+      "passed": true
+    },
+    {
+      "name": "read-only originals and report bytes remain exact",
+      "passed": true
+    }
+  ],
+  "elapsed_ms": 244.22949599999998,
+  "original_report_sha256": "507a4f82645e6ccc8cff34154f39a58ec1786c3ab4e09f385e86a8f5cf4471ed",
+  "verifier_sha256": "72cfe3b0b31571cc84e2708124e72529659e788420d84f3cf9f098cae8606224",
+  "actual_original_checks": 47,
+  "actual_original_media_bytes": 9103110,
+  "actual_original_clips": [
+    {
+      "name": "street-walk",
+      "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+      "bytes": 5616926,
+      "sha256": "df42d626bfee8aa96060d6c84f64cd0c0eac0ab861e574eea8db87539c0fd652",
+      "timing": {
+        "wallSeconds": 8.957,
+        "audioSeconds": 8.928,
+        "engineSeconds": 8.633333333333727,
+        "engineFrames": 458,
+        "engineToAudioRatio": 0.9669952210275231,
+        "audioToWallRatio": 0.9967623088087529,
+        "engineMinusAudioSeconds": -0.2946666666662736,
+        "audioMinusWallSeconds": -0.028999999999999915,
+        "toleranceSeconds": 0.4464000000000001,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "vent-air",
+      "path": "test-results/ios-safari/audio/audio-vent-air.mp4",
+      "bytes": 1876895,
+      "sha256": "18e3c108d767fd0e41202d0a91a69d8963f9ca417fd9d9c77b924672f95036f6",
+      "timing": {
+        "wallSeconds": 6.325,
+        "audioSeconds": 6.325333333333333,
+        "engineSeconds": 6.299999999999642,
+        "engineFrames": 376,
+        "engineToAudioRatio": 0.995994940978021,
+        "audioToWallRatio": 1.0000527009222662,
+        "engineMinusAudioSeconds": -0.025333333333691144,
+        "audioMinusWallSeconds": 0.00033333333333285253,
+        "toleranceSeconds": 0.3162666666666667,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    },
+    {
+      "name": "arcade-room",
+      "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+      "bytes": 1609289,
+      "sha256": "1bb5ceacc225fb9d57baf4f02b77f709790bc5bcf50bbd08c9b23e52107d99da",
+      "timing": {
+        "wallSeconds": 6.281,
+        "audioSeconds": 6.2826666666666675,
+        "engineSeconds": 6.28333333333298,
+        "engineFrames": 376,
+        "engineToAudioRatio": 1.000106112054273,
+        "audioToWallRatio": 1.0002653505280477,
+        "engineMinusAudioSeconds": 0.0006666666663122101,
+        "audioMinusWallSeconds": 0.0016666666666678154,
+        "toleranceSeconds": 0.3141333333333334,
+        "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+        "captureClockGuardPassed": true,
+        "telemetryComplete": true,
+        "finiteTimeline": true,
+        "orderedTimeline": true,
+        "finitePoses": true
+      }
+    }
+  ],
+  "original_guard_blob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+  "new_capture_count": 0,
+  "evaluation_count": 0
+}

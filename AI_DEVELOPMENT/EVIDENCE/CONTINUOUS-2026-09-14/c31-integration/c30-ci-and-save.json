@@ -1,0 +1,777 @@
+{
+  "recordedAt": "2026-09-14T14:21:40.898Z",
+  "source": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+  "jobs": {
+    "jobs": [
+      {
+        "conclusion": "failure",
+        "id": 104004899239,
+        "logs_url": null,
+        "name": "F3 execution",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install the browsers the surface checks need",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build, validate and drive the real build",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Exercise the iPhone SE 3 WebKit surface",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve WebKit screenshots, video, trace and report",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Export original WebKit frames and report for inspection",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Exercise post-boot recovery in mobile WebKit",
+            "number": 10,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve actual fault-recovery screens and checks",
+            "number": 11,
+            "status": "completed"
+          },
+          {
+            "conclusion": "failure",
+            "name": "Capture production sound and video in Chromium",
+            "number": 12,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve original production audiovisual recordings",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 25,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 26,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 27,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 104004899489,
+        "logs_url": null,
+        "name": "Actual narrative material",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npx playwright install --with-deps chromium",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run node build.mjs",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Record emitted dialogue and endings on contrasting story paths",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve original narrative output and execution results",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 104004899700,
+        "logs_url": null,
+        "name": "Frozen grain strength diagnosis",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check the bounded diagnostic helper syntax",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npx playwright install --with-deps webkit",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Render the fixed views and reversible single-variable trial",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Export the original diagnostic frames and control results",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve unmodified diagnostic frames and execution evidence",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 104004899766,
+        "logs_url": null,
+        "name": "F2 state update",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Product files changed without a state update?",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 7,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 104004899773,
+        "logs_url": null,
+        "name": "Prepare exact grain product source and root",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run node --check tools/prepare-grain-product.mjs",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Reproduce the original build and prepare the exact candidate bytes",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Export complete prepared files with hashes and offsets",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve original candidate or failure report",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 104004899791,
+        "logs_url": null,
+        "name": "Recover original C29 Safari recordings",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run node --check tools/recover-ios-audio-c29.mjs",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Verify the original repository artifact identity",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Download the existing original artifact through the official action",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Verify original report and media and export complete bytes",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve recovered originals and verification",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004900884,
+        "logs_url": null,
+        "name": "Prepare reviewed light source and production root",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004900915,
+        "logs_url": null,
+        "name": "Reproduce fixed E9 reader and private audit",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004900935,
+        "logs_url": null,
+        "name": "Frozen full-text E9 Qwen 3.5 comparison attempt",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004901393,
+        "logs_url": null,
+        "name": "Restore candidate graph and prepare faithful E9 reading material",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004901406,
+        "logs_url": null,
+        "name": "Frozen E16 Qwen 3.5 comparison attempt",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004936170,
+        "logs_url": null,
+        "name": "F5 review record",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      },
+      {
+        "conclusion": "skipped",
+        "id": 104004953896,
+        "logs_url": null,
+        "name": "Frozen light direction diagnosis",
+        "run_id": 34852860838,
+        "status": "completed",
+        "steps": null
+      }
+    ]
+  },
+  "save": {
+    "readback": {
+      "all_61_blobs_match": true,
+      "main": "5456371249f5769c25d18f1686a44349e4292d6f",
+      "parent": "4faf6f79c9cf29bbfa1e423bd8a8178d7d1dd56f",
+      "remote": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+      "tree": "0eba31f1549485a5df49ba1d540c687fafd5ddec"
+    },
+    "runs": {
+      "total_count": 1,
+      "workflow_runs": [
+        {
+          "actor": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/297806842?v=4",
+            "events_url": "https://api.github.com/users/bachikoljunior-blip/events{/privacy}",
+            "followers_url": "https://api.github.com/users/bachikoljunior-blip/followers",
+            "following_url": "https://api.github.com/users/bachikoljunior-blip/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/bachikoljunior-blip",
+            "id": 297806842,
+            "login": "bachikoljunior-blip",
+            "node_id": "U_kgDOEcAr-g",
+            "organizations_url": "https://api.github.com/users/bachikoljunior-blip/orgs",
+            "received_events_url": "https://api.github.com/users/bachikoljunior-blip/received_events",
+            "repos_url": "https://api.github.com/users/bachikoljunior-blip/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bachikoljunior-blip/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/bachikoljunior-blip",
+            "user_view_type": "public"
+          },
+          "artifacts_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34852860838/artifacts",
+          "cancel_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34852860838/cancel",
+          "check_suite_id": 94378244552,
+          "check_suite_node_id": "CS_kwDOTmAlyc8AAAAV-WG5yA",
+          "check_suite_url": "https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94378244552",
+          "conclusion": null,
+          "created_at": "2026-09-14T14:01:06Z",
+          "display_title": "Verify grain render counters and recover original Safari media [grain…",
+          "event": "push",
+          "head_branch": "claude/repo-instructions-constraints-r0070m",
+          "head_commit": {
+            "author": {
+              "email": "bachikoljunior@gmail.com",
+              "name": "bachikoljunior-blip"
+            },
+            "committer": {
+              "email": "bachikoljunior@gmail.com",
+              "name": "bachikoljunior-blip"
+            },
+            "id": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+            "message": "Verify grain render counters and recover original Safari media [grain-c29-r3] [prepare-grain-product-r1] [recover-ios-audio-c29-r1]",
+            "timestamp": "2026-09-14T14:00:54Z",
+            "tree_id": "0eba31f1549485a5df49ba1d540c687fafd5ddec"
+          },
+          "head_repository": {
+            "archive_url": "https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}",
+            "assignees_url": "https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}",
+            "blobs_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}",
+            "branches_url": "https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}",
+            "collaborators_url": "https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}",
+            "comments_url": "https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}",
+            "commits_url": "https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}",
+            "compare_url": "https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}",
+            "contents_url": "https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}",
+            "contributors_url": "https://api.github.com/repos/bachikoljunior-blip/survival/contributors",
+            "deployments_url": "https://api.github.com/repos/bachikoljunior-blip/survival/deployments",
+            "description": null,
+            "downloads_url": "https://api.github.com/repos/bachikoljunior-blip/survival/downloads",
+            "events_url": "https://api.github.com/repos/bachikoljunior-blip/survival/events",
+            "fork": false,
+            "forks_url": "https://api.github.com/repos/bachikoljunior-blip/survival/forks",
+            "full_name": "bachikoljunior-blip/survival",
+            "git_commits_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}",
+            "git_refs_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}",
+            "hooks_url": "https://api.github.com/repos/bachikoljunior-blip/survival/hooks",
+            "html_url": "https://github.com/bachikoljunior-blip/survival",
+            "id": 1314923977,
+            "issue_comment_url": "https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}",
+            "issue_events_url": "https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}",
+            "issues_url": "https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}",
+            "keys_url": "https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}",
+            "labels_url": "https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}",
+            "languages_url": "https://api.github.com/repos/bachikoljunior-blip/survival/languages",
+            "merges_url": "https://api.github.com/repos/bachikoljunior-blip/survival/merges",
+            "milestones_url": "https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}",
+            "name": "survival",
+            "node_id": "R_kgDOTmAlyQ",
+            "notifications_url": "https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}",
+            "owner": {
+              "avatar_url": "https://avatars.githubusercontent.com/u/297806842?v=4",
+              "events_url": "https://api.github.com/users/bachikoljunior-blip/events{/privacy}",
+              "followers_url": "https://api.github.com/users/bachikoljunior-blip/followers",
+              "following_url": "https://api.github.com/users/bachikoljunior-blip/following{/other_user}",
+              "gists_url": "https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}",
+              "gravatar_id": "",
+              "html_url": "https://github.com/bachikoljunior-blip",
+              "id": 297806842,
+              "login": "bachikoljunior-blip",
+              "node_id": "U_kgDOEcAr-g",
+              "organizations_url": "https://api.github.com/users/bachikoljunior-blip/orgs",
+              "received_events_url": "https://api.github.com/users/bachikoljunior-blip/received_events",
+              "repos_url": "https://api.github.com/users/bachikoljunior-blip/repos",
+              "site_admin": false,
+              "starred_url": "https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/bachikoljunior-blip/subscriptions",
+              "type": "User",
+              "url": "https://api.github.com/users/bachikoljunior-blip",
+              "user_view_type": "public"
+            },
+            "private": false,
+            "pulls_url": "https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}",
+            "releases_url": "https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}",
+            "stargazers_url": "https://api.github.com/repos/bachikoljunior-blip/survival/stargazers",
+            "statuses_url": "https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}",
+            "subscribers_url": "https://api.github.com/repos/bachikoljunior-blip/survival/subscribers",
+            "subscription_url": "https://api.github.com/repos/bachikoljunior-blip/survival/subscription",
+            "tags_url": "https://api.github.com/repos/bachikoljunior-blip/survival/tags",
+            "teams_url": "https://api.github.com/repos/bachikoljunior-blip/survival/teams",
+            "trees_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}",
+            "url": "https://api.github.com/repos/bachikoljunior-blip/survival"
+          },
+          "head_sha": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+          "html_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34852860838",
+          "id": 34852860838,
+          "jobs_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34852860838/jobs",
+          "logs_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34852860838/logs",
+          "name": "Floor gates",
+          "node_id": "WFR_kwLOTmAlyc8AAAAIHWRzpg",
+          "path": ".github/workflows/gates.yml",
+          "previous_attempt_url": null,
+          "pull_requests": [],
+          "referenced_workflows": [],
+          "repository": {
+            "archive_url": "https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}",
+            "assignees_url": "https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}",
+            "blobs_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}",
+            "branches_url": "https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}",
+            "collaborators_url": "https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}",
+            "comments_url": "https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}",
+            "commits_url": "https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}",
+            "compare_url": "https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}",
+            "contents_url": "https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}",
+            "contributors_url": "https://api.github.com/repos/bachikoljunior-blip/survival/contributors",
+            "deployments_url": "https://api.github.com/repos/bachikoljunior-blip/survival/deployments",
+            "description": null,
+            "downloads_url": "https://api.github.com/repos/bachikoljunior-blip/survival/downloads",
+            "events_url": "https://api.github.com/repos/bachikoljunior-blip/survival/events",
+            "fork": false,
+            "forks_url": "https://api.github.com/repos/bachikoljunior-blip/survival/forks",
+            "full_name": "bachikoljunior-blip/survival",
+            "git_commits_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}",
+            "git_refs_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}",
+            "hooks_url": "https://api.github.com/repos/bachikoljunior-blip/survival/hooks",
+            "html_url": "https://github.com/bachikoljunior-blip/survival",
+            "id": 1314923977,
+            "issue_comment_url": "https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}",
+            "issue_events_url": "https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}",
+            "issues_url": "https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}",
+            "keys_url": "https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}",
+            "labels_url": "https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}",
+            "languages_url": "https://api.github.com/repos/bachikoljunior-blip/survival/languages",
+            "merges_url": "https://api.github.com/repos/bachikoljunior-blip/survival/merges",
+            "milestones_url": "https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}",
+            "name": "survival",
+            "node_id": "R_kgDOTmAlyQ",
+            "notifications_url": "https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}",
+            "owner": {
+              "avatar_url": "https://avatars.githubusercontent.com/u/297806842?v=4",
+              "events_url": "https://api.github.com/users/bachikoljunior-blip/events{/privacy}",
+              "followers_url": "https://api.github.com/users/bachikoljunior-blip/followers",
+              "following_url": "https://api.github.com/users/bachikoljunior-blip/following{/other_user}",
+              "gists_url": "https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}",
+              "gravatar_id": "",
+              "html_url": "https://github.com/bachikoljunior-blip",
+              "id": 297806842,
+              "login": "bachikoljunior-blip",
+              "node_id": "U_kgDOEcAr-g",
+              "organizations_url": "https://api.github.com/users/bachikoljunior-blip/orgs",
+              "received_events_url": "https://api.github.com/users/bachikoljunior-blip/received_events",
+              "repos_url": "https://api.github.com/users/bachikoljunior-blip/repos",
+              "site_admin": false,
+              "starred_url": "https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/bachikoljunior-blip/subscriptions",
+              "type": "User",
+              "url": "https://api.github.com/users/bachikoljunior-blip",
+              "user_view_type": "public"
+            },
+            "private": false,
+            "pulls_url": "https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}",
+            "releases_url": "https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}",
+            "stargazers_url": "https://api.github.com/repos/bachikoljunior-blip/survival/stargazers",
+            "statuses_url": "https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}",
+            "subscribers_url": "https://api.github.com/repos/bachikoljunior-blip/survival/subscribers",
+            "subscription_url": "https://api.github.com/repos/bachikoljunior-blip/survival/subscription",
+            "tags_url": "https://api.github.com/repos/bachikoljunior-blip/survival/tags",
+            "teams_url": "https://api.github.com/repos/bachikoljunior-blip/survival/teams",
+            "trees_url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}",
+            "url": "https://api.github.com/repos/bachikoljunior-blip/survival"
+          },
+          "rerun_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34852860838/rerun",
+          "run_attempt": 1,
+          "run_number": 99,
+          "run_started_at": "2026-09-14T14:01:06Z",
+          "status": "in_progress",
+          "triggering_actor": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/297806842?v=4",
+            "events_url": "https://api.github.com/users/bachikoljunior-blip/events{/privacy}",
+            "followers_url": "https://api.github.com/users/bachikoljunior-blip/followers",
+            "following_url": "https://api.github.com/users/bachikoljunior-blip/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/bachikoljunior-blip",
+            "id": 297806842,
+            "login": "bachikoljunior-blip",
+            "node_id": "U_kgDOEcAr-g",
+            "organizations_url": "https://api.github.com/users/bachikoljunior-blip/orgs",
+            "received_events_url": "https://api.github.com/users/bachikoljunior-blip/received_events",
+            "repos_url": "https://api.github.com/users/bachikoljunior-blip/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bachikoljunior-blip/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/bachikoljunior-blip",
+            "user_view_type": "public"
+          },
+          "updated_at": "2026-09-14T14:01:18Z",
+          "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34852860838",
+          "workflow_id": 324929428,
+          "workflow_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/324929428"
+        }
+      ]
+    },
+    "saved_at": "2026-09-14T14:01:24.704Z",
+    "source_sha": "68cf2d4d303684e6f6a62f0aec4120169e0945bc",
+    "tree_verification": {
+      "CLAUDE": "8b758231a6b77277092ccee5a322f593320b123f",
+      "all_matched": true,
+      "expected_entries": 61,
+      "new_blobs": 1023,
+      "old_blobs": 966,
+      "runtime": "136953098c42054cd91c4bb346d1f46c184e8e90",
+      "tree_sha": "0eba31f1549485a5df49ba1d540c687fafd5ddec",
+      "unchanged_existing": 962
+    }
+  }
+}

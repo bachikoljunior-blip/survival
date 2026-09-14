@@ -30,8 +30,8 @@ jobs:
           F2_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'origin/main' }}
         run: node tools/gates/f2_state_update.mjs --base "$F2_BASE"
 
-  f3-execution:
-    name: F3 execution
+  f3-core:
+    name: F3 core, WebKit and fault recovery
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -81,24 +81,28 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      # This WebKit build exposes no MediaRecorder. Use the already installed
-      # Chromium only to acquire actual sound and simultaneous world video;
-      # it does not replace any WebKit surface or fault-recovery measurements.
-      - name: Capture production sound and video in Chromium
-        if: ${{ !cancelled() }}
+  f3-safari:
+    name: F3 Mobile Safari audio
+    uses: ./.github/workflows/mobile-simulator.yml
+    with:
+      capture_audio: true
+
+  f3-execution:
+    name: F3 execution
+    needs: [f3-core, f3-safari]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require both the complete core gate and actual Safari audio acquisition
         env:
-          CINDERLINE_BROWSER: chromium
-          CINDERLINE_AUDIO_ONLY: "1"
-          CINDERLINE_WEBKIT_OUTPUT: test-results/mobile-audio
-        run: npm run test:iphone-webkit
-      - name: Preserve original production audiovisual recordings
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: mobile-audio-${{ github.sha }}
-          path: test-results/mobile-audio
-          if-no-files-found: error
-          retention-days: 14
+          F3_CORE_RESULT: ${{ needs.f3-core.result }}
+          F3_SAFARI_RESULT: ${{ needs.f3-safari.result }}
+        shell: bash
+        run: |
+          printf 'F3 core=%s Safari=%s\n' "$F3_CORE_RESULT" "$F3_SAFARI_RESULT"
+          test "$F3_CORE_RESULT" = success
+          test "$F3_SAFARI_RESULT" = success
 
   f5-review-record:
     name: F5 review record
