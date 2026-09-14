@@ -1,0 +1,51 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "round": "E9-helper-r2-question-source-cue-addendum",
+  "profile": "source-only",
+  "tier": "diagnostic",
+  "nativeResolution": "0x0",
+  "blindComparison": "No response, recognition result or blind preference was measured. The edited question cannot establish which work a stranger or model would prefer.",
+  "scoreMeaning": "Unscored sentinel. The actual comparison remains unmeasured; this is not a product or model failure verdict.",
+  "reviewOutcome": "No actionable finding in the authorized question/provenance edit.",
+  "reviewedHelper": {
+    "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-final-helper.py",
+    "sha256": "5fbbce73916b26b4abd4585194ee9cb0759617414f5c86ca868da13dccacb26f",
+    "bytes": 33169
+  },
+  "findings": [],
+  "checks": [
+    {
+      "claim": "Production-specific six-person thresholds and benchmark/development guessing request are removed from QUESTION.",
+      "result": "Confirmed by direct reading and bounded text checks. The unit counts A7/B13 remain solely to request all supplied units."
+    },
+    {
+      "claim": "The shared writing qualities and recognition disclosure remain.",
+      "result": "Confirmed: reasoning/argument distinctions, independent practical goals, all-unit observations, prior-knowledge RECOGNITION yes/no/uncertain, explicit no source guessing and honest insufficient outcome remain."
+    },
+    {
+      "claim": "The original criteria were not silently discarded.",
+      "result": "The two attempt.criteria strings are byte-identical in value. Provenance retains six major characters and six-of-six supporting characters; the new coverage instruction requires separate anonymous correspondence auditing and leaves absent/ambiguous evidence unmeasured."
+    },
+    {
+      "claim": "The model sees the new provenance counts or source-role revision explanation.",
+      "result": "No new data flow is present. render_chat is AST-identical to 53b and constructs the user body from QUESTION and the original readers. The added criteria_application belongs only to attempt.json."
+    },
+    {
+      "claim": "The template repair or native execution changed in this follow-up.",
+      "result": "Refuted. Only QUESTION and prepare provenance change. All other module assignments, functions and prior attempt fields match 53b structurally; the prior template closure report remains separate and unchanged."
+    }
+  ],
+  "evidence": {
+    "raw": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-question-05.json",
+    "script": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-question-05.py",
+    "previousTemplateClosure": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-review.json",
+    "oldHelper": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/r2-template-only-helper.py",
+    "oldQuestion": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/question-before-source-cue-correction.txt"
+  },
+  "limitations": [
+    "The E16 rationale is an attributed coordinator observation in provenance; this addendum did not independently examine that E16 response.",
+    "Removing these question cues does not establish blindness. The unchanged dialogue itself may be recognized, and the actual answer still requires recognition and coverage auditing.",
+    "No new rendering, tokenizer execution, inference, model acquisition, browser, server, CI or product edit was performed for this addendum."
+  ]
+}

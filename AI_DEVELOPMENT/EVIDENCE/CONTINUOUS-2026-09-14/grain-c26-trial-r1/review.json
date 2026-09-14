@@ -1,0 +1,134 @@
+{
+  "round": 1,
+  "profile": "fixed-eight-view-grain-strength-diagnostic",
+  "tier": "source-known-static-and-cpu-preparation",
+  "nativeResolution": "0x0",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Unscored",
+  "verdictMeaning": "The bounded diagnostic is prepared and its syntax/control contracts pass. No real WebKit diagnostic has run and no visual improvement or product adoption is asserted.",
+  "blindComparison": "No blind comparison. The motivating surface-noise observation was reported by the coordinator; this work inspects the current source and prepares a one-variable actual-image experiment.",
+  "source": {
+    "commit": "97ab074e7a35137b53ab72a400d4beeab5f0ca52",
+    "readMethod": "Pinned official GitHub file reads; all 11 saved source snapshots match their returned blob IDs.",
+    "snapshotCount": 11,
+    "postfxBlob": "3cf55ad79095bdc06c795e55d165942b0372a733",
+    "engineBlob": "0735cfcb3f6df68bf5bd51fa84a27d60c712391e",
+    "oldLocalSurvivalSourceUsed": false,
+    "localGitRepositoryRestored": false,
+    "runtimePrefixReportedByCoordinator": "6b887bc1",
+    "runtimePrefixIndependentlyFetched": false
+  },
+  "observedActivation": [
+    {
+      "location": "tools/mobile_visual_capture.mjs / captureMobileViews",
+      "claim": "The existing capture calls the real applySettings API with quality medium. Its frozen camera/spawn list is retained unchanged."
+    },
+    {
+      "location": "src/core/engine.js / TIERS.medium",
+      "claim": "Medium sets grain:true. Low sets grain:false and is outside this diagnostic."
+    },
+    {
+      "location": "src/render/postfx.js / grade and render",
+      "claim": "The current grade.grain is 0.035. The enabled composite receives tier.grain ? grade.grain : 0 as uGrain."
+    },
+    {
+      "location": "src/render/postfx.js / fragment shader",
+      "claim": "The film-grain contribution uses uGrain and a hash seeded by fract(uTime). The separate 1/255 dither is untouched."
+    },
+    {
+      "location": "src/game/game.js / render",
+      "claim": "The current game passes engine.time to PostFX.render. The test keeps the engine stopped, renders dt=0 and compares that time and the actual post time."
+    }
+  ],
+  "hypothesis": "Reducing the enabled film-grain amplitude may reduce the reported full-frame surface noise while preserving legibility and atmospheric gradients. This is a hypothesis; material texture noise and the separate dither are not altered or diagnosed as causes here.",
+  "experiment": {
+    "baselineGrain": 0.035,
+    "trialGrain": 0.012,
+    "order": [
+      "before",
+      "trial",
+      "restored"
+    ],
+    "views": [
+      "stacks",
+      "marrow",
+      "arcade",
+      "cinder",
+      "survey",
+      "ventfield",
+      "south",
+      "plant"
+    ],
+    "roofTrialIncluded": false,
+    "existingCaptureSetupUnchanged": true,
+    "runtimeGuard": "Abort before a trial unless the engine is stopped, medium is locked, the real settings select medium, postprocessing and tier grain are enabled, the original writable value is 0.035, and uGrain already receives 0.035.",
+    "onlyAuthoredProductMutation": "Assign post.grade.grain=0.012, then restore its exact original property descriptor in finally. The grade object identity must also remain the same.",
+    "controls": [
+      "Original baseline pixels match the cached production view.",
+      "Frame/time, camera, player, tier/settings, lighting, fog, effective exposure and non-grain grade agree across all three renders.",
+      "Scene IDs, transforms, visibility, geometry attribute/index versions, material versions and light parameters agree.",
+      "Grade and shader uniform values are exactly 0.035/0.012/0.035.",
+      "Positive and unchanged draw/triangle counts; trial pixels actually differ.",
+      "After restoration, both RGBA pixels and original PNG bytes exactly match the before capture."
+    ],
+    "sceneRecordLimit": "The scene record compares identities, transforms, visibility and version metadata plus light parameters. It is not an independent hash of all CPU/GPU geometry arrays or texture bytes. The helper itself performs no material, geometry, camera or lighting writes; real capture/control results remain required.",
+    "failureMeaning": "Inactive or unchanged grain, failed render, state drift or failed restoration invalidates the causal capture and remains a failed test. This does not convert acquisition failure into a quality result.",
+    "export": "Existing native cached PNG files are reused only for exact byte equality. Other original PNGs are written as grain-<view>-<before|trial|restored>.png. The existing exporter includes these files without resizing/recompression.",
+    "runtimePin": "The helper records the actual dist/cinderline.1.0.0.js SHA-256 and capture GITHUB_SHA. It does not substitute the old C26 runtime prefix for the next build hash.",
+    "optionalCiMarker": "[grain-c26-r1]",
+    "ciOutput": "test-results/grain-c26-r1",
+    "ciLaunched": false
+  },
+  "exactIntegration": {
+    "diffPath": "/workspace/scratch/0b7ad82bafe7/grain-c26-trial-r1.FWEgBe/integration.diff",
+    "bytes": 15259,
+    "sha256": "69562a8a9303b938ee7bfec5204e639051c9942bca84284f422e24c758582e2b",
+    "git_blob": "d8ef0c40b0a03e4302b029389f6b5f24af989285",
+    "changes": [
+      {
+        "path": "tools/mobile_grain_trial.mjs",
+        "change": "One focused reversible capture helper, using the existing light-trial/frozen-view patterns."
+      },
+      {
+        "path": "tools/mobile_visual_capture.mjs",
+        "change": "One import and opt-in call for the existing eight exterior views."
+      },
+      {
+        "path": "tools/test-iphone-webkit.mjs",
+        "change": "Generalize the optional-diagnosis scope wording and require all eight grain rows."
+      },
+      {
+        "path": "tools/export-webkit-material.mjs",
+        "change": "Include actual grain diagnostic PNGs under the existing export path."
+      },
+      {
+        "path": ".github/workflows/gates.yml",
+        "change": "One marker-selected grain job, copied from the existing bounded light diagnostic path."
+      }
+    ],
+    "productSourceChanges": [],
+    "benchmarkOrReferenceChanges": [],
+    "branchWrites": 0
+  },
+  "verification": {
+    "sourcePins": "/workspace/scratch/0b7ad82bafe7/grain-c26-trial-r1.FWEgBe/source-pins.json",
+    "cpuResult": "/workspace/scratch/0b7ad82bafe7/grain-c26-trial-r1.FWEgBe/cpu-checks.json",
+    "cpuScript": "/workspace/scratch/0b7ad82bafe7/grain-c26-trial-r1.FWEgBe/cpu-checks.mjs",
+    "syntaxChecks": 4,
+    "syntheticControlCases": 12,
+    "passedChecks": 16,
+    "patchDryRun": "PASS against the saved exact C26 baseline; no baseline file was modified.",
+    "scope": "Local CPU only. The control cases simulate page/renderer/PNG boundaries and test restoration, early abort, inert shader rejection and state-drift rejection. They are not real pixel or GPU evidence.",
+    "serverStarts": 0,
+    "browserOrCDPStarts": 0,
+    "modelDownloads": 0,
+    "ciStarts": 0,
+    "actualFramesCaptured": 0,
+    "realWebkitControlStatus": "not measured",
+    "visualBenefit": "not measured"
+  },
+  "findings": [],
+  "adoptedProductChange": false,
+  "completionClaims": []
+}

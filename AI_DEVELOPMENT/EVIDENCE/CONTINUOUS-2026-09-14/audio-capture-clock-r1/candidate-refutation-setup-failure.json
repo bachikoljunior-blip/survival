@@ -1,0 +1,23 @@
+{
+  "scope": "Reviewer-only CPU fixture assertion failure; candidate source was not changed.",
+  "runtime": "Node.js v24.19.0",
+  "probeSha256BeforeCorrection": "9ff74c66b1a6da9110d808d24f35a8efb904a5a61d632e3ba5ce27e0f1fd4d2b",
+  "candidateSha256": "7b226669aab174d4a37bfeadedc6243a4a79e147ac1ae6b3ffcbb41e1ba64e26",
+  "failure": {
+    "class": "AssertionError",
+    "location": "probe-refutation.mjs:39",
+    "actualForwardComponents": [
+      "-1",
+      "-0",
+      "-0"
+    ],
+    "expectedForwardComponents": [
+      "-1",
+      "0",
+      "0"
+    ],
+    "reason": "node:assert/strict deep equality distinguishes signed zero. Candidate negates the zero camera matrix components exactly as expected; the fixture expectation omitted negative zero."
+  },
+  "interpretation": "Reviewer fixture expectation error, not a candidate defect. Earlier seven pure timing checks ran before this assertion. No browser, audio, rendering, codec or CI execution occurred.",
+  "recovery": "Preserve this record; change only our exact forward-vector expectation to [-1,-0,-0] and repeat the same bounded probe."
+}

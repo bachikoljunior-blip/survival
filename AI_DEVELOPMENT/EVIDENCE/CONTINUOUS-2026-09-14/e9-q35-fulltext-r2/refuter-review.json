@@ -1,0 +1,197 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "round": "E9-helper-r2-template-independent-refutation",
+  "profile": "source-and-local-template-render",
+  "tier": "diagnostic",
+  "nativeResolution": "0x0",
+  "blindComparison": "No model response or blind preference was measured. Source inspection and local template rendering cannot determine which anonymous work a stranger would prefer.",
+  "scoreMeaning": "Unscored sentinel; the model comparison remains unmeasured. This is not a product-quality or model-reliability failure verdict.",
+  "reviewOutcome": "No surviving actionable finding in this bounded revision. The r1 template/wrapper failure is independently reproduced and closed in the pinned r2 source.",
+  "reviewedHelper": {
+    "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/tools/compare-e9-q35.py",
+    "bytes": 32769,
+    "sha256": "53b936a9998e6f8843bad494852006161e4546fdd171141a4a7f53c35414ca18"
+  },
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "E9-TEMPLATE-OUTER-LF",
+      "severity": "major",
+      "shot": "R1 render_chat with the existing actual GGUF template and complete pinned A/B readers",
+      "owner": "tools/compare-e9-q35.py",
+      "problem": "The r1 helper raises unexpected_single_user_template_result because its 264759-byte complete body includes a final wrapper LF that the actual GGUF template strips; the exact body count is 0.",
+      "why": "The preparation guard prevents tokenizer/comparison launch even though both full original reader byte spans remain intact.",
+      "hypothesis": "Confirmed by independent local rendering: actual template render_content|trim removes only the final 0a after B_END. It does not remove any A/B reader byte. The official HF control retains this LF, explaining why that earlier substitute control passed.",
+      "fix": "Remove only the helper-owned terminal LF after B_END. With the actual template, verify canonical remains 264827 bytes with SHA256 7d7b5c8f54814ec13ddfd29af8a18d1805de9aa8dfa435c8f71f2cdc03ab26e9 and retain exact-body, user-prefix, suffix, reader count and ordering guards.",
+      "beforeEvidence": "refuter-template-02.json reproduces the old error, body count 0, body-minus-only-final-LF count 1; A/B original hashes and once-only spans are preserved.",
+      "afterEvidence": "refuter-template-03.json: pinned r2 succeeds with exactly the prior actual canonical hash and both full reader spans once. Four deliberate corruption/prefix/role controls are rejected; malformed Jinja records render_error.",
+      "classification": "R1 helper integration defect; not evidence of model failure or original-text disappearance.",
+      "status": "resolved on 53b936a9998e6f8843bad494852006161e4546fdd171141a4a7f53c35414ca18"
+    }
+  ],
+  "claimRefutations": [
+    {
+      "claim": "The guard error demonstrates original dialogue was lost.",
+      "result": "Refuted. A is 200075 bytes at offset 2652 and B is 62026 bytes at offset 202743; each exact pinned byte span occurs once and in order. The sole removed byte is outside both spans after B_END."
+    },
+    {
+      "claim": "Removing the final wrapper LF changes the actual model input.",
+      "result": "Refuted for this exact template. Independent pre-render LF removal and the final helper produce the same 264827 canonical bytes/hash as the old actual-template render."
+    },
+    {
+      "claim": "The fix passes by weakening guards or admitting a system message.",
+      "result": "Refuted in source and bounded CPU controls. Body count and user prefix are now separate error codes for the same conditions. Duplicate body, system prefix, extra A copy and altered assistant role each fail. The original reader exact-once/order and suffix checks remain."
+    },
+    {
+      "claim": "New diagnostics disclose the original body or source identity.",
+      "result": "The inspected producer emits only fixed role/label/status strings, counts, offsets, booleans, hashes and exception type. Saved control diagnostics contain neither original packet bytes nor source URLs, model names or serialized prompt text. Only template-render.json is newly allowlisted."
+    }
+  ],
+  "measured": {
+    "templateBytes": 7816,
+    "templateSha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+    "canonicalBytes": 264827,
+    "canonicalSha256": "7d7b5c8f54814ec13ddfd29af8a18d1805de9aa8dfa435c8f71f2cdc03ab26e9",
+    "rendererDependencies": {
+      "Jinja2": "3.1.6",
+      "MarkupSafe": "3.0.3"
+    },
+    "readerSpans": [
+      {
+        "label": "A",
+        "offset": 2652,
+        "bytes": 200075,
+        "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+        "count": 1
+      },
+      {
+        "label": "B",
+        "offset": 202743,
+        "bytes": 62026,
+        "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+        "count": 1
+      }
+    ],
+    "finalCases": [
+      {
+        "case": "actual",
+        "error": null
+      },
+      {
+        "case": "duplicate_body",
+        "error": "exact_single_user_body_occurrence_mismatch"
+      },
+      {
+        "case": "system_prefix",
+        "error": "unexpected_single_user_template_prefix"
+      },
+      {
+        "case": "extra_reader_a",
+        "error": "full_packet_not_present_exactly_once"
+      },
+      {
+        "case": "wrong_assistant_role",
+        "error": "missing_assistant_generation_prefix"
+      },
+      {
+        "case": "malformed_template",
+        "error": "TemplateSyntaxError"
+      }
+    ],
+    "sourceUnchangedDuringProbe": true,
+    "unexpectedChildOrNetworkCalls": [],
+    "ASTChangedFunctions": [
+      "prepare",
+      "render_chat"
+    ],
+    "publicAllowlistAdded": [
+      "template-render.json"
+    ]
+  },
+  "unchangedScope": "QUESTION, reader pins, model/runtime pins, runtime source, renderer versions, context/output budget and preparation/inference timeouts are AST-literal identical. The existing native tokenization, completion, special policy, no-retry, error-retention and raw export code was not changed or rerun.",
+  "evidence": {
+    "r1-helper.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/r1-helper.py",
+      "bytes": 30339,
+      "sha256": "9a04b54a670c7085118baf822a24e7c4e494cb6099db94ec45248352e165d43c"
+    },
+    "refuter-r2-helper.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-r2-helper.py",
+      "bytes": 32769,
+      "sha256": "53b936a9998e6f8843bad494852006161e4546fdd171141a4a7f53c35414ca18"
+    },
+    "actual-gguf-chat-template.jinja": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/actual-gguf-chat-template.jinja",
+      "bytes": 7816,
+      "sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67"
+    },
+    "local-metadata.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/local-metadata.json",
+      "bytes": 1274,
+      "sha256": "dc21b15fb811840c341dca25fef3e474d232b093e457ba85f1c5d5195c4c0e4c"
+    },
+    "public-template-range.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/public-template-range.json",
+      "bytes": 636,
+      "sha256": "460d49795dc7226343e5a2b001f6d371df029b5e74a842b11a7529412fe391a2"
+    },
+    "public-template-range.bin": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/public-template-range.bin",
+      "bytes": 7816,
+      "sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67"
+    },
+    "refuter-template-01.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-01.py",
+      "bytes": 5516,
+      "sha256": "61feed2da8a5c7bd6fd43cadc949522b3ea0656ed2086ff354b3b481aefc5f14"
+    },
+    "refuter-template-01.log": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-01.log",
+      "bytes": 269,
+      "sha256": "088296ba9ecbf200f2474897204f97546e3a31abfcd7e5be786b92b6e9892358"
+    },
+    "refuter-template-02.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-02.py",
+      "bytes": 5640,
+      "sha256": "3273a8c18f5eab2e0adbf40cd74bfeef68ed1af646ccc7c9315072a6055cac82"
+    },
+    "refuter-template-02.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-02.json",
+      "bytes": 2282,
+      "sha256": "4f0818eff818feea43079dcc5a1ec6ea554b1b08354abff8cac123eb6487fce4"
+    },
+    "refuter-template-02.log": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-02.log",
+      "bytes": 2282,
+      "sha256": "4f0818eff818feea43079dcc5a1ec6ea554b1b08354abff8cac123eb6487fce4"
+    },
+    "refuter-template-03.py": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-03.py",
+      "bytes": 6108,
+      "sha256": "94fb2b8bc9506724aa8662a009d45cf0abd3a477fd4d25f5e09c3fdc6e27c8d9"
+    },
+    "refuter-template-03.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-03.json",
+      "bytes": 17290,
+      "sha256": "2406b6c70692da32cc3e36eb95ab93adb4fd3f8e1ceb113a589a84d7477829c9"
+    },
+    "refuter-template-03.log": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-template-03.log",
+      "bytes": 798,
+      "sha256": "32449b050a4eaed9e41aa51f716a2a8c4ef8f0094c14c01b0cafe339c23ef06b"
+    },
+    "refuter-failed-attempts.json": {
+      "path": "/workspace/scratch/0b7ad82bafe7/e9-comparison-helper-r2.1ps04j1h/evidence/refuter-failed-attempts.json",
+      "bytes": 765,
+      "sha256": "95f0b9d2748cb0c83b37c9fa362cb491a69331ab77694ae18a583e22ddd182f1"
+    }
+  },
+  "limitations": [
+    "The 10943081-byte local metadata header comes from an incomplete 3665821696-byte local weight prefix. It does not establish the full 9527502048-byte weight pin.",
+    "The parent separately fetched the 7816-byte public template range with HTTP 206. This refuter verified the retained range bytes equal the local template but made no new network request.",
+    "This refutation independently reproduced the preparation mechanism locally; it did not independently fetch or rerun the C27 CI job.",
+    "No tokenizer, model inference, browser, server, native execution, new dependency installation or product edit occurred in this refutation. Actual full-model final tokens, weights, response, recognition, comparison validity, preference, RAM and throughput remain unmeasured here.",
+    "rendered_before_validation is a diagnostic stage, not a validation-pass marker. This source closure is not authorization or evidence of a successful comparison."
+  ]
+}

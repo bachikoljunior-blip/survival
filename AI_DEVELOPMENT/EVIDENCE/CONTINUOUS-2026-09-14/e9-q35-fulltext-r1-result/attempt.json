@@ -1,0 +1,65 @@
+{
+  "attempt": "e9-q35-readable-r3-r1",
+  "ci_commit": "324378b16f3c92c30efe5edf18139e6eeaf27b1d",
+  "runtime": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10809/llama-b10809-bin-ubuntu-x64.tar.gz",
+    "file": "runtime.tar.gz",
+    "bytes": 16734586,
+    "sha256": "5e34434ddc6d03cd1584f403201aff0d4bd1a5793a72ff7e286532dfd1e4b941"
+  },
+  "runtime_source": "5266f24da75dc449bd56cbed7addb9c8e4a6a73e",
+  "model": {
+    "url": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q8_0.gguf",
+    "file": "Qwen3.5-9B-Q8_0.gguf",
+    "bytes": 9527502048,
+    "sha256": "809626574d0cb43d4becfa56169980da2bb448f2299270f7be443cb89d0a6ae4"
+  },
+  "official_config_commit": "21eca8a083a2121a92fba681f4a7c72cf20ff1a7",
+  "readers": [
+    {
+      "label": "A",
+      "file": "A-readable.txt",
+      "bytes": 200075,
+      "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+      "previous_official_tokenizer_tokens": 63718
+    },
+    {
+      "label": "B",
+      "file": "B-readable.txt",
+      "bytes": 62026,
+      "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+      "previous_official_tokenizer_tokens": 19847
+    }
+  ],
+  "criteria": [
+    "BM-CHR-01: six major characters distinguished by argument construction",
+    "BM-CHR-02: six of six supporting characters have their own goals"
+  ],
+  "context": 98304,
+  "output_tokens": 8192,
+  "prepare_seconds": 1800,
+  "comparison_seconds": 7200,
+  "renderer_dependencies": {
+    "Jinja2": "3.1.6",
+    "MarkupSafe": "3.0.3"
+  },
+  "server": false,
+  "projector": false,
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0,
+    "presence_penalty": 1.5,
+    "repeat_penalty": 1.0,
+    "seed": 917
+  },
+  "source_visibility": "Only neutral question and full unchanged A/B reader text; no tools.",
+  "quality_verdict": "not measured",
+  "blind_validity": "not measured",
+  "limitations": [
+    "Recognition or suspicion invalidates blindness.",
+    "Completion, all 20 supplied units and separate major/supporting coverage require independent raw-answer audit.",
+    "Theoretical KV size is not measured peak RAM or a throughput guarantee."
+  ]
+}

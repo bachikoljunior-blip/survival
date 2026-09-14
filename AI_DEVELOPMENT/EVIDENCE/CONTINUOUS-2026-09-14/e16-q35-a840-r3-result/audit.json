@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "kind": "source-known-completed-comparison-audit",
+  "attempt": "e16-q35-a8409cc-r3",
+  "verdict": "NO_VALID_COMPARISON",
+  "score": 0,
+  "scoreMeaning": "unscored; E16 quality is not graded",
+  "run": 34831102708,
+  "job": 103934400526,
+  "ciCommit": "f13df49df4e8eea7870d6f2a18a408e82c1ba861",
+  "scope": "完了した1試行の原ログ・質問・入力manifest・制御原画像と原回答の監査。再推論、製品品質採点、基準変更は行わない。",
+  "rawPins": [
+    {
+      "file": "job103934400526-original.log.txt",
+      "bytes": 188651,
+      "sha256": "3cd2ef37d7620a27f1a8788958c9e588ab09e70b3bcb21a1bcb63842017202ed"
+    },
+    {
+      "file": "attempt.json",
+      "bytes": 7036,
+      "sha256": "00325dc3752607ac8a96f5c4d5b32f54537d329963e6f22ec85c61ab462e2875"
+    },
+    {
+      "file": "inputs.json",
+      "bytes": 2115,
+      "sha256": "d11792881dcbeeeafba22a67efc298394df02616b02c07fbee49b84c243dc097"
+    },
+    {
+      "file": "prompt.txt",
+      "bytes": 2062,
+      "sha256": "a93c938aa5397ad2d24fce18449d47f167ffea6bca74ce5e44753c658831ddb4"
+    },
+    {
+      "file": "control-run.json",
+      "bytes": 1565,
+      "sha256": "252725c2f63b28b401a4a46cf49ca84cd3f2362293fd107640d11256732bf90e"
+    },
+    {
+      "file": "control.stdout.txt",
+      "bytes": 1941,
+      "sha256": "b1d73023eca1d497af21d0442cee96f920377784e293e830e6dbadb2e526a60c"
+    },
+    {
+      "file": "control.stderr.txt",
+      "bytes": 2789,
+      "sha256": "07b7537490632624198666163459d796b5b5215812c5618e77340a258d084ff6"
+    },
+    {
+      "file": "compare-run.json",
+      "bytes": 2767,
+      "sha256": "d927bbba96d32325456e7df37e31ccd1d27c7e7678868fb869920a96d960604b"
+    },
+    {
+      "file": "compare-error.json",
+      "bytes": 206,
+      "sha256": "a134ae6a2a80536899e0a8b245eca629acc1f76941cb3e7a8b5b8bfdb391a4f6"
+    },
+    {
+      "file": "compare.stdout.txt",
+      "bytes": 13355,
+      "sha256": "fdbb8b4bef3400895fbd1edd57eb9fde5829202ef86bdd383014011802c1b8bb"
+    },
+    {
+      "file": "compare.stderr.txt",
+      "bytes": 51068,
+      "sha256": "d01b3c8be2dc0eda8ab5484b1d35370478a0f4cfe39af2ce2c413284882c4dc2"
+    },
+    {
+      "file": "control.png",
+      "bytes": 2338,
+      "sha256": "8df9cbefd5fa3ca296eed9dfa1170f074db932738d323d7c3a77e047a78a60b2"
+    },
+    {
+      "file": "control-prompt-source.txt",
+      "bytes": 274,
+      "sha256": "d9db21582dee35aececdc9a4a2395ffd8f29acb6d777379184cd860c18c1e6e4"
+    }
+  ],
+  "integrity": {
+    "originalJobLogFetchedIndependently": true,
+    "exportedFiles": 15,
+    "allExportedFiles": "全15件のbase64 chunk offset連続性、meta/end一致、size/SHA256、ローカル原ファイルとのbyte一致を検証。",
+    "manifestEvidence": "inputs.jsonのA01..A08/B01..B08はattempt.jsonの参照/候補16件のsize/SHAと一致し、compare-run.jsonの--image順とも一致。",
+    "hashUse": "原資料の同一性確認だけに使用。品質指標として使用していない。"
+  },
+  "control": {
+    "status": "correct_for_this_control",
+    "viewedOriginalPng": true,
+    "observedImage": "左半分に赤い円（左下）、緑の四角（中央付近）、青い三角（右上）。細い仕切り線の右は白地で有色物体なし。",
+    "answerEvidence": [
+      {
+        "file": "control.stdout.txt",
+        "line": 38,
+        "quote": "- Red circle (lower left area)"
+      },
+      {
+        "file": "control.stdout.txt",
+        "line": 39,
+        "quote": "- Green square (center area)"
+      },
+      {
+        "file": "control.stdout.txt",
+        "line": 40,
+        "quote": "- Blue triangle (upper right area of this half)"
+      },
+      {
+        "file": "control.stdout.txt",
+        "line": 43,
+        "quote": "No colored objects are visible in this half."
+      }
+    ],
+    "exitCode": 0,
+    "seconds": 303.262618267,
+    "source": {
+      "imageGitBlob": "b70bd7f77367f85fcd0d4ffbaf9235125cde751d",
+      "helperGitBlob": "a6fcd4b72b66f4a407d008847e148ad18b9972aa",
+      "helperLines": [
+        321,
+        322,
+        374,
+        393,
+        394
+      ],
+      "promptGitBlob": "9fa16975ca7e45ec9540daafbac8d8cf480311cf",
+      "promptSourcePath": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/visual-evaluator-control-r1/prompt.txt",
+      "assembly": "同じCI commitの274-byte原promptを読み、newline + <__media__> + newlineを追加する。",
+      "assembledBytes": 287,
+      "assembledSha256": "fccebbeb87423cc956d831ea0e1dad241b0c569546a36d1f8ee3fd959dc46276"
+    },
+    "limit": "制御質問は同じCI commitの原ファイルとhelperから確認。runtimeのcontrol-prompt.txt自体はexportされていない。単純図形の正答は美術判断能力や16画像全部の正しい対応を保証しない。"
+  },
+  "inputCoverage": {
+    "intendedImageCount": 16,
+    "imageEncodingStarts": 16,
+    "imageEncodingCompletions": 16,
+    "events": [
+      {
+        "startLine": 32,
+        "completionLine": 33,
+        "done": 1,
+        "total": 33
+      },
+      {
+        "startLine": 68,
+        "completionLine": 69,
+        "done": 3,
+        "total": 33
+      },
+      {
+        "startLine": 104,
+        "completionLine": 105,
+        "done": 5,
+        "total": 33
+      },
+      {
+        "startLine": 140,
+        "completionLine": 141,
+        "done": 7,
+        "total": 33
+      },
+      {
+        "startLine": 176,
+        "completionLine": 177,
+        "done": 9,
+        "total": 33
+      },
+      {
+        "startLine": 212,
+        "completionLine": 213,
+        "done": 11,
+        "total": 33
+      },
+      {
+        "startLine": 248,
+        "completionLine": 249,
+        "done": 13,
+        "total": 33
+      },
+      {
+        "startLine": 284,
+        "completionLine": 285,
+        "done": 15,
+        "total": 33
+      },
+      {
+        "startLine": 320,
+        "completionLine": 321,
+        "done": 17,
+        "total": 33
+      },
+      {
+        "startLine": 342,
+        "completionLine": 343,
+        "done": 19,
+        "total": 33
+      },
+      {
+        "startLine": 364,
+        "completionLine": 365,
+        "done": 21,
+        "total": 33
+      },
+      {
+        "startLine": 386,
+        "completionLine": 387,
+        "done": 23,
+        "total": 33
+      },
+      {
+        "startLine": 408,
+        "completionLine": 409,
+        "done": 25,
+        "total": 33
+      },
+      {
+        "startLine": 430,
+        "completionLine": 431,
+        "done": 27,
+        "total": 33
+      },
+      {
+        "startLine": 452,
+        "completionLine": 453,
+        "done": 29,
+        "total": 33
+      },
+      {
+        "startLine": 474,
+        "completionLine": 475,
+        "done": 31,
+        "total": 33
+      }
+    ],
+    "assessment": "16個のmedia位置の符号化進行を支持する。最後の符号化完了はstderr475行（82:58.801）、その後もtoken処理記録と生成stdoutがあるため、画像処理の開始前で止まった試行ではない。",
+    "limits": "ordinalとA/B labelの対応はmanifest/argv/prompt順による推論であり、native chunk行は個別の画像名/hashを出していない。16枚すべてへの完成した観察・評価は得られていない。"
+  },
+  "failureClassifications": [
+    {
+      "id": "E16-R3-METHOD-01",
+      "classification": "question_exposes_candidate_design_direction",
+      "evidence": [
+        {
+          "file": "prompt.txt",
+          "line": 17,
+          "quote": "2. A controlled charcoal/ash/rust warm palette and cool sky whenever sky appears."
+        },
+        {
+          "file": "compare.stdout.txt",
+          "line": 48,
+          "quote": "    *   Wait, let me reconsider the prompt's instruction on Axis 2: \"A controlled charcoal/ash/rust warm palette and cool sky whenever sky appears.\" This looks like a description of *one* of the styles, possibly Set B? Or is it describing what I should look for?"
+        }
+      ],
+      "observation": "特定のcharcoal/ash/rust暖色とcool skyを比較軸に指定し、出力自身がその文言をBの様式の説明と結び付けている。色の制御品質と指定色への一致が混同されている。",
+      "inference": "候補固有の制作仕様を匿名比較質問に載せることが、どちら向けの要件かを推測する手掛かりになる。",
+      "causalLimit": "この文言が出所推測やtimeoutの唯一の原因とは立証していない。"
+    },
+    {
+      "id": "E16-R3-BLIND-01",
+      "classification": "false_identity_beliefs_and_benchmark_inference",
+      "evidence": [
+        {
+          "file": "compare.stdout.txt",
+          "line": 19,
+          "quote": "*   Set B looks like *Somerville* (or a very similar low-poly survival game). The character model with the orange stripe on the back, the blocky buildings, and the specific UI signage (\"Cinder Line\", \"Hollis Reclamation Authority\") are characteristic of *Somerville*."
+        },
+        {
+          "file": "compare.stdout.txt",
+          "line": 83,
+          "quote": "    *   **Conclusion:** Set A is the \"Benchmark\" (likely the higher quality art direction, *Lone Survivor*). Set B is the one being compared against (perhaps a different style, or a rougher prototype, though it looks like a finished indie game too). Wait, looking closely at B... the text \"CINDER LINE\" suggests a specific setting. The graphics are very reminiscent of *Half-Life 2* era or low-poly modern games."
+        },
+        {
+          "file": "compare.stdout.txt",
+          "line": 101,
+          "quote": "        *   Set A: **High certainty (95%)** is *Lone Survivor* by Jacek Kowalski. The character design (white face, black hair, red shirt) and the"
+        }
+      ],
+      "observation": "AをLone Survivorと95%確信し、BをSomerville等と推測。原provenanceではAはINSIDE、Bは開発中作品であり作品名の断定は誤り。一方、Aをbenchmark、Bを比較対象/rougher prototypeとする役割推測を実際に出力している。",
+      "conclusion": "真の作品認識に成功したとは呼べないが、誤った出所信念とbenchmark推測が入った出力を、どちらも判別できない評価者による有効blindとして扱えない。"
+    },
+    {
+      "id": "E16-R3-RUN-01",
+      "classification": "execution_timeout_and_no_complete_answer",
+      "seconds": 7200.018487542,
+      "status": "timeout",
+      "exitCode": null,
+      "evidenceFiles": [
+        "compare-run.json",
+        "compare-error.json",
+        "compare.stdout.txt"
+      ],
+      "observation": "7200.018487542秒でtimeout。stdoutは13355 bytesあるが101行目の途中で切れ、COMPARISON_ENDも</think>もない。途中のWinner/Conclusion見出しを完成回答や比較得点へ変換しない。",
+      "causalLimit": "観測された停止は時間上限によるもの。具体的なruntime不具合、warning原因、必要完了時間は未確定。"
+    },
+    {
+      "id": "E16-R3-BUILD-01",
+      "classification": "historical_product_only",
+      "inputProductCommit": "a8409cc0de04a503f50395487478fe0cfb2a98e7",
+      "inputBundleSha256": "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28",
+      "currentBundleSha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+      "observation": "入力はa8409ccの固定原画像。CI commit f13df49や現在のbuildを描画した画像ではない。現行buildへの適用を認定しない。",
+      "currentBuildPinSource": "既存限定統合レビューで確認済みのroot bundle pin。今回runtime再検証はしていない。"
+    }
+  ],
+  "nativeWarnings": {
+    "findSlot": {
+      "comparisonCount": 432,
+      "controlCount": 20,
+      "examples": [
+        {
+          "file": "control.stderr.txt",
+          "line": 19,
+          "quote": "1.22.323.548 W find_slot: non-consecutive token position 57 after 56 for sequence 0 with 128 new tokens"
+        },
+        {
+          "file": "compare.stderr.txt",
+          "line": 34,
+          "quote": "3.46.929.115 W find_slot: non-consecutive token position 411 after 410 for sequence 0 with 128 new tokens"
+        }
+      ],
+      "assessment": "同じ警告のあるcontrolが正答/exit0で終わり、比較も16 encodingを進めている。警告が存在する事実は保持するが、警告だけでruntime破損やtimeout原因と認定しない。"
+    },
+    "repeatedImageOption": {
+      "count": 15,
+      "evidence": {
+        "file": "compare.stderr.txt",
+        "line": 1,
+        "quote": "0.00.013.892 W DEPRECATED: argument '--image' specified multiple times, use comma-separated values instead (only last value will be used)"
+      },
+      "assessment": "only last value will be usedという文面は16 encodingの実記録と併記する。警告だけで最後の1枚しか処理しなかったと断定せず、chunk数だけで全入力の意味的対応が証明されたとも言わない。"
+    }
+  },
+  "defensibleNextMethod": {
+    "criteriaPolicy": "既存19要素/71基準と閾値を保持。今回の不成立を品質不合格や基準引下げへ読み替えない。",
+    "comparisonQuestions": [
+      "全8視点で主光源の方向と影の明暗階層が、形と奥行きをどの程度一貫して整理するか。",
+      "各作品が使う色相の種類を優劣にせず、色の関係、色数の制御、注目箇所の階層が全視点でどの程度一貫して働くか。",
+      "可視の固体の接地影・遮蔽が接触関係をどの程度一貫して示すか。不明な接点は不明とする。",
+      "テクスチャの密度・尺度が各作品の全視点内でどの程度一貫しているか。複雑さや画素数自体は加点しない。"
+    ],
+    "separateConceptAudit": "炭・灰・錆の暖色と冷たい空という既存制作仕様への適合は、出所既知の別監査で保持する。中立比較への言い換えをこの要件の削除や合格扱いにしない。参照作品の青さや様式の模写は要求しない。",
+    "recognitionPolicy": "比較質問へbenchmark/開発中という役割を提示しない。認識や自発的な出所推測があれば隠さず別欄に記録し、未知ならunknownを許す。非認識の保証とせず実回答を監査する。",
+    "executionPolicy": "現行buildと入力を固定し、正式比較前の入力対応と完了性の制御で、今回の複数image警告・未完回答という具体的な不確実性を解消する。許容される方法変更と理由を先に記録し、都合のよい回答が出るまで同条件再試行しない。"
+  },
+  "actionsNotTaken": [
+    "LLM再実行",
+    "model取得",
+    "browser/server起動",
+    "branch/ref変更",
+    "製品code/71基準変更",
+    "新たなE16品質採点"
+  ]
+}

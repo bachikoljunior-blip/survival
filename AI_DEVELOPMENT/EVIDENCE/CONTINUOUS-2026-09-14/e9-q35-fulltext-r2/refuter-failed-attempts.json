@@ -1,0 +1,18 @@
+[
+  {
+    "attempt": "refuter-template-01.py",
+    "result": "ModuleNotFoundError: No module named jinja2",
+    "raw": "refuter-template-01.log",
+    "effect": "Stopped on import, before metadata/readers/render. Original script and log retained."
+  },
+  {
+    "attempt": "Search for evidence/cpu-check.py inside the new r2 directory",
+    "result": "rg exit 2: file not present",
+    "effect": "Read-only path miss; subsequently used the parent-provided existing dependency path."
+  },
+  {
+    "attempt": "Primary runtime importlib.metadata.version(Jinja2)",
+    "result": "PackageNotFoundError: No package metadata was found for Jinja2",
+    "effect": "No installation or download. Successful probe 02 reused r1/deps with Jinja2 3.1.6 and MarkupSafe 3.0.3."
+  }
+]

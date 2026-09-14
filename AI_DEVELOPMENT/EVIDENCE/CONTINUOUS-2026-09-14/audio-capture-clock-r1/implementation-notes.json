@@ -1,0 +1,47 @@
+{
+  "baseCommit": "324378b16f3c92c30efe5edf18139e6eeaf27b1d",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "status": "Ready for parent integration and actual CI: candidate source/CPU review complete; no real low-tier recording result yet.",
+  "changedCandidateOnly": [
+    "candidate/tools/mobile_audio_capture.mjs"
+  ],
+  "productionFilesEdited": 0,
+  "changes": [
+    "Uses the existing supported low graphics setting during capture, then restores original settings. Audio values and production graph/engine cap/playback rate unchanged.",
+    "Adds bounded passive render and sfx observations. Records camera position/right/forward/matrix used by Audio._spatial, player pose/velocity, actual Enemy-shaped actor poses/state, region/gas, and wall/audio/engine clocks.",
+    "Records per-frame clocks, pose snapshots at at most 10 Hz, and sfx metadata at emission. It does not call Audio.play, move threats, mutate camera/actors or claim each emitted name was audible.",
+    "Adds an acquisition clock guard with a documented 5 percent or 100 ms tolerance, whichever is larger. It is a screening guard, not a new quality criterion or preference verdict; preserved old recordings fail it. Finite/ordered/untruncated telemetry is checked separately.",
+    "Always labels comparison not measured. Saved bytes remain captured media even if clock checks fail; the caller records failed checks and exits nonzero."
+  ],
+  "tierIndependenceEvidence": {
+    "audioSourceSha256": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "sourceObservation": "C26 audio.js reads no quality/tier; voice budget 24 is constant, positional gain/pan uses engine camera, ambiance uses region/gas and music state. Game.applySettings selects the tier then reapplies unchanged master/music/sfx values; candidate differs from the old call only in medium -> low.",
+    "limit": "Source conformance does not show actual low-tier clock performance or a perceived audio-quality match. Improved frame rate is a hypothesis for the new CI.",
+    "actorLoopObservation": "C26 Game.update iterates every actor through update and drains events, gated by MENU mode rather than render tier/visibility. The tier drawDistance use is in render city visibility; source does not substitute lower-detail audio or omit the observed actor loop on low."
+  },
+  "callerPatch": {
+    "path": "caller-optional-video.patch",
+    "effect": "Only AUDIO_ONLY skips the separate Playwright context diagnostic video; original compressor+canvas recording remains in the helper. Complete mobile surface runs retain diagnostic video.",
+    "basis": "C26 caller recordVideo is the only .video/recordVideo use. This avoids duplicate encoding during dedicated media acquisition; performance impact remains unmeasured.",
+    "integration": "Parent must merge this two-line context diff with the other agent changes; no caller production file was edited here."
+  },
+  "validation": {
+    "path": "candidate-probe.json",
+    "groupsPassed": 7,
+    "scope": "Actual candidate helper invoked using a fake page/MediaRecorder boundary, plus actual old report endpoints through its pure clock guard. This is not a browser, audio codec, rendering or smartphone pass.",
+    "fixtureMedia": "fixture-artifacts contains intentionally marked placeholder bytes, not game recordings. These files are CPU boundary fixtures only and must not become comparison media."
+  },
+  "nextActualExecution": "Parent integrates candidate helper and optional caller diff on the specified branch. Existing Chromium CINDERLINE_AUDIO_ONLY CI captures 3 declared scene placements at low graphics, saving clocks/poses/events and original AV. Check actual drift and threat occurrence; empty threat trajectories do not become an invented positional-sound comparison.",
+  "unchangedGaps": [
+    "No certified listened reference interval.",
+    "No present-build real capture or low-tier performance result.",
+    "No valid source-blind preference result."
+  ],
+  "independentReview": {
+    "path": "candidate-refutation-review.json",
+    "sha256": "bc9225a3d90ba1abfddb154d571872c8247a2d6dcb4579f4e9684f3c93360fc1",
+    "cpuGroupsPassed": 8,
+    "strictValidation": "candidate-refutation-validation.json",
+    "scope": "Candidate helper only. Optional caller diff is an explicit separate source proposal and was not part of the independent review."
+  }
+}

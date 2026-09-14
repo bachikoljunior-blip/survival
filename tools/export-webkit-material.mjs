@@ -10,6 +10,9 @@ const output = process.env.CINDERLINE_WEBKIT_OUTPUT || 'test-results/iphone-webk
 if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') {
   files.push(...readdirSync(output).filter(file => /^light-direction-(stacks|marrow|arcade|cinder|survey|ventfield|south|plant)-(before|trial|restored)\.png$/.test(file)).sort());
 }
+if (process.env.CINDERLINE_GRAIN_TRIAL === '1') {
+  files.push(...readdirSync(output).filter(file => /^grain-(stacks|marrow|arcade|cinder|survey|ventfield|south|plant)-(before|trial|restored)\.png$/.test(file)).sort());
+}
 const cap = 2 * 1024 * 1024;
 let failed = false;
 for (const file of files) {

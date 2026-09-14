@@ -62,7 +62,7 @@ const report = {
   schemaVersion: 1,
   checkedAt: new Date().toISOString(),
   target: `iPhone SE (3rd gen) landscape / Playwright ${BROWSER_NAME}`,
-  scope: AUDIO_ONLY ? 'Production audiovisual acquisition only; not the complete mobile surface gate.' : VISUAL_ONLY ? 'Production view acquisition and optional reversible lighting diagnosis only; not the complete mobile surface gate.' : 'Complete mobile surface gate.',
+  scope: AUDIO_ONLY ? 'Production audiovisual acquisition only; not the complete mobile surface gate.' : VISUAL_ONLY ? 'Production view acquisition and optional reversible rendering diagnosis only; not the complete mobile surface gate.' : 'Complete mobile surface gate.',
   browser: BROWSER_NAME,
   checks: [],
   timings: {},
@@ -289,7 +289,8 @@ try {
     locale: 'ja-JP',
     timezoneId: 'Asia/Tokyo',
     colorScheme: 'dark',
-    recordVideo: { dir: resolve(OUTPUT, 'video'), size: profile.viewport },
+    // The audio-only branch already records its original canvas and audio.
+    ...(AUDIO_ONLY ? {} : { recordVideo: { dir: resolve(OUTPUT, 'video'), size: profile.viewport } }),
   });
   await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
   page = await context.newPage();
@@ -352,6 +353,9 @@ try {
     await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
     if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') {
       check(report.lightDirectionTrial?.views.length === 8, 'lighting experiment captures all eight fixed views');
+    }
+    if (process.env.CINDERLINE_GRAIN_TRIAL === '1') {
+      check(report.grainTrial?.views.length === 8, 'grain experiment captures all eight fixed views');
     }
   } else {
   const titleLayout = await page.evaluate(() => {

@@ -297,7 +297,7 @@ jobs:
 
   comparison-e9-q35:
     name: Frozen full-text E9 Qwen 3.5 comparison attempt
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e9-q35-readable-r3-r1]')
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e9-q35-readable-r3-r2]')
     runs-on: ubuntu-latest
     timeout-minutes: 180
     permissions:
@@ -333,11 +333,53 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: e9-q35-readable-r3-r1-${{ github.sha }}
+          name: e9-q35-readable-r3-r2-${{ github.sha }}
           path: |
-            test-results/e9-q35-readable-r3-r1
+            test-results/e9-q35-readable-r3-r2
             test-results/e9-readable-r3/report.json
             test-results/e9-readable-r3/field-audit.json
             test-results/e9-reader-recovery-r2/report.json
           if-no-files-found: warn
           retention-days: 14
+
+  grain-strength-trial:
+    name: Frozen grain strength diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c26-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_GRAIN_TRIAL: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/grain-c26-r1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_grain_trial.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed views and reversible single-variable trial
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grain-c26-r1-${{ github.sha }}
+          path: test-results/grain-c26-r1
+          if-no-files-found: warn
+          retention-days: 14
+

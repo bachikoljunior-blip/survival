@@ -1,0 +1,95 @@
+{
+  "helper": {
+    "bytes": 33169,
+    "sha256": "5fbbce73916b26b4abd4585194ee9cb0759617414f5c86ca868da13dccacb26f"
+  },
+  "template_only_helper": {
+    "bytes": 32769,
+    "sha256": "53b936a9998e6f8843bad494852006161e4546fdd171141a4a7f53c35414ca18"
+  },
+  "question_before": {
+    "bytes": 2626,
+    "sha256": "481683785cf4900b509d7a349910c371686339bffdadcc12e8e90f5f47d3ec5a"
+  },
+  "question_after": {
+    "bytes": 2177,
+    "sha256": "6715e1035057e217ba8609bf4d2a81b27b8be1c9891841c1defd706efe85c95a"
+  },
+  "question_changes_authorized_separately": true,
+  "production_counts_and_source_role_guessing_absent_from_question": true,
+  "numeric_criteria_in_provenance_unchanged": true,
+  "unchanged_pins_parameters": [
+    "MODEL",
+    "RUNTIME",
+    "READERS",
+    "CONTEXT",
+    "OUTPUT_TOKENS",
+    "PREPARE_SECONDS",
+    "INFERENCE_SECONDS",
+    "DEPENDENCIES"
+  ],
+  "template_validation_and_native_argument_functions_AST_unchanged": true,
+  "canonical": {
+    "bytes": 264378,
+    "sha256": "e6b71cb3bd22b02cafcf72263ab89f69a478a81d75f2031854e8e1d04a451e74"
+  },
+  "full_unchanged_reader_spans": [
+    {
+      "label": "A",
+      "offset_bytes": 2203,
+      "bytes": 200075,
+      "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9"
+    },
+    {
+      "label": "B",
+      "offset_bytes": 202294,
+      "bytes": 62026,
+      "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048"
+    }
+  ],
+  "diagnostics": {
+    "status": "rendered_before_validation",
+    "template_bytes": 7816,
+    "template_sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+    "user_body_bytes": 264309,
+    "user_body_sha256": "8cc42e21397d310bea055c86207c9fdaf24166dd795e97ca20182ce174571427",
+    "user_body_leading_whitespace_bytes": 0,
+    "user_body_trailing_whitespace_bytes": 0,
+    "input_message_roles": [
+      "user"
+    ],
+    "add_generation_prompt": true,
+    "reader_spans": [
+      {
+        "label": "A",
+        "bytes": 200075,
+        "sha256": "bebdfe880669679599547699b3a0cc93bbcd2caa8abf348a556a8988c6d18cb9",
+        "occurrences": 1,
+        "first_offset_bytes": 2203
+      },
+      {
+        "label": "B",
+        "bytes": 62026,
+        "sha256": "83efef2038209b724f4c4ec555f0904882a125690253c069c42b69fe5eecb048",
+        "occurrences": 1,
+        "first_offset_bytes": 202294
+      }
+    ],
+    "rendered_bytes": 264378,
+    "rendered_sha256": "e6b71cb3bd22b02cafcf72263ab89f69a478a81d75f2031854e8e1d04a451e74",
+    "exact_user_body_occurrences": 1,
+    "outer_trimmed_user_body_occurrences": 1,
+    "first_exact_user_body_offset_bytes": 17,
+    "starts_user": true,
+    "starts_system": false,
+    "serialized_message_roles": [
+      "user",
+      "assistant"
+    ]
+  },
+  "private_raw_directory": "/workspace/scratch/0b7ad82bafe7/e9-r2-final-private-d624xxe6",
+  "native_full_input_token_count": "not measured",
+  "inference_run": false,
+  "blind_validity": "not measured",
+  "quality_verdict": "not measured"
+}

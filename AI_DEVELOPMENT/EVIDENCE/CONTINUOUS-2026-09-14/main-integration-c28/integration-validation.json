@@ -1,0 +1,17 @@
+{
+  "base": "2fc0a319faeffb3733cd4a5f3091be3819ec770d",
+  "runtime_changed": false,
+  "syntax": {
+    "chunk_id": "824c45",
+    "exit_code": 0,
+    "original_token_count": 217,
+    "output": "{\"file\": \"/workspace/scratch/0b7ad82bafe7/main-integration-c28/candidate/.github/workflows/gates.yml\", \"jobs\": [\"f2-state-update\", \"f3-execution\", \"f5-review-record\", \"narrative-material\", \"comparison-e16-q35\", \"light-direction-trial\", \"e9-reader-recovery\", \"prepare-reviewed-light\", \"prepare-e9-readable\", \"comparison-e9-q35\", \"grain-strength-trial\"]}\n{\"file\": \"/workspace/scratch/0b7ad82bafe7/main-integration-c28/candidate/.github/workflows/revert-to-verified.yml\", \"jobs\": [\"revert\"]}\n{\"passed\": [\"Python syntax\", \"export-webkit-material.mjs syntax\", \"mobile_audio_capture.mjs syntax\", \"mobile_grain_trial.mjs syntax\", \"mobile_visual_capture.mjs syntax\", \"test-iphone-webkit.mjs syntax\", \"gates.yml YAML and run shell syntax\", \"revert-to-verified.yml YAML and run shell syntax\"], \"scope\": \"Syntax and integration only; no CI, rendering, or comparison result.\"}\n",
+    "wall_time_seconds": 0.462058612
+  },
+  "grain": "16 bounded CPU checks passed; actual 8-view experiment pending",
+  "audio": "7 implementation groups and 8 independent groups passed; actual low-tier recording pending",
+  "e9": "actual GGUF template mismatch reproduced and final full-input byte guards passed; native token count and inference pending",
+  "manual_revert": "Only repair 3 wrongly indented message lines; YAML/bash syntax pass. workflow_dispatch only. Not invoked; no rollback claim.",
+  "criteria": "19 elements and all 71 locked criteria retained",
+  "status": "local integration prepared, actual CI not yet launched"
+}
