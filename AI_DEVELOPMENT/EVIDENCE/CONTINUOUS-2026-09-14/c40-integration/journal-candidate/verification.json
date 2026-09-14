@@ -1,0 +1,220 @@
+{
+  "status": "two journal-string candidate verified; unbuilt/unadopted",
+  "canonicalReadCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+  "productCandidateRootSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+  "baselineSourcePins": [
+    "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+    "66d08acf58e0dd470de3f18834a8c65622fb7c544f59c0fa3bdb4d1069beba70"
+  ],
+  "paths": [
+    "src/content/story.js",
+    "src/content/locale/ja/content.js"
+  ],
+  "exactChangedFields": [
+    "CONVERSATIONS.iris_first.nodes.i_gives.effects[3].journal[2]",
+    "CONTENT_JA.journal.iris.text"
+  ],
+  "before": {
+    "en": "She kept a folder of the differences for two years and\none month. She thought that if I couldn't say it, it couldn't be said. I have\nbeen an argument in someone else's head this whole time and I did not know it.",
+    "ja": "彼女は差分のファイルを2年1か月つけていた。私が言えないのなら、それは言えないことなのだと思っていた。私はこの間ずっと、他人の頭の中の論拠だった。そしてそれを知らなかった。"
+  },
+  "after": {
+    "en": "She kept a folder of the differences for two years and\nten months. She thought that if I couldn't say it, it couldn't be said. I have\nbeen an argument in someone else's head this whole time and I did not know it.",
+    "ja": "彼女は差分のファイルを2年10か月つけていた。私が言えないのなら、それは言えないことなのだと思っていた。私はこの間ずっと、他人の頭の中の論拠だった。そしてそれを知らなかった。"
+  },
+  "references": {
+    "en": [
+      {
+        "conversation": "iris_first",
+        "node": "i_long",
+        "text": "Two years and ten months. Since before you were hired."
+      },
+      {
+        "conversation": "iris_after",
+        "node": "i_folder2",
+        "text": "Metres, not words. If I write a sentence it is a position and I have to defend\nit. If I write sixty, it is a measurement, and a measurement is only a fact.\n\nI have been hiding behind the units for two years and ten months."
+      }
+    ],
+    "ja": [
+      {
+        "conversation": "iris_first",
+        "node": "i_long",
+        "text": "2年10か月。あなたが採用される前からです"
+      },
+      {
+        "conversation": "iris_after",
+        "node": "i_folder2",
+        "text": "言葉ではなくメートル。文を書けばそれは立場になって、守らなければならない。60と書けばそれは測定値で、測定値はただの事実です。\n\n2年10か月、単位の後ろに隠れてきました"
+      }
+    ]
+  },
+  "byteChecks": [
+    {
+      "path": "src/content/story.js",
+      "oldBytes": 111858,
+      "newBytes": 111859,
+      "offset": 63140,
+      "replacedOldBytes": 24,
+      "replacedNewBytes": 25,
+      "prefixBytes": 63140,
+      "prefixSha256": "3802363dbad48b455a3a0350c3edd1370f63816c186ff3cf1ffbf177f69f7d13",
+      "suffixBytes": 48694,
+      "suffixSha256": "3d58da0bbb93c92bfea808b7c3d4bb16d821a63ab32a8f1ac1bbe451067adde3",
+      "allOutsideSpanByteIdentical": true,
+      "reverseEqualsBaseline": true
+    },
+    {
+      "path": "src/content/locale/ja/content.js",
+      "oldBytes": 56856,
+      "newBytes": 56857,
+      "offset": 25959,
+      "replacedOldBytes": 53,
+      "replacedNewBytes": 54,
+      "prefixBytes": 25959,
+      "prefixSha256": "5ba300d3e6c59545a3f1d1c21d312d7e3fc611aacb3b02fbfa90f90d63ca12ff",
+      "suffixBytes": 30844,
+      "suffixSha256": "c9dfcce381410cb91a2b89d241f5c7540aea520d9603cf67707649dcb298119b",
+      "allOutsideSpanByteIdentical": true,
+      "reverseEqualsBaseline": true
+    }
+  ],
+  "allOtherExportedValuesIdentical": true,
+  "journalIdTitleAndEffectKeysIdentical": true,
+  "conditionsBranchesChoicesDialogueBodiesUnchanged": true,
+  "retainedRevisedNodes": [
+    {
+      "conversation": "sol_first",
+      "node": "ah2",
+      "enSha256": "24c00a59a74ffa0dbb447869636d8d27e0730bebeb8ab04b55bd7272f68ad5cc",
+      "jaSha256": "2b963b5a9192782c1c5b6177353247a75d52895b442972617a5ccd925b5de8cb",
+      "unchanged": true
+    },
+    {
+      "conversation": "sol_first",
+      "node": "vc_end",
+      "enSha256": "dec992c5b0cc536af172b1eb696ddf70e62c226506522b7781f416f5d3385497",
+      "jaSha256": "05fa3d61d0eb43bee692eb4ab3d96fe7c57b498ec51ab4ea0238815b9d22b337",
+      "unchanged": true
+    },
+    {
+      "conversation": "iris_first",
+      "node": "i_decide",
+      "enSha256": "0fffa6ef01356dbeaedf856dfc684379ef6046f0b72a380e4573bbfdd769a8a8",
+      "jaSha256": "802583f275a51d32a029e23b738957c163b2b219d99e6a274b733e24df1c7039",
+      "unchanged": true
+    },
+    {
+      "conversation": "iris_first",
+      "node": "i_refuses",
+      "enSha256": "27bc433611464e7dc74011c72577137fe18b2a5ed29a9a2227a829f6a566ad95",
+      "jaSha256": "5742afd338d2f438f0433ebd41f7277f8ed9fd3e21ceff34316b150188852f1d",
+      "unchanged": true
+    },
+    {
+      "conversation": "iris_after",
+      "node": "i_sign",
+      "enSha256": "26beb3d87e6aa2ee6c769f9161dcd4b87b39a3040f614cfdab8e77ad336934c1",
+      "jaSha256": "399d140bb25a9627361472eeb7e7b6185f3dfcd2c2b5d22a925ecbebf9405fe0",
+      "unchanged": true
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_deal_cut",
+      "enSha256": "05fba45470f1f757f354f7ace08cfe32de6270c987d77f5cf28ae8c30c97fd28",
+      "jaSha256": "e847d94169c6c71eed38d1d2714bf237d8a032f318baff2acf26dde2d428fe4e",
+      "unchanged": true
+    },
+    {
+      "conversation": "final",
+      "node": "k_asked",
+      "enSha256": "8a597660e80d724e3fde34733e87124ed2eace6cf37864f20179175b425aaca8",
+      "jaSha256": "82745ab65c951337f431401840d262414c678d051278ee9fff19ace04ab24cf4",
+      "unchanged": true
+    },
+    {
+      "conversation": "final",
+      "node": "k_asked2",
+      "enSha256": "848c9bde731fd5d93c4b06e7fe63d20a32aa96330088bcc502b0551c1f54e64f",
+      "jaSha256": "e1974bf62863419e176e1580d774a981b06c1726ad1d2c6b0e431fed664786a0",
+      "unchanged": true
+    },
+    {
+      "conversation": "sol_first",
+      "node": "vc_krajcik",
+      "enSha256": "dd13e9d321c6ee16f318535246ab8f51cab8c24bc3a6de131f3d337b7b759827",
+      "jaSha256": "c299b56521e8b78e31566edc43bcccf3107024d10b44b8480153577b749be84c",
+      "unchanged": true
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_choice",
+      "enSha256": "f3d579bfb46a8cea756dee7e0f0d9d07b0f675984962b58ec7675e11bfa78907",
+      "jaSha256": "0d7d76d037a2c1887fccee1983000de269875dd15c69763b52d29b477790fcb4",
+      "unchanged": true
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_refuse",
+      "enSha256": "920de0029707eb93a6904579bacda5dc53a3a500b209d5685fa183ad068b598b",
+      "jaSha256": "49cc1f17d6227d3bb337e88ae0c13f08d1e841c99a3cc6dc7c73510d000ed273",
+      "unchanged": true
+    },
+    {
+      "conversation": "krajcik",
+      "node": "ag_refused",
+      "enSha256": "1ee9da92fe1793e17c28c4afdb6078499ac4d241b86a36f2893654337c10eec7",
+      "jaSha256": "199f1f2f67f70b6641cf359ba57fbd3e9566a06cb4541312c37297d747897eb8",
+      "unchanged": true
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_accept",
+      "enSha256": "baf341c248e5a33883f357fccb556a44f47420cd2f5a5074309d0f6261dd0cc7",
+      "jaSha256": "f3ffd5b4861be5c3c03a8387b334b78fb60893d33d9c16fd2e0798508757fadd",
+      "unchanged": true
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_end",
+      "enSha256": "7ca84c8d497761cae7b5b1d212c5b163410b47784cb0d16a86ea09b8109b31ea",
+      "jaSha256": "e2234f2278ef2e41b1fcad2b8115998e5d1b4db32089c6dc31bfa24bebef1e90",
+      "unchanged": true
+    }
+  ],
+  "retainedEnglishJapaneseBodies": 28,
+  "unresolved11QuarterRelations": "unchanged; no reconciliation hypothesis applied",
+  "privateFrozenProductionMaterialUnchanged": true,
+  "files": [
+    {
+      "path": "src/content/story.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/candidate/src/content/story.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d",
+      "baselineBytes": 111858,
+      "baselineSha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "baselineGitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "src/content/locale/ja/content.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c40-journal-period-repair-ultra/candidate/src/content/locale/ja/content.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387",
+      "baselineBytes": 56856,
+      "baselineSha256": "66d08acf58e0dd470de3f18834a8c65622fb7c544f59c0fa3bdb4d1069beba70",
+      "baselineGitBlob": "c7ca444a08af2d3b19fd520551f11a389185939f"
+    }
+  ],
+  "buildExecuted": false,
+  "generatedBundleSha256": null,
+  "ciStarts": 0,
+  "remoteWrites": 0,
+  "evaluationStarts": 0,
+  "allElements": "19 not measured",
+  "validBlind": 0,
+  "unitsCompleted": 0,
+  "unitsRequested": "continuous",
+  "startedAt": "2026-09-13T20:56:49+09:00",
+  "deadlineAt": "2026-09-20T20:56:49+09:00"
+}

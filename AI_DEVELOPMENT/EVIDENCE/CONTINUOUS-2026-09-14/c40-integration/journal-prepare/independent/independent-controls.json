@@ -1,0 +1,77 @@
+{
+  "scope": "Independent bounded CPU/source/serialization and rejection controls; no bundle generation or browser execution",
+  "nodeVersion": "v24.19.0",
+  "passed": 15,
+  "controls": [
+    {
+      "name": "Exact two source edits preserve every other byte",
+      "passed": true
+    },
+    {
+      "name": "Forty-seven baseline pins match independently verified canonical bytes",
+      "passed": true
+    },
+    {
+      "name": "All four candidate JavaScript modules pass Node syntax checks",
+      "passed": true
+    },
+    {
+      "name": "Exact source set admitted; old source and reordered set rejected",
+      "passed": true
+    },
+    {
+      "name": "Each one-byte source drift is rejected without writing sources",
+      "passed": true
+    },
+    {
+      "name": "Real merged localization resolves exactly the two frozen journal fields",
+      "passed": true
+    },
+    {
+      "name": "One non-target input mutation rejects route admission before import",
+      "passed": true
+    },
+    {
+      "name": "Real DialogueRunner effects add one matching journal record in both locales",
+      "passed": true
+    },
+    {
+      "name": "Existing-save limit reproduced: stored old English survives reload and re-entry",
+      "passed": true
+    },
+    {
+      "name": "Actual two-route CPU report exports losslessly with zero screen claims",
+      "passed": true
+    },
+    {
+      "name": "Locale mismatch and incomplete successful-browser report reject before output",
+      "passed": true
+    },
+    {
+      "name": "A failed pre-browser diagnostic stays failed during lossless report export",
+      "passed": true
+    },
+    {
+      "name": "Failed prepared report cannot emit any supposed prepared output",
+      "passed": true
+    },
+    {
+      "name": "Prepared export body, hard limits, dependency versions, and seven stages retained",
+      "passed": true
+    },
+    {
+      "name": "Workflow outside the single preparation job remains byte-identical",
+      "passed": true
+    }
+  ],
+  "blocking": 0,
+  "actualBuild": false,
+  "actualBrowser": false,
+  "screens": 0,
+  "newBundleSha256": null,
+  "localGitCalls": 0,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "newSpawn": 0,
+  "existingSaveMigrationImplemented": false
+}

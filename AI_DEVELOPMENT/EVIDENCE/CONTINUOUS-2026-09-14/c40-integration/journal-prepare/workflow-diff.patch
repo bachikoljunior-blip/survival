@@ -1,0 +1,52 @@
+--- a/.github/workflows/gates.yml
++++ b/.github/workflows/gates.yml
+@@ -673,8 +673,8 @@
+           retention-days: 14
+ 
+   prepare-narrative-product:
+-    name: Prepare exact reviewed narrative source and root
+-    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-narrative-product-r2]')
++    name: Prepare exact reviewed journal source and root
++    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-journal-product-r1]')
+     runs-on: ubuntu-latest
+     timeout-minutes: 15
+     permissions:
+@@ -696,27 +696,27 @@
+         run: node tools/prepare-narrative-product.mjs --export
+       - name: Check the exact English and Japanese routes
+         run: node tools/check-narrative-routes.mjs
+-      - name: Install Chromium for the bounded dialogue screen diagnostic
++      - name: Install Chromium for the bounded journal screen diagnostic
+         run: npx playwright install --with-deps chromium
+-      - name: Stage the six reviewed nodes in both languages from the prepared bundle
++      - name: Stage the Iris journal entry in both languages from the prepared bundle
+         run: node tools/check-narrative-routes.mjs --browser
+       - name: Export complete original route report and screenshot bytes
+-        if: ${{ !cancelled() && hashFiles('test-results/narrative-route-r2/report.json') != '' }}
++        if: ${{ !cancelled() && hashFiles('test-results/journal-route-r1/report.json') != '' }}
+         run: node tools/check-narrative-routes.mjs --export
+-      - name: Preserve route reports and original dialogue screenshots
+-        if: always()
+-        uses: actions/upload-artifact@v4
+-        with:
+-          name: narrative-route-r2-${{ github.sha }}
+-          path: test-results/narrative-route-r2
++      - name: Preserve route reports and original journal screenshots
++        if: always()
++        uses: actions/upload-artifact@v4
++        with:
++          name: journal-route-r1-${{ github.sha }}
++          path: test-results/journal-route-r1
+           if-no-files-found: warn
+           retention-days: 14
+       - name: Preserve original candidate or failure report
+         if: always()
+         uses: actions/upload-artifact@v4
+         with:
+-          name: narrative-product-build-r2-${{ github.sha }}
+-          path: test-results/narrative-product-build-r2
++          name: journal-product-build-r1-${{ github.sha }}
++          path: test-results/journal-product-build-r1
+           if-no-files-found: error
+           retention-days: 14
+ 

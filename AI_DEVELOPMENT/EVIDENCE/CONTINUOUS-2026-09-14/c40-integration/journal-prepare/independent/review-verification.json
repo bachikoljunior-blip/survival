@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "status": "pass for adoption of preparation candidates only",
+  "blockingFindings": [],
+  "sourceCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "sourceTree": "18bf6fb6597c2ef5d8cf96800b1761cdeea3827d",
+  "readyNoticeReceivedBeforeCandidateRead": true,
+  "reviewedManifest": {
+    "path": "manifest.json",
+    "bytes": 5872,
+    "sha256": "36b8c9b6936d6a77150e3c11b53fae042e66a6517a939202bc462b68d55acf0f"
+  },
+  "candidateFiles": [
+    {
+      "path": "candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13694,
+      "sha256": "90ef97454e1b570d025e0bf30391ce886f3250b5fb700a0d11518674d6060296",
+      "gitBlob": "a0febba28d7d6bc7acd6a4e51ce74f014bbf06ba",
+      "repositoryPath": "tools/prepare-narrative-product.mjs",
+      "baselineGitBlob": "a54bcf9b46af0deaaac8355e024911c1b05b3444"
+    },
+    {
+      "path": "candidate/tools/check-narrative-routes.mjs",
+      "bytes": 18661,
+      "sha256": "3c631b2286ef7e6ff24d8be0b6d317689a22852a55e7da82efe5961fc0bc90b3",
+      "gitBlob": "ea60c36a448f4338c98e5dc42b97f7a0610e10c3",
+      "repositoryPath": "tools/check-narrative-routes.mjs",
+      "baselineGitBlob": "a8c779dc577b7066cc01da688678de42f9ef907e"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-story-r1.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d",
+      "repositoryPath": "tools/candidates/journal-story-r1.js",
+      "baselineGitBlob": null
+    },
+    {
+      "path": "candidate/tools/candidates/journal-ja-content-r1.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387",
+      "repositoryPath": "tools/candidates/journal-ja-content-r1.js",
+      "baselineGitBlob": null
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "bytes": 32640,
+      "sha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+      "gitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f",
+      "repositoryPath": ".github/workflows/gates.yml",
+      "baselineGitBlob": "685ce818fd514fc302f37822574d91eb3b018567"
+    }
+  ],
+  "candidateFreezeRetainedAtReceipt": true,
+  "canonicalVerification": {
+    "paths": 56,
+    "lockedInputs": 47,
+    "rootAndStatics": 6,
+    "helpers": 3,
+    "method": "Local complete original bytes matched by size, SHA-256 and Git blob to independently freshly fetched canonical recursive tree",
+    "evidence": {
+      "path": "canonical-byte-verification.json",
+      "bytes": 14327,
+      "sha256": "b724ab97e80e0b3f3b86ae45c7d79db56799e129b71ba3a07795f1e247b97057"
+    }
+  },
+  "sourceChange": {
+    "journalDurationFields": 2,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "originalDuration": "2 years 1 month",
+    "correctedDuration": "2 years 10 months",
+    "allOtherBytesPreserved": true,
+    "inverseRestoresBothCanonicalSources": true,
+    "existingDialoguePreserved": true,
+    "currentProductAdopted": false
+  },
+  "independentControls": {
+    "path": "independent-controls.json",
+    "bytes": 2233,
+    "sha256": "b82c14b37902a6eae06e2e2bb88ac8596d4e046d7263a521c49c801476ec64b8"
+  },
+  "independentPassed": 15,
+  "producerControlsCountedAsIndependent": 0,
+  "preparationCode": {
+    "lockedInputs": 47,
+    "esbuild": "0.25.0",
+    "three": "0.180.0",
+    "baselineBundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+    "baselineMustReproduceBeforeCandidateWrite": true,
+    "allCandidatesValidatedBeforeWrite": true,
+    "stages": 7,
+    "staticAndUnexpectedChangesRejected": true,
+    "rootDistEqualityRequired": true,
+    "originalExporterFunctionBodyByteIdentical": true,
+    "fileMaxBytes": 4194304,
+    "routeTotalMaxBytes": 33554432,
+    "chunkBytes": 3000
+  },
+  "workflow": {
+    "changedJobOnly": "prepare-narrative-product",
+    "otherBytesIdentical": true,
+    "triggerMarker": "[prepare-journal-product-r1]",
+    "pushOnly": true,
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "attempt": 1,
+    "contentsPermission": "read",
+    "checkoutPersistCredentials": false,
+    "nodeMajor": 20,
+    "timeoutMinutes": 15
+  },
+  "browserCodeReview": {
+    "actualGameStateAndDialogueRunnerEffect": true,
+    "newGamePerLocale": true,
+    "actualMenuEventAndJournalPanel": true,
+    "renderedTitleAndBodyPins": true,
+    "actualServedBundlePin": true,
+    "preparedReportBaselineAndCurrentCommitBinding": true,
+    "originalViewportPNGRequired": {
+      "width": 667,
+      "height": 375,
+      "count": 2
+    },
+    "sourceRows": 2,
+    "expectedPreparedOriginals": 9,
+    "expectedRouteOriginals": 3,
+    "visualResultVerified": false
+  },
+  "existingSaveFinding": {
+    "reproducedByIndependentCPUControl": true,
+    "storedOldEnglishPersistsAfterReloadAndReentry": true,
+    "japaneseUsesNewLocalizedString": true,
+    "scope": "Newly acquired journal entries only",
+    "blockingForAgreedScope": false,
+    "saveMigrationAdded": false,
+    "separateRepairDecision": "Integration owner"
+  },
+  "iosPinBoundary": {
+    "canonicalFile": "tools/ios_audio_capture.mjs",
+    "canonicalBlob": "c02c06122512036cdeb6b50e9e5dceb7f7b66083",
+    "bundleSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+    "preparedFromCommit": "61e8f8c595bde13634fe709f979816011df165d0",
+    "preparationReportSha256": "000c622624315c43eb98639b2fc32c566e91f1c5cf4ec67713b4d8dd048efa44",
+    "readScope": "Fresh canonical first 100 lines containing the pin and verifyIosAudioBuild boundary",
+    "outsideFiveCandidatePaths": true,
+    "changed": false,
+    "laterAdoption": "After actual original recovery, integrate the two generated sources, generated root and three dependent pin fields together"
+  },
+  "execution": {
+    "nodeVersion": "v24.19.0",
+    "actualBuild": false,
+    "actualBaselineReproduction": false,
+    "actualBrowser": false,
+    "screens": 0,
+    "newBundleSha256": null,
+    "ciNode20Executed": false,
+    "localGitCalls": 0,
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "newSpawn": 0,
+    "libraryAccess": 0
+  },
+  "remainingRuntimeVerification": [
+    "Real CI must reproduce the 8c baseline and generate the candidate bundle",
+    "Real browser must verify the served candidate and capture both original journal screens; visible layout remains unverified"
+  ],
+  "programmeState": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "elements": "19 not measured",
+    "criteriaCount": 71,
+    "fixedReferences": 10,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous"
+  }
+}

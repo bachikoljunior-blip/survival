@@ -1,0 +1,84 @@
+{
+  "status": "verified",
+  "recoveryLogBytes": 824606,
+  "recoveryLogSha256": "6cb56ab8a51b28f6720db3e7e258264261a1b02e77cda859a929dfc3805550e1",
+  "streams": {
+    "meta": 2,
+    "chunk": 195,
+    "end": 2
+  },
+  "files": [
+    {
+      "file": "report.json.gz",
+      "encoding": "gzip",
+      "bytes": 477153,
+      "sha256": "eac87da2381da3309e0e6cb02eeb2a4ad8bf8c1417422cffb73e7110197efbc9",
+      "rawFile": "report.json",
+      "rawBytes": 16237592,
+      "rawSha256": "9fe62379c2c35a01cb4b83af265b8ab67024d58b828a2da49bb586a68f6d092e",
+      "originalMemberCrc32": "ce995667",
+      "rawLimitBytes": 33554432,
+      "total": 160
+    },
+    {
+      "file": "appium.log.gz",
+      "encoding": "gzip",
+      "bytes": 102525,
+      "sha256": "85aa3e935b7042147808d4cd0779b6bdd340976e33cd1c5e226444861d6b4166",
+      "rawFile": "appium.log",
+      "rawBytes": 3654815,
+      "rawSha256": "bf39c21cbc8fef21b99ffe2130bd41575730cd193bd53c03c5eb6bac4ae11261",
+      "originalMemberCrc32": "a6964be3",
+      "rawLimitBytes": 8388608,
+      "total": 35
+    }
+  ],
+  "sharedFilesManifestVerified": true,
+  "fullReportReproducesPriorOriginalSummary": true,
+  "sourceFiles": [
+    {
+      "path": "src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "tools/export-ios-frame-work.mjs",
+      "bytes": 2945,
+      "sha256": "8f99e90d4a4321587120ca6e55bc750cef5060929bd1dcf840fcdaed1a308fe2"
+    },
+    {
+      "path": "tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a"
+    },
+    {
+      "path": "tools/ios_audio_transfer.mjs",
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a"
+    },
+    {
+      "path": "tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62"
+    },
+    {
+      "path": "tools/recover-ios-phase-c38.py",
+      "bytes": 13167,
+      "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f"
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "bytes": 33990,
+      "sha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64"
+    }
+  ],
+  "originalDiagnosticStillFailed": true,
+  "missingProfileRowsRecovered": false,
+  "originalArchiveIndependentlyFetched": false,
+  "scope": "Independent recovery-wire/gzip/raw/CRC identity and source pin verification; no media acquisition."
+}

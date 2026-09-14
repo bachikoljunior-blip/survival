@@ -1,0 +1,31 @@
+{
+  "status": "verified",
+  "appiumRawSha256": "bf39c21cbc8fef21b99ffe2130bd41575730cd193bd53c03c5eb6bac4ae11261",
+  "smallRead": {
+    "requestLine": 7991,
+    "responseLine": 7992,
+    "requestTimestamp": "2026-09-14 19:16:45:166",
+    "responseTimestamp": "2026-09-14 19:17:45:543",
+    "args": [
+      7,
+      0
+    ],
+    "kind": "ready operation 7 JSON slice at offset 0",
+    "status": 200,
+    "loggedElapsedMs": 59329,
+    "logTimestampSpanMs": 60377.0,
+    "responseLogSizeField": 618
+  },
+  "movement": {
+    "requestLine": 7999,
+    "responseLine": 8008,
+    "requestTimestamp": "2026-09-14 19:17:51:875",
+    "responseTimestamp": "2026-09-14 19:17:55:973",
+    "loggedElapsedMs": 4097,
+    "logTimestampSpanMs": 4098.0
+  },
+  "recordingCreationScriptLine": 7987,
+  "recordingStopScriptLine": 8020,
+  "creationAndStopBodiesTruncatedInOriginalLog": true,
+  "scope": "Independent exact lines/args/status and timestamp arithmetic. Ready-result read waits before movement, between recorder creation and stop in the harness sequence. Appium elapsed and log timestamp span differ; neither is renderer CPU or browser frame duration. No complete reconstruction of internal WebDriver waiting cause."
+}

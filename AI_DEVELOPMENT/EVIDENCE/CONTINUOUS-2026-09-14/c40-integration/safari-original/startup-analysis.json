@@ -1,0 +1,188 @@
+{
+  "status": "three-causal-orders-verified",
+  "results": [
+    {
+      "role": "source",
+      "appiumPath": "original/source/appium.log",
+      "bytes": 3322890,
+      "sha256": "bf69838140a28a386888539b96c7d0ce60844294592e8b9d86513c9ce8efc967",
+      "inputCapabilities": {
+        "platformName": "iOS",
+        "browserName": "Safari",
+        "appium:automationName": "XCUITest",
+        "appium:deviceName": "iPhone SE (3rd generation)",
+        "appium:udid": "22A3039C-6A45-47F4-82D4-80C58CA94379",
+        "appium:platformVersion": "18.5",
+        "appium:noReset": true,
+        "appium:initialDeeplinkUrl": "http://127.0.0.1:49673/__ios_safari_bootstrap__.html",
+        "appium:forceAppLaunch": true,
+        "appium:isHeadless": true,
+        "appium:showXcodeLog": true,
+        "appium:wdaLaunchTimeout": 240000,
+        "appium:newCommandTimeout": 300,
+        "appium:safariAllowPopups": true,
+        "appium:includeSafariInWebviews": true
+      },
+      "inputCapabilityLine": 16,
+      "events": {
+        "wdaListening": {
+          "line": 7104,
+          "text": "2026-09-14 20:18:28:876 [70111c77][Xcode] 2026-09-14 20:18:28.727143+0000 WebDriverAgentRunner-Runner[16546:49078] ServerURLHere->http://192.168.64.12:8100<-ServerURLHere"
+        },
+        "deeplinkAccepted": {
+          "line": 7105,
+          "text": "2026-09-14 20:18:29:753 [70111c77][XCUITestDriver@ec4c] The deeplink URL will be set to http://127.0.0.1:49673/__ios_safari_bootstrap__.html"
+        },
+        "firstSessionFailure": {
+          "line": 7107,
+          "text": "2026-09-14 20:18:31:772 [70111c77][XCUITestDriver@ec4c] Got response with status 500: {\"value\":{\"error\":\"session not created\",\"message\":\"Cannot launch com.apple.mobilesafari application. Make sure the correct bundle identifier has been provided in capabilities and check the device log for possible crash report occurrences\",\"traceback\":\"\"},\"sessionId\":null}"
+        },
+        "retryLaunch": {
+          "line": 7108,
+          "text": "2026-09-14 20:18:42:934 [70111c77][XCUITestDriver@ec4c] Selected 'simulator' WebDriverAgent startup strategy"
+        },
+        "retryInterrupted": {
+          "line": 7111,
+          "text": "2026-09-14 20:18:46:353 [70111c77][Xcode] ** BUILD INTERRUPTED **"
+        },
+        "lastConnectionRefusal": {
+          "line": 7121,
+          "text": "2026-09-14 20:19:02:697 [70111c77][XCUITestDriver@ec4c] connect ECONNREFUSED 127.0.0.1:8100"
+        },
+        "outerSessionFailure": {
+          "line": 7126,
+          "text": "2026-09-14 20:19:02:874 [HTTP] <-- POST /session 500 245605 ms - 2108"
+        }
+      },
+      "firstFailure": "WDA initial URL launch returned session not created because MobileSafari was not running",
+      "outerFailure": "driver retry subsequently could not connect to restarted WDA port 8100",
+      "bootstrapVerified": false,
+      "productReached": false,
+      "webInspectorReached": false
+    },
+    {
+      "role": "pr",
+      "appiumPath": "original/pr/appium.log",
+      "bytes": 3324141,
+      "sha256": "5128fccfdded1c616846a4186d90f16330fdd8215fbd1e6c9ab433046076fa0f",
+      "inputCapabilities": {
+        "platformName": "iOS",
+        "browserName": "Safari",
+        "appium:automationName": "XCUITest",
+        "appium:deviceName": "iPhone SE (3rd generation)",
+        "appium:udid": "22A3039C-6A45-47F4-82D4-80C58CA94379",
+        "appium:platformVersion": "18.5",
+        "appium:noReset": true,
+        "appium:initialDeeplinkUrl": "http://127.0.0.1:50014/__ios_safari_bootstrap__.html",
+        "appium:forceAppLaunch": true,
+        "appium:isHeadless": true,
+        "appium:showXcodeLog": true,
+        "appium:wdaLaunchTimeout": 240000,
+        "appium:newCommandTimeout": 300,
+        "appium:safariAllowPopups": true,
+        "appium:includeSafariInWebviews": true
+      },
+      "inputCapabilityLine": 16,
+      "events": {
+        "wdaListening": {
+          "line": 7122,
+          "text": "2026-09-14 20:19:07:923 [615d070b][Xcode] 2026-09-14 20:19:07.570112+0000 WebDriverAgentRunner-Runner[13616:40801] ServerURLHere->http://192.168.64.8:8100<-ServerURLHere"
+        },
+        "deeplinkAccepted": {
+          "line": 7124,
+          "text": "2026-09-14 20:19:08:657 [615d070b][XCUITestDriver@33a3] The deeplink URL will be set to http://127.0.0.1:50014/__ios_safari_bootstrap__.html"
+        },
+        "firstSessionFailure": {
+          "line": 7125,
+          "text": "2026-09-14 20:19:11:279 [615d070b][XCUITestDriver@33a3] Got response with status 500: {\"value\":{\"error\":\"session not created\",\"message\":\"Cannot launch com.apple.mobilesafari application. Make sure the correct bundle identifier has been provided in capabilities and check the device log for possible crash report occurrences\",\"traceback\":\"\"},\"sessionId\":null}"
+        },
+        "retryLaunch": {
+          "line": 7126,
+          "text": "2026-09-14 20:19:21:377 [615d070b][XCUITestDriver@33a3] Selected 'simulator' WebDriverAgent startup strategy"
+        },
+        "retryInterrupted": {
+          "line": 7129,
+          "text": "2026-09-14 20:19:28:255 [615d070b][Xcode] ** BUILD INTERRUPTED **"
+        },
+        "lastConnectionRefusal": {
+          "line": 7139,
+          "text": "2026-09-14 20:19:33:408 [615d070b][XCUITestDriver@33a3] connect ECONNREFUSED 127.0.0.1:8100"
+        },
+        "outerSessionFailure": {
+          "line": 7144,
+          "text": "2026-09-14 20:19:33:495 [HTTP] <-- POST /session 500 240564 ms - 2192"
+        }
+      },
+      "firstFailure": "WDA initial URL launch returned session not created because MobileSafari was not running",
+      "outerFailure": "driver retry subsequently could not connect to restarted WDA port 8100",
+      "bootstrapVerified": false,
+      "productReached": false,
+      "webInspectorReached": false
+    },
+    {
+      "role": "standalone",
+      "appiumPath": "original/standalone/appium.log",
+      "bytes": 3407973,
+      "sha256": "e5fd95fa60489eca0811a74a14932b8b312bb372709ddbaf47da905ae29f2e89",
+      "inputCapabilities": {
+        "platformName": "iOS",
+        "browserName": "Safari",
+        "appium:automationName": "XCUITest",
+        "appium:deviceName": "iPhone SE (3rd generation)",
+        "appium:udid": "22A3039C-6A45-47F4-82D4-80C58CA94379",
+        "appium:platformVersion": "18.5",
+        "appium:noReset": true,
+        "appium:initialDeeplinkUrl": "http://127.0.0.1:49579/__ios_safari_bootstrap__.html",
+        "appium:forceAppLaunch": true,
+        "appium:isHeadless": true,
+        "appium:showXcodeLog": true,
+        "appium:wdaLaunchTimeout": 240000,
+        "appium:newCommandTimeout": 300,
+        "appium:safariAllowPopups": true,
+        "appium:includeSafariInWebviews": true
+      },
+      "inputCapabilityLine": 23,
+      "events": {
+        "wdaListening": {
+          "line": 7749,
+          "text": "2026-09-14 20:19:04:277 [c540983e][Xcode] 2026-09-14 20:19:03.468711+0000 WebDriverAgentRunner-Runner[19355:54777] ServerURLHere->http://192.168.64.3:8100<-ServerURLHere"
+        },
+        "deeplinkAccepted": {
+          "line": 7777,
+          "text": "2026-09-14 20:19:04:357 [c540983e][XCUITestDriver@ca2e] The deeplink URL will be set to http://127.0.0.1:49579/__ios_safari_bootstrap__.html"
+        },
+        "firstSessionFailure": {
+          "line": 7781,
+          "text": "2026-09-14 20:19:10:866 [c540983e][XCUITestDriver@ca2e] Got response with status 500: {\"value\":{\"error\":\"session not created\",\"message\":\"Cannot launch com.apple.mobilesafari application. Make sure the correct bundle identifier has been provided in capabilities and check the device log for possible crash report occurrences\",\"traceback\":\"\"},\"sessionId\":null}"
+        },
+        "retryLaunch": {
+          "line": 7800,
+          "text": "2026-09-14 20:19:21:736 [c540983e][XCUITestDriver@ca2e] Selected 'simulator' WebDriverAgent startup strategy"
+        },
+        "retryInterrupted": {
+          "line": 7808,
+          "text": "2026-09-14 20:19:46:512 [c540983e][Xcode] ** BUILD INTERRUPTED **"
+        },
+        "lastConnectionRefusal": {
+          "line": 7848,
+          "text": "2026-09-14 20:20:18:895 [c540983e][AppiumDriver@f2a9] Encountered internal error running command: Error: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100"
+        },
+        "outerSessionFailure": {
+          "line": 7858,
+          "text": "2026-09-14 20:20:18:945 [HTTP] <-- POST /session 500 367435 ms - 2108"
+        }
+      },
+      "firstFailure": "WDA initial URL launch returned session not created because MobileSafari was not running",
+      "outerFailure": "driver retry subsequently could not connect to restarted WDA port 8100",
+      "bootstrapVerified": false,
+      "productReached": false,
+      "webInspectorReached": false
+    }
+  ],
+  "officialInference": "WDA v16.1.0 FBSessionCommands.m launchApplication returns Cannot launch only after openDeepLink returned without an error and app.running is false. XCUIDevice+FBHelpers delegates explicit application URL to FBXCTestDaemonsProxy, which returns the XCTest daemon completion result. Thus this is a reported successful URL-open completion followed by running=false, not evidence establishing whether Safari crashed or its state lagged.",
+  "causeNotIdentified": [
+    "MobileSafari crash versus delayed/stale state observation",
+    "OS-level cause of URL-open completion and application-state disagreement"
+  ],
+  "repairClaimed": false
+}

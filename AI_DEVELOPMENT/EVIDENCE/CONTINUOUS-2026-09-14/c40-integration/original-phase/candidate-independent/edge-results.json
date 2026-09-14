@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "independentChecks": 22,
+  "checks": [
+    "original bounded-wire counterexample reproduced and final candidate rejects before oversized response",
+    "2/4095/4096 inline boundaries and 4097/131072/131073 chunk boundaries",
+    "small result removes exactly one chunk command and preserves cleanup/result",
+    "UTF16 4096-char boundary preserves Unicode/control/quotes/backslashes/surrogates below wire bound",
+    "null/undefined/primitives/nested JSON round trip",
+    "successful value.error remains data",
+    "page operation failure preserves original reason",
+    "wrong identity",
+    "missing string",
+    "wrong type",
+    "short string",
+    "zero chars",
+    "fractional chars",
+    "oversize chars",
+    "same-length invalid JSON fails after original cleanup",
+    "existing overall char capacity remains enforced",
+    "separate diagnostic slot does not overwrite original pending audio slot",
+    "prior pending operation remains unchanged",
+    "large result retains actual serialized upload function, digest/acks and three bounded POST chunks",
+    "mid-size reply retains WebDriver chunk route when upload is available",
+    "remaining 120s operation budget and 90s per-command cap apply to inline route",
+    "expiry after ready poll rejects before another command"
+  ],
+  "candidateSha256": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262",
+  "originalCounterexampleWireBytes": 200061,
+  "finalCounterexampleWireBytes": 45,
+  "boundaries": [
+    {
+      "jsonChars": 2,
+      "calls": 3,
+      "chunks": 0
+    },
+    {
+      "jsonChars": 4095,
+      "calls": 3,
+      "chunks": 0
+    },
+    {
+      "jsonChars": 4096,
+      "calls": 3,
+      "chunks": 0
+    },
+    {
+      "jsonChars": 4097,
+      "calls": 4,
+      "chunks": 1
+    },
+    {
+      "jsonChars": 131072,
+      "calls": 4,
+      "chunks": 1
+    },
+    {
+      "jsonChars": 131073,
+      "calls": 5,
+      "chunks": 2
+    }
+  ],
+  "unicodeWireBytes": [
+    {
+      "case": "astral",
+      "maxWireBytes": 8256
+    },
+    {
+      "case": "CJK",
+      "maxWireBytes": 12350
+    },
+    {
+      "case": "control",
+      "maxWireBytes": 4844
+    },
+    {
+      "case": "quotes",
+      "maxWireBytes": 8256
+    },
+    {
+      "case": "backslashes",
+      "maxWireBytes": 8256
+    },
+    {
+      "case": "lone-surrogate",
+      "maxWireBytes": 4844
+    }
+  ],
+  "largeUpload": {
+    "bytes": 300002,
+    "chunks": 3,
+    "maxResponseWireBytes": 76
+  },
+  "scope": "Actual helper functions in Node with isolated VM page and JSON-serialized WebDriver replies; large path uses actual serialized upload function, crypto and synthetic same-origin fetch acknowledgements. No Safari, external HTTP, CI or real latency measurement."
+}

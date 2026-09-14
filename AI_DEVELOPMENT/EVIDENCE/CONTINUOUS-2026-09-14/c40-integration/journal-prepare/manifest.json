@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "status": "Five preparation candidates frozen; independent review passed with zero blockers; actual build not executed",
+  "sourceCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "treeSha": "18bf6fb6597c2ef5d8cf96800b1761cdeea3827d",
+  "instruction": "ULTRA-CHILDREN-20260914-v3",
+  "initialStartedAt": "2026-09-13T20:56:49+09:00",
+  "deadlineAt": "2026-09-20T20:56:49+09:00",
+  "work": "continuous",
+  "elements": "all 19 not measured",
+  "criteria": 71,
+  "validBlind": 0,
+  "unitsCompleted": 0,
+  "candidates": [
+    {
+      "path": "candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13694,
+      "sha256": "90ef97454e1b570d025e0bf30391ce886f3250b5fb700a0d11518674d6060296",
+      "gitBlob": "a0febba28d7d6bc7acd6a4e51ce74f014bbf06ba",
+      "repositoryPath": "tools/prepare-narrative-product.mjs",
+      "baselineGitBlob": "a54bcf9b46af0deaaac8355e024911c1b05b3444"
+    },
+    {
+      "path": "candidate/tools/check-narrative-routes.mjs",
+      "bytes": 18661,
+      "sha256": "3c631b2286ef7e6ff24d8be0b6d317689a22852a55e7da82efe5961fc0bc90b3",
+      "gitBlob": "ea60c36a448f4338c98e5dc42b97f7a0610e10c3",
+      "repositoryPath": "tools/check-narrative-routes.mjs",
+      "baselineGitBlob": "a8c779dc577b7066cc01da688678de42f9ef907e"
+    },
+    {
+      "path": "candidate/tools/candidates/journal-story-r1.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d",
+      "repositoryPath": "tools/candidates/journal-story-r1.js",
+      "baselineGitBlob": null
+    },
+    {
+      "path": "candidate/tools/candidates/journal-ja-content-r1.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387",
+      "repositoryPath": "tools/candidates/journal-ja-content-r1.js",
+      "baselineGitBlob": null
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "bytes": 32640,
+      "sha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+      "gitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f",
+      "repositoryPath": ".github/workflows/gates.yml",
+      "baselineGitBlob": "685ce818fd514fc302f37822574d91eb3b018567"
+    }
+  ],
+  "inputCount": 47,
+  "baselineRootSha256": "8c5624edd96ba238135e46c90e53c6221b3c3303b977bb5d4e41b752264d94f0",
+  "candidateRootSha256": null,
+  "candidateSourceCount": 2,
+  "candidateChange": "Only two already-reviewed Iris journal duration strings, preserving all dialogue including fourteen revised nodes and all other data",
+  "actualBuild": false,
+  "actualBrowser": false,
+  "screensObtained": 0,
+  "newCI": 0,
+  "remoteWrites": 0,
+  "automationOperations": 0,
+  "expectedActualOutputs": {
+    "preparedFiles": 9,
+    "routeFiles": 3,
+    "originalScreens": 2,
+    "totalFiles": 12,
+    "screenNames": [
+      "en-iris_first-i_gives.png",
+      "ja-iris_first-i_gives.png"
+    ],
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "preparedDirectory": "test-results/journal-product-build-r1",
+    "routeDirectory": "test-results/journal-route-r1"
+  },
+  "workflow": {
+    "job": "prepare-narrative-product",
+    "marker": "[prepare-journal-product-r1]",
+    "event": "push",
+    "ref": "refs/heads/claude/repo-instructions-constraints-r0070m",
+    "attempt": 1,
+    "otherJobsByteIdentical": true,
+    "timeoutMinutes": 15
+  },
+  "export": {
+    "preparedPrefixes": [
+      "[prepared-narrative-meta]",
+      "[prepared-narrative-chunk]",
+      "[prepared-narrative-end]"
+    ],
+    "routePrefixes": [
+      "[narrative-route-meta]",
+      "[narrative-route-chunk]",
+      "[narrative-route-end]"
+    ],
+    "chunkBytes": 3000,
+    "fileMaxBytes": 4194304,
+    "routeMaxBytes": 33554432,
+    "failedPartialReportPreserved": true
+  },
+  "ownVerification": {
+    "path": "verification.json",
+    "bytes": 2359,
+    "sha256": "540cea59f0d8deb81a7fd129ba2b30ca68b9008adcee7ffed5ff2181842fe276",
+    "gitBlob": "0ab1df3176c727962deeaf7e8a1035d76de3764c"
+  },
+  "inputs": {
+    "path": "verified-current-pins.json",
+    "bytes": 9835,
+    "sha256": "fb432ebbb35ae0c0a213b61338afe342b6a7946782462d874f6d2a1d4a04e346",
+    "gitBlob": "fcf9ccecf253d523943bd94a94f96e5b69da8caf"
+  },
+  "targetPins": {
+    "path": "journal-target-pins.json",
+    "bytes": 569,
+    "sha256": "efc65a72e73616640a46f5839ff8565fbfed4d13f9d3c51193a49585cb24b072",
+    "gitBlob": "660a701bd79f82d499d53319dc2d6297dcd5fff5"
+  },
+  "candidatePatch": {
+    "path": "candidate.patch",
+    "bytes": 198747,
+    "sha256": "6c1ffda33b210f68595ae6dfe32b60b587c52c496c8c28bcd832589059d552c0",
+    "gitBlob": "00d74b795e4bd0752afb2b39f31f7452a3746f16"
+  },
+  "workflowDiff": {
+    "path": "workflow-diff.patch",
+    "bytes": 2754,
+    "sha256": "64d104db9cd664cafe61b559e45af5203b1059d432ba0746c4b2e68009c40f7e",
+    "gitBlob": "c5677c5750ad29e7de9f997de9281b60a9917a7b"
+  },
+  "limitations": [
+    "New root SHA must come from the actual completed prepared report; no guessed root or local dist generated.",
+    "No original journal screenshots obtained; actual visible layout, clipping and typography remain unverified until accepted normal CI.",
+    "Staged direct conversation selection is not ordinary play, Mobile Safari or a valid blind comparison.",
+    "Only tools/candidates hold the two journal sources in the preparation commit; current product 47 inputs/root8c must remain unchanged.",
+    "After original recovery, exact two generated source files + generated root + IOS_AUDIO_PIN bundleSha256/preparedFromCommit/preparationReportSha256 require a later atomic adoption decision.",
+    "Already-acquired English save entries retain stored old text; this candidate verifies new journal entries and adds no save migration. Japanese uses the updated localized string."
+  ],
+  "independentReview": {
+    "blocking": 0,
+    "controlsPassed": 15,
+    "candidateFilesUnchanged": true,
+    "receipt": {
+      "path": "c40-journal-build-independent-review-ultra/receipt.json",
+      "bytes": 2646,
+      "sha256": "a13ce4c3238f769747fe2a2b8b317f2df9fb9594fc3979a4563feafac6303f85"
+    },
+    "report": {
+      "path": "REPORT.md",
+      "bytes": 3967,
+      "sha256": "5b5603fdc5fe22eacafedf40be473c6bb37a247d48534559fa6a92b7abd0f6ec"
+    },
+    "reviewedProducerManifest": {
+      "bytes": 5872,
+      "sha256": "36b8c9b6936d6a77150e3c11b53fae042e66a6517a939202bc462b68d55acf0f"
+    },
+    "reviewedCandidatesRetained": true,
+    "actualBuild": false,
+    "actualBrowser": false
+  }
+}

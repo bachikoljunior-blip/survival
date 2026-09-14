@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "checks": 29,
+  "checksPassed": [
+    {
+      "name": "original small-reply delay is removed as one modeled command, with equal value",
+      "passed": true
+    },
+    {
+      "name": "small exact value null",
+      "passed": true
+    },
+    {
+      "name": "small exact value boolean",
+      "passed": true
+    },
+    {
+      "name": "small exact value zero",
+      "passed": true
+    },
+    {
+      "name": "small exact value empty string",
+      "passed": true
+    },
+    {
+      "name": "small exact value Japanese",
+      "passed": true
+    },
+    {
+      "name": "small exact value surrogate",
+      "passed": true
+    },
+    {
+      "name": "undefined retains original JSON null result",
+      "passed": true
+    },
+    {
+      "name": "4096 chars inline, including UTF-8 wire bound",
+      "passed": true
+    },
+    {
+      "name": "escaped small JSON wire bound",
+      "passed": true
+    },
+    {
+      "name": "4097 chars keeps original chunk route",
+      "passed": true
+    },
+    {
+      "name": "large result keeps existing upload launch/progress/cleanup route",
+      "passed": true
+    },
+    {
+      "name": "small value never starts host upload",
+      "passed": true
+    },
+    {
+      "name": "reject missing status payload",
+      "passed": true
+    },
+    {
+      "name": "reject short status payload",
+      "passed": true
+    },
+    {
+      "name": "reject extra status payload",
+      "passed": true
+    },
+    {
+      "name": "reject wrong type status payload",
+      "passed": true
+    },
+    {
+      "name": "reject wrong id status payload",
+      "passed": true
+    },
+    {
+      "name": "reject zero length status payload",
+      "passed": true
+    },
+    {
+      "name": "reject overflow length status payload",
+      "passed": true
+    },
+    {
+      "name": "reject fraction length status payload",
+      "passed": true
+    },
+    {
+      "name": "failed operation retains original reason",
+      "passed": true
+    },
+    {
+      "name": "corrupt page length cannot send oversized inline bytes before rejection",
+      "passed": true
+    },
+    {
+      "name": "deadline before first poll remains enforced",
+      "passed": true
+    },
+    {
+      "name": "deadline after ready inline remains enforced before cleanup",
+      "passed": true
+    },
+    {
+      "name": "cleanup failure remains failure after exact inline result",
+      "passed": true
+    },
+    {
+      "name": "invalid inline JSON is rejected after same cleanup ordering",
+      "passed": true
+    },
+    {
+      "name": "concurrent evaluate rejection and later reuse preserved",
+      "passed": true
+    },
+    {
+      "name": "large upload body and recorder/lifecycle integration unchanged",
+      "passed": true
+    }
+  ],
+  "scope": "CPU/VM execution of the exact createSafariEvaluate source. Modeled command delay, not a new Safari/profile/media measurement. Large route mock verifies branch and sequencing; unchanged real HTTP transport was independently verified previously.",
+  "actualSafariMeasured": false,
+  "originalFailureRepaired": false,
+  "productChanges": 0
+}

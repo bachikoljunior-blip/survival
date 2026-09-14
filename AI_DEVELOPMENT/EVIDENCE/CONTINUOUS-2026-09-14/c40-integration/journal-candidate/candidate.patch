@@ -1,0 +1,22 @@
+--- a/src/content/story.js
++++ b/src/content/story.js
+@@ -1566,7 +1566,7 @@
+         { give: ['keySurvey', 1] }, { flag: 'iris_gave_pass' },
+         { trust: ['iris', 8, 'She committed to something.'] },
+         { journal: ['iris', 'Iris Nadeau', `She kept a folder of the differences for two years and
+-one month. She thought that if I couldn't say it, it couldn't be said. I have
++ten months. She thought that if I couldn't say it, it couldn't be said. I have
+ been an argument in someone else's head this whole time and I did not know it.`] },
+       ],
+       next: 'i_end',
+--- a/src/content/locale/ja/content.js
++++ b/src/content/locale/ja/content.js
+@@ -420,7 +420,7 @@
+     },
+     iris: {
+       title: 'アイリス・ナドー',
+-      text: '彼女は差分のファイルを2年1か月つけていた。私が言えないのなら、それは言えないことなのだと思っていた。私はこの間ずっと、他人の頭の中の論拠だった。そしてそれを知らなかった。',
++      text: '彼女は差分のファイルを2年10か月つけていた。私が言えないのなら、それは言えないことなのだと思っていた。私はこの間ずっと、他人の頭の中の論拠だった。そしてそれを知らなかった。',
+     },
+     coldread: {
+       title: '後ろ足',

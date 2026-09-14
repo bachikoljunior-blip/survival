@@ -1,0 +1,85 @@
+{
+  "status": "verified",
+  "transport": {
+    "command": "/execute/sync",
+    "asyncWork": "page-side promise + status polling",
+    "chunkChars": 131072,
+    "maxTransferChars": 50331648,
+    "operationTimeoutMs": 120000,
+    "singleCommandMaxMs": 90000,
+    "deadlineScope": "Each command is bounded by the remaining original 120000 ms operation budget; the upload receiver rejects late data.",
+    "largeReplyRoute": "existing loopback DIST server; same-origin POST after recorder completion",
+    "uploadChunkBytes": 131072,
+    "uploads": [
+      {
+        "id": 8,
+        "chars": 27046965,
+        "chunkBytes": 131072,
+        "maxTransferChars": 50331648,
+        "deadline": 1789413602212,
+        "receivedBytes": 27046965,
+        "chunks": 207,
+        "status": "received",
+        "sha256": "3a06f5f46878c8aa04a7d04734c1541ea6ee8f7b2b9a9b6ac4a15c0750102b4c",
+        "elapsedMs": 36883
+      },
+      {
+        "id": 12,
+        "chars": 3230229,
+        "chunkBytes": 131072,
+        "maxTransferChars": 50331648,
+        "deadline": 1789413683135,
+        "receivedBytes": 3230229,
+        "chunks": 25,
+        "status": "received",
+        "sha256": "0dcee0a1bae839c571706d2d5dda2be94216009ea8b9792f6ab3f150db4df0e3",
+        "elapsedMs": 3817
+      },
+      {
+        "id": 16,
+        "chars": 2583255,
+        "chunkBytes": 131072,
+        "maxTransferChars": 50331648,
+        "deadline": 1789413776653,
+        "receivedBytes": 2583255,
+        "chunks": 20,
+        "status": "received",
+        "sha256": "32649e53a79ba25aa1083ba934cf6673a28ec9ee54c13ffe59e8f652881dfe28",
+        "elapsedMs": 815
+      },
+      {
+        "id": 1,
+        "chars": 8030267,
+        "chunkBytes": 131072,
+        "maxTransferChars": 50331648,
+        "deadline": 1789413783016,
+        "receivedBytes": 8030267,
+        "chunks": 62,
+        "status": "received",
+        "sha256": "44b170955d63a590d7fac1f4752cfd0458be50208b7fe4b53e103bd6d6bbc99b",
+        "elapsedMs": 1923
+      }
+    ]
+  },
+  "profileSnapshot": {
+    "chars": 8030267,
+    "bytes": 8030267,
+    "sha256": "44b170955d63a590d7fac1f4752cfd0458be50208b7fe4b53e103bd6d6bbc99b",
+    "provenanceRemovedOnly": true,
+    "matchingReceipt": {
+      "id": 1,
+      "chars": 8030267,
+      "chunkBytes": 131072,
+      "maxTransferChars": 50331648,
+      "deadline": 1789413783016,
+      "receivedBytes": 8030267,
+      "chunks": 62,
+      "status": "received",
+      "sha256": "44b170955d63a590d7fac1f4752cfd0458be50208b7fe4b53e103bd6d6bbc99b",
+      "elapsedMs": 1923
+    },
+    "receiptPayloadIdentityIndependentlyReconstructed": true
+  },
+  "clipUploadPayloadHashesIndependentlyReconstructed": false,
+  "scope": "Four host receipts are internally consistent and received. Only profile snapshot JSON bytes can be reconstructed from this full report; media-bearing upload payloads were not acquired. Receipt elapsed is receiver interval, not complete browser operation or recording time."
+}

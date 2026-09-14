@@ -1,0 +1,110 @@
+{
+  "status": "finite original recovery and limited capture-transport candidate complete",
+  "finalizedAtUtc": "2026-09-14T20:35:56.772278+00:00",
+  "authorityHead": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "originalHead": "61e8f8c595bde13634fe709f979816011df165d0",
+  "recoveryRun": 34891306829,
+  "recoveryJob": 104134403420,
+  "recoveryAttempt": 1,
+  "jobLogsCalls": 1,
+  "artifact": {
+    "id": 10364986195,
+    "run": 34884725972,
+    "attempt": 1,
+    "zipBytes": 25105480,
+    "sha256": "661474f9320966960edf4794c0fdabe4d8f456ec6166efd1dbace592cef6d372",
+    "zipDownloadedLocally": false
+  },
+  "gzipBytes": 579678,
+  "rawBytes": 19892407,
+  "metaCount": 2,
+  "chunkCount": 195,
+  "endCount": 2,
+  "originalFailure": {
+    "status": "failed",
+    "checks": 54,
+    "passedChecks": 53,
+    "profileRows": 4096,
+    "profileDropped": 844,
+    "profileComplete": false,
+    "profileRestored": true,
+    "captureStatus": "captured",
+    "failure": "iOS audio diagnostic: bounded frame work captured and timing wrappers restored: {\"recordings\":3,\"rows\":4096,\"dropped\":844,\"restored\":true,\"errors\":[]}"
+  },
+  "rawOriginals": [
+    {
+      "path": "original/report.json",
+      "bytes": 16237592,
+      "sha256": "9fe62379c2c35a01cb4b83af265b8ab67024d58b828a2da49bb586a68f6d092e"
+    },
+    {
+      "path": "original/appium.log",
+      "bytes": 3654815,
+      "sha256": "bf39c21cbc8fef21b99ffe2130bd41575730cd193bd53c03c5eb6bac4ae11261"
+    }
+  ],
+  "missingPhaseRowsRecovered": false,
+  "originalArithmeticMismatches": 0,
+  "independentOriginalScriptsPassed": 4,
+  "street": {
+    "wallSeconds": 92.01,
+    "preMovementBrowserMs": 78349,
+    "preMovementFrames": 3401,
+    "smallReplyAppiumElapsedMs": 59329,
+    "smallReplyLogEndpointMs": 60377,
+    "audioMinusEngineSeconds": 3.815999999995114,
+    "clampSeconds": 1.468,
+    "discardSeconds": 2.425,
+    "accumulatorChangeSeconds": 0.007333333333333036,
+    "audioMinusRafInputSeconds": -0.08433333333333337
+  },
+  "coverage": {
+    "savedRows": 4096,
+    "droppedRows": 844,
+    "streetRecordingRows": 4025,
+    "streetInactiveRows": 13,
+    "gasRecordingRows": 58,
+    "arcadeRecordingRows": 0,
+    "complete": false
+  },
+  "candidate": {
+    "path": "tools/ios_audio_capture.mjs",
+    "bytes": 25571,
+    "sha256": "e4f36959ec83f4d4112bda7be27e081ba0e721ee27784705a21a59c4c31d0262",
+    "baseBytes": 24880,
+    "baseSha256": "084829ec335d8969e21406da1e5311e7c71134c73eb4e56a29d8dc7c0f4042b6",
+    "baseBlob": "c02c06122512036cdeb6b50e9e5dceb7f7b66083",
+    "baseCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+    "type": "diagnostic transport only",
+    "recommended": true,
+    "adopted": false,
+    "ownChecksPassed": 29,
+    "independentChecksPassed": 22,
+    "syntaxPassed": true,
+    "blocking": 0,
+    "actualSafariMeasured": false,
+    "productPerformanceRepairClaimed": false,
+    "priorFailureRepaired": false
+  },
+  "preserved": {
+    "productChanges": 0,
+    "clockChanges": 0,
+    "recorderChanges": 0,
+    "thresholdRelaxations": 0,
+    "remoteChanges": 0,
+    "newCi": 0,
+    "reruns": 0,
+    "newProfiles": 0,
+    "automations": 0,
+    "deniedUrlRetries": 0,
+    "qualityElementsNotMeasured": 19,
+    "criteria": 71,
+    "references": 10,
+    "validBlind": 0,
+    "completedUnits": 0,
+    "mode": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "next": "Writer may preserve the exact two original gzip files and adopt the reviewed single helper candidate; assess actual Safari behavior in the next ordinary CI results. Do not rerun this old profile or mark its missing rows recovered."
+}

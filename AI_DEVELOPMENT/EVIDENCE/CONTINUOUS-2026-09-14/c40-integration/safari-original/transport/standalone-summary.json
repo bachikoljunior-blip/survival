@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-14T20:14:11.301Z",
+  "target": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari / landscape",
+  "transport": {
+    "client": "node:http/https",
+    "sessionRequestTimeoutMs": 900000,
+    "commandRequestTimeoutMs": 90000
+  },
+  "checks": [],
+  "device": null,
+  "layout": null,
+  "interaction": {},
+  "inputCalibration": [],
+  "inputActions": [],
+  "persistence": null,
+  "soak": null,
+  "screenshots": {},
+  "errors": [],
+  "failures": [
+    "Error: WebDriver POST /session: Unable to start WebDriverAgent session. Original error: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100\n    at IncomingMessage.<anonymous> (file:///Users/runner/work/survival/survival/tools/webdriver-request.mjs:33:18)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"
+  ],
+  "status": "failed",
+  "baseUrl": "http://127.0.0.1:49579/",
+  "safariStartup": {
+    "method": "local-deeplink",
+    "bootstrapUrl": "http://127.0.0.1:49579/__ios_safari_bootstrap__.html",
+    "verified": false
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "completedAtUTC": "2026-09-14T20:48:02.285093+00:00",
+  "status": "pass for five preparation candidate paths; real CI and product adoption pending",
+  "blocking": 0,
+  "sourceCommit": "dff2d683d0a9821c79d84848bf93cb45b8920494",
+  "sourceTree": "18bf6fb6597c2ef5d8cf96800b1761cdeea3827d",
+  "candidateFileCount": 5,
+  "candidateFiles": [
+    {
+      "repositoryPath": "tools/prepare-narrative-product.mjs",
+      "bytes": 13694,
+      "sha256": "90ef97454e1b570d025e0bf30391ce886f3250b5fb700a0d11518674d6060296",
+      "gitBlob": "a0febba28d7d6bc7acd6a4e51ce74f014bbf06ba"
+    },
+    {
+      "repositoryPath": "tools/check-narrative-routes.mjs",
+      "bytes": 18661,
+      "sha256": "3c631b2286ef7e6ff24d8be0b6d317689a22852a55e7da82efe5961fc0bc90b3",
+      "gitBlob": "ea60c36a448f4338c98e5dc42b97f7a0610e10c3"
+    },
+    {
+      "repositoryPath": "tools/candidates/journal-story-r1.js",
+      "bytes": 111859,
+      "sha256": "7cd770bfcb91f959a9b4e60088d41fc9b3eac363faa724138d89d668e07a9d41",
+      "gitBlob": "9fd1d680386e23212a80a0a806ee9ffa4568c15d"
+    },
+    {
+      "repositoryPath": "tools/candidates/journal-ja-content-r1.js",
+      "bytes": 56857,
+      "sha256": "480e736a0e37eb482daedf7a81deee179c2613f175a987498507e35d514416a1",
+      "gitBlob": "513f755658a29b847befee4981b89fd1686a4387"
+    },
+    {
+      "repositoryPath": ".github/workflows/gates.yml",
+      "bytes": 32640,
+      "sha256": "f2ebc92dba2c5562ddcdf7527853b86b27578b5803586ac8f46ef0b86c685d49",
+      "gitBlob": "65a492762a06f8d8007bfe8ee68c8cf3b430d56f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "bytes": 3967,
+      "sha256": "5b5603fdc5fe22eacafedf40be473c6bb37a247d48534559fa6a92b7abd0f6ec"
+    },
+    {
+      "path": "review-verification.json",
+      "bytes": 6717,
+      "sha256": "f43de2543b699c466517e8bb7260a47974edebb10fc54cbd3086b3e4ab810e9f"
+    },
+    {
+      "path": "independent-controls.json",
+      "bytes": 2233,
+      "sha256": "b82c14b37902a6eae06e2e2bb88ac8596d4e046d7263a521c49c801476ec64b8"
+    },
+    {
+      "path": "canonical-byte-verification.json",
+      "bytes": 14327,
+      "sha256": "b724ab97e80e0b3f3b86ae45c7d79db56799e129b71ba3a07795f1e247b97057"
+    },
+    {
+      "path": "authority-acceptance.json",
+      "bytes": 1300,
+      "sha256": "e6aa8fec551ea11283eee1eb5d4942c07334c9f0ae6c51908c78dddf8b42aeb5"
+    }
+  ],
+  "actualBuild": false,
+  "actualBrowser": false,
+  "screens": 0,
+  "newBundleSha256": null,
+  "existingSaveMigrationImplemented": false,
+  "publication": "Only exact entries of publication-allowlist.json may be published; no recursive directory publication"
+}
