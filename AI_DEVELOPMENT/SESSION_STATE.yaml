@@ -17,20 +17,20 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T09:53:36.082274+09:00"
-  verified_commit: "2220b65b805f54e8d51e0ecc96807dad3d61b594"
-  verified_build_sha256: "dfa8bd7d668e0b2bca94853313fe12dcf8d5ef5e37417180560e8930d30f67f5"
-  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/faults-2220b65/provenance.json"
-  last_verified_action: "2220b65 実WebKit通常133/133、例外復旧40/40成功。英日通知・パネルの実可視性、保存失敗時の既存バイト保持、描画停止、再読込後TITLE復旧を測定。全19要素not measured。新しい影batch/屋上支持/衝突法線はCPUと独立反証済みで、画面はまだ未検証。"
-  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-2220b65/provenance.json"
-  pending_build_sha256: "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897"
-  modified_but_unverified: "影を毎フレーム更新し、元の色形状を保つ静的/動的2batchと平面だけの影indexを実装。支持のない屋上小物を除外し、支持された11個と非roof12区域をCPU検証。負方向rayの法線を修正。保存失敗時には直前SAVED表示も即座に消す。新しいWebKit診断は5場面で元casterとの同姿勢画像、実shadow submission、Marrow屋上を記録する。現ビルドは実WebKit未検証。"
-  next_action: "この製品差分と原証拠を同ブランチへ保存し、実WebKit通常/例外復旧CIを実行。5場面のshadow batchと元caster画像・draw/triangle数を検査し、Arcade浮遊物除去と支持屋上の見た目を確認する。失敗は記録して修正。実参照資料と品質を変えないブラインド比較方法も継続する。"
+  last_progress_at: "2026-09-14T10:42:17.789118+09:00"
+  verified_commit: "d19c4240c8dd83b72530abe780315c456367358f"
+  verified_build_sha256: "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897"
+  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/faults-d19c424/provenance.json"
+  last_verified_action: "d19c424 実WebKit通常148/148・例外復旧42/42成功。5場面の影を元casterと同姿勢で独立画像検査し、影更新とArcade浮遊小物除去を確認。屋上の上半身が暗い壁に埋もれる所見は未解消。全19要素not measured。"
+  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-d19c424/provenance.json"
+  pending_build_sha256: "58b10c7f913676be143dc90d4b4a87e671c473dfd0119de1b5f3e5c93bad4920"
+  modified_but_unverified: "ガス孔頭ID/旧save欠落ID復元と、実行時のgas/nav更新を修正。4mで実AIが6.16m迂回して到着。途中経路方式は50m壁で停止したため退け、1tick700展開の継続A*へ変更。同じ壁を実AI/物理で43.83秒、61.27mで迂回し到着。現ソースCPU62/62成功、最終独立反証中。実WebKitの選択・保存復元・実音声+映像採取は次CIで実行。半閉鎖yardと屋上可読性は未解消。"
+  next_action: "この変更と原証拠を同指定ブランチへ保存し、実WebKit通常/例外復旧CIを実行。ガス選択と旧save復元、録画された実音声・映像を確認し失敗を修正。半閉鎖yardの帰結と屋上可読性/支持小物の撮影を改善。実参照資料取得と品質を変えないブラインド比較方法を続ける。"
 
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "初回映像比較で参照の出所認識が起きたため無効。全19要素に有効なブラインド比較がまだない。期限内完全達成を裏付ける進捗はまだないため、製品修正と比較成立を並行して進める"
-    - "2220b65実WebKit通常133/133・fault40/40成功。新shadow batch/屋上/保存stamp修正は実WebKit未検証。許可された既存CIで実行し、旧環境のbrowser保護を迂回しない"
+    - "d19c424実WebKit通常148/148・fault42/42成功。新しいgas/nav/save復元と音声採取は未検証。許可された既存CIで実行し、旧環境のbrowser保護を迂回しない"
     - "通常Gitの認証は利用できない。接続済みGitHubアプリの正規書込みで同ブランチへ保存・再読取が成功済み。旧自動承認拒否は履歴として保存し、保護の迂回はしない"
     - "Factorio公開GUI demoの通常GETはHTTP403で取得不可。既存の実headless保存/移行結果は保持するが、GUIのブラインド比較を実施したとは扱わない"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"

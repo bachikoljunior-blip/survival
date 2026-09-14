@@ -632,7 +632,7 @@ export class City {
       case 'worklight': r = P.workLight(cb, p.x, y, p.z, rng, p); break;
       case 'vent': r = P.ventHead(cb, p.x, y, p.z, rng, p);
         this.solid(p.x, y, p.z, 1.3, 1.4, 1.3, 0, LAYER.SOLID, 'prop');
-        this.gas.addSource(p.x, p.z, p.gasStrength ?? 2400, p.gasRadius ?? 20, p.gasId || null, p.hot !== false);
+        this.gas.addSource(p.x, p.z, p.gasStrength ?? 2400, p.gasRadius ?? 20, p.gasId ?? p.id ?? null, p.hot !== false);
         break;
       case 'excavator': r = P.excavator(cb, p.x, y, p.z, p.rot || 0, rng, p);
         this.solid(p.x, y, p.z, 4.6, 2.4, 2.6, p.rot || 0, LAYER.SOLID, 'plant'); break;

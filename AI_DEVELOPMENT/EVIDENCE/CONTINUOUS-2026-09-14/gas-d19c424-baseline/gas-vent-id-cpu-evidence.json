@@ -1,0 +1,199 @@
+{
+  "checkedAt": "2026-09-14T01:10:35.447Z",
+  "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "scope": "Actual full City, authored data, GasField, Director shutVents hook and Game.fixedUpdate; Canvas appearance, HUD, marker/plume methods and actors are substitutes/absent. No browser.",
+  "before": [
+    {
+      "propId": "vent_west_1",
+      "propGasId": null,
+      "x": -118,
+      "z": 26,
+      "sources": [
+        {
+          "x": -118,
+          "z": 26,
+          "strength": 2600,
+          "radius": 24,
+          "id": null,
+          "active": true
+        }
+      ],
+      "ppmAtSide": 2425.948478335389
+    },
+    {
+      "propId": "vent_west_2",
+      "propGasId": null,
+      "x": -104,
+      "z": 26,
+      "sources": [
+        {
+          "x": -104,
+          "z": 26,
+          "strength": 2600,
+          "radius": 24,
+          "id": null,
+          "active": true
+        }
+      ],
+      "ppmAtSide": 2610.284744713199
+    },
+    {
+      "propId": "vent_west_3",
+      "propGasId": null,
+      "x": -90,
+      "z": 26,
+      "sources": [
+        {
+          "x": -90,
+          "z": 26,
+          "strength": 2600,
+          "radius": 24,
+          "id": null,
+          "active": true
+        }
+      ],
+      "ppmAtSide": 1893.2648326996004
+    }
+  ],
+  "originalHookCalls": [
+    {
+      "id": "vent_west_1",
+      "active": false,
+      "result": false
+    },
+    {
+      "id": "vent_west_2",
+      "active": false,
+      "result": false
+    },
+    {
+      "id": "vent_west_3",
+      "active": false,
+      "result": false
+    },
+    {
+      "id": "yard_seep",
+      "active": true,
+      "result": true
+    }
+  ],
+  "after": [
+    {
+      "propId": "vent_west_1",
+      "sources": [
+        {
+          "x": -118,
+          "z": 26,
+          "strength": 2600,
+          "radius": 24,
+          "id": null,
+          "active": true
+        }
+      ],
+      "ppmAtSide": 2417.8196677071605
+    },
+    {
+      "propId": "vent_west_2",
+      "sources": [
+        {
+          "x": -104,
+          "z": 26,
+          "strength": 2600,
+          "radius": 24,
+          "id": null,
+          "active": true
+        }
+      ],
+      "ppmAtSide": 2564.1701709784143
+    },
+    {
+      "propId": "vent_west_3",
+      "sources": [
+        {
+          "x": -90,
+          "z": 26,
+          "strength": 2600,
+          "radius": 24,
+          "id": null,
+          "active": true
+        }
+      ],
+      "ppmAtSide": 1942.7367525028285
+    }
+  ],
+  "diagnosticCounterfactual": {
+    "method": "Only in-memory gas source IDs aligned to authored prop IDs, followed by the same hook and actual bake at unchanged gas.time.",
+    "calls": [
+      {
+        "id": "vent_west_1",
+        "active": false,
+        "result": true
+      },
+      {
+        "id": "vent_west_2",
+        "active": false,
+        "result": true
+      },
+      {
+        "id": "vent_west_3",
+        "active": false,
+        "result": true
+      },
+      {
+        "id": "yard_seep",
+        "active": true,
+        "result": false
+      }
+    ],
+    "after": [
+      {
+        "propId": "vent_west_1",
+        "sources": [
+          {
+            "x": -118,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": "vent_west_1",
+            "active": false
+          }
+        ],
+        "ppmAtSide": 99.65682151262321
+      },
+      {
+        "propId": "vent_west_2",
+        "sources": [
+          {
+            "x": -104,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": "vent_west_2",
+            "active": false
+          }
+        ],
+        "ppmAtSide": 120.31533142969373
+      },
+      {
+        "propId": "vent_west_3",
+        "sources": [
+          {
+            "x": -90,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": "vent_west_3",
+            "active": false
+          }
+        ],
+        "ppmAtSide": 104.53776087360127
+      }
+    ]
+  },
+  "sourceHashes": {
+    "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd",
+    "src/game/director.js": "bfca9bfbe82fca7e20b31ed53bb604cfe7164339b35d4744e12600f7940d57f3",
+    "src/world/gas.js": "80646f9d4b84a86c5effa15ade1c3075efba788473535c7aa611806c6badbabd"
+  }
+}

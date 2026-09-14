@@ -418,6 +418,7 @@ export class Game extends Emitter {
     // the cast pauses. A city that freezes when you open a menu feels like a
     // diorama.
     this.gas.update(playing || this.mode === MODE.DIALOGUE ? dt : dt * 0.25);
+    this.nav?.updateGasCost(this.gas, dt);
 
     if (playing) {
       this._playerInput(dt);

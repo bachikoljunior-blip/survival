@@ -1,0 +1,328 @@
+{
+  "checked_at": "2026-09-14T10:26:25.764785+09:00",
+  "scope": "Reference acquisition attempts; no new blind comparison or element verdict. No target or reference substitution.",
+  "attempts": [
+    {
+      "url": "https://www.feralinteractive.com/en/mobile-games/alienisolation/",
+      "outcome": "web safe-open non-retryable error; no retry via alternative tool"
+    },
+    {
+      "url": "https://www.feralinteractive.com/en/news/the-perfect-organism-the-visuals-of-alien-isolation/",
+      "outcome": "Official 2 December 2021 source read, points to publisher YouTube gameplay/visual presentation. Its explanatory text is not comparison evidence."
+    },
+    {
+      "url": "https://www.youtube.com/embed/JRMNsPxL8Oo",
+      "outcome": "publisher-embedded video fetch throttled; no audiovisual bytes acquired"
+    },
+    {
+      "url": "https://www.feralinteractive.com/en/games/alienisolation/android-ios/",
+      "outcome": "HTTP403; no media acquired"
+    },
+    {
+      "url": "https://discoelysium.com/",
+      "outcome": "Official current site read; first two linked images are award badges, not game dialogue. Excluded from comparison packets."
+    },
+    {
+      "url": "https://fayde.co.uk/info",
+      "outcome": "HTTP403; no actual dialogue acquired. No full copyrighted script mirrored."
+    },
+    {
+      "url": "https://store.steampowered.com/app/214490/",
+      "outcome": "Redirected to age verification. No birth date was invented or submitted; no protected game media acquired."
+    },
+    {
+      "url": "https://store.steampowered.com/app/632470/Disco_Elysium__The_Final_Cut/",
+      "outcome": "Official publisher Steam page HTTP200. Acquired 17 original 1920x1080 screenshots via URLs actually present in HTML attributes. Viewed screenshots 1-8; isolated source-recognizable scenes do not cover a complete narrative arc or six character motivations."
+    },
+    {
+      "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/hls_264_master.m3u8?t=1617123094",
+      "outcome": "Direct ffmpeg HLS read timed out at 120 seconds. Changed transfer method to ordinary HTTP GET of the same public manifest URLs; both initialization fragments and seven contiguous 3s segments per original track returned 200. Muxed without re-encoding or replacing tracks: actual 21s H264 1920x1080 + AAC stereo 48kHz. Inspected a gameplay frame at about 10.5s; this is a promotional montage, not a whole story playthrough or blind comparison."
+    },
+    {
+      "at": "2026-09-14T01:30:36.318373+00:00",
+      "url": "https://www.youtube.com/watch?v=7VZyIjBtTGQ",
+      "method": "ordinary public GET; no credentials, age input, browser, cookies or proxy modification",
+      "status": 200,
+      "bytes": 1236512,
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "at": "2026-09-14T01:32:08.607853+00:00",
+      "watch_url": "https://www.youtube.com/watch?v=7VZyIjBtTGQ",
+      "author": "GameSpot Trailers",
+      "title": "Alien: Isolation for iOS & Android – In-depth Gameplay",
+      "method": "Unmodified directly advertised public progressive stream URL; no authentication, URL rewriting or signature processing.",
+      "itag": 18,
+      "resolution": [
+        640,
+        360
+      ],
+      "audioQuality": "AUDIO_QUALITY_LOW",
+      "scope": "Acquisition/inspection only; lower-resolution mirror not accepted as a full-fidelity reference benchmark.",
+      "error": "The read operation timed out"
+    }
+  ],
+  "acquired_media": {
+    "screenshots": {
+      "checked_at": "2026-09-14T10:00:45.330379+09:00",
+      "source": "https://store.steampowered.com/app/632470/Disco_Elysium__The_Final_Cut/",
+      "source_sha256": "b8d96923dd56cb44b2930b1bf6b25e68843590fb6b2d4624c5e52175a1f84147",
+      "files": [
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_b3694e99ffdb686d1bbbbe16a540d3d2ccd509c4.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-01.jpg",
+          "status": 200,
+          "bytes": 635652,
+          "sha256": "c6eb9127b87deda61c24366d124e86b6064308cc14a318ee3a50ad25b0b1f8df"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_9125a718ee9ba85386ae5d4eb820f3266073fc97.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-02.jpg",
+          "status": 200,
+          "bytes": 474554,
+          "sha256": "bf7db5548173f5ddca2fdc1203616b913a9824587a05deb335a65584adefcdb5"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_4f5fdc3cf42feca8dafb1f7d2910ef96e62708a2.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-03.jpg",
+          "status": 200,
+          "bytes": 845428,
+          "sha256": "2ae957a294746113e1e695cf864371a7c6bec63bdede2b6307a45edbafb53e46"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_fc6969799ebf19fd2a2c8a986c9419e053606a17.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-04.jpg",
+          "status": 200,
+          "bytes": 600723,
+          "sha256": "7d7d32ccdf0d62eafb133b10e60c25c8b669e944a69ff0a2c03ce14078f37d9d"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_dec29c440fab2f7817d68c1380c019290eb1755e.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-05.jpg",
+          "status": 200,
+          "bytes": 545123,
+          "sha256": "05240c77b5a2444373f5c35cf572eb1182c5ea2474c3ae4f0ccf449801474993"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_ab38615b3a1d0d4309f06772db4bd9db5c250ef7.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-06.jpg",
+          "status": 200,
+          "bytes": 652985,
+          "sha256": "d03046d9b7937d071cfa747bf8a2d9d670201483076d91ebf2c444b70e487bed"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_81ea48324fbac48a00e482781be56cd57d796620.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-07.jpg",
+          "status": 200,
+          "bytes": 456444,
+          "sha256": "6f8052d07e7e51d229709646c49a5865ec5883cb33f0bb05d438dc741f06bc33"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_0813f92720c59a5d21ed2d3291b8156bb4cb0fc8.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-08.jpg",
+          "status": 200,
+          "bytes": 674229,
+          "sha256": "0a6a5003532837e684e364967398e5e685bde92b78afaaab8d6ae907b3957744"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_b1205caa224a0dea0d141c2d6f7db4240cd5dbb7.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-09.jpg",
+          "status": 200,
+          "bytes": 472666,
+          "sha256": "4d2e4007b389361926bbaf6279a68147420b97b5555e04cbaf7c3235b10919c5"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_23836438cd455287232be5ae9c4f48d5c488967b.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-10.jpg",
+          "status": 200,
+          "bytes": 1215120,
+          "sha256": "0774b63424385bff19ee971d2678059006b74a069ac2993cd40be65e08e1ffd8"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_1733c149b614b835785ef48c2468b1e215f5c1ef.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-11.jpg",
+          "status": 200,
+          "bytes": 388760,
+          "sha256": "1bf51e76f5405b8eb412644d326b6ce2e6b49e894dffb78f6e69ffb2cf3fdd03"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_d1556020c2c605230f9f70291d2cde1ba9d38f55.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-12.jpg",
+          "status": 200,
+          "bytes": 525531,
+          "sha256": "6252eca51f4c50982bf4130a8a1c22a665d986b2ce5a56770796b9494dd89abb"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_0e2e63476bbf0736f3dccb03633d5af793d64b4b.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-13.jpg",
+          "status": 200,
+          "bytes": 582870,
+          "sha256": "7c9ba62317bc29b8e0743ab38932bb9bbc99b237bae0703513440d4bb093d465"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_fbd29930bbad721ce251391d5ec622917b416aed.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-14.jpg",
+          "status": 200,
+          "bytes": 787214,
+          "sha256": "be6d19e446d5dbae247d91bb55efdfcbe63c5844d9659dd20b17faac074abb8e"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_60a5f4144156eda140e6c9bbf6f0d440e1b1aa17.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-15.jpg",
+          "status": 200,
+          "bytes": 244328,
+          "sha256": "4924a22ac23719199abf21956b4f7a3bf4ee1055c9362d3396dca5dbe3af3cd8"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_066e819168ec49dbee47fa128fb2ac756e89f569.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-16.jpg",
+          "status": 200,
+          "bytes": 504247,
+          "sha256": "693208122b24e8e9fc75509f2867eadc45e806dab26764dd5917afc5d8053d72"
+        },
+        {
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/ss_ef8e3eca9fb67d94d8a3fb7b7934de5ccdeed4dd.1920x1080.jpg?t=1780913406",
+          "file": "screenshot-17.jpg",
+          "status": 200,
+          "bytes": 167501,
+          "sha256": "9d342994c6cbb479da2519f26bfbb34e2ebfc4b9c962d9be8ffe266031e74066"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/hls_264_master.m3u8?t=1617123094",
+          "file": "trailer-1-master.m3u8",
+          "status": 200,
+          "bytes": 706,
+          "sha256": "42417f864a9f2405c8eb54ac7c1a8392f067ea69eb4365e1c5acecf4470e4b03"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/243528/f816c18accca9a86a4364f309e9e2a338e1fb5cb/1750564389/hls_264_master.m3u8?t=1585912666",
+          "file": "trailer-2-master.m3u8",
+          "status": 200,
+          "bytes": 706,
+          "sha256": "42417f864a9f2405c8eb54ac7c1a8392f067ea69eb4365e1c5acecf4470e4b03"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/268659/6dff5d5a75e492c5be2a38d240422dfd2327e52d/1750564392/hls_264_master.m3u8?t=1585912659",
+          "file": "trailer-3-master.m3u8",
+          "status": 200,
+          "bytes": 706,
+          "sha256": "42417f864a9f2405c8eb54ac7c1a8392f067ea69eb4365e1c5acecf4470e4b03"
+        }
+      ],
+      "scope": "Publisher-supplied store media, acquired unchanged for inspection. No game play or blind comparison performed. No source media added to product/distribution. No claim that promotional stills cover narrative arcs or characters."
+    },
+    "trailer_first_21_seconds": {
+      "scope": "Original first seven contiguous 3-second media segments from the publisher-listed trailer, plus original initialization. Encoded streams copied without re-encoding or replacing audio. Promotional footage is not assumed to be continuous gameplay or narrative coverage.",
+      "files": [
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/init-stream0.m4s",
+          "file": "init-stream0.m4s",
+          "bytes": 859,
+          "sha256": "46f51f339077e10444564e8491a21a5e39e0bbbae15f1f2b6057cb64e04d0c69"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00001.m4s",
+          "file": "chunk-stream0-00001.m4s",
+          "bytes": 2295741,
+          "sha256": "3dbc6882d3fdc366d9357b5e3f70e0dcae70188f17cc8a32476be3939f6ec414"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00002.m4s",
+          "file": "chunk-stream0-00002.m4s",
+          "bytes": 2261878,
+          "sha256": "bcc9043dd47f0da41395760c6995d1a3f7f5f75c652ea9b2b548c89af64baf5b"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00003.m4s",
+          "file": "chunk-stream0-00003.m4s",
+          "bytes": 2224765,
+          "sha256": "2e067356bed38bb6b1bbe777780fefa9bc88a963f55b664db896ab749d412c45"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00004.m4s",
+          "file": "chunk-stream0-00004.m4s",
+          "bytes": 2193542,
+          "sha256": "de68e3dfef657a4f69d0ea738bbd0a4ddfc5fa7efffab9e602f0fad39cad04d0"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00005.m4s",
+          "file": "chunk-stream0-00005.m4s",
+          "bytes": 2351953,
+          "sha256": "6b4358a9b98b1532f6e1893d5f065ebbcdd9b166a2f0c6a4eb9ab06e8fe9e2cc"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00006.m4s",
+          "file": "chunk-stream0-00006.m4s",
+          "bytes": 2158899,
+          "sha256": "4cba81f67a042318037fee8cdefe2d13575350d1a3e6315867e6230cd9d56069"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream0-00007.m4s",
+          "file": "chunk-stream0-00007.m4s",
+          "bytes": 2263712,
+          "sha256": "846dfd178d3647ca9d1900b741ae4db95ca747e62bfb35b193b7337b08d9252c"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/init-stream4.m4s",
+          "file": "init-stream4.m4s",
+          "bytes": 765,
+          "sha256": "abca21e17330be7da4f65a3c098d8d013cf3875a52009ad383a7302a517dea74"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00001.m4s",
+          "file": "chunk-stream4-00001.m4s",
+          "bytes": 75202,
+          "sha256": "261ffdffb3a387c85cbe9542e693279e1202965b5dca1de24fb0a63c19b9c27c"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00002.m4s",
+          "file": "chunk-stream4-00002.m4s",
+          "bytes": 74124,
+          "sha256": "e5adf7a0c1fb75a19cc55c3a84386e9fcc7ca0b7fe046c8262e6ced1b703de41"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00003.m4s",
+          "file": "chunk-stream4-00003.m4s",
+          "bytes": 73253,
+          "sha256": "d3f05bdb1347dc37f52ca01ad58985f55668add44e7f79dc51998cb87e176044"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00004.m4s",
+          "file": "chunk-stream4-00004.m4s",
+          "bytes": 72566,
+          "sha256": "b2a13592626d8b435b71bd8528505045e9f7e5131410230528331158cc3d8509"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00005.m4s",
+          "file": "chunk-stream4-00005.m4s",
+          "bytes": 73261,
+          "sha256": "fa25a7746cc0925154d15eae9e47d7ba9bc3764fe523edefba1605a93bd91121"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00006.m4s",
+          "file": "chunk-stream4-00006.m4s",
+          "bytes": 74433,
+          "sha256": "998af96b91ac72fe91a8d411290d8cc9921dd6b58ffac8900d7183a6b35cfa3a"
+        },
+        {
+          "url": "https://video.akamai.steamstatic.com/store_trailers/632470/357391/40d4d0a212158209daf4efe0c8d98f90c1322e1b/1750564395/dash_h264/chunk-stream4-00007.m4s",
+          "file": "chunk-stream4-00007.m4s",
+          "bytes": 74295,
+          "sha256": "5cb8c0e384fbaf18c30b71ce00101b105403071ed79ff5696d44564783f66407"
+        }
+      ],
+      "mux": {
+        "exit_code": 0,
+        "error": ""
+      },
+      "media": {
+        "file": "original-av.mp4",
+        "bytes": 16280812,
+        "sha256": "3b2e8f3970f4fb454d522ce515c3dd78618eabd107ee696b80039d07ff146f7d"
+      }
+    }
+  },
+  "storage_boundary": "These metadata and source hashes preserve acquisition provenance. Third-party screenshot/video bytes remain separate from the game; none is included in src, public, dist or the root game bundle. No permission to redistribute a complete script or trailer is asserted.",
+  "verdict": "not measured",
+  "source_correction": "The newly located 7VZyIjBtTGQ upload is by GameSpot Trailers, as the actual player response reveals. Search results alone did not establish a Feral-owned channel. No actual video bytes were obtained from its timed-out progressive stream."
+}

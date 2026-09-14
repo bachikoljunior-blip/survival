@@ -225,7 +225,7 @@ seconds and I already know which one I believe.`);
     // Props declare their own vents; those default to on.
     for (const p of g.city.data.props) {
       if (p.kind !== 'vent' || !p.id) continue;
-      g.gas.setSourceActive(p.id, p.hot !== false);
+      g.gas.setSourceActive(p.gasId ?? p.id, p.hot !== false);
       g.atmos.setMarkerActive(p.id, p.hot !== false);
       g.atmos.plumes.setAnchorActive(p.id, p.hot !== false);
     }
@@ -1401,12 +1401,7 @@ she has been able to get to telling somebody.`],
       it.taken = (d.takenIds || []).includes(it.id);
       it.disabled = (d.disabledIds || []).includes(it.id);
     }
-    for (const [id, active] of d.gasSources || []) {
-      g.gas.setSourceActive(id, active);
-      g.atmos.setMarkerActive(id, active);
-      g.atmos.plumes.setAnchorActive(id, active);
-    }
-    if (d.gasIntensity !== undefined) g.gas.setIntensity(d.gasIntensity);
+    this._restoreGas(d);
     this.currentInterior = d.interior || null;
     g.interiorPpm = d.interiorPpm ?? null;
     g.forcedMood = this.currentInterior ? 'interior' : null;
@@ -1435,6 +1430,30 @@ she has been able to get to telling somebody.`],
     this.quests.reenterActiveSteps();
     this.quests.emitObjective();
     return true;
+  }
+
+  /** Old saves omitted the West Heads because their runtime IDs were null.
+   * Recover only those missing entries from the already saved choice flags.
+   * Explicit source states and every unrelated progression field are retained.
+   */
+  _restoreGas(d) {
+    const g = this.game;
+    const sources = new Map(d.gasSources || []);
+    for (let i = 1; i <= 3; i++) {
+      const id = `vent_west_${i}`;
+      if (!sources.has(id)) sources.set(id,
+        !(this.state.has('vents_shut') || (i === 2 && this.state.has('vents_half'))));
+    }
+    if (!sources.has('yard_seep') && this.state.has('vents_shut')) sources.set('yard_seep', true);
+    for (const [id, active] of sources) {
+      g.gas.setSourceActive(id, active);
+      g.atmos.setMarkerActive(id, active);
+      g.atmos.plumes.setAnchorActive(id, active);
+    }
+    g.gas.setIntensity(d.gasIntensity ?? (this.state.has('vents_half') ? 1.15 : 1));
+    g.gas.globalScale = g.gas._targetScale;
+    g.gas.bake();
+    g.nav?.applyGasCost(g.gas);
   }
 
   // --------------------------------------------------------------- endings

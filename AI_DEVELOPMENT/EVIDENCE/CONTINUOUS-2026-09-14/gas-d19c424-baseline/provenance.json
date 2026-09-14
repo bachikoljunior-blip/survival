@@ -1,0 +1,47 @@
+{
+  "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "scope": "Original failing CPU measurements, independent review and refutation. These are not the post-fix build or a blind comparison.",
+  "execution_layout": "The original scripts expect to be beside a checkout directory named survival. Copy the .mjs files unchanged to that parent directory and run with node; use an isolated d19c424 checkout for the recorded baseline. Original fixture substitutes Canvas appearance only; each probe documents its additional substitutes. Do not overwrite the baseline results when rerunning repaired sources.",
+  "files": [
+    {
+      "name": "cpu-city-fixture-v2.mjs",
+      "bytes": 2944,
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    },
+    {
+      "name": "gas-consequence-cpu-evidence.json",
+      "bytes": 6674,
+      "sha256": "dbdab5abe7bee45d53a6e42bcfc5b16b181f430cc509c86957867a9b2797d6bc"
+    },
+    {
+      "name": "gas-consequence-probe.mjs",
+      "bytes": 7439,
+      "sha256": "d82af4924b5cbe4517b5e4c80b8b7f08357ebf1115c75bb58136c3bf0b076d46"
+    },
+    {
+      "name": "gas-consequence-refutation.json",
+      "bytes": 19357,
+      "sha256": "bbc38acf394b48c66950e10c13a697e951b638aaee69bd1833a5b1505349a88e"
+    },
+    {
+      "name": "gas-consequence-source-review.json",
+      "bytes": 25805,
+      "sha256": "b6db441d453ff5d0c90ad8f3af9df67ffa0397f43980dab1be6b412c9d947d28"
+    },
+    {
+      "name": "gas-navigation-probe.mjs",
+      "bytes": 4947,
+      "sha256": "e6a3782d3481fcdc869c07332b7bd3c63f6b4ce42473368dc75a9c85ee40a6a5"
+    },
+    {
+      "name": "gas-vent-id-cpu-evidence.json",
+      "bytes": 4396,
+      "sha256": "86fa8e9c7c9d9565b0f31db1bb339ee64e660a461bfba0d4f15a5d55c6e96a1d"
+    },
+    {
+      "name": "gas-vent-id-probe.mjs",
+      "bytes": 2877,
+      "sha256": "a2a5161b7a72e702f39dcaa1c1c8a81afc277112ab721faff74d10a7b199cbe2"
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "verdict": "FAIL",
+  "score": 0,
+  "scoreMeaning": "Schema placeholder for unscored source correctness review; not a visual, comparative or element quality score.",
+  "round": "d19c424-E13-CPU-refutation",
+  "profile": "read-only Node; no browser or rendering",
+  "tier": "not applicable to CPU navigation fixture",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No raster measurement was made.",
+  "blindComparison": "No blind comparison was conducted. No prediction of a stranger preference is made; E-13 remains not measured and this source/CPU refutation cannot change its element status.",
+  "checkedAt": "2026-09-14T01:08:15.490Z",
+  "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "reviewer": "/root/render_cost_review/refute_backdrop",
+  "sourceHashes": {
+    "src/world/nav.js": "7740b4f66d1172c127d6a53967266645d2aebedd748f27890f476b0995145c54",
+    "src/world/gas.js": "80646f9d4b84a86c5effa15ade1c3075efba788473535c7aa611806c6badbabd",
+    "src/game/ai.js": "3981b6e32433090db341a22183d7229652b80cd405cb4c7d59db63b5923393eb",
+    "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+    "src/game/game.js": "8ceb37dba71927f2eb950b93fb60941d65b66c44c5dd995d393e99f2ed896354",
+    "src/game/director.js": "bfca9bfbe82fca7e20b31ed53bb604cfe7164339b35d4744e12600f7940d57f3"
+  },
+  "findings": [
+    {
+      "id": "GAS-STALE-NAV",
+      "severity": "major",
+      "shot": "CPU actual City / intensity update",
+      "problem": "In the current City CPU fixture, live gas changes after 60 simulated seconds and an intensity change, while the entire stored navigation cost buffer remains byte-identical to its initial state.",
+      "why": "Reactive avoidance planning cannot use the current hazard distribution through the navigation cost map; the source applies gas cost only at City construction.",
+      "owner": "src/game/game.js",
+      "fix": "After meaningful gas changes refresh or invalidate navigation hazard costs with a bounded schedule; rerun this actual City control and require stored costs to match current gas within the documented update delay.",
+      "hypothesis": "Confirmed source mechanism: only src/world/city.js calls applyGasCost; GasField.update/setIntensity/setSourceActive do not update NavGrid.",
+      "refutation": "survives_after_narrowing",
+      "evidence": "dynamicCosts in this file. This proves stale planner costs; it does not prove that all enemy behaviour remains unchanged after rigVent."
+    },
+    {
+      "id": "GAS-SMOOTHING",
+      "severity": "major",
+      "shot": "CPU 13x9 open-floor gas detour",
+      "problem": "Actual A* predecessors avoid the central costly plume, but findPath returns only the start and target on a straight line through cost 6.5; the raw detour maximum cost is below 1.38.",
+      "why": "Cost-aware node search is undone by walkability-only string pulling even when the cost map is freshly computed.",
+      "owner": "src/world/nav.js",
+      "fix": "Preserve hazard-aware route choice during smoothing. Re-run the 13x9 GasField fixture recorded here and require returned segments to preserve the lower exposure detour instead of crossing the central cost 6.5 cell.",
+      "hypothesis": "Confirmed source and CPU mechanism: _clear reads height/bounds only, allowing the detour waypoints to be removed.",
+      "refutation": "survives_after_narrowing",
+      "evidence": "smoothing in this file; real NavGrid, CollisionWorld and GasField, constructed geometry."
+    },
+    {
+      "id": "GAS-DIRECT-SHORTCUT",
+      "severity": "major",
+      "shot": "CPU 4m direct steering across a plume",
+      "problem": "At a clear 4 m hop the actual AI movement helper discards a stored detour, makes zero pathfinder calls, and requests straight movement toward the central plume despite the populated gas costs.",
+      "why": "Refreshing planner costs and fixing string pulling alone will not affect this normal short-hop steering branch.",
+      "owner": "src/game/ai.js",
+      "fix": "Make the short-hop decision account for hazard exposure or preserve a safe current detour. Re-run directShortcut with the same 4 m target and require the unsafe shortcut not to discard the recorded detour.",
+      "hypothesis": "Confirmed source and CPU mechanism: the d<6 / collision LOS branch bypasses NavGrid and does not query GasField.",
+      "refutation": "survives_after_narrowing",
+      "evidence": "directShortcut in this file; requested direction only, not proof an enemy completes the crossing before panic."
+    },
+    {
+      "id": "GAS-WEST-UNNAMED",
+      "severity": "major",
+      "shot": "Actual City / shutVents / world-source save and restore",
+      "problem": "All three West Heads sources are registered with id=null. The real shutVents hook receives false for each attempted source deactivation, leaves their emissions active and only enables yard_seep; its marker/plume deactivation calls still run.",
+      "why": "The visible operation claims the heads were shut while those same source emissions continue. The coupled-world consequence is wrong independently of navigation cost staleness.",
+      "owner": "src/world/city.js",
+      "fix": "Give each authored controllable vent one consistent nonempty ID shared by source, marker/plume, reset and save. Require shutVents results true for all three IDs, halfVents true for exactly vent_west_2, and saved/restored source rows to preserve the choice. Preserve older saves missing these newly named rows through a defined choice-state fallback.",
+      "hypothesis": "Confirmed registration mismatch: City._prop takes p.gasId||null while these three props declare only p.id. No duplicate named registration exists to absorb the hook. Reset and save/restore also address IDs, so neither repairs the missing identity.",
+      "refutation": "survives_after_narrowing",
+      "evidence": "westVentIdentityReview in this file; real current City, Director._hooks/save/resetWorld/applySave and Storage serialization in an in-memory storage shim. Non-gas NPC rendering and atmospheric methods are stubs; their calls, not visible effects, are recorded."
+    }
+  ],
+  "smoothing": {
+    "setup": {
+      "bounds": [
+        0,
+        0,
+        13,
+        9
+      ],
+      "navCell": 1,
+      "flatFloorY": 0,
+      "gasCell": 0.5,
+      "gasSource": {
+        "x": 6.5,
+        "z": 4.5,
+        "strength": 9000,
+        "radius": 1.4
+      },
+      "gasBakeIterations": 46,
+      "start": [
+        1.5,
+        0,
+        4.5
+      ],
+      "goal": [
+        11.5,
+        0,
+        4.5
+      ]
+    },
+    "rawAStarPredecessors": [
+      {
+        "x": 1.5,
+        "y": 0,
+        "z": 4.5,
+        "cost": 1.1556813716888428
+      },
+      {
+        "x": 1.5,
+        "y": 0,
+        "z": 3.5,
+        "cost": 1.14533531665802
+      },
+      {
+        "x": 2.5,
+        "y": 0,
+        "z": 2.5,
+        "cost": 1.2208051681518555
+      },
+      {
+        "x": 3.5,
+        "y": 0,
+        "z": 1.5,
+        "cost": 1.2656053304672241
+      },
+      {
+        "x": 4.5,
+        "y": 0,
+        "z": 0.5,
+        "cost": 1.2428596019744873
+      },
+      {
+        "x": 5.5,
+        "y": 0,
+        "z": 0.5,
+        "cost": 1.335478663444519
+      },
+      {
+        "x": 6.5,
+        "y": 0,
+        "z": 0.5,
+        "cost": 1.376745581626892
+      },
+      {
+        "x": 7.5,
+        "y": 0,
+        "z": 0.5,
+        "cost": 1.3305622339248657
+      },
+      {
+        "x": 8.5,
+        "y": 0,
+        "z": 0.5,
+        "cost": 1.2380588054656982
+      },
+      {
+        "x": 9.5,
+        "y": 0,
+        "z": 1.5,
+        "cost": 1.2612627744674683
+      },
+      {
+        "x": 10.5,
+        "y": 0,
+        "z": 2.5,
+        "cost": 1.2186915874481201
+      },
+      {
+        "x": 11.5,
+        "y": 0,
+        "z": 3.5,
+        "cost": 1.1443084478378296
+      },
+      {
+        "x": 11.5,
+        "y": 0,
+        "z": 4.5,
+        "cost": 1.1546695232391357
+      }
+    ],
+    "returnedPath": [
+      {
+        "x": 1.5,
+        "y": 0,
+        "z": 4.5
+      },
+      {
+        "x": 11.5,
+        "y": 0,
+        "z": 4.5
+      }
+    ],
+    "rawMaxCost": 1.376745581626892,
+    "directCenterCost": 6.5,
+    "clearStartGoal": true
+  },
+  "directShortcut": {
+    "start": [
+      4.5,
+      0,
+      4.5
+    ],
+    "target": [
+      8.5,
+      0,
+      4.5
+    ],
+    "distance": 4,
+    "findPathCalls": 0,
+    "move": {
+      "x": 1,
+      "z": 0,
+      "mag": 0.7
+    },
+    "path": null,
+    "startBreathingPpm": 377.09255515296104,
+    "centerBreathingPpm": 2260.4227089964475,
+    "scope": "Real _moveTowards with a stored detour, actual collision world, gas and NavGrid; desired movement is measured, not an integrated travelled trajectory."
+  },
+  "dynamicCosts": {
+    "scope": "Independent actual full City CPU build; only GasField.setIntensity(2) then 120 updates of 0.5s, no Game actor or narrative execution. Source search establishes runtime Game uses gas.update and has no navigation refresh caller.",
+    "initialCostHash": "4e5446c42a3c8cc28f55dc4e9e6c11de947abe3aef8abd7cd10ef1d4c06dc529",
+    "afterCostHash": "4e5446c42a3c8cc28f55dc4e9e6c11de947abe3aef8abd7cd10ef1d4c06dc529",
+    "gasTime": 60,
+    "globalScale": 1.9999996940976794,
+    "changedPpmCells": 42386,
+    "changedExpectedCostCells": 31156,
+    "maxDiscrepancy": {
+      "i": 17350,
+      "x": 69.07499999999999,
+      "y": 1.02,
+      "z": -55.525000000000006,
+      "oldPpm": 14,
+      "newPpm": 984.0028677056321,
+      "storedCost": 1.0855555534362793,
+      "expectedCurrentCost": 6.5,
+      "error": 5.414444446563721
+    }
+  },
+  "overclaimRefutation": {
+    "claim": "Gas has no effect on enemy routes or behaviour at all.",
+    "status": "refuted",
+    "evidence": [
+      {
+        "hot": false,
+        "ppm": 14,
+        "gradient": {
+          "x": 0,
+          "z": 0
+        },
+        "state": "idle",
+        "move": {
+          "x": 0,
+          "z": 0,
+          "mag": 0
+        },
+        "enemyEvents": [],
+        "wantSprint": false,
+        "sampledPpmAtQuarterMeterInDesiredDirection": 14
+      },
+      {
+        "hot": true,
+        "ppm": 2260.4227089964475,
+        "gradient": {
+          "x": -1025.3633573003854,
+          "z": -1013.4274605901219
+        },
+        "state": "flee",
+        "move": {
+          "x": 0.7112342787215804,
+          "z": 0.7029550488981448,
+          "mag": 1
+        },
+        "enemyEvents": [
+          {
+            "name": "gaspanic",
+            "data": {
+              "ppm": 2260.4227089964475
+            }
+          }
+        ],
+        "wantSprint": true,
+        "sampledPpmAtQuarterMeterInDesiredDirection": 1923.0385464875708
+      }
+    ],
+    "scope": "Uses real Enemy perception/localPpm/Actor.setMove/AISystem._updateEnemy/_flee methods, real GasField and Lungs, with constructor state set in memory and no renderer or physics integration. Clear air stays idle; high air emits gaspanic, enters FLEE and requests movement down the sampled gradient. This establishes existing reactive steering, not reliable obstacle-free escape or global cost-optimal movement."
+  },
+  "limitations": [
+    "No reference media or valid blind comparison is used.",
+    "The source search and actual City intensity control confirm stale cost; narrative rigVent execution is separately measured by the parent, not claimed by this fixture.",
+    "No browser, visual behaviour, physical phone FPS, or complete enemy movement trajectory was measured.",
+    "Known gas-aware panic and sight/respiration paths remain; do not turn a navigation defect into a claim of no gameplay consequence."
+  ],
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  },
+  "westVentIdentityReview": {
+    "checkedAt": "2026-09-14T01:15:35.973Z",
+    "sourceHashes": {
+      "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+      "src/world/gas.js": "80646f9d4b84a86c5effa15ade1c3075efba788473535c7aa611806c6badbabd",
+      "src/game/director.js": "bfca9bfbe82fca7e20b31ed53bb604cfe7164339b35d4744e12600f7940d57f3",
+      "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd",
+      "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+      "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+      "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda"
+    },
+    "before": [
+      {
+        "propId": "vent_west_1",
+        "propGasId": null,
+        "sourceRecords": [
+          {
+            "x": -118,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": null,
+            "active": true
+          }
+        ]
+      },
+      {
+        "propId": "vent_west_2",
+        "propGasId": null,
+        "sourceRecords": [
+          {
+            "x": -104,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": null,
+            "active": true
+          }
+        ]
+      },
+      {
+        "propId": "vent_west_3",
+        "propGasId": null,
+        "sourceRecords": [
+          {
+            "x": -90,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": null,
+            "active": true
+          }
+        ]
+      }
+    ],
+    "hookCalls": [
+      {
+        "id": "vent_west_1",
+        "active": false,
+        "result": false
+      },
+      {
+        "id": "vent_west_2",
+        "active": false,
+        "result": false
+      },
+      {
+        "id": "vent_west_3",
+        "active": false,
+        "result": false
+      },
+      {
+        "id": "yard_seep",
+        "active": true,
+        "result": true
+      }
+    ],
+    "afterHook": [
+      {
+        "propId": "vent_west_1",
+        "propGasId": null,
+        "sourceRecords": [
+          {
+            "x": -118,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": null,
+            "active": true
+          }
+        ]
+      },
+      {
+        "propId": "vent_west_2",
+        "propGasId": null,
+        "sourceRecords": [
+          {
+            "x": -104,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": null,
+            "active": true
+          }
+        ]
+      },
+      {
+        "propId": "vent_west_3",
+        "propGasId": null,
+        "sourceRecords": [
+          {
+            "x": -90,
+            "z": 26,
+            "strength": 2600,
+            "radius": 24,
+            "id": null,
+            "active": true
+          }
+        ]
+      }
+    ],
+    "paired": {
+      "simulationSeconds": 1.0000000000000013,
+      "scope": "Two independently built current Cities; real shutVents hook on one; both real GasFields advance 60 steps of 1/60. This agent did not run Game.fixedUpdate or render atmosphere.",
+      "decreasedWalkableSamples": 0,
+      "increasedWalkableSamples": 3311,
+      "maxPpmIncrease": 1025.8554325103282,
+      "west": [
+        {
+          "id": "vent_west_1",
+          "x": -118,
+          "z": 26,
+          "controlPpm": 2347.0488599845185,
+          "shutPpm": 2347.0488599845185
+        },
+        {
+          "id": "vent_west_2",
+          "x": -104,
+          "z": 26,
+          "controlPpm": 2546.9025377131893,
+          "shutPpm": 2546.9025377131893
+        },
+        {
+          "id": "vent_west_3",
+          "x": -90,
+          "z": 26,
+          "controlPpm": 1976.86802028706,
+          "shutPpm": 1976.86802028706
+        }
+      ],
+      "yard": {
+        "x": -112,
+        "z": -84,
+        "controlPpm": 14,
+        "shutPpm": 713.202876475149
+      },
+      "initialControlCostHash": "4e5446c42a3c8cc28f55dc4e9e6c11de947abe3aef8abd7cd10ef1d4c06dc529",
+      "shutCostHash": "4e5446c42a3c8cc28f55dc4e9e6c11de947abe3aef8abd7cd10ef1d4c06dc529"
+    },
+    "save": {
+      "saved": true,
+      "sourceIds": [
+        [
+          "slip",
+          true
+        ],
+        [
+          "trench",
+          true
+        ],
+        [
+          "yard_seep",
+          true
+        ]
+      ],
+      "westRows": [],
+      "flag": true,
+      "bytes": 636
+    },
+    "restore": {
+      "returned": true,
+      "west": [
+        {
+          "propId": "vent_west_1",
+          "propGasId": null,
+          "sourceRecords": [
+            {
+              "x": -118,
+              "z": 26,
+              "strength": 2600,
+              "radius": 24,
+              "id": null,
+              "active": true
+            }
+          ]
+        },
+        {
+          "propId": "vent_west_2",
+          "propGasId": null,
+          "sourceRecords": [
+            {
+              "x": -104,
+              "z": 26,
+              "strength": 2600,
+              "radius": 24,
+              "id": null,
+              "active": true
+            }
+          ]
+        },
+        {
+          "propId": "vent_west_3",
+          "propGasId": null,
+          "sourceRecords": [
+            {
+              "x": -90,
+              "z": 26,
+              "strength": 2600,
+              "radius": 24,
+              "id": null,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "markerIntent": [
+        [
+          "vent_west_1",
+          true
+        ],
+        [
+          "vent_west_2",
+          true
+        ],
+        [
+          "vent_west_3",
+          true
+        ]
+      ],
+      "plumeIntent": [
+        [
+          "vent_west_1",
+          true
+        ],
+        [
+          "vent_west_2",
+          true
+        ],
+        [
+          "vent_west_3",
+          true
+        ]
+      ],
+      "yardActive": true,
+      "flag": true
+    },
+    "scope": "Read-only Node memory integration. Real world geometry/gas and actual Director methods; appearance stubs; player null; no actor spawn/physics/browser/persistent write. Marker/plume call intent is measured, not visible output.",
+    "saveCompatibilityInference": "Current saves store vents_shut/vents_half in story state but omit the null-ID west sources. Merely adding source IDs will not add missing rows to older saved envelopes. applySave resets world then restores listed source IDs; the relevant dialogue-choice hook is not an active quest onEnter. A fix needs an explicit old-save policy without clearing unrelated state."
+  },
+  "baselineFinalization": {
+    "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+    "measurementsFrozen": true,
+    "note": "All measurements above were completed with the recorded hashes before the coordinator began its product fixes. No subsequent live imports were used to update the baseline."
+  },
+  "reproduction": {
+    "script": "/workspace/scratch/0b7ad82bafe7/gas-navigation-probe.mjs",
+    "command": "node /workspace/scratch/0b7ad82bafe7/gas-navigation-probe.mjs",
+    "sha256": "e6a3782d3481fcdc869c07332b7bd3c63f6b4ce42473368dc75a9c85ee40a6a5",
+    "scope": "The exact previously executed navigation/detour/panic control code was saved as a reusable current-checkout probe; it prints current source hashes. Only node --check was performed after saving the script. The baseline values are the existing frozen results, not a new run against pending fixes."
+  }
+}

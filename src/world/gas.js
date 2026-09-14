@@ -87,6 +87,7 @@ export class GasField {
     this.globalScale = 1.0;      // story events raise or lower the whole burn
     this._targetScale = 1.0;
     this.dirty = true;
+    this.revision = 0;
   }
 
   idx(ix, iz) { return iz * this.nx + ix; }
@@ -176,6 +177,7 @@ export class GasField {
       this.base[i] *= lerp(1, COVERED_MULT, this.covered[i]);
     }
     this.dirty = false;
+    this.revision++;
   }
 
   /** Bilinear sample of the diffused ground field, with wind advection. */

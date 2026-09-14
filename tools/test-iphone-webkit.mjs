@@ -31,6 +31,8 @@ import { exerciseSaveRecovery } from './mobile_save_recovery.mjs';
 import { exerciseBackdrop } from './backdrop_render_regression.mjs';
 import { exerciseMobileLayout } from './mobile_layout.mjs';
 import { captureMobileViews } from './mobile_visual_capture.mjs';
+import { captureMobileAudio } from './mobile_audio_capture.mjs';
+import { exerciseGasConsequences } from './mobile_gas_consequences.mjs';
 import { exerciseGuardToggle } from './mobile_guard_toggle.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -320,6 +322,7 @@ try {
       running: C.engine.running,
       build: C.build,
       tier: C.engine.tier?.name || null,
+      audio: {unlocked:C.game.audio.unlocked,contextCreated:Boolean(C.game.audio.ctx)},
       canvas: { x: canvas.x, y: canvas.y, width: canvas.width, height: canvas.height },
     };
   });
@@ -334,6 +337,8 @@ try {
   check(device.landscape, 'landscape orientation is active', `landscape=${device.landscape}`);
   check(device.ready && device.running, 'production engine reaches a running title', JSON.stringify(device));
   check(device.canvas.width === W && device.canvas.height === H, 'render canvas fills the viewport', JSON.stringify(device.canvas));
+  check(!device.audio.unlocked&&!device.audio.contextCreated,
+    'audio: no context or playback is started before a user gesture',JSON.stringify(device.audio));
 
   const titleLayout = await page.evaluate(() => {
     const buttons = window.CINDERLINE.game.menus.titleButtons;
@@ -597,6 +602,8 @@ try {
   await exerciseBackdrop({ page, root: ROOT, output: OUTPUT, check, report });
   await exerciseGuardToggle({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
   await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await exerciseGasConsequences({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+  await captureMobileAudio({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
 
   check(report.errors.page.length === 0, 'no page errors', `${report.errors.page.length} error(s)`);
   check(report.errors.console.length === 0, 'no console errors', `${report.errors.console.length} error(s)`);

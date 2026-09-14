@@ -1,12 +1,18 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.8 -->
+<!-- state_revision: 2026-09-14.9 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.8 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.9 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+
+### 2026-09-14 現行の継続地点
+
+指定ブランチの d19c424 を実WebKitで通常148件・障害復旧42件検証し成功。5場面の現在の影と元casterを同姿勢で独立確認し、影の更新とArcadeの浮遊小物除去を確認した。Marrow屋上で上半身が暗い壁に埋もれる問題と、支持された小物の実画像範囲の不足は残る。原証拠は `AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-d19c424/` と `faults-d19c424/`。
+
+ガス孔頭のID不整合、初期状態のままの経路コスト、危険な近道へ戻る平滑化/短距離移動を実関数で再現して修正中。古いsaveの欠落孔頭IDは既存の選択記録から復元し、保存済み進行は保つ。実WebKitの選択/保存復元と実音声・映像の同時採取は今回追加しており、実行結果を待つ。半閉鎖のyard帰結は別の未解消欠陥。全19要素は `not measured` のまま。開始/期限と正確な再開手順は唯一の `SESSION_STATE.yaml` を読む。
 
 ---
 

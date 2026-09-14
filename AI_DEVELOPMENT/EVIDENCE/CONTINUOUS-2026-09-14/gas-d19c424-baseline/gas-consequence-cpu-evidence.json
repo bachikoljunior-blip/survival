@@ -1,0 +1,215 @@
+{
+  "checkedAt": "2026-09-14T01:08:12.310Z",
+  "commit": "d19c4240c8dd83b72530abe780315c456367358f",
+  "sourceHashes": {
+    "src/world/gas.js": "80646f9d4b84a86c5effa15ade1c3075efba788473535c7aa611806c6badbabd",
+    "src/world/nav.js": "7740b4f66d1172c127d6a53967266645d2aebedd748f27890f476b0995145c54",
+    "src/world/city.js": "563fe6e6908003c0b29185bffc0248eb9390b187f6ed86c2bc9b702042ba1e0d",
+    "src/game/game.js": "8ceb37dba71927f2eb950b93fb60941d65b66c44c5dd995d393e99f2ed896354",
+    "src/game/director.js": "bfca9bfbe82fca7e20b31ed53bb604cfe7164339b35d4744e12600f7940d57f3",
+    "src/game/ai.js": "3981b6e32433090db341a22183d7229652b80cd405cb4c7d59db63b5923393eb",
+    "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+    "src/render/atmosphere.js": "df35d01afc8d7ccb05fbdf0d937810d7a2893b7d017461e2bc2c5515ec1d71e3",
+    "src/render/materials.js": "c9781f0254e6c8477923d54cc6bbfc733fb84ccf0496022d66e8c15769422f2b",
+    "src/render/postfx.js": "77009861becf2e298eba0f7f793c01e76ef50b62d4432857acb21326e937d6b3",
+    "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+  },
+  "fixture": {
+    "path": "cpu-city-fixture-v2.mjs",
+    "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a",
+    "scope": "Actual full City.build geometry/collision/navigation/gas; Canvas drawing/text and surface appearance are substituted. No browser/server/GPU."
+  },
+  "operation": "Actual Director._hooks().shutVents, then paired actual Game.fixedUpdate calls for 60 fixed 1/60 s steps.",
+  "gasSources": [
+    {
+      "x": -112,
+      "z": -84,
+      "strength": 1100,
+      "radius": 26,
+      "id": "yard_seep",
+      "active": true
+    }
+  ],
+  "effects": [
+    {
+      "type": "marker",
+      "args": [
+        "vent_west_1",
+        false
+      ]
+    },
+    {
+      "type": "plume",
+      "args": [
+        "vent_west_1",
+        false
+      ]
+    },
+    {
+      "type": "marker",
+      "args": [
+        "vent_west_2",
+        false
+      ]
+    },
+    {
+      "type": "plume",
+      "args": [
+        "vent_west_2",
+        false
+      ]
+    },
+    {
+      "type": "marker",
+      "args": [
+        "vent_west_3",
+        false
+      ]
+    },
+    {
+      "type": "plume",
+      "args": [
+        "vent_west_3",
+        false
+      ]
+    },
+    {
+      "type": "notice",
+      "args": [
+        "The draw reverses. You can hear it change.",
+        "",
+        5
+      ]
+    }
+  ],
+  "navStats": {
+    "cells": 52520,
+    "walkable": 51292,
+    "regions": 270
+  },
+  "dynamicCost": {
+    "increasedPpmCells": 1850,
+    "decreasedPpmCells": 0,
+    "actualCostChanged": 0,
+    "costBeforeSha256": "4e5446c42a3c8cc28f55dc4e9e6c11de947abe3aef8abd7cd10ef1d4c06dc529",
+    "costAfterRuntimeSha256": "4e5446c42a3c8cc28f55dc4e9e6c11de947abe3aef8abd7cd10ef1d4c06dc529",
+    "manuallyRefreshedCostSha256": "02c9b1108a4290f40f32f159e95350629fd13843cb2e4c2ba2c932ce2142a9ed",
+    "requiredCostChanges": 36462,
+    "maxCostChange": 5.414444446563721,
+    "note": "The manual refresh is a diagnostic counterfactual; it is not performed by the actual update path."
+  },
+  "consequences": [
+    {
+      "point": {
+        "cell": 10174,
+        "x": -110.325,
+        "y": 0,
+        "z": -86.575,
+        "controlPpm": 14,
+        "treatedPpm": 1104.205019886674,
+        "deltaPpm": 1090.205019886674,
+        "storedCost": 1.0855555534362793
+      },
+      "sight": {
+        "control": 23.860799999999998,
+        "treated": 13.660865985325879,
+        "scope": "Actual sightRange function; no canSee/line-of-sight gameplay or rendered visibility claim."
+      },
+      "survival": {
+        "control": {
+          "initialHp": 62,
+          "hp": 62,
+          "dead": false,
+          "saturation": 0,
+          "ambientPpm": 14,
+          "elapsedSeconds": 600,
+          "height": 1.72,
+          "scope": "Actual Enemy constructor and Actor._updateVitals/Lungs; stationary rest exposure to the field frozen at one second, no movement/combat/rendering."
+        },
+        "treated": {
+          "initialHp": 62,
+          "hp": 0,
+          "dead": true,
+          "saturation": 0.3983714571691044,
+          "ambientPpm": 1038.1487371378948,
+          "elapsedSeconds": 87.7,
+          "height": 1.72,
+          "scope": "Actual Enemy constructor and Actor._updateVitals/Lungs; stationary rest exposure to the field frozen at one second, no movement/combat/rendering."
+        }
+      }
+    },
+    {
+      "point": {
+        "cell": 0,
+        "x": -149.425,
+        "y": 0,
+        "z": -131.425,
+        "controlPpm": 14,
+        "treatedPpm": 14,
+        "deltaPpm": 0,
+        "storedCost": 1.0855555534362793
+      },
+      "sight": {
+        "control": 23.860799999999998,
+        "treated": 23.860799999999998,
+        "scope": "Actual sightRange function; no canSee/line-of-sight gameplay or rendered visibility claim."
+      },
+      "survival": {
+        "control": {
+          "initialHp": 62,
+          "hp": 62,
+          "dead": false,
+          "saturation": 0,
+          "ambientPpm": 14,
+          "elapsedSeconds": 600,
+          "height": 1.72,
+          "scope": "Actual Enemy constructor and Actor._updateVitals/Lungs; stationary rest exposure to the field frozen at one second, no movement/combat/rendering."
+        },
+        "treated": {
+          "initialHp": 62,
+          "hp": 62,
+          "dead": false,
+          "saturation": 0,
+          "ambientPpm": 14,
+          "elapsedSeconds": 600,
+          "height": 1.72,
+          "scope": "Actual Enemy constructor and Actor._updateVitals/Lungs; stationary rest exposure to the field frozen at one second, no movement/combat/rendering."
+        }
+      }
+    }
+  ],
+  "renderedFogInput": {
+    "lowPpm": 12,
+    "highPpm": 5000,
+    "lowUniforms": {
+      "fogDensity": 0.04190532655528813,
+      "fogHeight": 4.501183418058899,
+      "fogLow": [
+        0.06864153522380415,
+        0.05151800447048033,
+        0.039845131541433244
+      ],
+      "fogHigh": [
+        0.023189908415432503,
+        0.027449688701052764,
+        0.03343779564531552
+      ]
+    },
+    "highUniforms": {
+      "fogDensity": 0.04190532655528813,
+      "fogHeight": 4.501183418058899,
+      "fogLow": [
+        0.06864153522380415,
+        0.05151800447048033,
+        0.039845131541433244
+      ],
+      "fogHigh": [
+        0.023189908415432503,
+        0.027449688701052764,
+        0.03343779564531552
+      ]
+    },
+    "same": true,
+    "scope": "Actual Atmosphere.update called with real Three value objects and inert particle/light-pool updates; only shared fog values measured, no GPU or pixels."
+  }
+}
