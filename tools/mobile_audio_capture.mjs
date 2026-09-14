@@ -44,7 +44,7 @@ export async function captureMobileAudio({page, root, output, check, report, wai
       return;
     }
     for(const [name,spawn,move] of [
-      ['street-walk','start',true],['vent-air','ventfield',false],
+      ['street-walk','start',true],['cut-gas-air','ventfield',false],
       ['arcade-room','arcade_in',false],
     ]) {
       const placed=await page.evaluate(async spawn=>{

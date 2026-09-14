@@ -13,7 +13,7 @@ import {summarizeAudioCaptureTiming} from '../mobile_audio_capture.mjs';
 const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const REPORT='test-results/ios-safari/report.json';
 const OUTPUT='test-results/ios-safari/f3-audio-verification.json';
-const SCENES=['street-walk','vent-air','arcade-room'];
+const SCENES=['street-walk','cut-gas-air','arcade-room'];
 const REQUIRED_CHECKS=[
   'wall, audio and simulation clocks stay aligned for capture',
   'passive clock and pose telemetry is complete',
@@ -29,8 +29,7 @@ export function verifyRequiredSafariAudio(root=ROOT,environment=process.env){
   requireThat(/^[a-f0-9]{40}$/.test(environment.GITHUB_SHA||'')
     && /^[1-9][0-9]*$/.test(environment.GITHUB_RUN_ID||'')
     && /^[1-9][0-9]*$/.test(environment.GITHUB_RUN_ATTEMPT||''),'Actual workflow revision/run/attempt are required');
-  // Keep the existing root/dist/recorder preflight. Its bundle/source pin is
-  // intentionally unchanged here; the integrating owner must select a new pin.
+  // Keep the root/dist/recorder preflight against the explicitly prepared build.
   const expected=verifyIosAudioBuild(root);
   const reportBytes=readFileSync(join(root,REPORT)), report=JSON.parse(reportBytes);
   requireThat(report.status==='passed' && Array.isArray(report.failures) && report.failures.length===0
