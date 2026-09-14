@@ -344,7 +344,7 @@ jobs:
 
   grain-strength-trial:
     name: Frozen grain strength diagnosis
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c26-r1]')
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c28-r2]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -352,7 +352,7 @@ jobs:
     env:
       CINDERLINE_VISUAL_ONLY: '1'
       CINDERLINE_GRAIN_TRIAL: '1'
-      CINDERLINE_WEBKIT_OUTPUT: test-results/grain-c26-r1
+      CINDERLINE_WEBKIT_OUTPUT: test-results/grain-c28-r2
     steps:
       - uses: actions/checkout@v4
         with:
@@ -365,6 +365,7 @@ jobs:
       - name: Check the bounded diagnostic helper syntax
         run: |
           node --check tools/mobile_grain_trial.mjs
+          node --test tools/mobile_grain_trial.test.mjs
           node --check tools/mobile_visual_capture.mjs
           node --check tools/test-iphone-webkit.mjs
           node --check tools/export-webkit-material.mjs
@@ -378,8 +379,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: grain-c26-r1-${{ github.sha }}
-          path: test-results/grain-c26-r1
+          name: grain-c28-r2-${{ github.sha }}
+          path: test-results/grain-c28-r2
           if-no-files-found: warn
           retention-days: 14
 

@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "task": "E-19 Factorio real GUI stability material acquisition",
+  "repository": "bachikoljunior-blip/survival",
+  "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+  "instruction_id": "ULTRA-LIVE-20260914-v1",
+  "original_start": "2026-09-13T20:56:49+09:00",
+  "original_deadline": "2026-09-20T20:56:49+09:00",
+  "authoritative_readback": {
+    "method": "connected GitHub fetch_file at fixed commit; AGENTS -> CLAUDE -> SESSION, followed by product documents",
+    "files": [
+      {
+        "path": "AGENTS.md",
+        "git_blob": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/AGENTS.md"
+      },
+      {
+        "path": "CLAUDE.md",
+        "git_blob": "442fbf12e25df10bc71f83222a6001f01234daca",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/CLAUDE.md"
+      },
+      {
+        "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+        "git_blob": "1acfb32a297a25ff3da12f65621a9ea8f45a957d",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/AI_DEVELOPMENT/SESSION_STATE.yaml"
+      },
+      {
+        "path": "docs/directive.md",
+        "git_blob": "058a69c1c67964404768787dd87724d4a090238c",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/docs/directive.md"
+      },
+      {
+        "path": "docs/bible.md",
+        "git_blob": "f9030cdc3bfd64c1cb6d96ae5fee041f8a0a684d",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/docs/bible.md"
+      },
+      {
+        "path": "docs/benchmarks.md",
+        "git_blob": "658a4c1a855b20deaeb9ca8950b269dececb6a31",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/docs/benchmarks.md"
+      },
+      {
+        "path": "AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json",
+        "git_blob": "02f83653b2f703a0592cf40a23f1b417d95245c8",
+        "url": "https://github.com/bachikoljunior-blip/survival/blob/67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c/AI_DEVELOPMENT/BENCHMARKS/criteria.lock.json"
+      }
+    ]
+  },
+  "result": {
+    "newly_acquired_original_gui_images": 1,
+    "newly_acquired_gui_video": 0,
+    "newly_acquired_demo_binary_bytes": 0,
+    "gui_execution_count": 0,
+    "new_product_execution_count": 0,
+    "blind_comparison_count": 0,
+    "valid_comparison_count": 0,
+    "element_status": "not measured",
+    "all_19_elements_and_reference_and_71_locked_thresholds": "unchanged"
+  },
+  "material": {
+    "file": "raw/fff-337-oops.png",
+    "source_url": "https://cdn.factorio.com/assets/img/blog/fff-337-oops.png",
+    "source_page": "https://www.factorio.com/blog/post/fff-337",
+    "source_title": "Friday Facts #337 - Statistics GUI and Mod Debugger",
+    "published_at": "2020-03-06",
+    "credited_author": "justarandomgeek (guest section), published by Wube",
+    "file_bytes": 59458,
+    "sha256": "0e590fdf7dd02a424326a18169a86670744ffc706382888bcf5ffd19106a2197",
+    "image_size": [
+      474,
+      449
+    ],
+    "acquisition": "ordinary unauthenticated GET, HTTP 200; original response bytes preserved",
+    "inspection": "Opened with view_image. Visible Notice dialog reports a non-recoverable ConMan Construction Manager mod on_tick error, code location/stack trace, and Confirm button.",
+    "version": {
+      "factorio": "not visible; exact client version unverified",
+      "mod": "ConMan Construction Manager 0.18.2; not the Factorio version"
+    },
+    "sequence": "single pre-existing cropped dialog image; no pre-failure scene or post-Confirm scene",
+    "editing": {
+      "by_this_task": "none",
+      "prior_to_publication": "unknown"
+    },
+    "authenticity_scope": "An original image linked by the official publisher's mod-debugging article; locally downloaded and visually inspected. No independent proof of exact capture setup/build.",
+    "rights": {
+      "source_terms": "https://factorio.com/terms-of-service",
+      "holder": "Wube retains game content rights; guest screenshot authorship also credited",
+      "use": "isolated private comparison/reference acquisition authorized by task",
+      "public_redistribution_license": "not independently established for the guest-authored screenshot; no public upload performed",
+      "binary_or_game_asset_redistribution": "none",
+      "product_or_dist_copy": "none"
+    },
+    "usable_scope": "Visible technical error presentation only. Auxiliary study material, not a validated complete STB-03 comparison pair.",
+    "does_not_show": [
+      "save-write failure",
+      "load failure followed by successful recovery",
+      "old-save migration UI",
+      "promise rejection",
+      "hidden-window pause/resume",
+      "uninterrupted safe restart",
+      "complete screen or current 2.0.77 behavior"
+    ]
+  },
+  "inherited_execution_summary": {
+    "rerun": false,
+    "current_headless": "2.0.77",
+    "benchmark": {
+      "updates_per_run": 3600,
+      "runs": 3,
+      "total_ms": [
+        1197.928,
+        1165.77,
+        1217.979
+      ]
+    },
+    "malformed_and_missing_loads": {
+      "cases": 2,
+      "benchmark_ticks_argument": 60,
+      "exit_code_each": 1,
+      "original_save_unchanged": true,
+      "actual_updates_completed": "not asserted"
+    },
+    "migration": {
+      "from": "1.1.110",
+      "to": "2.0.77",
+      "updates_per_run": 3600,
+      "runs": 2,
+      "total_ms": [
+        1152.427,
+        1202.675
+      ],
+      "exit_code": 0,
+      "original_old_save_unchanged": true,
+      "scope": "old archive loaded and updated in memory; no resaved migrated archive or GUI captured"
+    },
+    "logs_are": "real previous headless execution records; not GUI display or blind quality judgment"
+  },
+  "pairing_limits": [
+    {
+      "criterion": "BM-STB-01",
+      "available": "Inherited simulation execution logs",
+      "missing": "frame-rate independence plus interpolation visual comparison"
+    },
+    {
+      "criterion": "BM-STB-02",
+      "available": "Inherited old-save load and preserved source hashes",
+      "missing": "GUI migration / failure / recover-and-resume sequence"
+    },
+    {
+      "criterion": "BM-STB-03",
+      "available": "New original published mod runtime error dialog image",
+      "missing": "matched recoverable post-boot error and rejected-promise sequences; exact reference build"
+    },
+    {
+      "criterion": "BM-STB-04",
+      "available": "Inherited limited headless normal-load logs",
+      "missing": "matched production client asset/error-zero runtime scope"
+    },
+    {
+      "criterion": "BM-STB-05",
+      "available": "none newly measured",
+      "missing": "client becomes hidden, simulation stops, safely resumes, measured continuous record"
+    }
+  ],
+  "method_changes": [
+    {
+      "from": "Previously blocked forum attachment id=116204",
+      "to": "Independent official published CDN mod-error image discovered through web search and source-page link",
+      "observed_effect": "New original image downloaded and inspected",
+      "remaining": "Not the requested full recovery sequence; no retry of blocked forum attachment"
+    },
+    {
+      "from": "Assumed demo GUI might be possible",
+      "to": "Check advertised tools, DISPLAY/WAYLAND presence and installed standard GUI command names, then one documented demo HEAD",
+      "observed_effect": "No GUI capability found; demo endpoint returned 403",
+      "remaining": "No GUI execution; no assumption that virtual display may be installed or protected limits bypassed"
+    }
+  ],
+  "blocked_routes": {
+    "forbidden_forum_attachment": "Parent-reported official forum file.php?id=116204; exact full path not re-fetched by this task",
+    "attempted_again": false,
+    "host_or_identity_or_header_workarounds": false,
+    "proxy_or_security_root_cause": "not established; HTTP 403 alone does not locate the cause",
+    "GUI_root_cause_observation": "No advertised desktop tool; no DISPLAY/WAYLAND_DISPLAY; Xvfb/xvfb-run/xdotool absent",
+    "escalations_or_server_CDP_proc_exploration": "none",
+    "remote_ci_push_pr_main_publish_automation": "none",
+    "model_download_or_existing_reference_edit": "none"
+  },
+  "next_concrete_operation": {
+    "task": "Obtain one continuous official-client capture on an already-authorized ordinary desktop: launch Factorio 2.0.77 demo, show its version, open a separate truncated copy of a demo-created save, dismiss the failure, load the intact original, then hide and restore the window while recording.",
+    "prerequisite": "A real advertised/authorized desktop GUI capture capability and a legally available demo/client binary. Neither is available through the tested local route.",
+    "data_rule": "Keep the untouched original save and hashes before/after; label demo restrictions; do not treat the inherited retail headless freeplay save as demo-compatible without verifying it.",
+    "this_operation_executed": false
+  },
+  "completed_at": "2026-09-14T12:44:13.706779+00:00",
+  "raw_http_attempts": [
+    {
+      "url": "https://cdn.factorio.com/assets/img/blog/fff-337-oops.png",
+      "method": "GET",
+      "at": "2026-09-14T12:40:20.292381+00:00",
+      "status": 200,
+      "final_url": "https://cdn.factorio.com/assets/img/blog/fff-337-oops.png",
+      "headers": {
+        "Date": "Mon, 14 Sep 2026 12:40:32 GMT",
+        "Content-Type": "image/png",
+        "Content-Length": "59458",
+        "Connection": "close",
+        "Last-Modified": "Mon, 18 Dec 2023 06:45:08 GMT",
+        "x-rgw-object-type": "Normal",
+        "ETag": "\"390bc850429737e17ddf52233c3bbb30\"",
+        "x-amz-request-id": "tx000002f6ddfcbef48c8ea-006aa7eb3f-c7ded78-prg",
+        "X-77-NZT": "k2bbc8QVyRGOEe/SdHJg0TSNKoz+9cAEHcNxRFJLqdjR0mq+gVIuBBU",
+        "X-77-NZT-Ray": "068a8233d864998764eba76a8bbb6534",
+        "X-77-Cache": "MISS",
+        "Server": "CDN77-Turbo",
+        "Access-Control-Allow-Origin": "*",
+        "X-77-POP": "ashburnUSVA",
+        "Accept-Ranges": "bytes"
+      },
+      "bytes": 59458,
+      "sha256": "0e590fdf7dd02a424326a18169a86670744ffc706382888bcf5ffd19106a2197"
+    },
+    {
+      "url": "https://www.factorio.com/blog/post/fff-337",
+      "method": "GET",
+      "at": "2026-09-14T12:40:32.159549+00:00",
+      "error": "<HTTPError 403: 'Forbidden'>"
+    },
+    {
+      "url": "https://factorio.com/download",
+      "method": "GET",
+      "at": "2026-09-14T12:40:42.555002+00:00",
+      "error": "<HTTPError 403: 'Forbidden'>"
+    }
+  ],
+  "raw_demo_route_probe": {
+    "url": "https://www.factorio.com/get-download/2.0.77/demo/linux64",
+    "method": "HEAD",
+    "at": "2026-09-14T12:41:47.147582+00:00",
+    "source": "https://wiki.factorio.com/Download_API",
+    "purpose": "Public demo archive reachability only; no authentication and no graphics environment assumed.",
+    "error": "<HTTPError 403: 'Forbidden'>"
+  },
+  "capability_probe": {
+    "display_present": false,
+    "wayland_display_present": false,
+    "commands": {
+      "Xvfb": null,
+      "xvfb-run": null,
+      "xdotool": null,
+      "ffmpeg": "/usr/bin/ffmpeg",
+      "xwd": null,
+      "import": "/usr/bin/import",
+      "gnome-screenshot": null
+    },
+    "gui_execution_attempted": false,
+    "reason": "No advertised desktop/GUI-control tool; no installed Xvfb/xvfb-run/xdotool. No server/CDP/proc exploration or escalation performed."
+  },
+  "inherited_file_hashes": [
+    {
+      "path": "reference-materials/factorio/run/trial-record.json",
+      "bytes": 2291,
+      "sha256": "3a94138c97dd1db1b3259f34656b7e617e6b2b5cd5a5ef41eb696b744104fe16"
+    },
+    {
+      "path": "reference-materials/factorio/run/migration-record.json",
+      "bytes": 611,
+      "sha256": "1b7c1a6947b1234854ce1fedb1e1e1b0aa80d0c0a6f2c072e647832937ea9dbb"
+    },
+    {
+      "path": "reference-materials/factorio/run/benchmark-3600x3.log",
+      "bytes": 6255,
+      "sha256": "b473cac5fc13c967c140f36391d0e82f895f6f23d015ccb2928044c88dfe706d"
+    },
+    {
+      "path": "reference-materials/factorio/run/migrate-1.1.110-to-2.0.77.log",
+      "bytes": 7624,
+      "sha256": "9d7f76406b40139f808e93cbfd269f7dd5b4cd2f9d9e96f75dae01e64fd661a6"
+    },
+    {
+      "path": "reference-materials/factorio/run/missing.log",
+      "bytes": 2856,
+      "sha256": "139ff0b2898b4436809ead407d0be8bf00b42df7dcf262d64ce263eadd8551e7"
+    },
+    {
+      "path": "reference-materials/factorio/run/truncated.log",
+      "bytes": 2883,
+      "sha256": "65ae9852246526363f48082fa96bad30f4bca8fe453ab6df4f6feb376c0ade2e"
+    },
+    {
+      "path": "reference-materials/factorio/run/seed-20260914.zip",
+      "bytes": 514143,
+      "sha256": "a66edb9d85f329c9098214ce3f51290cc03ec895daf3e3b7728373d3654b716a"
+    },
+    {
+      "path": "reference-materials/factorio/run/truncated-copy.zip",
+      "bytes": 256,
+      "sha256": "37337610bac8a474882dd19857f925f3c86cb29a7f720d444b40f7ddebd1cf9c"
+    },
+    {
+      "path": "reference-materials/factorio/legacy-1.1.110/run/legacy-seed-20260914.zip",
+      "bytes": 523798,
+      "sha256": "c8145e5c31d666ea1623cdf10b7a22fb352411bca2bdf0369f0c8618cadd1a2a"
+    }
+  ]
+}

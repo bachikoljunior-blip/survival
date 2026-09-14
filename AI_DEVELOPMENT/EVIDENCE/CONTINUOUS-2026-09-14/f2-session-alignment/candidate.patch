@@ -1,0 +1,36 @@
+--- a/tools/gates/f2_state_update.mjs
++++ b/tools/gates/f2_state_update.mjs
+@@ -1,13 +1,13 @@
+ #!/usr/bin/env node
+ /**
+  * F2 gate — a commit that changes the product must also update the canonical
+- * state file.
++ * session state file.
+  *
+  * The floor obligation is that a run which materially changed the project
+  * records objective status, last verified checkpoint, unverified artifacts,
+  * blockers, recovery, remote state and the exact next action before it ends.
+  * Nothing in a document can force that. This can: if product files moved and
+- * AI_DEVELOPMENT/STATE.yaml did not, the check fails and the merge is blocked.
++ * AI_DEVELOPMENT/SESSION_STATE.yaml did not, the check fails and the merge is blocked.
+  *
+  *   node tools/gates/f2_state_update.mjs                 compare against origin/main
+  *   node tools/gates/f2_state_update.mjs --base <ref>    compare against <ref>
+@@ -20,7 +20,7 @@
+ const argv = process.argv.slice(2);
+ const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
+ const BASE = arg('base', process.env.F2_BASE || 'origin/main');
+-const STATE = 'AI_DEVELOPMENT/STATE.yaml';
++const STATE = 'AI_DEVELOPMENT/SESSION_STATE.yaml';
+ 
+ // Files whose change means the product itself moved. Operating documents,
+ // evidence and archives are deliberately excluded: recording what happened is
+@@ -52,7 +52,7 @@
+   for (const f of product.slice(0, 20)) console.error(`  - ${f}`);
+   if (product.length > 20) console.error(`  ... and ${product.length - 20} more`);
+   console.error('');
+-  console.error('The floor requires the canonical state to carry objective status, last');
++  console.error('The floor requires the canonical session state to carry objective status, last');
+   console.error('verified checkpoint, modified-but-unverified artifacts, blockers, recovery,');
+   console.error('remote state and the exact next action. Update it and push again.');
+   process.exit(1);

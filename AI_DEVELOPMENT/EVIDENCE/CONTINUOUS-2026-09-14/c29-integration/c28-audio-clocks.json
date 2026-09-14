@@ -1,0 +1,68 @@
+{
+  "job_id": 103976355242,
+  "measurement": "Unresampled real compressor, low rendering; wall/audio clocks aligned but game clock remained far behind; not comparison material",
+  "next_method": "Existing iOS Simulator Safari actual capture capability and identical clock guards; candidate in progress",
+  "old_engine_wall_ratios": [
+    0.041,
+    0.068,
+    0.102
+  ],
+  "raw_log_sha256": "28ed76faf7840a8dfa7c16a5687a04d6229b9f5ec9bf6161ee9bc10088c61217",
+  "records": [
+    {
+      "audioMinusWallSeconds": 0.002837641723379747,
+      "audioSeconds": 14.007437641723357,
+      "audioToWallRatio": 1.0002026221186882,
+      "captureClockGuardPassed": false,
+      "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+      "context": "street-walk",
+      "engineFrames": 22,
+      "engineMinusAudioSeconds": -12.540770975056695,
+      "engineSeconds": 1.466666666666662,
+      "engineToAudioRatio": 0.104706278491504,
+      "finitePoses": true,
+      "finiteTimeline": true,
+      "orderedTimeline": true,
+      "telemetryComplete": true,
+      "toleranceSeconds": 0.7003718820861679,
+      "wallSeconds": 14.004599999999977
+    },
+    {
+      "audioMinusWallSeconds": -0.0016761904762052637,
+      "audioSeconds": 8.289523809523807,
+      "audioToWallRatio": 0.9997978349965981,
+      "captureClockGuardPassed": false,
+      "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+      "context": "vent-air",
+      "engineFrames": 23,
+      "engineMinusAudioSeconds": -6.756190476190461,
+      "engineSeconds": 1.5333333333333456,
+      "engineToAudioRatio": 0.18497242647058978,
+      "finitePoses": true,
+      "finiteTimeline": true,
+      "orderedTimeline": true,
+      "telemetryComplete": true,
+      "toleranceSeconds": 0.4144761904761904,
+      "wallSeconds": 8.291200000000012
+    },
+    {
+      "audioMinusWallSeconds": 0.0001680272108597336,
+      "audioSeconds": 7.410068027210883,
+      "audioToWallRatio": 1.0000226760429776,
+      "captureClockGuardPassed": false,
+      "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+      "context": "arcade-room",
+      "engineFrames": 32,
+      "engineMinusAudioSeconds": -5.276734693877444,
+      "engineSeconds": 2.1333333333334394,
+      "engineToAudioRatio": 0.2878965922444327,
+      "finitePoses": true,
+      "finiteTimeline": true,
+      "orderedTimeline": true,
+      "telemetryComplete": true,
+      "toleranceSeconds": 0.37050340136054416,
+      "wallSeconds": 7.4099000000000235
+    }
+  ],
+  "source_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c"
+}

@@ -1,0 +1,110 @@
+{
+  "checked_at": "2026-09-14T13:12:20.856570+00:00",
+  "hashes": {
+    "tools/gates/f2_state_update.mjs": {
+      "sha256": "31c1b3d2ec6057fe6a28932e8711e7d54ca008acf714f2f9345596fcb865fa05",
+      "git_blob_sha1": "d8d589912a05af82acc10a8240808f4363dd6743",
+      "bytes": 2853
+    },
+    "tools/mobile_grain_trial.mjs": {
+      "sha256": "c360859e0a3a2e003c70d3b6b3e71acd3db96dce4f2efe7f8d7fdebdb1698267",
+      "git_blob_sha1": "a7697bb982f93178e8e349bf5d5ae97d1da2af54",
+      "bytes": 20832
+    },
+    "tools/mobile_grain_trial.test.mjs": {
+      "sha256": "6beeb030408bae9a6a225fc83979a4529de1c02748f7e241103e054a8e151db9",
+      "git_blob_sha1": "d09efc35d3dbfa384c25a603d85cdc4e0a88b7dd",
+      "bytes": 9444
+    },
+    ".github/workflows/gates.yml": {
+      "sha256": "2bd9dcdab96a2a8ebfe111e3eb8a2721bbde5de5ea9d9264f64962accd4eb72c",
+      "git_blob_sha1": "fe81e4f3f37f8fda8cb19bc4fbcb71a175f38a8e",
+      "bytes": 15160
+    }
+  },
+  "syntax": [
+    {
+      "path": "tools/gates/f2_state_update.mjs",
+      "exit": 0
+    },
+    {
+      "path": "tools/mobile_grain_trial.mjs",
+      "exit": 0
+    },
+    {
+      "path": "tools/mobile_grain_trial.test.mjs",
+      "exit": 0
+    }
+  ],
+  "f2": [
+    {
+      "name": "product_and_session",
+      "expected": 0,
+      "exit": 0,
+      "stdout": "F2 gate: ok — 1 product file(s) changed and AI_DEVELOPMENT/SESSION_STATE.yaml was updated.\n",
+      "stderr": ""
+    },
+    {
+      "name": "product_and_legacy_state_only",
+      "expected": 1,
+      "exit": 1,
+      "stdout": "",
+      "stderr": "F2 gate FAILED: 1 product file(s) changed but AI_DEVELOPMENT/SESSION_STATE.yaml was not updated.\n  - src/example.mjs\n\nThe floor requires the canonical session state to carry objective status, last\nverified checkpoint, modified-but-unverified artifacts, blockers, recovery,\nremote state and the exact next action. Update it and push again.\n"
+    },
+    {
+      "name": "product_only",
+      "expected": 1,
+      "exit": 1,
+      "stdout": "",
+      "stderr": "F2 gate FAILED: 1 product file(s) changed but AI_DEVELOPMENT/SESSION_STATE.yaml was not updated.\n  - src/example.mjs\n\nThe floor requires the canonical session state to carry objective status, last\nverified checkpoint, modified-but-unverified artifacts, blockers, recovery,\nremote state and the exact next action. Update it and push again.\n"
+    },
+    {
+      "name": "no_product",
+      "expected": 0,
+      "exit": 0,
+      "stdout": "F2 gate: not applicable — no product files changed against fixture-base.\n",
+      "stderr": ""
+    },
+    {
+      "name": "bad_base",
+      "expected": 1,
+      "exit": 1,
+      "stdout": "",
+      "stderr": "fatal: ambiguous argument 'unavailable-base...HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\nF2 gate: cannot diff against unavailable-base — Command failed: git diff --name-only unavailable-base...HEAD\nfatal: ambiguous argument 'unavailable-base...HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n\nF2 gate: refusing to pass a check it could not perform.\n"
+    }
+  ],
+  "workflow": {
+    "non_grain_structure_identical": true,
+    "grain_if": "github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[grain-c28-r2]')",
+    "cancellation_config_added": false,
+    "e9_job_unchanged": true,
+    "shell_syntax": [
+      {
+        "step": 2,
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "step": 3,
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "step": 4,
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "step": 5,
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "step": 6,
+        "exit": 0,
+        "stderr": ""
+      }
+    ],
+    "exact_only_marker_output_test_changes": true
+  }
+}

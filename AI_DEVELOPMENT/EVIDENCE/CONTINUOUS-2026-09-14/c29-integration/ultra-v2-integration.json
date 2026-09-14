@@ -1,0 +1,57 @@
+{
+  "instruction_id": "ULTRA-ALL-20260914-v2",
+  "instruction_commit": "a6d420f40995d33fb12c54b2338aee8f6211768a",
+  "instruction_blob": "0a4bea1360f7ca395da25fb6f59836d082b717b5",
+  "read_and_accepted_by_root_at": "2026-09-14T22:09:25.073+09:00",
+  "safe_boundary": "C29 fresh-head guard detected the instruction-only advance before any C29 blob/tree/commit/ref write; pending root remote mutations 0.",
+  "spawn_arguments": {
+    "task_name": "integration_decisions_ultra_v2",
+    "fork_turns": "none",
+    "reasoning_effort": "ultra",
+    "model": "omitted/inherit"
+  },
+  "accepted_task": "/root/integration_decisions_ultra_v2",
+  "acceptance_response": {
+    "task_name": "/root/integration_decisions_ultra_v2"
+  },
+  "handoff_acknowledged": true,
+  "exclusive_remote_executor": "/root (mechanical operations explicitly decided by Ultra integration agent only)",
+  "intellectual_integration_owner": "/root/integration_decisions_ultra_v2",
+  "root_effective_intensity": "not independently confirmed",
+  "backend_effective_intensity": "not independently confirmed",
+  "current_claim": "Ultra explicit invocation and task acceptance verified; all-stage completion not asserted",
+  "existing_active_tasks_preserved": true,
+  "c28_external_e9_inference": "already in progress; not abruptly stopped or relabeled Ultra",
+  "integration_owner_read_accepted_at": "2026-09-14T22:12:44.920+09:00",
+  "authority_read_order": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "source_compare": {
+    "base": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "head": "a6d420f40995d33fb12c54b2338aee8f6211768a",
+    "ahead_by": 1,
+    "changed_paths": [
+      "CLAUDE.md"
+    ]
+  },
+  "independent_code_review": {
+    "task": "/root/integration_decisions_ultra_v2/c29_exact_review_ultra",
+    "spawn_arguments": {
+      "reasoning_effort": "ultra",
+      "fork_turns": "none",
+      "model": "omitted/inherit"
+    },
+    "accepted": true,
+    "outcome": "pass; blocking 0",
+    "review_sha256": "d34219f71184790b49871f28247be281b74767ef59c269b54e1348714653e561",
+    "review_evidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c29-integration/independent-code-review.json"
+  },
+  "planned_actual_acquisitions": [
+    "grain-c28-r2",
+    "ios-audio-c28-r1"
+  ],
+  "remaining_hours_at_assessment": 142.73446666666666,
+  "decision": "Integrate C29 unchanged game runtime and run grain r2 and iOS audio r1 once. No E9/E16 trigger; no main merge until required gates pass."
+}

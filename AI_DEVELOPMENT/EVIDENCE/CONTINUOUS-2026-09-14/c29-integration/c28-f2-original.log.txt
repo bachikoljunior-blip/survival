@@ -1,0 +1,172 @@
+﻿2026-09-14T12:36:02.1911852Z Current runner version: '2.337.0'
+2026-09-14T12:36:02.1937779Z ##[group]Runner Image Provisioner
+2026-09-14T12:36:02.1938759Z Hosted Compute Agent
+2026-09-14T12:36:02.1939399Z Version: 20260828.587
+2026-09-14T12:36:02.1940106Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-14T12:36:02.1940875Z Build Date: 2026-08-28T16:44:25Z
+2026-09-14T12:36:02.1941584Z Worker ID: {a091ba7d-3e0d-4ce5-972a-582f181957c8}
+2026-09-14T12:36:02.1942397Z Azure Region: westus
+2026-09-14T12:36:02.1943013Z ##[endgroup]
+2026-09-14T12:36:02.1944988Z ##[group]Operating System
+2026-09-14T12:36:02.1945675Z Ubuntu
+2026-09-14T12:36:02.1946200Z 24.04.5
+2026-09-14T12:36:02.1946761Z LTS
+2026-09-14T12:36:02.1947307Z ##[endgroup]
+2026-09-14T12:36:02.1947847Z ##[group]Runner Image
+2026-09-14T12:36:02.1948552Z Image: ubuntu-24.04
+2026-09-14T12:36:02.1949123Z Version: 20260907.300.1
+2026-09-14T12:36:02.1950481Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-14T12:36:02.1952092Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-14T12:36:02.1953408Z ##[endgroup]
+2026-09-14T12:36:02.1954539Z ##[group]GITHUB_TOKEN Permissions
+2026-09-14T12:36:02.1957213Z Contents: read
+2026-09-14T12:36:02.1957858Z Metadata: read
+2026-09-14T12:36:02.1958505Z ##[endgroup]
+2026-09-14T12:36:02.1960656Z Secret source: Actions
+2026-09-14T12:36:02.1961643Z Cache mode: write
+2026-09-14T12:36:02.1962404Z Prepare workflow directory
+2026-09-14T12:36:02.2315592Z Prepare all required actions
+2026-09-14T12:36:02.2366646Z Getting action download info
+2026-09-14T12:36:02.5882660Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-14T12:36:02.7823009Z Complete job name: F2 state update
+2026-09-14T12:36:02.8706602Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T12:36:02.8715647Z ##[group]Run actions/checkout@v4
+2026-09-14T12:36:02.8716401Z with:
+2026-09-14T12:36:02.8716831Z   fetch-depth: 0
+2026-09-14T12:36:02.8717329Z   repository: bachikoljunior-blip/survival
+2026-09-14T12:36:02.8721158Z   token: ***
+2026-09-14T12:36:02.8721602Z   ssh-strict: true
+2026-09-14T12:36:02.8722044Z   ssh-user: git
+2026-09-14T12:36:02.8722491Z   persist-credentials: true
+2026-09-14T12:36:02.8722985Z   clean: true
+2026-09-14T12:36:02.8724268Z   sparse-checkout-cone-mode: true
+2026-09-14T12:36:02.8724840Z   fetch-tags: false
+2026-09-14T12:36:02.8725295Z   show-progress: true
+2026-09-14T12:36:02.8725758Z   lfs: false
+2026-09-14T12:36:02.8726215Z   submodules: false
+2026-09-14T12:36:02.8726688Z   set-safe-directory: true
+2026-09-14T12:36:02.8727203Z   allow-unsafe-pr-checkout: false
+2026-09-14T12:36:02.8728089Z ##[endgroup]
+2026-09-14T12:36:02.9832621Z Syncing repository: bachikoljunior-blip/survival
+2026-09-14T12:36:02.9835396Z ##[group]Getting Git version info
+2026-09-14T12:36:02.9836216Z Working directory is '/home/runner/work/survival/survival'
+2026-09-14T12:36:02.9837465Z [command]/usr/bin/git version
+2026-09-14T12:36:02.9900913Z git version 2.55.0
+2026-09-14T12:36:02.9926593Z ##[endgroup]
+2026-09-14T12:36:02.9954221Z Temporarily overriding HOME='/home/runner/work/_temp/a3f0553e-48c1-4402-a15b-8d6d3ef535c7' before making global git config changes
+2026-09-14T12:36:02.9956794Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T12:36:02.9959884Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/survival/survival
+2026-09-14T12:36:03.0018732Z Deleting the contents of '/home/runner/work/survival/survival'
+2026-09-14T12:36:03.0024940Z ##[group]Initializing the repository
+2026-09-14T12:36:03.0028819Z [command]/usr/bin/git init /home/runner/work/survival/survival
+2026-09-14T12:36:03.0163927Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-14T12:36:03.0165732Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-14T12:36:03.0167473Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-14T12:36:03.0168855Z hint: call:
+2026-09-14T12:36:03.0169588Z hint:
+2026-09-14T12:36:03.0170499Z hint: 	git config --global init.defaultBranch <name>
+2026-09-14T12:36:03.0171577Z hint:
+2026-09-14T12:36:03.0172686Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-14T12:36:03.0174621Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-14T12:36:03.0175880Z hint:
+2026-09-14T12:36:03.0176540Z hint: 	git branch -m <name>
+2026-09-14T12:36:03.0177371Z hint:
+2026-09-14T12:36:03.0178470Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-14T12:36:03.0180125Z Initialized empty Git repository in /home/runner/work/survival/survival/.git/
+2026-09-14T12:36:03.0183086Z [command]/usr/bin/git remote add origin https://github.com/bachikoljunior-blip/survival
+2026-09-14T12:36:03.0242088Z ##[endgroup]
+2026-09-14T12:36:03.0243707Z ##[group]Disabling automatic garbage collection
+2026-09-14T12:36:03.0247093Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-14T12:36:03.0288103Z ##[endgroup]
+2026-09-14T12:36:03.0289389Z ##[group]Setting up auth
+2026-09-14T12:36:03.0297646Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T12:36:03.0339726Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T12:36:03.0742121Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T12:36:03.0785897Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T12:36:03.1025762Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T12:36:03.1062941Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T12:36:03.1375028Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-14T12:36:03.1379095Z ##[endgroup]
+2026-09-14T12:36:03.1380897Z ##[group]Fetching the repository
+2026-09-14T12:36:03.1384206Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-09-14T12:36:16.4335446Z From https://github.com/bachikoljunior-blip/survival
+2026-09-14T12:36:16.4336296Z  * [new branch]      agent/iphone-se3-automation -> origin/agent/iphone-se3-automation
+2026-09-14T12:36:16.4336963Z  * [new branch]      agent/premerge-ios-gate -> origin/agent/premerge-ios-gate
+2026-09-14T12:36:16.4337723Z  * [new branch]      claude/autonomous-skill-evolution-x7i51a -> origin/claude/autonomous-skill-evolution-x7i51a
+2026-09-14T12:36:16.4338504Z  * [new branch]      claude/autopilot-spec-i0bwgn -> origin/claude/autopilot-spec-i0bwgn
+2026-09-14T12:36:16.4339184Z  * [new branch]      claude/continue-aahbtl  -> origin/claude/continue-aahbtl
+2026-09-14T12:36:16.4339899Z  * [new branch]      claude/game-reference-benchmark-lyvlj3 -> origin/claude/game-reference-benchmark-lyvlj3
+2026-09-14T12:36:16.4340699Z  * [new branch]      claude/iphone-se3-auto-testing-bu73vn -> origin/claude/iphone-se3-auto-testing-bu73vn
+2026-09-14T12:36:16.4341526Z  * [new branch]      claude/kit-first-reader-test-fr774j -> origin/claude/kit-first-reader-test-fr774j
+2026-09-14T12:36:16.4342338Z  * [new branch]      claude/kit-rollout-continuation-ozq7v9 -> origin/claude/kit-rollout-continuation-ozq7v9
+2026-09-14T12:36:16.4343590Z  * [new branch]      claude/kit-rollout-game2-survival-0vspel -> origin/claude/kit-rollout-game2-survival-0vspel
+2026-09-14T12:36:16.4344908Z  * [new branch]      claude/kit-rollout-integration-a4zihp -> origin/claude/kit-rollout-integration-a4zihp
+2026-09-14T12:36:16.4345842Z  * [new branch]      claude/kit-rollout-skill-validation-rsenmi -> origin/claude/kit-rollout-skill-validation-rsenmi
+2026-09-14T12:36:16.4346976Z  * [new branch]      claude/kit-template-creation-ndursc -> origin/claude/kit-template-creation-ndursc
+2026-09-14T12:36:16.4348045Z  * [new branch]      claude/legacy-canonical-migration-jcuour -> origin/claude/legacy-canonical-migration-jcuour
+2026-09-14T12:36:16.4349046Z  * [new branch]      claude/mobile-action-rpg-game-hi46oh -> origin/claude/mobile-action-rpg-game-hi46oh
+2026-09-14T12:36:16.4349967Z  * [new branch]      claude/monthly-20k-automation-mwr42o -> origin/claude/monthly-20k-automation-mwr42o
+2026-09-14T12:36:16.4350772Z  * [new branch]      claude/monthly-income-200k-strategy-w3gnoq -> origin/claude/monthly-income-200k-strategy-w3gnoq
+2026-09-14T12:36:16.4351665Z  * [new branch]      claude/one-round-execution-changes-psdid4 -> origin/claude/one-round-execution-changes-psdid4
+2026-09-14T12:36:16.4352508Z  * [new branch]      claude/past-work-skill-candidates-v6l3xm -> origin/claude/past-work-skill-candidates-v6l3xm
+2026-09-14T12:36:16.4353741Z  * [new branch]      claude/repo-instructions-constraints-r0070m -> origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T12:36:16.4354590Z  * [new branch]      claude/round-remaining-work-di4vbu -> origin/claude/round-remaining-work-di4vbu
+2026-09-14T12:36:16.4355311Z  * [new branch]      claude/section-21-gate-a-zbqmdk -> origin/claude/section-21-gate-a-zbqmdk
+2026-09-14T12:36:16.4356623Z  * [new branch]      claude/survival-narrative-evidence-facts-v8wb15 -> origin/claude/survival-narrative-evidence-facts-v8wb15
+2026-09-14T12:36:16.4357448Z  * [new branch]      codex/continue-survival -> origin/codex/continue-survival
+2026-09-14T12:36:16.4358094Z  * [new branch]      codex/pages-root-publication -> origin/codex/pages-root-publication
+2026-09-14T12:36:16.4359664Z  * [new branch]      codex/record-pages-publication -> origin/codex/record-pages-publication
+2026-09-14T12:36:16.4360621Z  * [new branch]      main                    -> origin/main
+2026-09-14T12:36:16.4363522Z [command]/usr/bin/git branch --list --remote origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T12:36:16.4380699Z   origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T12:36:16.4391004Z [command]/usr/bin/git rev-parse refs/remotes/origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T12:36:16.4417549Z 67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c
+2026-09-14T12:36:16.4422224Z ##[endgroup]
+2026-09-14T12:36:16.4423608Z ##[group]Determining the checkout info
+2026-09-14T12:36:16.4431289Z ##[endgroup]
+2026-09-14T12:36:16.4436903Z [command]/usr/bin/git sparse-checkout disable
+2026-09-14T12:36:16.4514611Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-14T12:36:16.4546035Z ##[group]Checking out the ref
+2026-09-14T12:36:16.4551173Z [command]/usr/bin/git checkout --progress --force -B claude/repo-instructions-constraints-r0070m refs/remotes/origin/claude/repo-instructions-constraints-r0070m
+2026-09-14T12:36:16.7917944Z Switched to a new branch 'claude/repo-instructions-constraints-r0070m'
+2026-09-14T12:36:16.7924089Z branch 'claude/repo-instructions-constraints-r0070m' set up to track 'origin/claude/repo-instructions-constraints-r0070m'.
+2026-09-14T12:36:16.7965165Z ##[endgroup]
+2026-09-14T12:36:16.8022263Z [command]/usr/bin/git log -1 --format=%H
+2026-09-14T12:36:16.8051902Z 67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c
+2026-09-14T12:36:16.8294920Z ##[group]Run node tools/gates/f2_state_update.mjs --base "$F2_BASE"
+2026-09-14T12:36:16.8295548Z [36;1mnode tools/gates/f2_state_update.mjs --base "$F2_BASE"[0m
+2026-09-14T12:36:16.8336142Z shell: /usr/bin/bash -e {0}
+2026-09-14T12:36:16.8336427Z env:
+2026-09-14T12:36:16.8336631Z   F2_BASE: origin/main
+2026-09-14T12:36:16.8337202Z ##[endgroup]
+2026-09-14T12:36:17.0180037Z F2 gate FAILED: 8 product file(s) changed but AI_DEVELOPMENT/STATE.yaml was not updated.
+2026-09-14T12:36:17.0181476Z   - .github/workflows/gates.yml
+2026-09-14T12:36:17.0182173Z   - .github/workflows/revert-to-verified.yml
+2026-09-14T12:36:17.0182782Z   - tools/compare-e9-q35.py
+2026-09-14T12:36:17.0183591Z   - tools/export-webkit-material.mjs
+2026-09-14T12:36:17.0184168Z   - tools/mobile_audio_capture.mjs
+2026-09-14T12:36:17.0189512Z   - tools/mobile_grain_trial.mjs
+2026-09-14T12:36:17.0190061Z   - tools/mobile_visual_capture.mjs
+2026-09-14T12:36:17.0190575Z   - tools/test-iphone-webkit.mjs
+2026-09-14T12:36:17.0190985Z 
+2026-09-14T12:36:17.0191341Z The floor requires the canonical state to carry objective status, last
+2026-09-14T12:36:17.0192262Z verified checkpoint, modified-but-unverified artifacts, blockers, recovery,
+2026-09-14T12:36:17.0193391Z remote state and the exact next action. Update it and push again.
+2026-09-14T12:36:17.0240798Z ##[error]Process completed with exit code 1.
+2026-09-14T12:36:17.0387502Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-14T12:36:17.0389167Z Post job cleanup.
+2026-09-14T12:36:17.1247649Z [command]/usr/bin/git version
+2026-09-14T12:36:17.1290805Z git version 2.55.0
+2026-09-14T12:36:17.1334440Z Temporarily overriding HOME='/home/runner/work/_temp/668650c6-14be-4a0d-a88d-a71fc7d555fc' before making global git config changes
+2026-09-14T12:36:17.1335883Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-14T12:36:17.1342145Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/survival/survival
+2026-09-14T12:36:17.1386937Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-14T12:36:17.1426988Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-14T12:36:17.1690319Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-14T12:36:17.1726909Z http.https://github.com/.extraheader
+2026-09-14T12:36:17.1743595Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-14T12:36:17.1775887Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-14T12:36:17.2078951Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-14T12:36:17.2129916Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-14T12:36:17.2607593Z Cleaning up orphan processes
+2026-09-14T12:36:17.2889481Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

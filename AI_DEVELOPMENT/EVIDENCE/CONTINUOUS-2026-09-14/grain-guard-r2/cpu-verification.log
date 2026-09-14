@@ -1,0 +1,22 @@
+✔ production dt=0 plume/burst uploads change old records but preserve every data byte (21.942466ms)
+✔ real buffer mutation with normal upload increments is rejected and gives old/new values (6.774456ms)
+✔ geometry without version increment is rejected (9.378045ms)
+✔ index without version increment is rejected (7.163492ms)
+✔ instance matrix is rejected (6.627956ms)
+✔ instance colour is rejected (4.609678ms)
+✔ transform is rejected (4.595516ms)
+✔ visibility is rejected (4.295025ms)
+✔ material colour without version increment is rejected (4.27227ms)
+✔ material version remains strict is rejected (3.961893ms)
+✔ light intensity is rejected (4.324689ms)
+✔ instance count is rejected (3.329031ms)
+✔ draw range is rejected (8.892103ms)
+✔ end-to-end CPU report preserves old failed equality and uses byte guard; these are synthetic PNG fixtures (12.987739ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 208.695413

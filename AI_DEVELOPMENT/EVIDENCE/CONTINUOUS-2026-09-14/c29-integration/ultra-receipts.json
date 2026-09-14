@@ -1,0 +1,116 @@
+[
+  {
+    "key": "ultra_live_acceptance",
+    "accepted_at": "2026-09-14T21:25:14.822+09:00",
+    "accepted_task": "/root/e16_runtime_repair_ultra",
+    "effective_reasoning_independent_verification": "not obtained",
+    "instruction_commit": "2fc0a319faeffb3733cd4a5f3091be3819ec770d",
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "no_duplicate_prior_task": true,
+    "parent_continues": true,
+    "read_at": "2026-09-14T21:23:08.654+09:00",
+    "spawn_arguments": {
+      "fork_turns": "none",
+      "model": "omitted: inherit",
+      "reasoning_effort": "ultra",
+      "task_name": "e16_runtime_repair_ultra"
+    },
+    "switch_point": "既に受理済みE9 r2・grain・audio・E16 raw監査を保持し、新しいE16実行方法修正担当から切替"
+  },
+  {
+    "key": "ultra_stability_acceptance",
+    "accepted_at": "2026-09-14T21:38:25.462+09:00",
+    "accepted_task": "/root/stability_material_ultra",
+    "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "bounded_scope": "E19 reference GUI actual material acquisition; no product or branch changes",
+    "effective_reasoning_independent_verification": "not obtained",
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "instruction_read_at": "2026-09-14T21:37:19.787+09:00",
+    "parent_kept_running": true,
+    "spawn_arguments": {
+      "fork_turns": "none",
+      "model": "omitted: inherit",
+      "reasoning_effort": "ultra",
+      "task_name": "stability_material_ultra"
+    }
+  },
+  {
+    "key": "ultra_f2_acceptance",
+    "accepted_at": "2026-09-14T21:40:46.499+09:00",
+    "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "checked_at": "2026-09-14T21:39:58.037+09:00",
+    "effective_reasoning_independent_verification": "not obtained",
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "scope": "canonical checkpoint F2 alignment, negative controls; no remote writes",
+    "spawn_arguments": {
+      "fork_turns": "none",
+      "model": "omitted",
+      "reasoning_effort": "ultra"
+    },
+    "task": "/root/state_gate_alignment_ultra"
+  },
+  {
+    "key": "ultra_grain_acceptance",
+    "accepted_at": "2026-09-14T21:46:08.612+09:00",
+    "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "checked_at": "2026-09-14T21:44:25.842+09:00",
+    "effective_reasoning_independent_verification": "not obtained",
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "scope": "Actual failed grain scene guard diagnosis; no product changes or remote writes",
+    "spawn_arguments": {
+      "fork_turns": "none",
+      "model": "omitted",
+      "reasoning_effort": "ultra"
+    },
+    "task": "/root/grain_guard_repair_ultra"
+  },
+  {
+    "key": "ultra_audio_acceptance",
+    "accepted": true,
+    "accepted_at": "2026-09-14T21:55:38.316+09:00",
+    "arguments": {
+      "fork_turns": "none",
+      "model": "omitted/inherit",
+      "reasoning_effort": "ultra",
+      "task_name": "ios_audio_acquisition_ultra"
+    },
+    "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "effective_reasoning_independently_confirmed": false,
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "instruction_precheck_at": "2026-09-14T21:54:42.812+09:00",
+    "scope": "isolated existing iOS Safari actual audio capability/capture candidate; parent integration only",
+    "task": "/root/ios_audio_acquisition_ultra"
+  },
+  {
+    "key": "ultra_e16_followup_acceptance",
+    "accepted_at": "2026-09-14T21:58:25.252+09:00",
+    "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "effective_reasoning_independently_confirmed": false,
+    "inherited_accepted_arguments": {
+      "fork_turns": "none",
+      "model": "omitted/inherit",
+      "reasoning_effort": "ultra"
+    },
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "method": "followup_task to previously accepted completed Ultra child",
+    "scope": "reproduce current legitimate elements status change and prevent false frozen-authority failure; preserve all canonical targets",
+    "task": "/root/e16_runtime_repair_ultra"
+  },
+  {
+    "key": "ultra_grain_visual_acceptance",
+    "accepted": true,
+    "accepted_at": "2026-09-14T22:01:03.082+09:00",
+    "arguments": {
+      "fork_turns": "none",
+      "model": "omitted/inherit",
+      "reasoning_effort": "ultra"
+    },
+    "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "effective_reasoning_independently_confirmed": false,
+    "instruction_id": "ULTRA-LIVE-20260914-v1",
+    "precheck_at": "2026-09-14T21:59:44.675+09:00",
+    "scope": "All 16 original frames; source-known quality diagnosis only; no blind verdict",
+    "task": "/root/grain_image_review_ultra"
+  }
+]
+

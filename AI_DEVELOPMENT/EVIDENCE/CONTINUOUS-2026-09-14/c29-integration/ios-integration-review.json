@@ -1,0 +1,48 @@
+{
+  "reviewer": "/root/integration_decisions_ultra_v2",
+  "instruction_id": "ULTRA-ALL-20260914-v2",
+  "source_commit": "a6d420f40995d33fb12c54b2338aee8f6211768a",
+  "outcome": "pass for one actual opt-in acquisition; runtime and media unmeasured",
+  "files": [
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "baseBlob": null,
+      "candidateBlob": "65711a769f3a82cb3a9a471c5a10f633614514e1",
+      "candidateSha256": "3ed2398a23f94c6426bc30eed6ef9123b24d79b99978ec3de01866d186c73e40",
+      "bytes": 13917
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "baseBlob": "679192c2676c78110c4927811ab2700ec7485e86",
+      "candidateBlob": "cef06ffbc780b4e688758b84d0782bd42e103702",
+      "candidateSha256": "ca130ee34963cd1b17b02519b6f013f7c0f1851529bfcee5e4dd072c4fec4779",
+      "bytes": 27951
+    },
+    {
+      "path": ".github/workflows/mobile-simulator.yml",
+      "baseBlob": "776168e7bdd8ed4e2275d9ceae52ff6575ad076f",
+      "candidateBlob": "0d09a0d45eef1608f460d8509f642e76e4f1902b",
+      "candidateSha256": "6cc5f242e3666c568aac6688ef98ca8e54a7b5537f9d13ff2f39cac7b9909074",
+      "bytes": 7969
+    }
+  ],
+  "independent_previous_review": "ios-audio-acquisition-ultra/evidence/independent-review-return.json",
+  "final_cleanup_review": {
+    "settings_snapshot_before_shared_helper": true,
+    "recorder_and_settings_cleanup_independent_try": true,
+    "cleanup_failure_reported_and_thrown": true,
+    "no_next_clip_after_failure": true,
+    "pending_promise_not_cancelled": "known limitation; harness deletes session",
+    "transfer_peak_memory_not_bounded": "known limitation; 48 Mi chars cap checked after JSON serialization"
+  },
+  "retained": {
+    "original_recorder_blob": "86c1d9c9a0b0eeac3d947aad3d99d25272d3eeaa",
+    "original_bundle_sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+    "clock_guard": "max(0.1 seconds, 5% audio duration)",
+    "default_route": "no helper import, original ordinary diagnostics/video",
+    "all_artifact_media_and_telemetry": true,
+    "run_attempt_one": true
+  },
+  "main_merge_permission": "not yet; required F3 current Chromium audio clock failure remains",
+  "actual_ci_started_by_reviewer": false
+}

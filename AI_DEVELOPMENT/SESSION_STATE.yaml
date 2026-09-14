@@ -1,111 +1,77 @@
-schema_version: 1
-work:
-  units_requested: continuous
-  units_completed: 0
-  unit: ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる
-  completion: 全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied
-  started_at: '2026-09-13T20:56:49+09:00'
-  deadline_at: '2026-09-20T20:56:49+09:00'
-  timezone: Asia/Tokyo
-  deadline_missed: false
-  status: active
-  units: []
-repository:
-  name: bachikoljunior-blip/survival
-  branch: claude/repo-instructions-constraints-r0070m
-  initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
-checkpoint:
-  foreground_status: active
-  continuation_check_observation: 2026-09-14T21:33:02.254+09:00 同じ主実行でC27のE9失敗/E16完了rawを取得監査し、実ローカル修正・新Ultra子受理・CI・最新remoteを照合した。外部追記2fc0a319はCLAUDEの委任方法だけ、他全blob同一。制作を停止/重複起動せず保持し、PR15の必須F2/F3/F5と追加round成功後に通常merge、remote
-    main 5456371の全tree一致を実確認。
-  last_progress_at: '2026-09-14T21:33:02.254+09:00'
-  verified_commit: 2fc0a319faeffb3733cd4a5f3091be3819ec770d
-  verified_build_sha256: 6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b
-  evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-light-r2/provenance.json
-  last_verified_action: PR15の最新head2fc0a319でFloor34842474105のF2/F3/F5/narrative全成功、iphone round34842474094成功。通常merge後main5456371249f5769c25d18f1686a44349e4292d6fとsourceのtree362c31a451e99cbd097b18f95849420faffa7f90が全一致。C25現行runtime6b887bc1は不変。E16
-    r3原15件/control PNG/full job logを独立監査し、control正答、比較7200.018s timeout/最終回答なし/出所推測混入を確認。E9 r1は実モデルtemplate末尾trimでprepare停止、同templateを7816byte公開Range/内容hashで照合し、r2で全文A/B各一回保持とガードを検証。
-  current_browser_evidence: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-light-r2/provenance.json
-  modified_but_unverified: C28は実template準拠E9 r2、grain .035→.012→.035の8視点実験、原音を保つlow描画録音と三時計/実姿勢計測を統合。構文/CPU境界/限定独立レビューは成功だが、C28実CI・native全文count/98304枠推論・粒状感画像・low録音速度は未測定。3行indentだけの手動revert
-    YAML修正は構文確認、実rollback未実施。製品runtime/素材/71基準に変更なし。main公開workflow34843803302は進行中で公開一致未確認。
-  next_action: C28を指定制作branchへ保存してremote/CI受理を確認し、E9 r2単回全文比較とgrain8視点診断の実結果、low原音録音の時計比と欠陥を確認する。main5456371のPages build/Simulator/F6と実配信を照合。grain改善が原画像で確認できた場合だけ製品へ適用・ビルド・スマートフォン再検証し、その更新も通常PRでmainへ反映。Ultra
-    E16担当の実sourceに基づく入力/非thinking修正を独立確認し、新ビルド固定比較に用いる。全19未測定のため次の実作業へ継続。
-  deadline_assessment: 2026-09-14T21:33:02.254+09:00 継続確認直後、残り143.40時間。有効比較0/全19未測定のため根拠付き「できる」以外の判断。旧方法の非効率を疑い、実E16 r3の約83分画像処理+120分未完・出所推測の反復と、E9 r1の258秒prepare失敗を根拠に変更した。E9は実GGUFのtrimを再現しhelper-owned末尾LFだけ修正、A200075/B62026bytes各一回を保持。比較質問の制作固有数/配色からの手掛かりを除き、元71基準の適合監査は保持。音声は旧engine/wall比.041/.068/.102から、原音/安全step
-    cap不変のlow描画と重複無音video除去へ変更し三時計を実測する。grainは固定8視点で一変数の画質差を測る。方法変更のCPU確認は済むが実比較/録音/画像改善はまだで、期限内達成の保証とはしない。
-  elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
-  blockers:
-  - 全19要素に有効比較なし、完了作業単位0。未完回答、出所既知の診断、スマートフォン動作成功はblind合格ではない。残る各要素の資料と有効評価を進める。
-  - E16 r3はcontrol正答でも比較7200.018sでtimeoutし最終回答なし。16encoding完了を原記録で確認、作品名誤同定/benchmark推測/問いの配色からのB推測があり無効。find_slot警告は正答controlにも存在し原因断定しない。入力は旧a840、現行6b887への適用なし。原資料/監査をe16-q35-a840-r3-resultへ保存。
-  - E9 r1はmodel download/hash後の実GGUF template検査でunexpected_single_user_template_result。native token count/推論開始前で比較0。r2は原文不変のtemplate修正と中立質問を検査済み、実98304枠のcount/RAM/time/非認識回答は未測定。第三者DBの出所限定確認を公式playにしない。参照本文はprivate
-    runnerだけに保持し配布しない。
-  - E12の既存録音3本は音声ありだがengine進行が壁時計の4〜10%。収録をlow描画へ変え、原音とengine cap不変で三時計/実listener/敵軌跡を測る。販促音や声の混入がない参照区間・適切なstereo聴取経路・有効比較は未確認。E15タッチと混同しない。
-  - 主実行の通常sandbox小ファイル処理は可。旧survival/.git不在、local旧source/root a840のためcurrentと誤認しない。3.665GB途中modelが削除後再出現しwriter未確認で、削除/大規模取得を無変更で反復しない。正規GitHub appと容量/RAM事前確認付きCIを使い、安全/権限拒否を迂回しない。
-  - C25 WebKit177/iOS27/fault42証拠は同一runtime6b887の指定場面に適用。画面MVD01/02/03・全動作/実機性能・参照品質は未測定。grain診断は未採用で実画像の損失を確認する。
-  - main反映は実完了だが全品質合格ではない。main5456371公開はbuild/Simulator/F6未完。手動revert workflowの旧invalid YAMLは診断し3行indentを修正するがrollbackは実行せず、PR保護の回避/外部Autopilotを起動しない。
-  - Factorio headless原ログ/移行証拠は保持。GUI公式forum取得403を同URL/identity/headers変更で反復しない。GUI/回復表示の比較方法不足は別の実資料取得で進める。
-  recovery: 通常sandboxは環境整備後に実行可。旧survivalのsource/rootはa840のままでGit metadata不在、新規survival-remoteは指定remoteC25とmainの履歴/merge-tree取得済み。旧原参照/本文/完了モデル/検証済み成果を削除しない。通常Git書込認証は取得せず、接続GitHub
-    appの正規blob/tree/commit/ref/PR機能を使う。大きな全checkoutの待ちは中断し必要tree比較へ変更、実競合1件確認済み。local大規模model取得は全bytes+headroomの事前空き確認なしで再開しない。通常削除後のprefix再出現を実測したため、容量再発の原因は未解消として保持。小ファイル監査は継続でき、モデル推論は空き/RAM事前確認付きCIを使う。安全/権限拒否は回避せず、検証済みC25/未完main統合/E9
-    native比較から続行。
-  continuation_mechanism: 'Work Mode既存の survival 継続実行 を、主実行停止時の再発火役へ更新し、正確なprompt・有効状態・既存予定の保持を再読取確認した。停止原因の全件調査→修正可能な全原因の修正→再発防止の検証→保存された未完了地点の再開→実進捗確認を指示。稼働中は競合変更しない。変更不可能な安全/権限/環境上限は迂回せず記録。設定更新は未来の復旧成功の証拠ではない。証拠:
-    AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/resume-watchdog.json'
-  main_reflection:
-    allExpected: true
-    at: '2026-09-14T21:30:27.099+09:00'
-    current_game_bundle_sha256: 6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b
-    draft: false
-    exact_source_tree_matches: true
-    main: f40b6d9a37be22871a3c422e86dec2b127b16b4c
-    mergeable: true
-    merged: true
-    parents:
-    - f40b6d9a37be22871a3c422e86dec2b127b16b4c
-    - 2fc0a319faeffb3733cd4a5f3091be3819ec770d
-    pr_head: 2fc0a319faeffb3733cd4a5f3091be3819ec770d
-    publication_status: not verified; deployment workflow pending
-    quality_status: all 19 not measured; no valid comparison
-    requiredJobs:
-    - conclusion: success
-      id: 103970391355
-      name: F3 execution
-    - conclusion: success
-      id: 103970391545
-      name: F5 review record
-    - conclusion: success
-      id: 103970391679
-      name: F2 state update
-    result_main_sha: 5456371249f5769c25d18f1686a44349e4292d6f
-    result_main_tree: 362c31a451e99cbd097b18f95849420faffa7f90
-    runs:
-    - conclusion: failure
-      id: 34843802030
-      name: .github/workflows/revert-to-verified.yml
-      status: completed
-    - conclusion: null
-      id: 34843803302
-      name: Deploy to GitHub Pages
-      status: in_progress
-    - conclusion: null
-      id: 34843803256
-      name: iPhone SE 3 round
-      status: in_progress
-    - conclusion: null
-      id: 34843799715
-      name: pages build and deployment
-      status: in_progress
-    source: 2fc0a319faeffb3733cd4a5f3091be3819ec770d
-    state: clean
-    verified_at: '2026-09-14T21:30:48.811+09:00'
-  delegation:
-    accepted_at: '2026-09-14T21:25:14.822+09:00'
-    accepted_task: /root/e16_runtime_repair_ultra
-    effective_reasoning_independent_verification: not obtained
-    instruction_commit: 2fc0a319faeffb3733cd4a5f3091be3819ec770d
-    instruction_id: ULTRA-LIVE-20260914-v1
-    no_duplicate_prior_task: true
-    parent_continues: true
-    read_at: '2026-09-14T21:23:08.654+09:00'
-    spawn_arguments:
-      fork_turns: none
-      model: 'omitted: inherit'
-      reasoning_effort: ultra
-      task_name: e16_runtime_repair_ultra
-    switch_point: 既に受理済みE9 r2・grain・audio・E16 raw監査を保持し、新しいE16実行方法修正担当から切替
+"schema_version": 1
+"work":
+  "units_requested": "continuous"
+  "units_completed": 0
+  "unit": "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる"
+  "completion": "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied"
+  "started_at": "2026-09-13T20:56:49+09:00"
+  "deadline_at": "2026-09-20T20:56:49+09:00"
+  "timezone": "Asia/Tokyo"
+  "deadline_missed": false
+  "status": "active"
+  "units": []
+"repository":
+  "name": "bachikoljunior-blip/survival"
+  "branch": "claude/repo-instructions-constraints-r0070m"
+  "initial_remote_commit": "d5369219a99c37191e4affd170a752142a6cdc63"
+"checkpoint":
+  "foreground_status": "active"
+  "continuation_check_observation": "2026-09-14T22:12:44.920+09:00 元の主実行の安全なC29保存前境界でUltra統合担当が引継ぎ、正式GitHubの固定a6d AGENTS→CLAUDE→SESSIONとC28→a6dのCLAUDEのみ差分を確認。親の未完remote操作0・既存E9単回推論維持・候補実ファイルを照合して同じ主制作を継続。"
+  "last_progress_at": "2026-09-14T22:12:44.920+09:00"
+  "verified_commit": "2fc0a319faeffb3733cd4a5f3091be3819ec770d"
+  "verified_build_sha256": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b"
+  "evidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-light-r2/provenance.json"
+  "last_verified_action": "main5456371のPages34843803302はbuild/ios-safari/deploy/F6全成功。F6 job103979989613は2026-09-14T21:49:26+09:00に公開4ファイルをmainの生成物と照合しタイトル起動確認、bundle6b887bc1一致。C28 narrative成功、F2は旧STATE参照、F3はSESSION multiline plain scalar非対応と原音三時計guard3件、grain旧scenehash8件が失敗。F2実C28/main Git再現で元1/候補0、記録欠落と旧STATEのみ更新と不正baseの拒否は保持。SESSIONをquoted scalar無折返しへ再保存し実repo parser176dbeecで元20行failure再現・全値同一の読込成功。grainは実ソースのdt0更新+Three r180 CPUでbuffer byte同一/12version増分を再現、14controls成功。 C29独立UltraレビューはF2実Git5条件/CPU14/構文3/workflow全非grain不変が成功、blocking0。iOS最終3-file差分はUltra統合担当が基点blobと既存独立レビュー、最後の失敗cleanupまで照合した。"
+  "current_browser_evidence": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-light-r2/provenance.json"
+  "modified_but_unverified": "C29はF2正本4行修正、SESSION読込互換、全geometry/instance buffer byte・材質/transformを照合するgrain診断r2と、原録音helper/三時計guardを不変に保ったiOS Safari取得3-file候補を統合。実CI・grain8view data比較・Safari能力/原clipは未測定。game runtime6b887bc1不変。E16 native/projection helperはCPU確認済みだが未統合・新build pin未選択・推論0、v2下の新評価は正規Ultra担当へ移す。"
+  "next_action": "親rootだけがUltra統合担当の確定manifestに従い最新a6d親でC29を保存し、[grain-c28-r2]と[ios-audio-c28-r1]を各一回の既存CIへ進める。既存C28 E9単回推論は中止/重複せずraw完了後に完全性/出所認識/全対象観察を監査し、外部モデルをUltraと呼ばない。grain各viewのfield/byte差0・正確復元と原画像の細部/ventfield地面を確認後に.012採否を確定し、採用なら製品実装→build→スマートフォン再検証→必須gate成功時の通常PR/main反映へ進む。iOSは原clipと三時計/実操作を監査。F3の既存Chromium clock失敗は未解消で、成功偽装やmain保護回避はしない。全19未測定のため実装改善と匿名実資料による独立Ultra比較を継続。"
+  "deadline_assessment": "2026-09-14T22:12:44.920+09:00 継続確認直後、残り142.73時間、全19未測定/有効比較0で根拠付き「できる」見通しは立たない。方法を疑い代案を実行する。grainの旧version/data混同は実ソースCPUで再現・14controls成功、原16PNG独立診断は.012で空/暗部の粒低減と路面細部保持を支持するがr2実data待ち。音声はlow Chromium三時計.105/.185/.288不合格を受け、既存50fps実績のiOS Safariへ取得経路を変更しCPU10項目/独立レビュー済み候補を今C29で実測へ進める。E9はr1 prepare停止からr2 native入力検査/単回全文推論へ進行、結果未取得。新任意LLM評価はUltraへ移し匿名性/固定条件を維持する。代案のCPU成功を実品質達成や期限保証へ読み替えない。"
+  "elements": "AI_DEVELOPMENT/BENCHMARKS/elements.json"
+  "blockers":
+    - "全19要素not measured、有効比較0、完了作業単位0。主制作/子/CIは実稼働、コミットやmain反映は完成ではない。"
+    - "E9 r2はC28 run34844290462/job103976355100でprepare/native検査SUCCESS、親の2026-09-14T22:10:32.060+09:00実取得では全文単回推論中。native token数/RAM/完了回答はexport後の実rawが必要。既存外部モデルをUltraと称さず、切替だけで中止/重複しない。HF83565は別測定。第三者参照DBを実playや全文公式裏付けとしない。"
+    - "E16 r3は7200.018s timeout/最終回答なし/出所推測で無効。元raw15件とfulljoblog保全。Ultra helper8becdc06は実GGUF非thinking/CSV16順序のnativeCPUと、C28 mutable6field差再現・正常更新3受理/固定目標10拒否を確認した候補。新build/全8原PNG未選択・推論0。v2以降の任意LLM評価は正規Ultra担当へ移すため、この外部helperを自動起動しない。"
+    - "E12 low Chromium原音のengine/audio比street .104706/vent .184972/arcade .287897、3件clockguard不合格。原compressor/cap/速度/guardを保ったiOS Safari能力・原収録3-file候補をC29で一回測る。API広告と実constructor/原bytes/三時計/聴取は別に確認する。参照音声の販促音/声混入区間監査と独立Ultra比較も未完。"
+    - "grain r1全8viewの旧scenehash不一致FAILを保持。CPUでcounterのみ変化は再現できたがr1の唯一原因とは証明しない。原16PNG独立診断は.012を条件付き支持、ventfield灰地面の平滑さはr2重点確認。r2 field/全buffer byte/復元の実CI未測定、盲検品質達成は0。"
+    - "F2正本不整合とSESSIONシリアライズ不互換は再現・候補確認済み、C29remote CI未取得。F3 known audio clock失敗は未解消で新methodの実結果が必要。古いSTATEへworkキーを複製しない。"
+    - "E19公式FFF337原PNGは実取得したが非回復modエラー画面のみ。公式デモunauth HEAD403、利用可能desktop能力なし。既存headless9資料は不変保持しGUI回復資料やblind比較の代用にしない。拒否経路を再試行/迂回しない。"
+  "recovery": "通常sandboxは環境整備後に実行可。旧survivalのsource/rootはa840のままでGit metadata不在、新規survival-remoteは指定remoteC25とmainの履歴/merge-tree取得済み。旧原参照/本文/完了モデル/検証済み成果を削除しない。通常Git書込認証は取得せず、接続GitHub appの正規blob/tree/commit/ref/PR機能を使う。大きな全checkoutの待ちは中断し必要tree比較へ変更、実競合1件確認済み。local大規模model取得は全bytes+headroomの事前空き確認なしで再開しない。通常削除後のprefix再出現を実測したため、容量再発の原因は未解消として保持。小ファイル監査は継続でき、モデル推論は空き/RAM事前確認付きCIを使う。安全/権限拒否は回避せず、検証済みC25/未完main統合/E9 native比較から続行。"
+  "continuation_mechanism": "Work Mode既存の survival 継続実行 を、主実行停止時の再発火役へ更新し、正確なprompt・有効状態・既存予定の保持を再読取確認した。停止原因の全件調査→修正可能な全原因の修正→再発防止の検証→保存された未完了地点の再開→実進捗確認を指示。稼働中は競合変更しない。変更不可能な安全/権限/環境上限は迂回せず記録。設定更新は未来の復旧成功の証拠ではない。証拠: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/resume-watchdog.json"
+  "main_reflection":
+    "source_commit": "2fc0a319faeffb3733cd4a5f3091be3819ec770d"
+    "main_commit": "5456371249f5769c25d18f1686a44349e4292d6f"
+    "merged_at": "2026-09-14T21:30:27.099+09:00"
+    "tree_sha": "362c31a451e99cbd097b18f95849420faffa7f90"
+    "pr": 15
+    "required_ci": "Floor34842474105 F2/F3/F5 success; iphone round34842474094 success"
+    "status": "merged and public revision verified"
+    "game_implementation": "C28/C29 runtime paths unchanged from this merged source; exact production bundle6b887bc1 publicly verified. C29 tool/state repair is not yet merged."
+    "public_verification": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c29-integration/main-public-verification.json"
+    "public_job": 103979989613
+    "quality_complete": false
+  "delegation":
+    "instruction_id": "ULTRA-ALL-20260914-v2"
+    "instruction_commit": "a6d420f40995d33fb12c54b2338aee8f6211768a"
+    "root_accepted_at": "2026-09-14T22:09:25.073+09:00"
+    "integration_read_accepted_at": "2026-09-14T22:12:44.920+09:00"
+    "receipts": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c29-integration/ultra-v2-integration.json"
+    "prior_receipts": "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c29-integration/ultra-receipts.json"
+    "intellectual_integration_owner": "/root/integration_decisions_ultra_v2"
+    "active":
+      - "/root/integration_decisions_ultra_v2"
+    "completed_candidates":
+      - "/root/ios_audio_acquisition_ultra"
+      - "/root/e16_runtime_repair_ultra"
+      - "/root/grain_image_review_ultra"
+      - "/root/state_gate_alignment_ultra"
+      - "/root/grain_guard_repair_ultra"
+      - "/root/stability_material_ultra"
+      - "/root/integration_decisions_ultra_v2/c29_exact_review_ultra"
+    "safe_switch_point": "C29のfresh-head差を検出しblob作成前で親の未完remote操作0。未保存候補と既存実行を保全して全知的作業をUltra統合担当へ移譲。"
+    "spawn_arguments":
+      "reasoning_effort": "ultra"
+      "fork_turns": "none"
+      "model": "omitted/inherit"
+    "parent_responsibility": "/rootは唯一のremote実行者。Ultra統合担当が確定した保存/API操作の機械的実行と原応答転送だけ。計画/期限判断/レビュー/統合/main手順/報告内容はUltra担当。"
+    "effective_reasoning": "ultra実引数と受理を記録。親およびbackend実効強度の独立確認なし。全工程切替完了としない。"
+    "not_yet_executed": "C29実CIと検証判断、v2下の独立盲検比較、次の製品採用/再build/main反映は未実施。既存E9外部推論は切替前から実行中でUltra扱い不可。"

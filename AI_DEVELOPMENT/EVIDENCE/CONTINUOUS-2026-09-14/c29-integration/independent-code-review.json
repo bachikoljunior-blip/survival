@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-14T13:14:14.740460+00:00",
+  "reviewer": "/root/integration_decisions_ultra_v2/c29_exact_review_ultra",
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "base_commit": "a6d420f40995d33fb12c54b2338aee8f6211768a",
+  "instruction": {
+    "id": "ULTRA-ALL-20260914-v2",
+    "accepted": true,
+    "read_method": "Connected GitHub fetch_file at the exact base commit",
+    "ordered_read": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "AI_DEVELOPMENT/SESSION_STATE.yaml"
+    ],
+    "independent_backend_effort_verification": "not obtained"
+  },
+  "decision": "No blocking code finding in the four reviewed candidate files. Ready for the single integration owner; remote CI and actual r2 remain outstanding.",
+  "blocking_findings": [],
+  "findings": {
+    "f2": "Exactly four comment/path/message lines differ. SESSION_STATE.yaml is the current continuous-execution authority. PRODUCT patterns, BASE, three-dot diff and all refusal/exit branches are unchanged. Candidate passed five real-git fixture cases, including rejection for product-only, legacy-state-only and unresolved-base cases.",
+    "grain": "Full typed-array copies and every-byte comparison cover geometry attributes/index, morph attributes and instance matrix/colour capacity. Relevant attribute count/layout/normalization/usage/GPU metadata, geometry groups/draw range, material values/uniforms/version, hierarchy/visibility/transform/count/light fields remain strict. Only attribute upload-version differences are separated from the data verdict; legacy records and their false equality remain visible. No version blanket-removal, byte sampling for acceptance, or material-version waiver was introduced.",
+    "workflow": "Exact source-to-candidate transform is grain-c26-r1 to grain-c28-r2 identifiers plus node --test tools/mobile_grain_trial.test.mjs. YAML structure outside the grain job and all non-grain job text are unchanged. Push/run_attempt == 1 remain. No cancellation/concurrency change was added. E9 job and marker remain unchanged; a grain-only commit message does not select E9."
+  },
+  "verification": {
+    "cpu_suite_command": "node --test tools/mobile_grain_trial.test.mjs",
+    "cpu_suite_location": "/workspace/scratch/0b7ad82bafe7/c29-independent-review-ultra/cpu",
+    "cpu_tests_passed": 14,
+    "cpu_tests_failed": 0,
+    "cpu_fixture_label": "Real Three.js r180 CPU objects and exact pinned PlumeField/BurstField method source; synthetic 1x1 PNGs only for report plumbing",
+    "cpu_atmosphere_git_blob_sha1": "036acce63f9eff6b6c637cd31cd13419b2ebde9d",
+    "f2_cases_passed": 5,
+    "node_syntax_files_passed": 3,
+    "workflow_parse": true,
+    "grain_shell_steps_syntax_passed": 5,
+    "candidate_hashes_unchanged_during_review": true
+  },
+  "limitations": [
+    "F2 retains its existing filename-diff scope; it does not validate checkpoint field quality or file contents.",
+    "CPU tests are not production WebKit r2 capture, pixel-quality evidence, blind comparison or a proof that r1 had no additional differences. Actual r2 duration/heap/report/export completeness remain unmeasured.",
+    "This review does not independently certify live E9 execution status, remote head/CI, the parent-owned SESSION edit, merge or deployment."
+  ],
+  "fixed_scope_preserved": {
+    "elements": 19,
+    "references": 10,
+    "criteria": 71,
+    "verdicts": "all not measured; no new quality verdict",
+    "units_requested": "continuous",
+    "units_completed": 0,
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00",
+    "basis": "Four reviewed files contain no changes to product source/bundle, benchmarks, reference selection, thresholds or session work mapping; SESSION is owned and reviewed separately."
+  },
+  "r1_original_report": {
+    "bytes": 378163,
+    "sha256": "b95adf450aa714c0a9a7af05f75a5a8e5085d2b606ce6e01e001015b4fd519f2",
+    "preserved": true
+  },
+  "candidate_files": {
+    "tools/gates/f2_state_update.mjs": {
+      "sha256": "31c1b3d2ec6057fe6a28932e8711e7d54ca008acf714f2f9345596fcb865fa05",
+      "git_blob_sha1": "d8d589912a05af82acc10a8240808f4363dd6743",
+      "bytes": 2853
+    },
+    "tools/mobile_grain_trial.mjs": {
+      "sha256": "c360859e0a3a2e003c70d3b6b3e71acd3db96dce4f2efe7f8d7fdebdb1698267",
+      "git_blob_sha1": "a7697bb982f93178e8e349bf5d5ae97d1da2af54",
+      "bytes": 20832
+    },
+    "tools/mobile_grain_trial.test.mjs": {
+      "sha256": "6beeb030408bae9a6a225fc83979a4529de1c02748f7e241103e054a8e151db9",
+      "git_blob_sha1": "d09efc35d3dbfa384c25a603d85cdc4e0a88b7dd",
+      "bytes": 9444
+    },
+    ".github/workflows/gates.yml": {
+      "sha256": "2bd9dcdab96a2a8ebfe111e3eb8a2721bbde5de5ea9d9264f64962accd4eb72c",
+      "git_blob_sha1": "fe81e4f3f37f8fda8cb19bc4fbcb71a175f38a8e",
+      "bytes": 15160
+    }
+  },
+  "source_git_blobs": {
+    "tools/gates/f2_state_update.mjs": "b81a493ef9c20fe0c75bcc33fadb6ab05ae8d44b",
+    "tools/mobile_grain_trial.mjs": "c1b7fad6e14bad2f251fee273cab247e69055479",
+    ".github/workflows/gates.yml": "df52b08d5ea4a2d0d9fa5a7fe4d44ababb4645e4",
+    "tools/mobile_grain_trial.test.mjs": "Absent at base; official fetch 404"
+  },
+  "actions": {
+    "candidate_edits": false,
+    "session_edits": false,
+    "remote_mutation": false,
+    "ci_started": false,
+    "pr_main_deploy_automation_operations": false
+  },
+  "evidence": "checks.json"
+}

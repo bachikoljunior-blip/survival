@@ -1,0 +1,360 @@
+{
+  "scope": "CPU source-method fixture only; no browser or GPU or real C28 capture, no quality verdict",
+  "sourceCommit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+  "threeRevision": "180",
+  "atmosphereSourceSha256": "4bc604f65d390b7cdcf34c7c8c9939d26f0810202ea2d651895cf989a3ab51b5",
+  "plumeUpdateMethodSha256": "20ddf6bfb853a1b1a6330fafd93d6c223c4a14ce3e497e7d6973e48e95d7247b",
+  "burstUpdateMethodSha256": "eb1d8935272ae934dfca05b87a0a520f73678661d4fefc9519543434add0dcae",
+  "controls": {
+    "unchangedDataUploadCounters": {
+      "failure": null,
+      "descriptorRestored": true,
+      "stateEqualBeforeTrial": true,
+      "sceneLegacyHashes": [
+        "1b4fa7ce1da07fa9a02b08c0fa19cd1a5d5b91f7abdcdc2253d0507c40b0c2fd",
+        "126d092e57e4a6b7c0bcd4d06c8c39c6fac4466cacdfdb09b639c73418b4d453",
+        "5a177ff7a42242bfdc2dacc27e2c6cd2ce05455ded89d88f7159bf9149bd6307"
+      ],
+      "sceneInvariantHashes": [
+        "67da7cb262da337b459eeb6d5391b80a59beb58603662fdf99dfd79f23e05c9f",
+        "67da7cb262da337b459eeb6d5391b80a59beb58603662fdf99dfd79f23e05c9f",
+        "67da7cb262da337b459eeb6d5391b80a59beb58603662fdf99dfd79f23e05c9f"
+      ],
+      "comparisons": {
+        "beforeTrial": {
+          "unchanged": true,
+          "differenceCount": 0,
+          "differences": [],
+          "differencesTruncated": false,
+          "changedBufferCount": 0,
+          "bufferDifferences": [],
+          "bufferDifferencesTruncated": false,
+          "counterDifferenceCount": 12,
+          "counterDifferences": [
+            {
+              "path": "uploadVersions.geometries.030cf331-6f55-4fb6-9259-9a4e4357b45a.attributes.aAlpha.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.030cf331-6f55-4fb6-9259-9a4e4357b45a.attributes.aCell.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.db275d8c-c6b8-44ae-997c-d84e7ee45edf.instanceMatrix.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.db275d8c-c6b8-44ae-997c-d84e7ee45edf.instanceColor.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.ad3a73c7-34b2-4302-875c-53c1cfd9e424.attributes.aAlpha.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.ad3a73c7-34b2-4302-875c-53c1cfd9e424.attributes.aCell.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.6798ad5a-3125-43d3-b415-e23326695073.instanceMatrix.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.6798ad5a-3125-43d3-b415-e23326695073.instanceColor.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.4a4fe63a-35d2-4f60-9ac3-37f766e48ba4.attributes.aAlpha.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.4a4fe63a-35d2-4f60-9ac3-37f766e48ba4.attributes.aCell.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.ba9ec9d7-687b-4a2a-9477-cd37ec57caeb.instanceMatrix.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.ba9ec9d7-687b-4a2a-9477-cd37ec57caeb.instanceColor.version",
+              "before": 1,
+              "after": 2
+            }
+          ],
+          "counterDifferencesTruncated": false
+        },
+        "beforeRestored": {
+          "unchanged": true,
+          "differenceCount": 0,
+          "differences": [],
+          "differencesTruncated": false,
+          "changedBufferCount": 0,
+          "bufferDifferences": [],
+          "bufferDifferencesTruncated": false,
+          "counterDifferenceCount": 12,
+          "counterDifferences": [
+            {
+              "path": "uploadVersions.geometries.030cf331-6f55-4fb6-9259-9a4e4357b45a.attributes.aAlpha.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.030cf331-6f55-4fb6-9259-9a4e4357b45a.attributes.aCell.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.db275d8c-c6b8-44ae-997c-d84e7ee45edf.instanceMatrix.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.db275d8c-c6b8-44ae-997c-d84e7ee45edf.instanceColor.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.ad3a73c7-34b2-4302-875c-53c1cfd9e424.attributes.aAlpha.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.ad3a73c7-34b2-4302-875c-53c1cfd9e424.attributes.aCell.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.6798ad5a-3125-43d3-b415-e23326695073.instanceMatrix.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.6798ad5a-3125-43d3-b415-e23326695073.instanceColor.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.4a4fe63a-35d2-4f60-9ac3-37f766e48ba4.attributes.aAlpha.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.4a4fe63a-35d2-4f60-9ac3-37f766e48ba4.attributes.aCell.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.ba9ec9d7-687b-4a2a-9477-cd37ec57caeb.instanceMatrix.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.ba9ec9d7-687b-4a2a-9477-cd37ec57caeb.instanceColor.version",
+              "before": 1,
+              "after": 3
+            }
+          ],
+          "counterDifferencesTruncated": false
+        }
+      }
+    },
+    "changedAlphaDataWithUploads": {
+      "failure": null,
+      "descriptorRestored": true,
+      "stateEqualBeforeTrial": true,
+      "sceneLegacyHashes": [
+        "efbd2526e67f10d22cb97922e74b3e71b497da23ea182d97aa334cff16d2d4e6",
+        "a2315f67f6ac968fc15106acb3c72a09218b2da2f0543c09f8d7c86cceb2664b",
+        "ace6a472cd95c1f0cc0341765574bc038398bc7fbda8cf8bfb0a582e0ab32e4e"
+      ],
+      "sceneInvariantHashes": [
+        "32e7c50b4c77ffbd2ce86c24ba6f437ca87052b9b545c2f1fc2f608095b43a1c",
+        "a45cac8e6adeffdd0f603218694fdf0395b23f084bfa87b2259b706487f08512",
+        "32e7c50b4c77ffbd2ce86c24ba6f437ca87052b9b545c2f1fc2f608095b43a1c"
+      ],
+      "comparisons": {
+        "beforeTrial": {
+          "unchanged": false,
+          "differenceCount": 1,
+          "differences": [
+            {
+              "path": "scene.geometries.3886469d-bc46-4f07-8674-1ad9f4966ca4.attributes.aAlpha.array.sha256",
+              "before": "7f238d390cf880c1709940ec596cd026d565c42a35368d753e785f0393fd4933",
+              "after": "8da5b0a97d5aad128c4e1a1865735c805bf6d8a4291b1015bd37166c3ee96fd8"
+            }
+          ],
+          "differencesTruncated": false,
+          "changedBufferCount": 1,
+          "bufferDifferences": [
+            {
+              "path": "geometries.3886469d-bc46-4f07-8674-1ad9f4966ca4.attributes.aAlpha.array",
+              "changedBytes": 1,
+              "samples": [
+                {
+                  "byteOffset": 2,
+                  "beforeByte": 146,
+                  "afterByte": 210,
+                  "beforeElement": 0,
+                  "afterElement": 0,
+                  "beforeValue": "0.28531694412231445",
+                  "afterValue": "0.41031694412231445"
+                }
+              ],
+              "beforeSha256": "7f238d390cf880c1709940ec596cd026d565c42a35368d753e785f0393fd4933",
+              "afterSha256": "8da5b0a97d5aad128c4e1a1865735c805bf6d8a4291b1015bd37166c3ee96fd8"
+            }
+          ],
+          "bufferDifferencesTruncated": false,
+          "counterDifferenceCount": 12,
+          "counterDifferences": [
+            {
+              "path": "uploadVersions.geometries.3886469d-bc46-4f07-8674-1ad9f4966ca4.attributes.aAlpha.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.3886469d-bc46-4f07-8674-1ad9f4966ca4.attributes.aCell.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.15636760-b470-4ad3-a1c1-524336bcc78b.instanceMatrix.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.15636760-b470-4ad3-a1c1-524336bcc78b.instanceColor.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.68cfd87c-6ef1-4d40-a5be-8c2e5ed82041.attributes.aAlpha.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.68cfd87c-6ef1-4d40-a5be-8c2e5ed82041.attributes.aCell.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.939ae8c3-8dbf-4893-8ed8-f75762c4d0f5.instanceMatrix.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.939ae8c3-8dbf-4893-8ed8-f75762c4d0f5.instanceColor.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.aed1a275-fc68-41fe-b6cd-7410a26839bf.attributes.aAlpha.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.geometries.aed1a275-fc68-41fe-b6cd-7410a26839bf.attributes.aCell.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.a50f6a2d-769c-45d2-9752-2fb337b122fd.instanceMatrix.version",
+              "before": 1,
+              "after": 2
+            },
+            {
+              "path": "uploadVersions.nodes.a50f6a2d-769c-45d2-9752-2fb337b122fd.instanceColor.version",
+              "before": 1,
+              "after": 2
+            }
+          ],
+          "counterDifferencesTruncated": false
+        },
+        "beforeRestored": {
+          "unchanged": true,
+          "differenceCount": 0,
+          "differences": [],
+          "differencesTruncated": false,
+          "changedBufferCount": 0,
+          "bufferDifferences": [],
+          "bufferDifferencesTruncated": false,
+          "counterDifferenceCount": 12,
+          "counterDifferences": [
+            {
+              "path": "uploadVersions.geometries.3886469d-bc46-4f07-8674-1ad9f4966ca4.attributes.aAlpha.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.3886469d-bc46-4f07-8674-1ad9f4966ca4.attributes.aCell.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.15636760-b470-4ad3-a1c1-524336bcc78b.instanceMatrix.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.15636760-b470-4ad3-a1c1-524336bcc78b.instanceColor.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.68cfd87c-6ef1-4d40-a5be-8c2e5ed82041.attributes.aAlpha.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.68cfd87c-6ef1-4d40-a5be-8c2e5ed82041.attributes.aCell.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.939ae8c3-8dbf-4893-8ed8-f75762c4d0f5.instanceMatrix.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.939ae8c3-8dbf-4893-8ed8-f75762c4d0f5.instanceColor.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.aed1a275-fc68-41fe-b6cd-7410a26839bf.attributes.aAlpha.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.geometries.aed1a275-fc68-41fe-b6cd-7410a26839bf.attributes.aCell.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.a50f6a2d-769c-45d2-9752-2fb337b122fd.instanceMatrix.version",
+              "before": 1,
+              "after": 3
+            },
+            {
+              "path": "uploadVersions.nodes.a50f6a2d-769c-45d2-9752-2fb337b122fd.instanceColor.version",
+              "before": 1,
+              "after": 3
+            }
+          ],
+          "counterDifferencesTruncated": false
+        }
+      }
+    }
+  }
+}

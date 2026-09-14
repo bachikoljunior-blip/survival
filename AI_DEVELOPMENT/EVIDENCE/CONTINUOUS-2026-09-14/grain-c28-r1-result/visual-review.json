@@ -1,0 +1,405 @@
+{
+  "schema_version": 1,
+  "review_type": "independent_source_known_visual_diagnostic",
+  "scope": "原PNG2設定差の独立視覚診断。参照作品比較、ブラインド比較、要素達成判定ではない。",
+  "reviewer": {
+    "agent": "/root/grain_image_review_ultra",
+    "requested_reasoning_effort": "ultra",
+    "effective_reasoning_effort_independently_verified": false,
+    "model_override": "none requested",
+    "authority": "親が再読・受理した67a458d7のULTRA-LIVE-20260914-v1とSESSIONの引継ぎを使用。ローカルsurvival内の古いCLAUDE/SESSIONは現行正本として使用しない。"
+  },
+  "session_unchanged": {
+    "units_requested": "continuous",
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00",
+    "elements": 19,
+    "criteria": 71,
+    "all_element_verdicts": "not measured",
+    "completed_comparison_units_added": 0,
+    "source": "parent handoff; no state files modified"
+  },
+  "inputs": {
+    "directory": "/workspace/scratch/0b7ad82bafe7/grain-c28-result-r1",
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "capture_commit_from_report": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "source_baseline_commit_from_report": "97ab074e7a35137b53ab72a400d4beeab5f0ca52",
+    "runtime_bundle_sha256_from_report": "6b887bc1cf6ebc0b7fae6c146e46c05d067ad5ba51544fd218d17e8483ea338b",
+    "runtime_bundle_hash_independently_recomputed": false,
+    "baseline_grain": 0.035,
+    "trial_grain": 0.012,
+    "tier": "medium",
+    "unique_images_actually_viewed": 16,
+    "scenes_actually_viewed": [
+      "stacks",
+      "marrow",
+      "arcade",
+      "cinder",
+      "survey",
+      "ventfield",
+      "south",
+      "plant"
+    ],
+    "image_dimensions_each": [
+      1147,
+      645
+    ],
+    "inspection_method": "tools.view_image(detail=original), with image output forwarded at original detail; both full original PNGs for each of eight scenes",
+    "image_transformations_performed": [],
+    "excluded": [
+      "visual-marrow_roof-frame.png"
+    ]
+  },
+  "capture_validity": {
+    "r1_controlled_capture_passes": 0,
+    "r1_controlled_capture_failures": 8,
+    "r1_verdict_preserved": "not measured",
+    "direct_report_observation": "8場面すべてstateUnchanged・descriptorRestored・gradeObjectRestored・stillStopped・pixelsRestored・pngBytesRestored・grainValuesVerified・renderCountsUnchangedはtrue。sceneRecordsUnchangedとvalidControlledCaptureはfalse。",
+    "cpu_reproduction_status": "別担当によるdt=0でもattribute version counterが増えdataは同一というsource CPU再現は親からの伝達。今回のレビューでは独立再実行していない。",
+    "causal_limit": "その再現だけではr1実captureの全scene内容が同一だった保証にならない。見え方の差は観察したが、差のすべてをgrainだけの因果効果と確定しない。旧r1の失敗を成功へ変更しない。",
+    "r2_inspected_in_this_review": false
+  },
+  "scene_observations": [
+    {
+      "scene": "stacks",
+      "small_forms": ".012では中央前方の小片、右の細い金属柱、手前のブロック上面と側面の境を追う際の細かなちらついた模様が弱い。形や配置が新しく読めるほどの大差ではない。",
+      "contact_and_shadow": "人物から右奥へ伸びる柔らかな暗部と、右の台座まわりの陰影が少し素直な面として見える。影の位置・広がり・足元の接触が良くなったとは判断しない。",
+      "depth": "近い灰色の地面と背後の錆色の煉瓦壁のまとまりは保たれる。閉じた近景なので遠景の分離はほぼ評価できない。",
+      "sky_smoke_material": "空は写らない。煉瓦の目地・暗い斑、地面の細かな粒、右のコンクリートの穴は.012にも残る。壁一面の細かなざらつきが減り、煉瓦の面がやや整って見える。",
+      "consistency_and_remaining_issue": "炭色の人物、暖かい煉瓦と灰色の床という関係は変わって見えない。壁やブロックの大きな平面性は残る。",
+      "recommendation": ".012を条件付きで支持。r2成立まで実装採用保留。"
+    },
+    {
+      "scene": "marrow",
+      "small_forms": "道路のひび、散った小片、街灯の細い柄は両設定で読める。.012は輪郭の近くの微細なざらつきが少なく、ひびを連続した線として追いやすい程度の改善。",
+      "contact_and_shadow": "右建物下から道路へ落ちる紫褐色の暗い帯と人物の足元の暗部が滑らかに見える。右のほぼ黒い建物面や人物内部の情報は増えていない。",
+      "depth": "青い空から暖色の遠景の霞への移行が落ち着き、道路奥を見通しやすい。建物の前後関係を変えるほどの差はない。",
+      "sky_smoke_material": "空に一様にかかる砂状の粒が弱くなる一方、路面の骨材・ひびと建物の煉瓦模様は残る。空と粗い路面の質感を分ける方向に見える。",
+      "consistency_and_remaining_issue": "寒い空と暖かい街路は維持されて見える。右の黒い面のつぶれはgrainを弱めても解消しない。",
+      "recommendation": ".012を条件付きで支持。暗部の可読性改善まで達成したとは扱わない。"
+    },
+    {
+      "scene": "arcade",
+      "small_forms": "奥の梯子、近景の歩道の目地、人物右の薄い小片は両設定で残る。.012では近景の目地と右のコンクリート障害物の穴が、一様な粒とは別の形として見えやすい。",
+      "contact_and_shadow": "左手前へ落ちる人物の柔らかい影と右障害物の下の暗部は、濃さの移行を追いやすい。ただし影の輪郭や接触範囲を修復したとは見えない。",
+      "depth": "手前の歩道、街路の障害物、霞んだ奥という並びは同じ。.012は遠景の空・霞を落ち着かせるため、ごく軽く奥を読みやすく感じる。",
+      "sky_smoke_material": "空の粒が弱まり、コンクリートの穴・煉瓦・アスファルトの模様は保持される。白い煙は相変わらずぼやけた塊の連なりで、煙の内部構造が増えたわけではない。",
+      "consistency_and_remaining_issue": "寒い空と錆色の壁、炭色の障害物は一貫している。右の大きい暗い壁はなお平板で、煙の塊状表現も残る。",
+      "recommendation": ".012を条件付きで支持。煙表現の改善とは数えない。"
+    },
+    {
+      "scene": "cinder",
+      "small_forms": "看板の文字は両設定ですでに読める。.012で看板の黒い背景が静まり、文字周囲の余分な細粒が弱くなるが、新たな文字の可読性獲得とは言わない。路面の細い割れも残る。",
+      "contact_and_shadow": "看板下・左壁際の幅広い影が面として見えやすい。人物の足元の暗部、影の落ち方と輪郭は変わって見えない。",
+      "depth": "遠方の道路と低い建物の霞が滑らかになり、手前の路面との差は保たれる。遠近の区切り自体に大きな変化はない。",
+      "sky_smoke_material": "空のざらつきは減るが路面の骨材とひび、左壁の斑点は残る。左壁の斑点は引き続き平たく貼られた模様のように見え、材質の立体感の解決ではない。",
+      "consistency_and_remaining_issue": "看板の橙と寒い青空の関係は維持される。路面の四角い色斑や壁の平面性は引き続き目に入る。",
+      "recommendation": ".012を条件付きで支持。看板や素材の根本的改善を主張しない。"
+    },
+    {
+      "scene": "survey",
+      "small_forms": "壁の丸い型枠跡、小さな孔、横目地、窓枠の薄い縁が.012で少し整理されて見える。看板の文字は両方で読め、粒削減による新しい情報はない。",
+      "contact_and_shadow": "窓の右側へ落ちる暗部から壁面への移行が滑らかに見える。人物の足先は前景の低いコンクリート壁に隠れており、足の接地はこの対では判断できない。",
+      "depth": "手前の障害物、人物、背後の壁という分離は同じ。遠景や空が写らないため大きな奥行きへの効果は評価できない。",
+      "sky_smoke_material": "空・煙の判断対象はない。.012でも壁と前景のコンクリートの孔・筋・丸い跡は残り、材質の粗さが消えたようには見えない。看板の黒い面はより静か。",
+      "consistency_and_remaining_issue": "全体の暖かい光と炭色の窓の関係を維持。孔の繰り返しや窓の黒さはそのままであり、素材のscale変更は認めない。",
+      "recommendation": ".012を条件付きで支持。接地と空の評価範囲を広げない。"
+    },
+    {
+      "scene": "ventfield",
+      "small_forms": "奥へ並ぶ発光する噴気筒、細い小片、小屋の縦リブは.012でも読み取れる。全体が静まって列を追いやすいが、新たに形が分離したというほどではない。",
+      "contact_and_shadow": "人物の後方の柔らかな暗部と右の筒周りの橙の光が滑らかに見える。灰地面上の接地は引き続き弱く、影の形や主光が改善したとは扱わない。",
+      "depth": "暖かい低い霞、奥の壁、寒い空の大きい層は維持される。空と霞のざらつきが減って層を見やすく感じるが、位置関係の変化は見られない。",
+      "sky_smoke_material": "8場面の中でも空・霞の粒削減を見分けやすい。煙は白い柔らかい塊の連なりのまま。灰地面の微細な斑は残るが広い面がより平滑になり、波状の明暗が目立つ。",
+      "consistency_and_remaining_issue": "橙の噴気場と青い空の配色、錆色の小屋は維持。.012はこの場面の空気を整える一方、地面の平滑さを隠さない。この点はr2原画像で同じ見え方か確かめたい。",
+      "recommendation": ".012を条件付きで支持するが、r2で灰地面の平滑さを重点再確認。現時点で中間値を必須試行にする根拠はない。"
+    },
+    {
+      "scene": "south",
+      "small_forms": "頭上左の段状の煉瓦、箱の細い脚、明るい路面のひびは保持される。.012は暗い箱と道路上の粒を減らすが、影に沈む人物の服や持ち物の内部形状は依然読みづらい。",
+      "contact_and_shadow": "大きな屋根の下の暗部がより落ち着いた面になる。足元は画面下端の深い暗部にあり、接地の読取が改善したとは言えない。",
+      "depth": "近い屋根下の影と明るい中景、さらに奥の霞の分離は維持。遠い空の粒が減り奥の建物を追いやすいが、大きな明暗構成は同じ。",
+      "sky_smoke_material": "青空のざらつきは減る。右の煉瓦の目地と路面のひびは残り、手前の黒い箱に素材情報が戻るわけではない。",
+      "consistency_and_remaining_issue": "炭色の前景と暖かい街区、寒い空は維持される。暗部の一体化が強いという既存の問題は残る。",
+      "recommendation": ".012を条件付きで支持。ただし改善は控えめで、暗部の情報不足への対策として数えない。"
+    },
+    {
+      "scene": "plant",
+      "small_forms": "金属壁の細い縦リブ、煉瓦の横目地、路面の分岐するひびが.012でも明瞭に残る。細粒の重なりが弱いため、異なる種類の線を追いやすい。",
+      "contact_and_shadow": "人物から右へ伸びる柔らかい影と奥壁の暗部の移行は少し見やすい。影の濃さ・位置・足の接触を直したとは言えない。",
+      "depth": "人物、手前の駐車場、奥の工場壁の並びは同じ。空も遠景もないため大きな距離の分離は評価できない。",
+      "sky_smoke_material": "空・煙は写らない。.012でも金属のリブ、下部の煉瓦、粗い路面を区別でき、素材差が一様に消えた印象はない。中央の暗い入口は依然ほぼ黒い。",
+      "consistency_and_remaining_issue": "錆色と炭色の壁、暖かい路面の関係を維持。金属壁の規則的な縞や平面性は粒を減らしても残る。",
+      "recommendation": ".012を条件付きで支持。素材の反復や暗い入口を解決したとは扱わない。"
+    }
+  ],
+  "overall": {
+    "visual_preference": "0.012を次の採用候補として支持",
+    "current_adoption_disposition": "hold_until_valid_r2_and_visual_confirmation",
+    "reason": "16原PNGでは、空・霞・看板・暗部の一様な砂状の粒を減らす利益があり、煉瓦の目地、コンクリートの孔、金属のリブ、路面のひびと骨材は残る。粗い固体と柔らかい空気の質感を区別する方向に見える。大きな色・主光・素材scaleを変える明瞭な退行は視認しなかった。",
+    "size_of_effect": "控えめな画面整理。形状・ライティング・素材構造を改善する大きな変化ではない。",
+    "third_value": "この二値だけから0.012を最適値とは証明できない。現時点で別値を必須試行にするより、準備中のr2でこの候補の因果条件と見え方を確認する。",
+    "residual_risks": [
+      "ventfieldの灰地面がより平滑に見える。大きい波状の明暗と煙の塊状構造は残る。",
+      "south・marrow等の深い暗部は依然つぶれる。grain削減を接地・主光・暗部可読性の解決と読み替えない。",
+      "静止画での観察のみ。時間方向のgrainの振る舞い、移動中の見え方、実機の表示条件は今回測定していない。"
+    ]
+  },
+  "limitations": [
+    "出所と設定値を知らされた一人の独立レビューであり、匿名化もブラインドもしていない。参照作品の実資料を見ていないため、その比較や点数は一切推測しない。",
+    "旧r1は8/8でcontrolled capture不成立。メタデータの一致とPNG復元は確認できるが、全scene内容の不変はこの資料から証明できない。",
+    "見え方についての言葉は実画像の主観的観察。ハッシュ、画像のバイト数、画素数、noise scoreを品質評価の代用にしていない。",
+    "view_imageのoriginal指定で全画面を見た。crop・resize・加工・生成画像を作らず、元PNGとreportを書き換えていない。",
+    "全19要素・71基準・all not measured・比較単位完了数は不変。このレビュー完了は連続実行の完了ではない。"
+  ],
+  "parent_next_operations": [
+    "準備中のr2実captureを実行し、同一runtime bundleで8場面の0.035→0.012→0.035の原PNGと原reportを取得する。旧r1の失敗は保存したままにする。",
+    "r2の8/8でcamera・時刻・lighting・非grain grade/state、scene identity/transformと意味のあるattribute/index内容の一致、property descriptorと元PNGの完全復元を確認する。version counterだけの増分という説明を内容同一性の測定なしで採用せず、guardを単に外して成功にしない。",
+    "r2が成立した場合は新しい原PNGで本レビューの傾向を再確認し、とくにventfieldの灰地面とsouthの暗部を見る。同じ利益が残り新しい退行がなければ0.012だけの限定変更の採用・関連検証・保存へ進む。成立しない場合は採用保留を継続して残る内容差を特定する。",
+    "本レビューとr2の条件確認をブラインド合格や要素達成へ転記しない。既存の未測定判定を維持して親の継続作業へ統合する。"
+  ],
+  "source_integrity": {
+    "status": "verified unchanged",
+    "method": "SHA-256 of each unmodified original file computed before visual inspection and recomputed after all 16 image reads; PNG digests also match original report metadata",
+    "source_files_checked": 17,
+    "pngs_checked": 16,
+    "all_before_after_hashes_equal": true,
+    "all_png_hashes_match_original_capture_report": true,
+    "report_byte_count": 378163,
+    "files": [
+      {
+        "file": "report.json",
+        "bytes": 378163,
+        "sha256_before_review": "b95adf450aa714c0a9a7af05f75a5a8e5085d2b606ce6e01e001015b4fd519f2",
+        "sha256_after_review": "b95adf450aa714c0a9a7af05f75a5a8e5085d2b606ce6e01e001015b4fd519f2",
+        "unchanged": true
+      },
+      {
+        "file": "visual-stacks-frame.png",
+        "bytes": 1370363,
+        "sha256_before_review": "48a3fb3c7a44864b0114834fa87a9a892e87e43035773d997bd221008f84a8b1",
+        "sha256_after_review": "48a3fb3c7a44864b0114834fa87a9a892e87e43035773d997bd221008f84a8b1",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-stacks-trial.png",
+        "bytes": 1206126,
+        "sha256_before_review": "72122b9d2c32d3b8ca925905c7b92df8a8a694a3acfac0c8a12256f0817411e0",
+        "sha256_after_review": "72122b9d2c32d3b8ca925905c7b92df8a8a694a3acfac0c8a12256f0817411e0",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-marrow-frame.png",
+        "bytes": 1341592,
+        "sha256_before_review": "4707489798c13df2b40e1ef9cda16a2df8ada6435d2089ace9a80e5dbc2789c7",
+        "sha256_after_review": "4707489798c13df2b40e1ef9cda16a2df8ada6435d2089ace9a80e5dbc2789c7",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-marrow-trial.png",
+        "bytes": 1195272,
+        "sha256_before_review": "ef15d6b385472d19e85f0fa4fc6a810fc71302c143c80e56b17bbadce6f85bc0",
+        "sha256_after_review": "ef15d6b385472d19e85f0fa4fc6a810fc71302c143c80e56b17bbadce6f85bc0",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-arcade-frame.png",
+        "bytes": 1345313,
+        "sha256_before_review": "de2caaaaeeecbb667bd1f8e8bfc0d35d62dc81956e895d02891c44d4a424d0f6",
+        "sha256_after_review": "de2caaaaeeecbb667bd1f8e8bfc0d35d62dc81956e895d02891c44d4a424d0f6",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-arcade-trial.png",
+        "bytes": 1206948,
+        "sha256_before_review": "4e3035fd10cea8880526d1778d760cbe3c12aeada89cda74bbfdfd4f6daa3961",
+        "sha256_after_review": "4e3035fd10cea8880526d1778d760cbe3c12aeada89cda74bbfdfd4f6daa3961",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-cinder-frame.png",
+        "bytes": 1339975,
+        "sha256_before_review": "0b5dfc8a787dff09a8f6358faa687201de0fc4ce8a0006cd5de8eade20e368ae",
+        "sha256_after_review": "0b5dfc8a787dff09a8f6358faa687201de0fc4ce8a0006cd5de8eade20e368ae",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-cinder-trial.png",
+        "bytes": 1192397,
+        "sha256_before_review": "179461ee27d7ebdb2a39fb23244b5ee4b446e01219d9f82791a29f27c839abef",
+        "sha256_after_review": "179461ee27d7ebdb2a39fb23244b5ee4b446e01219d9f82791a29f27c839abef",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-survey-frame.png",
+        "bytes": 1323815,
+        "sha256_before_review": "2b49af7d9205e3acf875d4027b924b3875858e7f80f8b69ab5ccc247f641e1e7",
+        "sha256_after_review": "2b49af7d9205e3acf875d4027b924b3875858e7f80f8b69ab5ccc247f641e1e7",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-survey-trial.png",
+        "bytes": 1169220,
+        "sha256_before_review": "b7f9d57f2164e01f6d514d00c8160d0292c5e788324c9fe4b6f961b5da7113dd",
+        "sha256_after_review": "b7f9d57f2164e01f6d514d00c8160d0292c5e788324c9fe4b6f961b5da7113dd",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-ventfield-frame.png",
+        "bytes": 1255491,
+        "sha256_before_review": "c606a1800452796d92e1d09eec94530594e498a1a4b4cc8cd406c61dc6e001c6",
+        "sha256_after_review": "c606a1800452796d92e1d09eec94530594e498a1a4b4cc8cd406c61dc6e001c6",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-ventfield-trial.png",
+        "bytes": 1089741,
+        "sha256_before_review": "d7ca3676af8b6994ca500094ed136387e50bc90e2b07f38b4bcb0e00864319ba",
+        "sha256_after_review": "d7ca3676af8b6994ca500094ed136387e50bc90e2b07f38b4bcb0e00864319ba",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-south-frame.png",
+        "bytes": 1325266,
+        "sha256_before_review": "451034eb65d50adefb15da95cfacc966e992ce92819564151aab31ef96431ef3",
+        "sha256_after_review": "451034eb65d50adefb15da95cfacc966e992ce92819564151aab31ef96431ef3",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-south-trial.png",
+        "bytes": 1160702,
+        "sha256_before_review": "2b0c89a99b224041357cde4dd1c76d78c7b029791ae9094f8936afe2aefcef92",
+        "sha256_after_review": "2b0c89a99b224041357cde4dd1c76d78c7b029791ae9094f8936afe2aefcef92",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "visual-plant-frame.png",
+        "bytes": 1388783,
+        "sha256_before_review": "1fae95236193cc8569e80a2f65dadcbf8080e9fa607359ff36d0e3c88b63abae",
+        "sha256_after_review": "1fae95236193cc8569e80a2f65dadcbf8080e9fa607359ff36d0e3c88b63abae",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      },
+      {
+        "file": "grain-plant-trial.png",
+        "bytes": 1223958,
+        "sha256_before_review": "44889bc469917617009cfe85ad7e1e0bf4905a20d23be8375bc012da25f902d1",
+        "sha256_after_review": "44889bc469917617009cfe85ad7e1e0bf4905a20d23be8375bc012da25f902d1",
+        "unchanged": true,
+        "dimensions": [
+          1147,
+          645
+        ],
+        "sha256_matches_original_capture_report": true,
+        "actually_viewed": true,
+        "view_detail": "original"
+      }
+    ]
+  },
+  "review_completed_at_utc": "2026-09-14T13:07:11.436107+00:00"
+}

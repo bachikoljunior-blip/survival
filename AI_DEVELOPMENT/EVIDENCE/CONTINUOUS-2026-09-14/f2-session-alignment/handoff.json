@@ -1,0 +1,78 @@
+{
+  "status": "candidate frozen; independent parent review and remote integration pending",
+  "base_commit": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+  "instruction_id": "ULTRA-LIVE-20260914-v1",
+  "candidate_path": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/candidate/tools/gates/f2_state_update.mjs",
+  "candidate_git_blob_sha1": "d8d589912a05af82acc10a8240808f4363dd6743",
+  "candidate_sha256": "31c1b3d2ec6057fe6a28932e8711e7d54ca008acf714f2f9345596fcb865fa05",
+  "patch_path": "/workspace/scratch/0b7ad82bafe7/state-gate-alignment-ultra/f2-session-state.patch",
+  "patch_sha256": "c29f80bbbc505fcb425db11d3f009de0f9e1c2003f181d717f12030380007cf7",
+  "repository_edit_scope": [
+    "tools/gates/f2_state_update.mjs"
+  ],
+  "change": "Canonical SESSION_STATE.yaml path plus related comments/message; four lines only",
+  "cause": "C28 updated SESSION_STATE.yaml as the latest instruction requires, but F2 hardcoded the former STATE.yaml authority.",
+  "real_ci_source": {
+    "run_id": 34844290462,
+    "job_id": 103976354885,
+    "original_exit_code": 1
+  },
+  "real_git_replay": {
+    "main": "5456371249f5769c25d18f1686a44349e4292d6f",
+    "head": "67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c",
+    "original_exit_code": 1,
+    "candidate_exit_code": 0,
+    "product_paths": 8,
+    "api_compare_matches": true
+  },
+  "refusal_fixture_exits": {
+    "product_and_session": 0,
+    "product_and_legacy_state_only": 1,
+    "product_only": 1,
+    "no_product": 0,
+    "bad_base": 1
+  },
+  "work_mapping_equal_main_c28": true,
+  "work_mapping": {
+    "units_requested": "continuous",
+    "units_completed": 0,
+    "unit": "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる",
+    "completion": "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied",
+    "started_at": "2026-09-13T20:56:49+09:00",
+    "deadline_at": "2026-09-20T20:56:49+09:00",
+    "timezone": "Asia/Tokyo",
+    "deadline_missed": false,
+    "status": "active",
+    "units": []
+  },
+  "unchanged": [
+    "PRODUCT regex array",
+    "git diff three-dot semantics",
+    "BASE selection",
+    "diff failure exit 1",
+    "missing canonical update exit 1",
+    "all CI workflow files and required-check configuration",
+    "concept/elements/references/71 criteria",
+    "work units and clocks",
+    "legacy STATE project data"
+  ],
+  "unverified": [
+    "Remote CI against the integrated candidate commit",
+    "PR merge/main publication after integration",
+    "Checkpoint content quality is not parsed by F2; existing filename-diff scope is retained"
+  ],
+  "exact_next_integration": [
+    "Read latest specified branch ref and current AGENTS.md -> CLAUDE.md -> SESSION_STATE.yaml through the GitHub app; reconcile any advance from 67a458d7af2af5efbe8a0ef73c6a2e15bb17f38c before editing.",
+    "Confirm current tools/gates/f2_state_update.mjs still has source blob b81a493ef9c20fe0c75bcc33fadb6ab05ae8d44b; review/apply only the frozen four-line candidate.",
+    "Parent saves its actual F2 failure/reproduction/fix/verification/remaining work and next operation in SESSION_STATE.yaml without changing work units, start/deadline or element judgments; include selected evidence under AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/state-gate-alignment-ultra/.",
+    "Parent creates the normal commit on claude/repo-instructions-constraints-r0070m via the authorized GitHub app and reads back its exact SHA/blobs.",
+    "Verify the new commit against existing Floor F2/F3/F5 and other required CI before normal PR/main integration; original C28 failed run is retained as historical evidence."
+  ],
+  "evidence_sha256": {
+    "evidence/verification.json": "01469688c17019787efa68eda91b392a58424be8445eff91af381a17707f8321",
+    "evidence/c28-compare.json": "9be0ee4175e6f26a0b0d47bc95ed204464d5b28587cfa010f385cb06edad1778",
+    "evidence/c28-job-103976354885-original.log.txt": "290e64913f3c3ffbb5233c85a82ab09343a14486835a9a0613a0d9cd7fc8d58b",
+    "evidence/source-authorities.json": "9688945255c9c08a6510c8139b7e26ff6ddbcb5d44bbcbcf9753a420fb4400f5",
+    "evidence/gates-c28.yml": "3339e2e48bca82dd0b344dfa0c1f9ba62c1091af0bedcb283debec06192045a5"
+  }
+}

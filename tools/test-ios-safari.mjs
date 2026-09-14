@@ -31,6 +31,7 @@ const UDID = process.env.IOS_SIMULATOR_UDID || '';
 const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
 const SESSION_REQUEST_TIMEOUT = 900000;
+const CAPTURE_AUDIO = process.env.CINDERLINE_IOS_AUDIO_CAPTURE === '1';
 
 mkdirSync(OUTPUT, { recursive: true });
 
@@ -202,10 +203,16 @@ async function injectErrorCapture() {
 }
 
 let localServer = null;
+let audioTools = null;
+let audioProvenance = null;
 
 try {
   if (!UDID) throw new Error('IOS_SIMULATOR_UDID is required');
   if (!PLATFORM_VERSION) throw new Error('IOS_SIMULATOR_PLATFORM_VERSION is required');
+  if (CAPTURE_AUDIO) {
+    audioTools = await import('./ios_audio_capture.mjs');
+    audioProvenance = audioTools.verifyIosAudioBuild(ROOT, EXTERNAL_URL);
+  }
   const baseUrl = EXTERNAL_URL || (localServer = await startServer()).url;
   report.baseUrl = baseUrl;
   await waitForHttp(baseUrl);
@@ -462,6 +469,39 @@ try {
   report.errors.push(...errorsAfterReload);
   check(errorsBeforeReload.length === 0 && errorsAfterReload.length === 0,
     'no captured Mobile Safari runtime errors', JSON.stringify({ errorsBeforeReload, errorsAfterReload }));
+
+  if (CAPTURE_AUDIO) {
+    await audioTools.captureIosAudio({ execute, tap, root: ROOT, output: resolve(OUTPUT, 'audio'),
+      check, report, provenance: audioProvenance,
+      releaseActions: () => webdriver(sessionPath('/actions'), { method: 'DELETE' }),
+      waitFrames: async count => {
+        const start = await execute('return window.CINDERLINE.engine.frame;');
+        await waitForScript(`return window.CINDERLINE.engine.frame >= ${start + count};`, 60000);
+      },
+      moveForCapture: async () => {
+        const before = await execute(`var C=window.CINDERLINE; return {wallMs:performance.now(),
+          audioTime:C.game.audio.ctx.currentTime,engineTime:C.engine.time,engineFrame:C.engine.frame,
+          position:C.game.player.pos.toArray(),inputCount:window.__cinderlineIosInput.length};`);
+        await performActions([finger('audio-street-stick', [
+          move(110, 250), down(), move(110, 190, 350), pause(2150), up(),
+        ])]);
+        const after = await execute(`var C=window.CINDERLINE; return {wallMs:performance.now(),
+          audioTime:C.game.audio.ctx.currentTime,engineTime:C.engine.time,engineFrame:C.engine.frame,
+          position:C.game.player.pos.toArray(),stickActive:C.input._stick.active,
+          moveMagnitude:C.input.move.mag,input:window.__cinderlineIosInput.slice(arguments[0])};`, [before.inputCount]);
+        const distance = Math.hypot(...after.position.map((value, index) => value - before.position[index]));
+        check(after.input.some(event => event.type === 'pointerdown' && event.trusted && event.pointerType === 'touch')
+          && after.input.some(event => event.type === 'pointerup' && event.trusted && event.pointerType === 'touch'),
+        'iOS audio street: actual trusted stick gesture is observed');
+        check(distance > 0.15 && !after.stickActive && after.moveMagnitude === 0,
+          'iOS audio street: native movement advances and releases', JSON.stringify({ distance,
+            stickActive: after.stickActive, moveMagnitude: after.moveMagnitude }));
+        return { before, after, distance };
+      },
+    });
+    const captureErrors = await execute('return (window.__cinderlineIosErrors || []).slice();');
+    check(captureErrors.length === 0, 'iOS audio: no captured Safari runtime errors', JSON.stringify(captureErrors));
+  }
 } catch (error) {
   report.failures.push(error.stack || error.message || String(error));
   if (sessionId) {
@@ -491,8 +531,8 @@ try {
 console.log(`[ios-safari] ${report.status.toUpperCase()}: ${report.failures.length} failure(s)`);
 // Keep the exact report and bounded, lossless images readable through the
 // ordinary job log as well as the artifact; never substitute them for video.
-console.log(`[ios-safari-report] ${JSON.stringify(report)}`);
-for (const relative of Object.values(report.screenshots)) {
+console.log(`[ios-safari-report] ${JSON.stringify(CAPTURE_AUDIO && audioTools ? audioTools.iosAudioLogSummary(report) : report)}`);
+for (const relative of CAPTURE_AUDIO ? [] : Object.values(report.screenshots)) {
   const bytes = readFileSync(resolve(ROOT, relative));
   const data = bytes.toString('base64'), sha256 = createHash('sha256').update(bytes).digest('hex');
   const included = bytes.length <= 8000000;
