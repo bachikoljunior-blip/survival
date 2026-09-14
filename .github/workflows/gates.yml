@@ -153,7 +153,7 @@ jobs:
 
   comparison-e16-q35:
     name: Frozen E16 Qwen 3.5 comparison attempt
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e16-q35-a840-r2]')
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e16-q35-a840-r3]')
     runs-on: ubuntu-latest
     timeout-minutes: 180
     permissions:
@@ -177,7 +177,48 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: comparison-e16-q35-a840-r2-${{ github.sha }}
-          path: test-results/e16-q35-a8409cc-r2
+          name: comparison-e16-q35-a840-r3-${{ github.sha }}
+          path: test-results/e16-q35-a8409cc-r3
+          if-no-files-found: warn
+          retention-days: 14
+
+  light-direction-trial:
+    name: Frozen light direction diagnosis
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[light-direction-a840-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      CINDERLINE_VISUAL_ONLY: '1'
+      CINDERLINE_LIGHT_DIRECTION_TRIAL: '1'
+      CINDERLINE_WEBKIT_OUTPUT: test-results/light-direction-a840-r1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Check the bounded diagnostic helper syntax
+        run: |
+          node --check tools/mobile_light_direction_trial.mjs
+          node --check tools/mobile_visual_capture.mjs
+          node --check tools/test-iphone-webkit.mjs
+          node --check tools/export-webkit-material.mjs
+      - run: npx playwright install --with-deps webkit
+      - name: Render the fixed views and reversible single-variable trial
+        run: npm run test:iphone-webkit
+      - name: Export the original diagnostic frames and control results
+        if: always()
+        run: node tools/export-webkit-material.mjs
+      - name: Preserve unmodified diagnostic frames and execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: light-direction-a840-r1-${{ github.sha }}
+          path: test-results/light-direction-a840-r1
           if-no-files-found: warn
           retention-days: 14

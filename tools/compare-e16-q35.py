@@ -16,7 +16,7 @@ import tarfile
 import time
 import urllib.request
 
-ATTEMPT = "e16-q35-a8409cc-r2"
+ATTEMPT = "e16-q35-a8409cc-r3"
 PRODUCT_COMMIT = "a8409cc0de04a503f50395487478fe0cfb2a98e7"
 PRODUCT_BUNDLE = "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
 ROOT = Path(__file__).resolve().parents[1]
@@ -188,7 +188,7 @@ CANDIDATE_SIDE = "B"
 CONTEXT = 65536
 OUTPUT_TOKENS = 8192
 INFERENCE_SECONDS = 7200
-CONTROL_SECONDS = 300
+CONTROL_SECONDS = 600
 PREPARE_SECONDS = 1800
 HEADROOM_BYTES = 1500 * 1024 * 1024
 
@@ -395,7 +395,7 @@ def run_model(kind):
     args = [str(binary), "-m", str(WORK / WEIGHTS[0]["file"]), "--mmproj", str(WORK / WEIGHTS[1]["file"]),
             "--offline", "-ngl", "0", "--no-mmproj-offload", "--fit", "off",
             "-t", str(min(4, os.cpu_count() or 1)), "-c", str(4096 if is_control else CONTEXT),
-            "-b", "512", "-ub", "128", "-n", str(512 if is_control else OUTPUT_TOKENS),
+            "-b", "512", "-ub", "128", "-n", str(1024 if is_control else OUTPUT_TOKENS),
             "--image-min-tokens", "1024", "--image-max-tokens", "4096", "--jinja",
             "--temp", "1.0", "--top-p", "0.95", "--top-k", "20", "--min-p", "0",
             "--presence-penalty", "1.5", "--repeat-penalty", "1.0", "--seed", "917",

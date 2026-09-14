@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 // Transport existing CI output only. No browser launch or image transformation.
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
 const files = ['report.json', ...[
   'stacks', 'marrow', 'arcade', 'cinder', 'survey', 'ventfield', 'south', 'plant', 'marrow_roof',
 ].map(name => `visual-${name}-frame.png`)];
+const output = process.env.CINDERLINE_WEBKIT_OUTPUT || 'test-results/iphone-webkit';
+if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') {
+  files.push(...readdirSync(output).filter(file => /^light-direction-(stacks|marrow|arcade|cinder|survey|ventfield|south|plant)-(before|trial|restored)\.png$/.test(file)).sort());
+}
 const cap = 2 * 1024 * 1024;
 let failed = false;
 for (const file of files) {
   try {
-    const path = `test-results/iphone-webkit/${file}`;
+    const path = `${output}/${file}`;
     const before = statSync(path);
     const data = readFileSync(path);
     const after = statSync(path);

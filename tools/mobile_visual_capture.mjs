@@ -4,6 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PNG } from 'pngjs';
 import { captureShadowContact } from './mobile_shadow_contact.mjs';
+import { captureLightDirectionTrial } from './mobile_light_direction_trial.mjs';
 
 // Eight authored, playable exterior locations spanning the city's districts.
 // These are existing spawn points, not new geometry or constructed test scenes.
@@ -91,6 +92,9 @@ export async function captureMobileViews({ page, root, output, check, report, wa
         report.visualViews.views.push({name,spawn,requested:{yaw,pitch},placed,...captured,
           native:{path:native.slice(root.length+1),width:png.width,height:png.height,pngSha256:digest(bytes),rgbaSha256:digest(png.data)},
           viewport:viewport.slice(root.length+1),hud:hud.slice(root.length+1)});
+        if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1' && name !== 'marrow_roof') {
+          await captureLightDirectionTrial({page,root,output,name,cachedFrame:native,check,report});
+        }
         if(['stacks','arcade','cinder','ventfield','marrow_roof'].includes(name)) {
           await captureShadowContact({page,root,output,name,cachedFrame:native,check,report});
         }

@@ -47,6 +47,7 @@ const REPORT = resolve(OUTPUT, 'report.json');
 const TRACE = resolve(OUTPUT, 'trace.zip');
 const BROWSER_NAME = process.env.CINDERLINE_BROWSER || 'webkit';
 const AUDIO_ONLY = process.env.CINDERLINE_AUDIO_ONLY === '1';
+const VISUAL_ONLY = process.env.CINDERLINE_VISUAL_ONLY === '1';
 const EXTERNAL_URL = process.env.CINDERLINE_TEST_URL || '';
 const REQUIRE_BASELINE = process.env.CINDERLINE_REQUIRE_BASELINE === '1';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_BOOT_TIMEOUT || 180000);
@@ -61,7 +62,7 @@ const report = {
   schemaVersion: 1,
   checkedAt: new Date().toISOString(),
   target: `iPhone SE (3rd gen) landscape / Playwright ${BROWSER_NAME}`,
-  scope: AUDIO_ONLY ? 'Production audiovisual acquisition only; not the complete mobile surface gate.' : 'Complete mobile surface gate.',
+  scope: AUDIO_ONLY ? 'Production audiovisual acquisition only; not the complete mobile surface gate.' : VISUAL_ONLY ? 'Production view acquisition and optional reversible lighting diagnosis only; not the complete mobile surface gate.' : 'Complete mobile surface gate.',
   browser: BROWSER_NAME,
   checks: [],
   timings: {},
@@ -347,6 +348,11 @@ try {
     await captureMobileAudio({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
     check(report.audioCapture.status === 'captured' && report.audioCapture.clips.length === 3,
       'audio acquisition produces all three actual audiovisual clips', JSON.stringify(report.audioCapture.capabilities));
+  } else if (VISUAL_ONLY) {
+    await captureMobileViews({ page, root: ROOT, output: OUTPUT, check, report, waitFrames });
+    if (process.env.CINDERLINE_LIGHT_DIRECTION_TRIAL === '1') {
+      check(report.lightDirectionTrial?.views.length === 8, 'lighting experiment captures all eight fixed views');
+    }
   } else {
   const titleLayout = await page.evaluate(() => {
     const buttons = window.CINDERLINE.game.menus.titleButtons;
