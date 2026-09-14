@@ -1,0 +1,56 @@
+{
+  "scope": "Synthetic transport fixtures using exact candidate source bytes, not a new Safari report or recording.",
+  "passed": 12,
+  "failed": 0,
+  "results": [
+    {
+      "name": "failed diagnostic original bytes round-trip with contiguous chunks and matching end identity",
+      "passed": true
+    },
+    {
+      "name": "reject CINDERLINE_IOS_FRAME_WORK_CAPTURE before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject GITHUB_EVENT_NAME before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject GITHUB_REF before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject GITHUB_RUN_ATTEMPT before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject GITHUB_WORKFLOW before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject GITHUB_SHA before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject GITHUB_RUN_ID before any byte emits",
+      "passed": true
+    },
+    {
+      "name": "reject wrong original run before output",
+      "passed": true
+    },
+    {
+      "name": "reject wrong frame-work provenance before output",
+      "passed": true
+    },
+    {
+      "name": "missing frame-work snapshot still exports the exact original failure report",
+      "passed": true
+    },
+    {
+      "name": "oversize report emits no partial payload",
+      "passed": true
+    }
+  ],
+  "exporterSha256": "5d17504681f038706d61828eba286d495f91b99f30f0c2cd20a27cefed717f43"
+}

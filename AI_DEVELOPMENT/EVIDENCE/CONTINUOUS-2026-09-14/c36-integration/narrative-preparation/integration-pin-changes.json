@@ -1,0 +1,76 @@
+{
+  "baseCommit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "sourceCandidates": [
+    {
+      "path": "src/content/story.js",
+      "before": {
+        "bytes": 111932,
+        "sha256": "76023ad5a9fba4716393b555f3562573fd179c3fb3c4c9d560fda8522a22e07c",
+        "gitBlob": "7af0553369357b9d4812c64cbe4da22c1aec87f8"
+      },
+      "after": {
+        "bytes": 111989,
+        "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+        "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+      }
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "before": {
+        "bytes": 29995,
+        "sha256": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+        "gitBlob": "80c9858e0a24b794560114782fd87cd6bd6916f0"
+      },
+      "after": {
+        "bytes": 29927,
+        "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+        "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+      }
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "before": {
+        "bytes": 30620,
+        "sha256": "360d015b27089e2c0cd61dfc8e4f9302ecc39714ded4d24ac113d870376fce3e",
+        "gitBlob": "2e7bf4fce84b976d95155d54876709c72b96263b"
+      },
+      "after": {
+        "bytes": 30756,
+        "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+        "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+      }
+    }
+  ],
+  "currentRuntime": {
+    "path": "cinderline.1.0.0.js",
+    "bytes": 1445983,
+    "sha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "gitBlob": "05fa00313fd900697973839038659c7a16a1c306"
+  },
+  "candidateRuntime": null,
+  "adoption": "blocked pending actual locked-CI baseline reproduction, candidate build and complete artifact recovery; do not adopt three sources alone",
+  "futurePinUpdates": [
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "object": "IOS_AUDIO_PIN",
+      "fields": {
+        "preparedFromCommit": "Actual sourceCommit from successful narrative preparation report",
+        "preparationReportSha256": "SHA256 of complete original narrative preparation report",
+        "bundleSha256": "Actual new candidate bundle SHA256 from that report, matching recovered bytes and root/dist"
+      },
+      "preserve": "bundle filename and recorderBlob 785541d3beaed0e35e8bcf042973eabb7bdb5d6c; no clock or transfer guard weakening"
+    },
+    {
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "fields": "Record exact new source commit, bundle, evidence and pending validations; keep old failures and fixed continuous start/deadline."
+    }
+  ],
+  "dependentGuards": [
+    {
+      "path": "tools/gates/f3_safari_audio.mjs",
+      "action": "Consumes IOS_AUDIO_PIN dynamically; no textual pin update required. Existing actual-run provenance and three original scenes remain required."
+    }
+  ],
+  "historicalPins": "Preserve prior preparation/recovery helpers and their frozen evidence pins. Do not replace 514f across all files. Keep this preparation helper C35 INPUTS and ORIGINAL_BUNDLE pins fixed as its baseline.",
+  "requiredAdoptionValidation": "Independent exact recovered source/root/report review, old514f negative guard fixture, latest required F2/F3/F5 and Safari checks, normal main merge and Pages/F6 remain integration-owner work."
+}

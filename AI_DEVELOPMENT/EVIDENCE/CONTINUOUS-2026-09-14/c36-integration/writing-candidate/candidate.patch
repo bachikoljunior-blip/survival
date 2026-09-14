@@ -1,0 +1,225 @@
+--- a/src/content/story.js
++++ b/src/content/story.js
+@@ -577,11 +577,11 @@
+       next: 'ah2',
+     },
+     ah2: {
+-      ...line('sol', `I know why you did it. You did it so that nobody's death would be entirely
+-yours. I have watched people do that with morphine and I have never once seen it
+-work.
+-
+-Come back when you've picked one.`),
++      ...line('sol', `Two rotas. The lamps can't be in both places, and somebody still has to mind
++the water point.
++
++If you're leaving it like this, tell me which shift you can take. Then I can put
++a name in one of the gaps.`),
+       next: 'end',
+     },
+ 
+@@ -718,10 +718,11 @@
+       next: 'vc_end',
+     },
+     vc_end: {
+-      ...line('sol', `You'll do what you'll do. You've got a bar and you know which way the wedges
+-came out. I'm not going to stand in front of them.
+-
+-Just don't tell me it was easy afterwards.`),
++      ...line('sol', `You've got a bar and you know how the wedges come out. I won't stand in your
++way.
++
++If you change the draw, tell me which heads. I need to know which stairwell
++gets the lamps.`),
+       effects: [
+         { flag: 'sol_vent_talked' }, { cap: 'rigVent' },
+         { journal: ['rigvent', 'Rigging a head', `Sol showed me how she does it. Two turns on the
+@@ -1551,7 +1552,7 @@
+       next: 'i_decide',
+     },
+     i_decide: {
+-      ...line('iris', "I could give you my pass.", 'quiet'),
++      ...line('iris', "I could give you my pass. That lets you in. It doesn't put my name on your figures.", 'quiet'),
+       branch: [
+         { if: { trust: ['iris', 12] }, goto: 'i_gives' },
+         { if: {}, goto: 'i_refuses' },
+@@ -1574,11 +1575,11 @@
+     i_refuses: {
+       ...line('iris', `...I could. I'm not going to.
+ 
+-I have eleven months on this contract and a mother in a place that costs four
+-hundred a month and I am not — I can't be the one who —
+-
+-There's a service door on the north elevation. The hasp is rusted through. I'm
+-not telling you that. I'm saying it out loud in a yard.`),
++My contract has eleven months left. My mother's place costs four hundred a
++month. A pass in your pocket comes back to me.
++
++The north service door's hasp is rusted through. You'll have to deal with that
++yourself. I won't open it for you.`),
+       effects: [{ flag: 'iris_hinted_door' }],
+       next: 'i_end',
+     },
+@@ -1695,10 +1696,10 @@
+       next: 'i_hub',
+     },
+     i_sign: {
+-      ...line('iris', `Ask me somewhere it costs something. Not here, where the answer is free.
+-
+-If you are ever standing in front of people with a true line and no name on it,
+-find me. Do not write to me. Find me.`),
++      ...line('iris', `If you need a name on the reduction, find me where it's going to be used. Bring
++the figures as well as the line.
++
++I can answer for a measurement. Not for what you intend to do with it.`),
+       next: 'end',
+     },
+   },
+@@ -1902,13 +1903,11 @@
+       next: 'k_end',
+     },
+     k_deal_cut: {
+-      ...line('krajcik', `On the true line. Openly.
+-
+-Do you know what that costs? Not the nine million. The admission. It ends me
+-professionally inside a month and it probably ends the relocations with me.
+-
+-...Ask me again when the excavators are running. Ask me in front of them, where
+-I can't be quiet about it.`),
++      ...line('krajcik', `On the true line, openly. The nine million isn't the obstacle. The admission
++ends me professionally within a month, and probably ends the relocations with me.
++
++Ask again at the excavators, in front of the crews. Name who signs the reduction.
++And say what happens to the households still waiting.`),
+       effects: [{ flag: 'krajcik_open' }],
+       next: 'k_end',
+     },
+@@ -2136,19 +2135,20 @@
+     },
+     k_asked: {
+       // The payoff for k_deal_cut: he told her to ask him in front of them.
+-      ...line('krajcik', `You said you would put it on the right line for me. I said ask me again when
+-the excavators are running.
+-
+-They are running. I am not going to help you say it.`, 'quiet'),
++      ...line('krajcik', `You proposed the true line. I asked you to repeat it here, in front of the crews.
++
++Name the surveyor who will sign the reduction. Their responsibility needs to be
++on the record alongside the order.`, 'quiet'),
+       branch: [
+         { if: { flag: 'proposed_cut' }, goto: 'k_asked2' },
+         { if: {}, goto: 'choose' },
+       ],
+     },
+     k_asked2: {
+-      ...line('krajcik', `It was your idea, incidentally. I want that on whatever record you are about to
+-make. I have spent four years being the only person in a building who would say
+-the word and it took an outsider with a folder about nine seconds.`),
++      ...line('krajcik', `The proposal is yours. Please make that clear in the record.
++
++The households awaiting relocation must be accounted for too. If the admission
++ends those payments, that consequence belongs beside the corrected line.`),
+       next: 'choose',
+     },
+     k_plain: {
+--- a/src/content/locale/ja/story.js
++++ b/src/content/locale/ja/story.js
+@@ -132,9 +132,9 @@
+ フェン通りは700、うちの庭は500。つまりどっちも生きていられないし、どっちも生きていられる。何時に訊くかによる。当番表を1枚じゃなく2枚書く羽目になった。`,
+       },
+       ah2: {
+-        text: `なぜそうしたかは分かる。誰の死も丸ごと自分のものにならないように。モルヒネで同じことをする人間を見てきたけど、うまくいったのは一度も見ていない。
+-
+-どっちか選んでから戻ってきて。`,
++        text: `当番表は2枚。ランプを両方には置けない。水場を見る人間も要る。
++
++このままにするなら、あんたが入れる当番を教えて。そうすれば空欄を一つ埋められる。`,
+       },
+ 
+       after_left: {
+@@ -223,9 +223,9 @@
+         text: `そう。これで聞いたわけだ。`,
+       },
+       vc_end: {
+-        text: `あんたはやることをやる。バールは持ってるし、楔がどっち向きに入ってるかも分かった。私はその前に立ちはだかったりしない。
+-
+-ただ、後で簡単だったとは言わないで。`,
++        text: `バールは持ってるし、楔の抜き方も分かった。邪魔はしない。
++
++ガスの流れを変えたら、どの頭を触ったか教えて。どの階段にランプを回せばいいか知りたい。`,
+       },
+     },
+ 
+--- a/src/content/locale/ja/story2.js
++++ b/src/content/locale/ja/story2.js
+@@ -176,18 +176,18 @@
+ あの人の部屋の二番目の引き出しにあります。14か月ずっと。この建物の全員が、そこにあると知っています`,
+       },
+       i_finish: { text: `それは答えじゃなくて、上着を着せた感情です` },
+-      i_decide: { text: `私の通行証を、渡すこともできます` },
++      i_decide: { text: `私の通行証を渡すことはできます。中に入るためのものです。測量値への私の署名とは別です` },
+       i_gives: {
+         text: `持っていって。私のものです、盗むわけじゃない、だから——持っていって。
+ 
+ 訊かれたら失くしたと言います。信じますよ、私は何でも失くすので。私であることの、唯一役に立つところです`,
+       },
+       i_refuses: {
+-        text: `……できます。でもしません。
+-
+-契約が11か月残っていて、月400かかる施設に母がいて、私は——私がその役目には——
+-
+-北面に業務用の扉があります。掛け金が錆びて抜けています。あなたに言ったんじゃありません。庭で声に出しただけです`,
++        text: `……できます。でも渡しません。
++
++契約はあと11か月。母のいる施設に月400かかります。あなたのポケットから通行証が出れば、私だと分かります。
++
++北面の業務用扉は、掛け金が錆びて抜けています。そこから先は自分で。私が開けるわけにはいきません`,
+       },
+       i_end: {
+         text: `あの人は中にいます。いつも中にいます。とても丁寧に接してくれますよ。
+@@ -243,9 +243,9 @@
+ 2年10か月、単位の後ろに隠れてきました`,
+       },
+       i_sign: {
+-        text: `代償のかかる場所で訊いてください。答えがただになるここではなく。
+-
+-正しい線を持って、名前のないまま人の前に立つことがあったら、私を探しに来てください。手紙は書かないで。探しに来て`,
++        text: `整約に署名が要るなら、それを使う場所で私に声をかけてください。線だけではなく、測量値も見せてください。
++
++測定についてなら責任を持てます。あなたがそれを何に使うかまで、引き受けるわけではありません`,
+       },
+     },
+ 
+@@ -364,11 +364,9 @@
+       },
+       k_lie: { text: `結構。結構です。月曜に出てきてください、机はあります。第4四半期の用紙を届けさせます` },
+       k_deal_cut: {
+-        text: `正しい線で。公然と。
+-
+-それにいくらかかるか分かりますか。900万ではありません。承認です。ひと月で私は職業的に終わりますし、転居事業もおそらく私と一緒に終わります。
+-
+-……掘削機が動いているときに、もう一度言ってください。あの人たちの前で、私が黙っていられない場所で`,
++        text: `正しい線で、公然と。障害は900万ではありません。誤りを認めれば、ひと月で私の職は終わります。転居事業も、おそらく私と一緒に終わります。
++
++掘削機の前で、作業員に聞こえるよう、もう一度提案してください。整約に誰が署名するのか。転居を待つ世帯をどうするのか。その二点も`,
+       },
+       k_end: {
+         text: `もう一つだけ、それでお引き取りください。
+@@ -466,12 +464,14 @@
+ 本当のことを、今言ってください。聞く相手はそろっています`,
+       },
+       k_asked: {
+-        text: `私のために正しい線に引くと言いましたね。掘削機が動いているときにもう一度言ってくれと、私は答えました。
+-
+-動いています。言うのを手伝うつもりはありません`,
++        text: `正しい線に引き直すという提案でしたね。作業員の前で、もう一度出していただくようお願いしました。
++
++整約に署名する測量技師は誰ですか。指示書とあわせて、責任者も記録に残してください`,
+       },
+       k_asked2: {
+-        text: `ついでに申し上げれば、あれはあなたの案でした。これから作られる記録には、そう残してください。私は4年、この建物でその言葉を口にする唯一の人間でした。ファイルを抱えた部外者は、9秒ほどで済ませた`,
++        text: `提案者はあなたです。その点は記録に明記してください。
++
++転居を待つ世帯についても記載が必要です。誤りを認めたことで支払いが止まるなら、その結果も、訂正した線と並べて残してください`,
+       },
+       k_plain: { text: `何であれ、あの人たちに聞こえるところで言うか、言わないかにしてください。予定が詰まっています` },
+       k_291: {

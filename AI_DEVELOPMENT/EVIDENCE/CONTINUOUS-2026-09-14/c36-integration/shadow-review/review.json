@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/integration_recovery_ultra/shadow_original_review_ultra",
+  "reviewType": "source-known technical perception review",
+  "headAccepted": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "instruction": "ULTRA-CHILDREN-20260914-v3",
+  "authorityReadOrder": [
+    "branch head via GitHubApp fetch",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml",
+    "AI_DEVELOPMENT/STATE.yaml"
+  ],
+  "runtimeSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+  "viewing": {
+    "tool": "tools.view_image",
+    "detail": "original",
+    "imageTransforms": 0,
+    "imageRegeneration": 0,
+    "viewedOriginalPngs": 6,
+    "dimensions": [
+      1147,
+      645
+    ],
+    "sourceAlreadyKnown": true,
+    "priorReviewTiming": "All six original PNGs had been opened and visually inspected in this task before the parent's message disclosed the pre-existing image-review.json conclusions. That review was subsequently read and archived without alteration.",
+    "traceScope": "Each listed path was passed to view_image and its returned image displayed during this task. This manifest is a reviewer record; it is not a fabricated tool-transcript export."
+  },
+  "images": [
+    {
+      "viewOrder": 1,
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-arcade-original.png",
+      "scene": "arcade",
+      "variant": "original",
+      "shadowMapDimension": 1024,
+      "viewed": true,
+      "observation": "人物は中央で両足が画面内にあり、足元から左手前へ長い影が続く。影は幅広くぼけ、足の近くの細い接続と離れた人型の区別が弱い。姿勢は直立で、これだけで動作時の荷重を評価できない。"
+    },
+    {
+      "viewOrder": 2,
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-arcade-double.png",
+      "scene": "arcade",
+      "variant": "double",
+      "shadowMapDimension": 2048,
+      "viewed": true,
+      "observation": "左手前へ伸びる影の輪郭が明瞭になり、足の近くの暗く細い連続が読み取りやすい。影の先端側の形も元画像よりまとまって見える。この静止画の影の読みやすさには局所的な改善がある。足の位置や硬い姿勢自体は変化せず、完全な荷重感や全場面での接地を示すものではない。"
+    },
+    {
+      "viewOrder": 3,
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-arcade-restored.png",
+      "scene": "arcade",
+      "variant": "restored",
+      "shadowMapDimension": 1024,
+      "viewed": true,
+      "observation": "元の広くぼけた影の外観へ戻り、元画像との目視上の不一致は見つからない。bytes完全一致も別途確認した。"
+    },
+    {
+      "viewOrder": 4,
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-south-original.png",
+      "scene": "south",
+      "variant": "original",
+      "shadowMapDimension": 1024,
+      "viewed": true,
+      "observation": "人物は大きく暗い横向きシルエットで、足元は下端に接し一部が切れている。前景は建物の大きな影で暗く、人物の接地影を明確に分離して判断できない。"
+    },
+    {
+      "viewOrder": 5,
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-south-double.png",
+      "scene": "south",
+      "variant": "double",
+      "shadowMapDimension": 2048,
+      "viewed": true,
+      "observation": "画面右下の明るい地面と前景影の境界などにわずかな締まりは感じられるが、人物の足元は引き続き暗く下端で切れている。足と支持面の接続について明確な改善は見て取れない。影境界の小差を接地改善へ読み替えない。"
+    },
+    {
+      "viewOrder": 6,
+      "path": "/workspace/scratch/0b7ad82bafe7/c35-shadow-resolution-result/original/shadow-resolution-south-restored.png",
+      "scene": "south",
+      "variant": "restored",
+      "shadowMapDimension": 1024,
+      "viewed": true,
+      "observation": "元画像と同じ暗い足元と画面下端の切れ方へ戻り、元画像との目視上の不一致は見つからない。復元一致は接地品質の達成を意味しない。"
+    }
+  ],
+  "decision": {
+    "adoptGlobal2048": false,
+    "keepProduct1024": true,
+    "technicalSignal": "Arcade has a visible local improvement in shadow-edge definition and narrow foot-near continuity.",
+    "reason": "A clear contact gain is not established in south; only two fixed views were inspected. No repeated frame-rate, GPU cost or memory regression measurement supports a global medium-tier increase.",
+    "notAZeroEffectClaim": true,
+    "nextOperation": "Keep the resolution diagnostic closed and preserve 1024. A future contact candidate should first provide a camera view with both feet and their support surface visible; consider a resolution adoption only after that changed candidate has native smartphone-view evidence and measured rendering/memory regression evidence."
+  },
+  "limits": [
+    "Original full frames at 1147x645 only; do not claim perception at the 667x375 CSS display size from these native views.",
+    "Two fixed poses/cameras at arcade and south on the reported Playwright WebKit iPhone SE landscape profile; no physical-device inference.",
+    "No animation, movement, camera pan, shadow shimmer, daylight range or other scene is assessed.",
+    "Report render+gl.finish samples are host wall times, not independent GPU timings or an FPS benchmark; 250/198/187 and 218/203/200 ms cannot establish a speedup.",
+    "2048x2048 contains four times as many texels as 1024x1024; this geometric fact is not a measured total GPU memory, peak RAM, thermal or battery result.",
+    "Byte hashes and state invariants prove provenance/control/restoration, not perceived quality."
+  ],
+  "fixed": {
+    "elements": 19,
+    "criteria": 71,
+    "elementStatus": "all not measured",
+    "validBlindComparisons": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "conceptAndReferencesUnchanged": true,
+    "STATEUnchanged": true
+  },
+  "actions": {
+    "remoteMutations": 0,
+    "ciRunsStarted": 0,
+    "automationChanges": 0,
+    "productChanges": 0,
+    "originalImageWrites": 0
+  }
+}

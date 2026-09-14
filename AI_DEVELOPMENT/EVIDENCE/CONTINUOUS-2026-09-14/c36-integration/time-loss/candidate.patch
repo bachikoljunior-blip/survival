@@ -1,0 +1,267 @@
+--- /dev/null
++++ b/tools/frame_work_probe.mjs
+@@ -0,0 +1,118 @@
++/** Tool-side timing only. Both exported functions serialize into Safari intact.
++ * Synchronous elapsed time includes blocking/preemption; it is neither CPU
++ * utilization nor GPU time. Nested phase durations must not be added together.
++ */
++export function installFrameWorkProbe() {
++  const C = window.CINDERLINE, engine = C.engine, game = C.game;
++  if (C.__iosFrameWorkProbe) throw new Error('frame work probe already installed');
++  const rows = [], lifecycle = [], errors = [], patches = [], recordings = new WeakMap();
++  const limit = 4096;
++  let recordingCount = 0, dropped = 0, active = true, current = null;
++  const now = () => performance.now();
++  const note = message => { if (errors.length < 16) errors.push(message); };
++  const updateEntries = engine._updaters.slice();
++  const clock = () => ({ wallMs: now(), engineFrame: engine.frame,
++    engineTime: engine.time, accum: engine.accum, audioTime: game.audio.ctx.currentTime,
++    audioState: game.audio.ctx.state, running: engine.running, paused: engine.isPaused, lost: engine.lost,
++    mode: game.mode, tier: engine.tier.name, timeScale: engine.timeScale });
++  const install = (object, key, wrap) => {
++    if (!object || typeof object[key] !== 'function') throw new Error(`missing timing target: ${key}`);
++    const own = Object.getOwnPropertyDescriptor(object, key);
++    const original = object[key], replacement = wrap(original);
++    object[key] = replacement;
++    if (object[key] !== replacement) throw new Error(`timing target is not writable: ${key}`);
++    patches.push({ object, key, original, replacement, own });
++  };
++  const restore = () => {
++    active = false;
++    for (const patch of patches.splice(0).reverse()) {
++      const { object, key, replacement, own } = patch;
++      if (object[key] !== replacement) { note(`timing target changed during capture: ${key}`); continue; }
++      try {
++        if (own) Object.defineProperty(object, key, own);
++        else delete object[key];
++      } catch (error) { note(`timing restore failed: ${key}: ${error.message}`); }
++    }
++  };
++  const measure = label => original => function (...args) {
++    if (!current) return original.apply(this, args);
++    const row = current, start = now();
++    try { return original.apply(this, args); }
++    finally {
++      row.phaseMs[label] = (row.phaseMs[label] || 0) + now() - start;
++      row.phaseCalls[label] = (row.phaseCalls[label] || 0) + 1;
++    }
++  };
++  try {
++    // The engine schedules this bound callback. Replacing _frame alone would
++    // miss it. One already queued original callback can precede this wrapper.
++    install(engine, '_boundFrame', original => function (rafTimestampMs) {
++      const rec = C.__audioRecording;
++      if (!active || !rec) return original.apply(this, arguments);
++      let recording = recordings.get(rec);
++      if (!recording) { recording = ++recordingCount; recordings.set(rec, recording); }
++      if (rows.length >= limit) { dropped++; return original.apply(this, arguments); }
++      const row = { recording, recorderState: rec.recorder?.state || null, rafTimestampMs, before: clock(),
++        priorClockLastMs: engine.clockLast, phaseMs: {}, phaseCalls: {}, threw: false };
++      const parent = current;
++      current = row;
++      try { return original.apply(this, arguments); }
++      catch (error) { row.threw = true; throw error; }
++      finally {
++        row.after = clock();
++        row.callbackElapsedMs = row.after.wallMs - row.before.wallMs;
++        row.engineWallMs = rafTimestampMs - row.priorClockLastMs;
++        row.entryAfterRafTimestampMs = row.before.wallMs - rafTimestampMs;
++        row.engineAdvanceSeconds = row.after.engineTime - row.before.engineTime;
++        // clockLast may have been reset to performance.now by lifecycle code;
++        // paused/stopped callbacks keep the preceding dtRaw stored on engine.
++        row.dtRawStored = engine.dtRaw;
++        row.acceptedDtSeconds = row.before.running && !row.before.paused && !row.before.lost
++          ? engine.dtRaw : null;
++        current = parent;
++        rows.push(row);
++      }
++    });
++    updateEntries.forEach((entry, index) => install(entry, 'fn', measure(`updater:${entry.order}:${index}`)));
++    install(engine, 'emit', original => function (event, ...args) {
++      if (active && C.__audioRecording && ['pause', 'resume', 'background', 'contextlost', 'contextrestored'].includes(event)) {
++        if (lifecycle.length < 128) lifecycle.push({ event, ...clock() });
++        else note('lifecycle observation capacity exceeded');
++      }
++      if (!current || !['prerender', 'render', 'renderpaused'].includes(event)) {
++        return original.call(this, event, ...args);
++      }
++      return measure(`emit:${event}`)(original).call(this, event, ...args);
++    });
++    for (const [object, key, label] of [
++      [game.audio, 'update', 'audio.update'], [game, 'render', 'game.render'],
++      [game.camera, 'update', 'camera.update'], [game.atmos, 'update', 'atmos.update'],
++      [game.hud, 'update', 'hud.update'], [game.hud, 'updatePerf', 'hud.updatePerf'],
++      [game.city, 'updateVisibility', 'city.updateVisibility'],
++      [game.post, 'render', 'post.render'], [engine.renderer, 'render', 'renderer.render'],
++    ]) install(object, key, measure(label));
++    C.__iosFrameWorkProbe = {
++      stop() {
++        if (engine._updaters.length !== updateEntries.length
++          || engine._updaters.some((entry, index) => entry !== updateEntries[index])) {
++          note('updater registration changed during capture');
++        }
++        restore();
++        delete C.__iosFrameWorkProbe;
++        return { schemaVersion: 1, limit, dropped, errors, recordingCount, rows, lifecycle,
++          scope: 'Actual runner synchronous callback elapsed times. Includes blocking/preemption and measurement overhead; not CPU utilization, GPU duration, physical-device speed or a quality verdict. Nested phase times overlap. Frame gaps outside callbacks remain unattributed.',
++          boundary: 'Only callbacks entered while the original recorder is present. One original callback may already be queued at installation; clip endpoint clocks remain authoritative.',
++          restored: errors.length === 0,
++          complete: errors.length === 0 && dropped === 0 && recordingCount === 3 && rows.length > 3 };
++      },
++    };
++    return { installed: true, limit, phaseLabels: updateEntries.map((entry, index) => `updater:${entry.order}:${index}`) };
++  } catch (error) {
++    restore();
++    throw error;
++  }
++}
++
++export function stopFrameWorkProbe() {
++  return window.CINDERLINE.__iosFrameWorkProbe?.stop() || null;
++}
+--- a/tools/ios_audio_capture.mjs
++++ b/tools/ios_audio_capture.mjs
+@@ -6,6 +6,7 @@
+ import { mkdirSync, readFileSync } from 'node:fs';
+ import { join } from 'node:path';
+ import { captureMobileAudio } from './mobile_audio_capture.mjs';
++import { installFrameWorkProbe, stopFrameWorkProbe } from './frame_work_probe.mjs';
+ 
+ export const IOS_AUDIO_PIN = Object.freeze({
+   preparedFromCommit: 'eb81be9053204fa25a0e7556f78941dd862d4032',
+@@ -15,6 +16,7 @@
+   recorderBlob: '785541d3beaed0e35e8bcf042973eabb7bdb5d6c',
+ });
+ const TRANSFER_KEY = '__cinderlineIosAudioTransfer';
++const FRAME_WORK_TRANSFER_KEY = '__cinderlineIosFrameWorkTransfer';
+ const CHUNK_CHARS = 131072;
+ const MAX_TRANSFER_CHARS = 48 * 1024 * 1024;
+ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+@@ -32,6 +34,7 @@
+   if (recorderBlob !== IOS_AUDIO_PIN.recorderBlob) throw new Error('iOS audio recorder/clock-guard source pin mismatch');
+   return { ...IOS_AUDIO_PIN, actualBundleHashes: hashes, actualRecorderBlob: recorderBlob,
+     helperSha256: sha256(readFileSync(join(root, 'tools/ios_audio_capture.mjs'))),
++    frameWorkProbeSha256: sha256(readFileSync(join(root, 'tools/frame_work_probe.mjs'))),
+     harnessSha256: sha256(readFileSync(join(root, 'tools/test-ios-safari.mjs'))),
+     runCommit: process.env.GITHUB_SHA || null, runId: process.env.GITHUB_RUN_ID || null,
+     runAttempt: process.env.GITHUB_RUN_ATTEMPT || null };
+@@ -42,13 +45,13 @@
+  * whole recording in one command. Polling never steps or modifies game clocks.
+  */
+ export function createSafariEvaluate(execute, { timeoutMs = 120000, pollMs = 200,
+-  maxTransferChars = MAX_TRANSFER_CHARS } = {}) {
++  maxTransferChars = MAX_TRANSFER_CHARS, transferKey = TRANSFER_KEY } = {}) {
+   let sequence = 0;
+   return async function evaluate(fn, arg) {
+     const id = ++sequence;
+     const deadline = Date.now() + timeoutMs;
+     const started = await execute(`
+-      var key = ${JSON.stringify(TRANSFER_KEY)}, old = window[key];
++      var key = ${JSON.stringify(transferKey)}, old = window[key];
+       if (old && old.status === 'pending') throw new Error('prior iOS audio operation still pending');
+       var job = window[key] = {id:arguments[1],status:'pending'};
+       var input = arguments[0];
+@@ -62,10 +65,10 @@
+     if (started?.id !== id) throw new Error('iOS audio operation start mismatch');
+     let status;
+     do {
+-      status = await execute(`var j=window[${JSON.stringify(TRANSFER_KEY)}];
+-        return j && {id:j.id,status:j.status,chars:j.chars,error:j.error};`);
++      status = await execute(`var j=window[${JSON.stringify(transferKey)}];
++        return j && {id:j.id,status:j.status,chars:j.chars,operationError:j.error};`);
+       if (status?.id !== id) throw new Error('iOS audio operation identity changed');
+-      if (status.status === 'failed') throw new Error(`Safari audio operation failed: ${status.error}`);
++      if (status.status === 'failed') throw new Error(`Safari audio operation failed: ${status.operationError}`);
+       if (status.status === 'ready') break;
+       if (Date.now() >= deadline) throw new Error('Safari audio operation polling timed out');
+       await delay(pollMs);
+@@ -76,7 +79,7 @@
+     let json = '';
+     for (let offset = 0; offset < status.chars; offset += CHUNK_CHARS) {
+       if (Date.now() >= deadline) throw new Error('Safari audio chunk transfer timed out');
+-      const part = await execute(`var j=window[${JSON.stringify(TRANSFER_KEY)}];
++      const part = await execute(`var j=window[${JSON.stringify(transferKey)}];
+         if (!j || j.id!==arguments[0] || j.status!=='ready') throw new Error('iOS audio transfer identity changed');
+         return {id:j.id,offset:arguments[1],text:j.json.slice(arguments[1],arguments[1]+${CHUNK_CHARS})};`, [id, offset]);
+       const expected = Math.min(CHUNK_CHARS, status.chars - offset);
+@@ -85,8 +88,8 @@
+       }
+       json += part.text;
+     }
+-    await execute(`var j=window[${JSON.stringify(TRANSFER_KEY)}];
+-      if (j && j.id===arguments[0]) delete window[${JSON.stringify(TRANSFER_KEY)}]; return true;`, [id]);
++    await execute(`var j=window[${JSON.stringify(transferKey)}];
++      if (j && j.id===arguments[0]) delete window[${JSON.stringify(transferKey)}]; return true;`, [id]);
+     return JSON.parse(json);
+   };
+ }
+@@ -185,7 +188,8 @@
+ }
+ 
+ export async function captureIosAudio({ execute, tap, moveForCapture, releaseActions,
+-  waitFrames, root, output, check, report, provenance }) {
++  waitFrames, root, output, check, report, provenance,
++  captureFrameWork = process.env.CINDERLINE_IOS_FRAME_WORK_CAPTURE === '1' }) {
+   mkdirSync(output, { recursive: true });
+   const originalSettings = await execute('return Object.assign({}, window.CINDERLINE.game.settings);');
+   const evaluate = createSafariEvaluate(execute);
+@@ -222,6 +226,7 @@
+         capabilityFailure = true;
+         throw new Error('Actual Mobile Safari lacks a required audio/video acquisition capability; no substitute clip created');
+       }
++      if (captureFrameWork) report.safariFrameWorkInstallation = await evaluate(installFrameWorkProbe);
+     } },
+     // The shared recorder requests W-down / wait / W-up. Here that request
+     // starts one complete trusted native stick gesture; release waits for its
+@@ -269,12 +274,39 @@
+     // ordinary cleanup evaluate. Preserve page-side failure evidence first.
+     try {
+       report.safariAudioTransferFinal = await execute(`var j=window[${JSON.stringify(TRANSFER_KEY)}];
+-        return j ? {id:j.id,status:j.status,chars:j.chars,error:j.error} : null;`);
++        return j ? {id:j.id,status:j.status,chars:j.chars,operationError:j.error} : null;`);
++    } catch (error) { cleanupErrors.push(error.message); }
++    // Read and restore directly: a prior pending/failed transfer must not
++    // prevent diagnostic cleanup or overwrite the preserved operation error.
++    if (captureFrameWork) {
++      try {
++        report.safariFrameWorkCleanup = await execute(`var C=window.CINDERLINE;
++          var result=(${stopFrameWorkProbe.toString()})(); C.__iosFrameWorkResult=result;
++          return result ? {rows:result.rows.length,complete:result.complete,restored:result.restored} : null;`);
++        if (report.safariFrameWorkCleanup) {
++          // Reuse the original bounded transport on its own operation slot;
++          // never overwrite an audio failure or return all rows in one reply.
++          report.safariFrameWork = await createSafariEvaluate(execute, { transferKey: FRAME_WORK_TRANSFER_KEY })(() => {
++            const C = window.CINDERLINE, result = C.__iosFrameWorkResult;
++            delete C.__iosFrameWorkResult;
++            return result;
++          });
++          report.safariFrameWork.provenance = provenance;
++        }
++        check(report.safariFrameWork?.complete === true,
++          'iOS audio diagnostic: bounded frame work captured and timing wrappers restored',
++          JSON.stringify({ recordings: report.safariFrameWork?.recordingCount,
++            rows: report.safariFrameWork?.rows.length, dropped: report.safariFrameWork?.dropped,
++            restored: report.safariFrameWork?.restored, errors: report.safariFrameWork?.errors }));
++      } catch (error) { cleanupErrors.push(error.message); }
++    }
++    try {
+       const fallbackSettings = failure || cleanupErrors.length ? originalSettings : null;
+       report.safariAudioCleanupFinal = await execute(`var C=window.CINDERLINE, errors=[];
+         try { if(C.__audioRecording) C.__audioRecording.cleanup(); } catch(e) { errors.push(String(e.message||e)); }
+         try { if(arguments[0]) C.game.applySettings(arguments[0]); } catch(e) { errors.push(String(e.message||e)); }
+         delete window[${JSON.stringify(TRANSFER_KEY)}];
++        delete window[${JSON.stringify(FRAME_WORK_TRANSFER_KEY)}]; delete C.__iosFrameWorkResult;
+         if(errors.length) throw new Error(errors.join('; '));
+         return {fallbackSettingsApplied:Boolean(arguments[0]),settings:Object.assign({},C.game.settings)};`, [fallbackSettings]);
+     } catch (error) { cleanupErrors.push(error.message); }
+@@ -306,6 +338,10 @@
+ export function iosAudioLogSummary(report) {
+   return { status: report.status, checks: report.checks, failures: report.failures,
+     capabilities: report.safariAudioCapabilities, provenance: report.audioCapture?.provenance,
++    frameWork: report.safariFrameWork ? { rows: report.safariFrameWork.rows.length,
++      limit: report.safariFrameWork.limit, dropped: report.safariFrameWork.dropped,
++      recordings: report.safariFrameWork.recordingCount, complete: report.safariFrameWork.complete,
++      restored: report.safariFrameWork.restored, errors: report.safariFrameWork.errors } : null,
+     lifecycle: report.audioCapture?.lifecycle,
+     captureStatus: report.audioCapture?.status, comparison: report.audioCapture?.comparison,
+     clips: (report.audioCapture?.clips || []).map(clip => ({ name: clip.name, path: clip.path,

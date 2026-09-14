@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-14T17:19:28.366564+00:00",
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "baseCommit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "agent": "/root/integration_recovery_ultra/safari_time_loss_ultra",
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "status": "candidate frozen; diagnostic and error-detail repair only; original performance/recording root causes not repaired",
+  "remoteMutations": 0,
+  "ciDispatches": 0,
+  "automationChanges": 0,
+  "candidate": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/frame_work_probe.mjs",
+      "bytes": 6563,
+      "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+      "repoPath": "tools/frame_work_probe.mjs",
+      "gitBlob": "121b469ccf0a308a0b6052af0799277760185f94"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate/tools/ios_audio_capture.mjs",
+      "bytes": 22122,
+      "sha256": "7c7356237d487786234e737fe959075c942e39844f638d1e1ea3f925b0bd5194",
+      "repoPath": "tools/ios_audio_capture.mjs",
+      "gitBlob": "bbbfd02c57db8dde3b7262b63753a160bc59af07"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/authority-receipt.json",
+      "bytes": 5573,
+      "sha256": "bf801f27033c44a9efa4853c5b285fb824de6140bf0430f12b0649bca9e47a82"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/REPORT.md",
+      "bytes": 10806,
+      "sha256": "d55dacd8dc46f8c04a7d48c221e8fdd5fc86a5f646405ffc0c68d5c1ea66cad3"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/candidate.patch",
+      "bytes": 15728,
+      "sha256": "d2817cacd219c844a0c3668c987b3fee8ad3192cc59d1f84010c9038f9be4f18"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-frame-work.mjs",
+      "bytes": 7656,
+      "sha256": "7344db4e9ccbb06b2e29a598ea85a1153c1193749c4780d5d39dd3afec354659"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-operation-error.mjs",
+      "bytes": 4485,
+      "sha256": "52f073156aaa694c48fda9d4c82fdb6ee8d22a198a04513167e92ecd115984e5"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/verify-frozen.mjs",
+      "bytes": 2038,
+      "sha256": "d5fb1e13d7352736211e71988dad214fb6cbfa3c0d2304c3e546cc34e1091b1b"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/frame-work-result.json",
+      "bytes": 3582,
+      "sha256": "9a56b4a1f8a33e9ed5f5cb2c7e04e9f73665beb7376aeaf4f274c558e0b26cb2"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/operation-error-result.json",
+      "bytes": 661,
+      "sha256": "55e95c13bf151f413841be879d11f74be12d2b969c7bf35713d1fb15afd49116"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/verification/final-checks.json",
+      "bytes": 1002,
+      "sha256": "6dcdbdbc56a5c3e8ffd54b7a1b56f08c6802088ccfb996aa777ffaf0fc43a6e3"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/REPORT.md",
+      "bytes": 14279,
+      "sha256": "1461fe9e44ecc94ddf6ecc94438295a99a6fa6f1f2dea290341d68cc67659e77"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/calculations.json",
+      "bytes": 57782,
+      "sha256": "b72ba0f6fd9a1579fcc7fdb00516fdac0d784e32ce0fd4e6b8c42c02fc1a7d81"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/manifest.json",
+      "bytes": 1841,
+      "sha256": "94edc8ab9c50c408d650699edbed7462c329a3ca50b4b3a9c39c5f55c932b36e"
+    },
+    {
+      "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/candidate-review.json",
+      "bytes": 13482,
+      "sha256": "b7deaf17ab0aa270e842daa0fa65f56c8603de784eaf4e8c128d65d0ca47fb04"
+    }
+  ],
+  "verification": {
+    "frame-work-result": {
+      "passed": 35,
+      "status": "pass"
+    },
+    "operation-error-result": {
+      "passed": 17,
+      "status": "pass"
+    },
+    "final-checks": {
+      "passed": 9,
+      "status": "pass"
+    }
+  },
+  "observationVsInference": {
+    "originalObservedTarget": "iPhone SE (3rd generation) iOS Simulator / Mobile Safari",
+    "originalSourceStreetLossSeconds": 0.44666666666712374,
+    "originalPrStreetLossSeconds": 1.8600000000004613,
+    "originalPrTwoGapsLossSeconds": 1.3773333333333397,
+    "cpuExecutedHere": "Original telemetry arithmetic; canonical Engine._frame fixture with mocked timing/phase bodies; actual local HTTP transport fixture",
+    "notMeasured": [
+      "Actual Safari timing probe execution",
+      "Responsible CPU function/GPU/recorder/scheduler cause",
+      "Actual probe overhead",
+      "Underlying C35 recording failure",
+      "Physical-device performance",
+      "Media listening",
+      "Valid independent quality comparison"
+    ],
+    "conditionalCounterexample": "894ms render-sample interval would produce 4 engine steps if used as normal RAF delta; actual interval advances 2, so rendered samples cannot be substituted for engine input or CPU elapsed"
+  },
+  "retained": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "unitsRequested": "continuous",
+    "unitsCompleted": 0,
+    "elementsNotMeasured": 19,
+    "criteria": 71,
+    "validBlindComparisons": 0,
+    "productBundleSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "maxSubsteps": 4,
+    "guardRelative": 0.05,
+    "guardMinimumSeconds": 0.1,
+    "transferChunkChars": 131072,
+    "maxTransferChars": 50331648,
+    "operationTimeoutMs": 120000
+  },
+  "nextCi": {
+    "env": "CINDERLINE_IOS_FRAME_WORK_CAPTURE=1",
+    "singleRunMarker": "[ios-frame-work-c36-r1]",
+    "enabledOnly": "inputs.capture_audio && push && attempt1 && designated source branch && marker",
+    "normalUnsetBehavior": "no probe installation",
+    "profileLocation": "report.safariFrameWork",
+    "provenanceLocation": "report.safariFrameWork.provenance and report.audioCapture.provenance; frameWorkProbeSha256",
+    "export": "Preserve original complete report bytes via always artifact upload, pin exact artifact/run/report SHA, recover once through bounded base64 chunks and require exact byte/SHA reconstruction."
+  },
+  "independentReviewFinal": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-time-loss-ultra/independent/candidate-review.json",
+    "sha256": "b7deaf17ab0aa270e842daa0fa65f56c8603de784eaf4e8c128d65d0ca47fb04",
+    "result": "No blocking findings on exact frozen helper and probe; original arithmetic independently recomputed; local fixture outputs read, not rerun by independent child."
+  }
+}

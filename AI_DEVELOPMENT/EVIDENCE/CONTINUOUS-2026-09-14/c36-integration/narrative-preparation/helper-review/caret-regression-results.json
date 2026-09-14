@@ -1,0 +1,25 @@
+{
+  "scope": "CPU execution of exact canonical DialogueUI method bodies with a minimal innerHTML sink and afterType stub; no actual browser or DOM measurement.",
+  "sourceSha256": "558d65579cbf782788119da354f99da73ce4c0e55e630ec3a4758f4c3c714afd",
+  "methods": {
+    "_tap": "18b662e654f7af7a416c4a6076fffba3489632a855dc67776e3b0fd6ab6380df",
+    "_render": "66017a5631c9bcfab10e1e8a875b9ba5f2744aa753b35ee0e3f9bacfc60c069d",
+    "update": "69a9c72e160364e6389dfc25678f1087a071182f3b888644806206cf7d4ff9cd"
+  },
+  "checks": [
+    {
+      "name": "exact canonical _tap and update method bodies leave caret markup after fast-forward",
+      "passed": true
+    },
+    {
+      "name": "exact canonical update method body renders no caret on natural completion",
+      "passed": true
+    },
+    {
+      "name": "canonical _afterType does not rerender the text after fast-forward",
+      "passed": true
+    }
+  ],
+  "actualBrowserExecutions": 0,
+  "naturalCompletionRecommendationSupported": true
+}

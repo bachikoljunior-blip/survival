@@ -1,0 +1,158 @@
+{
+  "status": "passed",
+  "scope": "Finite syntax, all-export structure, exact non-target byte preservation and eight Japanese override checks only; no game suite, runtime build, playback or blind comparison.",
+  "checks": [
+    {
+      "name": "Official Git blob source pin: src/content/story.js",
+      "passed": true
+    },
+    {
+      "name": "Candidate syntax: src/content/story.js",
+      "passed": true
+    },
+    {
+      "name": "Official Git blob source pin: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "Candidate syntax: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "Official Git blob source pin: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "Candidate syntax: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "Exactly the eight assigned node IDs and no duplicate target",
+      "passed": true
+    },
+    {
+      "name": "All English exports identical after restoring the eight text fields",
+      "passed": true
+    },
+    {
+      "name": "All 13 conversation structures, conditions, effects, choices, edges and all other fields unchanged",
+      "passed": true
+    },
+    {
+      "name": "All assigned Japanese overrides exist and match their candidate texts: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "All non-target Japanese fields, choices and tags unchanged: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "All assigned Japanese overrides exist and match their candidate texts: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "All non-target Japanese fields, choices and tags unchanged: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "Every byte outside target text contents unchanged: src/content/story.js",
+      "passed": true
+    },
+    {
+      "name": "Every byte outside target text contents unchanged: src/content/locale/ja/story.js",
+      "passed": true
+    },
+    {
+      "name": "Every byte outside target text contents unchanged: src/content/locale/ja/story2.js",
+      "passed": true
+    },
+    {
+      "name": "Existing pass and final-signature gates remain distinct and unchanged",
+      "passed": true
+    }
+  ],
+  "englishWordsBefore": 314,
+  "englishWordsAfter": 304,
+  "edits": [
+    {
+      "coordinate": "sol_first:ah2",
+      "packet": "B-U1/N025",
+      "locale": "src/content/locale/ja/story.js",
+      "beforeEnWords": 39,
+      "afterEnWords": 42,
+      "beforeEnSha256": "fd773892d0b575bff0c0d0eae8783e0a7dd8ee2b19732c3046f67a6b92f56256",
+      "afterEnSha256": "24c00a59a74ffa0dbb447869636d8d27e0730bebeb8ab04b55bd7272f68ad5cc",
+      "afterJaSha256": "2b963b5a9192782c1c5b6177353247a75d52895b442972617a5ccd925b5de8cb"
+    },
+    {
+      "coordinate": "sol_first:vc_end",
+      "packet": "B-U1/N043",
+      "locale": "src/content/locale/ja/story.js",
+      "beforeEnWords": 35,
+      "afterEnWords": 36,
+      "beforeEnSha256": "d0268e59519b8f883093bd3a0d5937c7ad0b2b23e02e72621612b4635106281f",
+      "afterEnSha256": "dec992c5b0cc536af172b1eb696ddf70e62c226506522b7781f416f5d3385497",
+      "afterJaSha256": "05fa3d61d0eb43bee692eb4ab3d96fe7c57b498ec51ab4ea0238815b9d22b337"
+    },
+    {
+      "coordinate": "iris_first:i_decide",
+      "packet": "B-U8/N017",
+      "locale": "src/content/locale/ja/story2.js",
+      "beforeEnWords": 6,
+      "afterEnWords": 18,
+      "beforeEnSha256": "40467c9202857a8fa2b853602792da4ebc5276cb3a5f93f1945d1fcf49371c68",
+      "afterEnSha256": "0fffa6ef01356dbeaedf856dfc684379ef6046f0b72a380e4573bbfdd769a8a8",
+      "afterJaSha256": "802583f275a51d32a029e23b738957c163b2b219d99e6a274b733e24df1c7039"
+    },
+    {
+      "coordinate": "iris_first:i_refuses",
+      "packet": "B-U8/N019",
+      "locale": "src/content/locale/ja/story2.js",
+      "beforeEnWords": 63,
+      "afterEnWords": 50,
+      "beforeEnSha256": "d62dc6b71c2d5fa82e669a4b3a565eafebbf94175fc2d6dc24762a97d83b14e7",
+      "afterEnSha256": "27bc433611464e7dc74011c72577137fe18b2a5ed29a9a2227a829f6a566ad95",
+      "afterJaSha256": "5742afd338d2f438f0433ebd41f7277f8ed9fd3e21ceff34316b150188852f1d"
+    },
+    {
+      "coordinate": "iris_after:i_sign",
+      "packet": "B-U9/N010",
+      "locale": "src/content/locale/ja/story2.js",
+      "beforeEnWords": 40,
+      "afterEnWords": 39,
+      "beforeEnSha256": "5b253c5f3da2b5d9510e461ba5fa338d65c10cb54038d15d77b40f606dedc658",
+      "afterEnSha256": "26beb3d87e6aa2ee6c769f9161dcd4b87b39a3040f614cfdab8e77ad336934c1",
+      "afterJaSha256": "399d140bb25a9627361472eeb7e7b6185f3dfcd2c2b5d22a925ecbebf9405fe0"
+    },
+    {
+      "coordinate": "krajcik:k_deal_cut",
+      "packet": "B-U10/N023",
+      "locale": "src/content/locale/ja/story2.js",
+      "beforeEnWords": 53,
+      "afterEnWords": 50,
+      "beforeEnSha256": "85d60bb73a119aac68ac44ff38e4af0902cd43d85b5df32e24bcd73a153ed9f5",
+      "afterEnSha256": "05fba45470f1f757f354f7ace08cfe32de6270c987d77f5cf28ae8c30c97fd28",
+      "afterJaSha256": "e847d94169c6c71eed38d1d2714bf237d8a032f318baff2acf26dde2d428fe4e"
+    },
+    {
+      "coordinate": "final:k_asked",
+      "packet": "B-U13/N007",
+      "locale": "src/content/locale/ja/story2.js",
+      "beforeEnWords": 34,
+      "afterEnWords": 36,
+      "beforeEnSha256": "07025b9cd70862beb9165d16ca2bc71e59bc9d5fc15d697a31cd38d7961f83fe",
+      "afterEnSha256": "8a597660e80d724e3fde34733e87124ed2eace6cf37864f20179175b425aaca8",
+      "afterJaSha256": "82745ab65c951337f431401840d262414c678d051278ee9fff19ace04ab24cf4"
+    },
+    {
+      "coordinate": "final:k_asked2",
+      "packet": "B-U13/N008",
+      "locale": "src/content/locale/ja/story2.js",
+      "beforeEnWords": 44,
+      "afterEnWords": 33,
+      "beforeEnSha256": "c5a6c3c797e123972f920a92a99f3f7d7cc916dd757db54c9bd10616afee85e4",
+      "afterEnSha256": "848c9bde731fd5d93c4b06e7fe63d20a32aa96330088bcc502b0551c1f54e64f",
+      "afterJaSha256": "e1974bf62863419e176e1580d774a981b06c1726ad1d2c6b0e431fed664786a0"
+    }
+  ]
+}

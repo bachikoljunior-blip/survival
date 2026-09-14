@@ -1,0 +1,1248 @@
+{
+  "at": "2026-09-14T17:01:46.664Z",
+  "runs": {
+    "content": [
+      {
+        "text": "Action completed.",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "content": "{\"total_count\":3,\"workflow_runs\":[{\"id\":34869827495,\"name\":\"iPhone SE 3 round\",\"node_id\":\"WFR_kwLOTmAlyc8AAAAIHmdXpw\",\"head_branch\":\"claude/repo-instructions-constraints-r0070m\",\"head_sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"path\":\".github/workflows/iphone-se3-round.yml\",\"display_title\":\"Reduce grain and require verified Safari audio in F3\",\"run_number\":24,\"event\":\"pull_request\",\"status\":\"completed\",\"conclusion\":\"success\",\"workflow_id\":325809631,\"check_suite_id\":94425399806,\"check_suite_node_id\":\"CS_kwDOTmAlyc8AAAAV_DFB_g\",\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495\",\"html_url\":\"https://github.com/bachikoljunior-blip/survival/actions/runs/34869827495\",\"pull_requests\":[{\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls/16\",\"id\":4527502911,\"number\":16,\"head\":{\"ref\":\"claude/repo-instructions-constraints-r0070m\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}},\"base\":{\"ref\":\"main\",\"sha\":\"5456371249f5769c25d18f1686a44349e4292d6f\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}}}],\"created_at\":\"2026-09-14T16:38:05Z\",\"updated_at\":\"2026-09-14T16:43:11Z\",\"actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"run_attempt\":1,\"referenced_workflows\":[],\"run_started_at\":\"2026-09-14T16:38:05Z\",\"triggering_actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"jobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/jobs\",\"logs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/logs\",\"check_suite_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94425399806\",\"artifacts_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/artifacts\",\"cancel_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/cancel\",\"rerun_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/rerun\",\"previous_attempt_url\":null,\"workflow_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/325809631\",\"head_commit\":{\"id\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"tree_id\":\"0a1323feb1349b6f6d1fb2b399534adff3b51e22\",\"message\":\"C35: recover failed Safari originals and measure shadow resolution [recover-ios-audio-c34-r1] [character-shadow-resolution-c35-r1]\",\"timestamp\":\"2026-09-14T16:37:54Z\",\"author\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"},\"committer\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"}},\"repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"},\"head_repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"}},{\"id\":34869828147,\"name\":\"Floor gates\",\"node_id\":\"WFR_kwLOTmAlyc8AAAAIHmdaMw\",\"head_branch\":\"claude/repo-instructions-constraints-r0070m\",\"head_sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"path\":\".github/workflows/gates.yml\",\"display_title\":\"Reduce grain and require verified Safari audio in F3\",\"run_number\":109,\"event\":\"pull_request\",\"status\":\"completed\",\"conclusion\":\"success\",\"workflow_id\":324929428,\"check_suite_id\":94425401576,\"check_suite_node_id\":\"CS_kwDOTmAlyc8AAAAV_DFI6A\",\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147\",\"html_url\":\"https://github.com/bachikoljunior-blip/survival/actions/runs/34869828147\",\"pull_requests\":[{\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls/16\",\"id\":4527502911,\"number\":16,\"head\":{\"ref\":\"claude/repo-instructions-constraints-r0070m\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}},\"base\":{\"ref\":\"main\",\"sha\":\"5456371249f5769c25d18f1686a44349e4292d6f\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}}}],\"created_at\":\"2026-09-14T16:38:05Z\",\"updated_at\":\"2026-09-14T16:49:42Z\",\"actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"run_attempt\":1,\"referenced_workflows\":[{\"path\":\"bachikoljunior-blip/survival/.github/workflows/mobile-simulator.yml@2c0f0a19b938a594e8647950cda056670ca23bd5\",\"sha\":\"2c0f0a19b938a594e8647950cda056670ca23bd5\",\"ref\":\"refs/pull/16/merge\"}],\"run_started_at\":\"2026-09-14T16:38:05Z\",\"triggering_actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"jobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/jobs\",\"logs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/logs\",\"check_suite_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94425401576\",\"artifacts_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/artifacts\",\"cancel_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/cancel\",\"rerun_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/rerun\",\"previous_attempt_url\":null,\"workflow_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/324929428\",\"head_commit\":{\"id\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"tree_id\":\"0a1323feb1349b6f6d1fb2b399534adff3b51e22\",\"message\":\"C35: recover failed Safari originals and measure shadow resolution [recover-ios-audio-c34-r1] [character-shadow-resolution-c35-r1]\",\"timestamp\":\"2026-09-14T16:37:54Z\",\"author\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"},\"committer\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"}},\"repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"},\"head_repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"}},{\"id\":34869816263,\"name\":\"Floor gates\",\"node_id\":\"WFR_kwLOTmAlyc8AAAAIHmcrxw\",\"head_branch\":\"claude/repo-instructions-constraints-r0070m\",\"head_sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"path\":\".github/workflows/gates.yml\",\"display_title\":\"C35: recover failed Safari originals and measure shadow resolution [r…\",\"run_number\":108,\"event\":\"push\",\"status\":\"completed\",\"conclusion\":\"failure\",\"workflow_id\":324929428,\"check_suite_id\":94425369818,\"check_suite_node_id\":\"CS_kwDOTmAlyc8AAAAV_DDM2g\",\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263\",\"html_url\":\"https://github.com/bachikoljunior-blip/survival/actions/runs/34869816263\",\"pull_requests\":[{\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls/16\",\"id\":4527502911,\"number\":16,\"head\":{\"ref\":\"claude/repo-instructions-constraints-r0070m\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}},\"base\":{\"ref\":\"main\",\"sha\":\"5456371249f5769c25d18f1686a44349e4292d6f\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}}}],\"created_at\":\"2026-09-14T16:37:58Z\",\"updated_at\":\"2026-09-14T16:55:04Z\",\"actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"run_attempt\":1,\"referenced_workflows\":[{\"path\":\"bachikoljunior-blip/survival/.github/workflows/mobile-simulator.yml@d2c463b54d4ea12abc0a9444627db810440a59a7\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"ref\":\"refs/heads/claude/repo-instructions-constraints-r0070m\"}],\"run_started_at\":\"2026-09-14T16:37:58Z\",\"triggering_actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"jobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/jobs\",\"logs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/logs\",\"check_suite_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94425369818\",\"artifacts_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/artifacts\",\"cancel_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/cancel\",\"rerun_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/rerun\",\"previous_attempt_url\":null,\"workflow_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/324929428\",\"head_commit\":{\"id\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"tree_id\":\"0a1323feb1349b6f6d1fb2b399534adff3b51e22\",\"message\":\"C35: recover failed Safari originals and measure shadow resolution [recover-ios-audio-c34-r1] [character-shadow-resolution-c35-r1]\",\"timestamp\":\"2026-09-14T16:37:54Z\",\"author\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"},\"committer\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"}},\"repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"},\"head_repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"}}]}",
+      "display_title": "runs",
+      "display_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs?head_sha=d2c463b54d4ea12abc0a9444627db810440a59a7&per_page=100",
+      "modified_date": null,
+      "structuredContent": {
+        "content": "{\"total_count\":3,\"workflow_runs\":[{\"id\":34869827495,\"name\":\"iPhone SE 3 round\",\"node_id\":\"WFR_kwLOTmAlyc8AAAAIHmdXpw\",\"head_branch\":\"claude/repo-instructions-constraints-r0070m\",\"head_sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"path\":\".github/workflows/iphone-se3-round.yml\",\"display_title\":\"Reduce grain and require verified Safari audio in F3\",\"run_number\":24,\"event\":\"pull_request\",\"status\":\"completed\",\"conclusion\":\"success\",\"workflow_id\":325809631,\"check_suite_id\":94425399806,\"check_suite_node_id\":\"CS_kwDOTmAlyc8AAAAV_DFB_g\",\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495\",\"html_url\":\"https://github.com/bachikoljunior-blip/survival/actions/runs/34869827495\",\"pull_requests\":[{\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls/16\",\"id\":4527502911,\"number\":16,\"head\":{\"ref\":\"claude/repo-instructions-constraints-r0070m\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}},\"base\":{\"ref\":\"main\",\"sha\":\"5456371249f5769c25d18f1686a44349e4292d6f\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}}}],\"created_at\":\"2026-09-14T16:38:05Z\",\"updated_at\":\"2026-09-14T16:43:11Z\",\"actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"run_attempt\":1,\"referenced_workflows\":[],\"run_started_at\":\"2026-09-14T16:38:05Z\",\"triggering_actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"jobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/jobs\",\"logs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/logs\",\"check_suite_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94425399806\",\"artifacts_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/artifacts\",\"cancel_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/cancel\",\"rerun_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869827495/rerun\",\"previous_attempt_url\":null,\"workflow_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/325809631\",\"head_commit\":{\"id\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"tree_id\":\"0a1323feb1349b6f6d1fb2b399534adff3b51e22\",\"message\":\"C35: recover failed Safari originals and measure shadow resolution [recover-ios-audio-c34-r1] [character-shadow-resolution-c35-r1]\",\"timestamp\":\"2026-09-14T16:37:54Z\",\"author\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"},\"committer\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"}},\"repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"},\"head_repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"}},{\"id\":34869828147,\"name\":\"Floor gates\",\"node_id\":\"WFR_kwLOTmAlyc8AAAAIHmdaMw\",\"head_branch\":\"claude/repo-instructions-constraints-r0070m\",\"head_sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"path\":\".github/workflows/gates.yml\",\"display_title\":\"Reduce grain and require verified Safari audio in F3\",\"run_number\":109,\"event\":\"pull_request\",\"status\":\"completed\",\"conclusion\":\"success\",\"workflow_id\":324929428,\"check_suite_id\":94425401576,\"check_suite_node_id\":\"CS_kwDOTmAlyc8AAAAV_DFI6A\",\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147\",\"html_url\":\"https://github.com/bachikoljunior-blip/survival/actions/runs/34869828147\",\"pull_requests\":[{\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls/16\",\"id\":4527502911,\"number\":16,\"head\":{\"ref\":\"claude/repo-instructions-constraints-r0070m\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}},\"base\":{\"ref\":\"main\",\"sha\":\"5456371249f5769c25d18f1686a44349e4292d6f\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}}}],\"created_at\":\"2026-09-14T16:38:05Z\",\"updated_at\":\"2026-09-14T16:49:42Z\",\"actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"run_attempt\":1,\"referenced_workflows\":[{\"path\":\"bachikoljunior-blip/survival/.github/workflows/mobile-simulator.yml@2c0f0a19b938a594e8647950cda056670ca23bd5\",\"sha\":\"2c0f0a19b938a594e8647950cda056670ca23bd5\",\"ref\":\"refs/pull/16/merge\"}],\"run_started_at\":\"2026-09-14T16:38:05Z\",\"triggering_actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"jobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/jobs\",\"logs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/logs\",\"check_suite_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94425401576\",\"artifacts_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/artifacts\",\"cancel_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/cancel\",\"rerun_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869828147/rerun\",\"previous_attempt_url\":null,\"workflow_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/324929428\",\"head_commit\":{\"id\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"tree_id\":\"0a1323feb1349b6f6d1fb2b399534adff3b51e22\",\"message\":\"C35: recover failed Safari originals and measure shadow resolution [recover-ios-audio-c34-r1] [character-shadow-resolution-c35-r1]\",\"timestamp\":\"2026-09-14T16:37:54Z\",\"author\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"},\"committer\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"}},\"repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"},\"head_repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"}},{\"id\":34869816263,\"name\":\"Floor gates\",\"node_id\":\"WFR_kwLOTmAlyc8AAAAIHmcrxw\",\"head_branch\":\"claude/repo-instructions-constraints-r0070m\",\"head_sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"path\":\".github/workflows/gates.yml\",\"display_title\":\"C35: recover failed Safari originals and measure shadow resolution [r…\",\"run_number\":108,\"event\":\"push\",\"status\":\"completed\",\"conclusion\":\"failure\",\"workflow_id\":324929428,\"check_suite_id\":94425369818,\"check_suite_node_id\":\"CS_kwDOTmAlyc8AAAAV_DDM2g\",\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263\",\"html_url\":\"https://github.com/bachikoljunior-blip/survival/actions/runs/34869816263\",\"pull_requests\":[{\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls/16\",\"id\":4527502911,\"number\":16,\"head\":{\"ref\":\"claude/repo-instructions-constraints-r0070m\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}},\"base\":{\"ref\":\"main\",\"sha\":\"5456371249f5769c25d18f1686a44349e4292d6f\",\"repo\":{\"id\":1314923977,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"name\":\"survival\"}}}],\"created_at\":\"2026-09-14T16:37:58Z\",\"updated_at\":\"2026-09-14T16:55:04Z\",\"actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"run_attempt\":1,\"referenced_workflows\":[{\"path\":\"bachikoljunior-blip/survival/.github/workflows/mobile-simulator.yml@d2c463b54d4ea12abc0a9444627db810440a59a7\",\"sha\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"ref\":\"refs/heads/claude/repo-instructions-constraints-r0070m\"}],\"run_started_at\":\"2026-09-14T16:37:58Z\",\"triggering_actor\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"jobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/jobs\",\"logs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/logs\",\"check_suite_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/check-suites/94425369818\",\"artifacts_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/artifacts\",\"cancel_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/cancel\",\"rerun_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34869816263/rerun\",\"previous_attempt_url\":null,\"workflow_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/actions/workflows/324929428\",\"head_commit\":{\"id\":\"d2c463b54d4ea12abc0a9444627db810440a59a7\",\"tree_id\":\"0a1323feb1349b6f6d1fb2b399534adff3b51e22\",\"message\":\"C35: recover failed Safari originals and measure shadow resolution [recover-ios-audio-c34-r1] [character-shadow-resolution-c35-r1]\",\"timestamp\":\"2026-09-14T16:37:54Z\",\"author\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"},\"committer\":{\"name\":\"bachikoljunior-blip\",\"email\":\"bachikoljunior@gmail.com\"}},\"repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"},\"head_repository\":{\"id\":1314923977,\"node_id\":\"R_kgDOTmAlyQ\",\"name\":\"survival\",\"full_name\":\"bachikoljunior-blip/survival\",\"private\":false,\"owner\":{\"login\":\"bachikoljunior-blip\",\"id\":297806842,\"node_id\":\"U_kgDOEcAr-g\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/297806842?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/bachikoljunior-blip\",\"html_url\":\"https://github.com/bachikoljunior-blip\",\"followers_url\":\"https://api.github.com/users/bachikoljunior-blip/followers\",\"following_url\":\"https://api.github.com/users/bachikoljunior-blip/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/bachikoljunior-blip/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bachikoljunior-blip/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bachikoljunior-blip/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bachikoljunior-blip/orgs\",\"repos_url\":\"https://api.github.com/users/bachikoljunior-blip/repos\",\"events_url\":\"https://api.github.com/users/bachikoljunior-blip/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bachikoljunior-blip/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/bachikoljunior-blip/survival\",\"description\":null,\"fork\":false,\"url\":\"https://api.github.com/repos/bachikoljunior-blip/survival\",\"forks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/forks\",\"keys_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/teams\",\"hooks_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/hooks\",\"issue_events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/events\",\"assignees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/tags\",\"blobs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/languages\",\"stargazers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/stargazers\",\"contributors_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contributors\",\"subscribers_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscribers\",\"subscription_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/subscription\",\"commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/merges\",\"archive_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/downloads\",\"issues_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/bachikoljunior-blip/survival/deployments\"}}]}",
+        "display_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs?head_sha=d2c463b54d4ea12abc0a9444627db810440a59a7&per_page=100",
+        "title": "runs"
+      },
+      "title": "runs",
+      "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs?head_sha=d2c463b54d4ea12abc0a9444627db810440a59a7&per_page=100"
+    }
+  },
+  "sourceJobs": {
+    "content": [
+      {
+        "text": "Action completed.",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "jobs": [
+        {
+          "conclusion": "success",
+          "id": 104062638196,
+          "logs_url": null,
+          "name": "F3 core, WebKit and fault recovery",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npm ci",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Install the browsers the surface checks need",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Build, validate and drive the real build",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Exercise the iPhone SE 3 WebKit surface",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve WebKit screenshots, video, trace and report",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Export original WebKit frames and report for inspection",
+              "number": 9,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Exercise post-boot recovery in mobile WebKit",
+              "number": 10,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve actual fault-recovery screens and checks",
+              "number": 11,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 21,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 22,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062638462,
+          "logs_url": null,
+          "name": "Actual narrative material",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npm ci",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npx playwright install --with-deps chromium",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run node build.mjs",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Record emitted dialogue and endings on contrasting story paths",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve original narrative output and execution results",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 15,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 16,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062638487,
+          "logs_url": null,
+          "name": "Recover original failed C34 PR Safari recordings",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run node --check tools/recover-ios-audio-c34-pr.mjs",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Verify the original repository artifact identity",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Download the existing original artifact through the official action",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Verify original report and media and export complete bytes",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve recovered originals and verification",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 15,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 16,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062638557,
+          "logs_url": null,
+          "name": "F2 state update",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Product files changed without a state update?",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 7,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062638565,
+          "logs_url": null,
+          "name": "Recover original failed C34 Safari recordings",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run node --check tools/recover-ios-audio-c34.mjs",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Verify the original repository artifact identity",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Download the existing original artifact through the official action",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Verify original report and media and export complete bytes",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve recovered originals and verification",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 15,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 16,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062638759,
+          "logs_url": null,
+          "name": "Frozen character shadow resolution diagnosis",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npm ci",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Check the bounded diagnostic helper syntax",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npx playwright install --with-deps webkit",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Render the fixed poses with only shadow map resolution doubled and restored",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Export the original diagnostic frames and control results",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve unmodified diagnostic frames and execution evidence",
+              "number": 9,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 17,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 18,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 19,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "failure",
+          "id": 104062638986,
+          "logs_url": null,
+          "name": "F3 Mobile Safari audio / ios-safari",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Check out the exact requested branch revision",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Set up Node.js",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Restore exact dependencies and rebuild",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve actual simulator environment",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Install pinned Appium and XCUITest driver",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Select and boot iPhone SE 3 simulator",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Start Appium and simulator video",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "failure",
+              "name": "Exercise Mobile Safari through Appium",
+              "number": 9,
+              "status": "completed"
+            },
+            {
+              "conclusion": "failure",
+              "name": "Verify required original audio, provenance and unchanged clock guards",
+              "number": 10,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Stop recording",
+              "number": 11,
+              "status": "completed"
+            },
+            {
+              "conclusion": "skipped",
+              "name": "Emit startup diagnostics in ordinary CI log",
+              "number": 12,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve Safari screenshots, video, logs and report",
+              "number": 13,
+              "status": "completed"
+            },
+            {
+              "conclusion": "skipped",
+              "name": "Post Set up Node.js",
+              "number": 25,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Check out the exact requested branch revision",
+              "number": 26,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 27,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639329,
+          "logs_url": null,
+          "name": "Frozen character ground contact diagnosis",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639412,
+          "logs_url": null,
+          "name": "Frozen E16 Qwen 3.5 comparison attempt",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639424,
+          "logs_url": null,
+          "name": "Reproduce fixed E9 reader and private audit",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639445,
+          "logs_url": null,
+          "name": "Prepare reviewed light source and production root",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639478,
+          "logs_url": null,
+          "name": "Recover original C29 Safari recordings",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639570,
+          "logs_url": null,
+          "name": "Restore candidate graph and prepare faithful E9 reading material",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639653,
+          "logs_url": null,
+          "name": "F5 review record",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062639712,
+          "logs_url": null,
+          "name": "Prepare exact grain product source and root",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062640034,
+          "logs_url": null,
+          "name": "Prepare exact audio product source and root",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062640065,
+          "logs_url": null,
+          "name": "Frozen full-text E9 Qwen 3.5 comparison attempt",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062640124,
+          "logs_url": null,
+          "name": "Frozen grain strength diagnosis",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062640173,
+          "logs_url": null,
+          "name": "Frozen light direction diagnosis",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "failure",
+          "id": 104068343452,
+          "logs_url": null,
+          "name": "F3 execution",
+          "run_id": 34869816263,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "failure",
+              "name": "Require both the complete core gate and actual Safari audio acquisition",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 3,
+              "status": "completed"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "prJobs": {
+    "content": [
+      {
+        "text": "Action completed.",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "jobs": [
+        {
+          "conclusion": "success",
+          "id": 104062677725,
+          "logs_url": null,
+          "name": "F3 core, WebKit and fault recovery",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npm ci",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Install the browsers the surface checks need",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Build, validate and drive the real build",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Exercise the iPhone SE 3 WebKit surface",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve WebKit screenshots, video, trace and report",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Export original WebKit frames and report for inspection",
+              "number": 9,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Exercise post-boot recovery in mobile WebKit",
+              "number": 10,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve actual fault-recovery screens and checks",
+              "number": 11,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 21,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 22,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062677820,
+          "logs_url": null,
+          "name": "F2 state update",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Product files changed without a state update?",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 7,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062677915,
+          "logs_url": null,
+          "name": "F5 review record",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Review trailer present and consistent with STATE.yaml?",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 7,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062677932,
+          "logs_url": null,
+          "name": "Actual narrative material",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npm ci",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run npx playwright install --with-deps chromium",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run node build.mjs",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Record emitted dialogue and endings on contrasting story paths",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve original narrative output and execution results",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "number": 15,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 16,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "id": 104062678264,
+          "logs_url": null,
+          "name": "F3 Mobile Safari audio / ios-safari",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Check out the exact requested branch revision",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Set up Node.js",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Restore exact dependencies and rebuild",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve actual simulator environment",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Install pinned Appium and XCUITest driver",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Select and boot iPhone SE 3 simulator",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Start Appium and simulator video",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Exercise Mobile Safari through Appium",
+              "number": 9,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Verify required original audio, provenance and unchanged clock guards",
+              "number": 10,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Stop recording",
+              "number": 11,
+              "status": "completed"
+            },
+            {
+              "conclusion": "skipped",
+              "name": "Emit startup diagnostics in ordinary CI log",
+              "number": 12,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Preserve Safari screenshots, video, logs and report",
+              "number": 13,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Set up Node.js",
+              "number": 25,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Check out the exact requested branch revision",
+              "number": 26,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 27,
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679104,
+          "logs_url": null,
+          "name": "Frozen E16 Qwen 3.5 comparison attempt",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679198,
+          "logs_url": null,
+          "name": "Reproduce fixed E9 reader and private audit",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679201,
+          "logs_url": null,
+          "name": "Frozen full-text E9 Qwen 3.5 comparison attempt",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679375,
+          "logs_url": null,
+          "name": "Frozen grain strength diagnosis",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679444,
+          "logs_url": null,
+          "name": "Recover original C29 Safari recordings",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679452,
+          "logs_url": null,
+          "name": "Prepare exact audio product source and root",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679509,
+          "logs_url": null,
+          "name": "Recover original failed C34 PR Safari recordings",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679562,
+          "logs_url": null,
+          "name": "Recover original failed C34 Safari recordings",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679821,
+          "logs_url": null,
+          "name": "Frozen character shadow resolution diagnosis",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679839,
+          "logs_url": null,
+          "name": "Frozen character ground contact diagnosis",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679880,
+          "logs_url": null,
+          "name": "Prepare exact grain product source and root",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062679891,
+          "logs_url": null,
+          "name": "Restore candidate graph and prepare faithful E9 reading material",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062680465,
+          "logs_url": null,
+          "name": "Frozen light direction diagnosis",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "skipped",
+          "id": 104062722812,
+          "logs_url": null,
+          "name": "Prepare reviewed light source and production root",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": null
+        },
+        {
+          "conclusion": "success",
+          "id": 104066548636,
+          "logs_url": null,
+          "name": "F3 execution",
+          "run_id": 34869828147,
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Require both the complete core gate and actual Safari audio acquisition",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 3,
+              "status": "completed"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+

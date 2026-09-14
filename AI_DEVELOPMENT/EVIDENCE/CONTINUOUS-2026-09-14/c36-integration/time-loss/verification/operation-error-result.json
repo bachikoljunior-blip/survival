@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "passed": 17,
+  "transport": "real local HTTP 200/500 through unchanged canonical requestWebDriver",
+  "oldFailure": "HTTP 200; underlying recording failure sentinel retained only on page",
+  "newFailure": "Safari audio operation failed: recording failure sentinel",
+  "isolatedDiagnosticTransfer": {
+    "payloadChars": 300000,
+    "chunkLengths": [
+      45,
+      131072,
+      131072,
+      37867
+    ],
+    "originalPendingAudioOperationPreserved": true
+  },
+  "scope": "CPU synthetic error identity propagation; the original C35 Safari recording error was not recovered by this fixture and its underlying cause remains unknown."
+}

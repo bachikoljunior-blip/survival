@@ -1,0 +1,43 @@
+{
+  "at": "2026-09-14T17:27:48.947889+00:00",
+  "reviewer": "/root/integration_recovery_ultra",
+  "type": "independent source-aware integration review",
+  "sourceCommit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "candidate": "c36-input-release-adoption-review/candidate/tools/test-ios-safari.mjs",
+  "candidateSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+  "decision": "adopt final corrected harness candidate; independent final verification passed",
+  "reasons": [
+    "Canonical source Input._onUp clears raw stick synchronously; Input.step recomputes move.mag on the actual fixed updater chain. Original frame telemetry records the immediate read before the next frame.",
+    "Preserves immediate after, before, trusted gesture events, movement-distance criterion, and all non-audio behavior. Observes only the first actual frame after engine/input time progress and rejects nonzero, stopped, replaced, invalid, late or cleanup-failed state.",
+    "No clock normalization, manual step, input reset, guard or duration relaxation. The first observation may follow 1–4 real fixed substeps."
+  ],
+  "validation": {
+    "cpu": {
+      "passed": 26,
+      "failed": 0,
+      "durationMs": 39.156164
+    },
+    "boundaries": {
+      "passed": 12
+    },
+    "nodeSyntax": true,
+    "gitApplyCheck": true
+  },
+  "limits": [
+    "No new real Safari execution yet.",
+    "Original pointerup timestamp and exact original Input.step trace are unavailable; the actual PR observation is consistent with the reproduced cause, not proof of every scheduling detail.",
+    "Release wait can add measured wall time; original 5% clocks remain authoritative.",
+    "The distinct original street time loss is not repaired by this test correction."
+  ],
+  "validBlindComparisons": 0,
+  "all19Elements": "not measured",
+  "initialReviewedCandidateSha256": "1017df33782a5d0da32a20e88e9e159e9f3b98b78aa5a51f95049bb86a5b5f73",
+  "independentFinalVerification": {
+    "passed": 4,
+    "evidence": "final-independent-review/input-release-corrected-verification.json"
+  },
+  "closedIntegrationFindings": [
+    "Browser cleanup originally replaced the first failure reason; final preserves observation status/reason and appends cleanupErrors.",
+    "Collector finally originally replaced a primary transport error and lost movement.release; final saves terminal result before cleanup and preserves primary error plus secondary diagnostics."
+  ]
+}

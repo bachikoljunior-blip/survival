@@ -49,6 +49,7 @@ jobs:
       # reruns. Default false and the existing single-attempt push marker stay.
       # Acquisition does not award an audio-quality or comparison verdict.
       CINDERLINE_IOS_AUDIO_CAPTURE: ${{ (inputs.capture_audio || (github.run_attempt == 1 && github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]'))) && '1' || '0' }}
+      CINDERLINE_IOS_FRAME_WORK_CAPTURE: ${{ (inputs.capture_audio && github.run_attempt == 1 && github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && contains(github.event.head_commit.message, '[ios-frame-work-c36-r1]')) && '1' || '0' }}
     steps:
       - name: Check out the exact requested branch revision
         uses: actions/checkout@v4
@@ -120,6 +121,9 @@ jobs:
       - name: Verify required original audio, provenance and unchanged clock guards
         if: ${{ !cancelled() && env.CINDERLINE_IOS_AUDIO_CAPTURE == '1' }}
         run: node tools/gates/f3_safari_audio.mjs
+      - name: Export the selected source run original frame-work report
+        if: ${{ always() && env.CINDERLINE_IOS_FRAME_WORK_CAPTURE == '1' }}
+        run: node tools/export-ios-frame-work.mjs
       - name: Stop recording
         if: always()
         shell: bash

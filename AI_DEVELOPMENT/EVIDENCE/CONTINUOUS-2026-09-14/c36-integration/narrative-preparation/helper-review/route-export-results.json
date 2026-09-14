@@ -1,0 +1,86 @@
+{
+  "scope": "Independent bounded route-export transport tests using explicitly synthetic PNG files, an isolated local Git fixture and synthetic run IDs; no browser measurement, screenshot acquisition, CI or build.",
+  "checks": [
+    {
+      "name": "17-file successful transport reconstructs all unchanged synthetic PNG/report bytes and contiguous chunks",
+      "passed": true
+    },
+    {
+      "name": "failed five-screen prefix is exported as failed, with complete only denoting file bytes",
+      "passed": true
+    },
+    {
+      "name": "failed preflight without browser or screens exports only honest failure report",
+      "passed": true
+    },
+    {
+      "name": "source-only successful report requires no browser and exports report only",
+      "passed": true
+    },
+    {
+      "name": "last screen byte corruption rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "last path traversal rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "duplicate/reordered screen route rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "accurately hashed wrong PNG dimensions reject before first emit",
+      "passed": true
+    },
+    {
+      "name": "accurately hashed wrong PNG signature rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "foreign report source commit rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "foreign workflow commit rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "foreign run and attempt reject before first emit",
+      "passed": true
+    },
+    {
+      "name": "frozen source text pin drift rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "passed browser report with only 15 screens rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "source-only passed report missing routes rejects before first emit",
+      "passed": true
+    },
+    {
+      "name": "executed browser without requested/attempted flags rejects even with zero screens",
+      "passed": true
+    },
+    {
+      "name": "file over 4 MiB cap rejects after hash verification and before emission",
+      "passed": true
+    },
+    {
+      "name": "report over 4 MiB cap rejects before emission",
+      "passed": true
+    },
+    {
+      "name": "total set above 32 MiB with each file below 4 MiB rejects before emission",
+      "passed": true
+    }
+  ],
+  "total": 19,
+  "passed": true,
+  "syntheticPngBytes": 302527,
+  "actualBrowserExecutions": 0,
+  "remoteMutations": 0
+}

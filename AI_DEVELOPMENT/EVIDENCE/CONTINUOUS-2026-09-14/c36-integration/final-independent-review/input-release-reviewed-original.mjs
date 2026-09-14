@@ -174,15 +174,11 @@ function observeIosStreetRelease(inputCount) {
       () => document.removeEventListener('pointerdown', repress, true)]) {
       try { remove(); } catch (error) { errors.push(String(error.message || error)); }
     }
-    if (errors.length) {
-      probe.cleanupErrors = [...(probe.cleanupErrors || []), ...errors];
-      if (probe.status !== 'failed') Object.assign(probe, { status: 'failed', reason: 'release observation cleanup failed' });
-    }
+    if (errors.length) Object.assign(probe, { status: 'failed', reason: 'release observation cleanup failed', cleanupErrors: errors });
   };
   const finish = (status, reason, after = snapshot()) => {
     if (probe.status !== 'pending') return;
-    Object.assign(probe, { status, reason, observationStatus: status, observationReason: reason,
-      after, elapsedMs: after.wallMs - immediate.wallMs });
+    Object.assign(probe, { status, reason, after, elapsedMs: after.wallMs - immediate.wallMs });
     cleanup();
   };
   const repress = () => finish('failed', 'pointerdown recurred before release observation completed');
@@ -212,43 +208,24 @@ function observeIosStreetRelease(inputCount) {
   return immediate;
 }
 
-async function collectIosStreetRelease(immediate, movement) {
+async function collectIosStreetRelease(immediate) {
   const deadline = Date.now() + 2000;
-  let result, primaryError;
   try {
     while (Date.now() < deadline) {
-      const observed = await execute(`var p=window.__cinderlineIosRelease;
+      const result = await execute(`var p=window.__cinderlineIosRelease;
         if (!p) throw new Error('missing iOS release observation');
         return {status:p.status,reason:p.reason,after:p.after,elapsedMs:p.elapsedMs,
-          timeoutMs:p.timeoutMs,cleanupErrors:p.cleanupErrors,
-          observationStatus:p.observationStatus,observationReason:p.observationReason};`);
-      if (Date.now() >= deadline) {
-        result = { status: 'failed', reason: 'release observation transport deadline exceeded', after: immediate, lateResult: observed };
-        break;
-      }
-      if (observed.status !== 'pending') { result = observed; break; }
+          timeoutMs:p.timeoutMs,cleanupErrors:p.cleanupErrors};`);
+      if (Date.now() >= deadline) break;
+      if (result.status !== 'pending') return result;
       await new Promise(done => setTimeout(done, 50));
     }
-    movement.release = result ||= { status: 'failed', reason: 'release observation transport deadline exceeded', after: immediate };
-  } catch (error) {
-    primaryError = error;
-    movement.release = result = { status: 'failed', reason: String(error.message || error),
-      after: immediate, collectionError: String(error.stack || error) };
+    return { status: 'failed', reason: 'release observation transport deadline exceeded', after: immediate };
   } finally {
-    try {
-      await execute(`var p=window.__cinderlineIosRelease;
-        if (p) { p.cleanup(); delete window.__cinderlineIosRelease;
-          if (p.cleanupErrors) throw new Error(p.cleanupErrors.join('; ')); } return true;`);
-    } catch (error) {
-      const hadPrimaryFailure = result.status === 'failed';
-      result.cleanupErrors = [...(result.cleanupErrors || []), String(error.message || error)];
-      if (!hadPrimaryFailure) Object.assign(result, { observationStatus: result.status,
-        observationReason: result.reason, status: 'failed', reason: 'release observation cleanup failed' });
-      primaryError ||= hadPrimaryFailure ? new Error(result.reason) : error;
-    }
+    await execute(`var p=window.__cinderlineIosRelease;
+      if (p) { p.cleanup(); delete window.__cinderlineIosRelease;
+        if (p.cleanupErrors) throw new Error(p.cleanupErrors.join('; ')); } return true;`);
   }
-  if (primaryError) throw primaryError;
-  return result;
 }
 
 function finger(id, actions) {
@@ -585,7 +562,7 @@ try {
         // Preserve the original immediate read even if transport or cleanup fails.
         const movement = { before, after };
         report.interaction.audioStreetRelease = movement;
-        const release = await collectIosStreetRelease(after, movement);
+        const release = movement.release = await collectIosStreetRelease(after);
         const distance = Math.hypot(...after.position.map((value, index) => value - before.position[index]));
         check(after.input.some(event => event.type === 'pointerdown' && event.trusted && event.pointerType === 'touch')
           && after.input.some(event => event.type === 'pointerup' && event.trusted && event.pointerType === 'touch'),

@@ -1,0 +1,74 @@
+[
+  {
+    "unit": "B-U1",
+    "packetNode": "N025",
+    "conversation": "sol_first",
+    "node": "ah2",
+    "localeFile": "src/content/locale/ja/story.js",
+    "en": "Two rotas. The lamps can't be in both places, and somebody still has to mind\nthe water point.\n\nIf you're leaving it like this, tell me which shift you can take. Then I can put\na name in one of the gaps.",
+    "ja": "当番表は2枚。ランプを両方には置けない。水場を見る人間も要る。\n\nこのままにするなら、あんたが入れる当番を教えて。そうすれば空欄を一つ埋められる。"
+  },
+  {
+    "unit": "B-U1",
+    "packetNode": "N043",
+    "conversation": "sol_first",
+    "node": "vc_end",
+    "localeFile": "src/content/locale/ja/story.js",
+    "en": "You've got a bar and you know how the wedges come out. I won't stand in your\nway.\n\nIf you change the draw, tell me which heads. I need to know which stairwell\ngets the lamps.",
+    "ja": "バールは持ってるし、楔の抜き方も分かった。邪魔はしない。\n\nガスの流れを変えたら、どの頭を触ったか教えて。どの階段にランプを回せばいいか知りたい。"
+  },
+  {
+    "unit": "B-U8",
+    "packetNode": "N017",
+    "conversation": "iris_first",
+    "node": "i_decide",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "I could give you my pass. That lets you in. It doesn't put my name on your figures.",
+    "ja": "私の通行証を渡すことはできます。中に入るためのものです。測量値への私の署名とは別です"
+  },
+  {
+    "unit": "B-U8",
+    "packetNode": "N019",
+    "conversation": "iris_first",
+    "node": "i_refuses",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "...I could. I'm not going to.\n\nMy contract has eleven months left. My mother's place costs four hundred a\nmonth. A pass in your pocket comes back to me.\n\nThe north service door's hasp is rusted through. You'll have to deal with that\nyourself. I won't open it for you.",
+    "ja": "……できます。でも渡しません。\n\n契約はあと11か月。母のいる施設に月400かかります。あなたのポケットから通行証が出れば、私だと分かります。\n\n北面の業務用扉は、掛け金が錆びて抜けています。そこから先は自分で。私が開けるわけにはいきません"
+  },
+  {
+    "unit": "B-U9",
+    "packetNode": "N010",
+    "conversation": "iris_after",
+    "node": "i_sign",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "If you need a name on the reduction, find me where it's going to be used. Bring\nthe figures as well as the line.\n\nI can answer for a measurement. Not for what you intend to do with it.",
+    "ja": "整約に署名が要るなら、それを使う場所で私に声をかけてください。線だけではなく、測量値も見せてください。\n\n測定についてなら責任を持てます。あなたがそれを何に使うかまで、引き受けるわけではありません"
+  },
+  {
+    "unit": "B-U10",
+    "packetNode": "N023",
+    "conversation": "krajcik",
+    "node": "k_deal_cut",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "On the true line, openly. The nine million isn't the obstacle. The admission\nends me professionally within a month, and probably ends the relocations with me.\n\nAsk again at the excavators, in front of the crews. Name who signs the reduction.\nAnd say what happens to the households still waiting.",
+    "ja": "正しい線で、公然と。障害は900万ではありません。誤りを認めれば、ひと月で私の職は終わります。転居事業も、おそらく私と一緒に終わります。\n\n掘削機の前で、作業員に聞こえるよう、もう一度提案してください。整約に誰が署名するのか。転居を待つ世帯をどうするのか。その二点も"
+  },
+  {
+    "unit": "B-U13",
+    "packetNode": "N007",
+    "conversation": "final",
+    "node": "k_asked",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "You proposed the true line. I asked you to repeat it here, in front of the crews.\n\nName the surveyor who will sign the reduction. Their responsibility needs to be\non the record alongside the order.",
+    "ja": "正しい線に引き直すという提案でしたね。作業員の前で、もう一度出していただくようお願いしました。\n\n整約に署名する測量技師は誰ですか。指示書とあわせて、責任者も記録に残してください"
+  },
+  {
+    "unit": "B-U13",
+    "packetNode": "N008",
+    "conversation": "final",
+    "node": "k_asked2",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "The proposal is yours. Please make that clear in the record.\n\nThe households awaiting relocation must be accounted for too. If the admission\nends those payments, that consequence belongs beside the corrected line.",
+    "ja": "提案者はあなたです。その点は記録に明記してください。\n\n転居を待つ世帯についても記載が必要です。誤りを認めたことで支払いが止まるなら、その結果も、訂正した線と並べて残してください"
+  }
+]

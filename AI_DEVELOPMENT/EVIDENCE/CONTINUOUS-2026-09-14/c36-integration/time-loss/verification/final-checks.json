@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "passed": 9,
+  "checks": [
+    {
+      "name": "production pins exactly unchanged",
+      "passed": true
+    },
+    {
+      "name": "safariAudioCapabilities function byte-identical",
+      "passed": true
+    },
+    {
+      "name": "inspectIosAudioLifecycle function byte-identical",
+      "passed": true
+    },
+    {
+      "name": "shared recorder exact pinned source",
+      "passed": true
+    },
+    {
+      "name": "only two tool candidate paths",
+      "passed": true
+    },
+    {
+      "name": "ios_audio_capture.mjs syntax",
+      "passed": true
+    },
+    {
+      "name": "ios_audio_capture.mjs runtime fixture identical to candidate",
+      "passed": true
+    },
+    {
+      "name": "frame_work_probe.mjs syntax",
+      "passed": true
+    },
+    {
+      "name": "frame_work_probe.mjs runtime fixture identical to candidate",
+      "passed": true
+    }
+  ],
+  "scope": "Finite frozen-source and syntax checks. Runtime timing and physical-device behavior not measured."
+}

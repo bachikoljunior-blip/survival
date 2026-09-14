@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "status": "ready for C36 preparation CI; independent review passed; product build and browser execution pending",
+  "baseCommit": "d2c463b54d4ea12abc0a9444627db810440a59a7",
+  "scope": "C35 exact-input baseline attempt and frozen E9 revision build/route CI candidate; not a product adoption or valid blind comparison",
+  "canonicalBuildInputs": 47,
+  "canonicalFilesVerified": 57,
+  "currentRuntime": {
+    "path": "cinderline.1.0.0.js",
+    "bytes": 1445983,
+    "sha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "gitBlob": "05fa00313fd900697973839038659c7a16a1c306"
+  },
+  "candidateRuntime": null,
+  "sourceCandidates": [
+    {
+      "path": "src/content/story.js",
+      "before": {
+        "bytes": 111932,
+        "sha256": "76023ad5a9fba4716393b555f3562573fd179c3fb3c4c9d560fda8522a22e07c",
+        "gitBlob": "7af0553369357b9d4812c64cbe4da22c1aec87f8"
+      },
+      "after": {
+        "bytes": 111989,
+        "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+        "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+      },
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/product-source-candidate/src/content/story.js"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "before": {
+        "bytes": 29995,
+        "sha256": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
+        "gitBlob": "80c9858e0a24b794560114782fd87cd6bd6916f0"
+      },
+      "after": {
+        "bytes": 29927,
+        "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+        "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+      },
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/product-source-candidate/src/content/locale/ja/story.js"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "before": {
+        "bytes": 30620,
+        "sha256": "360d015b27089e2c0cd61dfc8e4f9302ecc39714ded4d24ac113d870376fce3e",
+        "gitBlob": "2e7bf4fce84b976d95155d54876709c72b96263b"
+      },
+      "after": {
+        "bytes": 30756,
+        "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+        "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+      },
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/product-source-candidate/src/content/locale/ja/story2.js"
+    }
+  ],
+  "ciCandidateFiles": [
+    {
+      "path": ".github/workflows/gates.yml",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/.github/workflows/gates.yml",
+      "bytes": 29072,
+      "sha256": "6255f8123d1a47aff56a295e53530d8fa5bfb4b5ebb36837c7e299622029216a",
+      "gitBlob": "ccfb7f38fab0b8311d6cb7d65f6504be98ba339d"
+    },
+    {
+      "path": "tools/candidates/e9-ja-story-r1.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/candidates/e9-ja-story-r1.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "tools/candidates/e9-ja-story2-r1.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/candidates/e9-ja-story2-r1.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    },
+    {
+      "path": "tools/candidates/e9-story-r1.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/candidates/e9-story-r1.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "tools/check-narrative-routes.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/check-narrative-routes.mjs",
+      "bytes": 17059,
+      "sha256": "c67a516cb109a02a43b693abe54127098e948ce53969c294642b036a2822c290",
+      "gitBlob": "5c261bbf5d51e6fa8684266149fdc1f591461da0"
+    },
+    {
+      "path": "tools/prepare-narrative-product.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13807,
+      "sha256": "79a161d8b984dea9058f737f4092684e95f0ecd6ca101954add96277a192d653",
+      "gitBlob": "63bb5a7ad3c934b7e45d50e1639e72204795cdb3"
+    }
+  ],
+  "actualValidation": {
+    "frozenChecks": 17,
+    "contentValidator": "passed: 13 conversations, 224 dialogue nodes",
+    "sourceLocaleRoutes": 16,
+    "oldSourcePinRejection": "passed",
+    "baselineBuild": {
+      "exit": 1,
+      "error": "ERR_MODULE_NOT_FOUND: esbuild",
+      "reproduced": false
+    },
+    "candidateBuild": "not attempted after failed baseline prerequisite",
+    "browserLaunches": 0,
+    "screensCaptured": 0
+  },
+  "independentReview": {
+    "disposition": "ready as final fixed-C35 preparation, source-known finite route-diagnostic and original-byte export candidate; zero unresolved blocking findings",
+    "blockingFindings": [],
+    "preparationChecks": 17,
+    "sourceRouteChecks": 16,
+    "exportChecks": 19,
+    "browserExecutions": 0,
+    "fixtureScope": "Explicit synthetic PNGs and isolated local Git fixture; not actual screenshots",
+    "receipt": {
+      "path": "helper-review/receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/receipt.json",
+      "bytes": 18423,
+      "sha256": "b03a2df4afe6f349fbc02a434eb60a59efb184559f5edcdf6388822e62e7aa21"
+    },
+    "report": {
+      "path": "helper-review/REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/REPORT.md",
+      "bytes": 13337,
+      "sha256": "d70ca24026039d698af0723bac6b7be66ab950565753f5967f37d730946b5243"
+    }
+  },
+  "CI": "not dispatched; candidate optional marker job only",
+  "marker": "[prepare-narrative-product-r1]",
+  "jobRef": "refs/heads/claude/repo-instructions-constraints-r0070m",
+  "sourceInputsRemainUnchangedInC36": true,
+  "exportPrefixes": {
+    "prepared": [
+      "[prepared-narrative-meta]",
+      "[prepared-narrative-chunk]",
+      "[prepared-narrative-end]"
+    ],
+    "routes": [
+      "[narrative-route-meta]",
+      "[narrative-route-chunk]",
+      "[narrative-route-end]"
+    ]
+  },
+  "exports": "Exact original-byte base64 chunks with byte offsets, complete metadata/end records and independent receiver verification required. Route complete denotes file bytes, not diagnostic success.",
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "automationMutations": 0,
+  "allElements": "19 not measured",
+  "validBlindComparisons": 0,
+  "unitsCompleted": 0,
+  "unitsRequested": "continuous",
+  "startedAt": "2026-09-13T20:56:49+09:00",
+  "deadlineAt": "2026-09-20T20:56:49+09:00",
+  "fixedConceptStateBenchmarksAnd71Criteria": "unchanged",
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/REPORT.md",
+      "bytes": 7866,
+      "sha256": "917a6f4650f0d7c99c77c87d36e5a88f6463e1013adc7e8a57f0f30643dc8cc1"
+    },
+    {
+      "path": "authority-receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/authority-receipt.json",
+      "bytes": 37512,
+      "sha256": "50901c71da05b92167fe5c316fc31c076b46334e6aab14ec5cc22113975f6b27"
+    },
+    {
+      "path": "canonical-tree-inputs.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/canonical-tree-inputs.json",
+      "bytes": 17091,
+      "sha256": "c73e116f8b6cc43001634ba3b984275ecf8a3ff55cff9eab1be04d765d1d860c"
+    },
+    {
+      "path": "verified-baseline-pins.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/verified-baseline-pins.json",
+      "bytes": 12402,
+      "sha256": "23cd37df04fd7a2109264074747009fb59285c0ae07674985442ac5b866b5782"
+    },
+    {
+      "path": "baseline-materialization.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/baseline-materialization.json",
+      "bytes": 12389,
+      "sha256": "5bf4c1d5c290b16489a8a7a928079bdfcaadbfaa0b6d51901db6034f717d4da4"
+    },
+    {
+      "path": "runtime-capabilities.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/runtime-capabilities.json",
+      "bytes": 1914,
+      "sha256": "fd25c547b509258a7dbdce0123f024d3fb1fe33f12ce2b5172fdb2ec119311e2"
+    },
+    {
+      "path": "browser-capability.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/browser-capability.json",
+      "bytes": 491,
+      "sha256": "db6594f1f72b4104077a49b749b2aa25055ef3c1c270b17ca610ae94b944bc4b"
+    },
+    {
+      "path": "local-execution.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/local-execution.json",
+      "bytes": 2721,
+      "sha256": "b3894131391fe7e15c2c5c0b0ac0f23cdaa0587384cde0bd2e25e5fbd65ce77c"
+    },
+    {
+      "path": "frozen-check/verification.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/frozen-check/verification.json",
+      "bytes": 6079,
+      "sha256": "eec58bb5edec33fd23e35eeeb22fe59c3e0234696ef955937f7c6147f2de7eb2"
+    },
+    {
+      "path": "candidate/test-results/narrative-route-r1/report.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/candidate/test-results/narrative-route-r1/report.json",
+      "bytes": 6296,
+      "sha256": "e99cd5eaa5d93013d15dc7ab1c8cd0b4cb18cd6a298cce5256195d15b9e4f4b5"
+    },
+    {
+      "path": "route-negative-check.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/route-negative-check.json",
+      "bytes": 331,
+      "sha256": "029759fb2bf22f9f05e62920c1703881c03719000f0d39accb9c0538e1c77c4a"
+    },
+    {
+      "path": "integration-pin-changes.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/integration-pin-changes.json",
+      "bytes": 3363,
+      "sha256": "ad0209d811c67dc5e7d4e653b8a025eff15fc6ea880c046d26ce4acc8c1ec7ff"
+    },
+    {
+      "path": "workflow-diff.patch",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/workflow-diff.patch",
+      "bytes": 2480,
+      "sha256": "fb66786ca73c95a12b09193539f0ac725316a1a1d6c569efeb9244504cd3f305"
+    },
+    {
+      "path": "ci-candidate-pins.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/ci-candidate-pins.json",
+      "bytes": 2030,
+      "sha256": "ee97f88e4612066c0b1519b4d0e5c479a282f725367dafca05996e4afda60fbd"
+    },
+    {
+      "path": "current-tool-pins.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/current-tool-pins.json",
+      "bytes": 1450,
+      "sha256": "eacb69daed384177c4a644c77a0f1ddf811e8ebb0f3c50fb6ff894d5fba04581"
+    },
+    {
+      "path": "pin-context-verification.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/pin-context-verification.json",
+      "bytes": 1394,
+      "sha256": "d7264192ef7bd1cf756a27b6a0eb88b41cb6b26e3851c3919a4abf26949ca906"
+    },
+    {
+      "path": "delegation-receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/delegation-receipt.json",
+      "bytes": 894,
+      "sha256": "2ea42556d85e232a13a847363fdd529910bf78ca89a19d72664fb3e6807ce12a"
+    },
+    {
+      "path": "helper-review/receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/receipt.json",
+      "bytes": 18423,
+      "sha256": "b03a2df4afe6f349fbc02a434eb60a59efb184559f5edcdf6388822e62e7aa21"
+    },
+    {
+      "path": "helper-review/REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/REPORT.md",
+      "bytes": 13337,
+      "sha256": "d70ca24026039d698af0723bac6b7be66ab950565753f5967f37d730946b5243"
+    },
+    {
+      "path": "helper-review/review-checks.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/review-checks.mjs",
+      "bytes": 7568,
+      "sha256": "9d7f1ad8202085914b077592f99e835d2b7eaae944f765a8730c42bfc3da0a62"
+    },
+    {
+      "path": "helper-review/cpu-review-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/cpu-review-results.json",
+      "bytes": 2092,
+      "sha256": "a65e88c4bfbe1c59c41d4856b65c224e803a465f1bfd0c2c6e1e67d60f35e96a"
+    },
+    {
+      "path": "helper-review/route-review-summary.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/route-review-summary.json",
+      "bytes": 2012,
+      "sha256": "9b02898e6f1e4f93fd193b9400c493f8a61606069ba3acac3a0b1faff8ecae98"
+    },
+    {
+      "path": "helper-review/independent-route-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/independent-route-results.json",
+      "bytes": 6096,
+      "sha256": "b1e74a280528d4fb557bd2a89aafab5779355823f9b8f806acb57da19403c9cf"
+    },
+    {
+      "path": "helper-review/caret-regression-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/caret-regression-results.json",
+      "bytes": 993,
+      "sha256": "3f22c299d87f0069f0fa4532eafab22302febd905d83e9966a6dc10429e61e87"
+    },
+    {
+      "path": "helper-review/pre-export-REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-REPORT.md",
+      "bytes": 10822,
+      "sha256": "ed1a1d1acbb8aaac7709f4a0314d7d8bed338e14297524a2fba6051921cb99dd"
+    },
+    {
+      "path": "helper-review/pre-export-final-candidate-gates.yml",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-final-candidate-gates.yml",
+      "bytes": 28767,
+      "sha256": "56d6f9e1edbddc1205be72faf88950d35cec38e66e03d9777efc334aee8cdf90"
+    },
+    {
+      "path": "helper-review/pre-export-final-check-narrative-routes.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-final-check-narrative-routes.mjs",
+      "bytes": 11729,
+      "sha256": "234deabf8cf7ddca00b2e37e7858c61fb3fc38afaa8307ca120b04cedbfdd1c5"
+    },
+    {
+      "path": "helper-review/pre-export-receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-receipt.json",
+      "bytes": 13616,
+      "sha256": "12f44ad97bb6c93b23e16020f21cb0ce607b45155d2ac1b6b814bf01180674fb"
+    },
+    {
+      "path": "helper-review/pre-export-route-review-summary.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/pre-export-route-review-summary.json",
+      "bytes": 790,
+      "sha256": "a0a76bdcb275b7c515eb3213343fe64d7133f6e012eb591157186fb6606eb28b"
+    },
+    {
+      "path": "helper-review/route-export-checks.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/route-export-checks.mjs",
+      "bytes": 9723,
+      "sha256": "a515b2f3a481fcd8e96c8e7c313de7b92458b711904e4c0f7e9c490ab06b5a27"
+    },
+    {
+      "path": "helper-review/route-export-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c36-narrative-build-ultra/helper-review/route-export-results.json",
+      "bytes": 2577,
+      "sha256": "48031f3055aa2a70f42955681d88de5b6ee07b5ce5bde994c6f55e7f7eb6fa2a"
+    }
+  ],
+  "localWorkingCopyWarning": "candidate/ is a validation working copy. Its old C35 514f root is not a generated candidate runtime and is excluded. Product-source-candidate contains only the frozen three sources; CI submission consists only of the exact six ci-candidate files."
+}

@@ -1,0 +1,75 @@
+{
+  "runtime_packages": {
+    "three": {
+      "exists": false,
+      "version": null
+    },
+    "esbuild": {
+      "exists": false,
+      "version": null
+    },
+    "@esbuild/linux-x64": {
+      "exists": false,
+      "version": null
+    },
+    "playwright": {
+      "exists": true,
+      "version": "1.62.1"
+    },
+    "playwright-core": {
+      "exists": true,
+      "version": "1.62.1"
+    }
+  },
+  "workspace_package_roots": [
+    {
+      "path": "character-ground-contact-ultra/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    },
+    {
+      "path": "c29-independent-review-ultra/cpu/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    },
+    {
+      "path": "main-integration-c30/candidate/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    },
+    {
+      "path": "c35-shadow-independent-check/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    },
+    {
+      "path": "c33-ground-contact-independent-check/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    },
+    {
+      "path": "character-shadow-resolution-ultra/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    },
+    {
+      "path": "grain-guard-repair-ultra/candidate/node_modules/three/package.json",
+      "version": "0.180.0",
+      "bytes": 77
+    }
+  ],
+  "browser_paths": {
+    "/opt/google/chrome/chrome": false,
+    "/usr/bin/chromium": false,
+    "/usr/bin/chromium-browser": false,
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/browser": false
+  },
+  "commands": {
+    "node": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "npm": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/npm",
+    "esbuild": null,
+    "chromium": null,
+    "google-chrome": null,
+    "firefox": null
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "candidateSha256": "1017df33782a5d0da32a20e88e9e159e9f3b98b78aa5a51f95049bb86a5b5f73",
+  "scope": "CPU fixture only, exact candidate helpers and original Input/Engine/Game updater chain; no Safari run",
+  "findings": [
+    {
+      "id": "release-primary-reason-overwritten",
+      "expectedOriginalReason": "pointerdown recurred before release observation completed",
+      "observedReason": "release observation cleanup failed",
+      "cleanupErrors": [
+        "secondary listener removal error"
+      ],
+      "originalReasonRetained": false
+    },
+    {
+      "id": "release-collector-finally-masks-original",
+      "expectedOriginalReason": "PRIMARY collection transport failure",
+      "observedError": "SECONDARY cleanup transport failure",
+      "immediatePreserved": true,
+      "terminalReleaseRecorded": false,
+      "originalReasonRetained": false
+    }
+  ]
+}

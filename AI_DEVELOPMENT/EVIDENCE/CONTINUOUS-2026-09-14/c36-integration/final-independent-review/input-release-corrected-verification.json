@@ -1,0 +1,39 @@
+{
+  "candidateSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+  "scope": "CPU fixture only; independent retest of exact corrected helpers with original updater chain, no Safari execution",
+  "status": "passed",
+  "results": [
+    {
+      "case": "browser primary failure plus cleanup failure",
+      "passed": true,
+      "reason": "pointerdown recurred before release observation completed",
+      "cleanupErrors": [
+        "secondary listener removal error"
+      ]
+    },
+    {
+      "case": "collection primary failure plus cleanup failure",
+      "passed": true,
+      "thrown": "PRIMARY collection transport failure",
+      "reason": "PRIMARY collection transport failure",
+      "cleanupErrors": [
+        "SECONDARY cleanup transport failure"
+      ]
+    },
+    {
+      "case": "healthy first fixed-step observation retains original immediate read",
+      "passed": true,
+      "immediate": 1,
+      "afterStep": 0
+    },
+    {
+      "case": "cleanup failure invalidates observed success but preserves terminal snapshot",
+      "passed": true,
+      "status": "failed",
+      "observationStatus": "passed",
+      "cleanupErrors": [
+        "cleanup transport after observed success"
+      ]
+    }
+  ]
+}

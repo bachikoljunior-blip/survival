@@ -1,0 +1,72 @@
+{
+  "status": "six original control images viewed without editing",
+  "reportSha256": "45028f56cc8d5b25fb56ff74e0f375e6f09cdd5169854a6e6ca8ae056afe3228",
+  "views": [
+    {
+      "scene": "arcade",
+      "visibleRecordedFootVertices": 24,
+      "recordedFootVertices": 24,
+      "visibleFootBoxPadded12": [
+        467,
+        528,
+        555,
+        569
+      ],
+      "changedPixels": 2248,
+      "maxChannelDifference": 48,
+      "meanChannelDifference": 3.318320399113082,
+      "originalRestoredSame": true,
+      "gpuDepthSizes": [
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "scene": "south",
+      "visibleRecordedFootVertices": 15,
+      "recordedFootVertices": 24,
+      "visibleFootBoxPadded12": [
+        451,
+        595,
+        533,
+        645
+      ],
+      "changedPixels": 0,
+      "maxChannelDifference": 0,
+      "meanChannelDifference": 0.0,
+      "originalRestoredSame": true,
+      "gpuDepthSizes": [
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          1024,
+          1024
+        ]
+      ]
+    }
+  ],
+  "visualObservation": "Arcade doubled-map shadow has a more defined edge and a darker narrow connection near the feet; it does not change the rigid body pose or establish complete weight/contact. South visible feet are dark and near the lower frame edge; no clear contact improvement can be assessed there. Original/restored visual identity agrees with raw hashes.",
+  "decision": "Do not adopt a global medium-tier shadow-size increase from these two views. The map change affects foot shadow sampling, but a clear two-view contact gain and a real frame-rate/memory regression measurement are not established. Keep product settings unchanged; prioritize proven camera and narrative corrections.",
+  "timingScope": "Single host render+gl.finish durations are not GPU timer or frame-rate measurements. 2048 has four times the texels; no physical phone peak RAM claim.",
+  "actualOriginalPngViews": 6,
+  "imageTransforms": 0,
+  "sourceKnown": true,
+  "quality": "not measured",
+  "validBlindComparisons": 0
+}

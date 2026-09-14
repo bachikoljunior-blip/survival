@@ -1,0 +1,25 @@
+C36最終候補・有限独立レビュー
+
+結論: レビュー対象13pathに未解決の統合阻害は見つからない。入力解除検査の修正、原エラー理由の伝播、source初回だけの処理計測・原report export、固定8node台本の準備ジョブを統合する推奨。製品source/rootの新採用、実Safari成功、実build/画面取得、盲検達成を承認した結果ではない。
+
+担当は /root/integration_recovery_ultra/shadow_original_review_ultra。正規GitHubAppで最新制作head d2c463b54d4ea12abc0a9444627db810440a59a7を開始時と終了前に確認。同SHAで受理済みAGENTS→CLAUDE v3→SESSION、STATEを保持。唯一writerは /root/integration_recovery_ultra。当方の編集は c36-final-independent-review-ultra/ のみで、remote/CI/automation/製品変更は0。
+
+入力解除: 旧1017df候補に、browser cleanupが先のpointerdown失敗理由を上書きする経路と、Node finallyが一次collection例外をcleanup例外へ置換する経路を独立CPUで再現し返却した。統合担当のfe15b0修正版を独立4ケースで再検査し、両欠陥修復、正常な最初の更新後の観測、成功観測後cleanup失敗時の不合格化と原snapshot保全を確認した。旧候補と修正版の実bytes、旧再現と新検証を保存した。元before/即時after/gesture/距離/trustedイベント条件を維持する。観測は最初にfixed-step進行を含むrenderの後で、1–4 substeps間へ割り込むものではない。一度観測したnonzero失敗を後続zeroで通す処理はない。
+
+解除と計測の併用: fe15b0とprobe2ce6e4の実候補コードを原Input/Engine updater chainを用いるCPU fixtureで併用した2ケースが成功。正常解除はpass、最初の更新後nonzeroはfailureのまま。いずれも3recordings/4rowsを保全し、bound frame・emit・updater関数が元へ復元した。DOM、clock、描画の実体はfixtureであり、Safari、録音、実performance測定ではない。
+
+時間計測と失敗伝播: helper7c7356は原recorder・5%時計guard・製品4substeps・bundle514f pinを変えず、operationErrorという転送fieldでWebDriverのerror判定との衝突を避ける。4096rows上限と復元失敗・overflow不合格を保つ。終了時は小さなcleanup応答だけを直接受け、全rowsは別operation slotから既存128Ki chars/48Mi chars/120秒経路で回収する。原音声operation失敗を別slotで上書きしない。追加観測と解除待ちの実時間は原時計へ残る。nested phase値は重複し、同期elapsedはblocking/preemptionと測定overheadを含む。CPU稼働率、GPU時間、実機性能や速度改善の証拠にはしない。
+
+原report export5d1750はsource Floor/push/attempt1/明示opt-in、run/commitとhelper/harness/probeのprovenance、8MiB上限を全emit前に確認する。3000raw bytesごとにmeta/chunk/endを出し、失敗reportも元bytesのまま保持する。新規録音や原画像加工は行わない。受信時は原run/commit、全offset、SHA、endを照合する必要がある。
+
+CI: final mobile7313bdをYAMLで解析し、新env1と専用export step1を除いた全文構造が原正本と完全一致した。probe envは inputs.capture_audio && source ref && push && attempt1 && marker の場合だけ1となり、PR、standalone、再実行では0。元required capture/F3 verifier/summary/always artifactと失敗伝播は保持する。F3 verifier9a9f53は正規blob504d609全文とのbytes比較でstrict provenance列へのframeWorkProbeSha256追加のみ。既存取得条件・時計判定を弱めず、新fieldも照合する。
+
+最終gates6255f8は元全workflow構造にprepare-narrative-product 1jobを追加しただけで、元F2/F3/F5/core/Safari依存・集約結果・top-level条件は完全一致。新jobは明示source branch/push/attempt1/marker限定、contents read、persist-credentials false、continue-on-errorなし。marker単独の差分からmain発火を懸念した予備指摘は、元top-level pushがsource1本と確認して撤回済み。最終版はさらにrefを明示している。
+
+台本準備: 最終helper79a161は47build inputsと3候補SHA、locked依存を確認し、原514fを再現してから使い捨てCI checkout内で3sourceと対応rootのみを生成する。静的出力とtracked変更集合も厳格照合し、失敗はthrow/exitと原reportへ残す。routes c67a51は8node×2言語を実runner/UIへ直接配置し、自然typewriter完了・表示文字列・667×375原PNGを確認する診断である。通常play、readability、品質、Mobile Safari、盲検とは称さない。route exportは原PNG寸法/bytes/SHA/順序、実行provenance、partial/failed状態と容量を検査して原report/PNGを分割転送する。候補配置先はtools/candidates/で、現製品src/rootは本13pathに含まれない。新source/rootの同時採用は実build・原16画面の回収確認と取得pin更新を含む次段階である。
+
+検証: 当方の新実行は旧欠陥再現2、修正版4、併用2、最終13pathのbytes/SHA/Git blob・workflow・SESSION等32検査、およびmobile/F3構造照合。すべて成功。作者側のhelper/route/export等の検証は当方の実行数に加算しない。実CI、Safari、browser、build、録音、音声聴取の新実行は0。
+
+SESSIONは reviewed SHA c3f86260e4c6c88b073bae8b29b8e8a49433b0af0880dd97e54c652a2dd936bdのsnapshotを保存した。work全体、repository、要素pointerとv3を原正本と照合。全19not measured、有効blind0、units0、continuous、開始2026-09-13T20:56:49+09:00、期限2026-09-20T20:56:49+09:00、71基準・概念・参照・STATEは不変。統合担当が予告した保存直前の進行日時更新はsnapshotのhash対象外であり、固定事項を保持した最終bytesの照合・保存は唯一writerが行う。
+
+次操作: 唯一writerが最終headとSESSIONを再確認してC36を通常保存し、新source headの初回markerで計測と台本準備を実行する。原失敗・時計・処理別記録を回収し原因を確かめ、実buildと原画面の検証後に新source/rootを同時採用する。新head必須CI、通常PR merge、Pages/F6は未完として継続する。
