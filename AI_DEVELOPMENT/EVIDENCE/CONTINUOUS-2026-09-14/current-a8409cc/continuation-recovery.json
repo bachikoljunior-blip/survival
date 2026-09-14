@@ -1,0 +1,102 @@
+{
+  "observedAt": "2026-09-14T18:17:40.384+09:00",
+  "foreground": {
+    "status": "active",
+    "evidence": [
+      "same foreground has decoded and SHA-verified new CI reports/original frames",
+      "independent 8-view before/after review completed",
+      "connected GitHub blob writes succeeded"
+    ],
+    "stopped": false,
+    "restarted": false
+  },
+  "deadline": {
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00",
+    "remainingHours": 146.65239333333332,
+    "validComparisons": 0,
+    "satisfiedElements": 0,
+    "totalElements": 19,
+    "outlook": "unknown: no evidence supporting complete achievement by deadline",
+    "response": "Change execution host and inference budget; measure a complete comparison with full original images. Preserve criteria and first attempt results."
+  },
+  "observedFailures": [
+    {
+      "symptom": "Local evaluator comparison c02e timed out at 1800.255992618 s with zero answer bytes",
+      "confirmed": "Only A01-A07 completed encode/decode; A08 incomplete; zero B images completed. 18837 image slots across seven originals.",
+      "fixStatus": "Do not repeat 1800-second setting. New bounded CI/model method prepared for review; not yet executed."
+    },
+    {
+      "symptom": "Old Omni visual wrapper vocabulary mismatch",
+      "confirmed": "GGUF uses vision_bos/eos and has no vision_start/end. Narrow vocabulary fallback implemented, built, and controlled.",
+      "fixStatus": "Compatibility source review passed; raw positive/blank control identical to old output. No measured artistic gain or timeout resolution.",
+      "evidenceScope": "Detailed local files pinned but not fully uploaded before ENOSPC; summary is not a replacement for original records."
+    },
+    {
+      "symptom": "New local 9B model acquisition failed with Errno 28",
+      "confirmed": "Reported 7,256,145,920 bytes accounted after 201.245s; actual partial file later 7,262,437,376 bytes. Local filesystem measured free 0.",
+      "fixStatus": "Unresolved locally. Do not claim model acquired or inference running."
+    },
+    {
+      "symptom": "Local exec/view_image/apply_patch cannot start",
+      "confirmed": "Sandbox helper fails creating a /tmp mount marker with ENOSPC before the requested command starts. Ordinary deletion did not execute. One escalated deletion was rejected by approval configuration.",
+      "fixStatus": "Do not retry escalation or bypass. Connected GitHub and in-memory decoding remain usable."
+    }
+  ],
+  "diskObservation": "[{'allocated': 206880768, 'bytes': 206875254, 'path': 'survival-c8-1.zip'}, {'allocated': 200581120, 'bytes': 200580550, 'path': 'survival-webkit-ae50ac9.zip'}, {'allocated': 8098529280, 'bytes': 8098524032, 'path': 'audio-evaluator/Qwen2.5-Omni-7B-Q8_0.gguf'}, {'allocated': 4138209280, 'bytes': 4138205184, 'path': 'audio-evaluator/.Qwen2.5-Omni-7B-Q8_0.gguf.part.3dLe4q'}, {'allocated': 2643660800, 'bytes': 2643656480, 'path': 'audio-evaluator/mmproj-Qwen2.5-Omni-7B-f16.gguf'}, {'allocated': 7262445568, 'bytes': 7262437376, 'path': 'evaluator-qwen35-r1/Qwen3.5-9B-Q8_0.gguf.download'}, {'allocated': 2289569792, 'bytes': 2289565696, 'path': 'evaluator-qwen35-r1/.Qwen3.5-9B-Q8_0.gguf.download.1b2iNK'}, {'allocated': 244056064, 'bytes': 244051696, 'path': 'reference-materials/factorio/factorio/bin/x64/factorio'}, {'allocated': 208801792, 'bytes': 208800700, 'path': 'reference-materials/factorio/legacy-1.1.110/factorio/bin/x64/factorio'}, {'allocated': 200228864, 'bytes': 200227023, 'path': 'reference-materials/dishonored2/steam/play-your-way/video-original.mp4'}, {'allocated': 207347712, 'bytes': 207343878, 'path': 'reference-materials/dishonored2/steam/play-your-way/original-av.mp4'}]\nusage(total=33770192896, used=33753415680, free=0)\n",
+  "cleanup": {
+    "performedBeforeFailure": "Compared exact bytes of three incomplete old model/projector prefixes, then removed 8108376064 bytes of duplicates; observed 11,976,949,760 bytes free.",
+    "removedBytes": 8108376064,
+    "freeBytesAfter": 11976949760,
+    "subsequentUnknown": "A deleted old partial of 4,138,205,184 bytes reappeared, alongside an extra 2,289,565,696-byte staging-looking file. Writer/synchronization cause not established; no process inspection permission.",
+    "notRemoved": [
+      "verified old complete model/projector",
+      "product work and reference/comparison evidence"
+    ],
+    "latestDeletionSucceeded": false
+  },
+  "safeContinuation": {
+    "available": "Connected GitHub normal read/write; existing CI jobs; functions original-byte decoding",
+    "proposed": "One conditional marker job in the existing Floor gates workflow, pinned public runtime/weights, disk check, 7200-second frozen comparison, raw evidence only.",
+    "started": false,
+    "notUsed": [
+      "new recurring automation",
+      "GitHub Autopilot",
+      "credentials acquisition",
+      "paid provider",
+      "security bypass"
+    ]
+  },
+  "unpersistedScratch": [
+    {
+      "path": "disco-e9-reader-r2",
+      "work": "Joyce continuation repair, 1337 nodes/40 alternatives, candidate display heading correction and full human-readable graph renderer.",
+      "pins": {
+        "referenceReader": "d2991116649fee9756aae5aa7a9f13d78cef7ff9b1519c9f7f2cc6babf293b0e",
+        "candidateReader": "884e64313242d0345a44f577d03129df812640d2b38eb98f943c1daf8601e39b",
+        "referenceReadable": "38de8def17dcd71a694ad7ea4b74dbb92fb2e2dff90d041bb7208dda25b4916a",
+        "candidateReadable": "4e959f089740d78df555dcaa0eb350528f6e18a75d2b52a50faabfaeb9710ebb"
+      },
+      "limits": "Only local files before ENOSPC. Independent source-fidelity checks completed for repair; final formatter not independently reviewed. No E9 comparison."
+    },
+    {
+      "path": "visual-runtime-wrapper-r2",
+      "work": "Built vocabulary fallback and control; final wrapper-review.json save failed ENOSPC and may be empty/incomplete.",
+      "pins": {
+        "source": "9c0dd93f4c196b0336975852faf300c6fab294c2e02ea2a3f230fa06b6549940",
+        "provenance": "9a82b33f4b5db3360a4e9890f988a0c5de7d969866702335bda9d0ad471a8dc3"
+      },
+      "limits": "Do not consume incomplete final file. Separate reviewer returned source-compatibility PASS only, unscored."
+    },
+    {
+      "path": "comparison-c02e/response-audit.json",
+      "sha256": "e2ea6b3ac2101765d88cd996d6a22bc17cd1a46f24b5ea6227632b4a042c4796",
+      "refutationSha256": "568b7b71335cb4d8785830d2a1875e8d2a998018569597bb7e5b"
+    },
+    {
+      "path": "evaluator-qwen35-r1",
+      "work": "Failed acquisition, repository API metadata, verified duplicate-prefix cleanup record; not a usable model."
+    }
+  ],
+  "next": "Persist new original frames/reports, independent MVD-02 diagnosis and this checkpoint; complete CI helper review, then verify actual job progress and complete raw outcome. Resume E9 from full repaired reader when permitted filesystem access recovers or reconstruct it reproducibly with the pinned source. No element status or work unit increment."
+}

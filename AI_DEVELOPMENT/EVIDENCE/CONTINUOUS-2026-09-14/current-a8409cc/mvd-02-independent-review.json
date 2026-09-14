@@ -1,0 +1,97 @@
+{
+  "additionalWork": [],
+  "additionalWorkMeaning": "観察範囲から追加の美術修正は要求しない。原因未確認の差分は限界として残す。",
+  "conclusion": "対象3視点で細部の主張が静まり、素材・継ぎ目・縁は残る。残る5視点にも明確な可読性悪化や材質の均一化は見つからない。E16・ブラインド比較・全体品質の合格判定ではない。",
+  "delivery": "親によるリモート保存用。",
+  "jsonValidation": "構文と対象3組・残る5組の件数を検証済み。",
+  "limits": [
+    "煙・浮遊粒子の位置が旧新で異なり、材質以外の状態まで完全に同期した対照ではない。",
+    "Plant路面差分が材質、影、別の状態差のどれに由来するかは不明。全差分を指定材質変更だけに帰属しない。",
+    "コード・比較結果・参照作品画像は今回未参照。見え方の変化は確認したが、実装原因を独立に確定していない。",
+    "この8静止画の範囲。移動時のちらつき、通常全編、別視点、性能、MVD-01/MVD-03の解消は判定しない。"
+  ],
+  "mode": "出所既知の静止画による修正前後診断",
+  "recovery": {
+    "checked": "16枚すべてoffset連続、総byte数一致、最終以外3000bytes・paddingなし、complete/stable true、commit一致、meta/end SHA一致、PNG署名・寸法一致。",
+    "independentFullByteSha256": false,
+    "localFilesystemUsed": false,
+    "method": "ログ全文のmeta/chunk/endを役割・file別に分離し、byte offset順にbase64を連結。",
+    "oldPins": "旧8枚のSHAフィールドは既存原画像のpinと一致。",
+    "parentVerification": "新9PNG/reportの全byte SHA256検証は親の実施報告による。"
+  },
+  "remainingViews": [
+    {
+      "after": "煉瓦は静まるが、目地・建物の段差・舗装との違い・通りの奥行き・大きな影は残る。",
+      "before": "中景の煉瓦細部が強く、暗い前景と明るい通りが分かれる。",
+      "file": "visual-south-frame.png",
+      "sideEffect": "明確な悪化は見つからない。"
+    },
+    {
+      "after": "看板文字・枠、壁どうしの違い、路面の亀裂と白線、顔と身体の手掛かりは残る。",
+      "before": "看板が強い焦点となり、左壁の模様、右壁のパネル、舗装の亀裂が分かれる。",
+      "file": "visual-cinder-frame.png",
+      "sideEffect": "材質の均一化や可読性悪化は見つからない。"
+    },
+    {
+      "after": "壁の細部と歩道の小斑点が静まり、煉瓦列、歩道の継ぎ目と大きな痕、白線、縁石、暗い右側建物との分離は残る。",
+      "before": "左煉瓦壁と前景コンクリートに細かな明暗が広く見える。",
+      "file": "visual-arcade-frame.png",
+      "sideEffect": "材質差や通路の読み分けの消失は見つからない。"
+    },
+    {
+      "after": "煉瓦の主張が弱まるが、目地・建物上部の段差、舗装の亀裂、白線、暗い右前景と淡い遠景は残る。",
+      "before": "中景煉瓦の細かな明暗が目立ち、白線と霞が通りの奥行きを示す。",
+      "file": "visual-marrow-frame.png",
+      "sideEffect": "明確な悪化は見つからない。"
+    },
+    {
+      "after": "煉瓦の明るい縁は静まり、目地・波板との差・白線・段差は残る。右下路面の暗い矩形と細線の分布には別の変化がある。",
+      "before": "下部煉瓦の明るい縁が強く、波板の縦縞、道路境界、人物が分かれる。",
+      "changedAreaApproximate": [
+        720,
+        425,
+        1110,
+        550
+      ],
+      "file": "visual-plant-frame.png",
+      "sideEffect": "可読性悪化は見つからないが、路面差分の原因は未確認。頭・右肩背後の縦材は旧新とも残る。"
+    }
+  ],
+  "result": "improvement_observed_with_limits",
+  "review": "MVD-02-effect",
+  "savedLocally": false,
+  "score": 0,
+  "scoreMeaning": "unscored",
+  "sources": {
+    "after": {
+      "commit": "a8409cc0de04a503f50395487478fe0cfb2a98e7",
+      "job": 103909238072
+    },
+    "before": {
+      "commit": "4190137d65aa5f2973d89a3901b443d2d6167f9e",
+      "job": 103889111405
+    },
+    "repository": "bachikoljunior-blip/survival",
+    "viewed": "各jobの同名PNGを8組、計16原画像。1147x645、original detailで直接表示。"
+  },
+  "targets": [
+    {
+      "after": "煉瓦の明るい縁と地面の粒が静まる。目地、暗い欠け状の箇所、右側パネル壁との材質差、瓦礫の縁は残る。",
+      "assessment": "改善を確認。反復自体は残るが、材質の手掛かりとして読める。",
+      "before": "壁全体で煉瓦上辺の明るさと小矩形の反復が強く、地面にも細かな粒が広く見える。",
+      "file": "visual-stacks-frame.png"
+    },
+    {
+      "after": "小斑点が静まり、パネル継ぎ目、大きな円形痕、窓の凹部と縁、障害物の上面・段差が残る。看板と人物も読める。",
+      "assessment": "改善を確認。コンクリートを無地化して隠した状態ではない。",
+      "before": "壁と前景障害物に細かな穴状の明暗が密に分布する。",
+      "file": "visual-survey-frame.png"
+    },
+    {
+      "after": "細かな粒が弱まり、地面の広い濃淡と薄いざらつきが残る。暖色の霞、熱源の発光縁、波板と地面の違い、人物の形も保たれる。",
+      "assessment": "改善を確認。煙・浮遊粒子の配置差は修正効果に含めない。",
+      "before": "手前の広い地面を粒・小石状の細部が覆う。",
+      "file": "visual-ventfield-frame.png"
+    }
+  ]
+}

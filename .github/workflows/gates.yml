@@ -150,3 +150,34 @@ jobs:
           path: shots
           if-no-files-found: error
           retention-days: 14
+
+  comparison-e16-q35:
+    name: Frozen E16 Qwen 3.5 comparison attempt
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[compare-e16-q35-a840-r1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check comparison helper syntax
+        run: python3 -m py_compile tools/compare-e16-q35.py
+      - name: Verify original inputs and acquire one pinned evaluator
+        run: python3 tools/compare-e16-q35.py prepare
+      - name: Record the new evaluator's visual input control
+        run: python3 tools/compare-e16-q35.py control
+      - name: Run the single frozen sixteen-image comparison
+        run: python3 tools/compare-e16-q35.py compare
+      - name: Export complete comparison records for independent audit
+        if: always()
+        run: python3 tools/compare-e16-q35.py export
+      - name: Preserve raw comparison outputs and exact input provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-e16-q35-a840-r1-${{ github.sha }}
+          path: test-results/e16-q35-a8409cc-r1
+          if-no-files-found: warn
+          retention-days: 14
