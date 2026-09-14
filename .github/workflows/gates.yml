@@ -184,7 +184,7 @@ jobs:
 
   light-direction-trial:
     name: Frozen light direction diagnosis
-    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[light-direction-a840-r1]')
+    if: github.event_name == 'push' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[light-direction-a840-r2]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -192,7 +192,7 @@ jobs:
     env:
       CINDERLINE_VISUAL_ONLY: '1'
       CINDERLINE_LIGHT_DIRECTION_TRIAL: '1'
-      CINDERLINE_WEBKIT_OUTPUT: test-results/light-direction-a840-r1
+      CINDERLINE_WEBKIT_OUTPUT: test-results/light-direction-a840-r2
     steps:
       - uses: actions/checkout@v4
         with:
@@ -218,7 +218,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: light-direction-a840-r1-${{ github.sha }}
-          path: test-results/light-direction-a840-r1
+          name: light-direction-a840-r2-${{ github.sha }}
+          path: test-results/light-direction-a840-r2
           if-no-files-found: warn
           retention-days: 14

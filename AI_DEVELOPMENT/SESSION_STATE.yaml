@@ -17,23 +17,23 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  continuation_check_observation: "2026-09-14T18:59:42.375+09:00 実remote7874c7eとCI34829615213を照合。主実行は原log回収・予算修正・光の対照試験実装で活動中。比較controlのtimeoutを主実行停止とは扱わない。"
-  last_progress_at: "2026-09-14T18:59:42.375+09:00"
+  continuation_check_observation: "2026-09-14T19:18:37.244+09:00 実remote f13df49とCI34831102708を照合。主実行は原PNG回収・独立画像評価・次の光試験実装で活動中。比較job103934400526ではcontrol処理が完了し16画像比較stepが進行中。競合実行を起動しない。"
+  last_progress_at: "2026-09-14T19:18:37.244+09:00"
   verified_commit: "a8409cc0de04a503f50395487478fe0cfb2a98e7"
   verified_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
   evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
-  last_verified_action: "a840 bundleのWebKit177/iOS27・原画像/会話照合・MVD-02独立診断はcurrent-a8409cc/に保存済み。846fcbabのF2/F3/会話CIは成功。7874c7eで既存参照8PNGのSHA/寸法と固定model/projector取得を実検証。controlは画像処理76.071秒、約191秒まで入力処理後、最終回答の途中で300.009秒timeout。本比較0。12出力と原job logを全bytes/SHA照合して保存。"
+  last_verified_action: "光方向r1の実WebKit診断は68検査0失敗。全8viewで状態不変・offset一致・prototype method所有状態復元・元PNG bytes/RGBA復元を確認。18原files22,778,968Bを原job logからoffset/size/SHA照合し回収。Marrowの明暗分離改善とVentfield足元のコントラスト低下を独立原画像評価で確認。PlantのMVD-03は未改善で、悪化とは断定しない。比較r3はcontrol実行完了・16画像比較開始。完了前job logはBlobNotFound404のためraw回答の内容監査は未実施。"
   current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/current-a8409cc/provenance.json"
   pending_build_sha256: "14ea69b0d7bf581c25deeca6bdcf8f3c9ecd4bc895384c216902efe01c1eab28"
-  modified_but_unverified: "製品bundleはa840と同じ。比較r3はcontrolだけ600秒/1024出力tokensへ拡大し、同じ画像/問い/モデルと本比較の設定を維持。thinking切替は実binary非対応なので追加しない。8視点の光源向き対照試験を任意CIに追加し、同じ停止中の世界をdt=0でbefore/trial/restored描画する。prototype method所有状態と原PNG bytes保存の静的指摘を修正。実行・状態/復元画素一致・改善効果は未測定。local ENOSPCとscratch未転送reader/監査のpinはcurrent-a8409cc/continuation-recovery.json参照。"
-  next_action: "比較r3と光源対照試験を同じ指定ブランチへ保存し実remote/job照合。controlの回答完結と知覚、続く16画像比較の全画像観察・出所認識・4軸・最終選好を原出力で監査。光試験は8視点の状態/画素復元を確認後、原画像でMVD-01の効果と悪化を評価する。改善が確認された実装だけを製品sourceと再生成rootへ反映し現行ビルドのスマートフォン検証へ進む。E9全文readerは保存記録の未完了地点から続行。無効/未完を達成や作業単位にしない。"
+  modified_but_unverified: "製品bundleはa840/14ea69b0のまま。光r1の[-56,74,43]は効果と代償が混合し、global採用は見送る。次のr2は同じ8view・状態復元方法で[-43,85,38]へ変更、影の伸びを抑えてMarrowの改善とVentfieldの足元を両立できるか実描画待ち。比較r3のcontrol内容・盲検成立・選好は未監査。local ENOSPCとscratch未転送reader/監査pinはcurrent-a8409cc/continuation-recovery.json参照。"
+  next_action: "光r1の全原PNG/記録/限定評価を保存し、r2を同じブランチから実CIで描画する。8view内のbefore/trial/restoreでMVD-01の改善と悪化を確認。採用可能な実変更だけをsourceと再生成rootへ同時反映し、現行ビルドのスマートフォン検証を実施。進行中の16画像比較は完了後に完全rawを回収し、制御試験内容・全画像知覚・出所認識・4軸・最終選好を監査する。未完/無効を達成・作業単位にしない。E9は既存抽出script/manifestの保持内容と既知SHA照合から正確な未完了地点を復旧する。"
 
-  deadline_assessment: "2026-09-14T18:59:42.375+09:00 継続確認直後、残り145.95時間。19未測定・有効比較0のため期限内完全達成は依然分からず根拠不足。r2で参照再取得依存と重み取得の未知は減ったが、実測した画像処理/生成がcontrol予算を超えた。controlの時間/出力枠を実測に合わせ、本比較の品質条件は維持。並行してMVD-01の原因仮説を同じ世界・時刻で光の向きだけ変える実描画へ進め、文書や取得だけに時間を使わず品質差の減少を測る。新方法の実成功と残る差が未測定なので間に合うとは報告しない。"
+  deadline_assessment: "2026-09-14T19:18:37.244+09:00 継続確認直後、残り145.64時間。19未測定・有効比較0、期限内完全達成はまだ分からず根拠不足。control予算修正で本比較へ実際に到達したが品質回答は未監査。光r1はMarrowの改善とVentfieldの代償を実画像で特定し、単純なglobal採用という方法を見直した。次の中間角度を同じ復元検査付きで測り、不明な効果を小さくする。要素/参照/71基準/開始/期限は維持し、取得・文書だけで残り時間を使わない。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "全19要素に有効比較なし。過去の参照出所認識2試行は無効、c02eは回答0のタイムアウト。完了作業単位0。"
-    - "現行a840のWebKit177/iOS27と原画像は検証済み。移動中の美術、MVD-01/MVD-03、全要素の参照同等性は未測定。source-known診断を盲検合格にしない。"
-    - "c02eで16画像一括の1800秒予算が不足した。Omni wrapperの語彙修復は制御出力を変えず、処理時間/美術知覚を修復したとは未立証。localの新9Bモデルは取得未完。CIでは既存保存物利用で403停止を越え、model/projector取得成功。controlは最終回答途中の300秒timeout、本比較未実行。600秒/1024tokensへ修正し実検証待ち。"
+    - "現行a840のWebKit177/iOS27と原画像は検証済み。MVD-01の光r1はMarrow改善とVentfield足元の代償が実測され、global採用を見送りr2へ。MVD-03・移動中の美術・全要素の参照同等性は未測定。source-known診断を盲検合格にしない。"
+    - "c02eで16画像一括の1800秒予算が不足した。Omni wrapperの語彙修復は制御出力を変えず、処理時間/美術知覚を修復したとは未立証。localの新9Bモデルは取得未完。CIでは既存保存物利用で403停止を越え、model/projector取得成功。controlは最終回答途中の300秒timeout、本比較未実行。600秒/1024tokensへ修正後にcontrol処理完了、16画像比較stepへ到達。rawの内容監査はjob完了後に行う。完了前log404を同じ条件で再取得しない。"
     - "local ENOSPCにより通常sandboxが起動前に失敗。重複prefix除去後にpartialが再出現した原因は未確認。削除の通常実行は開始せず、昇格実行は承認設定拒否。回避せずGitHub接続と既存CIで別作業を継続。"
     - "Git通常push認証なし。接続アプリの正規read/writeを使用。local browser/serverの安全拒否と原artifact配送403は迂回しない。"
     - "E9はDB全文画面照合という追加必須工程を置かず、固定抽出と限定画面一致の出所推論を明記する。Joyce文脈修復と原文一致は確認、全文reader最終監査と有効な非認識評価は必要。未play graphを実playにせず、scratch未転送作業を保存済みとしない。"

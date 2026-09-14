@@ -5,12 +5,12 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PNG } from 'pngjs';
 
-const TRIAL_OFFSET = [-56, 74, 43];
+const TRIAL_OFFSET = [-43, 85, 38];
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 
 export async function captureLightDirectionTrial({ page, root, output, name, cachedFrame, check, report }) {
   report.lightDirectionTrial ||= {
-    scope: 'Eight fixed exterior views. The engine remains stopped and every render uses dt=0. Only the main directional light offset changes, from [-30,92,34] to [-56,74,43]. Intensity, colour, fill, fog, post grade, camera, materials and geometry are not intentionally changed. Before/after restoration and state equality are tested; failure invalidates causal interpretation. This is an experimental rendering of the existing product, not a shipped build or a blind comparison.',
+    scope: 'Eight fixed exterior views. The engine remains stopped and every render uses dt=0. Only the main directional light offset changes, from [-30,92,34] to [-43,85,38]. Intensity, colour, fill, fog, post grade, camera, materials and geometry are not intentionally changed. Before/after restoration and state equality are tested; failure invalidates causal interpretation. This is an experimental rendering of the existing product, not a shipped build or a blind comparison.',
     productCommit: process.env.GITHUB_SHA || null,
     trialOffset: TRIAL_OFFSET,
     verdict: 'not measured',

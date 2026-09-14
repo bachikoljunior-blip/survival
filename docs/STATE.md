@@ -1,14 +1,14 @@
 # STATE — 製品進捗と検証履歴
 
-<!-- state_revision: 2026-09-14.21 -->
+<!-- state_revision: 2026-09-14.22 -->
 
 固定指示は `CLAUDE.md`、今回の連続実行の正本は `AI_DEVELOPMENT/SESSION_STATE.yaml`。その他の製品状態と過去の検証履歴を以下に保持する。
 
 **再開:** `CLAUDE.md` → `AI_DEVELOPMENT/SESSION_STATE.yaml` → `AI_DEVELOPMENT/STATE.yaml` → 関連する製品文書。退役した手順を必須に戻さない。全体完了は全要素の有効なブラインド比較による satisfied を必要とする。
 
-最終更新: 2026-09-14.21 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
+最終更新: 2026-09-14.22 / 作業ブランチ `claude/repo-instructions-constraints-r0070m` / 実確認したリモート基点 `d5369219a99c37191e4affd170a752142a6cdc63`。以下の過去 checkpoint は当時のビルドと範囲だけの証拠である。
 
-今回の続行: a840の実WebKit177/iOS27とMVD-02診断を保持。7874c7eの比較jobは既存参照8PNG・model/projectorのpin照合まで成功し、controlの最終回答途中で300秒timeout。本比較は未実行。12出力と原job logを `e16-q35-a8409cc-r2/` に保存し、controlを600秒/1024tokensへ修正。別に既存8視点の光源向きだけを変える可逆の実描画試験を追加し、品質差を測る。製品bundleは変更せず、全19未測定・有効比較0・期限内完全達成は根拠不足のまま。
+今回の続行: 光方向r1は実WebKit68検査0失敗、全8viewの状態不変と元PNG復元を確認。18原filesを `light-direction-a840-r1/` に保存。独立原画像評価ではMarrow改善とVentfield足元のコントラスト低下が混在しglobal採用を見送り、影の伸びを抑えたr2へ進む。比較r3はcontrol処理を完了して固定16画像比較を開始、raw監査は完了後。製品はa840/14ea69b0のまま。全19未測定・有効比較0・期限内完全達成は根拠不足。
 
 ### 2026-09-14 以前の継続記録（当時の状態）
 

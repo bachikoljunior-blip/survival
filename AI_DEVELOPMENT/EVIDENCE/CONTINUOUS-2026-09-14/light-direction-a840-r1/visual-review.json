@@ -1,0 +1,161 @@
+{
+  "review": "MVD-01-light-direction-trial",
+  "mode": "出所既知・固定静止画の前後診断",
+  "score": 0,
+  "scoreMeaning": "unscored",
+  "result": "limited_and_mixed_gain",
+  "recommendation": "現案の一律採用は見送る。Marrowの改善は明確だが、Arcadeは効果限定、Ventfieldには足元のコントラスト低下があり、対象3視点すべての改善とは言えない。",
+  "sources": {
+    "repository": "bachikoljunior-blip/survival",
+    "run": 34831102708,
+    "job": 103934400786,
+    "commit": "f13df49df4e8eea7870d6f2a18a408e82c1ba861",
+    "beforePattern": "visual-<name>-frame.png",
+    "afterPattern": "light-direction-<name>-trial.png",
+    "report": "report.json",
+    "reportSha256": "115e84d9a59f8c3130d4f7fbf6b5218bb58af1b836c96c25ff46e38dd1184018",
+    "viewed": "対象3組と残る5組、計16枚の1147x645原PNGをoriginal detailで直接表示。marrow_roofは閲覧対象外。"
+  },
+  "integrity": {
+    "rawUtf8Bytes": 31433320,
+    "rawSha256": "81e155447405dfe1ea338c07fd6e3dc6a323b4cf30fd1eda9bbab4a18962b224",
+    "rawPinIndependentlyMatched": true,
+    "recoveredFiles": 18,
+    "recovery": "file別のoffset連続、base64 padding、総byte数、complete/stable、commit、meta/end SHAを照合。",
+    "beforeTrialPngReportMetaAgreement": "8組すべて一致",
+    "localFilesystemUsed": false
+  },
+  "reportChecks": {
+    "passed": 68,
+    "failed": 0,
+    "recordedStateValuesEqualPairs": 8,
+    "recordedBeforeRestoredRgbaHashesEqualPairs": 8,
+    "recordedOffsetsVerifiedPairs": 8,
+    "beforeOffset": [
+      -30,
+      92,
+      34
+    ],
+    "trialOffset": [
+      -56,
+      74,
+      43
+    ],
+    "restoredOffset": [
+      -30,
+      92,
+      34
+    ],
+    "reportedScope": "engine停止・dt=0。主方向光のoffsetのみを意図して変更。",
+    "reportVisualVerdict": "not measured",
+    "interpretation": "report内の状態値・復元ハッシュ・offsetを直接照合した。技術検査の通過自体は画質改善の根拠にしない。",
+    "submissionCountLimit": "drawsは同数。trianglesカウンタは試験時に変わり、復元時に戻る。性能一定や形状編集の有無をこの値だけで認定しない。"
+  },
+  "targets": [
+    {
+      "name": "arcade",
+      "result": "limited_gain",
+      "before": "明るい歩道・左壁、暗い右壁、遠景の霞による層が既にある。",
+      "after": "左煉瓦壁と中景側面がやや明るくなり、地面との分節が増す。人物と障害物の影は長くなるが、通路の光のまとまりが大きく作り直されたほどではない。",
+      "retained": "人物、白線、歩道境界、煉瓦目地、遠景への通路は読める。",
+      "evidenceAreas": [
+        [
+          0,
+          0,
+          459,
+          316
+        ],
+        [
+          274,
+          312,
+          1002,
+          645
+        ]
+      ]
+    },
+    {
+      "name": "marrow",
+      "result": "clear_local_gain",
+      "before": "右手前は暗いが、手前の道路には比較的広く暖色中間調が続く。",
+      "after": "右建物の影が路面へ広く伸び、明るい中央通路と暗い右前景がまとまった面として分かれる。中景の煉瓦面も明るくなり、奥の霞まで通りを追いやすい。",
+      "retained": "中央人物、白線、舗装の亀裂、建物の縁は読める。画面全体の暗化ではない。",
+      "evidenceAreas": [
+        [
+          620,
+          335,
+          1147,
+          645
+        ],
+        [
+          285,
+          155,
+          882,
+          338
+        ]
+      ]
+    },
+    {
+      "name": "ventfield",
+      "result": "mixed_gain_and_cost",
+      "before": "人物の足・靴は比較的明るい地面から明確に分かれる。地面と中景には暖色が広く連続する。",
+      "after": "広い暗い前景と明るい熱源周辺の中景が分かれる。一方、その影に人物の下腿・靴が入り、足と地面の境界はbeforeより読み取りにくい。",
+      "retained": "人物全体が消えるわけではなく、頭・胴・道具は追える。熱源の発光縁、煙、警告看板、暖色の昼景は残る。",
+      "evidenceAreas": [
+        [
+          185,
+          435,
+          1147,
+          645
+        ],
+        [
+          456,
+          439,
+          539,
+          568
+        ]
+      ]
+    }
+  ],
+  "remainingViews": [
+    {
+      "name": "south",
+      "before": "暗い前景と明るい中景の大きな分離が既にある。",
+      "after": "前景の影が広がり、照らされた箱や中景建物との差は増す。元から暗い人物の足元が大きく改善するわけではない。",
+      "assessment": "物の縁と通路は追え、この試験による新たな明確な輪郭消失は確認しない。"
+    },
+    {
+      "name": "cinder",
+      "before": "看板が強い焦点で、人物・白線・路面亀裂が読める。",
+      "after": "左から路面に伸びる斜めの影と右建物の面の明るさが強まる。警告文字・枠、顔、白線は保たれる。",
+      "assessment": "警告の可読性低下や材質の消失は確認しない。"
+    },
+    {
+      "name": "stacks",
+      "before": "煉瓦壁と床、瓦礫、右のパネル壁が分かれる。",
+      "after": "瓦礫・縦材の影が長くなり、右壁の投影が強まる。煉瓦目地、床上の物の縁、左の発光標識は残る。",
+      "assessment": "材質差や床上物の輪郭が失われたとは確認しない。"
+    },
+    {
+      "name": "survey",
+      "before": "パネル継ぎ目、窓の凹部、前景障害物と警告文字が読める。",
+      "after": "窓状の突起から斜めの影が広がる。継ぎ目、障害物の段差、顔・胴、看板文字は残る。",
+      "assessment": "影の模様は強くなるが、必要な手掛かりの消失は確認しない。"
+    },
+    {
+      "name": "plant",
+      "before": "頭・右肩付近と背景縦材の既存の重なりがある。",
+      "after": "右側背景の暗い面が広がるが、既存の頭・肩と縦材の関係は残る。顔・胸、白線、波板と煉瓦の違いは読める。",
+      "assessment": "MVD-03は未改善。この原画像から既存の局所重なりが新たに悪化したとまでは認定しない。"
+    }
+  ],
+  "limits": [
+    "原画像とreportが根拠。親の評価要約、実装コード、比較結果、参照作品画像を結論の根拠にしていない。",
+    "この一方向・固定8視点の停止中の試験のみ。動く人物やカメラ、他の時間帯・視点、性能、全編の可読性は未評価。",
+    "矩形座標は原寸上の目視による位置指定であり、コントラスト測定や品質指標ではない。",
+    "MVD-01全域解消、MVD-03解消、参照比較、E16、ブラインド合格、製品採用済みとは記録しない。",
+    "暖色・昼光・既存の背景構成は保持されている。夜景化、寒色化、参照配置の模写は必要条件にしない。"
+  ],
+  "productChanges": [],
+  "savedLocally": false,
+  "delivery": "現在の8組だけで確定。親による保存用。"
+}
