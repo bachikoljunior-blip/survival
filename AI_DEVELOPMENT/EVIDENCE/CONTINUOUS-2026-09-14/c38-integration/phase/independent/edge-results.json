@@ -1,0 +1,53 @@
+{
+  "status": "pass",
+  "assertions": 25,
+  "cases": [
+    {
+      "name": "clock count and exclusive observer accounting",
+      "probeClockReads": 90,
+      "measuredInvocations": 21,
+      "observerBookkeepingMs": 11.5,
+      "injectedClockCostMs": 22.5,
+      "markerSpanMs": 916.25,
+      "callbackSampleSpanMs": 915.75
+    },
+    {
+      "name": "role identities",
+      "fixedTargets": [
+        {
+          "phase": "fixed.actor:0",
+          "role": "player"
+        },
+        {
+          "phase": "fixed.system:0",
+          "role": "combat"
+        },
+        {
+          "phase": "fixed.system:1",
+          "role": "ai"
+        },
+        {
+          "phase": "fixed.system:2",
+          "role": "director"
+        }
+      ]
+    },
+    {
+      "name": "declared transient registration limit reproduced",
+      "complete": true,
+      "temporaryActorDetailPresent": false,
+      "aggregateUpdaterMs": 91
+    },
+    {
+      "name": "nested throw object and cleanup",
+      "threw": true,
+      "gasElapsedMs": 9
+    },
+    {
+      "name": "inherited target restoration and serializability",
+      "ownUpdateAfterStop": false,
+      "resultJsonChars": 3493
+    }
+  ],
+  "scope": "Independently authored CPU edge cases with canonical actual Engine._frame and fake browser/time. The copied fixture setup is from the implementer; no Safari, CPU utilization, GPU duration or physical-device result."
+}

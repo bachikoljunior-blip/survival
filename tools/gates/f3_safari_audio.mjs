@@ -40,7 +40,7 @@ export function verifyRequiredSafariAudio(root=ROOT,environment=process.env){
     && isDeepStrictEqual(capture.clips.map(c=>c.name),SCENES),'All three original Safari scenes are required');
   requireThat(Array.isArray(capture.cleanupErrors) && capture.cleanupErrors.length===0,
     'Safari audio cleanup did not complete');
-  for(const key of [...Object.keys(IOS_AUDIO_PIN),'actualRecorderBlob','helperSha256','harnessSha256','frameWorkProbeSha256'])
+  for(const key of [...Object.keys(IOS_AUDIO_PIN),'actualRecorderBlob','helperSha256','harnessSha256','frameWorkProbeSha256','transferHelperSha256'])
     requireThat(provenance?.[key]===expected[key],'Safari source/build provenance mismatch: '+key);
   requireThat(isDeepStrictEqual(provenance.actualBundleHashes,expected.actualBundleHashes),
     'Safari root/dist provenance differs from the actual checked build');

@@ -1,0 +1,62 @@
+[
+  {
+    "conversation": "sol_first",
+    "node": "vc_krajcik",
+    "localeFile": "src/content/locale/ja/story.js",
+    "en": "His name won't keep the courtyard open tonight.\n\nThe water point and the generator are both there. If I shut the heads, which\ndo I give up first? Where do I send the people on that shift?\n\nThose are questions I can do something with.",
+    "ja": "あいつの名前を出しても、今夜の中庭は守れない。\n\n水場も発電機もそこにある。頭を閉めたら、どっちから諦める。その当番の人間はどこへ回す。\n\nそういう話なら、私にも手が打てる。",
+    "reason": "Sol answers the comparison by asking for an immediate allocation of existing facilities and labour. Her prior admission, the player's freedom to change the heads, and her lamp/rota follow-through remain.",
+    "beforeEn": "Yes.\n\nThat's it. That's the whole answer. I'm doing what he does and I'm doing it with\nmy own hands instead of a spreadsheet, and the only difference between us is that\nI have to look at them afterwards.\n\nDoes knowing that help you? It has never once helped me.",
+    "beforeJa": "そう。\n\nそれだけ。それが答えの全部。あいつがやってることを、表計算じゃなく自分の手でやってる。違いは、私は後で本人たちの顔を見ないといけないことだけ。\n\nそれが分かって楽になるか。私は一度もならなかった。"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "k_choice",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "Clause eleven requires a named officer to make the quarterly determination. At\npresent, that is me.\n\nIf you want that decision taken out of my hands, name the office that will\ntake it and the budget it can draw on. A recommendation for a scheme won't pay\na household's rent.\n\nUntil then, the determination remains on my desk.",
+    "ja": "第11条では、指名された職員が四半期の判定を行うことになっています。現在の担当者は私です。\n\nその判断を私から取り上げるのであれば、どの部署が引き受け、どの予算を使うのかを示してください。制度を設けるべきだという勧告だけでは、世帯の家賃は払えません。\n\nそれが示されない限り、判定は私の机に戻ってきます",
+    "reason": "Krajcik defends authority through the already established named officer, absent scheme budget and rent commitments, instead of conceding moral authority and requesting a better flawed man. This remains his interested account, not proof that no alternative exists.",
+    "beforeEn": "No. I don't.\n\nNo such right has ever been claimed, by me or in my name. What has been\nclaimed — clause eleven, if you would like to read it — is that a determination\nmust be made quarterly by a named officer, and that in the absence of one being\nmade badly, none is made at all.\n\nIf you have a better mechanism than one flawed man with a budget, I would like\nto hear it. I have been waiting years.",
+    "beforeJa": "ええ。ありません。\n\nそのような権利は、私によっても、私の名においても、主張されたことはありません。主張されているのは——第11条です、お読みになりたければ——四半期ごとに、指名された職員によって判定が行われなければならない、ということです。そして、下手に行われる判定がなければ、判定はまったく行われないということです。\n\n予算を持った欠陥のある人間一人より良い仕組みがおありなら、伺いたい。何年も待っています"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "k_refuse",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "Then we have no agreement.\n\nThe trench crews start on the published line at first light. Putting the July\nsheet on the record won't countermand their orders; it's three contracts deep\nnow. I'd stay out of the Cut.",
+    "ja": "では、合意は成立しません。\n\n掘削班は夜明けに、公表された線で着手します。7月の用紙を記録に載せても、作業命令を取り消したことにはなりません。もう三重の契約に組み込まれています。カットには近づかないことです",
+    "reason": "Refusal ends the proposed agreement and leaves the existing orders and warning in force. It no longer rewards refusal with the official's desired moral disappointment.",
+    "beforeEn": "I thought so. I would have been disappointed if you hadn't, which is an\nabsurd thing for me to feel and I feel it anyway.\n\nThe trench crews start on the published line at first light. I can't stop that\nnow; it's three contracts deep. I'd stay out of the Cut.",
+    "beforeJa": "でしょうね。断らなかったら失望していました。私が感じるには馬鹿げた感情ですが、それでも感じます。\n\n掘削班は夜明けに、公表された線で着手します。もう止められません。契約が三重に噛んでいます。カットには近づかないことです"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "ag_refused",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "The crews still start at first light. Nothing in their orders has changed.\n\nA conversation does not amend those orders. They need a line and a name they\ncan act on.",
+    "ja": "掘削班は変わらず、夜明けに着手します。作業命令は変わっていません。\n\n会話だけでは命令は変わりません。現場が従える線と、責任を負う名前が必要です",
+    "reason": "The repeat response retains the unchanged orders and demand for an actionable line and responsible name. The existing fallback also receives the lie route, so it does not assert that the player refused.",
+    "beforeEn": "The trench crews start at first light and I still cannot stop it, and I would\nstill be disappointed in you if you had said yes.\n\nBoth of those remain true. Neither of them is useful to either of us.",
+    "beforeJa": "掘削班は夜明けに着手しますし、私にはまだ止められません。それに、あなたが承諾していたら、やはり失望していたでしょう。\n\nどちらも変わらず本当です。どちらも、我々のどちらの役にも立ちません"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "k_accept",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "Monday, then. There's a desk.\n\nYour line, my authority. I need the reductions quarter by quarter so I can\nmove the households on the inside first. The arrangement has to keep producing\nthose figures, not just your agreement today.",
+    "ja": "では、月曜に。机はあります。\n\n権限は私、線はあなたのものです。内側の世帯から動かせるよう、四半期ごとの整約が必要になります。今日ここで承諾をいただくだけでなく、その数字を出し続けてもらう取り決めです",
+    "reason": "Acceptance is taken as an ongoing professional commitment to the already offered quarterly reductions and relocation order, rather than an opportunity for the official to ask for refusal after agreement.",
+    "beforeEn": "...Right.\n\nI'd like to say I'm pleased. I find I'm not, particularly. I think I wanted one\nperson to look at it and say no.\n\nReport Monday. There's a desk.",
+    "beforeJa": "……そうですか。\n\n喜ばしいと言いたいところです。あまりそうでもないようです。誰か一人くらい、それを見て断ってほしかったのだと思います。\n\n月曜に出てきてください。机はあります"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "k_end",
+    "localeFile": "src/content/locale/ja/story2.js",
+    "en": "One more thing. The nine at Cellar Row. I keep their names on a card in my\nwallet.\n\nYou cannot check what I feel when I look at it. You can check the July sheet\nand the removals ledger. Use those.\n\nIf you give an account of what I've done, the households still waiting belong\nin it too.",
+    "ja": "もう一つ。セラー通りの9人の名前は、紙に書いて財布に入れています。\n\nそれを見て私が何を感じるかは、あなたには確かめられません。7月の用紙と転居台帳なら確かめられます。そちらを使ってください。\n\n私のしてきたことを説明されるなら、まだ転居を待っている世帯のことも入れてください",
+    "reason": "The wallet card remains, but the closing appeal redirects judgment toward checkable documents and the waiting households rather than asserting a shared burden of guilt. It does not certify his account or alter publication choices.",
+    "beforeEn": "One more thing, and then I'll let you go.\n\nThe nine at Cellar Row. I have their names on a card in my wallet. I don't show\npeople; it's not for that. I just wanted you to know it's there, because I think\nyou're about to decide that I don't carry it.\n\nI carry it. I simply carry it and keep working. So do you.",
+    "beforeJa": "もう一つだけ、それでお引き取りください。\n\nセラー通りの9人。名前を書いた紙を財布に入れています。人に見せはしません、そういうものではないので。ただ、それがあることは知っておいてほしかった。あなたはこれから、私がそれを抱えていないと判断するところだと思うので。\n\n抱えています。抱えたまま働いているだけです。あなたも同じでしょう"
+  }
+]

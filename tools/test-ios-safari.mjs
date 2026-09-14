@@ -17,6 +17,7 @@ import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { requestWebDriver } from './webdriver-request.mjs';
 import { nativePointerActions } from './ios-pointer-coordinates.mjs';
+import { createIosAudioTransfer } from './ios_audio_transfer.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -62,6 +63,7 @@ function check(condition, name, detail = '') {
 }
 
 function startServer() {
+  const audioTransfer = CAPTURE_AUDIO ? createIosAudioTransfer() : null;
   const mime = {
     '.html': 'text/html; charset=utf-8',
     '.js': 'text/javascript; charset=utf-8',
@@ -72,6 +74,7 @@ function startServer() {
     '.png': 'image/png',
   };
   const server = createServer((request, response) => {
+    if (audioTransfer?.handle(request, response)) return;
     let pathname = decodeURIComponent(new URL(request.url || '/', 'http://127.0.0.1').pathname);
     if (pathname.endsWith('/')) pathname += 'index.html';
     const relative = normalize(pathname).replace(/^[/\\]+/, '').replace(/^(\.\.[/\\])+/, '');
@@ -92,7 +95,9 @@ function startServer() {
     server.once('error', reject);
     server.listen(0, '127.0.0.1', () => {
       const address = server.address();
-      done({ server, url: `http://127.0.0.1:${address.port}/` });
+      const url = `http://127.0.0.1:${address.port}/`;
+      audioTransfer?.bind(url);
+      done({ server, url, audioTransfer });
     });
   });
 }
@@ -116,14 +121,15 @@ async function waitForHttp(url, timeout = 90000) {
 function webdriver(pathname, options = {}) {
   return requestWebDriver(new URL(pathname.replace(/^\//, ''), APPIUM_URL), {
     ...options,
-    timeout: pathname === 'session' && (options.method ?? 'POST') === 'POST' ? SESSION_REQUEST_TIMEOUT : 90000,
+    timeout: pathname === 'session' && (options.method ?? 'POST') === 'POST' ? SESSION_REQUEST_TIMEOUT
+      : Math.min(90000, options.timeout ?? 90000),
   });
 }
 
 let sessionId = '';
 let pointerCalibration = null;
 const sessionPath = (suffix = '') => `session/${sessionId}${suffix}`;
-const execute = (script, args = []) => webdriver(sessionPath('/execute/sync'), { body: { script, args } });
+const execute = (script, args = [], timeout = 90000) => webdriver(sessionPath('/execute/sync'), { body: { script, args }, timeout });
 
 async function waitForScript(script, timeout = 30000) {
   const deadline = Date.now() + timeout;
@@ -308,6 +314,7 @@ try {
   if (CAPTURE_AUDIO) {
     audioTools = await import('./ios_audio_capture.mjs');
     audioProvenance = audioTools.verifyIosAudioBuild(ROOT, EXTERNAL_URL);
+    report.audioCapture = { status: 'not started', provenance: audioProvenance, clips: [], cleanupErrors: [] };
   }
   const baseUrl = EXTERNAL_URL || (localServer = await startServer()).url;
   report.baseUrl = baseUrl;
@@ -568,7 +575,7 @@ try {
 
   if (CAPTURE_AUDIO) {
     await audioTools.captureIosAudio({ execute, tap, root: ROOT, output: resolve(OUTPUT, 'audio'),
-      check, report, provenance: audioProvenance,
+      check, report, provenance: audioProvenance, transfer: localServer?.audioTransfer,
       releaseActions: () => webdriver(sessionPath('/actions'), { method: 'DELETE' }),
       waitFrames: async count => {
         const start = await execute('return window.CINDERLINE.engine.frame;');
@@ -621,6 +628,7 @@ try {
     await webdriver(sessionPath(), { method: 'DELETE' })
       .catch((error) => report.errors.push(`session cleanup: ${error.message}`));
   }
+  localServer?.audioTransfer?.close();
   if (localServer?.server) await new Promise((done) => localServer.server.close(done));
   report.status = report.failures.length ? 'failed' : 'passed';
   writeFileSync(REPORT, `${JSON.stringify(report, null, 2)}\n`);

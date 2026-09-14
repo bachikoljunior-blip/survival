@@ -674,7 +674,7 @@ jobs:
 
   prepare-narrative-product:
     name: Prepare exact reviewed narrative source and root
-    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-narrative-product-r1]')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1 && contains(github.event.head_commit.message, '[prepare-narrative-product-r2]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -698,25 +698,25 @@ jobs:
         run: node tools/check-narrative-routes.mjs
       - name: Install Chromium for the bounded dialogue screen diagnostic
         run: npx playwright install --with-deps chromium
-      - name: Stage the eight reviewed nodes in both languages from the prepared bundle
+      - name: Stage the six reviewed nodes in both languages from the prepared bundle
         run: node tools/check-narrative-routes.mjs --browser
       - name: Export complete original route report and screenshot bytes
-        if: ${{ !cancelled() && hashFiles('test-results/narrative-route-r1/report.json') != '' }}
+        if: ${{ !cancelled() && hashFiles('test-results/narrative-route-r2/report.json') != '' }}
         run: node tools/check-narrative-routes.mjs --export
       - name: Preserve route reports and original dialogue screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: narrative-route-r1-${{ github.sha }}
-          path: test-results/narrative-route-r1
+          name: narrative-route-r2-${{ github.sha }}
+          path: test-results/narrative-route-r2
           if-no-files-found: warn
           retention-days: 14
       - name: Preserve original candidate or failure report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: narrative-product-build-r1-${{ github.sha }}
-          path: test-results/narrative-product-build-r1
+          name: narrative-product-build-r2-${{ github.sha }}
+          path: test-results/narrative-product-build-r2
           if-no-files-found: error
           retention-days: 14
 

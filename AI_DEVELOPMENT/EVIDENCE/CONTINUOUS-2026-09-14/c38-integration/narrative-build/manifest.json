@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "status": "frozen candidate; build/browser/CI unexecuted",
+  "baselineCommit": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "baselineRootSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+  "buildInputCount": 47,
+  "candidateSources": {
+    "tools/candidates/e9-ja-story-r2.js": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+    "tools/candidates/e9-ja-story2-r2.js": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+    "tools/candidates/e9-story-r2.js": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925"
+  },
+  "changedNodeCount": 6,
+  "localeRoutes": 12,
+  "previous8Nodes": "unchanged exact frozen source candidate",
+  "buildCommands": 7,
+  "marker": "[prepare-narrative-product-r2]",
+  "workflowGuard": "github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && github.run_attempt == 1",
+  "workflowIntegration": "Apply only workflow-diff.patch to the existing preparation job in the sole writer C38 gates.yml. Full candidate gates.yml is a bf743-based review artifact and must not overwrite other pending C38 changes.",
+  "futureRunProvenance": "Report sourceCommit from actual checkout git HEAD; runId/runAttempt from actual environment. Route export requires report.sourceCommit == checkout HEAD == GITHUB_SHA and actual run/attempt match. No anticipated selfSHA.",
+  "integrationDecision": "Sole writer authorized retaining verified bf743 sourceBaseline because pending C38 changes leave all47 buildinputs/root1094 unchanged. Independent preparation job may share that C38 workflow; original controls/candidate bytes unchanged.",
+  "candidateBundleSha256": null,
+  "preparationReportSha256": null,
+  "buildExecuted": false,
+  "browserExecuted": false,
+  "screensCaptured": 0,
+  "localControls": 9,
+  "independentPrepareExportControls": 17,
+  "independentRouteExportControls": 19,
+  "independentBlocking": 0,
+  "export": {
+    "preparedDir": "test-results/narrative-product-build-r2",
+    "routeDir": "test-results/narrative-route-r2",
+    "preparedFiles": 10,
+    "successfulRouteFiles": 13,
+    "totalOriginalFiles": 23,
+    "prefixes": [
+      "prepared-narrative",
+      "narrative-route"
+    ],
+    "recordTypes": [
+      "meta",
+      "chunk",
+      "end"
+    ],
+    "originalChunkBytes": 3000,
+    "perFileCapBytes": 4194304,
+    "routeTotalCapBytes": 33554432,
+    "images": [
+      "en-sol_first-vc_krajcik.png",
+      "en-krajcik-k_choice.png",
+      "en-krajcik-k_refuse.png",
+      "en-krajcik-ag_refused.png",
+      "en-krajcik-k_accept.png",
+      "en-krajcik-k_end.png",
+      "ja-sol_first-vc_krajcik.png",
+      "ja-krajcik-k_choice.png",
+      "ja-krajcik-k_refuse.png",
+      "ja-krajcik-ag_refused.png",
+      "ja-krajcik-k_accept.png",
+      "ja-krajcik-k_end.png"
+    ]
+  },
+  "nextAdoption": "After actual successful7stage build, full23original recovery and12originalPNG inspection, adopt exact3sources/root and update IOS_AUDIO_PIN preparedFromCommit, preparationReportSha256 and bundleSha256 with actual originals. No adoption/pin update in this candidate.",
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "reruns": 0,
+  "automationMutations": 0,
+  "comparisons": 0,
+  "elements": "all19 not measured",
+  "validBlind": 0,
+  "unitsCompleted": 0,
+  "unitsRequested": "continuous",
+  "startedAt": "2026-09-13T20:56:49+09:00",
+  "deadlineAt": "2026-09-20T20:56:49+09:00",
+  "artifacts": [
+    {
+      "path": "REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/REPORT.md",
+      "bytes": 7525,
+      "sha256": "c76391213309a590ed8f005817961855a17ed235c1ee5deb48f01eeaa3968cac",
+      "gitBlob": "41db649ffb50f003b8259d86bbfde78d1c3f459a"
+    },
+    {
+      "path": "candidate-pins.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate-pins.json",
+      "bytes": 2585,
+      "sha256": "9c1716bcb9b87f727e61a834e69723db17e655ffa79e3a122020fc54680edbd0",
+      "gitBlob": "145a2b3f666480ecdca44d23449ca1e9ee6f1f92"
+    },
+    {
+      "path": "candidate.patch",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate.patch",
+      "bytes": 191553,
+      "sha256": "773890a14229ca32a932e4e8d2a033e090e7ad20b94aa99f4663f8ff246c6f3a",
+      "gitBlob": "1fc1c62ec1fce3054050d8514a2d68288a66650d"
+    },
+    {
+      "path": "helpers-diff.patch",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/helpers-diff.patch",
+      "bytes": 13063,
+      "sha256": "0361ec843e3053d2a2ef34d1bebcd90e6d216898a56210f8ddd77bb9d46abd56",
+      "gitBlob": "3a451d05038502250d4df97da19e1c55954ff1c8"
+    },
+    {
+      "path": "workflow-diff.patch",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/workflow-diff.patch",
+      "bytes": 2333,
+      "sha256": "2986dd78fe47749b6a49ce5d6c8516514878c2aa3f4698f42d0335406cf8d3e5",
+      "gitBlob": "b3f5de548cc1df68a013ffae734ec5f63562c554"
+    },
+    {
+      "path": "workflow-job.yml",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/workflow-job.yml",
+      "bytes": 2210,
+      "sha256": "7c7e5f73cc68a76d93a18ff5f60173011b9c49a7953cde940972ded04b4ece1c",
+      "gitBlob": "d7696ec76e2581a697b4e53d167380c108eb5966"
+    },
+    {
+      "path": "route-targets.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/route-targets.json",
+      "bytes": 1320,
+      "sha256": "1d6312569fb19816bd9d29efdbc3c56355246f0a2d09d1fcdad17ddb5f2fc7df",
+      "gitBlob": "b4f0e2905ec4eb922bf538406f074068d48bbc23"
+    },
+    {
+      "path": "verified-baseline-pins.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/verified-baseline-pins.json",
+      "bytes": 10345,
+      "sha256": "12d25d3cb69041eb21ea29eb7894eec8803b45e01c02bfc142b197d98c65ce93",
+      "gitBlob": "7ebb5c16cabc3a484c82bd09819c2e9f6e010c8c"
+    },
+    {
+      "path": "source-route-receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/source-route-receipt.json",
+      "bytes": 4842,
+      "sha256": "c98f24fc19fc67d679b383f2782502fca5bb6fa48d913d120e5702eba199ad0b",
+      "gitBlob": "47f37817914b8323c8be7d6c92754b9b28271738"
+    },
+    {
+      "path": "input-controls.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/input-controls.json",
+      "bytes": 1128,
+      "sha256": "d08472d744f23eea6abfddceb354fb175e0b1a327a6d438da6e92aef4c7fc18f",
+      "gitBlob": "b11151cc369aa8bebf4b478e724002f1d02deaaa"
+    },
+    {
+      "path": "verify-preparation-inputs.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/verify-preparation-inputs.mjs",
+      "bytes": 3216,
+      "sha256": "983a3b1617098663d05d2536756a417d29e7519aeee864b1218182b344e9873a",
+      "gitBlob": "fee8652c092e1fe683cfad1bcc0ad979ad2a41bd"
+    },
+    {
+      "path": "authority-summary.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/authority-summary.json",
+      "bytes": 1213,
+      "sha256": "75ccf395e9c23f4e1e76b1cd3d7e51e3e48995aa23680e15a394bd0fcf209ff4",
+      "gitBlob": "651f3541d6b87a0e28e4ef2454f8f0e06461d8dc"
+    },
+    {
+      "path": "independent-review/REPORT.md",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/REPORT.md",
+      "bytes": 4560,
+      "sha256": "cce6026974f8d8a7c256037a4ab4ac9000d4503a13f9b272a37e9006b00ec515",
+      "gitBlob": "295498cd227264f9ad23eec5bd6b1f06abb337f8"
+    },
+    {
+      "path": "independent-review/receipt.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/receipt.json",
+      "bytes": 5670,
+      "sha256": "b524af2cf0197ca7ece4854a7a14ec35b8522dbb3aa2d7d6c4e7630cdaa7556b",
+      "gitBlob": "f9ab4f43b976460d33ec33490b578edc144ff296"
+    },
+    {
+      "path": "independent-review/pins-and-diff-verification.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/pins-and-diff-verification.json",
+      "bytes": 11713,
+      "sha256": "eea708a1e1a8d4ddce9ba8f26d3c3f22844d17fc29e117e4a3ee71356b8edaf6",
+      "gitBlob": "dec00ee8aac67d15e35753aee8902ea509897f4b"
+    },
+    {
+      "path": "independent-review/cpu-review-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/cpu-review-results.json",
+      "bytes": 2092,
+      "sha256": "a65e88c4bfbe1c59c41d4856b65c224e803a465f1bfd0c2c6e1e67d60f35e96a",
+      "gitBlob": "0d42e06e94f6cfd72c5f89f178a77bf0c55705a6"
+    },
+    {
+      "path": "independent-review/route-export-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/route-export-results.json",
+      "bytes": 2577,
+      "sha256": "2b550d5289e29217b1f2d0b3638080da0007a236c25731e280308d546b43667f",
+      "gitBlob": "a78e7ebab8b1585e0041b6ee6724a336839655d5"
+    },
+    {
+      "path": "independent-review/independent-route-results.json",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/independent-route-results.json",
+      "bytes": 8206,
+      "sha256": "542906ebc962518b1f79397ae885e8b44cf180fd1d45d8ed681dd1fc752dbd9f",
+      "gitBlob": "62ad598e1ee5b837ec6b816f108111472a2e884c"
+    },
+    {
+      "path": "independent-review/prepare-export-checks.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/prepare-export-checks.mjs",
+      "bytes": 7452,
+      "sha256": "d81801acc0433e620e8a7b5803974e2773cc1fa853f05462bd9133a8b498e3a8",
+      "gitBlob": "c40cb4cf9fb71a2c7a526c35b5ebc59ea83ebc70"
+    },
+    {
+      "path": "independent-review/route-export-checks.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/route-export-checks.mjs",
+      "bytes": 9720,
+      "sha256": "c7ff585590fc275541f50d174c6149e26a7e7831e7b7882bed0924806b719368",
+      "gitBlob": "1b42303a3f8fdb934af9c6fbe9cedd21562f8c8c"
+    },
+    {
+      "path": "independent-review/verify-pins-and-diff.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/independent-review/verify-pins-and-diff.mjs",
+      "bytes": 7312,
+      "sha256": "4e5c11797a800dd3c56e32b62f0477e36ce6fd5784b45c95854fe9075d5f9c99",
+      "gitBlob": "852429d1df6fc740c32db81702699cb4f18ff661"
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate/.github/workflows/gates.yml",
+      "bytes": 30778,
+      "sha256": "a2e1c0368c06c70f87278d78785a87f91b6e8c3d704f234d4c8fca1412535047",
+      "gitBlob": "7576645032ae06f4c01cf914e6bbd246f94ff4e3"
+    },
+    {
+      "path": "candidate/tools/candidates/e9-ja-story-r2.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate/tools/candidates/e9-ja-story-r2.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "candidate/tools/candidates/e9-ja-story2-r2.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate/tools/candidates/e9-ja-story2-r2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    },
+    {
+      "path": "candidate/tools/candidates/e9-story-r2.js",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate/tools/candidates/e9-story-r2.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "candidate/tools/check-narrative-routes.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate/tools/check-narrative-routes.mjs",
+      "bytes": 16620,
+      "sha256": "5c90b5c2bfe4977d8a4c4d5f71338fcf981d41ea080bad8b0544080fb7013915",
+      "gitBlob": "a8c779dc577b7066cc01da688678de42f9ef907e"
+    },
+    {
+      "path": "candidate/tools/prepare-narrative-product.mjs",
+      "local": "/workspace/scratch/0b7ad82bafe7/c39-narrative-build-preparation-ultra/candidate/tools/prepare-narrative-product.mjs",
+      "bytes": 13839,
+      "sha256": "eff52911a8fae910b3cdc7c65104e66ec8466c7c91b00c03f20e29ac6d6f8bcf",
+      "gitBlob": "a54bcf9b46af0deaaac8355e024911c1b05b3444"
+    }
+  ]
+}

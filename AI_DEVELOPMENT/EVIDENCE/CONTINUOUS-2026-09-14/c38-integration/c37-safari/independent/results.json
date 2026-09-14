@@ -1,0 +1,241 @@
+{
+  "status": "finite-independent-verification-passed",
+  "scope": "Recalculation of logged summary durations and byte/pin verification only; no original full report, clock-frame telemetry or media available to this task.",
+  "source": {
+    "status": "passed",
+    "checks": 53,
+    "passedChecks": 53,
+    "failedChecks": [],
+    "failureEntryCount": 0,
+    "captureStatus": "captured",
+    "clipCount": 3,
+    "provenance": {
+      "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+      "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+      "bundle": "cinderline.1.0.0.js",
+      "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+      "actualBundleHashes": {
+        "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+      },
+      "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+      "helperSha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+      "frameWorkProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+      "harnessSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+      "runCommit": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+      "runId": "34879275702",
+      "runAttempt": "1"
+    },
+    "toolPinsMatchIndependentAppBytes": true,
+    "frameWork": null,
+    "timings": [
+      {
+        "name": "street-walk",
+        "wallSeconds": 10.604999999999997,
+        "audioSeconds": 10.602666666666668,
+        "engineSeconds": 10.200000000000264,
+        "audioMinusEngineSeconds": 0.4026666666664038,
+        "engineToAudioRatio": 0.9620221327968055,
+        "toleranceSeconds": 0.5301333333333335,
+        "engineLossAboveToleranceSeconds": 0,
+        "guardRecomputedFromLoggedDurations": true,
+        "loggedTelemetryComplete": true,
+        "loggedMediaBytes": 5497556,
+        "loggedMediaSha256": "e6efdb8cdf544ca1c46ba10fa18accc38dd4fd2e64784fe61592125681585d4d",
+        "mediaIndependentlyFetchedOrHashed": false
+      },
+      {
+        "name": "cut-gas-air",
+        "wallSeconds": 7.271,
+        "audioSeconds": 7.274666666666668,
+        "engineSeconds": 7.266666666666254,
+        "audioMinusEngineSeconds": 0.008000000000414786,
+        "engineToAudioRatio": 0.9989002932550749,
+        "toleranceSeconds": 0.36373333333333346,
+        "engineLossAboveToleranceSeconds": 0,
+        "guardRecomputedFromLoggedDurations": true,
+        "loggedTelemetryComplete": true,
+        "loggedMediaBytes": 2113492,
+        "loggedMediaSha256": "8d4e9cae2b6684d0089c00d3d2caa7333dae2c0394203bef1343a897905027cd",
+        "mediaIndependentlyFetchedOrHashed": false
+      },
+      {
+        "name": "arcade-room",
+        "wallSeconds": 7.314,
+        "audioSeconds": 7.31733333333333,
+        "engineSeconds": 7.299999999999585,
+        "audioMinusEngineSeconds": 0.017333333333745315,
+        "engineToAudioRatio": 0.9976311953352207,
+        "toleranceSeconds": 0.36586666666666656,
+        "engineLossAboveToleranceSeconds": 0,
+        "guardRecomputedFromLoggedDurations": true,
+        "loggedTelemetryComplete": true,
+        "loggedMediaBytes": 1440480,
+        "loggedMediaSha256": "d975b2e23aac7f90ac36265570358587677ce78a4f9fd65e5fb1fc6aff324030",
+        "mediaIndependentlyFetchedOrHashed": false
+      }
+    ],
+    "release": {
+      "immediateMoveMagnitude": 0,
+      "afterMoveMagnitude": 0,
+      "elapsedMs": 8,
+      "status": "passed",
+      "reason": "first frame after fixed-step progress"
+    },
+    "lifecycleStatus": "checked",
+    "lifecycleStages": [
+      "arcade",
+      "game-pause",
+      "title",
+      "title-settings",
+      "title-close"
+    ],
+    "jobsFromParentSuppliedMetadata": [
+      {
+        "id": 104094199428,
+        "run_id": 34879275702,
+        "name": "F3 core, WebKit and fault recovery",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 104094199700,
+        "run_id": 34879275702,
+        "name": "F3 Mobile Safari audio / ios-safari",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 104097805106,
+        "run_id": 34879275702,
+        "name": "F3 execution",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "f3ObservedLine": "2026-09-14T18:22:13.3796969Z F3 core=success Safari=success",
+    "summaryMatchesParentExtraction": true
+  },
+  "pr": {
+    "status": "failed",
+    "checks": 47,
+    "passedChecks": 44,
+    "failedChecks": [
+      "audio street-walk: wall, audio and simulation clocks stay aligned for capture",
+      "audio arcade-room: wall, audio and simulation clocks stay aligned for capture",
+      "iOS audio lifecycle: original three recordings completed before boundary operations"
+    ],
+    "failureEntryCount": 4,
+    "captureStatus": "acquisition failed",
+    "clipCount": 3,
+    "provenance": {
+      "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+      "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+      "bundle": "cinderline.1.0.0.js",
+      "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+      "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+      "actualBundleHashes": {
+        "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+      },
+      "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+      "helperSha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+      "frameWorkProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+      "harnessSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+      "runCommit": "d0d71920e393a506d95e93892416a57c8b1dfa8c",
+      "runId": "34879453199",
+      "runAttempt": "1"
+    },
+    "toolPinsMatchIndependentAppBytes": true,
+    "frameWork": null,
+    "timings": [
+      {
+        "name": "street-walk",
+        "wallSeconds": 18.334,
+        "audioSeconds": 18.261333333333337,
+        "engineSeconds": 16.899999999999043,
+        "audioMinusEngineSeconds": 1.3613333333342936,
+        "engineToAudioRatio": 0.9254526869158353,
+        "toleranceSeconds": 0.9130666666666669,
+        "engineLossAboveToleranceSeconds": 0.4482666666676267,
+        "guardRecomputedFromLoggedDurations": false,
+        "loggedTelemetryComplete": true,
+        "loggedMediaBytes": 6122265,
+        "loggedMediaSha256": "ce779349e98fc94eb793eff3713ffcc732fe97db0511867aaf7b9f02415ad4ac",
+        "mediaIndependentlyFetchedOrHashed": false
+      },
+      {
+        "name": "cut-gas-air",
+        "wallSeconds": 11.483,
+        "audioSeconds": 11.487999999999992,
+        "engineSeconds": 11.366666666666028,
+        "audioMinusEngineSeconds": 0.12133333333396479,
+        "engineToAudioRatio": 0.9894382544103443,
+        "toleranceSeconds": 0.5743999999999997,
+        "engineLossAboveToleranceSeconds": 0,
+        "guardRecomputedFromLoggedDurations": true,
+        "loggedTelemetryComplete": true,
+        "loggedMediaBytes": 3519174,
+        "loggedMediaSha256": "403028825dcf78e7b01e0c94387a21458221410220b2a3a1e83209e50156e1f4",
+        "mediaIndependentlyFetchedOrHashed": false
+      },
+      {
+        "name": "arcade-room",
+        "wallSeconds": 10.961999999999986,
+        "audioSeconds": 10.965333333333334,
+        "engineSeconds": 10.366666666666077,
+        "audioMinusEngineSeconds": 0.5986666666672562,
+        "engineToAudioRatio": 0.9454036964980007,
+        "toleranceSeconds": 0.5482666666666667,
+        "engineLossAboveToleranceSeconds": 0.05040000000058953,
+        "guardRecomputedFromLoggedDurations": false,
+        "loggedTelemetryComplete": true,
+        "loggedMediaBytes": 2445743,
+        "loggedMediaSha256": "b073c899ab5e61acd061d838540735de030b021a34ed5c070a7742980d779392",
+        "mediaIndependentlyFetchedOrHashed": false
+      }
+    ],
+    "release": {
+      "immediateMoveMagnitude": 1,
+      "afterMoveMagnitude": 0,
+      "elapsedMs": 85,
+      "status": "passed",
+      "reason": "first frame after fixed-step progress"
+    },
+    "lifecycleStatus": "not run",
+    "lifecycleStages": [],
+    "jobsFromParentSuppliedMetadata": [
+      {
+        "id": 104094808213,
+        "run_id": 34879453199,
+        "name": "F3 core, WebKit and fault recovery",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 104094807794,
+        "run_id": 34879453199,
+        "name": "F3 Mobile Safari audio / ios-safari",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 104098680720,
+        "run_id": 34879453199,
+        "name": "F3 execution",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ],
+    "f3ObservedLine": "2026-09-14T18:24:36.8262806Z F3 core=success Safari=failure",
+    "summaryMatchesParentExtraction": true
+  },
+  "limits": [
+    "No C37 diagnostic marker profile; both frameWork fields are null.",
+    "CPU phase, GPU, callback-gap and clamp/discard contributions cannot be recovered from these summaries.",
+    "A successful source observation does not establish C34/C36 cause repair; PR still fails unchanged 5 percent acquisition guard.",
+    "Three media hashes are logged per run; media bytes were not independently acquired or decoded.",
+    "Completed-log byte agreement and cleanup tail are verified; this is not recovery of the unlogged full report."
+  ]
+}

@@ -1,0 +1,248 @@
+{
+  "authorities": [
+    {
+      "gitBlob": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "path": "AGENTS.md",
+      "samePersonallyReadC37": true
+    },
+    {
+      "gitBlob": "8b758231a6b77277092ccee5a322f593320b123f",
+      "path": "CLAUDE.md",
+      "samePersonallyReadC37": true
+    },
+    {
+      "gitBlob": "c57df4df920e73036d713bd306e7e84d28319503",
+      "path": "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "samePersonallyReadC37": true
+    }
+  ],
+  "strict": {
+    "readerBlob": "176dbeec7b81bb1a4e4cb59b8569c0f5a80917d0",
+    "parse": true,
+    "expectedObject": true,
+    "workDeepEqual": true,
+    "roundtrip": true,
+    "sessionBytes": 14271,
+    "sessionSha256": "ed45a2598a1fb1fa7e5f0c83d18bb8ad60787010f4369c9b2d77603208058812",
+    "work": {
+      "units_requested": "continuous",
+      "units_completed": 0,
+      "unit": "ユーザー指示で始まり、開始したブラインド比較が完了した時点で終わる",
+      "completion": "全要素が有効な証拠と最終ビルドへの適用確認を伴って satisfied",
+      "started_at": "2026-09-13T20:56:49+09:00",
+      "deadline_at": "2026-09-20T20:56:49+09:00",
+      "timezone": "Asia/Tokyo",
+      "deadline_missed": false,
+      "status": "active",
+      "units": []
+    }
+  },
+  "boundary": {
+    "payload": {
+      "listed": 104,
+      "unique": 104,
+      "actual": 104,
+      "extra": [],
+      "missing": [],
+      "symlinks": [],
+      "allUtf8": true
+    },
+    "originals": {
+      "count": 13,
+      "bytes": 3517570,
+      "allSourceByteEqual": true,
+      "groups": [
+        {
+          "name": "WDA originals and recovery metadata",
+          "count": 9,
+          "bytes": 3355781
+        },
+        {
+          "name": "C37 decoded original job logs",
+          "count": 4,
+          "bytes": 161789
+        }
+      ]
+    },
+    "scope": {
+      "candidatePaths": [
+        ".github/workflows/mobile-simulator.yml",
+        "tools/export-ios-frame-work.mjs",
+        "tools/frame_work_probe.mjs",
+        "tools/gates/f3_safari_audio.mjs",
+        "tools/ios_audio_capture.mjs",
+        "tools/ios_audio_transfer.mjs",
+        "tools/test-ios-safari.mjs",
+        "AI_DEVELOPMENT/SESSION_STATE.yaml"
+      ],
+      "onlyCode7AndSession": true,
+      "codePinMismatches": [],
+      "forbiddenOperationalPaths": [],
+      "codeReviewChecks": {
+        "integrated": 15,
+        "workflow": 36,
+        "total": 51,
+        "blocking": 0,
+        "actualSafari": false,
+        "ciRun": false,
+        "realMediaRecorded": false
+      }
+    },
+    "allowlist": {
+      "controlSha256": "d883d494cf006278ab41057792cf372609698df1ec304daa3e66af42fc0a4a73",
+      "sourceControlEqual": true,
+      "entryCount": 20,
+      "addedPaths": 21,
+      "exactSet": true,
+      "missing": [],
+      "extra": [],
+      "bytesAndSourceMismatches": [],
+      "listedBytes": 258939,
+      "totalAddedBytes": 264038
+    },
+    "runs": {
+      "recordedAt": "2026-09-14T18:41:13.987Z",
+      "sourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+      "runs": [
+        {
+          "id": 34879452664,
+          "name": "iPhone SE 3 round",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "attempt": 1,
+          "headSha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+          "createdAt": "2026-09-14T18:13:06Z",
+          "updatedAt": "2026-09-14T18:18:01Z"
+        },
+        {
+          "id": 34879453199,
+          "name": "Floor gates",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure",
+          "attempt": 1,
+          "headSha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+          "createdAt": "2026-09-14T18:13:06Z",
+          "updatedAt": "2026-09-14T18:24:38Z"
+        },
+        {
+          "id": 34879275702,
+          "name": "Floor gates",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "attempt": 1,
+          "headSha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+          "createdAt": "2026-09-14T18:11:21Z",
+          "updatedAt": "2026-09-14T18:22:16Z"
+        },
+        {
+          "id": 34879275517,
+          "name": "Mobile Safari simulator",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "attempt": 1,
+          "headSha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+          "createdAt": "2026-09-14T18:11:21Z",
+          "updatedAt": "2026-09-14T18:35:37Z"
+        }
+      ],
+      "allCompleted": true,
+      "newReruns": 0
+    }
+  },
+  "privacy": {
+    "localArchiveOriginalFiles": 7,
+    "localArchiveAllBytesAndSha256Match": true,
+    "localArchiveExactMembers": true,
+    "localArchiveCrcPassed": true,
+    "localSaveResponse": {
+      "status": "succeeded",
+      "bytes": 71501,
+      "version": 0
+    },
+    "privateStorageLocatorStringsChecked": 6,
+    "privateStorageLocatorPublicMatches": 0,
+    "privateWholeFilesPublished": 0,
+    "referenceLongParagraphPublicMatches": 0,
+    "referenceLongFragmentPublicMatches": 0,
+    "privateResponseLongFragmentPublicMatches": 0,
+    "sharedParagraphsAreOwnCanonicalGame": true,
+    "remotePrivateReadOrList": 0,
+    "scope": "Compared available local private originals without printing or publishing their text, mappings, storage identifiers or raw receipt; inspected public production reports and exact allowlist. This is a bounded preservation/publication review, not a new comparison."
+  },
+  "schemaVersion": 1,
+  "status": "finite final non-code boundary review passed",
+  "blocking": 0,
+  "recordedAt": "2026-09-14T18:58:43.312174+00:00",
+  "basisHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "reviewedManifest": {
+    "path": "main-integration-c38/staged-manifest.json",
+    "bytes": 51228,
+    "sha256": "bd9847e63d0dd1d2222361083b83d5823912c090d1eedae66f1bbb53e0c99f8f",
+    "paths": 104,
+    "allBytesSha256GitBlobMatch": true
+  },
+  "priorManifest": {
+    "sha256": "3384354510dc131066f79888c426447f58e310fa8c9af7f14991bffbacd243bc",
+    "paths": 83,
+    "verifiedWhenReceived": true,
+    "completeSavedCopyAvailable": false,
+    "reconstructed": false
+  },
+  "delta": {
+    "writerReportedAddedPaths": 21,
+    "writerReportedChangedExistingPaths": 5,
+    "currentChangedDocumentsReviewed": [
+      "AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c38-integration/REPORT.md",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c38-integration/prepare-state.py",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c38-integration/deadline-receipt.json",
+      "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/c38-integration/session-reader-check.json"
+    ],
+    "retrospectiveByteDiffAgainstDiscarded83Manifest": false
+  },
+  "scope": {
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "reruns": 0,
+    "automationChanges": 0,
+    "childrenSpawned": 0,
+    "candidateDirectEdits": 0,
+    "codeFixturesRerun": 0,
+    "onlyOwnResultFilesCreated": 2,
+    "soleRemoteWriter": "/root/integration_recovery_ultra"
+  },
+  "fixedState": {
+    "elements": 19,
+    "allNotMeasured": true,
+    "criteria": 71,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "deadline": {
+    "recordedAt": "2026-09-15T03:48:26.267+09:00",
+    "receiptRemainingHours": 137.13964790833333,
+    "recomputedFromDisplayedTimestampHours": 137.13964805555557,
+    "differenceSeconds": 0.0005300000733408088,
+    "withinOneMillisecondTimestampPrecision": true
+  },
+  "limits": [
+    "No C38 real Safari/CI run or product-build validation by this review.",
+    "C37 success does not repair C34/C36 failures; original PR clock failures remain.",
+    "No CPU/GPU utilization conclusion or clock/timeout/size relaxation.",
+    "No new quality comparison or valid-blind increase.",
+    "Private remote bytes were not read back; local preservation verification is distinguished from upload-response evidence.",
+    "Active/roles describe accepted work at the staged timestamp; this receipt completes this finite review."
+  ],
+  "report": {
+    "path": "REPORT.md",
+    "bytes": 3890,
+    "sha256": "e7fd0a5230a77c957d8c64f892e34a66b9843d286dc28e9c386891730b53166e"
+  }
+}

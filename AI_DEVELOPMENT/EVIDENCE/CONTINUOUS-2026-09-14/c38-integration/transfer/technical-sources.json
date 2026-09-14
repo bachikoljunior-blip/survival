@@ -1,0 +1,19 @@
+{
+  "sources": [
+    {
+      "url": "https://www.w3.org/TR/webdriver2/#execute-script",
+      "type": "primary official Working Draft",
+      "published": "2026-07-02",
+      "claimScope": "Execute Script returns a JSON clone of a fulfilled value; no latency claim is derived from this specification."
+    }
+  ],
+  "unavailable": [
+    {
+      "url": "https://fetch.spec.whatwg.org/#origin-header",
+      "observation": "web open returned 400 Timeout fetching",
+      "retry": false,
+      "usedAsEvidence": false
+    }
+  ],
+  "fallback": "Same-origin upload method is tested with real Node HTTP/fetch in a browser-function VM; actual Safari Origin/content-length/WebCrypto compatibility remains unmeasured."
+}

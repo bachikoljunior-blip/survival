@@ -49,7 +49,7 @@ jobs:
       # reruns. Default false and the existing single-attempt push marker stay.
       # Acquisition does not award an audio-quality or comparison verdict.
       CINDERLINE_IOS_AUDIO_CAPTURE: ${{ (inputs.capture_audio || (github.run_attempt == 1 && github.event_name == 'push' && contains(github.event.head_commit.message, '[ios-audio-c28-r1]'))) && '1' || '0' }}
-      CINDERLINE_IOS_FRAME_WORK_CAPTURE: ${{ (inputs.capture_audio && github.run_attempt == 1 && github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && contains(github.event.head_commit.message, '[ios-frame-work-c36-r1]')) && '1' || '0' }}
+      CINDERLINE_IOS_FRAME_WORK_CAPTURE: ${{ (inputs.capture_audio && github.run_attempt == 1 && github.event_name == 'push' && github.ref == 'refs/heads/claude/repo-instructions-constraints-r0070m' && contains(github.event.head_commit.message, '[ios-frame-work-c38-r1]')) && '1' || '0' }}
     steps:
       - name: Check out the exact requested branch revision
         uses: actions/checkout@v4
@@ -136,10 +136,21 @@ jobs:
         shell: bash
         run: |
           node --input-type=module <<'NODE'
-          // Proposed CI-only observation step; not installed in the repository.
-          // Run after the existing Stop recording step. No browser/device/network calls.
+          // CI-only observation after Stop recording. No browser/device/network calls.
           import { readFileSync, statSync } from 'node:fs';
           import { createHash } from 'node:crypto';
+
+          // Successful runs retain complete logs in the following artifact upload;
+          // avoid duplicating their bulky WebDriver output into the job log.
+          let completedReport;
+          try { completedReport = JSON.parse(readFileSync('test-results/ios-safari/report.json', 'utf8')); }
+          catch { /* Preserve the existing diagnostic path for missing/invalid reports. */ }
+          if (completedReport?.status === 'passed' && Array.isArray(completedReport.checks)
+            && completedReport.checks.length > 0 && completedReport.checks.every(check => check?.passed === true)
+            && Array.isArray(completedReport.failures) && completedReport.failures.length === 0) {
+            console.log('[ios-startup-log-skip] Passed Safari checks; original logs remain in the artifact upload.');
+            process.exit(0);
+          }
 
           // Audio jobs normally omit bulky command logs. A failed session creation has
           // no recording to expose and needs the same original WDA diagnostics.

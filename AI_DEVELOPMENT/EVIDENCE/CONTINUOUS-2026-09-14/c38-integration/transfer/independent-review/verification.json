@@ -1,0 +1,142 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "fixed production bounds and C37 adoption pins retained",
+      "passed": true
+    },
+    {
+      "name": "loopback binding, single active slot, char cap and absolute deadline guards",
+      "passed": true
+    },
+    {
+      "name": "exact original JSON with non-BMP, escaped lone surrogates, multibyte wire boundary and new nonce",
+      "passed": true
+    },
+    {
+      "name": "wrong origin",
+      "passed": true
+    },
+    {
+      "name": "wrong host",
+      "passed": true
+    },
+    {
+      "name": "wrong method",
+      "passed": true
+    },
+    {
+      "name": "wrong content type",
+      "passed": true
+    },
+    {
+      "name": "wrong operation id",
+      "passed": true
+    },
+    {
+      "name": "noncanonical integer",
+      "passed": true
+    },
+    {
+      "name": "wrong offset",
+      "passed": true
+    },
+    {
+      "name": "wrong sequence",
+      "passed": true
+    },
+    {
+      "name": "wrong char count",
+      "passed": true
+    },
+    {
+      "name": "total above UTF8 bound",
+      "passed": true
+    },
+    {
+      "name": "wire length above chunk cap",
+      "passed": true
+    },
+    {
+      "name": "malformed digest",
+      "passed": true
+    },
+    {
+      "name": "same-length payload corruption fails actual SHA256",
+      "passed": true
+    },
+    {
+      "name": "valid digest still rejects malformed UTF8 and invalid JSON",
+      "passed": true
+    },
+    {
+      "name": "unknown session/operation and query path do not contaminate active slot",
+      "passed": true
+    },
+    {
+      "name": "duplicate chunk rejects and no incomplete payload resolves",
+      "passed": true
+    },
+    {
+      "name": "later total or digest change cannot replace original operation metadata",
+      "passed": true
+    },
+    {
+      "name": "concurrent partial HTTP request fails operation and closes both requests",
+      "passed": true
+    },
+    {
+      "name": "client abort fails an incomplete operation",
+      "passed": true
+    },
+    {
+      "name": "receiving chunks does not extend original deadline and late final is rejected",
+      "passed": true
+    },
+    {
+      "name": "receiver close destroys partial socket and preserves failed receipt for next operation",
+      "passed": true
+    },
+    {
+      "name": "serialized evaluator preserves exact JSON through real HTTP and keeps small values off HTTP",
+      "passed": true
+    },
+    {
+      "name": "concurrent evaluate is rejected before slot mutation and guard releases after failure",
+      "passed": true
+    },
+    {
+      "name": "corruptAck: primary evaluation failure survives later shared-style cleanup",
+      "passed": true
+    },
+    {
+      "name": "failPoll: primary evaluation failure survives later shared-style cleanup",
+      "passed": true
+    }
+  ],
+  "checkCount": 28,
+  "candidatePins": {
+    "ios_audio_transfer.mjs": {
+      "bytes": 10271,
+      "sha256": "5838ed7561d6637cab33fc25ca42aa96b1fbd640b00b857040497922093c8ddb"
+    },
+    "ios_audio_capture.mjs": {
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a"
+    },
+    "test-ios-safari.mjs": {
+      "bytes": 33878,
+      "sha256": "f10f3715630046333451ea4cce1f31b13b5ccef277b12e365aeed25d474763b7"
+    }
+  },
+  "scope": "Independent local actual Node HTTP sockets, VM serialized page functions, WebCrypto and malformed protocol fixtures; no Safari, recording, listening, quality result or CI execution.",
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "units": 0,
+    "mode": "continuous"
+  }
+}

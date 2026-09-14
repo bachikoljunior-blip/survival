@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "sourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "fileCount": 3,
+  "targetNodes": 6,
+  "changedTextLeaves": 12,
+  "canonicalInputs": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    }
+  ],
+  "candidatePins": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    }
+  ],
+  "exactOutsideTextBytesUnchanged": true,
+  "allExportedNonTextValuesUnchanged": true,
+  "allConditionsEffectsChoicesBranchesUnchanged": true,
+  "allPriorNonTargetBodiesUnchanged": true,
+  "irisAndJournalUntouched": true,
+  "paired": [
+    {
+      "conversation": "sol_first",
+      "node": "vc_krajcik",
+      "en": "His name won't keep the courtyard open tonight.\n\nThe water point and the generator are both there. If I shut the heads, which\ndo I give up first? Where do I send the people on that shift?\n\nThose are questions I can do something with.",
+      "ja": "あいつの名前を出しても、今夜の中庭は守れない。\n\n水場も発電機もそこにある。頭を閉めたら、どっちから諦める。その当番の人間はどこへ回す。\n\nそういう話なら、私にも手が打てる。"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_choice",
+      "en": "Clause eleven requires a named officer to make the quarterly determination. At\npresent, that is me.\n\nIf you want that decision taken out of my hands, name the office that will\ntake it and the budget it can draw on. A recommendation for a scheme won't pay\na household's rent.\n\nUntil then, the determination remains on my desk.",
+      "ja": "第11条では、指名された職員が四半期の判定を行うことになっています。現在の担当者は私です。\n\nその判断を私から取り上げるのであれば、どの部署が引き受け、どの予算を使うのかを示してください。制度を設けるべきだという勧告だけでは、世帯の家賃は払えません。\n\nそれが示されない限り、判定は私の机に戻ってきます"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_refuse",
+      "en": "Then we have no agreement.\n\nThe trench crews start on the published line at first light. Putting the July\nsheet on the record won't countermand their orders; it's three contracts deep\nnow. I'd stay out of the Cut.",
+      "ja": "では、合意は成立しません。\n\n掘削班は夜明けに、公表された線で着手します。7月の用紙を記録に載せても、作業命令を取り消したことにはなりません。もう三重の契約に組み込まれています。カットには近づかないことです"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_accept",
+      "en": "Monday, then. There's a desk.\n\nYour line, my authority. I need the reductions quarter by quarter so I can\nmove the households on the inside first. The arrangement has to keep producing\nthose figures, not just your agreement today.",
+      "ja": "では、月曜に。机はあります。\n\n権限は私、線はあなたのものです。内側の世帯から動かせるよう、四半期ごとの整約が必要になります。今日ここで承諾をいただくだけでなく、その数字を出し続けてもらう取り決めです"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "ag_refused",
+      "en": "The crews still start at first light. Nothing in their orders has changed.\n\nA conversation does not amend those orders. They need a line and a name they\ncan act on.",
+      "ja": "掘削班は変わらず、夜明けに着手します。作業命令は変わっていません。\n\n会話だけでは命令は変わりません。現場が従える線と、責任を負う名前が必要です"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_end",
+      "en": "One more thing. The nine at Cellar Row. I keep their names on a card in my\nwallet.\n\nYou cannot check what I feel when I look at it. You can check the July sheet\nand the removals ledger. Use those.\n\nIf you give an account of what I've done, the households still waiting belong\nin it too.",
+      "ja": "もう一つ。セラー通りの9人の名前は、紙に書いて財布に入れています。\n\nそれを見て私が何を感じるかは、あなたには確かめられません。7月の用紙と転居台帳なら確かめられます。そちらを使ってください。\n\n私のしてきたことを説明されるなら、まだ転居を待っている世帯のことも入れてください"
+    }
+  ],
+  "scope": "Source-known production consistency only; no reference material, comparison, runtime screen, build or quality success.",
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "comparisons": 0
+}

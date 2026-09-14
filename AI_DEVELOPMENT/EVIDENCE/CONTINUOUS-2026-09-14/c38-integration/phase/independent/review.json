@@ -1,0 +1,73 @@
+{
+  "status": "finite-review-complete",
+  "blockingDefectsFound": false,
+  "decision": "Accept fixed candidate for diagnostic-only C38 single measurement; no product repair or real-device validation claimed.",
+  "candidate": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/candidate/tools/frame_work_probe.mjs",
+    "bytes": 11229,
+    "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8"
+  },
+  "patch": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/candidate.patch",
+    "bytes": 9624,
+    "sha256": "162b7593e79169c2af2130910313be7149be8df5eb2d298ccc88cfbba9556f09"
+  },
+  "authority": {
+    "repository": "bachikoljunior-blip/survival",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "head": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "readOrder": [
+      "head",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "AI_DEVELOPMENT/SESSION_STATE.yaml"
+    ],
+    "gitBlobSha1": {
+      "AGENTS.md": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "CLAUDE.md": "8b758231a6b77277092ccee5a322f593320b123f",
+      "AI_DEVELOPMENT/SESSION_STATE.yaml": "269b1f490c2308d8327f59897e5b7fd4a5afd752"
+    },
+    "childrenPolicy": "ULTRA-CHILDREN-20260914-v3"
+  },
+  "tests": {
+    "implementerFixtureIndependentRerun": 62,
+    "independentlyAuthoredEdgeAssertions": 25,
+    "environment": "CPU canonical Engine._frame with fake browser/time; not Safari"
+  },
+  "capacity": {
+    "scope": "Synthetic field-shape estimate over original C36 row count; timings/counters are invented only for serialization sizing, not measurements. No synthetic report exported.",
+    "originalSha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8",
+    "originalBytes": 4472434,
+    "rows": 1853,
+    "assumption": "One actor, three systems, all 13 new phase labels on every row, high-precision durations and full 256 slow-call capacity. More actors/rows can exceed the unchanged exporter cap.",
+    "estimatedAddedBytes": 2398756,
+    "estimatedReportBytes": 6871190,
+    "exportLimitBytesUnchanged": 8388608,
+    "estimateFits": true,
+    "actualNextReportBytesMeasured": false,
+    "at4096RowsSameSyntheticShapesBytes": 14190835,
+    "rowCapAloneGuaranteesEightMiB": false,
+    "maximumRowShapeScope": "Hypothetical repetition of the same synthetic row shapes up to 4096; other original report fields held fixed. Not measured runtime data or a strict universal size bound."
+  },
+  "fixedState": {
+    "elements": 19,
+    "criteria": 71,
+    "allNotMeasured": true,
+    "validBlind": 0,
+    "completedUnits": 0,
+    "mode": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "actions": {
+    "modifiedScope": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/independent",
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "retries": 0,
+    "automationChanges": 0,
+    "candidateEdits": 0,
+    "productEdits": 0,
+    "c36Edits": 0
+  },
+  "finalizedAtUtc": "2026-09-14T18:22:20.999918+00:00"
+}

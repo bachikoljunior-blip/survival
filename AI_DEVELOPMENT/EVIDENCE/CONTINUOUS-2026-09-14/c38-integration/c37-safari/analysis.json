@@ -1,0 +1,632 @@
+{
+  "status": "original-log-analysis-complete",
+  "results": [
+    {
+      "role": "source",
+      "runId": 34879275702,
+      "safariJobId": 104094199700,
+      "f3JobId": 104097805106,
+      "runSourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+      "executionCommit": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+      "attempt": 1,
+      "safariConclusion": "success",
+      "f3Conclusion": "success",
+      "summaryStatus": "passed",
+      "checks": 53,
+      "failedChecks": [],
+      "failures": [],
+      "captureStatus": "captured",
+      "provenance": {
+        "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+        "bundle": "cinderline.1.0.0.js",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+          "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+        },
+        "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helperSha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+        "frameWorkProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+        "harnessSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+        "runCommit": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+        "runId": "34879275702",
+        "runAttempt": "1"
+      },
+      "clips": [
+        {
+          "name": "street-walk",
+          "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+          "reportedBytes": 5497556,
+          "reportedSha256": "e6efdb8cdf544ca1c46ba10fa18accc38dd4fd2e64784fe61592125681585d4d",
+          "timing": {
+            "wallSeconds": 10.604999999999997,
+            "audioSeconds": 10.602666666666668,
+            "engineSeconds": 10.200000000000264,
+            "engineFrames": 544,
+            "engineToAudioRatio": 0.9620221327968055,
+            "audioToWallRatio": 0.9997799779978002,
+            "engineMinusAudioSeconds": -0.4026666666664038,
+            "audioMinusWallSeconds": -0.0023333333333290796,
+            "toleranceSeconds": 0.5301333333333335,
+            "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+            "captureClockGuardPassed": true,
+            "telemetryComplete": true,
+            "finiteTimeline": true,
+            "orderedTimeline": true,
+            "finitePoses": true
+          },
+          "audioMinusEngineSeconds": 0.4026666666664038,
+          "guardExcessSeconds": 0,
+          "endpointArithmeticAgrees": true,
+          "mediaBytesLocallyRecovered": false
+        },
+        {
+          "name": "cut-gas-air",
+          "path": "test-results/ios-safari/audio/audio-cut-gas-air.mp4",
+          "reportedBytes": 2113492,
+          "reportedSha256": "8d4e9cae2b6684d0089c00d3d2caa7333dae2c0394203bef1343a897905027cd",
+          "timing": {
+            "wallSeconds": 7.271,
+            "audioSeconds": 7.274666666666668,
+            "engineSeconds": 7.266666666666254,
+            "engineFrames": 424,
+            "engineToAudioRatio": 0.9989002932550749,
+            "audioToWallRatio": 1.0005042864346951,
+            "engineMinusAudioSeconds": -0.008000000000414786,
+            "audioMinusWallSeconds": 0.0036666666666684833,
+            "toleranceSeconds": 0.36373333333333346,
+            "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+            "captureClockGuardPassed": true,
+            "telemetryComplete": true,
+            "finiteTimeline": true,
+            "orderedTimeline": true,
+            "finitePoses": true
+          },
+          "audioMinusEngineSeconds": 0.008000000000414786,
+          "guardExcessSeconds": 0,
+          "endpointArithmeticAgrees": true,
+          "mediaBytesLocallyRecovered": false
+        },
+        {
+          "name": "arcade-room",
+          "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+          "reportedBytes": 1440480,
+          "reportedSha256": "d975b2e23aac7f90ac36265570358587677ce78a4f9fd65e5fb1fc6aff324030",
+          "timing": {
+            "wallSeconds": 7.314,
+            "audioSeconds": 7.31733333333333,
+            "engineSeconds": 7.299999999999585,
+            "engineFrames": 422,
+            "engineToAudioRatio": 0.9976311953352207,
+            "audioToWallRatio": 1.0004557469692823,
+            "engineMinusAudioSeconds": -0.017333333333745315,
+            "audioMinusWallSeconds": 0.0033333333333303017,
+            "toleranceSeconds": 0.36586666666666656,
+            "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+            "captureClockGuardPassed": true,
+            "telemetryComplete": true,
+            "finiteTimeline": true,
+            "orderedTimeline": true,
+            "finitePoses": true
+          },
+          "audioMinusEngineSeconds": 0.017333333333745315,
+          "guardExcessSeconds": 0,
+          "endpointArithmeticAgrees": true,
+          "mediaBytesLocallyRecovered": false
+        }
+      ],
+      "release": {
+        "immediateMoveMagnitude": 0,
+        "afterFixedStepMoveMagnitude": 0,
+        "elapsedMs": 8,
+        "reason": "first frame after fixed-step progress",
+        "passed": true
+      },
+      "frameWork": null,
+      "profileEnabled": false,
+      "lifecycle": {
+        "status": "checked",
+        "samples": [
+          {
+            "stage": "arcade",
+            "action": null,
+            "wallMs": 53194,
+            "engineFrame": 2317,
+            "engineTime": 41.21666666666561,
+            "audioTime": 40.256,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "play",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0,
+              4.2
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0.1298748254776001,
+              "street": 8.962304855231196e-05,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "game-pause",
+            "action": "pause",
+            "wallMs": 53718,
+            "engineFrame": 2344,
+            "engineTime": 41.73333333333225,
+            "audioTime": 40.778666666666666,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "menu",
+            "fromTitle": false,
+            "pauseOpen": true,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              588,
+              0,
+              4.2
+            ],
+            "ambience": "interior",
+            "layerTargets": {
+              "wind": 0.08,
+              "burn": 0.18,
+              "hiss": 0.02,
+              "hum": 0.25,
+              "room": 0.9
+            },
+            "reverbGainValues": {
+              "interior": 0.1298748254776001,
+              "street": 6.169970583869144e-05,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title",
+            "action": "title",
+            "wallMs": 56224.00000000001,
+            "engineFrame": 2404,
+            "engineTime": 42.833333333332185,
+            "audioTime": 43.285333333333334,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0,
+              0
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0.7,
+              "burn": 0.5,
+              "hiss": 0.05,
+              "hum": 0.15,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0.037228044122457504,
+              "street": 0.14267073571681976,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title-settings",
+            "action": "settings",
+            "wallMs": 57041.00000000001,
+            "engineFrame": 2442,
+            "engineTime": 43.58333333333214,
+            "audioTime": 44.104,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": true,
+            "pauseOpen": true,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0,
+              0
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0.7,
+              "burn": 0.5,
+              "hiss": 0.05,
+              "hum": 0.15,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0.0207449272274971,
+              "street": 0.16811473667621613,
+              "tunnel": 0
+            }
+          },
+          {
+            "stage": "title-close",
+            "action": "close",
+            "wallMs": 57727.00000000001,
+            "engineFrame": 2482,
+            "engineTime": 44.26666666666544,
+            "audioTime": 44.78933333333333,
+            "audioState": "running",
+            "ready": true,
+            "unlocked": true,
+            "activeRecording": false,
+            "mode": "title",
+            "fromTitle": false,
+            "pauseOpen": false,
+            "currentInterior": "arcade",
+            "region": null,
+            "position": [
+              -128,
+              0,
+              0
+            ],
+            "ambience": "street",
+            "layerTargets": {
+              "wind": 0.7,
+              "burn": 0.5,
+              "hiss": 0.05,
+              "hum": 0.15,
+              "room": 0
+            },
+            "reverbGainValues": {
+              "interior": 0.012714934535324574,
+              "street": 0.18041956424713135,
+              "tunnel": 0
+            }
+          }
+        ],
+        "scope": "Programmatic production Game/Screens menu methods after the original three recordings. State and retained preset targets are checked after real engine frames; this is not native user interaction, added recording, listening or a quality verdict. Reverb gain.value is observed only, not treated as a scheduled target."
+      },
+      "f3Audio": {
+        "status": "passed",
+        "scope": "Required original Safari acquisition only; existing core F3 is independently required",
+        "runCommit": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+        "runId": "34879275702",
+        "runAttempt": "1",
+        "originalReport": {
+          "path": "test-results/ios-safari/report.json",
+          "bytes": 944656,
+          "sha256": "671387b2dea3b7004002b83b466f5856d292914e06dce3b319a7107aa4a83e73"
+        },
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+          "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+        },
+        "clips": [
+          {
+            "name": "street-walk",
+            "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+            "bytes": 5497556,
+            "sha256": "e6efdb8cdf544ca1c46ba10fa18accc38dd4fd2e64784fe61592125681585d4d",
+            "timing": {
+              "wallSeconds": 10.604999999999997,
+              "audioSeconds": 10.602666666666668,
+              "engineSeconds": 10.200000000000264,
+              "engineFrames": 544,
+              "engineToAudioRatio": 0.9620221327968055,
+              "audioToWallRatio": 0.9997799779978002,
+              "engineMinusAudioSeconds": -0.4026666666664038,
+              "audioMinusWallSeconds": -0.0023333333333290796,
+              "toleranceSeconds": 0.5301333333333335,
+              "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+              "captureClockGuardPassed": true,
+              "telemetryComplete": true,
+              "finiteTimeline": true,
+              "orderedTimeline": true,
+              "finitePoses": true
+            }
+          },
+          {
+            "name": "cut-gas-air",
+            "path": "test-results/ios-safari/audio/audio-cut-gas-air.mp4",
+            "bytes": 2113492,
+            "sha256": "8d4e9cae2b6684d0089c00d3d2caa7333dae2c0394203bef1343a897905027cd",
+            "timing": {
+              "wallSeconds": 7.271,
+              "audioSeconds": 7.274666666666668,
+              "engineSeconds": 7.266666666666254,
+              "engineFrames": 424,
+              "engineToAudioRatio": 0.9989002932550749,
+              "audioToWallRatio": 1.0005042864346951,
+              "engineMinusAudioSeconds": -0.008000000000414786,
+              "audioMinusWallSeconds": 0.0036666666666684833,
+              "toleranceSeconds": 0.36373333333333346,
+              "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+              "captureClockGuardPassed": true,
+              "telemetryComplete": true,
+              "finiteTimeline": true,
+              "orderedTimeline": true,
+              "finitePoses": true
+            }
+          },
+          {
+            "name": "arcade-room",
+            "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+            "bytes": 1440480,
+            "sha256": "d975b2e23aac7f90ac36265570358587677ce78a4f9fd65e5fb1fc6aff324030",
+            "timing": {
+              "wallSeconds": 7.314,
+              "audioSeconds": 7.31733333333333,
+              "engineSeconds": 7.299999999999585,
+              "engineFrames": 422,
+              "engineToAudioRatio": 0.9976311953352207,
+              "audioToWallRatio": 1.0004557469692823,
+              "engineMinusAudioSeconds": -0.017333333333745315,
+              "audioMinusWallSeconds": 0.0033333333333303017,
+              "toleranceSeconds": 0.36586666666666656,
+              "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+              "captureClockGuardPassed": true,
+              "telemetryComplete": true,
+              "finiteTimeline": true,
+              "orderedTimeline": true,
+              "finitePoses": true
+            }
+          }
+        ],
+        "audioQuality": "not measured",
+        "comparison": "not measured"
+      },
+      "artifact": {
+        "archive_download_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/artifacts/10361539497/zip",
+        "created_at": "2026-09-14T18:21:32Z",
+        "digest": "sha256:75221e62f888adf6525d9b7981b3318b926fe82c4118fd5f90314d819d176185",
+        "expired": false,
+        "expires_at": "2026-09-28T18:21:30Z",
+        "id": 10361539497,
+        "name": "iphone-se3-mobile-safari-bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+        "size_in_bytes": 11246160,
+        "updated_at": "2026-09-14T18:21:32Z",
+        "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/artifacts/10361539497",
+        "workflow_run": {
+          "head_branch": "claude/repo-instructions-constraints-r0070m",
+          "head_repository_id": 1314923977,
+          "head_sha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+          "id": 34879275702,
+          "repository_id": 1314923977
+        }
+      },
+      "artifactMetadataMatchesOriginalUploadLog": true,
+      "artifactArchiveBytesLocallyRecovered": false,
+      "originalReportLocallyRecovered": false,
+      "log": {
+        "bytes": 82694,
+        "sha256": "58818e062ea9f636826f986e5de327b4e14122ef9b9ab7f2f70a897ba307d875",
+        "summaryMarkers": 1,
+        "parsedFullSummary": true,
+        "completeCanonicalDecodedResponseSaved": true,
+        "trailingCleanupPresent": true
+      }
+    },
+    {
+      "role": "pr",
+      "runId": 34879453199,
+      "safariJobId": 104094807794,
+      "f3JobId": 104098680720,
+      "runSourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+      "executionCommit": "d0d71920e393a506d95e93892416a57c8b1dfa8c",
+      "attempt": 1,
+      "safariConclusion": "failure",
+      "f3Conclusion": "failure",
+      "summaryStatus": "failed",
+      "checks": 47,
+      "failedChecks": [
+        {
+          "name": "audio street-walk: wall, audio and simulation clocks stay aligned for capture",
+          "passed": false,
+          "detail": "{\"wallSeconds\":18.334,\"audioSeconds\":18.261333333333337,\"engineSeconds\":16.899999999999043,\"engineFrames\":823,\"engineToAudioRatio\":0.9254526869158353,\"audioToWallRatio\":0.9960365077633543,\"engineMinusAudioSeconds\":-1.3613333333342936,\"audioMinusWallSeconds\":-0.0726666666666631,\"toleranceSeconds\":0.9130666666666669,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"
+        },
+        {
+          "name": "audio arcade-room: wall, audio and simulation clocks stay aligned for capture",
+          "passed": false,
+          "detail": "{\"wallSeconds\":10.961999999999986,\"audioSeconds\":10.965333333333334,\"engineSeconds\":10.366666666666077,\"engineFrames\":490,\"engineToAudioRatio\":0.9454036964980007,\"audioToWallRatio\":1.0003040807638521,\"engineMinusAudioSeconds\":-0.5986666666672562,\"audioMinusWallSeconds\":0.0033333333333480653,\"toleranceSeconds\":0.5482666666666667,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}"
+        },
+        {
+          "name": "iOS audio lifecycle: original three recordings completed before boundary operations",
+          "passed": false,
+          "detail": "{\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":false,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":2}"
+        }
+      ],
+      "failures": [
+        "audio street-walk: wall, audio and simulation clocks stay aligned for capture: {\"wallSeconds\":18.334,\"audioSeconds\":18.261333333333337,\"engineSeconds\":16.899999999999043,\"engineFrames\":823,\"engineToAudioRatio\":0.9254526869158353,\"audioToWallRatio\":0.9960365077633543,\"engineMinusAudioSeconds\":-1.3613333333342936,\"audioMinusWallSeconds\":-0.0726666666666631,\"toleranceSeconds\":0.9130666666666669,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}",
+        "audio arcade-room: wall, audio and simulation clocks stay aligned for capture: {\"wallSeconds\":10.961999999999986,\"audioSeconds\":10.965333333333334,\"engineSeconds\":10.366666666666077,\"engineFrames\":490,\"engineToAudioRatio\":0.9454036964980007,\"audioToWallRatio\":1.0003040807638521,\"engineMinusAudioSeconds\":-0.5986666666672562,\"audioMinusWallSeconds\":0.0033333333333480653,\"toleranceSeconds\":0.5482666666666667,\"captureGuardScope\":\"Acquisition clock guard only; no quality or reference-comparison pass.\",\"captureClockGuardPassed\":false,\"telemetryComplete\":true,\"finiteTimeline\":true,\"orderedTimeline\":true,\"finitePoses\":true}",
+        "iOS audio lifecycle: original three recordings completed before boundary operations: {\"status\":\"captured\",\"clips\":3,\"captureCheckFailed\":true,\"timing\":[{\"captureClockGuardPassed\":false,\"telemetryComplete\":true},{\"captureClockGuardPassed\":true,\"telemetryComplete\":true},{\"captureClockGuardPassed\":false,\"telemetryComplete\":true}],\"lastInterior\":\"arcade\",\"newFailures\":2}",
+        "Error: Original iOS audio capture did not complete successfully; lifecycle operations not attempted\n    at Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:266:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:570:5"
+      ],
+      "captureStatus": "acquisition failed",
+      "provenance": {
+        "preparedFromCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+        "preparationReportSha256": "2dbf5a5b15424ccd2e1e33e628391fad46084f4ec46686b70db1023d9061bf69",
+        "bundle": "cinderline.1.0.0.js",
+        "bundleSha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+        "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "actualBundleHashes": {
+          "cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+          "dist/cinderline.1.0.0.js": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7"
+        },
+        "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+        "helperSha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513",
+        "frameWorkProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+        "harnessSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+        "runCommit": "d0d71920e393a506d95e93892416a57c8b1dfa8c",
+        "runId": "34879453199",
+        "runAttempt": "1"
+      },
+      "clips": [
+        {
+          "name": "street-walk",
+          "path": "test-results/ios-safari/audio/audio-street-walk.mp4",
+          "reportedBytes": 6122265,
+          "reportedSha256": "ce779349e98fc94eb793eff3713ffcc732fe97db0511867aaf7b9f02415ad4ac",
+          "timing": {
+            "wallSeconds": 18.334,
+            "audioSeconds": 18.261333333333337,
+            "engineSeconds": 16.899999999999043,
+            "engineFrames": 823,
+            "engineToAudioRatio": 0.9254526869158353,
+            "audioToWallRatio": 0.9960365077633543,
+            "engineMinusAudioSeconds": -1.3613333333342936,
+            "audioMinusWallSeconds": -0.0726666666666631,
+            "toleranceSeconds": 0.9130666666666669,
+            "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+            "captureClockGuardPassed": false,
+            "telemetryComplete": true,
+            "finiteTimeline": true,
+            "orderedTimeline": true,
+            "finitePoses": true
+          },
+          "audioMinusEngineSeconds": 1.3613333333342936,
+          "guardExcessSeconds": 0.4482666666676267,
+          "endpointArithmeticAgrees": true,
+          "mediaBytesLocallyRecovered": false
+        },
+        {
+          "name": "cut-gas-air",
+          "path": "test-results/ios-safari/audio/audio-cut-gas-air.mp4",
+          "reportedBytes": 3519174,
+          "reportedSha256": "403028825dcf78e7b01e0c94387a21458221410220b2a3a1e83209e50156e1f4",
+          "timing": {
+            "wallSeconds": 11.483,
+            "audioSeconds": 11.487999999999992,
+            "engineSeconds": 11.366666666666028,
+            "engineFrames": 589,
+            "engineToAudioRatio": 0.9894382544103443,
+            "audioToWallRatio": 1.0004354262823296,
+            "engineMinusAudioSeconds": -0.12133333333396479,
+            "audioMinusWallSeconds": 0.0049999999999919,
+            "toleranceSeconds": 0.5743999999999997,
+            "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+            "captureClockGuardPassed": true,
+            "telemetryComplete": true,
+            "finiteTimeline": true,
+            "orderedTimeline": true,
+            "finitePoses": true
+          },
+          "audioMinusEngineSeconds": 0.12133333333396479,
+          "guardExcessSeconds": 0,
+          "endpointArithmeticAgrees": true,
+          "mediaBytesLocallyRecovered": false
+        },
+        {
+          "name": "arcade-room",
+          "path": "test-results/ios-safari/audio/audio-arcade-room.mp4",
+          "reportedBytes": 2445743,
+          "reportedSha256": "b073c899ab5e61acd061d838540735de030b021a34ed5c070a7742980d779392",
+          "timing": {
+            "wallSeconds": 10.961999999999986,
+            "audioSeconds": 10.965333333333334,
+            "engineSeconds": 10.366666666666077,
+            "engineFrames": 490,
+            "engineToAudioRatio": 0.9454036964980007,
+            "audioToWallRatio": 1.0003040807638521,
+            "engineMinusAudioSeconds": -0.5986666666672562,
+            "audioMinusWallSeconds": 0.0033333333333480653,
+            "toleranceSeconds": 0.5482666666666667,
+            "captureGuardScope": "Acquisition clock guard only; no quality or reference-comparison pass.",
+            "captureClockGuardPassed": false,
+            "telemetryComplete": true,
+            "finiteTimeline": true,
+            "orderedTimeline": true,
+            "finitePoses": true
+          },
+          "audioMinusEngineSeconds": 0.5986666666672562,
+          "guardExcessSeconds": 0.05040000000058953,
+          "endpointArithmeticAgrees": true,
+          "mediaBytesLocallyRecovered": false
+        }
+      ],
+      "release": {
+        "immediateMoveMagnitude": 1,
+        "afterFixedStepMoveMagnitude": 0,
+        "elapsedMs": 85,
+        "reason": "first frame after fixed-step progress",
+        "passed": true
+      },
+      "frameWork": null,
+      "profileEnabled": false,
+      "lifecycle": {
+        "status": "not run",
+        "reason": "Original acquisition did not complete successfully; no boundary operation was attempted."
+      },
+      "f3Audio": {
+        "status": "failed",
+        "error": "Error: The complete Safari gate did not pass",
+        "audioQuality": "not measured",
+        "comparison": "not measured"
+      },
+      "artifact": {
+        "archive_download_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/artifacts/10362417424/zip",
+        "created_at": "2026-09-14T18:23:40Z",
+        "digest": "sha256:5eb9508ad3097f2105667b6467094e46b73df7dbb68f8d0be1e907a61eb28003",
+        "expired": false,
+        "expires_at": "2026-09-28T18:23:36Z",
+        "id": 10362417424,
+        "name": "iphone-se3-mobile-safari-d0d71920e393a506d95e93892416a57c8b1dfa8c",
+        "size_in_bytes": 15617119,
+        "updated_at": "2026-09-14T18:23:40Z",
+        "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/artifacts/10362417424",
+        "workflow_run": {
+          "head_branch": "claude/repo-instructions-constraints-r0070m",
+          "head_repository_id": 1314923977,
+          "head_sha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+          "id": 34879453199,
+          "repository_id": 1314923977
+        }
+      },
+      "artifactMetadataMatchesOriginalUploadLog": true,
+      "artifactArchiveBytesLocallyRecovered": false,
+      "originalReportLocallyRecovered": false,
+      "log": {
+        "bytes": 74135,
+        "sha256": "880b2d104f4f34d3efb308581df934203aaf928b934fa9d99c663b23e54a7271",
+        "summaryMarkers": 1,
+        "parsedFullSummary": true,
+        "completeCanonicalDecodedResponseSaved": true,
+        "trailingCleanupPresent": true
+      }
+    }
+  ],
+  "prMergeParentsVerified": true,
+  "scope": "Original canonical completed-job logs and metadata. Summary endpoint arithmetic is checked; original full telemetry and media bytes have not been recovered locally. Source F3 reports its own original-byte and full-telemetry validation. No detailed frame profile in C37.",
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "completedUnits": 0,
+    "mode": "continuous"
+  },
+  "oldFailureRepairClaimed": false,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationChanges": 0
+}

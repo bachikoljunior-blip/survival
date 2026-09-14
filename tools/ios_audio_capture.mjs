@@ -7,6 +7,7 @@ import { mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { captureMobileAudio } from './mobile_audio_capture.mjs';
 import { installFrameWorkProbe, stopFrameWorkProbe } from './frame_work_probe.mjs';
+import { IOS_TRANSFER_CHUNK_BYTES, startIosAudioUpload } from './ios_audio_transfer.mjs';
 
 export const IOS_AUDIO_PIN = Object.freeze({
   preparedFromCommit: '789f2199bd3791a6dc6566eecaf3c1478c99afa6',
@@ -34,6 +35,7 @@ export function verifyIosAudioBuild(root, externalUrl = '') {
   if (recorderBlob !== IOS_AUDIO_PIN.recorderBlob) throw new Error('iOS audio recorder/clock-guard source pin mismatch');
   return { ...IOS_AUDIO_PIN, actualBundleHashes: hashes, actualRecorderBlob: recorderBlob,
     helperSha256: sha256(readFileSync(join(root, 'tools/ios_audio_capture.mjs'))),
+    transferHelperSha256: sha256(readFileSync(join(root, 'tools/ios_audio_transfer.mjs'))),
     frameWorkProbeSha256: sha256(readFileSync(join(root, 'tools/frame_work_probe.mjs'))),
     harnessSha256: sha256(readFileSync(join(root, 'tools/test-ios-safari.mjs'))),
     runCommit: process.env.GITHUB_SHA || null, runId: process.env.GITHUB_RUN_ID || null,
@@ -45,12 +47,17 @@ export function verifyIosAudioBuild(root, externalUrl = '') {
  * whole recording in one command. Polling never steps or modifies game clocks.
  */
 export function createSafariEvaluate(execute, { timeoutMs = 120000, pollMs = 200,
-  maxTransferChars = MAX_TRANSFER_CHARS, transferKey = TRANSFER_KEY } = {}) {
-  let sequence = 0;
-  return async function evaluate(fn, arg) {
+  maxTransferChars = MAX_TRANSFER_CHARS, transferKey = TRANSFER_KEY, transfer = null } = {}) {
+  let sequence = 0, evaluating = false;
+  async function evaluateOnce(fn, arg) {
     const id = ++sequence;
     const deadline = Date.now() + timeoutMs;
-    const started = await execute(`
+    const command = (script, args = []) => {
+      const remainingMs = deadline - Date.now();
+      if (remainingMs <= 0) throw new Error('Safari audio operation deadline expired');
+      return execute(script, args, Math.min(90000, remainingMs));
+    };
+    const started = await command(`
       var key = ${JSON.stringify(transferKey)}, old = window[key];
       if (old && old.status === 'pending') throw new Error('prior iOS audio operation still pending');
       var job = window[key] = {id:arguments[1],status:'pending'};
@@ -65,7 +72,7 @@ export function createSafariEvaluate(execute, { timeoutMs = 120000, pollMs = 200
     if (started?.id !== id) throw new Error('iOS audio operation start mismatch');
     let status;
     do {
-      status = await execute(`var j=window[${JSON.stringify(transferKey)}];
+      status = await command(`var j=window[${JSON.stringify(transferKey)}];
         return j && {id:j.id,status:j.status,chars:j.chars,operationError:j.error};`);
       if (status?.id !== id) throw new Error('iOS audio operation identity changed');
       if (status.status === 'failed') throw new Error(`Safari audio operation failed: ${status.operationError}`);
@@ -77,9 +84,40 @@ export function createSafariEvaluate(execute, { timeoutMs = 120000, pollMs = 200
       throw new Error('iOS audio transfer length is invalid');
     }
     let json = '';
-    for (let offset = 0; offset < status.chars; offset += CHUNK_CHARS) {
+    if (transfer && status.chars > CHUNK_CHARS) {
+      const upload = transfer.begin({ id, chars: status.chars, deadline });
+      let received = false, receivedJson, receiveError;
+      upload.result.then(value => { received = true; receivedJson = value; },
+        error => { received = true; receiveError = error; });
+      try {
+        const launched = await command(`return (${startIosAudioUpload.toString()})(arguments[0]);`,
+          [{ key: transferKey, id, path: upload.path, remainingMs: deadline - Date.now(),
+            chunkBytes: IOS_TRANSFER_CHUNK_BYTES }]);
+        if (launched?.id !== id) throw new Error('Safari audio upload launch identity mismatch');
+        while (true) {
+          const progress = await command(`var j=window[${JSON.stringify(transferKey)}];
+            return j && {id:j.id,upload:j.upload};`);
+          upload.lastPageProgress = progress;
+          if (progress?.id !== id) throw new Error('Safari audio upload operation identity changed');
+          if (progress.upload?.status === 'failed') {
+            throw new Error(`Safari audio upload failed: ${progress.upload.operationError}`);
+          }
+          if (receiveError) throw receiveError;
+          if (received && progress.upload?.status === 'complete') break;
+          if (Date.now() >= deadline) throw new Error('Safari audio upload timed out');
+          await delay(Math.min(pollMs, deadline - Date.now()));
+        }
+        json = receivedJson;
+      } catch (error) {
+        upload.cancel(error);
+        // Host receipt survives the shared recorder's later cleanup evaluate.
+        upload.receipt.evaluationFailure = error.message;
+        upload.receipt.lastPageProgress = upload.lastPageProgress || null;
+        throw error;
+      }
+    } else for (let offset = 0; offset < status.chars; offset += CHUNK_CHARS) {
       if (Date.now() >= deadline) throw new Error('Safari audio chunk transfer timed out');
-      const part = await execute(`var j=window[${JSON.stringify(transferKey)}];
+      const part = await command(`var j=window[${JSON.stringify(transferKey)}];
         if (!j || j.id!==arguments[0] || j.status!=='ready') throw new Error('iOS audio transfer identity changed');
         return {id:j.id,offset:arguments[1],text:j.json.slice(arguments[1],arguments[1]+${CHUNK_CHARS})};`, [id, offset]);
       const expected = Math.min(CHUNK_CHARS, status.chars - offset);
@@ -88,9 +126,15 @@ export function createSafariEvaluate(execute, { timeoutMs = 120000, pollMs = 200
       }
       json += part.text;
     }
-    await execute(`var j=window[${JSON.stringify(transferKey)}];
+    await command(`var j=window[${JSON.stringify(transferKey)}];
       if (j && j.id===arguments[0]) delete window[${JSON.stringify(transferKey)}]; return true;`, [id]);
     return JSON.parse(json);
+  }
+  return async function evaluate(fn, arg) {
+    if (evaluating) throw new Error('Concurrent Safari audio evaluation is not allowed');
+    evaluating = true;
+    try { return await evaluateOnce(fn, arg); }
+    finally { evaluating = false; }
   };
 }
 
@@ -188,11 +232,11 @@ export async function inspectIosAudioLifecycle({ evaluate, waitFrames, check, ev
 }
 
 export async function captureIosAudio({ execute, tap, moveForCapture, releaseActions,
-  waitFrames, root, output, check, report, provenance,
+  waitFrames, root, output, check, report, provenance, transfer = null,
   captureFrameWork = process.env.CINDERLINE_IOS_FRAME_WORK_CAPTURE === '1' }) {
   mkdirSync(output, { recursive: true });
   const originalSettings = await execute('return Object.assign({}, window.CINDERLINE.game.settings);');
-  const evaluate = createSafariEvaluate(execute);
+  const evaluate = createSafariEvaluate(execute, { transfer });
   let pendingMove = null, capabilityFailure = false;
   const movementRecords = [];
   const finishMove = async () => {
@@ -286,7 +330,7 @@ export async function captureIosAudio({ execute, tap, moveForCapture, releaseAct
         if (report.safariFrameWorkCleanup) {
           // Reuse the original bounded transport on its own operation slot;
           // never overwrite an audio failure or return all rows in one reply.
-          report.safariFrameWork = await createSafariEvaluate(execute, { transferKey: FRAME_WORK_TRANSFER_KEY })(() => {
+          report.safariFrameWork = await createSafariEvaluate(execute, { transferKey: FRAME_WORK_TRANSFER_KEY, transfer })(() => {
             const C = window.CINDERLINE, result = C.__iosFrameWorkResult;
             delete C.__iosFrameWorkResult;
             return result;
@@ -317,7 +361,9 @@ export async function captureIosAudio({ execute, tap, moveForCapture, releaseAct
     evidence.scope = 'Actual iOS Simulator Mobile Safari production compressor output and simultaneous native canvas video, using the shared recorder with the cut-gas-air scene label corrected. Placement is programmatic; street movement is one trusted native stick gesture. Canvas video excludes DOM HUD. This is acquisition, not physical-device audio or a blind quality comparison.';
     evidence.transport = { command: '/execute/sync', asyncWork: 'page-side promise + status polling',
       chunkChars: CHUNK_CHARS, maxTransferChars: MAX_TRANSFER_CHARS, operationTimeoutMs: 120000,
-      singleCommandMaxMs: 90000, deadlineScope: 'Checked between commands; an in-flight command may overrun the operation deadline by its bounded command timeout.' };
+      singleCommandMaxMs: 90000, deadlineScope: 'Each command is bounded by the remaining original 120000 ms operation budget; the upload receiver rejects late data.',
+      largeReplyRoute: transfer ? 'existing loopback DIST server; same-origin POST after recorder completion' : 'WebDriver chunks',
+      uploadChunkBytes: transfer ? IOS_TRANSFER_CHUNK_BYTES : null, uploads: transfer?.receipts || [] };
     evidence.movements = movementRecords;
     for (const clip of evidence.clips) {
       if (clip.name === 'street-walk') clip.input = 'Trusted native stick: down at CSS (110,250), drag to (110,190) over 350 ms, hold 2150 ms, release. Actual input events and clocks retained.';

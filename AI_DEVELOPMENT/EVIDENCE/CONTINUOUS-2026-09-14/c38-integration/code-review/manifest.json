@@ -1,0 +1,198 @@
+{
+  "status": "finite independent integrated code review passed",
+  "recordedAt": "2026-09-14T18:42:07.522895+00:00",
+  "basisHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "candidateManifestSha256": "8eb4b74fb6f62ffa38ab6e9e3d5d869b6a8ebd45991ceaf8f969a31b295ed7e8",
+  "candidateFiles": [
+    {
+      "path": ".github/workflows/mobile-simulator.yml",
+      "bytes": 10604,
+      "sha256": "880e72b0eea5eba07db193e0f9d83a1917de626cef17135eec54df84c2068594",
+      "blob": "182e152bff65d9b96ed2d193f5c0140dc5394256"
+    },
+    {
+      "path": "tools/export-ios-frame-work.mjs",
+      "bytes": 2945,
+      "sha256": "8f99e90d4a4321587120ca6e55bc750cef5060929bd1dcf840fcdaed1a308fe2",
+      "blob": "971eef3a26d3cd10341e4609d7f93cfb59b407f5"
+    },
+    {
+      "path": "tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+      "blob": "d16786a6dc1b259cac5cc77045400f924e1df2a4"
+    },
+    {
+      "path": "tools/gates/f3_safari_audio.mjs",
+      "bytes": 5823,
+      "sha256": "3d997e59effb2ef4add31755ca480f38610f01e930d6ba782bf2c758546c0abe",
+      "blob": "3299ad8daf73c366e9b7c1e7f6d5a255f4ddf243"
+    },
+    {
+      "path": "tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a",
+      "blob": "60fc3fdff6017483735ce8a6f7df83eba4d47d56"
+    },
+    {
+      "path": "tools/ios_audio_transfer.mjs",
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a",
+      "blob": "f738aa1aff724aec6a2273d26a0a8962e1ef256b"
+    },
+    {
+      "path": "tools/test-ios-safari.mjs",
+      "bytes": 33990,
+      "sha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+      "blob": "63697c804ef2cc6ab62a8d313cc44e22eb1d9b1e"
+    }
+  ],
+  "checks": {
+    "integrated": 15,
+    "workflow": 36,
+    "total": 51,
+    "blocking": 0,
+    "actualSafari": false,
+    "ciRun": false,
+    "realMediaRecorded": false
+  },
+  "fixedState": {
+    "elements": 19,
+    "criteria": 71,
+    "references": 10,
+    "allNotMeasured": true,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "scope": {
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "reruns": 0,
+    "automationChanges": 0,
+    "candidateDirectEdits": 0,
+    "wdaCapabilityEdits": 0,
+    "soleWriter": "/root/integration_recovery_ultra"
+  },
+  "evidenceAllowlist": [
+    "REPORT.md",
+    "authority-receipt.json",
+    "candidate-code-manifest.json",
+    "scope-check.json",
+    "verify-integrated.mjs",
+    "integration-verification.json",
+    "verify-workflow.py",
+    "workflow-verification.json",
+    "startup-export.mjs",
+    "startup-export-before.mjs",
+    "guard-null-reproduction.json",
+    "synthetic-harness-stdout.log",
+    "synthetic-harness-stderr.log",
+    "synthetic-session-failed-original-report.json",
+    "synthetic-session-original-export.log",
+    "test-ios-safari.mjs.diff",
+    "f3_safari_audio.mjs.diff",
+    "export-ios-frame-work.mjs.diff",
+    "mobile-simulator.yml.diff"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 4468,
+      "sha256": "88ee1e30977c3d6fe82956a1cfc2ecff5562997809df795439dd210ca58958ef"
+    },
+    {
+      "path": "authority-receipt.json",
+      "bytes": 27036,
+      "sha256": "094fc5967c923945de02830ae92104452791bc0443415d2675737734f0df0364"
+    },
+    {
+      "path": "candidate-code-manifest.json",
+      "bytes": 1709,
+      "sha256": "8eb4b74fb6f62ffa38ab6e9e3d5d869b6a8ebd45991ceaf8f969a31b295ed7e8"
+    },
+    {
+      "path": "scope-check.json",
+      "bytes": 2249,
+      "sha256": "78eb70142ed64b80603817c34fb4bb583e3f71c9edd70f61098dddb4eb61b991"
+    },
+    {
+      "path": "verify-integrated.mjs",
+      "bytes": 11275,
+      "sha256": "cba965267bb56ce69bed748896d34031a23c6917d50d08c412af39a55591f35d"
+    },
+    {
+      "path": "integration-verification.json",
+      "bytes": 5143,
+      "sha256": "ae09d035ec917931a2b678981676d61626036b1945f82b383e2e0b4838bc1488"
+    },
+    {
+      "path": "verify-workflow.py",
+      "bytes": 6509,
+      "sha256": "1420a77ec4cd266d206d9e252451b8ddeee3d3388bd09e9a05724ae448048364"
+    },
+    {
+      "path": "workflow-verification.json",
+      "bytes": 7757,
+      "sha256": "98f0413d2a18ead7b280722f1952c0b0e49ccf2fb74313598680833a4e48c86f"
+    },
+    {
+      "path": "startup-export.mjs",
+      "bytes": 3228,
+      "sha256": "d4d8fcd2b505cae0a38edd394e2bec7b740f868c59786c552b0ce1919c347c4b"
+    },
+    {
+      "path": "startup-export-before.mjs",
+      "bytes": 2551,
+      "sha256": "591dc3d330321a7f862a8fb0c942ce7a4b7404658ef28bd5280f02496d3e3541"
+    },
+    {
+      "path": "guard-null-reproduction.json",
+      "bytes": 954,
+      "sha256": "9508426012ea2c8e61a9f437f35e6d5705d877aa2dc3e36525237029788d42f3"
+    },
+    {
+      "path": "synthetic-harness-stdout.log",
+      "bytes": 1639,
+      "sha256": "e09a5a1f7b5e6367581f0beb3c21d2f1355489b9c3c3a95f856055e21bd095fe"
+    },
+    {
+      "path": "synthetic-harness-stderr.log",
+      "bytes": 428,
+      "sha256": "12dba29e42b27f0189ebf9c4622bb22110fa90719ce49b0638ceea91980b58ef"
+    },
+    {
+      "path": "synthetic-session-failed-original-report.json",
+      "bytes": 2294,
+      "sha256": "165aab025069d158e683ced2f95e08d2d2d5afd7f926502719f1c580148a8751"
+    },
+    {
+      "path": "synthetic-session-original-export.log",
+      "bytes": 4532,
+      "sha256": "e9d831ce17b3c00cdbe4992d607b6a46c2ac12aa3fae39ee9fcc8344a991b52f"
+    },
+    {
+      "path": "test-ios-safari.mjs.diff",
+      "bytes": 488,
+      "sha256": "eaabf1537114968f60d08781d1bda02c3434345eb8391cd55c484bc12529e6cf"
+    },
+    {
+      "path": "f3_safari_audio.mjs.diff",
+      "bytes": 913,
+      "sha256": "43953a70da0f00d5679cb5e680d50af2639a16ea70f6a54d6d0da0579d9205e2"
+    },
+    {
+      "path": "export-ios-frame-work.mjs.diff",
+      "bytes": 732,
+      "sha256": "37460a5c505c844976f2b150814494e842fe1eec0a79424178d366dbd4328a29"
+    },
+    {
+      "path": "mobile-simulator.yml.diff",
+      "bytes": 2711,
+      "sha256": "3c687c73a716e98103b5fe5e27a1f8bb22f6e8cff849ce6bc4e0b206a8bddab7"
+    }
+  ],
+  "fixtureLimits": "Local fixture directory contains copies of candidate tools, actual pinned product bundle/recorder and clearly synthetic verifier report/media text; these are reproducible local test material, excluded from evidence allowlist. No E9/private/reference content used."
+}

@@ -18,6 +18,7 @@ export function exportFrameWorkReport(root, env=process.env, emit=console.log) {
   const report=JSON.parse(bytes.toString('utf8')), provenance=report.audioCapture?.provenance;
   const expected={runCommit:env.GITHUB_SHA,runId:env.GITHUB_RUN_ID,runAttempt:env.GITHUB_RUN_ATTEMPT,
     helperSha256:sha(readFileSync(join(root,'tools/ios_audio_capture.mjs'))),
+    transferHelperSha256:sha(readFileSync(join(root,'tools/ios_audio_transfer.mjs'))),
     harnessSha256:sha(readFileSync(join(root,'tools/test-ios-safari.mjs'))),
     frameWorkProbeSha256:sha(readFileSync(join(root,'tools/frame_work_probe.mjs')))};
   for (const [key,value] of Object.entries(expected)) if(provenance?.[key]!==value)

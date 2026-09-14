@@ -1,4 +1,4 @@
-/** Source-known checks for eight frozen English/Japanese dialogue revisions.
+/** Source-known checks for six frozen English/Japanese dialogue revisions.
  * --browser additionally stages each exact node through the real bundled runner
  * and UI. Direct node selection is a diagnostic, not ordinary gameplay or a
  * blind comparison. No source, bundle, state authority or baseline is changed. */
@@ -13,51 +13,39 @@ import { CANDIDATES, INPUTS, ORIGINAL_BUNDLE } from './prepare-narrative-product
 export const TARGETS = [
   {
     "conversation": "sol_first",
-    "node": "ah2",
-    "en": "24c00a59a74ffa0dbb447869636d8d27e0730bebeb8ab04b55bd7272f68ad5cc",
-    "ja": "2b963b5a9192782c1c5b6177353247a75d52895b442972617a5ccd925b5de8cb"
-  },
-  {
-    "conversation": "sol_first",
-    "node": "vc_end",
-    "en": "dec992c5b0cc536af172b1eb696ddf70e62c226506522b7781f416f5d3385497",
-    "ja": "05fa3d61d0eb43bee692eb4ab3d96fe7c57b498ec51ab4ea0238815b9d22b337"
-  },
-  {
-    "conversation": "iris_first",
-    "node": "i_decide",
-    "en": "0fffa6ef01356dbeaedf856dfc684379ef6046f0b72a380e4573bbfdd769a8a8",
-    "ja": "802583f275a51d32a029e23b738957c163b2b219d99e6a274b733e24df1c7039"
-  },
-  {
-    "conversation": "iris_first",
-    "node": "i_refuses",
-    "en": "27bc433611464e7dc74011c72577137fe18b2a5ed29a9a2227a829f6a566ad95",
-    "ja": "5742afd338d2f438f0433ebd41f7277f8ed9fd3e21ceff34316b150188852f1d"
-  },
-  {
-    "conversation": "iris_after",
-    "node": "i_sign",
-    "en": "26beb3d87e6aa2ee6c769f9161dcd4b87b39a3040f614cfdab8e77ad336934c1",
-    "ja": "399d140bb25a9627361472eeb7e7b6185f3dfcd2c2b5d22a925ecbebf9405fe0"
+    "node": "vc_krajcik",
+    "en": "dd13e9d321c6ee16f318535246ab8f51cab8c24bc3a6de131f3d337b7b759827",
+    "ja": "c299b56521e8b78e31566edc43bcccf3107024d10b44b8480153577b749be84c"
   },
   {
     "conversation": "krajcik",
-    "node": "k_deal_cut",
-    "en": "05fba45470f1f757f354f7ace08cfe32de6270c987d77f5cf28ae8c30c97fd28",
-    "ja": "e847d94169c6c71eed38d1d2714bf237d8a032f318baff2acf26dde2d428fe4e"
+    "node": "k_choice",
+    "en": "f3d579bfb46a8cea756dee7e0f0d9d07b0f675984962b58ec7675e11bfa78907",
+    "ja": "0d7d76d037a2c1887fccee1983000de269875dd15c69763b52d29b477790fcb4"
   },
   {
-    "conversation": "final",
-    "node": "k_asked",
-    "en": "8a597660e80d724e3fde34733e87124ed2eace6cf37864f20179175b425aaca8",
-    "ja": "82745ab65c951337f431401840d262414c678d051278ee9fff19ace04ab24cf4"
+    "conversation": "krajcik",
+    "node": "k_refuse",
+    "en": "920de0029707eb93a6904579bacda5dc53a3a500b209d5685fa183ad068b598b",
+    "ja": "49cc1f17d6227d3bb337e88ae0c13f08d1e841c99a3cc6dc7c73510d000ed273"
   },
   {
-    "conversation": "final",
-    "node": "k_asked2",
-    "en": "848c9bde731fd5d93c4b06e7fe63d20a32aa96330088bcc502b0551c1f54e64f",
-    "ja": "e1974bf62863419e176e1580d774a981b06c1726ad1d2c6b0e431fed664786a0"
+    "conversation": "krajcik",
+    "node": "ag_refused",
+    "en": "1ee9da92fe1793e17c28c4afdb6078499ac4d241b86a36f2893654337c10eec7",
+    "ja": "199f1f2f67f70b6641cf359ba57fbd3e9566a06cb4541312c37297d747897eb8"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "k_accept",
+    "en": "baf341c248e5a33883f357fccb556a44f47420cd2f5a5074309d0f6261dd0cc7",
+    "ja": "f3ffd5b4861be5c3c03a8387b334b78fb60893d33d9c16fd2e0798508757fadd"
+  },
+  {
+    "conversation": "krajcik",
+    "node": "k_end",
+    "en": "7ca84c8d497761cae7b5b1d212c5b163410b47784cb0d16a86ea09b8109b31ea",
+    "ja": "e2234f2278ef2e41b1fcad2b8115998e5d1b4db32089c6dc31bfa24bebef1e90"
   }
 ];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -94,7 +82,7 @@ export async function verifySourceRoutes(root) {
 }
 
 async function verifyBrowser(root, output, rows, report) {
-  const prepared = JSON.parse(readFileSync(join(root, 'test-results/narrative-product-build-r1/report.json')));
+  const prepared = JSON.parse(readFileSync(join(root, 'test-results/narrative-product-build-r2/report.json')));
   assert.equal(prepared.status, 'prepared and content/root verified');
   assert.equal(prepared.baselineReproduced, true);
   assert.equal(prepared.baselineDistSha256, ORIGINAL_BUNDLE);
@@ -188,22 +176,22 @@ async function verifyBrowser(root, output, rows, report) {
  * passed. The receiver must independently match the actual run/commit, frozen
  * source pins, prepared bundle and all contiguous chunks/end records. */
 export function exportRouteArtifacts(root, emit = line => console.log(line), environment = process.env) {
-  const output = join(root, 'test-results/narrative-route-r1');
+  const output = join(root, 'test-results/narrative-route-r2');
   const reportBytes = readFileSync(join(output, 'report.json'));
   const report = JSON.parse(reportBytes);
   assert(['passed', 'failed'].includes(report.status), 'Route report is not final');
   for (const key of ['browserRequested', 'browserAttempted', 'browserExecuted']) assert.equal(typeof report[key], 'boolean', 'Missing browser lifecycle field');
   assert(!report.browserExecuted || report.browserAttempted, 'Executed browser without a launch attempt');
   assert(!report.browserAttempted || report.browserRequested, 'Browser attempt without a request');
-  assert(Array.isArray(report.screens) && report.screens.length <= 16, 'Unexpected screen count');
-  assert(Array.isArray(report.sourceRoutes) && [0, 16].includes(report.sourceRoutes.length), 'Unexpected source route count');
+  assert(Array.isArray(report.screens) && report.screens.length <= 12, 'Unexpected screen count');
+  assert(Array.isArray(report.sourceRoutes) && [0, 12].includes(report.sourceRoutes.length), 'Unexpected source route count');
   const expected = ['en', 'ja'].flatMap(language => TARGETS.map(({ conversation, node }) => ({
     language, conversation, node, file: `${language}-${conversation}-${node}.png`,
   })));
-  if (report.status === 'passed' || report.browserExecuted) assert.equal(report.sourceRoutes.length, 16, 'Incomplete source route set');
+  if (report.status === 'passed' || report.browserExecuted) assert.equal(report.sourceRoutes.length, 12, 'Incomplete source route set');
   if (report.sourceRoutes.length) {
-    for (let i = 0; i < 16; i++) {
-      const row = report.sourceRoutes[i], route = expected[i], pin = TARGETS[i % 8];
+    for (let i = 0; i < 12; i++) {
+      const row = report.sourceRoutes[i], route = expected[i], pin = TARGETS[i % 6];
       for (const key of ['language', 'conversation', 'node']) assert.equal(row[key], route[key]);
       assert.equal(row.sourceSha256, pin.en);
       assert.equal(row.textSha256, pin[route.language]);
@@ -236,8 +224,8 @@ export function exportRouteArtifacts(root, emit = line => console.log(line), env
   }
   if (report.status === 'passed' && report.browserRequested) {
     assert.equal(report.browserExecuted, true);
-    assert.equal(report.sourceRoutes.length, 16);
-    assert.equal(report.screens.length, 16, 'Incomplete successful browser diagnostic');
+    assert.equal(report.sourceRoutes.length, 12);
+    assert.equal(report.screens.length, 12, 'Incomplete successful browser diagnostic');
   }
   files.push({ path: 'report.json', bytes: reportBytes });
   for (const file of files) assert(file.bytes.length <= 4 * 1024 * 1024, 'Per-file export cap exceeded');
@@ -261,7 +249,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   if (process.argv.includes('--export')) {
     exportRouteArtifacts(root);
   } else {
-  const output = join(root, 'test-results/narrative-route-r1'); mkdirSync(output, { recursive: true });
+  const output = join(root, 'test-results/narrative-route-r2'); mkdirSync(output, { recursive: true });
   const report = { status: 'started', sourceRoutes: [], screens: [], browserRequested: process.argv.includes('--browser'), browserAttempted: false, browserExecuted: false,
     scope: 'Source-known finite locale and staged dialogue UI diagnostic. Direct node selection, fresh isolated context per node, natural typewriter completion through the real update/render path. No ordinary-play path, readability/visual-quality verdict, Mobile Safari claim, blind comparison or element verdict.' };
   try {

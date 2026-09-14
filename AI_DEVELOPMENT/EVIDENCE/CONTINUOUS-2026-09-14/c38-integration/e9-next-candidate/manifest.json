@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "status": "six-node bilingual source candidate complete; independently reviewed; build and runtime adoption pending",
+  "sourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "repository": "bachikoljunior-blip/survival",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "candidateFiles": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111858,
+      "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925",
+      "gitBlob": "2a5585bcc17f5d7213f0e87c4c77c3d616967c6e"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29879,
+      "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54",
+      "gitBlob": "82e283a87e1d2f4c9b7a7d0873ffc98220b93451"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30471,
+      "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202",
+      "gitBlob": "3547aa0a68fadd1d319c217bbdd4faf9d3c4d17f"
+    }
+  ],
+  "candidateDirectory": "candidate/",
+  "sourceFileCount": 3,
+  "changedConversationNodes": 6,
+  "changedTextFields": 12,
+  "englishWordCount": {
+    "before": 318,
+    "candidate": 269,
+    "qualityMeasurement": false
+  },
+  "changedNodes": [
+    {
+      "conversation": "sol_first",
+      "node": "vc_krajcik",
+      "localeFile": "src/content/locale/ja/story.js"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_choice",
+      "localeFile": "src/content/locale/ja/story2.js"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_refuse",
+      "localeFile": "src/content/locale/ja/story2.js"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "ag_refused",
+      "localeFile": "src/content/locale/ja/story2.js"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_accept",
+      "localeFile": "src/content/locale/ja/story2.js"
+    },
+    {
+      "conversation": "krajcik",
+      "node": "k_end",
+      "localeFile": "src/content/locale/ja/story2.js"
+    }
+  ],
+  "invariants": {
+    "allOutsideBodyLiteralBytesIdentical": true,
+    "allOtherExportValuesIdentical": true,
+    "conditionsEffectsChoicesBranchesIdentical": true,
+    "journalTextIdentical": true,
+    "priorEightNodesUnchanged": true,
+    "priorSixteenEnglishJapaneseBodiesUnchanged": true,
+    "castAndEndingsAndEpiloguesAndQuestsUnchanged": true
+  },
+  "validation": {
+    "sourcePinsVerified": true,
+    "semanticReview": "English/Japanese and whole surrounding dialogue; repeated fallback also used by lied; common ending works on all four routes",
+    "independentVerdict": "adoptable source-known production candidate",
+    "blocking": 0,
+    "buildExecuted": false,
+    "candidateRuntimeGenerated": false,
+    "runtimeScreensViewed": 0,
+    "normalPlayExecuted": false,
+    "comparisonsStarted": 0
+  },
+  "runtime": {
+    "path": "cinderline.1.0.0.js",
+    "bytes": 1446171,
+    "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e"
+  },
+  "runtimeMeaning": "1094 is the unchanged current runtime, not a build of this candidate. Next stage must build the reviewed sources and verify the new source/root pair before adoption.",
+  "irisPeriodFinding": {
+    "elevenQuartersVsTwoYearsTenMonths": "not a demonstrated contradiction; completed quarterly records and an ongoing partial period can coexist",
+    "elevenMonthsUnsignedReductions": "record-set identity relative to the quarterly differences binder is unspecified; unchanged",
+    "confirmedUnresolvedJournalMismatch": {
+      "englishSource": "src/content/story.js",
+      "englishObject": "CONVERSATIONS.iris_first.nodes.i_gives.effects[3].journal[2]",
+      "journalId": "iris",
+      "japaneseSource": "src/content/locale/ja/content.js",
+      "japaneseKey": "journal.iris",
+      "oldJournalPeriod": "two years and one month / 2年1か月",
+      "dialoguePeriod": "two years and ten months / 2年10か月",
+      "disposition": "untouched because all effects must remain identical; separate future correction only when assigned"
+    }
+  },
+  "publication": {
+    "allowlist": "publication-allowlist.json",
+    "controlFileHash": "provided in final handoff",
+    "policy": "deny all other paths; do not recursively follow directories or document links",
+    "materialScope": "game-authored source bodies, before/after version comparison, source pins and production review only; no reference content, comparison answer or anonymous mapping"
+  },
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "fixedElementCount": 19,
+    "fixedCriterionCount": 71,
+    "referencesUnchanged": true,
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "operations": {
+    "remoteMutations": 0,
+    "ciStarts": 0,
+    "ciRetries": 0,
+    "comparisonsStarted": 0,
+    "automationMutations": 0
+  },
+  "evidence": [
+    {
+      "path": "REPORT.md",
+      "bytes": 6296,
+      "sha256": "0e76a911052f53cf82be0a69126a4e2247c66160652b847b549fb57b48ec018e",
+      "gitBlob": "24f8340deaa9a519e62c52fbc25bbd86b506d0f7"
+    },
+    {
+      "path": "before-after.md",
+      "bytes": 8140,
+      "sha256": "32c9c624dc929a6df92f342d9256c4da252b0f0baecc35d44a1254a2bdf36c83",
+      "gitBlob": "4e7e11fd5030adbdab309570ab453c57336d6ce6"
+    },
+    {
+      "path": "revisions.json",
+      "bytes": 9765,
+      "sha256": "7dc9224d9256490006c4881e77ef4ffd214b84a4626bd792878732b9d9aee966",
+      "gitBlob": "690b29c519d4483fb75d5a4e37711cc2c55a772d"
+    },
+    {
+      "path": "revisions-input.json",
+      "bytes": 5591,
+      "sha256": "4048d2b4df7935fe4e7933a384d223594b810e20065b07a956572f623075b208",
+      "gitBlob": "f8a23eed10dbeb7b9756264b44c2b75d42bd8951"
+    },
+    {
+      "path": "create-candidate.mjs",
+      "bytes": 2135,
+      "sha256": "fff0dff0487bfe26512641dd2e7d499295ba55b0462d4e72820413ec02ad393f",
+      "gitBlob": "a6a5a102983a0bb66d5c2ed73b2b65a0eeb6f250"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 10025,
+      "sha256": "f8c68173243348896f4c33d122e21e80938af212e32a062ed36c05813efdb051",
+      "gitBlob": "7590333a759eff8cb7f75ab0f63f4f430b18e169"
+    },
+    {
+      "path": "authority-summary.json",
+      "bytes": 1706,
+      "sha256": "973bdef79c33e9c1ec9106cfd250b7dae73c891169524b90930d86f0c04adfd9",
+      "gitBlob": "0aa70fa13359e6ecf42569e5406cb55c55d52628"
+    },
+    {
+      "path": "verify-publication.mjs",
+      "bytes": 1855,
+      "sha256": "38dd14144352d680a07171620ecbfffc4f0dc282b64821ff6b0f4a7b175c603c",
+      "gitBlob": "3d9922928d798e44d561ad0aec5de55f534e6e75"
+    },
+    {
+      "path": "independent-review/REPORT.md",
+      "bytes": 4564,
+      "sha256": "eb4538360f120a00c80c6a8a85b9641809e8ddc47b93d383fd0254960c600a5d",
+      "gitBlob": "5d73d690e7f8ee255d40007f432e1a04ed930d57"
+    },
+    {
+      "path": "independent-review/receipt.json",
+      "bytes": 4855,
+      "sha256": "0511bef87ab1573f1181876b62a4aefdf5188ec19797be7993ce30bc54e1d0bb",
+      "gitBlob": "7dd11d724132bbcbe7313040e936a15e2545b6d3"
+    },
+    {
+      "path": "independent-review/iris-diagnosis.md",
+      "bytes": 2472,
+      "sha256": "dea13e1d0fc60f32722eb6305111c5e57b0312618300bf71fd7a4bb2ea8a9760",
+      "gitBlob": "516d8569e8c225cb5e2b4a489d49555ffcc12675"
+    },
+    {
+      "path": "independent-review/iris-related-source-receipt.json",
+      "bytes": 3219,
+      "sha256": "fea24889800f00496cf487f64e189d731cc3f4d00635391c76a724bcc12d8e33",
+      "gitBlob": "12286d36a9348fdff1273f8bdfea5c7f9865ce97"
+    },
+    {
+      "path": "independent-review/candidate-verification.json",
+      "bytes": 6025,
+      "sha256": "4a1e9d8c60a143218086522ef8786c1b680fc536ac4d9d6a7ec034b2137be307",
+      "gitBlob": "b66e11b9d69fae2da04421d65e5ccf3e463e7c6d"
+    },
+    {
+      "path": "independent-review/prior-bodies-verification.json",
+      "bytes": 3544,
+      "sha256": "0fceebe5aced6f8fbee3eb2d1a6135730daff281ed96cd03df29f4238d768591",
+      "gitBlob": "ab232bb8a89af2e9ee08e1beb29af64b60da6c83"
+    },
+    {
+      "path": "independent-review/verify-candidate.mjs",
+      "bytes": 5814,
+      "sha256": "5594601602d58420f102f5bb00cd30962ebe11e167524defd93b8082dcbd7964",
+      "gitBlob": "94cfea1d6697ceb3ed1e495fdaa1e045fb1189d0"
+    },
+    {
+      "path": "independent-review/verify-prior-bodies.mjs",
+      "bytes": 2076,
+      "sha256": "5507ed12f0ed6bc535744151357fe14dff3ca7429e2bb67afb30249278e0f127",
+      "gitBlob": "9da42d6ffe73958b038178d8739df9c843016e29"
+    }
+  ]
+}

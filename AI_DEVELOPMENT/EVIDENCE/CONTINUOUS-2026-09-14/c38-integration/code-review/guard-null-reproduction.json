@@ -1,0 +1,6 @@
+{
+  "case": "synthetic valid JSON invalid null check entry in passed report",
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "file:///workspace/scratch/0b7ad82bafe7/c38-integration-code-review-ultra/startup-export.mjs:11\n  && completedReport.checks.length > 0 && completedReport.checks.every(check => check.passed === true)\n                                                                                      ^\n\nTypeError: Cannot read properties of null (reading 'passed')\n    at file:///workspace/scratch/0b7ad82bafe7/c38-integration-code-review-ultra/startup-export.mjs:11:87\n    at Array.every (<anonymous>)\n    at file:///workspace/scratch/0b7ad82bafe7/c38-integration-code-review-ultra/startup-export.mjs:11:66\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\n\nNode.js v24.19.0\n"
+}

@@ -1,0 +1,46 @@
+{
+  "sourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "branch": "claude/repo-instructions-constraints-r0070m",
+  "repository": "bachikoljunior-blip/survival",
+  "readOrder": [
+    "latest head",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml"
+  ],
+  "instructionId": "ULTRA-CHILDREN-20260914-v3",
+  "instructionBlobs": {
+    "AGENTS.md": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+    "CLAUDE.md": "8b758231a6b77277092ccee5a322f593320b123f",
+    "AI_DEVELOPMENT/SESSION_STATE.yaml": "c57df4df920e73036d713bd306e7e84d28319503"
+  },
+  "canonicalInputs": [
+    {
+      "path": "src/content/story.js",
+      "bytes": 111989,
+      "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
+      "gitBlob": "52fa8a3c1bac8e7fa8dc8ea434f31579fa187d75"
+    },
+    {
+      "path": "src/content/locale/ja/story.js",
+      "bytes": 29927,
+      "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+      "gitBlob": "6ce854568eaf4ed7e03bedcdbe72d596b8430fca"
+    },
+    {
+      "path": "src/content/locale/ja/story2.js",
+      "bytes": 30756,
+      "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
+      "gitBlob": "e3a3defcb331ed0265eb11262c806cc0328eb74c"
+    }
+  ],
+  "baselineRuntime": {
+    "path": "cinderline.1.0.0.js",
+    "bytes": 1446171,
+    "sha256": "1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7",
+    "gitBlob": "70857633766d7064806f06f965b7aafa0bf1533e"
+  },
+  "canonicalTreeEntries": 1799,
+  "canonicalTreeTruncated": false,
+  "meaning": "Official source and tree pins verified; existing recovered runtime bytes match the current tree. No candidate runtime generated."
+}

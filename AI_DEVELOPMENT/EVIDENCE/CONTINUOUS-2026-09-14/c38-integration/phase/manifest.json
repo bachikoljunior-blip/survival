@@ -1,0 +1,219 @@
+{
+  "status": "finite-diagnostic-candidate-frozen",
+  "frozenAt": "2026-09-14T18:23:27.571800+00:00",
+  "repository": "bachikoljunior-blip/survival",
+  "basisHead": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "basisProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+  "candidate": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-phase-refinement-ultra/candidate/tools/frame_work_probe.mjs",
+    "bytes": 11229,
+    "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8",
+    "gitBlobSha1": "d16786a6dc1b259cac5cc77045400f924e1df2a4"
+  },
+  "changedRepositoryFiles": [
+    "tools/frame_work_probe.mjs"
+  ],
+  "decision": "Ready for sole writer review and combination for a future explicitly selected single source Floor measurement. Not adopted or run by this agent. No product fix claimed.",
+  "tests": {
+    "ownActualEngineFixtureAssertions": 62,
+    "independentRerunAssertions": 62,
+    "independentEdgeAssertions": 25,
+    "blockingDefectsFound": false,
+    "realSafariPerformance": "not measured"
+  },
+  "limits": {
+    "frameRows": 4096,
+    "slowCallEvents": 256,
+    "slowCallThresholdMs": 8,
+    "transferChunkChars": 131072,
+    "transferMaximumChars": 50331648,
+    "transferOperationMs": 120000,
+    "rawExportMaximumBytes": 8388608,
+    "rawExportChunkBytes": 3000,
+    "maxFixedSubsteps": 4,
+    "clockRelativeTolerance": 0.05,
+    "allOriginalLimitsChanged": false
+  },
+  "capacity": {
+    "scope": "Synthetic field-shape estimate over original C36 row count; timings/counters are invented only for serialization sizing, not measurements. No synthetic report exported.",
+    "originalSha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8",
+    "originalBytes": 4472434,
+    "rows": 1853,
+    "assumption": "One actor, three systems, all 13 new phase labels on every row, high-precision durations and full 256 slow-call capacity. More actors/rows can exceed the unchanged exporter cap.",
+    "estimatedAddedBytes": 2398756,
+    "estimatedReportBytes": 6871190,
+    "exportLimitBytesUnchanged": 8388608,
+    "estimateFits": true,
+    "actualNextReportBytesMeasured": false,
+    "at4096RowsSameSyntheticShapesBytes": 14190835,
+    "rowCapAloneGuaranteesEightMiB": false,
+    "maximumRowShapeScope": "Hypothetical repetition of the same synthetic row shapes up to 4096; other original report fields held fixed. Not measured runtime data or a strict universal size bound."
+  },
+  "limitations": [
+    "Synchronous elapsed includes blocking/preemption; no CPU utilization or GPU execution duration is measured.",
+    "Nested phase durations overlap. Observer bookkeeping is partial and never subtracted from clocks.",
+    "Wrapper markers omit work before the initial marker and after the last marker; marker gaps are not identified external waits.",
+    "Fixed targets are captured at installation; final registration check does not detect a temporary change reversed before stop.",
+    "Program-count changes do not identify compile duration or all resource upload work.",
+    "The unchanged 4096 row cap does not guarantee an 8 MiB report. Over-cap reports remain export failures.",
+    "Original C34 frame-internal causes remain unmeasured; C35 hidden operation failure and C36 third media timeout are separate issues."
+  ],
+  "sourceOriginalEvidence": {
+    "reportPath": "/workspace/scratch/0b7ad82bafe7/c36-safari-profile-result-ultra/original/report.json",
+    "bytes": 4472434,
+    "sha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8",
+    "runId": 34875252891,
+    "jobId": 104080730225,
+    "streetClockGuardPassed": false,
+    "streetAudioMinusEngineSeconds": 1.092666666667208
+  },
+  "nextRequiredActions": [
+    "Sole writer checks latest source and combines the isolated probe with separately reviewed transfer fix.",
+    "Preserve actual helper/harness/probe provenance and unchanged F3 clocks, size limits and failure results.",
+    "Select only the explicitly marked future first source Floor push for opt-in capture/export; no PR-wide or retry activation.",
+    "Recover exact final original report and compare callback/fixed/render markers against original clip endpoints before considering a cause-directed product change."
+  ],
+  "actions": {
+    "productEdits": 0,
+    "helperEdits": 0,
+    "workflowEdits": 0,
+    "exporterEdits": 0,
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "retries": 0,
+    "automationChanges": 0,
+    "soleRemoteWriter": "/root/integration_recovery_ultra"
+  },
+  "fixedState": {
+    "elements": 19,
+    "criteria": 71,
+    "allNotMeasured": true,
+    "validBlind": 0,
+    "completedUnits": 0,
+    "mode": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  },
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 8341,
+      "sha256": "a91214c5595976cf4d4538a86adce7e2edf98b4aefe59cb84259ba3eb1ecaded"
+    },
+    {
+      "path": "authority-receipt.json",
+      "bytes": 1276,
+      "sha256": "3cbf79e45f742f92c5f12d38ffb7c015079ee4a4f6fdc69d922c3cf709f7963f"
+    },
+    {
+      "path": "candidate/tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 9624,
+      "sha256": "162b7593e79169c2af2130910313be7149be8df5eb2d298ccc88cfbba9556f09"
+    },
+    {
+      "path": "independent/REPORT.md",
+      "bytes": 4553,
+      "sha256": "313ebbef2bba2f1fd6c4750c2a056f858bc22872f0245839352a711804e2514a"
+    },
+    {
+      "path": "independent/edge-results.json",
+      "bytes": 1409,
+      "sha256": "4e713762a1fd384b058a266515617798683e4078a74ffcecaf467de46de794f3"
+    },
+    {
+      "path": "independent/frame-work-result.json",
+      "bytes": 5016,
+      "sha256": "c1896f9c9b7f869d5ec3f00fc7d61d0be9d94c92d4bf88fc7b36e056b9615fc3"
+    },
+    {
+      "path": "independent/integrity.json",
+      "bytes": 1744,
+      "sha256": "0d706d7bee21a13931b3d57cd18e13f82777b7fd4cc26d0579ebd6acb1ec402e"
+    },
+    {
+      "path": "independent/manifest.json",
+      "bytes": 2315,
+      "sha256": "f073775c0d37ccf333d30df3221d6c2cc1eb2e645212983e8723f99af2e1607f"
+    },
+    {
+      "path": "independent/recheck-volume.py",
+      "bytes": 3649,
+      "sha256": "a75d3a1027fadb5bf56f6bafb80370d34005f4a3c621f3a83e1623d3dfb49e95"
+    },
+    {
+      "path": "independent/review.json",
+      "bytes": 3071,
+      "sha256": "9b82ad3f56fe3a6ec2798b3f1383f7ab75cb085174cb1132b1dff5fa996ac228"
+    },
+    {
+      "path": "independent/verify-edge-cases.mjs",
+      "bytes": 9829,
+      "sha256": "65c69576ca775fb43175cc547d40969715a30525e351276dab93018bf83d2668"
+    },
+    {
+      "path": "independent/verify-frame-work.mjs",
+      "bytes": 12863,
+      "sha256": "a290cafc8c41b626070e0fcf253fc10157c7d5b1c8b9c5363fa7bf90c7913437"
+    },
+    {
+      "path": "independent/volume-recheck.json",
+      "bytes": 981,
+      "sha256": "20766b28af1a7024b1a21e809372c7e643efd4f8bc9b193715bfa9d9ea030faf"
+    },
+    {
+      "path": "source/AGENTS.md",
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc"
+    },
+    {
+      "path": "source/AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "bytes": 12445,
+      "sha256": "9098877b5f03a144f3c3cbe24c68bbfc534d7590c999e1be4212667cd16bf715"
+    },
+    {
+      "path": "source/CLAUDE.md",
+      "bytes": 22170,
+      "sha256": "dc4bb33524a1542f11278f018988ff6cdfda573a4a4a1e0576b7e6a3627b998d"
+    },
+    {
+      "path": "source/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "source/src/core/util.js",
+      "bytes": 5255,
+      "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    },
+    {
+      "path": "source/tools/frame_work_probe.mjs",
+      "bytes": 6563,
+      "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+    },
+    {
+      "path": "verification/estimate-volume.py",
+      "bytes": 2905,
+      "sha256": "7c241b32b65dd191ca32e8f8fde7c64c334c10d1419df4ac7773edeeaaf33115"
+    },
+    {
+      "path": "verification/frame-work-result.json",
+      "bytes": 5016,
+      "sha256": "c1896f9c9b7f869d5ec3f00fc7d61d0be9d94c92d4bf88fc7b36e056b9615fc3"
+    },
+    {
+      "path": "verification/verify-frame-work.mjs",
+      "bytes": 12863,
+      "sha256": "a290cafc8c41b626070e0fcf253fc10157c7d5b1c8b9c5363fa7bf90c7913437"
+    },
+    {
+      "path": "verification/volume-estimate.json",
+      "bytes": 690,
+      "sha256": "f91fcb8452169fe5c98e83ac2250b283ca2b7829682fe402e9706b407b8696b0"
+    }
+  ]
+}

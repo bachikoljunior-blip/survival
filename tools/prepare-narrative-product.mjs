@@ -24,10 +24,10 @@ export const INPUTS = Object.freeze({
   "src/content/locale/ja.js": "4ee6c1fbc8caf898ea5dd117d30105dd8c04ad1bd6f4eb0f36d47dc8c59bf9b8",
   "src/content/locale/ja/content.js": "66d08acf58e0dd470de3f18834a8c65622fb7c544f59c0fa3bdb4d1069beba70",
   "src/content/locale/ja/engine.js": "2a03e38469cc74671aa5a35977d6c6deaae7bcbcd25d95621084c4ae2762f226",
-  "src/content/locale/ja/story.js": "0ff6f35c2d2cb003ade5d900859ded890213e5757ec1e1cccff612e3ca53969f",
-  "src/content/locale/ja/story2.js": "360d015b27089e2c0cd61dfc8e4f9302ecc39714ded4d24ac113d870376fce3e",
+  "src/content/locale/ja/story.js": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158",
+  "src/content/locale/ja/story2.js": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f",
   "src/content/locale/ja/ui.js": "b71791bf626a9584d5aad4416237da5826e955f86bd70f2aa584efcad5404674",
-  "src/content/story.js": "76023ad5a9fba4716393b555f3562573fd179c3fb3c4c9d560fda8522a22e07c",
+  "src/content/story.js": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44",
   "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
   "src/core/engine.js": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592",
   "src/core/input.js": "0523ad08c18d1f752cdddc413455079c9a7d553e367679970bc16b8c648c910e",
@@ -56,17 +56,17 @@ export const INPUTS = Object.freeze({
   "src/world/props.js": "6044093c5bf49b66b6e8f90f012ad2bee0746bdb79bbddb7b338d6c98b8c5f38"
 });
 export const CANDIDATES = Object.freeze({
-  "src/content/story.js": Object.freeze({"file": "tools/candidates/e9-story-r1.js", "sha256": "faa5d203dd5aeb8900400a8b13959f2f5286b3400d19fdd375ffa41bc9535f44"}),
-  "src/content/locale/ja/story.js": Object.freeze({"file": "tools/candidates/e9-ja-story-r1.js", "sha256": "0530d41bb02ab9f72d71b5323491e560a16aff78e29c032390e41b371dac8158"}),
-  "src/content/locale/ja/story2.js": Object.freeze({"file": "tools/candidates/e9-ja-story2-r1.js", "sha256": "179c9d8e3e2cc525fe01a8744037fb15e712da2bdc5cd536b0e80ea4ada8143f"})
+  "src/content/story.js": Object.freeze({"file": "tools/candidates/e9-story-r2.js", "sha256": "eab459971035f74fb1fb7a77b408b2b5ab7b184d291836f640df3290d01f4925"}),
+  "src/content/locale/ja/story.js": Object.freeze({"file": "tools/candidates/e9-ja-story-r2.js", "sha256": "3033b17ffbca77d64c86c1ed97f8ebd126c0b3e349a3788e32f501837c7f6b54"}),
+  "src/content/locale/ja/story2.js": Object.freeze({"file": "tools/candidates/e9-ja-story2-r2.js", "sha256": "e75125e0a47cd982e097013bb02335df300357b12ae802786ccb475a01ee8202"})
 });
 export const SOURCES = Object.freeze(Object.keys(CANDIDATES));
-export const ORIGINAL_BUNDLE = '514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55';
+export const ORIGINAL_BUNDLE = '1094c1d96bed6b953c1655ce65549c484b8f09e275f055bff283499cece110f7';
 export const FILES = [...SOURCES, 'cinderline.1.0.0.js', 'index.html', 'styles.css', 'manifest.webmanifest', 'icon.svg', '.nojekyll'];
 export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const gitBlob = bytes => createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 const MAX_BYTES = 4 * 1024 * 1024;
-const OUTPUT = 'test-results/narrative-product-build-r1';
+const OUTPUT = 'test-results/narrative-product-build-r2';
 export function changedSources(originals, candidates) {
   if (JSON.stringify([...candidates.keys()]) !== JSON.stringify(SOURCES)) throw Error('Unexpected candidate source set');
   return new Map(SOURCES.map(path => {
@@ -110,10 +110,10 @@ export function exportPrepared(root, emit = line => console.log(line)) {
 export function prepare(root) {
   const output = join(root, OUTPUT); mkdirSync(output, { recursive: true });
   const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
-  const report = { schema_version: 1, sourceCommit: git(['rev-parse','HEAD']), sourceBaseline: 'd2c463b54d4ea12abc0a9444627db810440a59a7',
+  const report = { schema_version: 1, sourceCommit: git(['rev-parse','HEAD']), sourceBaseline: 'bf743056ce143f09e4c6544ef1c7df4b73b232fd',
     runId: process.env.GITHUB_RUN_ID || null, runAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
     node: process.version, platform: process.platform, arch: process.arch, status: 'started', files: [], commands: [],
-    change: 'Only eight reviewed English dialogue texts and their eight Japanese overrides in three frozen source files; current audio and every other build input retained.',
+    change: 'Only six reviewed English dialogue texts and their six Japanese overrides in three frozen source files; the previously adopted eight nodes, current audio and every other build input retained.',
     originalBundleSha256: ORIGINAL_BUNDLE, expectedSources: CANDIDATES,
     limits: 'Preparation only. No browser, adoption, publication, external evaluator, listening or element verdict. Original recording and quality limitations remain. Product source and root are unchanged outside this disposable CI checkout.' };
   const run = args => {

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "originalReport": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c36-safari-profile-result-ultra/original/report.json",
+    "bytes": 4472434,
+    "sha256": "b2de6f0b9ce375082be62762ee2f880fd47ab0c2bfbcbb7f65923d44b1b2cbe8"
+  },
+  "runCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+  "runId": "34875252891",
+  "runAttempt": "1",
+  "jobId": 104080730225,
+  "observedReason": "Safari audio chunk transfer timed out",
+  "originalStack": "Error: Safari audio chunk transfer timed out\n    at Object.evaluate (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:81:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async captureMobileAudio (file:///Users/runner/work/survival/survival/tools/mobile_audio_capture.mjs:164:18)\n    at async Module.captureIosAudio (file:///Users/runner/work/survival/survival/tools/ios_audio_capture.mjs:254:5)\n    at async file:///Users/runner/work/survival/survival/tools/test-ios-safari.mjs:570:5",
+  "originalTransferDiagnostic": null,
+  "originalLimits": {
+    "command": "/execute/sync",
+    "asyncWork": "page-side promise + status polling",
+    "chunkChars": 131072,
+    "maxTransferChars": 50331648,
+    "operationTimeoutMs": 120000,
+    "singleCommandMaxMs": 90000,
+    "deadlineScope": "Checked between commands; an in-flight command may overrun the operation deadline by its bounded command timeout."
+  },
+  "savedClips": [
+    {
+      "name": "street-walk",
+      "bytes": 5133404,
+      "sha256": "4331aca4abb8bc231c268f9532cae7d1348522d4975be9e334db582c16e9b158"
+    },
+    {
+      "name": "cut-gas-air",
+      "bytes": 3217145,
+      "sha256": "0a127e2bea0a630edb288dc8f031b76f21e358dec314d67634f395c1b5e4db86"
+    }
+  ],
+  "profileCleanup": {
+    "rows": 1853,
+    "complete": true,
+    "restored": true
+  },
+  "provenance": {
+    "preparedFromCommit": "eb81be9053204fa25a0e7556f78941dd862d4032",
+    "preparationReportSha256": "3af69d8780c54ca4a5f2868e7b5958f6200578390a47977440fc65edf8189446",
+    "bundle": "cinderline.1.0.0.js",
+    "bundleSha256": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+    "recorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "actualBundleHashes": {
+      "cinderline.1.0.0.js": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55",
+      "dist/cinderline.1.0.0.js": "514f671fa64b75dda7f835a430245e9b168f9aca38fbce0b8184b12938679a55"
+    },
+    "actualRecorderBlob": "785541d3beaed0e35e8bcf042973eabb7bdb5d6c",
+    "helperSha256": "7c7356237d487786234e737fe959075c942e39844f638d1e1ea3f925b0bd5194",
+    "frameWorkProbeSha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf",
+    "harnessSha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec",
+    "runCommit": "789f2199bd3791a6dc6566eecaf3c1478c99afa6",
+    "runId": "34875252891",
+    "runAttempt": "1"
+  },
+  "inference": "Original error is emitted only after a page result became ready and its length passed the 48 MiB character guard. Deadline covers launch, readiness polling and all serial WebDriver chunks. The original report has no third-payload length/offset/per-command times; dominance of WebDriver overhead and why this scene exceeded the budget are not measured. Shared cleanup evaluations could overwrite the page transfer slot; null final status alone does not prove which cleanup did so.",
+  "quality": {
+    "all19": "not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0
+  }
+}

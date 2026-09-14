@@ -1,0 +1,348 @@
+{
+  "status": "finite-original-results-frozen",
+  "frozenAt": "2026-09-14T18:39:31.324239+00:00",
+  "repository": "bachikoljunior-blip/survival",
+  "acceptedSourceHead": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "prExecutionCommit": "d0d71920e393a506d95e93892416a57c8b1dfa8c",
+  "logs": [
+    {
+      "id": 104094199700,
+      "role": "source-safari",
+      "run": 34879275702,
+      "bytes": 82694,
+      "chars": 82438,
+      "endsWithNewline": true,
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/source-safari.log",
+      "sha256": "58818e062ea9f636826f986e5de327b4e14122ef9b9ab7f2f70a897ba307d875",
+      "canonicalFetchCount": 1,
+      "wholeDecodedToolResponseSaved": true
+    },
+    {
+      "id": 104094807794,
+      "role": "pr-safari",
+      "run": 34879453199,
+      "bytes": 74135,
+      "chars": 73879,
+      "endsWithNewline": true,
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/pr-safari.log",
+      "sha256": "880b2d104f4f34d3efb308581df934203aaf928b934fa9d99c663b23e54a7271",
+      "canonicalFetchCount": 1,
+      "wholeDecodedToolResponseSaved": true
+    },
+    {
+      "id": 104097805106,
+      "role": "source-f3-execution",
+      "run": 34879275702,
+      "bytes": 2443,
+      "chars": 2441,
+      "endsWithNewline": true,
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/source-f3-execution.log",
+      "sha256": "b6925cea947778b38f2b8321d8963d02d918e68469ac561c2a0abc041f99e929",
+      "canonicalFetchCount": 1,
+      "wholeDecodedToolResponseSaved": true
+    },
+    {
+      "id": 104098680720,
+      "role": "pr-f3-execution",
+      "run": 34879453199,
+      "bytes": 2517,
+      "chars": 2515,
+      "endsWithNewline": true,
+      "path": "/workspace/scratch/0b7ad82bafe7/c37-safari-original-results-ultra/transport/pr-f3-execution.log",
+      "sha256": "9f79685bc977342aef32bd9bdbcad4da69b3e2fed3c2b3f4470e495ad83efd00",
+      "canonicalFetchCount": 1,
+      "wholeDecodedToolResponseSaved": true
+    }
+  ],
+  "totalOriginalDecodedLogBytes": 161789,
+  "source": {
+    "run": 34879275702,
+    "safariJob": 104094199700,
+    "f3Job": 104097805106,
+    "conclusion": "success",
+    "passedChecks": 53,
+    "checks": 53,
+    "clips": 3,
+    "allOriginalClockGuardsPassed": true,
+    "releaseAfterFixedStepMs": 8
+  },
+  "pr": {
+    "run": 34879453199,
+    "safariJob": 104094807794,
+    "f3Job": 104098680720,
+    "conclusion": "failure",
+    "passedChecks": 44,
+    "checks": 47,
+    "clips": 3,
+    "clockFailedScenes": [
+      "street-walk",
+      "arcade-room"
+    ],
+    "releaseAfterFixedStepMs": 85,
+    "lifecycle": "not run because original acquisition clock checks failed"
+  },
+  "frameWorkProfile": null,
+  "profileEnabled": false,
+  "localOriginalReportRecovered": false,
+  "localMediaRecovered": false,
+  "sourceReportIntegrityReportedByCi": {
+    "bytes": 944656,
+    "sha256": "671387b2dea3b7004002b83b466f5856d292914e06dce3b319a7107aa4a83e73"
+  },
+  "artifacts": [
+    {
+      "role": "source",
+      "id": 10361539497,
+      "bytes": 11246160,
+      "digest": "sha256:75221e62f888adf6525d9b7981b3318b926fe82c4118fd5f90314d819d176185",
+      "metadataMatchesUploadLog": true,
+      "archiveBytesLocallyRecovered": false
+    },
+    {
+      "role": "pr",
+      "id": 10362417424,
+      "bytes": 15617119,
+      "digest": "sha256:5eb9508ad3097f2105667b6467094e46b73df7dbb68f8d0be1e907a61eb28003",
+      "metadataMatchesUploadLog": true,
+      "archiveBytesLocallyRecovered": false
+    }
+  ],
+  "independent": {
+    "completed": true,
+    "inconsistencyFound": false,
+    "reportSha256": "5923c06183c582a765dbc25d1c86a9d2d1586a870cbbf3d72f5e6038b7ec0295",
+    "manifestSha256": "d11df770e8377e712c794596b779985321ee51d9ade7e80ea7b0a3f79ac6cadc"
+  },
+  "limits": [
+    "Full canonical decoded job-log responses saved; no native archive-log digest supplied by tool.",
+    "Original fullreport/MP4 bytes were not recovered locally; source CI F3 independently validated original telemetry and media bytes.",
+    "No detailed frame profile exists for these C37 runs; callback CPU/GPU/external-wait causes remain unattributed.",
+    "Source success does not repair or retrospectively explain the original C34/C36 failures.",
+    "PR failure is acquisition clock alignment after three clips, distinct from earlier WDA startup and third-transfer failures."
+  ],
+  "minimalNextRecoveryProposal": {
+    "implemented": false,
+    "newExecutionStarted": false,
+    "priority": "Fixed PR artifact 10362417424 original report.json and f3-audio-verification.json; retain original archive size/digest and run/merge identity.",
+    "clips": "Only if required for later listening/inspection; no extra clip recovery performed."
+  },
+  "finalFollowup": {
+    "resumedSavedResults": true,
+    "newLogFetches": 0,
+    "duplicateChildStarts": 0,
+    "capacityInternalCause": "not inferred"
+  },
+  "actions": {
+    "productEdits": 0,
+    "guardEdits": 0,
+    "remoteWrites": 0,
+    "pendingRemoteWrites": 0,
+    "ciStarts": 0,
+    "reruns": 0,
+    "automationChanges": 0,
+    "artifactDownloads": 0,
+    "soleRemoteWriter": "/root/integration_recovery_ultra"
+  },
+  "fixedState": {
+    "elements": 19,
+    "criteria": 71,
+    "all19": "not measured",
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "mode": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 7243,
+      "sha256": "4c93058e75eea437da9afc75651b51375277cb18574ca76fffb7b343608c1518"
+    },
+    {
+      "path": "analysis.json",
+      "bytes": 28708,
+      "sha256": "d217ec6f35cbd4fc8d541ef066494cfa4af1492968f6470fbff47eb01074b893"
+    },
+    {
+      "path": "analyze_original_logs.py",
+      "bytes": 7151,
+      "sha256": "6d16a126b8960380e2f5678d2455703f98decb4ae078f344a1e0a97d3ad20d07"
+    },
+    {
+      "path": "authority-and-log-receipt.json",
+      "bytes": 2901,
+      "sha256": "8108fd8f92fddf9c75d53b093e7d0612408e3759bbebc00f61182bb36d5a7e06"
+    },
+    {
+      "path": "independent/REPORT.md",
+      "bytes": 4649,
+      "sha256": "5923c06183c582a765dbc25d1c86a9d2d1586a870cbbf3d72f5e6038b7ec0295"
+    },
+    {
+      "path": "independent/acceptance.json",
+      "bytes": 1402,
+      "sha256": "c23c2a1d25b8fbe861a31d9d0a2253500d1eb55191a3ee7b64acf75c92b1a979"
+    },
+    {
+      "path": "independent/authority/agents-response.json",
+      "bytes": 717,
+      "sha256": "72af7b2b734cda27683ac2cf9673fa92be4e73588746bf1a709fd5778529f1af"
+    },
+    {
+      "path": "independent/authority/claude-response.json",
+      "bytes": 22755,
+      "sha256": "a0da4211d76f086ddc8c63f8ad92796e20e71928142d40511352a03637b8cb10"
+    },
+    {
+      "path": "independent/authority/head-response.json",
+      "bytes": 1843,
+      "sha256": "2db7ca1fdd6009a17c172f3d6c3348e5944f7f5431068b8265e06a954fce8376"
+    },
+    {
+      "path": "independent/authority/session-response.json",
+      "bytes": 13469,
+      "sha256": "188d7eb5a7618e109c743f04e88dd3a839ffd203e606b2325b7e6038dc42e4ad"
+    },
+    {
+      "path": "independent/manifest.json",
+      "bytes": 4719,
+      "sha256": "d11df770e8377e712c794596b779985321ee51d9ade7e80ea7b0a3f79ac6cadc"
+    },
+    {
+      "path": "independent/original-input-ledger.json",
+      "bytes": 2199,
+      "sha256": "3b62da635cf76ad321a845897c08b6f5c8a09b312404c3b7ed83fa0c6502bb9c"
+    },
+    {
+      "path": "independent/results.json",
+      "bytes": 9834,
+      "sha256": "947b65f2a84d46a88d48434444b52e6afa67cf50afd5088fa6fdcbbd1b4a424d"
+    },
+    {
+      "path": "independent/source/tools/frame_work_probe.mjs",
+      "bytes": 6563,
+      "sha256": "2ce6e467d5f6ba45b18da2d644b3ad4463bbd036aaac9def3117056bd5ef08cf"
+    },
+    {
+      "path": "independent/source/tools/ios_audio_capture.mjs",
+      "bytes": 22122,
+      "sha256": "0ac5b36321b1fdf3d87c6062cd7b070daa7d939f0e3d3e53574d4993320ee513"
+    },
+    {
+      "path": "independent/source/tools/test-ios-safari.mjs",
+      "bytes": 33470,
+      "sha256": "fe15b0b8fc0143f826f45cc8642fac302e829c36e8242e1328e5498d8cf6b6ec"
+    },
+    {
+      "path": "independent/source-pins-fetch.json",
+      "bytes": 822,
+      "sha256": "2a33515fb2346ecff585e42caabcc04d7cecb9313e0132efb6c87938d1583731"
+    },
+    {
+      "path": "independent/source-pins.json",
+      "bytes": 1442,
+      "sha256": "0767f9cfecc296306214f4d9534529cb0b8f0f8a0e5e2b3b83cac61673afbf80"
+    },
+    {
+      "path": "independent/verify_results.py",
+      "bytes": 11557,
+      "sha256": "0cd67dfc5027cace891e3b1cdbccd22204e3c65aacea27fcdbd6858a05cb0e12"
+    },
+    {
+      "path": "source/AGENTS.md",
+      "bytes": 315,
+      "sha256": "87fbff670cdb53735c9365e5d9d45011f0ae352a7597948301674ad7fc85a4dc"
+    },
+    {
+      "path": "source/AI_DEVELOPMENT/SESSION_STATE.yaml",
+      "bytes": 12677,
+      "sha256": "27b665e625d1bce8fc93eba0c155648e97b2c21b8074227c9be1a18324828582"
+    },
+    {
+      "path": "source/CLAUDE.md",
+      "bytes": 22170,
+      "sha256": "dc4bb33524a1542f11278f018988ff6cdfda573a4a4a1e0576b7e6a3627b998d"
+    },
+    {
+      "path": "source/tools/gates/f3_safari_audio.mjs",
+      "bytes": 5800,
+      "sha256": "9a9f53e4fe12d342dba9cff05cf2fa1f19e598f49433e71b15cd96f533d18d0e"
+    },
+    {
+      "path": "transport/pr-artifacts.json",
+      "bytes": 3609,
+      "sha256": "88896a4b229d8b5fb22fccf271c1017292439bd9ce8634bc5b41da9608981094"
+    },
+    {
+      "path": "transport/pr-f3-audio.json",
+      "bytes": 150,
+      "sha256": "9eb1e2cbdec426bd2cccaa4d7bdb3283c57121cdc6227e885c05690f12b8e3c4"
+    },
+    {
+      "path": "transport/pr-f3-execution.log",
+      "bytes": 2517,
+      "sha256": "9f79685bc977342aef32bd9bdbcad4da69b3e2fed3c2b3f4470e495ad83efd00"
+    },
+    {
+      "path": "transport/pr-merge.json",
+      "bytes": 901,
+      "sha256": "ebca58da0c07e81b247c421a86dac62255d4a9dda34bcbb9bfbfc152248cb8d9"
+    },
+    {
+      "path": "transport/pr-run.json",
+      "bytes": 15692,
+      "sha256": "9cc057129ce3fbc7ed99cb37571771bac42bfd6b6f46ab2c47a2796ab6b0db5f"
+    },
+    {
+      "path": "transport/pr-safari-summary.json",
+      "bytes": 26622,
+      "sha256": "453bd9bc68d1cee14798593cd2495a592cc362db726ff89a8fd720e385cc53a4"
+    },
+    {
+      "path": "transport/pr-safari.log",
+      "bytes": 74135,
+      "sha256": "880b2d104f4f34d3efb308581df934203aaf928b934fa9d99c663b23e54a7271"
+    },
+    {
+      "path": "transport/run-34879275702-jobs.json",
+      "bytes": 14699,
+      "sha256": "9f00723f932036e01047798cb492a4f5aca7088d8b88e96a3108252d19f8e0d2"
+    },
+    {
+      "path": "transport/run-34879453199-jobs.json",
+      "bytes": 14117,
+      "sha256": "b03176518e6fb72f56e2741821bd2a44d762cffda26eabc0ebe70776f54d673e"
+    },
+    {
+      "path": "transport/source-artifacts.json",
+      "bytes": 4519,
+      "sha256": "12f38e1c0501d80e2ece4eed64dbe01177d57396f020a981da400c8ed11a1808"
+    },
+    {
+      "path": "transport/source-f3-audio.json",
+      "bytes": 3565,
+      "sha256": "e8ef366b01da4771859eb80a4cd24fdd4bda342783d2049fd8aa2f278fc3db11"
+    },
+    {
+      "path": "transport/source-f3-execution.log",
+      "bytes": 2443,
+      "sha256": "b6925cea947778b38f2b8321d8963d02d918e68469ac561c2a0abc041f99e929"
+    },
+    {
+      "path": "transport/source-run.json",
+      "bytes": 15777,
+      "sha256": "4e2696224f41300f46a30f5c21cf2f2de08a489287d999631cb67d230bd5d947"
+    },
+    {
+      "path": "transport/source-safari-summary.json",
+      "bytes": 33558,
+      "sha256": "01e98652fc7dcd3953041899f9c3903b1d3eef5239d56874a0196af15478680b"
+    },
+    {
+      "path": "transport/source-safari.log",
+      "bytes": 82694,
+      "sha256": "58818e062ea9f636826f986e5de327b4e14122ef9b9ab7f2f70a897ba307d875"
+    }
+  ]
+}

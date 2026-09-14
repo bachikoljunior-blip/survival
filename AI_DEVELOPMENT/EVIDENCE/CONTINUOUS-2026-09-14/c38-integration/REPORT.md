@@ -1,0 +1,35 @@
+# C38: 原Safari結果を保持し、転送と処理別診断を改善する
+
+C37 bf743056ce143f09e4c6544ef1c7df4b73b232fd を94path・tree f67b3d5全読戻しで保存し、PR16も同headへ同期した。受理済4runは全てattempt1で完了。source Floor、standalone Safari、roundはsuccess、PR Floorは原時計条件のfailure。mainは5456371249f5769c25d18f1686a44349e4292d6f、旧6bのまま。今回の7code path、追加した本文build準備6pathとSESSIONはC38保存前の候補である。
+
+## 原失敗と新実結果
+
+C37原4log計161,789Bを各1回回収し独立照合。sourceは53/53check成功、PRは44/47で街・arcadeの時計と、それを受けたlifecycle開始条件が失敗。両方3clipsの保存metadataがある。PRの街engine/audio比0.9254526869、arcade0.9454036965は元5% guardを超える。元全telemetryは今回ローカル回収していない。source F3は原fullreport944656B/671387b2…と3clipの実bytes/SHA・元時計をCI内で再検証済み。新成功をC34/C36の時計/転送原因の修復証拠にしない。
+
+release直後のPR moveMagnitude1を原記録として残したまま、最初の実fixed更新後85msには0となり解除検査は成功。sourceは8ms。C37のprofileは両方null、原C36の4472434B profileとは区別する。C36街の損失1.092667sはclamp/4更新後の破棄/accumulatorで一致したが、renderer内部のCPU/GPU・preemption原因は未確定。
+
+C36 PRの原WDA9files3355781Bも完全回収。実build成功後にWDA/status待ちが失敗し、BUILD INTERRUPTEDはtimeout後の停止だった。Xcode16.4/SDK18.5/UDIDは整合。未確認原因に対するcapability/port/headless/timeout変更は0。原artifactのZIP検証はC37実CIが行い、こちらは1126chunks/meta=end/全9file SHAを独立再照合した。7元ZIP memberと2回収job metadata/receiptを区別する。
+
+## C38実装と検証
+
+録音JSONの大きな結果を、既存DIST serverの同一origin POSTで受け取る。録音開始前後のgame/audio処理は変えない。nonce・session・id・sequence・offset・size・SHA・ack・Origin/Hostを検査し、失敗/期限切れ・socketを閉じる。元120000ms/48MiB文字/131072文字上限を保持し、新POST chunkも131072 UTF-8 bytes以内。各WebDriver commandは残りの元期限と既存90秒以内に収める。外部serverやゲーム機能の追加ではない。
+
+同じ1500ms予算/60ms応答遅延の実HTTP fixtureで、旧経路1526.02ms timeout、新経路484.87msでJSONとSHAが一致。24 commands/2884656 reply bytesから7/371へ減少、39 POST chunks。独立28+1否定検査も成功。これは合成fixtureで、元clipの各通信遅延の再構成や実Safari修復証明ではない。
+
+細分probeはworld/composite/other renderer、gas/nav/input/actor/system/event/zone固定更新を分け、遅い個別callとshader program数の前後を記録する。GL queryやgl.finishを追加しない。62+25検査成功、1853rowモデルで6871190Bと既存8MiB内。ただし実Safari cost/実容量は未測定、bookkeeping計測は部分的でCPU on-core時間ではない。元時計やthresholdから費用を差し引かない。
+
+新transferHelperSha256をF3と原report exportの必須provenanceへ追加。検証済みbuild provenanceをsession作成前にnot startedとして保存し、起動失敗でも原reasonと厳密な源泉照合を保つ。F3成功条件は緩めない。source push/指定branch/Floor/attempt1/新markerの単回profileだけを選択し、PR/standaloneはprofile0。
+
+通常Safari成功後の重複起動log stdoutがC37で継続していたため、status passed/checks非空alltrue/failures空の場合だけstdoutを省く。元logsとalways artifact uploadは保持。独立検査がchecks[null]のTypeErrorを再現し、check?.passedへ最小修正した。15統合fixtureと追加36workflow検査が成功。実harness＋偽Appium/session拒否でexit1/checks0/clips0/not startedと原理由が保持され、原report export成功・F3failure維持・新key欠落/改ざん拒否も確認。合成原5files計540051B（appium.log540000B）でstdout735707→90B。これらを実Safari/実CI成功とは呼ばない。
+
+## 比較と続行
+
+新全文E9比較は正式Ultra1人が全7+13units/両終端読了を申告し1746語・COMPARISON_ENDまで完了。出所認識yesでblind無効。対立時の判断理由の差では参照優位、人物自身の実用上の目的では同等というsource-known診断を受け、制作2人の似た応答構造を分ける英日6node候補を作成・凍結した。12本文だけ、旧8node/16本文と全条件/効果/分岐は保持、独立制作review blocking0。公開allowlist20fileとcontrolだけをevidenceへ保全する。製品root1094/srcは不変、新候補は別段階でbuild/英日12原画を確認後に採用する。別の明確なjournal期間不一致は原座標を記録し未修正。参照原文/詳細あらすじ/対応表は公開しない。
+
+原7比較filesはprivate archive71501Bに保全し、local ZIP再読取りCRC/全file SHA一致。正規private保存はsucceeded/71501B/version0を返した。remote byte再読取り/SHAは未実施。会話権限内のuploadだけで保全し、公開repoにはprivate原物・保存識別情報を入れない。
+
+全19 not measured/valid blind0/units0、71基準/参照・開始2026-09-13T20:56:49+09:00・期限2026-09-20T20:56:49+09:00・continuousを保持。最新の残時間と方法変更の効果はdeadline-receiptとSESSIONに記録する。保存前104pathの原物/公開/状態境界は別Ultraがblocking0で確認した。その後、別の独立36controls済みの本文build準備6pathを同じC38へ統合する。基点bf743の47inputs/root1094を保持し、helperは実git HEADを記録する。writerはgatesの既存prepare job以外全byteが不変であることを確認した。104pathの判断を新6pathへ拡張したとは言わない。
+
+この方法変更で、単回source phase計測と6node実build/12原画を同じCI周期に置き、専用prepareコミット/CIの一往復を省く。10 prepared originals＋13 route originalsの生成、実SHAと所要時間はこれから確認する。通常保存→単回細分profile/新転送と本文生成→原因別製品修復/新本文採用→PR16通常merge→Pages/F6の4assets照合へ進む。commit/CI/mainを全体完了にしない。
+
+旧環境消失の内部原因は未確認。今回のcapacity error後は保存済み原4logsと既存独立担当を確認して同一Ultraへ正規followupし、重複取得/子0でfreeze完了。追加subreviewはthreadlimit不受理、既存reviewer本人が検査した。model降格/制約迂回/automation変更0、親remote0、統合担当だけがwriter。

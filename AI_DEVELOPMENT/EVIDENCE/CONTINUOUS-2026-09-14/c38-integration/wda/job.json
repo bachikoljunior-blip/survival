@@ -1,0 +1,92 @@
+{
+  "id": 104094199386,
+  "run_id": 34879275702,
+  "workflow_name": "Floor gates",
+  "head_branch": "claude/repo-instructions-constraints-r0070m",
+  "run_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34879275702",
+  "run_attempt": 1,
+  "node_id": "CR_kwDOTmAlyc8AAAAYPH9uWg",
+  "head_sha": "bf743056ce143f09e4c6544ef1c7df4b73b232fd",
+  "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/jobs/104094199386",
+  "html_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34879275702/job/104094199386",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-09-14T18:11:22Z",
+  "started_at": "2026-09-14T18:11:26Z",
+  "completed_at": "2026-09-14T18:12:39Z",
+  "name": "Recover the original failed C36 PR WDA startup",
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-09-14T18:11:26Z",
+      "completed_at": "2026-09-14T18:11:27Z"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-09-14T18:11:27Z",
+      "completed_at": "2026-09-14T18:12:03Z"
+    },
+    {
+      "name": "Verify the fixed original repository artifact identity",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-09-14T18:12:03Z",
+      "completed_at": "2026-09-14T18:12:03Z"
+    },
+    {
+      "name": "Download the fixed original archive through the official GitHub API",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-09-14T18:12:03Z",
+      "completed_at": "2026-09-14T18:12:04Z"
+    },
+    {
+      "name": "Check original archive digest and export the startup files",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2026-09-14T18:12:04Z",
+      "completed_at": "2026-09-14T18:12:36Z"
+    },
+    {
+      "name": "Preserve recovered original WDA failure and verification",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6,
+      "started_at": "2026-09-14T18:12:36Z",
+      "completed_at": "2026-09-14T18:12:37Z"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 12,
+      "started_at": "2026-09-14T18:12:37Z",
+      "completed_at": "2026-09-14T18:12:37Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 13,
+      "started_at": "2026-09-14T18:12:37Z",
+      "completed_at": "2026-09-14T18:12:37Z"
+    }
+  ],
+  "check_run_url": "https://api.github.com/repos/bachikoljunior-blip/survival/check-runs/104094199386",
+  "labels": [
+    "ubuntu-latest"
+  ],
+  "runner_id": 1000039193,
+  "runner_name": "GitHub Actions 1000039193",
+  "runner_group_id": 0,
+  "runner_group_name": "GitHub Actions"
+}
