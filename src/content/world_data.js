@@ -468,6 +468,9 @@ avoid: [[-108, -92], [-53, -37]], lit: 0.0, boarded: 0.62, shop: false,
   for (const [x, z, s] of seeps) gasSources.push({ x, z, strength: s, radius: 17 });
   // The Stacks courtyard fills at night: this source is toggled by the story.
   gasSources.push({ x: -112, z: -84, strength: 1100, radius: 26, id: 'yard_seep', active: false });
+  // The compromise diverts a smaller draw into the same courtyard. The story
+  // switches these two authored emission states exclusively; they do not add.
+  gasSources.push({ x: -112, z: -84, strength: 700, radius: 26, id: 'yard_half_seep', active: false });
 
   covered.push({ x: -46, z: -118, w: 34, d: 24, amount: 0.85 });   // heat plant
   covered.push({ x: -58, z: 0, w: 26, d: 20, amount: 0.4 });       // the Slip

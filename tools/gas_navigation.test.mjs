@@ -21,7 +21,7 @@ function ventWorld() {
   city.gas=new GasField(-150,-130,160,140);
   for(const p of data.props.filter(p=>p.kind==='vent'&&p.id?.startsWith('vent_west_')))
     city._prop(new ChunkBuilder('test-vent'),p,new Rng(p.id));
-  for(const s of data.gasSources.filter(s=>s.id==='yard_seep'))
+  for(const s of data.gasSources.filter(s=>s.id==='yard_seep'||s.id==='yard_half_seep'))
     city.gas.addSource(s.x,s.z,s.strength,s.radius,s.id,s.active!==false);
   city.gas.bake();
   const markerCalls=[];
@@ -43,11 +43,27 @@ test('legacy choice flags restore omitted source IDs while explicit source state
     const before=state.serialise();delete before.t;
     Director.prototype._restoreGas.call({game,state},{gasSources:[]});
     assert.deepEqual([1,2,3].map(i=>game.gas.sources.find(s=>s.id===`vent_west_${i}`).active),expected);
+    assert.equal(game.gas.sources.find(s=>s.id==='yard_half_seep').active,flag==='vents_half');
     const after=state.serialise();delete after.t;assert.deepEqual(after,before);
     Director.prototype._restoreGas.call({game,state},{gasSources:[['vent_west_2',true]],gasIntensity:1.6});
     assert.equal(game.gas.sources.find(s=>s.id==='vent_west_2').active,true);
     assert.equal(game.gas.globalScale,1.6);
   }
+});
+test('the compromise diverts a smaller real gas field into the yard without doubling the full draw',()=>{
+  const {game}=ventWorld(),hooks=Director.prototype._hooks.call({game});
+  const clear=game.gas.sample(-112,1.4,-84);
+  hooks.halfVents();game.gas.bake();
+  const half=game.gas.sample(-112,1.4,-84);
+  assert.ok(half>clear+200);
+  assert.equal(game.gas.sources.find(s=>s.id==='yard_seep').active,false);
+  assert.equal(game.gas.sources.find(s=>s.id==='yard_half_seep').active,true);
+  hooks.shutVents();game.gas.bake();
+  assert.ok(game.gas.sample(-112,1.4,-84)>half);
+  assert.equal(game.gas.sources.find(s=>s.id==='yard_half_seep').active,false);
+  const state=new GameState();state.set('vents_half');
+  Director.prototype._restoreGas.call({game,state},{gasSources:[['yard_half_seep',false]],gasIntensity:1.15});
+  assert.equal(game.gas.sources.find(s=>s.id==='yard_half_seep').active,false,'explicit newer save state stays authoritative');
 });
 test('the live fixed-update path publishes bounded gas refreshes, including later intensity changes',()=>{
   const nav=flat(100),gas=new GasField(0,0,100,100);

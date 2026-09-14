@@ -156,12 +156,15 @@ seconds and I already know which one I believe.`);
           g.atmos.plumes.setAnchorActive(`vent_west_${i}`, false);
         }
         g.gas.setSourceActive('yard_seep', true);
+        g.gas.setSourceActive('yard_half_seep', false);
         g.hud.notice(t('ui.hud.drawreverses', 'The draw reverses. You can hear it change.'), '', 5);
       },
       halfVents: () => {
         g.gas.setSourceActive('vent_west_2', false);
         g.atmos.setMarkerActive('vent_west_2', false);
         g.atmos.plumes.setAnchorActive('vent_west_2', false);
+        g.gas.setSourceActive('yard_seep', false);
+        g.gas.setSourceActive('yard_half_seep', true);
         g.gas.setIntensity(1.15);
         g.hud.notice(t('ui.hud.halfvents',
           'One head shut. Both places are worse than one could have been.'), '', 5);
@@ -1445,6 +1448,8 @@ she has been able to get to telling somebody.`],
         !(this.state.has('vents_shut') || (i === 2 && this.state.has('vents_half'))));
     }
     if (!sources.has('yard_seep') && this.state.has('vents_shut')) sources.set('yard_seep', true);
+    if (!sources.has('yard_half_seep')) sources.set('yard_half_seep',
+      this.state.has('vents_half') && !this.state.has('vents_shut'));
     for (const [id, active] of sources) {
       g.gas.setSourceActive(id, active);
       g.atmos.setMarkerActive(id, active);

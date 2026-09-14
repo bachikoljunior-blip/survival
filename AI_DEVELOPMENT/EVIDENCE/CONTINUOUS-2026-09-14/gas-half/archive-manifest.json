@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-09-14T11:09:46.558914+09:00",
+  "raw_archive_sha256": "4f7dda03c77a3541775efbe9d0141133c8295e809897dd06b7fbb3680b541f59",
+  "review_sha256": "6bd9550f4d9fc703843390cdf69b745b0447195b150330cf7003f7c375729ea0",
+  "entries": [
+    {
+      "path": "gas-half-baseline.json",
+      "sha256": "333e40a178d86c28290c30d2deee58e73be0fec634232413a524af683ab244eb",
+      "bytes": 6385
+    },
+    {
+      "path": "gas-half-consequence-probe.mjs",
+      "sha256": "9b67b524a2ce0b769a8d55be24776cf65c5bbcf0c1dfd33c3b766cb270317165",
+      "bytes": 8735
+    },
+    {
+      "path": "gas-half-consequence-cpu-evidence.json",
+      "sha256": "2bfb5c58c7fb5e4760998769b0da38e79f761261905292ba21b5f0f1dd3f43b3",
+      "bytes": 27881
+    },
+    {
+      "path": "gas-half-save-probe-v1.mjs",
+      "sha256": "768fadb9ba3ddd937c9866b73c745766edfd5a8946bdeee9309b86661228a40f",
+      "bytes": 15612
+    },
+    {
+      "path": "gas-half-save-probe.mjs",
+      "sha256": "a14a886366281de113e9066dc500e0d447eff4b6f2fc0367e86894ac15ef0635",
+      "bytes": 16148
+    },
+    {
+      "path": "gas-half-save-cpu-evidence.json",
+      "sha256": "490d2a65c23d64990fa1fbc6fa5a8adc2793f4a6f1f3ec419ff775facf1800fe",
+      "bytes": 159054
+    },
+    {
+      "path": "gas-half-save-cpu-evidence-v2.json",
+      "sha256": "a0f12760f64961d954c571175b305190670d5a226c780ee50372ce8601bc3e22",
+      "bytes": 180981
+    },
+    {
+      "path": "gas-half-source-manifest.json",
+      "sha256": "ee75ff18b7e1e743b595bfcee82505e643d80619e950598319caf7c86a834e8b",
+      "bytes": 362
+    },
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a",
+      "bytes": 2944
+    },
+    {
+      "path": "gas-half-source/src/content/world_data.js",
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+      "bytes": 45904
+    },
+    {
+      "path": "gas-half-source/src/game/director.js",
+      "sha256": "5a9dd9aebd23227632b1609c6a26a508e26e3e0eba6adffb715d883463893f7c",
+      "bytes": 73364
+    },
+    {
+      "path": "gas-half-save-refutation.json",
+      "sha256": "54604a1db6226873556fdec5fbfaf290cb936ee5dcc07b5fa7cb2f2cca42531d",
+      "bytes": 44785
+    }
+  ],
+  "scope": "Independent CPU source-bound 24 consequence plus 44 save/reset checks. No browser or blind verdict. Extract beside a checkout named survival to reproduce the probes.",
+  "additional_raw_regression_logs": [
+    {
+      "name": "half-regression-tests.log",
+      "sha256": "c84cd2b25ea5be69d93a4aaef04b95a0566c881327e1ff8c6dff1545f01aad77",
+      "checks": 44
+    },
+    {
+      "name": "half-render-input-regressions.log",
+      "sha256": "1e01db5b04802fd0a212b2e69f232c36c24ae9d9cd85769bcc94e436cfcaa354",
+      "checks": 19
+    }
+  ]
+}

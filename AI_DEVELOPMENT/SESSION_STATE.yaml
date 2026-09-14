@@ -17,21 +17,22 @@ repository:
   initial_remote_commit: d5369219a99c37191e4affd170a752142a6cdc63
 checkpoint:
   foreground_status: active
-  last_progress_at: "2026-09-14T10:42:17.789118+09:00"
-  verified_commit: "d19c4240c8dd83b72530abe780315c456367358f"
-  verified_build_sha256: "47b16b8b658ba4881f73afdc94c4871924dcc3f6be2941a77a318100bb835897"
-  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/faults-d19c424/provenance.json"
-  last_verified_action: "d19c424 実WebKit通常148/148・例外復旧42/42成功。5場面の影を元casterと同姿勢で独立画像検査し、影更新とArcade浮遊小物除去を確認。屋上の上半身が暗い壁に埋もれる所見は未解消。全19要素not measured。"
-  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-d19c424/provenance.json"
-  pending_build_sha256: "58b10c7f913676be143dc90d4b4a87e671c473dfd0119de1b5f3e5c93bad4920"
-  modified_but_unverified: "ガス孔頭ID/旧save欠落ID復元と、実行時のgas/nav更新を修正。4mで実AIが6.16m迂回して到着。途中経路方式は50m壁で停止したため退け、1tick700展開の継続A*へ変更。同じ壁を実AI/物理で43.83秒、61.27mで迂回し到着。現ソースCPU62/62成功、最終独立反証中。実WebKitの選択・保存復元・実音声+映像採取は次CIで実行。半閉鎖yardと屋上可読性は未解消。"
-  next_action: "この変更と原証拠を同指定ブランチへ保存し、実WebKit通常/例外復旧CIを実行。ガス選択と旧save復元、録画された実音声・映像を確認し失敗を修正。半閉鎖yardの帰結と屋上可読性/支持小物の撮影を改善。実参照資料取得と品質を変えないブラインド比較方法を続ける。"
+  last_progress_at: "2026-09-14T11:29:45.379298+09:00"
+  verified_commit: "ae50ac9b8a072ee0e91617a703a0116ee68534f7"
+  verified_build_sha256: "58b10c7f913676be143dc90d4b4a87e671c473dfd0119de1b5f3e5c93bad4920"
+  evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/faults-ae50ac9/provenance.json"
+  last_verified_action: "ae50ac9 実WebKit通常161/161・例外復旧42/42成功。全閉鎖で庭14→669.1ppm、live nav反映、実saveと欠落ID復元を確認。WebKitにMediaRecorderがなく録音0件。最終gas/nav独立CPUレビューの原証拠を保持。全19要素not measured。"
+  current_browser_evidence: "AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/webkit-ae50ac9/provenance.json"
+  pending_build_sha256: "0ff8c1041edf89a6b28bef4b77798eb24f5715c83dbe5dd62d1797ffa2ac0e05"
+  modified_but_unverified: "半閉鎖専用yard sourceを実装し、独立CPU24帰結＋44保存/再開始検査成功。3択の庭は14/483.94/711.31ppmで実Actor/Lungs・canSeeへの差を測定。現行回帰は63/63成功。半閉鎖の実WebKit choice/save復元、既存CI Chromiumの実音声映像採取は次CI未検証。取得経路の独立CPU検査は分岐7ケース/実City結合18件成功との中間報告、別担当反証は未確定。屋上可読性は未解消。"
+  next_action: "半閉鎖・CI音声取得経路と原証拠を指定ブランチへ保存しリモート照合、実WebKit＋fault＋Chromium録音結果を取得。録音ファイルをデコードし実内容確認。細かな描画修正より有効な比較を一つ通すことを優先。E-12の実参照音声を取得したがnative audio input非対応を確認したため、音声評価機能を探しつつ、画像と操作記録で評価可能なE-14の参照メニューも取得する。各比較の範囲/出所認識を確認し未測定を偽の達成にしない。"
 
+  deadline_assessment: "2026-09-14ユーザー追記: 適宜期限内達成を評価し、届かないなら進め方が誤っている可能性を検証する。現時点で19要素の有効な比較0件、今の進み方のまま期限内完全達成は厳しい。細部修正を増やす進め方を改め、現在の小修正を保存後、取得→匿名化→評価の実成立を優先する。基準/期限は変更しない。"
   elements: AI_DEVELOPMENT/BENCHMARKS/elements.json
   blockers:
     - "初回映像比較で参照の出所認識が起きたため無効。全19要素に有効なブラインド比較がまだない。期限内完全達成を裏付ける進捗はまだないため、製品修正と比較成立を並行して進める"
-    - "d19c424実WebKit通常148/148・fault42/42成功。新しいgas/nav/save復元と音声採取は未検証。許可された既存CIで実行し、旧環境のbrowser保護を迂回しない"
+    - "ae50ac9実WebKit通常161/161・fault42/42成功。WebKit MediaRecorder欠落を実測。既存CIのChromiumで音声映像採取へ方法を変更し、旧環境のbrowser保護を迂回しない"
     - "通常Gitの認証は利用できない。接続済みGitHubアプリの正規書込みで同ブランチへ保存・再読取が成功済み。旧自動承認拒否は履歴として保存し、保護の迂回はしない"
     - "Factorio公開GUI demoの通常GETはHTTP403で取得不可。既存の実headless保存/移行結果は保持するが、GUIのブラインド比較を実施したとは扱わない"
   recovery: "実際の同じリモートブランチと保存差分を照合して未完了地点から続行。開始時刻と期限はリセットしない。旧6d8ff473は環境再作成で失われたローカルコミットであり、今回の証拠は新ツリーで再取得した。旧ビルドの証拠を無条件適用しない"
-  continuation_mechanism: "Work Mode の survival 継続実行 予約を作成し enabled を確認。1時間ごとの再開判定であり常時稼働する処理ではない。再開要求の受信を確認。継続の成功を予約だけで保証しない。foreground活動中は競合変更をせず、外部GitHub Autopilotは停止を維持"
+  continuation_mechanism: "Work Mode既存の survival 継続実行 を、主実行停止時の再発火役へ更新し、正確なprompt・有効状態・既存予定の保持を再読取確認した。停止原因の全件調査→修正可能な全原因の修正→再発防止の検証→保存された未完了地点の再開→実進捗確認を指示。稼働中は競合変更しない。変更不可能な安全/権限/環境上限は迂回せず記録。設定更新は未来の復旧成功の証拠ではない。証拠: AI_DEVELOPMENT/EVIDENCE/CONTINUOUS-2026-09-14/resume-watchdog.json"

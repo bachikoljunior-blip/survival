@@ -1,0 +1,146 @@
+{
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Required schema placeholder. No media quality, element satisfaction, or product score was measured. Verdict applies only to the bounded source and fault-injection review.",
+  "round": "mobile-audio-capture-source-r3",
+  "profile": "read-only-source-and-node-faults",
+  "tier": "medium-requested-not-rendered",
+  "nativeResolution": "0x0",
+  "blindComparison": "Not performed. No browser, real recording, raster frame, reference work, or listener comparison was available in this bounded review. Which clip a stranger would prefer and why remain unmeasured.",
+  "reviewedAt": "2026-09-14T01:45:04.705Z",
+  "repository": "/workspace/scratch/0b7ad82bafe7/survival",
+  "reviewedSourceHashes": {
+    "tools/mobile_audio_capture.mjs": "047926fa22b722e4accb50aa1fb7bd37642f7338c0ef7bcd197d0e857a529bda",
+    "tools/test-iphone-webkit.mjs": "1a6c4df7a204b0f7130b8c778d3dcabe5e541a7b68089496239184fee2eabc1c",
+    "src/audio/audio.js": "b54ff04c92c5b533fb99ab063498424a4a9fbfaf1951b4529e34bef72ccd6b49",
+    "src/game/director.js": "6aa27295e0e5954ab7c6c762b61f93789a6a1528488a1c24e964289dea76bcec",
+    "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+    "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+    "src/content/world_data.js": "1699ecc5c1990eb72507e72068d12b267b24d3fc0a1211b1f45ed73d28c6cbbd"
+  },
+  "scope": {
+    "included": [
+      "New tools/mobile_audio_capture.mjs and its audio-specific integration additions in tools/test-iphone-webkit.mjs",
+      "Read-only checks against actual production Audio API, settings, new-game setup, door transition and world interaction data",
+      "Exact helper-body execution with deterministic VM mocks for capability, acquisition, recording, cleanup and combined faults",
+      "Installed Playwright error serialization source/Node checks"
+    ],
+    "excluded": [
+      "Browser/server launch, remote operation and product edits",
+      "Other concurrent test runner additions including gas probes",
+      "Actual production AudioContext, MediaRecorder, codec support or decodable media acquisition",
+      "Non-silence, channel quality, audiovisual synchronization, speaker output, mobile frame rate, touch route completion and reference or blind comparison"
+    ],
+    "noElementSatisfaction": true
+  },
+  "findings": [],
+  "addressedCandidates": [
+    {
+      "id": "recording_exception_cleanup",
+      "initialSourceHash": "8210c9741d38c0fac3e90df5e8b46d7695d411e9bab321fce9fe3f74535a0b10",
+      "status": "addressed",
+      "evidence": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe-initial.json",
+      "resolution": "All setup begins inside try; created tracks are registered immediately. Stop, disconnect and every track stop are attempted independently, global handle is cleared, and original settings restore in finally. Every tested allocation/start/connect failure now releases already-created tracks."
+    },
+    {
+      "id": "hardcoded_webkit_evidence_label",
+      "status": "addressed",
+      "evidence": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe-aa89d9fd.json",
+      "resolution": "Scope interpolates report.browser and records it explicitly; normal and Chromium mock cases report no label mismatch."
+    },
+    {
+      "id": "combined_primary_cleanup_diagnostics",
+      "status": "addressed",
+      "initialSourceHash": "aa89d9fd746f90803874f9601c5606c229fa0aee6f1dceab1e5d56c91fc52879",
+      "previousReview": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-review-aa89d9fd.json",
+      "resolution": "Setup, recording, per-clip and outer cleanup now preserve essential primary and release-error messages in surfaced text. Each independent cleanup/settings step is attempted. All three combined cases in the original 20-fixture probe retain both messages; a separate six-case installed Playwright serialization probe retains all required messages in final stack-only reporting, including keyboard release and settings restoration faults.",
+      "evidence": [
+        "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe-047926fa.json",
+        "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe-047926fa.json",
+        "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-refutation-047926fa.json"
+      ],
+      "refutation": {
+        "agent": "/root/shadow_batch_review/refuter",
+        "survives": false
+      }
+    }
+  ],
+  "verifiedSourceClaims": [
+    "Production Audio._create connects masterGain to comp to ctx.destination. Capture adds a comp output to a new MediaStreamAudioDestination and disconnects only that added destination. No replacement AudioContext, synthesized test tones, compressor changes or forced volume values appear in the helper.",
+    "ready, unlocked, ctx, ambienceState, musicState, _voiceList and gain fields match production Audio. The caller checks no context before its first user gesture. The helper requests a normal trusted touchscreen tap and observes the existing context.",
+    "Only quality is changed to medium with existing settings spread through. Original settings are restored in finally, including when an ordinary independent cleanup step throws in the fault model.",
+    "Arcade placement finds the actual door_arcade interaction targeting arcade_in and awaits production Director.enterDoor, which sets currentInterior and mood/ppm and returns gameplay. Programmatic setup is disclosed in the evidence.",
+    "Missing recorder, captureStream or supported MIME marks acquisition not measured. The helper does not convert missing capabilities or present/nonzero tracks into an audio-quality verdict.",
+    "Normal and Chromium fixtures each traverse three mocked clips, preserve the original audible connection, stop tracks, clear the recording handle, release W, restore settings and record no failing mock checks."
+  ],
+  "observations": [
+    "Mock clip bytes are explicit unit fixture bytes held by a write spy; no media files were generated. Passing these source probes cannot prove actual capture works.",
+    "Actual scene ambience is recorded rather than forced. Existing interior/zone ambience routing is unchanged and not an issue attributed to these additions.",
+    "Readiness is observed immediately after the tap; no supported-run timing failure was established, so a hypothetical first-unlock timing concern is not promoted to a finding.",
+    "A cleanup/settings API deliberately made to persistently throw cannot be guaranteed to complete; the helper attempts independent remaining work and exposes the failure. The caller closes the page/context/browser after an aborted run."
+  ],
+  "evidence": {
+    "probe": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe-047926fa.json",
+    "probeScript": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe.mjs",
+    "fixtureCount": 20,
+    "refutation": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-refutation-047926fa.json",
+    "initialRefutation": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-refutation-initial.json",
+    "errorBoundary": "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe-047926fa.json",
+    "errorBoundaryScript": "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe.mjs",
+    "errorBoundaryFixtureCount": 6,
+    "rejectedIntermediateProbe": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-probe-aa89d9fd.json",
+    "rejectedIntermediateRefutation": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-refutation-aa89d9fd.json",
+    "rejectedIntermediateReview": "/workspace/scratch/0b7ad82bafe7/mobile-audio-capture-source-review-aa89d9fd.json",
+    "rejectedIntermediateErrorBoundary": "/workspace/scratch/0b7ad82bafe7/mobile-audio-error-boundary-probe-aa89d9fd.json"
+  },
+  "independence": {
+    "author": "/root",
+    "critic": "/root/shadow_batch_review",
+    "refuter": "/root/shadow_batch_review/refuter",
+    "skill": ".claude/skills/critic/SKILL.md",
+    "overlay": "absent",
+    "readmeRead": false,
+    "productEdits": false,
+    "browserExecuted": false,
+    "remoteOperations": false
+  },
+  "validation": {
+    "ok": true,
+    "failures": [],
+    "warnings": []
+  },
+  "verification": {
+    "syntax": {
+      "commands": [
+        "node --check tools/mobile_audio_capture.mjs",
+        "node --check tools/test-iphone-webkit.mjs"
+      ],
+      "passed": true
+    },
+    "exactSourceVM": {
+      "command": "node ../mobile-audio-capture-source-probe.mjs",
+      "fixtures": 20,
+      "regressionAssertionsPassed": true,
+      "checks": [
+        "Normal and Chromium complete three mocked clips with no failed checks",
+        "Unsupported recorder/capture/MIME paths explicitly remain not measured",
+        "Every injected fault surfaces, and primary plus cleanup messages remain for all three combined faults",
+        "Original audible connection remains, recording handle is removed, settings restore and W is released in all original 20 fixtures",
+        "Tracks stop except the single video track whose own stop is deliberately made to persistently throw; independent audio cleanup still runs"
+      ]
+    },
+    "separateBoundaryProbe": {
+      "command": "node ../mobile-audio-error-boundary-probe.mjs",
+      "fixtures": 6,
+      "allPassed": true,
+      "checks": [
+        "Every mocked page.evaluate exception crosses installed Playwright serializeError/parseError",
+        "Final stack-only report retains primary plus cleanup/input/settings messages",
+        "All tracks end and recording handles clear in these fixtures",
+        "Keyboard release failure does not skip recording cleanup or settings restoration attempts",
+        "When settings restoration itself is made to throw, its failure surfaces and restoration is marked attempted rather than falsely completed"
+      ]
+    },
+    "limitations": "These are exact-source control-flow and installed serializer tests with fake browser/audio/media APIs. They do not execute WebKit, capture real audio/video, decode a clip, judge sound quality, compare references or satisfy product elements."
+  }
+}

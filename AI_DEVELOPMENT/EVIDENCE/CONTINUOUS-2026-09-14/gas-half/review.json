@@ -1,0 +1,409 @@
+{
+  "round": "ae50ac9-pending-half-diversion-source-cpu-review",
+  "profile": "Independent source and actual CPU integration",
+  "tier": "not raster-assessed",
+  "nativeResolution": "0x0",
+  "nativeResolutionMeaning": "No raster measurement.",
+  "verdict": "PASS",
+  "score": 0,
+  "scoreMeaning": "Required schema placeholder for an unscored correctness review; not a quality score.",
+  "verdictScope": "The small half-diversion source activation, normal save/restore, restart and the recorded concentration/nav/perception/exposure consequences pass within the stated source/CPU boundary. This does not pass a concept element or any reference criterion.",
+  "blindComparison": "No blind comparison was performed. The reviewers knew the product identity and used no reference media. No preference is asserted for the named criteria or three-choice quality, and E-13 remains not measured.",
+  "checkedAt": "2026-09-14T02:02:31.638305+00:00",
+  "target": {
+    "baseCommit": "ae50ac9b8a072ee0e91617a703a0116ee68534f7",
+    "branch": "claude/repo-instructions-constraints-r0070m",
+    "uncommittedWorktree": true,
+    "changedFiles": [
+      "src/content/world_data.js",
+      "src/game/director.js"
+    ],
+    "sourceHashes": {
+      "src/content/world_data.js": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+      "src/content/story.js": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+      "src/world/city.js": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5",
+      "src/world/gas.js": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+      "src/world/nav.js": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+      "src/world/collision.js": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+      "src/game/game.js": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+      "src/game/director.js": "5a9dd9aebd23227632b1609c6a26a508e26e3e0eba6adffb715d883463893f7c",
+      "src/game/ai.js": "349821330229e32653cdb362e5331bde535fbfd5340fb8faafa7562bff844e7b",
+      "src/actors/actor.js": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+      "src/game/state.js": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+      "src/game/narrative.js": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+      "src/main.js": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+      "src/core/util.js": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399"
+    },
+    "frozenChangedSources": "gas-half-source/",
+    "sourceManifest": "gas-half-source-manifest.json",
+    "build": "No half-fix build or browser run is asserted; the baseline ae50ac9 distributable does not contain this local change.",
+    "sourceBinding": [
+      {
+        "path": "src/content/world_data.js",
+        "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8",
+        "binding": "frozen changed source"
+      },
+      {
+        "path": "src/content/story.js",
+        "sha256": "d815a35ec3f88eeb9b4440872f530a2afedabf72f295504ca8b691b59a51fcda",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/world/city.js",
+        "sha256": "b3ab335e126c82b0de765725f1608b19e5a49396c58c69a7f4f9a2a6515ba9b5",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/world/gas.js",
+        "sha256": "046c632efc6ccd632dd5741089642e6c70cf4016b238b3fe007e6cf6172c055d",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/world/nav.js",
+        "sha256": "0331e0fd05d503ee1f7d83c5c78d575b44b077c480a9817327aab74c76836234",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/world/collision.js",
+        "sha256": "72c0378ef6bf5bdb0cb164e920bd05f449eefffa3d176b47ca389abc52637a04",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/game/game.js",
+        "sha256": "c2d744ad715ffbbaefd8baf19d23f29c341db039342db5e578534278ae0e5015",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/game/director.js",
+        "sha256": "5a9dd9aebd23227632b1609c6a26a508e26e3e0eba6adffb715d883463893f7c",
+        "binding": "frozen changed source"
+      },
+      {
+        "path": "src/game/ai.js",
+        "sha256": "349821330229e32653cdb362e5331bde535fbfd5340fb8faafa7562bff844e7b",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/actors/actor.js",
+        "sha256": "b1323ed75ab305544abd255c5df37fc9e7c2e12fc0b8f4be6357c7b5e18c6c4f",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/game/state.js",
+        "sha256": "ad1cd826a7d55a329e74e6a988c1441d4852675b2abc8e0e07df672af42dd7cc",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/game/narrative.js",
+        "sha256": "0df96c19ae9bf7c398d412fabe08a4026f676809139d4de023a5d14c2f3485a6",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/main.js",
+        "sha256": "7efcb13857a13106c6ac956626d8f7d3b5a188e2ca75247b06ff179ce1900760",
+        "binding": "baseline git object"
+      },
+      {
+        "path": "src/core/util.js",
+        "sha256": "63562699248b3bb7d2c3be2b11d0cd5adfe897ee7fb928215ec92f980a908399",
+        "binding": "baseline git object"
+      }
+    ]
+  },
+  "element": {
+    "id": "E-13",
+    "benchmark": "BM-HAZ-03",
+    "status": "not measured"
+  },
+  "findings": [],
+  "scope": {
+    "measured": [
+      "Three fresh actual City instances with actual left/no hook, halfVents and shutVents behavior followed by 120 actual Game.fixedUpdate calls at 1/60 s.",
+      "Actual GasField sources and samples, bounded live NavGrid refresh and completed A* planned paths.",
+      "Actual Enemy.canSee with native CollisionWorld line of sight at the same fixed observer/target coordinates and facing.",
+      "Actual Actor._updateVitals/Lungs with a stationary scav and a field frozen after the two-second update.",
+      "Separate actual new and ae50-authored save/reset/applySave round trips, old missing-source fallback and unchanged startNewGame callback execution."
+    ],
+    "substitutions": [
+      "City Canvas/text/material appearance is stubbed; no rendering occurs.",
+      "The perception targets and stationary observer are explicit diagnostic placements, not a recorded encounter.",
+      "Storage uses in-memory localStorage; save fixtures omit NPCs/hostiles, use null saved player, and record atmosphere call intents.",
+      "The new-game callback is actual source, while HUD/fade/teleport/player presentation uses substitutes; UI/event activation and real Actor motion in that flow are not measured."
+    ],
+    "notMeasured": [
+      "Any browser/WebKit/physical-device behavior or performance for this half fix.",
+      "Player-screen visibility, actual plume/light pixels or narrative presentation.",
+      "Physical execution of the recorded real-City planned routes.",
+      "A three-way reference preference or satisfaction of the named 71 criteria."
+    ]
+  },
+  "baseline": {
+    "file": "gas-half-baseline.json",
+    "commit": "ae50ac9b8a072ee0e91617a703a0116ee68534f7",
+    "sourceHashesMatchedGitObjects": 3,
+    "yardPpmAfterTwoSeconds": {
+      "left": 14,
+      "half": 14,
+      "shut": 711.3145780408257
+    },
+    "interpretation": "The new half source fixes the previously unchanged courtyard field. Left and full-closure values are unchanged at the same sampled coordinate and matched update count."
+  },
+  "productionCpu": {
+    "file": "gas-half-consequence-cpu-evidence.json",
+    "checksPassed": 24,
+    "checksTotal": 24,
+    "yardSample": {
+      "x": -112,
+      "y": 1.4,
+      "z": -84
+    },
+    "afterSeconds": 2,
+    "choices": [
+      {
+        "choice": "left",
+        "yardPpm": 14,
+        "westPpm": [
+          {
+            "id": "vent_west_1",
+            "ppm": 2395.3548324928825
+          },
+          {
+            "id": "vent_west_2",
+            "ppm": 2500.3521917647377
+          },
+          {
+            "id": "vent_west_3",
+            "ppm": 1968.3507010807318
+          }
+        ],
+        "sourceStates": [
+          [
+            "vent_west_1",
+            true
+          ],
+          [
+            "vent_west_2",
+            true
+          ],
+          [
+            "vent_west_3",
+            true
+          ],
+          [
+            "yard_seep",
+            false
+          ],
+          [
+            "yard_half_seep",
+            false
+          ]
+        ],
+        "liveNavCost": 1.0855555534362793,
+        "sameTimeExpectedNavCost": 1.0855555555555556,
+        "maxNavSamplesPerTick": 4096,
+        "sightRange": 23.860799999999998,
+        "canSeeAt18m": true,
+        "canSeeAt20m": true,
+        "stationaryExposure": {
+          "firstDamageAt": null,
+          "duration": 600,
+          "hp": 62,
+          "dead": false,
+          "saturation": 0
+        }
+      },
+      {
+        "choice": "half",
+        "yardPpm": 483.9356797829575,
+        "westPpm": [
+          {
+            "id": "vent_west_1",
+            "ppm": 1786.0978575376457
+          },
+          {
+            "id": "vent_west_2",
+            "ppm": 1346.866543911506
+          },
+          {
+            "id": "vent_west_3",
+            "ppm": 1445.0685071202395
+          }
+        ],
+        "sourceStates": [
+          [
+            "vent_west_1",
+            true
+          ],
+          [
+            "vent_west_2",
+            false
+          ],
+          [
+            "vent_west_3",
+            true
+          ],
+          [
+            "yard_seep",
+            false
+          ],
+          [
+            "yard_half_seep",
+            true
+          ]
+        ],
+        "liveNavCost": 4.330374240875244,
+        "sameTimeExpectedNavCost": 4.370801364349392,
+        "maxNavSamplesPerTick": 4096,
+        "sightRange": 19.18829666958659,
+        "canSeeAt18m": true,
+        "canSeeAt20m": false,
+        "stationaryExposure": {
+          "firstDamageAt": 36.21666666666667,
+          "duration": 600,
+          "hp": 55.51980762068602,
+          "dead": false,
+          "saturation": 0.18560771034549833
+        }
+      },
+      {
+        "choice": "shut",
+        "yardPpm": 711.3145780408257,
+        "westPpm": [
+          {
+            "id": "vent_west_1",
+            "ppm": 99.52521685576151
+          },
+          {
+            "id": "vent_west_2",
+            "ppm": 116.6951279701008
+          },
+          {
+            "id": "vent_west_3",
+            "ppm": 104.83722437840066
+          }
+        ],
+        "sourceStates": [
+          [
+            "vent_west_1",
+            false
+          ],
+          [
+            "vent_west_2",
+            false
+          ],
+          [
+            "vent_west_3",
+            false
+          ],
+          [
+            "yard_seep",
+            true
+          ],
+          [
+            "yard_half_seep",
+            false
+          ]
+        ],
+        "liveNavCost": 5.958099365234375,
+        "sameTimeExpectedNavCost": 5.960371222720174,
+        "maxNavSamplesPerTick": 4096,
+        "sightRange": 16.92750076690836,
+        "canSeeAt18m": false,
+        "canSeeAt20m": false,
+        "stationaryExposure": {
+          "firstDamageAt": 14.566666666666666,
+          "duration": 303.73333333333335,
+          "hp": 0,
+          "dead": true,
+          "saturation": 0.27280885138385497
+        }
+      }
+    ],
+    "routeLimit": "Half and full closure return the same detour for the sampled corridor; only left returns the more direct plan. Three distinct physical routes are not claimed.",
+    "navLagLimit": "Live navigation is an incremental complete-grid snapshot. At two seconds, half live cost is 4.330374 while a simultaneous direct formula is about 4.370801; no instantaneous equality is asserted.",
+    "exposureLimit": "The field is frozen after two simulated seconds and the scav does not move or escape. These results quantify game-model consequences, not a playthrough or real physiology."
+  },
+  "saveAndRestart": {
+    "file": "gas-half-save-cpu-evidence-v2.json",
+    "checksPassed": 44,
+    "checksTotal": 44,
+    "claims": [
+      "Current left/half/shut saves include an explicit boolean half-source row and restore the intended normal source configuration.",
+      "Actual ae50 left/half/shut saves omit the new source; the missing row is inferred only from the recorded choice flags.",
+      "Explicit source booleans remain authoritative; unrelated progression is preserved apart from serialise-generated top-level time metadata.",
+      "Actual startNewGame callback clears the three flags, returns both courtyard sources off and restarts the two initial quests.",
+      "After restart the live navigation reaches the reset field after one complete bounded sweep, measured at 13 ticks."
+    ],
+    "stabilization": "For save/config identity only, gas time and wind are unchanged and globalScale is set to target before actual bake+nav apply. This does not prove restoration of simulation time, wind, transient intensity or pixel appearance.",
+    "exclusivityLimit": "The two courtyard sources are exclusive for normally reachable three-choice states. An intentionally contradictory payload with both explicit source booleans true preserves both; this review does not assert exclusivity for every arbitrary payload.",
+    "firstProbeCorrection": {
+      "originalFile": "gas-half-save-cpu-evidence.json",
+      "originalScript": "gas-half-save-probe-v1.mjs",
+      "reason": "Six progression equality controls incorrectly compared top-level t generated anew by serialise(). The raw failure is retained. Version 2 verified that t was the only changed key and excludes only that metadata from semantic progression equality; all 44 controls then pass."
+    }
+  },
+  "independentRefutation": {
+    "reviewer": "/root/render_cost_review/refute_backdrop",
+    "path": "gas-half-save-refutation.json",
+    "sha256": "54604a1db6226873556fdec5fbfaf290cb936ee5dcc07b5fa7cb2f2cca42531d",
+    "verdict": "PASS",
+    "conclusion": "No additional confirmed defect within the source/CPU boundary. The independent reviewer confirmed 44 save/restart controls and checked the 24 consequence controls for unsupported claims. Limits on route identity, rendered vision, fixed exposure and nav lag are retained."
+  },
+  "measurementAndInference": {
+    "measured": "Activation booleans, ppm, grid publications/costs, native canSee booleans, planned paths, actor HP/saturation and save/reset/applySave callback outcomes.",
+    "inference": "These source connections show that the half choice reaches navigation, AI perception and the game exposure model. No element-level quality conclusion is inferred from those mechanics."
+  },
+  "probeDevelopment": {
+    "note": "A preliminary inline observer-placement probe had one syntax error before execution. The brace was fixed; no product finding or evidence claim was based on that failed parse."
+  },
+  "evidenceFiles": [
+    {
+      "path": "gas-half-baseline.json",
+      "sha256": "333e40a178d86c28290c30d2deee58e73be0fec634232413a524af683ab244eb"
+    },
+    {
+      "path": "gas-half-consequence-probe.mjs",
+      "sha256": "9b67b524a2ce0b769a8d55be24776cf65c5bbcf0c1dfd33c3b766cb270317165"
+    },
+    {
+      "path": "gas-half-consequence-cpu-evidence.json",
+      "sha256": "2bfb5c58c7fb5e4760998769b0da38e79f761261905292ba21b5f0f1dd3f43b3"
+    },
+    {
+      "path": "gas-half-save-probe-v1.mjs",
+      "sha256": "768fadb9ba3ddd937c9866b73c745766edfd5a8946bdeee9309b86661228a40f"
+    },
+    {
+      "path": "gas-half-save-probe.mjs",
+      "sha256": "a14a886366281de113e9066dc500e0d447eff4b6f2fc0367e86894ac15ef0635"
+    },
+    {
+      "path": "gas-half-save-cpu-evidence.json",
+      "sha256": "490d2a65c23d64990fa1fbc6fa5a8adc2793f4a6f1f3ec419ff775facf1800fe"
+    },
+    {
+      "path": "gas-half-save-cpu-evidence-v2.json",
+      "sha256": "a0f12760f64961d954c571175b305190670d5a226c780ee50372ce8601bc3e22"
+    },
+    {
+      "path": "gas-half-source-manifest.json",
+      "sha256": "ee75ff18b7e1e743b595bfcee82505e643d80619e950598319caf7c86a834e8b"
+    },
+    {
+      "path": "cpu-city-fixture-v2.mjs",
+      "sha256": "c3149af75ecc2505acabf9076c3273f5d2301946354a9cd225a7dc9acc55257a"
+    },
+    {
+      "path": "gas-half-source/src/content/world_data.js",
+      "sha256": "b4610034e662b1275ba507c33bbca3c29e069e84fb10070c233386ea4f3f8fa8"
+    },
+    {
+      "path": "gas-half-source/src/game/director.js",
+      "sha256": "5a9dd9aebd23227632b1609c6a26a508e26e3e0eba6adffb715d883463893f7c"
+    },
+    {
+      "path": "gas-half-save-refutation.json",
+      "sha256": "54604a1db6226873556fdec5fbfaf290cb936ee5dcc07b5fa7cb2f2cca42531d"
+    }
+  ]
+}

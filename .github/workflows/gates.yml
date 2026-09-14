@@ -90,6 +90,25 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+      # This WebKit build exposes no MediaRecorder. Use the already installed
+      # Chromium only to acquire actual sound and simultaneous world video;
+      # it does not replace any WebKit surface or fault-recovery measurements.
+      - name: Capture production sound and video in Chromium
+        if: ${{ !cancelled() }}
+        env:
+          CINDERLINE_BROWSER: chromium
+          CINDERLINE_AUDIO_ONLY: "1"
+          CINDERLINE_WEBKIT_OUTPUT: test-results/mobile-audio
+        run: npm run test:iphone-webkit
+      - name: Preserve original production audiovisual recordings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-audio-${{ github.sha }}
+          path: test-results/mobile-audio
+          if-no-files-found: error
+          retention-days: 14
+
   f5-review-record:
     name: F5 review record
     runs-on: ubuntu-latest
