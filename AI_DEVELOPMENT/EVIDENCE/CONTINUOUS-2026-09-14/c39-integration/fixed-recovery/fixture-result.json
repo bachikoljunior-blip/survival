@@ -1,0 +1,228 @@
+{
+  "status": "passed",
+  "syntheticOnly": true,
+  "actualOriginalZipRecovered": false,
+  "actualOriginalCompressionRatioMeasured": false,
+  "testsPassed": 45,
+  "tests": [
+    {
+      "name": "all frozen original provenance/failure constants match actual C38 log summary",
+      "passed": true
+    },
+    {
+      "name": "actual saved run-artifact metadata matches production PIN",
+      "passed": true
+    },
+    {
+      "name": "actual candidate verifies ZIP CRC and lossless gzip with original failure preserved",
+      "passed": true
+    },
+    {
+      "name": "production raw32MiB/gzip8MiB/archive32MiB limits are fixed and distinct",
+      "passed": true
+    },
+    {
+      "name": "separate fixed-failure recovery preserves more-than8MiB raw fixture inside explicit32MiB bound",
+      "passed": true
+    },
+    {
+      "name": "artifact digest mismatch",
+      "passed": true
+    },
+    {
+      "name": "archive exact length mismatch",
+      "passed": true
+    },
+    {
+      "name": "metadata id",
+      "passed": true
+    },
+    {
+      "name": "metadata name",
+      "passed": true
+    },
+    {
+      "name": "metadata size_in_bytes",
+      "passed": true
+    },
+    {
+      "name": "metadata digest",
+      "passed": true
+    },
+    {
+      "name": "expired original artifact",
+      "passed": true
+    },
+    {
+      "name": "wrong original source head",
+      "passed": true
+    },
+    {
+      "name": "missing root report",
+      "passed": true
+    },
+    {
+      "name": "unsafe path ../escape",
+      "passed": true
+    },
+    {
+      "name": "unsafe path /absolute",
+      "passed": true
+    },
+    {
+      "name": "unsafe path C:/absolute",
+      "passed": true
+    },
+    {
+      "name": "unsafe path bad\\path",
+      "passed": true
+    },
+    {
+      "name": "duplicate report path",
+      "passed": true
+    },
+    {
+      "name": "archive symbolic link",
+      "passed": true
+    },
+    {
+      "name": "original selected report CRC mismatch",
+      "passed": true
+    },
+    {
+      "name": "raw report bound",
+      "passed": true
+    },
+    {
+      "name": "shared gzip payload bound",
+      "passed": true
+    },
+    {
+      "name": "Appium log raw bound",
+      "passed": true
+    },
+    {
+      "name": "shared total raw bound",
+      "passed": true
+    },
+    {
+      "name": "missing original Appium log",
+      "passed": true
+    },
+    {
+      "name": "original selected Appium CRC mismatch",
+      "passed": true
+    },
+    {
+      "name": "declared expansion bound",
+      "passed": true
+    },
+    {
+      "name": "invalid UTF8 report",
+      "passed": true
+    },
+    {
+      "name": "duplicate JSON key",
+      "passed": true
+    },
+    {
+      "name": "NaN JSON",
+      "passed": true
+    },
+    {
+      "name": "rewritten success",
+      "passed": true
+    },
+    {
+      "name": "hidden original drop",
+      "passed": true
+    },
+    {
+      "name": "wrong transfer provenance",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_ACTIONS",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_REPOSITORY",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_WORKFLOW",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_EVENT_NAME",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_REF",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_RUN_ATTEMPT",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_SHA",
+      "passed": true
+    },
+    {
+      "name": "environment GITHUB_RUN_ID",
+      "passed": true
+    },
+    {
+      "name": "exact first source Floor environment and unique marker accepted",
+      "passed": true
+    },
+    {
+      "name": "old profile marker does not enable archive recovery",
+      "passed": true
+    },
+    {
+      "name": "actual CLI emits both ordered gzip streams and identical member manifest with original failure",
+      "passed": true
+    }
+  ],
+  "syntheticSmall": {
+    "rawBytes": 17661,
+    "zipBytes": 1216,
+    "gzipBytes": 1036
+  },
+  "syntheticLargeWhitespace": {
+    "rawBytes": 8406269,
+    "gzipBytes": 9299
+  },
+  "actualCliWire": {
+    "files": [
+      {
+        "file": "report.json.gz",
+        "encoding": "gzip",
+        "bytes": 958,
+        "sha256": "8598ecf8dcacec6bad4be62a1dc16dcdc2462b380c4aba25e59e0a85f5ce9f13",
+        "rawFile": "report.json",
+        "rawBytes": 17661,
+        "rawSha256": "e1fbee64f8271991117c72606d62748603fe7a25e04fb9d366844a1b4d126d2c",
+        "originalMemberCrc32": "4eb24906",
+        "rawLimitBytes": 33554432,
+        "total": 1
+      },
+      {
+        "file": "appium.log.gz",
+        "encoding": "gzip",
+        "bytes": 78,
+        "sha256": "25789fbc4765d489d8f953c28658074edc5bc67639df1bdf0969a7c7afb37eb6",
+        "rawFile": "appium.log",
+        "rawBytes": 58,
+        "rawSha256": "0e5b6c50e36ddfad58a2b4a24e10b137fb2002fcf5530781d03af9bfc7cd1c09",
+        "originalMemberCrc32": "8c060f45",
+        "rawLimitBytes": 8388608,
+        "total": 1
+      }
+    ],
+    "gzipTotalBytes": 1036,
+    "originalStatus": "failed"
+  }
+}

@@ -33,6 +33,8 @@ const PLATFORM_VERSION = process.env.IOS_SIMULATOR_PLATFORM_VERSION || '';
 const BOOT_TIMEOUT = Number(process.env.CINDERLINE_IOS_TIMEOUT || 240000);
 const SESSION_REQUEST_TIMEOUT = 900000;
 const CAPTURE_AUDIO = process.env.CINDERLINE_IOS_AUDIO_CAPTURE === '1';
+const SAFARI_BOOTSTRAP_PATH = '/__ios_safari_bootstrap__.html';
+const SAFARI_BOOTSTRAP_HTML = '<!doctype html><html><head><meta charset="utf-8"><title>Safari session ready</title></head><body><p id="ios-safari-bootstrap">Ready</p></body></html>';
 
 mkdirSync(OUTPUT, { recursive: true });
 
@@ -76,6 +78,20 @@ function startServer() {
   const server = createServer((request, response) => {
     if (audioTransfer?.handle(request, response)) return;
     let pathname = decodeURIComponent(new URL(request.url || '/', 'http://127.0.0.1').pathname);
+    if (pathname === SAFARI_BOOTSTRAP_PATH) {
+      // This one-response page must not leave a partial request blocking cleanup.
+      response.setHeader('connection', 'close');
+      response.once('finish', () => request.destroy());
+      if (request.headers.host !== `127.0.0.1:${server.address().port}`) {
+        response.writeHead(421); response.end(); return;
+      }
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        response.writeHead(405, { allow: 'GET, HEAD' }); response.end(); return;
+      }
+      response.writeHead(200, { 'content-type': mime['.html'], 'cache-control': 'no-store' });
+      response.end(request.method === 'HEAD' ? undefined : SAFARI_BOOTSTRAP_HTML);
+      return;
+    }
     if (pathname.endsWith('/')) pathname += 'index.html';
     const relative = normalize(pathname).replace(/^[/\\]+/, '').replace(/^(\.\.[/\\])+/, '');
     const file = join(DIST, relative);
@@ -318,6 +334,8 @@ try {
   }
   const baseUrl = EXTERNAL_URL || (localServer = await startServer()).url;
   report.baseUrl = baseUrl;
+  const bootstrapUrl = localServer ? new URL(SAFARI_BOOTSTRAP_PATH, baseUrl).href : null;
+  report.safariStartup = { method: bootstrapUrl ? 'local-deeplink' : 'driver-default', bootstrapUrl, verified: false };
   await waitForHttp(baseUrl);
   await waitForHttp(new URL('status', APPIUM_URL));
 
@@ -332,6 +350,9 @@ try {
           'appium:udid': UDID,
           'appium:platformVersion': PLATFORM_VERSION,
           'appium:noReset': true,
+          // Load an inspectable local document before the driver selects a
+          // webview. Force launch also applies this URL to an existing Safari.
+          ...(bootstrapUrl ? { 'appium:initialDeeplinkUrl': bootstrapUrl, 'appium:forceAppLaunch': true } : {}),
           // CI has already booted this simulator with simctl. Requiring a
           // desktop window makes Appium restart it before Safari can launch.
           // Native simulator screenshots/video remain available without it.
@@ -354,6 +375,15 @@ try {
     sessionId = sessions?.at?.(-1)?.id || '';
   }
   if (!sessionId) throw new Error('Appium did not return a session id');
+
+  if (bootstrapUrl) {
+    const page = await execute('return {url: location.href, ready: Boolean(document.getElementById("ios-safari-bootstrap"))};');
+    report.safariStartup.actual = page;
+    if (page?.url !== bootstrapUrl || page?.ready !== true) {
+      throw new Error(`Safari session bootstrap mismatch: ${JSON.stringify(page)}`);
+    }
+    report.safariStartup.verified = true;
+  }
 
   await webdriver(sessionPath('/orientation'), { body: { orientation: 'LANDSCAPE' } });
   await webdriver(sessionPath('/url'), { body: { url: baseUrl } });

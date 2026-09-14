@@ -1,0 +1,14 @@
+{
+  "status": "local receiver expectation corrected; original CI succeeded",
+  "firstFailureRecord": "recovery-failure.json",
+  "firstFailure": "Static root changed: index.html",
+  "cause": "The new receiver compared exported root index.html with public/index.html, which is the pre-build template. The old receiver used actual root-asset pins. This was a receiver porting error, not a changed CI static output.",
+  "correction": "Compare every original exported static root asset with the verified current baseline root bytes, and independently match their Git blobs to the canonical C38 static root tree entries.",
+  "canonicalRootPins": "authority/c38-static-root-pins.json",
+  "correctedReceiver": "recover.py",
+  "result": "All five original static root assets exactly unchanged; all 23 files fully reconstructed and verified.",
+  "originalLogRetrievals": 1,
+  "originalLogChanged": false,
+  "ciRetries": 0,
+  "productChangesForCorrection": 0
+}

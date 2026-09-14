@@ -1,0 +1,10 @@
+{
+  "policy": "Only the exact listed public summary bytes and this separately hash-pinned control file. Deny all other files and all directory/link traversal.",
+  "files": [
+    {
+      "path": "public-summary.json",
+      "bytes": 1455,
+      "sha256": "ca4227f20d994e371df76fe341da87fc10ef4fd08b5369b01a7a922e813ce5d6"
+    }
+  ]
+}

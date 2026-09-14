@@ -1,0 +1,236 @@
+{
+  "status": "finite reviewed two-original-file recovery candidate frozen",
+  "recordedAt": "2026-09-14T19:50:56.263509+00:00",
+  "baseHead": "61e8f8c595bde13634fe709f979816011df165d0",
+  "candidateFiles": [
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 32656,
+      "sha256": "737296093d9529e5aab8b2c4a8377cc082262eef0e6234caef54c5a0d3a8c660",
+      "blob": "685ce818fd514fc302f37822574d91eb3b018567"
+    },
+    {
+      "path": "tools/recover-ios-phase-c38.py",
+      "bytes": 13167,
+      "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f",
+      "blob": "cd635feda9587d9ae43a597b3e4e294f41dea76a"
+    }
+  ],
+  "patchPath": "gates.yml.patch",
+  "uniqueMarker": "[recover-ios-phase-c38-r1]",
+  "originalArtifact": {
+    "id": 10364986195,
+    "runId": 34884725972,
+    "head": "61e8f8c595bde13634fe709f979816011df165d0",
+    "zipBytes": 25105480,
+    "zipSha256": "661474f9320966960edf4794c0fdabe4d8f456ec6166efd1dbace592cef6d372",
+    "downloadedByThisTask": false
+  },
+  "recoveryBounds": {
+    "zipExactBytes": 25105480,
+    "zipMaxBytes": 33554432,
+    "reportRawBytes": 33554432,
+    "appiumRawBytes": 8388608,
+    "selectedRawTotalBytes": 41943040,
+    "gzipPayloadTotalBytes": 8388608,
+    "declaredZipExpansionBytes": 100663296,
+    "zipEntries": 64,
+    "chunkBytes": 3000
+  },
+  "originalDiagnosticPreserved": {
+    "status": "failed",
+    "profileRows": 4096,
+    "profileDropped": 844,
+    "profileComplete": false,
+    "existingRawExporterLimitBytes": 8388608,
+    "existingLimitChanged": false
+  },
+  "verification": {
+    "authorSyntheticChecks": 45,
+    "independentChecks": 31,
+    "blocking": 0,
+    "actualZipShapeVerified": false,
+    "actualCompressionFitMeasured": false,
+    "oldOriginalFailuresRepaired": false
+  },
+  "decision": "Adoptable for one normal source CI recovery job; real fixed archive bounds and shape remain unverified and fail closed. No new profile marker or product performance change.",
+  "actions": {
+    "remoteWrites": 0,
+    "ciStarts": 0,
+    "reruns": 0,
+    "automationChanges": 0,
+    "originalArtifactDownloads": 0,
+    "newSpawns": 0,
+    "productChanges": 0,
+    "recorderClockLimitChanges": 0,
+    "localCredentialReads": 0,
+    "deniedUrlRetries": 0,
+    "soleWriter": "/root/integration_recovery_ultra"
+  },
+  "fixedState": {
+    "elements": 19,
+    "criteria": 71,
+    "references": 10,
+    "allNotMeasured": true,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "selectedEvidencePaths": [
+    "REPORT.md",
+    "authority-receipt.json",
+    "candidate-manifest.json",
+    "fixture-result.json",
+    "verify_recovery.py",
+    "workflow-scope.json",
+    "gates.yml.patch",
+    "source/.github/workflows/gates.yml",
+    "source/original-c38/artifact-metadata.json",
+    "source/original-c38/log-summary.json",
+    "source/original-c38/log-transport-receipt.json",
+    "source/tools/recover-ios-startup-c36.py",
+    "candidate/.github/workflows/gates.yml",
+    "candidate/tools/recover-ios-phase-c38.py",
+    "independent/PREPARED.md",
+    "independent/REPORT.md",
+    "independent/authority/agents-response.json",
+    "independent/authority/claude-response.json",
+    "independent/authority/head-response.json",
+    "independent/authority/session-response.json",
+    "independent/base-gates.yml",
+    "independent/edge-results.json",
+    "independent/receipt.json",
+    "independent/verify_edges.py",
+    "independent/manifest.json"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 5596,
+      "sha256": "a4ff95e9dfa9987b73c4524475cd092d736dbe1d7c41a7e45d2d22d9a769c565"
+    },
+    {
+      "path": "authority-receipt.json",
+      "bytes": 27317,
+      "sha256": "fe43da1de02789069b994f71384016b821e114da4a05969876e4f1e88e9690bc"
+    },
+    {
+      "path": "candidate-manifest.json",
+      "bytes": 519,
+      "sha256": "1fdb54aa8c71586efce7622cad7585b9948ee2f4a9c705779da90d3c1fd37087"
+    },
+    {
+      "path": "fixture-result.json",
+      "bytes": 5090,
+      "sha256": "af47688681e184338d699922a6f5aa45a89391a7efc365a2592b923d91e5a060"
+    },
+    {
+      "path": "verify_recovery.py",
+      "bytes": 10396,
+      "sha256": "32c2717c52128c9e198adfbd90a00dab48163fa06ed4848ed1d50ec2f2cfde32"
+    },
+    {
+      "path": "workflow-scope.json",
+      "bytes": 811,
+      "sha256": "a8960b3d8289e4409dbc6ff4ae0c20a6c5d6661b3eac5ebcc86aa2704267fa80"
+    },
+    {
+      "path": "gates.yml.patch",
+      "bytes": 2148,
+      "sha256": "db2d58148eb59c24742f18f01613b957f8f0bbbb82c6ea249588a41bc7551aaf"
+    },
+    {
+      "path": "source/.github/workflows/gates.yml",
+      "bytes": 30778,
+      "sha256": "a2e1c0368c06c70f87278d78785a87f91b6e8c3d704f234d4c8fca1412535047"
+    },
+    {
+      "path": "source/original-c38/artifact-metadata.json",
+      "bytes": 873,
+      "sha256": "f107d55f16a79e3092419c8f83b547f15b21efa9022c6487fde0b99d61fbfa40"
+    },
+    {
+      "path": "source/original-c38/log-summary.json",
+      "bytes": 28778,
+      "sha256": "5cbb7d15a67d349d20c17edba62eb7114d6052cc414ef744ca06b12258f6cc12"
+    },
+    {
+      "path": "source/original-c38/log-transport-receipt.json",
+      "bytes": 353,
+      "sha256": "b4fd27526ce272aa2a43fefd3407f4b7c5862c0e2df20d4c5f469e2f76aaadf5"
+    },
+    {
+      "path": "source/tools/recover-ios-startup-c36.py",
+      "bytes": 6774,
+      "sha256": "ca2b650031d6a5583cf124e1df9ec4af936f8677557ae02174fa37fc121527ee"
+    },
+    {
+      "path": "candidate/.github/workflows/gates.yml",
+      "bytes": 32656,
+      "sha256": "737296093d9529e5aab8b2c4a8377cc082262eef0e6234caef54c5a0d3a8c660"
+    },
+    {
+      "path": "candidate/tools/recover-ios-phase-c38.py",
+      "bytes": 13167,
+      "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f"
+    },
+    {
+      "path": "independent/PREPARED.md",
+      "bytes": 2782,
+      "sha256": "4aea44e27e752ee048ce29275a45cbb3410e0ee57e569ec923bf10ca52b44e4b"
+    },
+    {
+      "path": "independent/REPORT.md",
+      "bytes": 3914,
+      "sha256": "4e87d3c5236082eeb2af0d70b95fa0711723004f6131d23573ce9568d2a8ae12"
+    },
+    {
+      "path": "independent/authority/agents-response.json",
+      "bytes": 717,
+      "sha256": "d03ce040ca25cd11456455bf1831c2695560de292a947af2339df4a4b2bbe12d"
+    },
+    {
+      "path": "independent/authority/claude-response.json",
+      "bytes": 22755,
+      "sha256": "3353b32effe072e5bece67529688604a7796a87aef4db32ea9eb329307f56df9"
+    },
+    {
+      "path": "independent/authority/head-response.json",
+      "bytes": 1843,
+      "sha256": "c57956a06c5b62a96a3ef5ee7e50bfa88a233185ec812362609168a759200724"
+    },
+    {
+      "path": "independent/authority/session-response.json",
+      "bytes": 16969,
+      "sha256": "d6ed63cd195086e936139aea8017aee719d915b4c47366d23721ad365221e8c9"
+    },
+    {
+      "path": "independent/base-gates.yml",
+      "bytes": 30778,
+      "sha256": "a2e1c0368c06c70f87278d78785a87f91b6e8c3d704f234d4c8fca1412535047"
+    },
+    {
+      "path": "independent/edge-results.json",
+      "bytes": 2409,
+      "sha256": "055fd4531534e3ba9de1fbfc00f84e5a90498b69bf23f8407157e5773b420685"
+    },
+    {
+      "path": "independent/receipt.json",
+      "bytes": 2549,
+      "sha256": "cbd38c457df072ad26ed60f6caa79b89a90e7a6d8f3d1ae0661810b0f720465b"
+    },
+    {
+      "path": "independent/verify_edges.py",
+      "bytes": 14422,
+      "sha256": "bf5bba95fd58567ceda3feca8d3eb0c579e2ed480f3cd0669a6d24ed987aa8dc"
+    },
+    {
+      "path": "independent/manifest.json",
+      "bytes": 4947,
+      "sha256": "4b38d6dd0cfaa3822ffd110c2dd5d0eb63085d0b81e618357493be0c34e90c4c"
+    }
+  ],
+  "syntheticFixtureInventory": "Reproducible fixture/ outputs are synthetic and excluded from this selected evidence list. independent/manifest.json separately inventories its local synthetic fixture files. No synthetic bytes are claimed as the original C38 report or Appium log."
+}

@@ -1,0 +1,211 @@
+{
+  "status": "passed",
+  "reviewType": "independent source/HTTP/VM fixture; no Appium or Safari execution",
+  "checkedAt": "2026-09-14T19:50:38.463Z",
+  "source": {
+    "path": "c38-pr-safari-results-ultra/source/tools/test-ios-safari.mjs",
+    "bytes": 33990,
+    "sha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "gitBlob": "63697c804ef2cc6ab62a8d313cc44e22eb1d9b1e"
+  },
+  "candidate": {
+    "path": "c38-pr-safari-results-ultra/candidate/tools/test-ios-safari.mjs",
+    "bytes": 35835,
+    "sha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+    "gitBlob": "5064084376f0743d2f082ae3656406fe408b1b51"
+  },
+  "patch": {
+    "path": "c38-pr-safari-results-ultra/candidate.patch",
+    "bytes": 3516,
+    "sha256": "fe943924acb37fa028e03e5abce15ec2a567226a077531f432033cb3a6b56ad9",
+    "gitBlob": "a879799b0a118fb07eb877d9c26d176f2237c34c"
+  },
+  "checks": [
+    {
+      "name": "baseline harness equals independently accepted C38 canonical tree blob",
+      "status": "passed"
+    },
+    {
+      "name": "exact unified patch reconstructs candidate from canonical baseline with five bounded hunks",
+      "status": "passed",
+      "detail": {
+        "hunks": 5,
+        "addedLines": 30,
+        "removedLines": 0
+      }
+    },
+    {
+      "name": "all post-bootstrap game flow, input, capture, 5% clocks, cleanup and export bytes unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "all 10 recovered original diagnostic bytes equal peer transport receipt",
+      "status": "passed"
+    },
+    {
+      "name": "both original logs retain WDA success then 5000ms empty-application failure before game navigation",
+      "status": "passed"
+    },
+    {
+      "name": "real HTTP GET returns exact no-JS no-store HTML before any game navigation",
+      "status": "passed",
+      "detail": {
+        "bytes": 149,
+        "sha256": "81c119d954e009e6d0651fbcd827e6170d434467c688887c9cff2ac398fc7b85"
+      }
+    },
+    {
+      "name": "real HTTP HEAD, method rejection and Host rejection",
+      "status": "passed"
+    },
+    {
+      "name": "ordinary static root/assets/missing-file behavior is preserved",
+      "status": "passed"
+    },
+    {
+      "name": "incomplete body socket cleanup: rejected-method",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 405 Method Not Allowed"
+      }
+    },
+    {
+      "name": "incomplete body socket cleanup: rejected-host",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 421 Misdirected Request"
+      }
+    },
+    {
+      "name": "incomplete body socket cleanup: allowed-get",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 200 OK"
+      }
+    },
+    {
+      "name": "incomplete body socket cleanup: allowed-head",
+      "status": "passed",
+      "detail": {
+        "closedWithin250ms": true,
+        "socketDestroyed": true,
+        "statusLine": "HTTP/1.1 200 OK"
+      }
+    },
+    {
+      "name": "actual capability expression changes only local initialDeeplinkUrl and forceAppLaunch",
+      "status": "passed"
+    },
+    {
+      "name": "external capabilities equal exact baseline expression at runtime",
+      "status": "passed"
+    },
+    {
+      "name": "actual initialization guard/order: correct-local",
+      "status": "passed",
+      "detail": {
+        "events": [
+          "bootstrap",
+          "/orientation",
+          "/url",
+          "ready",
+          "storage-clear",
+          "/refresh",
+          "ready"
+        ],
+        "simulatedProtocolOnly": true
+      }
+    },
+    {
+      "name": "actual initialization guard/order: wrong-origin",
+      "status": "passed",
+      "detail": {
+        "events": [
+          "bootstrap"
+        ],
+        "simulatedProtocolOnly": true
+      }
+    },
+    {
+      "name": "actual initialization guard/order: wrong-path",
+      "status": "passed",
+      "detail": {
+        "events": [
+          "bootstrap"
+        ],
+        "simulatedProtocolOnly": true
+      }
+    },
+    {
+      "name": "actual initialization guard/order: missing-marker",
+      "status": "passed",
+      "detail": {
+        "events": [
+          "bootstrap"
+        ],
+        "simulatedProtocolOnly": true
+      }
+    },
+    {
+      "name": "actual initialization guard/order: external",
+      "status": "passed",
+      "detail": {
+        "events": [
+          "/orientation",
+          "/url",
+          "ready",
+          "storage-clear",
+          "/refresh",
+          "ready"
+        ],
+        "simulatedProtocolOnly": true
+      }
+    },
+    {
+      "name": "fixed official XCUITest 12.1.3 executable WDA capability construction: local-cold-or-foreground",
+      "status": "passed",
+      "detail": {
+        "initialUrl": "http://127.0.0.1:49152/__ios_safari_bootstrap__.html",
+        "forceAppLaunch": true,
+        "shouldTerminateApp": false,
+        "actualWdaExecution": false,
+        "typescriptOnlyTypeErasure": true
+      }
+    },
+    {
+      "name": "fixed official XCUITest 12.1.3 executable WDA capability construction: external-existing-noReset",
+      "status": "passed",
+      "detail": {
+        "initialUrl": null,
+        "forceAppLaunch": false,
+        "shouldTerminateApp": false,
+        "actualWdaExecution": false,
+        "typescriptOnlyTypeErasure": true
+      }
+    },
+    {
+      "name": "fixed source startup ordering and WDA cold/foreground URL branches are present",
+      "status": "passed"
+    }
+  ],
+  "count": 22,
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "browserRuns": 0,
+  "qualityComparisons": 0,
+  "validBlind": 0,
+  "units": 0,
+  "fixedState": {
+    "criteria": 71,
+    "all19": "not measured",
+    "continuous": true,
+    "start": "2026-09-13T20:56:49+09:00",
+    "deadline": "2026-09-20T20:56:49+09:00"
+  }
+}

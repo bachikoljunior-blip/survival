@@ -1,0 +1,233 @@
+{
+  "recordedAt": "2026-09-14T19:30:31.912852+00:00",
+  "status": "finite recovery complete; full original report unavailable after bounded export rejection",
+  "source": {
+    "head": "61e8f8c595bde13634fe709f979816011df165d0",
+    "tree": "67c414952eec36eb0472b6fa5dd54816d209ba87",
+    "runId": 34884725972,
+    "attempt": 1,
+    "jobId": 104112425709,
+    "jobConclusion": "failure"
+  },
+  "originalEvidence": {
+    "wholeDecodedLog": {
+      "path": "transport/job-original.log",
+      "bytes": 79989,
+      "sha256": "7708ce8065f490e8438631f6885e3535e56af97f418cf2b262bdc02d6484d054"
+    },
+    "exactSummaryJson": {
+      "path": "original/log-summary.json",
+      "bytes": 28778,
+      "sha256": "5cbb7d15a67d349d20c17edba62eb7114d6052cc414ef744ca06b12258f6cc12",
+      "logLine": 477,
+      "fullReport": false
+    },
+    "fullReportRecovered": false,
+    "fullReportSizeKnown": false,
+    "frameExportMarkers": {
+      "meta": 0,
+      "chunk": 0,
+      "end": 0
+    },
+    "artifact": {
+      "id": 10364986195,
+      "bytes": 25105480,
+      "sha256": "661474f9320966960edf4794c0fdabe4d8f456ec6166efd1dbace592cef6d372",
+      "metadataAndUploadLogMatched": true,
+      "zipDownloaded": false
+    }
+  },
+  "observed": {
+    "checksPassed": 53,
+    "checksTotal": 54,
+    "reportedClips": 3,
+    "reportedClockGuardsPassed": 3,
+    "profileRowsSaved": 4096,
+    "profileRowsDropped": 844,
+    "profileComplete": false,
+    "profileRestored": true,
+    "rawPhaseArithmeticPerformed": false,
+    "productPerformanceCandidate": false
+  },
+  "actions": {
+    "jobLogsRequests": 1,
+    "newCi": 0,
+    "reruns": 0,
+    "remoteWrites": 0,
+    "automationChanges": 0,
+    "newSpawns": 0,
+    "productEdits": 0,
+    "limitChanges": 0,
+    "mediaEdits": 0,
+    "soleWriter": "/root/integration_recovery_ultra"
+  },
+  "independent": {
+    "agent": "/root/integration_recovery_ultra/safari_time_loss_ultra/raw_clock_refuter_ultra",
+    "status": "finite independent summary/log review complete",
+    "disagreement": 0,
+    "originalFullReportUnavailable": true
+  },
+  "fixedState": {
+    "elements": 19,
+    "criteria": 71,
+    "references": 10,
+    "allNotMeasured": true,
+    "validBlind": 0,
+    "unitsCompleted": 0,
+    "unitsRequested": "continuous",
+    "startedAt": "2026-09-13T20:56:49+09:00",
+    "deadlineAt": "2026-09-20T20:56:49+09:00"
+  },
+  "files": [
+    {
+      "path": "RECOVERY_STATUS.json",
+      "bytes": 1286,
+      "sha256": "cbc7c0b261bf60f15a2fac6ee631ff2ee342a8e614f7a9de66495dd2cea21889"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 4834,
+      "sha256": "405520721cf62319d486f405f68b9ae0165e052efbb786070975907ff1a81576"
+    },
+    {
+      "path": "analyze_phase.py",
+      "bytes": 11455,
+      "sha256": "c5c788699fee1a72898fc74ffef4ebfa493a9120601b448651e6655bc9802492"
+    },
+    {
+      "path": "authority-receipt.json",
+      "bytes": 69012,
+      "sha256": "128640a83d5f8543c960a1f9959aa517b70e56b0496376f336c1e8944f2bd7de"
+    },
+    {
+      "path": "independent/PREPARED.md",
+      "bytes": 3884,
+      "sha256": "d1bf9907507fedeed3c03d47eb1b1c8f28eb80e859a2d20e1204ce6546f1f507"
+    },
+    {
+      "path": "independent/REPORT.md",
+      "bytes": 4698,
+      "sha256": "f583f83dc3eafa42cfbae6aee5b067feb33fa5b35977bafbd362351419786ff2"
+    },
+    {
+      "path": "independent/authority/agents-response.json",
+      "bytes": 717,
+      "sha256": "d03ce040ca25cd11456455bf1831c2695560de292a947af2339df4a4b2bbe12d"
+    },
+    {
+      "path": "independent/authority/claude-response.json",
+      "bytes": 22755,
+      "sha256": "3353b32effe072e5bece67529688604a7796a87aef4db32ea9eb329307f56df9"
+    },
+    {
+      "path": "independent/authority/head-response.json",
+      "bytes": 1843,
+      "sha256": "c57956a06c5b62a96a3ef5ee7e50bfa88a233185ec812362609168a759200724"
+    },
+    {
+      "path": "independent/authority/session-response.json",
+      "bytes": 16969,
+      "sha256": "d6ed63cd195086e936139aea8017aee719d915b4c47366d23721ad365221e8c9"
+    },
+    {
+      "path": "independent/manifest.json",
+      "bytes": 2292,
+      "sha256": "dd7e722a4d28b5ec3095b36fa2ebd9170968f6664db259a44bba9f4891d39390"
+    },
+    {
+      "path": "independent/receipt.json",
+      "bytes": 5119,
+      "sha256": "3d43035a951f99df186185d983d903aca0332c97092720278843b38053b92a80"
+    },
+    {
+      "path": "independent/results.json",
+      "bytes": 6685,
+      "sha256": "cba5906dc570b0434d767696011aefbab696972833fe9d235c0166ad0f1ba010"
+    },
+    {
+      "path": "independent/verify_summary.py",
+      "bytes": 9752,
+      "sha256": "d899ef617d590a48eee1067baf692ebb02902a320987329e2bbaac3323c88afc"
+    },
+    {
+      "path": "job-pending.json",
+      "bytes": 4919,
+      "sha256": "3f1ee497d9388e1ea3fe6afb0eb7d2b3fbfad423da2a58fe2d96de16cac48e54"
+    },
+    {
+      "path": "original/log-summary.json",
+      "bytes": 28778,
+      "sha256": "5cbb7d15a67d349d20c17edba62eb7114d6052cc414ef744ca06b12258f6cc12"
+    },
+    {
+      "path": "recover_report.py",
+      "bytes": 5376,
+      "sha256": "70e9ed2fb623022acf49dc92e167b94e7defc2c2ff0e162e01e5faf931bed505"
+    },
+    {
+      "path": "source/src/core/engine.js",
+      "bytes": 16637,
+      "sha256": "c7a0cb1cbe9f8b6e9ea1a8fc4bf8a95146f8344bf568d28ea8455dc8cf214592"
+    },
+    {
+      "path": "source/tools/export-ios-frame-work.mjs",
+      "bytes": 2945,
+      "sha256": "8f99e90d4a4321587120ca6e55bc750cef5060929bd1dcf840fcdaed1a308fe2"
+    },
+    {
+      "path": "source/tools/frame_work_probe.mjs",
+      "bytes": 11229,
+      "sha256": "eabc3f8ba621e992902a63790b86f0787bb84998bd5b9fa239ab20414d661fe8"
+    },
+    {
+      "path": "source/tools/ios_audio_capture.mjs",
+      "bytes": 24880,
+      "sha256": "c0965004ba7d1e389300ab6556431d67ea1e158f82832225389851e0c1314f2a"
+    },
+    {
+      "path": "source/tools/ios_audio_transfer.mjs",
+      "bytes": 10435,
+      "sha256": "55150670ce3a89c24b9b3348110e29f315d9479ac14438faadf14389987eb41a"
+    },
+    {
+      "path": "source/tools/mobile_audio_capture.mjs",
+      "bytes": 16233,
+      "sha256": "a5cde33c0479e55e307a3028b6f4134d3e8d36553ac2c00fbadafa05e4a76c62"
+    },
+    {
+      "path": "source/tools/test-ios-safari.mjs",
+      "bytes": 33990,
+      "sha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64"
+    },
+    {
+      "path": "summary-analysis.json",
+      "bytes": 15152,
+      "sha256": "b630f03b933927f6b866a6458038a57af4cbf4ece2ab8b885b4ade367fd511ab"
+    },
+    {
+      "path": "transport/artifact-metadata.json",
+      "bytes": 873,
+      "sha256": "f107d55f16a79e3092419c8f83b547f15b21efa9022c6487fde0b99d61fbfa40"
+    },
+    {
+      "path": "transport/job-completed.json",
+      "bytes": 5083,
+      "sha256": "e37a163f89e12d06babbeb2d84145d5b4045864ddaa0e69853373d7cdaf49026"
+    },
+    {
+      "path": "transport/job-original.log",
+      "bytes": 79989,
+      "sha256": "7708ce8065f490e8438631f6885e3535e56af97f418cf2b262bdc02d6484d054"
+    },
+    {
+      "path": "transport/log-transport-receipt.json",
+      "bytes": 353,
+      "sha256": "b4fd27526ce272aa2a43fefd3407f4b7c5862c0e2df20d4c5f469e2f76aaadf5"
+    },
+    {
+      "path": "transport/source-run.json",
+      "bytes": 16035,
+      "sha256": "4ea8c8224c0f8e5e1ee4a0f8a9596572f30df68e9472ab8d1b931669f1be5bf7"
+    }
+  ]
+}

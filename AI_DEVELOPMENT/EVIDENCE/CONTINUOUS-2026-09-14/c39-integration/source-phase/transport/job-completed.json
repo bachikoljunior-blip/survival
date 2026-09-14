@@ -1,0 +1,164 @@
+{
+  "check_run_url": "https://api.github.com/repos/bachikoljunior-blip/survival/check-runs/104112425709",
+  "completed_at": "2026-09-14T19:22:14Z",
+  "conclusion": "failure",
+  "created_at": "2026-09-14T19:05:06Z",
+  "head_branch": "claude/repo-instructions-constraints-r0070m",
+  "head_sha": "61e8f8c595bde13634fe709f979816011df165d0",
+  "html_url": "https://github.com/bachikoljunior-blip/survival/actions/runs/34884725972/job/104112425709",
+  "id": 104112425709,
+  "labels": [
+    "macos-15"
+  ],
+  "name": "F3 Mobile Safari audio / ios-safari",
+  "node_id": "CR_kwDOTmAlyc8AAAAYPZWK7Q",
+  "run_attempt": 1,
+  "run_id": 34884725972,
+  "run_url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/runs/34884725972",
+  "runner_group_id": 0,
+  "runner_group_name": "GitHub Actions",
+  "runner_id": 1000039224,
+  "runner_name": "GitHub Actions 1000039224",
+  "started_at": "2026-09-14T19:05:15Z",
+  "status": "completed",
+  "steps": [
+    {
+      "completed_at": "2026-09-14T19:05:18Z",
+      "conclusion": "success",
+      "name": "Set up job",
+      "number": 1,
+      "started_at": "2026-09-14T19:05:16Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:05:53Z",
+      "conclusion": "success",
+      "name": "Check out the exact requested branch revision",
+      "number": 2,
+      "started_at": "2026-09-14T19:05:18Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:05:59Z",
+      "conclusion": "success",
+      "name": "Set up Node.js",
+      "number": 3,
+      "started_at": "2026-09-14T19:05:53Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:06:03Z",
+      "conclusion": "success",
+      "name": "Restore exact dependencies and rebuild",
+      "number": 4,
+      "started_at": "2026-09-14T19:05:59Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:06:11Z",
+      "conclusion": "success",
+      "name": "Preserve actual simulator environment",
+      "number": 5,
+      "started_at": "2026-09-14T19:06:03Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:06:27Z",
+      "conclusion": "success",
+      "name": "Install pinned Appium and XCUITest driver",
+      "number": 6,
+      "started_at": "2026-09-14T19:06:11Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:07:52Z",
+      "conclusion": "success",
+      "name": "Select and boot iPhone SE 3 simulator",
+      "number": 7,
+      "started_at": "2026-09-14T19:06:27Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:09:29Z",
+      "conclusion": "success",
+      "name": "Start Appium and simulator video",
+      "number": 8,
+      "started_at": "2026-09-14T19:07:53Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:07Z",
+      "conclusion": "failure",
+      "name": "Exercise Mobile Safari through Appium",
+      "number": 9,
+      "started_at": "2026-09-14T19:09:29Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:09Z",
+      "conclusion": "failure",
+      "name": "Verify required original audio, provenance and unchanged clock guards",
+      "number": 10,
+      "started_at": "2026-09-14T19:21:07Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:10Z",
+      "conclusion": "failure",
+      "name": "Export the selected source run original frame-work report",
+      "number": 11,
+      "started_at": "2026-09-14T19:21:09Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:12Z",
+      "conclusion": "success",
+      "name": "Stop recording",
+      "number": 12,
+      "started_at": "2026-09-14T19:21:10Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:13Z",
+      "conclusion": "success",
+      "name": "Emit startup diagnostics in ordinary CI log",
+      "number": 13,
+      "started_at": "2026-09-14T19:21:12Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:23Z",
+      "conclusion": "success",
+      "name": "Preserve Safari screenshots, video, logs and report",
+      "number": 14,
+      "started_at": "2026-09-14T19:21:13Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:23Z",
+      "conclusion": "skipped",
+      "name": "Post Set up Node.js",
+      "number": 27,
+      "started_at": "2026-09-14T19:21:23Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:21:30Z",
+      "conclusion": "success",
+      "name": "Post Check out the exact requested branch revision",
+      "number": 28,
+      "started_at": "2026-09-14T19:21:23Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-09-14T19:22:12Z",
+      "conclusion": "success",
+      "name": "Complete job",
+      "number": 29,
+      "started_at": "2026-09-14T19:21:30Z",
+      "status": "completed"
+    }
+  ],
+  "url": "https://api.github.com/repos/bachikoljunior-blip/survival/actions/jobs/104112425709",
+  "workflow_name": "Floor gates"
+}

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted-limited-harness-candidate",
+  "blocking": 0,
+  "reviewer": "/root/integration_recovery_ultra/narrative_build_ultra/prepare_helper_review_ultra",
+  "soleRemoteWriter": "/root/integration_recovery_ultra",
+  "acceptedHead": "61e8f8c595bde13634fe709f979816011df165d0",
+  "candidate": {
+    "path": "c38-pr-safari-results-ultra/candidate/tools/test-ios-safari.mjs",
+    "bytes": 35835,
+    "sha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+    "gitBlob": "5064084376f0743d2f082ae3656406fe408b1b51"
+  },
+  "baseline": {
+    "path": "c38-pr-safari-results-ultra/source/tools/test-ios-safari.mjs",
+    "bytes": 33990,
+    "sha256": "352330412d8ac248597bedbc34a4e2ac25c8252003447806adcd6b1761250e64",
+    "gitBlob": "63697c804ef2cc6ab62a8d313cc44e22eb1d9b1e"
+  },
+  "patch": {
+    "path": "c38-pr-safari-results-ultra/candidate.patch",
+    "bytes": 3516,
+    "sha256": "fe943924acb37fa028e03e5abce15ec2a567226a077531f432033cb3a6b56ad9",
+    "gitBlob": "a879799b0a118fb07eb877d9c26d176f2237c34c"
+  },
+  "independentCheckCount": 22,
+  "officialSourceBlobChecks": 10,
+  "closedFindings": 1,
+  "remainingRequiredChanges": [],
+  "sourceScope": "tools/test-ios-safari.mjs only; product5path adoption separate and unmodified",
+  "actualSafariCandidateRun": false,
+  "productionBuildRun": false,
+  "remoteMutations": 0,
+  "ciStarts": 0,
+  "retries": 0,
+  "automationMutations": 0,
+  "spawnedAgents": 0,
+  "all19": "not measured",
+  "criteria": 71,
+  "validBlind": 0,
+  "units": 0,
+  "continuous": true,
+  "start": "2026-09-13T20:56:49+09:00",
+  "deadline": "2026-09-20T20:56:49+09:00",
+  "publicCopyAllowlist": [
+    "REPORT.md",
+    "independent-verification.json",
+    "provenance-verification.json",
+    "finding-closure.json",
+    "verify-independent.mjs",
+    "manifest.json"
+  ],
+  "excludedFromPublicCopy": [
+    "authority-receipt.json",
+    "fixture-dist/",
+    "original raw logs",
+    "official-source cache",
+    "peer fixture originals and synthetic screenshots"
+  ],
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 8107,
+      "sha256": "f05811e0a4bd945333bde06838040817e7a9d22ac14c6d6833269d4e3866540a",
+      "gitBlob": "177d39671117173e9bcbca11ac23b295d02ba1f4"
+    },
+    {
+      "path": "independent-verification.json",
+      "bytes": 6001,
+      "sha256": "57cd169ba02c798b7c0c99030dfe8f854c19427b7225ec9e0297db207deadf10",
+      "gitBlob": "bcdb0256a668d14f7caf5d738eb90a5ccb9c765e"
+    },
+    {
+      "path": "provenance-verification.json",
+      "bytes": 4638,
+      "sha256": "2d503c281fd5c0bbc8982d6361a21c5d8e938d2e9c5593ac19711279b597103a",
+      "gitBlob": "9c418ff70f80f6a45d2fc0340f41b2e8830f61f9"
+    },
+    {
+      "path": "finding-closure.json",
+      "bytes": 2266,
+      "sha256": "4f8bdabd95f60c01822e45002c61cacb3d51db1c948edc0faa47fca4a5137178",
+      "gitBlob": "76d41dc526ed628d72e7195fd4ea68dc02338910"
+    },
+    {
+      "path": "verify-independent.mjs",
+      "bytes": 16144,
+      "sha256": "04be209012b698e4055cc8d439908a08d145e64c37ae3782a44b30ae3cfda04b",
+      "gitBlob": "ba522a99c89c89a5cd271bcac946d7f49824e308"
+    }
+  ],
+  "reviewedPeerEvidence": [
+    {
+      "path": "c38-pr-safari-results-ultra/bootstrap-verification.json",
+      "bytes": 10402,
+      "sha256": "f6258eddd90557203269651ab687d67c523674ceec17315b59b0bac6f84aacd4",
+      "gitBlob": "d4b44206cf37267d20bccb82a4e9f7c9e87da32d"
+    },
+    {
+      "path": "c38-pr-safari-results-ultra/official-source-receipt.json",
+      "bytes": 2870,
+      "sha256": "25be18f607e277448b1f1c0fb3189ee432089c49cf00df1c0f1d4687566b875b",
+      "gitBlob": "32cf4f03d0e282d312a544bc404d960bbc1d8716"
+    },
+    {
+      "path": "c38-pr-safari-results-ultra/startup-recovery-receipt.json",
+      "bytes": 2928,
+      "sha256": "a74094612f54369c26a9ae3e143184f687e94066938f7fa625211be7598c4b8e",
+      "gitBlob": "9745fb290fdd70202913bb1174fc2b8e5398d6b8"
+    }
+  ],
+  "limitations": [
+    "Actual HTTP and extracted candidate/official TypeScript code ran; protocol responses are synthetic.",
+    "Cold/foreground WDA branches are source-reviewed; no Objective-C, WDA, WebInspector or Safari candidate execution.",
+    "Raw C38 failures retain failure status. No new 8c5624 Safari evidence or quality comparison is claimed."
+  ],
+  "webFallback": {
+    "primaryOpen": "DisabledError",
+    "retried": false,
+    "usedForFactualSupport": false
+  }
+}

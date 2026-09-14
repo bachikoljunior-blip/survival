@@ -1,0 +1,68 @@
+{
+  "status": "finite-two-member-review-frozen",
+  "acceptedAtUtc": "2026-09-14T19:36:35.575615+00:00",
+  "readOrder": [
+    "head",
+    "agents",
+    "claude",
+    "session"
+  ],
+  "authority": {
+    "head": {
+      "sha": "61e8f8c595bde13634fe709f979816011df165d0",
+      "url": "https://api.github.com/repos/bachikoljunior-blip/survival/git/ref/heads/claude/repo-instructions-constraints-r0070m"
+    },
+    "agents": {
+      "sha": "b33f5f258f3a1b0501cfefac74c149f9eac649be",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/61e8f8c595bde13634fe709f979816011df165d0/AGENTS.md"
+    },
+    "claude": {
+      "sha": "8b758231a6b77277092ccee5a322f593320b123f",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/61e8f8c595bde13634fe709f979816011df165d0/CLAUDE.md"
+    },
+    "session": {
+      "sha": "38208f4f77953690715e2648d5d78632ad56a3ee",
+      "url": "https://github.com/bachikoljunior-blip/survival/blob/61e8f8c595bde13634fe709f979816011df165d0/AI_DEVELOPMENT/SESSION_STATE.yaml"
+    }
+  },
+  "instruction": "ULTRA-CHILDREN-20260914-v3",
+  "author": "/root/integration_recovery_ultra/safari_time_loss_ultra/raw_clock_refuter_ultra",
+  "taskIssuer": "/root/integration_recovery_ultra/shadow_original_review_ultra",
+  "soleWriter": "/root/integration_recovery_ultra",
+  "artifactMetadata": {
+    "path": "/workspace/scratch/0b7ad82bafe7/c38-safari-phase-result-ultra/transport/artifact-metadata.json",
+    "bytes": 873,
+    "sha256": "f107d55f16a79e3092419c8f83b547f15b21efa9022c6487fde0b99d61fbfa40",
+    "id": 10364986195,
+    "runId": 34884725972,
+    "head": "61e8f8c595bde13634fe709f979816011df165d0",
+    "zipBytes": 25105480,
+    "zipDigest": "sha256:661474f9320966960edf4794c0fdabe4d8f456ec6166efd1dbace592cef6d372"
+  },
+  "candidateReceived": true,
+  "realArchiveAcquired": false,
+  "remoteWrites": 0,
+  "ciStarts": 0,
+  "reruns": 0,
+  "automationChanges": 0,
+  "newSpawns": 0,
+  "candidateEdits": 0,
+  "candidateFiles": [
+    {
+      "path": "tools/recover-ios-phase-c38.py",
+      "bytes": 13167,
+      "sha256": "efbf6600efb7c332ca21e2b07b6b879c748ed5a27227608178cfa7b74c35135f"
+    },
+    {
+      "path": ".github/workflows/gates.yml",
+      "bytes": 32656,
+      "sha256": "737296093d9529e5aab8b2c4a8377cc082262eef0e6234caef54c5a0d3a8c660"
+    }
+  ],
+  "independentChecks": 31,
+  "blockingDefectsFound": false,
+  "realCompressionRatioMeasured": false,
+  "canonicalGatesPrefixPreserved": true,
+  "providedPatchEqualsIndependentDiff": true,
+  "finalizedAtUtc": "2026-09-14T19:49:14.464854+00:00"
+}

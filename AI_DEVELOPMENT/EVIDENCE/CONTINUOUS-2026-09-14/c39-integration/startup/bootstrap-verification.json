@@ -1,0 +1,247 @@
+{
+  "status": "passed",
+  "candidateSha256": "12490ace8e7a7344dc7e2bf5aa316b499b68e6ca4f222bbcb03b2eb9c07eceae",
+  "finiteChecks": 37,
+  "checks": [
+    "fixture contains original pinned root and recorder; candidate harness is exact",
+    "cold: local origin and force launch preserve noReset and existing deadlines",
+    "cold: actual server serves a no-script, no-store bootstrap",
+    "actual HTTP HEAD/POST/Host and ordinary asset boundaries",
+    "cold: primary failure, exit and transport protocol retained",
+    "cold: original landscape/navigation/ready/storage-clear/refresh order remains",
+    "cold: owned HTTP server is closed after failure",
+    "foreground: local origin and force launch preserve noReset and existing deadlines",
+    "foreground: actual server serves a no-script, no-store bootstrap",
+    "foreground: primary failure, exit and transport protocol retained",
+    "foreground: original landscape/navigation/ready/storage-clear/refresh order remains",
+    "foreground: owned HTTP server is closed after failure",
+    "wrong-page: local origin and force launch preserve noReset and existing deadlines",
+    "wrong-page: actual server serves a no-script, no-store bootstrap",
+    "wrong-page: primary failure, exit and transport protocol retained",
+    "wrong-page: unexpected initial document fails before product navigation and cleans up",
+    "wrong-page: owned HTTP server is closed after failure",
+    "missing-marker: local origin and force launch preserve noReset and existing deadlines",
+    "missing-marker: actual server serves a no-script, no-store bootstrap",
+    "missing-marker: primary failure, exit and transport protocol retained",
+    "missing-marker: unexpected initial document fails before product navigation and cleans up",
+    "missing-marker: owned HTTP server is closed after failure",
+    "session-failure: local origin and force launch preserve noReset and existing deadlines",
+    "session-failure: actual server serves a no-script, no-store bootstrap",
+    "session-failure: primary failure, exit and transport protocol retained",
+    "original POST session reason and preflight provenance survive unchanged",
+    "session-failure: owned HTTP server is closed after failure",
+    "cleanup-failure: local origin and force launch preserve noReset and existing deadlines",
+    "cleanup-failure: actual server serves a no-script, no-store bootstrap",
+    "cleanup-failure: primary failure, exit and transport protocol retained",
+    "cleanup-failure: original landscape/navigation/ready/storage-clear/refresh order remains",
+    "cleanup-failure: owned HTTP server is closed after failure",
+    "external: external target has no local bootstrap capabilities",
+    "external: primary failure, exit and transport protocol retained",
+    "external: original landscape/navigation/ready/storage-clear/refresh order remains",
+    "external-audio: primary failure, exit and transport protocol retained",
+    "external capture remains rejected before session creation"
+  ],
+  "scenarios": [
+    {
+      "name": "cold",
+      "audio": true,
+      "external": false,
+      "exit": 1,
+      "firstFailure": "Error: WebDriver POST /session/fixture-session/execute/sync: synthetic fixture stopped at existing pointer calibration",
+      "commands": [
+        "GET /status",
+        "POST /session",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/orientation",
+        "POST /session/fixture-session/url",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/refresh",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "GET /session/fixture-session/screenshot",
+        "DELETE /session/fixture-session"
+      ],
+      "startup": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:45947/__ios_safari_bootstrap__.html",
+        "verified": true,
+        "actual": {
+          "url": "http://127.0.0.1:45947/__ios_safari_bootstrap__.html",
+          "ready": true
+        }
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "foreground",
+      "audio": false,
+      "external": false,
+      "exit": 1,
+      "firstFailure": "Error: WebDriver POST /session/fixture-session/execute/sync: synthetic fixture stopped at existing pointer calibration",
+      "commands": [
+        "GET /status",
+        "POST /session",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/orientation",
+        "POST /session/fixture-session/url",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/refresh",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "GET /session/fixture-session/screenshot",
+        "DELETE /session/fixture-session"
+      ],
+      "startup": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:36773/__ios_safari_bootstrap__.html",
+        "verified": true,
+        "actual": {
+          "url": "http://127.0.0.1:36773/__ios_safari_bootstrap__.html",
+          "ready": true
+        }
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "wrong-page",
+      "audio": true,
+      "external": false,
+      "exit": 1,
+      "firstFailure": "Error: Safari session bootstrap mismatch: {\"url\":\"http://127.0.0.1:35199/wrong\",\"ready\":true}",
+      "commands": [
+        "GET /status",
+        "POST /session",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "GET /session/fixture-session/screenshot",
+        "DELETE /session/fixture-session"
+      ],
+      "startup": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:35199/__ios_safari_bootstrap__.html",
+        "verified": false,
+        "actual": {
+          "url": "http://127.0.0.1:35199/wrong",
+          "ready": true
+        }
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "missing-marker",
+      "audio": false,
+      "external": false,
+      "exit": 1,
+      "firstFailure": "Error: Safari session bootstrap mismatch: {\"url\":\"http://127.0.0.1:35323/__ios_safari_bootstrap__.html\",\"ready\":false}",
+      "commands": [
+        "GET /status",
+        "POST /session",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "GET /session/fixture-session/screenshot",
+        "DELETE /session/fixture-session"
+      ],
+      "startup": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:35323/__ios_safari_bootstrap__.html",
+        "verified": false,
+        "actual": {
+          "url": "http://127.0.0.1:35323/__ios_safari_bootstrap__.html",
+          "ready": false
+        }
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "session-failure",
+      "audio": true,
+      "external": false,
+      "exit": 1,
+      "firstFailure": "Error: WebDriver POST /session: The remote debugger did not return any connected web applications after 5351ms.",
+      "commands": [
+        "GET /status",
+        "POST /session"
+      ],
+      "startup": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:42061/__ios_safari_bootstrap__.html",
+        "verified": false
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "cleanup-failure",
+      "audio": true,
+      "external": false,
+      "exit": 1,
+      "firstFailure": "Error: WebDriver POST /session/fixture-session/execute/sync: synthetic fixture stopped at existing pointer calibration",
+      "commands": [
+        "GET /status",
+        "POST /session",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/orientation",
+        "POST /session/fixture-session/url",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/refresh",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "GET /session/fixture-session/screenshot",
+        "DELETE /session/fixture-session"
+      ],
+      "startup": {
+        "method": "local-deeplink",
+        "bootstrapUrl": "http://127.0.0.1:44265/__ios_safari_bootstrap__.html",
+        "verified": true,
+        "actual": {
+          "url": "http://127.0.0.1:44265/__ios_safari_bootstrap__.html",
+          "ready": true
+        }
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "external",
+      "audio": false,
+      "external": true,
+      "exit": 1,
+      "firstFailure": "Error: WebDriver POST /session/fixture-session/execute/sync: synthetic fixture stopped at existing pointer calibration",
+      "commands": [
+        "GET /status",
+        "POST /session",
+        "POST /session/fixture-session/orientation",
+        "POST /session/fixture-session/url",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/refresh",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "POST /session/fixture-session/execute/sync",
+        "GET /session/fixture-session/screenshot",
+        "DELETE /session/fixture-session"
+      ],
+      "startup": {
+        "method": "driver-default",
+        "bootstrapUrl": null,
+        "verified": false
+      },
+      "actualSafari": false
+    },
+    {
+      "name": "external-audio",
+      "audio": true,
+      "external": true,
+      "exit": 1,
+      "firstFailure": "Error: Pinned iOS audio capture requires the existing harness DIST server",
+      "commands": [],
+      "startup": null,
+      "actualSafari": false
+    }
+  ],
+  "limits": "Actual candidate harness and HTTP server with synthetic WebDriver responses; pinned product bytes checked but game/Safari/WDA/WebInspector are not executed. Exact official source review covers the capability path; real Safari repair remains unmeasured."
+}
